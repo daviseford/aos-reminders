@@ -8,7 +8,6 @@ export const PHASE_START: TPhaseStart = 'PHASE_START'
 export const PHASE_DURING: TPhaseDuring = 'PHASE_DURING'
 export const PHASE_END: TPhaseEnd = 'PHASE_END'
 
-
 // Phases
 export type THeroPhase = 'HERO_PHASE'
 export type TMovementPhase = 'MOVEMENT_PHASE'
@@ -25,9 +24,9 @@ export const CHARGE_PHASE: TChargePhase = 'CHARGE_PHASE'
 export const COMBAT_PHASE: TCombatPhase = 'COMBAT_PHASE'
 export const BATTLESHOCK_PHASE: TBattleshockPhase = 'BATTLESHOCK_PHASE'
 
-
 // Turn Types
 export type TSetup = 'SETUP'
+export type TGameStart = 'GAME_START'
 export type TTurnStart = 'TURN_START'
 export type TTurnEnd = 'TURN_END'
 export type TTurnOne = 'TURN_ONE'
@@ -35,9 +34,11 @@ export type TTurnTwo = 'TURN_TWO'
 export type TTurnThree = 'TURN_THREE'
 export type TTurnFour = 'TURN_FOUR'
 export type TTurnFive = 'TURN_FIVE'
+export type TGameEnd = 'GAME_END'
 
 // Turn Exports
 export const SETUP: TSetup = 'SETUP'
+export const GAME_START: TGameStart = 'GAME_START'
 export const TURN_START: TTurnStart = 'TURN_START'
 export const TURN_END: TTurnEnd = 'TURN_END'
 export const TURN_ONE: TTurnOne = 'TURN_ONE'
@@ -45,4 +46,4 @@ export const TURN_TWO: TTurnTwo = 'TURN_TWO'
 export const TURN_THREE: TTurnThree = 'TURN_THREE'
 export const TURN_FOUR: TTurnFour = 'TURN_FOUR'
 export const TURN_FIVE: TTurnFive = 'TURN_FIVE'
-
+export const GAME_END: TGameEnd = 'GAME_END'
