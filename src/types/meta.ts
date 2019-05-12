@@ -9,20 +9,58 @@ export const PHASE_DURING: TPhaseDuring = 'PHASE_DURING'
 export const PHASE_END: TPhaseEnd = 'PHASE_END'
 
 // Phases
+// Hero
+export type THeroPhaseStart = 'HERO_PHASE_START'
 export type THeroPhase = 'HERO_PHASE'
+export type THeroPhaseEnd = 'HERO_PHASE_END'
+
+// Move
+export type TMovementPhaseStart = 'MOVEMENT_PHASE_START'
 export type TMovementPhase = 'MOVEMENT_PHASE'
+export type TMovementPhaseEnd = 'MOVEMENT_PHASE_END'
+
+// Shooting
+export type TShootingPhaseStart = 'SHOOTING_PHASE_START'
 export type TShootingPhase = 'SHOOTING_PHASE'
+export type TShootingPhaseEnd = 'SHOOTING_PHASE_END'
+
+// Charge
+export type TChargePhaseStart = 'CHARGE_PHASE_START'
 export type TChargePhase = 'CHARGE_PHASE'
+export type TChargePhaseEnd = 'CHARGE_PHASE_END'
+
+// Combat
+export type TCombatPhaseStart = 'COMBAT_PHASE_START'
 export type TCombatPhase = 'COMBAT_PHASE'
+export type TCombatPhaseEnd = 'COMBAT_PHASE_END'
+
+// Battleshock
+export type TBattleshockPhaseStart = 'BATTLESHOCK_PHASE_START'
 export type TBattleshockPhase = 'BATTLESHOCK_PHASE'
+export type TBattleshockPhaseEnd = 'BATTLESHOCK_PHASE_END'
+
+export type TPhases = THeroPhase | TMovementPhase | TShootingPhase | TChargePhase | TCombatPhase | TBattleshockPhase
+export type TPhaseSegments = TPhaseStart | TPhaseDuring | TPhaseEnd
 
 // Phases Exports
+export const HERO_PHASE_START: THeroPhaseStart = 'HERO_PHASE_START'
 export const HERO_PHASE: THeroPhase = 'HERO_PHASE'
+export const HERO_PHASE_END: THeroPhaseEnd = 'HERO_PHASE_END'
+export const MOVEMENT_PHASE_START: TMovementPhaseStart = 'MOVEMENT_PHASE_START'
 export const MOVEMENT_PHASE: TMovementPhase = 'MOVEMENT_PHASE'
+export const MOVEMENT_PHASE_END: TMovementPhaseEnd = 'MOVEMENT_PHASE_END'
+export const SHOOTING_PHASE_START: TShootingPhaseStart = 'SHOOTING_PHASE_START'
 export const SHOOTING_PHASE: TShootingPhase = 'SHOOTING_PHASE'
+export const SHOOTING_PHASE_END: TShootingPhaseEnd = 'SHOOTING_PHASE_END'
+export const CHARGE_PHASE_START: TChargePhaseStart = 'CHARGE_PHASE_START'
 export const CHARGE_PHASE: TChargePhase = 'CHARGE_PHASE'
+export const CHARGE_PHASE_END: TChargePhaseEnd = 'CHARGE_PHASE_END'
+export const COMBAT_PHASE_START: TCombatPhaseStart = 'COMBAT_PHASE_START'
 export const COMBAT_PHASE: TCombatPhase = 'COMBAT_PHASE'
+export const COMBAT_PHASE_END: TCombatPhaseEnd = 'COMBAT_PHASE_END'
+export const BATTLESHOCK_PHASE_START: TBattleshockPhaseStart = 'BATTLESHOCK_PHASE_START'
 export const BATTLESHOCK_PHASE: TBattleshockPhase = 'BATTLESHOCK_PHASE'
+export const BATTLESHOCK_PHASE_END: TBattleshockPhaseEnd = 'BATTLESHOCK_PHASE_END'
 
 // Turn Types
 export type TSetup = 'SETUP'
@@ -49,3 +87,35 @@ export const TURN_THREE: TTurnThree = 'TURN_THREE'
 export const TURN_FOUR: TTurnFour = 'TURN_FOUR'
 export const TURN_FIVE: TTurnFive = 'TURN_FIVE'
 export const GAME_END: TGameEnd = 'GAME_END'
+
+// When
+export type TTurnWhen =
+  | TSetup
+  | TGameStart
+  | TGameDuring
+  | TTurnStart
+  | TTurnEnd
+  | TTurnOne
+  | TTurnTwo
+  | TTurnThree
+  | TTurnFour
+  | TTurnFive
+  | TGameEnd
+  | THeroPhaseStart
+  | THeroPhase
+  | THeroPhaseEnd
+  | TMovementPhaseStart
+  | TMovementPhase
+  | TMovementPhaseEnd
+  | TShootingPhaseStart
+  | TShootingPhase
+  | TShootingPhaseEnd
+  | TChargePhaseStart
+  | TChargePhase
+  | TChargePhaseEnd
+  | TCombatPhaseStart
+  | TCombatPhase
+  | TCombatPhaseEnd
+  | TBattleshockPhaseStart
+  | TBattleshockPhase
+  | TBattleshockPhaseEnd

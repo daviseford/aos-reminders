@@ -1,4 +1,13 @@
-import { IArmy } from 'types/army'
+import { IArmy, IArtifacts } from 'types/army'
+import {
+  GAME_DURING,
+  GAME_START,
+  HERO_PHASE,
+  COMBAT_PHASE,
+  MOVEMENT_PHASE,
+  COMBAT_PHASE_START,
+  MOVEMENT_PHASE_START,
+} from 'types/meta'
 
 export { Army, Artifacts, CommandTraits }
 
@@ -6,30 +15,52 @@ const SLANN = 'Slann'
 const SKINK = 'Skink'
 const SAURUS = 'Saurus'
 
-const Artifacts = {
-  'Zoetic Dial': { desc: '', when: [] },
-  'Incandescent Rectrices': { desc: '', when: [] },
-  'Blade of Realities': { desc: '', when: [] },
-  'Light of Dracothion': { desc: '', when: [] },
-  'Coronal Shield': { desc: '', when: [] },
-  'Prism of Amyntok': { desc: '', when: [] },
+const Artifacts: IArtifacts = {
+  'Zoetic Dial': {
+    desc:
+      'Roll a dice after set-up is complete, but before the battle begins. In the battle round corresponding to the number you roll, you can re-roll failed save rolls for the bearer. If you roll a 6, you can decide to use this ability at the start of any one battle round, rather than having to use it in the 6th battle round.',
+    when: [GAME_DURING],
+  },
+  'Incandescent Rectrices': {
+    desc:
+      'Roll a dice the first time a wound is allocated to the bearer that would slay them. On a 1-2 the bearer is slain. On a 3+ heal D6 wounds allocated to the bearer instead.',
+    when: [GAME_DURING],
+  },
+  'Blade of Realities': {
+    desc: 'Pick one of the bearer’s melee weapons. Improve the Rend characteristic of that weapon by 1.',
+    when: [GAME_START],
+  },
+  'Light of Dracothion': {
+    desc: 'Once per battle, you can automatically unbind one spell cast by an enemy WIZARD within 15" of the bearer.',
+    when: [HERO_PHASE],
+  },
+  'Coronal Shield': {
+    desc:
+      'At the start of each combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+ subtract 1 from hit rolls for that unit in that combat phase.',
+    when: [COMBAT_PHASE_START],
+  },
+  'Prism of Amyntok': {
+    desc:
+      'Once per the battle, at the start of your movement phase, pick an enemy unit within 12" of the bearer and roll a dice. On a 1 that unit suffers 1 mortal wound. On a 2-5 that unit suffers D3 mortal wounds. On a 6 that unit suffers D6 mortal wounds.',
+    when: [MOVEMENT_PHASE_START],
+  },
 }
 
 const CommandTraits = {
   [SLANN]: {
-    'Arcane Might': { desc: '', when: [] },
-    'Vast Intellect': { desc: '', when: [] },
-    'Great Rememberer': { desc: '', when: [] },
+    'Arcane Might': { desc: '', when: {} },
+    'Vast Intellect': { desc: '', when: {} },
+    'Great Rememberer': { desc: '', when: {} },
   },
   [SAURUS]: {
-    'Disciplined Fury': { desc: '', when: [] },
-    'Thickly Scaled Hide': { desc: '', when: [] },
-    'Mighty War Leader': { desc: '', when: [] },
+    'Disciplined Fury': { desc: '', when: {} },
+    'Thickly Scaled Hide': { desc: '', when: {} },
+    'Mighty War Leader': { desc: '', when: {} },
   },
   [SKINK]: {
-    'Master of Star Rituals': { desc: '', when: [] },
-    Nimble: { desc: '', when: [] },
-    Cunning: { desc: '', when: [] },
+    'Master of Star Rituals': { desc: '', when: {} },
+    Nimble: { desc: '', when: {} },
+    Cunning: { desc: '', when: {} },
   },
 }
 
@@ -38,67 +69,67 @@ const Army: IArmy = {
     {
       name: 'Lord Kroak',
       wounds: '10',
-      desc: 'Seraphon | Wizard',
+      desc: 'Wizard',
       points: '5',
     },
     {
       name: 'Slann Starmaster',
       wounds: '7',
-      desc: 'Seraphon | Wizard',
+      desc: 'Wizard',
       points: '2.5',
     },
     {
       name: 'Saurus Oldblood on Carnosaur',
       wounds: '12',
-      desc: 'Seraphon | Monster',
+      desc: 'Monster',
       points: '3',
     },
     {
       name: 'Saurus Oldblood',
       wounds: '7',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Saurus Scar-Veteran on Cold One',
       wounds: '7',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Saurus Eternity Warden',
       wounds: '7',
-      desc: 'Seraphon',
+      desc: '',
       points: '1.5',
     },
     {
       name: 'Saurus Sunblood',
       wounds: '7',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Scar-Veteran with Battle Standard',
       wounds: '6',
-      desc: 'Seraphon | Totem',
+      desc: 'Totem',
       points: '1.5',
     },
     {
       name: 'Saurus Astrolith Bearer',
       wounds: '6',
-      desc: 'Seraphon | Totem',
+      desc: 'Totem',
       points: '1.5',
     },
     {
       name: 'Saurus Scar-Veteran on Carnosaur',
       wounds: '12',
-      desc: 'Seraphon | Monster',
+      desc: 'Monster',
       points: '3',
     },
     {
       name: 'Skink Priest',
       wounds: '4',
-      desc: 'Seraphon | Priest',
+      desc: 'Priest',
       points: '1.5',
     },
     {
@@ -116,7 +147,7 @@ const Army: IArmy = {
     {
       name: 'Engine of the Gods',
       wounds: '10',
-      desc: 'Seraphon',
+      desc: '',
       points: '3',
     },
   ],
@@ -125,77 +156,77 @@ const Army: IArmy = {
       name: 'Saurus Warriors',
       wounds: '10',
       models: '10',
-      desc: 'Seraphon',
+      desc: '',
       points: '.75',
     },
     {
       name: 'Saurus Guard',
       wounds: '5',
       models: '5',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Saurus Knights',
       wounds: '10',
       models: '5',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Skinks',
       wounds: '10',
       models: '10',
-      desc: 'Seraphon',
+      desc: '',
       points: '.75',
     },
     {
       name: 'Chameleon Skinks',
       wounds: '5',
       models: '5',
-      desc: 'Seraphon',
+      desc: '',
       points: '1.5',
     },
     {
       name: 'Terradon Riders',
       wounds: '9',
       models: '3',
-      desc: 'Seraphon',
+      desc: '',
       points: '1.5',
     },
     {
       name: 'Ripperdactyl Riders',
       wounds: '9',
       models: '3',
-      desc: 'Seraphon',
+      desc: '',
       points: '1.5',
     },
     {
       name: 'Skink Handlers',
       wounds: '3',
       models: '3',
-      desc: 'Seraphon',
+      desc: '',
       points: '.5',
     },
     {
       name: 'Salamanders',
       wounds: '3',
       models: '1',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Razordons',
       wounds: '3',
       models: '1',
-      desc: 'Seraphon',
+      desc: '',
       points: '1',
     },
     {
       name: 'Kroxigor',
       wounds: '12',
       models: '3',
-      desc: 'Seraphon',
+      desc: '',
       points: '2',
     },
   ],
@@ -203,19 +234,19 @@ const Army: IArmy = {
     {
       name: 'Stegadon',
       wounds: '10',
-      desc: 'Seraphon',
+      desc: '',
       points: '2.5',
     },
     {
       name: 'Bastiladon',
       wounds: '8',
-      desc: 'Seraphon',
+      desc: '',
       points: '4',
     },
     {
       name: 'Troglodon',
       wounds: '12',
-      desc: 'Seraphon',
+      desc: '',
       points: '2',
     },
     {

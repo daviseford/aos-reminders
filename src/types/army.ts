@@ -1,3 +1,12 @@
+import { TTurnWhen } from './meta'
+
+export interface IArtifacts {
+  [key: string]: {
+    desc: string
+    when: TTurnWhen[]
+  }
+}
+
 export interface IArmy {
   heroes: {
     name: string
