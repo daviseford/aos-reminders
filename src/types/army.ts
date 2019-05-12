@@ -22,6 +22,7 @@ export interface IArmy {
     wounds: string
     desc: string
     points: string
+    tags?: string[]
   }[]
   units: {
     name: string
@@ -29,12 +30,14 @@ export interface IArmy {
     models: string
     desc: string
     points: string
+    tags?: string[]
   }[]
   monsters: {
     name: string
     wounds: string
     desc: string
     points: string
+    tags?: string[]
   }[]
   formations: {
     name: string
