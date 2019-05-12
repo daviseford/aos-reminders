@@ -1,9 +1,18 @@
 import { TTurnWhen } from './meta'
 
 export interface IArtifacts {
-  [key: string]: {
+  [artifact: string]: {
     desc: string
     when: TTurnWhen[]
+  }
+}
+
+export interface ICommandTraits {
+  [trait: string]: {
+    [unit: string]: {
+      desc: string
+      when: TTurnWhen[]
+    }
   }
 }
 
