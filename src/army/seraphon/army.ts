@@ -1,15 +1,15 @@
 import { IArmy } from 'types/army'
-import { Tags } from './units'
+import { Tags, Units } from './units'
 
 const Army: IArmy = {
   heroes: [
     {
-      name: 'Lord Kroak',
+      name: Units.LORD_KROAK,
       desc: 'Wizard',
       tags: [Tags.SLANN],
     },
     {
-      name: 'Slann Starmaster',
+      name: Units.SLANN,
       desc: 'Wizard',
       tags: [Tags.SLANN],
     },
