@@ -19,29 +19,22 @@ export interface ICommandTraits {
 export interface IArmy {
   heroes: {
     name: string
-    wounds: string
     desc: string
-    points: string
     tags?: string[]
   }[]
   units: {
     name: string
-    wounds: string
     models: string
     desc: string
-    points: string
     tags?: string[]
   }[]
   monsters: {
     name: string
-    wounds: string
     desc: string
-    points: string
     tags?: string[]
   }[]
   formations: {
     name: string
     desc: string
-    points: string
   }[]
 }
