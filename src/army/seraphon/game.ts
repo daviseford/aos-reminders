@@ -11,10 +11,13 @@ Seraphon_Game[SETUP_END].push({
   action: 'Roll for Constellation Configuration',
 })
 
-Seraphon_Game[TURN_ONE][HERO_PHASE].push({
-  condition: [Units.RIPPERDACTYLS],
-  action: 'Place Blot Toad for Ripperdactyls',
-})
+Seraphon_Game[TURN_ONE][HERO_PHASE] = [
+  ...Seraphon_Game[TURN_ONE][HERO_PHASE],
+  {
+    condition: [Units.RIPPERDACTYLS],
+    action: 'Place Blot Toad for Ripperdactyls',
+  },
+]
 
 const processEffects = (obj: IBattalions | IArtifacts) => {
   Object.values(obj).forEach(battalion => {
