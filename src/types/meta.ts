@@ -96,7 +96,9 @@ export const GAME_END: TGameEnd = 'GAME_END'
 
 // When
 export type TTurnWhen =
+  | TSetupStart
   | TSetup
+  | TSetupEnd
   | TGameStart
   | TGameDuring
   | TTurnStart

@@ -1,9 +1,22 @@
 import { TTurnWhen } from './meta'
 
+export interface IEffects {
+  name?: string
+  desc: string
+  when: TTurnWhen[]
+}
+
 export interface IArtifacts {
   [artifact: string]: {
-    desc: string
-    when: TTurnWhen[]
+    name: string
+    effects: IEffects[]
+  }
+}
+
+export interface IBattalions {
+  [battalion: string]: {
+    name: string
+    effects: IEffects[]
   }
 }
 
@@ -16,25 +29,32 @@ export interface ICommandTraits {
   }
 }
 
+export interface IUnit {
+  name: string
+  models: string
+  desc: string
+  tags?: string[]
+}
+
+export interface IMonster {
+  name: string
+  desc: string
+  tags?: string[]
+}
+export interface IHero {
+  name: string
+  desc: string
+  tags?: string[]
+}
+
+export interface IBattalion {
+  name: string
+  desc: string
+}
+
 export interface IArmy {
-  heroes: {
-    name: string
-    desc: string
-    tags?: string[]
-  }[]
-  units: {
-    name: string
-    models: string
-    desc: string
-    tags?: string[]
-  }[]
-  monsters: {
-    name: string
-    desc: string
-    tags?: string[]
-  }[]
-  formations: {
-    name: string
-    desc: string
-  }[]
+  heroes: IHero[]
+  units: IUnit[]
+  monsters: IMonster[]
+  battalions: IBattalion[]
 }

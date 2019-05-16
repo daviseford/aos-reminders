@@ -149,7 +149,7 @@ const Army: IArmy = {
       desc: '',
     },
   ],
-  formations: [
+  battalions: [
     {
       name: 'Bloodclaw Starhost',
       desc: 'Formation',
