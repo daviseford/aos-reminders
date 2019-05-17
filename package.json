@@ -2,7 +2,7 @@
   "name": "aos-reminders",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://daviseford.com/aos-reminders/",
   "dependencies": {
     "@types/jest": "24.0.12",
     "@types/node": "^12.0.2",
