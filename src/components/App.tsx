@@ -15,7 +15,7 @@ const App = () => {
   })
 
   return (
-    <div className="App">
+    <div className="d-block">
       <Header />
       <PrintHeader factionName={SERAPHON} />
       <PrintUnits selections={selections} />
