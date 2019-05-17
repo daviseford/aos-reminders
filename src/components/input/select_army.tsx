@@ -88,7 +88,6 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
           />
         )
       })}
-      
     </div>
   )
 }
@@ -123,9 +122,11 @@ const Select = (props: ISelectProps) => {
     <Fragment>
       <select onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
         {props.val ? (
-          <option value={props.val}>{props.val}</option>
+          <option value={props.val} key={`${props.idx}-${props.type}`} selected>
+            {props.val}
+          </option>
         ) : (
-          <option value={''}>{`-- Select ${props.type} --`}</option>
+          <option value={''} key={`none-${props.type}`} selected>{`-- Select ${props.type} --`}</option>
         )}
         {Object.keys(props.items).map((k, i) => {
           if (props.val === k) return null // Prevent showing duplicate
