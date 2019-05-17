@@ -55,56 +55,65 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   }, [units, battalions, artifacts, props])
 
   return (
-    <div className="SelectArmy">
-      <h3>Add Units:</h3>
-      {_.range(0, units.length + 1).map(idx => {
-        return (
-          <Row items={props.army.Units} handleChange={updateState} idx={idx} val={units[idx] || ''} type={'unit'} />
-        )
-      })}
+    <div className="row">
+      <div className="card-group mx-auto">
+        <Card items={props.army.Units} entries={units} type={'unit'} updateState={updateState} />
+        <Card items={props.army.Artifacts} entries={artifacts} type={'artifact'} updateState={updateState} />
+        <Card items={props.army.Battalions} entries={battalions} type={'battalion'} updateState={updateState} />
+      </div>
+    </div>
+  )
+}
 
-      <h3>Add Artifacts:</h3>
-      {_.range(0, artifacts.length + 1).map(idx => {
-        return (
-          <Row
-            items={props.army.Artifacts}
-            handleChange={updateState}
-            idx={idx}
-            val={artifacts[idx] || ''}
-            type={'artifact'}
-          />
-        )
-      })}
+interface ICardProps {
+  entries: string[]
+  type: TFocusType
+  items: IUnits | IBattalions | IArtifacts
+  updateState: TUpdateState
+}
 
-      <h3>Battalions:</h3>
-      {_.range(0, battalions.length + 1).map(idx => {
-        return (
-          <Row
-            items={props.army.Battalions}
-            handleChange={updateState}
-            idx={idx}
-            val={battalions[idx] || ''}
-            type={'battalion'}
-          />
-        )
-      })}
+const Card = (props: ICardProps) => {
+  return (
+    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+      <div className="card">
+        <div className="card-body">
+          <h4 className="text-center">Add {_.capitalize(props.type)}s</h4>
+          {_.range(0, props.entries.length + 1).map(idx => {
+            return (
+              <Row
+                items={props.items}
+                handleChange={props.updateState}
+                idx={idx}
+                val={props.entries[idx] || ''}
+                type={props.type}
+              />
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
 
 const Row = (props: ISelectProps) => {
   return (
-    <div>
-      <Select {...props} />
-      <button
-        onClick={e => {
-          e.preventDefault()
-          props.handleChange('', props.idx, props.type)
-        }}
-        disabled={!props.val}
-      >
-        X
-      </button>
+    <div className="row SelectArmy-Row">
+      <div className="col-10">
+        <Select {...props} />
+      </div>
+      <div className="col-2">
+        <button
+          className="btn btn-danger"
+          onClick={e => {
+            e.preventDefault()
+            props.handleChange('', props.idx, props.type)
+          }}
+          disabled={!props.val}
+          hidden={!props.val}
+        >
+          X
+        </button>
+      </div>
     </div>
   )
 }
@@ -120,7 +129,7 @@ interface ISelectProps {
 const Select = (props: ISelectProps) => {
   return (
     <Fragment>
-      <select onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
+      <select className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
         {props.val ? (
           <option value={props.val} key={`${props.idx}-${props.type}`} selected>
             {props.val}

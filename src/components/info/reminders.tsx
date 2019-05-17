@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
+import _ from 'lodash'
 
 import { ITurnAction } from 'meta/turn_structure'
 import { ISelections } from 'types/selections'
 import { processReminders } from 'utils/processReminders'
-import { TSupportedFaction } from 'meta/factions';
+import { TSupportedFaction } from 'meta/factions'
 import './reminders.css'
 
 const Reminders = (props: { factionName: TSupportedFaction; selections: ISelections }) => {
@@ -12,7 +13,7 @@ const Reminders = (props: { factionName: TSupportedFaction; selections: ISelecti
   const reminders = processReminders(factionName, selections)
 
   return (
-    <div className="Reminders">
+    <div className="w-75 mx-auto pt-5">
       {Object.keys(reminders).map((key, i) => {
         return <Entry when={key} actions={reminders[key]} key={i} />
       })}
@@ -22,19 +23,23 @@ const Reminders = (props: { factionName: TSupportedFaction; selections: ISelecti
 
 const Entry = (props: { when: string; actions: ITurnAction[] }) => {
   return (
-    <div>
-      <h2>{props.when.split('_').join(' ')}</h2>
-      {props.actions.map((a, i) => {
-        return (
-          <Fragment key={i}>
-            <p>
-              {a.name ? <b>{a.name}: </b> : null}
-              {a.action}
-            </p>
-            <small>Because you have: {a.condition.join(', ')}</small>
-          </Fragment>
-        )
-      })}
+    <div className="card border-dark my-3">
+      <div className="card-header text-center">
+        <h2>{_.startCase(_.camelCase(props.when))}</h2>
+      </div>
+      <div className="card-body">
+        {props.actions.map((a, i) => {
+          return (
+            <Fragment key={i}>
+              <p className="ReminderEntry">
+                {a.name ? <b>{a.name}: </b> : null}
+                {a.action}
+              </p>
+              <small>Because you have: {a.condition.join(', ')}</small>
+            </Fragment>
+          )
+        })}
+      </div>
     </div>
   )
 }

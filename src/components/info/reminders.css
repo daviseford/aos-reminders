@@ -2,9 +2,9 @@
     padding: 40px;
 }
 
-p {
-    font-size: 1.5rem;
-    padding-top: 0px;
+.ReminderEntry {
+    font-size: 1.3rem;
+    padding-top: 0.5rem;
     padding-bottom: 0px;
     margin-block-end: 0px;
 }

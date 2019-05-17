@@ -8,13 +8,14 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-block-start: 3vh;
 }
 
 .App-header-p {
   text-align: center;
   font-size: 1rem;
-  margin-block-start: 1%;
-  margin-block-end: 3%;
+  margin-block-start: 0.5rem;
+  margin-block-end: 1.2rem;
   margin-left: 15%;
   margin-right: 15%;
 }
