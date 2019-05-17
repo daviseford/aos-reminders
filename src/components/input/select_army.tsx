@@ -55,7 +55,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   }, [units, battalions, artifacts, props])
 
   return (
-    <div className="row">
+    <div className="row d-print-none">
       <div className="card-group mx-auto">
         <Card items={props.army.Units} entries={units} type={'unit'} updateState={updateState} />
         <Card items={props.army.Artifacts} entries={artifacts} type={'artifact'} updateState={updateState} />
@@ -74,7 +74,7 @@ interface ICardProps {
 
 const Card = (props: ICardProps) => {
   return (
-    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Add {_.capitalize(props.type)}s</h4>

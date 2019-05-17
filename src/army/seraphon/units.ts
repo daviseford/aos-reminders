@@ -146,7 +146,7 @@ export const Units: IUnits = {
       {
         name: 'Wary Fighters',
         desc:
-          'When it is a SKINK unit\'s turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.',
+          'When it is a Skink unit\'s turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.',
         when: [COMBAT_PHASE],
       },
       {
