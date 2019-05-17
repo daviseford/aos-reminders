@@ -1,5 +1,5 @@
 import { IBattalions, IUnits } from 'types/army'
-import { SETUP_END, HERO_PHASE, MOVEMENT_PHASE, TURN_ONE } from 'types/meta'
+import { SETUP_END, HERO_PHASE, MOVEMENT_PHASE, TURN_ONE, MOVEMENT_PHASE_END } from 'types/meta'
 
 // Command Trait Keywords
 export const Tags = {
@@ -17,6 +17,10 @@ export const Units: IUnits = {
         desc: 'Roll for Constellation Configuration',
         when: [SETUP_END],
       },
+      {
+        desc: 'Summon units with Lord Kroak',
+        when: [MOVEMENT_PHASE_END],
+      },
     ],
   },
   SLANN: {
@@ -25,6 +29,10 @@ export const Units: IUnits = {
       {
         desc: 'Roll for Constellation Configuration',
         when: [SETUP_END],
+      },
+      {
+        desc: 'Summon units with Slann',
+        when: [MOVEMENT_PHASE_END],
       },
     ],
   },
@@ -70,7 +78,12 @@ export const Units: IUnits = {
   },
   ENGINE_OF_THE_GODS: {
     name: 'Engine of the Gods',
-    effects: [],
+    effects: [
+      {
+        desc: 'Roll for Engine of the Gods effect',
+        when: [HERO_PHASE],
+      },
+    ],
   },
   SAURUS_WARRIORS: {
     name: 'Saurus Warriors',
@@ -141,10 +154,6 @@ export const Units: IUnits = {
 
 // Battalions
 export const Battalions: IBattalions = {
-  //   BLOODCLAW_STARHOST: 'Bloodclaw Starhost',
-  //   ETERNAL_STARHOST: 'Eternal Starhost',
-  //   FIRELANCE_STARHOST: 'Firelance Starhost',
-  //   HEAVENSWATCH_STARHOST: 'Heavenswatch Starhost',
   SHADOWSTRIKE_STARHOST: {
     name: 'Shadowstrike Starhost',
     effects: [
@@ -168,6 +177,10 @@ export const Battalions: IBattalions = {
       },
     ],
   },
+  //   BLOODCLAW_STARHOST: 'Bloodclaw Starhost',
+  //   ETERNAL_STARHOST: 'Eternal Starhost',
+  //   FIRELANCE_STARHOST: 'Firelance Starhost',
+  //   HEAVENSWATCH_STARHOST: 'Heavenswatch Starhost',
   //   STARBEAST_CONSTELLATION: 'Starbeast Constellation',
   //   SUNCLAW_STARHOST: 'Sunclaw Starhost',
   //   THUNDERQUAKE_STARHOST: 'Thunderquake Starhost',
