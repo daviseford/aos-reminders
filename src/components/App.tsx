@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Age of Sigmar Reminders</h1>
+        <h1 className="text-center">Age of Sigmar Reminders</h1>
         <p className="App-header-p">
           By Davis E. Ford -{' '}
           <a href="daviseford.com" target="_blank" className="text-light">
