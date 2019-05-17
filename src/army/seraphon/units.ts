@@ -13,7 +13,7 @@ import {
   HERO_PHASE_START,
   CHARGE_PHASE_START,
   GAME_START,
-  SETUP,
+  SETUP_DURING,
 } from 'types/meta'
 
 // Command Trait Keywords
@@ -412,7 +412,7 @@ export const Battalions: IBattalions = {
         name: "Appear at Kuoteq's Command",
         desc:
           'Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq’s command as a reserve unit. You can set up one reserve unit waiting to appear at Kuoteq’s command for each unit from the same battalion you set up on the battlefield.',
-        when: [SETUP],
+        when: [SETUP_DURING],
       },
       {
         name: "Appear at Kuoteq's Command",

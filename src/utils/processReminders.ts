@@ -1,4 +1,4 @@
-import { ITurnAction } from 'meta/turn_structure'
+import { ITurnAction, Game } from 'meta/turn_structure'
 import { isArray, isPlainObject } from 'lodash'
 
 // Armies
@@ -67,5 +67,24 @@ export const processReminders = (factionName: TSupportedFaction, selections: ISe
     })
   }
 
-  return reminders
+  // Last step, we need to sort by the original order
+  const ordered = Object.keys(Game).reduce((accum, key) => {
+    const x = Game[key]
+    if (isArray(x)) {
+      if (reminders[key]) {
+        accum[key] = reminders[key]
+      }
+    } else {
+      Object.keys(x).forEach(k => {
+        const joinedKey = `${key} - ${k}`
+        if (reminders[joinedKey]) {
+          accum[joinedKey] = reminders[joinedKey]
+        }
+      })
+    }
+
+    return accum
+  }, {})
+
+  return ordered
 }

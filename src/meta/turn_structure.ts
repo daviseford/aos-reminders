@@ -41,7 +41,7 @@ export const Game = {
   // General actions
   [Meta.GAME_START]: [] as ITurnAction[],
   [Meta.SETUP_START]: [] as ITurnAction[],
-  [Meta.SETUP]: [] as ITurnAction[],
+  [Meta.SETUP_DURING]: [] as ITurnAction[],
   [Meta.SETUP_END]: [] as ITurnAction[],
   [Meta.GAME_DURING]: [] as ITurnAction[],
   // Any Turn Start

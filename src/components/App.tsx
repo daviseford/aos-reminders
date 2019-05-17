@@ -12,7 +12,6 @@ const App = () => {
     battalions: [] as string[],
   })
 
-  // TODO: Have ArmyBuilder update `selections` for real-time reminders!
   return (
     <div className="App">
       <header className="App-header">
