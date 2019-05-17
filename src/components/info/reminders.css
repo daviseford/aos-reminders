@@ -1,0 +1,13 @@
+.Reminders {
+    padding: 40px;
+}
+
+p {
+    font-size: 1.5rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-block-end: 0px;
+}
+small {
+    font-size: 12px
+}

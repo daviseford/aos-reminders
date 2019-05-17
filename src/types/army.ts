@@ -1,10 +1,5 @@
 import { TTurnWhen } from './meta'
-
-export interface IEffects {
-  name?: string
-  desc: string
-  when: TTurnWhen[]
-}
+import { IEffects } from './data'
 
 export interface IArtifacts {
   [artifact: string]: {

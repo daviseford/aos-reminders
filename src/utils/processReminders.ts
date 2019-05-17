@@ -4,13 +4,14 @@ import { isArray, isPlainObject } from 'lodash'
 // Armies
 import * as SeraphonArmy from '../army/seraphon/index'
 import { ISelections } from 'types/selections'
-import { IEffects } from 'types/army'
+import { SERAPHON } from 'meta/factions'
+import { IEffects } from 'types/data'
 
 export interface IReminder {
   [key: string]: ITurnAction[]
 }
 
-const getArmyObj = (name = 'SERAPHON') => {
+const getArmyObj = (name: string = SERAPHON) => {
   return {
     SERAPHON: { ...SeraphonArmy },
   }[name]

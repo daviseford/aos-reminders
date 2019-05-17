@@ -7,6 +7,7 @@ import {
   MOVEMENT_PHASE_END,
   CHARGE_PHASE,
   BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
 } from 'types/meta'
 
 // Command Trait Keywords
@@ -107,7 +108,14 @@ export const Units: IUnits = {
   },
   SKINKS: {
     name: 'Skinks',
-    effects: [],
+    effects: [
+      {
+        name: 'Wary Fighters',
+        desc:
+          'When it is this unit’s turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.',
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   CHAMELEON_SKINKS: {
     name: 'Chameleon Skinks',
