@@ -1,5 +1,13 @@
 import { IBattalions, IUnits } from 'types/army'
-import { SETUP_END, HERO_PHASE, MOVEMENT_PHASE, TURN_ONE, MOVEMENT_PHASE_END } from 'types/meta'
+import {
+  SETUP_END,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  TURN_ONE,
+  MOVEMENT_PHASE_END,
+  CHARGE_PHASE,
+  BATTLESHOCK_PHASE,
+} from 'types/meta'
 
 // Command Trait Keywords
 export const Tags = {
@@ -128,7 +136,14 @@ export const Units: IUnits = {
   },
   RAZORDONS: {
     name: 'Razordons',
-    effects: [],
+    effects: [
+      {
+        name: 'Instinctive Defence',
+        desc:
+          ' Once per turn, if an enemy unit ends a charge move within 3" of this unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.',
+        when: [CHARGE_PHASE],
+      },
+    ],
   },
   KROXIGOR: {
     name: 'Kroxigor',
@@ -148,7 +163,18 @@ export const Units: IUnits = {
   },
   DREAD_SAURIAN: {
     name: 'Dread Saurian',
-    effects: [],
+    effects: [
+      {
+        name: 'Primal Presence',
+        desc: 'Do not take battleshock tests for friendly Skink units while they are wholly within 24" of this model.',
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: 'Arcane Glyphs',
+        desc: 'In your hero phase, you can heal up to D3 wounds allocated to this model.',
+        when: [HERO_PHASE],
+      },
+    ],
   },
 }
 
@@ -172,7 +198,7 @@ export const Battalions: IBattalions = {
       {
         name: 'Strike From the Skies',
         desc:
-          'Instead of setting up the flying unit from this battalion on the battlefield, you can place it to one side and say that it is hidden amid the clouds. In any of your movement phases, the unit can plummet from the skies to assail the foe. When it does so, you can set it up anywhere more than 3" from the enemy. In the following combat phase, add 1 to the result of any wound rolls made for models from that unit.',
+          'Instead of setting up the flying unit from Shadowstrike Starhost on the battlefield, you can place it to one side and say that it is hidden amid the clouds. In any of your movement phases, the unit can plummet from the skies to assail the foe. When it does so, you can set it up anywhere more than 3" from the enemy. In the following combat phase, add 1 to the result of any wound rolls made for models from that unit.',
         when: [MOVEMENT_PHASE],
       },
     ],
