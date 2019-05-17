@@ -3,7 +3,6 @@ import { isArray, isPlainObject } from 'lodash'
 
 import * as SeraphonArmy from '../../army/seraphon/index'
 import { ITurnAction } from 'meta/turn_structure'
-import { jsxExpressionContainer } from '@babel/types'
 import { TTurnWhen } from 'types/meta'
 
 const getArmyObj = (name = 'SERAPHON') => {
@@ -17,16 +16,24 @@ const armyObj = getArmyObj('SERAPHON')
 
 const { Units, Artifacts, Battalions } = SeraphonArmy
 
+interface ISelections {
+  units: string[]
+  artifacts: string[]
+  battalions: string[]
+}
 const sampleSelections = {
   units: [Units.ENGINE_OF_THE_GODS, Units.RIPPERDACTYLS, Units.LORD_KROAK],
   artifacts: [Artifacts.PRISM_OF_AMYNTOK.name],
   battalions: [Battalions.SHADOWSTRIKE_STARHOST.name],
 }
 
-const processReminders = (army = sampleArmyName, selections = sampleSelections) => {
+interface IReminder extends ITurnAction {
+  when: TTurnWhen[]
+}
+
+const processReminders = (army = sampleArmyName, selections = sampleSelections): IReminder[] => {
   const game = getArmyObj(army).Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
-  //   debugger
 
   const reminders = Object.keys(game).reduce((accum: any[], key) => {
     const x = game[key]
@@ -45,9 +52,6 @@ const processReminders = (army = sampleArmyName, selections = sampleSelections) 
         const y = x[phase]
         addToAccum(y, [turn, phase])
       })
-    //   debugger
-      // Is a turn object
-      // TODO
     }
     return accum
   }, [])
@@ -55,15 +59,22 @@ const processReminders = (army = sampleArmyName, selections = sampleSelections) 
   return reminders
 }
 
-const Reminders = (props: { army: string }) => {
-  // const [armyName, ]
+const Reminders = (props: { army: string; selections?: ISelections }) => {
+  let { army, selections = sampleSelections } = props
+
+  const reminders = processReminders(army, selections)
 
   return (
     <Fragment>
-      {JSON.stringify(
-        // getArmyList(props.army)
-        processReminders(props.army, sampleSelections)
-      )}
+      {reminders.map(r => {
+        return (
+          <div>
+            <h2>{r.when}</h2>
+            <p>{r.action}</p>
+            <small>Because you have: {r.condition}</small>
+          </div>
+        )
+      })}
     </Fragment>
   )
 }
