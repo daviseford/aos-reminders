@@ -20,15 +20,11 @@ interface ISelections {
   artifacts: string[]
   battalions: string[]
 }
-const sampleSelections = {
-  units: [Units.ENGINE_OF_THE_GODS, Units.RIPPERDACTYLS, Units.LORD_KROAK],
+const sampleSelections: ISelections = {
+  units: [Units.ENGINE_OF_THE_GODS.name, Units.RIPPERDACTYLS.name, Units.LORD_KROAK.name],
   artifacts: [Artifacts.PRISM_OF_AMYNTOK.name],
   battalions: [Battalions.SHADOWSTRIKE_STARHOST.name],
 }
-
-// interface IReminder extends ITurnAction {
-//   when: TTurnWhen[]
-// }
 
 interface IReminder {
   [key: string]: ITurnAction[]
@@ -92,7 +88,7 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
         return (
           <Fragment>
             <p>
-              {a.ability ? <b>{a.ability}: </b> : null}
+              {a.name ? <b>{a.name}: </b> : null}
               {a.action}
             </p>
             <small>Because you have: {a.condition.join(', ')}</small>

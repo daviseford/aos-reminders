@@ -4,12 +4,12 @@ import { Tags, Units } from './units'
 const Army: IArmy = {
   heroes: [
     {
-      name: Units.LORD_KROAK,
+      name: Units.LORD_KROAK.name,
       desc: 'Wizard',
       tags: [Tags.SLANN],
     },
     {
-      name: Units.SLANN,
+      name: Units.SLANN.name,
       desc: 'Wizard',
       tags: [Tags.SLANN],
     },

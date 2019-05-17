@@ -3,7 +3,7 @@ import * as Meta from 'types/meta'
 export interface ITurnAction {
   condition: string[]
   action: string
-  ability?: string
+  name?: string
 }
 export const Turn: { [key: string]: ITurnAction[] } = {
   // Turn Start

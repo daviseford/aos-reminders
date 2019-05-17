@@ -20,6 +20,13 @@ export interface IBattalions {
   }
 }
 
+export interface IUnits {
+  [unit: string]: {
+    name: string
+    effects: IEffects[]
+  }
+}
+
 export interface ICommandTraits {
   [trait: string]: {
     [unit: string]: {

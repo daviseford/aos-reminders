@@ -1,5 +1,5 @@
-import { IBattalions } from 'types/army'
-import { SETUP_END, HERO_PHASE, MOVEMENT_PHASE } from 'types/meta'
+import { IBattalions, IUnits } from 'types/army'
+import { SETUP_END, HERO_PHASE, MOVEMENT_PHASE, TURN_ONE } from 'types/meta'
 
 // Command Trait Keywords
 export const Tags = {
@@ -9,35 +9,134 @@ export const Tags = {
 }
 
 // Unit Names
-export const Units = {
-  LORD_KROAK: 'Lord Kroak',
-  SLANN: 'Slann Starmaster',
-  OLDBLOOD_ON_CARNOSAUR: 'Saurus Oldblood on Carnosaur',
-  OLDBLOOD: 'Saurus Oldblood',
-  SCARVET_ON_COLD_ONE: 'Saurus Scar-Veteran on Cold One',
-  ETERNITY_WARDEN: 'Saurus Eternity Warden',
-  SUNBLOOD: 'Saurus Sunblood',
-  SCARVET: 'Scar-Veteran with Battle Standard',
-  ASTROLITH_BEARER: 'Saurus Astrolith Bearer',
-  SKINK_PRIEST: 'Skink Priest',
-  SKINK_STARSEER: 'Skink Starseer',
-  SKINK_STARPRIEST: 'Skink Starpriest',
-  ENGINE_OF_THE_GODS: 'Engine of the Gods',
-  SAURUS_WARRIORS: 'Saurus Warriors',
-  SAURUS_GUARD: 'Saurus Guard',
-  SAURUS_KNIGHTS: 'Saurus Knights',
-  SKINKS: 'Skinks',
-  CHAMELEON_SKINKS: 'Chameleon Skinks',
-  TERRADONS: 'Terradon Riders',
-  RIPPERDACTYLS: 'Ripperdactyl Riders',
-  SKINK_HANDLERS: 'Skink Handlers',
-  SALAMANDERS: 'Salamanders',
-  RAZORDONS: 'Razordons',
-  KROXIGOR: 'Kroxigor',
-  STEGADON: 'Stegadon',
-  BASTILADON: 'Bastiladon',
-  TROGLODON: 'Troglodon',
-  DREAD_SAURIAN: 'Dread Saurian',
+export const Units: IUnits = {
+  LORD_KROAK: {
+    name: 'Lord Kroak',
+    effects: [
+      {
+        desc: 'Roll for Constellation Configuration',
+        when: [SETUP_END],
+      },
+    ],
+  },
+  SLANN: {
+    name: 'Slann Starmaster',
+    effects: [
+      {
+        desc: 'Roll for Constellation Configuration',
+        when: [SETUP_END],
+      },
+    ],
+  },
+  OLDBLOOD_ON_CARNOSAUR: {
+    name: 'Saurus Oldblood on Carnosaur',
+    effects: [],
+  },
+  OLDBLOOD: {
+    name: 'Saurus Oldblood',
+    effects: [],
+  },
+  SCARVET_ON_COLD_ONE: {
+    name: 'Saurus Scar-Veteran on Cold One',
+    effects: [],
+  },
+  ETERNITY_WARDEN: {
+    name: 'Saurus Eternity Warden',
+    effects: [],
+  },
+  SUNBLOOD: {
+    name: 'Saurus Sunblood',
+    effects: [],
+  },
+  SCARVET: {
+    name: 'Scar-Veteran with Battle Standard',
+    effects: [],
+  },
+  ASTROLITH_BEARER: {
+    name: 'Saurus Astrolith Bearer',
+    effects: [],
+  },
+  SKINK_PRIEST: {
+    name: 'Skink Priest',
+    effects: [],
+  },
+  SKINK_STARSEER: {
+    name: 'Skink Starseer',
+    effects: [],
+  },
+  SKINK_STARPRIEST: {
+    name: 'Skink Starpriest',
+    effects: [],
+  },
+  ENGINE_OF_THE_GODS: {
+    name: 'Engine of the Gods',
+    effects: [],
+  },
+  SAURUS_WARRIORS: {
+    name: 'Saurus Warriors',
+    effects: [],
+  },
+  SAURUS_GUARD: {
+    name: 'Saurus Guard',
+    effects: [],
+  },
+  SAURUS_KNIGHTS: {
+    name: 'Saurus Knights',
+    effects: [],
+  },
+  SKINKS: {
+    name: 'Skinks',
+    effects: [],
+  },
+  CHAMELEON_SKINKS: {
+    name: 'Chameleon Skinks',
+    effects: [],
+  },
+  TERRADONS: {
+    name: 'Terradon Riders',
+    effects: [],
+  },
+  RIPPERDACTYLS: {
+    name: 'Ripperdactyl Riders',
+    effects: [
+      {
+        desc: 'Place Blot Toad for Ripperdactyls',
+        when: [TURN_ONE, HERO_PHASE],
+      },
+    ],
+  },
+  SKINK_HANDLERS: {
+    name: 'Skink Handlers',
+    effects: [],
+  },
+  SALAMANDERS: {
+    name: 'Salamanders',
+    effects: [],
+  },
+  RAZORDONS: {
+    name: 'Razordons',
+    effects: [],
+  },
+  KROXIGOR: {
+    name: 'Kroxigor',
+    effects: [],
+  },
+  STEGADON: {
+    name: 'Stegadon',
+    effects: [],
+  },
+  BASTILADON: {
+    name: 'Bastiladon',
+    effects: [],
+  },
+  TROGLODON: {
+    name: 'Troglodon',
+    effects: [],
+  },
+  DREAD_SAURIAN: {
+    name: 'Dread Saurian',
+    effects: [],
+  },
 }
 
 // Battalions
