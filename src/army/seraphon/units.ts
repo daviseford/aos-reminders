@@ -34,7 +34,8 @@ export const Units: IUnits = {
         when: [SETUP_END],
       },
       {
-        desc: 'Summon units with Lord Kroak',
+        name: 'Celestial Conjuration',
+        desc: 'Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
         when: [MOVEMENT_PHASE_END],
       },
     ],
@@ -48,7 +49,8 @@ export const Units: IUnits = {
         when: [SETUP_END],
       },
       {
-        desc: 'Summon units with Slann',
+        name: 'Celestial Conjuration',
+        desc: 'Summon units with Slann. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
         when: [MOVEMENT_PHASE_END],
       },
     ],
