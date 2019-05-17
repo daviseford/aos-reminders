@@ -1,5 +1,5 @@
 import { Game } from 'meta/turn_structure'
-import { TURN_ONE, SETUP_END, HERO_PHASE, TTurnWhen, GAME_DURING } from 'types/meta'
+import { TURN_ONE, SETUP_END, HERO_PHASE } from 'types/meta'
 import { Units, Battalions } from './units'
 import { IBattalions, IArtifacts } from 'types/army'
 import Artifacts from './artifacts'
