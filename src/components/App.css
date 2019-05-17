@@ -10,6 +10,15 @@
   color: white;
 }
 
+.App-header-p {
+  text-align: center;
+  font-size: 1rem;
+  margin-block-start: 1%;
+  margin-block-end: 3%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
 .App-link {
   color: #61dafb;
 }

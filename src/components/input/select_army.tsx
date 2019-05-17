@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
 
 import { IUnits, IArtifacts, IBattalions } from 'types/army'
@@ -13,7 +13,9 @@ interface IArmyBuilderProps {
     Battalions: IBattalions
     Units: IUnits
   }
+  setSelections: (x: { units: string[]; artifacts: string[]; battalions: string[] }) => any
 }
+
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
   const [units, setUnits] = useState([] as string[])
   const [battalions, setBattalions] = useState([] as string[])
@@ -48,12 +50,16 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
     focus.fn(newState)
   }
 
+  useEffect(() => {
+    props.setSelections({ units, battalions, artifacts })
+  }, [units, battalions, artifacts, props])
+
   return (
     <div className="SelectArmy">
       <h3>Add Units:</h3>
       {_.range(0, units.length + 1).map(idx => {
         return (
-          <Row units={props.army.Units} handleChange={updateState} idx={idx} val={units[idx] || ''} type={'unit'} />
+          <Row items={props.army.Units} handleChange={updateState} idx={idx} val={units[idx] || ''} type={'unit'} />
         )
       })}
 
@@ -61,7 +67,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
       {_.range(0, artifacts.length + 1).map(idx => {
         return (
           <Row
-            units={props.army.Artifacts}
+            items={props.army.Artifacts}
             handleChange={updateState}
             idx={idx}
             val={artifacts[idx] || ''}
@@ -74,7 +80,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
       {_.range(0, battalions.length + 1).map(idx => {
         return (
           <Row
-            units={props.army.Battalions}
+            items={props.army.Battalions}
             handleChange={updateState}
             idx={idx}
             val={battalions[idx] || ''}
@@ -82,10 +88,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
           />
         )
       })}
-
-      <p>Units: {units.join(', ')}</p>
-      <p>Battalions: {battalions.join(', ')}</p>
-      <p>Artifacts: {artifacts.join(', ')}</p>
+      
     </div>
   )
 }
@@ -108,7 +111,7 @@ const Row = (props: ISelectProps) => {
 }
 
 interface ISelectProps {
-  units: IUnits
+  items: IUnits
   handleChange: TUpdateState
   idx: number
   val: string
@@ -120,15 +123,15 @@ const Select = (props: ISelectProps) => {
     <Fragment>
       <select onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
         {props.val ? (
-          <option value={props.val}>{props.units[props.val].name}</option>
+          <option value={props.val}>{props.val}</option>
         ) : (
           <option value={''}>{`-- Select ${props.type} --`}</option>
         )}
-        {Object.keys(props.units).map((k, i) => {
+        {Object.keys(props.items).map((k, i) => {
           if (props.val === k) return null // Prevent showing duplicate
           return (
-            <option value={k} key={i}>
-              {props.units[k].name}
+            <option value={props.items[k].name} key={i}>
+              {props.items[k].name}
             </option>
           )
         })}

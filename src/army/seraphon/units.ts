@@ -35,7 +35,8 @@ export const Units: IUnits = {
       },
       {
         name: 'Celestial Conjuration',
-        desc: 'Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
+        desc:
+          'Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
         when: [MOVEMENT_PHASE_END],
       },
     ],
@@ -50,7 +51,8 @@ export const Units: IUnits = {
       },
       {
         name: 'Celestial Conjuration',
-        desc: 'Summon units with Slann. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
+        desc:
+          'Summon units with Slann. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
         when: [MOVEMENT_PHASE_END],
       },
     ],
@@ -85,7 +87,7 @@ export const Units: IUnits = {
       {
         name: 'Celestial Conduit',
         desc:
-          'Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any models with this ability. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any models with this ability.',
+          'Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer',
         when: [HERO_PHASE],
       },
     ],
@@ -350,6 +352,12 @@ export const Battalions: IBattalions = {
         name: 'Ordered Constellation',
         desc: 'Units in a Starbeast Constellation do not need to take battleshock tests.',
         when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: 'Strategic Mastery',
+        desc:
+          'At the start of the battle, you receive D3+1 command points, instead of 1, for each Starbeast Constellation in your army.',
+        when: [GAME_START],
       },
     ],
   },
