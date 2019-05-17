@@ -4,21 +4,21 @@ import { isArray, isPlainObject } from 'lodash'
 // Armies
 import * as SeraphonArmy from '../army/seraphon/index'
 import { ISelections } from 'types/selections'
-import { SERAPHON } from 'meta/factions'
+import { TSupportedFaction } from 'meta/factions'
 import { IEffects } from 'types/data'
 
 export interface IReminder {
   [key: string]: ITurnAction[]
 }
 
-const getArmyObj = (name: string = SERAPHON) => {
+const getArmy = (name: TSupportedFaction) => {
   return {
     SERAPHON: { ...SeraphonArmy },
   }[name]
 }
 
-export const processReminders = (armyName: string, selections: ISelections): IReminder => {
-  const armyObj = getArmyObj(armyName)
+export const processReminders = (factionName: TSupportedFaction, selections: ISelections): IReminder => {
+  const armyObj = getArmy(factionName)
   const game = armyObj.Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
@@ -56,7 +56,7 @@ export const processReminders = (armyName: string, selections: ISelections): IRe
       const t: ITurnAction = {
         name: a.name,
         action: a.desc,
-        condition: [armyName],
+        condition: [factionName],
       }
       if (a.when.length === 1) {
         reminders[a.when[0]] = reminders[a.when[0]] ? [...reminders[a.when[0]], t] : [t]

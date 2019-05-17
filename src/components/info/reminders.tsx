@@ -3,12 +3,13 @@ import React, { Fragment } from 'react'
 import { ITurnAction } from 'meta/turn_structure'
 import { ISelections } from 'types/selections'
 import { processReminders } from 'utils/processReminders'
+import { TSupportedFaction } from 'meta/factions';
 import './reminders.css'
 
-const Reminders = (props: { army: string; selections: ISelections }) => {
-  let { army, selections } = props
+const Reminders = (props: { factionName: TSupportedFaction; selections: ISelections }) => {
+  let { factionName, selections } = props
 
-  const reminders = processReminders(army, selections)
+  const reminders = processReminders(factionName, selections)
 
   return (
     <div className="Reminders">

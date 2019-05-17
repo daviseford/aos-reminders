@@ -1,14 +1,20 @@
 import React, { Fragment, useState } from 'react'
 import _ from 'lodash'
 
-import * as SeraphonArmy from '../../army/seraphon'
-import { IUnits } from 'types/army'
+import { IUnits, IArtifacts, IBattalions } from 'types/army'
 import './select_army.css'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion'
 type TUpdateState = (val: string, idx: number, type: TFocusType) => any
 
-export const SelectArmy = props => {
+interface IArmyBuilderProps {
+  army: {
+    Artifacts: IArtifacts
+    Battalions: IBattalions
+    Units: IUnits
+  }
+}
+export const ArmyBuilder = (props: IArmyBuilderProps) => {
   const [units, setUnits] = useState([] as string[])
   const [battalions, setBattalions] = useState([] as string[])
   const [artifacts, setArtifacts] = useState([] as string[])
@@ -47,7 +53,7 @@ export const SelectArmy = props => {
       <h3>Add Units:</h3>
       {_.range(0, units.length + 1).map(idx => {
         return (
-          <Row units={SeraphonArmy.Units} handleChange={updateState} idx={idx} val={units[idx] || ''} type={'unit'} />
+          <Row units={props.army.Units} handleChange={updateState} idx={idx} val={units[idx] || ''} type={'unit'} />
         )
       })}
 
@@ -55,7 +61,7 @@ export const SelectArmy = props => {
       {_.range(0, artifacts.length + 1).map(idx => {
         return (
           <Row
-            units={SeraphonArmy.Artifacts}
+            units={props.army.Artifacts}
             handleChange={updateState}
             idx={idx}
             val={artifacts[idx] || ''}
@@ -68,7 +74,7 @@ export const SelectArmy = props => {
       {_.range(0, battalions.length + 1).map(idx => {
         return (
           <Row
-            units={SeraphonArmy.Battalions}
+            units={props.army.Battalions}
             handleChange={updateState}
             idx={idx}
             val={battalions[idx] || ''}
@@ -84,7 +90,7 @@ export const SelectArmy = props => {
   )
 }
 
-const Row = (props: ISelect) => {
+const Row = (props: ISelectProps) => {
   return (
     <div>
       <Select {...props} />
@@ -101,7 +107,7 @@ const Row = (props: ISelect) => {
   )
 }
 
-interface ISelect {
+interface ISelectProps {
   units: IUnits
   handleChange: TUpdateState
   idx: number
@@ -109,7 +115,7 @@ interface ISelect {
   type: TFocusType
 }
 
-const Select = (props: ISelect) => {
+const Select = (props: ISelectProps) => {
   return (
     <Fragment>
       <select onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
