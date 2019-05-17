@@ -12,8 +12,8 @@ const Reminders = (props: { army: string; selections: ISelections }) => {
 
   return (
     <div className="Reminders">
-      {Object.keys(reminders).map(key => {
-        return <Entry when={key} actions={reminders[key]} />
+      {Object.keys(reminders).map((key, i) => {
+        return <Entry when={key} actions={reminders[key]} key={i} />
       })}
     </div>
   )
@@ -23,9 +23,9 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
   return (
     <div>
       <h2>{props.when.split('_').join(' ')}</h2>
-      {props.actions.map(a => {
+      {props.actions.map((a, i) => {
         return (
-          <Fragment>
+          <Fragment key={i}>
             <p>
               {a.name ? <b>{a.name}: </b> : null}
               {a.action}
