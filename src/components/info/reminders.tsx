@@ -39,6 +39,7 @@ const processReminders = (army = sampleArmyName, selections = sampleSelections):
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
   const reminders = Object.keys(game).reduce((accum, key) => {
+    if (key === 'battalions') debugger
     const x = game[key]
     const addToAccum = (arr: ITurnAction[], when: string[]) => {
       arr.forEach((y: ITurnAction) => {
@@ -90,7 +91,10 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
       {props.actions.map(a => {
         return (
           <Fragment>
-            <p>{a.action}</p>
+            <p>
+              {a.ability ? <b>{a.ability}: </b> : null}
+              {a.action}
+            </p>
             <small>Because you have: {a.condition.join(', ')}</small>
           </Fragment>
         )
