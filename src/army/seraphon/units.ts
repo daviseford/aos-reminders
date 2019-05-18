@@ -54,7 +54,14 @@ export const Units: IUnits = {
   },
   OLDBLOOD_ON_CARNOSAUR: {
     name: 'Saurus Oldblood on Carnosaur',
-    effects: [],
+    effects: [
+      {
+        name: 'Bloodroar',
+        desc:
+          'If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent’s dice, D3 models flee from the unit (as well as any that flee because of the test).',
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
   },
   OLDBLOOD: {
     name: 'Saurus Oldblood',
@@ -76,6 +83,17 @@ export const Units: IUnits = {
     name: 'Scar-Veteran with Battle Standard',
     effects: [],
   },
+  SCARVET_ON_CARNOSAUR: {
+    name: 'Saurus Scar-Veteran on Carnosaur',
+    effects: [
+      {
+        name: 'Bloodroar',
+        desc:
+          'If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent’s dice, D3 models flee from the unit (as well as any that flee because of the test).',
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
   ASTROLITH_BEARER: {
     name: 'Saurus Astrolith Bearer',
     effects: [
@@ -89,7 +107,14 @@ export const Units: IUnits = {
   },
   SKINK_PRIEST: {
     name: 'Skink Priest',
-    effects: [],
+    effects: [
+      {
+        name: 'Celestial Rites',
+        desc:
+          'roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.',
+        when: [HERO_PHASE],
+      },
+    ],
   },
   SKINK_STARSEER: {
     name: 'Skink Starseer',
@@ -125,15 +150,39 @@ export const Units: IUnits = {
   },
   SAURUS_WARRIORS: {
     name: 'Saurus Warriors',
-    effects: [],
+    effects: [
+      {
+        name: 'Stardrake Icon',
+        desc: 'If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.',
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
   },
   SAURUS_GUARD: {
     name: 'Saurus Guard',
-    effects: [],
+    effects: [
+      {
+        name: 'Stardrake Icon',
+        desc: 'If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.',
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
   },
   SAURUS_KNIGHTS: {
     name: 'Saurus Knights',
-    effects: [],
+    effects: [
+      {
+        name: 'Stardrake Icon',
+        desc: 'If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.',
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: 'Blazing Lances',
+        desc:
+          'If the wound roll for a Celestite Lance is 6 or higher and the model charged in the same turn, the attack inflicts an additional mortal wound.',
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   SKINKS: {
     name: 'Skinks',
@@ -227,8 +276,14 @@ export const Units: IUnits = {
       {
         name: 'Instinctive Defence',
         desc:
-          ' Once per turn, if an enemy unit ends a charge move within 3" of this unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.',
+          'Once per turn, if an enemy unit ends a charge move within 3" of this unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.',
         when: [CHARGE_PHASE],
+      },
+      {
+        name: 'Piercing Barbs',
+        desc:
+          'If a Razordon shoots a Volley of Spikes at a target within 6", it has a Rend characteristic of -1 rather than `-`.',
+        when: [SHOOTING_PHASE],
       },
     ],
   },
