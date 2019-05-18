@@ -50,7 +50,7 @@ export const processReminders = (factionName: TSupportedFaction, selections: ISe
     return accum
   }, {})
 
-  // Add Abilities ()
+  // Add Abilities
   if (armyObj.Abilities && armyObj.Abilities.length) {
     armyObj.Abilities.forEach((a: IEffects) => {
       const t: ITurnAction = {
