@@ -29,11 +29,6 @@ export const Units: IUnits = {
     name: 'Lord Kroak',
     effects: [
       {
-        name: 'Celestial Configuration',
-        desc: 'Roll a dice and see which constellation is in the ascendant, and how it affects your army.',
-        when: [SETUP_END],
-      },
-      {
         name: 'Celestial Conjuration',
         desc:
           'Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.',
