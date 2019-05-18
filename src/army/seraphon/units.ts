@@ -133,7 +133,7 @@ export const Units: IUnits = {
       {
         name: 'Serpent Staff',
         desc:
-          'In your hero phase, a Skink Starpriest can level its staff at a SERAPHON unit in your army that is within 8", granting them the venom of the two-headed celestial serpent. Until your next hero phase, whenever models from that unit attack with their bite or jaws, a wound roll of 6 or more causes twice the normal amount of Damage.',
+          'A Skink Starpriest can level its staff at a SERAPHON unit in your army that is within 8", granting them the venom of the two-headed celestial serpent. Until your next hero phase, whenever models from that unit attack with their bite or jaws, a wound roll of 6 or more causes twice the normal amount of Damage.',
         when: [HERO_PHASE],
       },
     ],
@@ -207,13 +207,13 @@ export const Units: IUnits = {
       {
         name: 'Chameleon Ambush',
         desc:
-          'Instead of setting up this unit on the battlefield, you can place it to one side and say that it is in hiding. In any of your movement phases, you can reveal a unit that is in hiding by setting it up anywhere on the battlefield.',
+          'Instead of setting up Chameleon Skinks on the battlefield, you can place it to one side and say that it is in hiding. In any of your movement phases, you can reveal a unit that is in hiding by setting it up anywhere on the battlefield.',
         when: [MOVEMENT_PHASE],
       },
       {
         name: 'Disappear From Sight',
         desc:
-          'In your hero phase, this unit can blend with its surroundings and go into hiding. If it does so, remove it from the battlefield. You can reveal it via "Chameleon Ambush" in any subsequent turn.',
+          'Chameleon Skinks can blend with its surroundings and go into hiding. If it does so, remove it from the battlefield. You can reveal it via "Chameleon Ambush" in any subsequent turn.',
         when: [HERO_PHASE],
       },
     ],
@@ -276,7 +276,7 @@ export const Units: IUnits = {
       {
         name: 'Instinctive Defence',
         desc:
-          'Once per turn, if an enemy unit ends a charge move within 3" of this unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.',
+          'Once per turn, if an enemy unit ends a charge move within 3" of a Razordon unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.',
         when: [CHARGE_PHASE],
       },
       {
@@ -337,7 +337,7 @@ export const Units: IUnits = {
       },
       {
         name: 'Arcane Glyphs',
-        desc: 'In your hero phase, you can heal up to D3 wounds allocated to this model.',
+        desc: 'You can heal up to D3 wounds allocated to this model.',
         when: [HERO_PHASE],
       },
     ],
@@ -361,7 +361,7 @@ export const Battalions: IBattalions = {
       {
         name: 'The Trap is Sprung',
         desc:
-          'In your hero phase, pick a unit that is visible to the starhost’s Skink Priest or Starpriest. Until your next hero phase, you can re-roll hit and wound rolls of 1 for units from the Shadowstrike Starhost that attack the unit you picked.',
+          'Pick a unit that is visible to the starhost’s Skink Priest or Starpriest. Until your next hero phase, you can re-roll hit and wound rolls of 1 for units from the Shadowstrike Starhost that attack the unit you picked.',
         when: [HERO_PHASE],
       },
       {
@@ -406,7 +406,7 @@ export const Battalions: IBattalions = {
       {
         name: 'Strategic Mastery',
         desc:
-          'At the start of the battle, you receive D3+1 command points, instead of 1, for each Starbeast Constellation in your army.',
+          'You receive D3+1 command points, instead of 1, for each Starbeast Constellation in your army.',
         when: [GAME_START],
       },
     ],
@@ -467,7 +467,7 @@ export const Battalions: IBattalions = {
       {
         name: "Appear at Kuoteq's Command",
         desc:
-          'In your hero phase, you can set up one or more of the reserve units waiting to appear at Kuoteq\'s command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up on the battlefield for the first time cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq’s command which are not set up on the battlefield before the start of the fourth battle round are slain.',
+          'You can set up one or more of the reserve units waiting to appear at Kuoteq\'s command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up on the battlefield for the first time cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq’s command which are not set up on the battlefield before the start of the fourth battle round are slain.',
         when: [HERO_PHASE],
       },
     ],
