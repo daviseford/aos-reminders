@@ -7,7 +7,9 @@ export interface ITurnAction {
   hint?: string
 }
 
-export const Game: { [key: string]: ITurnAction[] } = {
+export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }
+
+export const Game: TGameStructure = {
   // General actions
   [Phases.GAME_START]: [],
   [Phases.SETUP_START]: [],

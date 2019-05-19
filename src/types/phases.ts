@@ -71,11 +71,6 @@ export type TGameDuring = 'DURING_GAME'
 export type TTurnStart = 'START_OF_TURN'
 export type TTurnDuring = 'DURING_TURN'
 export type TTurnEnd = 'END_OF_TURN'
-export type TTurnOne = 'TURN_ONE'
-export type TTurnTwo = 'TURN_TWO'
-export type TTurnThree = 'TURN_THREE'
-export type TTurnFour = 'TURN_FOUR'
-export type TTurnFive = 'TURN_FIVE'
 export type TGameEnd = 'END_OF_GAME'
 
 // Turn Exports
@@ -87,15 +82,9 @@ export const GAME_DURING: TGameDuring = 'DURING_GAME'
 export const START_OF_TURN: TTurnStart = 'START_OF_TURN'
 export const DURING_TURN: TTurnDuring = 'DURING_TURN'
 export const TURN_END: TTurnEnd = 'END_OF_TURN'
-export const TURN_ONE: TTurnOne = 'TURN_ONE'
-export const TURN_TWO: TTurnTwo = 'TURN_TWO'
-export const TURN_THREE: TTurnThree = 'TURN_THREE'
-export const TURN_FOUR: TTurnFour = 'TURN_FOUR'
-export const TURN_FIVE: TTurnFive = 'TURN_FIVE'
 export const GAME_END: TGameEnd = 'END_OF_GAME'
 
 // Specific Turn Phases
-
 export type TTurnOne_START_OF_TURN = 'TURN_ONE_START_OF_TURN'
 export type TTurnOne_DURING_TURN = 'TURN_ONE_DURING_TURN'
 export type TTurnOne_START_OF_HERO_PHASE = 'TURN_ONE_START_OF_HERO_PHASE'
@@ -328,11 +317,6 @@ export type TTurnWhen =
   | TGameDuring
   | TTurnStart
   | TTurnEnd
-  | TTurnOne
-  | TTurnTwo
-  | TTurnThree
-  | TTurnFour
-  | TTurnFive
   | TGameEnd
   | THeroPhaseStart
   | THeroPhase
@@ -457,3 +441,4 @@ export type TTurnWhen =
   | TTurnFive_BATTLESHOCK_PHASE
   | TTurnFive_END_OF_BATTLESHOCK_PHASE
   | TTurnFive_END_OF_TURN
+  | TTurnDuring
