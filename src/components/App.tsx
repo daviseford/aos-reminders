@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Reminders from './info/reminders'
 import * as SeraphonArmy from '../army/seraphon/index'
 import { SERAPHON } from 'meta/factions'
-import { ArmyBuilder } from './input/select_army'
+import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
 
 const App = () => {

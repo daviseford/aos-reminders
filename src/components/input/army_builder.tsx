@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
 
 import { IUnits, IArtifacts, IBattalions } from 'types/army'
-import './select_army.css'
+import './army_builder.css'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion'
 type TUpdateState = (val: string, idx: number, type: TFocusType) => any
