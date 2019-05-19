@@ -1,6 +1,6 @@
 import { IArtifacts } from 'types/army'
 
-import { GAME_DURING, GAME_START, HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
+import { DURING_GAME, START_OF_GAME, HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const Artifacts: IArtifacts = {
   ZOETIC_DIAL: {
@@ -10,7 +10,7 @@ const Artifacts: IArtifacts = {
         name: 'Zoetic Dial',
         desc:
           'Roll a dice after set-up is complete, but before the battle begins. In the battle round corresponding to the number you roll, you can re-roll failed save rolls for the bearer. If you roll a 6, you can decide to use this ability at the start of any one battle round, rather than having to use it in the 6th battle round.',
-        when: GAME_DURING,
+        when: DURING_GAME,
       },
     ],
   },
@@ -21,7 +21,7 @@ const Artifacts: IArtifacts = {
         name: 'Incandescent Rectrices',
         desc:
           'Roll a dice the first time a wound is allocated to the bearer that would slay them. On a 1-2 the bearer is slain. On a 3+ heal D6 wounds allocated to the bearer instead.',
-        when: GAME_DURING,
+        when: DURING_GAME,
       },
     ],
   },
@@ -31,7 +31,7 @@ const Artifacts: IArtifacts = {
       {
         name: 'Blade of Realities',
         desc: 'Pick one of the bearer’s melee weapons. Improve the Rend characteristic of that weapon by 1.',
-        when: GAME_START,
+        when: START_OF_GAME,
       },
     ],
   },

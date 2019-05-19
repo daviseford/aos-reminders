@@ -11,11 +11,11 @@ export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }
 
 export const Game: TGameStructure = {
   // General actions
-  [Phases.GAME_START]: [],
-  [Phases.SETUP_START]: [],
-  [Phases.SETUP_DURING]: [],
-  [Phases.SETUP_END]: [],
-  [Phases.GAME_DURING]: [],
+  [Phases.START_OF_GAME]: [],
+  [Phases.START_OF_SETUP]: [],
+  [Phases.DURING_SETUP]: [],
+  [Phases.END_OF_SETUP]: [],
+  [Phases.DURING_GAME]: [],
 
   // Per-turn actions
   [Phases.TURN_ONE_START_OF_TURN]: [],
@@ -191,7 +191,7 @@ export const Game: TGameStructure = {
   [Phases.BATTLESHOCK_PHASE]: [],
   [Phases.END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
-  [Phases.TURN_END]: [],
+  [Phases.END_OF_TURN]: [],
   // Game End
-  [Phases.GAME_END]: [],
+  [Phases.END_OF_GAME]: [],
 }

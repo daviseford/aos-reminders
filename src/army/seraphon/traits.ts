@@ -1,6 +1,6 @@
 import { ICommandTraits } from 'types/army'
 
-import { HERO_PHASE, COMBAT_PHASE, GAME_DURING, START_OF_HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import { HERO_PHASE, COMBAT_PHASE, DURING_GAME, START_OF_HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import { Tags } from './units'
 
 const CommandTraits: ICommandTraits = {
@@ -27,7 +27,7 @@ const CommandTraits: ICommandTraits = {
     },
     'Thickly Scaled Hide': {
       desc: 'You can re-roll save rolls of 1 for this general.',
-      when: GAME_DURING,
+      when: DURING_GAME,
     },
     'Mighty War Leader': {
       desc:
@@ -44,7 +44,7 @@ const CommandTraits: ICommandTraits = {
     Nimble: {
       desc:
         'Add 1 to this general’s Move characteristic. In addition, add 1 to save rolls for this general as long as they are not riding upon a mount.',
-      when: GAME_DURING,
+      when: DURING_GAME,
     },
     Cunning: {
       desc:

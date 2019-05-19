@@ -74,15 +74,15 @@ export type TTurnEnd = 'END_OF_TURN'
 export type TGameEnd = 'END_OF_GAME'
 
 // Turn Exports
-export const SETUP_START: TSetupStart = 'START_OF_SETUP'
-export const SETUP_DURING: TDuringSetup = 'DURING_SETUP'
-export const SETUP_END: TSetupEnd = 'END_OF_SETUP'
-export const GAME_START: TGameStart = 'START_OF_GAME'
-export const GAME_DURING: TGameDuring = 'DURING_GAME'
+export const START_OF_SETUP: TSetupStart = 'START_OF_SETUP'
+export const DURING_SETUP: TDuringSetup = 'DURING_SETUP'
+export const END_OF_SETUP: TSetupEnd = 'END_OF_SETUP'
+export const START_OF_GAME: TGameStart = 'START_OF_GAME'
+export const DURING_GAME: TGameDuring = 'DURING_GAME'
 export const START_OF_TURN: TTurnStart = 'START_OF_TURN'
 export const DURING_TURN: TTurnDuring = 'DURING_TURN'
-export const TURN_END: TTurnEnd = 'END_OF_TURN'
-export const GAME_END: TGameEnd = 'END_OF_GAME'
+export const END_OF_TURN: TTurnEnd = 'END_OF_TURN'
+export const END_OF_GAME: TGameEnd = 'END_OF_GAME'
 
 // Specific Turn Phases
 export type TTurnOne_START_OF_TURN = 'TURN_ONE_START_OF_TURN'

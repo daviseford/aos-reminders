@@ -1,6 +1,6 @@
 import { IBattalions, IUnits } from 'types/army'
 import {
-  SETUP_END,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -11,8 +11,8 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_CHARGE_PHASE,
-  GAME_START,
-  SETUP_DURING,
+  START_OF_GAME,
+  DURING_SETUP,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
@@ -43,7 +43,7 @@ export const Units: IUnits = {
       {
         name: 'Celestial Configuration',
         desc: 'Roll a dice and see which constellation is in the ascendant, and how it affects your army.',
-        when: SETUP_END,
+        when: END_OF_SETUP,
       },
       {
         name: 'Celestial Conjuration',
@@ -357,7 +357,7 @@ export const Battalions: IBattalions = {
         name: 'Stealthy Advance',
         desc:
           'After set-up is complete, you can roll two dice for each unit in a Shadowstrike Starhost and move all of its models up to that many inches.',
-        when: SETUP_END,
+        when: END_OF_SETUP,
       },
       {
         name: 'The Trap is Sprung',
@@ -407,7 +407,7 @@ export const Battalions: IBattalions = {
       {
         name: 'Strategic Mastery',
         desc: 'You receive D3+1 command points, instead of 1, for each Starbeast Constellation in your army.',
-        when: GAME_START,
+        when: START_OF_GAME,
       },
     ],
   },
@@ -451,7 +451,7 @@ export const Battalions: IBattalions = {
       {
         name: 'First Oldblood',
         desc: 'Add 1 to the number of command points you start the battle with.',
-        when: GAME_START,
+        when: START_OF_GAME,
       },
     ],
   },
@@ -462,7 +462,7 @@ export const Battalions: IBattalions = {
         name: "Appear at Kuoteq's Command",
         desc:
           'Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq’s command as a reserve unit. You can set up one reserve unit waiting to appear at Kuoteq’s command for each unit from the same battalion you set up on the battlefield.',
-        when: SETUP_DURING,
+        when: DURING_SETUP,
       },
       {
         name: "Appear at Kuoteq's Command",
