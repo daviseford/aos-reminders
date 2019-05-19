@@ -1,34 +1,33 @@
-import { ITurnAction, Game } from 'meta/turn_structure'
+import { ITurnAction, Game, TGameStructure } from 'meta/turn_structure'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder } from 'types/data'
-import { getArmy } from './getArmy'
+import { IArmy } from 'types/army'
 
-export const processReminders = (factionName: TSupportedFaction, selections: ISelections): IReminder => {
-  const armyObj = getArmy(factionName)
-  const game = armyObj.Game
+export const processReminders = (army: IArmy, factionName: TSupportedFaction, selections: ISelections): IReminder => {
+  const game: TGameStructure = army.Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
   const reminders = Object.keys(game).reduce((accum, key) => {
-    const x = game[key]
+    const phase = game[key]
     const addToAccum = (actions: ITurnAction[], when: string) => {
       actions.forEach((y: ITurnAction) => {
         const c = y.condition.filter((z: string) => conds.includes(z))
         if (c.length) {
           const e = { ...y, condition: c }
-          accum[when] = accum[when] ? [...accum[when], e] : [e]
+          accum[when] = accum[when] ? accum[when].concat(e) : [e]
         }
       })
     }
-    if (x.length) {
-      addToAccum(x, key)
+    if (phase.length) {
+      addToAccum(phase, key)
     }
     return accum
   }, {})
 
   // Add Abilities
-  if (armyObj.Abilities && armyObj.Abilities.length) {
-    armyObj.Abilities.forEach((a: IEffects) => {
+  if (army.Abilities && army.Abilities.length) {
+    army.Abilities.forEach((a: IEffects) => {
       const t: ITurnAction = {
         name: a.name,
         action: a.desc,

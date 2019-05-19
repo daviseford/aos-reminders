@@ -112,7 +112,7 @@ export const Units: IUnits = {
       {
         name: 'Celestial Rites',
         desc:
-          'roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.',
+          'Roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.',
         when: HERO_PHASE,
       },
     ],

@@ -7,6 +7,11 @@ import {
   COMBAT_PHASE,
   CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  END_OF_TURN,
+  TURN_ONE_DURING_TURN,
+  TURN_TWO_DURING_TURN,
+  SHOOTING_PHASE,
 } from 'types/phases'
 
 // Command Trait Keywords
@@ -16,7 +21,23 @@ export const Tags = {}
 export const Units: IUnits = {
   SKRAGROTT: {
     name: 'Skragrott, The Loonking',
-    effects: [],
+    effects: [
+      {
+      name: 'Babbling Wand',
+      desc: 'If Skragrott is your general and is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive D3 extra command points.',
+      when: START_OF_HERO_PHASE
+    },
+    {
+      name: 'Da Moon Onna Stikk',
+      desc: 'If any wounds inflicted by Da Moon Onna Stikk are allocated to an enemy model and not negated, that enemy model suffers 1 mortal wound at the end of each battle round (even if the wounds inflicted by Da Moon Onna Stikk are subsequently healed).',
+      when: END_OF_TURN
+    },
+    {
+      name: 'Loonking\'s Crown',
+      desc: 'Add 1 to casting and unbinding rolls for Skragrott. In addition, roll a dice each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.',
+      when: DURING_GAME
+    },
+  ],
   },
   GROT_WARBOSS: {
     name: 'Grot Warboss',
@@ -80,11 +101,48 @@ export const Units: IUnits = {
   },
   SCAREMONGER: {
     name: 'Scaremonger',
-    effects: [],
+    effects: [
+      {
+        name: 'Hallucinogenic Fungus Brews (Scaremonger)',
+        desc: 'Add 2 to save rolls for attacks that target this model.',
+        when: TURN_ONE_DURING_TURN
+      },
+      {
+        name: 'Hallucinogenic Fungus Brews (Scaremonger)',
+        desc: 'Add 1 to save rolls for attacks that target this model.',
+        when: TURN_TWO_DURING_TURN
+      },
+      {
+        name: 'Bogeyman',
+        desc: 'You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a dice. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll charge rolls and run rolls for that unit until your next hero phase.',
+        when: HERO_PHASE
+      },
+      {
+        name: 'Slippery Git',
+        desc: 'Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.',
+        when: SHOOTING_PHASE
+      }
+    ],
   },
   BREWGIT: {
     name: 'Brewgit',
-    effects: [],
+    effects: [
+      {
+        name: 'Hallucinogenic Fungus Brews (Brewgit)',
+        desc: 'Add 2 to save rolls for attacks that target this model.',
+        when: TURN_ONE_DURING_TURN
+      },
+      {
+        name: 'Hallucinogenic Fungus Brews (Brewgit)',
+        desc: 'Add 1 to save rolls for attacks that target this model.',
+        when: TURN_TWO_DURING_TURN
+      },
+      {
+        name: 'Loonshine Potion',
+        desc: 'You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a dice. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can re-roll hit rolls for that HERO until your next hero phase.',
+        when: HERO_PHASE
+      },
+    ],
   },
   SPIKER: {
     name: 'Spiker',

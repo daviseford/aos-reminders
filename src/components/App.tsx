@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import Reminders from './info/reminders'
-import * as SeraphonArmy from '../army/seraphon/index'
 import { SERAPHON } from 'meta/factions'
 import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
 import { SelectFaction } from './input/select_faction'
+import { getArmy } from 'utils/getArmy'
 
 const App = () => {
   const [selections, setSelections] = useState({
@@ -14,6 +14,7 @@ const App = () => {
     battalions: [] as string[],
   })
   const [factionName, setFactionName] = useState(SERAPHON)
+  const memoizedArmy = useMemo(() => getArmy(factionName), [factionName])
 
   return (
     <div className="d-block">
@@ -21,8 +22,8 @@ const App = () => {
       <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} />
 
-      <ArmyBuilder army={SeraphonArmy} setSelections={setSelections} />
-      <Reminders factionName={factionName} selections={selections} />
+      <ArmyBuilder army={memoizedArmy} setSelections={setSelections} />
+      <Reminders army={memoizedArmy} factionName={factionName} selections={selections} />
 
       <PrintFooter />
     </div>

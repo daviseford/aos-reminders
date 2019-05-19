@@ -6,10 +6,11 @@ import { processReminders } from 'utils/processReminders'
 import { TSupportedFaction } from 'meta/factions'
 import './reminders.css'
 import { titleCase } from 'utils/titleCase';
+import { IArmy } from 'types/army';
 
-const Reminders = (props: { factionName: TSupportedFaction; selections: ISelections }) => {
-  const { factionName, selections } = props
-  const reminders = processReminders(factionName, selections)
+const Reminders = (props: { army: IArmy, factionName: TSupportedFaction; selections: ISelections }) => {
+  const { factionName, selections, army } = props
+  const reminders = processReminders(army, factionName, selections)
 
   return (
     <div className="row w-75 mx-auto pt-5 d-block">
