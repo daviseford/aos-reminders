@@ -245,7 +245,8 @@ export const Units: IUnits = {
         when: TURN_ONE_HERO_PHASE,
       },
       {
-        desc: 'Move Bloat Toad up to D6 inches',
+        name: 'Toad Rage',
+        desc: 'Move Blot Toad up to D6 inches',
         when: MOVEMENT_PHASE,
       },
       {
@@ -282,8 +283,7 @@ export const Units: IUnits = {
       },
       {
         name: 'Piercing Barbs',
-        desc:
-          `If a Razordon shoots a Volley of Spikes at a target within 6", it has a Rend characteristic of -1 rather than '-'.`,
+        desc: `If a Razordon shoots a Volley of Spikes at a target within 6", it has a Rend characteristic of -1 rather than '-'.`,
         when: SHOOTING_PHASE,
       },
     ],
