@@ -1,84 +1,195 @@
-import * as Meta from 'types/meta'
+import * as Phases from 'types/phases'
 
 export interface ITurnAction {
   condition: string[]
   action: string
   name?: string
-}
-export const Turn: { [key: string]: ITurnAction[] } = {
-  // Turn Start
-  [Meta.TURN_START]: [],
-  [Meta.TURN_DURING]: [],
-  // Hero
-  [Meta.HERO_PHASE_START]: [],
-  [Meta.HERO_PHASE]: [],
-  [Meta.HERO_PHASE_END]: [],
-  // Movement
-  [Meta.MOVEMENT_PHASE_START]: [],
-  [Meta.MOVEMENT_PHASE]: [],
-  [Meta.MOVEMENT_PHASE_END]: [],
-  // Shooting
-  [Meta.SHOOTING_PHASE_START]: [],
-  [Meta.SHOOTING_PHASE]: [],
-  [Meta.SHOOTING_PHASE_END]: [],
-  // Charging
-  [Meta.CHARGE_PHASE_START]: [],
-  [Meta.CHARGE_PHASE]: [],
-  [Meta.CHARGE_PHASE_END]: [],
-  // Combat
-  [Meta.COMBAT_PHASE_START]: [],
-  [Meta.COMBAT_PHASE]: [],
-  [Meta.COMBAT_PHASE_END]: [],
-  // Battleshock
-  [Meta.BATTLESHOCK_PHASE_START]: [],
-  [Meta.BATTLESHOCK_PHASE]: [],
-  [Meta.BATTLESHOCK_PHASE_END]: [],
-  // Turn End
-  [Meta.TURN_END]: [],
+  hint?: string
 }
 
-export const Game = {
+export const Game: { [key: string]: ITurnAction[] } = {
   // General actions
-  [Meta.GAME_START]: [] as ITurnAction[],
-  [Meta.SETUP_START]: [] as ITurnAction[],
-  [Meta.SETUP_DURING]: [] as ITurnAction[],
-  [Meta.SETUP_END]: [] as ITurnAction[],
-  [Meta.GAME_DURING]: [] as ITurnAction[],
-  // Any Turn Start
-  [Meta.TURN_START]: [] as ITurnAction[],
-  [Meta.TURN_DURING]: [] as ITurnAction[],
-  // Hero
-  [Meta.HERO_PHASE_START]: [] as ITurnAction[],
-  [Meta.HERO_PHASE]: [] as ITurnAction[],
-  [Meta.HERO_PHASE_END]: [] as ITurnAction[],
-  // Movement
-  [Meta.MOVEMENT_PHASE_START]: [] as ITurnAction[],
-  [Meta.MOVEMENT_PHASE]: [] as ITurnAction[],
-  [Meta.MOVEMENT_PHASE_END]: [] as ITurnAction[],
-  // Shooting
-  [Meta.SHOOTING_PHASE_START]: [] as ITurnAction[],
-  [Meta.SHOOTING_PHASE]: [] as ITurnAction[],
-  [Meta.SHOOTING_PHASE_END]: [] as ITurnAction[],
-  // Charging
-  [Meta.CHARGE_PHASE_START]: [] as ITurnAction[],
-  [Meta.CHARGE_PHASE]: [] as ITurnAction[],
-  [Meta.CHARGE_PHASE_END]: [] as ITurnAction[],
-  // Combat
-  [Meta.COMBAT_PHASE_START]: [] as ITurnAction[],
-  [Meta.COMBAT_PHASE]: [] as ITurnAction[],
-  [Meta.COMBAT_PHASE_END]: [] as ITurnAction[],
-  // Battleshock
-  [Meta.BATTLESHOCK_PHASE_START]: [] as ITurnAction[],
-  [Meta.BATTLESHOCK_PHASE]: [] as ITurnAction[],
-  [Meta.BATTLESHOCK_PHASE_END]: [] as ITurnAction[],
-  // Turn End
-  [Meta.TURN_END]: [] as ITurnAction[],
+  [Phases.GAME_START]: [],
+  [Phases.SETUP_START]: [],
+  [Phases.SETUP_DURING]: [],
+  [Phases.SETUP_END]: [],
+  [Phases.GAME_DURING]: [],
 
   // Per-turn actions
-  [Meta.TURN_ONE]: { ...Turn },
-  [Meta.TURN_TWO]: { ...Turn },
-  [Meta.TURN_THREE]: { ...Turn },
-  [Meta.TURN_FOUR]: { ...Turn },
-  [Meta.TURN_FIVE]: { ...Turn },
-  [Meta.GAME_END]: [] as ITurnAction[],
+  [Phases.TURN_ONE_START_OF_TURN]: [],
+  [Phases.TURN_ONE_DURING_TURN]: [],
+  // Hero
+  [Phases.TURN_ONE_START_OF_HERO_PHASE]: [],
+  [Phases.TURN_ONE_HERO_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.TURN_ONE_START_OF_MOVEMENT_PHASE]: [],
+  [Phases.TURN_ONE_MOVEMENT_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.TURN_ONE_START_OF_SHOOTING_PHASE]: [],
+  [Phases.TURN_ONE_SHOOTING_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.TURN_ONE_START_OF_CHARGE_PHASE]: [],
+  [Phases.TURN_ONE_CHARGE_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.TURN_ONE_START_OF_COMBAT_PHASE]: [],
+  [Phases.TURN_ONE_COMBAT_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.TURN_ONE_START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_ONE_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_ONE_END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_ONE_END_OF_TURN]: [],
+
+  [Phases.TURN_TWO_START_OF_TURN]: [],
+  [Phases.TURN_TWO_DURING_TURN]: [],
+  // Hero
+  [Phases.TURN_TWO_START_OF_HERO_PHASE]: [],
+  [Phases.TURN_TWO_HERO_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.TURN_TWO_START_OF_MOVEMENT_PHASE]: [],
+  [Phases.TURN_TWO_MOVEMENT_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.TURN_TWO_START_OF_SHOOTING_PHASE]: [],
+  [Phases.TURN_TWO_SHOOTING_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.TURN_TWO_START_OF_CHARGE_PHASE]: [],
+  [Phases.TURN_TWO_CHARGE_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.TURN_TWO_START_OF_COMBAT_PHASE]: [],
+  [Phases.TURN_TWO_COMBAT_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.TURN_TWO_START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_TWO_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_TWO_END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_TWO_END_OF_TURN]: [],
+
+  [Phases.TURN_THREE_START_OF_TURN]: [],
+  [Phases.TURN_THREE_DURING_TURN]: [],
+  // Hero
+  [Phases.TURN_THREE_START_OF_HERO_PHASE]: [],
+  [Phases.TURN_THREE_HERO_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.TURN_THREE_START_OF_MOVEMENT_PHASE]: [],
+  [Phases.TURN_THREE_MOVEMENT_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.TURN_THREE_START_OF_SHOOTING_PHASE]: [],
+  [Phases.TURN_THREE_SHOOTING_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.TURN_THREE_START_OF_CHARGE_PHASE]: [],
+  [Phases.TURN_THREE_CHARGE_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.TURN_THREE_START_OF_COMBAT_PHASE]: [],
+  [Phases.TURN_THREE_COMBAT_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.TURN_THREE_START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_THREE_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_THREE_END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_THREE_END_OF_TURN]: [],
+
+  [Phases.TURN_FOUR_START_OF_TURN]: [],
+  [Phases.TURN_FOUR_DURING_TURN]: [],
+  // Hero
+  [Phases.TURN_FOUR_START_OF_HERO_PHASE]: [],
+  [Phases.TURN_FOUR_HERO_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.TURN_FOUR_START_OF_MOVEMENT_PHASE]: [],
+  [Phases.TURN_FOUR_MOVEMENT_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.TURN_FOUR_START_OF_SHOOTING_PHASE]: [],
+  [Phases.TURN_FOUR_SHOOTING_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.TURN_FOUR_START_OF_CHARGE_PHASE]: [],
+  [Phases.TURN_FOUR_CHARGE_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.TURN_FOUR_START_OF_COMBAT_PHASE]: [],
+  [Phases.TURN_FOUR_COMBAT_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.TURN_FOUR_START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_FOUR_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_FOUR_END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_FOUR_END_OF_TURN]: [],
+
+  [Phases.TURN_FIVE_START_OF_TURN]: [],
+  [Phases.TURN_FIVE_DURING_TURN]: [],
+  // Hero
+  [Phases.TURN_FIVE_START_OF_HERO_PHASE]: [],
+  [Phases.TURN_FIVE_HERO_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.TURN_FIVE_START_OF_MOVEMENT_PHASE]: [],
+  [Phases.TURN_FIVE_MOVEMENT_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.TURN_FIVE_START_OF_SHOOTING_PHASE]: [],
+  [Phases.TURN_FIVE_SHOOTING_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.TURN_FIVE_START_OF_CHARGE_PHASE]: [],
+  [Phases.TURN_FIVE_CHARGE_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.TURN_FIVE_START_OF_COMBAT_PHASE]: [],
+  [Phases.TURN_FIVE_COMBAT_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.TURN_FIVE_START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_FIVE_BATTLESHOCK_PHASE]: [],
+  [Phases.TURN_FIVE_END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_FIVE_END_OF_TURN]: [],
+
+  // Any Turn Actions
+  [Phases.START_OF_TURN]: [],
+  [Phases.DURING_TURN]: [],
+  // Hero
+  [Phases.START_OF_HERO_PHASE]: [],
+  [Phases.HERO_PHASE]: [],
+  [Phases.END_OF_HERO_PHASE]: [],
+  // Movement
+  [Phases.START_OF_MOVEMENT_PHASE]: [],
+  [Phases.MOVEMENT_PHASE]: [],
+  [Phases.END_OF_MOVEMENT_PHASE]: [],
+  // Shooting
+  [Phases.START_OF_SHOOTING_PHASE]: [],
+  [Phases.SHOOTING_PHASE]: [],
+  [Phases.END_OF_SHOOTING_PHASE]: [],
+  // Charging
+  [Phases.START_OF_CHARGE_PHASE]: [],
+  [Phases.CHARGE_PHASE]: [],
+  [Phases.END_OF_CHARGE_PHASE]: [],
+  // Combat
+  [Phases.START_OF_COMBAT_PHASE]: [],
+  [Phases.COMBAT_PHASE]: [],
+  [Phases.END_OF_COMBAT_PHASE]: [],
+  // Battleshock
+  [Phases.START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.BATTLESHOCK_PHASE]: [],
+  [Phases.END_OF_BATTLESHOCK_PHASE]: [],
+  // Turn End
+  [Phases.TURN_END]: [],
+  // Game End
+  [Phases.GAME_END]: [],
 }

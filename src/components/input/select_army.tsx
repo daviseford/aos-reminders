@@ -86,6 +86,7 @@ const Card = (props: ICardProps) => {
                 idx={idx}
                 val={props.entries[idx] || ''}
                 type={props.type}
+                key={`row-${props.type}-${idx}`}
               />
             )
           })}
@@ -129,13 +130,13 @@ interface ISelectProps {
 const Select = (props: ISelectProps) => {
   return (
     <Fragment>
-      <select className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
+      <select value={props.val} className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
         {props.val ? (
-          <option value={props.val} key={`${props.idx}-${props.type}`} selected>
+          <option value={props.val} key={`${props.idx}-${props.type}`}>
             {props.val}
           </option>
         ) : (
-          <option value={''} key={`none-${props.type}`} selected>{`-- Select ${props.type} --`}</option>
+          <option value={''} key={`none-${props.type}`}>{`-- Select ${props.type} --`}</option>
         )}
         {Object.keys(props.items).map((k, i) => {
           if (props.val === k) return null // Prevent showing duplicate

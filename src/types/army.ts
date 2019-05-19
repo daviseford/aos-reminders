@@ -1,4 +1,4 @@
-import { TTurnWhen } from './meta'
+import { TTurnWhen } from './phases'
 import { IEffects } from './data'
 
 export interface IArtifacts {
@@ -26,7 +26,7 @@ export interface ICommandTraits {
   [trait: string]: {
     [unit: string]: {
       desc: string
-      when: TTurnWhen[]
+      when: TTurnWhen
     }
   }
 }

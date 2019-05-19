@@ -1,5 +1,4 @@
 import { ITurnAction, Game } from 'meta/turn_structure'
-import { isArray, isPlainObject } from 'lodash'
 
 // Armies
 import * as SeraphonArmy from '../army/seraphon/index'
@@ -24,28 +23,17 @@ export const processReminders = (factionName: TSupportedFaction, selections: ISe
 
   const reminders = Object.keys(game).reduce((accum, key) => {
     const x = game[key]
-    const addToAccum = (arr: ITurnAction[], when: string[]) => {
-      arr.forEach((y: ITurnAction) => {
+    const addToAccum = (actions: ITurnAction[], when: string) => {
+      actions.forEach((y: ITurnAction) => {
         const c = y.condition.filter((z: string) => conds.includes(z))
         if (c.length) {
           const e = { ...y, condition: c }
-          if (when.length === 1) {
-            accum[when[0]] = accum[when[0]] ? [...accum[when[0]], e] : [e]
-          } else {
-            const k = `${when[0]} - ${when[1]}`
-            accum[k] = accum[k] ? [...accum[k], e] : [e]
-          }
+          accum[when] = accum[when] ? [...accum[when], e] : [e]
         }
       })
     }
-    if (isArray(x) && x.length) {
-      addToAccum(x, [key])
-    } else if (isPlainObject(x)) {
-      const turn = key
-      Object.keys(x).forEach(phase => {
-        const y = x[phase]
-        addToAccum(y, [turn, phase])
-      })
+    if (x.length) {
+      addToAccum(x, key)
     }
     return accum
   }, {})
@@ -58,31 +46,15 @@ export const processReminders = (factionName: TSupportedFaction, selections: ISe
         action: a.desc,
         condition: [factionName],
       }
-      if (a.when.length === 1) {
-        reminders[a.when[0]] = reminders[a.when[0]] ? [...reminders[a.when[0]], t] : [t]
-      } else {
-        const k = `${a.when[0]} - ${a.when[1]}`
-        reminders[k] = reminders[k] ? [...reminders[k], t] : [t]
-      }
+      reminders[a.when] = reminders[a.when] ? [...reminders[a.when], t] : [t]
     })
   }
 
   // Last step, we need to sort by the original order
   const ordered = Object.keys(Game).reduce((accum, key) => {
-    const x = Game[key]
-    if (isArray(x)) {
-      if (reminders[key]) {
-        accum[key] = reminders[key]
-      }
-    } else {
-      Object.keys(x).forEach(k => {
-        const joinedKey = `${key} - ${k}`
-        if (reminders[joinedKey]) {
-          accum[joinedKey] = reminders[joinedKey]
-        }
-      })
+    if (reminders[key]) {
+      accum[key] = reminders[key]
     }
-
     return accum
   }, {})
 

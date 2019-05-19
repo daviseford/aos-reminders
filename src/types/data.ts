@@ -1,9 +1,9 @@
-import { TTurnWhen } from './meta'
+import { TTurnWhen } from './phases'
 
 export interface IEffects {
   name?: string
   desc: string
-  when: TTurnWhen[]
+  when: TTurnWhen
 }
 
 export interface ITurnAction {
