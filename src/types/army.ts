@@ -1,5 +1,6 @@
 import { TTurnWhen } from './phases'
 import { IEffects } from './data'
+import { TGameStructure } from 'meta/turn_structure'
 
 export interface IArtifacts {
   [artifact: string]: {
@@ -55,8 +56,10 @@ export interface IBattalion {
 }
 
 export interface IArmy {
-  heroes: IHero[]
-  units: IUnit[]
-  monsters: IMonster[]
-  battalions: IBattalion[]
+  Abilities: IEffects[]
+  Artifacts: IArtifacts
+  Battalions: IBattalions
+  Game: TGameStructure
+  Traits: ICommandTraits
+  Units: IUnits
 }

@@ -3,8 +3,8 @@ import { Units, Battalions } from './units'
 import Artifacts from './artifacts'
 import { processEffects } from 'utils/processEffects'
 
-const Seraphon_Game: TGameStructure = { ...Game }
+const Gloomspite_Game: TGameStructure = { ...Game }
 
-processEffects(Seraphon_Game, [Units, Battalions, Artifacts])
+processEffects(Gloomspite_Game, [Units, Battalions, Artifacts])
 
-export default Seraphon_Game
+export default Gloomspite_Game

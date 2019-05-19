@@ -1,20 +1,8 @@
 import { ITurnAction, Game } from 'meta/turn_structure'
-
-// Armies
-import * as SeraphonArmy from '../army/seraphon/index'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
-import { IEffects } from 'types/data'
-
-export interface IReminder {
-  [key: string]: ITurnAction[]
-}
-
-const getArmy = (name: TSupportedFaction) => {
-  return {
-    SERAPHON: { ...SeraphonArmy },
-  }[name]
-}
+import { IEffects, IReminder } from 'types/data'
+import { getArmy } from './getArmy'
 
 export const processReminders = (factionName: TSupportedFaction, selections: ISelections): IReminder => {
   const armyObj = getArmy(factionName)
