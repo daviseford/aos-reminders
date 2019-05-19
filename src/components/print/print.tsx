@@ -1,12 +1,12 @@
 import React from 'react'
-import _ from 'lodash'
 
 import { ISelections } from 'types/selections'
+import { titleCase } from 'utils/titleCase';
 
 export const PrintHeader = (props: { factionName: string }) => {
   return (
     <header className={'text-center mt-5 d-none d-print-block'}>
-      <h1>AoS Reminders - {_.startCase(_.camelCase(props.factionName))}</h1>
+      <h1>AoS Reminders - {titleCase(props.factionName)}</h1>
     </header>
   )
 }

@@ -130,7 +130,11 @@ interface ISelectProps {
 const Select = (props: ISelectProps) => {
   return (
     <Fragment>
-      <select value={props.val} className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx, props.type)}>
+      <select
+        value={props.val}
+        className="custom-select"
+        onChange={e => props.handleChange(e.target.value, props.idx, props.type)}
+      >
         {props.val ? (
           <option value={props.val} key={`${props.idx}-${props.type}`}>
             {props.val}
@@ -150,12 +154,3 @@ const Select = (props: ISelectProps) => {
     </Fragment>
   )
 }
-
-// const Input = (props: { updateArmyName: (name: string) => any }) => {
-//   const [name, setName] = useState('')
-//   return (
-//     <Fragment>
-//       <input value={name} onChange={e => setName(e.target.value)} placeholder="Army Name" type="text" />
-//     </Fragment>
-//   )
-// }

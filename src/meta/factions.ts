@@ -8,3 +8,4 @@ export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 
 // Supported Factions
 export type TSupportedFaction = TSeraphon | TGloomspiteGitz
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = [SERAPHON, GLOOMSPITE_GITZ]

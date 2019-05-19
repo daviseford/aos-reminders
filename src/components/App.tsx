@@ -5,23 +5,24 @@ import * as SeraphonArmy from '../army/seraphon/index'
 import { SERAPHON } from 'meta/factions'
 import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
+import { SelectFaction } from './input/select_faction'
 
 const App = () => {
-  // const [factionName, setFactionName] = useState(SERAPHON)
   const [selections, setSelections] = useState({
     units: [] as string[],
     artifacts: [] as string[],
     battalions: [] as string[],
   })
+  const [factionName, setFactionName] = useState(SERAPHON)
 
   return (
     <div className="d-block">
-      <Header />
-      <PrintHeader factionName={SERAPHON} />
+      <Header setFactionName={setFactionName} factionName={factionName} />
+      <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} />
 
       <ArmyBuilder army={SeraphonArmy} setSelections={setSelections} />
-      <Reminders factionName={SERAPHON} selections={selections} />
+      <Reminders factionName={factionName} selections={selections} />
 
       <PrintFooter />
     </div>
@@ -31,7 +32,7 @@ const App = () => {
 /**
  * Don't worry, it's hidden when printing
  */
-const Header = () => {
+const Header = ({ setFactionName, factionName }) => {
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
       <div className="container">
@@ -42,8 +43,11 @@ const Header = () => {
             daviseford.com
           </a>
         </p>
+
+        <SelectFaction setFactionName={setFactionName} factionName={factionName} />
+
         <p>
-          Right now, this tool offers personalized gameplay reminders for Seraphon.
+          Right now, this tool offers personalized gameplay reminders for Seraphon and Gloomspite Gitz.
           <br />
           Other armies may be added if there is demand.
         </p>
