@@ -3,9 +3,9 @@ import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder } from 'types/data'
 import { IArmy } from 'types/army'
+import { titleCase } from './titleCase'
 
 export const processReminders = (army: IArmy, factionName: TSupportedFaction, selections: ISelections): IReminder => {
-  console.log('running')
   const game: TGameStructure = army.Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
@@ -32,7 +32,7 @@ export const processReminders = (army: IArmy, factionName: TSupportedFaction, se
       const t: ITurnAction = {
         name: a.name,
         action: a.desc,
-        condition: [factionName],
+        condition: [titleCase(factionName)],
       }
       reminders[a.when] = reminders[a.when] ? reminders[a.when].concat(t) : [t]
     })
