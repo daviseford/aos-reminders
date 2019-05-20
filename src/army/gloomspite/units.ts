@@ -541,7 +541,7 @@ export const Units: IUnits = {
       {
         name: 'Ambush From Beyond',
         desc:
-          'Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit.',
+          'Instead of setting up the Skitterstrand Arachnarok on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit.',
         when: START_OF_SETUP,
       },
       {
