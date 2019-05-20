@@ -175,7 +175,7 @@ const Artifacts: IArtifacts = {
       {
         name: 'Shiny Wotnot',
         desc:
-          'Roll a dice each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was inflicted by an endless spell, on a 6+ the mortal wound is negated and the endless spell is dispelled instead.',
+          'Roll a dice each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was inflicted by an endless spell, on a 6+ that mortal wound is negated, and that endless spell is dispelled (any other mortal wounds it could have inflicted are negated).',
         when: HERO_PHASE,
       },
     ],
