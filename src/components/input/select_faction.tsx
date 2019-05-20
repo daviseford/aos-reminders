@@ -10,7 +10,7 @@ interface ISelectFactionsProps {
 
 export const SelectFaction = (props: ISelectFactionsProps) => {
   return (
-    <div className="row w-25 mx-auto pb-3 d-block mx-4">
+    <div className="row w-50 mx-auto pb-3 d-block">
       <Select {...props} />
     </div>
   )
