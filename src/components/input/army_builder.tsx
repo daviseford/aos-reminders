@@ -1,8 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
-
-import { IUnits, IArtifacts, IBattalions } from 'types/army'
 import './army_builder.css'
+import { IUnits, IArtifacts, IBattalions } from 'types/army'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion'
 type TUpdateState = (val: string, idx: number, type: TFocusType) => any
@@ -17,6 +16,7 @@ interface IArmyBuilderProps {
 }
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
+  const { army, setSelections } = props
   const [units, setUnits] = useState([] as string[])
   const [battalions, setBattalions] = useState([] as string[])
   const [artifacts, setArtifacts] = useState([] as string[])
@@ -51,15 +51,15 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   }
 
   useEffect(() => {
-    props.setSelections({ units, battalions, artifacts })
-  }, [units, battalions, artifacts, props])
+    setSelections({ units, battalions, artifacts })
+  }, [units, battalions, artifacts, setSelections])
 
   return (
     <div className="row d-print-none">
       <div className="card-group mx-auto">
-        <Card items={props.army.Units} entries={units} type={'unit'} updateState={updateState} />
-        <Card items={props.army.Artifacts} entries={artifacts} type={'artifact'} updateState={updateState} />
-        <Card items={props.army.Battalions} entries={battalions} type={'battalion'} updateState={updateState} />
+        <Card items={army.Units} entries={units} type={'unit'} updateState={updateState} />
+        <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={updateState} />
+        <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={updateState} />
       </div>
     </div>
   )

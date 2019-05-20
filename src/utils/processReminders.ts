@@ -5,6 +5,7 @@ import { IEffects, IReminder } from 'types/data'
 import { IArmy } from 'types/army'
 
 export const processReminders = (army: IArmy, factionName: TSupportedFaction, selections: ISelections): IReminder => {
+  console.log('running')
   const game: TGameStructure = army.Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
@@ -33,7 +34,7 @@ export const processReminders = (army: IArmy, factionName: TSupportedFaction, se
         action: a.desc,
         condition: [factionName],
       }
-      reminders[a.when] = reminders[a.when] ? [...reminders[a.when], t] : [t]
+      reminders[a.when] = reminders[a.when] ? reminders[a.when].concat(t) : [t]
     })
   }
 

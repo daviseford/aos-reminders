@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react'
-
-import { ITurnAction } from 'meta/turn_structure'
-import { ISelections } from 'types/selections'
-import { processReminders } from 'utils/processReminders'
-import { TSupportedFaction } from 'meta/factions'
+import React, { Fragment, useMemo } from 'react'
 import './reminders.css'
-import { titleCase } from 'utils/titleCase';
-import { IArmy } from 'types/army';
+import { ITurnAction } from 'meta/turn_structure'
+import { TSupportedFaction } from 'meta/factions'
+import { processReminders } from 'utils/processReminders'
+import { titleCase } from 'utils/titleCase'
+import { ISelections } from 'types/selections'
+import { IArmy } from 'types/army'
 
-const Reminders = (props: { army: IArmy, factionName: TSupportedFaction; selections: ISelections }) => {
+const Reminders = (props: { army: IArmy; factionName: TSupportedFaction; selections: ISelections }) => {
   const { factionName, selections, army } = props
-  const reminders = processReminders(army, factionName, selections)
+  const reminders = useMemo(() => processReminders(army, factionName, selections), [army, factionName, selections])
 
   return (
     <div className="row w-75 mx-auto pt-5 d-block">

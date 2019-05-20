@@ -10,18 +10,13 @@ interface ISelectFactionsProps {
 
 export const SelectFaction = (props: ISelectFactionsProps) => {
   return (
-    <div className="row w-25 mx-auto pb-3 d-block">
+    <div className="row w-25 mx-auto pb-3 d-block mx-4">
       <Select {...props} />
     </div>
   )
 }
 
-interface ISelectProps {
-  setFactionName: (factionName: string) => any
-  factionName: string
-}
-
-const Select = (props: ISelectProps) => {
+const Select = (props: ISelectFactionsProps) => {
   return (
     <Fragment>
       <select value={props.factionName} className="custom-select" onChange={e => props.setFactionName(e.target.value)}>
