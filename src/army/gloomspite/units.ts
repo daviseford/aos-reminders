@@ -1,4 +1,4 @@
-import { IBattalions, IUnits } from 'types/army'
+import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   HERO_PHASE,
@@ -23,8 +23,8 @@ import {
 export const Tags = {}
 
 // Unit Names
-export const Units: IUnits = {
-  SKRAGROTT: {
+export const Units: TUnits = [
+  {
     name: 'Skragrott, The Loonking',
     effects: [
       {
@@ -47,11 +47,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  GROT_WARBOSS: {
+  {
     name: 'Grot Warboss',
     effects: [],
   },
-  LOONBOSS: {
+  {
     name: 'Loonboss',
     effects: [
       {
@@ -67,7 +67,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  LOONBOSS_ON_MANGLER_SQUIG: {
+  {
     name: 'Loonboss on Mangler Squigs',
     effects: [
       {
@@ -90,7 +90,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  LOONBOSS_ON_GIANT_CAVE_SQUIG: {
+  {
     name: 'Loonboss on Giant Cave Squig',
     effects: [
       {
@@ -107,7 +107,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  LOONBOSS_WITH_GIANT_CAVE_SQUIG: {
+  {
     name: 'Loonboss with Giant Cave Squig',
     effects: [
       {
@@ -123,7 +123,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  MADCAP_SHAMAN: {
+  {
     name: 'Madcap Shaman',
     effects: [
       {
@@ -134,7 +134,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  FUNGOID_CAVE_SHAMAN: {
+  {
     name: 'Fungoid Cave-Shaman',
     effects: [
       {
@@ -156,7 +156,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ZARBAG: {
+  {
     name: 'Zarbag',
     effects: [
       {
@@ -167,15 +167,15 @@ export const Units: IUnits = {
       },
     ],
   },
-  STABBAS: {
+  {
     name: 'Stabbas',
     effects: [],
   },
-  SHOOTAS: {
+  {
     name: 'Shootas',
     effects: [],
   },
-  LOONSMASHA_FANATICS: {
+  {
     name: 'Loonsmasha Fanatics',
     effects: [
       {
@@ -198,7 +198,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SPORESPLATTA_FANATICS: {
+  {
     name: 'Sporesplatta Fanatics',
     effects: [
       {
@@ -221,7 +221,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SQUIG_HOPPERS: {
+  {
     name: 'Squig Hoppers',
     effects: [
       {
@@ -232,7 +232,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  BOINGROT_BOUNDERZ: {
+  {
     name: 'Boingrot Bounderz',
     effects: [
       {
@@ -249,11 +249,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  GROT_SQUIG_HERDERS: {
+  {
     name: 'Grot Squig Herders',
     effects: [],
   },
-  ZARBAGS_GITZ: {
+  {
     name: "Zarbag's Gitz",
     effects: [
       {
@@ -264,7 +264,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SCAREMONGER: {
+  {
     name: 'Scaremonger',
     effects: [
       {
@@ -291,7 +291,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  BREWGIT: {
+  {
     name: 'Brewgit',
     effects: [
       {
@@ -318,7 +318,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SPIKER: {
+  {
     name: 'Spiker',
     effects: [
       {
@@ -345,7 +345,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  BOGGLEYE: {
+  {
     name: 'Boggleye',
     effects: [
       {
@@ -366,7 +366,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SHROOMANCER: {
+  {
     name: 'Shroomancer',
     effects: [
       {
@@ -387,7 +387,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SNEAKY_SNUFFLERS: {
+  {
     name: 'Sneaky Snufflers',
     effects: [
       {
@@ -398,7 +398,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SQUIG_HERD: {
+  {
     name: 'Squig Herd',
     effects: [
       {
@@ -409,7 +409,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  MANGER_SQUIGS: {
+  {
     name: 'Mangler Squigs',
     effects: [
       {
@@ -426,15 +426,15 @@ export const Units: IUnits = {
       },
     ],
   },
-  COLOSSAL_SQUIG: {
+  {
     name: 'Colossal Squig',
     effects: [],
   },
-  SQUIG_GOBBAS: {
+  {
     name: 'Squig Gobba',
     effects: [],
   },
-  WEBSPINNER_SHAMAN_ON_ARACHNAROK_SPIDER: {
+  {
     name: 'Webspinner Shaman on Arachnarok Spider',
     effects: [
       {
@@ -457,7 +457,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SCUTTLEBOSS_ON_GIGANTIC_SPIDER: {
+  {
     name: 'Scuttleboss on Gigantic Spider',
     effects: [
       {
@@ -474,7 +474,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  WEBSPINNER_SHAMAN: {
+  {
     name: 'Webspinner Shaman',
     effects: [
       {
@@ -485,7 +485,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SPIDER_RIDERS: {
+  {
     name: 'Spider Riders',
     effects: [
       {
@@ -496,7 +496,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ARACHNAROK_SPIDER_WITH_FLINGER: {
+  {
     name: 'Arachnarok Spider with Flinger',
     effects: [
       {
@@ -507,7 +507,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ARACHNAROK_SPIDER_WITH_SPIDERFANG_WARPARTY: {
+  {
     name: 'Arachnarok Spider with Spiderfang Warparty',
     effects: [
       {
@@ -529,7 +529,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKITTERSTRAND_ARACHNAROK: {
+  {
     name: 'Skitterstrand Arachnarok',
     effects: [
       {
@@ -552,11 +552,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  TROGGOTH_HAG: {
+  {
     name: 'Troggoth Hag',
     effects: [],
   },
-  DANKHOLD_TROGGBOSS: {
+  {
     name: 'Dankhold Troggboss',
     effects: [
       {
@@ -591,7 +591,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  MOLLOG: {
+  {
     name: 'Mollog',
     effects: [
       {
@@ -644,7 +644,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  FELLWATER_TROGGOTHS: {
+  {
     name: 'Fellwater Troggoths',
     effects: [
       {
@@ -660,11 +660,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  SOURBREATH_TROGGOTHS: {
+  {
     name: 'Sourbreath Troggoths',
     effects: [],
   },
-  ROCKGUT_TROGGOTHS: {
+  {
     name: 'Rockgut Troggoths',
     effects: [
       {
@@ -687,7 +687,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  DANKHOLD_TROGGOTHS: {
+  {
     name: 'Dankhold Troggoths',
     effects: [
       {
@@ -716,7 +716,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ALEGUZZLER_GARGANT: {
+  {
     name: 'Aleguzzler Gargant',
     effects: [
       {
@@ -739,15 +739,15 @@ export const Units: IUnits = {
       },
     ],
   },
-  BONEGRINDER_GARGANT: {
+  {
     name: 'Bonegrinder Gargant',
     effects: [],
   },
-}
+]
 
 // Battalions
-export const Battalions: IBattalions = {
-  ARACHNAROK_SPIDER_CLUSTER: {
+export const Battalions: TBattalions = [
+  {
     name: 'Arachnarok Spider Cluster',
     effects: [
       {
@@ -758,7 +758,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  GOBBAPALOOZA: {
+  {
     name: 'Gobbapalooza',
     effects: [
       {
@@ -769,7 +769,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  MOONCLAN_SKRAP: {
+  {
     name: 'Moonclan Skrap',
     effects: [
       {
@@ -780,7 +780,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SKITTERSTRAND_NEST: {
+  {
     name: 'Skitterstrand Nest',
     effects: [
       {
@@ -791,7 +791,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SKULKMOB_HORDE: {
+  {
     name: 'Skulkmob Horde',
     effects: [
       {
@@ -802,7 +802,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SPIDERFANG_STALK_TRIBE: {
+  {
     name: 'Spiderfang Stalk Tribe',
     effects: [
       {
@@ -813,7 +813,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SPIDER_RIDER_SKITTERMOB: {
+  {
     name: 'Spider Rider Skittermob',
     effects: [
       {
@@ -823,7 +823,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SQUIGALANCHE: {
+  {
     name: 'Squigalanche',
     effects: [
       {
@@ -834,7 +834,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SQUIG_RIDER_STAMPEDE: {
+  {
     name: 'Squig Rider Stampede',
     effects: [
       {
@@ -845,7 +845,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  TROGGHERD: {
+  {
     name: 'Troggherd',
     effects: [
       {
@@ -856,4 +856,4 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-}
+]

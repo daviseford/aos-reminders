@@ -2,64 +2,22 @@ import { TTurnWhen } from './phases'
 import { IEffects } from './data'
 import { TGameStructure } from 'meta/turn_structure'
 
-export interface IArtifacts {
-  [artifact: string]: {
-    name: string
-    effects: IEffects[]
-  }
-}
-
-export interface IBattalions {
-  [battalion: string]: {
-    name: string
-    effects: IEffects[]
-  }
-}
-
-export interface IUnits {
-  [unit: string]: {
-    name: string
-    effects: IEffects[]
-  }
-}
-
-export interface ICommandTraits {
-  [trait: string]: {
-    [unit: string]: {
-      desc: string
-      when: TTurnWhen
-    }
-  }
-}
-
-export interface IUnit {
+export interface IEntry {
   name: string
-  models: string
-  desc: string
-  tags?: string[]
+  effects: IEffects[]
 }
 
-export interface IMonster {
-  name: string
-  desc: string
-  tags?: string[]
-}
-export interface IHero {
-  name: string
-  desc: string
-  tags?: string[]
-}
-
-export interface IBattalion {
-  name: string
-  desc: string
-}
+export type TArtifacts = IEntry[]
+export type TBattalions = IEntry[]
+export type TUnits = IEntry[]
+export type TCommandTraits = IEntry[]
+export type TAbilities = IEffects[]
 
 export interface IArmy {
-  Abilities: IEffects[]
-  Artifacts: IArtifacts
-  Battalions: IBattalions
+  Abilities: TAbilities
+  Artifacts: TArtifacts
+  Battalions: TBattalions
   Game: TGameStructure
-  Traits: ICommandTraits
-  Units: IUnits
+  Traits: TCommandTraits
+  Units: TUnits
 }

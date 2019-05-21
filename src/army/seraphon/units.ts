@@ -1,4 +1,4 @@
-import { IBattalions, IUnits } from 'types/army'
+import { TBattalions, TUnits } from 'types/army'
 import {
   END_OF_SETUP,
   HERO_PHASE,
@@ -25,8 +25,8 @@ export const Tags = {
 }
 
 // Unit Names
-export const Units: IUnits = {
-  LORD_KROAK: {
+export const Units: TUnits = [
+  {
     name: 'Lord Kroak',
     effects: [
       {
@@ -37,7 +37,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SLANN: {
+  {
     name: 'Slann Starmaster',
     effects: [
       {
@@ -53,7 +53,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  OLDBLOOD_ON_CARNOSAUR: {
+  {
     name: 'Saurus Oldblood on Carnosaur',
     effects: [
       {
@@ -64,27 +64,27 @@ export const Units: IUnits = {
       },
     ],
   },
-  OLDBLOOD: {
+  {
     name: 'Saurus Oldblood',
     effects: [],
   },
-  SCARVET_ON_COLD_ONE: {
+  {
     name: 'Saurus Scar-Veteran on Cold One',
     effects: [],
   },
-  ETERNITY_WARDEN: {
+  {
     name: 'Saurus Eternity Warden',
     effects: [],
   },
-  SUNBLOOD: {
+  {
     name: 'Saurus Sunblood',
     effects: [],
   },
-  SCARVET: {
+  {
     name: 'Scar-Veteran with Battle Standard',
     effects: [],
   },
-  SCARVET_ON_CARNOSAUR: {
+  {
     name: 'Saurus Scar-Veteran on Carnosaur',
     effects: [
       {
@@ -95,7 +95,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ASTROLITH_BEARER: {
+  {
     name: 'Saurus Astrolith Bearer',
     effects: [
       {
@@ -106,7 +106,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKINK_PRIEST: {
+  {
     name: 'Skink Priest',
     effects: [
       {
@@ -117,7 +117,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKINK_STARSEER: {
+  {
     name: 'Skink Starseer',
     effects: [
       {
@@ -128,7 +128,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKINK_STARPRIEST: {
+  {
     name: 'Skink Starpriest',
     effects: [
       {
@@ -139,7 +139,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  ENGINE_OF_THE_GODS: {
+  {
     name: 'Engine of the Gods',
     effects: [
       {
@@ -149,7 +149,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SAURUS_WARRIORS: {
+  {
     name: 'Saurus Warriors',
     effects: [
       {
@@ -159,7 +159,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SAURUS_GUARD: {
+  {
     name: 'Saurus Guard',
     effects: [
       {
@@ -169,7 +169,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SAURUS_KNIGHTS: {
+  {
     name: 'Saurus Knights',
     effects: [
       {
@@ -185,7 +185,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKINKS: {
+  {
     name: 'Skinks',
     effects: [
       {
@@ -202,7 +202,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  CHAMELEON_SKINKS: {
+  {
     name: 'Chameleon Skinks',
     effects: [
       {
@@ -219,7 +219,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  TERRADONS: {
+  {
     name: 'Terradon Riders',
     effects: [
       {
@@ -236,7 +236,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  RIPPERDACTYLS: {
+  {
     name: 'Ripperdactyl Riders',
     effects: [
       {
@@ -257,11 +257,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  SKINK_HANDLERS: {
+  {
     name: 'Skink Handlers',
     effects: [],
   },
-  SALAMANDERS: {
+  {
     name: 'Salamanders',
     effects: [
       {
@@ -272,7 +272,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  RAZORDONS: {
+  {
     name: 'Razordons',
     effects: [
       {
@@ -288,11 +288,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  KROXIGOR: {
+  {
     name: 'Kroxigor',
     effects: [],
   },
-  STEGADON: {
+  {
     name: 'Stegadon',
     effects: [
       {
@@ -308,11 +308,11 @@ export const Units: IUnits = {
       },
     ],
   },
-  BASTILADON: {
+  {
     name: 'Bastiladon',
     effects: [],
   },
-  TROGLODON: {
+  {
     name: 'Troglodon',
     effects: [
       {
@@ -328,7 +328,7 @@ export const Units: IUnits = {
       },
     ],
   },
-  DREAD_SAURIAN: {
+  {
     name: 'Dread Saurian',
     effects: [
       {
@@ -343,14 +343,14 @@ export const Units: IUnits = {
       },
     ],
   },
-}
+]
 
 // Battalions
-export const Battalions: IBattalions = {
-  BLOODCLAW_STARHOST: { name: 'Bloodclaw Starhost', effects: [] },
-  ETERNAL_STARHOST: { name: 'Eternal Starhost', effects: [] },
-  HEAVENSWATCH_STARHOST: { name: 'Heavenswatch Starhost', effects: [] },
-  SHADOWSTRIKE_STARHOST: {
+export const Battalions: TBattalions = [
+  { name: 'Bloodclaw Starhost', effects: [] },
+  { name: 'Eternal Starhost', effects: [] },
+  { name: 'Heavenswatch Starhost', effects: [] },
+  {
     name: 'Shadowstrike Starhost',
     effects: [
       {
@@ -373,7 +373,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  FIRELANCE_STARHOST: {
+  {
     name: 'Firelance Starhost',
     effects: [
       {
@@ -396,7 +396,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  STARBEAST_CONSTELLATION: {
+  {
     name: 'Starbeast Constellation',
     effects: [
       {
@@ -411,7 +411,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  SUNCLAW_STARHOST: {
+  {
     name: 'Sunclaw Starhost',
     effects: [
       {
@@ -422,7 +422,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  THUNDERQUAKE_STARHOST: {
+  {
     name: 'Thunderquake Starhost',
     effects: [
       {
@@ -439,7 +439,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  FANGS_OF_SOTEK: {
+  {
     name: 'Fangs of Sotek',
     effects: [
       {
@@ -455,7 +455,7 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-  DRACOTHIANS_TAIL: {
+  {
     name: "Dracothion's Tail",
     effects: [
       {
@@ -472,4 +472,4 @@ export const Battalions: IBattalions = {
       },
     ],
   },
-}
+]

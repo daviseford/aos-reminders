@@ -1,43 +1,24 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
 import './army_builder.css'
-import { IUnits, IArtifacts, IBattalions } from 'types/army'
+import { TUnits, TArtifacts, TBattalions } from 'types/army'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion'
-type TUpdateState = (val: string, idx: number, type: TFocusType) => any
+type TUpdateState = (val: string, idx: number) => any
+type TUseState = (state: string[], updateFn: Function) => TUpdateState
 
 interface IArmyBuilderProps {
   army: {
-    Artifacts: IArtifacts
-    Battalions: IBattalions
-    Units: IUnits
+    Artifacts: TArtifacts
+    Battalions: TBattalions
+    Units: TUnits
   }
   setSelections: (x: { units: string[]; artifacts: string[]; battalions: string[] }) => any
 }
 
-export const ArmyBuilder = (props: IArmyBuilderProps) => {
-  const { army, setSelections } = props
-  const [units, setUnits] = useState([] as string[])
-  const [battalions, setBattalions] = useState([] as string[])
-  const [artifacts, setArtifacts] = useState([] as string[])
-
-  const updateState: TUpdateState = (val, idx, type) => {
-    const focus = {
-      unit: {
-        fn: setUnits,
-        state: units,
-      },
-      artifact: {
-        fn: setArtifacts,
-        state: artifacts,
-      },
-      battalion: {
-        fn: setBattalions,
-        state: battalions,
-      },
-    }[type]
-
-    let newState = [...focus.state]
+const updateState: TUseState = (state, updateFn) => {
+  return (val: string, idx: number) => {
+    let newState = [...state]
     if (val) {
       newState[idx] = val
     } else {
@@ -47,8 +28,21 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
         newState.splice(idx, 1)
       }
     }
-    focus.fn(newState)
+    updateFn(newState)
   }
+}
+
+export const ArmyBuilder = (props: IArmyBuilderProps) => {
+  const { army, setSelections } = props
+  const [units, setUnits] = useState([] as string[])
+  const [battalions, setBattalions] = useState([] as string[])
+  const [artifacts, setArtifacts] = useState([] as string[])
+  // const [realmscape, setRealmscape] = useState([] as string[])
+
+  const useUnits = updateState(units, setUnits)
+  const useBattalions = updateState(battalions, setBattalions)
+  const useArtifacts = updateState(artifacts, setArtifacts)
+  // const useRealmscape = updateState(realmscape, setRealmscape)
 
   useEffect(() => {
     setSelections({ units, battalions, artifacts })
@@ -57,9 +51,9 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   return (
     <div className="row d-print-none">
       <div className="card-group mx-auto">
-        <Card items={army.Units} entries={units} type={'unit'} updateState={updateState} />
-        <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={updateState} />
-        <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={updateState} />
+        <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
+        <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
+        <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
       </div>
     </div>
   )
@@ -68,7 +62,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
 interface ICardProps {
   entries: string[]
   type: TFocusType
-  items: IUnits | IBattalions | IArtifacts
+  items: TUnits | TBattalions | TArtifacts
   updateState: TUpdateState
 }
 
@@ -107,7 +101,7 @@ const Row = (props: ISelectProps) => {
           className="btn btn-danger"
           onClick={e => {
             e.preventDefault()
-            props.handleChange('', props.idx, props.type)
+            props.handleChange('', props.idx)
           }}
           disabled={!props.val}
           hidden={!props.val}
@@ -120,7 +114,7 @@ const Row = (props: ISelectProps) => {
 }
 
 interface ISelectProps {
-  items: IUnits
+  items: TUnits
   handleChange: TUpdateState
   idx: number
   val: string
@@ -130,11 +124,7 @@ interface ISelectProps {
 const Select = (props: ISelectProps) => {
   return (
     <Fragment>
-      <select
-        value={props.val}
-        className="custom-select"
-        onChange={e => props.handleChange(e.target.value, props.idx, props.type)}
-      >
+      <select value={props.val} className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx)}>
         {props.val ? (
           <option value={props.val} key={`${props.idx}-${props.type}`}>
             {props.val}
