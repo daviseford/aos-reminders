@@ -17,6 +17,7 @@ import {
   START_OF_SHOOTING_PHASE,
   START_OF_SETUP,
   END_OF_MOVEMENT_PHASE,
+  END_OF_ROUND,
 } from 'types/phases'
 
 // Command Trait Keywords
@@ -37,7 +38,7 @@ export const Units: TUnits = [
         name: 'Da Moon Onna Stikk',
         desc:
           'If any wounds inflicted by Da Moon Onna Stikk are allocated to an enemy model and not negated, that enemy model suffers 1 mortal wound at the end of each battle round (even if the wounds inflicted by Da Moon Onna Stikk are subsequently healed).',
-        when: END_OF_TURN,
+        when: END_OF_ROUND,
       },
       {
         name: "Loonking's Crown",

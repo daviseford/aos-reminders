@@ -19,7 +19,9 @@ export const Game: TGameStructure = {
 
   // Per-turn actions
   [Phases.TURN_ONE_START_OF_TURN]: [],
+  [Phases.TURN_ONE_START_OF_ROUND]: [],
   [Phases.TURN_ONE_DURING_TURN]: [],
+  [Phases.TURN_ONE_DURING_ROUND]: [],
   // Hero
   [Phases.TURN_ONE_START_OF_HERO_PHASE]: [],
   [Phases.TURN_ONE_HERO_PHASE]: [],
@@ -46,9 +48,12 @@ export const Game: TGameStructure = {
   [Phases.TURN_ONE_END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
   [Phases.TURN_ONE_END_OF_TURN]: [],
+  [Phases.TURN_ONE_END_OF_ROUND]: [],
 
   [Phases.TURN_TWO_START_OF_TURN]: [],
+  [Phases.TURN_TWO_START_OF_ROUND]: [],
   [Phases.TURN_TWO_DURING_TURN]: [],
+  [Phases.TURN_TWO_DURING_ROUND]: [],
   // Hero
   [Phases.TURN_TWO_START_OF_HERO_PHASE]: [],
   [Phases.TURN_TWO_HERO_PHASE]: [],
@@ -75,9 +80,12 @@ export const Game: TGameStructure = {
   [Phases.TURN_TWO_END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
   [Phases.TURN_TWO_END_OF_TURN]: [],
+  [Phases.TURN_TWO_END_OF_ROUND]: [],
 
   [Phases.TURN_THREE_START_OF_TURN]: [],
+  [Phases.TURN_THREE_START_OF_ROUND]: [],
   [Phases.TURN_THREE_DURING_TURN]: [],
+  [Phases.TURN_THREE_DURING_ROUND]: [],
   // Hero
   [Phases.TURN_THREE_START_OF_HERO_PHASE]: [],
   [Phases.TURN_THREE_HERO_PHASE]: [],
@@ -104,9 +112,12 @@ export const Game: TGameStructure = {
   [Phases.TURN_THREE_END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
   [Phases.TURN_THREE_END_OF_TURN]: [],
+  [Phases.TURN_THREE_END_OF_ROUND]: [],
 
   [Phases.TURN_FOUR_START_OF_TURN]: [],
+  [Phases.TURN_FOUR_START_OF_ROUND]: [],
   [Phases.TURN_FOUR_DURING_TURN]: [],
+  [Phases.TURN_FOUR_DURING_ROUND]: [],
   // Hero
   [Phases.TURN_FOUR_START_OF_HERO_PHASE]: [],
   [Phases.TURN_FOUR_HERO_PHASE]: [],
@@ -133,9 +144,12 @@ export const Game: TGameStructure = {
   [Phases.TURN_FOUR_END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
   [Phases.TURN_FOUR_END_OF_TURN]: [],
+  [Phases.TURN_FOUR_END_OF_ROUND]: [],
 
   [Phases.TURN_FIVE_START_OF_TURN]: [],
+  [Phases.TURN_FIVE_START_OF_ROUND]: [],
   [Phases.TURN_FIVE_DURING_TURN]: [],
+  [Phases.TURN_FIVE_DURING_ROUND]: [],
   // Hero
   [Phases.TURN_FIVE_START_OF_HERO_PHASE]: [],
   [Phases.TURN_FIVE_HERO_PHASE]: [],
@@ -162,10 +176,15 @@ export const Game: TGameStructure = {
   [Phases.TURN_FIVE_END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
   [Phases.TURN_FIVE_END_OF_TURN]: [],
+  [Phases.TURN_FIVE_END_OF_ROUND]: [],
 
   // Any Turn Actions
   [Phases.START_OF_TURN]: [],
+  [Phases.START_OF_ROUND]: [],
   [Phases.DURING_TURN]: [],
+  [Phases.DURING_ROUND]: [],
+  // Round Actions
+
   // Hero
   [Phases.START_OF_HERO_PHASE]: [],
   [Phases.HERO_PHASE]: [],
@@ -191,6 +210,7 @@ export const Game: TGameStructure = {
   [Phases.BATTLESHOCK_PHASE]: [],
   [Phases.END_OF_BATTLESHOCK_PHASE]: [],
   // Turn End
+  [Phases.END_OF_ROUND]: [],
   [Phases.END_OF_TURN]: [],
   // Game End
   [Phases.END_OF_GAME]: [],
