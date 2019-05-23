@@ -367,7 +367,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: 'Hydroxskin Cloak (Chamon)',
         desc:
-          'The bearer can fly. After the bearer has moved, you can pick a unit that has models that the bearer has passed across and roll a dice. On a 3+ that unit suffers D3 mortal wounds.',
+          'The bearer can fly. After the bearer has made a normal move, you can pick 1 unit that has any models that the bearer has passed across and roll a dice. On a 3+ that unit suffers D3 mortal wounds.',
         when: MOVEMENT_PHASE,
       },
     ],
@@ -871,7 +871,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: 'Lens of Refraction (Hysh)',
         desc:
-          'Each time a friendly unit within 6" of the bearer would suffer any mortal wounds from a spell cast by an enemy WIZARD, roll a D3 and reduce the number of mortal wounds suffered by the result.',
+          'Once per battle round, the first time a friendly unit within 6" of the bearer suffers any mortal wounds inflicted by a spell or endless spell, roll a D3 and reduce the number of mortal wounds suffered by the roll.',
         when: HERO_PHASE,
       },
     ],
