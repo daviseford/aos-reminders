@@ -8,7 +8,7 @@ interface ISelectRealmscapeProps {
 
 export const SelectRealmscape = (props: ISelectRealmscapeProps) => {
   return (
-    <div className="row mx-auto pb-3 d-block">
+    <div className="row mx-auto pb-3 d-block d-print-none">
       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
         <div className="card">
           <div className="card-body">
