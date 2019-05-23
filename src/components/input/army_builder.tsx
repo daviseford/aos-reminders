@@ -89,20 +89,20 @@ const Card = (props: ICardProps) => {
 }
 
 const Row = (props: ISelectProps) => {
+  const selectClassName = !props.val ? 'col' : 'col-10'
+  const btnClassName = !props.val ? 'd-none' : 'col-2'
   return (
     <div className="row SelectArmy-Row">
-      <div className="col-10">
+      <div className={selectClassName}>
         <Select {...props} />
       </div>
-      <div className="col-2">
+      <div className={btnClassName}>
         <button
           className="btn btn-danger"
           onClick={e => {
             e.preventDefault()
             props.handleChange('', props.idx)
           }}
-          disabled={!props.val}
-          hidden={!props.val}
         >
           X
         </button>
