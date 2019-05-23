@@ -4,8 +4,16 @@ import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
+import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
 
-export const processReminders = (army: IArmy, factionName: TSupportedFaction, selections: ISelections): IReminder => {
+type TProcessReminders = (
+  army: IArmy,
+  factionName: TSupportedFaction,
+  selections: ISelections,
+  realmscape: string
+) => IReminder
+
+export const processReminders: TProcessReminders = (army, factionName, selections, realmscape) => {
   const game: TGameStructure = army.Game
   const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
 
@@ -36,6 +44,17 @@ export const processReminders = (army: IArmy, factionName: TSupportedFaction, se
       }
       reminders[a.when] = reminders[a.when] ? reminders[a.when].concat(t) : [t]
     })
+  }
+
+  // Add Realmscape features
+  if (realmscape !== 'None') {
+    const r = RealmscapeFeatures.find(x => x.name === realmscape) as IEffects
+    const t: ITurnAction = {
+      name: r.name,
+      action: r.desc,
+      condition: [`Realmscape Feaure: ${realmscape}`],
+    }
+    reminders[r.when] = reminders[r.when] ? reminders[r.when].concat(t) : [t]
   }
 
   // Last step, we need to sort by the original order

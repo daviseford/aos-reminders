@@ -27,7 +27,7 @@ const App = () => {
 
       <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
       <ArmyBuilder army={army} setSelections={setSelections} />
-      <Reminders army={army} factionName={factionName} selections={selections} />
+      <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
     </div>

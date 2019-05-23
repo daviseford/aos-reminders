@@ -7,9 +7,16 @@ import { titleCase } from 'utils/titleCase'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
 
-const Reminders = (props: { army: IArmy; factionName: TSupportedFaction; selections: ISelections }) => {
-  const { factionName, selections, army } = props
-  const reminders = useMemo(() => processReminders(army, factionName, selections), [army, factionName, selections])
+interface IRemindersProps {
+  army: IArmy
+  factionName: TSupportedFaction
+  selections: ISelections
+  realmscape: string
+}
+
+const Reminders = (props: IRemindersProps) => {
+  const { factionName, selections, army, realmscape } = props
+  const reminders = useMemo(() => processReminders(army, factionName, selections, realmscape), [army, factionName, selections, realmscape])
 
   return (
     <div className="row w-75 mx-auto pt-5 d-block">
