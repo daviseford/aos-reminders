@@ -88,6 +88,12 @@ export const Units: TUnits = [
           'You can use this command ability at the start of a combat phase. If you do so, pick 1 friendly model with this command ability. In that combat phase you can add 1 to wound rolls for friendly SQUIG units while they are wholly within 18" of that model.',
         when: START_OF_COMBAT_PHASE,
       },
+      {
+        name: 'Ker-splat!',
+        desc:
+          'Add 1 to hit rolls for attacks made with Loonboss on Mangler Squigs Balls and Chains if this model made a charge move in the same turn.',
+        when: COMBAT_PHASE,
+      },
     ],
   },
   {
@@ -97,7 +103,7 @@ export const Units: TUnits = [
         name: 'Redcap Mushrooms',
         desc:
           'Once per battle, in your hero phase, you can say that this Loonboss on Giant Cave Squig is eating a redcap mushroom. If you do so, you can re-roll hit and wound rolls for this model’s Moon-cutta or Moonclan Stabba until your next hero phase.',
-        when: DURING_GAME,
+        when: HERO_PHASE,
       },
       {
         name: "Command Ability: Let's Get Bouncing!",
