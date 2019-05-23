@@ -2,12 +2,13 @@ import React, { useState, useMemo } from 'react'
 
 import Reminders from './info/reminders'
 import { ArmyBuilder } from './input/army_builder'
-import { SelectOne } from './input/select_one'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
-import { SERAPHON, SUPPORTED_FACTIONS } from 'meta/factions'
+import { SERAPHON } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
 import { SelectRealmscape } from './input/select_realmscape'
+import Header from './page/header'
+import Footer from './page/footer'
 
 const App = () => {
   const [selections, setSelections] = useState({
@@ -30,33 +31,7 @@ const App = () => {
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
-    </div>
-  )
-}
-
-/**
- * Hidden when printing
- */
-const Header = ({ setFactionName, factionName }) => {
-  return (
-    <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
-      <div className="container">
-        <h1 className="display-4">Age of Sigmar Reminders</h1>
-        <p className="lead mt-3">
-          By Davis E. Ford -{' '}
-          <a href="https://daviseford.com" target="_blank" rel="noopener noreferrer">
-            daviseford.com
-          </a>
-        </p>
-
-        <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
-
-        <p>
-          Right now, this tool offers personalized gameplay reminders for Seraphon and Gloomspite Gitz.
-          <br />
-          Other armies may be added if there is demand.
-        </p>
-      </div>
+      <Footer />
     </div>
   )
 }
