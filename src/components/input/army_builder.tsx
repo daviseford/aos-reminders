@@ -37,12 +37,10 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   const [units, setUnits] = useState([] as string[])
   const [battalions, setBattalions] = useState([] as string[])
   const [artifacts, setArtifacts] = useState([] as string[])
-  // const [realmscape, setRealmscape] = useState([] as string[])
 
   const useUnits = updateState(units, setUnits)
   const useBattalions = updateState(battalions, setBattalions)
   const useArtifacts = updateState(artifacts, setArtifacts)
-  // const useRealmscape = updateState(realmscape, setRealmscape)
 
   useEffect(() => {
     setSelections({ units, battalions, artifacts })

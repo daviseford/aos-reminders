@@ -2,10 +2,12 @@ import React, { useState, useMemo } from 'react'
 
 import Reminders from './info/reminders'
 import { ArmyBuilder } from './input/army_builder'
-import { SelectFaction } from './input/select_faction'
+import { SelectOne } from './input/select_one'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
-import { SERAPHON } from 'meta/factions'
+import { SERAPHON, SUPPORTED_FACTIONS } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
+import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
+import { SelectRealmscape } from './input/select_realmscape'
 
 const App = () => {
   const [selections, setSelections] = useState({
@@ -14,6 +16,7 @@ const App = () => {
     battalions: [] as string[],
   })
   const [factionName, setFactionName] = useState(SERAPHON)
+  const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
 
   return (
@@ -22,8 +25,9 @@ const App = () => {
       <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} />
 
+      <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
       <ArmyBuilder army={army} setSelections={setSelections} />
-      <Reminders army={army} factionName={factionName} selections={selections} />
+      <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
     </div>
@@ -31,7 +35,7 @@ const App = () => {
 }
 
 /**
- * Don't worry, it's hidden when printing
+ * Hidden when printing
  */
 const Header = ({ setFactionName, factionName }) => {
   return (
@@ -45,7 +49,7 @@ const Header = ({ setFactionName, factionName }) => {
           </a>
         </p>
 
-        <SelectFaction setFactionName={setFactionName} factionName={factionName} />
+        <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
 
         <p>
           Right now, this tool offers personalized gameplay reminders for Seraphon and Gloomspite Gitz.

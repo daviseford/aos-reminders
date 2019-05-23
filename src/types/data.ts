@@ -1,7 +1,7 @@
 import { TTurnWhen } from './phases'
 
 export interface IEffects {
-  name?: string
+  name: string
   desc: string
   when: TTurnWhen
 }
