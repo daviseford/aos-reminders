@@ -8,8 +8,9 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
 } from 'types/phases'
+import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
 
-const Artifacts: TArtifacts = [
+let Artifacts: TArtifacts = [
   {
     name: 'Spiteful Prodder',
     effects: [
@@ -203,5 +204,7 @@ const Artifacts: TArtifacts = [
     ],
   },
 ]
+
+Artifacts = Artifacts.concat(RealmArtifacts)
 
 export default Artifacts

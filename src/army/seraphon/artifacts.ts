@@ -1,8 +1,9 @@
 import { TArtifacts } from 'types/army'
 
 import { DURING_GAME, START_OF_GAME, HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
+import RealmArtifacts from 'army/malign_sorcery/realm_artifacts';
 
-const Artifacts: TArtifacts = [
+let Artifacts: TArtifacts = [
   {
     name: 'Zoetic Dial',
     effects: [
@@ -69,5 +70,7 @@ const Artifacts: TArtifacts = [
     ],
   },
 ]
+
+Artifacts = Artifacts.concat(RealmArtifacts)
 
 export default Artifacts
