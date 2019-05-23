@@ -108,7 +108,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: 'Jade Diadem (Ghyran)',
-        desc: 'Each time you make a successful save roll of 6+ for the bearer, heal 1 wound allocated to them.',
+        desc: 'If the unmodified save roll for an attack that targets the bearer is 6, heal 1 wound allocated to the bearer.',
         when: DURING_GAME,
       },
     ],
@@ -763,7 +763,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: 'Doppelganger Cloak (Ulgu)',
         desc:
-          'The bearer cannot be chosen as the target of an attack with an enemy melee weapon unless the bearer has made any attacks earlier in the same phase. ',
+          'Once per battle, at the start of the combat phase, you can say that the bearer will put on the cloak. If you do so, the bearer cannot be chosen as the target of attacks made with melee weapons unless the bearer has made any attacks earlier in that phase.',
         when: COMBAT_PHASE,
       },
     ],
@@ -785,7 +785,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: 'Talisman of the Watcher (Ulgu)',
         desc:
-          'If the bearer is not within 3" of an enemy unit at the start of the combat phase, pick a friendly unit within 9" of the bearer. Re-roll save rolls of 1 for that unit.',
+          'If the bearer is not within 3" of an enemy unit at the start of the combat phase, pick a friendly unit within 9" of the bearer. You can re-roll save rolls of 1 for that unit until the end of that phase.',
         when: START_OF_COMBAT_PHASE,
       },
     ],
