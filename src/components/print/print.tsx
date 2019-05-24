@@ -16,10 +16,10 @@ export const PrintUnits = (props: { selections: ISelections; realmscape: string 
   const realm = props.realmscape === 'None' ? [] : [props.realmscape]
   return (
     <div className={'row text-center mt-5 d-none d-print-block'}>
-      <ItemsDisplay name={'Units'} items={units} />
-      <ItemsDisplay name={'Artifacts'} items={artifacts} />
-      <ItemsDisplay name={'Battalions'} items={battalions} />
-      <ItemsDisplay name={'Command Traits'} items={traits} />
+      <ItemsDisplay name={'Unit'} items={units} />
+      <ItemsDisplay name={'Artifact'} items={artifacts} />
+      <ItemsDisplay name={'Battalion'} items={battalions} />
+      <ItemsDisplay name={'Command Trait'} items={traits} />
       <ItemsDisplay name={'Realmscape Feature'} items={realm} />
     </div>
   )
@@ -27,9 +27,10 @@ export const PrintUnits = (props: { selections: ISelections; realmscape: string 
 
 const ItemsDisplay = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null
+  const name = props.items.length > 1 ? `${props.name}s` : props.name
   return (
     <h4>
-      <strong>{props.name}:</strong> {props.items.join(' | ')}
+      <strong>{name}:</strong> {props.items.join(' | ')}
     </h4>
   )
 }
