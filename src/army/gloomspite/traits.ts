@@ -19,7 +19,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Cunning Plans',
         desc: 'At the start of the first battle round, you receive 1 additional command point.',
-        when: START_OF_ROUND,
+        when: TURN_ONE_START_OF_ROUND,
       },
     ],
   },
@@ -28,8 +28,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: 'Fight Another Day',
-        desc:
-          'Each time this general attacks with its melee weapons, it can make a 2D6" move after all of its attacks have been resolved. If it does so, it must finish the move more than 3" from enemy units.',
+        desc: 'Each time this general attacks with its melee weapons, it can make a 2D6" move after all of its attacks have been resolved. If it does so, it must finish the move more than 3" from enemy units.',
         when: COMBAT_PHASE,
       },
     ],
@@ -47,7 +46,11 @@ const CommandTraits: TCommandTraits = [
   {
     name: "Tough 'n' Leathery",
     effects: [
-      { name: "Tough 'n' Leathery", desc: 'Add 2 to this general’s Wounds characteristic.', when: DURING_GAME },
+      {
+        name: "Tough 'n' Leathery",
+        desc: 'Add 2 to this general’s Wounds characteristic.',
+        when: DURING_GAME
+      },
     ],
   },
   {
@@ -147,7 +150,11 @@ const CommandTraits: TCommandTraits = [
   {
     name: 'Masterful Spider Rider',
     effects: [
-      { name: 'Masterful Spider Rider', desc: 'Add 4" to this general’s Move characteristic.', when: MOVEMENT_PHASE },
+      {
+        name: 'Masterful Spider Rider',
+        desc: 'Add 4" to this general’s Move characteristic.',
+        when: MOVEMENT_PHASE
+      },
     ],
   },
   {
@@ -163,7 +170,11 @@ const CommandTraits: TCommandTraits = [
   {
     name: "Tough 'n' Leathery",
     effects: [
-      { name: "Tough 'n' Leathery", desc: 'Add 2 to this general’s Wounds characteristic.', when: DURING_GAME },
+      {
+        name: "Tough 'n' Leathery",
+        desc: 'Add 2 to this general’s Wounds characteristic.',
+        when: DURING_GAME
+      },
     ],
   },
   {
@@ -190,7 +201,13 @@ const CommandTraits: TCommandTraits = [
   },
   {
     name: 'Tough as Rocks',
-    effects: [{ name: 'Tough as Rocks', desc: 'Add 2 to this general’s Wounds characteristic.', when: DURING_GAME }],
+    effects: [
+      {
+        name: 'Tough as Rocks',
+        desc: 'Add 2 to this general’s Wounds characteristic.',
+        when: DURING_GAME
+      }
+    ],
   },
   {
     name: 'Alpha Trogg',
