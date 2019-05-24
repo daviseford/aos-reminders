@@ -15,6 +15,7 @@ import {
   DURING_SETUP,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_HERO_PHASE,
+  DURING_GAME,
 } from 'types/phases'
 
 // Command Trait Keywords
@@ -348,7 +349,23 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   { name: 'Bloodclaw Starhost', effects: [] },
-  { name: 'Eternal Starhost', effects: [] },
+  {
+    name: 'Eternal Starhost',
+    effects: [
+      {
+        name: 'Drakescale Shieldwall',
+        desc:
+          'Add 1 to the result of any save rolls for the Eternal Starhost’s Saurus Guard while they are within 10" of their Eternity Warden.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Patient Guardians',
+        desc:
+          'If a unit of Saurus Guard from an Eternal Starhost does not move in its movement or charge phases, its Celestite Polearms have a Damage characteristic of D3 rather than 1 in the following combat phase.',
+        when: COMBAT_PHASE,
+      },
+    ],
+  },
   { name: 'Heavenswatch Starhost', effects: [] },
   {
     name: 'Shadowstrike Starhost',
@@ -418,6 +435,11 @@ export const Battalions: TBattalions = [
         name: 'Predatory Starhost',
         desc:
           'Saurus Warriors from a Sunclaw Starhost make 2 attacks with their Powerful Jaws and Stardrake Shields rather than 1.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Star-charged Celestite',
+        desc: `The Celestite weapons carried by Saurus Warriors in a Sunclaw Starhost are supercharged with the power of Azyr. Celestite Clubs or Spears carried by Saurus Warriors in this starhost have a Rend characteristic of -1 rather than '-'. When attacking CHAOS DAEMONS, these weapons also have a Damage characteristic of 2 rather than 1.`,
         when: COMBAT_PHASE,
       },
     ],
