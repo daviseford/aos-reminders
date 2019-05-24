@@ -2,7 +2,6 @@ import { TCommandTraits } from 'types/army'
 import {
   DURING_ROUND,
   DURING_GAME,
-  START_OF_ROUND,
   COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
