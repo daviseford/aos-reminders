@@ -4,17 +4,12 @@ import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
 import { SelectRealmscape } from './select_realmscape'
+import { ISelections } from 'types/selections'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TUpdateState = (val: string, idx: number) => any
 type TUseState = (state: ISelections, key: string, updateFn: Function) => TUpdateState
 
-interface ISelections {
-  units: string[]
-  artifacts: string[]
-  battalions: string[]
-  traits: string[]
-}
 interface IArmyBuilderProps {
   army: {
     Artifacts: TArtifacts

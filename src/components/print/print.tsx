@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { ISelections } from 'types/selections'
-import { titleCase } from 'utils/titleCase';
+import { titleCase } from 'utils/titleCase'
 
 export const PrintHeader = (props: { factionName: string }) => {
   return (
@@ -11,13 +11,16 @@ export const PrintHeader = (props: { factionName: string }) => {
   )
 }
 
-export const PrintUnits = (props: { selections: ISelections }) => {
-  const { units, battalions, artifacts } = props.selections
+export const PrintUnits = (props: { selections: ISelections; realmscape: string }) => {
+  const { units, battalions, artifacts, traits } = props.selections
+  const realm = props.realmscape === 'None' ? [] : [props.realmscape]
   return (
     <div className={'row text-center mt-5 d-none d-print-block'}>
       <ItemsDisplay name={'Units'} items={units} />
-      <ItemsDisplay name={'Battalions'} items={battalions} />
       <ItemsDisplay name={'Artifacts'} items={artifacts} />
+      <ItemsDisplay name={'Battalions'} items={battalions} />
+      <ItemsDisplay name={'Command Traits'} items={traits} />
+      <ItemsDisplay name={'Realmscape Feature'} items={realm} />
     </div>
   )
 }

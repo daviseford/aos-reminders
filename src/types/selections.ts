@@ -1,5 +1,6 @@
 export interface ISelections {
-  units: string[]
   artifacts: string[]
   battalions: string[]
+  traits: string[]
+  units: string[]
 }
