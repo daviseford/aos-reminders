@@ -16,7 +16,9 @@ interface IRemindersProps {
 
 const Reminders = (props: IRemindersProps) => {
   const { factionName, selections, army, realmscape } = props
-  const reminders = useMemo(() => processReminders(army, factionName, selections, realmscape), [army, factionName, selections, realmscape])
+  const reminders = useMemo(() => {
+    return processReminders(army, factionName, selections, realmscape)
+  }, [army, factionName, selections, realmscape])
 
   return (
     <div className="row w-75 mx-auto pt-5 d-block">

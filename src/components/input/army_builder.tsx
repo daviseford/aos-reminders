@@ -1,57 +1,69 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import _ from 'lodash'
 import './army_builder.css'
-import { TUnits, TArtifacts, TBattalions } from 'types/army'
+import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
+import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
+import { SelectRealmscape } from './select_realmscape'
 
-type TFocusType = 'unit' | 'artifact' | 'battalion'
+type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TUpdateState = (val: string, idx: number) => any
-type TUseState = (state: string[], updateFn: Function) => TUpdateState
+type TUseState = (state: ISelections, key: string, updateFn: Function) => TUpdateState
 
+interface ISelections {
+  units: string[]
+  artifacts: string[]
+  battalions: string[]
+  traits: string[]
+}
 interface IArmyBuilderProps {
   army: {
     Artifacts: TArtifacts
     Battalions: TBattalions
+    Traits: TCommandTraits
     Units: TUnits
   }
-  setSelections: (x: { units: string[]; artifacts: string[]; battalions: string[] }) => any
+  realmscape: string
+  setSelections: (x: ISelections) => any
+  setRealmscape: (val: string) => any
+  selections: ISelections
 }
 
-const updateState: TUseState = (state, updateFn) => {
+const updateState: TUseState = (state, key, updateFn) => {
   return (val: string, idx: number) => {
-    let newState = [...state]
+    const newState = { ...state }
+    let newSubState = [...newState[key]]
     if (val) {
-      newState[idx] = val
+      newSubState[idx] = val
     } else {
-      if (idx === 0 && newState.length < 2) {
-        newState = []
+      if (idx === 0 && newSubState.length < 2) {
+        newSubState = []
       } else {
-        newState.splice(idx, 1)
+        newSubState.splice(idx, 1)
       }
     }
+    newState[key] = newSubState
     updateFn(newState)
   }
 }
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
-  const { army, setSelections } = props
-  const [units, setUnits] = useState([] as string[])
-  const [battalions, setBattalions] = useState([] as string[])
-  const [artifacts, setArtifacts] = useState([] as string[])
-
-  const useUnits = updateState(units, setUnits)
-  const useBattalions = updateState(battalions, setBattalions)
-  const useArtifacts = updateState(artifacts, setArtifacts)
-
-  useEffect(() => {
-    setSelections({ units, battalions, artifacts })
-  }, [units, battalions, artifacts, setSelections])
+  const { army, setSelections, selections, setRealmscape, realmscape } = props
+  const { units, traits, artifacts, battalions } = selections
+  const useArtifacts = updateState(selections, 'artifacts', setSelections)
+  const useBattalions = updateState(selections, 'battalions', setSelections)
+  const useTraits = updateState(selections, 'traits', setSelections)
+  const useUnits = updateState(selections, 'units', setSelections)
 
   return (
-    <div className="row d-print-none">
-      <div className="card-group mx-auto">
-        <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
-        <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
-        <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
+    <div className="container">
+      <div className="row d-print-none">
+        <div className="card-group mx-auto">
+          <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
+          <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
+          <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
+          <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
+          <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
+        </div>
       </div>
     </div>
   )
@@ -66,7 +78,7 @@ interface ICardProps {
 
 const Card = (props: ICardProps) => {
   return (
-    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
+    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Add {_.capitalize(props.type)}s</h4>
