@@ -8,7 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
 } from 'types/phases'
-import DestructionArtifacts from 'army/destruction_artifacts'
+import DestructionArtifacts from 'army/destruction/destruction_artifacts'
 import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
 
 let Artifacts: TArtifacts = [
