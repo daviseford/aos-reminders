@@ -408,6 +408,16 @@ export const Units: TUnits = [
     name: 'Squig Herd',
     effects: [
       {
+        name: 'Go Dat Way!',
+        desc: 'You can re-roll run and charge rolls for this unit while it includes any Squig Herders.',
+        when: MOVEMENT_PHASE,
+      },
+      {
+        name: 'Go Dat Way!',
+        desc: 'You can re-roll run and charge rolls for this unit while it includes any Squig Herders.',
+        when: CHARGE_PHASE,
+      },
+      {
         name: 'Squigs Go Wild',
         desc:
           'Roll a dice each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.',

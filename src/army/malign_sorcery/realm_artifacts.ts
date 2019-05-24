@@ -764,7 +764,7 @@ const RealmArtifacts: TArtifacts = [
         name: 'Doppelganger Cloak (Ulgu)',
         desc:
           'Once per battle, at the start of the combat phase, you can say that the bearer will put on the cloak. If you do so, the bearer cannot be chosen as the target of attacks made with melee weapons unless the bearer has made any attacks earlier in that phase.',
-        when: COMBAT_PHASE,
+        when: START_OF_COMBAT_PHASE,
       },
     ],
   },
