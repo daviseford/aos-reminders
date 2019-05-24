@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 
 import Reminders from './info/reminders'
 import { ArmyBuilder } from './input/army_builder'
@@ -18,6 +18,12 @@ const App = () => {
   const [factionName, setFactionName] = useState(SERAPHON)
   const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
+
+  // Reset the state when factionName is switched
+  useEffect(() => {
+    setSelections({ artifacts: [], battalions: [], traits: [], units: [] })
+    setRealmscape('None')
+  }, [factionName])
 
   return (
     <div className="d-block">
