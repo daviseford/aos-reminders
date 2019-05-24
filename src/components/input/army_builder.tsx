@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
+import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
+import { SelectRealmscape } from './select_realmscape'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TUpdateState = (val: string, idx: number) => any
@@ -20,7 +22,10 @@ interface IArmyBuilderProps {
     Traits: TCommandTraits
     Units: TUnits
   }
+  realmscape: string
   setSelections: (x: ISetSelectionArgs) => any
+  setRealmscape: (val: string) => any
+  selections: any
 }
 
 const updateState: TUseState = (state, updateFn) => {
@@ -56,12 +61,19 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   }, [units, battalions, artifacts, traits, setSelections])
 
   return (
-    <div className="row d-print-none">
-      <div className="card-group mx-auto">
-        <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
-        <Card items={army.Traits} entries={artifacts} type={'trait'} updateState={useTraits} />
-        <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
-        <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
+    <div className="container">
+      <div className="row d-print-none">
+        <div className="card-group mx-auto">
+          <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
+          <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
+          <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
+          <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
+          <SelectRealmscape
+            setValue={props.setRealmscape}
+            value={props.realmscape}
+            items={RealmscapeFeatures.map(x => x.name)}
+          />
+        </div>
       </div>
     </div>
   )
@@ -76,7 +88,7 @@ interface ICardProps {
 
 const Card = (props: ICardProps) => {
   return (
-    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
+    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Add {_.capitalize(props.type)}s</h4>

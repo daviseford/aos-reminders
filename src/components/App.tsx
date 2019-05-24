@@ -5,8 +5,6 @@ import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
 import { SERAPHON } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
-import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
-import { SelectRealmscape } from './input/select_realmscape'
 import Header from './page/header'
 import Footer from './page/footer'
 
@@ -27,8 +25,7 @@ const App = () => {
       <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} />
 
-      <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
-      <ArmyBuilder army={army} setSelections={setSelections} />
+      <ArmyBuilder selections={selections} army={army} setSelections={setSelections} setRealmscape={setRealmscape} realmscape={realmscape} />
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
