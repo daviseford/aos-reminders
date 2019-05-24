@@ -1,19 +1,26 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import _ from 'lodash'
 import './army_builder.css'
-import { TUnits, TArtifacts, TBattalions } from 'types/army'
+import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 
-type TFocusType = 'unit' | 'artifact' | 'battalion'
+type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TUpdateState = (val: string, idx: number) => any
 type TUseState = (state: string[], updateFn: Function) => TUpdateState
 
+interface ISetSelectionArgs {
+  units: string[]
+  artifacts: string[]
+  battalions: string[]
+  traits: string[]
+}
 interface IArmyBuilderProps {
   army: {
     Artifacts: TArtifacts
     Battalions: TBattalions
+    Traits: TCommandTraits
     Units: TUnits
   }
-  setSelections: (x: { units: string[]; artifacts: string[]; battalions: string[] }) => any
+  setSelections: (x: ISetSelectionArgs) => any
 }
 
 const updateState: TUseState = (state, updateFn) => {
@@ -34,22 +41,25 @@ const updateState: TUseState = (state, updateFn) => {
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
   const { army, setSelections } = props
-  const [units, setUnits] = useState([] as string[])
-  const [battalions, setBattalions] = useState([] as string[])
   const [artifacts, setArtifacts] = useState([] as string[])
+  const [battalions, setBattalions] = useState([] as string[])
+  const [traits, setTraits] = useState([] as string[])
+  const [units, setUnits] = useState([] as string[])
 
-  const useUnits = updateState(units, setUnits)
-  const useBattalions = updateState(battalions, setBattalions)
   const useArtifacts = updateState(artifacts, setArtifacts)
+  const useBattalions = updateState(battalions, setBattalions)
+  const useTraits = updateState(traits, setTraits)
+  const useUnits = updateState(units, setUnits)
 
   useEffect(() => {
-    setSelections({ units, battalions, artifacts })
-  }, [units, battalions, artifacts, setSelections])
+    setSelections({ units, battalions, artifacts, traits })
+  }, [units, battalions, artifacts, traits, setSelections])
 
   return (
     <div className="row d-print-none">
       <div className="card-group mx-auto">
         <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
+        <Card items={army.Traits} entries={artifacts} type={'trait'} updateState={useTraits} />
         <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
         <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
       </div>

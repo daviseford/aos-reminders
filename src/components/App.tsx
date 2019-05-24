@@ -12,9 +12,10 @@ import Footer from './page/footer'
 
 const App = () => {
   const [selections, setSelections] = useState({
-    units: [] as string[],
     artifacts: [] as string[],
     battalions: [] as string[],
+    traits: [] as string[],
+    units: [] as string[],
   })
   const [factionName, setFactionName] = useState(SERAPHON)
   const [realmscape, setRealmscape] = useState('None')
