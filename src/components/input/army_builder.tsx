@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import _ from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
@@ -7,9 +7,9 @@ import { SelectRealmscape } from './select_realmscape'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TUpdateState = (val: string, idx: number) => any
-type TUseState = (state: string[], updateFn: Function) => TUpdateState
+type TUseState = (state: ISelections, key: string, updateFn: Function) => TUpdateState
 
-interface ISetSelectionArgs {
+interface ISelections {
   units: string[]
   artifacts: string[]
   battalions: string[]
@@ -23,42 +23,36 @@ interface IArmyBuilderProps {
     Units: TUnits
   }
   realmscape: string
-  setSelections: (x: ISetSelectionArgs) => any
+  setSelections: (x: ISelections) => any
   setRealmscape: (val: string) => any
-  selections: any
+  selections: ISelections
 }
 
-const updateState: TUseState = (state, updateFn) => {
+const updateState: TUseState = (state, key, updateFn) => {
   return (val: string, idx: number) => {
-    let newState = [...state]
+    const newState = { ...state }
+    let newSubState = [...newState[key]]
     if (val) {
-      newState[idx] = val
+      newSubState[idx] = val
     } else {
-      if (idx === 0 && newState.length < 2) {
-        newState = []
+      if (idx === 0 && newSubState.length < 2) {
+        newSubState = []
       } else {
-        newState.splice(idx, 1)
+        newSubState.splice(idx, 1)
       }
     }
+    newState[key] = newSubState
     updateFn(newState)
   }
 }
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
-  const { army, setSelections } = props
-  const [artifacts, setArtifacts] = useState([] as string[])
-  const [battalions, setBattalions] = useState([] as string[])
-  const [traits, setTraits] = useState([] as string[])
-  const [units, setUnits] = useState([] as string[])
-
-  const useArtifacts = updateState(artifacts, setArtifacts)
-  const useBattalions = updateState(battalions, setBattalions)
-  const useTraits = updateState(traits, setTraits)
-  const useUnits = updateState(units, setUnits)
-
-  useEffect(() => {
-    setSelections({ units, battalions, artifacts, traits })
-  }, [units, battalions, artifacts, traits, setSelections])
+  const { army, setSelections, selections, setRealmscape, realmscape } = props
+  const { units, traits, artifacts, battalions } = selections
+  const useArtifacts = updateState(selections, 'artifacts', setSelections)
+  const useBattalions = updateState(selections, 'battalions', setSelections)
+  const useTraits = updateState(selections, 'traits', setSelections)
+  const useUnits = updateState(selections, 'units', setSelections)
 
   return (
     <div className="container">
@@ -68,11 +62,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
           <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
           <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
           <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
-          <SelectRealmscape
-            setValue={props.setRealmscape}
-            value={props.realmscape}
-            items={RealmscapeFeatures.map(x => x.name)}
-          />
+          <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
     </div>

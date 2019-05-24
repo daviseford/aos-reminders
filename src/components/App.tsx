@@ -25,7 +25,13 @@ const App = () => {
       <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} />
 
-      <ArmyBuilder selections={selections} army={army} setSelections={setSelections} setRealmscape={setRealmscape} realmscape={realmscape} />
+      <ArmyBuilder
+        army={army}
+        realmscape={realmscape}
+        selections={selections}
+        setRealmscape={setRealmscape}
+        setSelections={setSelections}
+      />
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
