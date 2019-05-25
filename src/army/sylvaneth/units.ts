@@ -216,24 +216,53 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: 'Kurnoth Hunters',
+    name: 'Kurnoth Hunters (Scythes/Greatbows)',
     effects: [
       {
         name: 'Tanglethorn Thicket',
         desc:
-          'At the start of either player’s charge phase, Kurnoth Hunters can sprout a thick weave of thorned branches. Until the end of the turn, they cannot move except to pile in up to 1", but you can re-roll failed save rolls for them.',
+          'At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit',
         when: START_OF_CHARGE_PHASE,
       },
       {
         name: 'Envoys of the Everqueen',
         desc:
-          'If a friendly Sylvaneth Hero uses a command ability, you can measure the range of that command ability from a friendly Kurnoth Hunters unit instead of the Hero.',
+          'If a friendly Sylvaneth Hero uses a command ability, friendly Sylvaneth units wholly within 12" of this unit are treated as being in range of that command ability.',
         when: DURING_GAME,
       },
       {
         name: 'Trample Underfoot',
         desc:
-          'At the end of the combat phase, pick an enemy unit and roll a dice for each Kurnoth Hunter from this unit that is within 1" of it. For each result of 4 or more, the enemy unit suffers a mortal wound.',
+          'At the end of the combat phase, you can pick 1 enemy unit within 1" of this unit and roll 1 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.',
+        when: END_OF_COMBAT_PHASE,
+      },
+    ],
+  },
+  {
+    name: 'Kurnoth Hunters (Greatswords)',
+    effects: [
+      {
+        name: 'Tanglethorn Thicket',
+        desc:
+          'At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit',
+        when: START_OF_CHARGE_PHASE,
+      },
+      {
+        name: 'Sundering Strikes',
+        desc:
+          'If the unmodified wound roll for an attack made with a Kurnoth Greatsword is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Envoys of the Everqueen',
+        desc:
+          'If a friendly Sylvaneth Hero uses a command ability, friendly Sylvaneth units wholly within 12" of this unit are treated as being in range of that command ability.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Trample Underfoot',
+        desc:
+          'At the end of the combat phase, you can pick 1 enemy unit within 1" of this unit and roll 1 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.',
         when: END_OF_COMBAT_PHASE,
       },
     ],
@@ -307,6 +336,35 @@ export const Units: TUnits = [
         desc:
           'If a Treelord is within 3" of a Sylvaneth Wyldwood at the start of your movement phase it can travel along the spirit paths. If it does so, remove the Treelord from the battlefield, and then set it up within 3" of a different Sylvaneth Wyldwood, more than 9" from any enemy models. This is its move for the movement phase.',
         when: START_OF_MOVEMENT_PHASE,
+      },
+    ],
+  },
+  {
+    name: 'Arch-Revenant',
+    effects: [
+      {
+        name: 'Crescent Shield',
+        desc:
+          'At the start of the combat phase, say whether this Arch-Revenant is using their shield for protection or to steady their weapon. If they use their shield for protection, you can reroll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can re-roll hit rolls of 1 for attacks made with this model’s Revenant’s Glaive in that phase.',
+        when: START_OF_COMBAT_PHASE,
+      },
+      {
+        name: 'Champion of Kurnoth',
+        desc:
+          'Re-roll hit rolls of 1 for attacks made by friendly Kurnoth Hunters units while they are wholly within 12" of this Arch-Revenant.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Ultimate Sacrifice',
+        desc:
+          'Once per battle, when you allocate a wound or mortal wound to this Arch-Revenant, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite’s Tail Pincers attack for the rest of the battle.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Command Ability: Call to Battle',
+        desc:
+          'You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Sylvaneth unit wholly within 9" of a friendly model with this command ability, or wholly within 12" of a friendly model with this command ability that is your general. Add 1 to the Attacks characteristic of that unit’s melee weapons in that combat phase. You cannot pick the same unit to benefit from this command ability more than once per combat phase.',
+        when: START_OF_COMBAT_PHASE,
       },
     ],
   },
