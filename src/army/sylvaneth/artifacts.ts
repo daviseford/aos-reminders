@@ -1,6 +1,6 @@
 import { TArtifacts } from 'types/army'
 import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
-import { HERO_PHASE } from 'types/phases';
+import { HERO_PHASE, COMBAT_PHASE } from 'types/phases'
 
 let Artifacts: TArtifacts = [
   {
@@ -9,6 +9,77 @@ let Artifacts: TArtifacts = [
       {
         name: '',
         desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: '',
+    effects: [
+      {
+        name: '',
+        desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: '',
+    effects: [
+      {
+        name: '',
+        desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: '',
+    effects: [
+      {
+        name: '',
+        desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: '',
+    effects: [
+      {
+        name: '',
+        desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: '',
+    effects: [
+      {
+        name: '',
+        desc: '',
+        when: HERO_PHASE,
+      },
+    ],
+  },
+  {
+    name: 'Ironbark Talisman',
+    effects: [
+      {
+        name: 'Ironbark Talisman (Ironbark)',
+        desc: 'You can add 1 to all wound rolls made for the bearer’s melee weapons.',
+        when: COMBAT_PHASE,
+      },
+    ],
+  },
+  {
+    name: 'Tear of Grace',
+    effects: [
+      {
+        name: 'Tear of Grace',
+        desc:
+          'The bearer of the Tear of Grace knows an extra spell, which is always generated from the Deepwood spell lore. In addition, the bearer can add 3" to the range of all of their spells.',
         when: HERO_PHASE,
       },
     ],
