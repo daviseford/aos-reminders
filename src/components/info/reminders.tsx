@@ -34,7 +34,7 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
     <div className="row d-block">
       <div className="card border-dark my-3">
         <div className="card-header text-center">
-          <h2>{titleCase(props.when)}</h2>
+          <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
         </div>
         <div className="card-body">
           {props.actions.map((a, i) => {

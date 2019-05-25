@@ -3,11 +3,14 @@
 }
 
 .ReminderEntry {
-    font-size: 1.3rem;
+    font-size: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0px;
     margin-block-end: 0px;
 }
+.ReminderHeader {
+    margin-bottom: 0;
+}
 small {
-    font-size: 12px
+    font-size: 12px;
 }

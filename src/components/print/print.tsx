@@ -5,7 +5,7 @@ import { titleCase } from 'utils/titleCase'
 
 export const PrintHeader = (props: { factionName: string }) => {
   return (
-    <header className={'text-center mt-5 d-none d-print-block'}>
+    <header className={'text-center mt-4 mb-1 d-none d-print-block'}>
       <h1>AoS Reminders - {titleCase(props.factionName)}</h1>
     </header>
   )
@@ -15,7 +15,7 @@ export const PrintUnits = (props: { selections: ISelections; realmscape: string 
   const { units, battalions, artifacts, traits } = props.selections
   const realm = props.realmscape === 'None' ? [] : [props.realmscape]
   return (
-    <div className={'row text-center mt-5 d-none d-print-block'}>
+    <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplay name={'Unit'} items={units} />
       <ItemsDisplay name={'Artifact'} items={artifacts} />
       <ItemsDisplay name={'Battalion'} items={battalions} />
