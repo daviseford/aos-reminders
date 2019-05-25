@@ -108,7 +108,8 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: 'Jade Diadem (Ghyran)',
-        desc: 'If the unmodified save roll for an attack that targets the bearer is 6, heal 1 wound allocated to the bearer.',
+        desc:
+          'If the unmodified save roll for an attack that targets the bearer is 6, heal 1 wound allocated to the bearer.',
         when: DURING_GAME,
       },
     ],
@@ -667,7 +668,7 @@ const RealmArtifacts: TArtifacts = [
         name: 'Miasmatic Blade (Ulgu)',
         desc:
           'Pick one of the bearer’s melee weapons to be a Miasmatic Blade. Subtract 1 from hit rolls for attacks that target the bearer.',
-        when: COMBAT_PHASE,
+        when: DURING_GAME,
       },
     ],
   },
