@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import Reminders from './info/reminders'
 import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
-import { SERAPHON } from 'meta/factions'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
@@ -15,7 +15,7 @@ const App = () => {
     traits: [] as string[],
     units: [] as string[],
   })
-  const [factionName, setFactionName] = useState(SERAPHON)
+  const [factionName, setFactionName] = useState(SUPPORTED_FACTIONS[0])
   const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
 

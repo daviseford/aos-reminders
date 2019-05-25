@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 import {
   START_OF_SHOOTING_PHASE,
@@ -211,11 +212,10 @@ let Artifacts: TArtifacts = [
     effects: [
       {
         name: 'Disharmony Stones',
-        desc:
-          'Once per battle, at the start of your hero phase, pick up to two enemy HEROES that are within 12" of the bearer. The opposing player must then choose one of the following options:\
-        a) Roll a dice for each HERO picked. On a 3+ that hero suffers 1 mortal wound.\
-        b) Roll a dice for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.\
-        c) Each HERO picked suffers D3 mortal wounds. Then roll a dice. On a 4+ the bearer suffers D3 mortal wounds',
+        desc: `Once per battle, at the start of your hero phase, pick up to two enemy HEROES that are within 12" of the bearer. The opposing player must then choose one of the following options:
+        \na) Roll a dice for each HERO picked. On a 3+ that hero suffers 1 mortal wound.
+        \nb) Roll a dice for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.
+        \nc) Each HERO picked suffers D3 mortal wounds. Then roll a dice. On a 4+ the bearer suffers D3 mortal wounds`,
         when: START_OF_HERO_PHASE,
       },
     ],
@@ -283,11 +283,10 @@ let Artifacts: TArtifacts = [
     effects: [
       {
         name: 'Kraken Tooth',
-        desc:
-          'Once per battle, in your shooting phase, pick an enemy unit within 12" of the bearer that is visible to them. Then, roll a dice and look up the result below.\
-        1: The bearer suffers D3 mortal wounds.\
-        2-5: The enemy unit suffers D3 mortal wounds.\
-        6: Pick one model in the enemy unit. The model you pick is slain if it has a Wounds characteristic of less than 10, and suffers 2D6 mortal wounds if it has a Wounds characteristic of 10+',
+        desc: `Once per battle, in your shooting phase, pick an enemy unit within 12" of the bearer that is visible to them. Then, roll a dice and look up the result below.
+        \n1: The bearer suffers D3 mortal wounds.
+        \n2-5: The enemy unit suffers D3 mortal wounds.
+        \n6: Pick one model in the enemy unit. The model you pick is slain if it has a Wounds characteristic of less than 10, and suffers 2D6 mortal wounds if it has a Wounds characteristic of 10+`,
         when: SHOOTING_PHASE,
       },
     ],
@@ -305,7 +304,7 @@ let Artifacts: TArtifacts = [
   },
 ]
 
-Artifacts = Artifacts.concat(OrderArtifacts)
+Artifacts = sortBy(Artifacts, 'name').concat(OrderArtifacts)
 Artifacts = Artifacts.concat(RealmArtifacts)
 
 export default Artifacts

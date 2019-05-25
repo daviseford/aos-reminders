@@ -12,4 +12,4 @@ export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 
 // Supported Factions
 export type TSupportedFaction = TSeraphon | TGloomspiteGitz | TSylvaneth | TIdonethDeepkin
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = [SERAPHON, GLOOMSPITE_GITZ, SYLVANETH, IDONETH_DEEPKIN]
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = [GLOOMSPITE_GITZ, IDONETH_DEEPKIN, SERAPHON, SYLVANETH]

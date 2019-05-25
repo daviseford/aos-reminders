@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 import { COMBAT_PHASE, HERO_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
 
@@ -69,4 +70,4 @@ const DestructionArtifacts: TArtifacts = [
   },
 ]
 
-export default DestructionArtifacts
+export default sortBy(DestructionArtifacts, 'name')

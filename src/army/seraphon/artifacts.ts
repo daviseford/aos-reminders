@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 
 import { DURING_GAME, START_OF_GAME, HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
@@ -72,7 +73,7 @@ let Artifacts: TArtifacts = [
   },
 ]
 
-Artifacts = Artifacts.concat(OrderArtifacts)
+Artifacts = sortBy(Artifacts, 'name').concat(OrderArtifacts)
 Artifacts = Artifacts.concat(RealmArtifacts)
 
 export default Artifacts
