@@ -10,6 +10,9 @@ import {
   SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
   CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
+  START_OF_ROUND,
+  START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -38,30 +41,104 @@ export const Units: TUnits = [
     name: 'Spirit of Durthu',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Groundshaking Stomp',
+        desc:
+          'At the start of the combat phase, the Spirit of Durthu stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+        when: START_OF_COMBAT_PHASE,
+      },
+      {
+        name: 'Impale',
+        desc:
+          'If the Spirit of Durthu’s Massive Impaling Talons inflict a wound on an enemy model, roll a dice. If the result exceeds the number of wounds the enemy model has remaining, it is slain.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Spirit Paths',
+        desc:
+          'If a Spirit of Durthu is within 3" of a Sylvaneth Wyldwood at the start of your movement phase, he can travel along the spirit paths. If he does so, remove the Spirit of Durthu from the battlefield, and then set him up within 3" of a different Sylvaneth Wyldwood, more than 9" from any enemy models. This is his move for the movement phase.',
+        when: START_OF_MOVEMENT_PHASE,
+      },
+      {
+        name: 'Guardian Sword',
+        desc:
+          'The Spirit of Durthu makes an extra D3 attacks with the Guardian Sword if he is within 3" of a Sylvaneth Wyldwood when he attacks in the combat phase.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: "Champions of the Everqueen's Will",
+        desc:
+          'All friendly SYLVANETH units that are within 8" of any Spirits of Durthu in the battleshock phase add 1 to their Bravery.',
+        when: BATTLESHOCK_PHASE,
+      },
+      {
+        name: 'Verdant Blast',
+        desc:
+          'When a Spirit of Durthu attacks with a Verdant Blast, you can declare that he will channel his life-force to intensify its power. Add 2 to the weapon’s Attacks for the rest of the turn. If the Spirit of Durthu uses this ability, he suffers D3 mortal wounds at the end of the shooting phase.',
+        when: SHOOTING_PHASE,
+      },
+      {
+        name: 'Solemn Guardian',
+        desc:
+          'If an attack that targets a friendly SYLVANETH HERO within 6" of a Spirit of Durthu causes a wound, roll a dice. On a result of 4 or more the wound is inflicted on the Spirit of Durthu instead (you can make a save roll as normal).',
+        when: DURING_GAME,
       },
     ],
   },
   {
-    name: 'Drycha Hamadreth',
+    name: 'Drycha',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Mercurial Aspect',
+        desc:
+          'At the start of each battle round, after rolling to see who takes the first turn, roll a dice. On a result of 1, 2 or 3, Drycha is enraged, while on a 4, 5 or 6 she is embittered. Her mood lasts until the end of the battle round.',
+        when: START_OF_ROUND,
+      },
+      {
+        name: 'Song of Spite',
+        desc:
+          'You can re-roll wound rolls of 1 for Spite- Revenants whilst their unit is within 10" of Drycha Hamadreth.',
+        when: COMBAT_PHASE,
       },
     ],
   },
   {
     name: 'Alarielle the Everqueen',
-
     effects: [
       {
-        name: '',
-        desc: '',
+        name: 'Talon of the Dwindling',
+        desc:
+          'At the end of the combat phase, roll two dice for each model that suffered wounds from the Talon of the Dwindling but was not slain. If the result exceeds the model’s Wounds characteristic, or if you roll two sixes, the model is slain.',
+        when: END_OF_COMBAT_PHASE,
+      },
+      {
+        name: 'Lifebloom',
+        desc:
+          'In each of your hero phases, Alarielle calls upon the restorative energies of her realm and heals D3 wounds.',
         when: HERO_PHASE,
+      },
+      {
+        name: 'Sweeping Blows',
+        desc:
+          'When the Wardroth Beetle attacks with its Great Antlers, you can add 1 to the hit rolls if the target unit has five or more models.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Living Battering Ram',
+        desc:
+          'If this model ends a charge move within 1" of a terrain feature, each other unit within or on that terrain feature suffers D3 mortal wounds.',
+        when: CHARGE_PHASE,
+      },
+      {
+        name: 'Soul Amphorae',
+        desc:
+          'Alarielle can do this in the hero phase; if she does so, roll on the table on her warscroll to determine the effects. If you wish, you can choose a result lower than the one you rolled. Any models you set up must be within 9" of Alarielle, and not within 3" of the enemy.',
+        when: HERO_PHASE,
+      },
+      {
+        name: "Ghyran's Wrath",
+        desc:
+          'Alarielle can use this ability once per battle. When she does so, you can re-roll all failed wound rolls made for friendly SYLVANETH models until your next hero phase.',
+        when: DURING_GAME,
       },
     ],
   },
@@ -69,9 +146,34 @@ export const Units: TUnits = [
     name: 'Treelord Ancient',
     effects: [
       {
-        name: '',
-        desc: '',
+        name: 'Groundshaking Stomp',
+        desc:
+          'At the start of the combat phase, the Treelord Ancient stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+        when: START_OF_COMBAT_PHASE,
+      },
+      {
+        name: 'Impale',
+        desc:
+          'If a Treelord Ancient’s Massive Impaling Talons inflict a wound on an enemy model, roll a dice. If the result exceeds the number of wounds the enemy model has remaining, it is slain.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Spirit Paths',
+        desc:
+          'If a Treelord Ancient is within 3" of a Sylvaneth Wyldwood at the start of your movement phase, they can travel along the spirit paths. If they do so, remove the Treelord Ancient from the battlefield, and then set them up within 3" of a different Sylvaneth Wyldwood, more than 9" from any enemy models. This is their move for the movement phase.',
+        when: START_OF_MOVEMENT_PHASE,
+      },
+      {
+        name: 'Silent Communion',
+        desc:
+          'In the hero phase, a Treelord Ancient can commune with the realmroots, calling forth a glade of trees. Roll a dice. On a result of 4 or more, you can set up a Sylvaneth Wyldwood. Each Citadel Wood must be placed within 15" of the Treelord Ancient, and not within 3" of any other models.',
         when: HERO_PHASE,
+      },
+      {
+        name: 'Command Ability: Heed the Spirit-song',
+        desc:
+          'Until your next hero phase, you can re-roll save rolls of 1 for SYLVANETH units if they are within 10" of the Treelord Ancient.',
+        when: DURING_GAME,
       },
     ],
   },
@@ -138,12 +240,24 @@ export const Units: TUnits = [
   },
   {
     name: 'Treelord',
-
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Groundshaking Stomp',
+        desc:
+          'At the start of the combat phase, the Treelord stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+        when: START_OF_COMBAT_PHASE,
+      },
+      {
+        name: 'Impale',
+        desc:
+          ' If a Treelord’s Massive Impaling Talons inflict a wound on an enemy model, roll a dice. If the result exceeds the number of wounds the enemy model has remaining, it is slain.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Spirit Paths',
+        desc:
+          'If a Treelord is within 3" of a Sylvaneth Wyldwood at the start of your movement phase it can travel along the spirit paths. If it does so, remove the Treelord from the battlefield, and then set it up within 3" of a different Sylvaneth Wyldwood, more than 9" from any enemy models. This is its move for the movement phase.',
+        when: START_OF_MOVEMENT_PHASE,
       },
     ],
   },
