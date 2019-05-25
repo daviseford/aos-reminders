@@ -13,6 +13,7 @@ import {
   END_OF_COMBAT_PHASE,
   START_OF_ROUND,
   START_OF_COMBAT_PHASE,
+  START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -21,9 +22,9 @@ export const Units: TUnits = [
     name: 'Branchwraith',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Blessings of the Forest',
+        desc: 'Subtract 1 from all hit rolls made against a Branchwraith if she is within 3" of a Sylvaneth Wyldwood.',
+        when: DURING_GAME,
       },
     ],
   },
@@ -31,9 +32,15 @@ export const Units: TUnits = [
     name: 'Branchwych',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Fury of the Forest',
+        desc: 'Add 1 to all hit rolls made for this model while she is within 3" of a Sylvaneth Wyldwood.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Quick-tempered',
+        desc:
+          'If a Branchwych is wounded in the combat phase, she makes 4 attacks rather than 2 with her Greenwood Scythe for the rest of the phase.',
+        when: COMBAT_PHASE,
       },
     ],
   },
@@ -199,12 +206,24 @@ export const Units: TUnits = [
   },
   {
     name: 'Kurnoth Hunters',
-
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Tanglethorn Thicket',
+        desc:
+          'At the start of either player’s charge phase, Kurnoth Hunters can sprout a thick weave of thorned branches. Until the end of the turn, they cannot move except to pile in up to 1", but you can re-roll failed save rolls for them.',
+        when: START_OF_CHARGE_PHASE,
+      },
+      {
+        name: 'Envoys of the Everqueen',
+        desc:
+          'If your general is a SYLVANETH HERO, any Kurnoth Hunters in your army always count as being in range for any command ability the general uses. In addition, any SYLVANETH units within 8" of this unit also count as being in range for any command ability the general uses.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Trample Underfoot',
+        desc:
+          'At the end of the combat phase, pick an enemy unit and roll a dice for each Kurnoth Hunter from this unit that is within 1" of it. For each result of 4 or more, the enemy unit suffers a mortal wound.',
+        when: END_OF_COMBAT_PHASE,
       },
     ],
   },
@@ -212,9 +231,15 @@ export const Units: TUnits = [
     name: 'Spite-Revenants',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Whispers in the Dark',
+        desc:
+          'Scenery within 8" of any Spite-Revenants is haunted. Your opponent must roll two dice when taking battleshock tests for any of their units that are within 3" of such a terrain feature, and use the highest dice result.',
+        when: BATTLESHOCK_PHASE,
+      },
+      {
+        name: 'Unbridled Malice',
+        desc: 'Enemy units within 3" of any Spite-Revenants must subtract 1 from their Bravery.',
+        when: BATTLESHOCK_PHASE,
       },
     ],
   },
@@ -222,9 +247,22 @@ export const Units: TUnits = [
     name: 'Tree-Revenants',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Glade Banner',
+        desc:
+          'Models in this unit may bear Glade Banners. Models in a unit containing any Glade Banners can pile in up to 6".',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Waypipes',
+        desc:
+          'Models in this unit may play Waypipes. Instead of moving in the movement phase, a unit with any Waypipes can walk the spirit paths. Remove it from play, and set it up so that all its models are within 3" of a Sylvaneth Wyldwood or an edge of the battlefield, and more than 9" from the enemy.',
+        when: MOVEMENT_PHASE,
+      },
+      {
+        name: 'Martial Memories',
+        desc:
+          'Once per phase, you can re-roll a single dice for this unit. This could be one of the dice you roll to see how far it charges, a hit roll, a save roll, a battleshock test, a roll to see whether a model is slain by deadly scenery etc.',
+        when: DURING_GAME,
       },
     ],
   },
