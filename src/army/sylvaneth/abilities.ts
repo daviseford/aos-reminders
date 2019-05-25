@@ -12,7 +12,7 @@ const Abilities: IEffects[] = [
   {
     name: 'Forest Spirits',
     desc:
-      'Instead of setting up a SYLVANETH unit or battalion, you can place it to one side and say it is set up as part of your army in one of the hidden enclaves. In any of your movement phases, you can transport the unit (or battalion) to the battlefield. When you do so, set it up so that all models are within 3"ofa Sylvaneth Wyldwood and more than 9" from any enemy models. This is their move for that movement phase.',
+      'Instead of setting up a SYLVANETH unit or battalion, you can place it to one side and say it is set up as part of your army in one of the hidden enclaves. In any of your movement phases, you can transport the unit (or battalion) to the battlefield. When you do so, set it up so that all models are within 3" of a Sylvaneth Wyldwood and more than 9" from any enemy models. This is their move for that movement phase.',
     when: MOVEMENT_PHASE,
   },
   {

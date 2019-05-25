@@ -20,7 +20,7 @@ const Header = ({ setFactionName, factionName }) => {
         <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
 
         <p>
-          Right now, this tool offers personalized gameplay reminders for Seraphon and Gloomspite Gitz.
+          Right now, this tool offers personalized gameplay reminders for Seraphon, Sylvaneth, and Gloomspite Gitz.
           <br />
           Other armies may be added if there is demand.
         </p>
