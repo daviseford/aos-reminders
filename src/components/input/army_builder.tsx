@@ -53,10 +53,15 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none">
         <div className="card-group mx-auto">
-          <Card items={army.Units} entries={units} type={'unit'} updateState={useUnits} />
+          <Card items={_.sortBy(army.Units, 'name')} entries={units} type={'unit'} updateState={useUnits} />
           <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
           <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
-          <Card items={army.Battalions} entries={battalions} type={'battalion'} updateState={useBattalions} />
+          <Card
+            items={_.sortBy(army.Battalions, 'name')}
+            entries={battalions}
+            type={'battalion'}
+            updateState={useBattalions}
+          />
           <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
