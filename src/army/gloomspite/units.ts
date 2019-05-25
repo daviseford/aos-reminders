@@ -570,7 +570,24 @@ export const Units: TUnits = [
   },
   {
     name: 'Troggoth Hag',
-    effects: [],
+    effects: [
+      {
+        name: 'Hag Regeneration',
+        desc: 'In your hero phase, you can heal up to D6 wounds allocated to this model.',
+        when: HERO_PHASE,
+      },
+      {
+        name: 'Spell-spite',
+        desc:
+          'Each time this model successfully unbinds a spell, you can roll a dice; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds',
+        when: HERO_PHASE,
+      },
+      {
+        name: 'Terrible Stench',
+        desc: 'Subtract 1 from hit rolls for attacks made with melee weapons that target this model.',
+        when: COMBAT_PHASE,
+      },
+    ],
   },
   {
     name: 'Dankhold Troggboss',
