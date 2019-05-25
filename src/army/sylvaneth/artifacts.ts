@@ -64,7 +64,7 @@ let Artifacts: TArtifacts = [
     ],
   },
   {
-    name: 'Ironbark Talisman',
+    name: 'Ironbark Talisman (Ironbark)',
     effects: [
       {
         name: 'Ironbark Talisman (Ironbark)',
@@ -74,10 +74,10 @@ let Artifacts: TArtifacts = [
     ],
   },
   {
-    name: 'Tear of Grace',
+    name: 'Tear of Grace (Harvestboon)',
     effects: [
       {
-        name: 'Tear of Grace',
+        name: 'Tear of Grace (Harvestboon)',
         desc:
           'The bearer of the Tear of Grace knows an extra spell, which is always generated from the Deepwood spell lore. In addition, the bearer can add 3" to the range of all of their spells.',
         when: HERO_PHASE,
