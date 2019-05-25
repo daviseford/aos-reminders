@@ -33,7 +33,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: 'Fury of the Forest',
-        desc: 'Add 1 to all hit rolls made for this model while she is within 3" of a Sylvaneth Wyldwood.',
+        desc: 'Add 1 to all hit rolls made for Branchwych while she is within 3" of a Sylvaneth Wyldwood.',
         when: COMBAT_PHASE,
       },
       {
@@ -132,13 +132,13 @@ export const Units: TUnits = [
       {
         name: 'Living Battering Ram',
         desc:
-          'If this model ends a charge move within 1" of a terrain feature, each other unit within or on that terrain feature suffers D3 mortal wounds.',
+          'If Alarielle ends a charge move within 1" of a terrain feature, each other unit within or on that terrain feature suffers D3 mortal wounds.',
         when: CHARGE_PHASE,
       },
       {
         name: 'Soul Amphorae',
         desc:
-          'In your hero phase, you can heal D3 wounds allocated to each Sylvaneth model within 30" of this model. Once per battle, in your hero phase, instead of using this ability to heal, you can summon 1 unit from the list on her warscroll to the battlefield, and add it to your army. The summoned unit must be set up wholly within 9" of this model and more than 9" from any enemy units. That unit cannot move in the following movement phase.',
+          'In your hero phase, you can heal D3 wounds allocated to each Sylvaneth model within 30" of Alarielle. Once per battle, in your hero phase, instead of using this ability to heal, you can summon 1 unit from the list on her warscroll to the battlefield, and add it to your army. The summoned unit must be set up wholly within 9" of Alarielle and more than 9" from any enemy units. That unit cannot move in the following movement phase.',
         when: HERO_PHASE,
       },
       {
@@ -205,7 +205,7 @@ export const Units: TUnits = [
       {
         name: 'Enrapturing Song',
         desc:
-          'In your own combat phase, you can enrapture one enemy unit that is within 3" of this unit. You can add 1 to the hit rolls made for these Dryads against the enraptured unit in that combat phase.',
+          'In your own combat phase, you can enrapture one enemy unit that is within 3" of a unit of Dryads. You can add 1 to the hit rolls made for these Dryads against the enraptured unit in that combat phase.',
         when: COMBAT_PHASE,
       },
       {
@@ -260,19 +260,19 @@ export const Units: TUnits = [
       {
         name: 'Glade Banner',
         desc:
-          'Models in this unit may bear Glade Banners. Models in a unit containing any Glade Banners can pile in up to 6".',
+          'Models in a Tree-Revenants unit may bear Glade Banners. Models in a unit containing any Glade Banners can pile in up to 6".',
         when: COMBAT_PHASE,
       },
       {
         name: 'Waypipes',
         desc:
-          'Models in this unit may play Waypipes. Instead of moving in the movement phase, a unit with any Waypipes can walk the spirit paths. Remove it from play, and set it up so that all its models are within 3" of a Sylvaneth Wyldwood or an edge of the battlefield, and more than 9" from the enemy.',
+          'Models in a Tree-Revenants unit may play Waypipes. Instead of moving in the movement phase, a unit with any Waypipes can walk the spirit paths. Remove it from play, and set it up so that all its models are within 3" of a Sylvaneth Wyldwood or an edge of the battlefield, and more than 9" from the enemy.',
         when: MOVEMENT_PHASE,
       },
       {
         name: 'Martial Memories',
         desc:
-          'Once per phase, you can re-roll a single dice for this unit. This could be one of the dice you roll to see how far it charges, a hit roll, a save roll, a battleshock test, a roll to see whether a model is slain by deadly scenery etc.',
+          'Once per phase, you can re-roll a single dice for a unit of Tree-Revenants. This could be one of the dice you roll to see how far it charges, a hit roll, a save roll, a battleshock test, a roll to see whether a model is slain by deadly scenery etc.',
         when: DURING_GAME,
       },
     ],
