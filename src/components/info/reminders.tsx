@@ -37,20 +37,27 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
         </div>
         <div className="card-body">
-          {props.actions.map((a, i) => {
+          {props.actions.map((action, i) => {
             return (
               <Fragment key={i}>
-                <p className="ReminderEntry">
-                  {a.name ? <b>{a.name}: </b> : null}
-                  {a.action}
-                </p>
-                <small>Because you have: {a.condition.join(', ')}</small>
+                <ActionText {...action} />
+                <small>Because you have: {action.condition.join(', ')}</small>
               </Fragment>
             )
           })}
         </div>
       </div>
     </div>
+  )
+}
+
+const ActionText = (props: ITurnAction) => {
+  const { name, action } = props
+  return (
+    <p className="ReminderEntry">
+      {name ? <b>{name}: </b> : null}
+      {action}
+    </p>
   )
 }
 

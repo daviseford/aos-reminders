@@ -18,13 +18,6 @@ import {
   DURING_GAME,
 } from 'types/phases'
 
-// Command Trait Keywords
-export const Tags = {
-  SLANN: 'Slann',
-  SKINK: 'Skink',
-  SAURUS: 'Saurus',
-}
-
 // Unit Names
 export const Units: TUnits = [
   {

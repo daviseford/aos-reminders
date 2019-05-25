@@ -454,11 +454,10 @@ export const Battalions: TBattalions = [
       },
       {
         name: 'Subterfuge',
-        desc:
-          'Roll a dice at the start of the first battle round; on a 1 or 2 you can use one of the following stratagems, on a 3 or 4 you can use two of them, and on a 5 or 6 you can use all three:' +
-          '\n\nAmbush: A Dreadwood unit can be redeployed anywhere on the battlefield that is more than 6" from an enemy unit.' +
-          '\n\nHidden Attackers: The maximum range of enemy attacks, abilities and spells against Dreadwood units is limited to 12" during the first round of the battle.' +
-          '\n\nSneak Attack: Up to 3 Dreadwood units can immediately move as if it were the movement phase (they cannot run).',
+        desc: `Roll a dice at the start of the first battle round; on a 1 or 2 you can use one of the following stratagems, on a 3 or 4 you can use two of them, and on a 5 or 6 you can use all three:
+          \nAmbush: A Dreadwood unit can be redeployed anywhere on the battlefield that is more than 6" from an enemy unit.
+          \nHidden Attackers: The maximum range of enemy attacks, abilities and spells against Dreadwood units is limited to 12" during the first round of the battle.
+          \nSneak Attack: Up to 3 Dreadwood units can immediately move as if it were the movement phase (they cannot run).`,
         when: TURN_ONE_START_OF_ROUND,
       },
     ],
