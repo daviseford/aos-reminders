@@ -50,7 +50,7 @@ export const Units: TUnits = [
       {
         name: 'Groundshaking Stomp',
         desc:
-          'At the start of the combat phase, the Spirit of Durthu stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+          'At the start of the combat phase, roll a dice for each enemy unit within 3" of any models with this ability. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
         when: START_OF_COMBAT_PHASE,
       },
       {
@@ -138,7 +138,7 @@ export const Units: TUnits = [
       {
         name: 'Soul Amphorae',
         desc:
-          'Alarielle can do this in the hero phase; if she does so, roll on the table on her warscroll to determine the effects. If you wish, you can choose a result lower than the one you rolled. Any models you set up must be within 9" of Alarielle, and not within 3" of the enemy.',
+          'In your hero phase, you can heal D3 wounds allocated to each Sylvaneth model within 30" of this model. Once per battle, in your hero phase, instead of using this ability to heal, you can summon 1 unit from the list on her warscroll to the battlefield, and add it to your army. The summoned unit must be set up wholly within 9" of this model and more than 9" from any enemy units. That unit cannot move in the following movement phase.',
         when: HERO_PHASE,
       },
       {
@@ -155,7 +155,7 @@ export const Units: TUnits = [
       {
         name: 'Groundshaking Stomp',
         desc:
-          'At the start of the combat phase, the Treelord Ancient stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+          'At the start of the combat phase, roll a dice for each enemy unit within 3" of any models with this ability. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
         when: START_OF_COMBAT_PHASE,
       },
       {
@@ -173,7 +173,7 @@ export const Units: TUnits = [
       {
         name: 'Silent Communion',
         desc:
-          'In the hero phase, a Treelord Ancient can commune with the realmroots, calling forth a glade of trees. Roll a dice. On a result of 4 or more, you can set up a Sylvaneth Wyldwood. Each Citadel Wood must be placed within 15" of the Treelord Ancient, and not within 3" of any other models.',
+          'In your hero phase, you can pick 1 friendly Treelord Ancient and roll a dice. On a 4+, you can set up 1 Sylvaneth Wyldwood terrain feature wholly within 24" of that Treelord Ancient, and more than 3" from any other models or terrain features.',
         when: HERO_PHASE,
       },
       {
@@ -198,9 +198,20 @@ export const Units: TUnits = [
     name: 'Dryads',
     effects: [
       {
-        name: '',
-        desc: '',
-        when: HERO_PHASE,
+        name: 'Blessings of the Forest',
+        desc: 'Subtract 1 from all hit rolls made against Dryads if it is within 3" of a Sylvaneth Wyldwood.',
+        when: DURING_GAME,
+      },
+      {
+        name: 'Enrapturing Song',
+        desc:
+          'In your own combat phase, you can enrapture one enemy unit that is within 3" of this unit. You can add 1 to the hit rolls made for these Dryads against the enraptured unit in that combat phase.',
+        when: COMBAT_PHASE,
+      },
+      {
+        name: 'Impenetrable Thicket',
+        desc: 'You can add 1 to the result of save rolls for a Dryad unit if it includes at least 12 models.',
+        when: DURING_GAME,
       },
     ],
   },
@@ -216,7 +227,7 @@ export const Units: TUnits = [
       {
         name: 'Envoys of the Everqueen',
         desc:
-          'If your general is a SYLVANETH HERO, any Kurnoth Hunters in your army always count as being in range for any command ability the general uses. In addition, any SYLVANETH units within 8" of this unit also count as being in range for any command ability the general uses.',
+          'If a friendly Sylvaneth Hero uses a command ability, you can measure the range of that command ability from a friendly Kurnoth Hunters unit instead of the Hero.',
         when: DURING_GAME,
       },
       {
@@ -282,7 +293,7 @@ export const Units: TUnits = [
       {
         name: 'Groundshaking Stomp',
         desc:
-          'At the start of the combat phase, the Treelord stomps the ground; roll a dice for each enemy unit within 3" of this model. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
+          'At the start of the combat phase, roll a dice for each enemy unit within 3" of any models with this ability. On a roll of 4 or more, that unit is knocked off their feet by the impact and must subtract 1 from all hit rolls in that combat phase as they regain their footing.',
         when: START_OF_COMBAT_PHASE,
       },
       {
