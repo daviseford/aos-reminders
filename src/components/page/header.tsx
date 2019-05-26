@@ -1,11 +1,14 @@
 import React from 'react'
+import _ from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { SelectOne } from 'components/input/select_one'
+import { titleCase } from 'utils/titleCase'
 
 /**
  * Hidden when printing
  */
 const Header = ({ setFactionName, factionName }) => {
+  const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
       <div className="container">
@@ -20,7 +23,8 @@ const Header = ({ setFactionName, factionName }) => {
         <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
 
         <p>
-          Right now, this tool offers personalized gameplay reminders for Seraphon, Sylvaneth, and Gloomspite Gitz.
+          Right now, this tool offers personalized gameplay reminders for {_.initial(factions).join(', ')}, and{' '}
+          {_.last(factions)}.
           <br />
           Other armies may be added if there is demand.
         </p>

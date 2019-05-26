@@ -1,12 +1,17 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Contributing
+## How to Contribute
 
 If you want to add an army or edit an existing army, please do so! Use the `src/army/seraphon/` folder as a reference for how things are added!
 
 In particular, you'll want to focus on `units.ts`, `artifacts.ts`, and `abilities.ts`. Feel free to submit a PR or send me a diff file!
 
+### Top Contributors
+
++ [daviseford](https://github.com/daviseford)
++ [grzegorzmiazga](https://github.com/grzegorzmiazga)
+
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 

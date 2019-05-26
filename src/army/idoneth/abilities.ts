@@ -1,4 +1,4 @@
-import { DURING_GAME, DURING_ROUND } from 'types/phases'
+import { DURING_GAME } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
