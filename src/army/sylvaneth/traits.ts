@@ -16,7 +16,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Realm Walker',
         desc: 'If your general uses the Navigate Realmroots ability, add 2 to the dice result.',
-        when: START_OF_MOVEMENT_PHASE,
+        when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -26,7 +26,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Gnarled Warrior',
         desc: 'When you make save rolls for your general, ignore the enemy’s Rend unless it is -2 or better.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -37,7 +37,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Gift of Ghyran',
         desc:
           'Your general heals 1 wound at the start of each of your hero phases, or D3 wounds if they are within 3" of a Sylvaneth Wyldwood.',
-        when: START_OF_HERO_PHASE,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -47,12 +47,12 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Lord of Spites',
         desc: 'You can re-roll the first failed hit roll made for your general in each phase.',
-        when: COMBAT_PHASE,
+        when: [COMBAT_PHASE],
       },
       {
         name: 'Lord of Spites',
         desc: 'You can re-roll the first failed hit roll made for your general in each phase.',
-        when: SHOOTING_PHASE,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -63,7 +63,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Warsinger',
         desc:
           'You can add 1 to any charge rolls made for friendly SYLVANETH units that are within 10" of your general.',
-        when: CHARGE_PHASE,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -74,7 +74,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Wisdom of the Ancients',
         desc:
           'All friendly SYLVANETH units within 10" of your general in the battleshock phase add 1 to their Bravery.',
-        when: BATTLESHOCK_PHASE,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -85,7 +85,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Ancient Nobility (Oakenbrow)',
         desc:
           'All friendly SYLVANETH units within 15" of your general in the battleshock phase add 1 to their Bravery.',
-        when: BATTLESHOCK_PHASE,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

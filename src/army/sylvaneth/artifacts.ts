@@ -12,7 +12,7 @@ let Artifacts: TArtifacts = [
         name: "Daith's Reaper",
         desc:
           "Pick one of this HERO's melee weapons to be Daith’s Reaper. When making attacks with this weapon, any wound rolls of 6 or more have a Rend characteristic of -4.",
-        when: COMBAT_PHASE,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -22,7 +22,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'The Oaken Armour',
         desc: 'Add 1 to any save rolls made for this HERO.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -32,7 +32,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'Briarsheath',
         desc: "Your opponent must subtract 1 from all hit rolls made against the Briarsheath's bearer.",
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -42,7 +42,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'Seed of Rebirth',
         desc: 'The first time the bearer of this artefact loses its last wound, it immediately heals D3 wounds.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -52,7 +52,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'Wraithstone',
         desc: 'Subtract 1 from the Bravery of all enemy units within 10" of the bearer in the battleshock phase.',
-        when: BATTLESHOCK_PHASE,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -63,7 +63,7 @@ let Artifacts: TArtifacts = [
         name: 'Glamourweave',
         desc:
           'Roll a dice each time the bearer suffers an unsaved wound or a mortal wound. On a roll of 6, the wound is ignored.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -74,7 +74,7 @@ let Artifacts: TArtifacts = [
         name: 'Acorn of the Ages',
         desc:
           'Once per game, in your hero phase, set up a new Sylvaneth Wyldwood anywhere within 5" of the bearer. The wood cannot be set up within 1" of any other models or terrain features.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -84,7 +84,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'Warsong Stave',
         desc: 'The bearer knows the Treesong spell in addition to any other spells they know.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -95,7 +95,7 @@ let Artifacts: TArtifacts = [
         name: 'Moonstone of the Hidden Ways',
         desc:
           'Once per game, instead of moving the bearer in the movement phase, remove them from the battlefield and place them anywhere that is more than 4" from any enemy models.',
-        when: MOVEMENT_PHASE,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -106,7 +106,7 @@ let Artifacts: TArtifacts = [
         name: "Ranu's Lamentari",
         desc:
           'Add 1 to all casting rolls made for the bearer of Ranu’s Lamentiri. If they attempt to cast a spell from the Deepwood spell lore, add 2 to the casting roll instead.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -117,7 +117,7 @@ let Artifacts: TArtifacts = [
         name: 'Hagbane Spite',
         desc:
           'Once per game, instead of attempting to unbind a spell, the bearer can send forth their Hagbane Spite to attack the caster. After resolving the spell’s effects, the caster immediately suffers D3 mortal wounds.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -127,7 +127,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'The Silverwood Circlet',
         desc: 'Add 6" to the maximum range of every spell that the wearer knows.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -137,7 +137,7 @@ let Artifacts: TArtifacts = [
       {
         name: 'Ironbark Talisman (Ironbark)',
         desc: 'You can add 1 to all wound rolls made for the bearer’s melee weapons.',
-        when: COMBAT_PHASE,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -148,7 +148,7 @@ let Artifacts: TArtifacts = [
         name: 'Tear of Grace (Harvestboon)',
         desc:
           'The bearer of the Tear of Grace knows an extra spell, which is always generated from the Deepwood spell lore. In addition, the bearer can add 3" to the range of all of their spells.',
-        when: HERO_PHASE,
+        when: [HERO_PHASE],
       },
     ],
   },

@@ -7,7 +7,7 @@ const Abilities: IEffects[] = [
     name: 'Forgotten Nightmares',
     desc:
       'Missile weapons can only be used to target an IDONETH DEEPKIN unit with this battle trait if it is the closest visible enemy unit.',
-    when: DURING_GAME,
+    when: [DURING_GAME],
   },
 ]
 
