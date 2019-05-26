@@ -42,7 +42,9 @@ export const processReminders: TProcessReminders = (army, factionName, selection
         action: a.desc,
         condition: [titleCase(factionName)],
       }
-      reminders[a.when] = reminders[a.when] ? reminders[a.when].concat(t) : [t]
+      a.when.forEach(when => {
+        reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+      })
     })
   }
 
@@ -54,7 +56,9 @@ export const processReminders: TProcessReminders = (army, factionName, selection
       action: r.desc,
       condition: [`Realmscape Feaure: ${realmscape}`],
     }
-    reminders[r.when] = reminders[r.when] ? reminders[r.when].concat(t) : [t]
+    r.when.forEach(when => {
+      reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+    })
   }
 
   // Last step, we need to sort by the original order

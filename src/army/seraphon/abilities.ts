@@ -7,7 +7,7 @@ const Abilities: IEffects[] = [
     name: 'Lords of Space and Time',
     desc:
       'In your hero phase, you can pick a friendly SERAPHON unit anywhere on the battlefield to be transported through space and time.',
-    when: HERO_PHASE,
+    when: [HERO_PHASE],
   },
 ]
 

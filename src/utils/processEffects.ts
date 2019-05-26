@@ -11,10 +11,12 @@ export const processEffects = (game: TGameStructure, entries: entries[]) => {
 const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUnits) => {
   arr.forEach(x => {
     x.effects.forEach(e => {
-      addToGame(game, e.when, {
-        condition: [x.name],
-        name: e.name || x.name,
-        action: e.desc,
+      e.when.forEach(w => {
+        addToGame(game, w, {
+          condition: [x.name],
+          name: e.name || x.name,
+          action: e.desc,
+        })
       })
     })
   })

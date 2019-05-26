@@ -18,12 +18,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Merciless Raider',
         desc: 'You can re-roll run rolls and charge rolls for this general.',
-        when: MOVEMENT_PHASE,
-      },
-      {
-        name: 'Merciless Raider',
-        desc: 'You can re-roll run rolls and charge rolls for this general.',
-        when: CHARGE_PHASE,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -33,7 +28,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Hunter of Souls',
         desc: 'Re-roll wound rolls of 1 for this general.',
-        when: COMBAT_PHASE,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -44,7 +39,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Unstoppable Fury',
         desc:
           '“Add 2 to the Attacks characteristic of any weapons used by this general in any battle round in which the High Tide ability is in effect.',
-        when: COMBAT_PHASE,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -54,7 +49,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Born From Agony',
         desc: 'Increase this general’s Wounds characteristic by 2.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -64,7 +59,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Nightmare Legacy',
         desc: 'Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this general.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -75,7 +70,7 @@ const CommandTraits: TCommandTraits = [
         name: 'Lord of Storm and Sea',
         desc:
           'Add 2 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this general.',
-        when: DURING_GAME,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -85,31 +80,31 @@ const CommandTraits: TCommandTraits = [
       {
         name: 'Low Tide',
         desc: 'In this battle round, all units with the Tides of Death battle trait are treated as being in cover.',
-        when: TURN_ONE_DURING_ROUND,
+        when: [TURN_ONE_DURING_ROUND],
       },
       {
         name: 'Flood Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that run can still either shoot or charge in the same turn (but not both).',
-        when: TURN_TWO_DURING_ROUND,
+        when: [TURN_TWO_DURING_ROUND],
       },
       {
         name: 'High Tide',
         desc:
           'In this battle round, units with the Tides of Death battle trait fight before any other units in the combat phase. Fight with all eligible Idoneth Deepkin units one after the other, and then resolve any fights with any other units.',
-        when: TURN_THREE_DURING_ROUND,
+        when: [TURN_THREE_DURING_ROUND],
       },
       {
         name: 'Ebb Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).',
-        when: TURN_FOUR_DURING_ROUND,
+        when: [TURN_FOUR_DURING_ROUND],
       },
       {
         name: 'Low Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).',
-        when: TURN_FIVE_DURING_ROUND,
+        when: [TURN_FIVE_DURING_ROUND],
       },
     ],
   },
@@ -120,30 +115,30 @@ const CommandTraits: TCommandTraits = [
         name: 'Ebb Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).',
-        when: TURN_ONE_DURING_ROUND,
+        when: [TURN_ONE_DURING_ROUND],
       },
       {
         name: 'High Tide',
         desc:
           'In this battle round, units with the Tides of Death battle trait fight before any other units in the combat phase. Fight with all eligible Idoneth Deepkin units one after the other, and then resolve any fights with any other units.',
-        when: TURN_TWO_DURING_ROUND,
+        when: [TURN_TWO_DURING_ROUND],
       },
       {
         name: 'Flood Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that run can still either shoot or charge in the same turn (but not both).',
-        when: TURN_THREE_DURING_ROUND,
+        when: [TURN_THREE_DURING_ROUND],
       },
       {
         name: 'Low Tide',
         desc: 'In this battle round, all units with the Tides of Death battle trait are treated as being in cover.',
-        when: TURN_FOUR_DURING_ROUND,
+        when: [TURN_FOUR_DURING_ROUND],
       },
       {
         name: 'Ebb Tide',
         desc:
           'In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).',
-        when: TURN_FIVE_DURING_ROUND,
+        when: [TURN_FIVE_DURING_ROUND],
       },
     ],
   },
