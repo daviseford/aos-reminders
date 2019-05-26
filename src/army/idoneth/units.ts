@@ -283,7 +283,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: 'Akhelian Corpse',
+    name: 'Akhelian Corps',
     effects: [
       {
         name: 'Pulsing Rhythm of the Drums',
@@ -294,7 +294,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: 'Namarti Corpse',
+    name: 'Namarti Corps',
     effects: [
       {
         name: 'Soul Bond',
