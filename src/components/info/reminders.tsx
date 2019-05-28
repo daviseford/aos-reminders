@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import './reminders.css'
 import { ITurnAction } from 'meta/turn_structure'
 import { TSupportedFaction } from 'meta/factions'
@@ -37,14 +37,9 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
         </div>
         <div className="card-body">
-          {props.actions.map((action, i) => {
-            return (
-              <Fragment key={i}>
-                <ActionText {...action} />
-                <small>Because you have: {action.condition.join(', ')}</small>
-              </Fragment>
-            )
-          })}
+          {props.actions.map((action, i) => (
+            <ActionText {...action} />
+          ))}
         </div>
       </div>
     </div>
@@ -52,12 +47,16 @@ const Entry = (props: { when: string; actions: ITurnAction[] }) => {
 }
 
 const ActionText = (props: ITurnAction) => {
-  const { name, action } = props
+  const { name, action, condition } = props
   return (
-    <p className="ReminderEntry">
-      {name ? <b>{name}: </b> : null}
-      {action}
-    </p>
+    <>
+      <p className="ReminderEntry mb-2">
+        <span className="text-muted font-weight-bold">{condition.join(', ')} - </span>
+        {name ? <b>{name}</b> : null}
+        <br />
+        {action}
+      </p>
+    </>
   )
 }
 

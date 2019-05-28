@@ -40,7 +40,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
       const t: ITurnAction = {
         name: a.name,
         action: a.desc,
-        condition: [titleCase(factionName)],
+        condition: [`${titleCase(factionName)} Allegiance`],
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -54,7 +54,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     const t: ITurnAction = {
       name: r.name,
       action: r.desc,
-      condition: [`Realmscape Feaure: ${realmscape}`],
+      condition: [`Realmscape Feature`],
     }
     r.when.forEach(when => {
       reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
