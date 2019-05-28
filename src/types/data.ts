@@ -7,7 +7,7 @@ export interface IEffects {
 }
 
 export interface ITurnAction {
-  condition: string[]
+  condition: string
   action: string
   name?: string
 }

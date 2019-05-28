@@ -51,7 +51,7 @@ const ActionText = (props: ITurnAction) => {
   return (
     <>
       <p className="ReminderEntry mb-2">
-        <span className="text-muted font-weight-bold">{condition.join(', ')} - </span>
+        <span className="text-muted font-weight-bold">{condition} - </span>
         {name ? <b>{name}</b> : null}
         <br />
         {action}

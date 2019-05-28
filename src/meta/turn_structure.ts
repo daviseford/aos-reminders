@@ -1,7 +1,7 @@
 import * as Phases from 'types/phases'
 
 export interface ITurnAction {
-  condition: string[]
+  condition: string
   action: string
   name?: string
   hint?: string

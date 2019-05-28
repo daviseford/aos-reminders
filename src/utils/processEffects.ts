@@ -13,7 +13,7 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
     x.effects.forEach(e => {
       e.when.forEach(w => {
         addToGame(game, w, {
-          condition: [x.name],
+          condition: x.name,
           name: e.name || x.name,
           action: e.desc,
         })

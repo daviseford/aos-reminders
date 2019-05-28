@@ -21,10 +21,8 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     const phase = game[key]
     const addToAccum = (actions: ITurnAction[], when: string) => {
       actions.forEach((y: ITurnAction) => {
-        const c = y.condition.filter((z: string) => conds.includes(z))
-        if (c.length) {
-          const e = { ...y, condition: c }
-          accum[when] = accum[when] ? accum[when].concat(e) : [e]
+        if (conds.includes(y.condition)) {
+          accum[when] = accum[when] ? accum[when].concat(y) : [y]
         }
       })
     }
@@ -40,7 +38,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
       const t: ITurnAction = {
         name: a.name,
         action: a.desc,
-        condition: [`${titleCase(factionName)} Allegiance`],
+        condition: `${titleCase(factionName)} Allegiance`,
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -54,7 +52,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     const t: ITurnAction = {
       name: r.name,
       action: r.desc,
-      condition: [`Realmscape Feature`],
+      condition: `Realmscape Feature`,
     }
     r.when.forEach(when => {
       reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
