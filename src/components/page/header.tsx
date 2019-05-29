@@ -15,7 +15,7 @@ const Header = ({ setFactionName, factionName }) => {
         <h1 className="display-4">Age of Sigmar Reminders</h1>
         <p className="lead mt-3">
           By Davis E. Ford -{' '}
-          <a href="https://daviseford.com" target="_blank" rel="noopener noreferrer">
+          <a className="text-white" href="https://daviseford.com" target="_blank" rel="noopener noreferrer">
             daviseford.com
           </a>
         </p>
