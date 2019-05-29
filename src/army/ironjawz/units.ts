@@ -8,6 +8,10 @@ import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
   TURN_ONE_HERO_PHASE,
+  END_OF_SETUP,
+  START_OF_GAME,
+  MOVEMENT_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 // Unit Names
@@ -257,9 +261,14 @@ export const Battalions: TBattalions = [
     name: `Bloodtoofs`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Hunt and Crush`,
+        desc: `Add 1 to run and charge rolls for units in a Bloodtoofs battalion.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Get Da Realmgate!`,
+        desc: `You can set up a Baleful Realmgate in your opponent’s territory before they set up any units. Add 2 to the Bravery characteristic of units in a Bloodtoofs battalion while there are any Baleful Realmgates on the battlefield.`,
+        when: [START_OF_SETUP],
       },
     ],
   },
@@ -267,9 +276,14 @@ export const Battalions: TBattalions = [
     name: `Ironsunz`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Dakkbad's Cunning`,
+        desc: `Roll a dice after set-up is complete, but before the battle begins. On a 3+ subtract 1 from hit rolls for enemy units in the first battle round.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Dakkbad's Bashing!`,
+        desc: `For the purposes of his Strength from Victories ability Dakkbad Grotkicker counts as already having slain an enemy HERO when the battle starts, with the weapon of your choice from those listed on his warscroll.`,
+        when: [START_OF_GAME],
       },
     ],
   },
