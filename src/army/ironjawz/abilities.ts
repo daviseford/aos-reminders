@@ -4,7 +4,7 @@ import { IEffects } from 'types/data'
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
   {
-    name: '',
+    name: ``,
     desc: ``,
     when: [HERO_PHASE],
   },
