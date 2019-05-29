@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import _ from 'lodash'
+import { sortBy, capitalize, range } from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
@@ -53,11 +53,11 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none">
         <div className="card-group mx-auto">
-          <Card items={_.sortBy(army.Units, 'name')} entries={units} type={'unit'} updateState={useUnits} />
+          <Card items={sortBy(army.Units, 'name')} entries={units} type={'unit'} updateState={useUnits} />
           <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
           <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
           <Card
-            items={_.sortBy(army.Battalions, 'name')}
+            items={sortBy(army.Battalions, 'name')}
             entries={battalions}
             type={'battalion'}
             updateState={useBattalions}
@@ -81,8 +81,8 @@ const Card = (props: ICardProps) => {
     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
-          <h4 className="text-center">Add {_.capitalize(props.type)}s</h4>
-          {_.range(0, props.entries.length + 1).map(idx => {
+          <h4 className="text-center">Add {capitalize(props.type)}s</h4>
+          {range(0, props.entries.length + 1).map(idx => {
             return (
               <Row
                 items={props.items}

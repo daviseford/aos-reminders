@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash'
+import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { SelectOne } from 'components/input/select_one'
 import { titleCase } from 'utils/titleCase'
@@ -23,8 +23,8 @@ const Header = ({ setFactionName, factionName }) => {
         <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
 
         <p>
-          Right now, this tool offers personalized gameplay reminders for {_.initial(factions).join(', ')}, and{' '}
-          {_.last(factions)}.
+          Right now, this tool offers personalized gameplay reminders for {initial(factions).join(', ')}, and{' '}
+          {last(factions)}.
           <br />
           Other armies may be added if there is demand.
         </p>
