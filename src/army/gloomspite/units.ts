@@ -17,6 +17,8 @@ import {
   START_OF_SETUP,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
+  START_OF_ROUND,
+  END_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -37,16 +39,18 @@ export const Units: TUnits = [
         when: [END_OF_ROUND],
       },
       {
-        name: "Loonking's Crown",
+        name: 'Loonking’s Crown',
         desc:
           'Add 1 to casting and unbinding rolls for Skragrott. In addition, roll a dice each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.',
         when: [DURING_GAME],
       },
+      {
+        name: 'Command Ability: The Loonking’s Entreaty',
+        desc:
+          'You can use this command ability once per battle if this model is your general and on the battlefield, before you roll the dice to determine how far the Bad Moon moves that battle round. If you do so, you can choose for the Bad Moon to either not move that battle round, or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).',
+        when: [START_OF_ROUND]
+      }
     ],
-  },
-  {
-    name: 'Grot Warboss',
-    effects: [],
   },
   {
     name: 'Loonboss',
@@ -57,7 +61,7 @@ export const Units: TUnits = [
         when: [DURING_GAME],
       },
       {
-        name: 'I’m Da Boss, Now Stab ’Em Good!',
+        name: 'Command Ability: I’m Da Boss, Now Stab ’Em Good!',
         desc:
           'You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.’The same unit cannot be picked to be affected by this command ability more than once per phase.',
         when: [START_OF_COMBAT_PHASE],
@@ -103,7 +107,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: "Command Ability: Let's Get Bouncing!",
+        name: 'Command Ability: Let’s Get Bouncing!',
         desc:
           'You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly model with this command ability. All friendly SQUIG units wholly within 12" of that model at the start of that phase can move an extra 3" if they make a move in that phase. A unit cannot benefit from this command ability more than once per movement phase.',
         when: [START_OF_MOVEMENT_PHASE],
@@ -119,7 +123,7 @@ export const Units: TUnits = [
         when: [DURING_GAME],
       },
       {
-        name: 'I’m Da Boss, Now Stab ’Em Good!',
+        name: 'Command Ability: I’m Da Boss, Now Stab ’Em Good!',
         desc:
           'You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.’The same unit cannot be picked to be affected by this command ability more than once per phase.',
         when: [START_OF_COMBAT_PHASE],
@@ -172,11 +176,79 @@ export const Units: TUnits = [
   },
   {
     name: 'Stabbas',
-    effects: [],
+    effects: [
+      {
+        name: 'Gong Basher',
+        desc: 'Add 2 to run rolls for a unit that includes any Gong Bashers.',
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: 'Standard Bearers',
+        desc: 'Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.',
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: 'Standard Bearers',
+        desc:
+          'Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.',
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: 'Backstabbing Mob',
+        desc:
+          'Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models',
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: 'Moon Shields',
+        desc: 'Add 1 to save rolls for attacks that target this unit while it has at least 10 models with Moon Shields.',
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: 'Netters',
+        desc:
+          'Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net',
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: 'Shootas',
-    effects: [],
+    effects: [
+      {
+        name: 'Gong Basher',
+        desc: 'Add 2 to run rolls for a unit that includes any Gong Bashers.',
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: 'Standard Bearers',
+        desc: 'Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.',
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: 'Standard Bearers',
+        desc:
+          'Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.',
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: 'Backstabbing Mob',
+        desc:
+          'Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models',
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: 'Moon Bows',
+        desc: 'Add 1 to hit rolls for attacks made with missile weapons by this unit while it has at least 15 models.',
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: 'Netters',
+        desc:
+          'Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net',
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: 'Loonsmasha Fanatics',
@@ -251,10 +323,6 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
     ],
-  },
-  {
-    name: 'Grot Squig Herders',
-    effects: [],
   },
   {
     name: "Zarbag's Gitz",
@@ -436,11 +504,42 @@ export const Units: TUnits = [
   },
   {
     name: 'Colossal Squig',
-    effects: [],
+    effects: [
+      {
+        name: 'Crazed Charge',
+        desc:
+          'Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 6, that unit suffers 1 mortal wound.',
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: 'Fungoid Squig Explosion',
+        desc:
+          'If this model is slain, before removing the model from the battlefield, roll a dice for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.',
+        when: [DURING_GAME],
+      },
+      {
+        name: 'Puff Spores',
+        desc: 'Subtract 1 from hit rolls for attacks made with melee weapons that target this model.',
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: 'Swallowed Whole',
+        desc:
+          'If the unmodified hit roll for an attack made with this model’s Enormous Jaws is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).',
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: 'Squig Gobba',
-    effects: [],
+    effects: [
+      {
+        name: 'Arcing Spit',
+        desc:
+          'This model’s Spit-squigs can target enemy units that are not visible to attacking model. In addition, add 1 to hit rolls for attacks made with Spit-squigs if the target has 10 or more models.',
+        when: [SHOOTING_PHASE],
+      },
+    ],
   },
   {
     name: 'Webspinner Shaman on Arachnarok Spider',
@@ -761,7 +860,32 @@ export const Units: TUnits = [
   },
   {
     name: 'Bonegrinder Gargant',
-    effects: [],
+    effects: [
+      {
+        name: 'I’ll Bite Your Head Off!',
+        desc:
+          'At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain',
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: 'Jump Up and Down',
+        desc:
+          'At the end of the combat phase, you can pick 1 enemy unit within 1" of this model. If you do so, roll a dice. If the dice roll is equal to or less than the number of models in that unit, that unit suffers D6 mortal wounds.',
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: 'Longshanks',
+        desc:
+          'This model is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.',
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: 'Timber!',
+        desc:
+          'If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.',
+        when: [DURING_GAME],
+      },
+    ],
   },
 ]
 
