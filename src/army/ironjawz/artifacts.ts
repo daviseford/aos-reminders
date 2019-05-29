@@ -1,15 +1,7 @@
 import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 
-import {
-  HERO_PHASE,
-  COMBAT_PHASE,
-  CHARGE_PHASE,
-  BATTLESHOCK_PHASE,
-  START_OF_COMBAT_PHASE,
-  SHOOTING_PHASE,
-  DURING_GAME,
-} from 'types/phases'
+import { COMBAT_PHASE, BATTLESHOCK_PHASE, DURING_GAME } from 'types/phases'
 import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
 import DestructionArtifacts from 'army/destruction/destruction_artifacts'
 
