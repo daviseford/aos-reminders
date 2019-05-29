@@ -1,3 +1,5 @@
+import { sortBy } from 'lodash'
+
 // Supported Faction Types
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
@@ -14,4 +16,10 @@ export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 
 // Supported Factions
 export type TSupportedFaction = TSeraphon | TGloomspiteGitz | TSylvaneth | TIdonethDeepkin | TIronjawz
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = [GLOOMSPITE_GITZ, IDONETH_DEEPKIN, SERAPHON, SYLVANETH, IRONJAWZ]
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
+  GLOOMSPITE_GITZ,
+  IDONETH_DEEPKIN,
+  IRONJAWZ,
+  SERAPHON,
+  SYLVANETH,
+])
