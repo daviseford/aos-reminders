@@ -9,7 +9,6 @@ import {
   TURN_THREE_DURING_ROUND,
   TURN_FOUR_DURING_ROUND,
   TURN_FIVE_DURING_ROUND,
-  START_OF_HERO_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
   DURING_ROUND,
@@ -144,26 +143,6 @@ const CommandTraits: TCommandTraits = [
         desc:
           'In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).',
         when: [TURN_FIVE_DURING_ROUND],
-      },
-    ],
-  },
-  {
-    name: 'Isharann Rituals (Enclave)',
-    effects: [
-      {
-        name: 'Isharann Rituals (Enclave)',
-        desc: `A maximum of one Isharann ritual can be performed in each hero phase.
-      In order to perform a ritual, at the start of your hero phase, say which ritual is being performed and then pick one ISHARANN HERO from your army that is more than 9" from any enemy models. Then roll 2D6. Add 1 to the roll if the HERO performing the ritual is within 1" of a Gloomtide Shipwreck, and add a further 1 to the roll if they are a PRIEST. In addition, add 1 to the roll for each other friendly ISHARANN HERO that is within 3" of the model performing the ritual (add 2 instead for each HERO within 3" that is a PRIEST). On a 10+ the ritual is successfully performed and has the effect listed below. On any other result, the ritual fails and nothing happens.
-      
-      \nRitual of Erosion: This ritual harnesses the power of the ethersea, and uses it to batter fortifications that the Idoneth Deepkin’s enemies are using for protection.
-      Until your next hero phase, enemy units do not receive any benefit for being in cover.
-      
-      \nRitual of Rousing: This ritual draws on the energy of the chorrileums and uses it to empower Eidolons of Mathlann.
-      Heal 1 wound allocated to each friendly EIDOLON on the battlefield. In addition, you can re-roll failed hit rolls and casting rolls for friendly EIDOLONS until your next hero phase.
-      
-      \nRitual of the Tempest: This ritual stirs the air above the ethersea into a swirling tempest that batters flying creatures to the ground.
-      Until your next hero phase, enemy models cannot fly.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },
