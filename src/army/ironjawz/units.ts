@@ -7,6 +7,7 @@ import {
   START_OF_COMBAT_PHASE,
   BATTLESHOCK_PHASE,
   DURING_GAME,
+  TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -179,8 +180,8 @@ export const Battalions: TBattalions = [
     name: `Ardfist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Drawn to the Waaagh!`,
+        desc: `Once per battle, if this battalion’s Warchanter is on the battlefield, you can replace any units from this battalion that have been destroyed. The replacement unit is identical to the unit that was destroyed, and must be set up with all models within 6" of the edge of the battlefield, and more than 6" from any enemy units. The replacement unit must be deployed as close to the battalion's Warchanter as possible. This counts as the unit's move for the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -189,8 +190,10 @@ export const Battalions: TBattalions = [
     name: `Brawl`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Big Waaagh!`,
+        desc: `If the Megaboss of this battalion is within 10" of a Warchanter and a Weirdnob Shaman from the battalion in the hero phase, then the Megaboss can use the Big Waaagh! command ability.
+        
+        When a Megaboss calls a Big Waaagh!, all units from the Brawl that are within 15" of the Megaboss at the start of the following combat phase make 2 extra attacks with each of their melee weapons. Any units that don't receive this bonus but which are within 10" of a Big Boss from the Brawl make 1 extra attack instead with each of their melee weapons.`,
         when: [HERO_PHASE],
       },
     ],
@@ -199,8 +202,13 @@ export const Battalions: TBattalions = [
     name: `Brute Fist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Brute Big Boss`,
+        desc: `Pick a Brute Boss from one of the units in this battalion to be the battalion's Big Boss. The model you pick has a Wounds characteristic of 5 rather than 3.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Green-skinned Battering Ram`,
+        desc: `In your hero phase, units from the battalion within 10" of its Brute Big Boss (including his own unit) can make a charge move as if it were the charge phase. If the charge is successful, pick one enemy unit within 3" of the unit that charged; it suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -209,9 +217,14 @@ export const Battalions: TBattalions = [
     name: `Gorefist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Gore-grunta Big Boss`,
+        desc: `Pick a Gore-grunta Boss from one of the units in this battalion to be the battalion's Big Boss. The model you pick has a Wounds characteristic of 7 rather than 5.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Gore-grunta Formations`,
+        desc: `If all of the battalion's units are set up within 10" of the Big Boss' unit, all of the units in the battalion may make a move of 15" in the hero phase of their first turn. The move is made as if it were the movement phase, except that the units cannot run. It does not stop the units from moving again normally later in the turn. After the first turn, the formation dissolves, and the normal rules apply for the rest of the battle.`,
+        when: [TURN_ONE_HERO_PHASE],
       },
     ],
   },
@@ -219,8 +232,13 @@ export const Battalions: TBattalions = [
     name: `Ironfist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Ironfist Big Boss`,
+        desc: `Pick a Brute Boss or Gore-grunta Boss from the battalion to be its Big Boss, and add 2 to their Wounds characteristic.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `'Ere We Go! 'Ere We Go! 'Ere We Go!`,
+        desc: `In your hero phase, if this battalion’s Big Boss is on the battlefield, roll a dice. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
         when: [HERO_PHASE],
       },
     ],
@@ -229,8 +247,8 @@ export const Battalions: TBattalions = [
     name: `Weirdfist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Weird Energy`,
+        desc: `Roll one dice for each unit from the battalion that is within 10" of the Weirdnob when an Arcane Bolt, Green Puke, of Foot of Gork spell is successfully cast. Add 6" to the spell's range for each of these dice that rolls 1-3, and add 1 to the mortal wounds inflicted by the spell for each roll of 4-6. If the spell inflicts mortal wounds more than once, add the bonus each time!`,
         when: [HERO_PHASE],
       },
     ],
