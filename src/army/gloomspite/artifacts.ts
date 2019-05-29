@@ -208,7 +208,8 @@ let Artifacts: TArtifacts = [
   },
 ]
 
-Artifacts = sortBy(Artifacts, 'name').concat(DestructionArtifacts)
-Artifacts = Artifacts.concat(RealmArtifacts)
+Artifacts = sortBy(Artifacts, 'name')
+  .concat(DestructionArtifacts)
+  .concat(RealmArtifacts)
 
 export default Artifacts
