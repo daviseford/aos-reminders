@@ -18,19 +18,19 @@ const Abilities: IEffects[] = [
   {
     name: 'Guardians of the Deep',
     desc:
-      'Roll a dice each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of this terrain feature. On a 6+ the wound is negated.',
+      'Roll a dice each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of an Etheric Vortex. On a 6+ the wound is negated.',
     when: [DURING_GAME],
   },
   {
     name: 'Predators of the Ethersea',
     desc:
-      'At the start of your hero phase, roll a dice for each unit within 3" of this terrain feature. Do not roll for IDONETH DEEPKIN units. On a 4+ the unit suffers 1 mortal wound. On a 6+ the unit suffers D3 mortal wounds instead.',
+      'At the start of your hero phase, roll a dice for each unit within 3" of an Etheric Vortex. Do not roll for IDONETH DEEPKIN units. On a 4+ the unit suffers 1 mortal wound. On a 6+ the unit suffers D3 mortal wounds instead.',
     when: [START_OF_HERO_PHASE],
   },
   {
     name: 'Isharann Rituals',
     desc: `A maximum of one Isharann ritual can be performed in each hero phase.
-    
+
       In order to perform a ritual, at the start of your hero phase, say which ritual is being performed and then pick one ISHARANN HERO from your army that is more than 9" from any enemy models. Then roll 2D6. Add 1 to the roll if the HERO performing the ritual is within 1" of a Gloomtide Shipwreck, and add a further 1 to the roll if they are a PRIEST. In addition, add 1 to the roll for each other friendly ISHARANN HERO that is within 3" of the model performing the ritual (add 2 instead for each HERO within 3" that is a PRIEST). On a 10+ the ritual is successfully performed and has the effect listed below. On any other result, the ritual fails and nothing happens.
       
       Ritual of Erosion: Until your next hero phase, enemy units do not receive any benefit for being in cover.
