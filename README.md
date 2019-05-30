@@ -1,6 +1,6 @@
 ## How to Contribute
 
-If you want to add an army or edit an existing army, please do so! Use the `src/army/seraphon/` folder as a reference for how things are added!
+If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
 
 In particular, you'll want to focus on `units.ts`, `artifacts.ts`, and `abilities.ts`. Feel free to submit a PR or send me a diff file!
 
