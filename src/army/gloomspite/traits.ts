@@ -168,16 +168,6 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: "Tough 'n' Leathery",
-    effects: [
-      {
-        name: "Tough 'n' Leathery",
-        desc: 'Add 2 to this general’s Wounds characteristic.',
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
     name: 'Dead Shouty',
     effects: [
       {
