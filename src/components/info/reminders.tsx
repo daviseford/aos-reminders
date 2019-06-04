@@ -22,9 +22,21 @@ const Reminders = (props: IRemindersProps) => {
 
   return (
     <div className="row w-75 mx-auto pt-5 d-block">
-      {Object.keys(reminders).map((key, i) => {
-        return <Entry when={key} actions={reminders[key]} key={i} />
-      })}
+      <PrintRemindersButton />
+
+      <div>
+        {Object.keys(reminders).map((key, i) => {
+          return <Entry when={key} actions={reminders[key]} key={i} />
+        })}
+      </div>
+    </div>
+  )
+}
+
+const PrintRemindersButton = () => {
+  return (
+    <div className="row ml-auto d-flex justify-content-end d-print-none">
+      <button className="btn btn-primary" onClick={() => window.print()}>PRINT</button>
     </div>
   )
 }
