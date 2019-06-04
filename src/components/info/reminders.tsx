@@ -6,6 +6,7 @@ import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
+import PrintButton from 'components/print/button'
 
 interface IRemindersProps {
   army: IArmy
@@ -21,24 +22,27 @@ const Reminders = (props: IRemindersProps) => {
   }, [army, factionName, selections, realmscape])
 
   return (
-    <div className="row w-75 mx-auto pt-5 d-block">
-      {Object.keys(reminders).map((key, i) => {
-        return <Entry when={key} actions={reminders[key]} key={i} />
-      })}
+    <div className="row w-75 mx-auto mt-3 d-block">
+      <div>
+        {Object.keys(reminders).map((key, i) => {
+          return <Entry when={key} actions={reminders[key]} key={i} idx={i} />
+        })}
+      </div>
     </div>
   )
 }
 
-const Entry = (props: { when: string; actions: ITurnAction[] }) => {
+const Entry = (props: { when: string; actions: ITurnAction[]; idx: number }) => {
   return (
     <div className="row d-block">
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
+          {props.idx === 0 ? <PrintButton /> : null}
         </div>
         <div className="card-body">
           {props.actions.map((action, i) => (
-            <ActionText {...action} />
+            <ActionText {...action} key={i} />
           ))}
         </div>
       </div>
