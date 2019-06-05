@@ -25,20 +25,20 @@ const Reminders = (props: IRemindersProps) => {
     <div className="row w-75 mx-auto mt-3 d-block">
       <div>
         {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} idx={i} />
+          return <Entry when={key} actions={reminders[key]} key={i} idx={i} factionName={factionName} />
         })}
       </div>
     </div>
   )
 }
 
-const Entry = (props: { when: string; actions: ITurnAction[]; idx: number }) => {
+const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; factionName: TSupportedFaction }) => {
   return (
     <div className="row d-block">
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
-          {props.idx === 0 ? <PrintButton /> : null}
+          {props.idx === 0 ? <PrintButton factionName={props.factionName} /> : null}
         </div>
         <div className="card-body">
           {props.actions.map((action, i) => (

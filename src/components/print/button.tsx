@@ -1,9 +1,11 @@
 import React from 'react'
+import { logPrintEvent } from 'utils/analytics'
+import { TSupportedFaction } from 'meta/factions'
 
-const PrintButton = () => {
+const PrintButton = (props: { factionName: TSupportedFaction }) => {
   const handlePrint = e => {
     e.preventDefault()
-    // TODO: Integrate React.GA event here
+    logPrintEvent(props.factionName)
     return window.print()
   }
   return (

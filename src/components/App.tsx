@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from 'react'
-
 import Reminders from './info/reminders'
 import { ArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
@@ -7,8 +6,10 @@ import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
+import { logFactionSwitch, logPageView } from 'utils/analytics';
 
 const App = () => {
+  logPageView()
   const [selections, setSelections] = useState({
     artifacts: [] as string[],
     battalions: [] as string[],
@@ -23,6 +24,7 @@ const App = () => {
   useEffect(() => {
     setSelections({ artifacts: [], battalions: [], traits: [], units: [] })
     setRealmscape('None')
+    logFactionSwitch(factionName)
   }, [factionName])
 
   return (

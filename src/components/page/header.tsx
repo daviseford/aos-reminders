@@ -1,14 +1,20 @@
 import React from 'react'
 import { initial, last } from 'lodash'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne } from 'components/input/select_one'
 import { titleCase } from 'utils/titleCase'
+import { logFactionSwitch } from 'utils/analytics'
 
 /**
  * Hidden when printing
  */
 const Header = ({ setFactionName, factionName }) => {
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
+  const setValue = (factionName: string) => {
+    setFactionName(factionName)
+    logFactionSwitch(factionName as TSupportedFaction)
+  }
+
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
       <div className="container">
@@ -20,7 +26,7 @@ const Header = ({ setFactionName, factionName }) => {
           </a>
         </p>
 
-        <SelectOne items={SUPPORTED_FACTIONS} setValue={setFactionName} value={factionName} />
+        <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} value={factionName} />
 
         <p>
           Right now, this tool offers personalized gameplay reminders for {initial(factions).join(', ')}, and{' '}
