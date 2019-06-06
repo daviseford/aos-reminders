@@ -1,14 +1,16 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  START_OF_CHARGE_PHASE,
-  DURING_GAME,
-  CHARGE_PHASE,
-  SHOOTING_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  DURING_SETUP,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 // Unit Names
@@ -235,9 +237,19 @@ export const Battalions: TBattalions = [
     name: `Braggoth's Beast Hammer`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `A Hardy Breed`,
+        desc: `Add 1 to Braggoth’s Wounds characteristic.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Fierce Rivals`,
+        desc: `You can add 1 to hit rolls made for any BEASTCLAW RAIDERS unit from this battalion whilst it is within 6" of an IRONJAWZ unit from this battalion, and vice versa.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Overrunning Stampede`,
+        desc: `Once per battle, at the end of any of your combat phases, this battalion can make an Overrunning Stampede. When it does so, each unit in this battalion that charged successfully this turn can immediately pile in and attack again, in an order of your choice.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -245,9 +257,19 @@ export const Battalions: TBattalions = [
     name: `Olwyr Alfrostun`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Cunning and Wise`,
+        desc: `An Olwyr general can have two command traits instead of one. If you choose to randomly generate your general’s command trait, re-roll any duplicate results.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Vicious Beasts`,
+        desc: `Add 1 to all hit rolls made for an Olwyr Mournfang’s Tusks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Swiftstride`,
+        desc: `You can re-roll run rolls for all Olwyr units.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -255,9 +277,9 @@ export const Battalions: TBattalions = [
     name: `Svard Alfrostun`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `A Hardy Breed`,
+        desc: `Add 1 to the Wounds characteristic of all Svard STONEHORN models.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -265,9 +287,14 @@ export const Battalions: TBattalions = [
     name: `Eurlbad`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Crush, Mangle, Tenderise`,
+        desc: `If you roll a wound roll of 6 or more for an Eurlbad model in the combat phase, that attack inflicts one mortal wound on the target in addition to the normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Eating Hand`,
+        desc: `Add 1 to the Damage characteristic of all melee weapons used by the Eurlbad’s Huskard.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -275,9 +302,14 @@ export const Battalions: TBattalions = [
     name: `Torrbad`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Heart-numbing Chill`,
+        desc: `Enemy units cannot retreat whilst they are within 3" of any Torrbad unit.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Heart-numbing Chill`,
+        desc: `Roll a dice in each of your hero phases for each enemy unit within 3" of at least one of your Torbadd Thundertusks. Add 1 to the result of this dice roll for each additional Torrbad Thundertusk that is within 3" of the unit being rolled for. On a 6 the unit suffers a mortal wound, on a 7 it suffers D3 mortal wounds and on an 8 or more it suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -285,9 +317,14 @@ export const Battalions: TBattalions = [
     name: `Skal`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Hunting Pack`,
+        desc: `During set-up, you can place units of Frost Sabres from the Skal to one side.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Hunting Pack`,
+        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter’s Masters of Ambush ability, pg 114), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -295,9 +332,9 @@ export const Battalions: TBattalions = [
     name: `Alfrostun`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Alfrostun Avalanche`,
+        desc: `On a turn in which they charged into combat, you can re-roll all failed wound rolls made for BEASTCLAW RAIDER models in the combat phase.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -305,9 +342,14 @@ export const Battalions: TBattalions = [
     name: `Jorlbad`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Tip of the Hunting Spear`,
+        desc: `Jorlbad units can run and charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Fighting Hand`,
+        desc: `You can re-roll failed battleshock tests for friendly BEASTCLAW RAIDERS units that are within 12" of the Jorlbad’s Huskard.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
