@@ -10,6 +10,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 
 + [daviseford](https://github.com/daviseford)
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
++ [T-Nightingale](https://github.com/T-Nightingale)
 
 ## Available Scripts
 
