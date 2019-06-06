@@ -45,7 +45,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stone Skeleton`,
-        desc: `Halve any Damage and mortal wounds inflicted on this model (rounding up).`,
+        desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from a spell or ability (rounding up).`,
         when: [DURING_GAME],
       },
       {
@@ -60,7 +60,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Roll a dice; on a 2 or more that unit is struck and suffers a number of mortal wounds shown on the damage table above.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -85,7 +85,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stone Skeleton`,
-        desc: `Halve any Damage and mortal wounds inflicted on this model (rounding up).`,
+        desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from a spell or ability (rounding up).`,
         when: [DURING_GAME],
       },
       {
@@ -105,7 +105,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Roll a dice; on a 2 or more that unit is struck and suffers a number of mortal wounds shown on the damage table above.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -199,7 +199,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stone Skeleton`,
-        desc: `Halve any Damage and mortal wounds inflicted on this model (rounding up).`,
+        desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from a spell or ability (rounding up).`,
         when: [DURING_GAME],
       },
       {
@@ -214,7 +214,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Roll a dice; on a 2 or more that unit is struck and suffers a number of mortal wounds shown on the damage table above.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
