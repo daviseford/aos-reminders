@@ -34,7 +34,7 @@ const Reminders = (props: IRemindersProps) => {
 
 const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; factionName: TSupportedFaction }) => {
   return (
-    <div className="row d-block">
+    <div className="row d-block PageBreak">
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>

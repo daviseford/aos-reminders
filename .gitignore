@@ -77,4 +77,4 @@ typings/
 
 # Build
 build/
-.vscode/settings.json
+.vscode/

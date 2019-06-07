@@ -1,7 +1,3 @@
-.Reminders {
-    padding: 40px;
-}
-
 .ReminderEntry {
     font-size: 1rem;
     padding-top: 0.5rem;
@@ -16,4 +12,14 @@
 }
 small {
     font-size: 12px;
+}
+
+.PageBreak {
+    /* https://www.w3schools.com/cssref/pr_print_pagebi.asp */
+    page-break-inside: avoid !important;
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/@page */
+@page {
+    margin: 20cm;
 }
