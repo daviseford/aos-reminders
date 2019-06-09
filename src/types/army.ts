@@ -12,7 +12,7 @@ export type TUnits = IEntry[]
 export type TCommandTraits = IEntry[]
 export type TAbilities = IEffects[]
 
-export interface IArmy {
+export interface IArmyWithoutGame {
   Abilities: TAbilities
   Artifacts: TArtifacts
   Battalions: TBattalions
@@ -21,6 +21,6 @@ export interface IArmy {
   Game?: TGameStructure
 }
 
-export interface IArmyWithGame extends IArmy {
+export interface IArmy extends IArmyWithoutGame {
   Game: TGameStructure
 }

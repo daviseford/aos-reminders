@@ -5,11 +5,11 @@ import { TSupportedFaction } from 'meta/factions'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { ISelections } from 'types/selections'
-import { IArmyWithGame } from 'types/army'
+import { IArmy } from 'types/army'
 import PrintButton from 'components/print/button'
 
 interface IRemindersProps {
-  army: IArmyWithGame
+  army: IArmy
   factionName: TSupportedFaction
   selections: ISelections
   realmscape: string

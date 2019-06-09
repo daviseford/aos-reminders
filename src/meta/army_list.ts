@@ -8,7 +8,7 @@ import {
   TSupportedFaction,
 } from './factions'
 import { ORDER, DESTRUCTION, TGrandAlliances } from './alliances'
-import { IArmy } from 'types/army'
+import { IArmyWithoutGame } from 'types/army'
 
 import * as BeastclawRaiders from '../army/beastclaw_raiders'
 import * as GloomspiteGitz from '../army/gloomspite'
@@ -49,6 +49,6 @@ export default ArmyList
 type TArmyList = { [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  Army: IArmy
+  Army: IArmyWithoutGame
   GrandAlliance: TGrandAlliances
 }

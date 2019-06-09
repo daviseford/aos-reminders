@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash'
 
-import { TCommandTraits, TArtifacts, IArmyWithGame } from 'types/army'
+import { TCommandTraits, TArtifacts, IArmy } from 'types/army'
 import { TSupportedFaction } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
 import ArmyList from 'meta/army_list'
@@ -13,7 +13,7 @@ import { RealmArtifacts } from 'army/malign_sorcery'
 
 import { processGame } from './processGame'
 
-export const getArmy = (factionName: TSupportedFaction): IArmyWithGame => {
+export const getArmy = (factionName: TSupportedFaction): IArmy => {
   const { Army, GrandAlliance } = ArmyList[factionName]
   const { Units, Battalions, Traits, Artifacts } = Army
 
@@ -21,7 +21,7 @@ export const getArmy = (factionName: TSupportedFaction): IArmyWithGame => {
   Army.Traits = modifyTraits(Traits, GrandAlliance)
   Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits])
 
-  return Army as IArmyWithGame
+  return Army as IArmy
 }
 
 type TGrandAllianceConfig = {
