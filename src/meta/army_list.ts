@@ -10,12 +10,12 @@ import {
 import { ORDER, DESTRUCTION, TGrandAlliances } from './alliances'
 import { IArmyWithoutGame } from 'types/army'
 
-import * as BeastclawRaiders from '../army/beastclaw_raiders'
-import * as GloomspiteGitz from '../army/gloomspite'
-import * as IdonethDeepkin from '../army/idoneth'
-import * as Ironjawz from '../army/ironjawz'
-import * as Seraphon from '../army/seraphon'
-import * as Sylvaneth from '../army/sylvaneth'
+import BeastclawRaiders from '../army/beastclaw_raiders'
+import GloomspiteGitz from '../army/gloomspite'
+import IdonethDeepkin from '../army/idoneth'
+import Ironjawz from '../army/ironjawz'
+import Seraphon from '../army/seraphon'
+import Sylvaneth from '../army/sylvaneth'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
