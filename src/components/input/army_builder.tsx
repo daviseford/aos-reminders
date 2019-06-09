@@ -7,8 +7,10 @@ import { SelectRealmscape } from './select_realmscape'
 import { ISelections } from 'types/selections'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
+type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
+type TUpdateFn = (newState: ISelections) => void
 type TUpdateState = (val: string, idx: number) => any
-type TUseState = (state: ISelections, key: string, updateFn: Function) => TUpdateState
+type TUseState = (state: ISelections, key: TFocusTypes, updateFn: TUpdateFn) => TUpdateState
 
 interface IArmyBuilderProps {
   army: {
