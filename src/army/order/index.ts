@@ -1,4 +1,4 @@
-import OrderAbilities from './abilities'
+import OrderTraits from './traits'
 import OrderArtifacts from './artifacts'
 
-export { OrderArtifacts, OrderAbilities }
+export { OrderArtifacts, OrderTraits }
