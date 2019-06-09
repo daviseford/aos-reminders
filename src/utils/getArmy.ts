@@ -1,73 +1,27 @@
-import { IArmy, TCommandTraits, TArtifacts } from 'types/army'
-import {
-  TSupportedFaction,
-  BEASTCLAW_RAIDERS,
-  GLOOMSPITE_GITZ,
-  IDONETH_DEEPKIN,
-  IRONJAWZ,
-  SERAPHON,
-  SYLVANETH,
-} from 'meta/factions'
-import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
+import { sortBy } from 'lodash'
 
-import * as BeastclawRaiders from '../army/beastclaw_raiders'
-import * as GloomspiteGitz from '../army/gloomspite'
-import * as IdonethDeepkin from '../army/idoneth'
-import * as Ironjawz from '../army/ironjawz'
-import * as Seraphon from '../army/seraphon'
-import * as Sylvaneth from '../army/sylvaneth'
+import { TCommandTraits, TArtifacts, IArmy } from 'types/army'
+import { TSupportedFaction } from 'meta/factions'
+import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
+import ArmyList from 'meta/army_list'
+
 import { OrderTraits, OrderArtifacts } from 'army/order'
 import { DestructionArtifacts, DestructionTraits } from 'army/destruction'
 import { ChaosTraits, ChaosArtifacts } from 'army/chaos'
 import { DeathArtifacts, DeathTraits } from 'army/death'
 import { RealmArtifacts } from 'army/malign_sorcery'
-import { sortBy } from 'lodash'
-import { processEffects } from './processEffects'
 
-const ArmyList: TArmyList = {
-  [BEASTCLAW_RAIDERS]: {
-    Army: { ...BeastclawRaiders },
-    GrandAlliance: DESTRUCTION,
-  },
-  [GLOOMSPITE_GITZ]: {
-    Army: { ...GloomspiteGitz },
-    GrandAlliance: DESTRUCTION,
-  },
-  [IDONETH_DEEPKIN]: {
-    Army: { ...IdonethDeepkin },
-    GrandAlliance: ORDER,
-  },
-  [IRONJAWZ]: {
-    Army: { ...Ironjawz },
-    GrandAlliance: DESTRUCTION,
-  },
-  [SERAPHON]: {
-    Army: { ...Seraphon },
-    GrandAlliance: ORDER,
-  },
-  [SYLVANETH]: {
-    Army: { ...Sylvaneth },
-    GrandAlliance: ORDER,
-  },
-}
+import { processGame } from './processGame'
 
 export const getArmy = (factionName: TSupportedFaction): IArmy => {
-  let { Army, GrandAlliance } = ArmyList[factionName]
-  let { Units, Battalions, Traits, Artifacts } = Army
+  const { Army, GrandAlliance } = ArmyList[factionName]
+  const { Units, Battalions, Traits, Artifacts } = Army
 
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
+  Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits])
 
-  processEffects(Army.Game, [Units, Battalions, Army.Artifacts, Army.Traits])
-
-  return Army
-}
-
-type TArmyList = { [factionName in TSupportedFaction]: IArmyListEntry }
-
-interface IArmyListEntry {
-  Army: IArmy
-  GrandAlliance: TGrandAlliances
+  return Army as IArmy
 }
 
 type TGrandAllianceConfig = {
