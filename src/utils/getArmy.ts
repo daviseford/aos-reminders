@@ -22,6 +22,7 @@ import { ChaosTraits, ChaosArtifacts } from 'army/chaos'
 import { DeathArtifacts, DeathTraits } from 'army/death'
 import { RealmArtifacts } from 'army/malign_sorcery'
 import { sortBy } from 'lodash'
+import { processEffects } from './processEffects'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -51,14 +52,15 @@ const ArmyList: TArmyList = {
 }
 
 export const getArmy = (factionName: TSupportedFaction): IArmy => {
-  let entry = ArmyList[factionName]
+  let { Army, GrandAlliance } = ArmyList[factionName]
+  let { Units, Battalions, Traits, Artifacts } = Army
 
-  entry = sortArtifacts(entry)
-  entry = addAllianceArtifacts(entry)
-  entry = addAllianceTraits(entry)
-  entry = addRealmArtifacts(entry)
+  Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
+  Army.Traits = modifyTraits(Traits, GrandAlliance)
 
-  return entry.Army
+  processEffects(Army.Game, [Units, Battalions, Army.Artifacts, Army.Traits])
+
+  return Army
 }
 
 type TArmyList = { [factionName in TSupportedFaction]: IArmyListEntry }
@@ -95,39 +97,21 @@ const GrandAllianceConfig: TGrandAllianceConfig = {
 }
 
 /**
- * Sort the initial Artifacts array by name
+ * Modify Artifacts for a given Army
  * @param entry
  */
-const sortArtifacts = (entry: IArmyListEntry): IArmyListEntry => {
-  entry.Army.Artifacts = sortBy(entry.Army.Artifacts, 'name')
-  return entry
+const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArtifacts => {
+  const { Artifacts } = GrandAllianceConfig[alliance]
+  return sortBy(artifacts, 'name')
+    .concat(Artifacts)
+    .concat(RealmArtifacts)
 }
 
 /**
- * Attach Realm Artifacts
+ * Modify Traits for a given Army
  * @param entry
  */
-const addRealmArtifacts = (entry: IArmyListEntry): IArmyListEntry => {
-  entry.Army.Artifacts = entry.Army.Artifacts.concat(RealmArtifacts)
-  return entry
-}
-
-/**
- * Attach Alliance artifacts
- * @param entry
- */
-const addAllianceArtifacts = (entry: IArmyListEntry): IArmyListEntry => {
-  const { Artifacts } = GrandAllianceConfig[entry.GrandAlliance]
-  entry.Army.Artifacts = entry.Army.Artifacts.concat(Artifacts)
-  return entry
-}
-
-/**
- * Attach Alliance traits
- * @param entry
- */
-const addAllianceTraits = (entry: IArmyListEntry): IArmyListEntry => {
-  const { Traits } = GrandAllianceConfig[entry.GrandAlliance]
-  entry.Army.Traits = entry.Army.Traits.concat(Traits)
-  return entry
+const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TCommandTraits => {
+  const { Traits } = GrandAllianceConfig[alliance]
+  return traits.concat(Traits)
 }
