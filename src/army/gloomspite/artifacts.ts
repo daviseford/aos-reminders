@@ -10,8 +10,8 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-import DestructionArtifacts from 'army/destruction/destruction_artifacts'
-import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
+import { DestructionArtifacts } from 'army/destruction'
+import { RealmArtifacts } from 'army/malign_sorcery'
 
 let Artifacts: TArtifacts = [
   {

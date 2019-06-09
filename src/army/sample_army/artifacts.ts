@@ -2,8 +2,8 @@ import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 
 import { HERO_PHASE } from 'types/phases'
-import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
-import DestructionArtifacts from 'army/destruction/destruction_artifacts'
+import {RealmArtifacts} from 'army/malign_sorcery'
+import DestructionArtifacts from 'army/destruction/artifacts'
 
 let Artifacts: TArtifacts = [
   {

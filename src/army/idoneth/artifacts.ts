@@ -11,8 +11,8 @@ import {
   START_OF_HERO_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-import OrderArtifacts from 'army/order/order_artifacts'
-import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
+import { OrderArtifacts } from 'army/order'
+import { RealmArtifacts } from 'army/malign_sorcery'
 
 let Artifacts: TArtifacts = [
   {

@@ -4,7 +4,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
-import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
+import { RealmscapeFeatures } from 'army/malign_sorcery'
 
 type TProcessReminders = (
   army: IArmy,
