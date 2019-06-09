@@ -1,11 +1,7 @@
-import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
-
 import { HERO_PHASE, DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE, COMBAT_PHASE } from 'types/phases'
-import { RealmArtifacts } from 'army/malign_sorcery'
-import { DestructionArtifacts } from 'army/destruction'
 
-let Artifacts: TArtifacts = [
+const Artifacts: TArtifacts = [
   {
     name: `Elixir of Frostwyrm`,
     effects: [
@@ -85,9 +81,5 @@ let Artifacts: TArtifacts = [
     ],
   },
 ]
-
-Artifacts = sortBy(Artifacts, 'name')
-  .concat(DestructionArtifacts)
-  .concat(RealmArtifacts)
 
 export default Artifacts

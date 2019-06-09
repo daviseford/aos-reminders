@@ -1,3 +1,4 @@
 import DestructionArtifacts from './artifacts'
+import DestructionTraits from './traits'
 
-export { DestructionArtifacts }
+export { DestructionArtifacts, DestructionTraits }
