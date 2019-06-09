@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { sortBy, capitalize, range } from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
-import { RealmscapeFeatures } from 'army/malign_sorcery/realmscape_features'
+import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
 import { ISelections } from 'types/selections'
 

@@ -1,4 +1,3 @@
-import { sortBy } from 'lodash'
 import { TArtifacts } from 'types/army'
 import {
   START_OF_SHOOTING_PHASE,
@@ -10,10 +9,8 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-import DestructionArtifacts from 'army/destruction/destruction_artifacts'
-import RealmArtifacts from 'army/malign_sorcery/realm_artifacts'
 
-let Artifacts: TArtifacts = [
+const Artifacts: TArtifacts = [
   {
     name: 'Spiteful Prodder',
     effects: [
@@ -207,9 +204,5 @@ let Artifacts: TArtifacts = [
     ],
   },
 ]
-
-Artifacts = sortBy(Artifacts, 'name')
-  .concat(DestructionArtifacts)
-  .concat(RealmArtifacts)
 
 export default Artifacts

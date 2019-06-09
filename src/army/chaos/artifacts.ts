@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -8,7 +8,7 @@ const Artifacts: TArtifacts = [
       {
         name: ``,
         desc: ``,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE],
       },
     ],
   },

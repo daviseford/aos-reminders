@@ -12,7 +12,7 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-export const RealmscapeFeatures: IEffects[] = [
+const RealmscapeFeatures: IEffects[] = [
   {
     name: 'Life Leeching (Shyish)',
     desc: 'Roll a dice. On a 6+, pick an enemy unit. That unit suffers D3 mortal wounds.',
@@ -195,3 +195,5 @@ export const RealmscapeFeatures: IEffects[] = [
     when: [START_OF_HERO_PHASE],
   },
 ]
+
+export default RealmscapeFeatures
