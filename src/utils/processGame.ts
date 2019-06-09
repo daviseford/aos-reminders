@@ -1,11 +1,13 @@
 import { TBattalions, TArtifacts, TUnits } from 'types/army'
 import { addToGame } from './addToGame'
-import { TGameStructure } from 'meta/turn_structure'
+import { TGameStructure, Game } from 'meta/turn_structure'
 
 type entries = TBattalions | TArtifacts | TUnits
 
-export const processEffects = (game: TGameStructure, entries: entries[]) => {
+export const processGame = (entries: entries[]): TGameStructure => {
+  const game = { ...Game }
   entries.forEach(e => processEntry(game, e))
+  return game
 }
 
 const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUnits) => {
