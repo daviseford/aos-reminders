@@ -134,21 +134,22 @@ interface ISelectProps {
 }
 
 const Select = (props: ISelectProps) => {
+  const { val, idx, items, type, handleChange } = props
   return (
     <Fragment>
-      <select value={props.val} className="custom-select" onChange={e => props.handleChange(e.target.value, props.idx)}>
-        {props.val ? (
-          <option value={props.val} key={`${props.idx}-${props.type}`}>
-            {props.val}
+      <select value={val} className="custom-select" onChange={e => handleChange(e.target.value, idx)}>
+        {val ? (
+          <option value={val} key={`${idx}-${type}`}>
+            {val}
           </option>
         ) : (
-          <option value={''} key={`none-${props.type}`}>{`-- Select ${props.type} --`}</option>
+          <option value={''} key={`none-${type}`}>{`-- Select ${type} --`}</option>
         )}
-        {Object.keys(props.items).map((k, i) => {
-          if (props.val === k) return null // Prevent showing duplicate
+        {items.map((e, i) => {
+          if (val === e.name) return null // Prevent showing duplicate
           return (
-            <option value={props.items[k].name} key={i}>
-              {props.items[k].name}
+            <option value={e.name} key={i}>
+              {e.name}
             </option>
           )
         })}
