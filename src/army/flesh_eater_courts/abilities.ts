@@ -1,4 +1,4 @@
-import { DURING_GAME, COMBAT_PHASE } from 'types/phases'
+import { DURING_GAME, COMBAT_PHASE, START_OF_SETUP, BATTLESHOCK_PHASE } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -22,6 +22,21 @@ const Abilities: IEffects[] = [
     name: `Muster Abilities`,
     desc: `Several Flesh-eater Courts units have Muster abilities, such as Muster Royal Guard (pg 82), that allow you to return slain models to a unit. If you use a Muster ability, set up the returning models one at a time within 1" of a model from the unit they are returning to (this can be a model returned earlier that phase). The models can only be set up within 3" of an enemy unit if any models from their unit are already within 3" of that enemy unit.`,
     when: [DURING_GAME],
+  },
+  {
+    name: `Charnel Throne`,
+    desc: `After territories have been chosen but before armies are set up, you can set up the CHARNEL THRONE wholly within your territory, wholly within 12" of the edge of the battlefield, and more than 1" from any objectives or other terrain features.`,
+    when: [START_OF_SETUP],
+  },
+  {
+    name: `Charnel Throne: Ruler of All He Surveys`,
+    desc: `An ABHORRANT ARCHREGENT that is within 1" of this terrain feature can use the Summon Imperial Guard command ability without a command point being spent. In addition, an ABHORRANT GHOUL KING that is within 1" of this terrain feature can use the Summon Men-at-arms command ability without a command point being spent.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Charnel Throne: Ghoulish Landmark`,
+    desc: `FLESH-EATER COURTS units treat this terrain feature as having the Inspiring scenery rule. All other units treat this terrain feature as having the Sinister scenery rule.`,
+    when: [BATTLESHOCK_PHASE],
   },
 ]
 
