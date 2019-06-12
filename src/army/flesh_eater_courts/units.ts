@@ -8,6 +8,7 @@ import {
   DURING_SETUP,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   BATTLESHOCK_PHASE,
+  END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -16,9 +17,14 @@ export const Units: TUnits = [
     name: `Abhorrant Ghoul King`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Royal Blood`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Command Ability: Summon Men-at-arms`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of up to 10 SERFS to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -26,9 +32,29 @@ export const Units: TUnits = [
     name: `Abhorrant Ghoul King on Royal Terrorgheist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Death Shriek`,
+        desc: `Do not use the attack sequence for an attack made with this model’s Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model’s damage table. If the total is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Gaping Maw`,
+        desc: `If the unmodified hit roll for an attack made with this model’s Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Infested`,
+        desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Royal Blood`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Command Ability: Summon Royal Guard`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of up to 3 KNIGHTS to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -36,9 +62,19 @@ export const Units: TUnits = [
     name: `Abhorrant Ghoul King on Royal Zombie Dragon`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Royal Blood`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Command Ability: Summon Courtier`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 COURTIER unit to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Pestilential Breath`,
+        desc: `When you attack with this model’s Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -46,9 +82,14 @@ export const Units: TUnits = [
     name: `Crypt Ghast Courtier`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Muster Serfs`,
+        desc: `In your hero phase, roll 6 dice for each friendly CRYPT GHAST COURTIER on the battlefield. For each 2+ you can return 1 slain model to a friendly SERFS unit that is within 10" of that CRYPT GHAST COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Trophy Hunter`,
+        desc: `If any enemy models are slain by wounds inflicted by this model’s attacks, until the end of the phase in which the attacks were made add 1 to the Attacks characteristic of melee weapons used by friendly SERFS units while they are wholly within 16" of this model.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -56,9 +97,19 @@ export const Units: TUnits = [
     name: `Crypt Haunter Courtier`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Noble Blood`,
+        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Chosen of the King`,
+        desc: `You can re-roll hit rolls for attacks made by this model while it is within 18" of any friendly ABHORRANTS.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Muster King's Chosen`,
+        desc: `In your hero phase, roll 6 dice for each friendly CRYPT HAUNTER COURTIER on the battlefield. For each 5+ you can return 1 slain model to a friendly CRYPT HORRORS unit that is within 10" of that CRYPT HAUNTER COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -66,9 +117,14 @@ export const Units: TUnits = [
     name: `Crypt Infernal Courtier`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Skewering Strike`,
+        desc: `If the unmodified hit roll for an attack made with Skewering Talons is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Muster Royal Guard`,
+        desc: `In your hero phase, roll 6 dice for each friendly CRYPT INFERNAL COURTIER on the battlefield. For each 5+ you can return 1 slain model to a friendly CRYPT FLAYERS unit that is within 10" of that CRYPT INFERNAL COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -76,9 +132,24 @@ export const Units: TUnits = [
     name: `Varghulf Courtier`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Muster Royal Household`,
+        desc: `In your hero phase, roll 6 dice for each friendly VARGHULF COURTIER on the battlefield. For each 2+ you can return 1 slain model to a friendly SERFS unit within 10" of that VARGHULF COURTIER. For each 5+ you can return 1 slain model to a friendly KNIGHTS unit within 10" of that VARGHULF COURTIER instead. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Feed on Dark Magic`,
+        desc: `If a friendly ABHORRANT within 18" of this model successfully casts a spell, and it is not unbound, you can re-roll hit rolls for this model until the start of your next hero phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `King's Champion`,
+        desc: `Add 2 to the Attacks characteristic of this model’s Immense Claws if it is within 3" of 10 or more enemy models when you pick the target unit(s) for its attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Victory Feast`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model’s attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -86,9 +157,14 @@ export const Units: TUnits = [
     name: `Abhorrant Archregent`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Imperial Blood`,
+        desc: `In your hero phase, you can heal up to 3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Command Ability: Summon Imperial Guard`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 of the following units to the battlefield: 1 COURTIER; or 1 unit of up to 3 KNIGHTS; or 1 unit of up to 20 SERFS. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -96,9 +172,14 @@ export const Units: TUnits = [
     name: `Crypt Ghouls`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Boundless Ferocity`,
+        desc: `Add 1 to the Attacks characteristic of this unit’s Sharpened Teeth and Filthy Claws while this unit has 20 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Royal Approval`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANTS.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -106,9 +187,19 @@ export const Units: TUnits = [
     name: `Crypt Horrors`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Chosen of the King`,
+        desc: `You can re-roll hit rolls for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANT.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Noble Blood`,
+        desc: `In your hero phase, you can heal 1 wound allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Warrior Elite`,
+        desc: `If the unmodified wound roll for an attack made with a Club and Septic Talons is 6, that attack has a Damage characteristic of 3 instead of 2.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -116,9 +207,14 @@ export const Units: TUnits = [
     name: `Crypt Flayers`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Death Scream`,
+        desc: `Do not use the attack sequence for an attack made with a Death Scream. Instead roll 2D6. Subtract 2 if the target unit is more than 3" from the attacking model. If the result is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the result.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Skewering Strike`,
+        desc: `If the unmodified hit roll for an attack made with Piercing Talons is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -126,9 +222,24 @@ export const Units: TUnits = [
     name: `Royal Terrorgheist`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Death Shriek`,
+        desc: `Do not use the attack sequence for an attack made with this model’s Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model’s damage table. If the total is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Gaping Maw`,
+        desc: `If the unmodified hit roll for an attack made with this model’s Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Infested`,
+        desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Royal Menagerie`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if this model is within 6" of a friendly ABHORRANT.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -136,29 +247,9 @@ export const Units: TUnits = [
     name: `Royal Zombie Dragon`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `Gristlegore Royal Terrorgheist`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `Gristlegore Royal Zombie Dragon`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Pestilential Breath`,
+        desc: `When you attack with this model’s Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
