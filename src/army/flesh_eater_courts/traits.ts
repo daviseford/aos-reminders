@@ -281,7 +281,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Cruel Taskmaster (Nobility)`,
         desc: `If this general uses a Muster ability you can re-roll the dice for this general that determine if slain models are returned to units (you must re-roll all of the dice).`,
-        when: [DURING_GAME],
+        when: [HERO_PHASE],
       },
     ],
   },
