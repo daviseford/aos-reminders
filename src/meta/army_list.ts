@@ -6,11 +6,13 @@ import {
   SERAPHON,
   SYLVANETH,
   TSupportedFaction,
+  FLESH_EATER_COURTS,
 } from './factions'
-import { ORDER, DESTRUCTION, TGrandAlliances } from './alliances'
+import { ORDER, DESTRUCTION, TGrandAlliances, DEATH } from './alliances'
 import { IArmyWithoutGame } from 'types/army'
 
 import BeastclawRaiders from '../army/beastclaw_raiders'
+import FleshEaterCourts from '../army/flesh_eater_courts'
 import GloomspiteGitz from '../army/gloomspite'
 import IdonethDeepkin from '../army/idoneth'
 import Ironjawz from '../army/ironjawz'
@@ -21,6 +23,10 @@ const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
+  },
+  [FLESH_EATER_COURTS]: {
+    Army: { ...FleshEaterCourts },
+    GrandAlliance: DEATH,
   },
   [GLOOMSPITE_GITZ]: {
     Army: { ...GloomspiteGitz },

@@ -5,13 +5,19 @@ import { TSupportedFaction } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
 import ArmyList from 'meta/army_list'
 
-import { OrderTraits, OrderArtifacts } from 'army/order'
-import { DestructionArtifacts, DestructionTraits } from 'army/destruction'
-import { ChaosTraits, ChaosArtifacts } from 'army/chaos'
-import { DeathArtifacts, DeathTraits } from 'army/death'
 import { RealmArtifacts } from 'army/malign_sorcery'
 
 import { processGame } from './processGame'
+import {
+  ChaosArtifacts,
+  ChaosTraits,
+  DeathArtifacts,
+  DeathTraits,
+  DestructionArtifacts,
+  DestructionTraits,
+  OrderArtifacts,
+  OrderTraits,
+} from 'army/grand_alliances'
 
 export const getArmy = (factionName: TSupportedFaction): IArmy => {
   const { Army, GrandAlliance } = ArmyList[factionName]
