@@ -9,6 +9,7 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   BATTLESHOCK_PHASE,
   END_OF_MOVEMENT_PHASE,
+  CHARGE_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -23,7 +24,7 @@ export const Units: TUnits = [
       },
       {
         name: `Command Ability: Summon Men-at-arms`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of up to 10 SERFS to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 10 Crypt Ghouls to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -53,7 +54,7 @@ export const Units: TUnits = [
       },
       {
         name: `Command Ability: Summon Royal Guard`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of up to 3 KNIGHTS to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 3 Crypt Horrors or 1 unit of 3 Crypt Flayers to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -68,7 +69,7 @@ export const Units: TUnits = [
       },
       {
         name: `Command Ability: Summon Courtier`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 COURTIER unit to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 Courtier unit to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
@@ -82,8 +83,8 @@ export const Units: TUnits = [
     name: `Crypt Ghast Courtier`,
     effects: [
       {
-        name: `Muster Serfs`,
-        desc: `In your hero phase, roll 6 dice for each friendly CRYPT GHAST COURTIER on the battlefield. For each 2+ you can return 1 slain model to a friendly SERFS unit that is within 10" of that CRYPT GHAST COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        name: `Muster Men-at-arms`,
+        desc: `In your hero phase, you can roll 6 dice for each friendly Crypt Ghast Courtier on the battlefield. If you do so, for each 2+, you can return 1 slain model to a friendly Crypt Ghouls unit that is within 10" of that Crypt Ghast Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -108,7 +109,7 @@ export const Units: TUnits = [
       },
       {
         name: `Muster King's Chosen`,
-        desc: `In your hero phase, roll 6 dice for each friendly CRYPT HAUNTER COURTIER on the battlefield. For each 5+ you can return 1 slain model to a friendly CRYPT HORRORS unit that is within 10" of that CRYPT HAUNTER COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: ` In your hero phase, you can roll 6 dice for each friendly Crypt Haunter Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Horrors unit that is within 10" of that Crypt Haunter Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -123,7 +124,7 @@ export const Units: TUnits = [
       },
       {
         name: `Muster Royal Guard`,
-        desc: `In your hero phase, roll 6 dice for each friendly CRYPT INFERNAL COURTIER on the battlefield. For each 5+ you can return 1 slain model to a friendly CRYPT FLAYERS unit that is within 10" of that CRYPT INFERNAL COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `‘In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -132,8 +133,8 @@ export const Units: TUnits = [
     name: `Varghulf Courtier`,
     effects: [
       {
-        name: `Muster Royal Household`,
-        desc: `In your hero phase, roll 6 dice for each friendly VARGHULF COURTIER on the battlefield. For each 2+ you can return 1 slain model to a friendly SERFS unit within 10" of that VARGHULF COURTIER. For each 5+ you can return 1 slain model to a friendly KNIGHTS unit within 10" of that VARGHULF COURTIER instead. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        name: `To the King!`,
+        desc: ` In your hero phase, you can roll 6 dice for each friendly Varghulf Courtier on the battlefield. For each 2+, you can return 1 slain model to a friendly Crypt Ghouls unit that is within 10" of that Varghulf Courtier. For each 5+, you can return 1 slain model to a friendly Crypt Horrors or Crypt Flayers unit that is within 10" of that Varghulf Courtier instead. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -292,7 +293,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dark Master`,
-        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion.`,
+        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion. ‘If your general is from this battalion, he knows all of the command abilities on the warscrolls and battalions included in this battalion. In addition, you start the battle with 3 command points for having this battalion in your army instead of 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -351,9 +352,9 @@ export const Battalions: TBattalions = [
     name: `The Arcasanctorian Guard`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Arcasanctorian Guard`,
+        desc: `Units from this battalion re-roll failed charges and do not take battleshock tests.`,
+        when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
       },
     ],
   },

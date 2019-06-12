@@ -1,4 +1,4 @@
-import { DURING_GAME, COMBAT_PHASE, START_OF_SETUP, BATTLESHOCK_PHASE } from 'types/phases'
+import { DURING_GAME, COMBAT_PHASE, START_OF_SETUP, BATTLESHOCK_PHASE, HERO_PHASE } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -20,8 +20,8 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Muster Abilities`,
-    desc: `Several Flesh-eater Courts units have Muster abilities, such as Muster Royal Guard (pg 82), that allow you to return slain models to a unit. If you use a Muster ability, set up the returning models one at a time within 1" of a model from the unit they are returning to (this can be a model returned earlier that phase). The models can only be set up within 3" of an enemy unit if any models from their unit are already within 3" of that enemy unit.`,
-    when: [DURING_GAME],
+    desc: `Several Flesh-eater Courts abilities allow you to return slain models to a unit. When you do so, set up the models one at a time within 1" of a model from the unit they are returning to (this can be a model you returned to the unit earlier in the same phase). The slain models you return to a unit can only be set up within 3" of an enemy unit if one or more models from the unit they are returning to are already within 3" of an enemy unit.`,
+    when: [HERO_PHASE],
   },
   {
     name: `Charnel Throne`,
