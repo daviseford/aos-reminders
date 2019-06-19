@@ -6,10 +6,77 @@ import {
   SHOOTING_PHASE,
   MOVEMENT_PHASE,
   COMBAT_PHASE,
+  BATTLESHOCK_PHASE,
+  START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
+  {
+    name: `Thanquol on Boneripper`,
+    effects: [
+      {
+        name: `Protection of the Horned Rat`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Staff of the Horned Rat`,
+        desc: `Add the Staff of the Horned Rat modifier shown on the damage table above to casting rolls for this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Warp-amulet`,
+        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Warpfire Braziers`,
+        desc: `The Attacks characteristic for this model’s Warpfire Braziers is equal to double the number of Warpfire Braziers that Boneripper is armed with.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Warpfire Projectors`,
+        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll X dice for each model in the target unit that is within 8" of this model, where X is equal to the number of Warpfire Projectors this model is armed with. For each 4+ the target unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Warpstone Addiction`,
+        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be re-rolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model suffers D6 mortal wounds. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Command Ability: Power Behind the Throne`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, until your next hero phase, one friendly SKAVEN HERO other than this model can use the At the Double command ability without a command point being spent; another friendly SKAVEN HERO other than this model can use the Forward to Victory command ability without a command point being spent; and a third friendly SKAVEN HERO other than this model can use the Inspiring Presence command ability without a command point being spent.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Lord Skreech Verminking`,
+    effects: [
+      {
+        name: `Protection of the Horned Rat`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Terrifying`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `The Thirteen-headed One`,
+        desc: `At the start of your hero phase, pick 1 of the areas of knowledge for this model to draw upon. The rule for that area of knowledge applies to this model until your next hero phase. You cannot pick the same area of knowledge more than once per battle.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Command Ability: The Rat King`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can re-roll wound rolls of 1 for attacks made by friendly SKAVENTIDE units while they are wholly within 13" of a friendly model with this command ability.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
   {
     name: `Clanrats`,
     effects: [
@@ -385,9 +452,29 @@ export const Units: TUnits = [
     name: `Verminlord Deceiver`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Protection of the Horned Rat`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Terrifying`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Doomstar`,
+        desc: `A Doomstar has a Damage characteristic of D6 instead of D3 if the target unit has 10 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Shrouded In Darkness`,
+        desc: `Subtract 2 from hit rolls for attacks made with missile weapons that target this model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Command Ability: Lord of Assassins`,
+        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll wound rolls for friendly CLANS ESHIN units while they are wholly within 13" of that model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
