@@ -23,7 +23,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx)'"
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
     }
   },
   "browserslist": {
