@@ -18,6 +18,8 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           condition: x.name,
           name: e.name || x.name,
           action: e.desc,
+          command: e.command || false,
+          tag: e.tag || null
         })
       })
     })

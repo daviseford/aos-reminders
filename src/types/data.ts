@@ -1,15 +1,12 @@
 import { TTurnWhen } from './phases'
+import { ITurnAction } from 'meta/turn_structure'
 
 export interface IEffects {
   name: string
   desc: string
   when: TTurnWhen[]
-}
-
-export interface ITurnAction {
-  condition: string
-  action: string
-  name?: string
+  command?: boolean
+  tag?: string
 }
 
 export interface IReminder {

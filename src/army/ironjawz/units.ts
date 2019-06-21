@@ -40,9 +40,10 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Command Ability: Voice of Gork`,
+        name: `Voice of Gork`,
         desc: `Once per battle, in your hero phase, you can use this command ability once per battle, in your hero phase. If you do so, pick a friendly Destruction unit wholly within 24” of Gordrakk . In the following charge phase, that unit can declare a charge if it is within 18” of the enemy, and you can roll three dice to determine the distance it can charge. In addition, the unit makes 2 extra attacks with each of its melee weapons in the following combat phase. If the unit you chose is part of a warscroll battalion, then these benefits also apply to all other units from the battalion.`,
         when: [HERO_PHASE],
+        command: true,
       },
     ],
   },
@@ -55,9 +56,10 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Command Ability: Mighty Waaagh!`,
+        name: `Mighty Waaagh!`,
         desc: `If a Megaboss on Mawkrusha uses this ability, count up the number of Ironjawz units within 15” of them at the start of the combat phase of the turn, and roll a dice. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with each of their me- lee weapons in that combat phase. If the roll is a 6, and there are at least 6 Ironjawz units within 15” of this model, then make 2 extra attacks rather than 1.`,
         when: [START_OF_COMBAT_PHASE],
+        command: true,
       },
       {
         name: `Destructive Bulk`,
@@ -85,9 +87,10 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Command Ability: Waaagh!`,
+        name: `Waaagh!`,
         desc: `If a Megaboss uses this ability, count up the number of Ironjawz units within 10” of them at the start of the combat phase of the turn, and roll a dice. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with their melee weapons in that combat phase. If the roll is 6 or more, and there are at least 6 IRONJAWZ units within 10" of this model, then make 2 extra attacks rather than 1.`,
         when: [START_OF_COMBAT_PHASE],
+        command: true,
       },
     ],
   },

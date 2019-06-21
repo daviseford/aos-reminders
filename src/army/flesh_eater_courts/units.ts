@@ -23,9 +23,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Command Ability: Summon Men-at-arms`,
+        name: `Summon Men-at-arms`,
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 10 Crypt Ghouls to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        command: true,
       },
     ],
   },
@@ -53,9 +54,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Command Ability: Summon Royal Guard`,
+        name: `Summon Royal Guard`,
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 3 Crypt Horrors or 1 unit of 3 Crypt Flayers to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        command: true,
       },
     ],
   },
@@ -68,9 +70,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Command Ability: Summon Courtier`,
+        name: `Summon Courtier`,
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 Courtier unit to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        command: true,
       },
       {
         name: `Pestilential Breath`,
@@ -163,9 +166,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Command Ability: Summon Imperial Guard`,
+        name: `Summon Imperial Guard`,
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 of the following units to the battlefield: 1 COURTIER; or 1 unit of up to 3 KNIGHTS; or 1 unit of up to 20 SERFS. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        command: true,
       },
     ],
   },
