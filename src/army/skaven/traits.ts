@@ -8,6 +8,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
@@ -68,6 +69,66 @@ const CommandTraits: TCommandTraits = [
         name: `Cunning (Masterclan)`,
         desc: `After the battle has started, roll a dice each time your opponent receives a command point. On a 6 you receive the command point instead of them.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Malevolent (Skryre)`,
+    effects: [
+      {
+        name: `Malevolent (Skryre)`,
+        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Verminous Valour (Skryre)`,
+    effects: [
+      {
+        name: `Verminous Valour (Skryre)`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Savage Overlord (Skryre)`,
+    effects: [
+      {
+        name: `Savage Overlord (Skryre)`,
+        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Masterful Scavenger (Skryre)`,
+    effects: [
+      {
+        name: `Masterful Scavenger (Skryre)`,
+        desc: `Add 2 to the number of warpstone sparks this general’s army can use during a battle.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Deranged Inventor (Skryre)`,
+    effects: [
+      {
+        name: `Deranged Inventor (Skryre)`,
+        desc: `At the start of your shooting phase, you can pick 1 friendly CLANS SKRYRE unit that is wholly within 13" of this general. You can re-roll hit rolls for attacks made with missile weapons by that unit until the end of that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Overseer of Destruction (Skryre)`,
+    effects: [
+      {
+        name: `Overseer of Destruction (Skryre)`,
+        desc: `At the start of your shooting phase, you can pick up to 3 friendly WEAPON TEAM units that are wholly within 13" of this general. You can re-roll hit rolls for attacks made by those units until the end of that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
