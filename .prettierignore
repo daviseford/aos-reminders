@@ -1,0 +1,7 @@
+package.json
+tsconfig.json
+node_modules/
+*.md
+*.sh
+*.log
+*.lock
