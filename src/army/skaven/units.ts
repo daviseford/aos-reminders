@@ -90,7 +90,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Vermin Warpseer`,
+    name: `Verminlord Warpseer`,
     effects: [
       {
         name: `Protection of the Horned Rat`,
@@ -598,7 +598,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Grey Seer of Screaming Bell`,
+    name: `Grey Seer on Screaming Bell`,
     effects: [
       {
         name: `Protection of the Horned Rat`,
