@@ -12,6 +12,66 @@ import {
 
 const CommandTraits: TCommandTraits = [
   {
+    name: `Malevolent (Masterclan)`,
+    effects: [
+      {
+        name: `Malevolent (Masterclan)`,
+        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Verminous Valour (Masterclan)`,
+    effects: [
+      {
+        name: `Verminous Valour (Masterclan)`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Savage Overlord (Masterclan)`,
+    effects: [
+      {
+        name: `Savage Overlord (Masterclan)`,
+        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Supreme Manipulator (Masterclan)`,
+    effects: [
+      {
+        name: `Supreme Manipulator (Masterclan)`,
+        desc: `You can re-roll the dice that determines if you receive 1 extra command point when you use the Skilled Manipulators battle trait after this general uses a command ability.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Master of Magic (Masterclan)`,
+    effects: [
+      {
+        name: `Master of Magic (Masterclan)`,
+        desc: `Once per hero phase, you can add 1 to a casting, dispelling or unbinding roll for this general.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Cunning (Masterclan)`,
+    effects: [
+      {
+        name: `Cunning (Masterclan)`,
+        desc: `After the battle has started, roll a dice each time your opponent receives a command point. On a 6 you receive the command point instead of them.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
     name: `Malevolent (Pestilens)`,
     effects: [
       {
