@@ -177,7 +177,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Hordemaster (Moulder)`,
         desc: `When this general uses the Unleash More-more Beasts! command ability, you receive a new unit on a roll of 4+ instead of 5+.`,
-        when: [HERO_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -248,16 +248,6 @@ const CommandTraits: TCommandTraits = [
         name: `Incredible Agility (Eshin)`,
         desc: `This general can fly.`,
         when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
       },
     ],
   },
