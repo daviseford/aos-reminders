@@ -296,6 +296,76 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Brood Horror`,
+    effects: [
+      {
+        name: `Renegerating Monstrosity`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skaven Clawlord on Brood Horror`,
+    effects: [
+      {
+        name: `Renegerating Monstrosity`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mighty Warlord`,
+        desc: `Add 1 to the Bravery characteristic of friendly Clans Verminus units while they are wholly within 13" of any friendly models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Gnash-gnaw on their Bones`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Clans Verminus unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Skaven Wolf Rats`,
+    effects: [
+      {
+        name: `Blood-crazed`,
+        desc: `Do not take battleshock tests for this unit while it is within 3" of an enemy unit.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Snapping Jaws`,
+        desc: `Add 1 to wound rolls for attacks made by this unit if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warpgnaw Verminlord`,
+    effects: [
+      {
+        name: `Protection of the Horned Rat`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Realm Guide`,
+        desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
+        
+        If you do so, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model’s move for that movement phase.
+        
+        Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
+        when: [END_OF_MOVEMENT_PHASE, START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Terrifying`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
     name: `Stormvermin`,
     effects: [
       {

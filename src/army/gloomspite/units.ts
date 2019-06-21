@@ -48,8 +48,8 @@ export const Units: TUnits = [
         name: 'Command Ability: The Loonking’s Entreaty',
         desc:
           'You can use this command ability once per battle if this model is your general and on the battlefield, before you roll the dice to determine how far the Bad Moon moves that battle round. If you do so, you can choose for the Bad Moon to either not move that battle round, or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).',
-        when: [START_OF_ROUND]
-      }
+        when: [START_OF_ROUND],
+      },
     ],
   },
   {
@@ -201,7 +201,8 @@ export const Units: TUnits = [
       },
       {
         name: 'Moon Shields',
-        desc: 'Add 1 to save rolls for attacks that target this unit while it has at least 10 models with Moon Shields.',
+        desc:
+          'Add 1 to save rolls for attacks that target this unit while it has at least 10 models with Moon Shields.',
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
