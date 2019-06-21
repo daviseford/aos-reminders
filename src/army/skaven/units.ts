@@ -10,12 +10,14 @@ import {
   START_OF_COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
   START_OF_BATTLESHOCK_PHASE,
-  DURING_SETUP,
   START_OF_SETUP,
   END_OF_MOVEMENT_PHASE,
   TURN_THREE_END_OF_MOVEMENT_PHASE,
   CHARGE_PHASE,
   TURN_FOUR_START_OF_MOVEMENT_PHASE,
+  TURN_FOUR_START_OF_ROUND,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
 } from 'types/phases'
 
 // Unit Names
@@ -284,9 +286,9 @@ export const Units: TUnits = [
     name: `Clanrats`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Clanshields`,
+        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -294,9 +296,9 @@ export const Units: TUnits = [
     name: `Stormvermin`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Clanshields`,
+        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -361,16 +363,6 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Skaven Clawlord on Brood Horror`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Skritch Spiteclaw`,
     effects: [
       {
@@ -382,26 +374,6 @@ export const Units: TUnits = [
         name: `Command Ability: Gnash-gnaw on their Bones!`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Doomwheel`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Warp Lightning Cannon`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -462,37 +434,6 @@ export const Units: TUnits = [
         name: `Tunnel Skulkers`,
         desc: `Any tunnelling reserve units that fail to arrive on the battlefield before the start of your fourth movement phase are destroyed.`,
         when: [TURN_FOUR_START_OF_MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Poisoned Wind Mortar Weapon Team`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-
-  {
-    name: `Stormfiends`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Warlock Engineer`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -675,22 +616,32 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Brood Horror`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Hell Pit Abomination`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Avalanche of Flesh`,
+        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model’s damage table.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Regenerating Monstrosity`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Terrifying`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Warpstone Spikes`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+ ignore the effects of that spell on this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Too Horrible to Die`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice and look up the roll on warscroll.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -698,19 +649,24 @@ export const Units: TUnits = [
     name: `Master Moulder`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Crack the Whip`,
+        desc: `dd 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Crack the Whip`,
+        desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Master Moulder`,
+        desc: `In your hero phase, you can pick 1 friendly CLANS MOULDER PACK model within 3" of this model. Heal D3 wounds allocated to that model.`,
         when: [HERO_PHASE],
       },
-    ],
-  },
-  {
-    name: `Wolf Rats`,
-    effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Unleash More-more Beasts!`,
+        desc: `You can use this command ability when a friendly CLANS MOULDER PACK unit is destroyed if a friendly model with this command ability is on the battlefield. If you do so, roll a dice. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within your territory and wholly within 6" of the edge of the battlefield, more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -718,9 +674,9 @@ export const Units: TUnits = [
     name: `Giant Rats`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Wave of Rats`,
+        desc: `While a unit of Giant Rats has 10 or more models, the Range characteristic of its Vicious Teeth is 2" instead of 1". While a unit of Giant Rats has 20 or more models, the Range characteristic of its Vicious Teeth is 3" instead of 1".`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -728,8 +684,8 @@ export const Units: TUnits = [
     name: `Rat Swarms`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Endless Tide of Rats`,
+        desc: `In your hero phase you can return 1 slain model to this unit. Set up the returning model within 1" of this unit. The returning model can only be set up within 3" of an enemy unit if this unit is already within 3" of that enemy unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -738,9 +694,9 @@ export const Units: TUnits = [
     name: `Rat Ogors`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Rabid Fury`,
+        desc: `If the unmodified hit roll for an attack made with Tearing Claws, Blades and Fangs is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -748,40 +704,14 @@ export const Units: TUnits = [
     name: `Packmasters`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Crack the Whip`,
+        desc: `dd 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+        when: [COMBAT_PHASE],
       },
-    ],
-  },
-
-  {
-    name: `Skaven Chieftain With Battle Standard`,
-    effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Skavenslaves`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Deathrunner`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Crack the Whip`,
+        desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -819,9 +749,19 @@ export const Units: TUnits = [
     name: `Deathmaster`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Hidden Killer`,
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1. If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
+        when: [START_OF_SETUP, START_OF_COMBAT_PHASE, TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Running Death`,
+        desc: `This model can run and still shoot later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Throwing Stars`,
+        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -829,9 +769,19 @@ export const Units: TUnits = [
     name: `Night Runners`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Running Death`,
+        desc: `This unit can run and still shoot later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Throwing Weapons`,
+        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Weapons is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Slinking Advance`,
+        desc: `After armies are set up, but before the first battle round begins, you can move this unit up to 2D6".`,
+        when: [END_OF_SETUP],
       },
     ],
   },
@@ -839,9 +789,19 @@ export const Units: TUnits = [
     name: `Gutter Runners`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Throwing Stars`,
+        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Running Death`,
+        desc: `This unit can run and still shoot later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Sneaky Infiltrators`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating in reserve. If you do so, at the end of your first movement phase, you must set up this unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [START_OF_SETUP, TURN_ONE_END_OF_MOVEMENT_PHASE],
       },
     ],
   },
