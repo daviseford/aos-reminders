@@ -9,9 +9,10 @@ const Abilities: IEffects[] = [
     when: [DURING_GAME],
   },
   {
-    name: `Command Ability: Feeding Frenzy`,
+    name: `Feeding Frenzy`,
     desc: `You can use this command ability after a friendly FLESH-EATER COURTS unit has fought in the combat phase for the first time and is wholly within 12" of a friendly FLESH-EATER COURTS HERO, or wholly within 18" of a friendly FLESH-EATER COURTS HERO that is a general. If you do so, that unit can immediately make a pile-in move and then attack with all of the melee weapons it is armed with for a second time. You cannot pick the same unit to benefit from this ability more than once per phase.`,
     when: [COMBAT_PHASE],
+    command: true,
   },
   {
     name: `Courts of Delusion`,

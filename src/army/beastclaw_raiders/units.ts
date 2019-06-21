@@ -49,9 +49,10 @@ export const Units: TUnits = [
         when: [DURING_GAME],
       },
       {
-        name: `Command Ability: Bellowing Voice`,
+        name: `Bellowing Voice`,
         desc: `With his booming voice the Frostlord signals the hunt. If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
         when: [CHARGE_PHASE],
+        command: true,
       },
     ],
   },
@@ -69,9 +70,10 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Command Ability: Bellowing Voice`,
+        name: `Bellowing Voice`,
         desc: `With his booming voice the Frostlord signals the hunt. If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
         when: [CHARGE_PHASE],
+        command: true,
       },
     ],
   },

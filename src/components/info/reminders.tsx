@@ -51,12 +51,15 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
 }
 
 const ActionText = (props: ITurnAction) => {
-  const { name, action, condition } = props
+  const { name, action, condition, command, tag } = props
   return (
     <>
       <p className="ReminderEntry mb-2">
         <span className="text-muted font-weight-bold">{condition} - </span>
-        {name ? <b>{name}</b> : null}
+        <b>
+          {command && `Command Ability: `}
+          {name && `${name}`} {tag && `(${tag})`}
+        </b>
         <br />
         {action}
       </p>

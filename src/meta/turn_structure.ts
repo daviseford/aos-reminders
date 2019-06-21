@@ -4,7 +4,8 @@ export interface ITurnAction {
   condition: string
   action: string
   name?: string
-  hint?: string
+  tag?: string | null
+  command?: boolean
 }
 
 export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }

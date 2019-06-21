@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash'
-
 import { TCommandTraits, TArtifacts, IArmy } from 'types/army'
 import { TSupportedFaction } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
@@ -62,9 +60,7 @@ const GrandAllianceConfig: TGrandAllianceConfig = {
  */
 const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArtifacts => {
   const { Artifacts } = GrandAllianceConfig[alliance]
-  return sortBy(artifacts, 'name')
-    .concat(Artifacts)
-    .concat(RealmArtifacts)
+  return artifacts.concat(Artifacts).concat(RealmArtifacts)
 }
 
 /**
