@@ -21,6 +21,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -34,11 +39,14 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "24.0.13",
+    "@types/jest": "24.0.15",
     "@types/lodash": "^4.14.129",
-    "@types/node": "^12.0.2",
+    "@types/node": "^12.0.8",
+    "@types/react": "16.8.22",
     "@types/react-dom": "16.8.4",
-    "@types/react": "16.8.19",
-    "@types/webpack-env": "^1.13.9"
+    "@types/webpack-env": "^1.13.9",
+    "husky": "^2.4.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1"
   }
 }
