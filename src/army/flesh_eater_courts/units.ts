@@ -1,15 +1,15 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  DURING_GAME,
-  COMBAT_PHASE,
-  SHOOTING_PHASE,
-  END_OF_COMBAT_PHASE,
-  DURING_SETUP,
-  TURN_ONE_END_OF_MOVEMENT_PHASE,
   BATTLESHOCK_PHASE,
-  END_OF_MOVEMENT_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -35,12 +35,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Death Shriek`,
-        desc: `Do not use the attack sequence for an attack made with this model’s Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model’s damage table. If the total is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Gaping Maw`,
-        desc: `If the unmodified hit roll for an attack made with this model’s Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -77,7 +77,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pestilential Breath`,
-        desc: `When you attack with this model’s Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        desc: `When you attack with this model's Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -92,7 +92,7 @@ export const Units: TUnits = [
       },
       {
         name: `Trophy Hunter`,
-        desc: `If any enemy models are slain by wounds inflicted by this model’s attacks, until the end of the phase in which the attacks were made add 1 to the Attacks characteristic of melee weapons used by friendly SERFS units while they are wholly within 16" of this model.`,
+        desc: `If any enemy models are slain by wounds inflicted by this model's attacks, until the end of the phase in which the attacks were made add 1 to the Attacks characteristic of melee weapons used by friendly SERFS units while they are wholly within 16" of this model.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -127,7 +127,7 @@ export const Units: TUnits = [
       },
       {
         name: `Muster Royal Guard`,
-        desc: `‘In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `'In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -147,12 +147,12 @@ export const Units: TUnits = [
       },
       {
         name: `King's Champion`,
-        desc: `Add 2 to the Attacks characteristic of this model’s Immense Claws if it is within 3" of 10 or more enemy models when you pick the target unit(s) for its attacks.`,
+        desc: `Add 2 to the Attacks characteristic of this model's Immense Claws if it is within 3" of 10 or more enemy models when you pick the target unit(s) for its attacks.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Victory Feast`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model’s attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -178,7 +178,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Boundless Ferocity`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s Sharpened Teeth and Filthy Claws while this unit has 20 or more models.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Sharpened Teeth and Filthy Claws while this unit has 20 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -213,7 +213,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Death Scream`,
-        desc: `Do not use the attack sequence for an attack made with a Death Scream. Instead roll 2D6. Subtract 2 if the target unit is more than 3" from the attacking model. If the result is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the result.`,
+        desc: `Do not use the attack sequence for an attack made with a Death Scream. Instead roll 2D6. Subtract 2 if the target unit is more than 3" from the attacking model. If the result is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the result.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -228,12 +228,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Death Shriek`,
-        desc: `Do not use the attack sequence for an attack made with this model’s Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model’s damage table. If the total is higher than the target unit’s Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Gaping Maw`,
-        desc: `If the unmodified hit roll for an attack made with this model’s Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -253,7 +253,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Pestilential Breath`,
-        desc: `When you attack with this model’s Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        desc: `When you attack with this model's Pestilential Breath, roll a dice before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -267,7 +267,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Body-part Acquisition`,
-        desc: `At the end of the combat phase, roll 1 dice for each enemy model within 3" of any models from this battalion. For each 6, that enemy model’s unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll 1 dice for each enemy model within 3" of any models from this battalion. For each 6, that enemy model's unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -297,7 +297,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dark Master`,
-        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion. ‘If your general is from this battalion, he knows all of the command abilities on the warscrolls and battalions included in this battalion. In addition, you start the battle with 3 command points for having this battalion in your army instead of 1.`,
+        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion. 'If your general is from this battalion, he knows all of the command abilities on the warscrolls and battalions included in this battalion. In addition, you start the battle with 3 command points for having this battalion in your army instead of 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -313,7 +313,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: "King's Ghouls",
+    name: `King's Ghouls`,
     effects: [
       {
         name: `Guardians of the Court`,

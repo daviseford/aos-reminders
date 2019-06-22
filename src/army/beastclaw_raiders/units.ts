@@ -119,9 +119,9 @@ export const Units: TUnits = [
         name: `Blizzard-speaker`,
         desc: `In your hero phase, a Huskard on a Thundertusk can select a BEASTCLAW RAIDERS unit within 18" and roll a dice. Add one to the result for each other friendly THUNDERTUSK unit within 18" of the unit you picked. On a 4 or more, select one of the abilities from the list below to apply to the unit you picked.
         
-        Winter’s Endurance: A second skin of ice forms on the unit as it is rimed with a healing frost. One model in the unit heals D3 wounds.
+        Winter's Endurance: A second skin of ice forms on the unit as it is rimed with a healing frost. One model in the unit heals D3 wounds.
         
-        Winter’s Strength: Winter winds howl through the unit, chilling their blood and lending them strength. You can re-roll wound rolls of 1 for the unit until the start of your next hero phase.`,
+        Winter's Strength: Winter winds howl through the unit, chilling their blood and lending them strength. You can re-roll wound rolls of 1 for the unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -166,7 +166,7 @@ export const Units: TUnits = [
       },
       {
         name: `Mournfang Charge`,
-        desc: `Each time a Mournfang Pack model completes a charge move, select an enemy model within 1". On a roll of 4 or more, that model’s unit suffers a mortal wound.`,
+        desc: `Each time a Mournfang Pack model completes a charge move, select an enemy model within 1". On a roll of 4 or more, that model's unit suffers a mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -240,7 +240,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `A Hardy Breed`,
-        desc: `Add 1 to Braggoth’s Wounds characteristic.`,
+        desc: `Add 1 to Braggoth's Wounds characteristic.`,
         when: [DURING_GAME],
       },
       {
@@ -260,12 +260,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Cunning and Wise`,
-        desc: `An Olwyr general can have two command traits instead of one. If you choose to randomly generate your general’s command trait, re-roll any duplicate results.`,
+        desc: `An Olwyr general can have two command traits instead of one. If you choose to randomly generate your general's command trait, re-roll any duplicate results.`,
         when: [START_OF_SETUP],
       },
       {
         name: `Vicious Beasts`,
-        desc: `Add 1 to all hit rolls made for an Olwyr Mournfang’s Tusks.`,
+        desc: `Add 1 to all hit rolls made for an Olwyr Mournfang's Tusks.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -295,7 +295,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Eating Hand`,
-        desc: `Add 1 to the Damage characteristic of all melee weapons used by the Eurlbad’s Huskard.`,
+        desc: `Add 1 to the Damage characteristic of all melee weapons used by the Eurlbad's Huskard.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -325,7 +325,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Hunting Pack`,
-        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter’s Masters of Ambush ability, pg 114), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
+        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter's Masters of Ambush ability, pg 114), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -350,7 +350,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Fighting Hand`,
-        desc: `You can re-roll failed battleshock tests for friendly BEASTCLAW RAIDERS units that are within 12" of the Jorlbad’s Huskard.`,
+        desc: `You can re-roll failed battleshock tests for friendly BEASTCLAW RAIDERS units that are within 12" of the Jorlbad's Huskard.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

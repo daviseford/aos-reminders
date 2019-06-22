@@ -107,7 +107,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Masterful Scavenger (Skryre)`,
-        desc: `Add 2 to the number of warpstone sparks this general’s army can use during a battle.`,
+        desc: `Add 2 to the number of warpstone sparks this general's army can use during a battle.`,
         when: [DURING_GAME],
       },
     ],
@@ -227,7 +227,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Brutal Fury (Verminus)`,
-        desc: `Once per battle, at the start of the combat phase, you can add 3 to the Attacks characteristic of this general’s melee weapons until the end of that phase.`,
+        desc: `Once per battle, at the start of the combat phase, you can add 3 to the Attacks characteristic of this general's melee weapons until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -237,7 +237,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Powerful (Verminus)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],
@@ -247,7 +247,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Devious Adversary (Verminus)`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon that targets this general is a 1, add 1 to the Attacks characteristic of this general’s melee weapons until the end of that phase.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon that targets this general is a 1, add 1 to the Attacks characteristic of this general's melee weapons until the end of that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -287,7 +287,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Moulder Supreme (Moulder)`,
-        desc: `When you use the Prized Creations battle trait and pick 1 friendly CLANS MOULDER FIGHTING BEAST model for this general, you can either add 3 to that model’s Wounds characteristic instead of D3, or add D6 to that model’s Wounds characteristic instead of D3.`,
+        desc: `When you use the Prized Creations battle trait and pick 1 friendly CLANS MOULDER FIGHTING BEAST model for this general, you can either add 3 to that model's Wounds characteristic instead of D3, or add D6 to that model's Wounds characteristic instead of D3.`,
         when: [DURING_GAME],
       },
     ],
@@ -307,7 +307,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Burly (Moulder)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],

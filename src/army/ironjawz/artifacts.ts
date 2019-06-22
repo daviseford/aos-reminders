@@ -18,7 +18,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Destroyer`,
-        desc: `Pick one of the bearer’s melee weapons. Increase the weapon’s Damage characteristic by 1.`,
+        desc: `Pick one of the bearer's melee weapons. Increase the weapon's Damage characteristic by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -48,7 +48,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Metalrippa's Klaw`,
-        desc: `Pick one of the bearer’s melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Pick one of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],

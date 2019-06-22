@@ -10,7 +10,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `The Everwinter's Blessing`,
-    desc: `Roll a dice at the start of each of your hero phases to determine the effects of Everwinter’s Blessing on the battle:
+    desc: `Roll a dice at the start of each of your hero phases to determine the effects of Everwinter's Blessing on the battle:
     
     1-2 Fortifying Hoarfrost: You can re-roll save rolls of 1 for all friendly BEASTCLAW RAIDER models until the start of your next hero phase.
     

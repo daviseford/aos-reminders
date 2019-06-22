@@ -45,7 +45,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of All-Frost`,
-        desc: `Pick one of this HERO’s melee weapons to be the Blade of All-Frost. Add 1 to the Damage characteristic of this weapon. If this weapon wounds a HERO or a MONSTER, that model cannot be selected to fight in the combat phase until after all other units that can do so have fought.`,
+        desc: `Pick one of this HERO's melee weapons to be the Blade of All-Frost. Add 1 to the Damage characteristic of this weapon. If this weapon wounds a HERO or a MONSTER, that model cannot be selected to fight in the combat phase until after all other units that can do so have fought.`,
         when: [COMBAT_PHASE],
       },
     ],

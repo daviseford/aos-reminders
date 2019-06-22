@@ -1,17 +1,17 @@
 import { TCommandTraits } from 'types/army'
 import {
-  HERO_PHASE,
-  MOVEMENT_PHASE,
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  SHOOTING_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  START_OF_HERO_PHASE,
-  BATTLESHOCK_PHASE,
-  START_OF_COMBAT_PHASE,
   DURING_SETUP,
-  TURN_ONE_END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
@@ -57,7 +57,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Grave Robber`,
-        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general’s melee weapons while this general is within 3" of any enemy HEROES with an artefact of power.`,
+        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artefact of power.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -113,7 +113,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Ghurish Mawshard`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy model within 1" of the bearer and roll a dice. If the roll is greater than that model’s Wounds characteristic, that model is slain.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy model within 1" of the bearer and roll a dice. If the roll is greater than that model's Wounds characteristic, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -273,7 +273,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Hulking Brute (Nobility)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],
@@ -313,7 +313,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Razor-clawed (Terrorgheist Trait)`,
-        desc: `Improve the Rend characteristic of this mount’s melee weapons by 1.`,
+        desc: `Improve the Rend characteristic of this mount's melee weapons by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -323,7 +323,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Horribly Infested (Terrorgheist Trait)`,
-        desc: `This model’s Infested ability inflicts 3 mortal wounds instead of D3 mortal wounds.`,
+        desc: `This model's Infested ability inflicts 3 mortal wounds instead of D3 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],
@@ -333,7 +333,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Horribly Resiliant (Terrorgheist Trait)`,
-        desc: `This model’s Royal Blood ability heals up to 3 wounds instead of up to D3 wounds.`,
+        desc: `This model's Royal Blood ability heals up to 3 wounds instead of up to D3 wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -343,7 +343,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Gruesome Bite (Terrorgheist Trait)`,
-        desc: `You can re-roll failed hit rolls for attacks made with this mount’s Fanged Maw.`,
+        desc: `You can re-roll failed hit rolls for attacks made with this mount's Fanged Maw.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -353,7 +353,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Devastating Scream (Terrorgheist Trait)`,
-        desc: `Add 1 to each of the Death Shriek values on this model’s damage table.`,
+        desc: `Add 1 to each of the Death Shriek values on this model's damage table.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -373,7 +373,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Razor-clawed (Zombie Dragon Trait)`,
-        desc: `Improve the Rend characteristic of this mount’s melee weapons by 1.`,
+        desc: `Improve the Rend characteristic of this mount's melee weapons by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -383,7 +383,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Baneful Breath (Zombie Dragon Trait)`,
-        desc: `You can re-roll wound rolls for attacks made with this model’s Pestilential Breath.`,
+        desc: `You can re-roll wound rolls for attacks made with this model's Pestilential Breath.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -393,7 +393,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Horribly Resilient (Zombie Dragon Trait)`,
-        desc: `This model’s Royal Blood ability heals up to 3 wounds instead of up to D3 wounds.`,
+        desc: `This model's Royal Blood ability heals up to 3 wounds instead of up to D3 wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -403,7 +403,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Necrotic Fangs (Zombie Dragon Trait)`,
-        desc: `You can re-roll the Damage characteristic roll for this model’s Snapping Maw.`,
+        desc: `You can re-roll the Damage characteristic roll for this model's Snapping Maw.`,
         when: [COMBAT_PHASE],
       },
     ],
