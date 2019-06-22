@@ -10,6 +10,7 @@
     "react-dom": "^16.8.6",
     "react-ga": "^2.5.7",
     "react-scripts": "3.0.1",
+    "react-select": "^3.0.4",
     "typescript": "3.4.5"
   },
   "scripts": {
