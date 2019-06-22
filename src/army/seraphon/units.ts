@@ -28,6 +28,17 @@ export const Units: TUnits = [
         desc: `Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
+      {
+        name: `Dead for Innumerable Ages`,
+        desc: `In the battleshock phase of each turn, roll a dice and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is ‘slain’. Otherwise, any wounds he has suffered are immediately healed.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Impeccable Foresight`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, roll 3 dice. For each 4+, you receive 1 extra command point. You cannot use this command ability more than once per hero phase.`,
+        when: [START_OF_HERO_PHASE],
+        command: true,
+      },
     ],
   },
   {
@@ -35,7 +46,11 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Configuration`,
-        desc: `Roll a dice and see which constellation is in the ascendant, and how it affects your army.`,
+        desc: `Roll a dice and see which constellation is in the ascendant, and how it affects your army.
+        
+        1-2: The Hunter’s Steed: Add 1 to run and charge rolls for Seraphon units in your army.
+        3-4: The Sage’s Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells. 
+        5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army. `,
         when: [END_OF_SETUP],
       },
       {
@@ -48,6 +63,12 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, one Slann Starmaster in your army can attempt to turn the constellations to its advantage instead of casting one of its spells. If it does so, roll a dice. If the result is a 1, the Slann is distracted by its exertions and cannot cast any spells this phase. If the result is 4 or higher, you can pick a new ascendant constellation from the table. Otherwise, there is no effect.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Gift from the Heavens`,
+        desc: `If a Slann Starmaster uses this ability, Seraphon units from your army that are within 10" are affected. Until your next hero phase, those units can fly and you can re-roll failed save rolls for them in the shooting phase.`,
+        when: [MOVEMENT_PHASE],
+        command: true,
+      },
     ],
   },
   {
@@ -58,23 +79,75 @@ export const Units: TUnits = [
         desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent’s dice, D3 models flee from the unit (as well as any that flee because of the test).`,
         when: [BATTLESHOCK_PHASE],
       },
+      {
+        name: `Ancient Warlord`,
+        desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a Saurus Hero from your army within 20” attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   {
     name: `Saurus Oldblood`,
-    effects: [],
+    effects: [
+      {
+        name: `Paragon of Order`,
+        desc: `If a Saurus Oldblood uses this ability, each Seraphon unit from your army within 10" can immediately reform around one of its models. That model must stay where it is, but each other model in the unit can move up to 3" so long as it does not end this move within 3" of the enemy. The same unit cannot benefit from this command ability more than once in the same phase.`,
+        when: [DURING_GAME],
+        command: true,
+      },
+      {
+        name: `Wrath of the Seraphon`,
+        desc: `You can re-roll wound rolls of 1 for Saurus models within 5" of an Oldblood.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: `Saurus Scar-Veteran on Cold One`,
-    effects: [],
+    effects: [
+      {
+        name: `Fury of the Seraphon`,
+        desc: `After this model has made all its Celestite War-pick attacks, roll a dice. If the result is 4 or higher, it can attack again with its Celestite War-pick. Roll again after those attacks; if the result is 6, it can attack for a third and final time.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Savage Charge`,
+        desc: `If a Scar-Veteran on Cold One uses this ability, then you can re-roll charge rolls and hit rolls of 1 for Saurus units within 8”. In addition, until your next hero phase this model and any Saurus Knights within 8” make an additional attack with their Cold Ones’ Vicious Bites.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+        command: true,
+      },
+    ],
   },
   {
     name: `Saurus Eternity Warden`,
-    effects: [],
+    effects: [
+      {
+        name: `Selfless Protector`,
+        desc: `Each time this model is within 2” of a Slann that suffers a wound or mortal wound, it can attempt to intervene. If it does so, roll a dice. If the result is 2 or higher, the Slann ignores that wound or mortal wound but this model suffers a mortal wound in its place.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Alpha Warden`,
+        desc: `Saurus Guard make an additional attack with their Celestite Polearms while their unit is within 5” of any Saurus Eternity Wardens from your army.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: `Saurus Sunblood`,
-    effects: [],
+    effects: [
+      {
+        name: `Ferocious Rage`,
+        desc: `If the hit roll for one of this model’s attacks is 6 or higher, make D3 wound rolls rather than 1. If the wound roll for one of this model’s attacks is 6 or higher, it causes D3 Damage rather than 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Scent of Weakness`,
+        desc: `If the Saurus Sunblood uses this ability, pick an enemy unit within 15” – until your next hero phase, re-roll failed hit rolls for attacks made in the combat phase against that unit by any of your Saurus models.`,
+        when: [COMBAT_PHASE],
+        command: true,
+      },
+    ],
   },
   {
     name: `Scar-Veteran with Battle Standard`,
@@ -88,6 +161,17 @@ export const Units: TUnits = [
         desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent’s dice, D3 models flee from the unit (as well as any that flee because of the test).`,
         when: [BATTLESHOCK_PHASE],
       },
+      {
+        name: `Bloodroar`,
+        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent’s dice, D3 models flee from the unit (as well as any that flee because of the test).`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Saurian Savage`,
+        desc: `If the Saurus Scar-Veteran on Carnosaur uses this ability, pick a Saurus unit within 15”. Until your next hero phase, whenever you roll a hit roll of 6 or more for a model in that unit, that model can immediately make one additio- nal attack using the same weapon.`,
+        when: [COMBAT_PHASE],
+        command: true,
+      },
     ],
   },
   {
@@ -97,6 +181,11 @@ export const Units: TUnits = [
         name: `Celestial Conduit`,
         desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Proud Defiance`,
+        desc: `You can re-roll hit rolls for friendly Seraphon units while they are wholly within 12” of this model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -137,6 +226,11 @@ export const Units: TUnits = [
         name: `Cosmic Engine`,
         desc: `Roll for Engine of the Gods effect`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Steadfast Majesty`,
+        desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -180,7 +274,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Wary Fighters`,
-        desc: `When it is a Skink unit\'s turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.`,
+        desc: `When it is a Skink unit's turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -415,7 +509,7 @@ export const Battalions: TBattalions = [
     name: `Thunderquake Starhost`,
     effects: [
       {
-        name: "Creator's Will",
+        name: `Creator's Will`,
         desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units`,
         when: [START_OF_CHARGE_PHASE],
       },
@@ -442,16 +536,16 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: "Dracothion's Tail",
+    name: `Dracothion's Tail`,
     effects: [
       {
-        name: "Appear at Kuoteq's Command",
+        name: `Appear at Kuoteq's Command`,
         desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq’s command as a reserve unit. You can set up one reserve unit waiting to appear at Kuoteq’s command for each unit from the same battalion you set up on the battlefield.`,
         when: [DURING_SETUP],
       },
       {
-        name: "Appear at Kuoteq's Command",
-        desc: `You can set up one or more of the reserve units waiting to appear at Kuoteq\'s command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up on the battlefield for the first time cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq’s command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
+        name: `Appear at Kuoteq's Command`,
+        desc: `You can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up on the battlefield for the first time cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq’s command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [HERO_PHASE],
       },
     ],
