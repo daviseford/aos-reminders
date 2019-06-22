@@ -1,39 +1,27 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import Select from 'react-select'
 
 import { titleCase } from 'utils/titleCase'
+import { ActionMeta, ValueType } from 'react-select/lib/types'
+
+export type TDropdownOption = { value: string; label: string }
 
 interface ISelectOneProps {
-  setValue: (value: string) => any
+  setValue: (value: ValueType<TDropdownOption>, action: ActionMeta) => void
   value: string
   items: string[]
-  titleFormat?: boolean
 }
 
 export const SelectOne = (props: ISelectOneProps) => {
+  const { items, setValue } = props
+  const options = convertToOptions(items)
   return (
-    <div className="row w-50 mx-auto pb-3 d-block">
-      <Select {...props} />
+    <div className="row w-50 mx-auto pb-3 d-block text-dark">
+      <Select options={options} onChange={setValue} defaultValue={options[0]} isSearchable={true} isClearable={false} />
     </div>
   )
 }
 
-const Select = (props: ISelectOneProps) => {
-  const { titleFormat = true, value, setValue, items } = props
-  return (
-    <Fragment>
-      <select value={value} className="custom-select" onChange={e => setValue(e.target.value)}>
-        <option value={value} key={`faction-${value}`}>
-          {titleFormat ? titleCase(value) : value}
-        </option>
-        {items.map((name, i) => {
-          if (value === name) return null // Prevent showing duplicates
-          return (
-            <option value={name} key={`value-${i}`}>
-              {titleFormat ? titleCase(name) : name}
-            </option>
-          )
-        })}
-      </select>
-    </Fragment>
-  )
+const convertToOptions = (items: string[]): TDropdownOption[] => {
+  return items.map(i => ({ value: i, label: titleCase(i) }))
 }

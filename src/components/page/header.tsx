@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { SelectOne } from 'components/input/select_one'
+import { SelectOne, TDropdownOption } from 'components/input/select_one'
 import { titleCase } from 'utils/titleCase'
 import { logFactionSwitch } from 'utils/analytics'
+import { ValueType } from 'react-select/lib/types'
 
 /**
  * Hidden when printing
@@ -12,7 +13,8 @@ const Header = ({ setFactionName, factionName }) => {
   const [selectCount, setSelectCount] = useState(0)
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
-  const setValue = (factionName: string) => {
+  const setValue = (selectValue: ValueType<TDropdownOption>, action) => {
+    const { value: factionName } = selectValue as TDropdownOption
     // Avoid registering an event on pageload
     if (selectCount > 0) {
       logFactionSwitch(factionName as TSupportedFaction)
@@ -35,10 +37,9 @@ const Header = ({ setFactionName, factionName }) => {
         <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} value={factionName} />
 
         <p>
-          Right now, this tool offers personalized gameplay reminders for {initial(factions).join(', ')}, and{' '}
-          {last(factions)}.
+          This tool offers personalized gameplay reminders for {initial(factions).join(', ')}, and {last(factions)}.
           <br />
-          Other armies may be added if there is demand.
+          Other armies are being added based on demand.
         </p>
       </div>
     </div>
