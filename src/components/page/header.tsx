@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne } from 'components/input/select_one'
@@ -9,10 +9,16 @@ import { logFactionSwitch } from 'utils/analytics'
  * Hidden when printing
  */
 const Header = ({ setFactionName, factionName }) => {
+  const [selectCount, setSelectCount] = useState(0)
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
+
   const setValue = (factionName: string) => {
+    // Avoid registering an event on pageload
+    if (selectCount > 0) {
+      logFactionSwitch(factionName as TSupportedFaction)
+    }
     setFactionName(factionName)
-    logFactionSwitch(factionName as TSupportedFaction)
+    setSelectCount(selectCount + 1)
   }
 
   return (
