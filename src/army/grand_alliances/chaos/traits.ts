@@ -7,7 +7,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Dark Avenger (Chaos)`,
-        desc: `Add 1 to hit rolls for this general’s melee weapons if the target unit has the ORDER keyword.`,
+        desc: `Add 1 to hit rolls for this general's melee weapons if the target unit has the ORDER keyword.`,
         when: [COMBAT_PHASE],
       },
     ],

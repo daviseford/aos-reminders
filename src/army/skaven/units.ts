@@ -42,7 +42,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpfire Braziers`,
-        desc: `The Attacks characteristic for this model’s Warpfire Braziers is equal to double the number of Warpfire Braziers that Boneripper is armed with.`,
+        desc: `The Attacks characteristic for this model's Warpfire Braziers is equal to double the number of Warpfire Braziers that Boneripper is armed with.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -225,7 +225,7 @@ export const Units: TUnits = [
       },
       {
         name: `More-more Warp Lightning!`,
-        desc: `Before you roll the dice that determines the power of a Warp Lightning Blast for this model, if there is a friendly WARLOCK ENGINEER within 3" of this model you can say that the engineer will increase the weapon’s power output. If you do so, roll 12 more dice instead of 6 more dice for that attack. However, after the attack has been resolved, this model suffers D3 mortal wounds for each unmodified roll of 1 on those 12 dice. A single WARLOCK ENGINEER cannot be used to increase the power output of more than one Warp Lightning Blast in the same phase.`,
+        desc: `Before you roll the dice that determines the power of a Warp Lightning Blast for this model, if there is a friendly WARLOCK ENGINEER within 3" of this model you can say that the engineer will increase the weapon's power output. If you do so, roll 12 more dice instead of 6 more dice for that attack. However, after the attack has been resolved, this model suffers D3 mortal wounds for each unmodified roll of 1 on those 12 dice. A single WARLOCK ENGINEER cannot be used to increase the power output of more than one Warp Lightning Blast in the same phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -265,7 +265,7 @@ export const Units: TUnits = [
       },
       {
         name: `More-more Warp Bolts!`,
-        desc: `Before you determine the Attacks characteristic for this model’s Warp Bolts attack, you can say that the engineer is overcharging the warp lightning generator. If you do so, the Attacks characteristic for that attack is 2D6 instead of D6. However, if you do so and you roll a double, this model suffers 2D6 mortal wounds after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic for this model's Warp Bolts attack, you can say that the engineer is overcharging the warp lightning generator. If you do so, the Attacks characteristic for that attack is 2D6 instead of D6. However, if you do so and you roll a double, this model suffers 2D6 mortal wounds after all of the attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -280,7 +280,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pavise`,
-        desc: `You can re-roll hit rolls for attacks made with this unit’s Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
+        desc: `You can re-roll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -353,7 +353,7 @@ export const Units: TUnits = [
         name: `Realm Guide`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
         
-        If you do so, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model’s move for that movement phase.
+        If you do so, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.
         
         Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [END_OF_MOVEMENT_PHASE, START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
@@ -385,7 +385,7 @@ export const Units: TUnits = [
       },
       {
         name: `Krrk the Almost-trusted`,
-        desc: `The leader of this unit is Krrk the Almost-trusted. Do not take battleshock tests for this unit while it includes Krrk the Almost-trusted. In addition, if Skritch Spiteclaw is slain, add 2 to the Attacks characteristic of Krrk’s Rusty Spear for the rest of this battle.`,
+        desc: `The leader of this unit is Krrk the Almost-trusted. Do not take battleshock tests for this unit while it includes Krrk the Almost-trusted. In addition, if Skritch Spiteclaw is slain, add 2 to the Attacks characteristic of Krrk's Rusty Spear for the rest of this battle.`,
         when: [BATTLESHOCK_PHASE, COMBAT_PHASE],
       },
     ],
@@ -410,7 +410,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fist of Verminus Supremacy`,
-        desc: `If the unmodified wound roll for an attack made with this model’s Spike-fist is 6, add 4 to the damage inflicted by that attack.`,
+        desc: `If the unmodified wound roll for an attack made with this model's Spike-fist is 6, add 4 to the damage inflicted by that attack.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -426,7 +426,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cornered Fury`,
-        desc: `Add the number of wounds allocated to this model to the Attacks characteristic of this model’s melee weapons.`,
+        desc: `Add the number of wounds allocated to this model to the Attacks characteristic of this model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -442,7 +442,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `There are Always More`,
-        desc: `At the start of your hero phase, if this model is within 13" of a friendly SPITECLAW’S SWARM , you can return D3 slain models to that unit (you cannot return Krrk the Almost-trusted). Set up the returning models one at a time within 1" of a model from that unit (this can be a model you returned to the unit earlier in the same phase). Returning models can only be set up within 3" of an enemy unit if one or more models from the same unit are already within 3" of that enemy unit.`,
+        desc: `At the start of your hero phase, if this model is within 13" of a friendly SPITECLAW'S SWARM , you can return D3 slain models to that unit (you cannot return Krrk the Almost-trusted). Set up the returning models one at a time within 1" of a model from that unit (this can be a model you returned to the unit earlier in the same phase). Returning models can only be set up within 3" of an enemy unit if one or more models from the same unit are already within 3" of that enemy unit.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -458,12 +458,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Whirling Death`,
-        desc: `Add 1 to hit rolls for attacks made with this model’s Whirling Blades if this model made a charge move in the same turn.`,
+        desc: `Add 1 to hit rolls for attacks made with this model's Whirling Blades if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `More-more Whirling Death!`,
-        desc: `Before you determine the Attacks characteristic for this model’s Whirling Blades, you can say that the crew have kicked its generator into overdrive. If you do so, roll 2D6 to determine the Attacks characteristic for that attack instead of D6. However, if you do so and the roll that determines the Attacks characteristic is either a double or a roll of 7, this model is slain after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic for this model's Whirling Blades, you can say that the crew have kicked its generator into overdrive. If you do so, roll 2D6 to determine the Attacks characteristic for that attack instead of D6. However, if you do so and the roll that determines the Attacks characteristic is either a double or a roll of 7, this model is slain after all of the attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -473,7 +473,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `More-more Warplead!`,
-        desc: `Before you determine the Attacks characteristic for this model’s Ratling Gun, you can say that the crew are releasing its gimbal-limiter. If you do so, double the Attacks characteristic for that attack. However, if you do so and the roll that determines the Attacks characteristic is a double, this model is slain after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic for this model's Ratling Gun, you can say that the crew are releasing its gimbal-limiter. If you do so, double the Attacks characteristic for that attack. However, if you do so and the roll that determines the Attacks characteristic is a double, this model is slain after all of the attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -488,7 +488,7 @@ export const Units: TUnits = [
       },
       {
         name: `More-more Warpfire!`,
-        desc: `Before you pick the target for this model’s Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, roll 2 dice for each enemy model within 8" of this model instead of 1 dice. However, if you do so, you must roll a dice after the dice have been rolled to see if the Warpfire Thrower inflicts any mortal wounds, and on a 1 or 2 this model is slain.`,
+        desc: `Before you pick the target for this model's Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, roll 2 dice for each enemy model within 8" of this model instead of 1 dice. However, if you do so, you must roll a dice after the dice have been rolled to see if the Warpfire Thrower inflicts any mortal wounds, and on a 1 or 2 this model is slain.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -538,12 +538,12 @@ export const Units: TUnits = [
       },
       {
         name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons if this unit made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Book of Woes`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit’s Bringer-of-the-Word and roll a dice. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a dice. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
     ],
@@ -553,7 +553,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons if this unit made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -587,7 +587,7 @@ export const Units: TUnits = [
       },
       {
         name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this model’s melee weapons if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this model's melee weapons if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -607,7 +607,7 @@ export const Units: TUnits = [
       },
       {
         name: `Great Plague Censer`,
-        desc: `Do not use the attack sequence for an attack made with this model’s Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a dice. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a dice. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -631,7 +631,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pushed into Battle`,
-        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model’s Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
+        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
     ],
@@ -651,7 +651,7 @@ export const Units: TUnits = [
       },
       {
         name: `Plaguereapers`,
-        desc: `If the unmodified hit roll for an attack made with this model’s Plaguereapers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with this model's Plaguereapers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -682,7 +682,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pushed into Battle`,
-        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model’s Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
+        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -697,7 +697,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Avalanche of Flesh`,
-        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model’s damage table.`,
+        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -922,7 +922,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Verminous Infestation`,
-        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion’s VERMINLORD CORRUPTOR. Roll a dice for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a dice for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -932,12 +932,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Arkhspark Voltik`,
-        desc: `In your shooting phase, you can pick 1 WARP LIGHTNING CANNON from this enginecoven that is within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion. If you do so, subtract 1 from the power of that WARP LIGHTNING CANNON’s Warp Lightning Blast in that shooting phase (to a minimum power of 1).`,
+        desc: `In your shooting phase, you can pick 1 WARP LIGHTNING CANNON from this enginecoven that is within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion. If you do so, subtract 1 from the power of that WARP LIGHTNING CANNON's Warp Lightning Blast in that shooting phase (to a minimum power of 1).`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Gascloud Chokelung`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven’s SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -947,7 +947,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Rattlegauge Warplock`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven’s WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -962,7 +962,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Plague Altar`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion’s PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -972,7 +972,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Foetid Blessings`,
-        desc: `Add 1 to wound rolls for attacks made with missile weapons by units in this battalion while they are within 13" of the same battalion’s PLAGUE PRIEST.`,
+        desc: `Add 1 to wound rolls for attacks made with missile weapons by units in this battalion while they are within 13" of the same battalion's PLAGUE PRIEST.`,
         when: [SHOOTING_PHASE],
       },
     ],

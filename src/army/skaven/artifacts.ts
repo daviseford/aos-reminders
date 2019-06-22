@@ -42,7 +42,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Gnawshard (Masterclan)`,
-        desc: `Pick 1 of the bearer’s melee weapons. If any wounds inflicted by that weapon are allocated to an enemy model and not negated, that enemy model suffers 1 mortal wound at the end of each battle round (even if the wounds inflicted by the Gnawshard are subsequently healed).`,
+        desc: `Pick 1 of the bearer's melee weapons. If any wounds inflicted by that weapon are allocated to an enemy model and not negated, that enemy model suffers 1 mortal wound at the end of each battle round (even if the wounds inflicted by the Gnawshard are subsequently healed).`,
         when: [END_OF_ROUND],
       },
     ],
@@ -122,7 +122,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Vial of the Fulminator (Skryre)`,
-        desc: `At the start of your movement phase, you can pick 1 friendly CLANS SKRYRE WAR MACHINE within 3" of the bearer. Double that unit’s Move characteristic until the end of that phase. At the end of that phase, roll a dice. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your movement phase, you can pick 1 friendly CLANS SKRYRE WAR MACHINE within 3" of the bearer. Double that unit's Move characteristic until the end of that phase. At the end of that phase, roll a dice. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],
@@ -142,7 +142,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Corruption (Pestilens)`,
-        desc: `Pick 1 of the bearer’s melee weapons. You can re-roll wound rolls for attacks made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. You can re-roll wound rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -162,7 +162,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Brooding Blade (Pestilens)`,
-        desc: `Pick 1 of the bearer’s melee weapons. At the end of the combat phase, roll a dice for each model wounded by this weapon but not slain. On a 2+ that model’s unit suffers D3 mortal wounds.`,
+        desc: `Pick 1 of the bearer's melee weapons. At the end of the combat phase, roll a dice for each model wounded by this weapon but not slain. On a 2+ that model's unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -182,7 +182,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Add 2" to the bearer’s Move characteristic. In addition, you can re-roll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artefact to one of them, even if they already carry an artefact of power.`,
+        desc: `Add 2" to the bearer's Move characteristic. In addition, you can re-roll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artefact to one of them, even if they already carry an artefact of power.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -212,7 +212,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Things-Bane (Verminus)`,
-        desc: `Pick 1 of the bearer’s melee weapons. Add 1 to the Damage characteristic of that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 1 to the Damage characteristic of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -282,7 +282,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lash of Fangs (Moulder)`,
-        desc: `Pick 1 of the bearer’s melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -362,7 +362,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Three Fangs (Eshin)`,
-        desc: `Once per battle, at the start of your shooting phase, you can pick 1 enemy HERO within 6" of the bearer and roll 3 dice. If all 3 rolls are 3+, and the combined value of the 3 dice is greater than that enemy model’s Wounds characteristic, that enemy model is slain.`,
+        desc: `Once per battle, at the start of your shooting phase, you can pick 1 enemy HERO within 6" of the bearer and roll 3 dice. If all 3 rolls are 3+, and the combined value of the 3 dice is greater than that enemy model's Wounds characteristic, that enemy model is slain.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -372,7 +372,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Warpweeper Stars (Eshin)`,
-        desc: `Pick 1 of the bearer’s missile weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        desc: `Pick 1 of the bearer's missile weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
         when: [SHOOTING_PHASE],
       },
     ],

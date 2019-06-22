@@ -27,7 +27,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Death Incarnate (Death)`,
-        desc: `In your hero phase, pick an enemy unit within 3" of this general and roll 2D6. If the roll equals or exceeds the enemy unit’s Bravery characteristic, inflict D3 mortal wounds on the unit.`,
+        desc: `In your hero phase, pick an enemy unit within 3" of this general and roll 2D6. If the roll equals or exceeds the enemy unit's Bravery characteristic, inflict D3 mortal wounds on the unit.`,
         when: [HERO_PHASE],
       },
     ],

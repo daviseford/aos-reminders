@@ -7,7 +7,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Hulking Muscle-bound Brute`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with this general’s melee weapons.`,
+        desc: `You can re-roll wound rolls of 1 for attacks made with this general's melee weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Roll a dice at the start of your opponent’s charge phase. On a 5+ one friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
+        desc: `Roll a dice at the start of your opponent's charge phase. On a 5+ one friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -57,7 +57,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Ironclad`,
-        desc: `Worsen the Rend characteristic of enemy weapons by 1, to a minimum of ‘-’, if they target this general.`,
+        desc: `Worsen the Rend characteristic of enemy weapons by 1, to a minimum of '-', if they target this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

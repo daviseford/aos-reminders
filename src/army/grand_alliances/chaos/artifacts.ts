@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daemon Weapon (Chaos)`,
-        desc: `Pick one of the bearer’s melee weapons. Each time you roll a wound roll of 6+ for that weapon, that attack inflicts 1 mortal wound in addition to its normal damage.`,
+        desc: `Pick one of the bearer's melee weapons. Each time you roll a wound roll of 6+ for that weapon, that attack inflicts 1 mortal wound in addition to its normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Chaos Runeblade (Chaos)`,
-        desc: `Pick one of the bearer’s melee weapons. Increase the Attacks characteristic of that weapon by 1.`,
+        desc: `Pick one of the bearer's melee weapons. Increase the Attacks characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],

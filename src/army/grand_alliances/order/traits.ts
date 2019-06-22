@@ -37,7 +37,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Tenacious (Order)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],

@@ -10,7 +10,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Gnawhole: Tunnels Through Reality`,
-    desc: `At the start of your movement phase, you can use 1 GNAWHOLE to transport 1 friendly SKAVENTIDE unit. In order to do so, that unit must be wholly within 6" of the GNAWHOLE , and a friendly SKAVENTIDE HERO must be within 6" of the GNAWHOLE . If this is the case, remove the SKAVENTIDE unit from the battlefield and then set it up wholly within 6" of another GNAWHOLE and more than 9" from any enemy models. This counts as that unit’s move for that movement phase.`,
+    desc: `At the start of your movement phase, you can use 1 GNAWHOLE to transport 1 friendly SKAVENTIDE unit. In order to do so, that unit must be wholly within 6" of the GNAWHOLE , and a friendly SKAVENTIDE HERO must be within 6" of the GNAWHOLE . If this is the case, remove the SKAVENTIDE unit from the battlefield and then set it up wholly within 6" of another GNAWHOLE and more than 9" from any enemy models. This counts as that unit's move for that movement phase.`,
     when: [START_OF_MOVEMENT_PHASE],
   },
   {

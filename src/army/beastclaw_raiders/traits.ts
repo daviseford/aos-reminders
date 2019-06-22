@@ -1,11 +1,5 @@
 import { TCommandTraits } from 'types/army'
-import {
-  DURING_GAME,
-  START_OF_HERO_PHASE,
-  COMBAT_PHASE,
-  SHOOTING_PHASE,
-  BATTLESHOCK_PHASE,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
   {
@@ -13,7 +7,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Massive Bulk`,
-        desc: `Add 1 to your general’s Wounds characteristic.`,
+        desc: `Add 1 to your general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],
@@ -23,7 +17,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Everwinter's Master`,
-        desc: `You can choose to re-roll the dice when rolling on the Everwinter’s Blessing table whilst your general is alive.`,
+        desc: `You can choose to re-roll the dice when rolling on the Everwinter's Blessing table whilst your general is alive.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -43,7 +37,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Famed Hunter`,
-        desc: `You can re-roll all hit rolls of 1 made for your general’s melee and missile weapons. This does not apply to any attacks made for your general’s mount (if he has one).`,
+        desc: `You can re-roll all hit rolls of 1 made for your general's melee and missile weapons. This does not apply to any attacks made for your general's mount (if he has one).`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

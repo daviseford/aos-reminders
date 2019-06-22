@@ -17,7 +17,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Might is Right (Destruction)`,
-        desc: `Add 1 to wound rolls made for this general’s melee weapons.`,
+        desc: `Add 1 to wound rolls made for this general's melee weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -37,7 +37,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Bellowing Tyrant (Destruction)`,
-        desc: `In your hero phase, pick a friendly DESTRUCTION unit within 6" of this general. Until your next hero phase, add 1 to charge and run rolls for the unit you picked, and use this general’s Bravery characteristic for the unit instead of its own.`,
+        desc: `In your hero phase, pick a friendly DESTRUCTION unit within 6" of this general. Until your next hero phase, add 1 to charge and run rolls for the unit you picked, and use this general's Bravery characteristic for the unit instead of its own.`,
         when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE, BATTLESHOCK_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Big and Brutish (Destruction)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],

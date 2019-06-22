@@ -47,7 +47,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Tomb Blade (Death)`,
-        desc: `Pick one of the bearer’s melee weapons. For each wound roll of 6+ you make for this weapon, you can heal 1 wound that has been allocated to a friendly DEATH model within 6" of the bearer.`,
+        desc: `Pick one of the bearer's melee weapons. For each wound roll of 6+ you make for this weapon, you can heal 1 wound that has been allocated to a friendly DEATH model within 6" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

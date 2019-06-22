@@ -31,12 +31,12 @@ export const Units: TUnits = [
       },
       {
         name: `Destructive Bulk`,
-        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha’s Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
+        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `On the Rampage`,
-        desc: `If the wounds inflicted by a Maw-krusha’s Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
+        desc: `If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -63,12 +63,12 @@ export const Units: TUnits = [
       },
       {
         name: `Destructive Bulk`,
-        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha’s Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
+        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `On the Rampage`,
-        desc: `If the wounds inflicted by a Maw-krusha’s Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
+        desc: `If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -99,7 +99,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warchanter's Beat`,
-        desc: `Each time you make a hit roll of 6 for a Warchanter’s Gorkstikk and Morkstikk, you can make one additio- nal attack with the weapon.`,
+        desc: `Each time you make a hit roll of 6 for a Warchanter's Gorkstikk and Morkstikk, you can make one additio- nal attack with the weapon.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -114,7 +114,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Power of the Waaagh!!`,
-        desc: `Add 1 to a Weirdnob Shaman’s casting or unbinding rolls if there are 10 or more Orruk models within 10". Add 2 to the roll instead if there are 20 or more Orruk models within 10". However, if the casting or unbinding roll was a double, then the closest other friendly Orruk unit within 10" of the Weirdnob Shaman suffers 1D3 mortal wounds`,
+        desc: `Add 1 to a Weirdnob Shaman's casting or unbinding rolls if there are 10 or more Orruk models within 10". Add 2 to the roll instead if there are 20 or more Orruk models within 10". However, if the casting or unbinding roll was a double, then the closest other friendly Orruk unit within 10" of the Weirdnob Shaman suffers 1D3 mortal wounds`,
         when: [HERO_PHASE],
       },
     ],
@@ -134,7 +134,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icon of Gork`,
-        desc: `If a model flees from a unit that includes any of these Icons, roll a dice on a 6 the Standard Bearer thumps the cowardly orruk – they return to the fight and don’t flee.`,
+        desc: `If a model flees from a unit that includes any of these Icons, roll a dice on a 6 the Standard Bearer thumps the cowardly orruk – they return to the fight and don't flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -164,7 +164,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `When you declare a charge with a unit of Gore-gruntas, measure the distance to the nearest enemy unit. If the distance is 8" or more and the charge is successful, the grunta’s Fanged Maw and Hooves have a Damage characteristic of 1D3 instead of 1 until the end of that turn.`,
+        desc: `When you declare a charge with a unit of Gore-gruntas, measure the distance to the nearest enemy unit. If the distance is 8" or more and the charge is successful, the grunta's Fanged Maw and Hooves have a Damage characteristic of 1D3 instead of 1 until the end of that turn.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -188,7 +188,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `Once per battle, if this battalion’s Warchanter is on the battlefield, you can replace any units from this battalion that have been destroyed. The replacement unit is identical to the unit that was destroyed, and must be set up with all models within 6" of the edge of the battlefield, and more than 6" from any enemy units. The replacement unit must be deployed as close to the battalion's Warchanter as possible. This counts as the unit's move for the following movement phase.`,
+        desc: `Once per battle, if this battalion's Warchanter is on the battlefield, you can replace any units from this battalion that have been destroyed. The replacement unit is identical to the unit that was destroyed, and must be set up with all models within 6" of the edge of the battlefield, and more than 6" from any enemy units. The replacement unit must be deployed as close to the battalion's Warchanter as possible. This counts as the unit's move for the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -245,7 +245,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `'Ere We Go! 'Ere We Go! 'Ere We Go!`,
-        desc: `In your hero phase, if this battalion’s Big Boss is on the battlefield, roll a dice. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
+        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, roll a dice. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
         when: [HERO_PHASE],
       },
     ],
@@ -270,7 +270,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Get Da Realmgate!`,
-        desc: `You can set up a Baleful Realmgate in your opponent’s territory before they set up any units. Add 2 to the Bravery characteristic of units in a Bloodtoofs battalion while there are any Baleful Realmgates on the battlefield.`,
+        desc: `You can set up a Baleful Realmgate in your opponent's territory before they set up any units. Add 2 to the Bravery characteristic of units in a Bloodtoofs battalion while there are any Baleful Realmgates on the battlefield.`,
         when: [START_OF_SETUP],
       },
     ],

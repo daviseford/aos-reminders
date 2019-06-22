@@ -1,12 +1,12 @@
 import { TArtifacts } from 'types/army'
 import {
-  HERO_PHASE,
-  COMBAT_PHASE,
-  START_OF_HERO_PHASE,
   BATTLESHOCK_PHASE,
-  START_OF_COMBAT_PHASE,
-  DURING_ROUND,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_ROUND,
+  HERO_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -75,7 +75,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Keening Bone (Noble Heirlooms)`,
-        desc: `Pick one of the bearer’s melee weapons. Increase the Range characteristic of that weapon to 3".`,
+        desc: `Pick one of the bearer's melee weapons. Increase the Range characteristic of that weapon to 3".`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -125,7 +125,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Bilious Decanter (Noble Heirlooms)`,
-        desc: `Once per battle, at the start of the combat phase, the bearer can use this artefact. If they do so, add 2 to the Attacks characteristic of the bearer’s melee weapons in that phase.`,
+        desc: `Once per battle, at the start of the combat phase, the bearer can use this artefact. If they do so, add 2 to the Attacks characteristic of the bearer's melee weapons in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
