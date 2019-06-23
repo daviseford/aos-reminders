@@ -5,6 +5,7 @@ import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
 import { ISelections } from 'types/selections'
+import { TSelectSetValueFn } from './select_one'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
@@ -21,7 +22,7 @@ interface IArmyBuilderProps {
   }
   realmscape: string
   setSelections: (x: ISelections) => any
-  setRealmscape: (val: string) => any
+  setRealmscape: TSelectSetValueFn
   selections: ISelections
 }
 

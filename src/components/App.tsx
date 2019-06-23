@@ -6,7 +6,9 @@ import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
-import { logFactionSwitch, logPageView } from 'utils/analytics';
+import { logFactionSwitch, logPageView } from 'utils/analytics'
+import { ValueType } from 'react-select/lib/types'
+import { TDropdownOption } from './input/select_one'
 
 const App = () => {
   logPageView()
@@ -19,6 +21,11 @@ const App = () => {
   const [factionName, setFactionName] = useState(SUPPORTED_FACTIONS[0])
   const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
+
+  const useSetFactionName = (selectValue: ValueType<TDropdownOption>, action) => {
+    const { value } = selectValue as TDropdownOption
+    setRealmscape(value)
+  }
 
   // Reset the state when factionName is switched
   useEffect(() => {
@@ -37,7 +44,7 @@ const App = () => {
         army={army}
         realmscape={realmscape}
         selections={selections}
-        setRealmscape={setRealmscape}
+        setRealmscape={useSetFactionName}
         setSelections={setSelections}
       />
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
