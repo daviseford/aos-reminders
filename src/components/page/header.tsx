@@ -34,7 +34,7 @@ const Header = ({ setFactionName, factionName }) => {
           </a>
         </p>
 
-        <div className="row w-50 mx-auto pb-3 d-block text-dark">
+        <div className="row w-50 mx-auto pb-3 d-block text-dark text-left">
           <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} />
         </div>
 
