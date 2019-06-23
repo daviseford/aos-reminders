@@ -46,7 +46,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
   return (
     <div className="container">
       <div className="row d-print-none">
-        <div className="card-group mx-auto">
+        <div className="col card-group mx-auto">
           <Card items={sortBy(army.Units, 'name')} values={units} type={'unit'} setValues={useUnits} />
           <Card items={army.Traits} type={'trait'} values={traits} setValues={useTraits} />
           <Card items={army.Artifacts} type={'artifact'} values={artifacts} setValues={useArtifacts} />

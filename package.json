@@ -11,6 +11,7 @@
     "react-ga": "^2.5.7",
     "react-scripts": "3.0.1",
     "react-select": "^3.0.4",
+    "react-sizes": "^2.0.0",
     "typescript": "3.4.5"
   },
   "scripts": {

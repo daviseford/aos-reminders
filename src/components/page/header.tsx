@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import withSizes from 'react-sizes'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne, TDropdownOption } from 'components/input/select'
@@ -9,17 +10,17 @@ import { ValueType } from 'react-select/lib/types'
 /**
  * Hidden when printing
  */
-const Header = ({ setFactionName, factionName }) => {
+const Header = ({ setFactionName, isMobile }) => {
   const [selectCount, setSelectCount] = useState(0)
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
-  const setValue = (selectValue: ValueType<TDropdownOption>, action) => {
-    const { value: factionName } = selectValue as TDropdownOption
+  const setValue = (selectValue: ValueType<TDropdownOption>) => {
+    const { value } = selectValue as TDropdownOption
     // Avoid registering an event on pageload
     if (selectCount > 0) {
-      logFactionSwitch(factionName as TSupportedFaction)
+      logFactionSwitch(value as TSupportedFaction)
     }
-    setFactionName(factionName)
+    setFactionName(value)
     setSelectCount(selectCount + 1)
   }
 
@@ -34,7 +35,7 @@ const Header = ({ setFactionName, factionName }) => {
           </a>
         </p>
 
-        <div className="row w-50 mx-auto pb-3 d-block text-dark text-left">
+        <div className={`row ${isMobile ? 'w-75' : 'w-50'} mx-auto pb-3 d-block text-dark text-left`}>
           <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
         </div>
 
@@ -48,4 +49,8 @@ const Header = ({ setFactionName, factionName }) => {
   )
 }
 
-export default Header
+const mapSizesToProps = sizes => ({
+  isMobile: withSizes.isMobile(sizes),
+})
+
+export default withSizes(mapSizesToProps)(Header)
