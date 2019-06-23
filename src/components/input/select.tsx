@@ -9,15 +9,16 @@ export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: A
 export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta) => void
 
 interface ISelectOneProps {
+  hasDefault?: boolean
   isClearable?: boolean
   items: string[]
   setValue: TSelectOneSetValueFn
-  hasDefault?: boolean
+  toTitle?: boolean
 }
 
 export const SelectOne = (props: ISelectOneProps) => {
-  const { items, setValue, isClearable = false, hasDefault = false } = props
-  const options = convertToOptions(items)
+  const { items, setValue, isClearable = false, hasDefault = false, toTitle = false } = props
+  const options = convertToOptions(items, toTitle)
   return (
     <>
       <Select
@@ -31,18 +32,23 @@ export const SelectOne = (props: ISelectOneProps) => {
   )
 }
 
+const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropdownOption[] => {
+  return items.map(i => ({ value: i, label: toTitle ? titleCase(i) : i }))
+}
+
 interface ISelectMultiProps {
-  values: string[]
+  hasDefault?: boolean
   isClearable?: boolean
   items: string[]
   setValues: TSelectMultiSetValueFn
-  hasDefault?: boolean
+  toTitle?: boolean
+  values: string[]
 }
 
 export const SelectMulti = (props: ISelectMultiProps) => {
-  const { items, setValues, isClearable = false, hasDefault = false, values } = props
-  const options = convertToOptions(items)
-  const selectValues = convertToOptions(values)
+  const { items, setValues, isClearable = false, hasDefault = false, toTitle = false, values } = props
+  const options = convertToOptions(items, toTitle)
+  const selectValues = convertToOptions(values, toTitle)
   return (
     <>
       <Select
@@ -56,8 +62,4 @@ export const SelectMulti = (props: ISelectMultiProps) => {
       />
     </>
   )
-}
-
-const convertToOptions = (items: string[] = []): TDropdownOption[] => {
-  return items.map(i => ({ value: i, label: titleCase(i) }))
 }

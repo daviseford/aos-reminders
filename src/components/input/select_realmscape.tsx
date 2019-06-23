@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectOne, TSelectOneSetValueFn } from './select_one'
+import { SelectOne, TSelectOneSetValueFn } from './select'
 
 interface ISelectRealmscapeProps {
   setValue: TSelectOneSetValueFn
@@ -18,29 +18,3 @@ export const SelectRealmscape = (props: ISelectRealmscapeProps) => {
     </div>
   )
 }
-
-// const Select = (props: ISelectRealmscapeProps) => {
-//   const { value, setValue, items } = props
-//   return (
-//     <Fragment>
-//       <select value={value} className="custom-select" onChange={e => setValue(e.target.value)}>
-//         {value === 'None' ? null : (
-//           <option value={'None'} key={`realmscape-None`}>
-//             None
-//           </option>
-//         )}
-//         <option value={value} key={`realmscape-${value}`}>
-//           {value}
-//         </option>
-//         {items.map((name, i) => {
-//           if (value === name) return null // Prevent showing duplicates
-//           return (
-//             <option value={name} key={`realmscape-${i}`}>
-//               {name}
-//             </option>
-//           )
-//         })}
-//       </select>
-//     </Fragment>
-//   )
-// }

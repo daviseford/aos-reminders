@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { SelectOne, TDropdownOption } from 'components/input/select_one'
+import { SelectOne, TDropdownOption } from 'components/input/select'
 import { titleCase } from 'utils/titleCase'
 import { logFactionSwitch } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
@@ -35,7 +35,7 @@ const Header = ({ setFactionName, factionName }) => {
         </p>
 
         <div className="row w-50 mx-auto pb-3 d-block text-dark text-left">
-          <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} />
+          <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
         </div>
 
         <p>

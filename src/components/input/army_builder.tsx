@@ -5,7 +5,7 @@ import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
 import { ISelections } from 'types/selections'
-import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select_one'
+import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select'
 import { ValueType } from 'react-select/lib/types'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
