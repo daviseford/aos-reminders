@@ -1,15 +1,17 @@
-import React, { Fragment } from 'react'
-import { sortBy, capitalize, range } from 'lodash'
+import React from 'react'
+import { sortBy, capitalize } from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
 import { ISelections } from 'types/selections'
+import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select'
+import { ValueType } from 'react-select/lib/types'
 
 type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
 type TUpdateFn = (newState: ISelections) => void
-type TUpdateState = (val: string, idx: number) => any
+type TUpdateState = (selectValues: ValueType<TDropdownOption>[]) => void
 type TUseState = (state: ISelections, key: TFocusTypes, updateFn: TUpdateFn) => TUpdateState
 
 interface IArmyBuilderProps {
@@ -21,30 +23,20 @@ interface IArmyBuilderProps {
   }
   realmscape: string
   setSelections: (x: ISelections) => any
-  setRealmscape: (val: string) => any
+  setRealmscape: TSelectOneSetValueFn
   selections: ISelections
 }
 
-const updateState: TUseState = (state, key, updateFn) => {
-  return (val: string, idx: number) => {
+const updateState: TUseState = (state, key, setSelections) => {
+  return (selectValues: ValueType<TDropdownOption>[]) => {
     const newState = { ...state }
-    let newSubState = [...newState[key]]
-    if (val) {
-      newSubState[idx] = val
-    } else {
-      if (idx === 0 && newSubState.length < 2) {
-        newSubState = []
-      } else {
-        newSubState.splice(idx, 1)
-      }
-    }
-    newState[key] = newSubState
-    updateFn(newState)
+    newState[key] = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+    setSelections(newState)
   }
 }
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
-  const { army, setSelections, selections, setRealmscape, realmscape } = props
+  const { army, setSelections, selections, setRealmscape } = props
   const { units, traits, artifacts, battalions } = selections
   const useArtifacts = updateState(selections, 'artifacts', setSelections)
   const useBattalions = updateState(selections, 'battalions', setSelections)
@@ -55,16 +47,16 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none">
         <div className="card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} entries={units} type={'unit'} updateState={useUnits} />
-          <Card items={army.Traits} entries={traits} type={'trait'} updateState={useTraits} />
-          <Card items={army.Artifacts} entries={artifacts} type={'artifact'} updateState={useArtifacts} />
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'unit'} setValues={useUnits} />
+          <Card items={army.Traits} type={'trait'} values={traits} setValues={useTraits} />
+          <Card items={army.Artifacts} type={'artifact'} values={artifacts} setValues={useArtifacts} />
           <Card
             items={sortBy(army.Battalions, 'name')}
-            entries={battalions}
+            values={battalions}
             type={'battalion'}
-            updateState={useBattalions}
+            setValues={useBattalions}
           />
-          <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
+          <SelectRealmscape setValue={setRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
     </div>
@@ -72,88 +64,23 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
 }
 
 interface ICardProps {
-  entries: string[]
+  values: string[]
   type: TFocusType
   items: TUnits | TBattalions | TArtifacts
-  updateState: TUpdateState
+  setValues: TUpdateState
 }
 
 const Card = (props: ICardProps) => {
+  const { items, type, setValues, values } = props
+  const selectItems = items.map(x => x.name)
   return (
     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
-          <h4 className="text-center">Add {capitalize(props.type)}s</h4>
-          {range(0, props.entries.length + 1).map(idx => {
-            return (
-              <Row
-                items={props.items}
-                handleChange={props.updateState}
-                idx={idx}
-                val={props.entries[idx] || ''}
-                type={props.type}
-                key={`row-${props.type}-${idx}`}
-              />
-            )
-          })}
+          <h4 className="text-center">Add {capitalize(type)}s</h4>
+          <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
         </div>
       </div>
     </div>
-  )
-}
-
-const Row = (props: ISelectProps) => {
-  const selectClassName = !props.val ? 'col' : 'col-10'
-  const btnClassName = !props.val ? 'd-none' : 'col-2'
-  return (
-    <div className="row SelectArmy-Row">
-      <div className={selectClassName}>
-        <Select {...props} />
-      </div>
-      <div className={btnClassName}>
-        <button
-          className="btn btn-danger"
-          onClick={e => {
-            e.preventDefault()
-            props.handleChange('', props.idx)
-          }}
-        >
-          X
-        </button>
-      </div>
-    </div>
-  )
-}
-
-interface ISelectProps {
-  items: TUnits
-  handleChange: TUpdateState
-  idx: number
-  val: string
-  type: TFocusType
-}
-
-const Select = (props: ISelectProps) => {
-  const { val, idx, items, type, handleChange } = props
-  return (
-    <Fragment>
-      <select value={val} className="custom-select" onChange={e => handleChange(e.target.value, idx)}>
-        {val ? (
-          <option value={val} key={`${idx}-${type}`}>
-            {val}
-          </option>
-        ) : (
-          <option value={''} key={`none-${type}`}>{`-- Select ${type} --`}</option>
-        )}
-        {items.map((e, i) => {
-          if (val === e.name) return null // Prevent showing duplicate
-          return (
-            <option value={e.name} key={i}>
-              {e.name}
-            </option>
-          )
-        })}
-      </select>
-    </Fragment>
   )
 }
