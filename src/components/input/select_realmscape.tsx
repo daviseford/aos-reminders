@@ -3,7 +3,6 @@ import { SelectOne, TSelectOneSetValueFn } from './select_one'
 
 interface ISelectRealmscapeProps {
   setValue: TSelectOneSetValueFn
-  value: string
   items: string[]
 }
 
@@ -13,7 +12,7 @@ export const SelectRealmscape = (props: ISelectRealmscapeProps) => {
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Realmscape Feature</h4>
-          <SelectOne {...props} />
+          <SelectOne {...props} isClearable={true} />
         </div>
       </div>
     </div>

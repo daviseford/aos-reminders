@@ -36,7 +36,8 @@ const updateState: TUseState = (state, key, setSelections) => {
 }
 
 export const ArmyBuilder = (props: IArmyBuilderProps) => {
-  const { army, setSelections, selections, setRealmscape, realmscape } = props
+  const { army, setSelections, selections, setRealmscape } = props
+  const { units, traits, artifacts, battalions } = selections
   const useArtifacts = updateState(selections, 'artifacts', setSelections)
   const useBattalions = updateState(selections, 'battalions', setSelections)
   const useTraits = updateState(selections, 'traits', setSelections)
@@ -46,11 +47,16 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none">
         <div className="card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} type={'unit'} setValues={useUnits} />
-          <Card items={army.Traits} type={'trait'} setValues={useTraits} />
-          <Card items={army.Artifacts} type={'artifact'} setValues={useArtifacts} />
-          <Card items={sortBy(army.Battalions, 'name')} type={'battalion'} setValues={useBattalions} />
-          <SelectRealmscape setValue={setRealmscape} value={realmscape} items={RealmscapeFeatures.map(x => x.name)} />
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'unit'} setValues={useUnits} />
+          <Card items={army.Traits} type={'trait'} values={traits} setValues={useTraits} />
+          <Card items={army.Artifacts} type={'artifact'} values={artifacts} setValues={useArtifacts} />
+          <Card
+            items={sortBy(army.Battalions, 'name')}
+            values={battalions}
+            type={'battalion'}
+            setValues={useBattalions}
+          />
+          <SelectRealmscape setValue={setRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
     </div>
@@ -58,20 +64,21 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
 }
 
 interface ICardProps {
+  values: string[]
   type: TFocusType
   items: TUnits | TBattalions | TArtifacts
   setValues: TUpdateState
 }
 
 const Card = (props: ICardProps) => {
-  const { items, type, setValues } = props
+  const { items, type, setValues, values } = props
   const selectItems = items.map(x => x.name)
   return (
     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Add {capitalize(type)}s</h4>
-          <SelectMulti items={selectItems} setValues={setValues} isClearable={true} />
+          <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
         </div>
       </div>
     </div>

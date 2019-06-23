@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Select from 'react-select'
 
 import { titleCase } from 'utils/titleCase'
@@ -32,18 +32,21 @@ export const SelectOne = (props: ISelectOneProps) => {
 }
 
 interface ISelectMultiProps {
+  values: string[]
   isClearable?: boolean
   items: string[]
   setValues: TSelectMultiSetValueFn
   hasDefault?: boolean
 }
+
 export const SelectMulti = (props: ISelectMultiProps) => {
-  const { items, setValues, isClearable = false, hasDefault = false } = props
+  const { items, setValues, isClearable = false, hasDefault = false, values } = props
   const options = convertToOptions(items)
+  const selectValues = convertToOptions(values)
   return (
     <>
       <Select
-        // value={}
+        value={selectValues}
         defaultValue={hasDefault ? options[0] : null}
         isClearable={isClearable}
         isMulti={true}
@@ -55,6 +58,6 @@ export const SelectMulti = (props: ISelectMultiProps) => {
   )
 }
 
-const convertToOptions = (items: string[]): TDropdownOption[] => {
+const convertToOptions = (items: string[] = []): TDropdownOption[] => {
   return items.map(i => ({ value: i, label: titleCase(i) }))
 }
