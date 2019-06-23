@@ -34,7 +34,9 @@ const Header = ({ setFactionName, factionName }) => {
           </a>
         </p>
 
-        <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} value={factionName} />
+        <div className="row w-50 mx-auto pb-3 d-block text-dark">
+          <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} />
+        </div>
 
         <p>
           This tool offers personalized gameplay reminders for {initial(factions).join(', ')}, and {last(factions)}.

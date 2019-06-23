@@ -1,8 +1,8 @@
 import React from 'react'
-import { SelectOne, TSelectSetValueFn } from './select_one'
+import { SelectOne, TSelectOneSetValueFn } from './select_one'
 
 interface ISelectRealmscapeProps {
-  setValue: TSelectSetValueFn
+  setValue: TSelectOneSetValueFn
   value: string
   items: string[]
 }
