@@ -9,6 +9,7 @@ export type TIronjawz = 'IRONJAWZ'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSylvaneth = 'SYLVANETH'
+export type TDispossessed = 'DISPOSSESSED'
 
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
@@ -19,6 +20,7 @@ export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
+export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 
 // Supported Factions
 export type TSupportedFaction =
@@ -30,6 +32,7 @@ export type TSupportedFaction =
   | TSeraphon
   | TSkaven
   | TSylvaneth
+  | TDispossessed
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
@@ -40,4 +43,5 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   SERAPHON,
   SKAVEN,
   SYLVANETH,
+  DISPOSSESSED,
 ])
