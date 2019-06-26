@@ -1,8 +1,5 @@
 import { TBattalions, TUnits } from '../../types/army'
-import { 
-  HERO_PHASE,
-  DURING_GAME
-} from '../../types/phases'
+import { HERO_PHASE, DURING_GAME } from '../../types/phases'
 
 // Unit Names
 export const Units: TUnits = [
@@ -23,8 +20,8 @@ export const Units: TUnits = [
         name: `Ancestral Grudge`,
         desc: `If a Warden King uses this ability, pick one enemy unit within 16". Until your next hero phase, you can add 1 to wound rolls for all attacks made by DISPOSSESSED models that target that unit.`,
         // Doesn't state HERO_PHASE specifically, potentially could be DURING_GAME?
-        when: [HERO_PHASE], 
-        command: true
+        when: [HERO_PHASE],
+        command: true,
       },
     ],
   },
