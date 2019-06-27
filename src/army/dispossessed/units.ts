@@ -243,7 +243,7 @@ export const Units: TUnits = [
       },
       {
         name: `Precision Fire`,
-        desc: `You can adsd 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within`,
+        desc: `You can adsd 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within 3".`,
         when: [SHOOTING_PHASE],
       },
       {
