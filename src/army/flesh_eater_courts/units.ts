@@ -112,7 +112,7 @@ export const Units: TUnits = [
       },
       {
         name: `Muster King's Chosen`,
-        desc: ` In your hero phase, you can roll 6 dice for each friendly Crypt Haunter Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Horrors unit that is within 10" of that Crypt Haunter Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `In your hero phase, you can roll 6 dice for each friendly Crypt Haunter Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Horrors unit that is within 10" of that Crypt Haunter Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -127,7 +127,7 @@ export const Units: TUnits = [
       },
       {
         name: `Muster Royal Guard`,
-        desc: `'In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -137,7 +137,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `To the King!`,
-        desc: ` In your hero phase, you can roll 6 dice for each friendly Varghulf Courtier on the battlefield. For each 2+, you can return 1 slain model to a friendly Crypt Ghouls unit that is within 10" of that Varghulf Courtier. For each 5+, you can return 1 slain model to a friendly Crypt Horrors or Crypt Flayers unit that is within 10" of that Varghulf Courtier instead. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `In your hero phase, you can roll 6 dice for each friendly Varghulf Courtier on the battlefield. For each 2+, you can return 1 slain model to a friendly Crypt Ghouls unit that is within 10" of that Varghulf Courtier. For each 5+, you can return 1 slain model to a friendly Crypt Horrors or Crypt Flayers unit that is within 10" of that Varghulf Courtier instead. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
       {

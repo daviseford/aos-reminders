@@ -88,12 +88,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Mercurial Aspect`,
-        desc: `At the start of each battle round, after rolling to see who takes the first turn, roll a dice. On a result of 1, 2 or 3, Drycha is enraged, while on a 4, 5 or 6 she is embittered. Her mood lasts until the end of the battle round.`,
+        desc: `At the start of each battle round, after rolling to see who takes the first turn, roll a dice. On a result of 1-3, Drycha is enraged, while on a 4-6 she is embittered. Her mood lasts until the end of the battle round.`,
         when: [START_OF_ROUND],
       },
       {
         name: `Song of Spite`,
-        desc: `You can re-roll wound rolls of 1 for Spite- Revenants whilst their unit is within 10" of Drycha Hamadreth.`,
+        desc: `You can re-roll wound rolls of 1 for Spite-Revenants whilst their unit is within 10" of Drycha Hamadreth.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -157,9 +157,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Command Ability: Heed the Spirit-song`,
+        name: `Heed the Spirit-song`,
         desc: `Until your next hero phase, you can re-roll save rolls of 1 for SYLVANETH units if they are within 10" of the Treelord Ancient.`,
         when: [DURING_GAME],
+        command: true
       },
     ],
   },
@@ -264,16 +265,6 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Ylthari's Guardians`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Treelord`,
     effects: [
       {
@@ -312,9 +303,10 @@ export const Units: TUnits = [
         when: [DURING_GAME],
       },
       {
-        name: `Command Ability: Call to Battle`,
+        name: `Call to Battle`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Sylvaneth unit wholly within 9" of a friendly model with this command ability, or wholly within 12" of a friendly model with this command ability that is your general. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. You cannot pick the same unit to benefit from this command ability more than once per combat phase.`,
         when: [START_OF_COMBAT_PHASE],
+        command: true
       },
     ],
   },
@@ -322,16 +314,6 @@ export const Units: TUnits = [
 
 // Battalions
 export const Battalions: TBattalions = [
-  {
-    name: `Alarielle's Heartwood Guard`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
   {
     name: `Sylvaneth Wargrove`,
     effects: [
@@ -398,9 +380,12 @@ export const Battalions: TBattalions = [
       {
         name: `Subterfuge`,
         desc: `Roll a dice at the start of the first battle round; on a 1 or 2 you can use one of the following stratagems, on a 3 or 4 you can use two of them, and on a 5 or 6 you can use all three:
-          \nAmbush: A Dreadwood unit can be redeployed anywhere on the battlefield that is more than 6" from an enemy unit.
-          \nHidden Attackers: The maximum range of enemy attacks, abilities and spells against Dreadwood units is limited to 12" during the first round of the battle.
-          \nSneak Attack: Up to 3 Dreadwood units can immediately move as if it were the movement phase (they cannot run).`,
+          
+        Ambush: A Dreadwood unit can be redeployed anywhere on the battlefield that is more than 6" from an enemy unit.
+          
+        Hidden Attackers: The maximum range of enemy attacks, abilities and spells against Dreadwood units is limited to 12" during the first round of the battle.
+          
+        Sneak Attack: Up to 3 Dreadwood units can immediately move as if it were the movement phase (they cannot run).`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],
@@ -462,16 +447,6 @@ export const Battalions: TBattalions = [
         name: `Vibrant Surge`,
         desc: `Add 1 to any charge rolls made for Harvestboon units.`,
         when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Forest Spirit Wargrove`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
       },
     ],
   },

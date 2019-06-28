@@ -13,7 +13,7 @@ export const Units: TUnits = [
       },
       {
         name: `Oath Stone`,
-        desc: `In the hero phase, a Warden King can stand atop his oath stone to increase the resolve of his followers. If he does so, he cannot move until his next hero phase, but all DISPOSSESSED units from your army within 18" in the battleshock phase may use the Warden King's Bravery instead of their own.`,
+        desc: `In the hero phase, a Warden King can use this ability. If he does so, he cannot move until his next hero phase, but all DISPOSSESSED units from your army within 18" in the battleshock phase may use the Warden King's Bravery instead of their own.`,
         when: [HERO_PHASE],
       },
       {
@@ -34,7 +34,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore`,
-        desc: `In your hero phase a Runelord can pray to the Ancestor Gods to imbue his allies' weapons and armour with power. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a dice; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
+        desc: `In your hero phase a Runelord can use this ability. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a dice; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
         
         Ancestral Shield: Until your next hero phase, you can roll a dice whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
         
@@ -49,7 +49,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Runic Axes`,
-        desc: `The Unforged launches a deadly flurry of blows. You can re-roll all hit rolls of 1 for an Unforged.`,
+        desc: `You can re-roll all hit rolls of 1 for an Unforged.`,
         when: [DURING_GAME],
       },
       {
@@ -174,7 +174,7 @@ export const Units: TUnits = [
       },
       {
         name: `Old Grumblers`,
-        desc: `Longbeards are always grumbling about something, from the hardships they endured when they were younger and how the youth of today don't respect their elders, to how expensive beer is these days. In your hero phase, this unit will complain about something in a suitably duardin manner. When they do, pick one of the grumblings listed below. The effects last until your next hero phase.
+        desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
         
         'I thought duardin were made of sterner stuff!': Roll a dice each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
         
@@ -235,7 +235,7 @@ export const Units: TUnits = [
       },
       {
         name: `Precision Fire`,
-        desc: `You can adsd 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within 3".`,
+        desc: `You can add 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within 3".`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -284,12 +284,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ancient Grudges`,
-        desc: `The warriors of a Grudgebound War Throng hold deep-rooted grudges. When a Grudgebound War Throng goes to war, these sparks of bitterness are fanned into seething flames of vengeance that will only be extinguished when old scores are settled. You can re-roll all hit rolls of 1 for models in a Grudgebound War Throng.`,
+        desc: `You can re-roll all hit rolls of 1 for models in a Grudgebound War Throng.`,
         when: [DURING_GAME],
       },
       {
         name: `Stubborn to the End`,
-        desc: `The Dispossessed are renowned for their stubborn refusal to admit defeat, especially in the face of overwhelming odds. If you roll a 1, 2 or a 3 when taking a battleshock test for a unit in a Grudgebound War Throng, that unit stubbornly refuses to yield and is treated as having passed the battleshock test irrespective of any penalties on their Bravery or the number of casualties they have suffered that turn.`,
+        desc: `If you roll a 1, 2 or a 3 when taking a battleshock test for a unit in a Grudgebound War Throng, that unit is treated as having passed the battleshock test irrespective of any penalties on their Bravery or the number of casualties they have suffered that turn.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
