@@ -1,17 +1,17 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  COMBAT_PHASE,
-  SHOOTING_PHASE,
-  CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
-  TURN_ONE_HERO_PHASE,
   END_OF_SETUP,
-  START_OF_GAME,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_GAME,
   START_OF_SETUP,
+  TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -265,13 +265,18 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Hunt and Crush`,
-        desc: `Add 1 to run and charge rolls for units in a Bloodtoofs battalion.`,
+        desc: `Add 1 to run and charge rolls for units from this battalion.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Get Da Realmgate!`,
-        desc: `You can set up a Baleful Realmgate in your opponent's territory before they set up any units. Add 2 to the Bravery characteristic of units in a Bloodtoofs battalion while there are any Baleful Realmgates on the battlefield.`,
+        desc: `After territories have been chosen but before armies are set up, you can set up 1 Baleful Realmgate terrain feature in your opponent's territory. Add 2 to the Bravery characteristic of units from this battalion while there are any Baleful Realmgates on the battlefield.`,
         when: [START_OF_SETUP],
+      },
+      {
+        name: `Get Da Realmgate!`,
+        desc: `If there are any Baleful Realmgate terrain features on the battlefield, each unit from this battalion counts as 2 units for the purposes of Zogbak Realmrippa's Mighty Waaagh ability.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -280,12 +285,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dakkbad's Cunning`,
-        desc: `Roll a dice after set-up is complete, but before the battle begins. On a 3+ subtract 1 from hit rolls for enemy units in the first battle round.`,
+        desc: `Roll a dice after set-up is complete, but before the battle begins. On a 2+ subtract 1 from hit rolls for enemy units in the first battle round.`,
         when: [END_OF_SETUP],
       },
       {
         name: `Dakkbad's Bashing!`,
-        desc: `For the purposes of his Strength from Victories ability Dakkbad Grotkicker counts as already having slain an enemy HERO when the battle starts, with the weapon of your choice from those listed on his warscroll.`,
+        desc: `For the purposes of his Strength from Victories ability Dakkbad Grotkicker counts as already having slain D3 enemy HEROES when the battle starts, with the weapon of your choice from those listed on his warscroll.`,
         when: [START_OF_GAME],
       },
     ],

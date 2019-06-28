@@ -10,7 +10,14 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 
 + [daviseford](https://github.com/daviseford)
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
+  + Added Idoneth Deepkin
+  + Updated Gloomspite Gitz rules
+  + Updated Malign Sorcery artefacts
+  + Suggested improvements to codebase
++ [PixelTom](https://github.com/PixelTom)
+  + Added Dispossessed
 + [T-Nightingale](https://github.com/T-Nightingale)
+  + Added Print button
 
 ## Available Scripts
 

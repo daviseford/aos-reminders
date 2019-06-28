@@ -8,7 +8,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Gork`,
-        desc: `If the save roll made for the bearer against an attack made with a melee weapon is 6+, the attacking unit suffers 1 mortal wound after all of its attacks are complete.`,
+        desc: `If the unmodified save roll made for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Golden Toof`,
-        desc: `Friendly IRONJAWZ units that are wholly within 12" of the bearer do not have to take battleshock tests.`,
+        desc: `Do not take battleshock tests for friendly IRONJAWZ units while they are wholly within 12" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -48,7 +48,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Metalrippa's Klaw`,
-        desc: `Pick one of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Pick one of the bearer's melee weapons. Change the Rend characteristic of that weapon to -3 before applying any other modifiers to that weapon's Rend characteristic.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -58,7 +58,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Boss Skewer`,
-        desc: `Add 1 to the Bravery characteristic of friendly IRONJAWZ units while they are wholly within 18" of the bearer, and subtract 1 from the Bravery characteristic of enemy units while they are wholly within 18" of the bearer.`,
+        desc: `Add 1 to the Bravery characteristic of friendly IRONJAWZ units while they are wholly within 18" of the bearer, and subtract 1 from the Bravery characteristic of enemy units while they are within 12" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
