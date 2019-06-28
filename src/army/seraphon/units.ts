@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   END_OF_SHOOTING_PHASE,
@@ -16,7 +17,7 @@ import {
   START_OF_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
-  END_OF_HERO_PHASE,
+  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
 // Unit Names
@@ -566,8 +567,8 @@ export const Battalions: TBattalions = [
       },
       {
         name: `First Oldblood`,
-        desc: `Add 1 to the number of command points you start the battle with.`,
-        when: [START_OF_GAME],
+        desc: `If Ku-Quar is on the battlefield at the start of the first battle round, you receive 1 extra command point. If Ku-Quar is on the battlefield at the start of the first battle round and this battalion contains the maximum number of battalions, you receive D3 extra command points instead of 1.`,
+        when: [TURN_ONE_START_OF_ROUND],
       },
     ],
   },
@@ -576,13 +577,18 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Appear at Kuoteq's Command`,
-        desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq's command as a reserve unit. You can set up one reserve unit waiting to appear at Kuoteq's command for each unit from the same battalion you set up on the battlefield.`,
+        desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq's command as a reserve unit. You can set up 1 reserve unit waiting to appear at Kuoteq's command for each unit from the same battalion you set up on the battlefield. Kuoteq must be set up on the battlefield.`,
         when: [DURING_SETUP],
       },
       {
         name: `Appear at Kuoteq's Command`,
-        desc: `You can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up on the battlefield for the first time cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq's command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
+        desc: `In your hero phase, you can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up in this way cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq's command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Ancient Knowledge`,
+        desc: `If Kuoteq is on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point. If Kuoteq is on the battlefield at the start of your hero phase, and this battalion contained the maximum number of battalions at the start of the battle, you receive 1 extra command point on a roll of 2+ instead of 4+.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
