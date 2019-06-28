@@ -45,7 +45,7 @@ export const Units: TUnits = [
         name: `The Loonking's Entreaty`,
         desc: `You can use this command ability once per battle if this model is your general and on the battlefield, before you roll the dice to determine how far the Bad Moon moves that battle round. If you do so, you can choose for the Bad Moon to either not move that battle round, or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).`,
         when: [START_OF_ROUND],
-        command: true
+        command: true,
       },
     ],
   },
@@ -61,7 +61,7 @@ export const Units: TUnits = [
         name: `I'm Da Boss, Now Stab 'Em Good!`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.'The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
@@ -82,7 +82,7 @@ export const Units: TUnits = [
         name: `Bite Da Moon!`,
         desc: `You can use this command ability at the start of a combat phase. If you do so, pick 1 friendly model with this command ability. In that combat phase you can add 1 to wound rolls for friendly SQUIG units while they are wholly within 18" of that model.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
       {
         name: `Ker-splat!`,
@@ -103,7 +103,7 @@ export const Units: TUnits = [
         name: `Let's Get Bouncing!`,
         desc: `You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly model with this command ability. All friendly SQUIG units wholly within 12" of that model at the start of that phase can move an extra 3" if they make a move in that phase. A unit cannot benefit from this command ability more than once per movement phase.`,
         when: [START_OF_MOVEMENT_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
@@ -119,7 +119,7 @@ export const Units: TUnits = [
         name: `I'm Da Boss, Now Stab 'Em Good!`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.'The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
@@ -293,8 +293,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lances of the Bounderz`,
-        desc:
-          `Add 1 to wound rolls for attacks made with Boingrot Bounderz Pokin' Lances if this unit made a charge move in the same turn.`,
+        desc: `Add 1 to wound rolls for attacks made with Boingrot Bounderz Pokin' Lances if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -531,7 +530,7 @@ export const Units: TUnits = [
         name: `Ride Em All Down`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly Spiderfang Grot unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [START_OF_CHARGE_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
@@ -647,7 +646,7 @@ export const Units: TUnits = [
         name: `Instinctive Leader`,
         desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
@@ -721,9 +720,9 @@ export const Units: TUnits = [
       },
       {
         name: `Too Dumb to Die`,
-    desc: `Roll a dice each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
-  when: [DURING_GAME]
-}
+        desc: `Roll a dice each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
     ],
   },
   {

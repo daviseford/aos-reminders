@@ -160,7 +160,7 @@ export const Units: TUnits = [
         name: `Heed the Spirit-song`,
         desc: `Until your next hero phase, you can re-roll save rolls of 1 for SYLVANETH units if they are within 10" of the Treelord Ancient.`,
         when: [DURING_GAME],
-        command: true
+        command: true,
       },
     ],
   },
@@ -306,7 +306,7 @@ export const Units: TUnits = [
         name: `Call to Battle`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Sylvaneth unit wholly within 9" of a friendly model with this command ability, or wholly within 12" of a friendly model with this command ability that is your general. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. You cannot pick the same unit to benefit from this command ability more than once per combat phase.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
     ],
   },
