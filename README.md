@@ -15,7 +15,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Updated Malign Sorcery artefacts
   + Suggested improvements to codebase
 + [PixelTom](https://github.com/PixelTom)
-  + Added Dispossessed army
+  + Added Dispossessed
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
