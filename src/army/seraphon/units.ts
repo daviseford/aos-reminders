@@ -16,6 +16,7 @@ import {
   START_OF_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
+  END_OF_HERO_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -29,6 +30,11 @@ export const Units: TUnits = [
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
+        name: `Celestial Conjuration`,
+        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
         name: `Dead for Innumerable Ages`,
         desc: `In the battleshock phase of each turn, roll a dice and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is 'slain'. Otherwise, any wounds he has suffered are immediately healed.`,
         when: [BATTLESHOCK_PHASE],
@@ -38,6 +44,16 @@ export const Units: TUnits = [
         desc: `You can use this command ability at the start of your hero phase. If you do so, roll 3 dice. For each 4+, you receive 1 extra command point. You cannot use this command ability more than once per hero phase.`,
         when: [START_OF_HERO_PHASE],
         command: true,
+      },
+      {
+        name: `Masters of Order`,
+        desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Contemplations of the Ancient Ones`,
+        desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -59,6 +75,11 @@ export const Units: TUnits = [
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
+        name: `Celestial Conjuration`,
+        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
         name: `Celestial Configuration`,
         desc: `At the start of your hero phase, one Slann Starmaster in your army can attempt to turn the constellations to its advantage instead of casting one of its spells. If it does so, roll a dice. If the result is a 1, the Slann is distracted by its exertions and cannot cast any spells this phase. If the result is 4 or higher, you can pick a new ascendant constellation from the table. Otherwise, there is no effect.`,
         when: [START_OF_HERO_PHASE],
@@ -68,6 +89,16 @@ export const Units: TUnits = [
         desc: `If a Slann Starmaster uses this ability, Seraphon units from your army that are within 10" are affected. Until your next hero phase, those units can fly and you can re-roll failed save rolls for them in the shooting phase.`,
         when: [MOVEMENT_PHASE],
         command: true,
+      },
+      {
+        name: `Masters of Order`,
+        desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Contemplations of the Ancient Ones`,
+        desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -186,6 +217,11 @@ export const Units: TUnits = [
         name: `Proud Defiance`,
         desc: `You can re-roll hit rolls for friendly Seraphon units while they are wholly within 12" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Celestial Conjuration`,
+        desc: `At the end of your hero phase, you receive D3 celestial conjuration points if there are one or more friendly SAURUS ASTROLITH BEARERS on the battlefield.`,
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
