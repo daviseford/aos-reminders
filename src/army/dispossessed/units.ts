@@ -13,7 +13,7 @@ export const Units: TUnits = [
       },
       {
         name: `Oath Stone`,
-        desc: `In the hero phase, a Warden King can stand atop his oath stone to increase the resolve of his followers. If he does so, he cannot move until his next hero phase, but all DISPOSSESSED units from your army within 18" in the battleshock phase may use the Warden King’s Bravery instead of their own.`,
+        desc: `In the hero phase, a Warden King can stand atop his oath stone to increase the resolve of his followers. If he does so, he cannot move until his next hero phase, but all DISPOSSESSED units from your army within 18" in the battleshock phase may use the Warden King's Bravery instead of their own.`,
         when: [HERO_PHASE],
       },
       {
@@ -34,11 +34,11 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore`,
-        desc: `In your hero phase a Runelord can pray to the Ancestor Gods to imbue his allies’ weapons and armour with power. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a dice; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies’ wargear glow white-hot with rune magic and the power takes effect.
+        desc: `In your hero phase a Runelord can pray to the Ancestor Gods to imbue his allies' weapons and armour with power. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a dice; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
         
         Ancestral Shield: Until your next hero phase, you can roll a dice whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
         
-        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit’s weapons by 1 (i.e. ‘-’ becomes -1, -1 becomes -2 and so on).
+        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. ‘-' becomes -1, -1 becomes -2 and so on).
         `,
         when: [HERO_PHASE],
       },
@@ -74,7 +74,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance’. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
+        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -159,7 +159,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance’. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
+        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
         when: [MOVEMENT_PHASE],
       },
       {
