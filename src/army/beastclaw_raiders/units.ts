@@ -50,7 +50,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bellowing Voice`,
-        desc: `With his booming voice the Frostlord signals the hunt. If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
+        desc: `If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
         when: [CHARGE_PHASE],
         command: true,
       },
@@ -71,7 +71,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bellowing Voice`,
-        desc: `With his booming voice the Frostlord signals the hunt. If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
+        desc: `If a Frostlord uses this ability, then until your next hero phase you can re-roll all charge rolls for friendly BEASTCLAW RAIDERS units that are within 14" when they charge.`,
         when: [CHARGE_PHASE],
         command: true,
       },
@@ -325,7 +325,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Hunting Pack`,
-        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter's Masters of Ambush ability, pg 114), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
+        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter's Masters of Ambush ability), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
