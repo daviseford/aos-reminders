@@ -58,7 +58,8 @@ const ActionText = (props: ITurnAction) => {
         <span className="text-muted font-weight-bold">{condition} - </span>
         <b>
           {command && `Command Ability: `}
-          {name && `${name}`} {tag && `(${tag})`}
+          {name && `${name}`}
+          {tag && ` (${tag})`}
         </b>
         <br />
         {action}
