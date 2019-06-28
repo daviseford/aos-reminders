@@ -7,6 +7,7 @@ import {
   SERAPHON,
   SKAVEN,
   SYLVANETH,
+  DISPOSSESSED,
   TSupportedFaction,
 } from './factions'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
@@ -20,6 +21,7 @@ import Ironjawz from '../army/ironjawz'
 import Seraphon from '../army/seraphon'
 import Skaven from '../army/skaven'
 import Sylvaneth from '../army/sylvaneth'
+import Dispossessed from '../army/dispossessed'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -52,6 +54,10 @@ const ArmyList: TArmyList = {
   },
   [SYLVANETH]: {
     Army: { ...Sylvaneth },
+    GrandAlliance: ORDER,
+  },
+  [DISPOSSESSED]: {
+    Army: { ...Dispossessed },
     GrandAlliance: ORDER,
   },
 }
