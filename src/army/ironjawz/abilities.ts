@@ -5,12 +5,13 @@ import { IEffects } from 'types/data'
 const Abilities: IEffects[] = [
   {
     name: `Mighty Destroyers`,
-    desc: `Roll a dice in your hero phase for your general and each friendly IRONJAWZ HERO. Add 2 to the roll for your general if they are a MEGABOSS. On a 6+ pick a friendly IRONJAWZ unit wholly within 12" of the model being rolled for. That unit can immediately make a normal move if it is more than 12" from the enemy, can immediately pile in if it is within 3" of the enemy (but not attack), and can attempt a charge in any other circumstances.`,
+    desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly IRONJAWZ HERO, or wholly within 18" of a friendly IRONJAWZ HERO that is a general. That unit can make a normal move if it is more than 12" from any enemy units, pile in and attack with its melee weapons if it is within 3" of any enemy units, or attempt to charge in any other circumstance. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
     when: [HERO_PHASE],
+    command: true,
   },
   {
     name: `Smashing and Bashing`,
-    desc: `In the combat phase, after a friendly IRONJAWZ unit has made all of its attacks, if the attacks made by that unit resulted in any enemy units being destroyed, one friendly IRONJAWZ unit that has not yet fought in that combat phase can fight, instead of doing so later in the phase.`,
+    desc: `In the combat phase, after a friendly IRONJAWZ unit has made all of its attacks, if the attacks made by that unit resulted in any enemy units being destroyed, 1 friendly IRONJAWZ unit that has not yet fought in that combat phase can fight, instead of doing so later in the phase.`,
     when: [COMBAT_PHASE],
   },
   {
