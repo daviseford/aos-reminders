@@ -1,5 +1,12 @@
 import { TCommandTraits } from 'types/army'
-import { COMBAT_PHASE, CHARGE_PHASE, BATTLESHOCK_PHASE, START_OF_COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
+} from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
   {
@@ -7,8 +14,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Hulking Muscle-bound Brute`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with this general's melee weapons.`,
-        when: [COMBAT_PHASE],
+        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of this general and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -17,7 +24,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Live to Fight`,
-        desc: `You can re-roll failed hit rolls for attacks made by this general if they charged in the same turn.`,
+        desc: `You can re-roll wound rolls for attacks made by this general if they charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -27,8 +34,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Roll a dice at the start of your opponent's charge phase. On a 5+ one friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
-        when: [CHARGE_PHASE],
+        desc: `Roll a dice at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
+        when: [START_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -57,7 +64,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Ironclad`,
-        desc: `Worsen the Rend characteristic of enemy weapons by 1, to a minimum of '-', if they target this general.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
