@@ -1,5 +1,5 @@
-import { HERO_PHASE, DURING_GAME, END_OF_SETUP } from '../../types/phases'
-import { IEffects } from '../../types/data'
+import { DURING_GAME, END_OF_SETUP } from 'types/phases'
+import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
