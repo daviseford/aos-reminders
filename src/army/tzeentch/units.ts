@@ -134,26 +134,6 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Daemon Prince of Tzeentch`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Exalted Greater Daemon of Tzeentch`,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Pink Horrors of Tzeentch`,
     effects: [
       {
