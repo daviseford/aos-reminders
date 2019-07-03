@@ -1,7 +1,7 @@
 const replace = require('replace-in-file')
 
 const replaceOptions = {
-  files: 'src/**/*.*',
+  files: 'src/**/*.*(ts|tsx)',
   from: [/[‘’]/g, /[“”]/g, /` +(?=[\w])/g, /(?<=[\w]) +`/g],
   to: [`'`, `"`, '`', '`'],
 }
