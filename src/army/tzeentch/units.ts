@@ -94,7 +94,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fortune and Fate`,
-        desc: `If you roll a 9+ for a Herald of Tzeentch’s casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
+        desc: `If you roll a 9+ for a Herald of Tzeentch's casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
         when: [HERO_PHASE],
       },
     ],
@@ -139,7 +139,7 @@ export const Units: TUnits = [
       },
       {
         name: `Scrolls of Sorcery`,
-        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a dice; on a 1, they can’t decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
+        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a dice; on a 1, they can't decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
         when: [HERO_PHASE],
       },
     ],
@@ -169,7 +169,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Flickering Flames`,
-        desc: `You can add 1 to hit rolls made for a Pink Horror’s Magical Flames attack if its unit contains 20 or more models.`,
+        desc: `You can add 1 to hit rolls made for a Pink Horror's Magical Flames attack if its unit contains 20 or more models.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -208,7 +208,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model’s Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],
@@ -218,7 +218,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer’s Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
@@ -258,7 +258,7 @@ export const Units: TUnits = [
       },
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model’s Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
@@ -283,7 +283,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Vessel of Chaos`,
-        desc: `Each time a Curseling successfully unbinds an enemy spell, he can immediately attempt to cast it himself even though it is your opponent’s hero phase. If this spell is cast, your opponent cannot attempt to unbind it.`,
+        desc: `Each time a Curseling successfully unbinds an enemy spell, he can immediately attempt to cast it himself even though it is your opponent's hero phase. If this spell is cast, your opponent cannot attempt to unbind it.`,
         when: [HERO_PHASE],
       },
     ],
@@ -303,12 +303,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Book of Profane Secrets`,
-        desc: `If a Gaunt Summoner is within 9" of a REALMGATE at the start of its movement phase, it can summon a unit of CHAOS DAEMONS to the battlefield, adding it to your army. Place the unit so that all models are within 6" of the Realmgate and more than 9" away from any enemy units. This is the summoned unit’s move for the movement phase.`,
+        desc: `If a Gaunt Summoner is within 9" of a REALMGATE at the start of its movement phase, it can summon a unit of CHAOS DAEMONS to the battlefield, adding it to your army. Place the unit so that all models are within 6" of the Realmgate and more than 9" away from any enemy units. This is the summoned unit's move for the movement phase.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
         name: `Warptongue Blade`,
-        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit’s Bravery, one model in the unit is slain. Otherwise, the blade inflicts 1 wound.`,
+        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit's Bravery, one model in the unit is slain. Otherwise, the blade inflicts 1 wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -399,7 +399,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gestalt Sorcery`,
-        desc: `You can add 1 to the hit rolls of this unit’s Sorcerous Bolts if it is within 9" of at least one friendly TZEENTCH WIZARD.`,
+        desc: `You can add 1 to the hit rolls of this unit's Sorcerous Bolts if it is within 9" of at least one friendly TZEENTCH WIZARD.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -409,12 +409,12 @@ export const Units: TUnits = [
       },
       {
         name: `Scroll of Dark Arts`,
-        desc: `If at least one model in the unit is equipped with a Scroll of Dark Arts, you can increase the range of the unit’s Sorcerous Bolts to 18".`,
+        desc: `If at least one model in the unit is equipped with a Scroll of Dark Arts, you can increase the range of the unit's Sorcerous Bolts to 18".`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Vulchare`,
-        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a dice each time an enemy WIZARD within 18” of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell’s effects have been resolved.`,
+        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a dice each time an enemy WIZARD within 18" of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell's effects have been resolved.`,
         when: [HERO_PHASE],
       },
     ],
@@ -449,12 +449,12 @@ export const Units: TUnits = [
       },
       {
         name: `Judgement from Afar`,
-        desc: `If the hit roll for a Greatbow’s Arrow of Fate is a 6+, the attack sequence ends and the target immediately suffers D3 mortal wounds.`,
+        desc: `If the hit roll for a Greatbow's Arrow of Fate is a 6+, the attack sequence ends and the target immediately suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Preternatural Enhancement`,
-        desc: `If this unit is within 9" of a friendly Tzaangor Shaman at the start of the shooting phase, add 1 to any hit rolls made for their Greatbow’s Arrow of Fate attacks.`,
+        desc: `If this unit is within 9" of a friendly Tzaangor Shaman at the start of the shooting phase, add 1 to any hit rolls made for their Greatbow's Arrow of Fate attacks.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -464,7 +464,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Writhing Tentacles`,
-        desc: `If you roll a double when determining the number of attacks made by a Chaos Spawn’s Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
+        desc: `If you roll a double when determining the number of attacks made by a Chaos Spawn's Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
         when: [COMBAT_PHASE],
       },
     ],
