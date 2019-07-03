@@ -1,5 +1,6 @@
 import {
   BEASTCLAW_RAIDERS,
+  DISPOSSESSED,
   FLESH_EATER_COURTS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
@@ -7,7 +8,6 @@ import {
   SERAPHON,
   SKAVEN,
   SYLVANETH,
-  DISPOSSESSED,
   TZEENTCH,
   TSupportedFaction,
 } from './factions'
