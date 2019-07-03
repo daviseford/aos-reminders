@@ -1,12 +1,13 @@
 import { TCommandTraits } from 'types/army'
 import {
-  HERO_PHASE,
-  START_OF_SETUP,
-  START_OF_HERO_PHASE,
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  SHOOTING_PHASE,
   DURING_GAME,
+  END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
@@ -35,7 +36,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Magical Supremacy`,
-        desc: `You can attempt to unbind enemy spells with your general that are cast within 27" of them instead of 18".`,
+        desc: `Add 12" to the range at which your general can attempt to unbind spells.`,
         when: [HERO_PHASE],
       },
     ],
@@ -45,7 +46,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Boundless Mutation`,
-        desc: `At the start of each of your hero phases, roll a dice; on a 2 or more, your general heals D3 wounds. On a roll of 1, your general suffers one mortal wound; if this results in their death, replace your general with a Chaos Spawn under your control.`,
+        desc: `At the start of each of your hero phases, roll a dice; on a 2 or more, your general heals D3 wounds. On a roll of 1, your general suffers 1 mortal wound; if this slays the general, before you remove the general's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of your general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -55,7 +56,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Cult Demagogue`,
-        desc: `Add 2 to the Bravery of all friendly TZEENTCH ARCANITES that are within 9" of your general.`,
+        desc: `Add 2 to the Bravery characteristic of friendly Tzeentch Arcanite units whilst they are within 9" of the general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -127,6 +128,23 @@ const CommandTraits: TCommandTraits = [
         name: `Illusionist`,
         desc: `Your opponent must subtract 1 from any hit rolls that target your general in the shooting phase.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Summon Daemons of Tzeentch`,
+    effects: [
+      {
+        name: `Summon Daemons of Tzeentch`,
+        desc: `You can summon units of Tzeentch Daemons to the battlefield by expending Fate Points. You receive 1 Fate Point each time a casting roll is successful, and the spell is not unbound. Note that you receive Fate Points whenever a spell is cast, be it by friend or foe – Tzeentch cares not from whence the magic flows!`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Summon Daemons of Tzeentch`,
+        desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one or more units from the list below onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
+
+        Summoned units must be set up wholly within 12" of a friendly Tzeentch Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },

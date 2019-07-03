@@ -1,15 +1,14 @@
 import { TArtifacts } from 'types/army'
 import {
-  START_OF_SETUP,
-  END_OF_COMBAT_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
   BATTLESHOCK_PHASE,
-  MOVEMENT_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  DURING_GAME,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -18,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ambition's End`,
-        desc: `Pick one of the bearer's melee weapons to be an Ambition's End. Roll a dice at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a 5 or 6, they also suffer a mortal wound. If they are a WIZARD, they also forget a random spell for the rest of the battle.`,
+        desc: `Pick one of the bearer's melee weapons to be an Ambition's End. Roll a dice at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a roll of 5 or more, the Hero suffers 1 mortal wound and, if they are a Wizard, they also forget a randomly selected spell that they know.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -68,7 +67,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Windthief Charm`,
-        desc: `Once per battle, you can use the Windthief Charm to move the bearer up to double their Move characteristic. During this move, the bearer can move as if they could fly.`,
+        desc: `Once per battle, at the start of your movement phase, you can use the Windthief Charm. If you do, for that movement phase the bearer can fly and you can double their Move characteristic.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -88,7 +87,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Changeblade`,
-        desc: `Pick one of the bearer's melee weapons to be a Changeblade. Whenever a HERO is slain by this weapon, replace the slain model with a CHAOS SPAWN under your control. The Chaos Spawn cannot do anything this turn.`,
+        desc: `Pick one of the bearer's melee weapons to be a Changeblade. Whenever a Hero is slain by a wound inflicted by this weapon, before you remove the hero's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of the hero's model.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -98,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Each time a HERO is slain by this weapon, you can unleash the soul it has stolen as a burst of power; roll a dice for each enemy unit within 9".On a 4 or more the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a dice for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -128,7 +127,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Paradoxical Shield`,
-        desc: `Add 2 to any save rolls you make for the bearer. However, you must re-roll all successful save rolls you make for them.`,
+        desc: `Re-roll successful save rolls for the bearer. In addition, add 2 to the save rolls for the bearer (after any re-rolls have been taken).`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -138,7 +137,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Warpfire Blade`,
-        desc: `Pick one of the bearer's melee weapons to be a Warpfire Blade. Wound rolls of 6 made for this weapon cause a mortal wound in addition to their normal damage.`,
+        desc: `Pick one of the bearer's melee weapons to be a Warpfire Blade. Wound rolls of 6 or more made for this weapon cause a mortal wound in addition to their normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -218,8 +217,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cursed Ichor`,
-        desc: `Roll a dice after any wounds are inflicted upon this daemon. On a roll of 2 or more, one enemy model within 1" of them suffers 1 mortal wound. If several enemy models are within range, randomly determine which one suffers the mortal wound.`,
-        when: [DURING_GAME],
+        desc: `‘Roll a dice at the end of the combat phase if any wounds were allocated to this daemon in the combat phase (even if this daemon was slain). On a roll of 2 or more, one enemy unit that attacked this daemon in that combat phase suffers 1 mortal wound. If several enemy units attacked this daemon, randomly select the unit that suffers the mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -248,17 +247,17 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Conjurer`,
-        desc: `When attempting to summon a TZEENTCH DAEMON unit with this daemon, add 1 to the casting roll.`,
+        desc: `If the casting roll for this daemon is a double, and is successful and not unbound, you receive 2 Fate Points instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
   },
   // {
-  //   name: ``,
+  //   name:``,
   //   effects: [
   //     {
-  //       name: ``,
-  //       desc: ``,
+  //       name:``,
+  //       desc:``,
   //       when: [START_OF_SETUP],
   //     },
   //   ],

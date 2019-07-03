@@ -1,4 +1,4 @@
-import { HERO_PHASE, END_OF_SETUP, DURING_GAME } from 'types/phases'
+import { END_OF_SETUP, DURING_GAME } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -12,11 +12,6 @@ const Abilities: IEffects[] = [
     name: `Masters of Destiny`,
     desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use.`,
     when: [DURING_GAME],
-  },
-  {
-    name: ``,
-    desc: ``,
-    when: [HERO_PHASE],
   },
 ]
 

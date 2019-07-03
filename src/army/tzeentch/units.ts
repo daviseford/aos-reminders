@@ -4,30 +4,19 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_GAME,
   START_OF_HERO_PHASE,
-  START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
-  // {
-  //   name: ``,
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -69,8 +58,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arch-deceiver`,
-        desc: `At the start of the battle, you can set up the Changeling in your opponent's territory as though it were part of their army. Enemy units treat it as part of their own army – they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it attacks, casts or unbinds a spell, or is within 3" of an enemy Hero in your opponent's hero phase, it is revealed and this ability no longer has an effect.`,
-        when: [START_OF_GAME],
+        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army – they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy Hero at the end of any phase, it is revealed and this ability no longer has an effect.`,
+        when: [END_OF_SETUP],
       },
       {
         name: `Puckish Misdirection`,
@@ -79,7 +68,7 @@ export const Units: TUnits = [
       },
       {
         name: `Formless Horror`,
-        desc: `Instead of using the Trickster's Staff in the combat phase, you can pick a melee weapon wielded by the target unit and attack with that weapon, using its profile.`,
+        desc: `In the combat phase, you can pick a melee weapon wielded by an enemy model within 3" of the Changeling, and use that weapon's Range, Attacks, To Hit, To Wound, Rend and Damage characteristics instead of those for the Trickster's Staff. If a weapon does not have a value for one or more of these characteristics (e.g. it is given as ‘*' or ‘see below'), it cannot be picked.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -177,6 +166,16 @@ export const Units: TUnits = [
         desc: `You can add 1 to any casting rolls made for this unit if it is within 9" of any TZEENTCH DAEMON HEROESfrom your army.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Icon Bearer`,
+        desc: `If the unmodified roll for a battleshock test for a unit that includes any Icon Bearers is 1, you can add D6 models to that unit, and no models from that unit will flee in that battleshock phase.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Your opponent must re-roll battleshock tests of 1 for units that are within 6" of any Hornblowers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
     ],
   },
   {
@@ -184,9 +183,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Split`,
-        desc: `If a friendly unit of Pink Horrors suffers any casualties during a hero, shooting or combat phase, the slain Horrors will split and create Blue Horrors at the end of that phase (after all other units have performed their actions and made their attacks). Two Blue Horrors are created for each slain Pink Horror – if there is already a friendly Blue Horror unit within 6" of the Pink Horrors, add the Blue Horrors to that unit, otherwise set them up as a new unit within 6" of the unit of Pink Horrors.
-        
-        If a rule causes of a whole unit of Pink Horros to be removed at once (excluding battleshock), you can immediately create a unit of Blue Horrors, just before removing the last model from the Pink Horrors unit. The unit of Blue Horrors has two models for each model in the unit of Pink Horrors at the point at which it is removed, and must be set up with all models within 6" of the last model from the Pink Horrors unit.`,
+        desc: `If a friendly Pink Horror model is slain, you can either take petty vengeance or receive 2 Blue Horror Points. If you take petty vengeance, pick an enemy unit within 9" of the slain Pink Horror and roll a dice. On a 6+ that enemy unit suffers 1 mortal wound. Any Blue Horror Points you receive can be used instead of or as well as Fate Points when you summon a Blue Horrors unit to the battlefield.`,
         when: [DURING_GAME],
       },
     ],
@@ -196,9 +193,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Split Again`,
-        desc: `If a friendly unit of Blue Horrors suffers any casualties during a hero, shooting or combat phase, the slain Horrors will split and create Brimstone Horrors at the end of that phase (after all other units have performed their actions and made their attacks). One model (remember that each model represents a pair of Brimstone Horrors) is created for each slain Blue Horror – if there is already a friendly Brimstone Horror unit within 6" of the Blue Horrors, add the Brimstone Horrors to that unit, otherwise set them up as a new unit within 6" of the unit of Blue Horrors.
-        
-        If a rule causes a whole unit of Blue Horrors to be removed at once (excluding battleshock), you can immediately create a unit of Brimstone Horrors, just before removing the last model from the Blue Horrors unit. The unit of Brimstone Horrors has one model for each model in the unit of Blue Horrors at the point at which it is removed, and must be set up with all models within 6" of the last model from the Blue Horrors unit.`,
+        desc: `If a friendly Blue Horror model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain Blue Horror and roll a dice. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a Brimstone Horrors unit to the battlefield.`,
         when: [DURING_GAME],
       },
     ],
@@ -243,7 +238,7 @@ export const Units: TUnits = [
       },
       {
         name: `Locus of Change`,
-        desc: `Whilst this unit is within 9" of any TZEENTCH DAEMON HEROESfrom your army, they are surrounded by a twisting aura of change; if an enemy model targets such a unit, your opponent must treat any hit rolls of 6 as hit rolls of 1 instead.`,
+        desc: `Subtract 1 from hit rolls for attacks that target this unit while this unit is wholly within 12" of a friendly Tzeentch Daemon Hero.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -303,8 +298,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Book of Profane Secrets`,
-        desc: `If a Gaunt Summoner is within 9" of a REALMGATE at the start of its movement phase, it can summon a unit of CHAOS DAEMONS to the battlefield, adding it to your army. Place the unit so that all models are within 6" of the Realmgate and more than 9" away from any enemy units. This is the summoned unit's move for the movement phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `Once per battle, at the end of your movement phase, if this model is within 9" of a Realmgate it can use its Book of Profane Secrets. If it does so, you can summon 1 unit from the list on the warscroll to the battlefield, and add it to your army. The summoned unit must be set up wholly within 9" of a this model and wholly within 9" of the Realmgate, and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Warptongue Blade`,
@@ -460,11 +455,11 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Chaos Spawn`,
+    name: `Tzeentch Chaos Spawn`,
     effects: [
       {
         name: `Writhing Tentacles`,
-        desc: `If you roll a double when determining the number of attacks made by a Chaos Spawn's Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
+        desc: `If you roll a double when determining the number of attacks made by a Tzeentch Chaos Spawn's Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -498,7 +493,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Aspirant Gor-kin`,
-        desc: `If the unit of Tzaangors from a Tzaangor Coven is within 9" of the battalion's unit of Tzaangor Enlightened or Tzaangor Skyfiresat the start of your hero phase, they may pile in and attack as if it were the combat phase. If the unit of Tzaangors is within 9" of both of these units at the start of your hero phase, then you can also add 1 to their wound rolls when they attack in this manner.`,
+        desc: `If the unit of Tzaangors from a Tzaangor Coven is within 3" of an enemy unit and within 9" of the battalion's unit of Tzaangor Enlightened or Tzaangor Skyfires at the start of your hero phase, it can pile in and attack as if it were the combat phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -513,7 +508,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a dice each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a dice each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Chaos Spawn; set up a Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
+        desc: `Roll a dice each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a dice each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Tzeentch Chaos Spawn; set up a Tzeentch Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
         when: [DURING_GAME],
       },
     ],
@@ -548,7 +543,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Cabal of Sorcerers`,
-        desc: `Each model from an Arcanite Cabal that is within 9" of at least two other models from the same battalion in your hero phase can attempt to cast one additional spell.`,
+        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other Wizards from the same battalion in your hero phase can attempt to cast one additional spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -583,7 +578,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Deceive and Dismay`,
-        desc: `In each of your hero phases, you may pick a pair of units from this battalion that are within 27" of the battalion's Lord of Change to swap places. To do so, take one model from each unit, and have them swap places on the battlefield. Then, remove all of the other models from the two units, and set them back up within 9" of the model from their unit that first swapped places. Whilst a Changehost has 9 or more units, then two different pairs of units can swap places rather than only one. Whilst it has 18 or more units, then three different pairs of units can swap places instead.`,
+        desc: `At the start of each of your hero phases, you may pick a pair of units from this battalion that are within 27" of the battalion's Lord of Change to swap places. To do so, take one model from each unit, and have them swap places on the battlefield. Then, remove all of the other models from the two units, and set them back up within 9" of the model from their unit that first swapped places. If a Changehost has 9 or more units at the start of your hero phase, you can pick two different pairs of units to swap places rather than only one. If the Changehost has 18 or more units, then you can pick three different pairs of units to swap places. Each unit can only move this way once in a hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -593,7 +588,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Horrors Without Number`,
-        desc: `In each of your hero phases, add D6 models to each unit of Pink Horrors and/or Blue Horrors, and add D3 models to each unit of Brimstone Horrors in this battalion.`,
+        desc: `In each of your hero phases, add D3 models to each unit of Pink Horrors and/or Blue Horrors, and add 1 model to each unit of Brimstone Horrors in this battalion.`,
         when: [HERO_PHASE],
       },
     ],
@@ -628,7 +623,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Pawns of the Radiant Lord`,
-        desc: `When the Lord of Change that must be taken in this battalion attempts to cast a spell, you can select any Flamer from this battalion to act as the casting model – range, visibility and so on are all measured from that model.`,
+        desc: `When the Lord of Change that must be taken in this battalion successfully casts an Arcane Bolt or Mystic Shield spell, you can measure the range and visibility for the spell from a Flamer from this battalion instead of the caster.`,
         when: [HERO_PHASE],
       },
       {
