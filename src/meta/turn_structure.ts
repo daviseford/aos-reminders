@@ -2,7 +2,7 @@ import * as Phases from 'types/phases'
 
 export interface ITurnAction {
   condition: string
-  action: string
+  desc: string
   name?: string
   tag?: string
   artifact?: boolean

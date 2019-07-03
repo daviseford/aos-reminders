@@ -17,7 +17,7 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
         addToGame(game, w, {
           condition: entry.name,
           name: effect.name,
-          action: effect.desc,
+          desc: effect.desc,
           tag: effect.tag || '',
           artifact: entry.artifact || false,
           command: effect.command || false,
