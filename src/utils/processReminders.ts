@@ -37,7 +37,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     army.Abilities.forEach((a: IEffects) => {
       const t: ITurnAction = {
         name: a.name,
-        action: a.desc,
+        desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
       }
       a.when.forEach(when => {
@@ -51,7 +51,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     const r = RealmscapeFeatures.find(x => x.name === realmscape) as IEffects
     const t: ITurnAction = {
       name: r.name,
-      action: r.desc,
+      desc: r.desc,
       condition: `Realmscape Feature`,
     }
     r.when.forEach(when => {

@@ -4,6 +4,8 @@ import { TGameStructure } from 'meta/turn_structure'
 export interface IEntry {
   name: string
   effects: IEffects[]
+  artifact?: boolean
+  trait?: boolean
 }
 
 export type TArtifacts = IEntry[]
