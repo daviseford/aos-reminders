@@ -1,5 +1,6 @@
 import {
   BEASTCLAW_RAIDERS,
+  DISPOSSESSED,
   FLESH_EATER_COURTS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
@@ -7,26 +8,31 @@ import {
   SERAPHON,
   SKAVEN,
   SYLVANETH,
-  DISPOSSESSED,
+  TZEENTCH,
   TSupportedFaction,
 } from './factions'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
 import { IArmyWithoutGame } from 'types/army'
 
-import BeastclawRaiders from '../army/beastclaw_raiders'
-import FleshEaterCourts from '../army/flesh_eater_courts'
-import GloomspiteGitz from '../army/gloomspite'
-import IdonethDeepkin from '../army/idoneth'
-import Ironjawz from '../army/ironjawz'
-import Seraphon from '../army/seraphon'
-import Skaven from '../army/skaven'
-import Sylvaneth from '../army/sylvaneth'
-import Dispossessed from '../army/dispossessed'
+import BeastclawRaiders from 'army/beastclaw_raiders'
+import Dispossessed from 'army/dispossessed'
+import FleshEaterCourts from 'army/flesh_eater_courts'
+import GloomspiteGitz from 'army/gloomspite'
+import IdonethDeepkin from 'army/idoneth'
+import Ironjawz from 'army/ironjawz'
+import Seraphon from 'army/seraphon'
+import Skaven from 'army/skaven'
+import Sylvaneth from 'army/sylvaneth'
+import Tzeentch from 'army/tzeentch'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
+  },
+  [DISPOSSESSED]: {
+    Army: { ...Dispossessed },
+    GrandAlliance: ORDER,
   },
   [FLESH_EATER_COURTS]: {
     Army: { ...FleshEaterCourts },
@@ -56,9 +62,9 @@ const ArmyList: TArmyList = {
     Army: { ...Sylvaneth },
     GrandAlliance: ORDER,
   },
-  [DISPOSSESSED]: {
-    Army: { ...Dispossessed },
-    GrandAlliance: ORDER,
+  [TZEENTCH]: {
+    Army: { ...Tzeentch },
+    GrandAlliance: CHAOS,
   },
 }
 

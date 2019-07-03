@@ -37,7 +37,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Unforgiving`,
-        desc: `Add 1 to wound rolls for attacks made by this general if the target is from a unit that has inflicted any wounds on this general. `,
+        desc: `Add 1 to wound rolls for attacks made by this general if the target is from a unit that has inflicted any wounds on this general.`,
         when: [DURING_GAME],
       },
     ],
