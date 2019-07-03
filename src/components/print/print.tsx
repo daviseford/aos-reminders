@@ -27,11 +27,11 @@ export const PrintUnits = (props: { selections: ISelections; realmscape: string 
 
 const ItemsDisplay = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null
-  const name = props.items.length > 1 ? `${props.name}s` : props.name
+  const title = props.items.length > 1 ? `${props.name}s` : props.name
   return (
-    <h4>
-      <strong>{name}:</strong> {props.items.join(' | ')}
-    </h4>
+    <p>
+      <strong>{title}:</strong> {props.items.join(' | ')}
+    </p>
   )
 }
 
