@@ -210,7 +210,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Aspirant Gor-kin`,
-        desc: `If the unit of Tzaangors from a Tzaangor Coven is within 9" of the battalion’s unit of Tzaangor Enlightened or Tzaangor Skyfiresat the start of your hero phase, they may pile in and attack as if it were the combat phase. If the unit of Tzaangors is within 9" of both of these units at the start of your hero phase, then you can also add 1 to their wound rolls when they attack in this manner.`,
+        desc: `If the unit of Tzaangors from a Tzaangor Coven is within 9" of the battalion's unit of Tzaangor Enlightened or Tzaangor Skyfiresat the start of your hero phase, they may pile in and attack as if it were the combat phase. If the unit of Tzaangors is within 9" of both of these units at the start of your hero phase, then you can also add 1 to their wound rolls when they attack in this manner.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -225,7 +225,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a dice each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model’s unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model’s unit. In addition, roll a dice each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Chaos Spawn; set up a Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
+        desc: `Roll a dice each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a dice each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Chaos Spawn; set up a Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
         when: [DURING_GAME],
       },
     ],
@@ -245,7 +245,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Boon of Mutation`,
-        desc: `In each of your hero phases, roll a dice for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, they are blessed with mutation and transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model’s unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model’s unit.`,
+        desc: `In each of your hero phases, roll a dice for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, they are blessed with mutation and transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -295,7 +295,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Deceive and Dismay`,
-        desc: `In each of your hero phases, you may pick a pair of units from this battalion that are within 27" of the battalion’s Lord of Change to swap places. To do so, take one model from each unit, and have them swap places on the battlefield. Then, remove all of the other models from the two units, and set them back up within 9" of the model from their unit that first swapped places. Whilst a Changehost has 9 or more units, then two different pairs of units can swap places rather than only one. Whilst it has 18 or more units, then three different pairs of units can swap places instead.`,
+        desc: `In each of your hero phases, you may pick a pair of units from this battalion that are within 27" of the battalion's Lord of Change to swap places. To do so, take one model from each unit, and have them swap places on the battlefield. Then, remove all of the other models from the two units, and set them back up within 9" of the model from their unit that first swapped places. Whilst a Changehost has 9 or more units, then two different pairs of units can swap places rather than only one. Whilst it has 18 or more units, then three different pairs of units can swap places instead.`,
         when: [HERO_PHASE],
       },
     ],

@@ -75,7 +75,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Daemonspark`,
-        desc: `Once per battle, in your hero phase, you can unleash the Daemonspark. Add 1 to the Damage characteristic of all of your general’s melee weapons for the rest of the turn.`,
+        desc: `Once per battle, in your hero phase, you can unleash the Daemonspark. Add 1 to the Damage characteristic of all of your general's melee weapons for the rest of the turn.`,
         when: [HERO_PHASE],
       },
     ],
@@ -115,7 +115,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Soul Burn`,
-        desc: `Each time you make a wound roll of 6 or higher for any of your general’s melee weapons, the target unit suffers 1 mortal wound in addition to any other damage it suffers.`,
+        desc: `Each time you make a wound roll of 6 or higher for any of your general's melee weapons, the target unit suffers 1 mortal wound in addition to any other damage it suffers.`,
         when: [COMBAT_PHASE],
       },
     ],

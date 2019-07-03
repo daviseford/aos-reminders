@@ -18,7 +18,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ambition's End`,
-        desc: `Pick one of the bearer’s melee weapons to be an Ambition’s End. Roll a dice at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a 5 or 6, they also suffer a mortal wound. If they are a WIZARD, they also forget a random spell for the rest of the battle.`,
+        desc: `Pick one of the bearer's melee weapons to be an Ambition's End. Roll a dice at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a 5 or 6, they also suffer a mortal wound. If they are a WIZARD, they also forget a random spell for the rest of the battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -28,7 +28,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Secret-eater`,
-        desc: `Pick one of the bearer’s weapons to be a Secret-eater. Each time a HERO is slain by this weapon, you may roll another dice and immediately add it to your pool of Destiny Dice.`,
+        desc: `Pick one of the bearer's weapons to be a Secret-eater. Each time a HERO is slain by this weapon, you may roll another dice and immediately add it to your pool of Destiny Dice.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -78,7 +78,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wicked Shard`,
-        desc: `Pick one of the bearer’s melee weapons to be a Wicked Shard. Re-roll wound rolls of 1 for this weapon. Re-roll all failed wound rolls instead if the bearer successfully cast or unbound a spell in the same turn.`,
+        desc: `Pick one of the bearer's melee weapons to be a Wicked Shard. Re-roll wound rolls of 1 for this weapon. Re-roll all failed wound rolls instead if the bearer successfully cast or unbound a spell in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -88,7 +88,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Changeblade`,
-        desc: `Pick one of the bearer’s melee weapons to be a Changeblade. Whenever a HERO is slain by this weapon, replace the slain model with a CHAOS SPAWN under your control. The Chaos Spawn cannot do anything this turn.`,
+        desc: `Pick one of the bearer's melee weapons to be a Changeblade. Whenever a HERO is slain by this weapon, replace the slain model with a CHAOS SPAWN under your control. The Chaos Spawn cannot do anything this turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -98,7 +98,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer’s weapons to be a Nexus Staff. Each time a HERO is slain by this weapon, you can unleash the soul it has stolen as a burst of power; roll a dice for each enemy unit within 9".On a 4 or more the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Each time a HERO is slain by this weapon, you can unleash the soul it has stolen as a burst of power; roll a dice for each enemy unit within 9".On a 4 or more the unit being rolled for suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -118,7 +118,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daemonheart`,
-        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer’s melee weapons for the duration of the turn. However, at the end of the combat phase, roll a dice; on a roll of 1, the bearer suffers a mortal wound.`,
+        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer's melee weapons for the duration of the turn. However, at the end of the combat phase, roll a dice; on a roll of 1, the bearer suffers a mortal wound.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -138,7 +138,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Warpfire Blade`,
-        desc: `Pick one of the bearer’s melee weapons to be a Warpfire Blade. Wound rolls of 6 made for this weapon cause a mortal wound in addition to their normal damage.`,
+        desc: `Pick one of the bearer's melee weapons to be a Warpfire Blade. Wound rolls of 6 made for this weapon cause a mortal wound in addition to their normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -158,7 +158,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Fate`,
-        desc: `Pick one of the bearer’s melee weapons to be a Blade of Fate. If you have at least one dice in your pool of Destiny Dice when making an attack with this weapon, you can re-roll failed hit and wound rolls of 1. However, if there are 9 Destiny Dice in the pool when the bearer attacks with this weapon, you can instead re-roll all failed hit and wound rolls.`,
+        desc: `Pick one of the bearer's melee weapons to be a Blade of Fate. If you have at least one dice in your pool of Destiny Dice when making an attack with this weapon, you can re-roll failed hit and wound rolls of 1. However, if there are 9 Destiny Dice in the pool when the bearer attacks with this weapon, you can instead re-roll all failed hit and wound rolls.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -168,7 +168,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Souleater`,
-        desc: `Pick one of the bearer’s melee weapons to be a Souleater. Each time the bearer slays a HERO with this weapon, add 1 to this weapon’s Attacks for the rest of the battle.`,
+        desc: `Pick one of the bearer's melee weapons to be a Souleater. Each time the bearer slays a HERO with this weapon, add 1 to this weapon's Attacks for the rest of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -178,7 +178,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Phantasmal Weapons`,
-        desc: `Improve the Rend characteristic of all melee weapons wielded by this daemon by 1 (if it has a Rend characteristic of ‘-’it becomes -1).`,
+        desc: `Improve the Rend characteristic of all melee weapons wielded by this daemon by 1 (if it has a Rend characteristic of ‘-'it becomes -1).`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -188,7 +188,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Pyrofyre Stave`,
-        desc: `Add 1 to any wound rolls you make for the bearer’s attacks in the shooting phase.`,
+        desc: `Add 1 to any wound rolls you make for the bearer's attacks in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
