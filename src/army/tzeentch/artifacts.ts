@@ -177,7 +177,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Phantasmal Weapons`,
-        desc: `Improve the Rend characteristic of all melee weapons wielded by this daemon by 1 (if it has a Rend characteristic of ‘-'it becomes -1).`,
+        desc: `Improve the Rend characteristic of all melee weapons wielded by this daemon by 1 (if it has a Rend characteristic of '-'it becomes -1).`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -217,7 +217,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cursed Ichor`,
-        desc: `‘Roll a dice at the end of the combat phase if any wounds were allocated to this daemon in the combat phase (even if this daemon was slain). On a roll of 2 or more, one enemy unit that attacked this daemon in that combat phase suffers 1 mortal wound. If several enemy units attacked this daemon, randomly select the unit that suffers the mortal wound.`,
+        desc: `Roll a dice at the end of the combat phase if any wounds were allocated to this daemon in the combat phase (even if this daemon was slain). On a roll of 2 or more, one enemy unit that attacked this daemon in that combat phase suffers 1 mortal wound. If several enemy units attacked this daemon, randomly select the unit that suffers the mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

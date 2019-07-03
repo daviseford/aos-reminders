@@ -38,7 +38,7 @@ export const Units: TUnits = [
         
         Ancestral Shield: Until your next hero phase, you can roll a dice whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
         
-        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. ‘-' becomes -1, -1 becomes -2 and so on).`,
+        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. '-' becomes -1, -1 becomes -2 and so on).`,
         when: [HERO_PHASE],
       },
     ],
@@ -73,7 +73,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -158,7 +158,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {

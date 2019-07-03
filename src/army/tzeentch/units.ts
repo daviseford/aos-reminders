@@ -68,7 +68,7 @@ export const Units: TUnits = [
       },
       {
         name: `Formless Horror`,
-        desc: `In the combat phase, you can pick a melee weapon wielded by an enemy model within 3" of the Changeling, and use that weapon's Range, Attacks, To Hit, To Wound, Rend and Damage characteristics instead of those for the Trickster's Staff. If a weapon does not have a value for one or more of these characteristics (e.g. it is given as ‘*' or ‘see below'), it cannot be picked.`,
+        desc: `In the combat phase, you can pick a melee weapon wielded by an enemy model within 3" of the Changeling, and use that weapon's Range, Attacks, To Hit, To Wound, Rend and Damage characteristics instead of those for the Trickster's Staff. If a weapon does not have a value for one or more of these characteristics (e.g. it is given as '*' or 'see below'), it cannot be picked.`,
         when: [COMBAT_PHASE],
       },
     ],
