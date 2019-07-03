@@ -183,7 +183,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],
@@ -193,7 +193,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
@@ -233,7 +233,7 @@ export const Units: TUnits = [
       },
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
@@ -303,7 +303,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Fate`,
-        desc: `If a Fatemaster uses this ability, roll a dice. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCHMORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
+        desc: `If a Fatemaster uses this ability, roll a dice. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCH MORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
         when: [HERO_PHASE],
         command: true,
       },
