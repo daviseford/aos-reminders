@@ -47,7 +47,7 @@ export const Units: TUnits = [
       },
       {
         name: `Beacon of Sorcery`,
-        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDSthat are within 18" of the Lord of Change.`,
+        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
         when: [HERO_PHASE],
         command: true,
       },
