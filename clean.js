@@ -10,16 +10,14 @@ const replaceOptions = {
  *
  * @param results - { file: string; hasChanged: boolean }[]
  */
-const parseResults = results => {
-  return results.filter(x => x.hasChanged)
-}
+const parseResults = results => results.filter(x => x.hasChanged)
 
 const run = async () => {
   try {
     const results = await replace(replaceOptions)
     const parsed = parseResults(results)
     if (parsed.length) {
-      console.log('Replacement results:', parsed)
+      console.log('Files modified:', parsed)
     } else {
       console.log('No files were modified.')
     }
