@@ -60,7 +60,10 @@ const GrandAllianceConfig: TGrandAllianceConfig = {
  */
 const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArtifacts => {
   const { Artifacts } = GrandAllianceConfig[alliance]
-  return artifacts.concat(Artifacts).concat(RealmArtifacts)
+  return artifacts
+    .concat(Artifacts)
+    .concat(RealmArtifacts)
+    .map(a => ({ ...a, artifact: true }))
 }
 
 /**
@@ -69,5 +72,5 @@ const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArt
  */
 const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TCommandTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
-  return traits.concat(Traits)
+  return traits.concat(Traits).map(t => ({ ...t, trait: true }))
 }
