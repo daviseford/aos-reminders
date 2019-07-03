@@ -155,7 +155,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `More-more Warp-energy!`,
-        desc: `Before you make a hit roll for an attack with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, the Damage characteristic for that attack is D6 instead of D3. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers D6 mortal wounds. `,
+        desc: `Before you make a hit roll for an attack with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, the Damage characteristic for that attack is D6 instead of D3. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers D6 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -165,7 +165,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `More-more Doomrocket!`,
-        desc: `Before you make a hit roll for an attack with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, the Damage characteristic for that attack is 2D6 instead of D6. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers 2D6 mortal wounds. `,
+        desc: `Before you make a hit roll for an attack with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, the Damage characteristic for that attack is 2D6 instead of D6. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers 2D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],

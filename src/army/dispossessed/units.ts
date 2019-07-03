@@ -38,8 +38,7 @@ export const Units: TUnits = [
         
         Ancestral Shield: Until your next hero phase, you can roll a dice whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
         
-        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. ‘-' becomes -1, -1 becomes -2 and so on).
-        `,
+        Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. ‘-' becomes -1, -1 becomes -2 and so on).`,
         when: [HERO_PHASE],
       },
     ],
@@ -74,12 +73,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
+        desc: `If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -94,12 +93,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
         name: `Drummers`,
-        desc: `Models in this unit can be Drummers. When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -124,12 +123,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
         name: `Hornblowers`,
-        desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -159,12 +158,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `Models in this unit can be Hornblowers or Drummers. When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4". `,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can ‘Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
+        desc: `If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -176,11 +175,11 @@ export const Units: TUnits = [
         name: `Old Grumblers`,
         desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
         
-        'I thought duardin were made of sterner stuff!': Roll a dice each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
+        "I thought duardin were made of sterner stuff!": Roll a dice each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
         
-        'Who does this beardling think he is?': Friendly DISPOSSESSED HEROES within 8" of this unit are treated as if they were your general when working out the range of command abilities.
+        "Who does this beardling think he is?": Friendly DISPOSSESSED HEROES within 8" of this unit are treated as if they were your general when working out the range of command abilities.
         
-        'Grots are weedier these days!': You can re-roll wound rolls of 1 for DISPOSSESSED models from your army that are within 8" of this unit when they attack in the combat phase.`,
+        "Grots are weedier these days!": You can re-roll wound rolls of 1 for DISPOSSESSED models from your army that are within 8" of this unit when they attack in the combat phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -190,7 +189,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `Models in this unit can be Drummers. When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -220,7 +219,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `Models in this unit can be Drummers. When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -250,7 +249,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hornblowers`,
-        desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {

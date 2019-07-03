@@ -67,7 +67,7 @@ export const Units: TUnits = [
         
         1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
         3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells. 
-        5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army. `,
+        5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army.`,
         when: [END_OF_SETUP],
       },
       {
@@ -497,7 +497,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Blazing Cohort`,
-        desc: ` If the wound roll for a Celestite weapon carried by a model from a Firelance Starhost is 6 or higher and it charged in the same turn, the attack inflicts an additional mortal wound, as well as any caused by the Saurus Knights Blazing Lances ability.`,
+        desc: `If the wound roll for a Celestite weapon carried by a model from a Firelance Starhost is 6 or higher and it charged in the same turn, the attack inflicts an additional mortal wound, as well as any caused by the Saurus Knights Blazing Lances ability.`,
         when: [COMBAT_PHASE],
       },
       {

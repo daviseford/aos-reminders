@@ -1,33 +1,45 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  START_OF_HERO_PHASE,
-  DURING_GAME,
-  SHOOTING_PHASE,
-  END_OF_SETUP,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_SETUP,
+  END_OF_SHOOTING_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_GAME,
+  START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
+  // {
+  //   name: ``,
+  //   effects: [
+  //     {
+  //       name: ``,
+  //       desc: ``,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
   {
     name: `Kairos Fateweaver`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Mastery of Magic`,
+        desc: `When you make a casting or unbinding roll for Kairos Fateweaver, change the result of the lowest dice so that it matches the highest.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Oracle of Eternity`,
+        desc: `Once per battle, you can change the result of a single dice roll to the result of your choosing. However, this ability may not be used to affect the roll to see who takes the first turn in a battle round.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -35,9 +47,20 @@ export const Units: TUnits = [
     name: `Lord of Change`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Mastery of Magic`,
+        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Spell-thief`,
+        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Beacon of Sorcery`,
+        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDSthat are within 18" of the Lord of Change.`,
+        when: [HERO_PHASE],
+        command: true,
       },
     ],
   },
@@ -45,9 +68,19 @@ export const Units: TUnits = [
     name: `The Changeling`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Arch-deceiver`,
+        desc: `At the start of the battle, you can set up the Changeling in your opponent's territory as though it were part of their army. Enemy units treat it as part of their own army – they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it attacks, casts or unbinds a spell, or is within 3" of an enemy Hero in your opponent's hero phase, it is revealed and this ability no longer has an effect.`,
+        when: [START_OF_GAME],
+      },
+      {
+        name: `Puckish Misdirection`,
+        desc: `Until the Changeling is revealed, you can pick one unit within 9" of it in each enemy hero phase. That unit halves its Move until your next hero phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Formless Horror`,
+        desc: `Instead of using the Trickster's Staff in the combat phase, you can pick a melee weapon wielded by the target unit and attack with that weapon, using its profile.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -55,8 +88,13 @@ export const Units: TUnits = [
     name: `Herald of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Arcane Tome`,
+        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Fortune and Fate`,
+        desc: `If you roll a 9+ for a Herald of Tzeentch’s casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
         when: [HERO_PHASE],
       },
     ],
@@ -65,8 +103,8 @@ export const Units: TUnits = [
     name: `Herald of Tzeentch on Disc`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Arcane Tome`,
+        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
         when: [HERO_PHASE],
       },
     ],
@@ -75,9 +113,19 @@ export const Units: TUnits = [
     name: `Herald of Tzeentch on Burning Chariot`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Arcane Tome`,
+        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Sky-sharks`,
+        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Wake of Fire`,
+        desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -85,8 +133,13 @@ export const Units: TUnits = [
     name: `The Blue Scribes`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Frantic Scribbling`,
+        desc: `Roll a dice each time a WIZARD within 18" of the Blue Scribes successfully casts a spell (whether or not it is unbound); on a 4 or more the Scribes learn that spell and can attempt to cast it in subsequent turns.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Scrolls of Sorcery`,
+        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a dice; on a 1, they can’t decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
         when: [HERO_PHASE],
       },
     ],
@@ -115,8 +168,13 @@ export const Units: TUnits = [
     name: `Pink Horrors of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Flickering Flames`,
+        desc: `You can add 1 to hit rolls made for a Pink Horror’s Magical Flames attack if its unit contains 20 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Locus of Conjuration`,
+        desc: `You can add 1 to any casting rolls made for this unit if it is within 9" of any TZEENTCH DAEMON HEROESfrom your army.`,
         when: [HERO_PHASE],
       },
     ],
@@ -125,9 +183,11 @@ export const Units: TUnits = [
     name: `Blue Horrors of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Split`,
+        desc: `If a friendly unit of Pink Horrors suffers any casualties during a hero, shooting or combat phase, the slain Horrors will split and create Blue Horrors at the end of that phase (after all other units have performed their actions and made their attacks). Two Blue Horrors are created for each slain Pink Horror – if there is already a friendly Blue Horror unit within 6" of the Pink Horrors, add the Blue Horrors to that unit, otherwise set them up as a new unit within 6" of the unit of Pink Horrors.
+        
+        If a rule causes of a whole unit of Pink Horros to be removed at once (excluding battleshock), you can immediately create a unit of Blue Horrors, just before removing the last model from the Pink Horrors unit. The unit of Blue Horrors has two models for each model in the unit of Pink Horrors at the point at which it is removed, and must be set up with all models within 6" of the last model from the Pink Horrors unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -135,9 +195,11 @@ export const Units: TUnits = [
     name: `Brimstone Horrors of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Split Again`,
+        desc: `If a friendly unit of Blue Horrors suffers any casualties during a hero, shooting or combat phase, the slain Horrors will split and create Brimstone Horrors at the end of that phase (after all other units have performed their actions and made their attacks). One model (remember that each model represents a pair of Brimstone Horrors) is created for each slain Blue Horror – if there is already a friendly Brimstone Horror unit within 6" of the Blue Horrors, add the Brimstone Horrors to that unit, otherwise set them up as a new unit within 6" of the unit of Blue Horrors.
+        
+        If a rule causes a whole unit of Blue Horrors to be removed at once (excluding battleshock), you can immediately create a unit of Brimstone Horrors, just before removing the last model from the Blue Horrors unit. The unit of Brimstone Horrors has one model for each model in the unit of Blue Horrors at the point at which it is removed, and must be set up with all models within 6" of the last model from the Blue Horrors unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -145,9 +207,9 @@ export const Units: TUnits = [
     name: `Exalted Flamers of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Capricious Warpflame`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model’s Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        when: [END_OF_SHOOTING_PHASE],
       },
     ],
   },
@@ -155,9 +217,14 @@ export const Units: TUnits = [
     name: `Flamers of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Capricious Warpflame`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer’s Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        when: [END_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Locus of Transmogrification`,
+        desc: `Roll a dice each time a model in this unit is slain within 9" of a Tzeentch Daemon Hero from your army; on a 6, add two Flamer models to this unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -165,9 +232,19 @@ export const Units: TUnits = [
     name: `Screamers of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Sky-sharks`,
+        desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Slashing Fins`,
+        desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Locus of Change`,
+        desc: `Whilst this unit is within 9" of any TZEENTCH DAEMON HEROESfrom your army, they are surrounded by a twisting aura of change; if an enemy model targets such a unit, your opponent must treat any hit rolls of 6 as hit rolls of 1 instead.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -175,9 +252,220 @@ export const Units: TUnits = [
     name: `Burning Chariots of Tzeentch`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Sky-sharks`,
+        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Capricious Warpflame`,
+        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model’s Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds as the mutating flames refuse to die. On a 1, Tzeentch’s fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        when: [END_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Wake of Fire`,
+        desc: `After a Burning Chariot moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tzaangor Shaman`,
+    effects: [
+      {
+        name: `Sorcerous Elixir`,
+        desc: `Once per battle, at the start of your hero phase, you can attempt to cast a second spell with the Tzaangor Shaman (this can even be the same spell), and can choose to re-roll one or both of the dice when making your casting rolls.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Curseling, Eye of Tzeentch`,
+    effects: [
+      {
+        name: `Vessel of Chaos`,
+        desc: `Each time a Curseling successfully unbinds an enemy spell, he can immediately attempt to cast it himself even though it is your opponent’s hero phase. If this spell is cast, your opponent cannot attempt to unbind it.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Magister`,
+    effects: [
+      {
+        name: `Magic-touched`,
+        desc: `If the result of a casting roll for this model is a double, whether or not the spell is successfullycast, it can attempt to cast another spell this turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gaunt Summoner of Tzeentch`,
+    effects: [
+      {
+        name: `Book of Profane Secrets`,
+        desc: `If a Gaunt Summoner is within 9" of a REALMGATE at the start of its movement phase, it can summon a unit of CHAOS DAEMONS to the battlefield, adding it to your army. Place the unit so that all models are within 6" of the Realmgate and more than 9" away from any enemy units. This is the summoned unit’s move for the movement phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Warptongue Blade`,
+        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit’s Bravery, one model in the unit is slain. Otherwise, the blade inflicts 1 wound.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fatemaster`,
+    effects: [
+      {
+        name: `Soulbound Shield`,
+        desc: `If this model suffers any wounds or mortal wounds as the result of a spell, roll a dice. If the result is 4 or more, the wounds are ignored.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Hovering Disc of Tzeentch`,
+        desc: `Add 2 to the result of any save rolls for this model in the combat phase unless the attacker can fly.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Lord of Fate`,
+        desc: `If a Fatemaster uses this ability, roll a dice. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCHMORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
+        when: [HERO_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Ogroid Thaumaturge`,
+    effects: [
+      {
+        name: `Brutal Rage`,
+        desc: `If this model has suffered 5 or more wounds, add 1 to all of its hit rolls but subtract 1 from all of its casting and unbinding rolls (healing wounds may mean the Thaumaturge ceases to be enraged).`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Mighty Bulk`,
+        desc: `After this model completes a charge move, pick an enemy unit within 1";that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Overwhelming Power`,
+        desc: `This model heals 1 wound in each of its hero phases.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tzaangors`,
+    effects: [
+      {
+        name: `Icon Bearers`,
+        desc: `If this unit includes one or more Icon Bearers, then at the start of each of your hero phases, take a dice for each WIZARD (friend or foe) within 9" of this unit. Then, pick an enemy unit within 18" and roll the dice; the unit suffers a mortal wound for each roll of 4 or more.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Brayhorns`,
+        desc: `A unit that includes any Brayhorns can run and charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Arcanite Shield`,
+        desc: `Roll a dice before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Anarchy and Mayhem`,
+        desc: `If this unit is within 9" of any friendly ARCANITE HEROESat the start of the combat phase, you can add 1 to any wound rolls made for the unit in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Paired Savage Blades`,
+        desc: `You can add 1 to any hit rolls made for models attacking with Paired Savage Blades.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Savagery Unleashed`,
+        desc: `You can make one additional attack for each model in this unit with its Savage Blade, Two Savage Blades or Savage Greatblade for every 9 models in the unit (to a maximum of 3 additional attacks per model).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Kairic Acolytes`,
+    effects: [
+      {
+        name: `Arcanite Shield`,
+        desc: `Roll a dice before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Gestalt Sorcery`,
+        desc: `You can add 1 to the hit rolls of this unit’s Sorcerous Bolts if it is within 9" of at least one friendly TZEENTCH WIZARD.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Paired Cursed Blades`,
+        desc: `You can add 1 to any hit rolls made for models attacking with Paired Cursed Blades.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Scroll of Dark Arts`,
+        desc: `If at least one model in the unit is equipped with a Scroll of Dark Arts, you can increase the range of the unit’s Sorcerous Bolts to 18".`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Vulchare`,
+        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a dice each time an enemy WIZARD within 18” of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell’s effects have been resolved.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tzaangor Enlightened`,
+    effects: [
+      {
+        name: `Babbling Stream of Secrets`,
+        desc: `If an enemy unit within 9" of any Tzaangor Enlightened models fails a battleshock test, one additional model flees.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Guided by the Past`,
+        desc: `In the combat phase, you can re-roll all failed hit and wound rolls for a unit of Tzaangor Enlightened if there are any enemy units within 3" of them that have already attacked in that phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Preternatural Enhancement`,
+        desc: `If this unit is within 9" of a Tzaangor Shaman at the start of the combat phase, add 1 to all hit rolls you make for their Tzeentchian Spear and Vicious Beak attacks.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tzaangor Skyfires`,
+    effects: [
+      {
+        name: `Guided by the Future`,
+        desc: `In the combat phase, you can re-roll all failed hit and wound rolls for a unit of Tzaangor Skyfiresif no enemy units within 3" of them have attacked yet in that phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Judgement from Afar`,
+        desc: `If the hit roll for a Greatbow’s Arrow of Fate is a 6+, the attack sequence ends and the target immediately suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Preternatural Enhancement`,
+        desc: `If this unit is within 9" of a friendly Tzaangor Shaman at the start of the shooting phase, add 1 to any hit rolls made for their Greatbow’s Arrow of Fate attacks.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Chaos Spawn`,
+    effects: [
+      {
+        name: `Writhing Tentacles`,
+        desc: `If you roll a double when determining the number of attacks made by a Chaos Spawn’s Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

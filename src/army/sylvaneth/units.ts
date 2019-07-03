@@ -274,7 +274,7 @@ export const Units: TUnits = [
       },
       {
         name: `Impale`,
-        desc: ` If a Treelord's Massive Impaling Talons inflict a wound on an enemy model, roll a dice. If the result exceeds the number of wounds the enemy model has remaining, it is slain.`,
+        desc: `If a Treelord's Massive Impaling Talons inflict a wound on an enemy model, roll a dice. If the result exceeds the number of wounds the enemy model has remaining, it is slain.`,
         when: [COMBAT_PHASE],
       },
       {

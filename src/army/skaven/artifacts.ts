@@ -312,7 +312,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rat-tail Snake (Moulder)`,
-        desc: `If the unmodified save roll for an attack that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved. `,
+        desc: `If the unmodified save roll for an attack that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
