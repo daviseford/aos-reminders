@@ -18,6 +18,7 @@ const run = async () => {
     const parsed = parseResults(results)
     if (parsed.length) {
       console.log('Files modified:', parsed)
+      process.exit(1)
     } else {
       console.log('No files were modified.')
     }
