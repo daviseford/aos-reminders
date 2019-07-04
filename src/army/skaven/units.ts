@@ -369,7 +369,7 @@ export const Units: TUnits = [
     name: `Stormvermin`,
     effects: [
       {
-        name: `Clanshields`,
+        name: ` Clanshields `,
         desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
