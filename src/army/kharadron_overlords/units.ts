@@ -1,5 +1,16 @@
 import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, CHARGE_PHASE, BATTLESHOCK_PHASE, DURING_SETUP, SHOOTING_PHASE, END_OF_SHOOTING_PHASE } from 'types/phases'
+import {
+  HERO_PHASE,
+  COMBAT_PHASE,
+  START_OF_COMBAT_PHASE,
+  DURING_GAME,
+  MOVEMENT_PHASE,
+  CHARGE_PHASE,
+  BATTLESHOCK_PHASE,
+  DURING_SETUP,
+  SHOOTING_PHASE,
+  END_OF_SHOOTING_PHASE,
+} from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
@@ -296,7 +307,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aetheric Navigation`,
-        desc: `+D3" movement if Aetheric Navigator is visible`,
+        desc: `+D3" movement if Aetheric Navigator is visible.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -368,7 +379,7 @@ export const Units: TUnits = [
         
         Prove Your Worth: +3" range for all missile weapons.
         
-        ’Ware The Skies: Re-roll hit and wounds of 1 vs flying enemies.`,
+        'Ware The Skies: Re-roll hit and wounds of 1 vs flying enemies.`,
         when: [HERO_PHASE],
       },
       {
