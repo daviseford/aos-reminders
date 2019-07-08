@@ -20,7 +20,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Bloody Loyalty`,
-        desc: `You can re-roll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models.`,
+        desc: `You can re-roll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase. `,
         when: [DURING_GAME],
       },
       {
@@ -108,7 +108,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Savage Strike`,
-        desc: `This general fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. This general cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        desc: `This general and their mount fight at the start of the combat phase if they made a charge move in the same turn. This general and their mount cannot fight again in that combat phase unless a spell or ability allows them to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
