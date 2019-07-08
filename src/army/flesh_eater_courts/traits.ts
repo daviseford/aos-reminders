@@ -20,7 +20,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Bloody Loyalty`,
-        desc: `You can re-roll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase. `,
+        desc: `You can re-roll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
       },
       {
