@@ -51,8 +51,11 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
 }
 
 const getTitle = (props: ITurnAction): string => {
-  if (props.artifact) return `Artifact`
   if (props.trait) return `Command Trait`
+  if (props.artifact) {
+    if (props.name === props.condition) return `Artifact`
+    else return `Artifact: ${props.condition}`
+  }
   return props.condition
 }
 
