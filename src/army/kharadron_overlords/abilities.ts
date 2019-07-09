@@ -1,13 +1,13 @@
-import { HERO_PHASE } from 'types/phases'
+// import { START_OF_GAME } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
-  {
-    name: ``,
-    desc: ``,
-    when: [HERO_PHASE],
-  },
+  // {
+  //   name: `Stick to the Code`,
+  //   desc: `Use ADD TRAITS for Skyports/Footnotes/Artycles/Amendments`,
+  //   when: [START_OF_GAME],
+  // },
 ]
 
 export default Abilities
