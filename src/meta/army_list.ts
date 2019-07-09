@@ -5,6 +5,7 @@ import {
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
   IRONJAWZ,
+  KHARADRON_OVERLORDS,
   SERAPHON,
   SKAVEN,
   SYLVANETH,
@@ -20,6 +21,7 @@ import FleshEaterCourts from 'army/flesh_eater_courts'
 import GloomspiteGitz from 'army/gloomspite'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
+import KharadronOverlords from 'army/kharadron_overlords'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Sylvaneth from 'army/sylvaneth'
@@ -49,6 +51,10 @@ const ArmyList: TArmyList = {
   [IRONJAWZ]: {
     Army: { ...Ironjawz },
     GrandAlliance: DESTRUCTION,
+  },
+  [KHARADRON_OVERLORDS]: {
+    Army: { ...KharadronOverlords },
+    GrandAlliance: ORDER,
   },
   [SERAPHON]: {
     Army: { ...Seraphon },
