@@ -10,6 +10,8 @@ import {
   DURING_SETUP,
   SHOOTING_PHASE,
   END_OF_SHOOTING_PHASE,
+  TURN_ONE_HERO_PHASE,
+  TURN_ONE_DURING_ROUND,
 } from 'types/phases'
 
 // Unit Names
@@ -437,6 +439,76 @@ export const Units: TUnits = [
 
 // Battalions
 export const Battalions: TBattalions = [
+  {
+    name: `Grand Armada`,
+    effects: [
+      {
+        name: `On a War Footing`,
+        desc: `All SKYVESSELS can make a move.`,
+        when: [TURN_ONE_HERO_PHASE],
+      },
+      {
+        name: `Constitutional Experts`,
+        desc: `While Admiral and one HERO are alive, you can use footnotes (except from 'These are Just Guidelines') once per round.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Iron Sky Command`,
+    effects: [
+      {
+        name: `Lord of the Skies`,
+        desc: `Friendly units with 12" of Ironclad subtract 1 from battleshock tests.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Trusted Bodyguard`,
+        desc: `When HERO within 3" of Arkanaut Company. Wound / mortal wound on 5+ transfered to Arkanaut Company.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Iron Sky Squadron`,
+    effects: [
+      {
+        name: `Bold Privateers`,
+        desc: `When Arkanaut Company disembarks, re-roll run and charges that turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Opening Salvo`,
+        desc: `+1 attacks to all missile weapons on Frigates.`,
+        when: [TURN_ONE_DURING_ROUND],
+      },
+    ],
+  },
+  {
+    name: `Grundstok Escort Wing`,
+    effects: [
+      {
+        name: `Focus Fire`,
+        desc: `+1 to hit rolls vs one targeted enemy unit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aetherstrike Force`,
+    effects: [
+      {
+        name: `Marked for Destruction`,
+        desc: `Knight-Venator can use Star-fated Arrow. If target is hit but not slain, +1 hit rolls against target for battle.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Lightning-fast Volleys`,
+        desc: `Choose single unit (not Knight-Venator) within 6" of two battalion units; chosen unit can make shooting attacks.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   {
     name: ``,
     effects: [
