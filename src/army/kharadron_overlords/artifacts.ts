@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE, CHARGE_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
+import { MOVEMENT_PHASE, DURING_GAME, CHARGE_PHASE, SHOOTING_PHASE, COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import { DURING_SETUP } from '../../types/phases'
 
 const Artifacts: TArtifacts = [
@@ -9,7 +9,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Last Word`,
         desc: `When enemy finishes charge within 1/2", fire with chosen weapon.`,
-        when: [SHOOTING_PHASE],
+        when: [CHARGE_PHASE],
       },
     ],
   },
