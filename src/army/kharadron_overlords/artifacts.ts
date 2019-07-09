@@ -1,49 +1,10 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE, CHARGE_PHASE, DURING_GAME } from 'types/phases'
+import { HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE, CHARGE_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
+import { DURING_SETUP } from '../../types/phases'
 
 const Artifacts: TArtifacts = [
   {
-    name: `Aetherspheric Endrins`,
-    effects: [
-      {
-        name: `Aetherspheric Endrins`,
-        desc: `SKYVESSEL can be set-up in the aethersphere, can descend in your hero phase. Set-up vessel 9" from the enemy. Units that disembark this turn must do so 9" away from enemy. Neither vessel nor units disembarked may move this turn.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetherspeed Hammer`,
-    effects: [
-      {
-        name: `Aetherspeed Hammer`,
-        desc: `Bearer piles-in and attacks first.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Breath of Morgrim`,
-    effects: [
-      {
-        name: `Breath of Morgrim`,
-        desc: `After moving (not running), pick an enemy within 6". Roll a dice for each model, if you roll at least one 6, unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Grudgehammer`,
-    effects: [
-      {
-        name: `Grudgehammer`,
-        desc: `Re-roll all failed hit and wound combat rolls vs enemy that is a target of Settle the Grudges.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Last Word`,
+    name: `GREAT ENDRINWORK: The Last Word`,
     effects: [
       {
         name: `The Last Word`,
@@ -53,7 +14,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Incredible Self-healing Hull`,
+    name: `GREAT ENDRINWORK: Incredible Self-healing Hull`,
     effects: [
       {
         name: `Incredible Self-healing Hull`,
@@ -63,7 +24,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Malefic Skymines`,
+    name: `GREAT ENDRINWORK: Malefic Skymines`,
     effects: [
       {
         name: `Malefic Skymines`,
@@ -73,7 +34,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Ebullient Buoyancy Aid`,
+    name: `GREAT ENDRINWORK: Ebullient Buoyancy Aid`,
     effects: [
       {
         name: `Ebullient Buoyancy Aid`,
@@ -83,7 +44,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Prudency Chutes`,
+    name: `GREAT ENDRINWORK: Prudency Chutes`,
     effects: [
       {
         name: `Prudency Chutes`,
@@ -93,7 +54,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Magnificent Omniscope`,
+    name: `GREAT ENDRINWORK: Magnificent Omniscope`,
     effects: [
       {
         name: `Magnificent Omniscope`,
@@ -103,7 +64,32 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Hammer of Aethermatic Might`,
+    name: `GREAT ENDRINWORK: Aetherspheric Endrins`,
+    effects: [
+      {
+        name: `Aetherspheric Endrins`,
+        desc: `SKYVESSEL can be set-up in the aethersphere.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Aetherspheric Endrins`,
+        desc: `Can descend in your hero phase. Set-up vessel 9" from the enemy. Units that disembark this turn must do so 9" away from enemy. Neither vessel nor units disembarked may move this turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `GREAT ENDRINWORK: Breath of Morgrim`,
+    effects: [
+      {
+        name: `Breath of Morgrim`,
+        desc: `After moving (not running), pick an enemy within 6". Roll a dice for each model, if you roll at least one 6, unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `AETHERMATIC WEAPON: Hammer of Aethermatic Might`,
     effects: [
       {
         name: `Hammer of Aethermatic Might`,
@@ -113,7 +99,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Sledgeshock Hammer`,
+    name: `AETHERMATIC WEAPON: Sledgeshock Hammer`,
     effects: [
       {
         name: `Sledgeshock Hammer`,
@@ -123,7 +109,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Aethershock Bludgeon`,
+    name: `AETHERMATIC WEAPON: Aethershock Bludgeon`,
     effects: [
       {
         name: `Aethershock Bludgeon`,
@@ -133,7 +119,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Gattlesson's Endless Repeater`,
+    name: `AETHERMATIC WEAPON: Gattlesson's Endless Repeater`,
     effects: [
       {
         name: `Gattlesson's Endless Repeater`,
@@ -143,7 +129,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Aethershock Earbuster`,
+    name: `AETHERMATIC WEAPON: Aethershock Earbuster`,
     effects: [
       {
         name: `Aethershock Earbuster`,
@@ -153,7 +139,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Staff of Ocular Optimisation`,
+    name: `AETHERMATIC WEAPON: Staff of Ocular Optimisation`,
     effects: [
       {
         name: `Staff of Ocular Optimisation`,
@@ -163,7 +149,27 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Masterwrought Armour`,
+    name: `AETHERMATIC WEAPON: Aetherspeed Hammer`,
+    effects: [
+      {
+        name: `Aetherspeed Hammer`,
+        desc: `Bearer piles-in and attacks first.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `AETHERMATIC WEAPON: Grudgehammer`,
+    effects: [
+      {
+        name: `Grudgehammer`,
+        desc: `Re-roll all failed hit and wound combat rolls vs enemy that is a target of Settle the Grudges.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `SKY-PORT TREASURE: Masterwrought Armour`,
     effects: [
       {
         name: `Masterwrought Armour`,
@@ -173,7 +179,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Balebreath Mask`,
+    name: `SKY-PORT TREASURE: Balebreath Mask`,
     effects: [
       {
         name: `Balebreath Mask`,
@@ -183,7 +189,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Autotinkerer`,
+    name: `SKY-PORT TREASURE: Autotinkerer`,
     effects: [
       {
         name: `Autotinkerer`,
@@ -193,7 +199,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Aethersight Loupe`,
+    name: `SKY-PORT TREASURE: Aethersight Loupe`,
     effects: [
       {
         name: `Aethersight Loupe`,
@@ -203,7 +209,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Gimlet Lens`,
+    name: `SKY-PORT TREASURE: Gimlet Lens`,
     effects: [
       {
         name: `Gimlet Lens`,
@@ -213,7 +219,7 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Aethercharged Rune`,
+    name: `SKY-PORT TREASURE: Aethercharged Rune`,
     effects: [
       {
         name: `Aethercharged Rune`,
