@@ -50,7 +50,7 @@ export const Units: TUnits = [
         when: [START_OF_SHOOTING_PHASE],
       },
       {
-        name: `No Rest For the Wicked`,
+        name: `COMMAND ABILITY: No Rest For the Wicked`,
         desc: `You can use this command ability in your hero phase if this model is your general and is on the battlefield. If you do so, you can return 1 slain model to each friendly SUMMONABLE NIGHTHAUNT unit that is within 12" of a friendly model with this command ability.`,
         when: [HERO_PHASE],
       },
@@ -125,7 +125,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Spectral Overseer`,
+        name: `COMMAND ABILITY: Spectral Overseer`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Add 1 to hit rolls for friendly NIGHTHAUNT units while they are wholly within 12" of that model in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
@@ -145,7 +145,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Lord of Gheists`,
+        name: `COMMAND ABILITY: Lord of Gheists`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly NIGHTHAUNT unit that is wholly within 18" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
