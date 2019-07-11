@@ -10,14 +10,14 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Blood for the Blood God!`,
-    desc: `Blood Tithe points can be expended at any point in either player’s hero phase, but only once per phase. To do so, pick one reward on the Blood Tithe table that has a value equal to or less than your current number of Blood Tithe points and immediately resolve its effects. When one or more Blood Tithe points are expended, any remaining points are lost, though more points can be generated later in the game as normal.`,
+    desc: `Blood Tithe points can be expended at any point in either player's hero phase, but only once per phase. To do so, pick one reward on the Blood Tithe table that has a value equal to or less than your current number of Blood Tithe points and immediately resolve its effects. When one or more Blood Tithe points are expended, any remaining points are lost, though more points can be generated later in the game as normal.`,
     when: [HERO_PHASE],
   },
   {
     name: `Blood Blessings of Khorne`,
     desc: `KHORNE PRIESTS can attempt to bestow their blood blessing in each of your hero phases in addition to any prayers they may know. To do so, roll a dice, adding 1 to the result if the priest slew any enemy models in the previous turn. If the result is 4+, the effect takes place. If the result is 1, the priest suffers D3 mortal wounds.`,
-    when: [HERO_PHASE]
-  }
+    when: [HERO_PHASE],
+  },
 ]
 
 export default Abilities

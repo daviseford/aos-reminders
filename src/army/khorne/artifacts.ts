@@ -1,5 +1,14 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE, COMBAT_PHASE, END_OF_COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, CHARGE_PHASE, BATTLESHOCK_PHASE, MOVEMENT_PHASE } from 'types/phases'
+import {
+  HERO_PHASE,
+  COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
+  DURING_GAME,
+  SHOOTING_PHASE,
+  CHARGE_PHASE,
+  BATTLESHOCK_PHASE,
+  MOVEMENT_PHASE,
+} from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -37,7 +46,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Gorecleaver`,
-        desc: `Attacks from Gorecleaver inflict an additional -1 Rend (for example, a weapon with a Rend characteristic of-1 becomes -2 instead). In addition, any wound rolls of 6 made with this weapon inflict a number of mortal wounds equal to the weapon’s Damage characteristic instead of being resolved normally.`,
+        desc: `Attacks from Gorecleaver inflict an additional -1 Rend (for example, a weapon with a Rend characteristic of-1 becomes -2 instead). In addition, any wound rolls of 6 made with this weapon inflict a number of mortal wounds equal to the weapon's Damage characteristic instead of being resolved normally.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -107,7 +116,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Blood-forged Armour`,
-        desc: `When you make save rolls for the bearer, ignore the enemy’s Rend characteristic unless it is -2 or better.`,
+        desc: `When you make save rolls for the bearer, ignore the enemy's Rend characteristic unless it is -2 or better.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -117,7 +126,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Brazen Rune`,
-        desc: `Roll a dice each time the bearer suffers any unsaved wounds or mortal wounds as the result of a spell; on a roll of 2 or more, the wound or mortal wound being rolled for is ignored. Once per game, you can choose to expend the rune’s power to automatically unbind one enemy spell, after which the Brazen Rune will no longer have any effect.`,
+        desc: `Roll a dice each time the bearer suffers any unsaved wounds or mortal wounds as the result of a spell; on a roll of 2 or more, the wound or mortal wound being rolled for is ignored. Once per game, you can choose to expend the rune's power to automatically unbind one enemy spell, after which the Brazen Rune will no longer have any effect.`,
         when: [HERO_PHASE],
       },
     ],
@@ -137,7 +146,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Destroyer`,
-        desc: `Double the Attacks characteristics of the bearer’s Melee weapons (but not their mount’s). However, should the bearer make any attacks in the combat phase but fail to slay any enemy models, the bearer is immediately slain; remove the model from play and replace it with a CHAOS SPAWN under your control. Set up this model as near as possible to the model you removed (even if this is within 3" of an enemy model). It cannot make attacks this turn.`,
+        desc: `Double the Attacks characteristics of the bearer's Melee weapons (but not their mount's). However, should the bearer make any attacks in the combat phase but fail to slay any enemy models, the bearer is immediately slain; remove the model from play and replace it with a CHAOS SPAWN under your control. Set up this model as near as possible to the model you removed (even if this is within 3" of an enemy model). It cannot make attacks this turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -147,7 +156,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Talisman of Burning Blood`,
-        desc: `Add 1 to any run rolls you make for the bearer and any KHORNE units from your army that are within 8" of them at the start of the movement phase. `,
+        desc: `Add 1 to any run rolls you make for the bearer and any KHORNE units from your army that are within 8" of them at the start of the movement phase.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -262,7 +271,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crimson Soulstone`,
-        desc: ` The bearer immediately heals D3 wounds lost earlier in the battle each time they slay an enemy HERO in the combat phase.`,
+        desc: `The bearer immediately heals D3 wounds lost earlier in the battle each time they slay an enemy HERO in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],

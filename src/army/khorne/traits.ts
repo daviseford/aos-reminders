@@ -25,7 +25,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Unrivalled Battlelust`,
-        desc: `If your general is within 12" of an enemy unit (but not within 3" of an enemy unit) at the end of any of your opponent’s charge phases, you can immediately attempt a charge move with your general.`,
+        desc: `If your general is within 12" of an enemy unit (but not within 3" of an enemy unit) at the end of any of your opponent's charge phases, you can immediately attempt a charge move with your general.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -35,7 +35,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Slaughterborn`,
-        desc: `You can re-roll all of your general’s failed hit rolls when making attacks in the combat phase.`,
+        desc: `You can re-roll all of your general's failed hit rolls when making attacks in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -55,7 +55,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Bloodsworn (Bloodbound)`,
-        desc: `KHORNE MORTAL units from your army within 8" of your general can use your general’s Bravery characteristic in place of their own when making battleshock tests.`,
+        desc: `KHORNE MORTAL units from your army within 8" of your general can use your general's Bravery characteristic in place of their own when making battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -95,7 +95,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Devastating Blow (Daemon)`,
-        desc: `Any wound rolls of 6 for attacks made by your general in the combat phase inflict a number of mortal wounds equal to the weapon’s Damage characteristic instead of being resolved normally.`,
+        desc: `Any wound rolls of 6 for attacks made by your general in the combat phase inflict a number of mortal wounds equal to the weapon's Damage characteristic instead of being resolved normally.`,
         when: [COMBAT_PHASE],
       },
     ],
