@@ -17,6 +17,8 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [PixelTom](https://github.com/PixelTom)
   + Added Dispossessed
   + Added Kharadron Overlords
++ [Cpt Asgard](https://github.com/CptAsgard)
+  + Added Nighthaunt
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
@@ -25,6 +27,10 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
+
+### `yarn install`
+
+If you just downloaded this repository, or if you are getting errors regarding missing packages, run `yarn install` to download/update dependencies.
 
 ### `yarn start`
 

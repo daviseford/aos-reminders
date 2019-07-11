@@ -1,5 +1,5 @@
 import { TCommandTraits } from 'types/army'
-import { COMBAT_PHASE, START_OF_MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
   {
