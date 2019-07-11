@@ -142,7 +142,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lurelight`,
-        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talúnhook in the combat phase of the same turn`,
+        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talúnhook in the combat phase of the same turn.`,
         when: [END_OF_BATTLESHOCK_PHASE],
       },
       {
@@ -187,7 +187,7 @@ export const Units: TUnits = [
       },
       {
         name: `Void Drum`,
-        desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons`,
+        desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons.`,
         when: [DURING_GAME],
       },
     ],

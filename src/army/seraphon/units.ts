@@ -211,7 +211,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Conduit`,
-        desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer`,
+        desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer.`,
         when: [HERO_PHASE],
       },
       {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cosmic Engine`,
-        desc: `Roll for Engine of the Gods effect`,
+        desc: `Roll for Engine of the Gods effect.`,
         when: [HERO_PHASE],
       },
       {
@@ -356,12 +356,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Toad Rage`,
-        desc: `Place Blot Toad for Ripperdactyls`,
+        desc: `Place Blot Toad for Ripperdactyls.`,
         when: [TURN_ONE_HERO_PHASE],
       },
       {
         name: `Toad Rage`,
-        desc: `Move Blot Toad up to D6 inches`,
+        desc: `Move Blot Toad up to D6 inches.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -547,7 +547,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Creator's Will`,
-        desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units`,
+        desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {

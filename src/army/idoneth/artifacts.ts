@@ -243,12 +243,12 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Bauble of Buoyancy`,
-        desc: `The bearer can fly. In addition, double the result of run rolls for the bearer`,
+        desc: `The bearer can fly. In addition, double the result of run rolls for the bearer.`,
         when: [DURING_GAME],
       },
       {
         name: `Bauble of Buoyancy`,
-        desc: `The bearer can fly. In addition, double the result of run rolls for the bearer`,
+        desc: `The bearer can fly. In addition, double the result of run rolls for the bearer.`,
         when: [MOVEMENT_PHASE],
       },
     ],

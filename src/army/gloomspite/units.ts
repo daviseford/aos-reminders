@@ -183,7 +183,7 @@ export const Units: TUnits = [
       },
       {
         name: `Backstabbing Mob`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -193,7 +193,7 @@ export const Units: TUnits = [
       },
       {
         name: `Netters`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -218,7 +218,7 @@ export const Units: TUnits = [
       },
       {
         name: `Backstabbing Mob`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -228,7 +228,7 @@ export const Units: TUnits = [
       },
       {
         name: `Netters`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -609,7 +609,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spell-spite`,
-        desc: `Each time this model successfully unbinds a spell, you can roll a dice; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds`,
+        desc: `Each time this model successfully unbinds a spell, you can roll a dice; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -795,7 +795,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `I'll Bite Your Head Off!`,
-        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain`,
+        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {

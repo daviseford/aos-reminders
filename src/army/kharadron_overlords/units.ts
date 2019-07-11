@@ -386,7 +386,7 @@ export const Units: TUnits = [
       },
       {
         name: `Batten the Hatches`,
-        desc: `Re-roll saves of 1; units cannot embark/disembark`,
+        desc: `Re-roll saves of 1; units cannot embark/disembark.`,
         when: [HERO_PHASE],
       },
       {

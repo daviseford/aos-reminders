@@ -219,7 +219,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Scholars and Commanders`,
-        desc: `+1 to unbinding for all HEROES`,
+        desc: `+1 to unbinding for all HEROES.`,
         when: [HERO_PHASE],
       },
       {
@@ -395,7 +395,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `FOOTNOTE: These Are Just Guidelines`,
-        desc: `Once per battle, change army's ARTYCLE`,
+        desc: `Once per battle, change army's ARTYCLE.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -563,7 +563,7 @@ export const Units: TUnits = [
       },
       {
         name: `Plague Disciples`,
-        desc: `You can re-roll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE`,
+        desc: `You can re-roll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
