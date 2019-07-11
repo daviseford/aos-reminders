@@ -2,8 +2,14 @@ const replace = require('replace-in-file')
 
 const replaceOptions = {
   files: 'src/**/*.*(ts|tsx)',
-  from: [/[‘’]/g, /[“”]/g, /(?<=[name|desc]: )` +(?=.+`)/g, /(?<!:)(?<=[name|desc]: `.+) +`/g],
-  to: [`'`, `"`, '`', '`'],
+  from: [
+    /[‘’]/g, // Replace special apostrophies
+    /[“”]/g, // Replace special quotes
+    /(?<=[name|desc]: )` +(?=.+`)/g, // Remove leading whitespaces
+    /(?<!:)(?<=[name|desc]: `.+) +`/g, // Remove trailed whitespaces
+    /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
+  ],
+  to: [`'`, `"`, '`', '`', '.`'],
 }
 
 /**
