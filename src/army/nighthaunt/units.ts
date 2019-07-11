@@ -36,7 +36,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lifting the Veil`,
-        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a dice. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In additrion, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
+        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a dice. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -460,7 +460,7 @@ export const Units: TUnits = [
       },
       {
         name: `Murderous Bloodlust`,
-        desc: `If the unmodified wound roll for an attack made with Scythed Limbs is 6, that attack has a Damage characteristic of 2 isntead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with Scythed Limbs is 6, that attack has a Damage characteristic of 2 instead of 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -522,7 +522,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death`,
-        desc: `At the start of each battle round, roll 3 dice for each BLACK COACH on the battlefield. For each 4+ that BLACK COACH gains a level of powoer. Levels of power are cumulative and last for the rest of the battle.`,
+        desc: `At the start of each battle round, roll 3 dice for each BLACK COACH on the battlefield. For each 4+ that BLACK COACH gains a level of power. Levels of power are cumulative and last for the rest of the battle.`,
         when: [START_OF_TURN],
       },
       {
