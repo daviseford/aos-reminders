@@ -10,6 +10,7 @@ import {
   SKAVEN,
   SYLVANETH,
   TZEENTCH,
+  NIGHTHAUNT,
   TSupportedFaction,
 } from './factions'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
@@ -26,6 +27,7 @@ import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Sylvaneth from 'army/sylvaneth'
 import Tzeentch from 'army/tzeentch'
+import Nighthaunt from 'army/nighthaunt'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -71,6 +73,10 @@ const ArmyList: TArmyList = {
   [TZEENTCH]: {
     Army: { ...Tzeentch },
     GrandAlliance: CHAOS,
+  },
+  [NIGHTHAUNT]: {
+    Army: { ...Nighthaunt },
+    GrandAlliance: DEATH,
   },
 }
 

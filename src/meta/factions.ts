@@ -12,6 +12,7 @@ export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSylvaneth = 'SYLVANETH'
 export type TTzeentch = 'TZEENTCH'
+export type TNighthaunt = 'NIGHTHAUNT'
 
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
@@ -25,6 +26,7 @@ export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
+export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 
 // Supported Factions
 export type TSupportedFaction =
@@ -39,6 +41,7 @@ export type TSupportedFaction =
   | TSkaven
   | TSylvaneth
   | TTzeentch
+  | TNighthaunt
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
@@ -52,4 +55,5 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   SKAVEN,
   SYLVANETH,
   TZEENTCH,
+  NIGHTHAUNT,
 ])
