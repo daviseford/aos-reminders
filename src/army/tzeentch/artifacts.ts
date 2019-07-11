@@ -97,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a dice for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a dice for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],

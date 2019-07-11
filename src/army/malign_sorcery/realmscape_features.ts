@@ -71,7 +71,7 @@ const RealmscapeFeatures: IEffects[] = [
   },
   {
     name: `Steel Rain (Chamon)`,
-    desc: `Roll a dice. On a 6+, pick an enemy unit that is not in cover. Roll a dice for each model in that unit. Inflict 1 mortal wound for each roll that is less than the unit's`,
+    desc: `Roll a dice. On a 6+, pick an enemy unit that is not in cover. Roll a dice for each model in that unit. Inflict 1 mortal wound for each roll that is less than the unit's.`,
     when: [START_OF_HERO_PHASE],
   },
   {

@@ -5,7 +5,7 @@ import { IEffects } from 'types/data'
 const Abilities: IEffects[] = [
   {
     name: `Aura of Dread`,
-    desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly NIGHTHAUNT units`,
+    desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly NIGHTHAUNT units.`,
     when: [BATTLESHOCK_PHASE],
   },
   {

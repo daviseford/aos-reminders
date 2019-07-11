@@ -26,7 +26,7 @@ export const Units: TUnits = [
       },
       {
         name: `Kunnin'`,
-        desc: `Wound rolls of 4 or more inflict 1D3 mortal wounds if the target is a Wizard instead of their normal damage`,
+        desc: `Wound rolls of 4 or more inflict 1D3 mortal wounds if the target is a Wizard instead of their normal damage.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -114,7 +114,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Power of the Waaagh!!`,
-        desc: `Add 1 to a Weirdnob Shaman's casting or unbinding rolls if there are 10 or more Orruk models within 10". Add 2 to the roll instead if there are 20 or more Orruk models within 10". However, if the casting or unbinding roll was a double, then the closest other friendly Orruk unit within 10" of the Weirdnob Shaman suffers 1D3 mortal wounds`,
+        desc: `Add 1 to a Weirdnob Shaman's casting or unbinding rolls if there are 10 or more Orruk models within 10". Add 2 to the roll instead if there are 20 or more Orruk models within 10". However, if the casting or unbinding roll was a double, then the closest other friendly Orruk unit within 10" of the Weirdnob Shaman suffers 1D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

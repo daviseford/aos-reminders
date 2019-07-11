@@ -189,7 +189,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
@@ -209,7 +209,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
