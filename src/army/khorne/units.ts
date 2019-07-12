@@ -625,7 +625,7 @@ export const Units: TUnits = [
       },
       {
         name: `Call of the Hunt`,
-        desc: `Once per game, if Karanak is within 8" of his quarry during your hero phase, you can set up a unit of Flesh Hounds anywhere within 8" of Karanak. This unit is added to your army but cannot move in the following movement phase.`,
+        desc: `Once per game, if Karanak is within 8" of his quarry during your hero phase, you can summon a unit of 5 Flesh Hounds anywhere wholly within 8" of Karanak. The summoned unit cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
