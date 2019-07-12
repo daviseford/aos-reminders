@@ -19,10 +19,10 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           name: effect.name,
           desc: effect.desc,
           tag: effect.tag || '',
-          ability: effect.ability || false,
+          allegiance_ability: effect.allegiance_ability || false,
           artifact: effect.artifact || entry.artifact || false,
-          command: effect.command || false,
-          trait: entry.trait || false,
+          command_ability: effect.command || false,
+          command_trait: entry.command_ability || false,
         })
       })
     })

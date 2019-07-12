@@ -9,6 +9,8 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   HERO_PHASE,
+  START_OF_HERO_PHASE,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
@@ -19,7 +21,7 @@ const CommandTraits: TCommandTraits = [
         name: `Devour the Craven`,
         desc: `If an enemy unit fails a battleshock test within 3" of any friendly REAPERS OF VENGEANCE DAEMON units, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
-        ability: true,
+        allegiance_ability: true,
       },
       {
         name: `Leave None Alive`,
@@ -41,12 +43,34 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: ``,
+    name: `The Bloodlords`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Slay the Mighty`,
+        desc: `You can re-roll wound rolls of 1 for attacks made by friendly BLOODLORDS DAEMON units that target a HERO or MONSTER.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        allegiance_ability: true
+      },
+      {
+        name: `First in His Sight`,
+        desc: `You can use this command ability at the start of the hero phase. If you do so, pick a friendly model with this command ability. You can heal 1 wound allocated to each friendly BLOODLORDS DAEMON unit wholly within 16" of that model.`,
+        when: [START_OF_HERO_PHASE],
+        command: true
+      },
+      {
+        name: `Slaughterer's Thirst`,
+        desc: `Add 4" to the Move characteristic of this general.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Slaughterer's Thirst`,
+        desc: `You can re-roll charge rolls for this general.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Halo of Blood`,
+        desc: `The bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

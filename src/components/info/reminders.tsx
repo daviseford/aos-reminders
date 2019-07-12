@@ -50,21 +50,21 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   )
 }
 
-const getTitle = ({ ability, artifact, condition, name, trait, command }: ITurnAction): string => {
+const getTitle = ({ allegiance_ability, artifact, condition, name, command_trait, command_ability }: ITurnAction): string => {
   if (artifact) return `Artifact${name === condition ? `` : `: ${condition}`}`
-  if (ability || command) return condition
-  if (trait) return `Command Trait`
+  if (allegiance_ability || command_ability) return condition
+  if (command_trait) return `Command Trait`
   return condition
 }
 
 const ActionText = (props: ITurnAction) => {
-  const { name, desc, command, tag } = props
+  const { name, desc, command_ability, tag } = props
   return (
     <>
       <p className="ReminderEntry mb-2">
         <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
         <b>
-          {command && `Command Ability: `}
+          {command_ability && `Command Ability: `}
           {name && `${name}`}
           {tag && ` (${tag})`}
         </b>

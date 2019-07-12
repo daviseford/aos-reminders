@@ -5,7 +5,7 @@ export interface IEntry {
   name: string
   effects: IEffects[]
   artifact?: boolean
-  trait?: boolean
+  command_ability?: boolean
 }
 
 export type TArtifacts = IEntry[]

@@ -5,7 +5,7 @@ export interface IEffects {
   name: string
   desc: string
   when: TTurnWhen[]
-  ability?: boolean
+  allegiance_ability?: boolean
   artifact?: boolean
   command?: boolean
   tag?: string

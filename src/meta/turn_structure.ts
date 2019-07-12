@@ -5,10 +5,10 @@ export interface ITurnAction {
   desc: string
   name?: string
   tag?: string
-  ability?: boolean
+  allegiance_ability?: boolean
   artifact?: boolean
-  command?: boolean
-  trait?: boolean
+  command_ability?: boolean
+  command_trait?: boolean
 }
 
 export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }
