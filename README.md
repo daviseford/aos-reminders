@@ -66,6 +66,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 I have set this repository up to automatically take care of some chores when you push a commit.
 
-1. Any special punctuation characters such as `‘`, `’` `“`, and `”` are removed and replaced with `'` or `"`.
+1. Any special punctuation characters such as `‘`, `’`, `“`, and `”` are removed and replaced with `'` or `"`.
 2. Any leading or trailing whitespace is removed from any `name` or `desc` entries.
-3. Finally, we use `pretty-quick` to format the code according to the repository standards.
+3. Periods are added to the end of descriptions if they are missing.
+4. Finally, we use `pretty-quick` to format the code according to the repository standards.

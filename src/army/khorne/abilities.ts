@@ -1,16 +1,36 @@
-import { HERO_PHASE, DURING_GAME, START_OF_HERO_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  END_OF_ROUND,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
+} from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
   {
-    name: `Blood for the Blood God!`,
-    desc: `A KHORNE army generates Blood Tithe points during the course of each battle; the controlling player must keep a record of how many points their army accrues. A Blood Tithe point is generated each time a unit belonging to either player is wiped out. The maximum number of Blood Tithe points an army can have at any one time is 8; any additional points generated are lost.`,
-    when: [DURING_GAME],
+    name: `Skull Altar`,
+    desc: `After territories have been chosen but before armies have been set up, you can set up the SKULL ALTAR for your army. The SKULL ALTAR must be set up wholly within your territory and more than 1" from any other terrain features. If both players can set up any terrain features before armies are set up, they must roll off, and the winner chooses who sets up their terrain features first.`,
+    when: [START_OF_SETUP],
+  },
+  {
+    name: `Skull Altar`,
+    desc: `You can re-roll prayer and judgement rolls for friendly KHORNE PRIESTS wholly within 8" of this model.`,
+    when: [HERO_PHASE],
+    tag: `Words of Hate`,
+  },
+  {
+    name: `Skull Altar`,
+    desc: `Subtract 1 from casting rolls for WIZARDS while they are within 16" of this model.`,
+    when: [HERO_PHASE],
+    tag: `Witchbane`,
   },
   {
     name: `Blood for the Blood God!`,
-    desc: `Blood Tithe points can be expended at the start of either player's hero phase, but only once per phase. To do so, pick one reward on the Blood Tithe table that has a value equal to or less than your current number of Blood Tithe points and immediately resolve its effects. When one or more Blood Tithe points are expended, any remaining points are lost, though more points can be generated later in the game as normal.`,
+    desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase. If you choose a reward, after resolving its effects your Blood Tithe points total is reset to zero.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -22,8 +42,23 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Blood Blessings of Khorne`,
-    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing in each of your hero phases in addition to any prayers they may know. To do so, roll a dice, adding 1 to the result if the priest slew any enemy models in the previous turn. If the result is 4+, the effect takes place. If the result is 1, the priest suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
+    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Locus of Fury`,
+    desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHORNE DAEMON units while they are wholly within 12" of any friendly KHORNE DAEMON HEROES, or wholly within 16" of any friendly KHORNE GREATER DAEMONS.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `Judgements of Khorne`,
+    desc: `At the end of each battle round, roll a dice for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield.`,
+    when: [END_OF_ROUND],
+  },
+  {
+    name: `Judgements of Khorne`,
+    desc: `At the start of your hero phase, friendly KHORNE PRIESTS can attempt to perform judgements.`,
+    when: [START_OF_HERO_PHASE],
   },
 ]
 

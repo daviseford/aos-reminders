@@ -253,7 +253,7 @@ export const Battalions: TBattalions = [
         name: `Give Them No Respite`,
         desc: `You can use this command ability in your hero phase if the Akhelian King from this battalion is your general, and the Isharann Tidecaster and Isharann Soulscryer from this battalion are within 3" of the general. If you do so, pick up to three friendly IDONETH DEEPKIN units that are wholly within 12" of your general. Add 3" to the Move characteristic of the units you pick until your next hero phase.`,
         when: [HERO_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
