@@ -1,4 +1,4 @@
-import { HERO_PHASE, START_OF_HERO_PHASE, END_OF_MOVEMENT_PHASE, COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { START_OF_HERO_PHASE, END_OF_MOVEMENT_PHASE, COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -17,8 +17,8 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Blood Blessings of Khorne`,
-    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing in each of your hero phases in addition to any prayers they may know. To do so, roll a dice, adding 1 to the result if the priest slew any enemy models in the previous turn. If the result is 4+, the effect takes place. If the result is 1, the priest suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
+    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases.`,
+    when: [START_OF_HERO_PHASE],
   },
   {
     name: `Locus of Fury`,
