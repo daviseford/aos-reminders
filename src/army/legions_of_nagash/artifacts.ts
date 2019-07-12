@@ -8,6 +8,7 @@ import {
   START_OF_SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   SHOOTING_PHASE,
+  DURING_GAME,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
