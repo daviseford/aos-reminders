@@ -15,7 +15,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Arch-slaughterer`,
-        desc: `You generate one additional Blood Tithe point each time your general slays an enemy HERO or MONSTER`,
+        desc: `You generate one additional Blood Tithe point each time your general slays an enemy HERO or MONSTER.`,
         when: [DURING_GAME],
       },
     ],

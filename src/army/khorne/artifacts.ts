@@ -36,7 +36,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blood Drinker`,
-        desc: `At the end of any combat phase in which the bearer inflicts any unsaved wounds or mortal wounds with this weapon, they immediately heal one wound lost earlier in the battle`,
+        desc: `At the end of any combat phase in which the bearer inflicts any unsaved wounds or mortal wounds with this weapon, they immediately heal one wound lost earlier in the battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -56,7 +56,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crimson Plate`,
-        desc: `You can re-roll save rolls of 1 for the bearer`,
+        desc: `You can re-roll save rolls of 1 for the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

@@ -50,7 +50,7 @@ export const Units: TUnits = [
 
       {
         name: `Call of the Skull Throne`,
-        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can re-roll charge rolls for friendly Khorne units while they are wholly within 12" of this model in that charge phase`,
+        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can re-roll charge rolls for friendly Khorne units while they are wholly within 12" of this model in that charge phase.`,
         when: [START_OF_CHARGE_PHASE],
         command: true,
       },
@@ -211,7 +211,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gorefists`,
-        desc: `Each time you make a successful save roll for a unit that contains any models carrying Gorefists, and the attacking unit is within 1" of this unit, roll a dice. For each roll of a 6, the attacking unit suffers 1 mortal wound after all of its attacks have been made`,
+        desc: `Each time you make a successful save roll for a unit that contains any models carrying Gorefists, and the attacking unit is within 1" of this unit, roll a dice. For each roll of a 6, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -236,7 +236,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Favoured by Khorne`,
-        desc: `Add 1 to the Bravery of all MORTAL KHORNE units in your army that are within 6" of this model`,
+        desc: `Add 1 to the Bravery of all MORTAL KHORNE units in your army that are within 6" of this model.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -357,7 +357,7 @@ export const Units: TUnits = [
       },
       {
         name: `Outrageous Carnage`,
-        desc: `If the wound roll for a Great Axe of Khorne is 6 or more, each enemy unit within 8" of the Bloodthirster suffers a number of mortal wounds. The number of mortal wounds suffered is shown in the damage table`,
+        desc: `If the wound roll for a Great Axe of Khorne is 6 or more, each enemy unit within 8" of the Bloodthirster suffers a number of mortal wounds. The number of mortal wounds suffered is shown in the damage table.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -421,7 +421,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Skarbrand's Rage`,
-        desc: `In each of your hero phases, look on Skarbrand's damage table to see his current level of rage. If Skarbrand was not able to attack in at least one of the combat phases of the previous battle round, he is always Incandescent, regardless of the wounds he has remaining. Skarbrand can use his rage to fuel one or more of the following abilities`,
+        desc: `In each of your hero phases, look on Skarbrand's damage table to see his current level of rage. If Skarbrand was not able to attack in at least one of the combat phases of the previous battle round, he is always Incandescent, regardless of the wounds he has remaining. Skarbrand can use his rage to fuel one or more of the following abilities.`,
         when: [HERO_PHASE],
       },
       {
@@ -527,7 +527,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Gaze of Khorne`,
-        desc: `MORTAL KHORNE units within 12" of Valkia the Bloody, can re-roll battleshock tests, but if any models flee after the re-roll, a further D3 from that unit are slain`,
+        desc: `MORTAL KHORNE units within 12" of Valkia the Bloody, can re-roll battleshock tests, but if any models flee after the re-roll, a further D3 from that unit are slain.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -685,7 +685,7 @@ export const Units: TUnits = [
       },
       {
         name: `Murderous Charge`,
-        desc: `If this unit completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds; if this unit includes 6 or more models, the target unit suffers D6 mortal wounds instead`,
+        desc: `If this unit completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds; if this unit includes 6 or more models, the target unit suffers D6 mortal wounds instead.`,
         when: [END_OF_CHARGE_PHASE],
       },
       {
@@ -1079,7 +1079,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Prey Upon the Wounded`,
-        desc: `In each of your hero phases, you can make a shooting attack with any Skull Cannons from a Skullseeker Host that are within 8" of a KHORNE HERO from the same battalion. After resolving any attacks made in this manner, any other units in the same Skullseeker Host can immediately attempt to charge any units that suffered any unsaved wounds from these attacks, and can attack as described in Giant Killers if the unit they charge is a MONSTER`,
+        desc: `In each of your hero phases, you can make a shooting attack with any Skull Cannons from a Skullseeker Host that are within 8" of a KHORNE HERO from the same battalion. After resolving any attacks made in this manner, any other units in the same Skullseeker Host can immediately attempt to charge any units that suffered any unsaved wounds from these attacks, and can attack as described in Giant Killers if the unit they charge is a MONSTER.`,
         when: [HERO_PHASE],
       },
     ],
