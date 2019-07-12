@@ -8,6 +8,8 @@ import {
   DURING_SETUP,
   START_OF_MOVEMENT_PHASE,
   END_OF_MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 import { IEffects } from 'types/data'
 
