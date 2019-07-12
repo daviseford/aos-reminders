@@ -353,18 +353,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Rage Unbound`,
-        desc: `You can re-roll hit rolls of 1 for this model's Great Axe of Khorne if it charged this turn.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Outrageous Carnage`,
-        desc: `If the wound roll for a Great Axe of Khorne is 6 or more, each enemy unit within 8" of the Bloodthirster suffers a number of mortal wounds. The number of mortal wounds suffered is shown in the damage table.`,
+        desc: `If the unmodified wound roll for an attack made by this model is 6, each enemy unit within 8" of this model suffers the number of mortal wounds shown on the damage table above, in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Bloodthirsty Charge`,
-        desc: `If a Bloodthirster of Insensate Rage uses this ability, then in your next charge phase, you can re-roll the dice when determining the charge distance for any KHORNE DAEMON units within 8"`,
-        when: [CHARGE_PHASE],
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly KHORNE DAEMON units wholly within 16" of that model when the charge roll is made.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -374,19 +374,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drawn in for the Kill`,
-        desc: `If a Bloodthirster of Unfettered Fury hits an enemy HERO or MONSTER with its Lash of Khorne but does not kill it, roll a dice at the end of the shooting phase and move the model that many inches directly towards the Bloodthirster. The model can be moved to within 3" of the Bloodthirster.`,
-        when: [END_OF_SHOOTING_PHASE],
+        desc: `At the start of the enemy movement phase, pick 1 enemy unit within 3" of this model. That unit cannot retreat in that phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
       {
         name: `The Land Rebels`,
-        desc: `At the
-        beginning of your hero phase, roll a dice for each enemy unit within 8". On a 6, that unit suffers a mortal wound and halves its Move until your next hero phase.`,
+        desc: `At the start of your hero phase, roll 1 dice for each enemy unit wholly within 8" of any units with this ability. On a 5+ that unit suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Rejoice in the Slaughter`,
-        desc: `If a Bloodthirster of Unfettered Fury uses this ability, then until your next hero phase KHORNE DAEMON units within 8" of this model when they pile in can move up to 6" instead of 3".`,
-        when: [CHARGE_PHASE],
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that combat phase friendly KHORNE DAEMON units wholly within 16" of that model are eligible to fight in that combat phase if they are within 6" of an enemy unit instead of 3", and can move an extra 3" when they pile in.`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -396,23 +395,28 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hellfire Breath`,
-        desc: `In the shooting phase, pick a unit within range that is visible to the Bloodthirster; that unit suffers D3 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with Hellfire Breath. Instead, pick an enemy unit that is in range of the attack and roll a dice. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Relentless Hunters`,
-        desc: `You can re-roll any failed hit rolls for attacks made by this model against HEROES or MONSTERS.`,
+        desc: `You can re-roll hit rolls for attacks made by this model that target a HERO or MONSTER`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Rune-crown of Khorne`,
-        desc: `A Wrath of Khorne Bloodthirster can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard. Add 2 to the result of any unbinding rolls made for it.`,
+        desc: `This model can attempt to unbind one spell in the enemy hero phase as if it were a WIZARD. In addition, add 2 to unbinding rolls for this model`,
         when: [HERO_PHASE],
       },
       {
+        name: `Rune-crown of Khorne`,
+        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Lord of the Blood Hunt`,
-        desc: `If a Wrath of Khorne Bloodthirster uses this ability, select a unit of KHORNE DAEMONS within 16". Until your next hero phase, that unit can run and charge in the same turn and you can add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly KHORNE DAEMON unit wholly within 16" of a friendly model with this command ability. Until the end of the phase you can re-roll hit rolls for attacks made by that unit.`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -421,14 +425,24 @@ export const Units: TUnits = [
     name: `Skarbrand`,
     effects: [
       {
+        name: `Roar of Total Rage`,
+        desc: `Do not use the attack sequence for an attack made with the Roar of Total Rage. Instead, pick 1 enemy unit that is in range of the attack and roll the number of dice shown on the damage table above. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [ SHOOTING_PHASE],
+      },
+      {
         name: `Skarbrand's Rage`,
-        desc: `In each of your hero phases, look on Skarbrand's damage table to see his current level of rage. If Skarbrand was not able to attack in at least one of the combat phases of the previous battle round, he is always Incandescent, regardless of the wounds he has remaining. Skarbrand can use his rage to fuel one or more of the following abilities.`,
-        when: [HERO_PHASE],
+        desc: `From the second battle round, if this model is on the battlefield and did not attack in at least one of the combat phases of the previous battle round, when you look up a value on this model’s damage table the model is treated as having suffered 13 wounds.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Total Carnage`,
-        desc: `Roll a dice each time Skarbrand hits a target with the axe Carnage; if the roll is greater than or equal to the result shown in the damage table, the hit has caused total carnage. Pick a model in the target unit; that model immediately suffers 8 wounds. No saves of any kind can be taken against total carnage, and abilities that would prevent or reduce the damage of an attack are ignored. If the roll is less than the result shown in the table, the hit inflicts one mortal wound on the target unit instead.`,
+        desc: `Do not use the attack sequence for an attack made with Carnage. Instead, roll a dice. The target unit suffers 8 mortal wounds if the roll is equal to or greater than the Carnage value shown on the damage table above. If the roll is 6, the target unit suffers 16 mortal wounds instead.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Inescapable Wrath`,
+        desc: `You can re-roll charge rolls for this model.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -437,18 +451,24 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cloak of Skulls`,
-        desc: `You can re-roll failed save rolls for Skulltaker.`,
+        desc: `You can re-roll save rolls for attacks that target this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Decapitating Strike`,
-        desc: `If the hit roll for the Slayer Sword is 6+, that blow inflicts 3 mortal wounds instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with the Slayer Sword is 6, that attack inflicts 3 mortal wounds on the target in addition to any normal damage`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Skulls for Khorne`,
-        desc: `You can re-roll all failed hit and wound rolls when Skulltaker targets a HERO.`,
+        name: `Heroes' Bane`,
+        desc: `You can re-roll hit and wound rolls for attacks made by this model that target a HERO.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Heads Must Roll`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly BLOODLETTERS unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, you can re-roll wound rolls of 1 for attacks made by that unit.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true
       },
     ],
   },
@@ -615,18 +635,28 @@ export const Units: TUnits = [
     name: `Karanak`,
     effects: [
       {
+        name: `Unflagging Hunter`,
+        desc: `You can re-roll charge rolls for this model`,
+        when: [CHARGE_PHASE],
+      },
+      {
         name: `Brass Collar of Bloody Vengeance`,
-        desc: `Karanak can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard. If he successfully unbinds a spell, the caster immediately suffers D3 mortal wounds.`,
+        desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. If this model successfully unbinds a spell, the caster suffers D3 mortal wounds`,
         when: [HERO_PHASE],
       },
       {
+        name: `Brass Collar of Bloody Vengeance`,
+        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD. If this model successfully dispels an endless spell, the caster suffers D3 mortal wounds`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Prey of the Blood God`,
-        desc: `After set-up is complete, you can pick one HERO to be Karanak's quarry. You can re-roll failed hit and wound rolls for Karanak when he attacks this model.`,
+        desc: `After armies are set up, but before the first battle round begins, pick 1 enemy HERO to be this model’s quarry. You can re-roll hit and wound rolls for attacks made by this model that target that HERO.`,
         when: [END_OF_SETUP, COMBAT_PHASE],
       },
       {
         name: `Call of the Hunt`,
-        desc: `Once per game, if Karanak is within 8" of his quarry during your hero phase, you can summon a unit of 5 Flesh Hounds anywhere wholly within 8" of Karanak and more than 9" from any enemy unit. The summoned unit cannot move in the following movement phase.`,
+        desc: `Once per game, during the hero phase, you can summon 1 unit of 5 Flesh Hounds to the battlefield and add it to your army if this model is within 8" of its quarry (see Prey of the Blood God, left). The summoned unit must be set up wholly within 8" of this model and more than 9" from any enemy units. The summoned unit cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -701,18 +731,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Collars of Khorne`,
-        desc: `This unit can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard. Add 1 to the unbinding roll if the unit contains 10 or more models.`,
+        desc: `This unit can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. Add 1 to unbinding rolls for this unit while it contains 10 or more models.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Tireless Hunters`,
-        desc: `You can re-roll failed charge rolls for this unit.`,
+        name: `Collars of Khorne`,
+        desc: `This unit can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD. Add 1 to dispelling rolls for this unit while it contains 10 or more models.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Unflagging Hunters`,
+        desc: `You can re-roll charge rolls for this unit.`,
         when: [CHARGE_PHASE],
-      },
-      {
-        name: `Locus of Abjuration`,
-        desc: `You can re-roll failed unbinding attempts for this unit if it is within 8" of a DAEMON HERO of KHORNE from your army.`,
-        when: [HERO_PHASE],
       },
     ],
   },
