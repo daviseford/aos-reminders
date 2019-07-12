@@ -12,420 +12,360 @@ import {
 
 const Artifacts: TArtifacts = [
   {
-    name: `Deathforged Chain`,
+    name: `Deathforged Chain (Artefacts of Nagash)`,
     effects: [
       {
-        name: `Deathforged Chain`,
+        name: `Deathforged Chain (Artefacts of Nagash)`,
         desc: `The bearer heals 1 wound at start of hero phase`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: `Balefire Lantern`,
+    name: `Balefire Lantern (Artefacts of Nagash)`,
     effects: [
       {
-        name: `Balefire Lantern`,
+        name: `Balefire Lantern (Artefacts of Nagash)`,
         desc: `-1 to wound rolls for enemy units within 6" of the bearer. In addition, re-roll successful casting rolls for enemy WIZARDS within 6" of the bearer`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Grave-sand Timeglass`,
+    name: `Grave-sand Timeglass (Artefacts of Nagash)`,
     effects: [
       {
-        name: `Grave-sand Timeglass`,
+        name: `Grave-sand Timeglass (Artefacts of Nagash)`,
+        desc: `Once per battle, whilst the bearer is on the battlefield, pick an enemy HERO on the battlefield. They suffer d3 mortal wounds. At the start of each of your subsequent hero phases, on a 4+ they suffer a mortal wound`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ossific Diadem (Artefacts of Nagash)`,
+    effects: [
+      {
+        name: `Ossific Diadem (Artefacts of Nagash)`,
+        desc: `Roll a dice every time you allocate a wound or mortal wound to a friendly DEATHRATTLE unit within 12" of the bearer. On a 6+ it's negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Amethyst Shard (Artefacts of Nagash)`,
+    effects: [
+      {
+        name: `Amethyst Shard (Artefacts of Nagash)`,
+        desc: `Once per battle, pick one of the bearers melee weapons. Until your next hero phase, +1 to hit and wound for that weapon`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Terrorgheist Mantle (Artefacts of Nagash)`,
+    effects: [
+      {
+        name: `Terrorgheist Mantle (Artefacts of Nagash)`,
+        desc: `Pick an enemy unit within 10" of the bearer and roll 2 dice. If the total is higher than the enemy unit's bravery characteristic, it suffers a number of mortal wounds equal to the difference.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `(Artefacts of Sacrament)`,
+    effects: [
+      {
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Sacrament)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Sacrament)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Sacrament)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Sacrament)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Sacrament)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Sacrament)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Blood)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Blood)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Night)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Night)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: ``,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: ``,
+    name: `(Soulblight Artefacts)`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
+        name: `(Soulblight Artefacts)`,
         desc: ``,
         when: [],
       },
