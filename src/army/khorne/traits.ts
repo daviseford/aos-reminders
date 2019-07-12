@@ -71,26 +71,63 @@ const CommandTraits: TCommandTraits = [
         name: `Halo of Blood`,
         desc: `The bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
+        artifact: true
       },
     ],
   },
   {
-    name: ``,
+    name: `The Goretide`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Tireless Conquerors`,
+        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly GORETIDE MORTAL units wholly within 12" of an objective marker.`,
+        when: [COMBAT_PHASE],
+        allegiance_ability: true
+      },
+      {
+        name: `Ever Onwards`,
+        desc: `You can use this command ability before you make a run roll for 1 friendly GORETIDE BLOODREAVERS or GORETIDE BLOOD WARRIORS unit wholly within 16" of a friendly model with this command ability. If you do so, that run roll is treated as being 6. In addition, that unit can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE],
+        command_ability: true
+      },
+      {
+        name: `Hew the Foe`,
+        desc: `Add 1 to the Damage characteristic of this general’s melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Thronebreaker's Torc`,
+        desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target this model.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        artifact: true
       },
     ],
   },
   {
-    name: ``,
+    name: `The Skullfiend Tribe`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Skull Hunters`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKULLFIEND TRIBE MORTAL units that are wholly within 12" of an enemy HERO.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        allegiance_ability: true
+      },
+      {
+        name: `For the Brass Citadel`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can re-roll hit and wound rolls for attacks made by friendly SKULLFIEND TRIBE KHORGORATH units wholly within 10" of that model.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true
+      },
+      {
+        name: `Master Decapitator`,
+        desc: `You receive 2 Blood Tithe points instead of 1 when this general slays a HERO.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Crowncleaver`,
+        desc: `Pick one of the bearer’s melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
+        when: [COMBAT_PHASE],
+        artifact: true
       },
     ],
   },
