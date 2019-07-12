@@ -1,11 +1,11 @@
 import {
-  START_OF_HERO_PHASE,
-  END_OF_MOVEMENT_PHASE,
   COMBAT_PHASE,
-  SHOOTING_PHASE,
+  END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
-  START_OF_SETUP,
   HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 import { IEffects } from 'types/data'
 
