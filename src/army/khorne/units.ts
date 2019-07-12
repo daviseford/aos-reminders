@@ -295,7 +295,7 @@ export const Units: TUnits = [
       },
       {
         name: `Crimson Haze`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units while they are wholly within 8" of any units with this ability. This ability has no effect on Wrathmongers`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units while they are wholly within 8" of any units with this ability. This ability has no effect on Wrathmongers.`,
         when: [COMBAT_PHASE],
       },
     ],
