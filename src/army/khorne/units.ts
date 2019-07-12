@@ -50,8 +50,8 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Goretide`,
-        desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability that is a general. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly GORETIDE units wholly within 16" of that model.`,
-        when: [START_OF_CHARGE_PHASE],
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability that is a general. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly GORETIDE units wholly within 16" of that model.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -295,8 +295,8 @@ export const Units: TUnits = [
       },
       {
         name: `Crimson Haze`,
-        desc: `Add 1 to the Attacks characteristic of KHORNE units while they are wholly within 8" of any units with this ability. This ability has no effect on WRATHMONGERS.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units while they are wholly within 8" of any units with this ability. This ability has no effect on Wrathmongers`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -400,7 +400,7 @@ export const Units: TUnits = [
       },
       {
         name: `Slaughter Incarnate`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE MORTAL units while they are wholly within 12" of that model. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE MORTAL units while they are wholly within 12" of that model. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -985,7 +985,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Skulls for the Skull Throne`,
-        desc: `When units from this battalion use their Decapitating Blow ability, it inflicts a mortal wound on an unmodified wound roll of 5+ instead of 6.`,
+        desc: `When units from this battalion use their Decapitating Blow ability, it inflicts a mortal wound on an unmodified hit roll of 5+ instead of 6.`,
         when: [COMBAT_PHASE],
       },
     ],
