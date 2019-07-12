@@ -41,7 +41,7 @@ export const processReminders: TProcessReminders = (army, factionName, selection
         condition: `${titleCase(factionName)} Allegiance`,
         allegiance_ability: true,
         tag: a.tag || ``,
-        command_ability: a.command || false,
+        command_ability: a.command_ability || false,
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]

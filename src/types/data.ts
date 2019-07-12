@@ -7,7 +7,7 @@ export interface IEffects {
   when: TTurnWhen[]
   allegiance_ability?: boolean
   artifact?: boolean
-  command?: boolean
+  command_ability?: boolean
   tag?: string
 }
 

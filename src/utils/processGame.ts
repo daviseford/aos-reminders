@@ -21,7 +21,7 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           tag: effect.tag || '',
           allegiance_ability: effect.allegiance_ability || false,
           artifact: effect.artifact || entry.artifact || false,
-          command_ability: effect.command || false,
+          command_ability: effect.command_ability || false,
           command_trait: entry.command_ability || false,
         })
       })
