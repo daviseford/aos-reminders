@@ -5,6 +5,7 @@ export interface IEffects {
   name: string
   desc: string
   when: TTurnWhen[]
+  artifact?: boolean
   command?: boolean
   tag?: string
 }

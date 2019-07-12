@@ -7,9 +7,68 @@ import {
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  HERO_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
+  {
+    name: `Reapers of Vengeance`,
+    effects: [
+      {
+        name: `Devour the Craven`,
+        desc: `If an enemy unit fails a battleshock test within 3" of any friendly REAPERS OF VENGEANCE DAEMON units, add D3 to the number of models that flee.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Leave None Alive`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly REAPERS OF VENGEANCE DAEMON unit wholly within 8" of a friendly DAEMON model with this command ability. After that unit has fought in the combat phase for the first time, if it is within 3" of an enemy unit it can immediately make a pile-in move and then attack with all of the melee weapons it is armed with for a second time.`,
+        when: [START_OF_COMBAT_PHASE],
+        command: true
+      },
+      {
+        name: `Mage Eater`,
+        desc: `This general can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. In addition, if this general attempts to unbind a spell and the unmodified unbinding roll is 8, that spell is successfully unbound and the caster suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Skullshard Mantle`,
+        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a dice. If you do so, on a 2+ ignore the effects of that spell on the bearer.`,
+        when: [HERO_PHASE],
+        artifact: true
+      },
+    ]
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ]
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ]
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      }
+    ]
+  },
   {
     name: `Arch-slaughterer`,
     effects: [
