@@ -965,21 +965,6 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Council of Blood`,
-    effects: [
-      {
-        name: `Fierce Rivals`,
-        desc: `In each of your hero phases, pick one BLOODTHIRSTER from the Council of Blood to pile in and make attacks. If that BLOODTHIRSTER kills an enemy HERO or MONSTER, or wipes out a unit in doing so, you can immediately pick another BLOODTHIRSTER from the Council of Blood to pile in and make attacks with. You can continue to do this until either each model in the battalion has attacked once in this manner, or one of them fails to slay an enemy HERO or MONSTER, or wipe out a unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lords of Battle`,
-        desc: `Each BLOODTHIRSTER from a Council of Blood can use the command ability on its warscroll in each of your hero phases, even if they are not your army's general.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Daemon Legion of Khorne`,
     effects: [
       {
