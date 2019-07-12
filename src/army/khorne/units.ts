@@ -8,7 +8,6 @@ import {
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_SETUP,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -18,10 +17,46 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
+  END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
+  {
+name: `Korghos Khul`,
+effects: [
+  {
+    name: `Favoured of Khorne`,
+    desc: `You can re-roll hit rolls for attacks made by this model.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Aqshy's Bane`,
+    desc: `This model is eligible to fight in the combat phase if it is within 8" of an enemy unit instead of 3", and can move an extra 5" when it piles in.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Collar of Khorne`,
+    desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Collar of Khorne`,
+    desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Reality-splitting Axe`,
+    desc: `At the end of any phase, if any wounds inflicted by this model’s Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a dice. On a 5+ that enemy model is slain.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Lord of the Goretide`,
+    desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability that is a general. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly GORETIDE units wholly within 16" of that model.`,
+    when: [START_OF_CHARGE_PHASE],
+  },
+]
+  },
   {
     name: `Skaarac the Bloodborn`,
     effects: [
@@ -62,13 +97,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Horrific Predator`,
-        desc: `If this unit inflicts damage on one or more enemy units in the combat phase, then you must subtract 1 from the Bravery of all enemy units within 12" of this unit in the battleshock phase of the same turn.`,
+        desc: `Add 1 to battleshock rolls for units that had any models slain by attacks made by KHORGORATHS in the same turn.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Taker of Heads`,
-        desc: `If the attacks made by this unit in the combat phase result in one or more enemy models being slain, then you can heal 1 wound suffered by a model from this unit.`,
-        when: [COMBAT_PHASE],
+        desc: `At the end of the combat phase, if any enemy models were slain by this unit’s attacks in that combat phase, you can heal 1 wound allocated to this unit.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -77,63 +112,43 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brass Collar of Khorne`,
-        desc: `The Brass Collar of Khorne embedded into Scyla's neck allows him to attempt to unbind one spell in each enemy hero phase in the same manner as a wizard.`,
+        desc: `This model can attempt to unbind one spell in the enemy hero phase as if it were a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
+        name: `Brass Collar of Khorne`,
+        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Raging Fury`,
-        desc: `When you roll to see how many attacks Scyla makes with his Brutal Fists, add 1 to the result for each wound he has suffered.`,
+        desc: `When rolling to determine the Attacks characteristic of this model’s Brutal Fists, add 1 to the roll for each wound allocated to this model that was not negated and has not been healed.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Bestial Leap`,
-        desc: `When Scyla piles in, he can move up to 6" and can move over enemy models. Furthermore, he does not have to move towards the closest enemy model, as long as he ends his move within 2" of more enemy models than before he piled in.`,
-        when: [CHARGE_PHASE],
+        desc: `This model is eligible to fight in the combat phase if it is within 8" of an enemy unit instead of 3", and can move an extra 5" when it piles in.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Mighty Skull Crushers`,
+    name: `Mighty SkullCrushers`,
     effects: [
       {
         name: `Hornblower`,
-        desc: `If the unit includes one or more Hornblowers, add 1 to its run and charge rolls.`,
+        desc: `Add 1 to run and charge rolls made for this unit while it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Standard Bearer`,
-        desc: `If the unit includes one or more Standard Bearers, add 1 to the Bravery of all its models. After this unit has slain an enemy model, add 3 to their Bravery instead.`,
+        desc: `Add 2 to the Bravery characteristic of this unit while it includes any Standard Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Brass-clad Shield`,
-        desc: `If this unit suffers any wounds or mortal wounds as the result of a spell, roll a dice. If the result is 4 or more, the wounds or mortal wounds are ignored.`,
-        when: [HERO_PHASE],
-      },
-      {
         name: `Murderous Charge`,
-        desc: `If this unit completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds; if this unit includes 6 or more models, the target unit suffers D6 mortal wounds instead.`,
-        when: [END_OF_CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Wrathmongers`,
-    effects: [
-      {
-        name: `Wraith-flails`,
-        desc: `Add 1 to any hit rolls made for a model attacking with Wrath-flails if that model charged in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Crimson Haze`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units while they are wholly within 8" of any units with this ability. This ability has no effect on Wrathmongers.'`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Bloodfury`,
-        desc: `Each time a Wrathmonger is slain in the combat phase, you can choose an enemy model that is within 2" of the slain model. Immediately attack with the enemy model you chose as though it was part of your army. The model can attack its own unit, and even itself! No enemy model can be chosen in this way more than once in a phase.`,
-        when: [COMBAT_PHASE],
+        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -142,17 +157,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `If the unit includes one or more Icon Bearers, add 1 to the Bravery of all its models.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Add 1 to charge rolls for this unit while it includes any Icon Bearers.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Trial of Skulls`,
-        desc: `Keep a running total of the number of enemy models slain by this unit's attacks. If the running total is greater than the number of models in this unit, you can re-roll failed hit rolls for this unit. If the running total is at least double the number of models, you can also re-roll failed wound rolls.`,
+        desc: `You can re-roll hit rolls for attacks made by this unit if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Daemonforged Weapons`,
-        desc: `When a model attacks with a Daemonblade or Soultearer, and the hit roll is 6 or higher, the target suffers a mortal wound in addition to any other damage. If the wound roll is a 1, the attacking unit suffers a mortal wound instead!`,
+        desc: `If the unmodified hit roll for an attack made with this unit’s Gore-slick Blades, Daemonblades, Spinecleavers and Soultearers is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage`,
         when: [COMBAT_PHASE],
       },
       {
@@ -162,7 +177,12 @@ export const Units: TUnits = [
       },
       {
         name: `Murderous to the Last`,
-        desc: `Roll a dice immediately after any model from this unit is slain in the combat phase. If the result is 4 or 5, the attacking unit suffers a mortal wound; if it is 6, the attacking unit suffers D3 mortal wounds instead.`,
+        desc: `Do not take battleshock tests for this unit`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Murderous to the Last`,
+        desc: `Roll a dice each time a model from this unit is slain by an attack made with a melee weapon, before that model is removed from play. On a 5+ pick 1 enemy unit within 1" of the slain model. That unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -172,23 +192,113 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `If the unit includes one or more Icon Bearers, add 1 to the Bravery of all its models.`,
+        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `If the unit includes one or more Hornblowers, add 1 to its run and charge rolls.`,
+        desc: `Add 1 to run and charge rolls for this unit while it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Frenzied Devotion`,
-        desc: `If this unit is within 12" of a CHAOS TOTEM from your army when it is selected to attack, then all models in this unit make 2 attacks rather than 1, and the Chieftain makes 3 attacks rather than 2.`,
+        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons while this unit is wholly within 16" of any friendly KHORNE TOTEMS.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Reaver Blades`,
-        desc: `You can re-roll hit rolls of 1 for models armed with Reaver Blades.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with Reaver Blades`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Garrek's Reavers`,
+    effects: [
+      {
+        name: `Garrek Gorebeard`,
+        desc: `If the unmodified hit roll for an attack made with Garrek Gorebeard’s Blooddrinker Axe is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Grisly Trophies`,
+        desc: `Do not take a battleshock test for this unit if any enemy models were slain by attacks made by this unit’s Garrek Gorebeard earlier in the same turn.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Frenzied Devotion`,
+        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons while this unit is wholly within 16" of any friendly KHORNE TOTEMS.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Reaver Blades`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with Reaver Blades`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Magore's Fiends`,
+    effects: [
+      {
+        name: `Magore Redhand`,
+        desc: `You can re-roll hit rolls for attacks made by this unit that target STORMCAST ETERNAL units while this unit includes Magore Redhand.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `No Respite`,
+        desc: `If a model from this unit is slain in the combat phase, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Blood Scent`,
+        desc: `You can re-roll charge rolls for this unit while it is wholly within 8" of a friendly RIPTOOTH model.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Gorefists`,
+        desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Riptooth`,
+    effects: [
+      {
+        name: `Collar of Khorne`,
+        desc: `This unit can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Collar of Khorne`,
+        desc: `This unit can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Unflagging Hunter`,
+        desc: `You can re-roll charge rolls for this model.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wrathmongers`,
+    effects: [
+      {
+        name: `Furious Assault`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Bloodfury`,
+        desc: `If a model in this unit is slain, before it is removed from play roll a dice for each enemy unit within 1" of that model. Add 1 to the dice roll if 2 or more models from that enemy unit are within 1" of the slain model. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound after all of its attacks have been resolved. On a 6+ that enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Crimson Haze`,
+        desc: `Add 1 to the Attacks characteristic of KHORNE units while they are wholly within 8" of any units with this ability. This ability has no effect on WRATHMONGERS.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -197,23 +307,23 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `If the unit includes any Icon Bearers, add 1 to the Bravery of all its models.`,
+        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `No Respite`,
-        desc: `If a model from this unit is slain in the combat phase, you can make a pile in move and then attack with the model before you remove it.`,
+        desc: `If a model from this unit is slain in the combat phase, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Goreaxes`,
-        desc: `You can re-roll hit rolls of 1 for models armed with more than one Goreaxe.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Goreaxes.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Gorefists`,
-        desc: `Each time you make a successful save roll for a unit that contains any models carrying Gorefists, and the attacking unit is within 1" of this unit, roll a dice. For each roll of a 6, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -222,13 +332,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Whipped to Fury`,
-        desc: `In your hero phase, pick one KHORNE unit from your army within 12" of this model.`,
-        when: [HERO_PHASE],
+        desc: `At the start of your movement phase, you can pick 1 other friendly KHORNE MORTAL unit wholly within 8" of this model. Until your next movement phase, you can add 3" to run and charge rolls made for that unit.`,
+        when: [START_OF_MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Whipped to Fury`,
-        desc: `Until your next hero phase, you can add 3" to all run or charge rolls for a unit that has been whipped to fury, and can re-roll wound rolls of 1 for models in that unit.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
+        desc: `Until your next movement phase you can re-roll wound rolls for attacks made by a unit that has been "Whipped to Fury". A unit cannot be picked to benefit from this ability more than once per turn.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -237,13 +347,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Favoured by Khorne`,
-        desc: `Add 1 to the Bravery of all MORTAL KHORNE units in your army that are within 6" of this model.`,
+        desc: `Add 1 to the Bravery characteristic of friendly KHORNE MORTAL units wholly within 12" of any friendly models with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Altar of Skulls`,
-        desc: `If a HERO or MONSTER is slain by the Skullgrinder's Brazen Anvil, the Skullgrinder and all MORTAL KHORNE units in your army within 8" are blood-blessed for the rest of the battle. If a hit roll for an attack made by a blood-blessed model is 4 or higher, make two wound rolls rather than one.`,
-        when: [COMBAT_PHASE],
+        name: `Fiery Anvil`,
+        desc: `At the end of the combat phase, you can pick 1 enemy HERO or MONSTER within 2" of this model and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -252,12 +362,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Scorn of Sorcery`,
-        desc: `This model can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard.`,
+        desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD`,
         when: [HERO_PHASE],
       },
       {
+        name: `Scorn of Sorcery`,
+        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Bloodfuelled Prayers`,
-        desc: `In your hero phase, a Slaughterpriest can pray to Khorne for aid. Pick one of the prayers on the warscroll, then roll a dice, adding 1 to the result if the Slaughterpriest slew any enemy models in the previous turn. If the result is 4 or higher, the effect takes place. If the result is 1, this Slaughterpriest suffers D3 mortal wounds.`,
+        desc: `In your hero phase, this model can chant one of the prayers on this unit's warscroll. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers D3 mortal wounds and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered.`,
         when: [HERO_PHASE],
       },
     ],
@@ -278,17 +393,17 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Aspiring Deathbringer with Goreaxe and Skullhammer`,
+    name: `Aspiring Deathbringer`,
     effects: [
       {
         name: `Bane of Cowards`,
-        desc: `If any enemy models flee within 8" of this Aspiring Deathbringer in the battleshock phase, this model can, at the end of that phase, pile in and attack as if it were the combat phase.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
+        desc: `If an enemy unit fails a battleshock test within 3" of this model, add D3 to the number of models that flee.`,
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Slaughter Incarnate`,
-        desc: `If this model uses this ability, then until your next hero phase you can add 1 to the Attacks characteristic of all melee weapons used by MORTAL KHORNE units in your army while they are within 6" of this model. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [COMBAT_PHASE],
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE MORTAL units while they are wholly within 12" of that model. You cannot pick the same unit to benefit from this command ability more than once per hero phase`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -298,23 +413,23 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brass-clad Shield`,
-        desc: `If this model suffers any wounds or mortal wounds as the result of a spell, roll a dice. If the result is 4 or more, the wounds are ignored.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Murderous Charge`,
-        desc: `If this model completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds.`,
-        when: [END_OF_CHARGE_PHASE],
+        name: `Slaughterous Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Daemonic Axe`,
-        desc: `If the wound roll for an attack made with the Wrathforged Axe is 6 or more, the attack inflicts 3 wounds rather than D3.`,
+        desc: `If the unmodified wound roll for an attack made by this model’s Wrathforged Axe is 6, the Damage characteristic for that attack is 3 instead of D3.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Blood Stampede`,
-        desc: `If this model uses this ability, pick up to 3 MORTAL KHORNE units within 24" of him. Until your next hero phase, add 1 to the wound rolls made in the combat phase for this model and any units you picked, as long as they charged in the same turn.`,
-        when: [COMBAT_PHASE],
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick up to 3 friendly KHORNE MORTAL units that made a charge move in that turn and are wholly within 16" of a model with this command ability. You can re-roll wound rolls of 1 for attacks made by those units in that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -323,27 +438,33 @@ export const Units: TUnits = [
     name: `Bloodsecrator`,
     effects: [
       {
-        name: `Portal of Skulls`,
-        desc: ` In your hero phase, you can declare that this model opens the Portal of Skulls. If you do, until your next hero phase you may not move the model, but it has the following abilities:
-        
-        Loathsome Sorcery: Both sides must re-roll successful casting rolls for wizards within 18" of this model, before any unbinding rolls are made.
-        
-        Rage of Khorne: This ability affects all KHORNE units in your army within 18" of this model at the start of the combat phase. When they attack, add 1 to the Attacks characteristic of all melee weapons used by units affected by the Rage of Khorne. In addition, players do not have to take battleshock tests for any KHORNE units within 18" of this model.`,
+        name: `Loathsome Sorcery`,
+        desc: `Re-roll successful casting rolls for WIZARDS within 16" of this model, before any unbinding rolls are made.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Tage of Khorne`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE units while they are wholly within 16" of any models with this ability.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Blood Throne`,
+    name: `Herald of Khorne on Blood Throne`,
     effects: [
       {
+        name: `The Blood Throne`,
+        desc: `When this model uses the At the Double, Forward to Victory or Inspiring Presence command ability, the ability has a range of 12" even if this model is not a general.`,
+        when: [DURING_GAME],
+      },
+      {
         name: `Gorefeast`,
-        desc: `The Blood Throne heals a wound at the end of the combat phase for each wound that was inflicted by its Gnashing Maw.`,
+        desc: `If any wounds are inflicted by this model’s Gnashing Maw and not negated, you can heal up to D3 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Blade of Blood or a Hellblade is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Blade of Blood or Hellblades is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -477,12 +598,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Blood Must Flow`,
-        desc: `After a Bloodmaster attacks in the combat phase, you can pick another BLOODLETTER unit within 8". That unit can immediately pile in and attack if it is within 3" of the enemy and has not already attacked this phase.`,
+        desc: `In the combat phase, after this unit has fought in that combat phase for the first time, you can pick 1 friendly BLOODLETTER unit that is wholly within 12" of this model and is within 3" of an enemy unit, and which has not yet fought in that combat phase. The unit you pick must fight immediately, instead of being picked to fight later in that combat phase.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Blade of Blood is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Blade of Blood is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -492,18 +613,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Slaughter and Ruin`,
-        desc: `You can re-roll all failed hit rolls for this model if it charged in the same turn.`,
+        desc: `You can re-roll hit rolls for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Blade of Blood is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Blade of Blood is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Murderous Charge`,
-        desc: `If this model completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds.`,
-        when: [END_OF_CHARGE_PHASE],
+        name: `Slaughterous Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -512,18 +633,23 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Collar of Khorne`,
-        desc: `This model may attempt to unbind one spell in each enemy hero phase in the same manner as a wizard.`,
+        desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
+        name: `Collar of Khorne`,
+        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Reality-splitting Axe`,
-        desc: `After a Mighty Lord of Khorne has made all of his attacks with his Axe of Khorne in the combat phase, roll a dice for each enemy model that suffered one or more wounds as a result of those attacks but was not slain. On a roll of 5 or more, the model being rolled for is slain.`,
-        when: [COMBAT_PHASE],
+        desc: `At the end of any phase, if any wounds inflicted by the Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a dice. On a 5+ that enemy model is slain`,
+        when: [DURING_GAME],
       },
       {
         name: `Gorelord`,
-        desc: `If this model uses this ability, pick up to 3 MORTAL KHORNE units in your army within 24" of this model in your hero phase. Until your next hero phase, when you make charge rolls for this model or any of the units you picked, roll 3 dice rather than 2 dice, and use the 2 dice with the highest rolls to determine the charge move of the unit being rolled for.`,
-        when: [CHARGE_PHASE],
+        desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly KHORNE MORTAL units wholly within 16" of that model when the charge roll is made.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -533,13 +659,19 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Slaughterborn`,
-        desc: `After Skarr Bloodwrath has been slain, roll a dice at the start of each battleshock phase if at least 8 models have been slain during the turn. On a roll of 4 or more, set up Skarr Bloodwrath anywhere on the battlefield more than 9" from the enemy.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
+        desc: `At the end of the movement phase, if this model has been slain, roll 2D6. On an 8+ you can set up this model anywhere on the battlefield more than 9" from any enemy units, with all wounds allocated to it removed.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Slaughterstorm`,
-        desc: `Skarr Bloodwrath can make a slaughterstorm attack instead of attacking normally. To do so, select a target unit and make one attack against it for each model that is within range. Repeat this for each enemy unit that is within range of the Bloodstorm Blades.`,
+        desc: `The Attacks characteristic of this model’s Bloodstorm Blades is either 5, or equal to the number of enemy models within 3" of this model when the number of attacks made with the weapon is determined (whichever is higher).`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Murderous Paragon`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly WRATHMONGERS unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if a model from that unit is slain, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true
       },
     ],
   },
@@ -548,18 +680,24 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Gaze of Khorne`,
-        desc: `MORTAL KHORNE units within 12" of Valkia the Bloody, can re-roll battleshock tests, but if any models flee after the re-roll, a further D3 from that unit are slain.`,
+        desc: `You can re-roll battleshock tests for friendly KHORNE MORTAL units wholly within 16" of this model. However, if you do so and that unit still fails the battleshock test after the re-roll has been made, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `The Spear Slaupnir`,
-        desc: `Slaupnir's Damage characteristic is D3 rather than 1 if Valkia charged in the same turn.`,
+        desc: `Slaupnir has a Damage characteristic of D3 instead of 1 if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Daemonshield`,
-        desc: `Subtract 1 from any wound rolls for attacks that target Valkia the Bloody in the combat phase.`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target this model.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `On Bloodstained Wings`,
+        desc: `You can use this command ability in the hero phase. If you do so, pick 1 enemy unit that can fly and is within 16" of a friendly model with this command ability. Until the end of that turn, subtract 1 from hit rolls for attacks made by that unit. You cannot pick the same unit to benefit from this command ability more than once per hero phase`,
+        when: [HERO_PHASE],
+        command_ability: true
       },
     ],
   },
@@ -589,44 +727,28 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blooded Lieutenant`,
-        desc: `If this model is not your general, he makes 2 additional attacks whilst he is within 12" of a KHORNE general.`,
+        desc: `If this model is not your general, add 2 to the Attacks characteristic of this model’s melee weapons while it is wholly within 12" of a friendly KHORNE general.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Runemarked Shield`,
-        desc: `If an Exalted Deathbringer carrying a Runemarked Shield suffers any wounds or mortal wounds as the result of a spell, roll a dice. If the result is 2 or more, the wounds are ignored.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a model armed with a Runemarked Shield that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
         name: `Skullgouger`,
-        desc: `Each time you make a save roll of 6 or more in the combat phase for an Exalted Deathbringer with a Skullgouger,he inflicts D3 mortal wounds on the attacking unit.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Brutal Command`,
-        desc: `If this model uses this ability, all MORTAL KHORNE units in your army within 12" of the Exalted Deathbringer can use his Bravery characteristic instead of their own until your next hero phase. If there is a unit from your army within 1" of the Exalted Deathbringer when he uses this ability, you can inflict D3 mortal wounds on that unit to increase its range from 12" to 24".`,
-        when: [BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
-    ],
-  },
-  {
-    name: `Exalted Deathbringer with Impaling Spear`,
-    effects: [
-      {
-        name: `Blooded Lieutenant`,
-        desc: `If this model is not your general, he makes 2 additional attacks whilst he is within 12" of a KHORNE general.`,
+        desc: `In the combat phase, if the unmodified save roll for an attack that targets a model armed with a Skullgouger is 6, the attacking unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Brutal Impalement`,
-        desc: `Roll a dice when an enemy HERO is wounded by an Impaling Spear but not slain; on a 1, 2 or 3 nothing happens, but on a 4, 5 or 6 the HERO suffers a mortal wound. Continue to repeat this process until you either fail to inflict a mortal wound or the enemy HERO is slain.`,
+        desc: `If the unmodified wound roll for an attack made with an Impaling Spear is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Brutal Command`,
-        desc: `If this model uses this ability, all MORTAL KHORNE units in your army within 12" of the Exalted Deathbringer can use his Bravery characteristic instead of their own until your next hero phase. If there is a unit from your army within 1" of the Exalted Deathbringer when he uses this ability, you can inflict D3 mortal wounds on that unit to increase its range from 12" to 24".`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you do not have to take battleshock tests for friendly KHORNE MORTAL units that are wholly within 18" of that model.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
         command_ability: true,
       },
     ],
@@ -666,32 +788,27 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hornblower`,
-        desc: `Your opponent must re-roll battleshock tests of 1 for units that are within 6" of any Hornblowers.`,
+        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be re-rolled.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Hellblade is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Hellblade is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Gore-drenched Icon`,
-        desc: `If you roll a 1 when making a battleshock test for a unit that includes any Goredrenched Icons, add D6 Bloodletters to the unit.`,
+        desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Gore-drenched Icon Bearers, you can add D6 models to this unit, and no models from this unit will flee in that phase`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Bloodsoaked Banner`,
-        desc: `Each time a unit containing any Bloodsoaked Banners slays a HERO, add 1 to any charge rolls you make for it for the rest of the battle.`,
+        desc: `You can re-roll charge rolls for this unit while it includes any Bloodsoaked Banner Bearers.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Locus of Fury`,
-        desc: `You can re-roll hit rolls of 1 for this unit if there is a DAEMON HERO of KHORNE from your army within 8".`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Murderous Tide`,
-        desc: `You can add 1 to hit rolls made for a Bloodletter if its unit contains 20 or more models.`,
+        desc: `You can add 1 to hit rolls for attacks made by this unit while this unit has at least 20 models.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -701,28 +818,23 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `If you roll a 1 when making a battleshock test for a unit that includes any Icon Bearers, add D6 Bloodletters to the unit.`,
+        desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add 1 model to this unit, and no models from this unit will flee in that phase.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Your opponent must re-roll battleshock tests of 1 for units that are within 6" of any Hornblowers.`,
+        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be re-rolled.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Hellblade is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Hellblade is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Murderous Charge`,
-        desc: `If this unit completes a charge move, then at the end of the charge phase, roll a dice for each enemy unit within 1". On a roll of 4 or more that unit suffers D3 mortal wounds; if this unit includes 6 or more models, the target unit suffers D6 mortal wounds instead.`,
-        when: [END_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Locus of Wrath`,
-        desc: `You can re-roll all failed hit rolls for this unit if it charged this turn and there is a DAEMON HERO of KHORNE from your army within 8".`,
-        when: [COMBAT_PHASE],
+        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -750,18 +862,18 @@ export const Units: TUnits = [
     name: `Skull Cannons`,
     effects: [
       {
-        name: `Skull Cannon`,
-        desc: `When a Skull Cannon shoots a Burning Skull, add 1 to the hit roll if the target contains 10 or more models.`,
+        name: `Burning Skulls`,
+        desc: `Add 1 to hit rolls for attacks made with this unit’s Burning Skulls if the target unit contains 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Grind their Bones, Seize their Skulls`,
-        desc: `If the Skull Cannon's Gnashing Maw causes any wounds in the combat phase, at the end of that phase you can make a Burning Skull attack as though it were your shooting phase.`,
-        when: [END_OF_COMBAT_PHASE],
+        desc: `After this unit attacks for the first time in each combat phase, if any enemy models were slain by this unit’s attacks, this unit can attack with all of the missile weapons it is armed with.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Decapitating Blow`,
-        desc: `If the hit roll for a Hellblade is 6 or more, that blow inflicts a mortal wound instead of its normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with Hellblades is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
