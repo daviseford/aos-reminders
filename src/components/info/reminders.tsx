@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react'
 import './reminders.css'
-import { ITurnAction } from 'meta/turn_structure'
-import { TSupportedFaction } from 'meta/factions'
+import PrintButton from 'components/print/button'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import PrintButton from 'components/print/button'
+import { TSupportedFaction } from 'meta/factions'
+import { ITurnAction } from 'types/data'
 
 interface IRemindersProps {
   army: IArmy
@@ -50,7 +50,14 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   )
 }
 
-const getTitle = ({ allegiance_ability, artifact, condition, name, command_trait, command_ability }: ITurnAction): string => {
+const getTitle = ({
+  allegiance_ability,
+  artifact,
+  condition,
+  name,
+  command_trait,
+  command_ability,
+}: ITurnAction): string => {
   if (artifact) return `Artifact${name === condition ? `` : `: ${condition}`}`
   if (allegiance_ability || command_ability) return condition
   if (command_trait) return `Command Trait`

@@ -1,6 +1,6 @@
 import { TBattalions, TArtifacts, TUnits } from 'types/army'
 import { addToGame } from './addToGame'
-import { TGameStructure, Game } from 'meta/turn_structure'
+import { TGameStructure, Game } from 'meta/game_structure'
 
 type entries = TBattalions | TArtifacts | TUnits
 
