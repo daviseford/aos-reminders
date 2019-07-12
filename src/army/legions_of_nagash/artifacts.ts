@@ -9,6 +9,7 @@ import {
   START_OF_HERO_PHASE,
   SHOOTING_PHASE,
   DURING_GAME,
+  DURING_TURN,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -73,32 +74,32 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `(Artefacts of Sacrament)`,
+    name: `Spirit Cage (Artefacts of Sacrament)`,
     effects: [
       {
-        name: `(Artefacts of Sacrament)`,
-        desc: ``,
-        when: [],
+        name: `Spirit Cage (Artefacts of Sacrament)`,
+        desc: `Whenever an enemy HERO is slain within 6" of the bearer, add 1 to wound rolls for friendly DEATH units until the end of the turn.`,
+        when: [DURING_TURN],
       },
     ],
   },
   {
-    name: `(Artefacts of Sacrament)`,
+    name: `Shroud of Darkness (Artefacts of Sacrament)`,
     effects: [
       {
-        name: `(Artefacts of Sacrament)`,
-        desc: ``,
-        when: [],
+        name: `Shroud of Darkness (Artefacts of Sacrament)`,
+        desc: `Subtract 1 to hit rolls for attacks targeting the bearer in the shooting phase if attacker is within 8". If attacker is more than 8" away, subtract 2 instead.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Sacrament)`,
+    name: `Asylumaticae (Artefacts of Sacrament)`,
     effects: [
       {
-        name: `(Artefacts of Sacrament)`,
-        desc: ``,
-        when: [],
+        name: `Asylumaticae (Artefacts of Sacrament)`,
+        desc: `Once per battle, in your hero phase, roll a dice. On a 1 the bearer suffers a mortal wound. On a 2+ each enemy unit within 12" of the bearer suffers 1 mortal wound`,
+        when: [HERO_PHASE],
       },
     ],
   },

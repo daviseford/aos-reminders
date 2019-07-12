@@ -17,8 +17,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Chosen Guardians (Grand Host of Nagash)`,
-        desc: `Add 1 attack to all melee weapons used by GRAND HOST OF NAGASH MORGHAST units`,
-        when: [DURING_GAME],
+        desc: `Add 1 to the Attacks characteristic of all melee weapons used by GRAND HOST OF NAGASH MORGHAST units.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -27,7 +27,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Legions Innumerable (Grand Host of Nagash)`,
-        desc: `Roll a dice for each friendly GRAND HOST OF NAGASH SUMMONABLE unit, on a 5+ heal d3 wounds. If no wounds are allocated, return a number of models with a combined wounds characteristic of d3 or less.`,
+        desc: `In your hero phase, you may roll a dice for each friendly GRAND HOST OF NAGASH SUMMONABLE unit on the battlefield. On a 5+ you can heal up to D3 wounds that have been allocated to it. For units with a Wounds characteristic of 1, return 1 slain model to the unit for each wound that would have been healed.`,
         when: [HERO_PHASE],
       },
     ],
@@ -37,8 +37,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Magic (Grand Host of Nagash)`,
-        desc: `All WIZARDS in a GRAND HOST OF NAGASH army know an additional spell from the Lores of the Dead. Nagash knows an additional three`,
-        when: [DURING_GAME],
+        desc: `All WIZARDS in a GRAND HOST OF NAGASH army know an additional spell from one of the Lores of the Dead. If Nagash is included in the army, he instead knows an additional 3 spells from the Lores of the Dead.`,
+        when: [DURING_SETUP],
       },
     ],
   },
@@ -47,8 +47,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Magic (Legion of Sacrament, Blood or Night)`,
-        desc: `All WIZARDS know an additional spell from the Lores of the Dead.`,
-        when: [DURING_GAME],
+        desc: `All WIZARDS know an additional spell from one of the Lores of the Dead.`,
+        when: [DURING_SETUP],
       },
     ],
   },
@@ -58,7 +58,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Magic (Soulblight)`,
         desc: `All WIZARDS in a SOULBLIGHT army know an additional spell from Lore of the Vampires`,
-        when: [DURING_GAME],
+        when: [DURING_SETUP],
       },
     ],
   },
@@ -68,16 +68,17 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Aura of Grief (Legion of Grief)`,
         desc: `Subtract 1 from the Bravery Characteristic of enemy units when they are within 6" of any LEGION OF GRIEF units`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   {
-    name: `The Master's Teachings (Legin of Sacrament)`,
+    name: `The Master's Teachings (Legion of Sacrament)`,
     effects: [
       {
         name: `The Master's Teachings (Legin of Sacrament)`,
-        desc: `When an enemy unit is destroyed, before the last model is removed, pick a gravesite within 6". On a 4+ you may return a destroyed friendly SUMMONABLE unit to the battlefield within 9" of the gravesite and more than 9" from enemy models.`,
+        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a dice, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.
+`,
         when: [DURING_GAME],
       },
     ],
@@ -87,7 +88,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Black Desciples (Legion of Sacrament)`,
-        desc: `Friendly LEGION OF SACRAMENT wizards get +1 to cast.`,
+        desc: `Friendly LEGION OF SACRAMENT WIZARDS may add 1 to casting rolls.`,
         when: [HERO_PHASE],
       },
     ],
@@ -97,8 +98,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Immortal Majesty (Legion of Blood)`,
-        desc: `Enemy Units -1 Bravery within 6" of any LEGION OF BLOOD units.`,
-        when: [DURING_GAME],
+        desc: `Subtract 1 from the Bravery characteristic of enemy units within 6" of any friendly LEGION OF BLOOD units.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -107,7 +108,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Favoured Retainers (Legion of Blood)`,
-        desc: `+1 Attack for all melee weapons used by friendly LEGION OF BLOOD VAMPIRE LORDS and LEGION OF BLOOD BLOOD KNIGHTS`,
+        desc: `Add 1 to the Attacks characteristic of all melee weapons used by friendly LEGION OF BLOOD VAMPIRE LORDS and LEGION OF BLOOD Blood Knights.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -127,7 +128,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Ageless Cunning (Legion of Night)`,
-        desc: `Instead of deploying a unit, you can set it up in ambush. Up to three units. At the end of any movement phase you can set them up wholly within 6" of any battlefield edge and more than 9" away from enemy models`,
+        desc: `Instead of setting up a LEGION OF NIGHT unit on the battlefield, you can place it to one side and say that it is set up in ambush. You can do this with up to 3 units.\n\nAt the end of any of your movement phases, you can set up any of the units in ambush wholly within 6" of any battlefield edge and more than 9" away from any enemy models.`,
         when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -137,8 +138,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Deathless Thralls (Soulblight)`,
-        desc: `Friendly SOULBLIGHT units within 6" of a SOULBLIGHT HERO or your general negate wounds or mortal wounds on a 6+`,
-        when: [DURING_GAME],
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -147,7 +148,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Bloodlines: Dragon Warriors (Soulblight)`,
-        desc: `Friendly SOULBLIGHT units reroll hit rolls of 1 if they charged in the same turn.`,
+        desc: `You can re-roll hit rolls of 1 for models that have the Dragon Warriors bloodline if they charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -157,8 +158,8 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Bloodlines: Lords of Night (Soulblight)`,
-        desc: `Friendly SOULBLIGHT units benefit from Deathless Thralls even if they're not within 6" of a SOULBLIGHT HERO.`,
-        when: [DURING_GAME],
+        desc: `Models with the Lords of Night bloodline receive the benefit of the Deathless Thralls battle trait even if they are not within 6" of the general or another friendly SOULBLIGHT HERO.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -167,7 +168,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Bloodlines: Necromantic (Soulblight)`,
-        desc: `+1 to casting and unbinding for Necromantic Bloodline WIZARDS. In addition, -1 bravery for enemy units within 6" of any models with the Necromantic Bloodline`,
+        desc: `Add 1 to casting and unbinding rolls for WIZARDS with the Necromantic bloodline. In addition, subtract 1 from the Bravery characteristic of enemy units that are within 6" of one or more models with the Necromantic bloodline.`,
         when: [HERO_PHASE, DURING_GAME],
       },
     ],
@@ -177,7 +178,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Bloodlines: Swift Death (Soulblight)`,
-        desc: `Add 2" to movement for all models with Swift Death Bloodline. In addition, all Swift Death models move as if they had Fly`,
+        desc: `Add 2" to the Move characteristic of all models that have the Swift Death bloodline. In addition, Swift Death models can always move as if they can fly.`,
         when: [MOVEMENT_PHASE],
       },
     ],

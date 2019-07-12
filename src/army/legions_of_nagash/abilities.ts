@@ -17,22 +17,22 @@ import { IEffects } from 'types/data'
 const Abilities: IEffects[] = [
   {
     name: `Deathless Minions`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or a friendly DEATH HERO. On a 6+, that wound or mortal wound is negated.`,
-    when: [DURING_GAME],
+    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,
+    when: [COMBAT_PHASE],
   },
   {
     name: `The Unquiet Dead`,
-    desc: `After territories are determined, but before deployment, you may set up up to four gravesites. Two in your territory, two anywhere. When deploying a unit you may say it is set up In The Grave instead. You can do this as many times as you wish. At the end of any movement phase a DEATH HERO within 9" of a gravesite can set up a unit from In The Grave. Set it up wholly within 9" of the gravesite, more than 9" from enemy models.`,
+    desc: `After territories have been determined, but before any units have been set up, you may pick up to 2 points in your territory and up to 2 points anywhere on the battlefield to be gravesites. You may wish to place suitable markers on these points. Instead of setting up a SUMMONABLE unit on the battlefield, you can place it to one side and say that it is set up in the grave. You can do this with as many units as you wish. \n\nAt the end of your movement phase, for each DEATH HERO within 9" of a gravesite, you may pick a single unit in the grave and set it up wholly within 9" of that gravesite and more than 9" from any enemy models. Any model that is unable to be set up in this way is slain. If a unit is still in the grave at the end of the battle, it is considered to be slain.`,
     when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
   },
   {
     name: `Invigorating Aura`,
-    desc: `Gravesites have the following ability. Pick a friendly SUMMONABLE unit within 9" of this gravesite. Heal d3 wounds to it, or if no wounds are allocated you can return a number of models with a combined wounds characteristic of d3 or less.`,
+    desc: `At the start of your hero phase, pick a friendly SUMMONABLE unit within 9" of this gravesite. You can either heal D3 wounds that have been allocated to it or, if no wounds are currently allocated to the unit, you may return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
     when: [START_OF_HERO_PHASE],
   },
   {
     name: `Endless Legions`,
-    desc: `Pick a gravesite within 9" of your general. You may return a destroyed friendly SUMMONABLE unit to the battlefield within 9" of the gravesite and more than 9" from enemy models.`,
+    desc: `If your general uses this ability, choose a gravesite within 9" of them. You may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
     when: [END_OF_MOVEMENT_PHASE],
     command: true,
   },
