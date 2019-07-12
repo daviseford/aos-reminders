@@ -24,7 +24,7 @@ const CommandTraits: TCommandTraits = [
         name: `Leave None Alive`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly REAPERS OF VENGEANCE DAEMON unit wholly within 8" of a friendly DAEMON model with this command ability. After that unit has fought in the combat phase for the first time, if it is within 3" of an enemy unit it can immediately make a pile-in move and then attack with all of the melee weapons it is armed with for a second time.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true
+        command: true,
       },
       {
         name: `Mage Eater`,
@@ -35,9 +35,9 @@ const CommandTraits: TCommandTraits = [
         name: `Skullshard Mantle`,
         desc: `Each time the bearer is affected by a spell or endless spell, you can roll a dice. If you do so, on a 2+ ignore the effects of that spell on the bearer.`,
         when: [HERO_PHASE],
-        artifact: true
+        artifact: true,
       },
-    ]
+    ],
   },
   {
     name: ``,
@@ -47,7 +47,7 @@ const CommandTraits: TCommandTraits = [
         desc: ``,
         when: [],
       },
-    ]
+    ],
   },
   {
     name: ``,
@@ -57,7 +57,7 @@ const CommandTraits: TCommandTraits = [
         desc: ``,
         when: [],
       },
-    ]
+    ],
   },
   {
     name: ``,
@@ -66,8 +66,8 @@ const CommandTraits: TCommandTraits = [
         name: ``,
         desc: ``,
         when: [],
-      }
-    ]
+      },
+    ],
   },
   {
     name: `Arch-slaughterer`,
@@ -84,7 +84,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Unrivalled Battlelust`,
-        desc: `At the end of your opponent’s charge phase, if this general is within 12" of any enemy units (but not within 3" of any enemy units), you can attempt to make a charge move with this general.`,
+        desc: `At the end of your opponent's charge phase, if this general is within 12" of any enemy units (but not within 3" of any enemy units), you can attempt to make a charge move with this general.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -104,7 +104,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Mark of the Cannibal (Bloodbound)`,
-        desc: `At the end of the combat phase, if any enemy models were slain by this general’s attacks in that combat phase, you can heal 1 wound allocated to this general.`,
+        desc: `At the end of the combat phase, if any enemy models were slain by this general's attacks in that combat phase, you can heal 1 wound allocated to this general.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -114,7 +114,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Bloodsworn (Bloodbound)`,
-        desc: `While friendly KHORNE MORTAL units are wholly within 16" of this general, they can use this general’s Bravery characteristic instead of their own.`,
+        desc: `While friendly KHORNE MORTAL units are wholly within 16" of this general, they can use this general's Bravery characteristic instead of their own.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -134,7 +134,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Rage Unchained (Daemon)`,
-        desc: `Add 1 to the Attacks characteristic of this general’s melee weapons.`,
+        desc: `Add 1 to the Attacks characteristic of this general's melee weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -154,7 +154,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Devastating Blow (Daemon)`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this general is 6, that attack inflicts a number of mortal wounds on the target equal to that melee weapon’s Damage characteristic and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this general is 6, that attack inflicts a number of mortal wounds on the target equal to that melee weapon's Damage characteristic and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
     ],

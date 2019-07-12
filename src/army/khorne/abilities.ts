@@ -1,4 +1,12 @@
-import { START_OF_HERO_PHASE, END_OF_MOVEMENT_PHASE, COMBAT_PHASE, SHOOTING_PHASE, END_OF_ROUND, START_OF_SETUP, HERO_PHASE } from 'types/phases'
+import {
+  START_OF_HERO_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  COMBAT_PHASE,
+  SHOOTING_PHASE,
+  END_OF_ROUND,
+  START_OF_SETUP,
+  HERO_PHASE,
+} from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -12,17 +20,17 @@ const Abilities: IEffects[] = [
     name: `Skull Altar`,
     desc: `You can re-roll prayer and judgement rolls for friendly KHORNE PRIESTS wholly within 8" of this model.`,
     when: [HERO_PHASE],
-    tag: `Words of Hate`
+    tag: `Words of Hate`,
   },
   {
     name: `Skull Altar`,
     desc: `Subtract 1 from casting rolls for WIZARDS while they are within 16" of this model.`,
     when: [HERO_PHASE],
-    tag: `Witchbane`
+    tag: `Witchbane`,
   },
   {
     name: `Blood for the Blood God!`,
-    desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward’s effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase. If you choose a reward, after resolving its effects your Blood Tithe points total is reset to zero.`,
+    desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase. If you choose a reward, after resolving its effects your Blood Tithe points total is reset to zero.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -45,8 +53,8 @@ const Abilities: IEffects[] = [
   {
     name: `Judgements of Khorne`,
     desc: `At the end of each battle round, roll a dice for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield.`,
-    when: [END_OF_ROUND]
-  }
+    when: [END_OF_ROUND],
+  },
 ]
 
 export default Abilities

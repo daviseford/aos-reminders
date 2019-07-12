@@ -63,7 +63,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crimson Plate`,
-        desc: `You can re-roll save rolls of 1 for attacks that target the bearer`,
+        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -113,7 +113,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Skull-helm of Khorne`,
-        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 8" of the bearer`,
+        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 8" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -148,7 +148,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Endless Bloodshed`,
-        desc: `Pick 1 of the bearer’s melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Pick 1 of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -158,7 +158,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Destroyer`,
-        desc: `Pick 1 of the bearer’s melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -168,7 +168,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Talisman of Burning Blood`,
-        desc: `Add 1 to run rolls for friendly KHORNE units wholly within 12" of the bearer when the run roll is made`,
+        desc: `Add 1 to run rolls for friendly KHORNE units wholly within 12" of the bearer when the run roll is made.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -183,7 +183,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `A'rgath, the King of Blades`,
-        desc: `Pick 1 of the bearer’s melee weapons. Change the To Hit characteristic of that weapon for attacks that target a HERO to 2+.`,
+        desc: `Pick 1 of the bearer's melee weapons. Change the To Hit characteristic of that weapon for attacks that target a HERO to 2+.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -193,7 +193,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Deathdealer`,
-        desc: `Pick 1 of the bearer’s melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Pick 1 of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -203,7 +203,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Khartoth the Bloodhunger`,
-        desc: `At the start of the combat phase roll a dice. On a 4+ the bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once`,
+        desc: `At the start of the combat phase roll a dice. On a 4+ the bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -213,7 +213,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Hellfire Blade`,
-        desc: `Pick 1 of the bearer’s melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -233,7 +233,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Behemoth's Bane`,
-        desc: `Pick 1 of the bearer’s melee weapons. Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -273,7 +273,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Collar of Khorne`,
-        desc: `The bearer can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD`,
+        desc: `The bearer can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
