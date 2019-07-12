@@ -19,7 +19,8 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           name: effect.name,
           desc: effect.desc,
           tag: effect.tag || '',
-          artifact: entry.artifact || false,
+          ability: effect.ability || false,
+          artifact: effect.artifact || entry.artifact || false,
           command: effect.command || false,
           trait: entry.trait || false,
         })

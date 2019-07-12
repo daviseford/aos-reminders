@@ -5,6 +5,7 @@ export interface ITurnAction {
   desc: string
   name?: string
   tag?: string
+  ability?: boolean
   artifact?: boolean
   command?: boolean
   trait?: boolean

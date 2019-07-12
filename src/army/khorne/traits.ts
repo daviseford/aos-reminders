@@ -19,6 +19,7 @@ const CommandTraits: TCommandTraits = [
         name: `Devour the Craven`,
         desc: `If an enemy unit fails a battleshock test within 3" of any friendly REAPERS OF VENGEANCE DAEMON units, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
+        ability: true,
       },
       {
         name: `Leave None Alive`,

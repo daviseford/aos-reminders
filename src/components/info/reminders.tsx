@@ -50,9 +50,10 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   )
 }
 
-const getTitle = ({ artifact, condition, name, trait }: ITurnAction): string => {
-  if (trait) return `Command Trait`
+const getTitle = ({ ability, artifact, condition, name, trait, command }: ITurnAction): string => {
   if (artifact) return `Artifact${name === condition ? `` : `: ${condition}`}`
+  if (ability || command) return condition
+  if (trait) return `Command Trait`
   return condition
 }
 
