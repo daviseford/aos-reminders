@@ -8,6 +8,8 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -16,7 +18,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Heart Seeker`,
-        desc: `You can re-roll failed wound rolls with this weapon.`,
+        desc: `You can re-roll wound rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -26,8 +28,13 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Collar of Khorne`,
-        desc: `The bearer can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard.`,
+        desc: `The bearer can attempt to unbind one spell in each enemy hero phase in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Collar of Khorne`,
+        desc: `The bearer can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -36,7 +43,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blood Drinker`,
-        desc: `At the end of any combat phase in which the bearer inflicts any unsaved wounds or mortal wounds with this weapon, they immediately heal one wound lost earlier in the battle.`,
+        desc: `At the end of the combat phase, if any attacks made by that weapon caused a wound or mortal wound to be allocated to an enemy unit that was not negated, you can heal up to D3 wounds allocated to the bearer.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -46,7 +53,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Gorecleaver`,
-        desc: `Attacks from Gorecleaver inflict an additional -1 Rend (for example, a weapon with a Rend characteristic of-1 becomes -2 instead). In addition, any wound rolls of 6 made with this weapon inflict a number of mortal wounds equal to the weapon's Damage characteristic instead of being resolved normally.`,
+        desc: `Improve the Rend characteristic of that weapon by 1. In addition, if the unmodified wound roll for an attack made with that weapon is 6, double the Damage characteristic for that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -56,7 +63,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crimson Plate`,
-        desc: `You can re-roll save rolls of 1 for the bearer.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -66,17 +73,17 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blood Rune`,
-        desc: `You generate one additional Blood Tithe point each time the bearer of a Blood Rune slays an enemy HERO.`,
+        desc: `Each time an attack made by the bearer with a melee weapon slays an enemy HERO or MONSTER, you receive 1 additional Blood Tithe point.`,
         when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Banner of Khorne`,
+    name: `Banner of Rage`,
     effects: [
       {
-        name: `Banner of Khorne`,
-        desc: `You can re-roll hit rolls of 1 in the combat phase for any KHORNE models from your army that are within 8" of the bearer. If an affected model already has the ability to do this, you can re-roll all failed hit rolls for that model instead.`,
+        name: `Banner of Rage`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units that are wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -86,8 +93,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Banner of Wrath`,
-        desc: `In each of your hero phases, roll a dice for each enemy unit within 8" of the bearer. On a roll of 4 or more, the unit being rolled for suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
+        desc: `In the combat phase, roll a dice for each enemy unit within 8" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -96,48 +103,53 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Banner of Blood`,
-        desc: `You can re-roll failed charge rolls for any KHORNE units from your army that are within 8" of the bearer at the start of the charge phase.`,
+        desc: `You can re-roll charge rolls for friendly KHORNE units that are wholly within 12" of the bearer when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `The Skull-helm of Khorne`,
+    name: `Skull-helm of Khorne`,
     effects: [
       {
-        name: `The Skull-helm of Khorne`,
-        desc: `Your opponent must add 1 to the result of any battleshock tests they take for units that are within 8" of the bearer.`,
+        name: `Skull-helm of Khorne`,
+        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 8" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   {
-    name: `The Blood-forged Armour`,
+    name: `Blood-forged Armour`,
     effects: [
       {
-        name: `The Blood-forged Armour`,
-        desc: `When you make save rolls for the bearer, ignore the enemy's Rend characteristic unless it is -2 or better.`,
+        name: `Blood-forged Armour`,
+        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `The Brazen Rune`,
+    name: `Brazen Rune`,
     effects: [
       {
-        name: `The Brazen Rune`,
-        desc: `Roll a dice each time the bearer suffers any unsaved wounds or mortal wounds as the result of a spell; on a roll of 2 or more, the wound or mortal wound being rolled for is ignored. Once per game, you can choose to expend the rune's power to automatically unbind one enemy spell, after which the Brazen Rune will no longer have any effect.`,
+        name: `Brazen Rune`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Brazen Rune`,
+        desc: `Once per battle, the bearer can attempt to unbind 1 spell in the enemy hero phase in the same manner as a WIZARD or attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: `The Blade of Endless Bloodshed`,
+    name: `Blade of Endless Bloodshed`,
     effects: [
       {
-        name: `The Blade of Endless Bloodshed`,
-        desc: `At the end of any combat phase in which the bearer slew one or more enemy models with this weapon, you generate one Blood Tithe point in addition to any others you generated during that phase.`,
-        when: [END_OF_COMBAT_PHASE],
+        name: `Blade of Endless Bloodshed`,
+        desc: `Pick 1 of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -146,7 +158,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Destroyer`,
-        desc: `Double the Attacks characteristics of the bearer's Melee weapons (but not their mount's). However, should the bearer make any attacks in the combat phase but fail to slay any enemy models, the bearer is immediately slain; remove the model from play and replace it with a CHAOS SPAWN under your control. Set up this model as near as possible to the model you removed (even if this is within 3" of an enemy model). It cannot make attacks this turn.`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -156,12 +168,12 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Talisman of Burning Blood`,
-        desc: `Add 1 to any run rolls you make for the bearer and any KHORNE units from your army that are within 8" of them at the start of the movement phase.`,
+        desc: `Add 1 to run rolls for friendly KHORNE units wholly within 12" of the bearer when the run roll is made.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Talisman of Burning Blood`,
-        desc: `Add 1 to any charge rolls you make for the bearer and any KHORNE units from your army that are within 8" of them at the start of the charge phase.`,
+        desc: `Add 1 to charge rolls for friendly KHORNE units wholly within 12" of the bearer when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -171,7 +183,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `A'rgath, the King of Blades`,
-        desc: `This weapon always hits enemy HERO models on a roll of 2 or more.`,
+        desc: `Pick 1 of the bearer's melee weapons. Change the To Hit characteristic of that weapon for attacks that target a HERO to 2+.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -181,7 +193,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Deathdealer`,
-        desc: `Add 1 to the Damage characteristic of this weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -191,8 +203,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Khartoth the Bloodhunger`,
-        desc: `Each time an enemy HERO or MONSTER suffers any unsaved wounds or mortal wounds from this weapon it is locked in time and cannot attack until all other units have made their attacks in that phase.`,
-        when: [COMBAT_PHASE],
+        desc: `At the start of the combat phase roll a dice. On a 4+ the bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -201,7 +213,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Hellfire Blade`,
-        desc: `Wound rolls of a 6 with this weapon cause a mortal wound in addition to their normal damage.`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -221,7 +233,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Behemoth's Bane`,
-        desc: `You can re-roll any failed wound rolls and choose to re-roll any Damage rolls when attacking enemy MONSTERS with this weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -231,8 +243,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crimson Crown`,
-        desc: `When making attacks with the bearer and any KHORNE DAEMON models from your army that are within 8" of them in the combat phase, you can make one additional attack with that model for each hit roll of 6 you make. Any bonus attacks made in this manner must use the same weapon that generated them, but cannot themselves generate additional attacks.`,
-        when: [COMBAT_PHASE],
+        desc: `Once per battle round, the bearer can use a command ability on their warscroll without a command point being spent.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -241,7 +253,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Scorn`,
-        desc: `Each time the bearer suffers a wound or mortal wound, roll a dice; on a roll of 6, the wound or mortal wound is ignored. Add 1 to this roll if the wound or mortal wound was suffered as a result of a spell.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. Add 2 to the roll if that wound or mortal wound was caused by a spell. On a 6+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -251,7 +263,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Bloodreaper`,
-        desc: `Each time the bearer of a Mark of the Bloodreaper inflicts 8 or more unsaved wounds or mortal wounds in a single combat phase, you generate one Blood Tithe point in addition to any others you generated during that phase.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -261,8 +273,13 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Collar of Khorne`,
-        desc: `The bearer can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard.`,
+        desc: `The bearer can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Collar of Khorne`,
+        desc: `The bearer can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -271,7 +288,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crimson Soulstone`,
-        desc: `The bearer immediately heals D3 wounds lost earlier in the battle each time they slay an enemy HERO in the combat phase.`,
+        desc: `Each time an attack made by the bearer with a melee weapon slays an enemy HERO or MONSTER, you can heal up to D3 wounds allocated to the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -281,7 +298,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Slayer`,
-        desc: `You can re-roll hit rolls of 1 in the combat phase for the bearer and all KHORNE units within 8" of them at the start of the combat phase. If the bearer charged earlier in the turn, you can also re-roll wound rolls of 1 in the combat phase for the bearer and all KHORNE units within 8" of them at the start of the combat phase.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -32,7 +32,7 @@ const Abilities: IEffects[] = [
     name: `Spectral Summons`,
     desc: `You can use this command ability at the start of your movement phase. If you do so, pick a friendly NIGHTHAUNT unit that is on the battlefield. Remove that unit from the battlefield, and then set it up wholly within 12" of your general and more than 9" from any enemy models. This counts as their move for that movement phase.`,
     when: [START_OF_MOVEMENT_PHASE],
-    command: true,
+    command_ability: true,
   },
 ]
 

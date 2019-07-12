@@ -1,7 +1,7 @@
-import { ITurnAction, Game, TGameStructure } from 'meta/turn_structure'
+import { Game, TGameStructure } from 'meta/game_structure'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
-import { IEffects, IReminder } from 'types/data'
+import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
@@ -39,6 +39,9 @@ export const processReminders: TProcessReminders = (army, factionName, selection
         name: a.name,
         desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
+        allegiance_ability: true,
+        tag: a.tag || ``,
+        command_ability: a.command_ability || false,
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]

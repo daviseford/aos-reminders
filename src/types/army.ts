@@ -1,12 +1,5 @@
-import { IEffects } from './data'
-import { TGameStructure } from 'meta/turn_structure'
-
-export interface IEntry {
-  name: string
-  effects: IEffects[]
-  artifact?: boolean
-  trait?: boolean
-}
+import { IEffects, IEntry } from './data'
+import { TGameStructure } from 'meta/game_structure'
 
 export type TArtifacts = IEntry[]
 export type TBattalions = IEntry[]
