@@ -1,15 +1,15 @@
 import { TArtifacts } from 'types/army'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  DURING_TURN,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  SHOOTING_PHASE,
-  DURING_GAME,
-  DURING_TURN,
-  DURING_SETUP,
-  CHARGE_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [

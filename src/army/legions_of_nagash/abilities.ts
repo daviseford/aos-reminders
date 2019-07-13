@@ -1,4 +1,4 @@
-import { START_OF_HERO_PHASE, COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)

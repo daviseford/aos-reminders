@@ -7,12 +7,12 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
   SERAPHON,
   SKAVEN,
   SYLVANETH,
   TZEENTCH,
-  LEGIONS_OF_NAGASH,
   TSupportedFaction,
 } from './factions'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
@@ -26,12 +26,12 @@ import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
+import LegionsofNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Sylvaneth from 'army/sylvaneth'
 import Tzeentch from 'army/tzeentch'
-import LegionsofNagash from 'army/legions_of_nagash'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -66,6 +66,10 @@ const ArmyList: TArmyList = {
     Army: { ...Khorne },
     GrandAlliance: CHAOS,
   },
+  [LEGIONS_OF_NAGASH]: {
+    Army: { ...LegionsofNagash },
+    GrandAlliance: DEATH,
+  },
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
     GrandAlliance: DEATH,
@@ -85,10 +89,6 @@ const ArmyList: TArmyList = {
   [TZEENTCH]: {
     Army: { ...Tzeentch },
     GrandAlliance: CHAOS,
-  },
-  [LEGIONS_OF_NAGASH]: {
-    Army: { ...LegionsofNagash },
-    GrandAlliance: DEATH,
   },
 }
 
