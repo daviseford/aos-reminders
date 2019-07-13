@@ -13,6 +13,12 @@ import {
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
   DURING_TURN,
+  DURING_GAME,
+  CHARGE_PHASE,
+  SHOOTING_PHASE,
+  END_OF_CHARGE_PHASE,
+  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -231,7 +237,7 @@ export const Units: TUnits = [
       },
       {
         name: `Breath of Shyish`,
-        desc: `Pick an enemy unit within 8" of this model that is visible to it. Then roll a dice, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
+        desc: `At the start of your shooting phase, pick an enemy unit within 8" of this model that is visible to it. Then roll a dice, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -251,7 +257,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fist of Nagash`,
-        desc: `If Prince Vhordrai uses this ability, pick a friendly DEATH HERO within 14" of him (you cannot choose Prince Vhordrai). That hero can immediately either be chosen to pile in and attack as if it were the combat phase, or if it is a WIZARD, attempt to cast a spell in addition to any others they can attempt to cast this phase.`,
+        desc: `If Prince Vhordrai uses this ability, pick a friendly DEATH HERO within 14" of him (you cannot choose Prince Vhordrai). That hero can immediately either be chosen to pile in and attack as if it were the combat phase, or if it is a WIZARD, attempt to cast a spell in addition to any others they can attempt to cast this phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
         command: true,
       },
@@ -448,7 +454,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Feast`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Models in that unit make one extra attack with each of their melee weapons until your next hero phase.`,
+        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Models in that unit make one extra attack with each of their melee weapons until your next hero phase. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
         command: true,
       },
@@ -560,8 +566,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Undead Minions`,
-        desc: `Before you allocate a wound to this model, you may pick a friendly SUMMONABLE unit within 3" and roll a dice. On a 4+ the wound is allocated to that unit instead.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `Before you allocate a wound or mortal wound to this model, you can pick a friendly Summonable unit within 3" of this model and roll a dice. On a 4+ the wound or mortal wound is allocated to that unit instead`,
+        when: [DURING_GAME],
       },
       {
         name: `Deathly Invocation`,
@@ -655,18 +661,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Death Shriek`,
-        desc: `When making a Death Shriek attack, pick an enemy unit within range and roll a dice, adding the number shown in the damage table. If the total is higher than that unit's Bravery characteristic, it suffers a number of mortal wounds equal to the difference.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Gaping Maw`,
-        desc: `Each time you make a hit roll of 6+ for this model's Fanged Maw, the attack is automatically successful. Determine damage normally (do not make a wound or save roll) but increase the weapon's Damage characteristic to 6.`,
+        desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll)`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Infested`,
-        desc: `When this model is slain, before removing the model, each unit (friend or foe) within 3" of it suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -700,7 +706,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Bones`,
-        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons.`,
+        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase`,
         when: [HERO_PHASE],
         command: true,
       },
@@ -726,7 +732,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Bones`,
-        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons.`,
+        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase`,
         when: [HERO_PHASE],
         command: true,
       },
@@ -828,7 +834,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Black Coach (Legion)`,
+    name: `Legion Black Coach`,
     effects: [
       {
         name: `Frightful Touch`,
@@ -1447,7 +1453,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ceaseless Vigil`,
-        desc: `Each time a wound or mortal wound is allocated to Nagash, you may pick a MORGHAST unit from the First Cohort within 3" of him and roll a dice. On a 3+ you may allocate that wound or mortal wound to the chosen MORGHAST unit instead.`,
+        desc: `Before you allocate a wound or mortal wound to Nagash, you can pick a friendly Morghast unit from this battalion within 3" of Nagash and roll a dice. On a 3+ the wound or mortal wound is allocated to that unit instead.`,
         when: [DURING_GAME],
       },
       {
@@ -1482,7 +1488,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `March of the Dead`,
-        desc: `In your hero phase, the WIGHT KING and all units from his Deathmarch that are within 9" of him can make a move of up to 4" as if it were your Movement phase (models cannot run as part of this move).`,
+        desc: `At the start of your hero phase, each unit from this battalion wholly within 12" of the battalion's Wight King and more than 3" from any enemy units can move 4". The units cannot run, or move within 3" of an enemy unit, and the distance to the Wight King must be measured before any of the moves are made.`,
         when: [HERO_PHASE],
       },
     ],

@@ -3,7 +3,6 @@ import {
   COMBAT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_MOVEMENT_PHASE,
   DURING_GAME,
   HERO_PHASE,
   DURING_SETUP,
@@ -91,7 +90,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Mark of the Favoured (Legion of Sacrament)`,
-        desc: `Each time this general is selected as the target of an attack in the combat phase, roll a dice. On a 6+ the attacking unit suffers a mortal wound.`,
+        desc: `Each time this general is selected as the target of an attack in the combat phase, roll a dice. On a 6+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],

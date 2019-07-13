@@ -3,9 +3,7 @@ import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   SHOOTING_PHASE,
   DURING_GAME,
@@ -140,7 +138,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ring of Dominion (Artefacts of Blood)`,
-        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a dice. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own.`,
+        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a dice. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -190,7 +188,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Amulet of Screams (Artefacts of Blood)`,
-        desc: `Once per battle, when an enemy WIZARD successfully casts a spell, instead of attempting to unbind it you can declare that the bearer will use the Amulet of Screams. If you do so, roll a dice. On a 2+ the spell is negated and has no effect.`,
+        desc: `Once per battle, when an enemy Wizard successfully casts a spell, you can declare that the bearer will use the Amulet of Screams. If you do so, you cannot attempt to unbind the spell. Instead, roll a dice. On a 2+, the spell is not successfully cast.`,
         when: [HERO_PHASE],
       },
     ],
