@@ -16,7 +16,7 @@ const replaceOptions = {
  *
  * @param results - { file: string; hasChanged: boolean }[]
  */
-const getChanged = results => results.filter(x => x.hasChanged)
+const getChanged = results => results.filter(x => x.hasChanged).map(x => x.file)
 
 const run = async () => {
   try {
