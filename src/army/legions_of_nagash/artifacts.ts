@@ -7,7 +7,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_COMBAT_PHASE,
   SHOOTING_PHASE,
   DURING_GAME,
   DURING_TURN,
@@ -257,62 +256,32 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `(Artefacts of Grief)`,
+    name: `Grave-Sand Gem (Artefacts of Grief)`,
     effects: [
       {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
+        name: `Grave-sand Gem (Artefacts of Grief)`,
+        desc: `In your hero phase, you can either inflict 1 mortal wound on 1 enemy HERO within 6" of the bearer, or you can heal 1 wound that has been allocated to the bearer.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Grief)`,
+    name: `Gothizzari Mortuary Candle (Artefacts of Grief)`,
     effects: [
       {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
+        name: `Gothizzari Mortuary Candle (Artefacts of Grief)`,
+        desc: `Subtract 1 from hit rolls for attacks with missile weapons that target the bearer.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Grief)`,
+    name: `Souldrain Pendant (Artefacts of Grief)`,
     effects: [
       {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `(Artefacts of Grief)`,
-    effects: [
-      {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `(Artefacts of Grief)`,
-    effects: [
-      {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `(Artefacts of Grief)`,
-    effects: [
-      {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
+        name: `Souldrain Pendant(Artefacts of Grief)`,
+        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
