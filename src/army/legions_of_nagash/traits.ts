@@ -9,6 +9,7 @@ import {
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
   MOVEMENT_PHASE,
+  BATTLESHOCK_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [

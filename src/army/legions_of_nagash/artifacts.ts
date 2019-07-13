@@ -7,9 +7,12 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_COMBAT_PHASE,
   SHOOTING_PHASE,
   DURING_GAME,
   DURING_TURN,
+  DURING_SETUP,
+  CHARGE_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -194,72 +197,62 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Vial of Pure Blood (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
+        name: `Vial of Pure Blood (Artefacts of Night)`,
+        desc: `Once per battle, in your hero phase, you can declare that the bearer will drink from the Vial of Pure Blood. If you do so, you can add 1 to hit and wound rolls for the bearer until your next hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Shard of Night (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
+        name: `Shard of Night (Artefacts of Night)`,
+        desc: `Subtract 1 from the hit rolls of attacks that target the bearer in the shooting phase.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Gem of Exsanguination (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
+        name: `Gem of Exsanguination (Artefacts of Night)`,
+        desc: `Once per battle, at the start of the combat phase, you can pick an enemy unit within 6" of the bearer and roll a dice. On a 1 nothing happens. On a 2-5 the unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Chiropteric Cloak (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
+        name: `Chiropteric Cloak (Artefacts of Night)`,
+        desc: `At the start of the combat phase, you can declare that the bearer will feed the Chiropteric Cloak. If you do so, the bearer suffers 1 mortal wound. During that combat phase, each time the hit roll of an attack that targets the bearer is 1 or less, the attacking unit suffers 1 mortal wound after all its attacks have been resolved.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Morbheg's Claw (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
+        name: `Morbheg's Claw (Artefacts of Night)`,
+        desc: `In your hero phase, you can declare that the bearer will carve sigils in the ground with this claw. If you do so, they may not move, charge or attack this turn, but you can add 2 to casting rolls made for friendly LEGION OF NIGHT WIZARDS within 12" of the bearer.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `(Artefacts of Night)`,
+    name: `Curseblade (Artefacts of Night)`,
     effects: [
       {
-        name: `(Artefacts of Night)`,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: `(Artefacts of Grief)`,
-    effects: [
-      {
-        name: `(Artefacts of Grief)`,
-        desc: ``,
-        when: [],
+        name: `Curseblade (Artefacts of Night)`,
+        desc: `After armies have been set up but before the first battle round begins, you can pick an enemy HERO. In your hero phase, as long as the enemy hero is on the battlefield, you can roll a dice. On a 4+ that enemy hero suffers 1 mortal wound and you may heal a wound that has been allocated to the bearer.`,
+        when: [DURING_SETUP, HERO_PHASE],
       },
     ],
   },
@@ -314,62 +307,72 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `(Artefacts of Grief)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
+        name: `(Artefacts of Grief)`,
         desc: ``,
         when: [],
       },
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `The Stalking Blade(Soulblight Artefacts)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
-        desc: ``,
-        when: [],
+        name: `The Stalking Blade(Soulblight Artefacts)`,
+        desc: `Pick one of the bearer's melee weapons. Keep a tally of the number of wounds allocated as a result of attacks made with that weapon. As soon as the total reaches 6 or more, the bearer heals D3 wounds that have been allocated to them, and you can add 1 to the Damage characteristic of that weapon for the rest of the battle.`,
+        when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `The Scabbing Plate (Soulblight Artefacts)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
-        desc: ``,
-        when: [],
+        name: `The Scabbing Plate (Soulblight Artefacts)`,
+        desc: `At the end of any combat phase in which the bearer caused any wounds to be allocated to any enemy models, you can heal 1 wound that has been allocated to the bearer.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `Crimson Wing (Soulblight Artefacts)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
-        desc: ``,
-        when: [],
+        name: `Crimson Wing (Soulblight Artefacts)`,
+        desc: `In your shooting phase, you can pick an enemy unit within 30" of the bearer and roll a dice. On a roll of 3+ that unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `Sigil of the Sanguine Throne(Soulblight Artefacts)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
-        desc: ``,
-        when: [],
+        name: `Sigil of the Sanguine Throne(Soulblight Artefacts)`,
+        desc: `Once per charge phase, you can re-roll a failed charge roll made for a friendly VAMPIRE unit within 12" of the bearer.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `(Soulblight Artefacts)`,
+    name: `The Saccharine Goblet (Soulblight Artefacts)`,
     effects: [
       {
-        name: `(Soulblight Artefacts)`,
-        desc: ``,
-        when: [],
+        name: `The Saccharine Goblet (Soulblight Artefacts)`,
+        desc: `At start of the combat phase, you can declare that the bearer will drink from the Saccharine Goblet. If you do so, you can add 1 to hit and wound rolls for the bearer until the end of the phase. However, if no wounds are allocated as a result of these attacks, then the bearer suffers D3 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ruby Vial (Soulblight Artefacts)`,
+    effects: [
+      {
+        name: `Ruby Vial (Soulblight Artefacts)`,
+        desc: `Once per battle, in your hero phase, you can declare that the bearer will open the Ruby Vial. If you do so, then until your next hero phase, subtract 1 from the Bravery characteristic of enemy units and subtract 1 from the result of any charge rolls made for them.`,
+        when: [HERO_PHASE],
       },
     ],
   },
