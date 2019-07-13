@@ -1,14 +1,5 @@
 import * as Phases from 'types/phases'
-
-export interface ITurnAction {
-  condition: string
-  desc: string
-  name?: string
-  tag?: string
-  artifact?: boolean
-  command?: boolean
-  trait?: boolean
-}
+import { ITurnAction } from 'types/data'
 
 export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }
 

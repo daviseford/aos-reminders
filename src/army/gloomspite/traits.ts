@@ -97,7 +97,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Great Shaman`,
-        desc: `This general knows 1 extra spell from the Lore of the Moonclans`,
+        desc: `This general knows 1 extra spell from the Lore of the Moonclans.`,
         when: [HERO_PHASE],
       },
     ],

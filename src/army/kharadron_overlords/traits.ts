@@ -170,7 +170,7 @@ const CommandTraits: TCommandTraits = [
         name: `Opportunistic Privateers`,
         desc: `Pick an enemy unit, re-roll failed hits vs that unit for all units within 3".`,
         when: [SHOOTING_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -219,14 +219,14 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Scholars and Commanders`,
-        desc: `+1 to unbinding for all HEROES`,
+        desc: `+1 to unbinding for all HEROES.`,
         when: [HERO_PHASE],
       },
       {
         name: `Champion of Progress`,
         desc: `Friendly units with 3" do not take battleshock tests.`,
         when: [DURING_GAME],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -395,7 +395,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `FOOTNOTE: These Are Just Guidelines`,
-        desc: `Once per battle, change army's ARTYCLE`,
+        desc: `Once per battle, change army's ARTYCLE.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

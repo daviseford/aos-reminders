@@ -132,7 +132,7 @@ const CommandTraits: TCommandTraits = [
         name: `Bound to the Master (Legion of Sacrament)`,
         desc: `This general may use Arkhan the Black's First of the Mortarchs command ability.\n\n (Until the end of the hero phase all friendly DEATH WIZARDS within 18" of this general can increase the range of their spells by 6".)`,
         when: [HERO_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -391,7 +391,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Magic (Soulblight)`,
-        desc: `All WIZARDS in a SOULBLIGHT army know an additional spell from Lore of the Vampires`,
+        desc: `All WIZARDS in a SOULBLIGHT army know an additional spell from Lore of the Vampires.`,
         when: [DURING_SETUP],
       },
     ],
@@ -401,7 +401,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Aura of Grief (Legion of Grief)`,
-        desc: `Subtract 1 from the Bravery Characteristic of enemy units when they are within 6" of any LEGION OF GRIEF units`,
+        desc: `Subtract 1 from the Bravery Characteristic of enemy units when they are within 6" of any LEGION OF GRIEF units.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

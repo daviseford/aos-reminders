@@ -142,7 +142,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lurelight`,
-        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talúnhook in the combat phase of the same turn`,
+        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talúnhook in the combat phase of the same turn.`,
         when: [END_OF_BATTLESHOCK_PHASE],
       },
       {
@@ -187,7 +187,7 @@ export const Units: TUnits = [
       },
       {
         name: `Void Drum`,
-        desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons`,
+        desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons.`,
         when: [DURING_GAME],
       },
     ],
@@ -253,7 +253,7 @@ export const Battalions: TBattalions = [
         name: `Give Them No Respite`,
         desc: `You can use this command ability in your hero phase if the Akhelian King from this battalion is your general, and the Isharann Tidecaster and Isharann Soulscryer from this battalion are within 3" of the general. If you do so, pick up to three friendly IDONETH DEEPKIN units that are wholly within 12" of your general. Add 3" to the Move characteristic of the units you pick until your next hero phase.`,
         when: [HERO_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },

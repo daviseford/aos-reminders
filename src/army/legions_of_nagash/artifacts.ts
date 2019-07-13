@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Grave-sand Timeglass (Artefacts of Nagash)`,
-        desc: `Whilst the bearer is on the battlefield, once per battle, in your hero phase, you can pick an enemy HERO on the battlefield. The enemy hero suffers D3 mortal wounds. At the start of each of your subsequent hero phases, roll a dice. On a 4+ the enemy hero suffers 1 mortal wound.ent hero phases, on a 4+ they suffer a mortal wound`,
+        desc: `Whilst the bearer is on the battlefield, once per battle, in your hero phase, you can pick an enemy HERO on the battlefield. The enemy hero suffers D3 mortal wounds. At the start of each of your subsequent hero phases, roll a dice. On a 4+ the enemy hero suffers 1 mortal wound.ent hero phases, on a 4+ they suffer a mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -138,7 +138,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ring of Dominion (Artefacts of Blood)`,
-        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a dice. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer`,
+        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a dice. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
