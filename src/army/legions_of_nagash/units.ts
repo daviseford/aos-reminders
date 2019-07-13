@@ -12,10 +12,861 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
+  DURING_TURN,
 } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
+  {
+    name: `Nagash, Supreme Lord of the Undead`,
+    effects: [
+      {
+        name: `The Staff of Power`,
+        desc: `Add Alakanash's modifier (listed in the damage table) to casting and unbinding rolls for Nagash.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `Each time you make a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Morikhane`,
+        desc: `Each time a mortal wound is allocated to Nagash, roll a dice. On a 4+ the mortal wound is negated. On a 6+ the attacking unit also suffers a mortal wound.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `The Nine Books of Nagash`,
+        desc: `The Nine Books of Nagash allow him to cast extra spells in your hero phase, and unbind extra spells in the enemy hero phase. The number of extra spells he can attempt to cast or unbind is shown on the damage table.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Deathly Invocation`,
+        desc: `At the start of your hero phase, pick up to 5 different friendly SUMMONABLE units on the battlefield. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Death Magic Incarnate`,
+        desc: `You can re-roll any of the D3 rolls when using Nagash's Deathly Invocation ability.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Nagash is a WIZARD. He can attempt to cast three spells in your hero phase, and attempt to unbind three spells in the enemy hero phase. In addition, he can attempt to cast or unbind extra spells with the Nine Books of Nagash. He knows the Arcane Bolt, Mystic Shield, Hand of Dust and Soul Stealer spells, as well as any spells known by other DEATH WIZARDS on the battlefield.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Hand of Dust`,
+        desc: `Hand of Dust has a casting value of 8. If successfully cast, pick an enemy model within 3" the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Soul Stealer`,
+        desc: `Soul Stealer has a casting value of 6. If successfully cast, pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target, heal 1 wound that has been allocated to the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Supreme Lord of Death`,
+        desc: `If Nagash uses this ability, then until your next hero phase you can re-roll hit and save rolls of 1 for all friendly DEATH units. In addition, do not take battleshock tests for DEATH units affected by this ability.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Arkhan the Black, Mortarch of Sacrament`,
+    effects: [
+      {
+        name: `Feaster of Souls`,
+        desc: `At the end of any combat phase in which Arkhan slew any models, you can heal 2 wounds that have been allocated to him.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `The Staff of Spirits`,
+        desc: `Add Khenash-an's modifier to casting and unbinding rolls for Arkhan.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Deathly Invocation`,
+        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Arkhan. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Mortarch of Sacrament`,
+        desc: `You can re-roll any of the D3 rolls when using Arkhan's Deathly Invocation ability.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `Each time you roll a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Arkhan the Black is a WIZARD. He can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Curse of Years spells. Arkhan also knows the spells of any DEATH WIZARD that is within 18" of him.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Curse of Years`,
+        desc: `Curse of Years has a casting value of 6. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `First of the Mortarchs`,
+        desc: `If Arkhan the Black uses this ability, then until the end of the hero phase all friendly DEATH WIZARDS within 18" of him can increase the range of their spells by 6".`,
+        when: [HERO_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Mannfred, Mortarch of Night`,
+    effects: [
+      {
+        name: `Feaster of Souls`,
+        desc: `At the end of any combat phase in which Mannfred slew any models, you can heal 2 wounds that have been allocated to him.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Armour of Templehof`,
+        desc: `The first wound or mortal wound allocated to Mannfred each turn is negated.`,
+        when: [DURING_TURN],
+      },
+      {
+        name: `Sword of Unholy Power`,
+        desc: `If Mannfred causes any wounds to be allocated using Gheistvor in the combat phase, you can add 1 to the next casting or unbinding roll you make for Mannfred.`,
+        when: [COMBAT_PHASE, HERO_PHASE],
+      },
+      {
+        name: `Mortarch of Night`,
+        desc: `If Mannfred successfully cast any spells during your hero phase, you can add 1 to all hit and wound rolls for Gheistvor until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `Each time you roll a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deathly Invocation`,
+        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Mannfred. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Mannfred is a WIZARD. He can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wind of Death spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Wind of Death`,
+        desc: `Wind of Death has a casting value of 7. If successfully cast, pick an enemy model within 18" of the caster that is visible to them. Each enemy unit within 6" of that model suffers 1 mortal wound, while the model's own unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Vigour of Undeath`,
+        desc: `If Mannfred uses this ability, then until your next hero phase you can re-roll hit and wound rolls of 1 for friendly DEATH units that are within the range shown on the damage table.`,
+        when: [HERO_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Neferata, Mortarch of Blood`,
+    effects: [
+      {
+        name: `Dagger of Jet`,
+        desc: `If a model is allocated any wounds from attacks made using Akmet-har but is not slain, roll a dice after Neferata has finished making all of her attacks. On a 6+ that model is slain.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Mortarch of Blood`,
+        desc: `At the end of any combat phase in which Neferata slew any models, you can heal 2 wounds that have been allocated to her. If Neferata slew any enemy HERO models this turn, you may heal 1 additional wound allocated to her.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `Each time you make a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deathly Invocation`,
+        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Neferata. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Neferata is a WIZARD. She can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Dark Mist spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Dark Mist`,
+        desc: `Dark Mist has a casting value of 6. If successfully cast, pick a friendly DEATH unit within 18" of the caster. Until your next hero phase, that unit can fly and you must ignore modifiers (positive or negative) when making save rolls for the unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Twilights Allure`,
+        desc: `If Neferata uses this ability, then until your next hero phase subtract 1 from hit rolls for enemy units that are within the range shown on the damage table.`,
+        when: [HERO_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Prince Vhordrai`,
+    effects: [
+      {
+        name: `The Hunger`,
+        desc: `At the end of any combat phase in which Prince Vhordrai slew any enemy models, you can heal 1 wound that has been allocated to him.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Chalice of Blood`,
+        desc: `Once per battle, in your hero phase, you can heal D6 wounds that have been allocated to Prince Vhordrai.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Bloodlance Charge`,
+        desc: `If Prince Vhordrai completed a charge this turn, increase the Damage characteristic of his Bloodlance to 3.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Breath of Shyish`,
+        desc: `Pick an enemy unit within 8" of this model that is visible to it. Then roll a dice, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Deathly Invocation`,
+        desc: `At the start of your hero phase, pick up to 3 different friendly SUMMONABLE units within 12" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Prince Vhordrai is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Quickblood spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell: Quickblood`,
+        desc: `Quickblood has a casting value of 7. If successfully cast, add 1 to hit and wound rolls for the caster until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Fist of Nagash`,
+        desc: `If Prince Vhordrai uses this ability, pick a friendly DEATH HERO within 14" of him (you cannot choose Prince Vhordrai). That hero can immediately either be chosen to pile in and attack as if it were the combat phase, or if it is a WIZARD, attempt to cast a spell in addition to any others they can attempt to cast this phase.`,
+        when: [HERO_PHASE],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Morghast Harbingers`,
+    effects: [
+      {
+        name: `Heralds of the Accursed One`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Harbingers of Death`,
+        desc: `When making a charge roll for this unit, you may roll 3 dice instead of 2. In addition, you can declare a charge for this unit if it is within 18" of the enemy rather than 12".`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Morghast Archai`,
+    effects: [
+      {
+        name: `Heralds of the Accursed One`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Ebon-wrought Armour`,
+        desc: `Each time you allocate a mortal wound to this unit, roll a dice. On a 5+ the mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Vampire Lord on Zombie Dragon`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Blood Knights`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Vargheists`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Bat Swarms`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Fell Bats`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Vampire Lord`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Bloodseeker Palanquin`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Coven Throne`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Mortis Engine`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Necromancer`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Zombies`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Corpse Cart with Unholy Lodestone`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Corpse Cart with Balefire Brazier`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Terrorgheist`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Zombie Dragon`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Wight King with Baleful Tomb Blade`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Wight King with Black Axe`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+        command: true,
+      },
+    ],
+  },
+  {
+    name: `Black Knights`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Grave Guard`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Skeleton Warriors`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Black Coach (Legion)`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: `Dire Wolves`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
   {
     name: `Lady Olynder`,
     effects: [
@@ -566,6 +1417,66 @@ export const Units: TUnits = [
 
 // Battalions
 export const Battalions: TBattalions = [
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
   {
     name: `Nighthaunt Procession`,
     effects: [
