@@ -1,4 +1,4 @@
-import { START_OF_HERO_PHASE, COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { IEffects } from 'types/data'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -10,8 +10,13 @@ const Abilities: IEffects[] = [
   },
   {
     name: `The Unquiet Dead`,
-    desc: `After territories have been determined, but before any units have been set up, you may pick up to 2 points in your territory and up to 2 points anywhere on the battlefield to be gravesites. You may wish to place suitable markers on these points. Instead of setting up a SUMMONABLE unit on the battlefield, you can place it to one side and say that it is set up in the grave. You can do this with as many units as you wish. \n\nAt the end of your movement phase, for each friendly Death Hero within 9" of a gravesite, you may pick a single friendly unit in the grave and set it up wholly within 9" of the gravesite and more than 9" from any enemy models. Any model that is unable to be set up in this way is slain. If a unit is still in the grave at the end of the battle, it is considered to be slain.`,
-    when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+    desc: `After territories have been determined, but before any units have been set up, you may pick up to 2 points in your territory and up to 2 points anywhere on the battlefield to be gravesites. You may wish to place suitable markers on these points. Instead of setting up a SUMMONABLE unit on the battlefield, you can place it to one side and say that it is set up in the grave. You can do this with as many units as you wish.`,
+    when: [DURING_SETUP],
+  },
+  {
+    name: `The Unquiet Dead`,
+    desc: `At the end of your movement phase, for each friendly Death Hero within 9" of a gravesite, you may pick a single friendly unit in the grave and set it up wholly within 9" of the gravesite and more than 9" from any enemy models. Any model that is unable to be set up in this way is slain. If a unit is still in the grave at the end of the battle, it is considered to be slain.`,
+    when: [END_OF_MOVEMENT_PHASE],
   },
   {
     name: `Invigorating Aura`,
