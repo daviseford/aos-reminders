@@ -13,7 +13,6 @@ import {
   SKAVEN,
   SYLVANETH,
   TZEENTCH,
-  LEGIONS_OF_NAGASH,
   TSupportedFaction,
 } from './factions'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
@@ -33,7 +32,6 @@ import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Sylvaneth from 'army/sylvaneth'
 import Tzeentch from 'army/tzeentch'
-import LegionsofNagash from 'army/legions_of_nagash'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
