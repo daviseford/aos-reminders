@@ -9,6 +9,7 @@ import Footer from './page/footer'
 import { logFactionSwitch, logPageView } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption } from './input/select'
+import Toolbar from './input/toolbar'
 
 const App = () => {
   logPageView()
@@ -47,6 +48,9 @@ const App = () => {
         setRealmscape={useSetFactionName}
         setSelections={setSelections}
       />
+
+      <Toolbar />
+
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
       <PrintFooter />
