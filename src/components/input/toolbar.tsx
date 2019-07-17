@@ -10,7 +10,7 @@ interface IToolbarProps {
 }
 
 const Toolbar = (props: IToolbarProps) => {
-  const { setAllyValue } = props
+  const { setAllyValue, factionName } = props
   const [hasAlly, setHasAlly] = useState(false)
 
   const handleAllyClick = e => {
@@ -22,16 +22,16 @@ const Toolbar = (props: IToolbarProps) => {
 
   return (
     <>
-      <div className="row">
-        <div className="col">
-          <PrintButton factionName={props.factionName} />
+      <div className="row justify-content-center">
+        <div className="col-2">
+          <PrintButton factionName={factionName} />
         </div>
-        <div className="col">
+        <div className="col-2">
           <AddAllyButton setAllyClick={handleAllyClick} hasAlly={hasAlly} />
         </div>
       </div>
-      <div className="row" hidden={!hasAlly}>
-        <div className="col">
+      <div className="row justify-content-center pt-2" hidden={!hasAlly}>
+        <div className="col-3">
           <AddAllySelect setAllyValue={setAllyValue} />
         </div>
       </div>
@@ -51,8 +51,8 @@ const AddAllyButton = (props: IAddAllyButton) => {
   return (
     <>
       <div className="col">
-        <button className={`btn btn-block ${hasAlly ? `btn-danger` : `btn-outline-dark`}`} onClick={setAllyClick}>
-          {hasAlly ? 'Remove' : 'Add'} Ally
+        <button className={`btn btn-block btn-${hasAlly ? `danger` : `outline-dark`}`} onClick={setAllyClick}>
+          {hasAlly ? `Remove` : `Add`} Ally
         </button>
       </div>
     </>
@@ -79,11 +79,9 @@ const PrintButton = (props: { factionName: TSupportedFaction }) => {
   }
   return (
     <>
-      <div className="col">
-        <button className="btn btn-outline-dark btn-block" onClick={handlePrint}>
-          Print Page
-        </button>
-      </div>
+      <button className="btn btn-outline-dark btn-block" onClick={handlePrint}>
+        Print Page
+      </button>
     </>
   )
 }
