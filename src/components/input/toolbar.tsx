@@ -51,10 +51,7 @@ const AddAllyButton = (props: IAddAllyButton) => {
   return (
     <>
       <div className="col">
-        <button
-          className={`btn btn-block ${hasAlly ? `btn-outline-danger` : `btn-outline-dark`}`}
-          onClick={setAllyClick}
-        >
+        <button className={`btn btn-block ${hasAlly ? `btn-danger` : `btn-outline-dark`}`} onClick={setAllyClick}>
           {hasAlly ? 'Remove' : 'Add'} Ally
         </button>
       </div>
