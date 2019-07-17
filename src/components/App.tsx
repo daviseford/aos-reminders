@@ -53,7 +53,7 @@ const App = () => {
   // Reset the ally state when allyFactionName is switched
   useEffect(() => {
     setAllySelections({ units: [] })
-  }, [allyFactionName])
+  }, [allyFactionName, selections])
 
   return (
     <div className="d-block">
@@ -75,7 +75,14 @@ const App = () => {
 
       <Toolbar setAllyValue={handleSetAllyName} factionName={factionName} />
 
-      <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
+      <Reminders
+        army={army}
+        factionName={factionName}
+        selections={selections}
+        realmscape={realmscape}
+        allyArmy={allyArmy as IArmy}
+        allySelections={allySelections}
+      />
 
       <PrintFooter />
       <Footer />

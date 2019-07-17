@@ -22,7 +22,7 @@ const Toolbar = (props: IToolbarProps) => {
 
   return (
     <>
-      <div className="row justify-content-center">
+      <div className="row justify-content-center pt-3">
         <div className="col-2">
           <PrintButton factionName={factionName} />
         </div>

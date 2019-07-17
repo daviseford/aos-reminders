@@ -1,21 +1,32 @@
 import { Game, TGameStructure } from 'meta/game_structure'
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
+import { merge, flatten } from 'lodash'
 
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
   selections: ISelections,
-  realmscape: string
+  realmscape: string,
+  allyArmy: IArmy,
+  allySelections: IAllySelections
 ) => IReminder
 
-export const processReminders: TProcessReminders = (army, factionName, selections, realmscape) => {
-  const game: TGameStructure = army.Game
-  const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
+export const processReminders: TProcessReminders = (
+  army,
+  factionName,
+  selections,
+  realmscape,
+  allyArmy,
+  allySelections
+) => {
+  const game: TGameStructure = allyArmy ? merge(army.Game, allyArmy.Game) : army.Game
+  const mergedSelections: ISelections = { ...selections, units: [...selections.units, ...allySelections.units] }
+  const conds = flatten(Object.values(mergedSelections))
 
   const reminders = Object.keys(game).reduce((accum, key) => {
     const phase = game[key]
@@ -69,6 +80,6 @@ export const processReminders: TProcessReminders = (army, factionName, selection
     }
     return accum
   }, {})
-
+  debugger
   return ordered
 }
