@@ -29,7 +29,9 @@ const AddAlly = (props: IAddAlly) => {
   const [checked, setChecked] = useState(false)
 
   const handleCheckClick = e => {
-    setChecked(!checked)
+    const newVal = !checked
+    setChecked(newVal)
+    if (!newVal) setValue({ value: '' } as TDropdownOption)
   }
 
   return (
