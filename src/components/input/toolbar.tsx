@@ -1,16 +1,21 @@
 import React, { useState, Fragment } from 'react'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne, TDropdownOption } from './select'
 import { ValueType } from 'react-select/lib/types'
+import PrintButton from 'components/print/button'
 
 interface IToolbarProps {
   setAllyValue: IAddAlly['setValue']
+  factionName: TSupportedFaction
 }
 
 const Toolbar = (props: IToolbarProps) => {
   const { setAllyValue } = props
   return (
     <div className="row">
+      <div className="col">
+        <PrintButton factionName={props.factionName} />
+      </div>
       <div className="col">
         <AddAlly setValue={setAllyValue} />
       </div>

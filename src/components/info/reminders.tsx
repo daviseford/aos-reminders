@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import './reminders.css'
-import PrintButton from 'components/print/button'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { ISelections } from 'types/selections'
@@ -38,7 +37,6 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
-          {props.idx === 0 ? <PrintButton factionName={props.factionName} /> : null}
         </div>
         <div className="card-body">
           {props.actions.map((action, i) => (

@@ -44,6 +44,7 @@ const App = () => {
   // Reset the state when factionName is switched
   useEffect(() => {
     setSelections({ artifacts: [], battalions: [], traits: [], units: [] })
+    setAllySelections({ units: [] })
     setRealmscape('None')
     setAllyFactionName('')
     logFactionSwitch(factionName)
@@ -72,7 +73,7 @@ const App = () => {
         <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />
       )}
 
-      <Toolbar setAllyValue={handleSetAllyName} />
+      <Toolbar setAllyValue={handleSetAllyName} factionName={factionName} />
 
       <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
 
