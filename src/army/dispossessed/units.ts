@@ -98,7 +98,7 @@ export const Units: TUnits = [
       },
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
