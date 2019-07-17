@@ -1,13 +1,18 @@
-import React, { FunctionComponent, useState, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { SelectOne, TDropdownOption } from './select'
 import { ValueType } from 'react-select/lib/types'
 
-const Toolbar: FunctionComponent = props => {
+interface IToolbarProps {
+  setAllyValue: IAddAlly['setValue']
+}
+
+const Toolbar = (props: IToolbarProps) => {
+  const { setAllyValue } = props
   return (
     <div className="row">
       <div className="col">
-        <AddAlly />
+        <AddAlly setValue={setAllyValue} />
       </div>
     </div>
   )
@@ -16,15 +21,11 @@ const Toolbar: FunctionComponent = props => {
 export default Toolbar
 
 interface IAddAlly {
-  setValue?: (selectValue: ValueType<TDropdownOption>) => void
+  setValue: (selectValue: ValueType<TDropdownOption>) => void
 }
 
 const AddAlly = (props: IAddAlly) => {
-  // const { setValue} = props
-  const setValue = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    console.log(value)
-  }
+  const { setValue } = props
   const [checked, setChecked] = useState(false)
 
   const handleCheckClick = e => {
