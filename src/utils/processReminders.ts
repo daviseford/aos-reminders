@@ -5,7 +5,7 @@ import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
-import { merge, flatten } from 'lodash'
+import { flatten } from 'lodash'
 
 type TProcessReminders = (
   army: IArmy,
@@ -24,24 +24,11 @@ export const processReminders: TProcessReminders = (
   allyArmy,
   allySelections
 ) => {
-  const game: TGameStructure = allyArmy ? merge(army.Game, allyArmy.Game) : army.Game
-  const mergedSelections: ISelections = { ...selections, units: [...selections.units, ...allySelections.units] }
-  const conds = flatten(Object.values(mergedSelections))
+  let reminders = processConditions(army.Game, selections, {})
 
-  const reminders = Object.keys(game).reduce((accum, key) => {
-    const phase = game[key]
-    const addToAccum = (actions: ITurnAction[], when: string) => {
-      actions.forEach((y: ITurnAction) => {
-        if (conds.includes(y.condition)) {
-          accum[when] = accum[when] ? accum[when].concat(y) : [y]
-        }
-      })
-    }
-    if (phase.length) {
-      addToAccum(phase, key)
-    }
-    return accum
-  }, {})
+  if (allyArmy) {
+    reminders = processConditions(allyArmy.Game, allySelections, reminders)
+  }
 
   // Add Abilities
   if (army.Abilities && army.Abilities.length) {
@@ -80,6 +67,25 @@ export const processReminders: TProcessReminders = (
     }
     return accum
   }, {})
-  debugger
+
   return ordered
+}
+
+const processConditions = (game: TGameStructure, selections: ISelections | IAllySelections, startVal = {}) => {
+  const conditions = flatten(Object.values(selections))
+  const reminders = Object.keys(game).reduce((accum, key) => {
+    const phase = game[key]
+    const addToAccum = (actions: ITurnAction[], when: string) => {
+      actions.forEach((y: ITurnAction) => {
+        if (conditions.includes(y.condition)) {
+          accum[when] = accum[when] ? accum[when].concat(y) : [y]
+        }
+      })
+    }
+    if (phase.length) {
+      addToAccum(phase, key)
+    }
+    return accum
+  }, startVal)
+  return reminders
 }
