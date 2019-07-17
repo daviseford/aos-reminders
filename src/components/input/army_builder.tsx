@@ -1,14 +1,13 @@
 import React from 'react'
-import { sortBy, capitalize } from 'lodash'
+import { sortBy } from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
 import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select'
 import { ValueType } from 'react-select/lib/types'
 
-type TFocusType = 'unit' | 'artifact' | 'battalion' | 'trait'
 type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
 type TUpdateFn = (newState: ISelections) => void
 type TUpdateState = (selectValues: ValueType<TDropdownOption>[]) => void
@@ -45,15 +44,15 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
 
   return (
     <div className="container">
-      <div className="row d-print-none">
+      <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} values={units} type={'unit'} setValues={useUnits} />
-          <Card items={army.Traits} type={'trait'} values={traits} setValues={useTraits} />
-          <Card items={army.Artifacts} type={'artifact'} values={artifacts} setValues={useArtifacts} />
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'Unit'} setValues={useUnits} />
+          <Card items={army.Traits} type={'Trait'} values={traits} setValues={useTraits} />
+          <Card items={army.Artifacts} type={'Artifact'} values={artifacts} setValues={useArtifacts} />
           <Card
             items={sortBy(army.Battalions, 'name')}
             values={battalions}
-            type={'battalion'}
+            type={'Battalion'}
             setValues={useBattalions}
           />
           <SelectRealmscape setValue={setRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
@@ -65,7 +64,7 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
 
 interface ICardProps {
   values: string[]
-  type: TFocusType
+  type: string
   items: TUnits | TBattalions | TArtifacts
   setValues: TUpdateState
 }
@@ -77,8 +76,37 @@ const Card = (props: ICardProps) => {
     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
-          <h4 className="text-center">Add {capitalize(type)}s</h4>
+          <h4 className="text-center">Add {type}s</h4>
           <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+interface IAllyArmyBuilderProps {
+  army: {
+    Units: TUnits
+  }
+  setSelections: (x: IAllySelections) => any
+  selections: IAllySelections
+}
+
+export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
+  const { army, setSelections, selections } = props
+  const { units } = selections
+
+  const useUnits = (selectValues: ValueType<TDropdownOption>[]) => {
+    const newState = { ...selections }
+    newState['units'] = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+    setSelections(newState)
+  }
+
+  return (
+    <div className="container">
+      <div className="row d-print-none bg-info pb-3">
+        <div className="col card-group mx-auto">
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'Allied Unit'} setValues={useUnits} />
         </div>
       </div>
     </div>

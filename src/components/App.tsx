@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import Reminders from './info/reminders'
-import { ArmyBuilder } from './input/army_builder'
+import { ArmyBuilder, AllyArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
@@ -21,9 +21,6 @@ const App = () => {
     units: [] as string[],
   })
   const [allySelections, setAllySelections] = useState({
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    traits: [] as string[],
     units: [] as string[],
   })
   const [factionName, setFactionName] = useState(SUPPORTED_FACTIONS[0])
@@ -54,7 +51,7 @@ const App = () => {
 
   // Reset the ally state when allyFactionName is switched
   useEffect(() => {
-    setAllySelections({ artifacts: [], battalions: [], traits: [], units: [] })
+    setAllySelections({ units: [] })
   }, [allyFactionName])
 
   return (
@@ -72,13 +69,7 @@ const App = () => {
       />
 
       {allyFactionName && (
-        <ArmyBuilder
-          army={allyArmy as IArmy}
-          realmscape={realmscape}
-          selections={allySelections}
-          setRealmscape={handleSetRealmscape}
-          setSelections={setAllySelections}
-        />
+        <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />
       )}
 
       <Toolbar setAllyValue={handleSetAllyName} />
