@@ -31,7 +31,7 @@ const ItemsDisplay = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null
   const title = props.items.length > 1 ? `${props.name}s` : props.name
   return (
-    <p>
+    <p className="py-0 my-0">
       <strong>{title}:</strong> {props.items.join(' | ')}
     </p>
   )

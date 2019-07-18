@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne, TDropdownOption } from './select'
 import { ValueType } from 'react-select/lib/types'
 import { logPrintEvent } from 'utils/analytics'
+import { without } from 'lodash'
 
 const btnClass = `col-xs-6 col-sm-4 col-lg-3 col-xl-3`
 const selectClass = `col-xs-12 col-sm-8 col-lg-5 col-xl-4`
@@ -15,19 +16,22 @@ interface IToolbarProps {
 const Toolbar = (props: IToolbarProps) => {
   const { setAllyValue, factionName } = props
   const [hasAlly, setHasAlly] = useState(false)
+  const allyFactionPossibilities = useMemo(() => without(SUPPORTED_FACTIONS, factionName), [factionName])
 
   const handleAllyClick = e => {
     e.preventDefault()
     const newVal = !hasAlly
     setHasAlly(newVal)
-    if (!newVal) setAllyValue({ value: '' } as TDropdownOption)
+    if (!newVal) {
+      setAllyValue({ value: '' } as TDropdownOption)
+    }
   }
 
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-2" hidden={!hasAlly}>
         <div className={selectClass}>
-          <AddAllySelect setAllyValue={setAllyValue} />
+          <AddAllySelect setAllyValue={setAllyValue} items={allyFactionPossibilities} />
         </div>
       </div>
 
@@ -63,13 +67,14 @@ const AddAllyButton = (props: IAddAllyButton) => {
 
 interface IAddAllySelect {
   setAllyValue: (selectValue: ValueType<TDropdownOption>) => void
+  items: TSupportedFaction[]
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {
-  const { setAllyValue } = props
+  const { setAllyValue, items } = props
   return (
     <>
-      <SelectOne items={SUPPORTED_FACTIONS} setValue={setAllyValue} hasDefault={true} toTitle={true} />
+      <SelectOne items={items} setValue={setAllyValue} hasDefault={true} toTitle={true} />
     </>
   )
 }
