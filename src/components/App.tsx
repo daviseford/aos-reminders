@@ -59,7 +59,7 @@ const App = () => {
     <div className="d-block">
       <Header setFactionName={setFactionName} factionName={factionName} />
       <PrintHeader factionName={factionName} />
-      <PrintUnits selections={selections} realmscape={realmscape} />
+      <PrintUnits selections={selections} allySelections={allySelections} realmscape={realmscape} />
 
       <ArmyBuilder
         army={army}
