@@ -72,5 +72,5 @@ const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArt
  */
 const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TCommandTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
-  return traits.concat(Traits).map(t => ({ ...t, trait: true }))
+  return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
