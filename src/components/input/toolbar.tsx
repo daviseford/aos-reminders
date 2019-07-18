@@ -4,6 +4,9 @@ import { SelectOne, TDropdownOption } from './select'
 import { ValueType } from 'react-select/lib/types'
 import { logPrintEvent } from 'utils/analytics'
 
+const btnClass = `col-xs-6 col-sm-4 col-lg-3 col-xl-3`
+const selectClass = `col-xs-12 col-sm-8 col-lg-5 col-xl-4`
+
 interface IToolbarProps {
   setAllyValue: IAddAllySelect['setAllyValue']
   factionName: TSupportedFaction
@@ -23,17 +26,17 @@ const Toolbar = (props: IToolbarProps) => {
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-2" hidden={!hasAlly}>
-        <div className="col-4">
+        <div className={selectClass}>
           <AddAllySelect setAllyValue={setAllyValue} />
         </div>
       </div>
 
       <div className="row justify-content-center pt-3">
-        <div className="col-3">
-          <PrintButton factionName={factionName} />
-        </div>
-        <div className="col-3">
+        <div className={btnClass}>
           <AddAllyButton setAllyClick={handleAllyClick} hasAlly={hasAlly} />
+        </div>
+        <div className={btnClass}>
+          <PrintButton factionName={factionName} />
         </div>
       </div>
     </div>
@@ -51,11 +54,9 @@ const AddAllyButton = (props: IAddAllyButton) => {
   const { hasAlly, setAllyClick } = props
   return (
     <>
-      <div className="col">
-        <button className={`btn btn-block btn-${hasAlly ? `danger` : `outline-dark`}`} onClick={setAllyClick}>
-          {hasAlly ? `Remove` : `Add`} Ally
-        </button>
-      </div>
+      <button className={`btn btn-block btn-${hasAlly ? `danger` : `outline-dark`}`} onClick={setAllyClick}>
+        {hasAlly ? `Remove` : `Add`} Ally
+      </button>
     </>
   )
 }
