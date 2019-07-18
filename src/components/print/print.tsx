@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
 import { titleCase } from 'utils/titleCase'
 
 export const PrintHeader = (props: { factionName: string }) => {
@@ -11,12 +11,14 @@ export const PrintHeader = (props: { factionName: string }) => {
   )
 }
 
-export const PrintUnits = (props: { selections: ISelections; realmscape: string }) => {
+export const PrintUnits = (props: { selections: ISelections; allySelections: IAllySelections; realmscape: string }) => {
   const { units, battalions, artifacts, traits } = props.selections
+  const { units: allyUnits } = props.allySelections
   const realm = props.realmscape === 'None' ? [] : [props.realmscape]
   return (
     <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplay name={'Unit'} items={units} />
+      <ItemsDisplay name={'Allied Unit'} items={allyUnits} />
       <ItemsDisplay name={'Artifact'} items={artifacts} />
       <ItemsDisplay name={'Battalion'} items={battalions} />
       <ItemsDisplay name={'Command Trait'} items={traits} />
@@ -29,7 +31,7 @@ const ItemsDisplay = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null
   const title = props.items.length > 1 ? `${props.name}s` : props.name
   return (
-    <p>
+    <p className="py-0 my-0">
       <strong>{title}:</strong> {props.items.join(' | ')}
     </p>
   )

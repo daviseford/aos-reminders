@@ -4,3 +4,7 @@ export interface ISelections {
   traits: string[]
   units: string[]
 }
+
+export interface IAllySelections {
+  units: string[]
+}

@@ -3,8 +3,10 @@ import { TTurnWhen } from './phases'
 export interface IEntry {
   name: string
   effects: IEffects[]
+  allegiance_ability?: boolean
   artifact?: boolean
   command_ability?: boolean
+  command_trait?: boolean
 }
 
 export interface IEffects {
@@ -14,6 +16,7 @@ export interface IEffects {
   allegiance_ability?: boolean
   artifact?: boolean
   command_ability?: boolean
+  command_trait?: boolean
   tag?: string
 }
 
