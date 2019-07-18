@@ -21,21 +21,21 @@ const Toolbar = (props: IToolbarProps) => {
   }
 
   return (
-    <>
+    <div className="container d-print-none">
       <div className="row justify-content-center pt-3">
-        <div className="col-2">
+        <div className="col-3">
           <PrintButton factionName={factionName} />
         </div>
-        <div className="col-2">
+        <div className="col-3">
           <AddAllyButton setAllyClick={handleAllyClick} hasAlly={hasAlly} />
         </div>
       </div>
       <div className="row justify-content-center pt-2" hidden={!hasAlly}>
-        <div className="col-3">
+        <div className="col-4">
           <AddAllySelect setAllyValue={setAllyValue} />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

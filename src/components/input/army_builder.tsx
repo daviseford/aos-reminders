@@ -103,8 +103,8 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
   }
 
   return (
-    <div className="container">
-      <div className="row d-print-none bg-info pb-3">
+    <div className="container d-print-none">
+      <div className="row border border-dark pb-3">
         <div className="col card-group mx-auto">
           <Card items={sortBy(army.Units, 'name')} values={units} type={'Allied Unit'} setValues={useUnits} />
         </div>
