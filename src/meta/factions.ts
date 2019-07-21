@@ -36,7 +36,6 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 
 // Supported Factions
 export type TSupportedFaction =
-  | TLegionsOfNagash
   | TBeastclawRaiders
   | TDispossessed
   | TFleshEaterCourts
@@ -45,6 +44,7 @@ export type TSupportedFaction =
   | TIronjawz
   | TKharadronOverlords
   | TKhorne
+  | TLegionsOfNagash
   | TNighthaunt
   | TSeraphon
   | TSkaven
