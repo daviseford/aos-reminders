@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import './reminders.css'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
@@ -6,6 +6,7 @@ import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { TSupportedFaction } from 'meta/factions'
 import { ITurnAction } from 'types/data'
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
 interface IRemindersProps {
   allyArmy: IArmy
@@ -64,18 +65,40 @@ const getTitle = ({
   return condition
 }
 
+const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
+  const { isVisible, setVisibility } = props
+  const VisibilityComponent = isVisible ? MdVisibilityOff : MdVisibility
+  return (
+    <>
+      <VisibilityComponent onClick={setVisibility} />
+    </>
+  )
+}
+
 const ActionText = (props: ITurnAction) => {
+  const [isVisible, setIsVisibile] = useState(true)
+  const handleVisibility = e => {
+    e.preventDefault()
+    setIsVisibile(!isVisible)
+  }
   const { name, desc, command_ability, tag } = props
   return (
     <>
-      <p className="ReminderEntry mb-2">
-        <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
-        <b>
-          {command_ability && `Command Ability: `}
-          {name && `${name}`}
-          {tag && ` (${tag})`}
-        </b>
-        <br />
+      <p className={`ReminderEntry mb-2 ${!isVisible && 'd-print-none'}`} hidden={!isVisible}>
+        <div className="d-flex">
+          <div className="flex-grow-1">
+            <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
+            <b>
+              {command_ability && `Command Ability: `}
+              {name && `${name}`}
+              {tag && ` (${tag})`}
+            </b>
+          </div>
+          <div className="px-2">
+            <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+          </div>
+        </div>
+
         {desc}
       </p>
     </>
