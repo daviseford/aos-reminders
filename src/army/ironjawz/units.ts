@@ -52,13 +52,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Strength from Victory`,
-        desc: `If a Megaboss makes an attack with their Boss Gore-hac- ka, Scrap-tooth, Choppa or Rip-tooth Fist that slays an enemy Hero, add 1 to their Wounds characteristic and to the Attacks characteristic of the weapon that inflicted the killing wound.`,
+        desc: `If a Megaboss makes an attack with their Boss Gore-hacka, Scrap-tooth, Choppa or Rip-tooth Fist that slays an enemy Hero, add 1 to their Wounds characteristic and to the Attacks characteristic of the weapon that inflicted the killing wound.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Mighty Waaagh!`,
         desc: `If a Megaboss on Mawkrusha uses this ability, count up the number of Ironjawz units within 15" of them at the start of the combat phase of the turn, and roll a dice. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with each of their me- lee weapons in that combat phase. If the roll is a 6, and there are at least 6 Ironjawz units within 15" of this model, then make 2 extra attacks rather than 1.`,
-        when: [START_OF_COMBAT_PHASE],
+        when: [HERO_PHASE],
         command_ability: true,
       },
       {
