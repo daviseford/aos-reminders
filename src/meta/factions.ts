@@ -9,11 +9,11 @@ export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
-export type TLegionsofNagash = 'LEGIONS_OF_NAGASH'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSylvaneth = 'SYLVANETH'
+export type TStormcastEternals = 'STORMCAST_ETERNALS'
 export type TTzeentch = 'TZEENTCH'
 
 // Exported Faction Names
@@ -25,11 +25,11 @@ export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGIONS_OF_NAGASH: TLegionsofNagash = 'LEGIONS_OF_NAGASH'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
+export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 
 // Supported Factions
@@ -42,11 +42,11 @@ export type TSupportedFaction =
   | TIronjawz
   | TKharadronOverlords
   | TKhorne
-  | TLegionsofNagash
   | TNighthaunt
   | TSeraphon
   | TSkaven
   | TSylvaneth
+  | TStormcastEternals
   | TTzeentch
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
@@ -58,10 +58,10 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
   SERAPHON,
   SKAVEN,
   SYLVANETH,
+  STORMCAST_ETERNALS,
   TZEENTCH,
 ])
