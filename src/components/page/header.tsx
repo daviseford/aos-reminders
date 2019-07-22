@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import withSizes from 'react-sizes'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
@@ -11,17 +11,12 @@ import { ValueType } from 'react-select/lib/types'
  * Hidden when printing
  */
 const Header = ({ setFactionName, isMobile }) => {
-  const [selectCount, setSelectCount] = useState(0)
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
   const setValue = (selectValue: ValueType<TDropdownOption>) => {
     const { value } = selectValue as TDropdownOption
-    // Avoid registering an event on pageload
-    if (selectCount > 0) {
-      logFactionSwitch(value as TSupportedFaction)
-    }
+    logFactionSwitch(value as TSupportedFaction)
     setFactionName(value)
-    setSelectCount(selectCount + 1)
   }
 
   return (
