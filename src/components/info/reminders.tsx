@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import './reminders.css'
+import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
 import { processReminders } from 'utils/processReminders'
@@ -76,8 +77,10 @@ const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => voi
   const hideTip = `${isVisible ? `Hidden rules` : `This rule`} will not be printed.`
   return (
     <>
-      <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
-      <ReactTooltip place="bottom" type="light" effect="float" />
+      <IconContext.Provider value={{ size: '1.3em' }}>
+        <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
+        <ReactTooltip place="bottom" type="light" effect="float" />
+      </IconContext.Provider>
     </>
   )
 }
