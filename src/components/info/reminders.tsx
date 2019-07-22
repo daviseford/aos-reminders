@@ -36,15 +36,18 @@ const Reminders = (props: IRemindersProps) => {
 }
 
 const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; factionName: TSupportedFaction }) => {
+  const [numVisible, setNumVisible] = useState(props.actions.length)
+  const showEntry = () => setNumVisible(numVisible + 1)
+  const hideEntry = () => setNumVisible(numVisible - 1)
   return (
-    <div className="row d-block PageBreak">
+    <div className={`row d-block PageBreak ${!numVisible && `d-print-none`}`}>
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
         </div>
         <div className="card-body">
           {props.actions.map((action, i) => (
-            <ActionText {...action} key={i} />
+            <ActionText {...action} key={i} showEntry={showEntry} hideEntry={hideEntry} />
           ))}
         </div>
       </div>
@@ -69,22 +72,28 @@ const getTitle = ({
 const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
   const { isVisible, setVisibility } = props
   const VisibilityComponent = isVisible ? MdVisibility : MdVisibilityOff
-  const hideTip = `Hidden rules will not be printed`
+  const hideTip = `${isVisible ? `Hidden rules` : `This rule`} will not be printed.`
   return (
     <>
       <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
-      {isVisible && <ReactTooltip place="right" type="light" effect="float" />}
+      <ReactTooltip place="bottom" type="light" effect="float" />
     </>
   )
 }
 
-const ActionText = (props: ITurnAction) => {
+interface IActionTextProps extends ITurnAction {
+  hideEntry: () => void
+  showEntry: () => void
+}
+
+const ActionText = (props: IActionTextProps) => {
+  const { name, desc, command_ability, tag, showEntry, hideEntry } = props
   const [isVisible, setIsVisibile] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
     setIsVisibile(!isVisible)
+    !isVisible ? showEntry() : hideEntry()
   }
-  const { name, desc, command_ability, tag } = props
   return (
     <>
       <div className={`ReminderEntry mb-2 ${!isVisible && 'd-print-none'}`}>
