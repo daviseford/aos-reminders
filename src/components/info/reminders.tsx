@@ -39,6 +39,7 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   const [numVisible, setNumVisible] = useState(props.actions.length)
   const showEntry = () => setNumVisible(numVisible + 1)
   const hideEntry = () => setNumVisible(numVisible - 1)
+
   return (
     <div className={`row d-block PageBreak ${!numVisible && `d-print-none`}`}>
       <div className="card border-dark my-3">
@@ -94,26 +95,25 @@ const ActionText = (props: IActionTextProps) => {
     setIsVisibile(!isVisible)
     !isVisible ? showEntry() : hideEntry()
   }
-  return (
-    <>
-      <div className={`ReminderEntry mb-2 ${!isVisible && 'd-print-none'}`}>
-        <div className="d-flex">
-          <div className="flex-grow-1">
-            <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
-            <b>
-              {command_ability && `Command Ability: `}
-              {name && `${name}`}
-              {tag && ` (${tag})`}
-            </b>
-          </div>
-          <div className="px-2 d-print-none">
-            <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
-          </div>
-        </div>
 
-        {isVisible && desc}
+  return (
+    <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
+      <div className="d-flex">
+        <div className="flex-grow-1">
+          <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
+          <b>
+            {command_ability && `Command Ability: `}
+            {name && `${name}`}
+            {tag && ` (${tag})`}
+          </b>
+        </div>
+        <div className="px-2 d-print-none">
+          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+        </div>
       </div>
-    </>
+
+      {isVisible && desc}
+    </div>
   )
 }
 
