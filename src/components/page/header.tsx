@@ -1,16 +1,21 @@
 import React from 'react'
-import withSizes from 'react-sizes'
+import { connect } from 'react-redux'
 import { initial, last } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne, TDropdownOption } from 'components/input/select'
 import { titleCase } from 'utils/titleCase'
 import { logFactionSwitch } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
+import { todos } from 'ducks'
 
 /**
  * Hidden when printing
  */
-const Header = ({ setFactionName, isMobile }) => {
+// const Header = ({ setFactionName, isMobile }) => {
+const Header = props => {
+  const { setFactionName } = props
+  const isMobile = false
+  debugger
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
   const setValue = (selectValue: ValueType<TDropdownOption>) => {
@@ -44,8 +49,14 @@ const Header = ({ setFactionName, isMobile }) => {
   )
 }
 
-const mapSizesToProps = sizes => ({
-  isMobile: withSizes.isMobile(sizes),
-})
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...ownProps,
+    blah: state.todos,
+  }
+}
 
-export default withSizes(mapSizesToProps)(Header)
+export default connect(
+  mapStateToProps,
+  { add: todos.actions.add }
+)(Header)

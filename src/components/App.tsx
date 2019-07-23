@@ -56,7 +56,7 @@ const App = () => {
 
   return (
     <div className="d-block">
-      <Header setFactionName={setFactionName} factionName={factionName} />
+      <Header setFactionName={setFactionName} />
       <PrintHeader factionName={factionName} />
       <PrintUnits selections={selections} allySelections={allySelections} realmscape={realmscape} />
 

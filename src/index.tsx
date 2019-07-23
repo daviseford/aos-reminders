@@ -12,7 +12,9 @@ const store = createStore(
   combineReducers({
     todos: todos.reducer,
     visibilityFilter: visibilityFilter.reducer,
-  })
+  }),
+  //@ts-ignore
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 render(
