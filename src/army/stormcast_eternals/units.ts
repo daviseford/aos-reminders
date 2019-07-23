@@ -6,6 +6,10 @@ import {
   END_OF_CHARGE_PHASE,
   SHOOTING_PHASE,
   END_OF_COMBAT_PHASE,
+  START_OF_COMBAT_PHASE,
+  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   MOVEMENT_PHASE,
   BATTLESHOCK_PHASE,
@@ -15,12 +19,131 @@ import {
 // Unit Names
 export const Units: TUnits = [
   {
-    name: ``,
+    name: `Celestant-Prime`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Cometstrike Sceptre`,
+        desc: `In your shooting phase, you can pick a point on the battlefield within 24" of this model that is visible to them. Each unit within D6" of that point suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Retribution from On High`,
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in the Heavens as a reserve unit.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Strike from the Heavens`,
+        desc: `At the end of your movement phase you must declare whether this model will remain in reserve or strike from the Heavens. If this model strikes from the Heavens, set this model up on the battlefield more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Strike from the Heavens`,
+        desc: `For every round this model remains in reserve, add 2 to the Attacks characteristic of Ghal Maraz until the end of the battle.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Retribution from On High`,
+        desc: `If this model was setup via Strike from the Heavens, until your next hero phase subtract 2 from the Bravery characteristic of enemy units while they are within 12" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Bearer of the Warhammer`,
+        desc: `Add 1 to the Bravery characteristic of friendly ORDER units while they are wholly within 18" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Orrery of Celestial Fates`,
+        desc: `Once per turn, you can change one of the following dice rolls to a roll of your choice. Apply any modifiers to the new roll: hit roll, wound roll, save roll, run roll, charge roll, roll that determines the range or number of mortal wounds for this model's Cometstrike Sceptre.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aventis Firestrike`,
+    effects: [
+      {
+        name: `Comet Trail`,
+        desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for attacks made with missile weapons used by friendly STORMCAST ETERNAL units that target that unit in the same turn.`,
+        when: [END_OF_MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Cycle of the Storm`,
+        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Meteoric Strike`,
+        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Righteous Indignation`,
+        desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a dice. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Spirit Flask`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Fiery Orator`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly HAMMERS OF SIGMAR unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Prime Electrids`,
+        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Astreia Solbright`,
+    effects: [
+      {
+        name: `Cycle of the Storm`,
+        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Spirit Flask`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Supernatural Roar`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Thunderous Pounce`,
+        desc: `You can re-roll charge rolls for this model. In addition, the Damage characteristic for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Prime Electrids`,
+        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in your shooting phase, pick a friendly unit of HAMMERS OF SIGMAR CASTIGATORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
+        when: [SHOOTING_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in your hero phase, pick a friendly unit of HAMMERS OF SIGMAR EVOCATORS wholly within 12" of a friendly model with this command ability. That unit can automatically cast Empower in that hero phase (no casting roll is required, and the spell cannot be unbound).`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in the combat phase, pick a friendly unit of HAMMERS OF SIGMAR SEQUITORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the power of the unit's weapons and shields in that combat phase instead of choosing only one of those options.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
       },
     ],
   },
