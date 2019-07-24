@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from 'react'
-import './reminders.css'
+import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
+import './reminders.css'
 import { processReminders } from 'utils/processReminders'
+import { realmscape, factionNames } from 'ducks'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
@@ -42,7 +44,7 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   const hideEntry = () => setNumVisible(numVisible - 1)
 
   return (
-    <div className={`row d-block PageBreak ${!numVisible && `d-print-none`}`}>
+    <div className={`row d-block PageBreak ${numVisible === 0 && `d-print-none`}`}>
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
@@ -120,4 +122,13 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-export default Reminders
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  factionName: factionNames.selectors.getFactionName(state),
+  realmscape: realmscape.selectors.getRealmscape(state),
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(Reminders)

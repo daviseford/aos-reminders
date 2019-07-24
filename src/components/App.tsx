@@ -1,19 +1,21 @@
 import React, { useState, useMemo, useEffect } from 'react'
+import { connect } from 'react-redux'
 import Reminders from './info/reminders'
 import { ArmyBuilder, AllyArmyBuilder } from './input/army_builder'
 import { PrintHeader, PrintFooterComponent, PrintUnitsComponent } from './print/print'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
-import { logFactionSwitch, logPageView } from 'utils/analytics'
+import { logFactionSwitch } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption } from './input/select'
 import Toolbar from './input/toolbar'
 import { IArmy } from 'types/army'
+import { factionNames } from 'ducks'
 
-const App = () => {
-  logPageView()
+const App = props => {
+  const { factionName, allyFactionName } = props
   const [selections, setSelections] = useState({
     artifacts: [] as string[],
     battalions: [] as string[],
@@ -23,13 +25,9 @@ const App = () => {
   const [allySelections, setAllySelections] = useState({
     units: [] as string[],
   })
-  const [factionName, setFactionName] = useState(SUPPORTED_FACTIONS[0])
-  const [allyFactionName, setAllyFactionName] = useState('')
   const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
-  const allyArmy = useMemo(() => {
-    return allyFactionName ? getArmy(allyFactionName as TSupportedFaction) : null
-  }, [allyFactionName])
+  const allyArmy = useMemo(() => getArmy(allyFactionName as TSupportedFaction), [allyFactionName])
 
   const handleSetRealmscape = (selectValue: ValueType<TDropdownOption>) => {
     const { value } = selectValue as TDropdownOption
@@ -55,24 +53,22 @@ const App = () => {
       <PrintUnitsComponent selections={selections} allySelections={allySelections} realmscape={realmscape} />
 
       <ArmyBuilder
-        army={army}
+        army={army as IArmy}
         realmscape={realmscape}
         selections={selections}
         setRealmscape={handleSetRealmscape}
         setSelections={setSelections}
       />
 
-      {allyFactionName && (
+      {allyArmy && (
         <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />
       )}
 
       <Toolbar />
 
       <Reminders
-        army={army}
-        factionName={factionName}
+        army={army as IArmy}
         selections={selections}
-        realmscape={realmscape}
         allyArmy={allyArmy as IArmy}
         allySelections={allySelections}
       />
@@ -83,4 +79,16 @@ const App = () => {
   )
 }
 
-export default App
+const mapStateToProps = (state, ownProps) => ({
+  factionName: factionNames.selectors.getFactionName(state),
+  allyFactionName: factionNames.selectors.getAllyFactionName(state),
+})
+
+const mapDispatchToProps = {
+  // setAllyFactionName: factionNames.actions.setAllyFactionName,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
