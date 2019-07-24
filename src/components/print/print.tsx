@@ -44,6 +44,7 @@ const PrintUnitsComponent = (props: {
 }
 
 const mapUnitsStateToProps = (state, ownProps) => ({
+  ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
   realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
@@ -52,7 +53,7 @@ const mapUnitsStateToProps = (state, ownProps) => ({
 export const PrintUnits = connect(
   mapUnitsStateToProps,
   null
-)(PrintUnitsComponent as any)
+)(PrintUnitsComponent)
 
 const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null

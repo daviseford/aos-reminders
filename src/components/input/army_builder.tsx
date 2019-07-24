@@ -1,25 +1,22 @@
-import React from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
 import './army_builder.css'
-import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
+import { TUnits, TArtifacts, TBattalions, TCommandTraits, IArmy } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { TDropdownOption, SelectMulti } from './select'
 import { ISelections, IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/lib/types'
-import { realmscape, selections } from 'ducks'
+import { realmscape, selections, factionNames, army } from 'ducks'
+import { getArmy } from 'utils/getArmy'
+import { TSupportedFaction } from 'meta/factions'
 
 type TUpdateState = (selectValues: ValueType<TDropdownOption>[]) => void
 
 interface IArmyBuilderProps {
-  army: {
-    Artifacts: TArtifacts
-    Battalions: TBattalions
-    Traits: TCommandTraits
-    Units: TUnits
-  }
+  factionName: TSupportedFaction
   realmscape: string
   selections: ISelections
   setRealmscape: (value: string) => void
@@ -27,12 +24,27 @@ interface IArmyBuilderProps {
   updateBattalions: (values: string[]) => void
   updateTraits: (values: string[]) => void
   updateUnits: (values: string[]) => void
+  updateArmy: (army: IArmy) => void
 }
 
 export const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { army, selections, setRealmscape, updateArtifacts, updateBattalions, updateTraits, updateUnits } = props
-
+  const {
+    factionName,
+    selections,
+    setRealmscape,
+    updateArmy,
+    updateArtifacts,
+    updateBattalions,
+    updateTraits,
+    updateUnits,
+  } = props
   const { units, traits, artifacts, battalions } = selections
+
+  const army = useMemo(() => getArmy(factionName), [factionName]) as IArmy
+
+  useEffect(() => {
+    updateArmy(army)
+  }, [army, updateArmy])
 
   // Might want to useCallback these guys
   const handleRealmscape = withSelectOne(setRealmscape)
@@ -65,6 +77,7 @@ const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
+  factionName: factionNames.selectors.getFactionName(state),
 })
 
 const mapDispatchToProps = {
@@ -73,6 +86,7 @@ const mapDispatchToProps = {
   updateBattalions: selections.actions.updateBattalions,
   updateTraits: selections.actions.updateTraits,
   updateUnits: selections.actions.updateUnits,
+  updateArmy: army.actions.updateArmy,
 }
 
 export const ArmyBuilder = connect(
@@ -83,7 +97,7 @@ export const ArmyBuilder = connect(
 interface ICardProps {
   values: string[]
   type: string
-  items: TUnits | TBattalions | TArtifacts
+  items: TUnits | TBattalions | TArtifacts | TCommandTraits
   setValues: TUpdateState
 }
 
@@ -103,24 +117,30 @@ const Card = (props: ICardProps) => {
 }
 
 interface IAllyArmyBuilderProps {
-  army: {
-    Units: TUnits
-  }
+  allyFactionName: TSupportedFaction | null
   selections: IAllySelections
   updateAllyUnits: (values: string[]) => void
+  updateAllyArmy: (army: IArmy | null) => void
 }
 
 export const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
-  const { army, updateAllyUnits, selections } = props
+  const { allyFactionName, updateAllyUnits, selections, updateAllyArmy } = props
   const { units } = selections
 
+  const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName])
   const handleUnits = withSelectMultiple(updateAllyUnits)
+
+  useEffect(() => {
+    updateAllyArmy(allyArmy)
+  }, [allyArmy, updateAllyArmy])
+
+  if (!allyArmy) return <></>
 
   return (
     <div className="container d-print-none">
       <div className="row border border-dark pb-3">
         <div className="col card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} values={units} type={'Allied Unit'} setValues={handleUnits} />
+          <Card items={sortBy(allyArmy.Units, 'name')} values={units} type={'Allied Unit'} setValues={handleUnits} />
         </div>
       </div>
     </div>
@@ -129,10 +149,11 @@ export const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapAllyStateToProps = (state, ownProps) => ({
   ...ownProps,
+  allyFactionName: factionNames.selectors.getAllyFactionName(state),
   selections: selections.selectors.getSelections(state),
 })
 
 export const AllyArmyBuilder = connect(
   mapAllyStateToProps,
-  { updateAllyUnits: selections.actions.updateAllyUnits }
+  { updateAllyUnits: selections.actions.updateAllyUnits, updateAllyArmy: army.actions.updateAllyArmy }
 )(AllyArmyBuilderComponent)

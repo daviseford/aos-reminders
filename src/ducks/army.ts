@@ -49,7 +49,7 @@ army.selectors.getArmy = createSelector(
   army => army
 )
 
-army.selectors.getAllySelections = createSelector(
+army.selectors.getAllyArmy = createSelector(
   ['army.allyArmy'],
   allyArmy => allyArmy
 )

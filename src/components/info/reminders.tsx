@@ -5,7 +5,7 @@ import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
 import './reminders.css'
 import { processReminders } from 'utils/processReminders'
-import { realmscape, factionNames, selections } from 'ducks'
+import { realmscape, factionNames, selections, army } from 'ducks'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
@@ -21,7 +21,7 @@ interface IRemindersProps {
   selections: ISelections
 }
 
-const Reminders = (props: IRemindersProps) => {
+const RemindersComponent = (props: IRemindersProps) => {
   const { factionName, selections, army, realmscape, allyArmy, allySelections } = props
   const reminders = useMemo(() => {
     return processReminders(army, factionName, selections, realmscape, allyArmy, allySelections)
@@ -124,13 +124,15 @@ const ActionText = (props: IActionTextProps) => {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
+  allyArmy: army.selectors.getAllyArmy(state),
+  allySelections: selections.selectors.getAllySelections(state),
+  army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
   realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
-  allySelections: selections.selectors.getAllySelections(state),
 })
 
 export default connect(
   mapStateToProps,
   null
-)(Reminders)
+)(RemindersComponent)
