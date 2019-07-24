@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { visibilityFilter, todos, factionNames, realmscape } from './ducks'
+import { visibilityFilter, todos, factionNames, realmscape, selections } from 'ducks'
 import * as serviceWorker from './serviceWorker'
 import App from './components/App'
 
@@ -12,6 +12,7 @@ const store = createStore(
   combineReducers({
     factionNames: factionNames.reducer,
     realmscape: realmscape.reducer,
+    selections: selections.reducer,
     todos: todos.reducer,
     visibilityFilter: visibilityFilter.reducer,
   }),

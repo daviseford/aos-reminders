@@ -1,19 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
 import './army_builder.css'
 import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { SelectRealmscape } from './select_realmscape'
+import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
+import { TDropdownOption, SelectMulti } from './select'
 import { ISelections, IAllySelections } from 'types/selections'
-import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select'
 import { ValueType } from 'react-select/lib/types'
-import { factionNames, realmscape } from 'ducks'
-import { connect } from 'react-redux'
+import { realmscape, selections } from 'ducks'
 
-type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
-type TUpdateFn = (newState: ISelections) => void
 type TUpdateState = (selectValues: ValueType<TDropdownOption>[]) => void
-type TUseState = (state: ISelections, key: TFocusTypes, updateFn: TUpdateFn) => TUpdateState
 
 interface IArmyBuilderProps {
   army: {
@@ -23,47 +21,40 @@ interface IArmyBuilderProps {
     Units: TUnits
   }
   realmscape: string
-  setSelections: (x: ISelections) => any
-  setRealmscape: (value: string | null) => void
   selections: ISelections
-}
-
-const updateState: TUseState = (state, key, setSelections) => {
-  return (selectValues: ValueType<TDropdownOption>[]) => {
-    const newState = { ...state }
-    newState[key] = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
-    setSelections(newState)
-  }
+  setRealmscape: (value: string) => void
+  updateArtifacts: (values: string[]) => void
+  updateBattalions: (values: string[]) => void
+  updateTraits: (values: string[]) => void
+  updateUnits: (values: string[]) => void
 }
 
 export const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { army, setSelections, selections, setRealmscape } = props
-
-  const handleSetRealmscape = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    setRealmscape(value)
-  }
+  const { army, selections, setRealmscape, updateArtifacts, updateBattalions, updateTraits, updateUnits } = props
 
   const { units, traits, artifacts, battalions } = selections
-  const useArtifacts = updateState(selections, 'artifacts', setSelections)
-  const useBattalions = updateState(selections, 'battalions', setSelections)
-  const useTraits = updateState(selections, 'traits', setSelections)
-  const useUnits = updateState(selections, 'units', setSelections)
+
+  // Might want to useCallback these guys
+  const handleRealmscape = withSelectOne(setRealmscape)
+  const handleArtifacts = withSelectMultiple(updateArtifacts)
+  const handleBattalions = withSelectMultiple(updateBattalions)
+  const handleTraits = withSelectMultiple(updateTraits)
+  const handleUnits = withSelectMultiple(updateUnits)
 
   return (
     <div className="container">
       <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} values={units} type={'Unit'} setValues={useUnits} />
-          <Card items={army.Traits} type={'Trait'} values={traits} setValues={useTraits} />
-          <Card items={army.Artifacts} type={'Artifact'} values={artifacts} setValues={useArtifacts} />
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'Unit'} setValues={handleUnits} />
+          <Card items={army.Traits} type={'Trait'} values={traits} setValues={handleTraits} />
+          <Card items={army.Artifacts} type={'Artifact'} values={artifacts} setValues={handleArtifacts} />
           <Card
             items={sortBy(army.Battalions, 'name')}
             values={battalions}
             type={'Battalion'}
-            setValues={useBattalions}
+            setValues={handleBattalions}
           />
-          <SelectRealmscape setValue={handleSetRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
+          <SelectRealmscape setValue={handleRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
     </div>
@@ -73,10 +64,15 @@ export const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   realmscape: realmscape.selectors.getRealmscape(state),
+  selections: selections.selectors.getSelections(state),
 })
 
 const mapDispatchToProps = {
   setRealmscape: realmscape.actions.setRealmscape,
+  updateArtifacts: selections.actions.updateArtifacts,
+  updateBattalions: selections.actions.updateBattalions,
+  updateTraits: selections.actions.updateTraits,
+  updateUnits: selections.actions.updateUnits,
 }
 
 export const ArmyBuilder = connect(
@@ -110,27 +106,33 @@ interface IAllyArmyBuilderProps {
   army: {
     Units: TUnits
   }
-  setSelections: (x: IAllySelections) => any
   selections: IAllySelections
+  updateAllyUnits: (values: string[]) => void
 }
 
-export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
-  const { army, setSelections, selections } = props
+export const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
+  const { army, updateAllyUnits, selections } = props
   const { units } = selections
 
-  const useUnits = (selectValues: ValueType<TDropdownOption>[]) => {
-    const newState = { ...selections }
-    newState['units'] = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
-    setSelections(newState)
-  }
+  const handleUnits = withSelectMultiple(updateAllyUnits)
 
   return (
     <div className="container d-print-none">
       <div className="row border border-dark pb-3">
         <div className="col card-group mx-auto">
-          <Card items={sortBy(army.Units, 'name')} values={units} type={'Allied Unit'} setValues={useUnits} />
+          <Card items={sortBy(army.Units, 'name')} values={units} type={'Allied Unit'} setValues={handleUnits} />
         </div>
       </div>
     </div>
   )
 }
+
+const mapAllyStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  selections: selections.selectors.getSelections(state),
+})
+
+export const AllyArmyBuilder = connect(
+  mapAllyStateToProps,
+  { updateAllyUnits: selections.actions.updateAllyUnits }
+)(AllyArmyBuilderComponent)

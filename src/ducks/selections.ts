@@ -12,25 +12,40 @@ const initialState = {
   },
 }
 
-const resetSelections = (state, action) => ({
-  allySelections: state.allySelections,
-  selections: initialState.selections,
-})
-
-const resetAllySelections = (state, action) => ({
-  allySelections: initialState.allySelections,
-  selections: state.selections,
-})
-
-// const addSelection
+const resetSelections = (state, action) => {
+  state.selections = initialState.selections
+}
+const resetAllySelections = (state, action) => {
+  state.allySelections = initialState.allySelections
+}
+const updateUnits = (state, action) => {
+  state.selections.units = action.payload
+}
+const updateTraits = (state, action) => {
+  state.selections.traits = action.payload
+}
+const updateBattalions = (state, action) => {
+  state.selections.battalions = action.payload
+}
+const updateArtifacts = (state, action) => {
+  state.selections.artifacts = action.payload
+}
+const updateAllyUnits = (state, action) => {
+  state.allySelections.units = action.payload
+}
 
 export const selections = createSlice({
   slice: 'selections',
   initialState,
   reducers: {
-    resetSelections,
-    resetAllySelections,
     resetAllSelections: (state, action) => initialState,
+    resetAllySelections,
+    resetSelections,
+    updateAllyUnits,
+    updateArtifacts,
+    updateBattalions,
+    updateTraits,
+    updateUnits,
   },
 })
 
