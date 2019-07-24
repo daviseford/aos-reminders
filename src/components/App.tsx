@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import Reminders from './info/reminders'
 import { ArmyBuilder, AllyArmyBuilder } from './input/army_builder'
-import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
+import { PrintHeader, PrintFooterComponent, PrintUnitsComponent } from './print/print'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
@@ -56,9 +56,9 @@ const App = () => {
 
   return (
     <div className="d-block">
-      <Header setFactionName={setFactionName} />
-      <PrintHeader factionName={factionName} />
-      <PrintUnits selections={selections} allySelections={allySelections} realmscape={realmscape} />
+      <Header />
+      <PrintHeader />
+      <PrintUnitsComponent selections={selections} allySelections={allySelections} realmscape={realmscape} />
 
       <ArmyBuilder
         army={army}
@@ -83,7 +83,7 @@ const App = () => {
         allySelections={allySelections}
       />
 
-      <PrintFooter />
+      <PrintFooterComponent />
       <Footer />
     </div>
   )

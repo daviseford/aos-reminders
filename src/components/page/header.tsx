@@ -6,16 +6,16 @@ import { SelectOne, TDropdownOption } from 'components/input/select'
 import { titleCase } from 'utils/titleCase'
 import { logFactionSwitch } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
-import { todos } from 'ducks'
+import { factionNames } from 'ducks'
 
+interface IHeaderProps {
+  setFactionName: (value: string) => void
+}
 /**
  * Hidden when printing
  */
-// const Header = ({ setFactionName, isMobile }) => {
-const Header = props => {
+const Header = (props: IHeaderProps) => {
   const { setFactionName } = props
-  const isMobile = false
-  debugger
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
   const setValue = (selectValue: ValueType<TDropdownOption>) => {
@@ -35,7 +35,7 @@ const Header = props => {
           </a>
         </p>
 
-        <div className={`row ${isMobile ? 'w-75' : 'w-50'} mx-auto pb-3 d-block text-dark text-left`}>
+        <div className={`row mx-auto pb-3 d-block text-dark text-left`}>
           <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
         </div>
 
@@ -49,14 +49,11 @@ const Header = props => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    ...ownProps,
-    blah: state.todos,
-  }
+const mapDispatchToProps = {
+  setFactionName: factionNames.actions.setFactionName,
 }
 
 export default connect(
-  mapStateToProps,
-  { add: todos.actions.add }
+  null,
+  mapDispatchToProps
 )(Header)
