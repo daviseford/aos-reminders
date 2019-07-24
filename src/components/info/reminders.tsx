@@ -5,7 +5,7 @@ import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
 import './reminders.css'
 import { processReminders } from 'utils/processReminders'
-import { realmscape, factionNames } from 'ducks'
+import { realmscape, factionNames, selections } from 'ducks'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
@@ -126,6 +126,8 @@ const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
   realmscape: realmscape.selectors.getRealmscape(state),
+  selections: selections.selectors.getSelections(state),
+  allySelections: selections.selectors.getAllySelections(state),
 })
 
 export default connect(

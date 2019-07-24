@@ -2,29 +2,18 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Reminders from './info/reminders'
 import { ArmyBuilder, AllyArmyBuilder } from './input/army_builder'
-import { PrintHeader, PrintFooterComponent, PrintUnitsComponent } from './print/print'
+import { PrintHeader, PrintFooterComponent, PrintUnits } from './print/print'
 import { TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
 import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
-import { ValueType } from 'react-select/lib/types'
-import { TDropdownOption } from './input/select'
 import Toolbar from './input/toolbar'
 import { IArmy } from 'types/army'
 import { factionNames, selections, realmscape } from 'ducks'
 
 const App = props => {
-  const {
-    allyFactionName,
-    allySelections,
-    factionName,
-    resetAllySelections,
-    resetRealmscape,
-    resetSelections,
-    selections,
-  } = props
-  const [realmscape, setRealmscape] = useState('None')
+  const { allyFactionName, factionName, resetAllySelections, resetRealmscape, resetSelections } = props
   const army = useMemo(() => getArmy(factionName), [factionName])
   const allyArmy = useMemo(() => getArmy(allyFactionName as TSupportedFaction), [allyFactionName])
 
@@ -45,7 +34,7 @@ const App = props => {
     <div className="d-block">
       <Header />
       <PrintHeader />
-      <PrintUnitsComponent selections={selections} allySelections={allySelections} realmscape={realmscape} />
+      <PrintUnits />
 
       <ArmyBuilder army={army as IArmy} />
 
@@ -53,12 +42,7 @@ const App = props => {
 
       <Toolbar />
 
-      <Reminders
-        army={army as IArmy}
-        selections={selections}
-        allyArmy={allyArmy as IArmy}
-        allySelections={allySelections}
-      />
+      <Reminders army={army as IArmy} allyArmy={allyArmy as IArmy} />
 
       <PrintFooterComponent />
       <Footer />

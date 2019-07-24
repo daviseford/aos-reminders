@@ -1,6 +1,12 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
+import { ISelections, IAllySelections } from 'types/selections'
 
-const initialState = {
+type TInitialStateType = {
+  selections: ISelections
+  allySelections: IAllySelections
+}
+
+const initialState: TInitialStateType = {
   selections: {
     artifacts: [] as string[],
     battalions: [] as string[],

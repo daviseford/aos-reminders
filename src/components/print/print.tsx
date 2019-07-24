@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { ISelections, IAllySelections } from 'types/selections'
 import { titleCase } from 'utils/titleCase'
-import { factionNames } from 'ducks'
+import { factionNames, selections, realmscape } from 'ducks'
 
 const PrintHeaderComponent = (props: { factionName: string }) => {
   return (
@@ -23,7 +23,7 @@ export const PrintHeader = connect(
   null
 )(PrintHeaderComponent)
 
-export const PrintUnitsComponent = (props: {
+const PrintUnitsComponent = (props: {
   selections: ISelections
   allySelections: IAllySelections
   realmscape: string
@@ -33,17 +33,28 @@ export const PrintUnitsComponent = (props: {
   const realm = props.realmscape === 'None' ? [] : [props.realmscape]
   return (
     <div className={'row text-center d-none d-print-block'}>
-      <ItemsDisplay name={'Unit'} items={units} />
-      <ItemsDisplay name={'Allied Unit'} items={allyUnits} />
-      <ItemsDisplay name={'Artifact'} items={artifacts} />
-      <ItemsDisplay name={'Battalion'} items={battalions} />
-      <ItemsDisplay name={'Command Trait'} items={traits} />
-      <ItemsDisplay name={'Realmscape Feature'} items={realm} />
+      <ItemsDisplayComponent name={'Unit'} items={units} />
+      <ItemsDisplayComponent name={'Allied Unit'} items={allyUnits} />
+      <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
+      <ItemsDisplayComponent name={'Battalion'} items={battalions} />
+      <ItemsDisplayComponent name={'Command Trait'} items={traits} />
+      <ItemsDisplayComponent name={'Realmscape Feature'} items={realm} />
     </div>
   )
 }
 
-const ItemsDisplay = (props: { name: string; items: string[] }) => {
+const mapUnitsStateToProps = (state, ownProps) => ({
+  allySelections: selections.selectors.getAllySelections(state),
+  realmscape: realmscape.selectors.getRealmscape(state),
+  selections: selections.selectors.getSelections(state),
+})
+
+export const PrintUnits = connect(
+  mapUnitsStateToProps,
+  null
+)(PrintUnitsComponent as any)
+
+const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   if (!props.items.length) return null
   const title = props.items.length > 1 ? `${props.name}s` : props.name
   return (
