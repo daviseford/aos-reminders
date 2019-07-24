@@ -1,20 +1,22 @@
 import React, { useState, useMemo } from 'react'
+import { connect } from 'react-redux'
+import { without } from 'lodash'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { SelectOne, TDropdownOption } from './select'
 import { ValueType } from 'react-select/lib/types'
-import { logPrintEvent } from 'utils/analytics'
-import { without } from 'lodash'
+import { logPrintEvent, logAllyFaction } from 'utils/analytics'
+import { factionNames } from 'ducks'
 
 const btnClass = `col-xs-6 col-sm-4 col-lg-3 col-xl-3`
 const selectClass = `col-xs-12 col-sm-8 col-lg-5 col-xl-4`
 
 interface IToolbarProps {
-  setAllyValue: IAddAllySelect['setAllyValue']
+  setAllyFactionName: IAddAllySelect['setAllyFactionName']
   factionName: TSupportedFaction
 }
 
-const Toolbar = (props: IToolbarProps) => {
-  const { setAllyValue, factionName } = props
+const ToolbarComponent = (props: IToolbarProps) => {
+  const { setAllyFactionName, factionName } = props
   const [hasAlly, setHasAlly] = useState(false)
   const allyFactionPossibilities = useMemo(() => without(SUPPORTED_FACTIONS, factionName), [factionName])
 
@@ -23,7 +25,7 @@ const Toolbar = (props: IToolbarProps) => {
     const newVal = !hasAlly
     setHasAlly(newVal)
     if (!newVal) {
-      setAllyValue({ value: '' } as TDropdownOption)
+      setAllyFactionName(null)
     }
   }
 
@@ -31,7 +33,7 @@ const Toolbar = (props: IToolbarProps) => {
     <div className="container d-print-none">
       <div className="row justify-content-center pt-2" hidden={!hasAlly}>
         <div className={selectClass}>
-          <AddAllySelect setAllyValue={setAllyValue} items={allyFactionPossibilities} />
+          <AddAllySelect setAllyFactionName={setAllyFactionName} items={allyFactionPossibilities} />
         </div>
       </div>
 
@@ -47,7 +49,19 @@ const Toolbar = (props: IToolbarProps) => {
   )
 }
 
-export default Toolbar
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  factionName: factionNames.selectors.getFactionName(state),
+})
+
+const mapDispatchToProps = {
+  setAllyFactionName: factionNames.actions.setAllyFactionName,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ToolbarComponent)
 
 interface IAddAllyButton {
   setAllyClick: (e: any) => void
@@ -66,15 +80,21 @@ const AddAllyButton = (props: IAddAllyButton) => {
 }
 
 interface IAddAllySelect {
-  setAllyValue: (selectValue: ValueType<TDropdownOption>) => void
+  setAllyFactionName: (value: string | null) => void
   items: TSupportedFaction[]
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {
-  const { setAllyValue, items } = props
+  const { setAllyFactionName, items } = props
+
+  const handleSetAllyName = (selectValue: ValueType<TDropdownOption>) => {
+    const { value } = selectValue as TDropdownOption
+    logAllyFaction(value as TSupportedFaction)
+    setAllyFactionName(value)
+  }
   return (
     <>
-      <SelectOne items={items} setValue={setAllyValue} hasDefault={true} toTitle={true} />
+      <SelectOne items={items} setValue={handleSetAllyName} hasDefault={true} toTitle={true} />
     </>
   )
 }

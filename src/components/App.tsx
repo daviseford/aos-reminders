@@ -6,7 +6,7 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
-import { logFactionSwitch, logPageView, logAllyFaction } from 'utils/analytics'
+import { logFactionSwitch, logPageView } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption } from './input/select'
 import Toolbar from './input/toolbar'
@@ -34,12 +34,6 @@ const App = () => {
   const handleSetRealmscape = (selectValue: ValueType<TDropdownOption>) => {
     const { value } = selectValue as TDropdownOption
     setRealmscape(value)
-  }
-
-  const handleSetAllyName = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    logAllyFaction(value as TSupportedFaction)
-    setAllyFactionName(value)
   }
 
   // Reset the state when factionName is switched
@@ -72,7 +66,7 @@ const App = () => {
         <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />
       )}
 
-      <Toolbar setAllyValue={handleSetAllyName} factionName={factionName} />
+      <Toolbar />
 
       <Reminders
         army={army}
