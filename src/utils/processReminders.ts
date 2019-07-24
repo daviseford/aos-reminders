@@ -1,36 +1,34 @@
 import { Game, TGameStructure } from 'meta/game_structure'
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
+import { flatten } from 'lodash'
 
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
   selections: ISelections,
-  realmscape: string
+  realmscape: string,
+  allyArmy: IArmy,
+  allySelections: IAllySelections
 ) => IReminder
 
-export const processReminders: TProcessReminders = (army, factionName, selections, realmscape) => {
-  const game: TGameStructure = army.Game
-  const conds = Object.values(selections).reduce((a, b) => a.concat(b), [])
+export const processReminders: TProcessReminders = (
+  army,
+  factionName,
+  selections,
+  realmscape,
+  allyArmy,
+  allySelections
+) => {
+  let reminders = processConditions(army.Game, selections, {})
 
-  const reminders = Object.keys(game).reduce((accum, key) => {
-    const phase = game[key]
-    const addToAccum = (actions: ITurnAction[], when: string) => {
-      actions.forEach((y: ITurnAction) => {
-        if (conds.includes(y.condition)) {
-          accum[when] = accum[when] ? accum[when].concat(y) : [y]
-        }
-      })
-    }
-    if (phase.length) {
-      addToAccum(phase, key)
-    }
-    return accum
-  }, {})
+  if (allyArmy) {
+    reminders = processConditions(allyArmy.Game, allySelections, reminders)
+  }
 
   // Add Abilities
   if (army.Abilities && army.Abilities.length) {
@@ -71,4 +69,23 @@ export const processReminders: TProcessReminders = (army, factionName, selection
   }, {})
 
   return ordered
+}
+
+const processConditions = (game: TGameStructure, selections: ISelections | IAllySelections, startVal = {}) => {
+  const conditions = flatten(Object.values(selections))
+  const reminders = Object.keys(game).reduce((accum, key) => {
+    const phase = game[key]
+    const addToAccum = (actions: ITurnAction[], when: string) => {
+      actions.forEach((y: ITurnAction) => {
+        if (conditions.includes(y.condition)) {
+          accum[when] = accum[when] ? accum[when].concat(y) : [y]
+        }
+      })
+    }
+    if (phase.length) {
+      addToAccum(phase, key)
+    }
+    return accum
+  }, startVal)
+  return reminders
 }

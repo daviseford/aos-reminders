@@ -11,6 +11,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+
 const Artifacts: TArtifacts = [
   {
     name: `Deathforged Chain (Nagash)`,
@@ -343,4 +344,5 @@ const Artifacts: TArtifacts = [
     ],
   },
 ]
+
 export default Artifacts
