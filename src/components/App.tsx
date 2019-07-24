@@ -52,13 +52,7 @@ const App = props => {
       <PrintHeader />
       <PrintUnitsComponent selections={selections} allySelections={allySelections} realmscape={realmscape} />
 
-      <ArmyBuilder
-        army={army as IArmy}
-        realmscape={realmscape}
-        selections={selections}
-        setRealmscape={handleSetRealmscape}
-        setSelections={setSelections}
-      />
+      <ArmyBuilder army={army as IArmy} selections={selections} setSelections={setSelections} />
 
       {allyArmy && (
         <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />

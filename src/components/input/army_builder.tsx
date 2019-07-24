@@ -7,6 +7,8 @@ import { SelectRealmscape } from './select_realmscape'
 import { ISelections, IAllySelections } from 'types/selections'
 import { TSelectOneSetValueFn, TDropdownOption, SelectMulti } from './select'
 import { ValueType } from 'react-select/lib/types'
+import { factionNames, realmscape } from 'ducks'
+import { connect } from 'react-redux'
 
 type TFocusTypes = 'units' | 'artifacts' | 'battalions' | 'traits'
 type TUpdateFn = (newState: ISelections) => void
@@ -22,7 +24,7 @@ interface IArmyBuilderProps {
   }
   realmscape: string
   setSelections: (x: ISelections) => any
-  setRealmscape: TSelectOneSetValueFn
+  setRealmscape: (value: string | null) => void
   selections: ISelections
 }
 
@@ -34,8 +36,14 @@ const updateState: TUseState = (state, key, setSelections) => {
   }
 }
 
-export const ArmyBuilder = (props: IArmyBuilderProps) => {
+export const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const { army, setSelections, selections, setRealmscape } = props
+
+  const handleSetRealmscape = (selectValue: ValueType<TDropdownOption>) => {
+    const { value } = selectValue as TDropdownOption
+    setRealmscape(value)
+  }
+
   const { units, traits, artifacts, battalions } = selections
   const useArtifacts = updateState(selections, 'artifacts', setSelections)
   const useBattalions = updateState(selections, 'battalions', setSelections)
@@ -55,12 +63,26 @@ export const ArmyBuilder = (props: IArmyBuilderProps) => {
             type={'Battalion'}
             setValues={useBattalions}
           />
-          <SelectRealmscape setValue={setRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
+          <SelectRealmscape setValue={handleSetRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
       </div>
     </div>
   )
 }
+
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  realmscape: realmscape.selectors.getRealmscape(state),
+})
+
+const mapDispatchToProps = {
+  setRealmscape: realmscape.actions.setRealmscape,
+}
+
+export const ArmyBuilder = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ArmyBuilderComponent)
 
 interface ICardProps {
   values: string[]
