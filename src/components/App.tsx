@@ -7,43 +7,38 @@ import { TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
 import Header from './page/header'
 import Footer from './page/footer'
-import { logFactionSwitch } from 'utils/analytics'
+import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption } from './input/select'
 import Toolbar from './input/toolbar'
 import { IArmy } from 'types/army'
-import { factionNames } from 'ducks'
+import { factionNames, selections, realmscape } from 'ducks'
 
 const App = props => {
-  const { factionName, allyFactionName } = props
-  const [selections, setSelections] = useState({
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    traits: [] as string[],
-    units: [] as string[],
-  })
-  const [allySelections, setAllySelections] = useState({
-    units: [] as string[],
-  })
+  const {
+    allyFactionName,
+    allySelections,
+    factionName,
+    resetAllySelections,
+    resetRealmscape,
+    resetSelections,
+    selections,
+  } = props
   const [realmscape, setRealmscape] = useState('None')
   const army = useMemo(() => getArmy(factionName), [factionName])
   const allyArmy = useMemo(() => getArmy(allyFactionName as TSupportedFaction), [allyFactionName])
 
-  const handleSetRealmscape = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    setRealmscape(value)
-  }
-
-  // Reset the state when factionName is switched
+  // Reset the store when factionName is switched
   useEffect(() => {
-    setSelections({ artifacts: [], battalions: [], traits: [], units: [] })
-    setRealmscape('None')
+    resetSelections()
+    resetRealmscape()
     logFactionSwitch(factionName)
   }, [factionName])
 
-  // Reset the ally state when allyFactionName is switched
+  // Reset the ally store when allyFactionName is switched
   useEffect(() => {
-    setAllySelections({ units: [] })
+    resetAllySelections()
+    allyFactionName && logAllyFaction(allyFactionName)
   }, [allyFactionName])
 
   return (
@@ -52,11 +47,9 @@ const App = props => {
       <PrintHeader />
       <PrintUnitsComponent selections={selections} allySelections={allySelections} realmscape={realmscape} />
 
-      <ArmyBuilder army={army as IArmy} selections={selections} setSelections={setSelections} />
+      <ArmyBuilder army={army as IArmy} />
 
-      {allyArmy && (
-        <AllyArmyBuilder army={allyArmy as IArmy} selections={allySelections} setSelections={setAllySelections} />
-      )}
+      {allyArmy && <AllyArmyBuilder army={allyArmy as IArmy} />}
 
       <Toolbar />
 
@@ -74,12 +67,16 @@ const App = props => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  factionName: factionNames.selectors.getFactionName(state),
   allyFactionName: factionNames.selectors.getAllyFactionName(state),
+  allySelections: selections.selectors.getAllySelections(state),
+  factionName: factionNames.selectors.getFactionName(state),
+  selections: selections.selectors.getSelections(state),
 })
 
 const mapDispatchToProps = {
-  // setAllyFactionName: factionNames.actions.setAllyFactionName,
+  resetAllySelections: selections.actions.resetAllySelections,
+  resetRealmscape: realmscape.actions.resetRealmscape,
+  resetSelections: selections.actions.resetSelections,
 }
 
 export default connect(

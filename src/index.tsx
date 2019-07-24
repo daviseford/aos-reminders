@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.css'
-import './index.css'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { visibilityFilter, todos, factionNames, realmscape, selections } from 'ducks'
+import 'bootstrap/dist/css/bootstrap.css'
+import './index.css'
+import { factionNames, realmscape, selections } from 'ducks'
 import * as serviceWorker from './serviceWorker'
 import App from './components/App'
 
@@ -13,8 +13,6 @@ const store = createStore(
     factionNames: factionNames.reducer,
     realmscape: realmscape.reducer,
     selections: selections.reducer,
-    todos: todos.reducer,
-    visibilityFilter: visibilityFilter.reducer,
   }),
   //@ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
