@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { initial, last } from 'lodash'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { SelectOne, TDropdownOption } from 'components/input/select'
-import { titleCase } from 'utils/titleCase'
-import { logFactionSwitch } from 'utils/analytics'
-import { ValueType } from 'react-select/lib/types'
+
+import { SelectOne } from 'components/input/select'
 import { factionNames } from 'ducks'
+import { titleCase } from 'utils/titleCase'
+import { withSelectOne } from 'utils/withSelect'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 
 interface IHeaderProps {
   setFactionName: (value: string) => void
@@ -14,15 +14,11 @@ interface IHeaderProps {
 /**
  * Hidden when printing
  */
-const Header = (props: IHeaderProps) => {
+const HeaderComponent = (props: IHeaderProps) => {
   const { setFactionName } = props
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
-  const setValue = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    logFactionSwitch(value as TSupportedFaction)
-    setFactionName(value)
-  }
+  const setValue = withSelectOne(setFactionName)
 
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
@@ -53,7 +49,7 @@ const mapDispatchToProps = {
   setFactionName: factionNames.actions.setFactionName,
 }
 
-export default connect(
+export const Header = connect(
   null,
   mapDispatchToProps
-)(Header)
+)(HeaderComponent)

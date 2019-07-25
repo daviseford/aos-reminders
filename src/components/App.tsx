@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import RemindersComponent from './info/reminders'
-import { ArmyBuilder, AllyArmyBuilder } from './input/army_builder'
-import { PrintHeader, PrintFooterComponent, PrintUnits } from './print/print'
-import Header from './page/header'
-import Footer from './page/footer'
-import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
-import Toolbar from './input/toolbar'
+import { AllyArmyBuilder } from 'components/input/ally_army_builder'
+import { ArmyBuilder } from 'components/input/army_builder'
+import { FooterComponent } from 'components/page/footer'
+import { Header } from 'components/page/header'
+import { PrintHeader, PrintFooterComponent, PrintUnits } from 'components/print/print'
+import { Reminders } from 'components/info/reminders'
+import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections, realmscape } from 'ducks'
+import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
 
 const App = props => {
   const { allyFactionName, factionName, resetAllySelections, resetRealmscape, resetSelections } = props
@@ -37,10 +38,10 @@ const App = props => {
 
       <Toolbar />
 
-      <RemindersComponent />
+      <Reminders />
 
       <PrintFooterComponent />
-      <Footer />
+      <FooterComponent />
     </div>
   )
 }

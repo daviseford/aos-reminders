@@ -4,9 +4,9 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
-import { army, factionNames, realmscape, selections } from 'ducks'
 import * as serviceWorker from './serviceWorker'
 import App from './components/App'
+import { army, factionNames, realmscape, selections } from 'ducks'
 
 const store = createStore(
   combineReducers({

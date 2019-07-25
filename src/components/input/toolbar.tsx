@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { without } from 'lodash'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { SelectOne, TDropdownOption } from './select'
-import { ValueType } from 'react-select/lib/types'
-import { logPrintEvent, logAllyFaction } from 'utils/analytics'
 import { factionNames } from 'ducks'
+import { SelectOne } from './select'
+import { logPrintEvent } from 'utils/analytics'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { withSelectOne } from 'utils/withSelect'
 
 const btnClass = `col-xs-6 col-sm-4 col-lg-3 col-xl-3`
 const selectClass = `col-xs-12 col-sm-8 col-lg-5 col-xl-4`
@@ -18,7 +17,6 @@ interface IToolbarProps {
 const ToolbarComponent = (props: IToolbarProps) => {
   const { setAllyFactionName, factionName } = props
   const [hasAlly, setHasAlly] = useState(false)
-  const allyFactionPossibilities = useMemo(() => without(SUPPORTED_FACTIONS, factionName), [factionName])
 
   const handleAllyClick = e => {
     e.preventDefault()
@@ -33,7 +31,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
     <div className="container d-print-none">
       <div className="row justify-content-center pt-2" hidden={!hasAlly}>
         <div className={selectClass}>
-          <AddAllySelect setAllyFactionName={setAllyFactionName} items={allyFactionPossibilities} />
+          <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />
         </div>
       </div>
 
@@ -58,7 +56,7 @@ const mapDispatchToProps = {
   setAllyFactionName: factionNames.actions.setAllyFactionName,
 }
 
-export default connect(
+export const Toolbar = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ToolbarComponent)
@@ -86,18 +84,15 @@ interface IAddAllySelect {
 
 const AddAllySelect = (props: IAddAllySelect) => {
   const { setAllyFactionName, items } = props
+  const handleSetAllyName = withSelectOne(setAllyFactionName)
 
-  const handleSetAllyName = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    logAllyFaction(value as TSupportedFaction)
-    setAllyFactionName(value)
-  }
   return (
     <>
       <SelectOne items={items} setValue={handleSetAllyName} hasDefault={true} toTitle={true} />
     </>
   )
 }
+
 const PrintButton = (props: { factionName: TSupportedFaction }) => {
   const handlePrint = e => {
     e.preventDefault()

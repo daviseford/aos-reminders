@@ -4,8 +4,8 @@ import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
 import './reminders.css'
-import { processReminders } from 'utils/processReminders'
 import { realmscape, factionNames, selections, army } from 'ducks'
+import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
@@ -132,7 +132,7 @@ const mapStateToProps = (state, ownProps) => ({
   selections: selections.selectors.getSelections(state),
 })
 
-export default connect(
+export const Reminders = connect(
   mapStateToProps,
   null
 )(RemindersComponent)
