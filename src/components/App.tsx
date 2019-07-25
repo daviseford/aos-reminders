@@ -9,8 +9,20 @@ import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections, realmscape } from 'ducks'
 import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
+import { TSupportedFaction } from 'meta/factions'
+import { IAllySelections, ISelections } from 'types/selections'
 
-const App = props => {
+interface IAppProps {
+  allyFactionName: TSupportedFaction | null
+  allySelections: IAllySelections
+  factionName: TSupportedFaction
+  selections: ISelections
+  resetAllySelections: () => void
+  resetRealmscape: () => void
+  resetSelections: () => void
+}
+
+const App = (props: IAppProps) => {
   const { allyFactionName, factionName, resetAllySelections, resetRealmscape, resetSelections } = props
 
   // Reset the store when factionName is switched
@@ -47,6 +59,7 @@ const App = props => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
   allyFactionName: factionNames.selectors.getAllyFactionName(state),
   allySelections: selections.selectors.getAllySelections(state),
   factionName: factionNames.selectors.getFactionName(state),
