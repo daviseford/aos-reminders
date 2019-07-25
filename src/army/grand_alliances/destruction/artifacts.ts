@@ -48,7 +48,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Collar of Domination (Destruction)`,
-        desc: `At the start of your opponent's movement phase, pick an enemy MONSTER within 3" of the bearer and roll 2D6. If the roll is equal or greater than enemy monsterbs Bravery characteristic, it must retreat in that movement phase`,
+        desc: `At the start of your opponent's movement phase, pick an enemy MONSTER within 3" of the bearer and roll 2D6. If the roll is equal or greater than enemy monsterbs Bravery characteristic, it must retreat in that movement phase.`,
         when: [MOVEMENT_PHASE],
       },
     ],

@@ -2,15 +2,21 @@ const replace = require('replace-in-file')
 
 const replaceOptions = {
   files: 'src/**/*.*(ts|tsx)',
-  from: [/[‘’]/g, /[“”]/g, /(?<=[name|desc]: )` +(?=.+`)/g, /(?<!:)(?<=[name|desc]: `.+) +`/g],
-  to: [`'`, `"`, '`', '`'],
+  from: [
+    /[‘’]/g, // Replace special apostrophes
+    /[“”]/g, // Replace special quotes
+    /(?<=[name|desc]: )` +(?=.+`)/g, // Remove leading whitespaces
+    /(?<!:)(?<=[name|desc]: `.+) +`/g, // Remove trailed whitespaces
+    /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
+  ],
+  to: [`'`, `"`, '`', '`', '.`'],
 }
 
 /**
  *
  * @param results - { file: string; hasChanged: boolean }[]
  */
-const getChanged = results => results.filter(x => x.hasChanged)
+const getChanged = results => results.filter(x => x.hasChanged).map(x => x.file)
 
 const run = async () => {
   try {

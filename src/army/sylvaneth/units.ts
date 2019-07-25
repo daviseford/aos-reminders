@@ -160,7 +160,7 @@ export const Units: TUnits = [
         name: `Heed the Spirit-song`,
         desc: `Until your next hero phase, you can re-roll save rolls of 1 for SYLVANETH units if they are within 10" of the Treelord Ancient.`,
         when: [DURING_GAME],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -189,7 +189,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
@@ -209,7 +209,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
@@ -306,7 +306,7 @@ export const Units: TUnits = [
         name: `Call to Battle`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Sylvaneth unit wholly within 9" of a friendly model with this command ability, or wholly within 12" of a friendly model with this command ability that is your general. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. You cannot pick the same unit to benefit from this command ability more than once per combat phase.`,
         when: [START_OF_COMBAT_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },

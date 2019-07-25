@@ -44,7 +44,7 @@ export const Units: TUnits = [
         name: `Impeccable Foresight`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, roll 3 dice. For each 4+, you receive 1 extra command point. You cannot use this command ability more than once per hero phase.`,
         when: [START_OF_HERO_PHASE],
-        command: true,
+        command_ability: true,
       },
       {
         name: `Masters of Order`,
@@ -89,7 +89,7 @@ export const Units: TUnits = [
         name: `Gift from the Heavens`,
         desc: `If a Slann Starmaster uses this ability, Seraphon units from your army that are within 10" are affected. Until your next hero phase, those units can fly and you can re-roll failed save rolls for them in the shooting phase.`,
         when: [MOVEMENT_PHASE],
-        command: true,
+        command_ability: true,
       },
       {
         name: `Masters of Order`,
@@ -125,7 +125,7 @@ export const Units: TUnits = [
         name: `Paragon of Order`,
         desc: `If a Saurus Oldblood uses this ability, each Seraphon unit from your army within 10" can immediately reform around one of its models. That model must stay where it is, but each other model in the unit can move up to 3" so long as it does not end this move within 3" of the enemy. The same unit cannot benefit from this command ability more than once in the same phase.`,
         when: [DURING_GAME],
-        command: true,
+        command_ability: true,
       },
       {
         name: `Wrath of the Seraphon`,
@@ -146,7 +146,7 @@ export const Units: TUnits = [
         name: `Savage Charge`,
         desc: `If a Scar-Veteran on Cold One uses this ability, then you can re-roll charge rolls and hit rolls of 1 for Saurus units within 8". In addition, until your next hero phase this model and any Saurus Knights within 8" make an additional attack with their Cold Ones' Vicious Bites.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -177,7 +177,7 @@ export const Units: TUnits = [
         name: `Scent of Weakness`,
         desc: `If the Saurus Sunblood uses this ability, pick an enemy unit within 15" – until your next hero phase, re-roll failed hit rolls for attacks made in the combat phase against that unit by any of your Saurus models.`,
         when: [COMBAT_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -202,7 +202,7 @@ export const Units: TUnits = [
         name: `Saurian Savage`,
         desc: `If the Saurus Scar-Veteran on Carnosaur uses this ability, pick a Saurus unit within 15". Until your next hero phase, whenever you roll a hit roll of 6 or more for a model in that unit, that model can immediately make one additional attack using the same weapon.`,
         when: [COMBAT_PHASE],
-        command: true,
+        command_ability: true,
       },
     ],
   },
@@ -211,7 +211,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Conduit`,
-        desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer`,
+        desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer.`,
         when: [HERO_PHASE],
       },
       {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cosmic Engine`,
-        desc: `Roll for Engine of the Gods effect`,
+        desc: `Roll for Engine of the Gods effect.`,
         when: [HERO_PHASE],
       },
       {
@@ -356,12 +356,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Toad Rage`,
-        desc: `Place Blot Toad for Ripperdactyls`,
+        desc: `Place Blot Toad for Ripperdactyls.`,
         when: [TURN_ONE_HERO_PHASE],
       },
       {
         name: `Toad Rage`,
-        desc: `Move Blot Toad up to D6 inches`,
+        desc: `Move Blot Toad up to D6 inches.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -547,7 +547,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Creator's Will`,
-        desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units`,
+        desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {

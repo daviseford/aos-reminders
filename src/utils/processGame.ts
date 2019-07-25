@@ -1,6 +1,6 @@
 import { TBattalions, TArtifacts, TUnits } from 'types/army'
 import { addToGame } from './addToGame'
-import { TGameStructure, Game } from 'meta/turn_structure'
+import { TGameStructure, Game } from 'meta/game_structure'
 
 type entries = TBattalions | TArtifacts | TUnits
 
@@ -19,9 +19,10 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           name: effect.name,
           desc: effect.desc,
           tag: effect.tag || '',
-          artifact: entry.artifact || false,
-          command: effect.command || false,
-          trait: entry.trait || false,
+          allegiance_ability: effect.allegiance_ability || entry.allegiance_ability || false,
+          artifact: effect.artifact || entry.artifact || false,
+          command_ability: entry.command_ability || effect.command_ability || false,
+          command_trait: entry.command_trait || effect.command_trait || false,
         })
       })
     })

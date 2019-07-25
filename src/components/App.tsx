@@ -1,58 +1,78 @@
-import React, { useState, useMemo, useEffect } from 'react'
-import Reminders from './info/reminders'
-import { ArmyBuilder } from './input/army_builder'
-import { PrintHeader, PrintFooter, PrintUnits } from './print/print'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
-import { getArmy } from 'utils/getArmy'
-import Header from './page/header'
-import Footer from './page/footer'
-import { logFactionSwitch, logPageView } from 'utils/analytics'
-import { ValueType } from 'react-select/lib/types'
-import { TDropdownOption } from './input/select'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { AllyArmyBuilder } from 'components/input/ally_army_builder'
+import { ArmyBuilder } from 'components/input/army_builder'
+import { FooterComponent } from 'components/page/footer'
+import { Header } from 'components/page/header'
+import { PrintHeader, PrintFooterComponent, PrintUnits } from 'components/print/print'
+import { Reminders } from 'components/info/reminders'
+import { Toolbar } from 'components/input/toolbar'
+import { factionNames, selections, realmscape } from 'ducks'
+import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
+import { TSupportedFaction } from 'meta/factions'
+import { IAllySelections, ISelections } from 'types/selections'
 
-const App = () => {
-  logPageView()
-  const [selections, setSelections] = useState({
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    traits: [] as string[],
-    units: [] as string[],
-  })
-  const [factionName, setFactionName] = useState(SUPPORTED_FACTIONS[0])
-  const [realmscape, setRealmscape] = useState('None')
-  const army = useMemo(() => getArmy(factionName), [factionName])
+interface IAppProps {
+  allyFactionName: TSupportedFaction | null
+  allySelections: IAllySelections
+  factionName: TSupportedFaction
+  selections: ISelections
+  resetAllySelections: () => void
+  resetRealmscape: () => void
+  resetSelections: () => void
+}
 
-  const useSetFactionName = (selectValue: ValueType<TDropdownOption>, action) => {
-    const { value } = selectValue as TDropdownOption
-    setRealmscape(value)
-  }
+const App = (props: IAppProps) => {
+  const { allyFactionName, factionName, resetAllySelections, resetRealmscape, resetSelections } = props
 
-  // Reset the state when factionName is switched
+  // Reset the store when factionName is switched
   useEffect(() => {
-    setSelections({ artifacts: [], battalions: [], traits: [], units: [] })
-    setRealmscape('None')
+    resetSelections()
+    resetRealmscape()
     logFactionSwitch(factionName)
-  }, [factionName])
+  }, [factionName, resetRealmscape, resetSelections])
+
+  // Reset the ally store when allyFactionName is switched
+  useEffect(() => {
+    resetAllySelections()
+    allyFactionName && logAllyFaction(allyFactionName)
+  }, [allyFactionName, resetAllySelections])
 
   return (
     <div className="d-block">
-      <Header setFactionName={setFactionName} factionName={factionName} />
-      <PrintHeader factionName={factionName} />
-      <PrintUnits selections={selections} realmscape={realmscape} />
+      <Header />
+      <PrintHeader />
+      <PrintUnits />
 
-      <ArmyBuilder
-        army={army}
-        realmscape={realmscape}
-        selections={selections}
-        setRealmscape={useSetFactionName}
-        setSelections={setSelections}
-      />
-      <Reminders army={army} factionName={factionName} selections={selections} realmscape={realmscape} />
+      <ArmyBuilder />
 
-      <PrintFooter />
-      <Footer />
+      <AllyArmyBuilder />
+
+      <Toolbar />
+
+      <Reminders />
+
+      <PrintFooterComponent />
+      <FooterComponent />
     </div>
   )
 }
 
-export default App
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  allyFactionName: factionNames.selectors.getAllyFactionName(state),
+  allySelections: selections.selectors.getAllySelections(state),
+  factionName: factionNames.selectors.getFactionName(state),
+  selections: selections.selectors.getSelections(state),
+})
+
+const mapDispatchToProps = {
+  resetAllySelections: selections.actions.resetAllySelections,
+  resetRealmscape: realmscape.actions.resetRealmscape,
+  resetSelections: selections.actions.resetSelections,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
