@@ -81,7 +81,7 @@ const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => voi
     <>
       <IconContext.Provider value={{ size: '1.3em' }}>
         <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
-        <ReactTooltip place="bottom" type="light" effect="float" />
+        <ReactTooltip place="bottom" type="info" effect="float" />
       </IconContext.Provider>
     </>
   )
