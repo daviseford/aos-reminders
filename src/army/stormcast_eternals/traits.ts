@@ -37,7 +37,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Soul of the Stormhost`,
-        desc: `You can use this command ability when a friendly HAMMERS OF SIGMAR REDEEMER unit is destroyed. If you do so roll a dice. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit anywhere on the battlefield, more than 9" from any enemy models.`,
+        desc: `You can use this command ability when a friendly HAMMERS OF SIGMAR REDEEMER unit is destroyed. If you do so roll a dice. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit anywhere on the battlefield, more than 9" from any enemy models. Cannot use more than once per phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -93,7 +93,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Righteous Hatred`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, you pick a friendly CELESTIAL VINDICATORS unit wholly within 9" of a friendly of a friendly CELESTIAL VINDICATORS HERO, or wholly within 18" of a friendly CELESTIAL VINDICATORS HERO that is a general. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, you pick a friendly CELESTIAL VINDICATORS unit wholly within 9" of a friendly of a friendly CELESTIAL VINDICATORS HERO, or wholly within 18" of a friendly CELESTIAL VINDICATORS HERO that is a general. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. Same unit cannot benefit more than once per hero phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -121,7 +121,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Heroes of Another Age`,
-        desc: `You can use this command ability in your hero phase. If you do so, you pick a friendly ANVILS OF THE HELDENHAMMER unit wholly within 9" of a friendly of a friendly ANVILS OF THE HELDENHAMMER HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. That unit can attack with all the missile weapons it is armed with, or make a pile-in move and attack with all of the melee weapons it is armed with.`,
+        desc: `You can use this command ability in your hero phase. If you do so, you pick a friendly ANVILS OF THE HELDENHAMMER unit wholly within 9" of a friendly of a friendly ANVILS OF THE HELDENHAMMER HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. That unit can attack with all the missile weapons it is armed with, or make a pile-in move and attack with all of the melee weapons it is armed with. Same unit cannot benefit more than once per hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
