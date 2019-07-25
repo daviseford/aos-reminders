@@ -1,8 +1,10 @@
 import React, { useMemo, useState } from 'react'
-import './reminders.css'
+import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
+import './reminders.css'
+import { realmscape, factionNames, selections, army } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
@@ -19,7 +21,7 @@ interface IRemindersProps {
   selections: ISelections
 }
 
-const Reminders = (props: IRemindersProps) => {
+const RemindersComponent = (props: IRemindersProps) => {
   const { factionName, selections, army, realmscape, allyArmy, allySelections } = props
   const reminders = useMemo(() => {
     return processReminders(army, factionName, selections, realmscape, allyArmy, allySelections)
@@ -42,7 +44,7 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
   const hideEntry = () => setNumVisible(numVisible - 1)
 
   return (
-    <div className={`row d-block PageBreak ${!numVisible && `d-print-none`}`}>
+    <div className={`row d-block PageBreak ${numVisible === 0 && `d-print-none`}`}>
       <div className="card border-dark my-3">
         <div className="card-header text-center">
           <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
@@ -79,7 +81,7 @@ const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => voi
     <>
       <IconContext.Provider value={{ size: '1.3em' }}>
         <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
-        <ReactTooltip place="bottom" type="light" effect="float" />
+        <ReactTooltip place="bottom" type="info" effect="float" />
       </IconContext.Provider>
     </>
   )
@@ -120,4 +122,17 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-export default Reminders
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  allyArmy: army.selectors.getAllyArmy(state),
+  allySelections: selections.selectors.getAllySelections(state),
+  army: army.selectors.getArmy(state),
+  factionName: factionNames.selectors.getFactionName(state),
+  realmscape: realmscape.selectors.getRealmscape(state),
+  selections: selections.selectors.getSelections(state),
+})
+
+export const Reminders = connect(
+  mapStateToProps,
+  null
+)(RemindersComponent)

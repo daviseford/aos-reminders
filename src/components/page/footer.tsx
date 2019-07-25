@@ -3,7 +3,7 @@ import React from 'react'
 /**
  * Hidden when printing
  */
-const Footer = () => {
+export const FooterComponent = () => {
   return (
     <div className="container">
       <div className="row mt-5 text-center d-print-none">
@@ -19,5 +19,3 @@ const Footer = () => {
     </div>
   )
 }
-
-export default Footer
