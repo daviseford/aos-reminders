@@ -31,8 +31,10 @@ const HeaderComponent = (props: IHeaderProps) => {
           </a>
         </p>
 
-        <div className={`row mx-auto pb-3 d-block text-dark text-left`}>
-          <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
+        <div className={`d-flex pb-3 justify-content-center`}>
+          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+            <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
+          </div>
         </div>
 
         <p>
