@@ -562,6 +562,41 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `The Briar Queen`,
+    effects: [
+      {
+        name: `Ethereal`,
+        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Thorns of the Briar Queen`,
+    effects: [
+      {
+        name: `Ethereal`,
+        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Varclav the Cruel`,
+        desc: `The leader of this unit is Varclav the Cruel. Add 1 to the Attacks characteristic of Varclav the Cruel's Malignant Weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Varclav the Cruel`,
+        desc: `The leader of this unit is Varclav the Cruel. This unit has a Bravery characteristic of 10 instead of 6 while it includes Varclav the Cruel.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Grasping Chains`,
+        desc: `You can re-roll wound rolls of 1 for attacks made by this unit that target an enemy unit that is within 3" of two or more models from this unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
