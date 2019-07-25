@@ -147,6 +147,62 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Vandus Hammerhand`,
+    effects: [
+      {
+        name: `Heldensen`,
+        desc: `Add D3 to the Attacks characteristic of Heldensen if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Intolerable Damage`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Storm Breath`,
+        desc: `In your shooting phase, you can pick a point on the battlefield within 12" of this model that is visible to them. Roll a dice for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Lord of the Hammerhands`,
+        desc: `Friendly HAMMERS OF SIGMAR units wholly within 24" of this model at the start of the battleshock phase do not take battleshock tests.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Vengeful Determination`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly HAMMERS OF SIGMAR units while they are wholly within 12" of a friendly model with this command ability`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Neave Blacktalon`,
+    effects: [
+      {
+        name: `Lightning Fast Strikes`,
+        desc: `Add 1 to the Attacks characteristic of this model’s Whirlwind Axes if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Tireless Hunter`,
+        desc: `This model can run and still shoot in the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Nemesis`,
+        desc: `Add 1 to the Damage characteristic of this model’s weapons if the target is a HERO.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Windrider`,
+        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
