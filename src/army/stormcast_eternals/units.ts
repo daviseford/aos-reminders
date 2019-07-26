@@ -826,6 +826,411 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Concussors`,
+    effects: [
+      {
+        name: `Intolerable Damage`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Storm Blast`,
+        desc: `If the hit roll for an attack made with a Storm Blast scores a hit, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Blast to Ashes`,
+        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 1 mortal wound on the target in addition to its normal damage. If a unit suffers any mortal wounds in this way, it cannot pile in later that phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fulminators`,
+    effects: [
+      {
+        name: `Intolerable Damage`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Storm Blast`,
+        desc: `If the hit roll for an attack made with a Storm Blast scores a hit, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Impaling Strikes`,
+        desc: `Add 2 to the Damage characteristic of this unit’s Stormstrike Glaives if the unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Glaivewall`,
+        desc: `Add 1 to save rolls for attacks made with missiles weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Desolators`,
+    effects: [
+      {
+        name: `Intolerable Damage`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Storm Blast`,
+        desc: `If the hit roll for an attack made with a Storm Blast scores a hit, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Fury of the Storm`,
+        desc: `While this unit has 4 or more models, add 1 to the Attacks characteristic of this unit’s Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks characteristic instead.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tempestors`,
+    effects: [
+      {
+        name: `Intolerable Damage`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Storm Blast`,
+        desc: `If the hit roll for an attack made with a Storm Blast scores a hit, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Disruptive Fire`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons used by enemy units while they are within 12" of one or more friendly TEMPESTORS.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Protectors`,
+    effects: [
+      {
+        name: `Starsoul Maces`,
+        desc: `Do not use the attack sequence for an attack made with a Starsoul Mace. Instead, roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deathstrike`,
+        desc: `If the unmodified hit roll for an attack made with a Stormstrike Glaive that targets a MONSTER is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Stormshield`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this unit. In addition, if another friendly unit wholly within 6" of this unit is targeted by an enemy model’s missile weapon, that friendly unit receives the benefit of cover if the attacking model is closer to this unit than it is to the target unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Protector-Prime`,
+        desc: `1 Extra attack with Stormstrike Glaive.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Decimators`,
+    effects: [
+      {
+        name: `Starsoul Maces`,
+        desc: `Do not use the attack sequence for an attack made with a Starsoul Mace. Instead, roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Cleaving Blow`,
+        desc: `The Attacks characteristic of a Thunderaxe is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Grim Harvesters`,
+        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 6" of one or more friendly units of DECIMATORS in the battleshock phase.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Decimator-Prime`,
+        desc: `+1 to wound rolls.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Liberators`,
+    effects: [
+      {
+        name: `Lay Low the Tyrants`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Paired Weapons`,
+        desc: `Each unmodified hit roll of 6 made for a model armed with either a pair of warhammers or a pair of warblades inflicts 2 hits on the target unit instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Libertor-Prime`,
+        desc: `Add 1 to melee attacks.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Retributors`,
+    effects: [
+      {
+        name: `Starsoul Maces`,
+        desc: `Do not use the attack sequence for an attack made with a Starsoul Mace. Instead, roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Blast to Ashes`,
+        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Retributor-Prime`,
+        desc: `+1 hammer attacks.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Prosecutors with Stormcall Javelins`,
+    effects: [
+      {
+        name: `Prosecutor-Prime`,
+        desc: `+1 Missile Weapon attacks.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Stormcall Javelins`,
+        desc: `+1 to Stormcall Javelin damage if target is more than 9" from the attacking model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Heralds of Righteousness`,
+        desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Prosecutors with Celestial Hammers`,
+    effects: [
+      {
+        name: `Prosecutor-Prime`,
+        desc: `+1 Celestial Hammers attacks (melee)`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Cleaving Blow`,
+        desc: `The Attacks characteristic of a Grandaxe is equal to the number of enemy models within 1" of the attacking model when the number of attacks made by the model is determined.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Paired Celestial Hammers`,
+        desc: `Re-roll hits of 1.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Sigmarite Shields`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Heralds of Righteousness`,
+        desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Judicators`,
+    effects: [
+      {
+        name: `Judicator-Prime`,
+        desc: `+1 to hit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Chained Lightning`,
+        desc: `If the hit roll for an attack made with a Shockbolt Bow scores a hit, that attack inflicts D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rapid Fire`,
+        desc: `Add 1 to the Attacks characteristic of this unit’s Boltstorm Crossbows if this unit did not move in the movement phase of the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Eternal Judgement`,
+        desc: `Re-roll hit rolls of 1 for attacks made with this unit’s missile weapons that target a CHAOS unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Thunderbolt Crossbow`,
+        desc: `Do not use the attack sequence for an attack made with a Thunderbolt Crossbow. Instead, roll a dice. Subtract 1 from the roll if the target is a MONSTER. If the result is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vanguard-Raptors with Hurricane Crossbows`,
+    effects: [
+      {
+        name: `Raptor-Prime`,
+        desc: `he leader of this unit is a Raptor‑Prime. Add 1 to hit rolls for attacks made with a Raptor‑Prime’s Hurricane Crossbow and Heavy Stock.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Rapid Fire`,
+        desc: `Add 3 to the Attacks characteristic of this unit’s Hurricane Crossbows if this unit did not move in the movement phase of the same turn`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Suppressing Fire`,
+        desc: `Subtract 1 from charge rolls for enemy units while they are within 12" of one or more friendly VANGUARD-RAPTOR units armed with Hurricane Crossbows.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vanguard-Raptors with Longstrike Crossbows`,
+    effects: [
+      {
+        name: `Headshot`,
+        desc: `If the unmodified hit roll for an attack made with a Longstrike Crossbow is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Hunting Call`,
+        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a dice for each model in that Raptor‑Prime’s unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Longshot`,
+        desc: `Add 6" to the Range characteristic of this unit’s Longstrike Crossbows if this unit did not move in the movement phase of the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vanguard-Hunters`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vanguard-Palladors`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aetherwings`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Celestar Ballista`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Castigators`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sequitors`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Evocators`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Evocators on Celestial Dracolines`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
