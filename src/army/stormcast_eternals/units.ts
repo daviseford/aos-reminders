@@ -157,7 +157,7 @@ export const Units: TUnits = [
       },
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -172,7 +172,7 @@ export const Units: TUnits = [
       },
       {
         name: `Vengeful Determination`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly HAMMERS OF SIGMAR units while they are wholly within 12" of a friendly model with this command ability`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly HAMMERS OF SIGMAR units while they are wholly within 12" of a friendly model with this command ability.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -183,7 +183,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lightning Fast Strikes`,
-        desc: `Add 1 to the Attacks characteristic of this model’s Whirlwind Axes if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -193,12 +193,12 @@ export const Units: TUnits = [
       },
       {
         name: `Nemesis`,
-        desc: `Add 1 to the Damage characteristic of this model’s weapons if the target is a HERO.`,
+        desc: `Add 1 to the Damage characteristic of this model's weapons if the target is a HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn`,
+        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -208,7 +208,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Inescapable Vengeance`,
-        desc: `In the combat phase, add 1 to the Attacks characteristic of this model’s Starbound Blade if it made a charge move in the same turn.`,
+        desc: `In the combat phase, add 1 to the Attacks characteristic of this model's Starbound Blade if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -218,7 +218,7 @@ export const Units: TUnits = [
       },
       {
         name: `Once More, For Sigmar, Charge!`,
-        desc: `If you use this command ability, then until your next hero phase add 3 to charge rolls for friendly STORMCAST ETERNAL units that are within 9" of this model at the start of the charge phase`,
+        desc: `If you use this command ability, then until your next hero phase add 3 to charge rolls for friendly STORMCAST ETERNAL units that are within 9" of this model at the start of the charge phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -239,9 +239,9 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield`,
+        desc: `You can re‑roll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-      }
+      },
     ],
   },
   {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
         name: `Star Falcon`,
         desc: `At the start of your shooting phase, you can pick 1 enemy unit within 18" of Sanson Farstrider and roll a dice. On a 4+, that enemy unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
-      }
+      },
     ],
   },
   {
@@ -316,7 +316,7 @@ export const Units: TUnits = [
       },
       {
         name: `Swift of Wing`,
-        desc: `You can use this command ability at the start of the movement phase. If you do so, pick a friendly model with this command ability. Add 2 to run rolls for friendly SACROSANCT units that were wholly within 18" of that model at the start of that phase`,
+        desc: `You can use this command ability at the start of the movement phase. If you do so, pick a friendly model with this command ability. Add 2 to run rolls for friendly SACROSANCT units that were wholly within 18" of that model at the start of that phase.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
       },
@@ -332,7 +332,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Pack Alpha`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of the Monstrous Claws of friendly EVOCATORS with DRACOLINE mounts while they are wholly within 18" of that model`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of the Monstrous Claws of friendly EVOCATORS with DRACOLINE mounts while they are wholly within 18" of that model.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -354,7 +354,7 @@ export const Units: TUnits = [
       },
       {
         name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage characteristic for this model’s Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+        desc: `You can re-roll charge rolls for this model. In addition, the Damage characteristic for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {
@@ -369,7 +369,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aethereal Strike`,
-        desc: `Each time you make a hit roll of 6+ for this Gryph-charger’s Razor Beak and Claws, that attack inflicts 1 mortal wound instead of the normal damage`,
+        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -429,7 +429,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aethereal Strike`,
-        desc: `Each time you make a hit roll of 6+ for this Gryph-charger’s Razor Beak and Claws, that attack inflicts 1 mortal wound instead of the normal damage`,
+        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -459,12 +459,12 @@ export const Units: TUnits = [
       },
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Stormstrike Glaive`,
-        desc: `Add 2 to the Damage characteristic of this model’s Stormstrike Glaive if this model made a charge move in the same turn.`,
+        desc: `Add 2 to the Damage characteristic of this model's Stormstrike Glaive if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -475,12 +475,12 @@ export const Units: TUnits = [
       },
       {
         name: `Tempestos Hammer`,
-        desc: `Add D3 to the Attacks characteristic of this model’s Tempestos Hammer if this model made a charge move in the same turn.`,
+        desc: `Add D3 to the Attacks characteristic of this model's Tempestos Hammer if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Thunderaxe`,
-        desc: `Add 1 to the Attacks characteristic of this model’s Thunderaxe for each other friendly STORMCAST ETERNAL unit wholly within 9" of this model when the attack is made.`,
+        desc: `Add 1 to the Attacks characteristic of this model's Thunderaxe for each other friendly STORMCAST ETERNAL unit wholly within 9" of this model when the attack is made.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -495,12 +495,12 @@ export const Units: TUnits = [
       },
       {
         name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model’s Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model’s Wounds characteristic, it is slain.`,
+        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Inescapable Vengeance`,
-        desc: `Add D3 to the Attacks characteristic of this model’s Celestine Hammer or Stormbound Blade if this model made a charge move in the same turn.`,
+        desc: `Add D3 to the Attacks characteristic of this model's Celestine Hammer or Stormbound Blade if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -510,7 +510,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model’s attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -522,7 +522,7 @@ export const Units: TUnits = [
         name: `Lord of the Celestial Host`,
         desc: `You can use this command ability at the start of the combat phase if a friendly model with this command ability is on the battlefield. If you do so, you can re-roll failed wound rolls for attacks made by friendly STARDRAKE and DRACOTH mounts until the end of that phase.`,
         when: [COMBAT_PHASE],
-        command_ability: true,     
+        command_ability: true,
       },
     ],
   },
@@ -536,7 +536,7 @@ export const Units: TUnits = [
       },
       {
         name: `Inescapable Vengeance`,
-        desc: `Add D3 to the Attacks characteristic of this model’s weapons if this model made a charge move in the same turn.`,
+        desc: `Add D3 to the Attacks characteristic of this model's weapons if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -576,12 +576,12 @@ export const Units: TUnits = [
       },
       {
         name: `Pack Leader Alpha`,
-        desc: `If a unit of GRYPH-HOUNDS has 3 or more models, one Gryph‑hound can be a Gryph‑hound Alpha. Add 1 to the Attacks characteristic of a Gryph‑hound Alpha’s Beak and Claws.`,
+        desc: `If a unit of GRYPH-HOUNDS has 3 or more models, one Gryph‑hound can be a Gryph‑hound Alpha. Add 1 to the Attacks characteristic of a Gryph‑hound Alpha's Beak and Claws.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Loyal Companion`,
-        desc: `Add 2 to the Attacks characteristic of this unit’s Beak and Claws while this unit is wholly within 6" of a friendly LORD-CASTELLANT or LORD-VERITANT.`,
+        desc: `Add 2 to the Attacks characteristic of this unit's Beak and Claws while this unit is wholly within 6" of a friendly LORD-CASTELLANT or LORD-VERITANT.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -621,7 +621,7 @@ export const Units: TUnits = [
       },
       {
         name: `Meteoric Slam`,
-        desc: `If you roll 2 or more unmodified hit rolls of 6 for this model’s Astral Hammers, then after its attacks have been resolved that enemy unit suffers D3 mortal wounds.`,
+        desc: `If you roll 2 or more unmodified hit rolls of 6 for this model's Astral Hammers, then after its attacks have been resolved that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -656,7 +656,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bound in Service`,
-        desc: `Add 3 to the unbinding roll for this model’s Lantern of Abjuration if there is a friendly GRYPH-HOUND model within 6" of the enemy WIZARD attempting to cast the spell.`,
+        desc: `Add 3 to the unbinding roll for this model's Lantern of Abjuration if there is a friendly GRYPH-HOUND model within 6" of the enemy WIZARD attempting to cast the spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -681,12 +681,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Strike`,
-        desc: `If the unmodified wound roll for an attack made with a Star‑eagle’s Celestial Beak and Talons is 6, that attack has a Rend characteristic of ‑3 instead of ‘‑’. `,
+        desc: `If the unmodified wound roll for an attack made with a Star‑eagle's Celestial Beak and Talons is 6, that attack has a Rend characteristic of ‑3 instead of '‑'.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Star-fated Arrow`,
-        desc: `Once per battle, in your shooting phase, this model can shoot a Star‑fated Arrow. If it does so, until the end of that phase, the Attacks characteristic of this model’s Realmhunter’s Bow is reduced to 1, but it has a Damage characteristic of D3+3 instead of 1. If the target is a HERO or MONSTER, this weapon has a Damage characteristic of D6+3 until the end of that phase instead.`,
+        desc: `Once per battle, in your shooting phase, this model can shoot a Star‑fated Arrow. If it does so, until the end of that phase, the Attacks characteristic of this model's Realmhunter's Bow is reduced to 1, but it has a Damage characteristic of D3+3 instead of 1. If the target is a HERO or MONSTER, this weapon has a Damage characteristic of D6+3 until the end of that phase instead.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -711,12 +711,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Onwards to Glory`,
-        desc: `At the start of your movement phase, you can pick a friendly STORMCAST ETERNAL unit wholly within 12" of this model. That unit can retreat and/or run in that movement phase and still charge later in the same turn. `,
+        desc: `At the start of your movement phase, you can pick a friendly STORMCAST ETERNAL unit wholly within 12" of this model. That unit can retreat and/or run in that movement phase and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Thunderblast`,
-        desc: `In your shooting phase, pick a terrain feature wholly within 18" of this model. Each enemy unit within 3" of that terrain feature suffers D3 mortal wounds. `,
+        desc: `In your shooting phase, pick a terrain feature wholly within 18" of this model. Each enemy unit within 3" of that terrain feature suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -766,7 +766,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lightning Fast Strikes`,
-        desc: `Add 1 to the Attacks characteristic of this model’s Whirlwind Axes if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -776,7 +776,7 @@ export const Units: TUnits = [
       },
       {
         name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn`,
+        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -791,7 +791,7 @@ export const Units: TUnits = [
       },
       {
         name: `Skybolt Bow`,
-        desc: `If you score one or more hits on an enemy unit with this model’s Skybolt Bow, add 1 to hit rolls for attacks made by friendly DRACOTHIAN GUARD units that target that enemy unit until the end of that turn.`,
+        desc: `If you score one or more hits on an enemy unit with this model's Skybolt Bow, add 1 to hit rolls for attacks made by friendly DRACOTHIAN GUARD units that target that enemy unit until the end of that turn.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -811,7 +811,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model’s Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model’s Wounds characteristic, it is slain.`,
+        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -821,7 +821,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model’s attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -831,7 +831,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -856,7 +856,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -871,7 +871,7 @@ export const Units: TUnits = [
       },
       {
         name: `Impaling Strikes`,
-        desc: `Add 2 to the Damage characteristic of this unit’s Stormstrike Glaives if the unit made a charge move in the same turn.`,
+        desc: `Add 2 to the Damage characteristic of this unit's Stormstrike Glaives if the unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -886,7 +886,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -901,7 +901,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fury of the Storm`,
-        desc: `While this unit has 4 or more models, add 1 to the Attacks characteristic of this unit’s Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks characteristic instead.`,
+        desc: `While this unit has 4 or more models, add 1 to the Attacks characteristic of this unit's Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks characteristic instead.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -911,7 +911,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth’s Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage characteristic of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -946,7 +946,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stormshield`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this unit. In addition, if another friendly unit wholly within 6" of this unit is targeted by an enemy model’s missile weapon, that friendly unit receives the benefit of cover if the attacking model is closer to this unit than it is to the target unit.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this unit. In addition, if another friendly unit wholly within 6" of this unit is targeted by an enemy model's missile weapon, that friendly unit receives the benefit of cover if the attacking model is closer to this unit than it is to the target unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1096,12 +1096,12 @@ export const Units: TUnits = [
       },
       {
         name: `Rapid Fire`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s Boltstorm Crossbows if this unit did not move in the movement phase of the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Boltstorm Crossbows if this unit did not move in the movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Eternal Judgement`,
-        desc: `Re-roll hit rolls of 1 for attacks made with this unit’s missile weapons that target a CHAOS unit.`,
+        desc: `Re-roll hit rolls of 1 for attacks made with this unit's missile weapons that target a CHAOS unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1116,12 +1116,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Raptor-Prime`,
-        desc: `he leader of this unit is a Raptor‑Prime. Add 1 to hit rolls for attacks made with a Raptor‑Prime’s Hurricane Crossbow and Heavy Stock.`,
+        desc: `he leader of this unit is a Raptor‑Prime. Add 1 to hit rolls for attacks made with a Raptor‑Prime's Hurricane Crossbow and Heavy Stock.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Rapid Fire`,
-        desc: `Add 3 to the Attacks characteristic of this unit’s Hurricane Crossbows if this unit did not move in the movement phase of the same turn`,
+        desc: `Add 3 to the Attacks characteristic of this unit's Hurricane Crossbows if this unit did not move in the movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1141,12 +1141,12 @@ export const Units: TUnits = [
       },
       {
         name: `Hunting Call`,
-        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a dice for each model in that Raptor‑Prime’s unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
+        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a dice for each model in that Raptor‑Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Longshot`,
-        desc: `Add 6" to the Range characteristic of this unit’s Longstrike Crossbows if this unit did not move in the movement phase of the same turn.`,
+        desc: `Add 6" to the Range characteristic of this unit's Longstrike Crossbows if this unit did not move in the movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1155,9 +1155,19 @@ export const Units: TUnits = [
     name: `Vanguard-Hunters`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Astral Compass`,
+        desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Tireless Hunters`,
+        desc: `This unit can run and still shoot in the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Hunter-Prime`,
+        desc: `+1 attack.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -1165,9 +1175,19 @@ export const Units: TUnits = [
     name: `Vanguard-Palladors`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Lunar Blade`,
+        desc: `Each time a model armed with a Lunar Blade attacks, after all of that model's attacks have been resolved, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ the unit you picked suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Aethereal Strike`,
+        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws, that attack inflicts 1 mortal wound instead of the normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ride the Winds Aetheric`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -1175,9 +1195,14 @@ export const Units: TUnits = [
     name: `Aetherwings`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Swooping Hunters`,
+        desc: `This unit can retreat and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Watchful Guardians`,
+        desc: `At the start of the enemy charge phase, if this unit is wholly within 18" of a friendly unit of VANGUARD-RAPTORS, this unit can move up to 2D6". They must finish the move wholly within 18" of the same unit of VANGUARD-RAPTORS.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -1185,9 +1210,14 @@ export const Units: TUnits = [
     name: `Celestar Ballista`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Bastions of Death`,
+        desc: `In the shooting phase, if this unit is in cover, add 2 to its save rolls for being in cover instead of 1.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Chained Lightning`,
+        desc: `Each time you roll a hit for an attack made with this unit's Stormbolts, that attack inflicts D6 hits on the target instead of 1.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -1195,9 +1225,19 @@ export const Units: TUnits = [
     name: `Castigators`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Castigator-Prime`,
+        desc: `Add 1 to hit rolls for attacks made with a Castigator‑Prime's Thunderhead Greatbow.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Castigator Aetheric Channelling`,
+        desc: `At the start of the shooting phase, you must say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, re‑roll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend characteristic of ‑2 instead of ‑1 in that shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Burst of Celestial Energy`,
+        desc: `If the unmodified hit roll for an attack made with a Thunderhead Greatbow that targets a DAEMON or NIGHTHAUNT unit is 6, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -1205,9 +1245,29 @@ export const Units: TUnits = [
     name: `Sequitors`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Sequitor-Prime`,
+        desc: `Add 1 to the Attacks characteristic of a Sequitor-Prime's melee weapon.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Greatmace Blast`,
+        desc: `If the unmodified hit roll for an attack made with a Stormsmite Greatmace that targets a DAEMON or NIGHTHAUNT unit is 6, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Redemption Cache`,
+        desc: `At the start of your shooting phase, you can pick a Chaos or Death unit within 6" of a Sequitor-Prime with a Redemption Cache and roll a dice. On a 4+, that unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Sequitor Aetheric Channelling`,
+        desc: `At the start of the combat phase, you must say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can re-roll failed hit rolls for attacks made by this unit in that combat phase. If you choose its shields, you can re-roll failed save rolls for attacks that target this unit in that combat phase (instead of only re-rolling save rolls of 1).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulshields`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying a Soulshield.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -1215,8 +1275,23 @@ export const Units: TUnits = [
     name: `Evocators`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Celestial Lightning Arc`,
+        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Evocator-Prime`,
+        desc: `+1 Attack.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `You can re-roll save rolls of 1 for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This unit is a WIZARD while it has 2 or more models.`,
         when: [HERO_PHASE],
       },
     ],
@@ -1225,9 +1300,34 @@ export const Units: TUnits = [
     name: `Evocators on Celestial Dracolines`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Celestial Lightning Arc`,
+        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Evocator-Prime`,
+        desc: `+1 Attack.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `You can re-roll save rolls of 1 for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This unit is a WIZARD while it has 2 or more models.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Supernatural Roar`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Thunderous Pounce`,
+        desc: `You can re-roll charge rolls for this model. In addition, the Damage characteristic for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
       },
     ],
   },
