@@ -441,7 +441,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Tage of Khorne`,
+        name: `Rage of Khorne`,
         desc: `Add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE units while they are wholly within 16" of any models with this ability.`,
         when: [COMBAT_PHASE],
       },
@@ -873,6 +873,31 @@ export const Units: TUnits = [
         name: `Decapitating Blow`,
         desc: `If the unmodified hit roll for an attack made with Hellblades is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Mazarall the Butcher`,
+    effects: [
+      {
+        name: `Bloody Charge`,
+        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Harrow Meat’s Hunger`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model’s attacks in that combat phase, add 1 to the Attacks characteristic of Harrow Meat for the rest of the battle.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `The Ancyte Shield`,
+        desc: `This model can attempt to unbind 1 spell in the enemy hero phase in the same manner as a Wizard.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `The Butcher’s Due`,
+        desc: `You can use this command ability at the start of your hero phase if this model is on the battlefield. If you do so, pick 1 friendly Khorne unit wholly within 18" of this model. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
