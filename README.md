@@ -21,6 +21,8 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Nighthaunt
 + [ctcodie](https://github.com/ctcodie)
   + Added Legions of Nagash
++ [thundergore](https://github.com/thundergore)
+  + Added Stormcast Eternals
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
