@@ -1,17 +1,17 @@
 import { TCommandTraits } from 'types/army'
 import {
-  HERO_PHASE,
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  DURING_GAME,
-  START_OF_GAME,
-  END_OF_SETUP,
-  DURING_SETUP,
   COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
+  HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  END_OF_COMBAT_PHASE,
   START_OF_COMBAT_PHASE,
-  BATTLESHOCK_PHASE,
+  START_OF_GAME,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
