@@ -6,8 +6,8 @@ import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
 
-const btnClass = `col-xs-6 col-sm-4 col-lg-3 col-xl-3`
-const selectClass = `col-xs-12 col-sm-8 col-lg-5 col-xl-4`
+const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
+const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IToolbarProps {
   setAllyFactionName: IAddAllySelect['setAllyFactionName']
