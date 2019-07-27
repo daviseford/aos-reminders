@@ -21,6 +21,8 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Nighthaunt
 + [ctcodie](https://github.com/ctcodie)
   + Added Legions of Nagash
++ [JohnSchramm]https://github.com/JohnSchramm
+  + Updated Khorne rules
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
