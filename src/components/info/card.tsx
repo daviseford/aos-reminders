@@ -14,7 +14,7 @@ export const CardComponent = (props: ICardProps) => {
   const { items, type, setValues, values } = props
   const selectItems = items.map(x => x.name)
   return (
-    <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
+    <div className="col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
           <h4 className="text-center">Add {type}s</h4>
