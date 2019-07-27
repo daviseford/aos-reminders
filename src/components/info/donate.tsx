@@ -39,7 +39,7 @@ export const DonateComponent = () => {
             </div>
 
             <small className="text-center mt-3">
-              Creating this tool takes a lot of time and effort.
+              Creating this took a lot of time and effort.
               <br />
               If you'd like to thank me, buy me a beer!
             </small>
