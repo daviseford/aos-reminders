@@ -885,8 +885,8 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Harrow Meat’s Hunger`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model’s attacks in that combat phase, add 1 to the Attacks characteristic of Harrow Meat for the rest of the battle.`,
+        name: `Harrow Meat's Hunger`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to the Attacks characteristic of Harrow Meat for the rest of the battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -895,7 +895,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `The Butcher’s Due`,
+        name: `The Butcher's Due`,
         desc: `You can use this command ability at the start of your hero phase if this model is on the battlefield. If you do so, pick 1 friendly Khorne unit wholly within 18" of this model. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
