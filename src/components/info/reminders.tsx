@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
@@ -11,6 +11,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { ITurnAction } from 'types/data'
+import { without, uniq } from 'lodash'
 
 interface IRemindersProps {
   allyArmy: IArmy
@@ -39,18 +40,20 @@ const RemindersComponent = (props: IRemindersProps) => {
 }
 
 const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; factionName: TSupportedFaction }) => {
-  const [numVisible, setNumVisible] = useState(props.actions.length)
-  const showEntry = () => setNumVisible(numVisible + 1)
-  const hideEntry = () => setNumVisible(numVisible - 1)
+  const { when, actions } = props
+
+  const [hidden, setHidden] = useState([] as string[])
+  const showEntry = (name: string) => setHidden(without([...hidden], name))
+  const hideEntry = (name: string) => setHidden(uniq([...hidden, name]))
 
   return (
-    <div className={`row d-block PageBreak ${numVisible === 0 && `d-print-none`}`}>
+    <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
       <div className="card border-dark my-3">
         <div className="card-header text-center">
-          <h4 className="ReminderHeader">{titleCase(props.when)}</h4>
+          <h4 className="ReminderHeader">{titleCase(when)}</h4>
         </div>
         <div className="card-body">
-          {props.actions.map((action, i) => (
+          {actions.map((action, i) => (
             <ActionText {...action} key={i} showEntry={showEntry} hideEntry={hideEntry} />
           ))}
         </div>
@@ -88,8 +91,8 @@ const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => voi
 }
 
 interface IActionTextProps extends ITurnAction {
-  hideEntry: () => void
-  showEntry: () => void
+  hideEntry: (name: string) => void
+  showEntry: (name: string) => void
 }
 
 const ActionText = (props: IActionTextProps) => {
@@ -97,9 +100,16 @@ const ActionText = (props: IActionTextProps) => {
   const [isVisible, setIsVisibile] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
+    !isVisible ? showEntry(name as string) : hideEntry(name as string)
     setIsVisibile(!isVisible)
-    !isVisible ? showEntry() : hideEntry()
   }
+
+  useEffect(() => {
+    return () => {
+      showEntry(name as string) // Remove this from the hidden array on unload
+    }
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
