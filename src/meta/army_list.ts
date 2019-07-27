@@ -9,6 +9,7 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   STORMCAST_ETERNALS,
@@ -29,6 +30,7 @@ import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
+import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import StormcastEternals from 'army/stormcast_eternals'
@@ -75,6 +77,10 @@ const ArmyList: TArmyList = {
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
     GrandAlliance: DEATH,
+  },
+  [NURGLE]: {
+    Army: { ...Nurgle },
+    GrandAlliance: CHAOS,
   },
   [SERAPHON]: {
     Army: { ...Seraphon },
