@@ -32,7 +32,7 @@ export const Units: TUnits = [
       },
       {
         name: `Celestial Conjuration`,
-        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield.`,
+        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
         when: [END_OF_HERO_PHASE],
       },
       {
@@ -77,7 +77,7 @@ export const Units: TUnits = [
       },
       {
         name: `Celestial Conjuration`,
-        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield.`,
+        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
         when: [END_OF_HERO_PHASE],
       },
       {
