@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  START_OF_CHARGE_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -218,8 +219,8 @@ export const Units: TUnits = [
       },
       {
         name: `Once More, For Sigmar, Charge!`,
-        desc: `If you use this command ability, then until your next hero phase add 3 to charge rolls for friendly STORMCAST ETERNAL units that are within 9" of this model at the start of the charge phase.`,
-        when: [HERO_PHASE],
+        desc: `If you use this command ability, then until the end of the phase add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of this model when the charge roll is made.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -504,6 +505,11 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
+        name: `Sigmarite Thundershield`,
+        desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
         name: `Lord of the Heavens`,
         desc: `At the start of your shooting phase, if this model is on the battlefield, it can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a dice for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a dice for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
@@ -617,7 +623,7 @@ export const Units: TUnits = [
       {
         name: `Arcane Engineer`,
         desc: `Add 1 to hit rolls for friendly ORDER WAR MACHINES while wholly within 9" of any friendly LORD-ORDINATORS.`,
-        when: [SHOOTING_PHASE],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Meteoric Slam`,
