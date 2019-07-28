@@ -11,6 +11,7 @@ export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export type TNighthaunt = 'NIGHTHAUNT'
+export type TNurgle = 'NURGLE'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TStormcastEternals = 'STORMCAST_ETERNALS'
@@ -28,6 +29,7 @@ export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
+export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
@@ -46,6 +48,7 @@ export type TSupportedFaction =
   | TKhorne
   | TLegionsOfNagash
   | TNighthaunt
+  | TNurgle
   | TSeraphon
   | TSkaven
   | TStormcastEternals
@@ -63,6 +66,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   KHORNE,
   LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   STORMCAST_ETERNALS,
