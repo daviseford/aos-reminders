@@ -419,7 +419,7 @@ export const Units: TUnits = [
       {
         name: `Lord of the Azyrite Hurricane`,
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model with this command ability. Remove that model, and/or one friendly unit of VANGUARD-HUNTERS,VANGUARD-PALLADORS, VANGUARD-RAPTORS or AETHERWINGS wholly within 24" of that model, from the battlefield and set them up wholly within 6" of any edge of the battlefield, more than 7" from any enemy units.`,
-        when: [HERO_PHASE],
+        when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
       {
