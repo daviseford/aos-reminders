@@ -2,6 +2,7 @@ import {
   BEASTCLAW_RAIDERS,
   DISPOSSESSED,
   FLESH_EATER_COURTS,
+  FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
   IRONJAWZ,
@@ -23,6 +24,7 @@ import { IArmyWithoutGame } from 'types/army'
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import Dispossessed from 'army/dispossessed'
 import FleshEaterCourts from 'army/flesh_eater_courts'
+import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
@@ -49,6 +51,10 @@ const ArmyList: TArmyList = {
   [FLESH_EATER_COURTS]: {
     Army: { ...FleshEaterCourts },
     GrandAlliance: DEATH,
+  },
+  [FYRESLAYERS]: {
+    Army: { ...Fyreslayers },
+    GrandAlliance: ORDER,
   },
   [GLOOMSPITE_GITZ]: {
     Army: { ...GloomspiteGitz },
