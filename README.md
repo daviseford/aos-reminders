@@ -17,16 +17,16 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [PixelTom](https://github.com/PixelTom)
   + Added Dispossessed
   + Added Kharadron Overlords
-+ [Cpt Asgard](https://github.com/CptAsgard)
-  + Added Nighthaunt
-+ [ctcodie](https://github.com/ctcodie)
-  + Added Legions of Nagash
 + [thundergore](https://github.com/thundergore)
   + Added Stormcast Eternals
   + Added Fyreslayers
 + [JohnSchramm](https://github.com/JohnSchramm)
   + Updated Khorne rules
   + Added Nurgle
++ [Cpt Asgard](https://github.com/CptAsgard)
+  + Added Nighthaunt
++ [ctcodie](https://github.com/ctcodie)
+  + Added Legions of Nagash
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
@@ -56,6 +56,8 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+_Note: We currently do not have any unit tests. Don't worry about this command for now_
 
 ### `yarn build`
 
