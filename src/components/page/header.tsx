@@ -1,28 +1,24 @@
-import React, { useState } from 'react'
-import withSizes from 'react-sizes'
+import React from 'react'
+import { connect } from 'react-redux'
 import { initial, last } from 'lodash'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { SelectOne, TDropdownOption } from 'components/input/select'
-import { titleCase } from 'utils/titleCase'
-import { logFactionSwitch } from 'utils/analytics'
-import { ValueType } from 'react-select/lib/types'
 
+import { SelectOne } from 'components/input/select'
+import { factionNames } from 'ducks'
+import { titleCase } from 'utils/titleCase'
+import { withSelectOne } from 'utils/withSelect'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
+
+interface IHeaderProps {
+  setFactionName: (value: string) => void
+}
 /**
  * Hidden when printing
  */
-const Header = ({ setFactionName, isMobile }) => {
-  const [selectCount, setSelectCount] = useState(0)
+const HeaderComponent = (props: IHeaderProps) => {
+  const { setFactionName } = props
   const factions = SUPPORTED_FACTIONS.map(x => titleCase(x))
 
-  const setValue = (selectValue: ValueType<TDropdownOption>) => {
-    const { value } = selectValue as TDropdownOption
-    // Avoid registering an event on pageload
-    if (selectCount > 0) {
-      logFactionSwitch(value as TSupportedFaction)
-    }
-    setFactionName(value)
-    setSelectCount(selectCount + 1)
-  }
+  const setValue = withSelectOne(setFactionName)
 
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white d-print-none">
@@ -35,8 +31,10 @@ const Header = ({ setFactionName, isMobile }) => {
           </a>
         </p>
 
-        <div className={`row ${isMobile ? 'w-75' : 'w-50'} mx-auto pb-3 d-block text-dark text-left`}>
-          <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
+        <div className={`d-flex pb-3 justify-content-center`}>
+          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+            <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
+          </div>
         </div>
 
         <p>
@@ -49,8 +47,11 @@ const Header = ({ setFactionName, isMobile }) => {
   )
 }
 
-const mapSizesToProps = sizes => ({
-  isMobile: withSizes.isMobile(sizes),
-})
+const mapDispatchToProps = {
+  setFactionName: factionNames.actions.setFactionName,
+}
 
-export default withSizes(mapSizesToProps)(Header)
+export const Header = connect(
+  null,
+  mapDispatchToProps
+)(HeaderComponent)
