@@ -1,9 +1,12 @@
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption } from 'components/input/select'
 
-type TWithSelectOne = (method: (value: string) => void) => (selectValue: ValueType<TDropdownOption>) => void
+type TWithSelectOne = (
+  method: (value: string | null) => void
+) => (selectValue: ValueType<TDropdownOption> | null) => void
 
 export const withSelectOne: TWithSelectOne = method => selectValue => {
+  if (!selectValue) return method(null)
   const { value } = selectValue as TDropdownOption
   method(value)
 }
