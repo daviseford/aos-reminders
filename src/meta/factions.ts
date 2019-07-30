@@ -2,6 +2,7 @@ import { sortBy } from 'lodash'
 
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
+export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export type TDispossessed = 'DISPOSSESSED'
 export type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export type TFyreslayers = 'FYRESLAYERS'
@@ -22,6 +23,7 @@ export type TTzeentch = 'TZEENTCH'
 
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
+export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
@@ -43,6 +45,7 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 // Supported Factions
 export type TSupportedFaction =
   | TBeastclawRaiders
+  | TDaughtersOfKhaine
   | TDispossessed
   | TFleshEaterCourts
   | TFyreslayers
@@ -63,6 +66,7 @@ export type TSupportedFaction =
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
+  DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
