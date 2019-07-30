@@ -26,15 +26,15 @@ export const PrintHeader = connect(
 const PrintUnitsComponent = (props: {
   selections: ISelections
   allySelections: IAllySelections
-  realmscape: string
+  realmscape: string | null
 }) => {
-  const { units, battalions, artifacts, traits } = props.selections
-  const { units: allyUnits } = props.allySelections
-  const realm = props.realmscape === 'None' ? [] : [props.realmscape]
+  const { realmscape, selections, allySelections } = props
+  const { units, battalions, artifacts, traits } = selections
+  const realm = realmscape ? [realmscape] : []
   return (
     <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplayComponent name={'Unit'} items={units} />
-      <ItemsDisplayComponent name={'Allied Unit'} items={allyUnits} />
+      <ItemsDisplayComponent name={'Allied Unit'} items={allySelections.units} />
       <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
       <ItemsDisplayComponent name={'Battalion'} items={battalions} />
       <ItemsDisplayComponent name={'Command Trait'} items={traits} />
@@ -56,11 +56,12 @@ export const PrintUnits = connect(
 )(PrintUnitsComponent)
 
 const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
-  if (!props.items.length) return null
-  const title = props.items.length > 1 ? `${props.name}s` : props.name
+  const { items, name } = props
+  if (!items.length) return null
+  const title = items.length > 1 ? `${name}s` : name
   return (
     <p className="py-0 my-0">
-      <strong>{title}:</strong> {props.items.join(' | ')}
+      <strong>{title}:</strong> {items.join(' | ')}
     </p>
   )
 }

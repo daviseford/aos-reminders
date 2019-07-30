@@ -9,7 +9,7 @@ import { withSelectOne } from 'utils/withSelect'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 
 interface IHeaderProps {
-  setFactionName: (value: string) => void
+  setFactionName: (value: string | null) => void
 }
 /**
  * Hidden when printing
@@ -54,4 +54,5 @@ const mapDispatchToProps = {
 export const Header = connect(
   null,
   mapDispatchToProps
+  //@ts-ignore
 )(HeaderComponent)
