@@ -13,6 +13,7 @@ import {
   NURGLE,
   SERAPHON,
   SKAVEN,
+  SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
@@ -35,6 +36,7 @@ import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
+import Slaanesh from 'army/slaanesh'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 import Tzeentch from 'army/tzeentch'
@@ -94,6 +96,10 @@ const ArmyList: TArmyList = {
   },
   [SKAVEN]: {
     Army: { ...Skaven },
+    GrandAlliance: CHAOS,
+  },
+  [SLAANESH]: {
+    Army: { ...Slaanesh },
     GrandAlliance: CHAOS,
   },
   [STORMCAST_ETERNALS]: {
