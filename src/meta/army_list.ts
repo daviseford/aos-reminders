@@ -2,6 +2,7 @@ import {
   BEASTCLAW_RAIDERS,
   DISPOSSESSED,
   FLESH_EATER_COURTS,
+  FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
   IRONJAWZ,
@@ -9,6 +10,7 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   STORMCAST_ETERNALS,
@@ -22,6 +24,7 @@ import { IArmyWithoutGame } from 'types/army'
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import Dispossessed from 'army/dispossessed'
 import FleshEaterCourts from 'army/flesh_eater_courts'
+import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
@@ -29,6 +32,7 @@ import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
+import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import StormcastEternals from 'army/stormcast_eternals'
@@ -47,6 +51,10 @@ const ArmyList: TArmyList = {
   [FLESH_EATER_COURTS]: {
     Army: { ...FleshEaterCourts },
     GrandAlliance: DEATH,
+  },
+  [FYRESLAYERS]: {
+    Army: { ...Fyreslayers },
+    GrandAlliance: ORDER,
   },
   [GLOOMSPITE_GITZ]: {
     Army: { ...GloomspiteGitz },
@@ -75,6 +83,10 @@ const ArmyList: TArmyList = {
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
     GrandAlliance: DEATH,
+  },
+  [NURGLE]: {
+    Army: { ...Nurgle },
+    GrandAlliance: CHAOS,
   },
   [SERAPHON]: {
     Army: { ...Seraphon },

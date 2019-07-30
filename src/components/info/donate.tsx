@@ -65,9 +65,9 @@ const DisplayWallet = ({ ethActive, btcActive }: { ethActive: boolean; btcActive
 
   return (
     <div className={`row ${isHidden ? `d-none` : `d-flex mt-1 mb-3`} justify-content-center`}>
-      <small className="text-muted">Wallet Address</small>
+      <small className="text-muted">{ethActive ? `ETH` : `BTC`} Wallet Address</small>
       <WalletCopyInput currentWallet={currentWallet} setCopied={handleSetCopied} />
-      {copied && <span className="text-info">Copied to clipboard.</span>}
+      {copied && <small className="text-success">Copied to clipboard.</small>}
     </div>
   )
 }
