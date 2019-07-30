@@ -23,8 +23,10 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Legions of Nagash
 + [thundergore](https://github.com/thundergore)
   + Added Stormcast Eternals
+  + Added Fyreslayers
 + [JohnSchramm](https://github.com/JohnSchramm)
   + Updated Khorne rules
+  + Added Nurgle
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 

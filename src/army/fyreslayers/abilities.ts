@@ -40,7 +40,7 @@ const Abilities: IEffects[] = [
   {
     name: `Rune of Awakened Steel`,
     desc: `Improve rend by 1 for melee weapons on friendly FYRESLAYERS units. (Enhanced effect: Improve rend by an additional 1.)`,
-    when: [HERO_PHASE],
+    when: [COMBAT_PHASE],
   },
   {
     name: `Rune of Fiery Determination`,
