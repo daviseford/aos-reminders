@@ -46,31 +46,33 @@ If you just downloaded this repository, or if you are getting errors regarding m
 
 ### `yarn start`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits.
+
 You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br>
+Launches the test runner in the interactive watch mode.
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 _Note: We currently do not have any unit tests. Don't worry about this command for now_
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `build` folder.
+
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
+The build is minified and the filenames include the hashes.
+
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
-## Learn More
+## Learn More about React
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -84,3 +86,13 @@ I have set this repository up to automatically take care of some chores when you
 2. Any leading or trailing whitespace is removed from any `name` or `desc` entries.
 3. Periods are added to the end of descriptions if they are missing.
 4. Finally, we use `pretty-quick` to format the code according to the repository standards.
+
+## Deployment
+
+[![Codeship Status for daviseford/aos-reminders](https://app.codeship.com/projects/c0b303b0-94f9-0137-ac21-1aa1838f71d2/status?branch=master)](https://app.codeship.com/projects/357042)
+
+This repository is automatically deployed using CodeShip.
+
+Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
+
+This happens automatically, so be careful when merging to master! Your changes will immediately be live.
