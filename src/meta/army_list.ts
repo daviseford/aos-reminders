@@ -1,5 +1,6 @@
 import {
   BEASTCLAW_RAIDERS,
+  DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
@@ -23,6 +24,7 @@ import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
 import { IArmyWithoutGame } from 'types/army'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
+import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Dispossessed from 'army/dispossessed'
 import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
@@ -45,6 +47,10 @@ const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
+  },
+  [DAUGHTERS_OF_KHAINE]: {
+    Army: { ...DaughtersOfKhaine },
+    GrandAlliance: ORDER,
   },
   [DISPOSSESSED]: {
     Army: { ...Dispossessed },
