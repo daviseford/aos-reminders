@@ -70,15 +70,12 @@ const Spells: IEffects[] = [
     desc: `If in effect, 1 (or D3 on 8+ cast) was subtracted from the target units bravery.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
   },
-]
-
-// Prayers of the Khainite Cult
-const Prayers: IEntry[] = [
+  // Prayers of the Khainite Cult
   {
     name: `Catechism of Murder`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest.  Until the start of your next hero phase, each time you make an unmodified hit roll of 6 for the unit in the combat phase, the attack inflicts 2 hits instead of 1.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Catechism of Murder`,
@@ -89,7 +86,7 @@ const Prayers: IEntry[] = [
     name: `Blessing of Khaine`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest.  Until the start of your next hero phase, re-roll failed Fanatical Faith rolls for that unit.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Blessing of Khaine`,
@@ -100,7 +97,7 @@ const Prayers: IEntry[] = [
     name: `Martyr's Sacrifice`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest.  Until the start of your next hero phase, each time a model from that unit is slain in the combat phase, roll a dice.  On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Martyr's Sacrifice`,
@@ -111,28 +108,28 @@ const Prayers: IEntry[] = [
     name: `Crimson Rejuvenation`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest (you cannot pick Morathi in either form).  You can heal up to D3 wounds allocated to a model in that unit.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Covenant of the Iron Heart`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, you do not need to take battleshock tests for that unit.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Covenant of the Iron Heart`,
     desc: `If in effect, you do not need to take battleshock tests for the buffed unit.`,
     when: [BATTLESHOCK_PHASE]
-    prayer: true,
+    spell: true,
   },
   {
     name: `Sacrament of Blood`,
     desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, that unit counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table.  This effect is cumulative with other, similar abilities.`,
     when: [HERO_PHASE]
-    prayer: true,
+    spell: true,
   },
 ]
 
-export default Abilities
+export default Spells
 */
 }

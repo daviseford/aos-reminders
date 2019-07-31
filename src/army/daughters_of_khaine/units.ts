@@ -3,10 +3,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
@@ -53,7 +53,7 @@ export const Units: TUnits = [
       },
       {
         name: `Worship Through Bloodshed`,
-        desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ).  Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase.`,
+        desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ).  Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -107,12 +107,12 @@ export const Units: TUnits = [
       },
       {
         name: `Rune of Khaine`,
-        desc: `If used, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
+        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Touch of Death`,
-        desc: `If used, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
+        desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -122,12 +122,12 @@ export const Units: TUnits = [
       },
       {
         name: `Witchbrew`,
-        desc: `If used, re-roll failed wound rolls for that unit's melee weapons.`,
+        desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Witchbrew`,
-        desc: `If used, you do not need to take battleshock tests for the unit.`,
+        desc: `If active, you do not need to take battleshock tests for the unit.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -142,17 +142,17 @@ export const Units: TUnits = [
       },
       {
         name: `Rune of Khaine`,
-        desc: `If used, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
+        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Touch of Death`,
-        desc: `If used,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
+        desc: `If active,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Dance of Doom`,
-        desc: `If used,  until your next hero phase, this model can be chosen to pile in and attack twice in the combat phase.`,
+        desc: `If active,  until your next hero phase, this model can be chosen to pile in and attack twice in the combat phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -162,7 +162,7 @@ export const Units: TUnits = [
       },
       {
         name: `Orgy of Slaughter`,
-        desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model.  If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase.`,
+        desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model.  If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -178,7 +178,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wrath of Khaine`,
-        desc: `If used, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
+        desc: `If active, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
         when: [HERO_PHASE],
       },
       {
@@ -213,12 +213,12 @@ export const Units: TUnits = [
       },
       {
         name: `Witchbrew`,
-        desc: `If used, re-roll failed wound rolls for that unit's melee weapons.`,
+        desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Witchbrew`,
-        desc: `If used, you do not need to take battleshock tests for the unit.`,
+        desc: `If active, you do not need to take battleshock tests for the unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -228,12 +228,12 @@ export const Units: TUnits = [
       },
       {
         name: `Rune of Khaine`,
-        desc: `If used, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
+        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Touch of Death`,
-        desc: `If used,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
+        desc: `If active,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -243,13 +243,13 @@ export const Units: TUnits = [
       },
       {
         name: `Wrath of Khaine`,
-        desc: `If used, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
+        desc: `If active, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
         when: [HERO_PHASE],
       },
       {
         name: `Animated`,
-        desc: `The Avatar of Khaine cannot move, cannot shoot, and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).  Even if the model has not been Animated, it is still treated as a model in your army with the exception that enemy units starting their movement phase within 3" of it can move normally without a retreat.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Idol of Worship`,
@@ -263,18 +263,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hag`,
-        desc: `One model is the leader of this unit.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Hag`,
         desc: `Add 1 to hit rolls for a Hag.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit can be standard bearers.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Standard Bearer`,
@@ -283,12 +273,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit can be Hornblowers.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `A unit that includes any Hornblowers can run and charge.`,
+        desc: `A unit that includes any hornblowers can run and charge.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -313,18 +298,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Handmaiden`,
-        desc: `One model is the leader of this unit.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Handmaiden`,
         desc: `Add 1 to hit rolls for a Handmaiden.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit can be standard bearers.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Standard Bearer`,
@@ -333,12 +308,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit can be Hornblowers.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `A unit that includes any Hornblowers can run and charge.`,
+        desc: `A unit that includes any hornblowers can run and charge.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -378,12 +348,12 @@ export const Units: TUnits = [
       },
       {
         name: `Rune of Khaine`,
-        desc: `If used, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
+        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Touch of Death`,
-        desc: `If used,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
+        desc: `If active,  pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -393,13 +363,13 @@ export const Units: TUnits = [
       },
       {
         name: `Wrath of Khaine`,
-        desc: `If used, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
+        desc: `If active, pick a friendly Avatar of Khaine on the battlefield.  Until your next hero phase it is now Animated.`,
         when: [HERO_PHASE],
       },
       {
         name: `Animated`,
-        desc: `The Avatar of Khaine cannot move, cannot shoot, and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).  Even if the model has not been Animated, it is still treated as a model in your army with the exception that enemy units starting their movement phase within 3" of it can move normally without a retreat.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Idol of Worship`,
@@ -415,12 +385,182 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: ``,
+    name: `Bloodwrack Shrine`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Bladed Impact`,
+        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Bloodwrack Stare`,
+        desc: `Pick a unit visible to this model and roll a dice for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Aura of Agony`,
+        desc: `Roll a dice for each enemy unit within 7" of any friendly Bloodwrack Shrines.  If the dice roll is greater than or equal to the score listed in the damage table, that unit suffers D3 mortal wounds.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeebling Foe`,
+        desc: `Casting value of 5.  If successfully cast, pick a unit within 18" and visible to the caster.  Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeebling Foe`,
+        desc: `If active, subtract 1 from wound rolls for debuffed unit in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Blood Sisters`,
+    effects: [
+      {
+        name: `Gorgai`,
+        desc: `Add 1 to hit rolls for a Gorgai.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Turned to Crystal`,
+        desc: `Each time you score a hit with a Crystal Touch, the target suff ers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Blood Stalkers`,
+    effects: [
+      {
+        name: `Krone`,
+        desc: `Add 1 to hit rolls for a Krone.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Heartseekers`,
+        desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bloodwrack Medusa`,
+    effects: [
+      {
+        name: `Bloodwrack Stare`,
+        desc: `Pick a unit visible to this model and roll a dice for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeebling Foe`,
+        desc: `Casting value of 5.  If successfully cast, pick a unit within 18" and visible to the caster.  Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeebling Foe`,
+        desc: `If active, subtract 1 from wound rolls for debuffed unit in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Doomfire Warlocks`,
+    effects: [
+      {
+        name: `Master of Warlocks`,
+        desc: `Add 1 to hit rolls for a Master of Warlocks' Doomfire Crossbow.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Master of Warlocks`,
+        desc: `Add 1 to hit rolls for a Master of Warlocks' Cursed Scimitar.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Doomfire Coven`,
+        desc: `Add 1 to the casting and unbinding rolls for this unit if it has 10 or more models.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This unit counts as a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Doomfire.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Doomfire`,
+        desc: `Casting value of 6.  If successfully cast, pick an enemy model within 18" and visible to any model in the casting unit.  The target suffers D3 mortal wounds if the casting unit has fewer than 5 models.  D6 mortal wounds if it has 5 to  9 models.  6 mortal wounds if it has 10 or more models.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Khinerai Heartrenders`,
+    effects: [
+      {
+        name: `Shryke`,
+        desc: `Add 1 to hit rolls for a Shryke.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Descend to Battle`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle – set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Fire and Flight`,
+        desc: `After this unit has finished making all of its attacks, roll a dice: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Death From Above`,
+        desc: `This unit can shoot even it ran in the same turn. In addition, change the Rend characteristic of this unit's Barbed Javelins to -2 if it was set up on the battlefield in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Heartpiercer Shield`,
+        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield – the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Khinerai Lifetakers`,
+    effects: [
+      {
+        name: `Harridynn`,
+        desc: `Add 1 to hit rolls for a Harridynn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Descend to Battle`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle – set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Fight and Flight`,
+        desc: `After this unit has finished making all of its attacks, roll a dice: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Death on the Wind`,
+        desc: `Add 1 to the damage characteristic of this unit's Barbed Sickles if it made a charge move in the same turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Heartpiercer Shield`,
+        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield – the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -468,7 +608,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Lethal Transfixation`,
-        desc: `Each time your opponent makes a hit roll of 1 when attacking a Temple Nest unit in this phase, the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Each time your opponent makes an unmodified hit roll of 1 when attacking a Temple Nest unit in this phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
     ],
