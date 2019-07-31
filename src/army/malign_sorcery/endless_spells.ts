@@ -1,7 +1,6 @@
 import { IEffects, IEntry } from 'types/data'
 import { HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-// Spell Lores of Nurgle
 const EndlessSpells: IEntry[] = [
   {
     name: `Balewind Vortex`,
