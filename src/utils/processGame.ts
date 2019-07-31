@@ -23,6 +23,8 @@ const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUni
           artifact: effect.artifact || entry.artifact || false,
           command_ability: entry.command_ability || effect.command_ability || false,
           command_trait: entry.command_trait || effect.command_trait || false,
+          endless_spell: entry.endless_spell || effect.endless_spell || false,
+          spell: entry.spell || effect.spell || false,
         })
       })
     })
