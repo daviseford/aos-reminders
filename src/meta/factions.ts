@@ -18,6 +18,7 @@ export type TSkaven = 'SKAVEN'
 export type TSlaanesh = 'SLAANESH'
 export type TStormcastEternals = 'STORMCAST_ETERNALS'
 export type TSylvaneth = 'SYLVANETH'
+export type TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export type TTzeentch = 'TZEENTCH'
 
 // Exported Faction Names
@@ -38,6 +39,7 @@ export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
+export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 
 // Supported Factions
@@ -59,6 +61,7 @@ export type TSupportedFaction =
   | TSlaanesh
   | TStormcastEternals
   | TSylvaneth
+  | TTamurkhansHorde
   | TTzeentch
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
@@ -79,5 +82,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TAMURKHANS_HORDE,
   TZEENTCH,
 ])

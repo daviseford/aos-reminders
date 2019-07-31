@@ -16,6 +16,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TAMURKHANS_HORDE,
   TZEENTCH,
   TSupportedFaction,
 } from './factions'
@@ -39,6 +40,7 @@ import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
+import TamurkhansHorde from 'army/tamurkhans_horde'
 import Tzeentch from 'army/tzeentch'
 
 const ArmyList: TArmyList = {
@@ -109,6 +111,10 @@ const ArmyList: TArmyList = {
   [SYLVANETH]: {
     Army: { ...Sylvaneth },
     GrandAlliance: ORDER,
+  },
+  [TAMURKHANS_HORDE]: {
+    Army: { ...TamurkhansHorde },
+    GrandAlliance: CHAOS,
   },
   [TZEENTCH]: {
     Army: { ...Tzeentch },
