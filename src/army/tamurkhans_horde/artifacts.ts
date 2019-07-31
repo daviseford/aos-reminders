@@ -2,7 +2,7 @@ import { TArtifacts } from 'types/army'
 import { START_OF_HERO_PHASE } from 'types/phases'
 
 // Import all Nurgle artifacts as they are cross compatible with Tamurkan's Horde.
-import Nurgle from 'army/nurgle'
+import NurgleArtifacts from 'army/nurgle/artifacts'
 
 const Artifacts: TArtifacts = [
   {
@@ -16,8 +16,7 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-  // Include Nurgle artifacts here.
-  ...Nurgle.Artifacts,
+  ...NurgleArtifacts,
 ]
 
 export default Artifacts

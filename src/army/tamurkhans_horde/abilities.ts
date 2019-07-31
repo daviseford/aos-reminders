@@ -2,7 +2,7 @@ import { IEffects } from 'types/data'
 import { CHARGE_PHASE, MOVEMENT_PHASE, START_OF_CHARGE_PHASE, START_OF_GAME } from 'types/phases'
 
 // Import all Nurgle abilities as they are cross compatible with Tamurkan's Horde.
-import Nurgle from 'army/nurgle'
+import NurgleAbilities from 'army/nurgle/abilities'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
@@ -37,8 +37,7 @@ const Abilities: IEffects[] = [
     when: [START_OF_GAME],
     allegiance_ability: true,
   },
-  // Include Nurgle abilities here.
-  ...Nurgle.Abilities,
+  ...NurgleAbilities,
 ]
 
 export default Abilities
