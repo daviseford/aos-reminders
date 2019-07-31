@@ -1,3 +1,5 @@
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
+import { IArmyWithoutGame } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   DAUGHTERS_OF_KHAINE,
@@ -9,6 +11,7 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_AZGORH,
   LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
   NURGLE,
@@ -20,8 +23,6 @@ import {
   TZEENTCH,
   TSupportedFaction,
 } from './factions'
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
-import { IArmyWithoutGame } from 'types/army'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
@@ -33,6 +34,7 @@ import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
+import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
@@ -82,6 +84,10 @@ const ArmyList: TArmyList = {
   },
   [KHORNE]: {
     Army: { ...Khorne },
+    GrandAlliance: CHAOS,
+  },
+  [LEGIONS_OF_AZGORH]: {
+    Army: { ...LegionsOfAzgorh },
     GrandAlliance: CHAOS,
   },
   [LEGIONS_OF_NAGASH]: {
