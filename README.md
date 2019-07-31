@@ -13,7 +13,6 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Idoneth Deepkin
   + Updated Gloomspite Gitz rules
   + Updated Malign Sorcery artefacts
-  + Suggested improvements to codebase
 + [PixelTom](https://github.com/PixelTom)
   + Added Dispossessed
   + Added Kharadron Overlords
@@ -21,8 +20,9 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Stormcast Eternals
   + Added Fyreslayers
 + [JohnSchramm](https://github.com/JohnSchramm)
-  + Updated Khorne rules
   + Added Nurgle
+  + Added Hedonites of Slaanesh
+  + Updated Khorne
 + [Cpt Asgard](https://github.com/CptAsgard)
   + Added Nighthaunt
 + [ctcodie](https://github.com/ctcodie)

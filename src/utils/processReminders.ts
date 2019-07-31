@@ -48,7 +48,7 @@ export const processReminders: TProcessReminders = (
   }
 
   // Add Realmscape features
-  if (realmscape !== 'None') {
+  if (realmscape) {
     const r = RealmscapeFeatures.find(x => x.name === realmscape) as IEffects
     const t: ITurnAction = {
       name: r.name,

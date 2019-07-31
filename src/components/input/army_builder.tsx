@@ -16,7 +16,7 @@ interface IArmyBuilderProps {
   factionName: TSupportedFaction
   realmscape: string
   selections: ISelections
-  setRealmscape: (value: string) => void
+  setRealmscape: (value: string | null) => void
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
   updateTraits: (values: string[]) => void
