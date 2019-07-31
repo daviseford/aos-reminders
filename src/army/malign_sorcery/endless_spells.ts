@@ -415,7 +415,6 @@ const EndlessSpells: IEntry[] = [
         name: `Slow Down Time`,
         desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, re-roll failed save rolls for that wizard.`,
         when: [HERO_PHASE, DURING_ROUND],
-      },
     ],
   },
 ]
