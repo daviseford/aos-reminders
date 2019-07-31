@@ -1,11 +1,8 @@
 import { IEffects } from 'types/data'
-{
-  /*
-import { TSpells } from 'types/army'
 import { HERO_PHASE } from 'types/phases'
 
 // Spell Lores of Nurgle
-const Spells: IEntry[] = [
+const Spells: IEffects[] = [
   {
     name: `Blades of Putrefaction (Rotbringer)`,
     desc: `Casting value of 7.  If successfully cast, pick a friendly unit within 14" of the caster that is visible.  Until your next hero phase, hit rolls of 6 inflict 1 mortal wound in addition to any other damage.`,
@@ -68,6 +65,4 @@ const Spells: IEntry[] = [
   },
 ]
 
-export default Abilities
-*/
-}
+export default Spells

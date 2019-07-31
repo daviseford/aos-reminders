@@ -23,6 +23,16 @@ const EndlessSpells: IEntry[] = [
       },
     ],
   },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
 ]
 
 export default EndlessSpells
