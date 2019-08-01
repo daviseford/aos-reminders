@@ -14,20 +14,28 @@ interface ISelectOneProps {
   items: string[]
   setValue: TSelectOneSetValueFn
   toTitle?: boolean
+  value?: string | null
 }
 
 export const SelectOne = (props: ISelectOneProps) => {
-  const { items, setValue, isClearable = false, hasDefault = false, toTitle = false } = props
+  const { items, setValue, isClearable = false, hasDefault = false, toTitle = false, value = null } = props
   const options = convertToOptions(items, toTitle)
+  const controlledValue = value ? convertToOptions([value], false)[0] : null
+
+  const selectProps: { [key: string]: any } = {
+    defaultValue: hasDefault ? options[0] : null,
+    isClearable: isClearable,
+    isSearchable: true,
+    onChange: setValue,
+    options: options,
+  }
+
+  if (controlledValue) {
+    selectProps.value = controlledValue
+  }
   return (
     <>
-      <Select
-        defaultValue={hasDefault ? options[0] : null}
-        isClearable={isClearable}
-        isSearchable={true}
-        onChange={setValue}
-        options={options}
-      />
+      <Select {...selectProps} />
     </>
   )
 }

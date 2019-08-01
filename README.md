@@ -9,24 +9,31 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 ## Top Contributors
 
 + [daviseford](https://github.com/daviseford)
++ [JohnSchramm](https://github.com/JohnSchramm)
+  + Added Nurgle
+  + Added Hedonites of Slaanesh
+  + Added Daughters of Khaine
+  + Added Tamurkhan's Horde
+  + Added Slaves to Darkness
+  + Added Everchosen
+  + Updated Khorne
++ [thundergore](https://github.com/thundergore)
+  + Added Stormcast Eternals
+  + Added Fyreslayers
+  + Added Endless spells
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
   + Added Idoneth Deepkin
   + Updated Gloomspite Gitz rules
   + Updated Malign Sorcery artefacts
-  + Suggested improvements to codebase
 + [PixelTom](https://github.com/PixelTom)
   + Added Dispossessed
   + Added Kharadron Overlords
-+ [thundergore](https://github.com/thundergore)
-  + Added Stormcast Eternals
-  + Added Fyreslayers
-+ [JohnSchramm](https://github.com/JohnSchramm)
-  + Updated Khorne rules
-  + Added Nurgle
 + [Cpt Asgard](https://github.com/CptAsgard)
   + Added Nighthaunt
 + [ctcodie](https://github.com/ctcodie)
   + Added Legions of Nagash
++ Lorax
+  + Added Legions of Azgorh
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 

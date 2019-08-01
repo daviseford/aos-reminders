@@ -1,0 +1,73 @@
+import { TCommandTraits } from 'types/army'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+
+const CommandTraits: TCommandTraits = [
+  {
+    name: `Eternal Vendetta`,
+    effects: [
+      {
+        name: `Eternal Vendetta`,
+        desc: `You can re-roll wound rolls for attacks made with melee weapons by this general that target an Order unit.`,
+        when: [COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Flames of Spite`,
+    effects: [
+      {
+        name: `Flames of Spite`,
+        desc: `If the unmodified wound roll for an attack made by this general is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Master of Deception`,
+    effects: [
+      {
+        name: `Master of Deception`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this general.`,
+        when: [COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Hatred Incarnate`,
+    effects: [
+      {
+        name: `Hatred Incarnate`,
+        desc: `You can re-roll wound rolls of 1 for attacks made by this general.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Lord of Terror`,
+    effects: [
+      {
+        name: `Lord of Terror`,
+        desc: `Subtract 1 from the bravery characterisic of enemy units while they are within 6" of this general.`,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Exalted Champion`,
+    effects: [
+      {
+        name: `Exalted Champion`,
+        desc: `Add 1 to the bravery characterisic of friendly Slaves to Darkness units while they are wholly within 12" of this general.`,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+]
+
+export default CommandTraits

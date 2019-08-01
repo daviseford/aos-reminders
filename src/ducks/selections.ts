@@ -10,6 +10,8 @@ const initialState: TInitialStateType = {
   selections: {
     artifacts: [] as string[],
     battalions: [] as string[],
+    endless_spells: [] as string[],
+    spells: [] as string[],
     traits: [] as string[],
     units: [] as string[],
   },
@@ -36,6 +38,12 @@ const updateBattalions = (state, action) => {
 const updateArtifacts = (state, action) => {
   state.selections.artifacts = action.payload
 }
+const updateSpells = (state, action) => {
+  state.selections.spells = action.payload
+}
+const updateEndlessSpells = (state, action) => {
+  state.selections.endless_spells = action.payload
+}
 const updateAllyUnits = (state, action) => {
   state.allySelections.units = action.payload
 }
@@ -50,6 +58,8 @@ export const selections = createSlice({
     updateAllyUnits,
     updateArtifacts,
     updateBattalions,
+    updateEndlessSpells,
+    updateSpells,
     updateTraits,
     updateUnits,
   },

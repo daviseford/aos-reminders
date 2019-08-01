@@ -53,6 +53,52 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Bael-Grimnir on Flamespitter`,
+    effects: [
+      {
+        name: `Furious Endurance`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 6 that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Roaring Fyrestream`,
+        desc: `Do not use the attack sequence for an attack made with a Roaring Fyrestream. Instead, make the dice roll shown on the damage table above. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Flamespitter's Fury`,
+        desc: `Add 6" to the range of this model's Roaring Fyrestream ability if this model did not move in teh movement phase of the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Lashing Tail`,
+        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Volcanic Blood`,
+        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Stare Down`,
+        desc: `In your hero phase, pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Hrathling`,
+        desc: `At the end of the combat phase, pick an enemy HERO within 3" of this model and roll a dice. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Runefather's Favour`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a dice. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
     name: `Auric Runeson on Magmadroth`,
     effects: [
       {
@@ -446,6 +492,36 @@ export const Battalions: TBattalions = [
       {
         name: `Bulwark of Molten Stone`,
         desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Lords of Vostarg`,
+    effects: [
+      {
+        name: `Strength in Tradition`,
+        desc: `Once per battle round, a HERO from this battalion can use a command ability without spending a command point.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Vostarg Warrior Kinband`,
+    effects: [
+      {
+        name: `Mighty Deeds and Blazing Oaths`,
+        desc: `Add 1 to the melee weapon Attacks for VULKITE BERZERKERS units from this battalion while they are wholly within 12" of this battalion' AURIC RUNESON.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vostarg Forge Brethren`,
+    effects: [
+      {
+        name: `Heir of the Fyreheart Temple`,
+        desc: `If a friendly unit of AURIC HEARTHGUARD from this battalion is wholly within 12" of Dhurgan when he uses his Magmic Prayer of Runic Empowerment ability, the prayer is answered on a 2+ instead of 3+.`,
         when: [HERO_PHASE],
       },
     ],

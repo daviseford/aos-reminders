@@ -13,8 +13,8 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_GAME,
+  START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
@@ -257,7 +257,7 @@ export const Units: TUnits = [
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: ``,
+        name: `Bell Tollers`,
         desc: `Models in this unit can be Bell Tollers.  Re-roll battleshock tests of 1 for enemy units while they are within 6" of any Bell Tollers.`,
         when: [BATTLESHOCK_PHASE],
       },
