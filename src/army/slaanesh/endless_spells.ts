@@ -1,4 +1,3 @@
-import { IEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -7,9 +6,10 @@ import {
   SHOOTING_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
+import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
-export const EndlessSpells: IEntry[] = [
+export const EndlessSpells: TEndlessSpells = [
   {
     name: `Wheels of Excruciation`,
     effects: [

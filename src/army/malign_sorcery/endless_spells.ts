@@ -1,4 +1,3 @@
-import { IEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -11,8 +10,9 @@ import {
   SHOOTING_PHASE,
   START_OF_TURN,
 } from 'types/phases'
+import { TEndlessSpells } from 'types/army'
 
-const EndlessSpells: IEntry[] = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Balewind Vortex`,
     effects: [
