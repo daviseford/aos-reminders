@@ -1,9 +1,9 @@
 import { TCommandTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
-import ArmyList from 'meta/army_list'
+import { armyListLookup } from 'meta/army_list'
 
-import { RealmArtifacts, EndlessSpells as RealmEndlessSpells, Spells as RealmSpells } from 'army/malign_sorcery'
+import { RealmArtifacts, EndlessSpells as GenericEndlessSpells, Spells as RealmSpells } from 'army/malign_sorcery'
 
 import { processGame } from './processGame'
 import {
@@ -22,7 +22,7 @@ import { TRealms } from 'types/realmscapes'
 export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
   if (!SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
 
-  const { Army, GrandAlliance } = ArmyList[factionName as TSupportedFaction]
+  const { Army, GrandAlliance } = armyListLookup(factionName as TSupportedFaction)
   const { Artifacts, Battalions, EndlessSpells, Spells, Traits, Units } = Army
 
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
@@ -42,9 +42,9 @@ export const getArmy = (factionName: TSupportedFaction | null, realmscape: TReal
 }
 
 type TGrandAllianceConfig = {
-  [key in TGrandAlliances]: {
-    Artifacts: TArtifacts
-    Traits: TCommandTraits
+  readonly [key in TGrandAlliances]: {
+    readonly Artifacts: TArtifacts
+    readonly Traits: TCommandTraits
   }
 }
 
@@ -94,5 +94,5 @@ const modifySpells = (spells: TSpells = [], realmscape: TRealms | null): TSpells
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells = []): TEndlessSpells => {
-  return endlessSpells.concat(sortBy(RealmEndlessSpells, 'name')).map(e => ({ ...e, endless_spell: true }))
+  return endlessSpells.concat(sortBy(GenericEndlessSpells, 'name')).map(e => ({ ...e, endless_spell: true }))
 }

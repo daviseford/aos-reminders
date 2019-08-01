@@ -1,3 +1,4 @@
+import { flatten } from 'lodash'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { ISelections, IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
@@ -5,13 +6,12 @@ import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
-import { flatten } from 'lodash'
 
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
   selections: ISelections,
-  realmscape: string,
+  realmscape_feature: string,
   allyArmy: IArmy,
   allySelections: IAllySelections
 ) => IReminder
@@ -20,7 +20,7 @@ export const processReminders: TProcessReminders = (
   army,
   factionName,
   selections,
-  realmscape,
+  realmscape_feature,
   allyArmy,
   allySelections
 ) => {
@@ -48,8 +48,8 @@ export const processReminders: TProcessReminders = (
   }
 
   // Add Realmscape features
-  if (realmscape) {
-    const r = RealmscapeFeatures.find(x => x.name === realmscape) as IEffects
+  if (realmscape_feature) {
+    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature) as IEffects
     const t: ITurnAction = {
       name: r.name,
       desc: r.desc,
