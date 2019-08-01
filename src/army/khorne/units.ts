@@ -20,7 +20,7 @@ import {
 import SlavesToDarkness from 'army/slaves_to_darkness'
 import Everchosen from 'army/everchosen'
 
-// Importing Nurgle markable Slaves to Darkness units.
+// Importing Khorne markable Slaves to Darkness units.
 const getSlavesUnits = () => {
   const listOfUnits = [
     `Daemon Prince`,
@@ -41,7 +41,7 @@ const getSlavesUnits = () => {
   return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
 }
 
-// Importing god aligned Everchosen units.
+// Importing Khorne aligned Everchosen units.
 const getEverchosenUnits = () => {
   const listOfUnits = [`Archaon`]
   return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))

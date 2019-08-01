@@ -17,7 +17,7 @@ import {
 import SlavesToDarkness from 'army/slaves_to_darkness'
 import Everchosen from 'army/everchosen'
 
-// Importing Nurgle markable Slaves to Darkness units.
+// Importing Tzeentch markable Slaves to Darkness units.
 const getSlavesUnits = () => {
   const listOfUnits = [
     `Daemon Prince`,
@@ -40,7 +40,7 @@ const getSlavesUnits = () => {
   return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
 }
 
-// Importing god aligned Everchosen units.
+// Importing Tzeentch aligned Everchosen units.
 const getEverchosenUnits = () => {
   const listOfUnits = [`Archaon`, `Gaunt Summoner on Disc of Tzeentch`]
   return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
