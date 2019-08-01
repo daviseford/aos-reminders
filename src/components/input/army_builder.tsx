@@ -7,7 +7,7 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy } from 'types/army'
+import { IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
@@ -58,16 +58,11 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             type={'Battalion'}
             setValues={handleBattalions}
           />
-          {spells.length > 0 && (
-            <CardComponent
-              items={sortBy(army.Spells, 'name')}
-              values={spells}
-              type={'Spell'}
-              setValues={handleSpells}
-            />
-          )}
+
+          <CardComponent items={army.Spells as TSpells} values={spells} type={'Spell'} setValues={handleSpells} />
+
           <CardComponent
-            items={sortBy(army.EndlessSpells, 'name')}
+            items={army.EndlessSpells as TEndlessSpells}
             values={endless_spells}
             type={'Endless Spell'}
             setValues={handleEndlessSpells}

@@ -65,12 +65,17 @@ const Entry = (props: { when: string; actions: ITurnAction[]; idx: number; facti
 const getTitle = ({
   allegiance_ability,
   artifact,
-  condition,
-  name,
-  command_trait,
   command_ability,
+  command_trait,
+  condition,
+  endless_spell,
+  name,
+  spell,
 }: ITurnAction): string => {
-  if (artifact) return `Artifact${name === condition ? `` : `: ${condition}`}`
+  const nameIfDifferent = name === condition ? `` : `: ${condition}`
+  if (spell) return `Spell${nameIfDifferent}`
+  if (endless_spell) return `Endless Spell${nameIfDifferent}`
+  if (artifact) return `Artifact${nameIfDifferent}`
   if (allegiance_ability || command_ability) return condition
   if (command_trait) return `Command Trait`
   return condition
