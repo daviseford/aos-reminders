@@ -1,15 +1,15 @@
-import { IEffects, IEntry } from 'types/data'
+import { IEntry } from 'types/data'
 import {
-  START_OF_TURN,
-  HERO_PHASE,
-  COMBAT_PHASE,
-  SHOOTING_PHASE,
-  END_OF_ROUND,
-  DURING_GAME,
   BATTLESHOCK_PHASE,
-  MOVEMENT_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
   DURING_ROUND,
+  END_OF_ROUND,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_TURN,
 } from 'types/phases'
 
 const EndlessSpells: IEntry[] = [
@@ -415,6 +415,7 @@ const EndlessSpells: IEntry[] = [
         name: `Slow Down Time`,
         desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, re-roll failed save rolls for that wizard.`,
         when: [HERO_PHASE, DURING_ROUND],
+      },
     ],
   },
 ]
