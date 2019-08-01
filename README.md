@@ -18,6 +18,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
   + Added Hedonites of Slaanesh
   + Added Daughters of Khaine
   + Added Tamurkhan's Horde
+  + Added Slaves to Darkness
   + Updated Khorne
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
   + Added Idoneth Deepkin
