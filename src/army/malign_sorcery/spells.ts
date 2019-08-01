@@ -1,9 +1,13 @@
-import { IEffects } from 'types/data'
+import { IEffects, IEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 import { TRealms, GHYRAN } from 'types/realmscapes'
 
-interface IRealmSpell extends IEffects {
+interface IRealmEffect extends IEffects {
   tag: TRealms
+}
+
+interface IRealmSpell extends IEntry {
+  effects: IRealmEffect[]
 }
 
 // Realm Spells
@@ -11,9 +15,14 @@ interface IRealmSpell extends IEffects {
 const Spells: IRealmSpell[] = [
   {
     name: ``,
-    desc: ``,
-    when: [HERO_PHASE],
-    tag: GHYRAN,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+        tag: GHYRAN,
+      },
+    ],
   },
 ]
 

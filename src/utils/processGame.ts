@@ -1,4 +1,4 @@
-import { TBattalions, TArtifacts, TUnits } from 'types/army'
+import { TBattalions, TArtifacts, TUnits, TCommandTraits, TSpells, TEndlessSpells } from 'types/army'
 import { addToGame } from './addToGame'
 import { TGameStructure, Game } from 'meta/game_structure'
 
@@ -10,7 +10,10 @@ export const processGame = (entries: entries[]): TGameStructure => {
   return game
 }
 
-const processEntry = (game: TGameStructure, arr: TBattalions | TArtifacts | TUnits) => {
+const processEntry = (
+  game: TGameStructure,
+  arr: TBattalions | TArtifacts | TUnits | TCommandTraits | TSpells | TEndlessSpells
+) => {
   arr.forEach(entry => {
     entry.effects.forEach(effect => {
       effect.when.forEach(w => {

@@ -6,7 +6,7 @@ export type TArtifacts = IEntry[]
 export type TBattalions = IEntry[]
 export type TCommandTraits = IEntry[]
 export type TEndlessSpells = IEntry[]
-export type TSpells = IEffects[]
+export type TSpells = IEntry[]
 export type TUnits = IEntry[]
 
 export interface IArmyWithoutGame {

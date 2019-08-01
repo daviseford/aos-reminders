@@ -27,7 +27,7 @@ export const getArmy = (factionName: TSupportedFaction | null): IArmy | null => 
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
   Army.Spells = modifySpells(Spells)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
-  Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits])
+  Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits, Army.Spells, Army.EndlessSpells])
 
   return Army as IArmy
 }
