@@ -18,6 +18,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
@@ -42,6 +43,7 @@ import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
+import SlavesToDarkness from 'army/slaves_to_darkness'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 import TamurkhansHorde from 'army/tamurkhans_horde'
@@ -116,6 +118,10 @@ const ArmyList: TArmyList = {
     Army: { ...Slaanesh },
     GrandAlliance: CHAOS,
   },
+  [SLAVES_TO_DARKNESS]: {
+    Army: { ...SlavesToDarkness },
+    GrandAlliance: CHAOS,
+  },
   [STORMCAST_ETERNALS]: {
     Army: { ...StormcastEternals },
     GrandAlliance: ORDER,
@@ -134,11 +140,19 @@ const ArmyList: TArmyList = {
   },
 }
 
-export default ArmyList
+/**
+ * Using this lookup function removes the possibility of accidentally
+ * mutating the ArmyList and causing weird bugs
+ * @param factionName
+ */
+export const armyListLookup = (factionName: TSupportedFaction): IArmyListEntry => {
+  const entry = ArmyList[factionName]
+  return { Army: { ...entry.Army }, GrandAlliance: `${entry.GrandAlliance}` as TGrandAlliances }
+}
 
-type TArmyList = { [factionName in TSupportedFaction]: IArmyListEntry }
+type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  Army: IArmyWithoutGame
-  GrandAlliance: TGrandAlliances
+  readonly Army: IArmyWithoutGame
+  readonly GrandAlliance: TGrandAlliances
 }

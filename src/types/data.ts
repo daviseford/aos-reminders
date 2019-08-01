@@ -7,17 +7,21 @@ export interface IEntry {
   artifact?: boolean
   command_ability?: boolean
   command_trait?: boolean
+  endless_spell?: boolean
+  spell?: boolean
 }
 
 export interface IEffects {
   name: string
   desc: string
+  tag?: string
   when: TTurnWhen[]
   allegiance_ability?: boolean
   artifact?: boolean
   command_ability?: boolean
   command_trait?: boolean
-  tag?: string
+  endless_spell?: boolean
+  spell?: boolean
 }
 
 export interface IReminder {
@@ -28,9 +32,11 @@ export interface ITurnAction {
   condition: string
   desc: string
   name?: string
-  tag?: string
+  tag?: string | false
   allegiance_ability?: boolean
   artifact?: boolean
   command_ability?: boolean
   command_trait?: boolean
+  endless_spell?: boolean
+  spell?: boolean
 }

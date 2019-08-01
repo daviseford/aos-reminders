@@ -26,11 +26,11 @@ export const PrintHeader = connect(
 const PrintUnitsComponent = (props: {
   selections: ISelections
   allySelections: IAllySelections
-  realmscape: string | null
+  realmscape_feature: string | null
 }) => {
-  const { realmscape, selections, allySelections } = props
-  const { units, battalions, artifacts, traits } = selections
-  const realm = realmscape ? [realmscape] : []
+  const { realmscape_feature, selections, allySelections } = props
+  const { units, battalions, artifacts, traits, spells, endless_spells } = selections
+  const realmFeature = realmscape_feature ? [realmscape_feature] : []
   return (
     <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplayComponent name={'Unit'} items={units} />
@@ -38,7 +38,9 @@ const PrintUnitsComponent = (props: {
       <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
       <ItemsDisplayComponent name={'Battalion'} items={battalions} />
       <ItemsDisplayComponent name={'Command Trait'} items={traits} />
-      <ItemsDisplayComponent name={'Realmscape Feature'} items={realm} />
+      <ItemsDisplayComponent name={'Spell'} items={spells} />
+      <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
+      <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
     </div>
   )
 }
@@ -46,7 +48,7 @@ const PrintUnitsComponent = (props: {
 const mapUnitsStateToProps = (state, ownProps) => ({
   ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
-  realmscape: realmscape.selectors.getRealmscape(state),
+  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
 })
 

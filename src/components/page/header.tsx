@@ -33,6 +33,12 @@ const HeaderComponent = (props: IHeaderProps) => {
           </div>
         </div>
         <span>Other armies are being added based on demand.</span>
+        <br />
+        <small>
+          Note: Our Spells and Endless Spells library is currently under construction.
+          <br />
+          If your army is currently missing spells, we're working on it!
+        </small>
       </div>
     </div>
   )
