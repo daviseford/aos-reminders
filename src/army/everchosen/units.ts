@@ -3,10 +3,9 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_SETUP,
+  DURING_GAME,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
@@ -24,7 +23,7 @@ export const Units: TUnits = [
       {
         name: `The Eye of Sheerian`,
         desc: `Enemy hits against Archaon that equal the rolled number must be re-rolled.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `The Slayer of Kings`,
@@ -34,12 +33,12 @@ export const Units: TUnits = [
       {
         name: `The Armour of Morkar`,
         desc: `If a save roll made for Archaon if an unmodified 6, the attacking model's unit suffers a mortal wound.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Chaos Runeshield`,
         desc: `Roll a dice each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `The Crown of Domination`,
@@ -184,7 +183,7 @@ export const Battalions: TBattalions = [
       {
         name: `Brand of the Blood God`,
         desc: `If the number of models in a unit from this battalion is a multiple of 8 when first set up, you can re-roll wound rolls of 1 for that unit for the duration of the battle.`,
-        when: [DURING_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Blood Rage`,
@@ -194,7 +193,7 @@ export const Battalions: TBattalions = [
       {
         name: `Raised to Greatness`,
         desc: `If a hero from this battalion is slain, pick another model in the warband that is not a hero.  That model adds 1 to the attacks characteristic of all of its melee weapons and becomes a separate hero unit for the rest of the battle.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -204,7 +203,7 @@ export const Battalions: TBattalions = [
       {
         name: `Grandfather's Favour`,
         desc: `If the number of models in a unit from this battalion is a multiple of 7 when first set up, in the combat phase if the wound roll for an attack that targets the valid battalion unit is a 6+, the attacker suffers 1 mortal wound after all its attacks have been made.`,
-        when: [DURING_SETUP, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Grandfather's Favour`,
@@ -224,12 +223,12 @@ export const Battalions: TBattalions = [
       {
         name: `Scions of Change`,
         desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a dice each time it suffers a wound or mortal wound.  On a 6 the wound is negated.`,
-        when: [DURING_SETUP, HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Conduits of Arcane Power`,
         desc: `All weapons used by models in this battalion have a rend of -1 instead of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Conduits of Arcane Power`,
@@ -244,7 +243,7 @@ export const Battalions: TBattalions = [
       {
         name: `Caress of the Dark Prince`,
         desc: `If the number of models in a unit from this battalion is a multiple of 6 when first set up, add 2 to its bravery characteristic for the duration of the battle.`,
-        when: [DURING_SETUP, HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Perverse Yearnings`,

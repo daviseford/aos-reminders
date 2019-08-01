@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -13,9 +14,43 @@ import {
   START_OF_HERO_PHASE,
   START_OF_GAME,
 } from 'types/phases'
+import SlavesToDarkness from 'army/slaves_to_darkness'
+import Everchosen from 'army/everchosen'
+
+// Importing Slaanesh markable Slaves to Darkness units.
+const getSlavesUnits = () => {
+  const listOfUnits = [
+    `Daemon Prince`,
+    `Chaos Lord on Manticore`,
+    `Chaos Sorcerer Lord on Manticore`,
+    `Chaos Lord on Daemonic Mount`,
+    `Lord of Chaos`,
+    `Chaos Sorcerer Lord`,
+    `Exalted Hero of Chaos`,
+    `Chaos Marauders`,
+    `Chaos Chariot`,
+    `Gorebeast Chariot`,
+    `Chaos Chosen`,
+    `Chaos Warriors`,
+    `Chaos Warshrine`,
+    `Chaos Knights`,
+    `Chaos Marauder Horsemen`,
+    `Chaos War Mammoth`,
+  ]
+  return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
+}
+
+// Importing Slaanesh aligned Everchosen units.
+const getEverchosenUnits = () => {
+  const listOfUnits = [`Archaon`]
+  return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
+}
 
 // Unit Names
 export const Units: TUnits = [
+  // Import Everchosen/Slaves to Darkness Units
+  ...getSlavesUnits(),
+  ...getEverchosenUnits(),
   {
     name: `Keeper of Secrets`,
     effects: [
@@ -42,7 +77,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Sinistrous Hand`,
@@ -131,7 +166,7 @@ export const Units: TUnits = [
       },
       {
         name: `Irresistible Challenge`,
-        desc: `At the start of the enemy charge phase, you can pick 1 enemy Hero within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that Hero to accept Shalaxi Helbane's challenge. If they refuse, that Hero suffers D3 mortal wounds. If they accept, that Hero must attempt to charge, and must finish the charge move within ½" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that Hero makes in the following combat phase must target this model.`,
+        desc: `At the start of the enemy charge phase, you can pick 1 enemy Hero within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that Hero to accept Shalaxi Helbane's challenge. If they refuse, that Hero suffers D3 mortal wounds. If they accept, that Hero must attempt to charge, and must finish the charge move within ï¿½" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that Hero makes in the following combat phase must target this model.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
@@ -142,7 +177,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `The Killing Stroke`,
@@ -172,7 +207,7 @@ export const Units: TUnits = [
       {
         name: `Swallow Energy`,
         desc: `Roll a dice each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Horrible Fascination`,
@@ -237,7 +272,7 @@ export const Units: TUnits = [
       {
         name: `Inhuman Reflexes`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -247,7 +282,7 @@ export const Units: TUnits = [
       {
         name: `Lightning Reflexes`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Lithe and Swift`,
@@ -552,7 +587,7 @@ export const Units: TUnits = [
       {
         name: `Icon Bearer`,
         desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Hornblower`,
@@ -586,7 +621,7 @@ export const Battalions: TBattalions = [
       {
         name: `Transcendental Warriors`,
         desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },

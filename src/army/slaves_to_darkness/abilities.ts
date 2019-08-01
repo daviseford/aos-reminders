@@ -1,5 +1,5 @@
 import { IEffects } from 'types/data'
-import { BATTLESHOCK_PHASE, CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
@@ -30,7 +30,7 @@ const Abilities: IEffects[] = [
   {
     name: `Aura of Chaos Power : Undivided (No Mark)`,
     desc: `Add 1 to the bravery characteristic of friendly Slaves to Darkness units that do not have a Chaos mark while they are wholly within 12" of any friendly Slaves to Darkness heros that also do not have a Chaos mark.`,
-    when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+    when: [DURING_GAME],
     allegiance_ability: true,
   },
   {

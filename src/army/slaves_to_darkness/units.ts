@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -28,7 +29,7 @@ export const Units: TUnits = [
       {
         name: `Immortal Champion: Nurgle`,
         desc: `This model has a save characteristic of 3+.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Immortal Champion: Tzeentch`,
@@ -68,12 +69,12 @@ export const Units: TUnits = [
       {
         name: `Chaos Runeshield`,
         desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Daggerfirst`,
         desc: `If this model is equipped with a Daggerfirst, each time you make a save roll of 6+, and the attacking unit is within 1", the attacking unit suffers a mortal wound after all of its attacks have been made.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Chaos Lance`,
@@ -134,12 +135,12 @@ export const Units: TUnits = [
       {
         name: `Mark of Chaos: Nurgle`,
         desc: `This model has a wounds characteristic of 8 instead of 7.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Mark of Chaos: Tzeentch`,
         desc: `You can re-roll failed save rolls for this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Mark of Chaos: Slaanesh`,
@@ -149,7 +150,7 @@ export const Units: TUnits = [
       {
         name: `Chaos Runeshield`,
         desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `The Knights of Chaos`,
@@ -175,7 +176,7 @@ export const Units: TUnits = [
       {
         name: `Glory or Damnation`,
         desc: `If a this model slays the opposing army general, you can choose to replace him with a Daemon Prince model.  If this model is slain, replace him with a Chaos Spawn model.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Mark of Chaos: Khorne`,
@@ -190,7 +191,7 @@ export const Units: TUnits = [
       {
         name: `Mark of Chaos: Tzeentch`,
         desc: `You can re-roll save rolls of 1 for this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Mark of Chaos: Slaanesh`,
@@ -221,7 +222,7 @@ export const Units: TUnits = [
       {
         name: `Infernal Runeshield`,
         desc: `Each time you allocate a wound or mortal wound to this model, roll a dice.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Will of the Gods`,
@@ -257,7 +258,7 @@ export const Units: TUnits = [
       {
         name: `Chaos Steed`,
         desc: `Some Chaos sorcerer lords ride on Chaos Steeds.  If this model has a steed, this model's move characteristic is 10" instead of 5" and it gains the Flailing Hooves attack.`,
-        when: [MOVEMENT_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Oracular Visions`,
@@ -277,7 +278,7 @@ export const Units: TUnits = [
       {
         name: `Daemonic Power`,
         desc: `If active, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -312,7 +313,7 @@ export const Units: TUnits = [
       {
         name: `'Nightmaw, my pet, protect me!'`,
         desc: `Roll a dice before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Schalkain's Teeth`,
@@ -347,7 +348,7 @@ export const Units: TUnits = [
       {
         name: `Shadow-kin`,
         desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Writhing Tentacles`,
@@ -417,12 +418,12 @@ export const Units: TUnits = [
       {
         name: `Tribal Banner Bearer`,
         desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Drummer`,
         desc: `If the unit includes any Drummers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Barbarian Hordes`,
@@ -487,12 +488,12 @@ export const Units: TUnits = [
       {
         name: `Icon Bearers`,
         desc: `If the unit includes any Icon Bearers, add 1 to the Bravery of all its models.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Skull Drummers`,
         desc: `If the unit includes any Skull Drummers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Slaughter-leaders`,
@@ -517,17 +518,17 @@ export const Units: TUnits = [
       {
         name: `Standard Bearers`,
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Hornblowers`,
         desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Chaos Runeshields`,
         desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Berserk Fury`,
@@ -537,7 +538,7 @@ export const Units: TUnits = [
       {
         name: `Legions of Chaos`,
         desc: `You can re-roll save rolls of 1 for this unit if it contains 20 or more models.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -547,7 +548,7 @@ export const Units: TUnits = [
       {
         name: `Protection of the Dark Gods`,
         desc: `Roll a dice each time a Mortal model from your army suffers a wound or a mortal wound whilst within range of a Warshrine's Protection of the Dark Gods ability. On a 6+ the wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Favour of the Ruinous Powers`,
@@ -592,17 +593,17 @@ export const Units: TUnits = [
       {
         name: `Standard Bearers`,
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Hornblowers`,
         desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Chaos Runeshields`,
         desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Impaling Charge`,
@@ -632,7 +633,7 @@ export const Units: TUnits = [
       {
         name: `Tribal Banner Bearer`,
         desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Hornblowers`,
@@ -667,7 +668,7 @@ export const Units: TUnits = [
       {
         name: `Crushing Fall`,
         desc: `If this model is slain, before this model is removed from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D6 mortal wounds. This model is then removed from play.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Earth-shaking charge`,

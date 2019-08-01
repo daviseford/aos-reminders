@@ -2,6 +2,7 @@ import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -17,7 +18,7 @@ export const Units: TUnits = [
       {
         name: `Feast of the Maggot Lord`,
         desc: `If this model is slain, before this model is removed from play, you can pick 1 enemy Hero within 3" of this model. That Hero suffers D3 mortal wounds. If that Hero is slain by these mortal wounds, this model is not slain, D6 wounds allocated to this model are healed, and any that remain to be allocated to it are negated. If that Hero is not slain by these mortal wounds, this model is removed from play.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Killer of Kings`,
@@ -43,7 +44,7 @@ export const Units: TUnits = [
       {
         name: `Corrupted Flesh`,
         desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Noxious Blades`,
@@ -64,7 +65,7 @@ export const Units: TUnits = [
       {
         name: `Bloated Flesh`,
         desc: `Roll a dice each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Rot-eaters`,
@@ -79,7 +80,7 @@ export const Units: TUnits = [
       {
         name: `Bloated Flesh`,
         desc: `Roll a dice each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Cloud of Flies`,
@@ -89,7 +90,7 @@ export const Units: TUnits = [
       {
         name: `Locus of Fecundity`,
         desc: `You can re-roll save rolls of 1 for attacks that target this unit while this unit is wholly within 14" of a friendly Nurgle Hero.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Rot-eaters`,
@@ -104,7 +105,7 @@ export const Units: TUnits = [
       {
         name: `Damned Flesh`,
         desc: `If a model from this unit is slain after a wound or mortal wound is allocated to it, roll a dice before the slain model is removed from play. On a 5+, that wound or mortal wound is negated and the model is not slain.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Insatiably Famished`,

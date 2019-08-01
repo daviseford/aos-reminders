@@ -1,11 +1,4 @@
-import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  START_OF_ROUND,
-} from 'types/phases'
+import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
@@ -88,7 +81,7 @@ export const EndlessSpells: TEndlessSpells = [
       {
         name: `Terrifying Entity`,
         desc: `Subtract 1 from the Bravery characteristic of units while they are within 12" of this model. Add 1 to the Bravery characteristic of Chaos Slaanesh units while they are within 12" of this model instead of subtracting 1.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },

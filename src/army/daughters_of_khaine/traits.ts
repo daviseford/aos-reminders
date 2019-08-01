@@ -1,8 +1,8 @@
 import { TCommandTraits } from 'types/army'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
@@ -18,7 +18,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Devoted Disciples`,
         desc: `Whenever you make a Fanatical Faith roll for friendly Hagg Nar units within 7" of this general, the wound is negated on a 5+ instead of 6".`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
       {
@@ -104,7 +104,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Bathed in Blood`,
         desc: `Increase this general's wounds characteristic by 1.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
       {
@@ -121,7 +121,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Zealous Orator`,
         desc: `Friendly Daughters of Khaine units within 14" of this general use this general's bravery characteristic instead of their own.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
     ],
