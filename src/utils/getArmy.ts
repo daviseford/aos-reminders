@@ -27,7 +27,7 @@ export const getArmy = (factionName: TSupportedFaction | null, realmscape: TReal
 
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
-  Army.Spells = modifySpells(Spells)
+  Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
   Army.Game = processGame([
     Units,
@@ -88,7 +88,7 @@ const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TComma
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
 
-const modifySpells = (spells: TSpells = [], realmscape: TRealms | null = null): TSpells => {
+const modifySpells = (spells: TSpells = [], realmscape: TRealms | null): TSpells => {
   const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
   return spells.concat(sortBy(realmSpells, 'name')).map(s => ({ ...s, spell: true }))
 }
