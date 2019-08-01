@@ -17,25 +17,18 @@ interface IArmyBuilderProps {
   realmscape: string
   selections: ISelections
   setRealmscape: (value: string | null) => void
+  updateArmy: (army: IArmy) => void
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
+  updateEndlessSpells: (values: string[]) => void
+  updateSpells: (values: string[]) => void
   updateTraits: (values: string[]) => void
   updateUnits: (values: string[]) => void
-  updateArmy: (army: IArmy) => void
 }
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const {
-    factionName,
-    selections,
-    setRealmscape,
-    updateArmy,
-    updateArtifacts,
-    updateBattalions,
-    updateTraits,
-    updateUnits,
-  } = props
-  const { units, traits, artifacts, battalions } = selections
+  const { factionName, selections, updateArmy } = props
+  const { artifacts, battalions, endless_spells, spells, traits, units } = selections
 
   const army = useMemo(() => getArmy(factionName), [factionName]) as IArmy
 
@@ -44,11 +37,13 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   }, [army, updateArmy])
 
   // Might want to useCallback these guys
-  const handleRealmscape = withSelectOne(setRealmscape)
-  const handleArtifacts = withSelectMultiple(updateArtifacts)
-  const handleBattalions = withSelectMultiple(updateBattalions)
-  const handleTraits = withSelectMultiple(updateTraits)
-  const handleUnits = withSelectMultiple(updateUnits)
+  const handleArtifacts = withSelectMultiple(props.updateArtifacts)
+  const handleBattalions = withSelectMultiple(props.updateBattalions)
+  const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
+  const handleRealmscape = withSelectOne(props.setRealmscape)
+  const handleSpells = withSelectMultiple(props.updateSpells)
+  const handleTraits = withSelectMultiple(props.updateTraits)
+  const handleUnits = withSelectMultiple(props.updateUnits)
 
   return (
     <div className="container">
@@ -62,6 +57,20 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             values={battalions}
             type={'Battalion'}
             setValues={handleBattalions}
+          />
+          {spells.length > 0 && (
+            <CardComponent
+              items={sortBy(army.Spells, 'name')}
+              values={spells}
+              type={'Spell'}
+              setValues={handleSpells}
+            />
+          )}
+          <CardComponent
+            items={sortBy(army.EndlessSpells, 'name')}
+            values={endless_spells}
+            type={'Endless Spell'}
+            setValues={handleEndlessSpells}
           />
           <SelectRealmscapeComponent setValue={handleRealmscape} items={RealmscapeFeatures.map(x => x.name)} />
         </div>
@@ -79,11 +88,13 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   setRealmscape: realmscape.actions.setRealmscape,
+  updateArmy: army.actions.updateArmy,
   updateArtifacts: selections.actions.updateArtifacts,
   updateBattalions: selections.actions.updateBattalions,
+  updateEndlessSpells: selections.actions.updateEndlessSpells,
+  updateSpells: selections.actions.updateSpells,
   updateTraits: selections.actions.updateTraits,
   updateUnits: selections.actions.updateUnits,
-  updateArmy: army.actions.updateArmy,
 }
 
 export const ArmyBuilder = connect(

@@ -3,7 +3,7 @@ import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
 import ArmyList from 'meta/army_list'
 
-import { RealmArtifacts } from 'army/malign_sorcery'
+import { RealmArtifacts, EndlessSpells as RealmEndlessSpells } from 'army/malign_sorcery'
 
 import { processGame } from './processGame'
 import {
@@ -21,7 +21,7 @@ export const getArmy = (factionName: TSupportedFaction | null): IArmy | null => 
   if (!SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName as TSupportedFaction]
-  const { Artifacts, Battalions, EndlessSpells = [], Spells = [], Traits, Units } = Army
+  const { Artifacts, Battalions, EndlessSpells, Spells, Traits, Units } = Army
 
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
@@ -79,10 +79,10 @@ const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TComma
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
 
-const modifySpells = (spells: TSpells, realmscape?: string): TSpells => {
+const modifySpells = (spells: TSpells = [], realmscape?: string): TSpells => {
   return spells.map(s => ({ ...s, spell: true }))
 }
 
-const modifyEndlessSpells = (endlessSpells: TEndlessSpells, realmscape?: string): TEndlessSpells => {
-  return endlessSpells.map(e => ({ ...e, endless_spell: true }))
+const modifyEndlessSpells = (endlessSpells: TEndlessSpells = [], realmscape?: string): TEndlessSpells => {
+  return endlessSpells.concat(RealmEndlessSpells).map(e => ({ ...e, endless_spell: true }))
 }
