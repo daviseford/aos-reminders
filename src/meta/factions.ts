@@ -18,6 +18,7 @@ export type TNurgle = 'NURGLE'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSlaanesh = 'SLAANESH'
+export type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export type TStormcastEternals = 'STORMCAST_ETERNALS'
 export type TSylvaneth = 'SYLVANETH'
 export type TTamurkhansHorde = 'TAMURKHANS_HORDE'
@@ -39,8 +40,9 @@ export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
-export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SKAVEN: TSkaven = 'SKAVEN'
+export const SLAANESH: TSlaanesh = 'SLAANESH'
+export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
@@ -65,6 +67,7 @@ export type TSupportedFaction =
   | TSeraphon
   | TSkaven
   | TSlaanesh
+  | TSlavesToDarkness
   | TStormcastEternals
   | TSylvaneth
   | TTamurkhansHorde
@@ -88,6 +91,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
