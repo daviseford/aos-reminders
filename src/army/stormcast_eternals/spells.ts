@@ -14,7 +14,7 @@ const Spells: TSpells = [
     name: `Lightning Blast`,
     effects: [
       {
-        name: `Lightning Blast`,
+        name: `Lightning Basdlast`,
         desc: `Casting value of 5. Closest enemy unit that is visible to caster suffers D3 mortal wounds. If more than one visible unit is equally close you can pick.`,
         when: [HERO_PHASE],
       },
