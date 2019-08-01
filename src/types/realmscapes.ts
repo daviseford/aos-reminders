@@ -15,4 +15,5 @@ export const GHYRAN: TGhyran = `Ghyran`
 export const HYSH: THysh = `Hysh`
 export const SHYISH: TShyish = `Shyish`
 export const ULGU: TUlgu = `Ulgu`
-export const SUPPORTED_REALMSCAPES: TRealms[] = [AQSHY, CHAMON, GHUR, HYSH, SHYISH, ULGU, GHYRAN]
+
+export const SUPPORTED_REALMSCAPES: TRealms[] = [AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU]
