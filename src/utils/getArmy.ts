@@ -3,7 +3,7 @@ import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
 import ArmyList from 'meta/army_list'
 
-import { RealmArtifacts, EndlessSpells as RealmEndlessSpells } from 'army/malign_sorcery'
+import { RealmArtifacts, EndlessSpells as RealmEndlessSpells, Spells as RealmSpells } from 'army/malign_sorcery'
 
 import { processGame } from './processGame'
 import {
@@ -19,7 +19,7 @@ import {
 import { sortBy } from 'lodash'
 import { TRealms } from 'types/realmscapes'
 
-export const getArmy = (factionName: TSupportedFaction | null, realmscape?: TRealms): IArmy | null => {
+export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
   if (!SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName as TSupportedFaction]
@@ -34,7 +34,7 @@ export const getArmy = (factionName: TSupportedFaction | null, realmscape?: TRea
     Battalions,
     Army.Artifacts,
     Army.Traits,
-    modifySpells(Spells),
+    modifySpells(Spells, realmscape),
     modifyEndlessSpells(EndlessSpells),
   ])
 
@@ -88,10 +88,11 @@ const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TComma
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
 
-const modifySpells = (spells: TSpells = [], realmscape?: TRealms): TSpells => {
-  return spells.map(s => ({ ...s, spell: true }))
+const modifySpells = (spells: TSpells = [], realmscape: TRealms | null = null): TSpells => {
+  const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
+  return spells.concat(sortBy(realmSpells, 'name')).map(s => ({ ...s, spell: true }))
 }
 
-const modifyEndlessSpells = (endlessSpells: TEndlessSpells = [], realmscape?: TRealms): TEndlessSpells => {
+const modifyEndlessSpells = (endlessSpells: TEndlessSpells = []): TEndlessSpells => {
   return endlessSpells.concat(sortBy(RealmEndlessSpells, 'name')).map(e => ({ ...e, endless_spell: true }))
 }

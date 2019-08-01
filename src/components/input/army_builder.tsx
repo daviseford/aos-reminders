@@ -11,12 +11,13 @@ import { IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
+import { TRealms } from 'types/realmscapes'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
-  realmscape: string
+  realmscape: TRealms | null
   selections: ISelections
-  setRealmscape: (value: string | null) => void
+  setRealmscapeFeature: (value: string | null) => void
   updateArmy: (army: IArmy) => void
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
@@ -27,10 +28,10 @@ interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { factionName, selections, updateArmy } = props
+  const { factionName, selections, updateArmy, realmscape } = props
   const { artifacts, battalions, endless_spells, spells, traits, units } = selections
 
-  const army = useMemo(() => getArmy(factionName), [factionName]) as IArmy
+  const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
   useEffect(() => {
     updateArmy(army)
@@ -40,7 +41,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const handleArtifacts = withSelectMultiple(props.updateArtifacts)
   const handleBattalions = withSelectMultiple(props.updateBattalions)
   const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
-  const handleRealmscape = withSelectOne(props.setRealmscape)
+  const handleRealmscape = withSelectOne(props.setRealmscapeFeature)
   const handleSpells = withSelectMultiple(props.updateSpells)
   const handleTraits = withSelectMultiple(props.updateTraits)
   const handleUnits = withSelectMultiple(props.updateUnits)
@@ -82,7 +83,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-  setRealmscape: realmscape.actions.setRealmscape,
+  setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateArmy: army.actions.updateArmy,
   updateArtifacts: selections.actions.updateArtifacts,
   updateBattalions: selections.actions.updateBattalions,

@@ -18,15 +18,15 @@ interface IRemindersProps {
   allySelections: IAllySelections
   army: IArmy
   factionName: TSupportedFaction
-  realmscape: string
+  realmscape_feature: string
   selections: ISelections
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const { factionName, selections, army, realmscape, allyArmy, allySelections } = props
+  const { factionName, selections, army, realmscape_feature, allyArmy, allySelections } = props
   const reminders = useMemo(() => {
-    return processReminders(army, factionName, selections, realmscape, allyArmy, allySelections)
-  }, [army, factionName, selections, realmscape, allyArmy, allySelections])
+    return processReminders(army, factionName, selections, realmscape_feature, allyArmy, allySelections)
+  }, [army, factionName, selections, realmscape_feature, allyArmy, allySelections])
 
   return (
     <div className="row w-75 mx-auto mt-3 d-block">
@@ -143,7 +143,7 @@ const mapStateToProps = (state, ownProps) => ({
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
-  realmscape: realmscape.selectors.getRealmscape(state),
+  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
 })
 
