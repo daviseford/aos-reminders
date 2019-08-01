@@ -18,6 +18,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
@@ -42,6 +43,7 @@ import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
+import SlavesToDarkness from 'army/slaves_to_darkness'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 import TamurkhansHorde from 'army/tamurkhans_horde'
@@ -114,6 +116,10 @@ const ArmyList: TArmyList = {
   },
   [SLAANESH]: {
     Army: { ...Slaanesh },
+    GrandAlliance: CHAOS,
+  },
+  [SLAVES_TO_DARKNESS]: {
+    Army: { ...SlavesToDarkness },
     GrandAlliance: CHAOS,
   },
   [STORMCAST_ETERNALS]: {
