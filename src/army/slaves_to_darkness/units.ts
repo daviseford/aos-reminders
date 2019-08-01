@@ -108,7 +108,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield. and Wind of Chaos.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Wind of Chaos.`,
         when: [HERO_PHASE],
       },
       {
@@ -266,7 +266,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield. and Daemonic Power.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
         when: [HERO_PHASE],
       },
       {
@@ -321,7 +321,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield. and Traitor's Mist.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
         when: [HERO_PHASE],
       },
       {
@@ -381,7 +381,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield. and Enfeeblement.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
         when: [HERO_PHASE],
       },
       {
