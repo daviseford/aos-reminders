@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_CHARGE_PHASE,
@@ -62,7 +63,7 @@ export const Units: TUnits = [
       {
         name: `Blubber and Bile`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to Rotigus.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Corpulent Mass`,
@@ -97,7 +98,7 @@ export const Units: TUnits = [
       {
         name: `Blubber and Bile`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Corpulent Mass`,
@@ -143,7 +144,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `In Death There is Life`,
@@ -168,7 +169,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Nurgle's Tallyman`,
@@ -183,12 +184,17 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Keep Counting, I'm Watching You`,
         desc: `Re-roll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model.  In addtion, re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Keep Counting, I'm Watching You`,
+        desc: `Re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -198,17 +204,17 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Disease of Mirth`,
         desc: `Add 1 to the bravery characteristic of friendly Nurgle Daemon units while they are within 7" of any Sloppity Bilepipers.  In addtion, subract 1 from the bravery characteristic of enemy units while they are within 7" of any Sloppity Bilepipers.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Jolly Gutpiper`,
         desc: `Re-roll failed charge rolls and hit rolls of 1 friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
-        when: [SHOOTING_PHASE, CHARGE_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -218,7 +224,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Acidic Slime Trail`,
@@ -227,8 +233,13 @@ export const Units: TUnits = [
       },
       {
         name: `Beast Handler`,
-        desc: `Re-roll failed charge rolls and hit rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
+        desc: `Re-roll failed charge rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Beast Handler`,
+        desc: `Re-roll failed hit rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `In Death There is Life`,
@@ -263,7 +274,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Cloud of Flies`,
@@ -273,7 +284,7 @@ export const Units: TUnits = [
       {
         name: `Locus of Fecundity`,
         desc: `Re-roll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -298,7 +309,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Locus of Contagion`,
@@ -313,7 +324,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Acidic Slime Trail`,
@@ -486,7 +497,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Rotten Regeneration`,
@@ -547,7 +558,7 @@ export const Units: TUnits = [
       {
         name: `Soulbound Shield`,
         desc: `Roll a dice each time you allocate a wound to this model as a result of a spell.  On a 4+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Rotsword`,
@@ -674,12 +685,12 @@ export const Units: TUnits = [
       {
         name: `Blightlord`,
         desc: `The leader of this unit is a Blightlord.  Add one to the wound characteristic the Blightlord model.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Icon Bearers`,
         desc: `Models in this unit may be Icon Bearers.  Add 1 to this units bravery characteristic while it includes any Icon Bearers.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Sonorous Tocsin`,
@@ -704,7 +715,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Virulent Discharge`,
@@ -773,7 +784,7 @@ export const Battalions: TBattalions = [
       {
         name: `Utterly Revolting Horde`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 14" of 7 or more models from this battalion.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },

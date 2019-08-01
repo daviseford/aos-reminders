@@ -1,5 +1,5 @@
 import { IEffects } from 'types/data'
-import { CHARGE_PHASE, MOVEMENT_PHASE, START_OF_CHARGE_PHASE, START_OF_GAME } from 'types/phases'
+import { DURING_GAME, START_OF_CHARGE_PHASE, START_OF_GAME } from 'types/phases'
 
 // Import all Nurgle abilities as they are cross compatible with Tamurkan's Horde.
 import NurgleAbilities from 'army/nurgle/abilities'
@@ -15,7 +15,7 @@ const Abilities: IEffects[] = [
   {
     name: `Winds of Corruption`,
     desc: `Subtract 1 from run and charge rolls for enemy units.`,
-    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    when: [DURING_GAME],
     allegiance_ability: true,
   },
   {

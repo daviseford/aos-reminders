@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -76,7 +77,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Sinistrous Hand`,
@@ -176,7 +177,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `The Killing Stroke`,
@@ -206,7 +207,7 @@ export const Units: TUnits = [
       {
         name: `Swallow Energy`,
         desc: `Roll a dice each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Horrible Fascination`,
@@ -271,7 +272,7 @@ export const Units: TUnits = [
       {
         name: `Inhuman Reflexes`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -281,7 +282,7 @@ export const Units: TUnits = [
       {
         name: `Lightning Reflexes`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Lithe and Swift`,
@@ -586,7 +587,7 @@ export const Units: TUnits = [
       {
         name: `Icon Bearer`,
         desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Hornblower`,
@@ -620,7 +621,7 @@ export const Battalions: TBattalions = [
       {
         name: `Transcendental Warriors`,
         desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },

@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -29,7 +30,7 @@ export const Units: TUnits = [
       {
         name: `The Iron Heart of Khaine`,
         desc: `Morathi, High Oracle of Khaine cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are negated and have no effect.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Sorceress Supreme`,
@@ -39,7 +40,7 @@ export const Units: TUnits = [
       {
         name: `Enchanting Beauty`,
         desc: `Subtract 1 from the hit rolls of attacks that target Morathi, High Oracle of Khaine.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Magic`,
@@ -83,7 +84,7 @@ export const Units: TUnits = [
       {
         name: `The Iron Heart of Khaine`,
         desc: `Morathi, the Shadow Queen cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are negated and have no effect.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Magic`,
@@ -184,12 +185,12 @@ export const Units: TUnits = [
       {
         name: `Animated`,
         desc: `The Avatar of Khaine cannot move, cannot shoot, and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).  Even if the model has not been Animated, it is still treated as a model in your army with the exception that enemy units starting their movement phase within 3" of it can move normally without a retreat.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Idol of Worship`,
         desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -249,12 +250,12 @@ export const Units: TUnits = [
       {
         name: `Animated`,
         desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Idol of Worship`,
         desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -374,7 +375,7 @@ export const Units: TUnits = [
       {
         name: `Idol of Worship`,
         desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Orgy of Slaughter`,
