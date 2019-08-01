@@ -32,7 +32,7 @@ export interface ITurnAction {
   condition: string
   desc: string
   name?: string
-  tag?: string
+  tag?: string | false
   allegiance_ability?: boolean
   artifact?: boolean
   command_ability?: boolean

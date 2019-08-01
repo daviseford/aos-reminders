@@ -21,7 +21,7 @@ const processEntry = (
           condition: entry.name,
           name: effect.name,
           desc: effect.desc,
-          tag: effect.tag || '',
+          tag: effect.tag || false,
           allegiance_ability: effect.allegiance_ability || entry.allegiance_ability || false,
           artifact: effect.artifact || entry.artifact || false,
           command_ability: entry.command_ability || effect.command_ability || false,

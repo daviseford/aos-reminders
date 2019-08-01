@@ -21,7 +21,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Entangling Blade (Ghyran)`,
-        desc: `Pick one of the bearer's melee weapons to be an Entangling Blade. If the bearer scores 1 or more hits on an enemy HERO or MONSTER with that weapon, subtract 1 from hit rolls for that enemy HERO or MONSTER until the end of the phase in which the hits were scored.`,
+        desc: `If the bearer scores 1 or more hits on an enemy HERO or MONSTER with that weapon, subtract 1 from hit rolls for that enemy HERO or MONSTER until the end of the phase in which the hits were scored.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -31,7 +31,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Jadewound Thorn (Ghyran)`,
-        desc: `Pick one of the bearer's melee weapons to be the Jadewound Thorn. If the hit roll for that weapon is 6+ that attack inflicts 1 mortal wound in addition to its normal damage.`,
+        desc: `If the hit roll for that weapon is 6+ that attack inflicts 1 mortal wound in addition to its normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -41,7 +41,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Hammerhal Ghyra (Ghyran)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Hammerhal Ghyra. Add 1 to the Attacks characteristic of this weapon.`,
+        desc: `Add 1 to the Attacks characteristic of this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -61,7 +61,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Ghyrstrike (Ghyran)`,
-        desc: `Pick one of the bearer's melee weapons to be Ghyrstrike. Add 1 to hit and wound rolls for this weapon.`,
+        desc: `Add 1 to hit and wound rolls for this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -141,7 +141,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Stonehorn Blade (Ghur)`,
-        desc: `Pick one of the bearer's melee weapons to be a Stonehorn Blade. Roll a dice at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
+        desc: `Roll a dice at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -151,7 +151,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Anraheir's Claw (Ghur)`,
-        desc: `Pick one of the bearer's melee weapons to be Anraheirs's Claw. If the wound roll for that weapon is 6+ add 2 to the Damage characteristic of that weapon for that attack.`,
+        desc: `If the wound roll for that weapon is 6+ add 2 to the Damage characteristic of that weapon for that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -161,7 +161,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Amberglaive (Ghur)`,
-        desc: `Pick one of the bearer's melee weapons to be an Amberglaive. Add 1" to the Range characteristic of that weapon (to a maximum of 3"). In addition, add 1 to hit rolls for that weapon.`,
+        desc: `Add 1" to the Range characteristic of that weapon (to a maximum of 3"). In addition, add 1 to hit rolls for that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -171,7 +171,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Carving (Ghur)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Carving. If a hit roll for an attack with this weapon is 6+ the wound roll for that attack is automatically successful.`,
+        desc: `If a hit roll for an attack with this weapon is 6+ the wound roll for that attack is automatically successful.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -181,7 +181,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Rageblade (Ghur)`,
-        desc: `Pick one of the bearer's melee weapons to be a Rageblade. Add 1 to the attacks characteristic of that weapon.`,
+        desc: `Add 1 to the attacks characteristic of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -221,12 +221,12 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Gryph-feather Charm (Ghur)`,
-        desc: `Subtract 1 from hit rolls for attacks that target the bearer. In addition, add 1" to the bearer's Move characteristic.`,
+        desc: `Subtract 1 from hit rolls for attacks that target the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Gryph-feather Charm (Ghur)`,
-        desc: `In addition, add 1" to the bearer's Move characteristic.`,
+        desc: `Add 1" to the bearer's Move characteristic.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -266,7 +266,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Aiban's Hidden Blade (Chamon)`,
-        desc: `Pick one of the bearer's melee weapons to be Aiban's Hidden Blade. If the hit roll for that weapon is 6+ add 1 to the Damage characteristic of that attack.`,
+        desc: `If the hit roll for that weapon is 6+ add 1 to the Damage characteristic of that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -276,7 +276,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Flowstone Blade (Chamon)`,
-        desc: `Pick one of the bearer's melee weapons to be a Flowstone Blade. Each time you roll a hit roll of 6+ for this weapon, add 1 to the wound roll for that attack.`,
+        desc: `Each time you roll a hit roll of 6+ for this weapon, add 1 to the wound roll for that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -286,7 +286,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Rune Blade (Chamon)`,
-        desc: `Pick one of the bearer's melee weapons to be a Rune Blade. That weapon has a Rend characteristic of -3.`,
+        desc: `That weapon has a Rend characteristic of -3.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -316,7 +316,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Argentine's Tooth (Chamon)`,
-        desc: `Pick one of the bearer's melee weapons to be Argentine's Tooth. Re-roll hit rolls of 1 for this weapon.`,
+        desc: `Re-roll hit rolls of 1 for this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -396,7 +396,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Magmaforged Blade (Aqshy)`,
-        desc: `Pick one of the bearer's melee weapons to be a Magmaforged Blade. If the wound roll for that weapon is 6+ that attack inflicts 1 mortal wound in addition to its normal damage.`,
+        desc: `If the wound roll for that weapon is 6+ that attack inflicts 1 mortal wound in addition to its normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -426,7 +426,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Onyx Blade (Aqshy)`,
-        desc: `Pick one of the bearer's melee weapons to be an Onyx Blade. Add 1 to wound rolls for that weapon.`,
+        desc: `Add 1 to wound rolls for that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -506,7 +506,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Endings (Shyish)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Endings. If the hit roll for that weapon is 6+ add 2 to the Damage characteristic of that attack.`,
+        desc: `If the hit roll for that weapon is 6+ add 2 to the Damage characteristic of that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -516,7 +516,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Banshee Blade (Shyish)`,
-        desc: `Pick one of the bearer's melee weapons to be a Banshee Blade. Each time you roll a hit roll of 6+ for this weapon, roll 2D6. If the roll is equal to or more than the target's Bravery characteristic, that attack inflicts D3 mortal wounds in addition to its normal damage.`,
+        desc: `Each time you roll a hit roll of 6+ for this weapon, roll 2D6. If the roll is equal to or more than the target's Bravery characteristic, that attack inflicts D3 mortal wounds in addition to its normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -526,7 +526,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Lifebane (Shyish)`,
-        desc: `Pick one of the bearer's melee weapons to be Lifebane. Add 1 to wound rolls for this weapon.`,
+        desc: `Add 1 to wound rolls for this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -536,7 +536,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Sliver of Decreptitude (Shyish)`,
-        desc: `Pick one of the bearer's melee weapons to be a Sliver of Decrepitude. Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds by that weapon are inflicted on an enemy HERO or MONSTER, subtract 2" from that HERO or MONSTER's Move characteristic for the rest of the battle.`,
+        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds by that weapon are inflicted on an enemy HERO or MONSTER, subtract 2" from that HERO or MONSTER's Move characteristic for the rest of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -626,7 +626,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Miasmatic Blade (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Miasmatic Blade. Subtract 1 from hit rolls for attacks that target the bearer.`,
+        desc: `Subtract 1 from hit rolls for attacks that target the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -636,7 +636,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of the Thirteen Dominions (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of the Thirteen Dominions. Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy unit by that weapon, subtract 1 from hit rolls for attacks made by that unit until the end of the phase.`,
+        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy unit by that weapon, subtract 1 from hit rolls for attacks made by that unit until the end of the phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -646,7 +646,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Folded Shadows (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Folded Shadows. Add 1 to hit rolls for this weapon.`,
+        desc: `Add 1 to hit rolls for this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -656,7 +656,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Secrets (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Secrets. Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy WIZARD by that weapon, pick one spell that WIZARD knows. That WIZARD may not attempt to cast that spell again during that battle.`,
+        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy WIZARD by that weapon, pick one spell that WIZARD knows. That WIZARD may not attempt to cast that spell again during that battle.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -666,7 +666,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Dimensional Blade (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Dimensional Blade. Change the Rend characteristic of this weapon to -3.`,
+        desc: `Change the Rend characteristic of this weapon to -3.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -676,7 +676,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Sword of Judgement (Ulgu)`,
-        desc: `Pick one of the bearer's melee weapons to be a Sword of Judgement. If the hit roll for an attack with that weapon against a HERO or MONSTER is 6+, that attack inflicts D6 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the hit roll for an attack with that weapon against a HERO or MONSTER is 6+, that attack inflicts D6 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -746,7 +746,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Symmetry (Hysh)`,
-        desc: `Pick one of the bearer's melee weapons to be a Blade of Symmetry. Add 1 to the Damage characteristic of that weapon.`,
+        desc: `Add 1 to the Damage characteristic of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -756,7 +756,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Gleaming Blade (Hysh)`,
-        desc: `Pick one of the bearer's melee weapons to be a Gleaming Blade. Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy unit by that weapon, heal 1 wound allocated to the bearer.`,
+        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy unit by that weapon, heal 1 wound allocated to the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -776,7 +776,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Sunblade (Hysh)`,
-        desc: `Pick one of the bearer's melee weapons to be a Sunblade. Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy HERO or MONSTER by that weapon, subtract 1 from hit rolls for that enemy HERO or MONSTER until the end of the phase.`,
+        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds are inflicted on an enemy HERO or MONSTER by that weapon, subtract 1 from hit rolls for that enemy HERO or MONSTER until the end of the phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -786,7 +786,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Crystalline Blade (Hysh)`,
-        desc: `Pick one of the bearer's melee weapons to be a Crystalline Blade. Add 1 to wound rolls for this weapon.`,
+        desc: `Add 1 to wound rolls for this weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
