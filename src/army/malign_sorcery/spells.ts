@@ -444,7 +444,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Banishment (${HYSH})`,
-        desc: `Casting value of 8. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. Remove that unit from the battlefield and set it up again on the battlefield, more than 9" from any models from the caster's army and more 24" from the caster.`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them. Your opponent must remove that unit from the battlefield and then set it up again, anywhere on the battlefield more than 24" from the caster and more than 9" from any other models from the caster's army.`,
         when: [HERO_PHASE],
       },
     ],
