@@ -13,9 +13,43 @@ import {
   START_OF_HERO_PHASE,
   START_OF_GAME,
 } from 'types/phases'
+import SlavesToDarkness from 'army/slaves_to_darkness'
+import Everchosen from 'army/everchosen'
+
+// Importing Nurgle markable Slaves to Darkness units.
+const getSlavesUnits = () => {
+  const listOfUnits = [
+    `Daemon Prince`,
+    `Chaos Lord on Manticore`,
+    `Chaos Sorcerer Lord on Manticore`,
+    `Chaos Lord on Daemonic Mount`,
+    `Lord of Chaos`,
+    `Chaos Sorcerer Lord`,
+    `Exalted Hero of Chaos`,
+    `Chaos Marauders`,
+    `Chaos Chariot`,
+    `Gorebeast Chariot`,
+    `Chaos Chosen`,
+    `Chaos Warriors`,
+    `Chaos Warshrine`,
+    `Chaos Knights`,
+    `Chaos Marauder Horsemen`,
+    `Chaos War Mammoth`,
+  ]
+  return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
+}
+
+// Importing god aligned Everchosen units.
+const getEverchosenUnits = () => {
+  const listOfUnits = [`Archaon`]
+  return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
+}
 
 // Unit Names
 export const Units: TUnits = [
+  // Import Everchosen/Slaves to Darkness Units
+  ...getSlavesUnits(),
+  ...getEverchosenUnits(),
   {
     name: `Keeper of Secrets`,
     effects: [
@@ -131,7 +165,7 @@ export const Units: TUnits = [
       },
       {
         name: `Irresistible Challenge`,
-        desc: `At the start of the enemy charge phase, you can pick 1 enemy Hero within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that Hero to accept Shalaxi Helbane's challenge. If they refuse, that Hero suffers D3 mortal wounds. If they accept, that Hero must attempt to charge, and must finish the charge move within ½" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that Hero makes in the following combat phase must target this model.`,
+        desc: `At the start of the enemy charge phase, you can pick 1 enemy Hero within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that Hero to accept Shalaxi Helbane's challenge. If they refuse, that Hero suffers D3 mortal wounds. If they accept, that Hero must attempt to charge, and must finish the charge move within ï¿½" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that Hero makes in the following combat phase must target this model.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
