@@ -16,6 +16,7 @@ import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
   realmscape: TRealms | null
+  realmscape_feature: string | null
   selections: ISelections
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -29,7 +30,7 @@ interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { factionName, selections, updateArmy, realmscape } = props
+  const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
   const { artifacts, battalions, endless_spells, spells, traits, units } = selections
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
@@ -77,6 +78,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             items={SUPPORTED_REALMSCAPES}
           />
           <SelectRealmscapeComponent
+            value={realmscape_feature || null}
             title={`Realmscape Feature`}
             setValue={handleRealmscapeFeature}
             items={realmFeatureItems}
@@ -90,6 +92,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   realmscape: realmscape.selectors.getRealmscape(state),
+  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
   factionName: factionNames.selectors.getFactionName(state),
 })

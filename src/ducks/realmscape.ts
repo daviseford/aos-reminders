@@ -34,7 +34,7 @@ export const realmscape = createSlice({
   slice: 'realmscape',
   initialState,
   reducers: {
-    resetRealmscape: (state, action) => initialState,
+    resetRealmscapeStore: (state, action) => initialState,
     setRealmscape,
     setRealmscapeFeature,
   },

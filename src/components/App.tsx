@@ -7,7 +7,7 @@ import { Header } from 'components/page/header'
 import { PrintHeader, PrintFooterComponent, PrintUnits } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
-import { factionNames, selections, realmscape } from 'ducks'
+import { factionNames, selections } from 'ducks'
 import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
 import { IAllySelections, ISelections } from 'types/selections'
@@ -18,19 +18,17 @@ interface IAppProps {
   factionName: TSupportedFaction
   selections: ISelections
   resetAllySelections: () => void
-  resetRealmscape: () => void
   resetSelections: () => void
 }
 
 const App = (props: IAppProps) => {
-  const { allyFactionName, factionName, resetAllySelections, resetRealmscape, resetSelections } = props
+  const { allyFactionName, factionName, resetAllySelections, resetSelections } = props
 
   // Reset the store when factionName is switched
   useEffect(() => {
     resetSelections()
-    resetRealmscape()
     logFactionSwitch(factionName)
-  }, [factionName, resetRealmscape, resetSelections])
+  }, [factionName, resetSelections])
 
   // Reset the ally store when allyFactionName is switched
   useEffect(() => {
@@ -68,7 +66,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   resetAllySelections: selections.actions.resetAllySelections,
-  resetRealmscape: realmscape.actions.resetRealmscape,
   resetSelections: selections.actions.resetSelections,
 }
 
