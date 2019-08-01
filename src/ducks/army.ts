@@ -12,6 +12,8 @@ const initialState: TInitialStateType = {
     Abilities: [],
     Artifacts: [],
     Battalions: [],
+    EndlessSpells: [],
+    Spells: [],
     Traits: [],
     Units: [],
     Game: Game,

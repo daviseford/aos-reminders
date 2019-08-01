@@ -140,11 +140,19 @@ const ArmyList: TArmyList = {
   },
 }
 
-export default ArmyList
+/**
+ * Using this lookup function removes the possibility of accidentally
+ * mutating the ArmyList and causing weird bugs
+ * @param factionName
+ */
+export const armyListLookup = (factionName: TSupportedFaction): IArmyListEntry => {
+  const entry = ArmyList[factionName]
+  return { Army: { ...entry.Army }, GrandAlliance: `${entry.GrandAlliance}` as TGrandAlliances }
+}
 
-type TArmyList = { [factionName in TSupportedFaction]: IArmyListEntry }
+type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  Army: IArmyWithoutGame
-  GrandAlliance: TGrandAlliances
+  readonly Army: IArmyWithoutGame
+  readonly GrandAlliance: TGrandAlliances
 }
