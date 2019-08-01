@@ -1,5 +1,8 @@
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
+import { IArmyWithoutGame } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
+  DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
@@ -8,6 +11,7 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_AZGORH,
   LEGIONS_OF_NAGASH,
   NIGHTHAUNT,
   NURGLE,
@@ -16,13 +20,13 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TAMURKHANS_HORDE,
   TZEENTCH,
   TSupportedFaction,
 } from './factions'
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
-import { IArmyWithoutGame } from 'types/army'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
+import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Dispossessed from 'army/dispossessed'
 import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
@@ -31,6 +35,7 @@ import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
+import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
@@ -39,12 +44,17 @@ import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
+import TamurkhansHorde from 'army/tamurkhans_horde'
 import Tzeentch from 'army/tzeentch'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
+  },
+  [DAUGHTERS_OF_KHAINE]: {
+    Army: { ...DaughtersOfKhaine },
+    GrandAlliance: ORDER,
   },
   [DISPOSSESSED]: {
     Army: { ...Dispossessed },
@@ -78,6 +88,10 @@ const ArmyList: TArmyList = {
     Army: { ...Khorne },
     GrandAlliance: CHAOS,
   },
+  [LEGIONS_OF_AZGORH]: {
+    Army: { ...LegionsOfAzgorh },
+    GrandAlliance: CHAOS,
+  },
   [LEGIONS_OF_NAGASH]: {
     Army: { ...LegionsOfNagash },
     GrandAlliance: DEATH,
@@ -109,6 +123,10 @@ const ArmyList: TArmyList = {
   [SYLVANETH]: {
     Army: { ...Sylvaneth },
     GrandAlliance: ORDER,
+  },
+  [TAMURKHANS_HORDE]: {
+    Army: { ...TamurkhansHorde },
+    GrandAlliance: CHAOS,
   },
   [TZEENTCH]: {
     Army: { ...Tzeentch },
