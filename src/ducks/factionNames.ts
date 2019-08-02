@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const addAllyFactionName = (state, action: { payload: TSupportedFaction }) => {
-  state.allyFactionNames = uniq(state.allyFactionNames.push(action.payload))
+  state.allyFactionNames = uniq([...state.allyFactionNames, action.payload])
 }
 
 const removeAllyFactionName = (state, action: { payload: TSupportedFaction }) => {
