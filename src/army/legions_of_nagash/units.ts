@@ -39,28 +39,6 @@ const getNighthauntUnits = () => {
   return Nighthaunt.Units.filter(unit => listOfUnits.includes(unit.name))
 }
 
-// Importing Nighthaunt units per LoN FAQ
-
-import Nighthaunt from 'army/nighthaunt'
-
-const getNighthauntUnits = () => {
-  const listOfUnits = [
-    'Cairn Wraith',
-    'Chainrasp Horde',
-    'Glaivewraith Stalkers',
-    'Grimghast Reapers',
-    'Guardian of Souls',
-    'Hexwraiths',
-    'Knight of Shrouds',
-    'Knight of Shrouds on Ethereal Steed',
-    'Lord Executioner',
-    'Spirit Hosts',
-    'Spirit Torment',
-    'Tomb Banshee',
-  ]
-  return Nighthaunt.Units.filter(unit => listOfUnits.includes(unit.name))
-}
-
 // Unit Names
 export const Units: TUnits = [
   ...getNighthauntUnits(),

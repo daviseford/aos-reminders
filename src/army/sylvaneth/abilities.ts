@@ -6,6 +6,8 @@ import {
   START_OF_MOVEMENT_PHASE,
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
+  DURING_SETUP,
+  BATTLESHOCK_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)

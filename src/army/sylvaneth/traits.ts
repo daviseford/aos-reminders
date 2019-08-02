@@ -11,6 +11,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_HERO_PHASE,
   HERO_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
