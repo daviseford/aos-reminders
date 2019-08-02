@@ -1,5 +1,4 @@
 import { HERO_PHASE, BATTLESHOCK_PHASE, END_OF_HERO_PHASE } from 'types/phases'
-
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
