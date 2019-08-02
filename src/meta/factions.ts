@@ -4,6 +4,7 @@ import { sortBy } from 'lodash'
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export type TDispossessed = 'DISPOSSESSED'
+export type TEverchosen = 'EVERCHOSEN'
 export type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export type TFyreslayers = 'FYRESLAYERS'
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
@@ -28,6 +29,7 @@ export type TTzeentch = 'TZEENTCH'
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
+export const EVERCHOSEN: TEverchosen = 'EVERCHOSEN'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
@@ -53,6 +55,7 @@ export type TSupportedFaction =
   | TBeastclawRaiders
   | TDaughtersOfKhaine
   | TDispossessed
+  | TEverchosen
   | TFleshEaterCourts
   | TFyreslayers
   | TGloomspiteGitz
@@ -77,6 +80,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
   DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
+  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,

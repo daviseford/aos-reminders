@@ -1,5 +1,5 @@
 import { TCommandTraits } from 'types/army'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE } from 'types/phases'
 
 const CommandTraits: TCommandTraits = [
   {
@@ -52,7 +52,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Lord of Terror`,
         desc: `Subtract 1 from the bravery characterisic of enemy units while they are within 6" of this general.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
     ],
@@ -63,7 +63,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Exalted Champion`,
         desc: `Add 1 to the bravery characterisic of friendly Slaves to Darkness units while they are wholly within 12" of this general.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
     ],

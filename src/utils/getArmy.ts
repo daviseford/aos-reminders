@@ -1,11 +1,9 @@
-import { TCommandTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
-import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
+import { sortBy } from 'lodash'
 import { armyListLookup } from 'meta/army_list'
-
-import { RealmArtifacts, EndlessSpells as GenericEndlessSpells, Spells as RealmSpells } from 'army/malign_sorcery'
-
 import { processGame } from './processGame'
+
+import { GenericEndlessSpells, GenericSpells } from 'army/generic/index'
+import { RealmArtifacts, RealmSpells } from 'army/malign_sorcery'
 import {
   ChaosArtifacts,
   ChaosTraits,
@@ -16,7 +14,10 @@ import {
   OrderArtifacts,
   OrderTraits,
 } from 'army/grand_alliances'
-import { sortBy } from 'lodash'
+
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
+import { TCommandTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
 export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
@@ -90,7 +91,10 @@ const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TComma
 
 const modifySpells = (spells: TSpells = [], realmscape: TRealms | null): TSpells => {
   const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
-  return spells.concat(sortBy(realmSpells, 'name')).map(s => ({ ...s, spell: true }))
+  return spells
+    .concat(sortBy(realmSpells, 'name'))
+    .concat(GenericSpells)
+    .map(s => ({ ...s, spell: true }))
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells = []): TEndlessSpells => {

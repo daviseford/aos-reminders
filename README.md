@@ -9,17 +9,18 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 ## Top Contributors
 
 + [daviseford](https://github.com/daviseford)
-+ [thundergore](https://github.com/thundergore)
-  + Added Stormcast Eternals
-  + Added Fyreslayers
-  + Added Endless spells
 + [JohnSchramm](https://github.com/JohnSchramm)
   + Added Nurgle
   + Added Hedonites of Slaanesh
   + Added Daughters of Khaine
   + Added Tamurkhan's Horde
   + Added Slaves to Darkness
+  + Added Everchosen
   + Updated Khorne
++ [thundergore](https://github.com/thundergore)
+  + Added Stormcast Eternals
+  + Added Fyreslayers
+  + Added Endless spells
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
   + Added Idoneth Deepkin
   + Updated Gloomspite Gitz rules

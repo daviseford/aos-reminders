@@ -4,6 +4,7 @@ import {
   BEASTCLAW_RAIDERS,
   DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
+  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
@@ -29,6 +30,7 @@ import {
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Dispossessed from 'army/dispossessed'
+import Everchosen from 'army/everchosen'
 import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
@@ -61,6 +63,10 @@ const ArmyList: TArmyList = {
   [DISPOSSESSED]: {
     Army: { ...Dispossessed },
     GrandAlliance: ORDER,
+  },
+  [EVERCHOSEN]: {
+    Army: { ...Everchosen },
+    GrandAlliance: CHAOS,
   },
   [FLESH_EATER_COURTS]: {
     Army: { ...FleshEaterCourts },

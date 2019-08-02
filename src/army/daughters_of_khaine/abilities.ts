@@ -3,7 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  HERO_PHASE,
+  DURING_GAME,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_ROUND,
@@ -14,7 +14,7 @@ const Abilities: IEffects[] = [
   {
     name: `Fanatical Faith`,
     desc: `Roll a dice each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model.  On a 6+ the wound is negated.`,
-    when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+    when: [DURING_GAME],
   },
   {
     name: `Blood Rites`,
