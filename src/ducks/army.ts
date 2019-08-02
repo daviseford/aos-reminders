@@ -1,10 +1,11 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { IArmy } from 'types/army'
+import { IArmy, TUnits } from 'types/army'
 import { Game } from 'meta/game_structure'
+import { TSupportedFaction } from 'meta/factions'
 
 type TInitialStateType = {
   army: IArmy
-  allyArmy: IArmy | null
+  allyArmies: { [key: string]: IArmy }
 }
 
 const initialState: TInitialStateType = {
@@ -18,30 +19,35 @@ const initialState: TInitialStateType = {
     Units: [],
     Game: Game,
   },
-  allyArmy: null,
+  allyArmies: {},
 }
 
 const resetArmy = (state, action) => {
   state.army = initialState.army
 }
-const resetAllyArmy = (state, action) => {
-  state.allyArmy = initialState.allyArmy
+const resetAllyArmies = (state, action) => {
+  state.allyArmies = initialState.allyArmies
 }
 const updateArmy = (state, action) => {
   state.army = action.payload
 }
-const updateAllyArmy = (state, action) => {
-  state.allyArmy = action.payload
+const updateAllyArmies = (state, action: { payload: { factionName: TSupportedFaction; Units: TUnits } }) => {
+  const { factionName, Units } = action.payload
+  state.allyArmies[factionName] = { Units }
+}
+const deleteAllyArmy = (state, action: { payload: TSupportedFaction }) => {
+  delete state.allyArmies[action.payload]
 }
 
 export const army = createSlice({
   slice: 'army',
   initialState,
   reducers: {
+    deleteAllyArmy,
     resetAllArmies: (state, action) => initialState,
-    resetAllyArmy,
+    resetAllyArmies,
     resetArmy,
-    updateAllyArmy,
+    updateAllyArmies,
     updateArmy,
   },
 })
@@ -51,7 +57,7 @@ army.selectors.getArmy = createSelector(
   army => army
 )
 
-army.selectors.getAllyArmy = createSelector(
-  ['army.allyArmy'],
-  allyArmy => allyArmy
+army.selectors.getAllyArmies = createSelector(
+  ['army.allyArmies'],
+  allyArmies => allyArmies
 )

@@ -1,17 +1,32 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { uniq, without } from 'lodash'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 
 const initialState = {
   factionName: SUPPORTED_FACTIONS[0],
-  allyFactionName: null,
+  allyFactionNames: [] as TSupportedFaction[],
+}
+
+const addAllyFactionName = (state, action: { payload: TSupportedFaction }) => {
+  state.allyFactionNames = uniq(state.allyFactionNames.push(action.payload))
+}
+
+const removeAllyFactionName = (state, action: { payload: TSupportedFaction }) => {
+  state.allyFactionNames = without(state.allyFactionNames, action.payload)
 }
 
 export const factionNames = createSlice({
   slice: 'factionNames',
   initialState,
   reducers: {
-    setFactionName: (state, action) => ({ ...state, factionName: action.payload }),
-    setAllyFactionName: (state, action) => ({ ...state, allyFactionName: action.payload }),
+    addAllyFactionName,
+    removeAllyFactionName,
+    setFactionName: (state, action) => {
+      state.factionName = action.payload
+    },
+    setAllyFactionNames: (state, action: { payload: TSupportedFaction[] }) => {
+      state.allyFactionNames = action.payload
+    },
   },
 })
 
@@ -20,7 +35,7 @@ factionNames.selectors.getFactionName = createSelector(
   factionName => factionName
 )
 
-factionNames.selectors.getAllyFactionName = createSelector(
-  ['factionNames.allyFactionName'],
-  allyFactionName => allyFactionName
+factionNames.selectors.getAllyFactionNames = createSelector(
+  ['factionNames.allyFactionNames'],
+  allyFactionNames => allyFactionNames
 )

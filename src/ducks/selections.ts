@@ -1,9 +1,11 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
 import { ISelections, IAllySelections } from 'types/selections'
+import { TSupportedFaction } from 'meta/factions'
+import { TUnits } from 'types/army'
 
 type TInitialStateType = {
   selections: ISelections
-  allySelections: IAllySelections
+  allySelections: { [key: string]: IAllySelections }
 }
 
 const initialState: TInitialStateType = {
@@ -15,9 +17,7 @@ const initialState: TInitialStateType = {
     traits: [] as string[],
     units: [] as string[],
   },
-  allySelections: {
-    units: [] as string[],
-  },
+  allySelections: {},
 }
 
 const resetSelections = (state, action) => {
@@ -25,6 +25,12 @@ const resetSelections = (state, action) => {
 }
 const resetAllySelections = (state, action) => {
   state.allySelections = initialState.allySelections
+}
+const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
+  state.allySelections[action.payload] = { units: [] as string[] }
+}
+const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
+  delete state.allySelections[action.payload]
 }
 const updateUnits = (state, action) => {
   state.selections.units = action.payload
@@ -44,15 +50,18 @@ const updateSpells = (state, action) => {
 const updateEndlessSpells = (state, action) => {
   state.selections.endless_spells = action.payload
 }
-const updateAllyUnits = (state, action) => {
-  state.allySelections.units = action.payload
+const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
+  const { factionName, units } = action.payload
+  state.allySelections[factionName] = { units }
 }
 
 export const selections = createSlice({
   slice: 'selections',
   initialState,
   reducers: {
+    deleteAllySelection,
     resetAllSelections: (state, action) => initialState,
+    resetAllySelection,
     resetAllySelections,
     resetSelections,
     updateAllyUnits,

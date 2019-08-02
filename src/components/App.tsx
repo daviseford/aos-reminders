@@ -13,16 +13,13 @@ import { TSupportedFaction } from 'meta/factions'
 import { IAllySelections, ISelections } from 'types/selections'
 
 interface IAppProps {
-  allyFactionName: TSupportedFaction | null
-  allySelections: IAllySelections
   factionName: TSupportedFaction
   selections: ISelections
-  resetAllySelections: () => void
   resetSelections: () => void
 }
 
 const App = (props: IAppProps) => {
-  const { allyFactionName, factionName, resetAllySelections, resetSelections } = props
+  const { factionName, resetSelections } = props
 
   // Reset the store when factionName is switched
   useEffect(() => {
@@ -31,10 +28,10 @@ const App = (props: IAppProps) => {
   }, [factionName, resetSelections])
 
   // Reset the ally store when allyFactionName is switched
-  useEffect(() => {
-    resetAllySelections()
-    allyFactionName && logAllyFaction(allyFactionName)
-  }, [allyFactionName, resetAllySelections])
+  // useEffect(() => {
+  //   resetAllySelections()
+  //   allyFactionName && logAllyFaction(allyFactionName)
+  // }, [allyFactionName, resetAllySelections])
 
   return (
     <div className="d-block">
