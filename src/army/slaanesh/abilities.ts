@@ -1,10 +1,9 @@
 import { IEffects } from 'types/data'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
@@ -17,7 +16,7 @@ const Abilities: IEffects[] = [
     desc: `Each time a wound or mortal wound is inflicted on an enemy model by an attack or spell cast made by a friendly Slaanesh hero, and that enemy model is not slain by that wound, you receive 1 depravity point.  In addition, every time a wound or mortal wound is allocated to a friendly Slaanesh Hero and not negated, and that friendly model is not slain by that wound or mortal would, you receive 1 depravity point.
     
            Unit abilities and endless spell damage cannot generate depravity.`,
-    when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+    when: [DURING_GAME],
     allegiance_ability: true,
   },
   {

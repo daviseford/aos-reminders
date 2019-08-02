@@ -1,11 +1,10 @@
 import { TArtifacts } from 'types/army'
 import {
-  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -18,7 +17,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Splithorn Helm (Rotbringers)`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer.  On a 6+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],
@@ -117,7 +116,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Witherstave (Daemon)`,
         desc: `Re-roll hits of 6 for enemy units while they are within 12" of the bearer.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],
@@ -194,7 +193,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Carrion Dirge (Mortal)`,
         desc: `Subtract 2 from the Bravery characteristic of enemy unit while they are within 12" of the bearer.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],
@@ -205,7 +204,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Shield of Growths (Mortal)`,
         desc: `You can re-roll failed save rolls for the bearer if the roll is equal to or less than the number of wounds currently allocated to the bearer.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],

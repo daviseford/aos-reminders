@@ -1,11 +1,9 @@
 import { TCommandTraits } from 'types/army'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  HERO_PHASE,
+  DURING_GAME,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
@@ -73,7 +71,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Resilient (Rotbringer)`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to your general.  On a 6+ the wound is negated.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
     ],
@@ -117,7 +115,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Hideous Visage (Mortal)`,
         desc: `Subtract 2 from the Bravery characterisic of enemy units while they are within 3" of your general.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         command_trait: true,
       },
     ],

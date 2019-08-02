@@ -1,8 +1,8 @@
 import { TArtifacts } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_ROUND,
@@ -178,7 +178,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Mask of Spiteful Beauty (Pretenders)`,
         desc: `Subtract 2 from targeted unit's bravery characteristic until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],
@@ -207,7 +207,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Girdle of the Realm-racer (Godseekers)`,
         desc: `Subtract 1 from the bearer's wounds characteristic.  In addition, the bearer can fly.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
         artifact: true,
       },
     ],
