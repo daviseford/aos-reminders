@@ -42,6 +42,7 @@ const getNighthauntUnits = () => {
 // Unit Names
 export const Units: TUnits = [
   ...getNighthauntUnits(),
+
   {
     name: `Nagash, Supreme Lord of the Undead`,
     effects: [
