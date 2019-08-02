@@ -28,7 +28,7 @@ const resetArmy = (state, action) => {
 const resetAllyArmies = (state, action) => {
   state.allyArmies = initialState.allyArmies
 }
-const updateArmy = (state, action) => {
+const updateArmy = (state, action: { payload: IArmy }) => {
   state.army = action.payload
 }
 const updateAllyArmies = (state, action: { payload: { factionName: TSupportedFaction; Units: TUnits } }) => {

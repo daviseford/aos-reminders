@@ -8,9 +8,9 @@ import { PrintHeader, PrintFooterComponent, PrintUnits } from 'components/print/
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections } from 'ducks'
-import { logFactionSwitch, logAllyFaction } from 'utils/analytics'
+import { logFactionSwitch } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
-import { IAllySelections, ISelections } from 'types/selections'
+import { ISelections } from 'types/selections'
 
 interface IAppProps {
   factionName: TSupportedFaction

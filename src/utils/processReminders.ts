@@ -12,33 +12,30 @@ type TProcessReminders = (
   factionName: TSupportedFaction,
   selections: ISelections,
   realmscape_feature: string,
-  allyArmy: IArmy,
-  allySelections: IAllySelections
+  allyData: Array<{
+    allyArmy: IArmy
+    allySelections: IAllySelections
+  }>
 ) => IReminder
 
-export const processReminders: TProcessReminders = (
-  army,
-  factionName,
-  selections,
-  realmscape_feature,
-  allyArmy,
-  allySelections
-) => {
+export const processReminders: TProcessReminders = (army, factionName, selections, realmscape_feature, allyData) => {
   let reminders = processConditions(army.Game, selections, {})
 
-  if (allyArmy) {
-    reminders = processConditions(allyArmy.Game, allySelections, reminders)
+  if (allyData.length) {
+    reminders = allyData.reduce((accum, data) => {
+      return processConditions(data.allyArmy.Game, data.allySelections, accum)
+    }, reminders)
   }
 
   // Add Abilities
-  if (army.Abilities && army.Abilities.length) {
+  if (army.Abilities.length) {
     army.Abilities.forEach((a: IEffects) => {
       const t: ITurnAction = {
         name: a.name,
         desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
         allegiance_ability: true,
-        tag: a.tag || ``,
+        tag: a.tag || false,
         command_ability: a.command_ability || false,
       }
       a.when.forEach(when => {
