@@ -81,7 +81,7 @@ The summoned unit is added to your army, and must be set up wholly within 9" of 
       },
       {
         name: `Metamorphosis (Spell)`,
-        desc: `Metamorphosis has a casting value of 7. If successfully cast, pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
         when: [HERO_PHASE],
       },
       {
@@ -121,7 +121,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Primal Terror (Spell)`,
-        desc: `Primal Terror has a casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 10" of the caster with a Bravery characteristic lower than this roll suffers D3 mortal wounds (roll separately for each unit)`,
+        desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 10" of the caster with a Bravery characteristic lower than this roll suffers D3 mortal wounds (roll separately for each unit)`,
         when: [HERO_PHASE],
       },
     ],
@@ -186,7 +186,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Awakening the Wood (Spell)`,
-        desc: `Awakening the Wood has a casting value of 6. If successfully cast, pick 1 friendly AWAKENED WYLDWOODthat is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOODsuffers D3 mortal wounds (roll separately for each unit)`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly AWAKENED WYLDWOODthat is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOODsuffers D3 mortal wounds (roll separately for each unit)`,
         when: [HERO_PHASE],
       },
       {
@@ -263,7 +263,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Unleash Spites (Spell)`,
-        desc: `Unleash Spites has a casting value of 5. If successfully cast, roll a number of dice equal to the casting roll for each enemy unit within 9" of the caster. For each 6, that enemy unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, roll a number of dice equal to the casting roll for each enemy unit within 9" of the caster. For each 6, that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -283,7 +283,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Roused to Wrath (Spell)`,
-        desc: `Roused to Wrath has a casting value of 7. If successfully cast, you can summon 1 unit of 10 DRYADS and add it to your army. The summoned unit must be set up more than 9" from any enemy units, and wholly within 1" of an AWAKENED WYLDWOOD that is within 12" of the caster. The summoned unit cannot move in the following movement phase.`,
+        desc: `Casting value of 7. If successfully cast, you can summon 1 unit of 10 DRYADS and add it to your army. The summoned unit must be set up more than 9" from any enemy units, and wholly within 1" of an AWAKENED WYLDWOOD that is within 12" of the caster. The summoned unit cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -303,7 +303,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `The Reaping (Spell)`,
-        desc: `The Reaping has a casting value of 6. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them and roll 6 dice. For each 5+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them and roll 6 dice. For each 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

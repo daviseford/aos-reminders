@@ -16,7 +16,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daith's Reaper`,
-        desc: `Pick 1 of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Improve the Rend characteristic of a weapon by 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -26,7 +26,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Greenwood Gladius`,
-        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the Attacks characteristic of that weapon if the bearer made a charge move in the same turn.`,
+        desc: `One weapon gains; Add 2 to the Attacks characteristic of this weapon if the bearer made a charge move in the same turn.`,
         when: [DURING_GAME],
       },
     ],
@@ -36,7 +36,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Autumn's Ire`,
-        desc: `Pick 1 of the bearer's melee weapons. You can re-roll hit and wound rolls of 1 for attacks made with that weapon while any wounds are allocated to the bearer.`,
+        desc: `One weapon gains; You can re-roll hit and wound rolls of 1 for attacks made with this weapon while any wounds are allocated to the bearer.`,
         when: [DURING_GAME],
       },
     ],
@@ -46,7 +46,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Winnowstaff`,
-        desc: `Pick 1 of the bearer's melee weapons. You can re-roll hit rolls for attacks made with that weapon that target a unit with a Wounds characteristic of 1.`,
+        desc: `One weapon gains; You can re-roll hit rolls for attacks made with this weapon that target a unit with a Wounds characteristic of 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -56,7 +56,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ancient Barkblade`,
-        desc: `Pick 1 of the bearer's melee weapons. Add 1 to the Damage characteristic of that weapon.`,
+        desc: `Add 1 to the Damage characteristic of a weapon.`,
         when: [DURING_GAME],
       },
     ],
@@ -66,7 +66,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Darkest Bough`,
-        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        desc: `One weapon gains; If the unmodified wound roll for an attack made with this weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
         when: [DURING_GAME],
       },
     ],
@@ -246,7 +246,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wychwood Glaive`,
-        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the damage inflicted by that weapon for attacks that target a WIZARD.`,
+        desc: `One weapon gains; Add 2 to the damage inflicted by this weapon for attacks that target a WIZARD.`,
         when: [DURING_GAME],
       },
     ],
