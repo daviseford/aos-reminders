@@ -28,10 +28,11 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [PixelTom](https://github.com/PixelTom)
   + Added Dispossessed
   + Added Kharadron Overlords
-+ [Cpt Asgard](https://github.com/CptAsgard)
-  + Added Nighthaunt
 + [ctcodie](https://github.com/ctcodie)
   + Added Legions of Nagash
+  + Updated Sylvaneth to 2019 battletome
++ [Cpt Asgard](https://github.com/CptAsgard)
+  + Added Nighthaunt
 + Lorax
   + Added Legions of Azgorh
 + [T-Nightingale](https://github.com/T-Nightingale)
