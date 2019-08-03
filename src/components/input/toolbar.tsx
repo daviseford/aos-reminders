@@ -6,7 +6,6 @@ import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
 import { without } from 'lodash'
-import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
 import { getArmy } from 'utils/getArmy'
 import { FaPlus } from 'react-icons/fa'
@@ -29,20 +28,12 @@ const ToolbarComponent = (props: IToolbarProps) => {
     e.preventDefault()
     const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
     resetAllySelection(newAllyFaction)
-    const allyArmy = getArmy(newAllyFaction) as IArmy
-    updateAllyArmy({ factionName: newAllyFaction, Army: allyArmy })
+    updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
   }
 
   return (
     <div className="container d-print-none">
-      <div className="row">
-        <div className="col">
-          {allyFactionNames.map(allyFactionName => (
-            <AllyArmyBuilder allyFactionName={allyFactionName} />
-          ))}
-        </div>
-      </div>
-
+      {/* TODO Move below to the army ally builder */}
       {/* <div className="row justify-content-center pt-2" >
         <div className={selectClass}>
           <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />

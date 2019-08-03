@@ -9,6 +9,7 @@ import { withSelectMultipleWithPayload } from 'utils/withSelect'
 import { IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
+import { titleCase } from 'utils/titleCase'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -31,18 +32,14 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   debugger
 
   return (
-    <div className="container d-print-none">
-      <div className="row border border-dark pb-3">
-        <div className="col card-group mx-auto">
-          {allyFactionName}
-          <CardComponent
-            items={sortBy(allyArmy.Units, 'name')}
-            values={units}
-            type={'Allied Unit'}
-            setValues={handleUnits}
-          />
-        </div>
-      </div>
+    <div className="col card-group border border-dark mx-auto">
+      {allyFactionName}
+      <CardComponent
+        items={sortBy(allyArmy.Units, 'name')}
+        values={units}
+        type={`${titleCase(allyFactionName)} Unit`}
+        setValues={handleUnits}
+      />
     </div>
   )
 }
