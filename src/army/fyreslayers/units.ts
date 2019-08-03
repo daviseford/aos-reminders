@@ -8,6 +8,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
@@ -21,12 +22,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Do not use the attack sequence for an attack made with a Roaring Fyrestream. Instead, make the dice roll shown on the damage table above. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -36,18 +37,18 @@ export const Units: TUnits = [
       },
       {
         name: `Stare Down`,
-        desc: `In your hero phase, pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Weapon Breaker`,
-        desc: `At the end of the combat phase, pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Steadfast Advance`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick a friendly model with this command ability. Until the start of your next hero phase, do not take battleshock tests for friendly FYRESLAYERS units while they are wholly within 18" of that model.`,
-        when: [HERO_PHASE],
+        desc: `Pick a friendly model with this command ability. Until the start of your next hero phase, do not take battleshock tests for friendly FYRESLAYERS units while they are wholly within 18" of that model.`,
+        when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
     ],
@@ -57,12 +58,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Furious Endurance`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 6 that wound or mortal wound is negated.`,
+        desc: `6+ to negate an allocated wound or mortal wound to this model.`,
         when: [DURING_GAME],
       },
       {
         name: `Roaring Fyrestream`,
-        desc: `Do not use the attack sequence for an attack made with a Roaring Fyrestream. Instead, make the dice roll shown on the damage table above. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -72,7 +73,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lashing Tail`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -82,18 +83,18 @@ export const Units: TUnits = [
       },
       {
         name: `Stare Down`,
-        desc: `In your hero phase, pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Hrathling`,
-        desc: `At the end of the combat phase, pick an enemy HERO within 3" of this model and roll a dice. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Runefather's Favour`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a dice. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
-        when: [HERO_PHASE],
+        desc: `Pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a dice. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
+        when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
     ],
@@ -103,12 +104,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Do not use the attack sequence for an attack made with a Roaring Fyrestream. Instead, make the dice roll shown on the damage table above. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -128,8 +129,8 @@ export const Units: TUnits = [
       },
       {
         name: `Molten Battering Ram`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly MAGMADROTH that is within 12" of a friendly model with this command ability. After that unit makes a charge move in that charge phase, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers D6 mortal wounds. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
-        when: [CHARGE_PHASE],
+        desc: `Pick 1 friendly MAGMADROTH that is within 12" of a friendly model with this command ability. After that unit makes a charge move in that charge phase, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers D6 mortal wounds. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -139,12 +140,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Do not use the attack sequence for an attack made with a Roaring Fyrestream. Instead, make the dice roll shown on the damage table above. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -154,13 +155,13 @@ export const Units: TUnits = [
       },
       {
         name: `Grand Ritual of Awakening`,
-        desc: `Once per battle, during your hero phase, you can say this model has consumed a nugget of ur-gold. If you do so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
+        desc: `Once per battle, you can say this model has consumed a nugget of ur-gold. If you do so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Runic Empowerment`,
-        desc: `At the start of your hero phase, this model can chant this prayer. If they do so, make a prayer roll by rolling a dice. On a 1-2, the prayer is not answered. On a 3+ the prayer is answered. If this prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
-        when: [HERO_PHASE],
+        desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -169,22 +170,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Grimnir's Blessing`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit. On a 5+ that wound or mortal wound is negated.`,
+        desc: `5+ to negate an allocated a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit.`,
         when: [DURING_GAME],
       },
       {
         name: `Stare Down`,
-        desc: `In your hero phase, pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Weapon Breaker`,
-        desc: `At the end of the combat phase, pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Honour Our Oaths`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly VOSTARG units while they are wholly within 12" of that model. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
+        desc: `Pick a friendly model with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly VOSTARG units while they are wholly within 12" of that model. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -200,7 +201,7 @@ export const Units: TUnits = [
       },
       {
         name: `Berserk Fury`,
-        desc: `Once per battle, at the start of the combat phase, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
+        desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -215,18 +216,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Stare Down`,
-        desc: `In your hero phase, pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Weapon Breaker`,
-        desc: `At the end of the combat phase, pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Lodge Leader`,
-        desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability. Add 1 charge rolls for friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
-        when: [CHARGE_PHASE],
+        desc: `Pick a friendly model with this command ability. Add 1 charge rolls for friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -246,7 +247,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dauntless Assault`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Add 1 to wound rolls for attacks made by friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
+        desc: `Pick a friendly model with this command ability. Add 1 to wound rolls for attacks made by friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -257,12 +258,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon of Grimnir`,
-        desc: `In your hero phase, you can say that this model is raising its icon of Grimnir. If it does so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase. However, if you do so, until the start of your next hero phase, friendly FYRESLAYERS units wholly within 12" of this model cannot retreat.`,
+        desc: `You can say that this model is raising its icon of Grimnir. If it does so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase. However, if you do so, until the start of your next hero phase, friendly FYRESLAYERS units wholly within 12" of this model cannot retreat.`,
         when: [HERO_PHASE],
       },
       {
         name: `None Shall Defile the Icon`,
-        desc: `f this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can re-roll hit and wound rolls for attacks made with melee weapons by that unit.`,
+        desc: `If this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can re-roll hit and wound rolls for attacks made with melee weapons by that unit.`,
         when: [DURING_GAME],
       },
     ],
@@ -272,13 +273,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Holy Seeker`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 12" of this model and roll 2 dice. If you roll at least one 6, for the rest of the battle, you can re-roll hit rolls of 1 for attacks made by friendly Fyreslayers units that target that unit. If you roll two or more 6s, for the rest of the battle, you can re-roll hit and wound rolls of 1 for attacks made by friendly FYRESLAYERS units that target that unit instead.`,
+        desc: `Pick 1 enemy unit within 12" of this model and roll 2 dice. If you roll at least one 6, for the rest of the battle, you can re-roll hit rolls of 1 for attacks made by friendly Fyreslayers units that target that unit. If you roll two or more 6s, for the rest of the battle, you can re-roll hit and wound rolls of 1 for attacks made by friendly FYRESLAYERS units that target that unit instead.`,
         when: [HERO_PHASE],
       },
       {
         name: `Volcano's Call`,
-        desc: `At the start of your hero phase, this model can chant this prayer. If they do so, make a prayer roll by rolling a dice. On a 1-2, the prayer is not answered. On a 3+ the prayer is answered. If this prayer is answered, pick a terrain feature within 18" of this model. Roll a dice for each model within 1" of that terrain feature. For each roll of a 6, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the 'Deadly' scenery rule in addition to any other scenery rules it may have.`,
-        when: [HERO_PHASE],
+        desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a terrain feature within 18" of this model. Roll a dice for each model within 1" of that terrain feature. For each roll of a 6, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the 'Deadly' scenery rule in addition to any other scenery rules it may have.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -287,12 +288,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Unstoppable Berzerker`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. Add 1 to the roll if there are any enemy units within 3" of this model. On a 6+ that wound or mortal wound is negated.`,
+        desc: `6+ to negate a wound or mortal wound allocated to this model. Add 1 to the roll if there are any enemy units within 3" of this model.`,
         when: [DURING_GAME],
       },
       {
         name: `Battlefury`,
-        desc: `At the end of the combat phase, if this model is within 3" of an enemy unit, roll a dice. On a 2+ make a pile in move with this model, and then attack with all the melee weapons this model is armed with.`,
+        desc: `If this model is within 3" of an enemy unit, roll a dice. On a 2+ make a pile in move with this model, and then attack with all the melee weapons this model is armed with.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -327,8 +328,8 @@ export const Units: TUnits = [
       },
       {
         name: `Runic Empowerment`,
-        desc: `At the start of your hero phase, this model can chant this prayer. If they do so, make a prayer roll by rolling a dice. On a 1-2, the prayer is not answered. On a 3+ the prayer is answered. If this prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
-        when: [HERO_PHASE],
+        desc: `Make a prayer roll by rolling a dice. On a 1-2, the prayer is not answered. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -342,7 +343,7 @@ export const Units: TUnits = [
       },
       {
         name: `Berserk Fury`,
-        desc: `Once per battle, at the start of the combat phase, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
+        desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -362,7 +363,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Molten Rockbolts`,
-        desc: `Add 1 to the Damage characteristic for attacks made by Magmapike missile weapons that target MONSTERS. In addition, if any wounds are inflicted on a MONSTER by Magmapike missile weapons, roll a dice. On a 4+, until the end of that unit's next turn, halve that unit's Move characteristic and subtract 1 from hit rolls for attacks made by that unit.`,
+        desc: `Add 1 to the Damage for attacks made by Magmapike missile weapons that target MONSTERS. In addition, if any wounds are inflicted on a MONSTER by Magmapike missile weapons, roll a dice. On a 4+, until the end of that unit's next turn, halve that unit's Move characteristic and subtract 1 from hit rolls for attacks made by that unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -377,7 +378,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Duty Unto Death`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. Add 2 to the roll if there are any friendly FYRESLAYERS HEROES within 10" of this unit. On a 6+ that wound or mortal wound is negated.`,
+        desc: `6+ to negate a wound or mortal wound allocated to this unit. Add 2 to the roll if there are any friendly FYRESLAYERS HEROES within 10" of this unit.`,
         when: [DURING_GAME],
       },
       {
@@ -392,7 +393,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Summon Zharrgron Flame-spitter`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 6" of that FYRESLAYERS PRIEST.`,
+        desc: `1 friendly FYRESLAYERS PRIEST can make an invocation roll. On a 3+ the invocation roll is successful. Set up this model wholly within 6" of that FYRESLAYERS PRIEST.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -407,7 +408,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Summon Runic Fyrewall`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 18" of that FYRESLAYERS PRIEST.`,
+        desc: `1 friendly FYRESLAYERS PRIEST can make an invocation roll. On a 3+ the invocation roll is successful. Set up this model wholly within 18" of that FYRESLAYERS PRIEST.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -432,7 +433,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Summon Molten Infernoth`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 12" of that FYRESLAYERS PRIEST.`,
+        desc: `1 friendly FYRESLAYERS PRIEST can make an invocation roll. On a 3+ the invocation roll is successful. Set up this model wholly within 12" of that FYRESLAYERS PRIEST.`,
         when: [START_OF_HERO_PHASE],
       },
       {
