@@ -1,25 +1,25 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
-import './army_builder.css'
 import { getArmy } from 'utils/getArmy'
-import { selections, army } from 'ducks'
-import { withSelectMultipleWithPayload, withSelectOneWithPayload } from 'utils/withSelect'
-import { IAllySelections } from 'types/selections'
-import { TSupportedFaction } from 'meta/factions'
-import { TUnits, IArmy, TBattalions, TArtifacts, TCommandTraits } from 'types/army'
-import { ValueType } from 'react-select/lib/types'
-import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { titleCase } from 'utils/titleCase'
+import { withSelectMultipleWithPayload, withSelectOneWithPayload } from 'utils/withSelect'
+import './army_builder.css'
 import { FaRegWindowClose } from 'react-icons/fa'
+import { IAllySelections } from 'types/selections'
 import { IconContext } from 'react-icons'
+import { selections, army } from 'ducks'
+import { TDropdownOption, SelectMulti, SelectOne } from './select'
+import { TSupportedFaction } from 'meta/factions'
+import { TUnits, IArmy } from 'types/army'
+import { ValueType } from 'react-select/lib/types'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
   allySelections: { [key: string]: IAllySelections } // state2Props
   allySelectOptions: TSupportedFaction[] // parent
-  deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
+  deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   resetAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction }) => void // dispatch2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
@@ -68,14 +68,14 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   return (
     <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-2">
       <AllyCardComponent
-        items={sortBy(allyArmy.Units, 'name')}
-        values={units}
-        type={`Unit`}
-        setValues={handleUnits}
-        setAllyFactionName={handleSetAllyFactionName}
-        allySelectOptions={allySelectOptions}
         allyFactionName={allyFactionName}
+        allySelectOptions={allySelectOptions}
         handleClose={handleClose}
+        items={sortBy(allyArmy.Units, 'name')}
+        setAllyFactionName={handleSetAllyFactionName}
+        setValues={handleUnits}
+        type={`Unit`}
+        values={units}
       />
     </div>
   )
@@ -83,8 +83,8 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  allySelections: selections.selectors.getAllySelections(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),
+  allySelections: selections.selectors.getAllySelections(state),
 })
 
 const mapDispatchToProps = {
@@ -104,12 +104,12 @@ export const AllyArmyBuilder = connect(
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
-  items: TUnits | TBattalions | TArtifacts | TCommandTraits
+  handleClose: (e: any) => void
+  items: TUnits
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   type: string
   values: string[]
-  handleClose: (e: any) => void
 }
 
 const AllyCardComponent = (props: IAllyCardProps) => {
@@ -123,8 +123,8 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           <div className="flex-grow-1">
             <AddAllySelect
               allyFactionName={allyFactionName}
-              setAllyFactionName={setAllyFactionName}
               items={allySelectOptions}
+              setAllyFactionName={setAllyFactionName}
             />
           </div>
           <div className="pl-2">
@@ -153,11 +153,11 @@ const AddAllySelect = (props: IAddAllySelect) => {
   return (
     <>
       <SelectOne
-        items={items}
-        value={titleCase(allyFactionName)}
-        setValue={setAllyFactionName}
         hasDefault={true}
+        items={items}
+        setValue={setAllyFactionName}
         toTitle={true}
+        value={titleCase(allyFactionName)}
       />
     </>
   )
