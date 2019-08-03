@@ -1,45 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { factionNames } from 'ducks'
-import { SelectOne } from './select'
+import { factionNames, selections, army } from 'ducks'
 import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { withSelectOne } from 'utils/withSelect'
+import { without } from 'lodash'
+import { TUnits, IArmy } from 'types/army'
+import { getArmy } from 'utils/getArmy'
+import { FaPlus } from 'react-icons/fa'
 
-const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
-const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
+const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 
 interface IToolbarProps {
-  setAllyFactionName: IAddAllySelect['setAllyFactionName']
+  allyFactionNames: TSupportedFaction[]
   factionName: TSupportedFaction
+  resetAllySelection: (factionName: TSupportedFaction) => void
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
+  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
 const ToolbarComponent = (props: IToolbarProps) => {
-  const { setAllyFactionName, factionName } = props
-  const [hasAlly, setHasAlly] = useState(false)
+  const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
 
   const handleAllyClick = e => {
     e.preventDefault()
-    const newVal = !hasAlly
-    setHasAlly(newVal)
-    if (!newVal) {
-      setAllyFactionName(null)
-    }
+    const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
+    resetAllySelection(newAllyFaction)
+    updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
   }
 
   return (
     <div className="container d-print-none">
-      <div className="row justify-content-center pt-2" hidden={!hasAlly}>
-        <div className={selectClass}>
-          <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />
-        </div>
-      </div>
-
       <div className="row justify-content-center pt-3">
-        <div className={btnClass}>
-          <AddAllyButton setAllyClick={handleAllyClick} hasAlly={hasAlly} />
+        <div className={btnWrapperClass}>
+          <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
-        <div className={btnClass}>
+        <div className={btnWrapperClass}>
           <PrintButton factionName={factionName} />
         </div>
       </div>
@@ -50,10 +45,13 @@ const ToolbarComponent = (props: IToolbarProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
+  allyFactionNames: selections.selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {
-  setAllyFactionName: factionNames.actions.setAllyFactionName,
+  resetAllySelection: selections.actions.resetAllySelection,
+  updateAllyArmy: army.actions.updateAllyArmy,
+  updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
 export const Toolbar = connect(
@@ -63,32 +61,15 @@ export const Toolbar = connect(
 
 interface IAddAllyButton {
   setAllyClick: (e: any) => void
-  hasAlly: boolean
 }
 
 const AddAllyButton = (props: IAddAllyButton) => {
-  const { hasAlly, setAllyClick } = props
+  const { setAllyClick } = props
   return (
     <>
-      <button className={`btn btn-block btn-${hasAlly ? `danger` : `outline-dark`}`} onClick={setAllyClick}>
-        {hasAlly ? `Remove` : `Add`} Ally
+      <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
+        <FaPlus /> Add Ally
       </button>
-    </>
-  )
-}
-
-interface IAddAllySelect {
-  setAllyFactionName: (value: string | null) => void
-  items: TSupportedFaction[]
-}
-
-const AddAllySelect = (props: IAddAllySelect) => {
-  const { setAllyFactionName, items } = props
-  const handleSetAllyName = withSelectOne(setAllyFactionName)
-
-  return (
-    <>
-      <SelectOne items={items} setValue={handleSetAllyName} hasDefault={true} toTitle={true} />
     </>
   )
 }
