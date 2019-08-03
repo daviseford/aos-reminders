@@ -4,7 +4,7 @@ import { TSpells } from 'types/army'
 // Lore of Shadows
 const Spells: TSpells = [
   {
-    name: `Steed of Shadows`,
+    name: `Steed of Shadows (Wizard)`,
     effects: [
       {
         name: `Steed of Shadows`,
@@ -19,7 +19,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Pit of Shades`,
+    name: `Pit of Shades (Wizard)`,
     effects: [
       {
         name: `Pit of Shades`,
@@ -29,7 +29,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Mirror Dance`,
+    name: `Mirror Dance (Wizard)`,
     effects: [
       {
         name: `Mirror Dance`,
@@ -39,7 +39,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `The Withering`,
+    name: `The Withering (Wizard)`,
     effects: [
       {
         name: `The Withering`,
@@ -54,7 +54,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Mindrazor`,
+    name: `Mindrazor (Wizard)`,
     effects: [
       {
         name: `Mindrazor`,
@@ -71,7 +71,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Shroud of Despair`,
+    name: `Shroud of Despair (Wizard)`,
     effects: [
       {
         name: `Shroud of Despair`,
@@ -87,7 +87,7 @@ const Spells: TSpells = [
   },
   // Prayers of the Khainite Cult
   {
-    name: `Catechism of Murder`,
+    name: `Catechism of Murder (Priest)`,
     effects: [
       {
         name: `Catechism of Murder`,
@@ -102,7 +102,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Blessing of Khaine`,
+    name: `Blessing of Khaine (Priest)`,
     effects: [
       {
         name: `Blessing of Khaine`,
@@ -117,7 +117,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Martyr's Sacrifice`,
+    name: `Martyr's Sacrifice (Priest)`,
     effects: [
       {
         name: `Martyr's Sacrifice`,
@@ -132,7 +132,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Crimson Rejuvenation`,
+    name: `Crimson Rejuvenation (Priest)`,
     effects: [
       {
         name: `Crimson Rejuvenation`,
@@ -142,7 +142,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Covenant of the Iron Heart`,
+    name: `Covenant of the Iron Heart (Priest)`,
     effects: [
       {
         name: `Covenant of the Iron Heart`,
@@ -158,7 +158,7 @@ const Spells: TSpells = [
   },
 
   {
-    name: `Sacrament of Blood`,
+    name: `Sacrament of Blood (Priest)`,
     effects: [
       {
         name: `Sacrament of Blood`,

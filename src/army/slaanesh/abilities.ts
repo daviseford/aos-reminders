@@ -4,7 +4,6 @@ import {
   DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
-  START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
 } from 'types/phases'
@@ -23,12 +22,6 @@ const Abilities: IEffects[] = [
     name: `Feast of Depravities`,
     desc: `If you have any depravity points you may summon one or more units from the summoning table. Summoned units must be setup wholly within 12" of a friendly Slaanesh Hero and more than 9" from any enemy models.`,
     when: [END_OF_MOVEMENT_PHASE],
-    allegiance_ability: true,
-  },
-  {
-    name: `Hosts of Slaanesh`,
-    desc: `You must select between Invaders Host, Pretenders Host, or Goodseekers Host when using a Hosts of Slaanesh army.  All units in the army gain the keyword of the selected Host.`,
-    when: [START_OF_GAME],
     allegiance_ability: true,
   },
   {
