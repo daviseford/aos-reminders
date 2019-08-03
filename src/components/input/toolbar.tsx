@@ -17,7 +17,7 @@ interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
   factionName: TSupportedFaction
   resetAllySelection: (factionName: TSupportedFaction) => void
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
@@ -29,7 +29,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
     const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
     resetAllySelection(newAllyFaction)
     const allyArmy = getArmy(newAllyFaction) as IArmy
-    updateAllyArmy({ factionName: newAllyFaction, Units: allyArmy.Units })
+    updateAllyArmy({ factionName: newAllyFaction, Army: allyArmy })
   }
 
   return (

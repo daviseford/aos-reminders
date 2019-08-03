@@ -13,7 +13,7 @@ import { TUnits, IArmy } from 'types/army'
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
   allySelections: { [key: string]: IAllySelections } // state2Props
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void // dispatch2Props
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
 }
 
@@ -25,7 +25,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName: allyFactionName })
 
   useEffect(() => {
-    updateAllyArmy({ factionName: allyFactionName, Units: allyArmy.Units })
+    updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
   }, [allyArmy, updateAllyArmy, allyFactionName])
 
   debugger

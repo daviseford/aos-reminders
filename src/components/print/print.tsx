@@ -25,7 +25,7 @@ export const PrintHeader = connect(
 
 const PrintUnitsComponent = (props: {
   selections: ISelections
-  allySelections: IAllySelections
+  allySelections: { [key: string]: IAllySelections }
   realmscape_feature: string | null
 }) => {
   const { realmscape_feature, selections, allySelections } = props
@@ -34,7 +34,11 @@ const PrintUnitsComponent = (props: {
   return (
     <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplayComponent name={'Unit'} items={units} />
-      {/* <ItemsDisplayComponent name={'Allied Unit'} items={allySelections.units} /> */}
+
+      {Object.keys(allySelections).map(name => {
+        return <ItemsDisplayComponent name={`Allied ${titleCase(name)} Unit`} items={allySelections[name].units} />
+      })}
+
       <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
       <ItemsDisplayComponent name={'Battalion'} items={battalions} />
       <ItemsDisplayComponent name={'Command Trait'} items={traits} />
