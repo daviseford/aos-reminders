@@ -9,6 +9,7 @@ import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections } from 'ducks'
 import { logFactionSwitch } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
+import { AlliedArmies } from './input/ally_armies'
 
 interface IAppProps {
   factionName: TSupportedFaction
@@ -37,6 +38,8 @@ const App = (props: IAppProps) => {
       <PrintUnits />
 
       <ArmyBuilder />
+
+      <AlliedArmies />
 
       <Toolbar />
 

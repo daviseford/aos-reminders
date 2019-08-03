@@ -1,11 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { factionNames, selections, army } from 'ducks'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { without } from 'lodash'
+import { TSupportedFaction } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
-import { getArmy } from 'utils/getArmy'
 
 interface IAlliedArmiesProps {
   allyFactionNames: TSupportedFaction[]
@@ -19,7 +17,7 @@ const AlliedArmiesComponent = (props: IAlliedArmiesProps) => (
   <div className="container d-print-none">
     <div className="row">
       {props.allyFactionNames.map(allyFactionName => (
-        <AllyArmyBuilder allyFactionName={allyFactionName} />
+        <AllyArmyBuilder allyFactionName={allyFactionName} key={allyFactionName} />
       ))}
     </div>
   </div>

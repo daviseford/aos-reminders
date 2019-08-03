@@ -36,7 +36,13 @@ const PrintUnitsComponent = (props: {
       <ItemsDisplayComponent name={'Unit'} items={units} />
 
       {Object.keys(allySelections).map(name => {
-        return <ItemsDisplayComponent name={`Allied ${titleCase(name)} Unit`} items={allySelections[name].units} />
+        return (
+          <ItemsDisplayComponent
+            name={`Allied ${titleCase(name)} Unit`}
+            items={allySelections[name].units}
+            key={name}
+          />
+        )
       })}
 
       <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
