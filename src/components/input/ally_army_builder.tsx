@@ -11,12 +11,15 @@ import { TUnits, IArmy, TBattalions, TArtifacts, TCommandTraits } from 'types/ar
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { titleCase } from 'utils/titleCase'
+import { FaRegWindowClose } from 'react-icons/fa'
+import { IconContext } from 'react-icons'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
   allySelections: { [key: string]: IAllySelections } // state2Props
   allySelectOptions: TSupportedFaction[] // parent
   deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
+  deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
   resetAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction }) => void // dispatch2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
@@ -27,11 +30,12 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   const {
     allyFactionName,
     allySelections,
-    updateAllyArmy,
-    switchAllyArmy,
+    allySelectOptions,
+    deleteAllyArmy,
     deleteAllySelection,
     resetAllySelection,
-    allySelectOptions,
+    switchAllyArmy,
+    updateAllyArmy,
     updateAllyUnits,
   } = props
   const { units = [] } = allySelections[allyFactionName]
@@ -51,6 +55,12 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     [allyFactionName, setAllyName, deleteAllySelection, resetAllySelection]
   )
 
+  const handleClose = e => {
+    e.preventDefault()
+    deleteAllySelection(allyFactionName)
+    deleteAllyArmy(allyFactionName)
+  }
+
   useEffect(() => {
     updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
   }, [allyArmy, updateAllyArmy, allyFactionName])
@@ -65,6 +75,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         setAllyFactionName={handleSetAllyFactionName}
         allySelectOptions={allySelectOptions}
         allyFactionName={allyFactionName}
+        handleClose={handleClose}
       />
     </div>
   )
@@ -77,19 +88,18 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-  updateAllyUnits: selections.actions.updateAllyUnits,
-  updateAllyArmy: army.actions.updateAllyArmy,
-  switchAllyArmy: army.actions.switchAllyArmy,
+  deleteAllyArmy: army.actions.deleteAllyArmy,
   deleteAllySelection: selections.actions.deleteAllySelection,
   resetAllySelection: selections.actions.resetAllySelection,
+  switchAllyArmy: army.actions.switchAllyArmy,
+  updateAllyArmy: army.actions.updateAllyArmy,
+  updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
 export const AllyArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AllyArmyBuilderComponent)
-
-const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
@@ -99,24 +109,30 @@ interface IAllyCardProps {
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   type: string
   values: string[]
+  handleClose: (e: any) => void
 }
 
-export const AllyCardComponent = (props: IAllyCardProps) => {
-  const { items, type, setValues, values, setAllyFactionName, allySelectOptions, allyFactionName } = props
+const AllyCardComponent = (props: IAllyCardProps) => {
+  const { items, type, setValues, values, setAllyFactionName, allySelectOptions, allyFactionName, handleClose } = props
   const selectItems = items.map(x => x.name)
 
   return (
     <div className="card">
       <div className="card-header">
-        {/* <div className="row justify-content-center pt-2"> */}
-        <div className={selectClass}>
-          <AddAllySelect
-            allyFactionName={allyFactionName}
-            setAllyFactionName={setAllyFactionName}
-            items={allySelectOptions}
-          />
+        <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
+          <div className="flex-grow-1">
+            <AddAllySelect
+              allyFactionName={allyFactionName}
+              setAllyFactionName={setAllyFactionName}
+              items={allySelectOptions}
+            />
+          </div>
+          <div className="pl-2">
+            <IconContext.Provider value={{ size: '1.3em', className: 'text-danger' }}>
+              <FaRegWindowClose onClick={handleClose} />
+            </IconContext.Provider>
+          </div>
         </div>
-        {/* </div> */}
       </div>
       <div className="card-body">
         <h4 className="text-center">Add {type}s</h4>
