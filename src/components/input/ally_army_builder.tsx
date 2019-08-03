@@ -10,6 +10,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy, TBattalions, TArtifacts, TCommandTraits } from 'types/army'
 import { ValueType } from 'react-select/lib/types'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
+import { titleCase } from 'utils/titleCase'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -63,6 +64,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         setValues={handleUnits}
         setAllyFactionName={handleSetAllyFactionName}
         allySelectOptions={allySelectOptions}
+        allyFactionName={allyFactionName}
       />
     </div>
   )
@@ -90,16 +92,17 @@ export const AllyArmyBuilder = connect(
 const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IAllyCardProps {
+  allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
-  values: string[]
-  type: string
   items: TUnits | TBattalions | TArtifacts | TCommandTraits
-  setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
+  setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  type: string
+  values: string[]
 }
 
 export const AllyCardComponent = (props: IAllyCardProps) => {
-  const { items, type, setValues, values, setAllyFactionName, allySelectOptions } = props
+  const { items, type, setValues, values, setAllyFactionName, allySelectOptions, allyFactionName } = props
   const selectItems = items.map(x => x.name)
 
   return (
@@ -107,7 +110,11 @@ export const AllyCardComponent = (props: IAllyCardProps) => {
       <div className="card-header">
         {/* <div className="row justify-content-center pt-2"> */}
         <div className={selectClass}>
-          <AddAllySelect setAllyFactionName={setAllyFactionName} items={allySelectOptions} />
+          <AddAllySelect
+            allyFactionName={allyFactionName}
+            setAllyFactionName={setAllyFactionName}
+            items={allySelectOptions}
+          />
         </div>
         {/* </div> */}
       </div>
@@ -120,15 +127,22 @@ export const AllyCardComponent = (props: IAllyCardProps) => {
 }
 
 interface IAddAllySelect {
-  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
+  allyFactionName: TSupportedFaction
   items: TSupportedFaction[]
+  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {
-  const { setAllyFactionName, items } = props
+  const { setAllyFactionName, items, allyFactionName } = props
   return (
     <>
-      <SelectOne items={items} setValue={setAllyFactionName} hasDefault={true} toTitle={true} />
+      <SelectOne
+        items={items}
+        value={titleCase(allyFactionName)}
+        setValue={setAllyFactionName}
+        hasDefault={true}
+        toTitle={true}
+      />
     </>
   )
 }
