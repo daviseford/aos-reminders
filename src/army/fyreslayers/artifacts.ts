@@ -106,7 +106,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Salamander Cloak`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+ ignore the wound or mortal wound.`,
+        desc: `On a 5+ ignore wounds or mortal wounds allocated to the bearer.`,
         when: [DURING_GAME],
       },
     ],

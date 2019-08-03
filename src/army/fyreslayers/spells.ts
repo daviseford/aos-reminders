@@ -29,7 +29,7 @@ const Spells: TSpells = [
       {
         name: `Prayer of Ash`,
         desc: `1 friendly model that knows this prayer can chant it. 4+ the prayer is answered. Pick a friendly unit wholly within 18" of this PRIEST. Add 1 to save rolls for attacks that target that unit until your next hero phase.`,
-        when: [START_OF_HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -39,7 +39,7 @@ const Spells: TSpells = [
       {
         name: `Ember Storm`,
         desc: `1 friendly model that knows this prayer can chant it. 3+ the prayer is answered. Pick a friendly unit of VULKITE BERZERKERS or HEARTHGUARD BERZERKERS wholly within 18" of this PRIEST. This unit can run and charge that turn.`,
-        when: [START_OF_HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -59,7 +59,7 @@ const Spells: TSpells = [
       {
         name: `Gilded Claws`,
         desc: `1 friendly model that knows this prayer can chant it. 3+ the prayer is answered. Pick a friendly MAGMADROTH wholly within 12" of this PRIEST. You can re-roll wound rolls for attacks made by that unit's Claws and Horns until the start of your next hero phase.`,
-        when: [START_OF_HERO_PHASE, COMBAT_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
