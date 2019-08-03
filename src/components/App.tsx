@@ -25,12 +25,6 @@ const App = (props: IAppProps) => {
     logFactionSwitch(factionName)
   }, [factionName, resetSelections])
 
-  // Reset the ally store when allyFactionName is switched
-  // useEffect(() => {
-  //   resetAllySelections()
-  //   allyFactionName && logAllyFaction(allyFactionName)
-  // }, [allyFactionName, resetAllySelections])
-
   return (
     <div className="d-block">
       <Header />

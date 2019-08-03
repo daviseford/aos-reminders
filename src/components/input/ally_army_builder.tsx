@@ -136,7 +136,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           </div>
         </div>
       </div>
-      <div className="card-body">
+      <div className="card-body text-dark">
         <h4 className="text-center">Add {type}s</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
