@@ -13,6 +13,7 @@ import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { ValueType } from 'react-select/lib/types'
+import { logAllyFaction } from 'utils/analytics'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -50,6 +51,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
       const { value } = payload as TDropdownOption
       deleteAllySelection(allyFactionName)
       resetAllySelection(value as TSupportedFaction)
+      logAllyFaction(value as TSupportedFaction)
       setAllyName(payload)
     },
     [allyFactionName, setAllyName, deleteAllySelection, resetAllySelection]
