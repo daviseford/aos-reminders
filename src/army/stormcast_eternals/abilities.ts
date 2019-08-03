@@ -5,7 +5,7 @@ import { IEffects } from 'types/data'
 const Abilities: IEffects[] = [
   {
     name: `Scions of the Storm`,
-    desc: `Setup 1 unit in the Celestial Realm for every unit you setup on the battlefield. At the end of your movement phase you can set up one or more reserve units on the battlefield more than 9" from the enemy. Any units not setup before the 4th Battleround are slain.`,
+    desc: `Setup 1 unit in the Celestial Realm for every unit you setup on the battlefield. At the end of your movement phase you can set up one or more reserve units more than 9" from the enemy. Any units not setup before the 4th Battleround are slain.`,
     when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
   },
   {
