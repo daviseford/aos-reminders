@@ -9,6 +9,7 @@ import { without } from 'lodash'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
 import { getArmy } from 'utils/getArmy'
+import { FaPlus } from 'react-icons/fa'
 
 const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 // const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
@@ -86,7 +87,7 @@ const AddAllyButton = (props: IAddAllyButton) => {
   return (
     <>
       <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
-        + Add Ally
+        <FaPlus /> Add Ally
       </button>
     </>
   )
