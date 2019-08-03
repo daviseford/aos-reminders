@@ -12,7 +12,6 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_GAME,
 } from 'types/phases'
 import SlavesToDarkness from 'army/slaves_to_darkness'
 import Everchosen from 'army/everchosen'
@@ -476,18 +475,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Allurer`,
-        desc: `1 model in this unit can an an Allurer.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Allurer`,
         desc: `Add 1 to the attacks characteric of an Allurer's Piercing Claws.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `1 in every 5 models in this unit can either be a Banner Bearer or Icon Bearer.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Banner Bearer`,
@@ -498,11 +487,6 @@ export const Units: TUnits = [
         name: `Icon Bearer`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add D6 models to this unit and no models from this unit flee.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `1 in every 10 models in this unit can be a Hornblower.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Hornblower`,
@@ -521,18 +505,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Heartseeker`,
-        desc: `1 model in this unit can be a Heartseeker.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Heartseeker`,
         desc: `Add 1 to the Attacks characteristic of a Heartseeker's Piercing Claws.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `1 in every 5 models in this unit can be a Banner Bearer, and 1 in every 5 models in this unit can be a Icon Bearer.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Banner Bearer`,
@@ -543,11 +517,6 @@ export const Units: TUnits = [
         name: `Icon Bearer`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add D3 models to this unit, and no models from this unit will flee in that phase.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `1 in every 5 models in this unit can be a Hornblower.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Hornblower`,
@@ -566,18 +535,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hellreaver`,
-        desc: `1 model in this unit can be a Hellreaver.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Hellreaver`,
         desc: `Add 1 to the Attacks characteristic of a Hellreaver's Hellscourge.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `1 in every 5 models in this unit can be a Hellstrider Banner Bearer, and 1 in every 5 models in this unit can be a Hellstrider Icon Bearer.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Banner Bearer`,
@@ -588,11 +547,6 @@ export const Units: TUnits = [
         name: `Icon Bearer`,
         desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `1 in every 5 models in this unit can be a Hellstrider Hornblower.`,
-        when: [START_OF_GAME],
       },
       {
         name: `Hornblower`,

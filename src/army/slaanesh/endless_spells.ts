@@ -4,7 +4,7 @@ import { TEndlessSpells } from 'types/army'
 // Endless spells.
 export const EndlessSpells: TEndlessSpells = [
   {
-    name: `Wheels of Excruciation`,
+    name: `Wheels of Excruciation (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,
@@ -29,7 +29,7 @@ export const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Mesmerising Mirror`,
+    name: `Mesmerising Mirror (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,
@@ -56,7 +56,7 @@ export const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Dreadful Visage`,
+    name: `Dreadful Visage (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,

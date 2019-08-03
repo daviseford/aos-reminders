@@ -63,7 +63,7 @@ export const Units: TUnits = [
       {
         name: `The Everchosen`,
         desc: `Roll a dice if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
-        when: [HERO_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Wizard`,
@@ -138,12 +138,12 @@ export const Units: TUnits = [
       },
       {
         name: `Favoured of the Everchosen`,
-        desc: `You can add 1 to all hit rolls made for Varanguard if Archaon is on the battlefield.`,
+        desc: `Archaon is on the battlefield, you can add 1 to all hit rolls made for this unit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Archaon's Command`,
-        desc: `If Archaon is on the battlefield in the hero phase, you can select a new Mark of Chaos for Varanguard units.`,
+        desc: `If Archaon is on the battlefield, you can select a new Mark of Chaos for Varanguard units.`,
         when: [HERO_PHASE],
       },
     ],
