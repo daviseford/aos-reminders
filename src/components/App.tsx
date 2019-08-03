@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { AllyArmyBuilder } from 'components/input/ally_army_builder'
 import { ArmyBuilder } from 'components/input/army_builder'
 import { FooterComponent } from 'components/page/footer'
 import { Header } from 'components/page/header'
@@ -14,7 +13,6 @@ import { ISelections } from 'types/selections'
 
 interface IAppProps {
   factionName: TSupportedFaction
-  selections: ISelections
   resetSelections: () => void
 }
 
@@ -41,8 +39,6 @@ const App = (props: IAppProps) => {
 
       <ArmyBuilder />
 
-      <AllyArmyBuilder />
-
       <Toolbar />
 
       <Reminders />
@@ -55,14 +51,10 @@ const App = (props: IAppProps) => {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  allyFactionName: factionNames.selectors.getAllyFactionName(state),
-  allySelections: selections.selectors.getAllySelections(state),
   factionName: factionNames.selectors.getFactionName(state),
-  selections: selections.selectors.getSelections(state),
 })
 
 const mapDispatchToProps = {
-  resetAllySelections: selections.actions.resetAllySelections,
   resetSelections: selections.actions.resetSelections,
 }
 

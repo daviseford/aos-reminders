@@ -1,43 +1,53 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { factionNames } from 'ducks'
+import { factionNames, selections } from 'ducks'
 import { SelectOne } from './select'
 import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
+import { without } from 'lodash'
+import { AllyArmyBuilder } from './ally_army_builder'
+import { TUnits } from 'types/army'
 
 const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IToolbarProps {
-  setAllyFactionName: IAddAllySelect['setAllyFactionName']
+  addAllyFactionName: (factionName: TSupportedFaction) => void
+  allyFactionNames: TSupportedFaction[]
   factionName: TSupportedFaction
+  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
 const ToolbarComponent = (props: IToolbarProps) => {
-  const { setAllyFactionName, factionName } = props
-  const [hasAlly, setHasAlly] = useState(false)
+  const { addAllyFactionName, factionName, allyFactionNames, updateAllyUnits } = props
 
   const handleAllyClick = e => {
     e.preventDefault()
-    const newVal = !hasAlly
-    setHasAlly(newVal)
-    if (!newVal) {
-      setAllyFactionName(null)
-    }
+    const newAllyFaction = without(SUPPORTED_FACTIONS, ...allyFactionNames)[0]
+    updateAllyUnits({ factionName: newAllyFaction, units: [] })
+    addAllyFactionName(newAllyFaction)
   }
 
   return (
     <div className="container d-print-none">
-      <div className="row justify-content-center pt-2" hidden={!hasAlly}>
-        <div className={selectClass}>
-          <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />
+      <div className="row">
+        <div className="col">
+          {allyFactionNames.map(factionName => (
+            <AllyArmyBuilder factionName={factionName} />
+          ))}
         </div>
       </div>
 
+      {/* <div className="row justify-content-center pt-2" >
+        <div className={selectClass}>
+          <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />
+        </div>
+      </div> */}
+
       <div className="row justify-content-center pt-3">
         <div className={btnClass}>
-          <AddAllyButton setAllyClick={handleAllyClick} hasAlly={hasAlly} />
+          <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
         <div className={btnClass}>
           <PrintButton factionName={factionName} />
@@ -50,10 +60,12 @@ const ToolbarComponent = (props: IToolbarProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
+  allyFactionNames: factionNames.selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {
-  setAllyFactionName: factionNames.actions.setAllyFactionName,
+  addAllyFactionName: factionNames.actions.addAllyFactionName,
+  updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
 export const Toolbar = connect(
@@ -63,15 +75,14 @@ export const Toolbar = connect(
 
 interface IAddAllyButton {
   setAllyClick: (e: any) => void
-  hasAlly: boolean
 }
 
 const AddAllyButton = (props: IAddAllyButton) => {
-  const { hasAlly, setAllyClick } = props
+  const { setAllyClick } = props
   return (
     <>
-      <button className={`btn btn-block btn-${hasAlly ? `danger` : `outline-dark`}`} onClick={setAllyClick}>
-        {hasAlly ? `Remove` : `Add`} Ally
+      <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
+        + Add Ally
       </button>
     </>
   )

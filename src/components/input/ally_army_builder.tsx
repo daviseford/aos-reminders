@@ -11,15 +11,16 @@ import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 
 interface IAllyArmyBuilderProps {
-  factionName: TSupportedFaction
-  selections: { [key: string]: IAllySelections }
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void
-  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
+  factionName: TSupportedFaction // parent
+  allySelections: { [key: string]: IAllySelections } // state2Props
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void // dispatch2Props
+  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
 }
 
 const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
-  const { factionName, selections, updateAllyArmy, updateAllyUnits } = props
-  const { units } = selections[factionName]
+  debugger
+  const { factionName, allySelections, updateAllyArmy, updateAllyUnits } = props
+  const { units = [] } = allySelections[factionName]
 
   const allyArmy = useMemo(() => getArmy(factionName), [factionName]) as IArmy
   const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName })
@@ -47,7 +48,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  selections: selections.selectors.getAllySelections(state),
+  allySelections: selections.selectors.getAllySelections(state),
 })
 
 const mapDispatchToProps = {

@@ -145,7 +145,7 @@ const ActionText = (props: IActionTextProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   allyArmies: army.selectors.getAllyArmies(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
+  allyFactionNames: factionNames.selectors.getAllyFactionNames(state),
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),

@@ -34,7 +34,7 @@ const PrintUnitsComponent = (props: {
   return (
     <div className={'row text-center d-none d-print-block'}>
       <ItemsDisplayComponent name={'Unit'} items={units} />
-      <ItemsDisplayComponent name={'Allied Unit'} items={allySelections.units} />
+      {/* <ItemsDisplayComponent name={'Allied Unit'} items={allySelections.units} /> */}
       <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
       <ItemsDisplayComponent name={'Battalion'} items={battalions} />
       <ItemsDisplayComponent name={'Command Trait'} items={traits} />
