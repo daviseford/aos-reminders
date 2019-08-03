@@ -82,13 +82,13 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Hand of Dust`,
-        desc: `Hand of Dust has a casting value of 8. If successfully cast, pick an enemy model within 3" the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
+        name: `Hand of Dust (Spell)`,
+        desc: `Casting value of 8. If successfully cast, pick an enemy model within 3" the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Soul Stealer`,
-        desc: `Soul Stealer has a casting value of 6. If successfully cast, pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target, heal 1 wound that has been allocated to the caster.`,
+        name: `Soul Stealer (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target, heal 1 wound that has been allocated to the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -133,8 +133,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Curse of Years`,
-        desc: `Curse of Years has a casting value of 6. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed.`,
+        name: `Curse of Years (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed.`,
         when: [HERO_PHASE],
       },
       {
@@ -184,8 +184,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Wind of Death`,
-        desc: `Wind of Death has a casting value of 7. If successfully cast, pick an enemy model within 18" of the caster that is visible to them. Each enemy unit within 6" of that model suffers 1 mortal wound, while the model's own unit suffers D3 mortal wounds.`,
+        name: `Wind of Death (Spell)`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy model within 18" of the caster that is visible to them. Each enemy unit within 6" of that model suffers 1 mortal wound, while the model's own unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -225,8 +225,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Dark Mist`,
-        desc: `Dark Mist has a casting value of 6. If successfully cast, pick a friendly DEATH unit within 18" of the caster. Until your next hero phase, that unit can fly and you must ignore modifiers (positive or negative) when making save rolls for the unit.`,
+        name: `Dark Mist (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly DEATH unit within 18" of the caster. Until your next hero phase, that unit can fly and you must ignore modifiers (positive or negative) when making save rolls for the unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -271,8 +271,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Quickblood`,
-        desc: `Quickblood has a casting value of 7. If successfully cast, add 1 to hit and wound rolls for the caster until your next hero phase.`,
+        name: `Quickblood (Spell)`,
+        desc: `Casting value of 7. If successfully cast, add 1 to hit and wound rolls for the caster until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -352,8 +352,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Blood Boil`,
-        desc: `Blood Boil has a casting value of 6. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them. That unit suffers a mortal wound. If a model was allocated any wounds caused by this spell but was not slain, roll another dice. On a 4+ that model suffers another mortal wound. If the model is still not slain, roll another dice. It will suffer another mortal wound on a 4+. Keep rolling dice in this way until either the model is slain or you fail to cause a mortal wound.`,
+        name: `Blood Boil (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them. That unit suffers a mortal wound. If a model was allocated any wounds caused by this spell but was not slain, roll another dice. On a 4+ that model suffers another mortal wound. If the model is still not slain, roll another dice. It will suffer another mortal wound on a 4+. Keep rolling dice in this way until either the model is slain or you fail to cause a mortal wound.`,
         when: [HERO_PHASE],
       },
       {
@@ -509,8 +509,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Blood Siphon`,
-        desc: `Blood Siphon has a casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a dice. On a 1-3 the hero suffers a mortal wound. On a 4-5 the hero suffers D3 mortal wounds. On a 6 the hero suffers D6 mortal wounds.`,
+        name: `Blood Siphon (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a dice. On a 1-3 the hero suffers a mortal wound. On a 4-5 the hero suffers D3 mortal wounds. On a 6 the hero suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -544,8 +544,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Beguile`,
-        desc: `Beguile has a casting value of 6. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them and roll three dice. If the total is higher than that unit's Bravery, then until your next hero phase the caster cannot be selected as the target of any attacks made by that unit or spells cast by that unit.`,
+        name: `Beguile (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them and roll three dice. If the total is higher than that unit's Bravery, then until your next hero phase the caster cannot be selected as the target of any attacks made by that unit or spells cast by that unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -600,8 +600,8 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spell: Vanhel's Dance Macabre`,
-        desc: `Vanhel's Danse Macabre has a casting value of 6. If successfully cast, pick a friendly SUMMONABLE unit within 18" of the caster. That unit can be chosen to pile in and attack twice in your next combat phase.`,
+        name: `Vanhel's Dance Macabre (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly SUMMONABLE unit within 18" of the caster. That unit can be chosen to pile in and attack twice in your next combat phase.`,
         when: [HERO_PHASE],
       },
     ],

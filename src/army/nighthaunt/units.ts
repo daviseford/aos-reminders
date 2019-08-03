@@ -55,6 +55,16 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
         command_ability: true,
       },
+      {
+        name: `Magic`,
+        desc: `Lady Olynder is a WIZARD. She can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Grief-stricken spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Grief Stricken (Spell)`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
+        when: [HERO_PHASE],
+      },
     ],
   },
   {
@@ -109,6 +119,16 @@ export const Units: TUnits = [
         name: `Reaped Like Corn`,
         desc: `You can re-roll failed hit rolls for attacks made with Fellreaper if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Reikenor the Grimhailer is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wraithstorm spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wraithstorm`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -166,6 +186,16 @@ export const Units: TUnits = [
         name: `Nightmare Lantern`,
         desc: `Add 1 to wound rolls for attacks made with melee weapons used by friendly NIGHTHAUNT units that are wholly within 12" of this model.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Spectral Lure spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spectral Lure (Spell)`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
+        when: [HERO_PHASE],
       },
     ],
   },
