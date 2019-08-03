@@ -1,11 +1,11 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { IArmy, TUnits } from 'types/army'
+import { IArmy, TUnits, TAllyArmies } from 'types/army'
 import { Game } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
 
 type TInitialStateType = {
   army: IArmy
-  allyArmies: { [key: string]: IArmy }
+  allyArmies: TAllyArmies
 }
 
 const initialState: TInitialStateType = {
@@ -31,7 +31,7 @@ const resetAllyArmies = (state, action) => {
 const updateArmy = (state, action: { payload: IArmy }) => {
   state.army = action.payload
 }
-const updateAllyArmies = (state, action: { payload: { factionName: TSupportedFaction; Units: TUnits } }) => {
+const updateAllyArmy = (state, action: { payload: { factionName: TSupportedFaction; Units: TUnits } }) => {
   const { factionName, Units } = action.payload
   state.allyArmies[factionName] = { Units }
 }
@@ -47,7 +47,7 @@ export const army = createSlice({
     resetAllArmies: (state, action) => initialState,
     resetAllyArmies,
     resetArmy,
-    updateAllyArmies,
+    updateAllyArmy,
     updateArmy,
   },
 })

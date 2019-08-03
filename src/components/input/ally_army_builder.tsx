@@ -3,37 +3,36 @@ import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
 import './army_builder.css'
 import { CardComponent } from 'components/info/card'
-import { IArmy } from 'types/army'
 import { getArmy } from 'utils/getArmy'
-import { selections, factionNames, army } from 'ducks'
-import { withSelectMultiple } from 'utils/withSelect'
+import { selections, army } from 'ducks'
+import { withSelectMultipleWithPayload } from 'utils/withSelect'
 import { IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
+import { TUnits, IArmy } from 'types/army'
 
 interface IAllyArmyBuilderProps {
-  allyFactionName: TSupportedFaction | null
-  selections: IAllySelections
-  updateAllyUnits: (values: string[]) => void
-  updateAllyArmy: (army: IArmy | null) => void
+  factionName: TSupportedFaction
+  selections: { [key: string]: IAllySelections }
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void
+  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
 const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
-  const { allyFactionName, updateAllyUnits, selections, updateAllyArmy } = props
-  const { units } = selections
+  const { factionName, selections, updateAllyArmy, updateAllyUnits } = props
+  const { units } = selections[factionName]
 
-  const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName])
-  const handleUnits = withSelectMultiple(updateAllyUnits)
+  const allyArmy = useMemo(() => getArmy(factionName), [factionName]) as IArmy
+  const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName })
 
   useEffect(() => {
-    updateAllyArmy(allyArmy)
+    updateAllyArmy({ factionName, Units: allyArmy.Units })
   }, [allyArmy, updateAllyArmy])
-
-  if (!allyArmy) return <></>
 
   return (
     <div className="container d-print-none">
       <div className="row border border-dark pb-3">
         <div className="col card-group mx-auto">
+          {factionName}
           <CardComponent
             items={sortBy(allyArmy.Units, 'name')}
             values={units}
@@ -48,7 +47,6 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  allyFactionName: factionNames.selectors.getAllyFactionName(state),
   selections: selections.selectors.getAllySelections(state),
 })
 

@@ -9,12 +9,12 @@ import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
-import { IArmy } from 'types/army'
+import { IArmy, TAllyArmies } from 'types/army'
 import { ITurnAction } from 'types/data'
 import { without, uniq } from 'lodash'
 
 interface IRemindersProps {
-  allyArmies: { [key: string]: IArmy }
+  allyArmies: TAllyArmies
   allySelections: { [key: string]: IAllySelections }
   allyFactionNames: TSupportedFaction[]
   army: IArmy
