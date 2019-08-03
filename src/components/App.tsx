@@ -9,7 +9,6 @@ import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections } from 'ducks'
 import { logFactionSwitch } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
-import { ISelections } from 'types/selections'
 
 interface IAppProps {
   factionName: TSupportedFaction

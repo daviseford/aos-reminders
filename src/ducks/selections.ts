@@ -83,3 +83,9 @@ selections.selectors.getAllySelections = createSelector(
   ['selections.allySelections'],
   allySelections => allySelections
 )
+
+//@ts-ignore
+selections.selectors.getAllyFactionNames = createSelector(
+  ['selections.allySelections'],
+  allySelections => Object.keys(allySelections)
+)

@@ -1,40 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { factionNames, selections } from 'ducks'
+import { factionNames, selections, army } from 'ducks'
 import { SelectOne } from './select'
 import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
 import { without } from 'lodash'
 import { AllyArmyBuilder } from './ally_army_builder'
-import { TUnits } from 'types/army'
+import { TUnits, IArmy } from 'types/army'
+import { getArmy } from 'utils/getArmy'
 
 const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
-const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
+// const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IToolbarProps {
-  addAllyFactionName: (factionName: TSupportedFaction) => void
   allyFactionNames: TSupportedFaction[]
   factionName: TSupportedFaction
+  resetAllySelection: (factionName: TSupportedFaction) => void
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
 const ToolbarComponent = (props: IToolbarProps) => {
-  const { addAllyFactionName, factionName, allyFactionNames, updateAllyUnits } = props
+  const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
 
   const handleAllyClick = e => {
     e.preventDefault()
-    const newAllyFaction = without(SUPPORTED_FACTIONS, ...allyFactionNames)[0]
-    updateAllyUnits({ factionName: newAllyFaction, units: [] })
-    addAllyFactionName(newAllyFaction)
+    const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
+    resetAllySelection(newAllyFaction)
+    const allyArmy = getArmy(newAllyFaction) as IArmy
+    updateAllyArmy({ factionName: newAllyFaction, Units: allyArmy.Units })
   }
 
   return (
     <div className="container d-print-none">
       <div className="row">
         <div className="col">
-          {allyFactionNames.map(factionName => (
-            <AllyArmyBuilder factionName={factionName} />
+          {allyFactionNames.map(allyFactionName => (
+            <AllyArmyBuilder allyFactionName={allyFactionName} />
           ))}
         </div>
       </div>
@@ -60,11 +63,12 @@ const ToolbarComponent = (props: IToolbarProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
-  allyFactionNames: factionNames.selectors.getAllyFactionNames(state),
+  allyFactionNames: selections.selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {
-  addAllyFactionName: factionNames.actions.addAllyFactionName,
+  resetAllySelection: selections.actions.resetAllySelection,
+  updateAllyArmy: army.actions.updateAllyArmy,
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
 

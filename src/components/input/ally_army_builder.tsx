@@ -11,29 +11,30 @@ import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 
 interface IAllyArmyBuilderProps {
-  factionName: TSupportedFaction // parent
+  allyFactionName: TSupportedFaction // parent
   allySelections: { [key: string]: IAllySelections } // state2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Units: TUnits }) => void // dispatch2Props
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
 }
 
 const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
-  debugger
-  const { factionName, allySelections, updateAllyArmy, updateAllyUnits } = props
-  const { units = [] } = allySelections[factionName]
+  const { allyFactionName, allySelections, updateAllyArmy, updateAllyUnits } = props
+  const { units = [] } = allySelections[allyFactionName]
 
-  const allyArmy = useMemo(() => getArmy(factionName), [factionName]) as IArmy
-  const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName })
+  const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
+  const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName: allyFactionName })
 
   useEffect(() => {
-    updateAllyArmy({ factionName, Units: allyArmy.Units })
-  }, [allyArmy, updateAllyArmy])
+    updateAllyArmy({ factionName: allyFactionName, Units: allyArmy.Units })
+  }, [allyArmy, updateAllyArmy, allyFactionName])
+
+  debugger
 
   return (
     <div className="container d-print-none">
       <div className="row border border-dark pb-3">
         <div className="col card-group mx-auto">
-          {factionName}
+          {allyFactionName}
           <CardComponent
             items={sortBy(allyArmy.Units, 'name')}
             values={units}
@@ -49,6 +50,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
+  allyFactionNames: selections.selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {
