@@ -8,7 +8,7 @@ import { TUnits, IArmy } from 'types/army'
 import { getArmy } from 'utils/getArmy'
 import { FaPlus } from 'react-icons/fa'
 
-const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
+const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -31,10 +31,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3">
-        <div className={btnClass}>
+        <div className={btnWrapperClass}>
           <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
-        <div className={btnClass}>
+        <div className={btnWrapperClass}>
           <PrintButton factionName={factionName} />
         </div>
       </div>

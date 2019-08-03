@@ -68,7 +68,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   }, [allyArmy, updateAllyArmy, allyFactionName])
 
   return (
-    <div className="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-2">
+    <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
       <AllyCardComponent
         allyFactionName={allyFactionName}
         allySelectOptions={allySelectOptions}
@@ -120,7 +120,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 
   return (
     <div className="card">
-      <div className="card-header">
+      <div className="card-header text-white bg-secondary">
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="flex-grow-1">
             <AddAllySelect
@@ -129,8 +129,8 @@ const AllyCardComponent = (props: IAllyCardProps) => {
               setAllyFactionName={setAllyFactionName}
             />
           </div>
-          <div className="pl-2">
-            <IconContext.Provider value={{ size: '1.3em', className: 'text-danger' }}>
+          <div className="pl-3">
+            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
               <FaRegWindowClose onClick={handleClose} />
             </IconContext.Provider>
           </div>
