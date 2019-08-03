@@ -1,17 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { factionNames, selections, army } from 'ducks'
-import { SelectOne } from './select'
 import { logPrintEvent } from 'utils/analytics'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { withSelectOne } from 'utils/withSelect'
 import { without } from 'lodash'
 import { TUnits, IArmy } from 'types/army'
 import { getArmy } from 'utils/getArmy'
 import { FaPlus } from 'react-icons/fa'
 
 const btnClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
-// const selectClass = `col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -33,13 +30,6 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   return (
     <div className="container d-print-none">
-      {/* TODO Move below to the army ally builder */}
-      {/* <div className="row justify-content-center pt-2" >
-        <div className={selectClass}>
-          <AddAllySelect setAllyFactionName={setAllyFactionName} items={SUPPORTED_FACTIONS} />
-        </div>
-      </div> */}
-
       <div className="row justify-content-center pt-3">
         <div className={btnClass}>
           <AddAllyButton setAllyClick={handleAllyClick} />
@@ -80,22 +70,6 @@ const AddAllyButton = (props: IAddAllyButton) => {
       <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
         <FaPlus /> Add Ally
       </button>
-    </>
-  )
-}
-
-interface IAddAllySelect {
-  setAllyFactionName: (value: string | null) => void
-  items: TSupportedFaction[]
-}
-
-const AddAllySelect = (props: IAddAllySelect) => {
-  const { setAllyFactionName, items } = props
-  const handleSetAllyName = withSelectOne(setAllyFactionName)
-
-  return (
-    <>
-      <SelectOne items={items} setValue={handleSetAllyName} hasDefault={true} toTitle={true} />
     </>
   )
 }

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import { factionNames, selections, army } from 'ducks'
-import { TSupportedFaction } from 'meta/factions'
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
+import { without } from 'lodash'
 
 interface IAlliedArmiesProps {
   allyFactionNames: TSupportedFaction[]
@@ -13,15 +14,24 @@ interface IAlliedArmiesProps {
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
 
-const AlliedArmiesComponent = (props: IAlliedArmiesProps) => (
-  <div className="container d-print-none">
-    <div className="row">
-      {props.allyFactionNames.map(allyFactionName => (
-        <AllyArmyBuilder allyFactionName={allyFactionName} key={allyFactionName} />
-      ))}
+const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
+  const { factionName, allyFactionNames } = props
+  const allySelectOptions = useMemo(() => without(SUPPORTED_FACTIONS, factionName), [factionName])
+
+  return (
+    <div className="container d-print-none">
+      <div className="row d-flex justify-content-center">
+        {allyFactionNames.map(allyFactionName => (
+          <AllyArmyBuilder
+            allyFactionName={allyFactionName}
+            allySelectOptions={allySelectOptions}
+            key={allyFactionName}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
