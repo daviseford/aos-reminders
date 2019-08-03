@@ -1,4 +1,4 @@
-import { CHARGE_PHASE, COMBAT_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
 
 // Zharrgrim Blessings
