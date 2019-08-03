@@ -120,7 +120,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 
   return (
     <div className="card">
-      <div className="card-header text-white bg-secondary">
+      <div className="card-header bg-secondary">
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="flex-grow-1">
             <AddAllySelect
@@ -136,7 +136,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           </div>
         </div>
       </div>
-      <div className="card-body text-dark">
+      <div className="card-body">
         <h4 className="text-center">Add {type}s</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
