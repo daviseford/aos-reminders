@@ -1,80 +1,95 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import detectPrint from 'react-detect-print'
 
 import { ISelections, IAllySelections } from 'types/selections'
 import { titleCase } from 'utils/titleCase'
 import { factionNames, selections, realmscape } from 'ducks'
+import { TSupportedFaction } from 'meta/factions'
 
-const PrintHeaderComponent = (props: { factionName: string }) => {
-  return (
-    <header className={'text-center mt-4 mb-1 d-none d-print-block'}>
-      <h1>AoS Reminders - {titleCase(props.factionName)}</h1>
-    </header>
-  )
+interface IPrintHeaderProps {
+  allySelections: { [key: string]: IAllySelections }
+  factionName: TSupportedFaction
+  printing: boolean
+  realmscape_feature: string | null
+  selections: ISelections
 }
 
-const mapHeaderStateToProps = (state, ownProps) => ({
-  ...ownProps,
-  factionName: factionNames.selectors.getFactionName(state),
-})
-
-export const PrintHeader = connect(
-  mapHeaderStateToProps,
-  null
-)(PrintHeaderComponent)
-
-const PrintUnitsComponent = (props: {
-  selections: ISelections
-  allySelections: { [key: string]: IAllySelections }
-  realmscape_feature: string | null
-}) => {
+const PrintHeaderComponent = (props: IPrintHeaderProps) => {
+  if (!props.printing) return null
   const { realmscape_feature, selections, allySelections } = props
   const { units, battalions, artifacts, traits, spells, endless_spells } = selections
   const realmFeature = realmscape_feature ? [realmscape_feature] : []
   return (
-    <div className={'row text-center d-none d-print-block'}>
-      <ItemsDisplayComponent name={'Unit'} items={units} />
+    <>
+      <div className={'row text-center mt-4 mb-1 d-none d-print-block'}>
+        <h1>AoS Reminders - {titleCase(props.factionName)}</h1>
+      </div>
+      <div className={'row text-center d-none d-print-block'}>
+        <ItemsDisplayComponent name={'Unit'} items={units} />
 
-      {Object.keys(allySelections).map(name => {
-        return (
+        {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
             name={`Allied ${titleCase(name)} Unit`}
             items={allySelections[name].units}
             key={name}
           />
-        )
-      })}
+        ))}
 
-      <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
-      <ItemsDisplayComponent name={'Battalion'} items={battalions} />
-      <ItemsDisplayComponent name={'Command Trait'} items={traits} />
-      <ItemsDisplayComponent name={'Spell'} items={spells} />
-      <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
-      <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
-    </div>
+        <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
+        <ItemsDisplayComponent name={'Battalion'} items={battalions} />
+        <ItemsDisplayComponent name={'Command Trait'} items={traits} />
+        <ItemsDisplayComponent name={'Spell'} items={spells} />
+        <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
+        <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
+      </div>
+    </>
   )
 }
 
-const mapUnitsStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
+  factionName: factionNames.selectors.getFactionName(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
 })
 
-export const PrintUnits = connect(
-  mapUnitsStateToProps,
+export const PrintHeader = connect(
+  mapStateToProps,
   null
-)(PrintUnitsComponent)
+)(detectPrint(PrintHeaderComponent))
 
 const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   const { items, name } = props
   if (!items.length) return null
   const title = items.length > 1 ? `${name}s` : name
+  const wrapLimit = 70
+  const itemsText = items.reduce(
+    (a, b, i) => {
+      if (i === 0) return a
+      if (a.lineLength + 3 + b.length > wrapLimit) {
+        a.lineLength = b.length
+        a.index = a.index + 1
+        a.text[a.index] = b
+      } else {
+        a.lineLength = a.lineLength + b.length
+        a.text[a.index] = `${a.text[a.index]} | ${b}`
+      }
+      return a
+    },
+    { text: [items[0]], lineLength: title.length + 2, index: 0 }
+  )
   return (
-    <p className="py-0 my-0">
-      <strong>{title}:</strong> {items.join(' | ')}
-    </p>
+    <div className="col px-5">
+      <strong>{title}:</strong>{' '}
+      {itemsText.text.map(line => (
+        <>
+          {line}
+          <br />
+        </>
+      ))}
+    </div>
   )
 }
 
