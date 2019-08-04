@@ -114,7 +114,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Igneous Battle-throne`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6+ ignore the wound or mortal wound.`,
+        desc: `6+ to ignore wounds or mortal wounds allocated to the bearer.`,
         when: [DURING_GAME],
         artifact: true,
       },

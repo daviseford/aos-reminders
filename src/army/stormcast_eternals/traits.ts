@@ -48,7 +48,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Martyr's Strength`,
-        desc: `Roll a dice if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all of the melee weapons it is armed with, before it is removed from play.`,
+        desc: `Roll a dice if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all melee weapons, before it is removed from play.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -87,13 +87,13 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Stormrage Blade`,
-        desc: `Pick one of the bearer's melee weapons. At the start of the combat phase, you can add 2 to the Attacks characteristic of this weapon until the end of that phase. If you do so, subtract 1 from save rolls for attacks that target the bearer until the end of that phase.`,
+        desc: `Pick one of the bearer's melee weapons. At the start of the combat phase, you can add 2 to the Attacks of this weapon until the end of that phase. If you do so, subtract 1 from save rolls for attacks that target the bearer until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         artifact: true,
       },
       {
         name: `Righteous Hatred`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, you pick a friendly CELESTIAL VINDICATORS unit wholly within 9" of a friendly of a friendly CELESTIAL VINDICATORS HERO, or wholly within 18" of a friendly CELESTIAL VINDICATORS HERO that is a general. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. Same unit cannot benefit more than once per hero phase.`,
+        desc: `Pick a friendly CELESTIAL VINDICATORS unit wholly within 9" of a friendly of a friendly CELESTIAL VINDICATORS HERO, or wholly within 18" of a friendly CELESTIAL VINDICATORS HERO that is a general. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. Same unit cannot benefit more than once per hero phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -121,7 +121,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Heroes of Another Age`,
-        desc: `You can use this command ability in your hero phase. If you do so, you pick a friendly ANVILS OF THE HELDENHAMMER unit wholly within 9" of a friendly of a friendly ANVILS OF THE HELDENHAMMER HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. That unit can attack with all the missile weapons it is armed with, or make a pile-in move and attack with all of the melee weapons it is armed with. Same unit cannot benefit more than once per hero phase.`,
+        desc: `Pick a friendly ANVILS OF THE HELDENHAMMER unit wholly within 9" of a friendly of a friendly ANVILS OF THE HELDENHAMMER HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. That unit can attack with all the missile weapons it is armed with, or make a pile-in move and attack with all of the melee weapons it is armed with. Same unit cannot benefit more than once per hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -149,7 +149,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `No Mercy`,
-        desc: `You can use this command ability in your hero phase. If you do so, you pick a friendly KNIGHTS EXCELSIOR unit wholly within 9" of a friendly KNIGHTS EXCELSIOR HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until the end of the turn.`,
+        desc: `Pick a friendly KNIGHTS EXCELSIOR unit wholly within 9" of a friendly KNIGHTS EXCELSIOR HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until the end of the turn.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -165,19 +165,19 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Fearless Foresight`,
-        desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick D3 friendly CELESTIAL WARBRINGERS units and set them up again (any restrictions in the set-up instructions for the battleplan being used still apply).`,
+        desc: `Pick D3 friendly CELESTIAL WARBRINGERS units and set them up again (any restrictions in the set-up instructions for the battleplan being used still apply).`,
         when: [START_OF_GAME],
         allegiance_ability: true,
       },
       {
         name: `Hammers of Augury`,
-        desc: `At the end of the combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a dice. On a 3+, that unit suffers 1 mortal wound and you can roll another dice. On a 4+, that unit suffers 1 extra mortal wound.`,
+        desc: `Pick 1 enemy unit within 3" of the bearer and roll a dice. On a 3+, that unit suffers 1 mortal wound and you can roll another dice. On a 4+, that unit suffers 1 extra mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
         artifact: true,
       },
       {
         name: `Astral Conjunction`,
-        desc: `You can use this command ability in your hero phase. If you do so, you pick a friendly CELESTIAL WARBRINGER WIZARD wholly within 9" of a friendly CELESTIAL WARBRINGER HERO, or wholly within 18" of a friendly CELESTIAL WARBRINGER HERO that is a general. Add 1 to casting rolls for that unit until the end of that phase.`,
+        desc: `Pick a friendly CELESTIAL WARBRINGER WIZARD wholly within 9" of a friendly CELESTIAL WARBRINGER HERO, or wholly within 18" of a friendly CELESTIAL WARBRINGER HERO that is a general. Add 1 to casting rolls for that unit until the end of that phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -205,7 +205,7 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Rousing Oratory`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, you pick a friendly TEMPEST LORDS unit wholly within 9" of a friendly TEMPEST LORDS HERO, or wholly within 18" of a friendly TEMPEST LORDS HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `Pick a friendly TEMPEST LORDS unit wholly within 9" of a friendly TEMPEST LORDS HERO, or wholly within 18" of a friendly TEMPEST LORDS HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -233,68 +233,68 @@ const CommandTraits: TCommandTraits = [
       },
       {
         name: `Cut off the Head`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, you pick a friendly ASTRAL TEMPLARS unit wholly within 9" of a friendly ASTRAL TEMPLARS HERO, or wholly within 18" of a friendly ASTRAL TEMPLARS HERO that is a general. Until the end of that phase, add 1 to wound rolls for attacks made by that unit that target a HERO.`,
+        desc: `Pick a friendly ASTRAL TEMPLARS unit wholly within 9" of a friendly ASTRAL TEMPLARS HERO, or wholly within 18" of a friendly ASTRAL TEMPLARS HERO that is a general. Until the end of that phase, add 1 to wound rolls for attacks made by that unit that target a HERO.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
   },
   {
-    name: `Shielded by Faith (Aspects of Azyr)`,
+    name: `Shielded by Faith`,
     effects: [
       {
-        name: `Shielded by Faith (Aspects of Azyr)`,
-        desc: `Roll a dice each time you allocate a mortal wound to this general. On a 5+ that mortal wound is negated.`,
+        name: `Shielded by Faith`,
+        desc: `On a 5+, an allocated wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Consummate Commander (Aspects of Azyr)`,
+    name: `Consummate Commander`,
     effects: [
       {
-        name: `Consummate Commander (Aspects of Azyr)`,
+        name: `Consummate Commander`,
         desc: `If this general is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive 1 extra command point.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Cunning Strategist (Aspects of Azyr)`,
+    name: `Cunning Strategist`,
     effects: [
       {
-        name: `Cunning Strategist (Aspects of Azyr)`,
+        name: `Cunning Strategist`,
         desc: `After set-up is complete, but before the battle begins, D3 friendly STORMCAST ETERNAL units can move up to 5".`,
         when: [END_OF_SETUP],
       },
     ],
   },
   {
-    name: `Zealous Crusader (Aspects of Azyr)`,
+    name: `Zealous Crusader`,
     effects: [
       {
-        name: `Zealous Crusader (Aspects of Azyr)`,
+        name: `Zealous Crusader`,
         desc: `You can reroll charge rolls for this general.`,
         when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `Staunch Defender (Aspects of Azyr)`,
+    name: `Staunch Defender`,
     effects: [
       {
-        name: `Staunch Defender (Aspects of Azyr)`,
+        name: `Staunch Defender`,
         desc: `Add 1 to save rolls for attacks that target friendly STORMCAST ETERNAL units wholly within 9" of this general if that STORMCAST ETERNAL unit has not made a charge move the same turn.`,
         when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Champion of the Realms (Aspects of Azyr)`,
+    name: `Champion of the Realms`,
     effects: [
       {
-        name: `Champion of the Realms (Aspects of Azyr)`,
-        desc: `Pick one of this general's melee weapons. Add 1 to the Attacks characteristic of that weapon.`,
+        name: `Champion of the Realms`,
+        desc: `Pick one of this general's melee weapons. Add 1 to the Attacks of that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -444,7 +444,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Steel Pinions (Mount Trait)`,
-        desc: `Roll a dice each time a wound or mortal wound is allocated too this model. On a 6+ that wound or mortal wound is negated.`,
+        desc: `On a 6+, an allocated wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

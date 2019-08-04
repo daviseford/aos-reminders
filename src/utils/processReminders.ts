@@ -1,44 +1,39 @@
-import { flatten } from 'lodash'
-import { Game, TGameStructure } from 'meta/game_structure'
-import { ISelections, IAllySelections } from 'types/selections'
-import { TSupportedFaction } from 'meta/factions'
-import { IEffects, IReminder, ITurnAction } from 'types/data'
-import { IArmy } from 'types/army'
+import { flatten, sortBy, split, join } from 'lodash'
+import produce from 'immer'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
+import { Game, TGameStructure } from 'meta/game_structure'
+import { TSupportedFaction } from 'meta/factions'
+import { IArmy, TAllyData } from 'types/army'
+import { IEffects, IReminder, ITurnAction } from 'types/data'
+import { ISelections, IAllySelections } from 'types/selections'
 
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
   selections: ISelections,
-  realmscape_feature: string,
-  allyArmy: IArmy,
-  allySelections: IAllySelections
+  realmscape_feature: string | null,
+  allyData: TAllyData
 ) => IReminder
 
-export const processReminders: TProcessReminders = (
-  army,
-  factionName,
-  selections,
-  realmscape_feature,
-  allyArmy,
-  allySelections
-) => {
+export const processReminders: TProcessReminders = (army, factionName, selections, realmscape_feature, allyData) => {
   let reminders = processConditions(army.Game, selections, {})
 
-  if (allyArmy) {
-    reminders = processConditions(allyArmy.Game, allySelections, reminders)
+  if (allyData.length) {
+    reminders = allyData.reduce((accum, data) => {
+      return processConditions(data.allyArmy.Game, data.allySelections, accum)
+    }, reminders)
   }
 
   // Add Abilities
-  if (army.Abilities && army.Abilities.length) {
+  if (army.Abilities.length) {
     army.Abilities.forEach((a: IEffects) => {
       const t: ITurnAction = {
         name: a.name,
         desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
         allegiance_ability: true,
-        tag: a.tag || ``,
+        tag: a.tag || false,
         command_ability: a.command_ability || false,
       }
       a.when.forEach(when => {
@@ -73,19 +68,42 @@ export const processReminders: TProcessReminders = (
 
 const processConditions = (game: TGameStructure, selections: ISelections | IAllySelections, startVal = {}) => {
   const conditions = flatten(Object.values(selections))
-  const reminders = Object.keys(game).reduce((accum, key) => {
-    const phase = game[key]
-    const addToAccum = (actions: ITurnAction[], when: string) => {
-      actions.forEach((y: ITurnAction) => {
-        if (conditions.includes(y.condition)) {
-          accum[when] = accum[when] ? accum[when].concat(y) : [y]
-        }
-      })
-    }
-    if (phase.length) {
-      addToAccum(phase, key)
-    }
+
+  const reminders = Object.keys(game).reduce((accum: { [key: string]: ITurnAction[] }, when) => {
+    if (!game[when].length) return accum
+
+    game[when].forEach((action: ITurnAction) => {
+      if (conditions.includes(action.condition)) {
+        accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
+      }
+    })
+
     return accum
   }, startVal)
+
   return reminders
 }
+
+/**
+ * Check to see if we've already added this rule for a different unit
+ * If so, combine the entries
+ * We use Immer to make sure we don't accidently mutate anything
+ * @param phase
+ * @param action
+ */
+const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => {
+  // See if we can find a matching action already in the phase
+  const idx = phase.findIndex(x => x.name === action.name)
+
+  // If there's not a matching action, add this action to the existing phase
+  if (idx === -1) {
+    phase.push(action)
+    return phase
+  }
+
+  // If there is a matching action, merge the entries!
+  // Split the string in order to sort alphabetically in case of multiple matches :)
+  const sep = `, `
+  phase[idx].condition = join(sortBy(split(phase[idx].condition, sep).concat(action.condition)), sep)
+  return phase
+})

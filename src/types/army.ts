@@ -1,5 +1,13 @@
 import { IEffects, IEntry } from './data'
 import { TGameStructure } from 'meta/game_structure'
+import { IAllySelections } from './selections'
+
+export type TAllyArmies = { [key: string]: IArmy }
+
+export type TAllyData = {
+  allyArmy: IArmy
+  allySelections: IAllySelections
+}[]
 
 export type TAbilities = IEffects[]
 export type TArtifacts = IEntry[]

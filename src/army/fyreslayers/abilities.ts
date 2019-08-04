@@ -14,7 +14,7 @@ import { IEffects } from 'types/data'
 const Abilities: IEffects[] = [
   {
     name: `Ur-Gold Runes`,
-    desc: `At the start of your hero phase, you can activate 1 of your 6 runes. When you choose, roll a dice. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies.`,
+    desc: `Activate 1 of your 6 runes. When you choose, roll a dice. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -24,7 +24,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Rune of Fury (enhanced effect)`,
-    desc: `Add 1 to the Attacks characteristic of melee weapons for friendly FYRESLAYERS units.`,
+    desc: `Add 1 to the Attacks of melee weapons for friendly FYRESLAYERS units.`,
     when: [COMBAT_PHASE],
   },
   {
@@ -64,7 +64,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Magmic Battleforge`,
-    desc: `After armies are set up, but before combat begins,  you can set up the Magmic Battleforge within 6" of a friendly FYRESLAYERS PRIEST wholly within your territory and more than 3" from any other terrain features and 1" from any objectives.`,
+    desc: `After armies are set up, but before combat begins, you can set up the Magmic Battleforge within 6" of a friendly FYRESLAYERS PRIEST wholly within your territory and more than 3" from any other terrain features and 1" from any objectives.`,
     when: [END_OF_SETUP],
   },
 ]
