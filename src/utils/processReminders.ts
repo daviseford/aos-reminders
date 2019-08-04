@@ -100,7 +100,7 @@ const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => 
 
   // If there's not a matching action, add this action to the existing phase
   if (idx === -1) {
-    phase.concat(action)
+    phase.push(action)
     return phase
   }
 
