@@ -1,12 +1,11 @@
-import { flatten, sortBy, split, join } from 'lodash'
-import produce from 'immer'
+import { flatten } from 'lodash'
+import { Game, TGameStructure } from 'meta/game_structure'
+import { ISelections, IAllySelections } from 'types/selections'
+import { TSupportedFaction } from 'meta/factions'
+import { IEffects, IReminder, ITurnAction } from 'types/data'
+import { IArmy } from 'types/army'
 import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
-import { Game, TGameStructure } from 'meta/game_structure'
-import { TSupportedFaction } from 'meta/factions'
-import { IArmy } from 'types/army'
-import { IEffects, IReminder, ITurnAction } from 'types/data'
-import { ISelections, IAllySelections } from 'types/selections'
 
 type TProcessReminders = (
   army: IArmy,
@@ -71,48 +70,19 @@ export const processReminders: TProcessReminders = (army, factionName, selection
 
 const processConditions = (game: TGameStructure, selections: ISelections | IAllySelections, startVal = {}) => {
   const conditions = flatten(Object.values(selections))
-
-  const reminders = Object.keys(game).reduce((accum: { [key: string]: ITurnAction[] }, when) => {
-    if (!game[when].length) return accum
-
-    game[when].forEach((action: ITurnAction) => {
-      if (conditions.includes(action.condition)) {
-        accum[when] = processCondition(accum[when] || [], action)
-      }
-    })
-
+  const reminders = Object.keys(game).reduce((accum, key) => {
+    const phase = game[key]
+    const addToAccum = (actions: ITurnAction[], when: string) => {
+      actions.forEach((y: ITurnAction) => {
+        if (conditions.includes(y.condition)) {
+          accum[when] = accum[when] ? accum[when].concat(y) : [y]
+        }
+      })
+    }
+    if (phase.length) {
+      addToAccum(phase, key)
+    }
     return accum
   }, startVal)
-
   return reminders
 }
-
-/**
- * Check to see if we've already added this rule for a different unit
- * If so, combine the entries
- * We use Immer to make sure we don't accidently mutate anything
- * @param phase
- * @param action
- */
-const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => {
-  // If this is the first action for a given phase, just return it
-  if (!phase.length) {
-    phase.push(action)
-    return phase
-  }
-
-  // See if we can find a matching action already in the phase
-  const idx = phase.findIndex(x => x.name === action.name)
-
-  // If there's not a matching action, add this action to the existing phase
-  if (idx === -1) {
-    phase.concat(action)
-    return phase
-  }
-
-  // If there is a matching action, merge the entries!
-  // Split the string in order to sort alphabetically in case of multiple matches :)
-  const sep = `, `
-  phase[idx].condition = join(sortBy(split(phase[idx].condition, sep).concat(action.condition)), sep)
-  return phase
-})
