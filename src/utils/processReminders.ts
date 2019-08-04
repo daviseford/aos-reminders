@@ -12,7 +12,7 @@ type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
   selections: ISelections,
-  realmscape_feature: string,
+  realmscape_feature: string | null,
   allyData: Array<{
     allyArmy: IArmy
     allySelections: IAllySelections
