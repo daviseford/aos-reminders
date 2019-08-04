@@ -1,3 +1,9 @@
+[![Codeship Status for daviseford/aos-reminders](https://app.codeship.com/projects/c0b303b0-94f9-0137-ac21-1aa1838f71d2/status?branch=master)](https://app.codeship.com/projects/357042)
+
+## Discord
+
+[https://discord.gg/2nt9Fxp](https://discord.gg/2nt9Fxp)
+
 ## How to Contribute
 
 If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
@@ -38,10 +44,6 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [T-Nightingale](https://github.com/T-Nightingale)
   + Added Print button
 
-## Discord
-
-https://discord.gg/2nt9Fxp
-
 ## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -67,8 +69,6 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-_Note: We currently do not have any unit tests. Don't worry about this command for now_
 
 ### `yarn build`
 
@@ -96,8 +96,6 @@ I have set this repository up to automatically take care of some chores when you
 4. Finally, we use `pretty-quick` to format the code according to the repository standards.
 
 ## Deployment
-
-[![Codeship Status for daviseford/aos-reminders](https://app.codeship.com/projects/c0b303b0-94f9-0137-ac21-1aa1838f71d2/status?branch=master)](https://app.codeship.com/projects/357042)
 
 This repository is automatically deployed using CodeShip.
 
