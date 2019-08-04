@@ -4,7 +4,7 @@ import { titleCase } from './titleCase'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy } from 'types/army'
+import { IArmy, TAllyData } from 'types/army'
 import { IEffects, IReminder, ITurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 
@@ -13,10 +13,7 @@ type TProcessReminders = (
   factionName: TSupportedFaction,
   selections: ISelections,
   realmscape_feature: string | null,
-  allyData: Array<{
-    allyArmy: IArmy
-    allySelections: IAllySelections
-  }>
+  allyData: TAllyData
 ) => IReminder
 
 export const processReminders: TProcessReminders = (army, factionName, selections, realmscape_feature, allyData) => {

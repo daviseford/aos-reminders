@@ -1,6 +1,5 @@
-import { STORMCAST_ETERNALS } from '../meta/factions'
 import { IArmy } from '../types/army'
-import { ISelections } from '../types/selections'
+import { ISelections, IAllySelections } from '../types/selections'
 
 interface ISelectionsFactoryOptions {
   artifacts?: string[]
@@ -15,3 +14,5 @@ export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelectio
   const { artifacts = [], battalions = [], endless_spells = [], spells = [], traits = [], units = [] } = options
   return { artifacts, battalions, endless_spells, spells, traits, units }
 }
+
+export const allySelectionsFactory = (units: string[] = []): IAllySelections => ({ units })
