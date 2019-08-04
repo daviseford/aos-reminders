@@ -64,9 +64,31 @@ const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   const { items, name } = props
   if (!items.length) return null
   const title = items.length > 1 ? `${name}s` : name
+  const wrapLimit = 70
+  const itemsText = items.reduce(
+    (a, b, i) => {
+      if (i === 0) return a
+      if (a.lineLength + 3 + b.length > wrapLimit) {
+        a.lineLength = b.length
+        a.index = a.index + 1
+        a.text[a.index] = b
+      } else {
+        a.lineLength = a.lineLength + b.length
+        a.text[a.index] = `${a.text[a.index]} | ${b}`
+      }
+      return a
+    },
+    { text: [items[0]], lineLength: title.length + 2, index: 0 }
+  )
   return (
-    <div className="col mx-5 px-5 text-wrap">
-      <strong>{title}:</strong> {items.join(' | ')}
+    <div className="col px-5">
+      <strong>{title}:</strong>{' '}
+      {itemsText.text.map(line => (
+        <>
+          {line}
+          <br />
+        </>
+      ))}
     </div>
   )
 }
