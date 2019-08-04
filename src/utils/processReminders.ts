@@ -77,7 +77,7 @@ const processConditions = (game: TGameStructure, selections: ISelections | IAlly
 
     game[when].forEach((action: ITurnAction) => {
       if (conditions.includes(action.condition)) {
-        accum[when] = processCondition(accum[when] || [], action)
+        accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
       }
     })
 
@@ -95,12 +95,6 @@ const processConditions = (game: TGameStructure, selections: ISelections | IAlly
  * @param action
  */
 const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => {
-  // If this is the first action for a given phase, just return it
-  if (!phase.length) {
-    phase.push(action)
-    return phase
-  }
-
   // See if we can find a matching action already in the phase
   const idx = phase.findIndex(x => x.name === action.name)
 
