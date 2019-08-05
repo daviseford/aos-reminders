@@ -90,13 +90,19 @@ const getTitle = ({
 const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
   const { isVisible, setVisibility } = props
   const VisibilityComponent = isVisible ? MdVisibility : MdVisibilityOff
-  const hideTip = `${isVisible ? `Hidden rules` : `This rule`} will not be printed.`
+  const tipProps = {
+    'data-for': `reminderTooltip`,
+    'data-tip': isVisible ? `Click to hide this rule.` : `This rule will not be printed.`,
+    'data-type': `info`,
+  }
   return (
     <>
-      <IconContext.Provider value={{ size: '1.3em' }}>
-        <VisibilityComponent onClick={setVisibility} data-tip={hideTip} />
-        <ReactTooltip place="bottom" type="info" effect="float" />
-      </IconContext.Provider>
+      <div {...tipProps}>
+        <IconContext.Provider value={{ size: '1.4em' }}>
+          <VisibilityComponent onClick={setVisibility} />
+        </IconContext.Provider>
+        <ReactTooltip id={`reminderTooltip`} />
+      </div>
     </>
   )
 }
