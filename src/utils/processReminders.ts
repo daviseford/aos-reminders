@@ -93,7 +93,7 @@ const processConditions = (game: TGameStructure, selections: ISelections | IAlly
  */
 const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => {
   // See if we can find a matching action already in the phase
-  const idx = phase.findIndex(x => x.name === action.name)
+  const idx = phase.findIndex(x => x.name === action.name && x.desc === action.desc)
 
   // If there's not a matching action, add this action to the existing phase
   if (idx === -1) {
@@ -103,7 +103,17 @@ const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => 
 
   // If there is a matching action, merge the entries!
   // Split the string in order to sort alphabetically in case of multiple matches :)
-  const sep = `, `
-  phase[idx].condition = join(sortBy(split(phase[idx].condition, sep).concat(action.condition)), sep)
+  phase[idx].condition = addToString(phase[idx].condition, action.condition)
   return phase
 })
+
+/**
+ * Given a string, adds a new entry by
+ * splitting on a seperator and alphabetizing the result
+ * @param existingString
+ * @param newString
+ * @param sep
+ */
+export const addToString = (existingString: string, newString: string, sep: string = `, `) => {
+  return join(sortBy(split(existingString, sep).concat(newString)), sep)
+}
