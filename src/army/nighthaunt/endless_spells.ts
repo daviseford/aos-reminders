@@ -13,7 +13,7 @@ export const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `Shyish Reaper is a predatory endless spell. It can move up to 8" and can fly.`,
+        desc: `Shyish Reaper can move up to 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -46,7 +46,7 @@ After this model has moved, roll a dice for each model that it moved over (inclu
       },
       {
         name: `Predatory`,
-        desc: `Vault of Souls is a predatory endless spell. It can move 8" and can fly.`,
+        desc: `Vault of Souls can move 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -76,7 +76,7 @@ After this model has moved, roll a dice for each model that it moved over (inclu
       },
       {
         name: `Predatory`,
-        desc: `Mortalis Terminexus is a predatory endless spell. It can move 8" and can fly.`,
+        desc: `Mortalis Terminexus can move 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {

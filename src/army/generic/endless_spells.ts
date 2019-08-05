@@ -103,7 +103,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `A Malevolent Maelstrom is a predatory endless spell. It can move up to 8" and can fly.`,
+        desc: `A Malevolent Maelstrom can move up to 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -158,7 +158,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `The Purple Sun of Shyish is a predatory endless spell. It can move up to 9" and can fly.`,
+        desc: `The Purple Sun of Shyish can move up to 9" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -193,7 +193,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `Quicksilver Swords is a predatory endless spell. It can move up to 8" and can fly.`,
+        desc: `Quicksilver Swords can move up to 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -223,7 +223,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `Ravenak's Gnashing Jaws is a predatory endless spell. It can move up to 12" and can fly.`,
+        desc: `Ravenak's Gnashing Jaws can move up to 12" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -278,7 +278,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `A Suffocating Gravetide is a predatory endless spell. It can move up to 8" and can fly.`,
+        desc: `A Suffocating Gravetide can move up to 8" and can fly.`,
         when: [HERO_PHASE],
       },
       {
@@ -318,7 +318,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `The Burning Head is a predatory endless spell. It can move up to 9" and can fly.`,
+        desc: `The Burning Head can move up to 9" and can fly.`,
         when: [HERO_PHASE],
       },
       {
