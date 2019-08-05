@@ -35,7 +35,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Predatory`,
-        desc: `Vermintide is a predatory endless spell. It can move up to 7".`,
+        desc: `Vermintide can move up to 7".`,
         when: [START_OF_ROUND],
       },
       {
@@ -70,7 +70,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Predatory`,
-        desc: `Bell of Doom is a predatory endless spell. It can move up to 13" and can fly.`,
+        desc: `Bell of Doom can move up to 13" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
