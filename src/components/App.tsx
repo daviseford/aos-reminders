@@ -18,7 +18,10 @@ interface IAppProps {
 
 const App = (props: IAppProps) => {
   const { factionName, resetSelections } = props
-  logPageView()
+
+  useEffect(() => {
+    logPageView()
+  }, [])
 
   // Reset the store when factionName is switched
   useEffect(() => {
