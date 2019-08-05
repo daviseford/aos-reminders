@@ -33,7 +33,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Predatory`,
-        desc: `Wheels of Excruciation can move up to 6" and can fly.`,
+        desc: `Mesmerising Mirror can move up to 6" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
@@ -60,7 +60,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Predatory`,
-        desc: `Wheels of Excruciation can move up to 8" and can fly.`,
+        desc: `Dreadful Visage can move up to 8" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
