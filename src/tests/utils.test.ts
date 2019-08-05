@@ -1,9 +1,17 @@
 import { selectionsFactory, allySelectionsFactory } from './__mock'
-import { processReminders } from 'utils/processReminders'
+import { processReminders, addToString } from 'utils/processReminders'
 import seraphon from 'army/seraphon'
 import ironjawz from 'army/ironjawz'
 import sylvaneth from 'army/sylvaneth'
-import { STORMCAST_ETERNALS, BEASTCLAW_RAIDERS, DISPOSSESSED, IRONJAWZ, SERAPHON, SYLVANETH } from '../meta/factions'
+import {
+  STORMCAST_ETERNALS,
+  BEASTCLAW_RAIDERS,
+  DISPOSSESSED,
+  IRONJAWZ,
+  SERAPHON,
+  SYLVANETH,
+  EVERCHOSEN,
+} from '../meta/factions'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { getArmy } from '../utils/getArmy'
 import { IArmy, TAllyData } from '../types/army'
@@ -11,6 +19,7 @@ import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 't
 import artifacts from 'army/grand_alliances/destruction/artifacts'
 import { Battalions } from 'army/stormcast_eternals/units'
 import { ITurnAction } from 'types/data'
+import { GenericEndlessSpells } from 'army/generic'
 
 describe('processReminder', () => {
   it('should work with no selections', () => {
@@ -50,6 +59,22 @@ describe('processReminder', () => {
     const skyboltBow = reminders[SHOOTING_PHASE].find(({ name }) => name === 'Skybolt Bow')
     expect(skyboltBow).toBeDefined()
     expect(skyboltBow && skyboltBow.condition).toEqual('Drakesworn Templar')
+  })
+
+  it('should not merge abilities with the same name but different descriptions (issue #186)', () => {
+    const endless_spells = GenericEndlessSpells.filter(x => x.effects.some(y => y.name === 'Predatory'))
+      .map(x => x.name)
+      .slice(0, 3)
+    const army = getArmy(EVERCHOSEN) as IArmy
+    const selections = selectionsFactory({ endless_spells })
+    const reminders = processReminders(army, EVERCHOSEN, selections, null, [])
+
+    expect(reminders[HERO_PHASE].filter(x => x.name === 'Predatory').length).toEqual(3)
+
+    const mergedAbility = reminders[HERO_PHASE].find(
+      ({ condition }) => condition === addToString(``, endless_spells.join(`, `))
+    )
+    expect(mergedAbility).toBeUndefined()
   })
 
   it('should work with a loaded army,  multiple allies, and realmscape', () => {
