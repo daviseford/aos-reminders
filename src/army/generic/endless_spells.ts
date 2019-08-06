@@ -18,7 +18,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Balewind Vortex`,
-        desc: `Summon Balewind Vortex has a casting value of 6. Wizards with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. If successfully cast, set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
+        desc: `Casting value of 6. Wizards with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. If successfully cast, set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
         when: [HERO_PHASE],
       },
       {
@@ -38,7 +38,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Emerald Lifeswarm`,
-        desc: `Summon Emerald Lifeswarm has a casting value of 6. If successfully cast, set up an Emerald Lifeswarm model wholly within 15" of the caster.`,
+        desc: `Casting value of 6. If successfully cast, set up an Emerald Lifeswarm model wholly within 15" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -63,7 +63,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Geminids of Uhl-Gysh`,
-        desc: `Summon Geminids of Uhl-Gysh has a casting value of 7. If successfully cast, set up both models within 6" of each other and both wholly within 18" of the caster. You must then nominate one model to be the Light Geminid and the other to be the Shadow Geminid.`,
+        desc: `Casting value of 7. If successfully cast, set up both models within 6" of each other and both wholly within 18" of the caster. You must then nominate one model to be the Light Geminid and the other to be the Shadow Geminid.`,
         when: [HERO_PHASE],
       },
       {
