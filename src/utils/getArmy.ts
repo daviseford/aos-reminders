@@ -1,5 +1,5 @@
+import produce from 'immer'
 import { sortBy } from 'lodash'
-import { ArmyList } from 'meta/army_list'
 import { processGame } from './processGame'
 
 import { GenericEndlessSpells, GenericSpells } from 'army/generic/index'
@@ -15,11 +15,11 @@ import {
   OrderTraits,
 } from 'army/grand_alliances'
 
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
+import { ArmyList } from 'meta/army_list'
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { TCommandTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { TRealms } from 'types/realmscapes'
-import produce from 'immer'
 
 export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
   if (!factionName || !SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
