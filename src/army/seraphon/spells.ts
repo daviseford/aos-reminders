@@ -87,7 +87,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Celestial Deliverance`,
-        desc: `The caster can attempt to cast this spell up to three times in the same hero phase. Celestial Deliverance has a casting value of 8 the first time it is attempted in a hero phase, a casting value of 9 the second time it is attempted in a hero phase, and a casting value of 10 the third time it is attempted in a hero phase. Each time the spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll a dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a Chaos Daemon unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
+        desc: `The caster can attempt to cast this spell up to three times in the same hero phase. Casting value of 8 the first time it is attempted in a hero phase, a casting value of 9 the second time it is attempted in a hero phase, and a casting value of 10 the third time it is attempted in a hero phase. Each time the spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll a dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a Chaos Daemon unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
