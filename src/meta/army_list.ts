@@ -51,7 +51,7 @@ import Sylvaneth from 'army/sylvaneth'
 import TamurkhansHorde from 'army/tamurkhans_horde'
 import Tzeentch from 'army/tzeentch'
 
-const ArmyList: TArmyList = {
+export const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
@@ -144,16 +144,6 @@ const ArmyList: TArmyList = {
     Army: { ...Tzeentch },
     GrandAlliance: CHAOS,
   },
-}
-
-/**
- * Using this lookup function removes the possibility of accidentally
- * mutating the ArmyList and causing weird bugs
- * @param factionName
- */
-export const armyListLookup = (factionName: TSupportedFaction): IArmyListEntry => {
-  const entry = ArmyList[factionName]
-  return { Army: { ...entry.Army }, GrandAlliance: `${entry.GrandAlliance}` as TGrandAlliances }
 }
 
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
