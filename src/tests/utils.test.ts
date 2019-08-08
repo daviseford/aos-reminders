@@ -16,9 +16,7 @@ import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { getArmy } from '../utils/getArmy'
 import { IArmy, TAllyData } from '../types/army'
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import artifacts from 'army/grand_alliances/destruction/artifacts'
-import { Battalions } from 'army/stormcast_eternals/units'
-import { ITurnAction } from 'types/data'
+import { ITurnAction, IEntry } from 'types/data'
 import { GenericEndlessSpells } from 'army/generic'
 import { sortBy } from 'lodash'
 
@@ -90,6 +88,7 @@ describe('processReminder', () => {
     ]
     const army = getArmy(SYLVANETH) as IArmy
 
+    const allegiances = sylvaneth.Allegiances[0]
     const artifact = sylvaneth.Artifacts[0]
     const battalion = sylvaneth.Battalions[0]
     const endless_spells = sylvaneth.EndlessSpells[0]
@@ -99,6 +98,7 @@ describe('processReminder', () => {
     const unit = sylvaneth.Units[0]
 
     const selections = selectionsFactory({
+      allegiances: [allegiances.name],
       artifacts: [artifact.name],
       battalions: [battalion.name],
       endless_spells: [endless_spells.name],
@@ -109,7 +109,17 @@ describe('processReminder', () => {
     const realmscape_feature = RealmscapeFeatures[0]
     const reminders = processReminders(army, SYLVANETH, selections, realmscape_feature.name, allyData)
 
-    const testEntries = [trait, unit, artifact, battalion, endless_spells, spell1, spell2, ...allyUnits]
+    const testEntries = [
+      allegiances,
+      trait,
+      unit,
+      artifact,
+      battalion,
+      endless_spells,
+      spell1,
+      spell2,
+      ...allyUnits,
+    ]
     testEntries.forEach(entry => {
       const effect = reminders[entry.effects[0].when[0]].find(({ condition }) => condition === entry.name)
       expect(effect).toBeDefined()
@@ -124,7 +134,9 @@ describe('processReminder', () => {
     expect((abilityEffect as ITurnAction).condition).toEqual(`Sylvaneth Allegiance`)
 
     // Check for Realmscape info
-    const realmscapeEffect = reminders[realmscape_feature.when[0]].find(({ name }) => name === realmscape_feature.name)
+    const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
+      ({ name }) => name === realmscape_feature.name
+    )
     expect(realmscapeEffect).toBeDefined()
     expect((realmscapeEffect as ITurnAction).condition).toEqual('Realmscape Feature')
   })
@@ -141,5 +153,17 @@ describe('getArmy', () => {
     const army2 = getArmy(EVERCHOSEN) as IArmy
     const armyEndlessSpells2 = sortBy(army2.EndlessSpells.map(x => x.name))
     expect(armyEndlessSpells2).toEqual(endlessSpellList)
+  })
+
+  it('adds Allegiances to every army', () => {
+    const numEntries = sylvaneth.Allegiances.length
+    const army1 = getArmy(SYLVANETH) as IArmy
+
+    expect(army1.Allegiances).toBeDefined()
+    expect((army1.Allegiances as IEntry[]).length).toEqual(numEntries)
+
+    const army2 = getArmy(SERAPHON) as IArmy
+    expect(army2.Allegiances).toBeDefined()
+    expect((army2.Allegiances as IEntry[]).length).toEqual(0)
   })
 })

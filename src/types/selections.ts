@@ -1,4 +1,5 @@
 export interface ISelections {
+  allegiances: string[]
   artifacts: string[]
   battalions: string[]
   endless_spells: string[]

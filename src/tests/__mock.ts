@@ -1,7 +1,7 @@
-import { IArmy } from '../types/army'
 import { ISelections, IAllySelections } from '../types/selections'
 
 interface ISelectionsFactoryOptions {
+  allegiances?: string[]
   artifacts?: string[]
   battalions?: string[]
   endless_spells?: string[]
@@ -11,8 +11,16 @@ interface ISelectionsFactoryOptions {
 }
 
 export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelections => {
-  const { artifacts = [], battalions = [], endless_spells = [], spells = [], traits = [], units = [] } = options
-  return { artifacts, battalions, endless_spells, spells, traits, units }
+  const {
+    allegiances = [],
+    artifacts = [],
+    battalions = [],
+    endless_spells = [],
+    spells = [],
+    traits = [],
+    units = [],
+  } = options
+  return { allegiances, artifacts, battalions, endless_spells, spells, traits, units }
 }
 
 export const allySelectionsFactory = (units: string[] = []): IAllySelections => ({ units })

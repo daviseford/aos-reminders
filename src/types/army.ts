@@ -10,10 +10,7 @@ export type TAllyData = {
 }[]
 
 export type TAbilities = IEffects[]
-export type TAllegiances = {
-  type: string
-  entries: IEntry[]
-}
+export type TAllegiances = IEntry[]
 export type TArtifacts = IEntry[]
 export type TBattalions = IEntry[]
 export type TTraits = IEntry[]

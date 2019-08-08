@@ -21,7 +21,10 @@ import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { TTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
-export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
+export const getArmy = (
+  factionName: TSupportedFaction | null,
+  realmscape: TRealms | null = null
+): IArmy | null => {
   if (!factionName || !SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName]
@@ -36,14 +39,23 @@ interface IModifyArmyMeta {
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const { Artifacts, Battalions, EndlessSpells, Spells, Traits, Units } = Army
+  const { Artifacts, Allegiances = [], Battalions, EndlessSpells, Spells, Traits, Units } = Army
   const { realmscape, GrandAlliance } = meta
 
+  Army.Allegiances = Allegiances
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
   Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
-  Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits, Army.Spells, Army.EndlessSpells])
+  Army.Game = processGame([
+    Army.Allegiances,
+    Army.Artifacts,
+    Army.EndlessSpells,
+    Army.Spells,
+    Army.Traits,
+    Battalions,
+    Units,
+  ])
 
   return Army
 })
