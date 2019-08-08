@@ -6,4 +6,4 @@ import EndlessSpells from './endless_spells'
 import Spells from './spells'
 import Traits from './traits'
 
-export default { Abilities, Allegiances, Artifacts, Battalions, Traits, Units, Spells, EndlessSpells }
+export default { Abilities, Allegiances, Artifacts, Battalions, EndlessSpells, Spells, Traits, Units }
