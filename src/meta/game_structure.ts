@@ -11,6 +11,42 @@ export const Game: TGameStructure = {
   [Phases.END_OF_SETUP]: [],
   [Phases.DURING_GAME]: [],
 
+  // Any Turn/Round Actions
+  [Phases.START_OF_TURN]: [],
+  [Phases.START_OF_ROUND]: [],
+  [Phases.DURING_TURN]: [],
+  [Phases.DURING_ROUND]: [],
+
+  // General Hero Phase
+  [Phases.START_OF_HERO_PHASE]: [],
+  [Phases.HERO_PHASE]: [],
+  [Phases.END_OF_HERO_PHASE]: [],
+  // General Movement Phase
+  [Phases.START_OF_MOVEMENT_PHASE]: [],
+  [Phases.MOVEMENT_PHASE]: [],
+  [Phases.END_OF_MOVEMENT_PHASE]: [],
+  // General Shooting Phase
+  [Phases.START_OF_SHOOTING_PHASE]: [],
+  [Phases.SHOOTING_PHASE]: [],
+  [Phases.END_OF_SHOOTING_PHASE]: [],
+  // General Charging Phase
+  [Phases.START_OF_CHARGE_PHASE]: [],
+  [Phases.CHARGE_PHASE]: [],
+  [Phases.END_OF_CHARGE_PHASE]: [],
+  // General Combat Phase
+  [Phases.START_OF_COMBAT_PHASE]: [],
+  [Phases.COMBAT_PHASE]: [],
+  [Phases.END_OF_COMBAT_PHASE]: [],
+  // General Battleshock Phase
+  [Phases.START_OF_BATTLESHOCK_PHASE]: [],
+  [Phases.BATTLESHOCK_PHASE]: [],
+  [Phases.END_OF_BATTLESHOCK_PHASE]: [],
+  // Any Turn/Round End
+  [Phases.END_OF_ROUND]: [],
+  [Phases.END_OF_TURN]: [],
+  // Game End
+  [Phases.END_OF_GAME]: [],
+
   // Per-turn actions
   [Phases.TURN_ONE_START_OF_TURN]: [],
   [Phases.TURN_ONE_START_OF_ROUND]: [],
@@ -171,41 +207,4 @@ export const Game: TGameStructure = {
   // Turn End
   [Phases.TURN_FIVE_END_OF_TURN]: [],
   [Phases.TURN_FIVE_END_OF_ROUND]: [],
-
-  // Any Turn Actions
-  [Phases.START_OF_TURN]: [],
-  [Phases.START_OF_ROUND]: [],
-  [Phases.DURING_TURN]: [],
-  [Phases.DURING_ROUND]: [],
-  // Round Actions
-
-  // Hero
-  [Phases.START_OF_HERO_PHASE]: [],
-  [Phases.HERO_PHASE]: [],
-  [Phases.END_OF_HERO_PHASE]: [],
-  // Movement
-  [Phases.START_OF_MOVEMENT_PHASE]: [],
-  [Phases.MOVEMENT_PHASE]: [],
-  [Phases.END_OF_MOVEMENT_PHASE]: [],
-  // Shooting
-  [Phases.START_OF_SHOOTING_PHASE]: [],
-  [Phases.SHOOTING_PHASE]: [],
-  [Phases.END_OF_SHOOTING_PHASE]: [],
-  // Charging
-  [Phases.START_OF_CHARGE_PHASE]: [],
-  [Phases.CHARGE_PHASE]: [],
-  [Phases.END_OF_CHARGE_PHASE]: [],
-  // Combat
-  [Phases.START_OF_COMBAT_PHASE]: [],
-  [Phases.COMBAT_PHASE]: [],
-  [Phases.END_OF_COMBAT_PHASE]: [],
-  // Battleshock
-  [Phases.START_OF_BATTLESHOCK_PHASE]: [],
-  [Phases.BATTLESHOCK_PHASE]: [],
-  [Phases.END_OF_BATTLESHOCK_PHASE]: [],
-  // Turn End
-  [Phases.END_OF_ROUND]: [],
-  [Phases.END_OF_TURN]: [],
-  // Game End
-  [Phases.END_OF_GAME]: [],
 }
