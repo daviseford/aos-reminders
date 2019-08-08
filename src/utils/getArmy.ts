@@ -43,14 +43,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
   Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
-  Army.Game = processGame([
-    Units,
-    Battalions,
-    Army.Artifacts,
-    Army.Traits,
-    modifySpells(Spells, realmscape),
-    modifyEndlessSpells(EndlessSpells),
-  ])
+  Army.Game = processGame([Units, Battalions, Army.Artifacts, Army.Traits, Army.Spells, Army.EndlessSpells])
 
   return Army
 })
