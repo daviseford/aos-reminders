@@ -7,19 +7,21 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy, TSpells, TEndlessSpells } from 'types/army'
+import { IArmy, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IEntry } from 'types/data'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
-  realmscape: TRealms | null
   realmscape_feature: string | null
+  realmscape: TRealms | null
   selections: ISelections
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
+  updateAllegiances: (values: string[]) => void
   updateArmy: (army: IArmy) => void
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
@@ -31,7 +33,7 @@ interface IArmyBuilderProps {
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
-  const { artifacts, battalions, endless_spells, spells, traits, units } = selections
+  const { allegiances, artifacts, battalions, endless_spells, spells, traits, units } = selections
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
@@ -40,6 +42,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   }, [army, updateArmy])
 
   // Might want to useCallback these guys
+  const handleAllegiances = withSelectMultiple(props.updateAllegiances)
   const handleArtifacts = withSelectMultiple(props.updateArtifacts)
   const handleBattalions = withSelectMultiple(props.updateBattalions)
   const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
@@ -62,11 +65,27 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
         <div className="col card-group mx-auto">
           <CardComponent items={unitItems} values={units} type={'Unit'} setValues={handleUnits} />
           <CardComponent items={army.Traits} type={'Trait'} values={traits} setValues={handleTraits} />
-          <CardComponent items={army.Artifacts} type={'Artifact'} values={artifacts} setValues={handleArtifacts} />
-          <CardComponent items={battalionItems} values={battalions} type={'Battalion'} setValues={handleBattalions} />
-          <CardComponent items={army.Spells as TSpells} values={spells} type={'Spell'} setValues={handleSpells} />
           <CardComponent
-            items={army.EndlessSpells as TEndlessSpells}
+            items={army.Artifacts}
+            type={'Artifact'}
+            values={artifacts}
+            setValues={handleArtifacts}
+          />
+          <CardComponent
+            items={battalionItems}
+            values={battalions}
+            type={'Battalion'}
+            setValues={handleBattalions}
+          />
+          <CardComponent
+            items={army.Allegiances as TAllegiances}
+            values={allegiances}
+            type={'Allegiance'}
+            setValues={handleAllegiances}
+          />
+          <CardComponent items={army.Spells} values={spells} type={'Spell'} setValues={handleSpells} />
+          <CardComponent
+            items={army.EndlessSpells}
             values={endless_spells}
             type={'Endless Spell'}
             setValues={handleEndlessSpells}
@@ -100,6 +119,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
+  updateAllegiances: selections.actions.updateAllegiances,
   updateArmy: army.actions.updateArmy,
   updateArtifacts: selections.actions.updateArtifacts,
   updateBattalions: selections.actions.updateBattalions,
