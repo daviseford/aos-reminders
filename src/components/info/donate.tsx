@@ -75,7 +75,13 @@ const DisplayWallet = ({ ethActive, btcActive }: { ethActive: boolean; btcActive
 const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; setCopied: () => void }) => {
   return (
     <div className="input-group">
-      <input type="text" className="form-control" aria-label="Copy to clipboard" value={currentWallet} disabled />
+      <input
+        type="text"
+        className="form-control"
+        aria-label="Copy to clipboard"
+        value={currentWallet}
+        disabled
+      />
       <div className="input-group-append">
         <CopyToClipboard text={currentWallet} onCopy={setCopied}>
           <button className="btn btn-light">

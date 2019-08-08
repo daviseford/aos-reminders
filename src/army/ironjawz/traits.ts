@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Hulking Muscle-bound Brute`,
     effects: [

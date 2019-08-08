@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,7 +14,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Master of Death (Grand Host of Nagash)`,
     effects: [
@@ -411,8 +411,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `The Master's Teachings (Legin of Sacrament)`,
-        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a dice, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.
-`,
+        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a dice, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
         when: [DURING_GAME],
       },
     ],

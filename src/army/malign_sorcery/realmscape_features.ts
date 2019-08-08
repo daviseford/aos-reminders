@@ -160,9 +160,21 @@ const RealmscapeFeatures: IEffects[] = [
     desc: `One friendly WIZARD can craft an aetherquartz prism instead of attempting to cast any spells in that phase. If they do so, they can attempt to cast one extra spell in each of their future hero phases, and attempt to unbind one extra spell in each future enemy hero phase. A WIZARD cannot craft more than one aetherquartz prism per battle (though your other wizards can do so in future hero phases).`,
     when: [HERO_PHASE],
   },
-  { name: `Impenetrable Gloom (${ULGU})`, desc: `The maximum range of attacks or spells is 6".`, when: [DURING_GAME] },
-  { name: `Perpetual Dusk (${ULGU})`, desc: `The maximum range of attacks or spells is 12".`, when: [DURING_GAME] },
-  { name: `Darkly Shaded (${ULGU})`, desc: `The maximum range of attacks or spells is 18".`, when: [DURING_GAME] },
+  {
+    name: `Impenetrable Gloom (${ULGU})`,
+    desc: `The maximum range of attacks or spells is 6".`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Perpetual Dusk (${ULGU})`,
+    desc: `The maximum range of attacks or spells is 12".`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Darkly Shaded (${ULGU})`,
+    desc: `The maximum range of attacks or spells is 18".`,
+    when: [DURING_GAME],
+  },
   {
     name: `Shadowed Mansions (${ULGU})`,
     desc: `Pick one friendly unit that is part of a garrison. You can immediately transfer that unit to a different terrain feature that can have a garrison. The unit cannot be transferred to a terrain feature that is garrisoned by an enemy unit, or if doing so would result in the number of models that can garrison the terrain feature being exceeded. Then roll a dice for each model you transfer; on a 1 the model being rolled for becomes lost in the shadows and is slain.`,

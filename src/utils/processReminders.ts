@@ -16,7 +16,13 @@ type TProcessReminders = (
   allyData: TAllyData
 ) => IReminder
 
-export const processReminders: TProcessReminders = (army, factionName, selections, realmscape_feature, allyData) => {
+export const processReminders: TProcessReminders = (
+  army,
+  factionName,
+  selections,
+  realmscape_feature,
+  allyData
+) => {
   let reminders = processConditions(army.Game, selections, {})
 
   if (allyData.length) {
@@ -66,7 +72,11 @@ export const processReminders: TProcessReminders = (army, factionName, selection
   return ordered
 }
 
-const processConditions = (game: TGameStructure, selections: ISelections | IAllySelections, startVal = {}) => {
+const processConditions = (
+  game: TGameStructure,
+  selections: ISelections | IAllySelections,
+  startVal = {}
+) => {
   const conditions = flatten(Object.values(selections))
 
   const reminders = Object.keys(game).reduce((accum: { [key: string]: ITurnAction[] }, when) => {

@@ -1,5 +1,5 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 
-const CommandTraits: TCommandTraits = []
+const CommandTraits: TTraits = []
 
 export default CommandTraits

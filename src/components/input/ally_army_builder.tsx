@@ -43,7 +43,9 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
   const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
 
-  const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', { factionName: allyFactionName })
+  const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', {
+    factionName: allyFactionName,
+  })
 
   const setAllyName = withSelectOneWithPayload(switchAllyArmy, 'next', { prev: allyFactionName })
   const handleSetAllyFactionName = useCallback(
@@ -115,7 +117,16 @@ interface IAllyCardProps {
 }
 
 const AllyCardComponent = (props: IAllyCardProps) => {
-  const { items, type, setValues, values, setAllyFactionName, allySelectOptions, allyFactionName, handleClose } = props
+  const {
+    items,
+    type,
+    setValues,
+    values,
+    setAllyFactionName,
+    allySelectOptions,
+    allyFactionName,
+    handleClose,
+  } = props
   const selectItems = items.map(x => x.name)
 
   return (

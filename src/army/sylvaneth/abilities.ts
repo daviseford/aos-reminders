@@ -1,6 +1,12 @@
 import { IEffects } from 'types/data'
 
-import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE, START_OF_SETUP } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
+  MOVEMENT_PHASE,
+  START_OF_SETUP,
+} from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: IEffects[] = [
