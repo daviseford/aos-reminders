@@ -23,7 +23,7 @@ export type TUnits = IEntry[]
 
 export interface IArmyWithoutGame {
   Abilities: TAbilities
-  Allegiances: TAllegiances
+  Allegiances?: TAllegiances
   Artifacts: TArtifacts
   Battalions: TBattalions
   EndlessSpells: TEndlessSpells
