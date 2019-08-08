@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { sortBy } from 'lodash'
 import './army_builder.css'
 import { CardComponent } from 'components/info/card'
 import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
@@ -51,8 +50,6 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const handleTraits = withSelectMultiple(props.updateTraits)
   const handleUnits = withSelectMultiple(props.updateUnits)
 
-  const unitItems = useMemo(() => sortBy(army.Units, 'name'), [army.Units])
-  const battalionItems = useMemo(() => sortBy(army.Battalions, 'name'), [army.Battalions])
   const realmFeatureItems = useMemo(() => {
     let features = RealmscapeFeatures.map(x => x.name)
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
@@ -62,7 +59,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <CardComponent items={unitItems} values={units} type={'Unit'} setValues={handleUnits} />
+          <CardComponent items={army.Units} values={units} type={'Unit'} setValues={handleUnits} />
           <CardComponent items={army.Traits} type={'Trait'} values={traits} setValues={handleTraits} />
           <CardComponent
             items={army.Artifacts}
@@ -71,7 +68,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             setValues={handleArtifacts}
           />
           <CardComponent
-            items={battalionItems}
+            items={army.Battalions}
             values={battalions}
             type={'Battalion'}
             setValues={handleBattalions}
