@@ -10,6 +10,7 @@ type TInitialStateType = {
 
 const initialState: TInitialStateType = {
   selections: {
+    allegiances: [] as string[],
     artifacts: [] as string[],
     battalions: [] as string[],
     endless_spells: [] as string[],
@@ -20,39 +21,42 @@ const initialState: TInitialStateType = {
   allySelections: {},
 }
 
-const resetSelections = (state, action) => {
-  state.selections = initialState.selections
-}
-const resetAllySelections = (state, action) => {
-  state.allySelections = initialState.allySelections
+const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
+  delete state.allySelections[action.payload]
 }
 const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
   state.allySelections[action.payload] = { units: [] as string[] }
 }
-const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  delete state.allySelections[action.payload]
+const resetAllySelections = (state, action) => {
+  state.allySelections = initialState.allySelections
 }
-const updateUnits = (state, action) => {
-  state.selections.units = action.payload
+const resetSelections = (state, action) => {
+  state.selections = initialState.selections
 }
-const updateTraits = (state, action) => {
-  state.selections.traits = action.payload
-}
-const updateBattalions = (state, action) => {
-  state.selections.battalions = action.payload
-}
-const updateArtifacts = (state, action) => {
-  state.selections.artifacts = action.payload
-}
-const updateSpells = (state, action) => {
-  state.selections.spells = action.payload
-}
-const updateEndlessSpells = (state, action) => {
-  state.selections.endless_spells = action.payload
+const updateAllegiances = (state, action) => {
+  state.selections.allegiances = action.payload
 }
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
   state.allySelections[factionName] = { units }
+}
+const updateArtifacts = (state, action) => {
+  state.selections.artifacts = action.payload
+}
+const updateBattalions = (state, action) => {
+  state.selections.battalions = action.payload
+}
+const updateEndlessSpells = (state, action) => {
+  state.selections.endless_spells = action.payload
+}
+const updateSpells = (state, action) => {
+  state.selections.spells = action.payload
+}
+const updateTraits = (state, action) => {
+  state.selections.traits = action.payload
+}
+const updateUnits = (state, action) => {
+  state.selections.units = action.payload
 }
 
 export const selections = createSlice({
@@ -64,6 +68,7 @@ export const selections = createSlice({
     resetAllySelection,
     resetAllySelections,
     resetSelections,
+    updateAllegiances,
     updateAllyUnits,
     updateArtifacts,
     updateBattalions,

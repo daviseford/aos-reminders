@@ -10,7 +10,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Grudgebound`,
-    desc: `After set-up is complete, but before the battle begins, choose or roll for a grudge from the table on the right. The rules for that grudge apply to all friendly DISPOSSESSED units for the duration of the battle.
+    desc: `After set-up is complete, but before the battle begins, choose or roll for a grudge from the table below. The rules for that grudge apply to all friendly DISPOSSESSED units for the duration of the battle.
     
     1 - Stuck-up: You can re-roll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is an enemy HERO. 
     

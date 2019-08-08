@@ -10,20 +10,22 @@ export type TAllyData = {
 }[]
 
 export type TAbilities = IEffects[]
+export type TAllegiances = IEntry[]
 export type TArtifacts = IEntry[]
 export type TBattalions = IEntry[]
-export type TCommandTraits = IEntry[]
+export type TTraits = IEntry[]
 export type TEndlessSpells = IEntry[]
 export type TSpells = IEntry[]
 export type TUnits = IEntry[]
 
 export interface IArmyWithoutGame {
   Abilities: TAbilities
+  Allegiances: TAllegiances
   Artifacts: TArtifacts
   Battalions: TBattalions
-  EndlessSpells?: TEndlessSpells
-  Spells?: TSpells
-  Traits: TCommandTraits
+  EndlessSpells: TEndlessSpells
+  Spells: TSpells
+  Traits: TTraits
   Units: TUnits
   Game?: TGameStructure
 }

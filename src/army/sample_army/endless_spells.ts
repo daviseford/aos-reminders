@@ -2,7 +2,7 @@ import { START_OF_ROUND } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells go here
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: ``,
     effects: [

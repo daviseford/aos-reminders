@@ -1,6 +1,5 @@
-import { TCommandTraits } from 'types/army'
-//import { HERO_PHASE } from 'types/phases'
+import { TTraits } from 'types/army'
 
-const CommandTraits: TCommandTraits = []
+const CommandTraits: TTraits = []
 
 export default CommandTraits

@@ -9,7 +9,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Warp Lightning Vortex (Skaven)`,
     effects: [

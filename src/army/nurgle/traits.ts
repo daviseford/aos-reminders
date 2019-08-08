@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -9,7 +9,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Grandfather's Blessing`,
     effects: [

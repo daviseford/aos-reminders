@@ -18,7 +18,7 @@ interface IPrintHeaderProps {
 const PrintHeaderComponent = (props: IPrintHeaderProps) => {
   if (!props.printing) return null
   const { realmscape_feature, selections, allySelections } = props
-  const { units, battalions, artifacts, traits, spells, endless_spells } = selections
+  const { units, battalions, artifacts, traits, spells, endless_spells, allegiances } = selections
   const realmFeature = realmscape_feature ? [realmscape_feature] : []
   return (
     <>
@@ -39,6 +39,7 @@ const PrintHeaderComponent = (props: IPrintHeaderProps) => {
         <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
         <ItemsDisplayComponent name={'Battalion'} items={battalions} />
         <ItemsDisplayComponent name={'Command Trait'} items={traits} />
+        <ItemsDisplayComponent name={'Allegiances'} items={allegiances} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
         <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
@@ -65,6 +66,7 @@ const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   if (!items.length) return null
   const title = items.length > 1 ? `${name}s` : name
   const wrapLimit = 70
+  // Here be dragons
   const itemsText = items.reduce(
     (a, b, i) => {
       if (i === 0) return a
