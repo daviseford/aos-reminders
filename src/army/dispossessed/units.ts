@@ -1,5 +1,12 @@
 import { TBattalions, TUnits } from 'types/army'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [

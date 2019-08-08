@@ -17,13 +17,19 @@ type TWithSelectOneWithPayload = (
   payload?: object
 ) => (selectValue: ValueType<TDropdownOption> | null) => void
 
-export const withSelectOneWithPayload: TWithSelectOneWithPayload = (method, key, payload = {}) => selectValue => {
+export const withSelectOneWithPayload: TWithSelectOneWithPayload = (
+  method,
+  key,
+  payload = {}
+) => selectValue => {
   if (!selectValue) return method(null)
   const { value } = selectValue as TDropdownOption
   method({ ...payload, [key]: value })
 }
 
-type TWithSelectMultiple = (method: (values: string[]) => void) => (selectValues: ValueType<TDropdownOption>[]) => void
+type TWithSelectMultiple = (
+  method: (values: string[]) => void
+) => (selectValues: ValueType<TDropdownOption>[]) => void
 
 export const withSelectMultiple: TWithSelectMultiple = method => selectValues => {
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []

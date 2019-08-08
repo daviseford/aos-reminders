@@ -3,7 +3,6 @@ let realmArtefacts: any = {}
 let factionEndlessSpells: any = {}
 let alliesByAllegiance: any = {}
 let availablePoolArmies: any = {}
-
 ;(realmArtefacts.Ghyran = [
   'Entangling Blade',
   'Jadewound Thorn',
@@ -104,28 +103,43 @@ let availablePoolArmies: any = {}
   ]),
   (factionEndlessSpells.Nighthaunt = ['Mortalis Terminexus', 'Shyish Reaper', 'Vault of Souls']),
   (factionEndlessSpells['Stormcast Eternals'] = ['Celestian Vortex', 'Dais Arcanum', 'Everblaze Comet']),
-  (factionEndlessSpells['Beasts of Chaos'] = ['Doomblast Dirgehorn', 'Ravening Direflock', 'Wildfire Taurus']),
+  (factionEndlessSpells['Beasts of Chaos'] = [
+    'Doomblast Dirgehorn',
+    'Ravening Direflock',
+    'Wildfire Taurus',
+  ]),
   (factionEndlessSpells['Gloomspite Gitz'] = [
     'Malevolent Moon',
     "Mork's Mighty Mushroom",
     "Scrapskuttle's Arachnacauldron",
     'Scuttletide',
   ]),
-  (factionEndlessSpells['Flesh Eater Courts'] = ['Cadaverous Barricade', 'Chalice of Ushoran', 'Corpsemare Stampede']),
+  (factionEndlessSpells['Flesh Eater Courts'] = [
+    'Cadaverous Barricade',
+    'Chalice of Ushoran',
+    'Corpsemare Stampede',
+  ]),
   (factionEndlessSpells.Skaventide = ['Bell of Doom', 'Vermintide', 'Warp Lightning Vortex']),
   (factionEndlessSpells['Blades of Khorne'] = ['Bleeding Icon', 'Hexgorger Skulls', 'Wrath-Axe']),
   (factionEndlessSpells.Fyreslayers = ['Zharrgron Flame-spitter', 'Runic Fyrewall', 'Molten Infernoth']),
-  (factionEndlessSpells['Hedonites of Slaanesh'] = ['Dreadful Visage', 'Mesmerising Mirror', 'Wheels of Excruciation'])
+  (factionEndlessSpells['Hedonites of Slaanesh'] = [
+    'Dreadful Visage',
+    'Mesmerising Mirror',
+    'Wheels of Excruciation',
+  ])
 let leaderExclusionList = ['Doomseeker', 'Grimwrath Berzerker', 'Karanak']
 var s = "Daemons of Nurgle Nurgle Rotbringers Slaves to Darkness Tamurkhan's Horde",
   o = 'Khorne Bloodbound Daemons of Khorne Slaves to Darkness',
   e = 'Hosts of Slaanesh Daemons of Slaanesh'
 ;(alliesByAllegiance.Brayherd = 'Brayherd Chaos Gargants Monsters of Chaos Thunderscorn Warherds'),
   (alliesByAllegiance.Eshin = 'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
-  (alliesByAllegiance.Pestilens = 'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan ' + s),
-  (alliesByAllegiance.Moulder = 'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
+  (alliesByAllegiance.Pestilens =
+    'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan ' + s),
+  (alliesByAllegiance.Moulder =
+    'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
   (alliesByAllegiance.Skryre = 'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
-  (alliesByAllegiance.Verminus = 'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
+  (alliesByAllegiance.Verminus =
+    'Clan Eshin Clan Moulder Clan Pestilens Clan Skryre Clan Verminus Masterclan'),
   (alliesByAllegiance.Slaanesh = 'Brayherd Chaos Gargants Everchosen Monsters of Chaos Warhderd' + s + e),
   (alliesByAllegiance.Khorne =
     'Khorne Brayherd Chaos Gargants Everchosen Monsters of Chaos Slaves to Darkness Warherd' + s + o),
