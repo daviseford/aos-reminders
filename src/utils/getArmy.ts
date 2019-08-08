@@ -81,7 +81,7 @@ const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TComma
  * @param spells
  * @param realmscape
  */
-const modifySpells = (spells: TSpells = [], realmscape: TRealms | null): TSpells => {
+const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
   const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
   return spells
     .concat(sortBy(realmSpells, 'name'))
@@ -93,7 +93,7 @@ const modifySpells = (spells: TSpells = [], realmscape: TRealms | null): TSpells
  * Modify EndlessSpells for a given Army
  * @param endlessSpells
  */
-const modifyEndlessSpells = (endlessSpells: TEndlessSpells = []): TEndlessSpells => {
+const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
   return endlessSpells.concat(sortBy(GenericEndlessSpells, 'name')).map(e => ({ ...e, endless_spell: true }))
 }
 
