@@ -18,7 +18,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Blood Rites`,
-    desc: `Friendly Daughters of Khaine units gain an ability each battle round based on the current battle round number.  The effects are cumuluative.`,
+    desc: `Friendly Daughters of Khaine units gain an ability each battle round based on the current battle round number.  The effects are cumulative.`,
     when: [START_OF_ROUND],
   },
   {
