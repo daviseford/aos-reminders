@@ -7,12 +7,11 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
+import { IArmy, TAllegiances } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
-import { IEntry } from 'types/data'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
