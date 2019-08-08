@@ -2,7 +2,7 @@ import { HERO_PHASE } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Shyish Reaper`,
     effects: [

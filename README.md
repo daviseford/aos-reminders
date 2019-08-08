@@ -8,7 +8,7 @@
 
 If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
 
-In particular, you'll want to focus on `units.ts`, `artifacts.ts`, `traits.ts`, and `abilities.ts`. 
+In particular, you'll want to focus on `abilities.ts`, `artifacts.ts`, `endless_spells.ts`, `spells.ts`, `traits.ts`, and `units.ts`.
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 

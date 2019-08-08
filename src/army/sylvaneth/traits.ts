@@ -14,7 +14,7 @@ import {
 
 const CommandTraits: TCommandTraits = [
   {
-    name: `Oakenbrow`,
+    name: `Glade: Oakenbrow`,
     effects: [
       {
         name: `Our Roots Run Deep`,
@@ -42,7 +42,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Gnarlroot`,
+    name: `Glade: Gnarlroot`,
     effects: [
       {
         name: `Shield the Arcane`,
@@ -70,7 +70,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Heartwood`,
+    name: `Glade: Heartwood`,
     effects: [
       {
         name: `Courage For Kurnoth`,
@@ -98,7 +98,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Ironbark`,
+    name: `Glade: Ironbark`,
     effects: [
       {
         name: `Stubborn and Taciturn`,
@@ -126,7 +126,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Winterleaf`,
+    name: `Glade: Winterleaf`,
     effects: [
       {
         name: `Winter's Bite`,
@@ -154,7 +154,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Dreadwood`,
+    name: `Glade: Dreadwood`,
     effects: [
       {
         name: `Malicious Tormentors`,
@@ -182,7 +182,7 @@ const CommandTraits: TCommandTraits = [
     ],
   },
   {
-    name: `Harvestboon`,
+    name: `Glade: Harvestboon`,
     effects: [
       {
         name: `Vibrant Surge`,

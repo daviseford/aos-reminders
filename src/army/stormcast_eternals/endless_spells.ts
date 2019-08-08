@@ -2,7 +2,7 @@ import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND, SHOOTING_PHAS
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Celestian Vortex`,
     effects: [

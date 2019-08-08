@@ -20,6 +20,7 @@ import artifacts from 'army/grand_alliances/destruction/artifacts'
 import { Battalions } from 'army/stormcast_eternals/units'
 import { ITurnAction } from 'types/data'
 import { GenericEndlessSpells } from 'army/generic'
+import { sortBy } from 'lodash'
 
 describe('processReminder', () => {
   it('should work with no selections', () => {
@@ -126,5 +127,19 @@ describe('processReminder', () => {
     const realmscapeEffect = reminders[realmscape_feature.when[0]].find(({ name }) => name === realmscape_feature.name)
     expect(realmscapeEffect).toBeDefined()
     expect((realmscapeEffect as ITurnAction).condition).toEqual('Realmscape Feature')
+  })
+})
+
+describe('getArmy', () => {
+  it('adds GenericEndlessSpells to every army', () => {
+    const endlessSpellList = sortBy(GenericEndlessSpells.map(x => x.name))
+    const army = getArmy(EVERCHOSEN) as IArmy
+    const armyEndlessSpells = sortBy(army.EndlessSpells.map(x => x.name))
+    expect(armyEndlessSpells).toEqual(endlessSpellList)
+
+    // Make sure we don't add duplicates (was an issue before using Immer)
+    const army2 = getArmy(EVERCHOSEN) as IArmy
+    const armyEndlessSpells2 = sortBy(army2.EndlessSpells.map(x => x.name))
+    expect(armyEndlessSpells2).toEqual(endlessSpellList)
   })
 })

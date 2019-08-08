@@ -9,7 +9,7 @@ import {
 import { TEndlessSpells } from 'types/army'
 
 // Judgements of Khorne.
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Hexgorger Skulls (Khorne)`,
     effects: [
