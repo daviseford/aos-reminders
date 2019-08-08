@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,7 +14,7 @@ import {
   START_OF_GAME,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Hammers of Sigmar`,
     effects: [

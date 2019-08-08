@@ -1,7 +1,7 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import { HERO_PHASE, COMBAT_PHASE, CHARGE_PHASE, MOVEMENT_PHASE, BATTLESHOCK_PHASE, DURING_GAME } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Nothing Left Standing (Destruction)`,
     effects: [

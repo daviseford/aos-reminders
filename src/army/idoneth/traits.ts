@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -15,7 +15,7 @@ import {
   TURN_TWO_DURING_ROUND,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Merciless Raider`,
     effects: [

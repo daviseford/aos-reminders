@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -10,7 +10,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   // Temple traits, abilities, and artifacts.
   {
     name: `Hagg Nar (Temple)`,

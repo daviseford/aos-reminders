@@ -18,7 +18,7 @@ import {
 import { ORDER, DESTRUCTION, TGrandAlliances, CHAOS, DEATH } from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
-import { TCommandTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
+import { TTraits, TArtifacts, IArmy, TSpells, TEndlessSpells } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
 export const getArmy = (factionName: TSupportedFaction | null, realmscape: TRealms | null = null): IArmy | null => {
@@ -64,7 +64,7 @@ const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArt
  * Modify Traits for a given Army
  * @param entry
  */
-const modifyTraits = (traits: TCommandTraits, alliance: TGrandAlliances): TCommandTraits => {
+const modifyTraits = (traits: TTraits, alliance: TGrandAlliances): TTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
@@ -93,7 +93,7 @@ const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
 type IGrandAllianceConfig = {
   readonly [key in TGrandAlliances]: {
     readonly Artifacts: TArtifacts
-    readonly Traits: TCommandTraits
+    readonly Traits: TTraits
   }
 }
 

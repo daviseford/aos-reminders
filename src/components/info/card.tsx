@@ -1,12 +1,12 @@
 import React from 'react'
-import { TUnits, TArtifacts, TBattalions, TCommandTraits } from 'types/army'
+import { TUnits, TArtifacts, TBattalions, TTraits } from 'types/army'
 import { TDropdownOption, SelectMulti } from '../input/select'
 import { ValueType } from 'react-select/lib/types'
 
 interface ICardProps {
   values: string[]
   type: string
-  items: TUnits | TBattalions | TArtifacts | TCommandTraits
+  items: TUnits | TBattalions | TArtifacts | TTraits
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
 }
 

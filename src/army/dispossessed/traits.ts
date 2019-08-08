@@ -1,7 +1,7 @@
-import { TCommandTraits } from 'types/army'
+import { TTraits } from 'types/army'
 import { HERO_PHASE, DURING_GAME, COMBAT_PHASE } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Resolute`,
     effects: [
