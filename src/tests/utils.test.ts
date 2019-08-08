@@ -110,15 +110,15 @@ describe('processReminder', () => {
     const reminders = processReminders(army, SYLVANETH, selections, realmscape_feature.name, allyData)
 
     const testEntries = [
+      ...allyUnits,
       allegiances,
-      trait,
-      unit,
       artifact,
       battalion,
       endless_spells,
       spell1,
       spell2,
-      ...allyUnits,
+      trait,
+      unit,
     ]
     testEntries.forEach(entry => {
       const effect = reminders[entry.effects[0].when[0]].find(({ condition }) => condition === entry.name)
