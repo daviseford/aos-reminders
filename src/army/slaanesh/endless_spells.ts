@@ -2,7 +2,7 @@ import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/p
 import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Wheels of Excruciation (Slaanesh)`,
     effects: [
