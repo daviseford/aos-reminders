@@ -12,7 +12,7 @@ import {
 
 const Allegiances: TAllegiances = [
   {
-    name: `Oakenbrow`,
+    name: `Oakenbrow (Glade)`,
     effects: [
       {
         name: `Our Roots Run Deep`,
@@ -40,7 +40,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Gnarlroot`,
+    name: `Gnarlroot (Glade)`,
     effects: [
       {
         name: `Shield the Arcane`,
@@ -68,7 +68,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Heartwood`,
+    name: `Heartwood (Glade)`,
     effects: [
       {
         name: `Courage For Kurnoth`,
@@ -96,7 +96,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Ironbark`,
+    name: `Ironbark (Glade)`,
     effects: [
       {
         name: `Stubborn and Taciturn`,
@@ -124,7 +124,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Winterleaf`,
+    name: `Winterleaf (Glade)`,
     effects: [
       {
         name: `Winter's Bite`,
@@ -152,7 +152,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Dreadwood`,
+    name: `Dreadwood (Glade)`,
     effects: [
       {
         name: `Malicious Tormentors`,
@@ -180,7 +180,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Harvestboon`,
+    name: `Harvestboon (Glade)`,
     effects: [
       {
         name: `Vibrant Surge`,
