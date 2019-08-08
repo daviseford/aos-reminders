@@ -12,13 +12,14 @@ type TInitialStateType = {
 const initialState: TInitialStateType = {
   army: {
     Abilities: [],
+    Allegiances: [],
     Artifacts: [],
     Battalions: [],
     EndlessSpells: [],
+    Game: Game,
     Spells: [],
     Traits: [],
     Units: [],
-    Game: Game,
   },
   allyArmies: {},
 }

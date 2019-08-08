@@ -7,7 +7,7 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy, TAllegiances } from 'types/army'
+import { IArmy } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
@@ -77,7 +77,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             setValues={handleBattalions}
           />
           <CardComponent
-            items={army.Allegiances as TAllegiances}
+            items={army.Allegiances}
             values={allegiances}
             type={'Allegiance'}
             setValues={handleAllegiances}

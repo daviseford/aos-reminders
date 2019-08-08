@@ -1,26 +1,26 @@
 import { selectionsFactory, allySelectionsFactory } from './__mock'
 import { processReminders, addToString } from 'utils/processReminders'
-import seraphon from 'army/seraphon'
 import ironjawz from 'army/ironjawz'
+import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
 import {
-  STORMCAST_ETERNALS,
   BEASTCLAW_RAIDERS,
   DISPOSSESSED,
+  EVERCHOSEN,
   IRONJAWZ,
   SERAPHON,
+  STORMCAST_ETERNALS,
   SYLVANETH,
-  EVERCHOSEN,
 } from '../meta/factions'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { getArmy } from '../utils/getArmy'
 import { IArmy, TAllyData } from '../types/army'
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { ITurnAction, IEntry } from 'types/data'
+import { ITurnAction } from 'types/data'
 import { GenericEndlessSpells } from 'army/generic'
 import { sortBy } from 'lodash'
 
-describe('processReminder', () => {
+describe('processReminders', () => {
   it('should work with no selections', () => {
     const army = getArmy(BEASTCLAW_RAIDERS) as IArmy
     const selections = selectionsFactory({})
@@ -160,10 +160,10 @@ describe('getArmy', () => {
     const army1 = getArmy(SYLVANETH) as IArmy
 
     expect(army1.Allegiances).toBeDefined()
-    expect((army1.Allegiances as IEntry[]).length).toEqual(numEntries)
+    expect(army1.Allegiances.length).toEqual(numEntries)
 
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Allegiances).toBeDefined()
-    expect((army2.Allegiances as IEntry[]).length).toEqual(0)
+    expect(army2.Allegiances.length).toEqual(0)
   })
 })
