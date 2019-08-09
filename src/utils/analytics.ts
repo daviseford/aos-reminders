@@ -57,10 +57,11 @@ export const logAllyFaction = (factionName: TSupportedFaction) => {
  * @param label
  */
 export const logClick = (label: string) => {
-  console.log('asd')
-  ReactGA.event({
-    category: 'click',
-    action: `click-${label}`,
-    label: 'AoS Reminders',
-  })
+  if (label) {
+    ReactGA.event({
+      category: 'click',
+      action: `click-${label}`,
+      label: 'AoS Reminders',
+    })
+  }
 }
