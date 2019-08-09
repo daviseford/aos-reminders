@@ -4,7 +4,7 @@ import { sortBy } from 'lodash'
 import { getArmy } from 'utils/getArmy'
 import { titleCase } from 'utils/titleCase'
 import { logAllyFaction } from 'utils/analytics'
-import { withSelectMultipleWithPayload, withSelectOneWithPayload } from 'utils/withSelect'
+import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 import './army_builder.css'
 import { selections, army } from 'ducks'
 import { IconContext } from 'react-icons'
@@ -47,17 +47,13 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     factionName: allyFactionName,
   })
 
-  const setAllyName = withSelectOneWithPayload(switchAllyArmy, 'next', { prev: allyFactionName })
-  const handleSetAllyFactionName = useCallback(
-    (payload: ValueType<TDropdownOption>) => {
-      const { value } = payload as TDropdownOption
-      deleteAllySelection(allyFactionName)
-      resetAllySelection(value as TSupportedFaction)
-      logAllyFaction(value as TSupportedFaction)
-      setAllyName(payload)
-    },
-    [allyFactionName, setAllyName, deleteAllySelection, resetAllySelection]
-  )
+  const handleSetAllyFactionName = withSelectOne((value: string | null) => {
+    const next = value as TSupportedFaction
+    deleteAllySelection(allyFactionName)
+    resetAllySelection(next)
+    logAllyFaction(next)
+    switchAllyArmy({ prev: allyFactionName, next })
+  })
 
   const handleClose = useCallback(
     e => {

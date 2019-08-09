@@ -11,9 +11,7 @@ interface IHeaderProps {
   resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
-/**
- * Hidden when printing
- */
+
 const HeaderComponent = (props: IHeaderProps) => {
   const { resetSelections, setFactionName } = props
 
@@ -39,13 +37,7 @@ const HeaderComponent = (props: IHeaderProps) => {
             <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
           </div>
         </div>
-        <span>Other armies are being added based on demand.</span>
-        <br />
-        <small>
-          Note: Our Spells and Endless Spells library is currently under construction.
-          <br />
-          If your army is currently missing spells, we're working on it!
-        </small>
+        <span>Select your army to get started.</span>
       </div>
     </div>
   )
