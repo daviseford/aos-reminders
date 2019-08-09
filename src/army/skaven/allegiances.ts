@@ -77,7 +77,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of that phase, roll a dice. On a 1, that WIZARD suffers D3 mortal wounds.`,
+        desc: `At the end of the phase, roll a dice. On a 1, that WIZARD suffers D3 mortal wounds.`,
         when: [END_OF_HERO_PHASE],
       },
       {
@@ -87,7 +87,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of that phase, roll a dice. On a 1, that HERO suffers D3 mortal wounds.`,
+        desc: `At the end of the phase, roll a dice. On a 1, that HERO suffers D3 mortal wounds.`,
         when: [END_OF_SHOOTING_PHASE, END_OF_COMBAT_PHASE],
       },
       {
