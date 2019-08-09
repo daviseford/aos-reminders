@@ -51,3 +51,16 @@ export const logAllyFaction = (factionName: TSupportedFaction) => {
     })
   }
 }
+
+/**
+ * Sends a Google Analytics event telling us about a click event
+ * @param label
+ */
+export const logClick = (label: string) => {
+  console.log('asd')
+  ReactGA.event({
+    category: 'click',
+    action: `click-${label}`,
+    label: 'AoS Reminders',
+  })
+}
