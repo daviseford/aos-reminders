@@ -7,7 +7,7 @@ import { PrintFooterComponent, PrintHeader } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections } from 'ducks'
-import { logFactionSwitch, logPageView } from 'utils/analytics'
+import { logPageView } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
 import { AlliedArmies } from './input/ally_armies'
 
@@ -17,17 +17,9 @@ interface IAppProps {
 }
 
 const App = (props: IAppProps) => {
-  const { factionName, resetSelections } = props
-
   useEffect(() => {
     logPageView()
   }, [])
-
-  // Reset the store when factionName is switched
-  useEffect(() => {
-    resetSelections()
-    logFactionSwitch(factionName)
-  }, [factionName, resetSelections])
 
   return (
     <div className="d-block">

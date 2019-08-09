@@ -1,20 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { SelectOne } from 'components/input/select'
-import { factionNames } from 'ducks'
 import { withSelectOne } from 'utils/withSelect'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { logFactionSwitch } from 'utils/analytics'
+import { factionNames, selections } from 'ducks'
+import { SelectOne } from 'components/input/select'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 
 interface IHeaderProps {
+  resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
-/**
- * Hidden when printing
- */
+
 const HeaderComponent = (props: IHeaderProps) => {
-  const { setFactionName } = props
-  const setValue = withSelectOne(setFactionName)
+  const { resetSelections, setFactionName } = props
+
+  const setValue = withSelectOne((value: string | null) => {
+    resetSelections()
+    logFactionSwitch(value as TSupportedFaction)
+    setFactionName(value)
+  })
 
   return (
     <div className="jumbotron jumbotron-fluid text-center bg-dark text-white py-4 d-print-none">
@@ -32,19 +37,14 @@ const HeaderComponent = (props: IHeaderProps) => {
             <SelectOne items={SUPPORTED_FACTIONS} setValue={setValue} hasDefault={true} toTitle={true} />
           </div>
         </div>
-        <span>Other armies are being added based on demand.</span>
-        <br />
-        <small>
-          Note: Our Spells and Endless Spells library is currently under construction.
-          <br />
-          If your army is currently missing spells, we're working on it!
-        </small>
+        <span>Select your army to get started.</span>
       </div>
     </div>
   )
 }
 
 const mapDispatchToProps = {
+  resetSelections: selections.actions.resetSelections,
   setFactionName: factionNames.actions.setFactionName,
 }
 

@@ -5,12 +5,11 @@ const replaceOptions = {
   from: [
     /[‘’]/g, // Replace special apostrophes
     /[“”]/g, // Replace special quotes
-    /(?<=[name|desc]: )` +(?=.+`)/g, // Remove leading whitespaces
-    /(?<!:)(?<=[name|desc]: `.+) +`/g, // Remove trailing whitespaces
+    /(?<=[name|desc|tag]: )` +(?=.+`)/g, // Remove leading whitespaces
+    /(?<!:)(?<=[name|desc|tag]: `.+) +`/g, // Remove trailing whitespaces
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
-    /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
   ],
-  to: [`'`, `"`, '`', '`', '.`', `Casting value of`],
+  to: [`'`, `"`, '`', '`', '.`'],
 }
 
 /**

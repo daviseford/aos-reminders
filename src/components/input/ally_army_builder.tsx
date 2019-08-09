@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
 import { getArmy } from 'utils/getArmy'
 import { titleCase } from 'utils/titleCase'
-import { withSelectMultipleWithPayload, withSelectOneWithPayload } from 'utils/withSelect'
+import { logAllyFaction } from 'utils/analytics'
+import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 import './army_builder.css'
-import { FaRegWindowClose } from 'react-icons/fa'
-import { IAllySelections } from 'types/selections'
-import { IconContext } from 'react-icons'
 import { selections, army } from 'ducks'
+import { IconContext } from 'react-icons'
+import { FaRegWindowClose } from 'react-icons/fa'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
+import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/lib/types'
-import { logAllyFaction } from 'utils/analytics'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -47,23 +47,22 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     factionName: allyFactionName,
   })
 
-  const setAllyName = withSelectOneWithPayload(switchAllyArmy, 'next', { prev: allyFactionName })
-  const handleSetAllyFactionName = useCallback(
-    (payload: ValueType<TDropdownOption>) => {
-      const { value } = payload as TDropdownOption
-      deleteAllySelection(allyFactionName)
-      resetAllySelection(value as TSupportedFaction)
-      logAllyFaction(value as TSupportedFaction)
-      setAllyName(payload)
-    },
-    [allyFactionName, setAllyName, deleteAllySelection, resetAllySelection]
-  )
-
-  const handleClose = e => {
-    e.preventDefault()
+  const handleSetAllyFactionName = withSelectOne((value: string | null) => {
+    const next = value as TSupportedFaction
     deleteAllySelection(allyFactionName)
-    deleteAllyArmy(allyFactionName)
-  }
+    resetAllySelection(next)
+    logAllyFaction(next)
+    switchAllyArmy({ prev: allyFactionName, next })
+  })
+
+  const handleClose = useCallback(
+    e => {
+      e.preventDefault()
+      deleteAllySelection(allyFactionName)
+      deleteAllyArmy(allyFactionName)
+    },
+    [allyFactionName, deleteAllyArmy, deleteAllySelection]
+  )
 
   useEffect(() => {
     updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
