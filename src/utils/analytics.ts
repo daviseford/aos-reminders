@@ -44,6 +44,7 @@ export const logFactionSwitch = (factionName: TSupportedFaction) => {
  */
 export const logAllyFaction = (factionName: TSupportedFaction) => {
   if (SUPPORTED_FACTIONS.includes(factionName)) {
+    console.log('logging')
     ReactGA.event({
       category: 'select',
       action: `select-ally-${factionName}`,
