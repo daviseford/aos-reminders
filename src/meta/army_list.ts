@@ -8,6 +8,7 @@ import {
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
+  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -34,6 +35,7 @@ import Everchosen from 'army/everchosen'
 import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
+import Gutbusters from 'army/gutbusters'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
@@ -78,6 +80,10 @@ export const ArmyList: TArmyList = {
   },
   [GLOOMSPITE_GITZ]: {
     Army: { ...GloomspiteGitz },
+    GrandAlliance: DESTRUCTION,
+  },
+  [GUTBUSTERS]: {
+    Army: { ...Gutbusters },
     GrandAlliance: DESTRUCTION,
   },
   [IDONETH_DEEPKIN]: {
