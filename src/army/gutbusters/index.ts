@@ -6,8 +6,4 @@ import EndlessSpells from './endless_spells'
 import Spells from './spells'
 import Traits from './traits'
 
-// Copy paste this directory to kickstart a new army
-// Remember to add your army to:
-//      - meta/factions.ts
-//      - meta/army_list.ts
 export default { Abilities, Allegiances, Artifacts, Battalions, EndlessSpells, Spells, Traits, Units }
