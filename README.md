@@ -12,37 +12,18 @@ In particular, you'll want to focus on `abilities.ts`, `artifacts.ts`, `endless_
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
-## Top Contributors
+## Contributors
 
-+ [daviseford](https://github.com/daviseford)
 + [JohnSchramm](https://github.com/JohnSchramm)
-  + Added Nurgle
-  + Added Hedonites of Slaanesh
-  + Added Daughters of Khaine
-  + Added Tamurkhan's Horde
-  + Added Slaves to Darkness
-  + Added Everchosen
-  + Updated Khorne
 + [thundergore](https://github.com/thundergore)
-  + Added Stormcast Eternals
-  + Added Fyreslayers
-  + Added Endless spells
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
-  + Added Idoneth Deepkin
-  + Updated Gloomspite Gitz rules
-  + Updated Malign Sorcery artefacts
 + [PixelTom](https://github.com/PixelTom)
-  + Added Dispossessed
-  + Added Kharadron Overlords
 + [ctcodie](https://github.com/ctcodie)
-  + Added Legions of Nagash
-  + Updated Sylvaneth to 2019 battletome
 + [Cpt Asgard](https://github.com/CptAsgard)
-  + Added Nighthaunt
 + Lorax
-  + Added Legions of Azgorh
++ [NiklassMM](https://github.com/NiklasMM)
++ [mmorrison](https://github.com/mmorrison)
 + [T-Nightingale](https://github.com/T-Nightingale)
-  + Added Print button
 
 ## Available Scripts
 
