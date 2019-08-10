@@ -12,6 +12,8 @@ In particular, you'll want to focus on `abilities.ts`, `artifacts.ts`, `endless_
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
+**For more contribution guidelines, check out [CONTRIBUTING.md](https://github.com/daviseford/aos-reminders/blob/master/CONTRIBUTING.md)**
+
 ## Contributors
 
 + [JohnSchramm](https://github.com/JohnSchramm)
@@ -26,8 +28,6 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [T-Nightingale](https://github.com/T-Nightingale)
 
 ## Available Scripts
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
@@ -49,21 +49,13 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.
 
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.
-
-Your app is ready to be deployed!
-
 ## Learn More about React
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
