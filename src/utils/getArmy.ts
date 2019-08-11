@@ -29,6 +29,7 @@ import {
   TUnits,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
+import { IEntry } from 'types/data'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
@@ -101,6 +102,10 @@ const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
     .concat(sortBy(GenericEndlessSpells, 'name'))
     .map(e => ({ ...e, endless_spell: true }))
 }
+
+// const addProperty = (item: IEntry, key: string): IEntry  => {
+
+// }
 
 type IGrandAllianceConfig = {
   readonly [key in TGrandAlliances]: {
