@@ -8,7 +8,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Hammerblade (Destruction)`,
-        desc: `Pick one of the bearer's melee weapons. Instead of attacking normally with that weapon, you can roll a dice for each model within 3" of the bearer (apart from the bearer). On 5 or 6, 1 mortal wond is inflicted on that model's unit.`,
+        desc: `Pick one of the bearer's melee weapons. Instead of attacking normally with that weapon, you can roll a dice for each model within 3" of the bearer (apart from the bearer). On 5 or 6, 1 mortal wound is inflicted on that model's unit.`,
         when: [COMBAT_PHASE],
       },
     ],
