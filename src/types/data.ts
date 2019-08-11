@@ -8,6 +8,15 @@ export type TEntryProperties =
   | 'endless_spell'
   | 'spell'
 
+export const ENTRY_PROPERTIES: TEntryProperties[] = [
+  'allegiance_ability',
+  'artifact',
+  'command_ability',
+  'command_trait',
+  'endless_spell',
+  'spell',
+]
+
 export type TEntry = {
   name: string
   effects: TEffects[]
