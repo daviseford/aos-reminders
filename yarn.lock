@@ -8283,11 +8283,6 @@ react-copy-to-clipboard@^5.0.1:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
 
-react-detect-print@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-detect-print/-/react-detect-print-0.0.2.tgz#44ba5de07c835166e4f72332cda014c23732fdef"
-  integrity sha1-RLpd4HyDUWbk9yMyzaAUwjcy/e8=
-
 react-dev-utils@^9.0.1:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.0.1.tgz#5c03d85a0b2537d0c46af7165c24a7dfb274bef2"

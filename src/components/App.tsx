@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { ArmyBuilder } from 'components/input/army_builder'
 import { FooterComponent } from 'components/page/footer'
 import { Header } from 'components/page/header'
-import { PrintFooterComponent, PrintHeader } from 'components/print/print'
+import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 import { factionNames, selections } from 'ducks'
@@ -25,8 +25,6 @@ const App = (props: IAppProps) => {
     <div className="d-block">
       <Header />
 
-      <PrintHeader />
-
       <ArmyBuilder />
 
       <AlliedArmies />
@@ -35,7 +33,10 @@ const App = (props: IAppProps) => {
 
       <Reminders />
 
+      <PrintArmy />
+
       <PrintFooterComponent />
+
       <FooterComponent />
     </div>
   )

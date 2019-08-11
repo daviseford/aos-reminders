@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import detectPrint from 'react-detect-print'
 
-import { ISelections, IAllySelections } from 'types/selections'
 import { titleCase } from 'utils/titleCase'
 import { factionNames, selections, realmscape } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
+import { ISelections, IAllySelections } from 'types/selections'
 
 interface IPrintHeaderProps {
   allySelections: { [key: string]: IAllySelections }
@@ -15,8 +14,7 @@ interface IPrintHeaderProps {
   selections: ISelections
 }
 
-const PrintHeaderComponent = (props: IPrintHeaderProps) => {
-  if (!props.printing) return null
+const PrintArmyComponent = (props: IPrintHeaderProps) => {
   const { realmscape_feature, selections, allySelections } = props
   const { units, battalions, artifacts, traits, spells, endless_spells, allegiances } = selections
   const realmFeature = realmscape_feature ? [realmscape_feature] : []
@@ -56,18 +54,20 @@ const mapStateToProps = (state, ownProps) => ({
   selections: selections.selectors.getSelections(state),
 })
 
-export const PrintHeader = connect(
+export const PrintArmy = connect(
   mapStateToProps,
   null
-)(detectPrint(PrintHeaderComponent))
+)(PrintArmyComponent)
 
-const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
-  const { items, name } = props
-  if (!items.length) return null
-  const title = items.length > 1 ? `${name}s` : name
+/**
+ * Here be dragons
+ * @param title
+ * @param items
+ */
+const getWrappedItemText = (title: string, items: string[]) => {
+  if (!items.length) return []
   const wrapLimit = 70
-  // Here be dragons
-  const itemsText = items.reduce(
+  return items.reduce(
     (a, b, i) => {
       if (i === 0) return a
       if (a.lineLength + 3 + b.length > wrapLimit) {
@@ -81,11 +81,19 @@ const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
       return a
     },
     { text: [items[0]], lineLength: title.length + 2, index: 0 }
-  )
+  ).text
+}
+
+const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
+  const { items, name } = props
+  const title = items.length > 1 ? `${name}s` : name
+  const itemsText = useMemo(() => getWrappedItemText(title, items), [title, items])
+  if (!items.length) return null
+
   return (
     <div className="col px-5">
       <strong>{title}:</strong>{' '}
-      {itemsText.text.map(line => (
+      {itemsText.map(line => (
         <>
           {line}
           <br />
