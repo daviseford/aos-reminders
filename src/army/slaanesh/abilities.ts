@@ -16,31 +16,26 @@ const Abilities: IEffects[] = [
     
            Unit abilities and endless spell damage cannot generate depravity.`,
     when: [DURING_GAME],
-    allegiance_ability: true,
   },
   {
     name: `Feast of Depravities`,
     desc: `If you have any depravity points you may summon one or more units from the summoning table. Summoned units must be setup wholly within 12" of a friendly Slaanesh Hero and more than 9" from any enemy models.`,
     when: [END_OF_MOVEMENT_PHASE],
-    allegiance_ability: true,
   },
   {
     name: `Locus of Diversion`,
     desc: `Each friendly Hedonite hero that is within 6" of an enemy unit can create a Locus of Diversion.  If they do, select 1 enemy unit within 6" of the selected hero and roll a dice, adding 2 if the Hedonite hero is a Greater Daemon.  On a 4+ that enemy unit fights at the end of the following combat phase.  You cannot pick the same unit as the target for this ability more than once in the same charge phase (whether successful or not).`,
     when: [END_OF_CHARGE_PHASE],
-    allegiance_ability: true,
   },
   {
     name: `Euphoric Killers`,
     desc: `If the unmodified hit roll for an attack made with a melee weapon by a Chaos Slaanesh model is 6, that attack inflicts 2 hits on the target instead of 1.  Make a wound or save roll for each hit.  If the attacking unit is 20 or more models, its attacks inflict 3 hits instead.`,
     when: [COMBAT_PHASE],
-    allegiance_ability: true,
   },
   {
     name: `Fane of Slaanesh`,
     desc: `After territories have been chosen, but before armies are set up, you can set up the Fane of Slaanesh wholly within your territory and more than 3" from any other terrain features and 1" away from any objectives.  If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
     when: [START_OF_SETUP],
-    allegiance_ability: true,
   },
   {
     name: `Fane of Slaanesh`,
