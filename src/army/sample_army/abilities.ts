@@ -1,8 +1,8 @@
 import { HERO_PHASE } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: ``,
     desc: ``,

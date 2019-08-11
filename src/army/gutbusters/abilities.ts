@@ -1,8 +1,8 @@
 import { HERO_PHASE } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // These Are The General Allegiance Abilities From Destruction
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Rampaging Destroyers`,
     desc: `Roll a dice for your general and each friendly DESTRUCTION HERO on the battlefield. General gets +2 to roll. On a 6+ pick a friendly DESTRUCTION unit within 6" of the general or HERO being rolled for. That unit can either:

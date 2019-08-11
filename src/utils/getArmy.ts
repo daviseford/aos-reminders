@@ -29,7 +29,6 @@ import {
   TUnits,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
-import { IEntry } from 'types/data'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,

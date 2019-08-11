@@ -1,4 +1,3 @@
-import { IEffects } from 'types/data'
 import {
   CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -8,9 +7,10 @@ import {
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Cycle of Corruption`,
     desc: `Roll a dice to determine the starting stage of corruption.`,

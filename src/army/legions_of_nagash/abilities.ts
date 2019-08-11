@@ -1,8 +1,8 @@
 import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Deathless Minions`,
     desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,

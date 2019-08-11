@@ -1,4 +1,4 @@
-import { IEffects } from 'types/data'
+import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
@@ -13,7 +13,7 @@ import {
 } from 'types/phases'
 import { SHYISH, AQSHY, CHAMON, GHUR, GHYRAN, HYSH, ULGU } from 'types/realmscapes'
 
-const RealmscapeFeatures: IEffects[] = [
+const RealmscapeFeatures: TEffects[] = [
   {
     name: `Life Leeching (${SHYISH})`,
     desc: `Roll a dice. On a 6+, pick an enemy unit. That unit suffers D3 mortal wounds.`,

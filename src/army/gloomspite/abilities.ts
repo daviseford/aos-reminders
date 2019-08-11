@@ -1,8 +1,8 @@
 import { BATTLESHOCK_PHASE, END_OF_TURN, TURN_ONE_START_OF_ROUND, START_OF_ROUND } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Bad Moon Loonshrine: Loonatic Courage`,
     desc: `GLOOMSPITE GITZ units wholly within 12" of the Bad Moon Loonshrine do not take battleshock tests.`,

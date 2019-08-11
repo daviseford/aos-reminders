@@ -8,10 +8,10 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SETUP,
 } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Gnawholes`,
     desc: `A Skaventide army can include up to 3 GNAWHOLE terrain features. After territories have been chosen but before armies are set up, you can set up the GNAWHOLES for your army. Each GNAWHOLE must be set up wholly within 8" of the edge of the battlefield, more than 3" from any enemy units or other terrain features, and more than 1" from any objectives. If both players can set up any terrain features before armies are set up, they must roll off, and the winner chooses who sets up their terrain features first.`,

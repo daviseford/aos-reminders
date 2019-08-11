@@ -7,10 +7,10 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
 } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Skull Altar`,
     desc: `After territories have been chosen but before armies have been set up, you can set up the SKULL ALTAR for your army. The SKULL ALTAR must be set up wholly within your territory and more than 3" from any other terrain features and more than 1" from any objectives. If both players can set up any terrain features before armies are set up, they must roll off, and the winner chooses who sets up their terrain features first.`,

@@ -1,8 +1,8 @@
 import { DURING_GAME, COMBAT_PHASE, START_OF_SETUP, BATTLESHOCK_PHASE, HERO_PHASE } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Deathless Courtiers`,
     desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,

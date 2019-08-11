@@ -10,7 +10,7 @@ import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ITurnAction } from 'types/data'
+import { TTurnAction } from 'types/data'
 import { without, uniq } from 'lodash'
 
 interface IRemindersProps {
@@ -55,7 +55,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
 const Entry = (props: {
   when: string
-  actions: ITurnAction[]
+  actions: TTurnAction[]
   idx: number
   factionName: TSupportedFaction
 }) => {
@@ -90,7 +90,7 @@ const getTitle = ({
   endless_spell,
   name,
   spell,
-}: ITurnAction): string => {
+}: TTurnAction): string => {
   const nameIfDifferent = name === condition ? `` : `: ${condition}`
   if (spell) return `Spell${nameIfDifferent}`
   if (endless_spell) return `Endless Spell${nameIfDifferent}`
@@ -120,7 +120,7 @@ const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => voi
   )
 }
 
-interface IActionTextProps extends ITurnAction {
+interface IActionTextProps extends TTurnAction {
   hideEntry: (name: string) => void
   showEntry: (name: string) => void
 }

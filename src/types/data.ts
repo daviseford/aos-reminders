@@ -8,35 +8,31 @@ export type TEntryProperties =
   | 'endless_spell'
   | 'spell'
 
-export type IEntry = {
-  [prop in TEntryProperties]?: boolean
-} & {
+export type TEntry = {
   name: string
-  effects: IEffects[]
+  effects: TEffects[]
+} & {
+  [prop in TEntryProperties]?: boolean
 }
 
-export type IEffects = {
-  [prop in TEntryProperties]?: boolean
-} & {
+export type TEffects = {
   name: string
   desc: string
   tag?: string
   when: TTurnWhen[]
+} & {
+  [prop in TEntryProperties]?: boolean
 }
 
 export interface IReminder {
-  [key: string]: ITurnAction[]
+  [key: string]: TTurnAction[]
 }
 
-export interface ITurnAction {
+export type TTurnAction = {
   condition: string
   desc: string
   name?: string
   tag?: string | false
-  allegiance_ability?: boolean
-  artifact?: boolean
-  command_ability?: boolean
-  command_trait?: boolean
-  endless_spell?: boolean
-  spell?: boolean
+} & {
+  [prop in TEntryProperties]?: boolean
 }

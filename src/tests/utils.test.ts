@@ -16,7 +16,7 @@ import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { getArmy } from '../utils/getArmy'
 import { IArmy, TAllyData } from '../types/army'
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { ITurnAction } from 'types/data'
+import { TTurnAction } from 'types/data'
 import { GenericEndlessSpells } from 'army/generic'
 import { sortBy } from 'lodash'
 
@@ -131,14 +131,14 @@ describe('processReminders', () => {
       return name === ability.name
     })
     expect(abilityEffect).toBeDefined()
-    expect((abilityEffect as ITurnAction).condition).toEqual(`Sylvaneth Allegiance`)
+    expect((abilityEffect as TTurnAction).condition).toEqual(`Sylvaneth Allegiance`)
 
     // Check for Realmscape info
     const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
       ({ name }) => name === realmscape_feature.name
     )
     expect(realmscapeEffect).toBeDefined()
-    expect((realmscapeEffect as ITurnAction).condition).toEqual('Realmscape Feature')
+    expect((realmscapeEffect as TTurnAction).condition).toEqual('Realmscape Feature')
   })
 })
 
