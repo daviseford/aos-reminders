@@ -1,6 +1,6 @@
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = []
+const Abilities: TAbilities = []
 
 export default Abilities

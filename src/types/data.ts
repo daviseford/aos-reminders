@@ -1,42 +1,47 @@
 import { TTurnWhen } from './phases'
 
-export interface IEntry {
+export type TEntryProperties =
+  | 'allegiance_ability'
+  | 'artifact'
+  | 'command_ability'
+  | 'command_trait'
+  | 'endless_spell'
+  | 'spell'
+
+export const ENTRY_PROPERTIES: TEntryProperties[] = [
+  'allegiance_ability',
+  'artifact',
+  'command_ability',
+  'command_trait',
+  'endless_spell',
+  'spell',
+]
+
+export type TEntry = {
   name: string
-  effects: IEffects[]
-  allegiance_ability?: boolean
-  artifact?: boolean
-  command_ability?: boolean
-  command_trait?: boolean
-  endless_spell?: boolean
-  spell?: boolean
+  effects: TEffects[]
+} & {
+  [prop in TEntryProperties]?: boolean
 }
 
-export interface IEffects {
+export type TEffects = {
   name: string
   desc: string
   tag?: string
   when: TTurnWhen[]
-  allegiance_ability?: boolean
-  artifact?: boolean
-  command_ability?: boolean
-  command_trait?: boolean
-  endless_spell?: boolean
-  spell?: boolean
+} & {
+  [prop in TEntryProperties]?: boolean
 }
 
 export interface IReminder {
-  [key: string]: ITurnAction[]
+  [key: string]: TTurnAction[]
 }
 
-export interface ITurnAction {
+export type TTurnAction = {
   condition: string
   desc: string
   name?: string
   tag?: string | false
-  allegiance_ability?: boolean
-  artifact?: boolean
-  command_ability?: boolean
-  command_trait?: boolean
-  endless_spell?: boolean
-  spell?: boolean
+} & {
+  [prop in TEntryProperties]?: boolean
 }

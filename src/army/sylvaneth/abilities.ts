@@ -1,4 +1,4 @@
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 import {
   BATTLESHOCK_PHASE,
@@ -9,7 +9,7 @@ import {
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Wyldwood Groves`,
     desc: `After all other pieces of scenery are set up, but before the battle begins and players choose territory or set up their armies, you can place one Sylvaneth Wyldwood anywhere on the battlefield that is more than 1" from any other piece of scenery.`,

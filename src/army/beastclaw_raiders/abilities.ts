@@ -1,8 +1,8 @@
 import { COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Beastclaw Stampede`,
     desc: `On a turn in which they charge into combat, you can re-roll all wound rolls of 1 made for BEASTCLAW RAIDER models in the combat phase.`,

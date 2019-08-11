@@ -8,10 +8,10 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Ur-Gold Runes`,
     desc: `Activate 1 of your 6 runes. When you choose, roll a dice. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies.`,

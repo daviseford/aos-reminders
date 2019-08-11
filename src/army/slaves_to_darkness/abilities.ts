@@ -1,8 +1,8 @@
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Aura of Chaos Power : Khorne`,
     desc: `You can re-roll hits of 1 for attacks made with melee weapons by friendly Khorne Slaves to Darkness units while they are wholly within 8" of a friendly Khorne Slaves to Darkness hero.`,

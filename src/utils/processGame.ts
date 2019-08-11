@@ -1,35 +1,55 @@
-import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells } from 'types/army'
+import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { addToGame } from './addToGame'
 import { TGameStructure, Game } from 'meta/game_structure'
+import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'
 
-type entries = TBattalions | TArtifacts | TUnits
+type TEntries = TAllegiances | TArtifacts | TBattalions | TEndlessSpells | TSpells | TTraits | TUnits
 
-export const processGame = (entries: entries[]): TGameStructure => {
+export const processGame = (entries: TEntries[]): TGameStructure => {
   const game = { ...Game }
   entries.forEach(e => processEntry(game, e))
   return game
 }
 
-const processEntry = (
-  game: TGameStructure,
-  arr: TBattalions | TArtifacts | TUnits | TTraits | TSpells | TEndlessSpells
-) => {
-  arr.forEach(entry => {
+const processEntry = (game: TGameStructure, entries: TEntries) => {
+  entries.forEach(entry => {
     entry.effects.forEach(effect => {
-      effect.when.forEach(w => {
-        addToGame(game, w, {
-          condition: entry.name,
-          name: effect.name,
-          desc: effect.desc,
-          tag: effect.tag || false,
-          allegiance_ability: effect.allegiance_ability || entry.allegiance_ability || false,
-          artifact: effect.artifact || entry.artifact || false,
-          command_ability: entry.command_ability || effect.command_ability || false,
-          command_trait: entry.command_trait || effect.command_trait || false,
-          endless_spell: entry.endless_spell || effect.endless_spell || false,
-          spell: entry.spell || effect.spell || false,
-        })
-      })
+      effect.when.forEach(w => addToGame(game, w, addProps(entry, effect)))
     })
   })
+}
+
+/**
+ * Using this function, we avoid attaching two or more EntryProperties to an action
+ * @param entry
+ * @param effect
+ */
+const addProps = (entry: TEntry, effect: TEffects): TTurnAction => {
+  const action: TTurnAction = {
+    condition: entry.name,
+    name: effect.name,
+    desc: effect.desc,
+    tag: effect.tag || false,
+  }
+
+  // Gotta figure out if an effects key is true
+  const effectProp = ENTRY_PROPERTIES.find(k => effect[k] === true)
+  if (effectProp) {
+    return {
+      ...action,
+      [effectProp]: true,
+    }
+  }
+
+  // If not, figure out if an entry key is true
+  const entryProp = ENTRY_PROPERTIES.find(k => entry[k] === true)
+  if (entryProp) {
+    return {
+      ...action,
+      [entryProp]: true,
+    }
+  }
+
+  // Otherwise, just return (it's probably a unit or battalion)
+  return action
 }
