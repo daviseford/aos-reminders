@@ -102,10 +102,6 @@ const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
     .map(e => ({ ...e, endless_spell: true }))
 }
 
-// const addProperty = (item: IEntry, key: string): IEntry  => {
-
-// }
-
 type IGrandAllianceConfig = {
   readonly [key in TGrandAlliances]: {
     readonly Artifacts: TArtifacts
