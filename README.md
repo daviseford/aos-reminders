@@ -12,41 +12,22 @@ In particular, you'll want to focus on `abilities.ts`, `artifacts.ts`, `endless_
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
-## Top Contributors
+**For more contribution guidelines, check out [CONTRIBUTING.md](https://github.com/daviseford/aos-reminders/blob/master/CONTRIBUTING.md)**
 
-+ [daviseford](https://github.com/daviseford)
+## Contributors
+
 + [JohnSchramm](https://github.com/JohnSchramm)
-  + Added Nurgle
-  + Added Hedonites of Slaanesh
-  + Added Daughters of Khaine
-  + Added Tamurkhan's Horde
-  + Added Slaves to Darkness
-  + Added Everchosen
-  + Updated Khorne
 + [thundergore](https://github.com/thundergore)
-  + Added Stormcast Eternals
-  + Added Fyreslayers
-  + Added Endless spells
 + [grzegorzmiazga](https://github.com/grzegorzmiazga)
-  + Added Idoneth Deepkin
-  + Updated Gloomspite Gitz rules
-  + Updated Malign Sorcery artefacts
 + [PixelTom](https://github.com/PixelTom)
-  + Added Dispossessed
-  + Added Kharadron Overlords
 + [ctcodie](https://github.com/ctcodie)
-  + Added Legions of Nagash
-  + Updated Sylvaneth to 2019 battletome
 + [Cpt Asgard](https://github.com/CptAsgard)
-  + Added Nighthaunt
 + Lorax
-  + Added Legions of Azgorh
++ [NiklassMM](https://github.com/NiklasMM)
++ [mmorrison](https://github.com/mmorrison)
 + [T-Nightingale](https://github.com/T-Nightingale)
-  + Added Print button
 
 ## Available Scripts
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
@@ -68,21 +49,13 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.
 
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.
-
-Your app is ready to be deployed!
-
 ## Learn More about React
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
@@ -91,7 +64,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 I have set this repository up to automatically take care of some chores when you push a commit.
 
 1. Any special punctuation characters such as `‘`, `’`, `“`, and `”` are removed and replaced with `'` or `"`.
-2. Any leading or trailing whitespace is removed from any `name` or `desc` entries.
+2. Any leading or trailing whitespace is removed from any `name`, `desc`, and `tag` entries.
 3. Periods are added to the end of descriptions if they are missing.
 4. Finally, we use `pretty-quick` to format the code according to the repository standards.
 

@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconContext } from 'react-icons'
 import { FaCcPaypal, FaEthereum, FaRegCopy, FaBtc } from 'react-icons/fa'
-import CopyToClipboard from 'react-copy-to-clipboard'
+import { logClick } from 'utils/analytics'
 
 export const DonateComponent = () => {
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
-  const handleEthClick = e => {
+
+  const handleEthClick = useCallback(e => {
     e.preventDefault()
+    logClick('DonateETH')
     setEthClicked(true)
     setBtcClicked(false)
-  }
-  const handleBtcClick = e => {
+  }, [])
+
+  const handleBtcClick = useCallback(e => {
     e.preventDefault()
+    logClick('DonateBTC')
     setBtcClicked(true)
     setEthClicked(false)
-  }
+  }, [])
+
   return (
     <>
       <div className="container pt-4">
@@ -72,48 +78,44 @@ const DisplayWallet = ({ ethActive, btcActive }: { ethActive: boolean; btcActive
   )
 }
 
-const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; setCopied: () => void }) => {
-  return (
-    <div className="input-group">
-      <input
-        type="text"
-        className="form-control"
-        aria-label="Copy to clipboard"
-        value={currentWallet}
-        disabled
-      />
-      <div className="input-group-append">
-        <CopyToClipboard text={currentWallet} onCopy={setCopied}>
-          <button className="btn btn-light">
-            <FaRegCopy />
-          </button>
-        </CopyToClipboard>
-      </div>
+const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; setCopied: () => void }) => (
+  <div className="input-group">
+    <input
+      type="text"
+      className="form-control"
+      aria-label="Copy to clipboard"
+      value={currentWallet}
+      disabled
+    />
+    <div className="input-group-append">
+      <CopyToClipboard text={currentWallet} onCopy={setCopied}>
+        <button className="btn btn-light">
+          <FaRegCopy />
+        </button>
+      </CopyToClipboard>
     </div>
-  )
-}
+  </div>
+)
 
-const EthButton = ({ handleClick }: { handleClick: (e: any) => void }) => {
-  return (
-    <>
-      <FaEthereum onClick={handleClick} className={'mx-2'} />
-    </>
-  )
-}
+const EthButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
+  <>
+    <FaEthereum onClick={handleClick} className={'mx-2'} />
+  </>
+)
 
-const BtcButton = ({ handleClick }: { handleClick: (e: any) => void }) => {
-  return (
-    <>
-      <FaBtc onClick={handleClick} className={'mx-2'} />
-    </>
-  )
-}
+const BtcButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
+  <>
+    <FaBtc onClick={handleClick} className={'mx-2'} />
+  </>
+)
 
 const PayPalButton = () => {
-  const handleClick = e => {
+  const handleClick = useCallback(e => {
     e.preventDefault()
+    logClick('DonatePayPal')
     window.open('https://paypal.me/daviseford')
-  }
+  }, [])
+
   return (
     <>
       <FaCcPaypal onClick={handleClick} className={'mx-2'} />
