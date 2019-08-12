@@ -93,7 +93,6 @@ const getTitle = ({
   spell,
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
-  if (allegiance_ability || command_ability) return condition
   if (artifact) return `Artifact${suffix}`
   if (command_trait) return `Command Trait`
   if (endless_spell) return `Endless Spell${suffix}`
