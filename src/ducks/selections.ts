@@ -5,13 +5,13 @@ import { ISelectionStore } from 'types/store'
 
 const initialState: ISelectionStore = {
   selections: {
-    allegiances: [] as string[],
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    endless_spells: [] as string[],
-    spells: [] as string[],
-    traits: [] as string[],
-    units: [] as string[],
+    allegiances: [],
+    artifacts: [],
+    battalions: [],
+    endless_spells: [],
+    spells: [],
+    traits: [],
+    units: [],
   },
   allySelections: {},
 }
@@ -20,7 +20,7 @@ const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
   delete state.allySelections[action.payload]
 }
 const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  state.allySelections[action.payload] = { units: [] as string[] }
+  state.allySelections[action.payload] = { units: [] }
 }
 const resetAllySelections = (state, action) => {
   state.allySelections = initialState.allySelections

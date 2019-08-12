@@ -11,45 +11,49 @@ export const processGame = (entries: TEntries[]): TGameStructure => {
   return game
 }
 
-const processEntry = (game: TGameStructure, entries: TEntries) => {
+const processEntry = (game: TGameStructure, entries: TEntries): void => {
   entries.forEach(entry => {
+    const withEntry = addProps(entry)
     entry.effects.forEach(effect => {
-      effect.when.forEach(w => addToGame(game, w, addProps(entry, effect)))
+      const action = withEntry(effect)
+      effect.when.forEach(phase => addToGame(game, phase, action))
     })
   })
 }
 
 /**
- * Using this function, we avoid attaching two or more EntryProperties to an action
+ * Using this function, we avoid attaching two or more Props to an action
  * @param entry
  * @param effect
  */
-const addProps = (entry: TEntry, effect: TEffects): TTurnAction => {
-  const action: TTurnAction = {
-    condition: entry.name,
-    name: effect.name,
-    desc: effect.desc,
-    tag: effect.tag || false,
-  }
-
-  // Gotta figure out if an effects key is true
-  const effectProp = ENTRY_PROPERTIES.find(k => effect[k] === true)
-  if (effectProp) {
-    return {
-      ...action,
-      [effectProp]: true,
-    }
-  }
-
-  // If not, figure out if an entry key is true
+const addProps = (entry: TEntry) => {
+  // Figure out if an entry key is true and store it for now
   const entryProp = ENTRY_PROPERTIES.find(k => entry[k] === true)
-  if (entryProp) {
+
+  return (effect: TEffects): TTurnAction => {
+    const action: TTurnAction = {
+      condition: entry.name,
+      name: effect.name,
+      desc: effect.desc,
+      tag: effect.tag || false,
+    }
+
+    // Figure out if an effects key is true
+    const effectProp = ENTRY_PROPERTIES.find(k => effect[k] === true)
+    if (effectProp) {
+      return {
+        ...action,
+        [effectProp]: true,
+      }
+    }
+
+    // It's probably a unit or battalion if there's no entryProp
+    if (!entryProp) return action
+
+    // Add the entryProp and return
     return {
       ...action,
       [entryProp]: true,
     }
   }
-
-  // Otherwise, just return (it's probably a unit or battalion)
-  return action
 }
