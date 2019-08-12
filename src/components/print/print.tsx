@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import { titleCase } from 'utils/titleCase'
@@ -94,11 +94,11 @@ const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   return (
     <div className="col px-5">
       <strong>{title}:</strong>{' '}
-      {itemsText.map(line => (
-        <>
+      {itemsText.map((line, i) => (
+        <Fragment key={i}>
           {line}
-          <br />
-        </>
+          <br />ƒ
+        </Fragment>
       ))}
     </div>
   )
