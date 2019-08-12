@@ -11,6 +11,7 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
+import { IStore } from 'types/store'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -55,7 +56,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),

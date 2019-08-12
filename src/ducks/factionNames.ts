@@ -1,7 +1,8 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { IFactionNameStore } from 'types/store'
 
-const initialState = {
+const initialState: IFactionNameStore = {
   factionName: SUPPORTED_FACTIONS[0],
 }
 

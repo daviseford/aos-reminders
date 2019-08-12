@@ -1,14 +1,9 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { ISelections, IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
+import { ISelectionStore } from 'types/store'
 
-type TInitialStateType = {
-  selections: ISelections
-  allySelections: { [key: string]: IAllySelections }
-}
-
-const initialState: TInitialStateType = {
+const initialState: ISelectionStore = {
   selections: {
     allegiances: [] as string[],
     artifacts: [] as string[],

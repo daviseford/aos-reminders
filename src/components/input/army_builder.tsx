@@ -11,6 +11,7 @@ import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IStore } from 'types/store'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
@@ -104,7 +105,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   realmscape: realmscape.selectors.getRealmscape(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),

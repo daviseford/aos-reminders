@@ -5,6 +5,7 @@ import { titleCase } from 'utils/titleCase'
 import { factionNames, selections, realmscape } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
+import { IStore } from 'types/store'
 
 interface IPrintHeaderProps {
   allySelections: { [key: string]: IAllySelections }
@@ -46,7 +47,7 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
   factionName: factionNames.selectors.getFactionName(state),

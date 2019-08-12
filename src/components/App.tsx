@@ -10,6 +10,7 @@ import { factionNames, selections } from 'ducks'
 import { logPageView } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
 import { AlliedArmies } from './input/ally_armies'
+import { IStore } from 'types/store'
 
 interface IAppProps {
   factionName: TSupportedFaction
@@ -42,7 +43,7 @@ const App = (props: IAppProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
 })

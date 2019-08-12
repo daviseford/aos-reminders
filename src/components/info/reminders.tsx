@@ -12,6 +12,7 @@ import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { without, uniq } from 'lodash'
+import { IStore } from 'types/store'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -162,7 +163,7 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyArmies: army.selectors.getAllyArmies(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),
