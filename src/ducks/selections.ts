@@ -1,22 +1,17 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { ISelections, IAllySelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
+import { ISelectionStore } from 'types/store'
 
-type TInitialStateType = {
-  selections: ISelections
-  allySelections: { [key: string]: IAllySelections }
-}
-
-const initialState: TInitialStateType = {
+const initialState: ISelectionStore = {
   selections: {
-    allegiances: [] as string[],
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    endless_spells: [] as string[],
-    spells: [] as string[],
-    traits: [] as string[],
-    units: [] as string[],
+    allegiances: [],
+    artifacts: [],
+    battalions: [],
+    endless_spells: [],
+    spells: [],
+    traits: [],
+    units: [],
   },
   allySelections: {},
 }
@@ -25,7 +20,7 @@ const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
   delete state.allySelections[action.payload]
 }
 const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  state.allySelections[action.payload] = { units: [] as string[] }
+  state.allySelections[action.payload] = { units: [] }
 }
 const resetAllySelections = (state, action) => {
   state.allySelections = initialState.allySelections

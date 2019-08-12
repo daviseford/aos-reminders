@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import ReactTooltip from 'react-tooltip'
+import { without, uniq } from 'lodash'
 import './reminders.css'
 import { realmscape, factionNames, selections, army } from 'ducks'
 import { processReminders } from 'utils/processReminders'
@@ -11,7 +12,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
-import { without, uniq } from 'lodash'
+import { IStore } from 'types/store'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -61,7 +62,7 @@ const Entry = (props: {
 }) => {
   const { when, actions } = props
 
-  const [hidden, setHidden] = useState([] as string[])
+  const [hidden, setHidden] = useState<string[]>([])
   const showEntry = (name: string) => setHidden(without([...hidden], name))
   const hideEntry = (name: string) => setHidden(uniq([...hidden, name]))
 
@@ -92,7 +93,6 @@ const getTitle = ({
   spell,
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
-  if (allegiance_ability || command_ability) return condition
   if (artifact) return `Artifact${suffix}`
   if (command_trait) return `Command Trait`
   if (endless_spell) return `Endless Spell${suffix}`
@@ -126,17 +126,17 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name, desc, command_ability, tag, showEntry, hideEntry } = props
+  const { name = '', desc, command_ability, tag, showEntry, hideEntry } = props
   const [isVisible, setIsVisibile] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
-    !isVisible ? showEntry(name as string) : hideEntry(name as string)
+    !isVisible ? showEntry(name) : hideEntry(name)
     setIsVisibile(!isVisible)
   }
 
   useEffect(() => {
     return () => {
-      showEntry(name as string) // Remove this from the hidden array on unload
+      showEntry(name) // Remove this from the hidden array on unload
     }
     // eslint-disable-next-line
   }, [])
@@ -162,7 +162,7 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyArmies: army.selectors.getAllyArmies(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),

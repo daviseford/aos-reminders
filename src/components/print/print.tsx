@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import { titleCase } from 'utils/titleCase'
 import { factionNames, selections, realmscape } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
+import { IStore } from 'types/store'
 
 interface IPrintHeaderProps {
   allySelections: { [key: string]: IAllySelections }
@@ -46,7 +47,7 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allySelections: selections.selectors.getAllySelections(state),
   factionName: factionNames.selectors.getFactionName(state),
@@ -93,11 +94,11 @@ const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
   return (
     <div className="col px-5">
       <strong>{title}:</strong>{' '}
-      {itemsText.map(line => (
-        <>
+      {itemsText.map((line, i) => (
+        <Fragment key={i}>
           {line}
-          <br />
-        </>
+          <br />ƒ
+        </Fragment>
       ))}
     </div>
   )

@@ -34,13 +34,14 @@ export const processReminders: TProcessReminders = (
   // Add Abilities
   if (army.Abilities.length) {
     army.Abilities.forEach((a: TEffects) => {
+      const command_ability = a.command_ability || false
       const t: TTurnAction = {
         name: a.name,
         desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
-        allegiance_ability: true,
         tag: a.tag || false,
-        command_ability: a.command_ability || false,
+        allegiance_ability: !command_ability,
+        command_ability,
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
