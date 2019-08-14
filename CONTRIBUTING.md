@@ -45,7 +45,7 @@ All tests should be created in the `tests` directory. They should have clear des
 
 ### <a name="rebasing"></a>Rebasing
 
-I recommend frequently rebasing from master in order to keep your branch in sync. Here are the basic commands used for that.
+I recommend frequently rebasing from `master` in order to keep your branch in sync. Here are the basic commands used for that.
 
 Assuming your branch is named `branch-123`:
 
