@@ -24,6 +24,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + Lorax
 + [NiklassMM](https://github.com/NiklasMM)
 + [mmorrison](https://github.com/mmorrison)
++ [wspencermiller](https://github.com/wspencermiller)
 + [Zirhark](https://github.com/Zirhark)
 + [T-Nightingale](https://github.com/T-Nightingale)
 
@@ -74,4 +75,4 @@ This repository is automatically deployed using CodeShip.
 
 Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
 
-This happens automatically, so be careful when merging to master! Your changes will immediately be live.
+This happens automatically, so be careful when merging to `master`! Your changes will immediately be live.
