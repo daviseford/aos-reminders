@@ -14,7 +14,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Figureheads of the Dark Prince`,
-        desc: `This army can have up to 3 generals instead of 1.  Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes.  An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general.  In addtion each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
+        desc: `This army can have up to 3 generals instead of 1.  Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes.  An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general.  In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
         when: [START_OF_GAME],
       },
       {

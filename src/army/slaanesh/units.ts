@@ -332,7 +332,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In addtional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -387,7 +387,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In addtional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -427,7 +427,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In addtional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -457,7 +457,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In addtional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

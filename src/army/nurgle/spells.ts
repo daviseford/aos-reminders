@@ -54,7 +54,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Glorious Afflictions (Daemon)`,
-        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 21" and visible to the caster.  The move characteristic and any run or charge rolls made for them are halved (rounding up) until your next hero phase.  In addtion units that can normally fly cannot do so until your next hero phase.`,
+        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 21" and visible to the caster.  The move characteristic and any run or charge rolls made for them are halved (rounding up) until your next hero phase.  In addition units that can normally fly cannot do so until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
