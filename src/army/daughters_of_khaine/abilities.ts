@@ -1,4 +1,3 @@
-import { IEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,9 +7,10 @@ import {
   SHOOTING_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Fanatical Faith`,
     desc: `Roll a dice each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model.  On a 6+ the wound is negated.`,
@@ -33,7 +33,7 @@ const Abilities: IEffects[] = [
   },
   {
     name: `Blood Rites - Battle Round 3+: Zealot's Rage`,
-    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units.  In addtion, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
+    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units.  In addition, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {

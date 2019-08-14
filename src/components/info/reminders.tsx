@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import ReactTooltip from 'react-tooltip'
+import { without, uniq } from 'lodash'
 import './reminders.css'
 import { realmscape, factionNames, selections, army } from 'ducks'
 import { processReminders } from 'utils/processReminders'
@@ -10,8 +10,8 @@ import { titleCase } from 'utils/titleCase'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ITurnAction } from 'types/data'
-import { without, uniq } from 'lodash'
+import { TTurnAction } from 'types/data'
+import { IStore } from 'types/store'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -55,13 +55,13 @@ const RemindersComponent = (props: IRemindersProps) => {
 
 const Entry = (props: {
   when: string
-  actions: ITurnAction[]
+  actions: TTurnAction[]
   idx: number
   factionName: TSupportedFaction
 }) => {
   const { when, actions } = props
 
-  const [hidden, setHidden] = useState([] as string[])
+  const [hidden, setHidden] = useState<string[]>([])
   const showEntry = (name: string) => setHidden(without([...hidden], name))
   const hideEntry = (name: string) => setHidden(uniq([...hidden, name]))
 
@@ -82,61 +82,52 @@ const Entry = (props: {
 }
 
 const getTitle = ({
-  allegiance_ability,
   artifact,
-  command_ability,
   command_trait,
   condition,
   endless_spell,
   name,
+  scenery,
   spell,
-}: ITurnAction): string => {
-  const nameIfDifferent = name === condition ? `` : `: ${condition}`
-  if (spell) return `Spell${nameIfDifferent}`
-  if (endless_spell) return `Endless Spell${nameIfDifferent}`
-  if (artifact) return `Artifact${nameIfDifferent}`
-  if (allegiance_ability || command_ability) return condition
+}: TTurnAction): string => {
+  const suffix = name === condition ? `` : `: ${condition}`
+  if (artifact) return `Artifact${suffix}`
   if (command_trait) return `Command Trait`
+  if (endless_spell) return `Endless Spell${suffix}`
+  if (scenery) return `Scenery${suffix}`
+  if (spell) return `Spell${suffix}`
   return condition
 }
 
 const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
   const { isVisible, setVisibility } = props
   const VisibilityComponent = isVisible ? MdVisibility : MdVisibilityOff
-  const tipProps = {
-    'data-for': `reminderTooltip`,
-    'data-tip': isVisible ? `Click to hide this rule.` : `This rule will not be printed.`,
-    'data-type': `info`,
-  }
   return (
     <>
-      <div {...tipProps}>
-        <IconContext.Provider value={{ size: '1.4em' }}>
-          <VisibilityComponent onClick={setVisibility} />
-        </IconContext.Provider>
-        <ReactTooltip id={`reminderTooltip`} />
-      </div>
+      <IconContext.Provider value={{ size: '1.4em' }}>
+        <VisibilityComponent onClick={setVisibility} />
+      </IconContext.Provider>
     </>
   )
 }
 
-interface IActionTextProps extends ITurnAction {
+interface IActionTextProps extends TTurnAction {
   hideEntry: (name: string) => void
   showEntry: (name: string) => void
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name, desc, command_ability, tag, showEntry, hideEntry } = props
+  const { name = '', desc, command_ability, tag, showEntry, hideEntry } = props
   const [isVisible, setIsVisibile] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
-    !isVisible ? showEntry(name as string) : hideEntry(name as string)
+    !isVisible ? showEntry(name) : hideEntry(name)
     setIsVisibile(!isVisible)
   }
 
   useEffect(() => {
     return () => {
-      showEntry(name as string) // Remove this from the hidden array on unload
+      showEntry(name) // Remove this from the hidden array on unload
     }
     // eslint-disable-next-line
   }, [])
@@ -162,7 +153,7 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyArmies: army.selectors.getAllyArmies(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),

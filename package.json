@@ -9,7 +9,6 @@
     "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-detect-print": "^0.0.2",
     "react-dom": "^16.8.6",
     "react-ga": "^2.6.0",
     "react-icons": "^3.7.0",

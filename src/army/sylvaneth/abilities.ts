@@ -1,20 +1,9 @@
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
-import {
-  BATTLESHOCK_PHASE,
-  DURING_SETUP,
-  END_OF_MOVEMENT_PHASE,
-  MOVEMENT_PHASE,
-  START_OF_SETUP,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
-  {
-    name: `Wyldwood Groves`,
-    desc: `After all other pieces of scenery are set up, but before the battle begins and players choose territory or set up their armies, you can place one Sylvaneth Wyldwood anywhere on the battlefield that is more than 1" from any other piece of scenery.`,
-    when: [START_OF_SETUP],
-  },
+const Abilities: TAbilities = [
   {
     name: `Forest Spirits`,
     desc: `Instead of setting up a SYLVANETH unit on the battlefield, you can place it to one side and say that it is set up in the hidden enclaves as a reserve unit. You can set up one reserve unit in the hidden enclaves for each unit you set up on the battlefield.`,

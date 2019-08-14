@@ -96,7 +96,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Staff of Sneaky Stealin'`,
-        desc: `Add 1 to casting and unbinding rolls for the bearer for each enemy WIZARD within 12" of the bearer. In addition, add 1 to casting and unbinding rolls for the bearer for each enemy HERO with an artefact of power within 12" of the bearer.`,
+        desc: `Add 1 to casting and unbinding rolls for the bearer for each enemy WIZARD within 12" of the bearer. In addition, add 1 to casting and unbinding rolls for the bearer for each enemy HERO with an artifact of power within 12" of the bearer.`,
         when: [HERO_PHASE],
       },
     ],

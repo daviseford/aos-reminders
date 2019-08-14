@@ -27,7 +27,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Chalice of Blood and Darkness`,
-        desc: `Once per battle, at the start of the enemy hero phase, the bearer can use this artefact. If they do so, roll a dice for each enemy Wizard within 30" of the bearer. On a 4+, reduce the number of spells that enemy Wizard can attempt to cast in that hero phase by 1.`,
+        desc: `Once per battle, at the start of the enemy hero phase, the bearer can use this artifact. If they do so, roll a dice for each enemy Wizard within 30" of the bearer. On a 4+, reduce the number of spells that enemy Wizard can attempt to cast in that hero phase by 1.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

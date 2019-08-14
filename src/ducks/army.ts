@@ -1,15 +1,11 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { IArmy, TAllyArmies } from 'types/army'
+import { IArmy } from 'types/army'
 import { Game } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
 import { getArmy } from 'utils/getArmy'
+import { IArmyStore } from 'types/store'
 
-type TInitialStateType = {
-  army: IArmy
-  allyArmies: TAllyArmies
-}
-
-const initialState: TInitialStateType = {
+const initialState: IArmyStore = {
   army: {
     Abilities: [],
     Allegiances: [],
@@ -17,6 +13,7 @@ const initialState: TInitialStateType = {
     Battalions: [],
     EndlessSpells: [],
     Game: Game,
+    Scenery: [],
     Spells: [],
     Traits: [],
     Units: [],

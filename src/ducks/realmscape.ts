@@ -1,7 +1,8 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IRealmscapeStore } from 'types/store'
 
-const initialState = {
+const initialState: IRealmscapeStore = {
   realmscape: null,
   realmscape_feature: null,
 }

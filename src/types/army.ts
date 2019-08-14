@@ -1,4 +1,4 @@
-import { IEffects, IEntry } from './data'
+import { TEffects, TEntry } from './data'
 import { TGameStructure } from 'meta/game_structure'
 import { IAllySelections } from './selections'
 
@@ -9,14 +9,15 @@ export type TAllyData = {
   allySelections: IAllySelections
 }[]
 
-export type TAbilities = IEffects[]
-export type TAllegiances = IEntry[]
-export type TArtifacts = IEntry[]
-export type TBattalions = IEntry[]
-export type TTraits = IEntry[]
-export type TEndlessSpells = IEntry[]
-export type TSpells = IEntry[]
-export type TUnits = IEntry[]
+export type TAbilities = TEffects[]
+export type TAllegiances = TEntry[]
+export type TArtifacts = TEntry[]
+export type TBattalions = TEntry[]
+export type TTraits = TEntry[]
+export type TEndlessSpells = TEntry[]
+export type TScenery = TEntry[]
+export type TSpells = TEntry[]
+export type TUnits = TEntry[]
 
 export interface IArmyWithoutGame {
   Abilities: TAbilities
@@ -24,6 +25,7 @@ export interface IArmyWithoutGame {
   Artifacts: TArtifacts
   Battalions: TBattalions
   EndlessSpells: TEndlessSpells
+  Scenery: TScenery
   Spells: TSpells
   Traits: TTraits
   Units: TUnits

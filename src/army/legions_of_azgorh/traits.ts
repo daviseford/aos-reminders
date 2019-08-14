@@ -9,7 +9,6 @@ const CommandTraits: TTraits = [
         name: `Contemptuous`,
         desc: `You can re-roll wound rolls of 1 for attacks made by this general.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
     ],
   },

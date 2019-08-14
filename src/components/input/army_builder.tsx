@@ -6,11 +6,12 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy } from 'types/army'
+import { IArmy, TScenery } from 'types/army'
 import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IStore } from 'types/store'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
@@ -24,6 +25,7 @@ interface IArmyBuilderProps {
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
   updateEndlessSpells: (values: string[]) => void
+  updateScenery: (values: string[]) => void
   updateSpells: (values: string[]) => void
   updateTraits: (values: string[]) => void
   updateUnits: (values: string[]) => void
@@ -31,7 +33,7 @@ interface IArmyBuilderProps {
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
-  const { allegiances, artifacts, battalions, endless_spells, spells, traits, units } = selections
+  const { allegiances, artifacts, battalions, endless_spells, scenery, spells, traits, units } = selections
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
@@ -46,6 +48,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
   const handleRealmscape = withSelectOne(props.setRealmscape)
   const handleRealmscapeFeature = withSelectOne(props.setRealmscapeFeature)
+  const handleScenery = withSelectMultiple(props.updateScenery)
   const handleSpells = withSelectMultiple(props.updateSpells)
   const handleTraits = withSelectMultiple(props.updateTraits)
   const handleUnits = withSelectMultiple(props.updateUnits)
@@ -59,32 +62,38 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <CardComponent items={army.Units} values={units} type={'Unit'} setValues={handleUnits} />
-          <CardComponent items={army.Traits} type={'Trait'} values={traits} setValues={handleTraits} />
+          <CardComponent items={army.Units} values={units} type={'Units'} setValues={handleUnits} />
+          <CardComponent items={army.Traits} type={'Traits'} values={traits} setValues={handleTraits} />
           <CardComponent
             items={army.Artifacts}
-            type={'Artifact'}
+            type={'Artifacts'}
             values={artifacts}
             setValues={handleArtifacts}
           />
           <CardComponent
             items={army.Battalions}
             values={battalions}
-            type={'Battalion'}
+            type={'Battalions'}
             setValues={handleBattalions}
           />
           <CardComponent
             items={army.Allegiances}
             values={allegiances}
-            type={'Allegiance'}
+            type={'Allegiances'}
             setValues={handleAllegiances}
           />
-          <CardComponent items={army.Spells} values={spells} type={'Spell'} setValues={handleSpells} />
+          <CardComponent items={army.Spells} values={spells} type={'Spells'} setValues={handleSpells} />
           <CardComponent
             items={army.EndlessSpells}
             values={endless_spells}
-            type={'Endless Spell'}
+            type={'Endless Spells'}
             setValues={handleEndlessSpells}
+          />
+          <CardComponent
+            items={army.Scenery as TScenery}
+            values={scenery}
+            type={'Scenery'}
+            setValues={handleScenery}
           />
           <SelectRealmscapeComponent
             value={realmscape || null}
@@ -104,7 +113,7 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   realmscape: realmscape.selectors.getRealmscape(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
@@ -120,6 +129,7 @@ const mapDispatchToProps = {
   updateArtifacts: selections.actions.updateArtifacts,
   updateBattalions: selections.actions.updateBattalions,
   updateEndlessSpells: selections.actions.updateEndlessSpells,
+  updateScenery: selections.actions.updateScenery,
   updateSpells: selections.actions.updateSpells,
   updateTraits: selections.actions.updateTraits,
   updateUnits: selections.actions.updateUnits,

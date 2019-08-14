@@ -1,8 +1,8 @@
 import { DURING_GAME, END_OF_SETUP } from 'types/phases'
-import { IEffects } from 'types/data'
+import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: IEffects[] = [
+const Abilities: TAbilities = [
   {
     name: `Stubborn to the End`,
     desc: `If you roll a 1, 2 or 3 (before modifiers are applied) when taking a battleshock test for a friendly DISPOSSESSED unit, that unit is treated as having passed the battleshock test irrespective of any modifiers to the battleshock test or their Bravery characteristic.`,

@@ -5,6 +5,7 @@ import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
 import { without } from 'lodash'
+import { IStore } from 'types/store'
 
 interface IAlliedArmiesProps {
   allyFactionNames: TSupportedFaction[]
@@ -33,7 +34,7 @@ const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   factionName: factionNames.selectors.getFactionName(state),
   allyFactionNames: selections.selectors.getAllyFactionNames(state),

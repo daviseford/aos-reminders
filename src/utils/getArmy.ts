@@ -27,6 +27,7 @@ import {
   TSpells,
   TTraits,
   TUnits,
+  TScenery,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
@@ -48,13 +49,14 @@ interface IModifyArmyMeta {
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const { Allegiances, Artifacts, Battalions, EndlessSpells, Spells, Traits, Units } = Army
+  const { Allegiances, Artifacts, Battalions, EndlessSpells, Scenery, Spells, Traits, Units } = Army
   const { realmscape, GrandAlliance } = meta
 
   Army.Allegiances = modifyAllegiances(Allegiances)
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.Battalions = modifyBattalions(Battalions)
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
+  Army.Scenery = modifyScenery(Scenery)
   Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
   Army.Units = modifyUnits(Units)
@@ -63,6 +65,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Army.Artifacts,
     Army.Battalions,
     Army.EndlessSpells,
+    Army.Scenery,
     Army.Spells,
     Army.Traits,
     Army.Units,
@@ -94,6 +97,10 @@ const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
     .concat(sortBy(realmSpells, 'name'))
     .concat(sortBy(GenericSpells, 'name'))
     .map(s => ({ ...s, spell: true }))
+}
+
+const modifyScenery = (scenery: TScenery): TScenery => {
+  return sortBy(scenery, 'name').map(s => ({ ...s, scenery: true }))
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {

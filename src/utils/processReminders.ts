@@ -5,7 +5,7 @@ import { RealmscapeFeatures } from 'army/malign_sorcery'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyData } from 'types/army'
-import { IEffects, IReminder, ITurnAction } from 'types/data'
+import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 
 type TProcessReminders = (
@@ -33,14 +33,15 @@ export const processReminders: TProcessReminders = (
 
   // Add Abilities
   if (army.Abilities.length) {
-    army.Abilities.forEach((a: IEffects) => {
-      const t: ITurnAction = {
+    army.Abilities.forEach((a: TEffects) => {
+      const command_ability = a.command_ability || false
+      const t: TTurnAction = {
         name: a.name,
         desc: a.desc,
         condition: `${titleCase(factionName)} Allegiance`,
-        allegiance_ability: true,
         tag: a.tag || false,
-        command_ability: a.command_ability || false,
+        allegiance_ability: !command_ability,
+        command_ability,
       }
       a.when.forEach(when => {
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -50,8 +51,8 @@ export const processReminders: TProcessReminders = (
 
   // Add Realmscape features
   if (realmscape_feature) {
-    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature) as IEffects
-    const t: ITurnAction = {
+    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature) as TEffects
+    const t: TTurnAction = {
       name: r.name,
       desc: r.desc,
       condition: `Realmscape Feature`,
@@ -79,10 +80,10 @@ const processConditions = (
 ) => {
   const conditions = flatten(Object.values(selections))
 
-  const reminders = Object.keys(game).reduce((accum: { [key: string]: ITurnAction[] }, when) => {
+  const reminders = Object.keys(game).reduce((accum: { [key: string]: TTurnAction[] }, when) => {
     if (!game[when].length) return accum
 
-    game[when].forEach((action: ITurnAction) => {
+    game[when].forEach((action: TTurnAction) => {
       if (conditions.includes(action.condition)) {
         accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
       }
@@ -101,7 +102,7 @@ const processConditions = (
  * @param phase
  * @param action
  */
-const processCondition = produce((phase: ITurnAction[], action: ITurnAction) => {
+const processCondition = produce((phase: TTurnAction[], action: TTurnAction) => {
   // See if we can find a matching action already in the phase
   const idx = phase.findIndex(x => x.name === action.name && x.desc === action.desc)
 

@@ -1,7 +1,7 @@
 import * as Phases from 'types/phases'
-import { ITurnAction } from 'types/data'
+import { TTurnAction } from 'types/data'
 
-export type TGameStructure = { [key in Phases.TTurnWhen]: ITurnAction[] }
+export type TGameStructure = { [key in Phases.TTurnWhen]: TTurnAction[] }
 
 export const Game: TGameStructure = {
   // General actions

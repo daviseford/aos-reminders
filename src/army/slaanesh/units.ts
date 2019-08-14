@@ -45,59 +45,81 @@ const getEverchosenUnits = () => {
   return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
 }
 
+const KeeperOfSecretsBaseEffects = [
+  {
+    name: `Dark Temptations`,
+    desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a dice. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+    when: [START_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Delicate Precision`,
+    desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Magic`,
+    desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Cacophonic Choir`,
+    desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Excess of Violence`,
+    desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12. That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
+    when: [COMBAT_PHASE],
+    command_ability: true,
+  },
+]
+
 // Unit Names
 export const Units: TUnits = [
   // Import Everchosen/Slaves to Darkness Units
   ...getSlavesUnits(),
   ...getEverchosenUnits(),
   {
-    name: `Keeper of Secrets`,
+    name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [
+      ...KeeperOfSecretsBaseEffects,
       {
         name: `Ritual Knife`,
-        desc: `If this model is armed with a Ritual Knife, you can pick 1 enemy model within 1" of this model that has any wounds currently allocated to it and roll a dice. On a 1, nothing happens. On a 2-5, that enemy model suffers 1 mortal wound. On a 6, that enemy model suffers D3 mortal wounds.`,
+        desc: `You can pick 1 enemy model within 1" of this model that has any wounds currently allocated to it and roll a dice. On a 1, nothing happens. On a 2-5, that enemy model suffers 1 mortal wound. On a 6, that enemy model suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
-      {
-        name: `Dark Temptations`,
-        desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a dice. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Delicate Precision`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
-        when: [COMBAT_PHASE],
-      },
+    ],
+  },
+  {
+    name: `Keeper of Secrets w/ Living Whip`,
+    effects: [
+      ...KeeperOfSecretsBaseEffects,
       {
         name: `Living Whip`,
-        desc: `If this model is armed with a Living Whip,  you can pick 1 enemy Monster model within 6" of this model and roll a dice. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
+        desc: `You can pick 1 enemy Monster model within 6" of this model and roll a dice. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
+    ],
+  },
+  {
+    name: `Keeper of Secrets w/ Shining Aegis`,
+    effects: [
+      ...KeeperOfSecretsBaseEffects,
       {
         name: `Shining Aegis`,
-        desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
+    ],
+  },
+  {
+    name: `Keeper of Secrets w/ Sinistrous Hand`,
+    effects: [
+      ...KeeperOfSecretsBaseEffects,
       {
         name: `Sinistrous Hand`,
-        desc: `If this model is armed with a Sinistrous Hand, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy Heroes were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
+        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy Heroes were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
         when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Cacophonic Choir`,
-        desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Excess of Violence`,
-        desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12. That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -310,7 +332,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In addtional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -365,7 +387,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In addtional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -405,7 +427,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In addtional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -435,7 +457,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In addtional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

@@ -14,6 +14,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/lib/types'
+import { IStore } from 'types/store'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -84,7 +85,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyFactionNames: selections.selectors.getAllyFactionNames(state),
   allySelections: selections.selectors.getAllySelections(state),

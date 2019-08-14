@@ -134,7 +134,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lightshard of the Harvest Moon`,
-        desc: `Once per battle, at the start of the combat phase, the bearer can use this artefact. If they do so, you can re-roll failed hit rolls for attacks made by friendly NIGHTHAUNT units that are wholly within 12" of the bearer when they attack in that combat phase.`,
+        desc: `Once per battle, at the start of the combat phase, the bearer can use this artifact. If they do so, you can re-roll failed hit rolls for attacks made by friendly NIGHTHAUNT units that are wholly within 12" of the bearer when they attack in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

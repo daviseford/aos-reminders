@@ -327,7 +327,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Gildenbane (${CHAMON})`,
-        desc: `If an enemy model is the bearer of an artefact of power, they cannot use the rules for their artefact of power while they are within 3" of the bearer of Gildenbane.`,
+        desc: `If an enemy model is the bearer of an artifact of power, they cannot use the rules for their artifact of power while they are within 3" of the bearer of Gildenbane.`,
         when: [DURING_GAME],
       },
     ],

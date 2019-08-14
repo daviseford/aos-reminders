@@ -81,7 +81,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Tainted Corruptor (Daemon)`,
-        desc: `You can pick one terrain feature that is within 3" of your general.  For the rest of the battle that terrain feature has the Sickness Blossoms scenery rule from the Feculent Gnarlmaw warscroll in addtion to any other rules it already had.`,
+        desc: `You can pick one terrain feature that is within 3" of your general.  For the rest of the battle that terrain feature has the Sickness Blossoms scenery rule from the Feculent Gnarlmaw warscroll in addition to any other rules it already had.`,
         when: [START_OF_HERO_PHASE],
         command_trait: true,
       },

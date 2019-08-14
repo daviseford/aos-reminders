@@ -8,8 +8,6 @@
 
 If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
 
-In particular, you'll want to focus on `abilities.ts`, `artifacts.ts`, `endless_spells.ts`, `spells.ts`, `traits.ts`, and `units.ts`.
-
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
 **For more contribution guidelines, check out [CONTRIBUTING.md](https://github.com/daviseford/aos-reminders/blob/master/CONTRIBUTING.md)**
@@ -22,9 +20,12 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [PixelTom](https://github.com/PixelTom)
 + [ctcodie](https://github.com/ctcodie)
 + [Cpt Asgard](https://github.com/CptAsgard)
++ [LiuSeeker](https://github.com/LiuSeeker)
 + Lorax
 + [NiklassMM](https://github.com/NiklasMM)
 + [mmorrison](https://github.com/mmorrison)
++ [wspencermiller](https://github.com/wspencermiller)
++ [Zirhark](https://github.com/Zirhark)
 + [T-Nightingale](https://github.com/T-Nightingale)
 
 ## Available Scripts
@@ -74,4 +75,4 @@ This repository is automatically deployed using CodeShip.
 
 Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
 
-This happens automatically, so be careful when merging to master! Your changes will immediately be live.
+This happens automatically, so be careful when merging to `master`! Your changes will immediately be live.
