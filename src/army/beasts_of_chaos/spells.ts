@@ -27,7 +27,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Savage Dominion (Brayherd Wizard)`,
-        desc: `Casting value of 5. If successfully cast, pick an enemy MONSTER unit that is a single model within 18" of the caster and visible to them, and roll 2D6. If the roll is equal to or greater than that model's Bravery characteristic, it immediately moves 3" towards the closest model. You can then pick a unit within 1" of that MONSTER and roll a number of dice equal to the MONSTER's Wounds characteristic. For each 4+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, pick an enemy Monster unit that is a single model within 18" of the caster and visible to them, and roll 2D6. If the roll is equal to or greater than that model's Bravery characteristic, you can move it 3" towards the closest other model. You can then pick 1 other unit within 1" of that Monster and roll a number of dice equal to the Monster's Wounds characteristic. For each 4+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
