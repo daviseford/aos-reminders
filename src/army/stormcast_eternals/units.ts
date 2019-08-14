@@ -338,7 +338,7 @@ export const Units: TUnits = [
         name: `Swift of Wing`,
         desc: `Pick a friendly model with this command ability. Add 2 to run rolls for friendly SACROSANCT units that were wholly within 18" of that model at the start of that phase.`,
         when: [START_OF_MOVEMENT_PHASE],
-        allegiance_ability: true,
+        command_ability: true,
       },
       {
         name: `Prime Electrids`,
