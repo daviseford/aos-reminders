@@ -8,7 +8,8 @@ import {
   GenericScenery,
   RealmArtifacts,
   RealmSpells,
-} from 'army/generic/index'
+} from 'army/generic'
+
 import {
   ChaosArtifacts,
   ChaosTraits,
@@ -29,10 +30,10 @@ import {
   TArtifacts,
   TBattalions,
   TEndlessSpells,
+  TScenery,
   TSpells,
   TTraits,
   TUnits,
-  TScenery,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
@@ -124,14 +125,6 @@ type IGrandAllianceConfig = {
 }
 
 const GrandAllianceConfig: IGrandAllianceConfig = {
-  [ORDER]: {
-    Artifacts: OrderArtifacts,
-    Traits: OrderTraits,
-  },
-  [DESTRUCTION]: {
-    Artifacts: DestructionArtifacts,
-    Traits: DestructionTraits,
-  },
   [CHAOS]: {
     Artifacts: ChaosArtifacts,
     Traits: ChaosTraits,
@@ -139,5 +132,13 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
   [DEATH]: {
     Artifacts: DeathArtifacts,
     Traits: DeathTraits,
+  },
+  [DESTRUCTION]: {
+    Artifacts: DestructionArtifacts,
+    Traits: DestructionTraits,
+  },
+  [ORDER]: {
+    Artifacts: OrderArtifacts,
+    Traits: OrderTraits,
   },
 }
