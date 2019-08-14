@@ -6,6 +6,7 @@ export type TEntryProperties =
   | 'command_ability'
   | 'command_trait'
   | 'endless_spell'
+  | 'scenery'
   | 'spell'
 
 export const ENTRY_PROPERTIES: TEntryProperties[] = [
@@ -14,6 +15,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'command_ability',
   'command_trait',
   'endless_spell',
+  'scenery',
   'spell',
 ]
 
