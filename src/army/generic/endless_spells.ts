@@ -8,9 +8,12 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  START_OF_ROUND,
   START_OF_TURN,
 } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 const EndlessSpells: TEndlessSpells = [
   {
@@ -44,7 +47,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `An Emerald Lifeswarm is a predatory endless spell. Emerald Lifeswarms can move up to 10" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Bounteous Healing`,
@@ -52,7 +55,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [HERO_PHASE],
       },
       {
-        name: `Empowered by Ghyran`,
+        name: `Empowered by Ghyran (${GHYRAN})`,
         desc: `If your battle is taking place in the Realm of Life, roll a D6 to determine the number of wounds healed or wounds worth of slain models returned by the Emerald Lifeswarm's Bounteous Healing ability.`,
         when: [HERO_PHASE],
       },
@@ -69,7 +72,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `Geminids of Uhl-Gysh is a predatory endless spell. They can move up to 8" and can fly. When you move this endless spell, the second model must finish its move within 6" of the first. If this is impossible, this spell is dispelled.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Unleashed`,
@@ -87,7 +90,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [HERO_PHASE],
       },
       {
-        name: `Empowered by Ulgu`,
+        name: `Empowered by Ulgu (${ULGU})`,
         desc: `If your battle is taking place in the Realm of Shadow, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Shadow Geminid.`,
         when: [HERO_PHASE],
       },
@@ -104,7 +107,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `A Malevolent Maelstrom can move up to 8" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Devourer of Sorcery and Souls`,
@@ -117,7 +120,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [END_OF_ROUND],
       },
       {
-        name: `Empowered by Shyish`,
+        name: `Empowered by Shyish (${SHYISH})`,
         desc: `If your battle is taking place in the Realm of Death, allocate 1 additional energy point to this model at the start of each battle round.`,
         when: [HERO_PHASE],
       },
@@ -142,7 +145,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [DURING_GAME],
       },
       {
-        name: `Empowered by Hysh`,
+        name: `Empowered by Hysh (${HYSH})`,
         desc: `If your battle is taking place in the Realm of Light, add 1 to rolls made to determine if a unit is affected by this model's Blinding Light ability.`,
         when: [HERO_PHASE],
       },
@@ -159,7 +162,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `The Purple Sun of Shyish can move up to 9" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Swirling Death`,
@@ -177,7 +180,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Empowered by Shyish`,
+        name: `Empowered by Shyish (${SHYISH})`,
         desc: `If your battle is taking place in the Realm of Death, this model can move 12" instead of 9".`,
         when: [HERO_PHASE],
       },
@@ -194,7 +197,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `Quicksilver Swords can move up to 8" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Volley of Blades`,
@@ -207,7 +210,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [HERO_PHASE],
       },
       {
-        name: `Empowered by Chamon`,
+        name: `Empowered by Chamon (${CHAMON})`,
         desc: `If your battle is taking place in the Realm of Metal, you can roll 15 dice for this model's Dancing Blades ability instead of 12.`,
         when: [HERO_PHASE],
       },
@@ -224,7 +227,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `Ravenak's Gnashing Jaws can move up to 12" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Endless Appetite`,
@@ -242,7 +245,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Empowered by Ghur`,
+        name: `Empowered by Ghur (${GHUR})`,
         desc: `If your battle is taking place in the Realm of Beasts, this model can move up to D6+12" instead of 12".`,
         when: [HERO_PHASE],
       },
@@ -262,7 +265,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Empowered by Shyish`,
+        name: `Empowered by Shyish (${SHYISH})`,
         desc: `If your battle is taking place in the Realm of Death, the second and third Soulsnare Shackles models can be set up wholly within 9" of the first, instead of 6"`,
         when: [HERO_PHASE],
       },
@@ -279,7 +282,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `A Suffocating Gravetide can move up to 8" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Necrotic Tide`,
@@ -302,7 +305,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Empowered by Shyish`,
+        name: `Empowered by Shyish (${SHYISH})`,
         desc: `If your battle is taking place in the Realm of Death, this model can move up to 12" instead of 8".`,
         when: [HERO_PHASE],
       },
@@ -319,7 +322,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `The Burning Head can move up to 9" and can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Fiery Missile`,
@@ -337,7 +340,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Empowered by Aqshy`,
+        name: `Empowered by Aqshy (${AQSHY})`,
         desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
         when: [HERO_PHASE],
       },
@@ -357,7 +360,7 @@ const EndlessSpells: TEndlessSpells = [
         when: [HERO_PHASE],
       },
       {
-        name: `Empowered by Ulgu`,
+        name: `Empowered by Ulgu (${ULGU})`,
         desc: `If your battle is taking place in the Realm of Shadow, the second Umbral Spellportal model can be set up anywhere on the battlefield, instead of within 18" of the first.`,
         when: [HERO_PHASE],
       },
@@ -374,7 +377,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Predatory`,
         desc: `Aethervoid Pendulum.`,
-        when: [HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Slicing into Reality`,
@@ -415,6 +418,121 @@ const EndlessSpells: TEndlessSpells = [
         name: `Slow Down Time`,
         desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, re-roll failed save rolls for that wizard.`,
         when: [HERO_PHASE, DURING_ROUND],
+      },
+    ],
+  },
+  {
+    name: `Soulscream Bridge`,
+    effects: [
+      {
+        name: `Summon Soulscream Bridge`,
+        desc: `Casting value of 6. If successfully cast, set up the first model wholly within 6" of the caster.  Then set up the second model wholly within 12" of the first.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Deathly Passage`,
+        desc: `Friendly units wholly within 6" of one of these models can travel across the bridge.  If they do so, remove that unit from the battlefield and set it up wholly within 6" of the other bridge model.  This set up must be more than 9" from enemy models and the unit cannot move in this phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Nightmarish Construct`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of a Soulscream Bridge model. This ability has no effect on Death units.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If the battle is taking place in the realm of Shyish, the second Soulscream Bridge model can be set up wholly within 24" instead of 12".`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Shards of Valagharr`,
+    effects: [
+      {
+        name: `Summon Shards of Valagharr`,
+        desc: `Casting value of 5. If successfully cast, set up the first model wholly within 6" of the caster.  Then set up the second model wholly within 12" of the first.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ensnaring Soul-drain`,
+        desc: `Draw an imaginary straight line 1mm wide between the closest parts of the bases from these two models.  Each unit passed across by this line is ensnared until the end of the turn.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Ensnaring Soul-drain`,
+        desc: `Halve the movement characteristic of ensnared units.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Ensnaring Soul-drain`,
+        desc: `Subtract 1 from the hits rolls of ensnared units.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Twilight Translocation`,
+        desc: `After determining who has the first turn, players roll off.  The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
+        when: [START_OF_ROUND],
+      },
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If the battle is taking place in the realm of Shyish, the first Shards of Valagharr model can be set up wholly within 12" of the caster instead of 6".`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Lauchon the Soulseeker`,
+    effects: [
+      {
+        name: `Summon Lauchon the Soulseeker`,
+        desc: `Casting value of 6. If successfully cast, set up the model wholly within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Predatory`,
+        desc: `Lauchon the Soulseeker can move up to 12" and can fly.`,
+        when: [START_OF_ROUND],
+      },
+      {
+        name: `Navigate Deathly Tides`,
+        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Soul Price`,
+        desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model.  Remove the unit from the battlefield.  After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units.  Once the unit is set up, 1 model from the unit is slain.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If the battle is taking place in the realm of Shyish, this model can move up to 18" instead of up to 12".`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Horrorghast`,
+    effects: [
+      {
+        name: `Summon Horrorghast`,
+        desc: `Casting value of 5. If successfully cast, set up the model wholly within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Predatory`,
+        desc: `Horrorghast can move up to 9" and can fly.`,
+        when: [START_OF_ROUND],
+      },
+      {
+        name: `Prey on Fear`,
+        desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model.  Subtract 2 instead while they are within 6" of this model.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If the battle is taking place in the realm of Shyish, this model can move up to 12" instead of up to 9".`,
+        when: [DURING_GAME],
       },
     ],
   },

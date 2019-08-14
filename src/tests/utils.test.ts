@@ -13,13 +13,13 @@ import {
   SYLVANETH,
   BEASTS_OF_CHAOS,
 } from '../meta/factions'
-import { RealmscapeFeatures } from 'army/malign_sorcery'
+import { RealmscapeFeatures, GenericScenery } from 'army/generic'
 import { getArmy } from '../utils/getArmy'
-import { IArmy, TAllyData, TScenery } from '../types/army'
+import { IArmy, TAllyData } from '../types/army'
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { TTurnAction } from 'types/data'
 import { GenericEndlessSpells } from 'army/generic'
-import { sortBy } from 'lodash'
+import { sortBy, flatten } from 'lodash'
 import beasts_of_chaos from 'army/beasts_of_chaos'
 
 describe('processReminders', () => {
@@ -69,8 +69,9 @@ describe('processReminders', () => {
     const army = getArmy(EVERCHOSEN) as IArmy
     const selections = selectionsFactory({ endless_spells })
     const reminders = processReminders(army, EVERCHOSEN, selections, null, [])
+    const flattenedGame = flatten(Object.values(reminders))
 
-    expect(reminders[HERO_PHASE].filter(x => x.name === 'Predatory').length).toEqual(3)
+    expect(flattenedGame.filter(x => x.name === 'Predatory').length).toEqual(3)
 
     const mergedAbility = reminders[HERO_PHASE].find(
       ({ condition }) => condition === addToString(``, endless_spells.join(`, `))
@@ -173,14 +174,16 @@ describe('getArmy', () => {
   })
 
   it('adds Scenery to an army', () => {
-    const numEntries = beasts_of_chaos.Scenery.length
+    const army1SceneryNum = beasts_of_chaos.Scenery.length
+    const genericSceneryNum = GenericScenery.length
     const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
 
     expect(army1.Scenery).toBeDefined()
-    expect(army1.Scenery.length).toEqual(numEntries)
+    expect(army1.Scenery.length).toEqual(army1SceneryNum + genericSceneryNum)
 
+    const army2SceneryNum = seraphon.Scenery.length
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
-    expect(army2.Scenery.length).toEqual(0)
+    expect(army2.Scenery.length).toEqual(army2SceneryNum + genericSceneryNum)
   })
 })
