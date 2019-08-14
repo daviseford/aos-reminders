@@ -174,10 +174,10 @@ describe('getArmy', () => {
     const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
 
     expect(army1.Scenery).toBeDefined()
-    expect((army1.Scenery as TScenery).length).toEqual(numEntries)
+    expect(army1.Scenery.length).toEqual(numEntries)
 
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
-    expect((army2.Scenery as TScenery).length).toEqual(0)
+    expect(army2.Scenery.length).toEqual(0)
   })
 })

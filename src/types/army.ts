@@ -25,7 +25,7 @@ export interface IArmyWithoutGame {
   Artifacts: TArtifacts
   Battalions: TBattalions
   EndlessSpells: TEndlessSpells
-  Scenery?: TScenery
+  Scenery: TScenery
   Spells: TSpells
   Traits: TTraits
   Units: TUnits
