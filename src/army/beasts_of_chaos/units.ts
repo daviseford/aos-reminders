@@ -1,5 +1,17 @@
 import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  CHARGE_PHASE,
+  MOVEMENT_PHASE,
+  END_OF_SETUP,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  BATTLESHOCK_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_TURN,
+} from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
@@ -9,17 +21,17 @@ export const Units: TUnits = [
       {
         name: `Dual Axes`,
         desc: `You can re-roll hit rolls of 1 for attacks made with Paired Man-ripper Axes.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Hatred of Heroes`,
         desc: `You can re-roll failed wound rolls for attacks made by this model that target a HERO.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Grisly Trophy`,
         desc: `You can use this command ability in the combat phase if any attacks made by a friendly BEASTLORD with this command ability resulted in an enemy model being slain that phase. If you do so, until the end of that phase, you can re-roll wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD . If any attacks made by that BEASTLORD resulted in an enemy HERO or MONSTER being slain that phase, you can re-roll both hit rolls and wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD instead.`,
-        when: [],
+        when: [COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -30,17 +42,17 @@ export const Units: TUnits = [
       {
         name: `Infuse with Bestial Vigour`,
         desc: `At the start of your movement phase, add 3" to the Move characteristic of models in friendly BRAYHERD units wholly within 12" of any friendly GREAT BRAY-SHAMANS until the end of that phase.`,
-        when: [],
+        when: [START_OF_MOVEMENT_PHASE],
       },
       {
         name: `Magic`,
         desc: `Great Bray-Shaman is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Devolve spells.`,
-        when: [],
+        when: [HERO_PHASE],
       },
       {
         name: `Devolve`,
         desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -48,34 +60,29 @@ export const Units: TUnits = [
     name: `Gors`,
     effects: [
       {
-        name: `Foe-Render`,
-        desc: `The leader of this unit is a Foe-render. Add 1 to the Attacks characteristic of a Foe-render's Gor Blade(s).`,
-        when: [],
-      },
-      {
         name: `Brayhorn`,
         desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
         desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Rend and Tear`,
         desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Gor Blades.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Beastshield`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastshields.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Anarchy and Mayhem`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it has 20 or more models.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -83,29 +90,24 @@ export const Units: TUnits = [
     name: `Ungors`,
     effects: [
       {
-        name: `Halfhorn`,
-        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn's Ungor Blade or Gnarled Shortspear.`,
-        when: [],
-      },
-      {
         name: `Brayhorn`,
         desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
         desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Baying Hatred`,
         desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Half-shields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -114,29 +116,24 @@ export const Units: TUnits = [
     name: `Ungor Raiders`,
     effects: [
       {
-        name: `Halfhorn`,
-        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn's Ungor Blade or Gnarled Shortspear.`,
-        when: [],
-      },
-      {
         name: `Brayhorn`,
         desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
         desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Vile Invaders`,
         desc: `After armies are set up, but before the first battle round begins, this unit can move up to 6".`,
-        when: [],
+        when: [END_OF_SETUP],
       },
       {
         name: `Baying Anger`,
         desc: `You can re-roll hit rolls of 1 for attacks made by this unit with missile weapons while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit with missile weapons while it has 30 or more models.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -144,29 +141,24 @@ export const Units: TUnits = [
     name: `Bestigors`,
     effects: [
       {
-        name: `Gouge-Horn`,
-        desc: `The leader of this unit is a Gouge-horn. Add 1 to the Attacks characteristic of a Gouge-horn's Despoiler Axe.`,
-        when: [],
-      },
-      {
         name: `Brayhorn`,
         desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
         desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Despoilers`,
         desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Bestial Charge`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -176,12 +168,12 @@ export const Units: TUnits = [
       {
         name: `Tuskgor Charge`,
         desc: `You can re-roll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
-        when: [],
+        when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {
         name: `Despoilers`,
         desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -191,12 +183,12 @@ export const Units: TUnits = [
       {
         name: `Bloodgreed`,
         desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Slaughterer's Call`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly WARHERD unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
-        when: [],
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -207,12 +199,12 @@ export const Units: TUnits = [
       {
         name: `Soul-eater`,
         desc: `This model can attempt to unbind 2 spells in the enemy hero phase in the same manner as a WIZARD. In addition, each time it unbinds a spell, the caster suffers 1 mortal wound and you can heal 1 wound allocated to this model.`,
-        when: [],
+        when: [HERO_PHASE],
       },
       {
         name: `Ghostsight`,
         desc: `You can re-roll failed hit rolls for attacks made by this model that target a WIZARD.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -222,12 +214,12 @@ export const Units: TUnits = [
       {
         name: `Ravenous Bloodgreed`,
         desc: `Each unmodified wound roll of 6 for attacks made by this model inflicts D3 mortal wounds on the target in addition to any normal damage.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Swallow Whole`,
         desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model's attacks have been resolved and roll a dice. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -235,34 +227,29 @@ export const Units: TUnits = [
     name: `Bullgors`,
     effects: [
       {
-        name: `Bloodkine`,
-        desc: `The leader of this unit is a Bloodkine. Add 1 to the Attacks characteristic of a Bloodkine's Bullgor Axe(s) or Bullgor Great Axe.`,
-        when: [],
-      },
-      {
         name: `Warherd Drummer`,
         desc: `1 in every 3 models in this unit can be a Warherd Drummer. Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Warherd Banner Bearer`,
         desc: `1 in every 3 models in this unit can be a Warherd Banner Bearer. Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
-        when: [],
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Bloodgreed`,
         desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Dual Axes`,
         desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Bullgor Axes.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Bullshields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Bullshields.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -270,34 +257,29 @@ export const Units: TUnits = [
     name: `Centigors`,
     effects: [
       {
-        name: `Gorehoof`,
-        desc: `The leader of this unit is a Gorehoof. Add 1 to the Attacks characteristic of a Gorehoof's Centigor Spear.`,
-        when: [],
-      },
-      {
         name: `Brayhorn`,
         desc: `1 in every 5 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
         name: `Banner Bearer`,
         desc: `1 in every 5 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [],
+        when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
         name: `Beastbucklers`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastbucklers.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Charging Spear`,
         desc: `You can re-roll failed wound rolls for attacks made with this unit's Centigor Spears if it made a charge move in the same turn.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Drunken Revelry`,
         desc: `At the start of your hero phase, you can say that this unit is drinking wildly. If you do so, until your next hero phase, add 1 to hit rolls for attacks made by this unit and attacks that target this unit.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -307,17 +289,17 @@ export const Units: TUnits = [
       {
         name: `Beneath the Tempest`,
         desc: `If the roll-off at the start of a battle round to determine who takes the first turn is a tie, roll a dice for each THUNDERSCORN unit on the battlefield. On a 4+ heal D3 wounds allocated to that unit.`,
-        when: [],
+        when: [START_OF_TURN],
       },
       {
         name: `Magic`,
         desc: `Dragon Ogor Shaggoth is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Summon Lightning spells.`,
-        when: [],
+        when: [HERO_PHASE],
       },
       {
         name: `Summon Lightning`,
         desc: `Casting value of 7. If successfully cast, pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -327,17 +309,17 @@ export const Units: TUnits = [
       {
         name: `Storm Rage`,
         desc: `You can re-roll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Cahos Warhounds`,
+    name: `Chaos Warhounds`,
     effects: [
       {
         name: `Outrunners of Chaos`,
         desc: `In your movement phase, if you declare that this unit will run, do not make a run roll. Instead, add 6" to the Move characteristic of all models in this unit for that phase.`,
-        when: [],
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
