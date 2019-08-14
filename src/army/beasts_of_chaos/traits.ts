@@ -1,14 +1,26 @@
-import { TCommandTraits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { TTraits } from 'types/army'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  TURN_ONE_START_OF_ROUND,
+  TURN_TWO_MOVEMENT_PHASE,
+} from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TTraits = [
   {
     name: `Bestial Cunning (Brayherd)`,
     effects: [
       {
         name: `Bestial Cunning (Brayherd)`,
         desc: `Up to half (rounding down) of the friendly reserve units set up in ambush (see Brayherd Ambush, page 61) can arrive in your second movement phase instead of your first.`,
-        when: [],
+        when: [TURN_TWO_MOVEMENT_PHASE],
       },
     ],
   },
@@ -18,7 +30,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Indomitable Beast (Brayherd)`,
         desc: `Add 1 to this general's Wounds characteristic.`,
-        when: [],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -28,7 +40,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Apex Predator (Brayherd)`,
         desc: `Re-roll wound rolls of 1 for attacks made by this general.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -38,7 +50,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Malevolent Despoiler (Brayherd)`,
         desc: `Enemy units cannot receive the benefit of cover while they are within 12" of this general.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -48,7 +60,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Oracle of the Dark Tongue (Brayherd)`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this general.`,
-        when: [],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -58,7 +70,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Shadowpelt (Brayherd)`,
         desc: `Subtract 1 from hit rolls for attacks that target this general made by models more than 3" away from the general.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -68,7 +80,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Eater of Heroes (Warherd)`,
         desc: `You can re-roll failed hit rolls for attacks made by this general that target an enemy HERO.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -78,7 +90,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Rampant Juggernaut (Warherd)`,
         desc: `You can re-roll charge rolls made for friendly WARHERD units wholly within 12" of this general.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -88,7 +100,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Gorger (Warherd)`,
         desc: `Do not roll a D3 to determine the number of wounds healed by the Bloodgorge battle trait (pg 61) for friendly WARHERD units that are wholly within 12" of this general. Instead, the battle trait heals 3 wounds allocated to that unit.`,
-        when: [],
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -98,7 +110,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Gouge-tusks (Warherd)`,
         desc: `At the end of the combat phase, pick an enemy unit within 3" of this general and roll a dice. On a 1, nothing happens. On a 2-5, that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds.`,
-        when: [],
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -108,7 +120,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Roaring Brute (Warherd)`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this general.`,
-        when: [],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -118,7 +130,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Rugged Hide (Warherd)`,
         desc: `Worsen the Rend characteristic of attacks that target this general by 1 (to a minimum of '-').`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -128,7 +140,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Tempestuous Tyrant (Thunderscorn)`,
         desc: `You can re-roll failed wound rolls for attacks made by this general that target a MONSTER.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -138,7 +150,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Magnetic Monstrosity (Thunderscorn)`,
         desc: `Enemy units cannot retreat while they are within 3" of this general.`,
-        when: [],
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -148,7 +160,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Father of the Storm (Thunderscorn)`,
         desc: `When you use the Creatures of the Storm battle trait, you can re-roll the dice that determines how far units can move if this general is on the battlefield.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -158,7 +170,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Lightning-fast Monstrosity (Thunderscorn)`,
         desc: `This general fights at the start of the combat phase if it made a charge move in the same turn, before the players start picking any other units to fight in that combat phase.`,
-        when: [],
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -168,7 +180,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Adamantine Scales (Thunderscorn)`,
         desc: `Add 1 to the Save characteristic of this general.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -178,7 +190,7 @@ const CommandTraits: TCommandTraits = [
       {
         name: `Ancient Beyond Knowing (Thunderscorn)`,
         desc: `At the start of the first battle round, you receive D3 additional command points.`,
-        when: [],
+        when: [TURN_ONE_START_OF_ROUND],
       },
     ],
   },
