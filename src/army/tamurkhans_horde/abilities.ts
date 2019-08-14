@@ -28,8 +28,8 @@ const Abilities: TAbilities = [
     when: [START_OF_GAME],
   },
   {
-    name: `Artefact of Power`,
-    desc: `The first Tamurkhan's Horde Hero to receive an artefact of power must be given the Daemon Flask.`,
+    name: `Artifact of Power`,
+    desc: `The first Tamurkhan's Horde Hero to receive an artifact of power must be given the Daemon Flask.`,
     when: [START_OF_GAME],
   },
   ...NurgleAbilities,

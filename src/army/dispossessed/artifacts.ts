@@ -75,7 +75,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Resounding Gromrilhorn`,
-        desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, add 2 to the Bravery characteristic of friendly DISPOSSESSED units until your next hero phase.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can use this artifact. If they do so, add 2 to the Bravery characteristic of friendly DISPOSSESSED units until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

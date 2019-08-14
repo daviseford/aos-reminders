@@ -54,7 +54,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Grave Robber`,
-        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artefact of power.`,
+        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artifact of power.`,
         when: [COMBAT_PHASE],
       },
       {

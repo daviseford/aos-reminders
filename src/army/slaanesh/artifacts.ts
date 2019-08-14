@@ -171,7 +171,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cameo of the Dark Prince (Godseekers Host)`,
-        desc: `Once per battle can use this artefact.  You receive 1 command point.`,
+        desc: `Once per battle can use this artifact.  You receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {

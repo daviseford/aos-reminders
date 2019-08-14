@@ -35,7 +35,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blood-river Chalice (Royal Treasury)`,
-        desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, heal up to D6 wounds allocated to the bearer.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can use this artifact. If they do so, heal up to D6 wounds allocated to the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -65,7 +65,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Heart of the Gargant (Royal Treasury)`,
-        desc: `Once per battle, at the start of the combat phase, the bearer can use this artefact. If they do so, you can re-roll failed wound rolls for the bearer and their mount in that phase.`,
+        desc: `Once per battle, at the start of the combat phase, the bearer can use this artifact. If they do so, you can re-roll failed wound rolls for the bearer and their mount in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -125,7 +125,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Bilious Decanter (Noble Heirlooms)`,
-        desc: `Once per battle, at the start of the combat phase, the bearer can use this artefact. If they do so, add 2 to the Attacks characteristic of the bearer's melee weapons in that phase.`,
+        desc: `Once per battle, at the start of the combat phase, the bearer can use this artifact. If they do so, add 2 to the Attacks characteristic of the bearer's melee weapons in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
