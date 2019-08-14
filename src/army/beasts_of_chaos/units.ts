@@ -1,15 +1,16 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  COMBAT_PHASE,
-  START_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  MOVEMENT_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
   END_OF_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  BATTLESHOCK_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
 } from 'types/phases'
 
@@ -327,14 +328,9 @@ export const Units: TUnits = [
     name: `Chaos Spawn`,
     effects: [
       {
-        name: `Curse of the Dark Gods`,
-        desc: `You can choose one of the following keywords for this unit the first time it is set up: KHORNE, NURGLE, SLAANESH or TZEENTCH.`,
-        when: [],
-      },
-      {
         name: `Writhing Tentacles`,
-        desc: `If you roll a double when determining the number of attacks made by a CHAOS SPAWN 's Freakish Mutations, add 1 to hit and wound rolls for attacks made by that model until the end of the phase.`,
-        when: [],
+        desc: `If you roll a double when determining the number of attacks made by a CHAOS SPAWN's Freakish Mutations, add 1 to hit and wound rolls for attacks made by that model until the end of the phase.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -344,12 +340,12 @@ export const Units: TUnits = [
       {
         name: `Aura of Madness`,
         desc: `At the start of your hero phase, roll a dice for each enemy unit that is within 6" of any friendly JABBERSLYTHES . On a 6 that unit cannot attempt to cast or unbind spells, move, or attack until the start of your next hero phase.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Spurting Bile Blood`,
         desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -359,12 +355,12 @@ export const Units: TUnits = [
       {
         name: `Petrifying Gaze`,
         desc: `Do not use the attack sequence for an attack made with a Cockatrice's Petrifying Gaze. Instead, roll a dice. On a 4+ the target suffers D6 mortal wounds.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Maddened Ferocity`,
         desc: `A Cockatrice has an Attacks characteristic of 8 instead of 4 with its Sword-like Talons if it made a charge move in the same turn.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -374,12 +370,12 @@ export const Units: TUnits = [
       {
         name: `Draconic Head's Fiery Breath`,
         desc: `Do not use the attack sequence for an attack made with a Chimera's Fiery Breath. Instead the target suffers the number of mortal wounds shown on the Damage table above.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Vicious Charge`,
         desc: `Add 2 to charge rolls for this model.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -389,22 +385,22 @@ export const Units: TUnits = [
       {
         name: `Timber!`,
         desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-        when: [],
+        when: [DURING_GAME],
       },
       {
         name: `Stuff 'Em In Me Bag`,
         desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a dice. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Drunken Stagger`,
         desc: `If a charge roll for this model is a double, this model cannot make a charge move that phase. In addition, the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Whipped into a Frenzy`,
         desc: `At the start of the combat phase, if this model is within 3" of any friendly BEASTS OF CHAOS HEROES, you can whip it into a frenzy. If you do so, this model suffers 1 mortal wound, but you can add 1 to the Attacks characteristic of this model's melee weapons until the end of that phase.`,
-        when: [],
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -414,7 +410,7 @@ export const Units: TUnits = [
       {
         name: `Uncontrollable Stampede`,
         desc: `You can re-roll charge rolls for this unit. In addition, if this unit made a charge move in the same turn, an unmodified hit roll of 6 for an attack made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -424,12 +420,12 @@ export const Units: TUnits = [
       {
         name: `Guided by the Future`,
         desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Judgement from Afar`,
         desc: `An unmodified hit roll of 6 for an attack made with an Arrow of Fate inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -439,27 +435,27 @@ export const Units: TUnits = [
       {
         name: `Sorcerous Elixir`,
         desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can re-roll one or both of the dice when you make the casting roll for that spell.`,
-        when: [],
+        when: [HERO_PHASE],
       },
       {
         name: `Visions of the Future`,
         desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR SKYFIRE unit's Arrows of Fate while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Visions of the Past`,
         desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR ENLIGHTENED unit's Tzeentchian Spears and Vicious Beaks while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Magic`,
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Boon of Mutation spells.`,
-        when: [],
+        when: [HERO_PHASE],
       },
       {
         name: `Boon of Mutation`,
         desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. For each enemy model slain by these mortal wounds, you can add 1 new TZAANGOR model to a single friendly TZAANGORS unit. Each new TZAANGOR model must be set up wholly within 12" of the caster and within 1" of the unit they are being added to.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -469,12 +465,12 @@ export const Units: TUnits = [
       {
         name: `Babbling Stream of Secrets`,
         desc: `If an enemy unit fails a battleshock test within 9" of any friendly TZAANGOR ENLIGHTENED units, add 1 to the number of models that flee.`,
-        when: [],
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Guided by the Past`,
         desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if one or more enemy units within 3" of this unit have already fought in that phase.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -482,49 +478,44 @@ export const Units: TUnits = [
     name: `Tzaangors`,
     effects: [
       {
-        name: `Tzaangor Mutant`,
-        desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and a Vicious Beak. Add 1 to the Attacks characteristic of a Tzaangor Mutant's pair of Savage Blades.`,
-        when: [],
-      },
-      {
         name: `Twistbray`,
         desc: `The leader of this unit is a Twistbray. Add 1 to hit rolls for attacks made with a Twistbray's melee weapons.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Icon Bearers`,
         desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Brayhorn`,
         desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Destined Mayhem`,
         desc: `Add 1 to wound rolls for attacks made by this unit with melee weapons while this unit is wholly within 12" of any friendly ARCANITE HEROES.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Arcanite Shield`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Paired Savage Blades`,
         desc: `Add 1 to hit rolls for attacks made with a pair of Savage Blades.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Savagery Unleashed`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has at least 9 models when the attacks are being made.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Ornate Totems`,
         desc: `While this unit has one or more Icon Bearers, at the start of your hero phase you can pick an enemy unit within 18" of this unit and visible to it. Then, roll a number of dice equal to the number of WIZARD units that are within 9" of this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -538,7 +529,7 @@ export const Battalions: TBattalions = [
       {
         name: `Ferocious Despoilers`,
         desc: `Add 1 to charge rolls for friendly BRAYHERD units from this battalion that were set up on the battlefield during the same turn.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -548,7 +539,7 @@ export const Battalions: TBattalions = [
       {
         name: `Bloodscent`,
         desc: `Units from this battalion can move an extra 3" when they pile in.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -557,9 +548,8 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Raging Storm`,
-        desc: `In your hero phase, you can roll a dice for each unit from this battalion that is on the battlefield. On a 4+ you can heal 1 wound allocated to that unit.
-        After rolling a dice for each unit from this battalion, roll a dice for each enemy unit within 1" of any models from this battalion. On a 4+ that enemy unit suffers 1 mortal wound.`,
-        when: [],
+        desc: `In your hero phase, you can roll a dice for each unit from this battalion that is on the battlefield. On a 4+ you can heal 1 wound allocated to that unit. After rolling a dice for each unit from this battalion, roll a dice for each enemy unit within 1" of any models from this battalion. On a 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -569,7 +559,7 @@ export const Battalions: TBattalions = [
       {
         name: `Bringers of the Wild`,
         desc: `If the unmodified hit roll for an attack made by a unit from this battalion that is wholly within enemy territory is 6, that attack scores 2 hits on that target instead of 1. Make a wound and save roll for each hit.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -579,12 +569,7 @@ export const Battalions: TBattalions = [
       {
         name: `Martial Ferocity`,
         desc: `You can re-roll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can re-roll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
-        when: [],
-      },
-      {
-        name: `Followers of the Brass Bull`,
-        desc: `Units from this battalion gain the KHORNE keyword.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -594,12 +579,7 @@ export const Battalions: TBattalions = [
       {
         name: `Devourers of the Arcane`,
         desc: `Units from this battalion that do not have the WIZARD keyword can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD if they are within 9" of the caster.`,
-        when: [],
-      },
-      {
-        name: `Covens of the Changer`,
-        desc: `Units from this battalion gain the TZEENTCH keyword.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -609,12 +589,7 @@ export const Battalions: TBattalions = [
       {
         name: `Entropic Deluge`,
         desc: `If a unit from this battalion is destroyed, roll a dice for each enemy unit within 7". On a 2+ that enemy unit suffers 1 mortal wound.`,
-        when: [],
-      },
-      {
-        name: `Vectors of the Plague God`,
-        desc: `Units from this battalion gain the NURGLE keyword.`,
-        when: [],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -624,12 +599,7 @@ export const Battalions: TBattalions = [
       {
         name: `Covetous Fury`,
         desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artefact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artefact of power.`,
-        when: [],
-      },
-      {
-        name: `Marked by the Decadent Fiend`,
-        desc: `Units from this battalion gain the SLAANESH keyword.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
