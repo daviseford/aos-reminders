@@ -2,7 +2,6 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -61,11 +60,6 @@ const Abilities: TAbilities = [
     name: `Rune of Farsight`,
     desc: `+1 to hit for Fyreslayer throwing axes for friendly FYRESLAYERS units. (Enhanced effect: +1 to wound for Fyreslayer throwing axes for friendly FYRESLAYERS units.)`,
     when: [SHOOTING_PHASE],
-  },
-  {
-    name: `Magmic Battleforge`,
-    desc: `After armies are set up, but before combat begins, you can set up the Magmic Battleforge within 6" of a friendly FYRESLAYERS PRIEST wholly within your territory and more than 3" from any other terrain features and 1" from any objectives.`,
-    when: [END_OF_SETUP],
   },
 ]
 

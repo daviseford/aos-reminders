@@ -2,32 +2,13 @@ import {
   COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
-  HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_SETUP,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
-  {
-    name: `Skull Altar`,
-    desc: `After territories have been chosen but before armies have been set up, you can set up the SKULL ALTAR for your army. The SKULL ALTAR must be set up wholly within your territory and more than 3" from any other terrain features and more than 1" from any objectives. If both players can set up any terrain features before armies are set up, they must roll off, and the winner chooses who sets up their terrain features first.`,
-    when: [START_OF_SETUP],
-  },
-  {
-    name: `Skull Altar`,
-    desc: `You can re-roll prayer and judgement rolls for friendly KHORNE PRIESTS wholly within 8" of this model.`,
-    when: [HERO_PHASE],
-    tag: `Words of Hate`,
-  },
-  {
-    name: `Skull Altar`,
-    desc: `Subtract 1 from casting rolls for WIZARDS while they are within 16" of this model.`,
-    when: [HERO_PHASE],
-    tag: `Witchbane`,
-  },
   {
     name: `Blood for the Blood God!`,
     desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase. If you choose a reward, after resolving its effects your Blood Tithe points total is reset to zero.`,

@@ -1,4 +1,4 @@
-import { DURING_GAME, START_OF_SETUP, START_OF_HERO_PHASE } from 'types/phases'
+import { DURING_GAME, START_OF_HERO_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -7,11 +7,6 @@ const Abilities: TAbilities = [
     name: `Forgotten Nightmares`,
     desc: `Missile weapons can only be used to target an IDONETH DEEPKIN unit with this battle trait if it is the closest visible enemy unit.`,
     when: [DURING_GAME],
-  },
-  {
-    name: `Etheric Vortex`,
-    desc: `After all other terrain features are set up, but before players choose territories or set up their armies, you can set up a maximum of two Etheric Vortex terrain features anywhere on the battlefield so that each is more than 1" from any other terrain features.`,
-    when: [START_OF_SETUP],
   },
   {
     name: `Guardians of the Deep`,

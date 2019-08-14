@@ -94,6 +94,7 @@ describe('processReminders', () => {
     const artifact = sylvaneth.Artifacts[0]
     const battalion = sylvaneth.Battalions[0]
     const endless_spells = sylvaneth.EndlessSpells[0]
+    const scenery = sylvaneth.Scenery[0]
     const spell1 = sylvaneth.Spells[0]
     const spell2 = sylvaneth.Spells[1]
     const trait = sylvaneth.Traits[0]
@@ -104,6 +105,7 @@ describe('processReminders', () => {
       artifacts: [artifact.name],
       battalions: [battalion.name],
       endless_spells: [endless_spells.name],
+      scenery: [scenery.name],
       spells: [spell1.name, spell2.name],
       traits: [trait.name],
       units: [unit.name],
@@ -117,6 +119,7 @@ describe('processReminders', () => {
       artifact,
       battalion,
       endless_spells,
+      scenery,
       spell1,
       spell2,
       trait,

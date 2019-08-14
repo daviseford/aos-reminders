@@ -30,11 +30,11 @@ const Spells: TSpells = [
         name: `Gift of Contagion (Rotbringer)`,
         desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 18" of the caster that is visible.  Roll a dice and look up the result applying the penalty to all models in the unit until the start of your next hero phase.
     
-        1-2 -> Flyblown Palsy:  Subtract 1 from the unit's hit rolls in the combat phase.
+        1-2 - Flyblown Palsy: Subtract 1 from the unit's hit rolls in the combat phase.
         
-        3-4 -> Muscular Atrophy:  Subtract 1 from the unit's wound rolls in the combat phase.
+        3-4 - Muscular Atrophy: Subtract 1 from the unit's wound rolls in the combat phase.
         
-        5-6 -> Liquefying Ague:  Subtract 1 from the unit's save rolls.`,
+        5-6 - Liquefying Ague: Subtract 1 from the unit's save rolls.`,
         when: [HERO_PHASE],
       },
     ],
