@@ -38,10 +38,10 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
         <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
         <ItemsDisplayComponent name={'Battalion'} items={battalions} />
         <ItemsDisplayComponent name={'Command Trait'} items={traits} />
-        <ItemsDisplayComponent name={'Allegiances'} items={allegiances} />
+        <ItemsDisplayComponent name={'Allegiance'} items={allegiances} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
-        <ItemsDisplayComponent name={'Scenery'} items={scenery} />
+        <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
         <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
       </div>
     </>
@@ -86,9 +86,9 @@ const getWrappedItemText = (title: string, items: string[]) => {
   ).text
 }
 
-const ItemsDisplayComponent = (props: { name: string; items: string[] }) => {
-  const { items, name } = props
-  const title = items.length > 1 ? `${name}s` : name
+const ItemsDisplayComponent = (props: { name: string; items: string[]; pluralize?: boolean }) => {
+  const { items, name, pluralize = true } = props
+  const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
   const itemsText = useMemo(() => getWrappedItemText(title, items), [title, items])
   if (!items.length) return null
 
