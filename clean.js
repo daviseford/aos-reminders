@@ -8,8 +8,9 @@ const replaceOptions = {
     /(?<=[name|desc|tag]: )` +(?=.+`)/g, // Remove leading whitespaces
     /(?<!:)(?<=[name|desc|tag]: `.+) +`/g, // Remove trailing whitespaces
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
+    /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
   ],
-  to: [`'`, `"`, '`', '`', '.`'],
+  to: [`'`, `"`, '`', '`', '.`', `Casting value of`],
 }
 
 /**

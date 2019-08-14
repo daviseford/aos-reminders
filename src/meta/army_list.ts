@@ -2,6 +2,7 @@ import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
 import { IArmyWithoutGame } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
+  BEASTS_OF_CHAOS,
   DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
   EVERCHOSEN,
@@ -29,6 +30,7 @@ import {
 } from './factions'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
+import BeastsOfChaos from 'army/beasts_of_chaos'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Dispossessed from 'army/dispossessed'
 import Everchosen from 'army/everchosen'
@@ -57,6 +59,10 @@ export const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
+  },
+  [BEASTS_OF_CHAOS]: {
+    Army: { ...BeastsOfChaos },
+    GrandAlliance: CHAOS,
   },
   [DAUGHTERS_OF_KHAINE]: {
     Army: { ...DaughtersOfKhaine },
