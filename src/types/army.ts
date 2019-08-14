@@ -15,6 +15,7 @@ export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
 export type TTraits = TEntry[]
 export type TEndlessSpells = TEntry[]
+export type TScenery = TEntry[]
 export type TSpells = TEntry[]
 export type TUnits = TEntry[]
 
@@ -24,6 +25,7 @@ export interface IArmyWithoutGame {
   Artifacts: TArtifacts
   Battalions: TBattalions
   EndlessSpells: TEndlessSpells
+  Scenery: TScenery
   Spells: TSpells
   Traits: TTraits
   Units: TUnits

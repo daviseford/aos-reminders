@@ -182,7 +182,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Add 2" to the bearer's Move characteristic. In addition, you can re-roll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artefact to one of them, even if they already carry an artefact of power.`,
+        desc: `Add 2" to the bearer's Move characteristic. In addition, you can re-roll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -192,7 +192,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artefact to one of them, even if they already carry an artefact of power.`,
+        desc: `Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -262,7 +262,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Rustcursed Armour (Verminus)`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO with an artefact of power that is within 3" of the bearer and roll 3D6. If the roll is exactly 13, that artefact of power can no longer be used (if a weapon was picked when the artefact of power was selected, that weapon reverts to normal).`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO with an artifact of power that is within 3" of the bearer and roll 3D6. If the roll is exactly 13, that artifact of power can no longer be used (if a weapon was picked when the artifact of power was selected, that weapon reverts to normal).`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

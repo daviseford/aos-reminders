@@ -188,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Keep Counting, I'm Watching You`,
-        desc: `Re-roll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model.  In addtion, re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
+        desc: `Re-roll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model.  In addition, re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -208,7 +208,7 @@ export const Units: TUnits = [
       },
       {
         name: `Disease of Mirth`,
-        desc: `Add 1 to the bravery characteristic of friendly Nurgle Daemon units while they are within 7" of any Sloppity Bilepipers.  In addtion, subract 1 from the bravery characteristic of enemy units while they are within 7" of any Sloppity Bilepipers.`,
+        desc: `Add 1 to the bravery characteristic of friendly Nurgle Daemon units while they are within 7" of any Sloppity Bilepipers.  In addition, subract 1 from the bravery characteristic of enemy units while they are within 7" of any Sloppity Bilepipers.`,
         when: [DURING_GAME],
       },
       {
@@ -778,7 +778,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Assistant Gardeners`,
-        desc: `Horticulous Slimux can use his Cultivating the Garden of Nurgle ability in each of your hero phases instead of only once per battle.  In addtion, when he does so, the Feculent Gnarlmaw can be set up within 3" of any unit from this battalion instead of being set up within 3" of Horticulous.`,
+        desc: `Horticulous Slimux can use his Cultivating the Garden of Nurgle ability in each of your hero phases instead of only once per battle.  In addition, when he does so, the Feculent Gnarlmaw can be set up within 3" of any unit from this battalion instead of being set up within 3" of Horticulous.`,
         when: [HERO_PHASE],
       },
       {

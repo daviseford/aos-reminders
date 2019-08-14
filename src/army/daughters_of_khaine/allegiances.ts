@@ -26,7 +26,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Cauldron Guard`,
-        desc: `A Hagg Nar Cauldron Guard battalion can also include 1 Avatar of Khaine or an addtional Cauldron of Blood.`,
+        desc: `A Hagg Nar Cauldron Guard battalion can also include 1 Avatar of Khaine or an additional Cauldron of Blood.`,
         when: [START_OF_GAME],
       },
     ],
@@ -68,7 +68,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Cauldron Guard`,
-        desc: `A Kraith Cauldron Guard battalion can include any number of addtional Hag Queens.  It can also include any number of addtional Slaughter Queens.`,
+        desc: `A Kraith Cauldron Guard battalion can include any number of additional Hag Queens.  It can also include any number of additional Slaughter Queens.`,
         when: [START_OF_GAME],
       },
     ],

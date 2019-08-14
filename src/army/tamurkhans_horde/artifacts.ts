@@ -10,9 +10,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daemon Flask (Tamurkhan's Horde)`,
-        desc: `Once per battle, the bearer can use this artefact. If they do so, roll a dice for each enemy unit within 12" of the bearer. You can re-roll the dice for a unit that is a War Machine or is within 3" of a terrain feature. On a 4+ that unit suffers 1 mortal wound. On a 6, that unit suffers D3 mortal wounds instead of 1.`,
+        desc: `Once per battle, the bearer can use this artifact. If they do so, roll a dice for each enemy unit within 12" of the bearer. You can re-roll the dice for a unit that is a War Machine or is within 3" of a terrain feature. On a 4+ that unit suffers 1 mortal wound. On a 6, that unit suffers D3 mortal wounds instead of 1.`,
         when: [START_OF_HERO_PHASE],
-        artifact: true,
       },
     ],
   },

@@ -9,6 +9,7 @@ const initialState: ISelectionStore = {
     artifacts: [],
     battalions: [],
     endless_spells: [],
+    scenery: [],
     spells: [],
     traits: [],
     units: [],
@@ -44,6 +45,9 @@ const updateBattalions = (state, action) => {
 const updateEndlessSpells = (state, action) => {
   state.selections.endless_spells = action.payload
 }
+const updateScenery = (state, action) => {
+  state.selections.scenery = action.payload
+}
 const updateSpells = (state, action) => {
   state.selections.spells = action.payload
 }
@@ -68,6 +72,7 @@ export const selections = createSlice({
     updateArtifacts,
     updateBattalions,
     updateEndlessSpells,
+    updateScenery,
     updateSpells,
     updateTraits,
     updateUnits,

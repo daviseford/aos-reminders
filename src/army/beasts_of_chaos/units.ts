@@ -598,7 +598,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Covetous Fury`,
-        desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artefact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artefact of power.`,
+        desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
         when: [CHARGE_PHASE],
       },
     ],

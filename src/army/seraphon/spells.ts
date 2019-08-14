@@ -47,7 +47,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystical Unforging`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy HERO with an artefact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a dice. On a 5+, that HERO'S artefact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy HERO with an artifact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a dice. On a 5+, that HERO'S artifact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
         when: [HERO_PHASE],
       },
     ],

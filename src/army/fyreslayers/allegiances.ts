@@ -51,7 +51,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Spoils of Victory`,
-        desc: `2 additional artefacts of power for GREYFYRD HEROES in your army.`,
+        desc: `2 additional artifacts of power for GREYFYRD HEROES in your army.`,
         when: [DURING_GAME],
         allegiance_ability: true,
       },

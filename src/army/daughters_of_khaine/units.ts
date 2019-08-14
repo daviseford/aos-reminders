@@ -174,7 +174,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addtion to any other prayers they know.`,
+        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
         when: [HERO_PHASE],
       },
       {
@@ -239,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addtion to any other prayers they know.`,
+        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
         when: [HERO_PHASE],
       },
       {
@@ -289,7 +289,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bladed Bucklers`,
-        desc: `Witch Aelves with bladed bucklers have a save characteristic of 5+ in this phase.  In addtion, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        desc: `Witch Aelves with bladed bucklers have a save characteristic of 5+ in this phase.  In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -319,7 +319,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bladed Bucklers`,
-        desc: `Sisters of Slaughter with bladed bucklers have a save characteristic of 5+ in this phase.  In addtion, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        desc: `Sisters of Slaughter with bladed bucklers have a save characteristic of 5+ in this phase.  In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -359,7 +359,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addtion to any other prayers they know.`,
+        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
         when: [HERO_PHASE],
       },
       {

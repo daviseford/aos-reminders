@@ -33,7 +33,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Blood Rites - Battle Round 3+: Zealot's Rage`,
-    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units.  In addtion, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
+    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units.  In addition, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {

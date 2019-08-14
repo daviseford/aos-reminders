@@ -13,6 +13,7 @@ const initialState: IArmyStore = {
     Battalions: [],
     EndlessSpells: [],
     Game: Game,
+    Scenery: [],
     Spells: [],
     Traits: [],
     Units: [],

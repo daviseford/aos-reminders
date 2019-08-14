@@ -18,7 +18,7 @@ export const CardComponent = (props: ICardProps) => {
     <div className="col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3">
       <div className="card">
         <div className="card-body">
-          <h4 className="text-center">Add {type}s</h4>
+          <h4 className="text-center">Add {type}</h4>
           <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
         </div>
       </div>

@@ -167,7 +167,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Dritchleech`,
-        desc: `Subtract 1 from the casting rolls of WIZARDS while they are within 18" of the bearer. IDONETH DEEPKINWIZARDS are not affected by this artefact.`,
+        desc: `Subtract 1 from the casting rolls of WIZARDS while they are within 18" of the bearer. IDONETH DEEPKINWIZARDS are not affected by this artifact.`,
         when: [HERO_PHASE],
       },
     ],

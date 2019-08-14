@@ -34,7 +34,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rapier of Ecstatic Conquest (Invaders Host)`,
-        desc: `Pick 1 of the bearer's melee weapons.  If the unmodified wound roll for an attack made by that weapon is a 6, the attack inflicts 1 mortal wound on the target in addtion to normal damage.`,
+        desc: `Pick 1 of the bearer's melee weapons.  If the unmodified wound roll for an attack made by that weapon is a 6, the attack inflicts 1 mortal wound on the target in addition to normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -171,7 +171,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cameo of the Dark Prince (Godseekers Host)`,
-        desc: `Once per battle can use this artefact.  You receive 1 command point.`,
+        desc: `Once per battle can use this artifact.  You receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -233,7 +233,7 @@ const Artifacts: TArtifacts = [
         name: `Bindings of Slaanesh (Godseekers Host)`,
         desc: `You can pick 1 enemy hero within 3" of the bearer and roll 2D6.  If the roll is greater than the targets move characteristic, subtract 1 from hit rolls for attacks made by that enemy.  
         
-               In addtion, if the roll is greater than the target's wounds characteristic that enemy suffers D3 mortal wound.`,
+               In addition, if the roll is greater than the target's wounds characteristic that enemy suffers D3 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

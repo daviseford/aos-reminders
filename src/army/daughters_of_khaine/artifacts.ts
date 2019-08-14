@@ -69,7 +69,7 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-  // Artefacts of Shadow
+  // Artifacts of Shadow
   {
     name: `Shadow Stone (Wizard)`,
     effects: [
