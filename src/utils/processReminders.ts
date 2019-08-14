@@ -1,7 +1,7 @@
 import { flatten, sortBy, split, join } from 'lodash'
 import produce from 'immer'
 import { titleCase } from './titleCase'
-import { RealmscapeFeatures } from 'army/malign_sorcery'
+import { RealmscapeFeatures } from 'army/generic'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyData } from 'types/army'

@@ -2,8 +2,13 @@ import produce from 'immer'
 import { sortBy } from 'lodash'
 import { processGame } from './processGame'
 
-import { GenericEndlessSpells, GenericSpells } from 'army/generic/index'
-import { RealmArtifacts, RealmSpells } from 'army/malign_sorcery'
+import {
+  GenericEndlessSpells,
+  GenericSpells,
+  GenericScenery,
+  RealmArtifacts,
+  RealmSpells,
+} from 'army/generic/index'
 import {
   ChaosArtifacts,
   ChaosTraits,
@@ -100,7 +105,9 @@ const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
 }
 
 const modifyScenery = (scenery: TScenery): TScenery => {
-  return sortBy(scenery, 'name').map(s => ({ ...s, scenery: true }))
+  return sortBy(scenery, 'name')
+    .concat(sortBy(GenericScenery, 'name'))
+    .map(s => ({ ...s, scenery: true }))
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {

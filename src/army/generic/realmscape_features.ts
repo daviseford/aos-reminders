@@ -11,7 +11,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
-import { SHYISH, AQSHY, CHAMON, GHUR, GHYRAN, HYSH, ULGU } from 'types/realmscapes'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
 
 const RealmscapeFeatures: TEffects[] = [
   {
@@ -184,6 +184,11 @@ const RealmscapeFeatures: TEffects[] = [
     name: `Shadow Realm (${ULGU})`,
     desc: `Pick one friendly unit that has all of its models within 6" of any edge of the battlefield. You can remove that unit from the battlefield, and then set it up more than 9" from any enemy units, and with all models within 6" of a different edge of the battlefield. Then roll a dice for each model you moved; on a 1 the model being rolled for becomes lost in the shadows and is slain. The unit may not move in the subsequent movement phase.`,
     when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Energies of the Midnight Tomb (${STYGXX})`,
+    desc: `If the casting roll for a spell is a double, that spell is successfully cast and cannot be unbound.`,
+    when: [HERO_PHASE],
   },
 ]
 
