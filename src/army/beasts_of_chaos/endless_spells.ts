@@ -9,7 +9,6 @@ import {
   START_OF_TURN,
 } from 'types/phases'
 
-// Endless spells go here
 export const EndlessSpells: TEndlessSpells = [
   {
     name: `Ravening Direflock`,
