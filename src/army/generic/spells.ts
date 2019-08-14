@@ -24,7 +24,7 @@ const Spells: TSpells = [
       },
       {
         name: `Mystic Shield`,
-        desc: `If active, pick a friendly unit within 18" of the caster that is visible to them. Re-roll save rolls of 1 for that unit until your next hero phase.`,
+        desc: `If successfully cast, re-roll save rolls of 1 for that unit until your next hero phase.`,
         when: [DURING_GAME],
       },
     ],
