@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import ReactTooltip from 'react-tooltip'
 import { without, uniq } from 'lodash'
 import './reminders.css'
 import { realmscape, factionNames, selections, army } from 'ducks'
@@ -103,19 +102,11 @@ const getTitle = ({
 const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
   const { isVisible, setVisibility } = props
   const VisibilityComponent = isVisible ? MdVisibility : MdVisibilityOff
-  const tipProps = {
-    'data-for': `reminderTooltip`,
-    'data-tip': isVisible ? `Click to hide this rule.` : `This rule will not be printed.`,
-    'data-type': `info`,
-  }
   return (
     <>
-      <div {...tipProps}>
-        <IconContext.Provider value={{ size: '1.4em' }}>
-          <VisibilityComponent onClick={setVisibility} />
-        </IconContext.Provider>
-        <ReactTooltip id={`reminderTooltip`} />
-      </div>
+      <IconContext.Provider value={{ size: '1.4em' }}>
+        <VisibilityComponent onClick={setVisibility} />
+      </IconContext.Provider>
     </>
   )
 }
