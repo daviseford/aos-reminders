@@ -61,7 +61,7 @@ export const ArmyList: TArmyList = {
     GrandAlliance: DESTRUCTION,
   },
   [BEASTS_OF_CHAOS]: {
-    Army: { ...BeastsOfChaos},
+    Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
   },
   [DAUGHTERS_OF_KHAINE]: {

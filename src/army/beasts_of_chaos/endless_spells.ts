@@ -8,7 +8,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Ravening Direflock`,
-        desc: `Summon Ravening Direflock has a casting value of 5. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Ravening Direflock model wholly within 12" of the caster and more than 3" from any units, then set up the second and third Ravening Direflock models wholly within 6" of the first and more than 3" from any units.`,
+        desc: `Casting value of 5. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Ravening Direflock model wholly within 12" of the caster and more than 3" from any units, then set up the second and third Ravening Direflock models wholly within 6" of the first and more than 3" from any units.`,
         when: [],
       },
       {
@@ -28,7 +28,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Doomblast Dirgehorn`,
-        desc: `Summon Doomblast Dirgehorn has a casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Doomblast Dirgehorn model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Doomblast Dirgehorn model wholly within 12" of the caster.`,
         when: [],
       },
       {
@@ -38,7 +38,7 @@ export const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Rising Discord`,
-        desc: `At the start of each battle round after this model is set up, add 3" to the range of this model’s Booming Cacophony ability. If this model is dispelled, the next time it is set up on the battlefield, the range of this ability starts at 3".`,
+        desc: `At the start of each battle round after this model is set up, add 3" to the range of this model's Booming Cacophony ability. If this model is dispelled, the next time it is set up on the battlefield, the range of this ability starts at 3".`,
         when: [],
       },
     ],
@@ -48,7 +48,7 @@ export const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Wildfire Taurus`,
-        desc: `Summon Wildfire Taurus has a casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Wildfire Taurus model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Wildfire Taurus model wholly within 12" of the caster.`,
         when: [],
       },
       {

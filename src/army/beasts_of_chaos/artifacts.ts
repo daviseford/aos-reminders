@@ -37,7 +37,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Volcanic Axe (Brayherds)`,
-        desc: `Pick one of the bearer’s melee weapons. Add 1 to that weapon’s Damage characteristic. In addition, each time you make an unmodified hit roll of 6 for an attack made with that weapon, the target suffers 1 mortal wound after all of the bearer’s attacks have been resolved.`,
+        desc: `Pick one of the bearer's melee weapons. Add 1 to that weapon's Damage characteristic. In addition, each time you make an unmodified hit roll of 6 for an attack made with that weapon, the target suffers 1 mortal wound after all of the bearer's attacks have been resolved.`,
         when: [],
       },
     ],
@@ -67,7 +67,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cleaver of the Brass Bull (Warherds)`,
-        desc: `Pick one of the bearer’s melee weapons. Improve that weapon’s Rend characteristic by 1. In addition, if the unmodified hit roll for an attack made with that weapon is 6, add 1 to the Damage characteristic of that weapon for that attack.`,
+        desc: `Pick one of the bearer's melee weapons. Improve that weapon's Rend characteristic by 1. In addition, if the unmodified hit roll for an attack made with that weapon is 6, add 1 to the Damage characteristic of that weapon for that attack.`,
         when: [],
       },
     ],
@@ -103,10 +103,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Champion’s Doomcloak (Warherds)`,
+    name: `Champion's Doomcloak (Warherds)`,
     effects: [
       {
-        name: `Champion’s Doomcloak (Warherds)`,
+        name: `Champion's Doomcloak (Warherds)`,
         desc: `Add 2 to charge rolls made for the bearer.`,
         when: [],
       },
@@ -127,7 +127,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ancestral Azyrite Blade (Thunderscorn)`,
-        desc: `Pick one of the bearer’s melee weapons. Improve that weapon’s Rend characteristic by 2.`,
+        desc: `Pick one of the bearer's melee weapons. Improve that weapon's Rend characteristic by 2.`,
         when: [],
       },
     ],
@@ -182,7 +182,6 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-  
 ]
 
 export default Artifacts

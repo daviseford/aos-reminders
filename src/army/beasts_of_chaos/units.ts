@@ -1,8 +1,5 @@
 import { TBattalions, TUnits } from 'types/army'
-import { 
-  HERO_PHASE, 
-  START_OF_MOVEMENT_PHASE, 
-} from 'types/phases'
+import { HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
 // Unit Names
 export const Units: TUnits = [
@@ -24,7 +21,7 @@ export const Units: TUnits = [
         desc: `You can use this command ability in the combat phase if any attacks made by a friendly BEASTLORD with this command ability resulted in an enemy model being slain that phase. If you do so, until the end of that phase, you can re-roll wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD . If any attacks made by that BEASTLORD resulted in an enemy HERO or MONSTER being slain that phase, you can re-roll both hit rolls and wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD instead.`,
         when: [],
         command_ability: true,
-      }
+      },
     ],
   },
   {
@@ -42,7 +39,7 @@ export const Units: TUnits = [
       },
       {
         name: `Devolve`,
-        desc: `Devolve has a casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
         when: [],
       },
     ],
@@ -52,7 +49,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Foe-Render`,
-        desc: `The leader of this unit is a Foe-render. Add 1 to the Attacks characteristic of a Foe-render’s Gor Blade(s).`,
+        desc: `The leader of this unit is a Foe-render. Add 1 to the Attacks characteristic of a Foe-render's Gor Blade(s).`,
         when: [],
       },
       {
@@ -77,7 +74,7 @@ export const Units: TUnits = [
       },
       {
         name: `Anarchy and Mayhem`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons while it has 20 or more models.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it has 20 or more models.`,
         when: [],
       },
     ],
@@ -87,7 +84,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Halfhorn`,
-        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn’s Ungor Blade or Gnarled Shortspear.`,
+        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn's Ungor Blade or Gnarled Shortspear.`,
         when: [],
       },
       {
@@ -112,13 +109,13 @@ export const Units: TUnits = [
       },
     ],
   },
-  
+
   {
     name: `Ungor Raiders`,
     effects: [
       {
         name: `Halfhorn`,
-        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn’s Ungor Blade or Gnarled Shortspear.`,
+        desc: `The leader of this unit is a Halfhorn. Add 1 to the Attacks characteristic of a Halfhorn's Ungor Blade or Gnarled Shortspear.`,
         when: [],
       },
       {
@@ -148,7 +145,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gouge-Horn`,
-        desc: `The leader of this unit is a Gouge-horn. Add 1 to the Attacks characteristic of a Gouge-horn’s Despoiler Axe.`,
+        desc: `The leader of this unit is a Gouge-horn. Add 1 to the Attacks characteristic of a Gouge-horn's Despoiler Axe.`,
         when: [],
       },
       {
@@ -168,7 +165,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bestial Charge`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons in a turn in which it made a charge move.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
         when: [],
       },
     ],
@@ -178,7 +175,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tuskgor Charge`,
-        desc: `You can re-roll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit’s melee weapons in a turn in which it made a charge move.`,
+        desc: `You can re-roll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
         when: [],
       },
       {
@@ -197,7 +194,7 @@ export const Units: TUnits = [
         when: [],
       },
       {
-        name: `Slaughterer’s Call`,
+        name: `Slaughterer's Call`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly WARHERD unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
         when: [],
         command_ability: true,
@@ -229,7 +226,7 @@ export const Units: TUnits = [
       },
       {
         name: `Swallow Whole`,
-        desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model’s attacks have been resolved and roll a dice. If the roll is equal to or greater than that enemy model’s Wounds characteristic, it is slain.`,
+        desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model's attacks have been resolved and roll a dice. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
         when: [],
       },
     ],
@@ -239,7 +236,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloodkine`,
-        desc: `The leader of this unit is a Bloodkine. Add 1 to the Attacks characteristic of a Bloodkine’s Bullgor Axe(s) or Bullgor Great Axe.`,
+        desc: `The leader of this unit is a Bloodkine. Add 1 to the Attacks characteristic of a Bloodkine's Bullgor Axe(s) or Bullgor Great Axe.`,
         when: [],
       },
       {
@@ -274,7 +271,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gorehoof`,
-        desc: `The leader of this unit is a Gorehoof. Add 1 to the Attacks characteristic of a Gorehoof’s Centigor Spear.`,
+        desc: `The leader of this unit is a Gorehoof. Add 1 to the Attacks characteristic of a Gorehoof's Centigor Spear.`,
         when: [],
       },
       {
@@ -294,7 +291,7 @@ export const Units: TUnits = [
       },
       {
         name: `Charging Spear`,
-        desc: `You can re-roll failed wound rolls for attacks made with this unit’s Centigor Spears if it made a charge move in the same turn.`,
+        desc: `You can re-roll failed wound rolls for attacks made with this unit's Centigor Spears if it made a charge move in the same turn.`,
         when: [],
       },
       {
@@ -319,7 +316,7 @@ export const Units: TUnits = [
       },
       {
         name: `Summon Lightning`,
-        desc: `Summon Lightning has a casting value of 7. If successfully cast, pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 7. If successfully cast, pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
         when: [],
       },
     ],
@@ -354,7 +351,7 @@ export const Units: TUnits = [
       },
       {
         name: `Writhing Tentacles`,
-        desc: `If you roll a double when determining the number of attacks made by a CHAOS SPAWN ’s Freakish Mutations, add 1 to hit and wound rolls for attacks made by that model until the end of the phase.`,
+        desc: `If you roll a double when determining the number of attacks made by a CHAOS SPAWN 's Freakish Mutations, add 1 to hit and wound rolls for attacks made by that model until the end of the phase.`,
         when: [],
       },
     ],
@@ -379,7 +376,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Petrifying Gaze`,
-        desc: `Do not use the attack sequence for an attack made with a Cockatrice’s Petrifying Gaze. Instead, roll a dice. On a 4+ the target suffers D6 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with a Cockatrice's Petrifying Gaze. Instead, roll a dice. On a 4+ the target suffers D6 mortal wounds.`,
         when: [],
       },
       {
@@ -393,13 +390,13 @@ export const Units: TUnits = [
     name: `Chimera`,
     effects: [
       {
-        name: `Draconic Head’s Fiery Breath`,
-        desc: `Do not use the attack sequence for an attack made with a Chimera’s Fiery Breath. Instead the target suffers the number of mortal wounds shown on the Damage table above.`,
+        name: `Draconic Head's Fiery Breath`,
+        desc: `Do not use the attack sequence for an attack made with a Chimera's Fiery Breath. Instead the target suffers the number of mortal wounds shown on the Damage table above.`,
         when: [],
       },
       {
         name: `Vicious Charge`,
-        desc: `Add 2 to charge rolls for this model`,
+        desc: `Add 2 to charge rolls for this model.`,
         when: [],
       },
     ],
@@ -413,8 +410,8 @@ export const Units: TUnits = [
         when: [],
       },
       {
-        name: `Stuff ’Em In Me Bag`,
-        desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a dice. If the roll is equal to or greater than double that enemy model’s Wounds characteristic, it is slain.`,
+        name: `Stuff 'Em In Me Bag`,
+        desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a dice. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
         when: [],
       },
       {
@@ -424,7 +421,7 @@ export const Units: TUnits = [
       },
       {
         name: `Whipped into a Frenzy`,
-        desc: `At the start of the combat phase, if this model is within 3" of any friendly BEASTS OF CHAOS HEROES, you can whip it into a frenzy. If you do so, this model suffers 1 mortal wound, but you can add 1 to the Attacks characteristic of this model’s melee weapons until the end of that phase.`,
+        desc: `At the start of the combat phase, if this model is within 3" of any friendly BEASTS OF CHAOS HEROES, you can whip it into a frenzy. If you do so, this model suffers 1 mortal wound, but you can add 1 to the Attacks characteristic of this model's melee weapons until the end of that phase.`,
         when: [],
       },
     ],
@@ -464,12 +461,12 @@ export const Units: TUnits = [
       },
       {
         name: `Visions of the Future`,
-        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR SKYFIRE unit’s Arrows of Fate while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
+        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR SKYFIRE unit's Arrows of Fate while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
         when: [],
       },
       {
         name: `Visions of the Past`,
-        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR ENLIGHTENED unit’s Tzeentchian Spears and Vicious Beaks while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
+        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR ENLIGHTENED unit's Tzeentchian Spears and Vicious Beaks while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
         when: [],
       },
       {
@@ -479,7 +476,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Mutation`,
-        desc: `Boon of Mutation has a casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. For each enemy model slain by these mortal wounds, you can add 1 new TZAANGOR model to a single friendly TZAANGORS unit. Each new TZAANGOR model must be set up wholly within 12" of the caster and within 1" of the unit they are being added to.`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. For each enemy model slain by these mortal wounds, you can add 1 new TZAANGOR model to a single friendly TZAANGORS unit. Each new TZAANGOR model must be set up wholly within 12" of the caster and within 1" of the unit they are being added to.`,
         when: [],
       },
     ],
@@ -504,12 +501,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tzaangor Mutant`,
-        desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and a Vicious Beak. Add 1 to the Attacks characteristic of a Tzaangor Mutant’s pair of Savage Blades.`,
+        desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and a Vicious Beak. Add 1 to the Attacks characteristic of a Tzaangor Mutant's pair of Savage Blades.`,
         when: [],
       },
       {
         name: `Twistbray`,
-        desc: `The leader of this unit is a Twistbray. Add 1 to hit rolls for attacks made with a Twistbray’s melee weapons.`,
+        desc: `The leader of this unit is a Twistbray. Add 1 to hit rolls for attacks made with a Twistbray's melee weapons.`,
         when: [],
       },
       {
@@ -539,7 +536,7 @@ export const Units: TUnits = [
       },
       {
         name: `Savagery Unleashed`,
-        desc: `Add 1 to the Attacks characteristic of this unit’s melee weapons if it has at least 9 models when the attacks are being made.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has at least 9 models when the attacks are being made.`,
         when: [],
       },
       {
@@ -549,7 +546,6 @@ export const Units: TUnits = [
       },
     ],
   },
-  
 ]
 
 // Battalions
@@ -600,7 +596,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Martial Ferocity`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion’s bestial rage. If you do so, until your next hero phase you can re-roll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can re-roll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
         when: [],
       },
       {
@@ -635,7 +631,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Vectors of the Plague God`,
-        desc: `Units from this battalion gain the NURGLE keyword`,
+        desc: `Units from this battalion gain the NURGLE keyword.`,
         when: [],
       },
     ],
@@ -645,7 +641,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Covetous Fury`,
-        desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artefact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artefact of power`,
+        desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artefact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artefact of power.`,
         when: [],
       },
       {

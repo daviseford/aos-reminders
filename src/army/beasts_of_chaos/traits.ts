@@ -17,7 +17,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Indomitable Beast (Brayherd)`,
-        desc: `Add 1 to this general’s Wounds characteristic.`,
+        desc: `Add 1 to this general's Wounds characteristic.`,
         when: [],
       },
     ],
@@ -117,7 +117,7 @@ const CommandTraits: TCommandTraits = [
     effects: [
       {
         name: `Rugged Hide (Warherd)`,
-        desc: `Worsen the Rend characteristic of attacks that target this general by 1 (to a minimum of ‘-’).`,
+        desc: `Worsen the Rend characteristic of attacks that target this general by 1 (to a minimum of '-').`,
         when: [],
       },
     ],
@@ -182,7 +182,6 @@ const CommandTraits: TCommandTraits = [
       },
     ],
   },
-  
 ]
 
 export default CommandTraits

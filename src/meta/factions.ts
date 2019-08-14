@@ -2,7 +2,7 @@ import { sortBy } from 'lodash'
 
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
-export type TBeastsOfChaos = "BEASTS_OF_CHAOS"
+export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export type TDispossessed = 'DISPOSSESSED'
 export type TEverchosen = 'EVERCHOSEN'
@@ -29,7 +29,7 @@ export type TTzeentch = 'TZEENTCH'
 
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
-export const BEASTS_OF_CHAOS: TBeastsOfChaos = "BEASTS_OF_CHAOS"
+export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 export const EVERCHOSEN: TEverchosen = 'EVERCHOSEN'
