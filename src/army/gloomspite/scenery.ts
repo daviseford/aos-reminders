@@ -1,10 +1,15 @@
 import { TScenery } from 'types/army'
-import { BATTLESHOCK_PHASE, END_OF_TURN } from 'types/phases'
+import { BATTLESHOCK_PHASE, END_OF_TURN, START_OF_SETUP } from 'types/phases'
 
 const Scenery: TScenery = [
   {
     name: `Bad Moon Loonshrine`,
     effects: [
+      {
+        name: `Bad Moon Loonshrine`,
+        desc: `After territories have been chosen but before armies are set up, you can set up the BAD MOON LOONSHRINE wholly within your territory, more than 12" from enemy territory and more than 1" from any other terrain features.`,
+        when: [START_OF_SETUP],
+      },
       {
         name: `Loonatic Courage`,
         desc: `GLOOMSPITE GITZ units wholly within 12" of the Bad Moon Loonshrine do not take battleshock tests.`,
