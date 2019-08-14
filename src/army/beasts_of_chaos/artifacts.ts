@@ -1,5 +1,13 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+} from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -8,7 +16,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Ramhorn Helm (Brayherds)`,
         desc: `After the bearer completes a charge move, pick an enemy unit within 1" of them. That unit suffers D3 mortal wounds.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -18,7 +26,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Brayblast Trumpet (Brayherds)`,
         desc: `Add 1 to hit rolls for attacks made by friendly BRAYHERD units while they are wholly within 18" of the bearer if those units used the Brayherd Ambush battle trait to set up on the battlefield in that turn.`,
-        when: [],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -28,7 +36,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Knowing Eye (Brayherds)`,
         desc: `At the start of your hero phase, roll a dice if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -37,8 +45,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Volcanic Axe (Brayherds)`,
-        desc: `Pick one of the bearer's melee weapons. Add 1 to that weapon's Damage characteristic. In addition, each time you make an unmodified hit roll of 6 for an attack made with that weapon, the target suffers 1 mortal wound after all of the bearer's attacks have been resolved.`,
-        when: [],
+        desc: `Add 1 to this weapon's Damage characteristic. In addition, each time you make an unmodified hit roll of 6 for an attack made with this weapon, the target suffers 1 mortal wound after all of the bearer's attacks have been resolved.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -48,7 +56,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Bleating Gnarlstaf (Brayherds)`,
         desc: `If the bearer is within 1" of a terrain feature at the end of your movement phase, roll a dice. On a 3+ each enemy unit within 1" of that terrain feature suffers 1 mortal wound.`,
-        when: [],
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -58,7 +66,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Troggoth-hide Cloak (Brayherds)`,
         desc: `At the start of your hero phase, you can heal 1 wound that has been allocated to the bearer.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -67,8 +75,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cleaver of the Brass Bull (Warherds)`,
-        desc: `Pick one of the bearer's melee weapons. Improve that weapon's Rend characteristic by 1. In addition, if the unmodified hit roll for an attack made with that weapon is 6, add 1 to the Damage characteristic of that weapon for that attack.`,
-        when: [],
+        desc: `Improve this weapon's Rend characteristic by 1. In addition, if the unmodified hit roll for an attack made with that weapon is 6, add 1 to the Damage characteristic of that weapon for that attack.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -78,7 +86,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Gilded Horns (Warherds)`,
         desc: `After the bearer has made a charge move, pick an enemy unit within 1" of the bearer and roll a number of dice equal to the charge roll for that charge move. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -88,7 +96,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Glyph-etched Talisman (Warherds)`,
         desc: `The bearer can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -98,7 +106,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Blackened Armour of Chaos (Warherds)`,
         desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
-        when: [],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -108,7 +116,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Champion's Doomcloak (Warherds)`,
         desc: `Add 2 to charge rolls made for the bearer.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -118,7 +126,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Herdstone Shard (Warherds)`,
         desc: `When BULLGOR units wholly within 6" of the bearer use their Bloodgreed ability, it activates on an unmodified roll of 5 or 6.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -127,8 +135,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ancestral Azyrite Blade (Thunderscorn)`,
-        desc: `Pick one of the bearer's melee weapons. Improve that weapon's Rend characteristic by 2.`,
-        when: [],
+        desc: `Improve this weapon's Rend characteristic by 2.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -138,7 +146,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Lightning-chained Bracers (Thunderscorn)`,
         desc: `You can re-roll failed hit rolls for attacks made by the bearer.`,
-        when: [],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -148,7 +156,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Thunderstrike Lodestone (Thunderscorn)`,
         desc: `Once per battle, if the bearer is on the battlefield, they can call down a bolt of lightning. If they do so, you can heal D3 wounds allocated to the bearer. In addition, roll a dice for each enemy unit within 1" of the bearer. On a 2+ that unit suffers 1 mortal wound.`,
-        when: [],
+        when: [DURING_GAME],
       },
     ],
   },
@@ -158,7 +166,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Horn of the Tempest (Thunderscorn)`,
         desc: `Friendly THUNDERSCORN units wholly within 18" of the bearer at the start of your charge phase can make a charge move in that phase even if they ran in the same turn.`,
-        when: [],
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -168,7 +176,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Tanglehorn Familiars (Thunderscorn)`,
         desc: `Once per battle, at the start of the enemy hero phase, you can pick an enemy WIZARD within 12" of the bearer. That WIZARD cannot cast any spells that hero phase.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -178,7 +186,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Ruinous Icon (Thunderscorn)`,
         desc: `Each time the bearer is affected by a spell or endless spell, roll a dice. On a 4+ ignore the effects of that spell on the bearer.`,
-        when: [],
+        when: [HERO_PHASE],
       },
     ],
   },
