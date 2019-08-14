@@ -83,19 +83,19 @@ const Entry = (props: {
 }
 
 const getTitle = ({
-  allegiance_ability,
   artifact,
-  command_ability,
   command_trait,
   condition,
   endless_spell,
   name,
+  scenery,
   spell,
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
   if (artifact) return `Artifact${suffix}`
   if (command_trait) return `Command Trait`
   if (endless_spell) return `Endless Spell${suffix}`
+  if (scenery) return `Scenery${suffix}`
   if (spell) return `Spell${suffix}`
   return condition
 }
