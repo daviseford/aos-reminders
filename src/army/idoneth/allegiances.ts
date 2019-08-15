@@ -1,6 +1,7 @@
 import { TAllegiances } from 'types/army'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_ROUND,
   DURING_SETUP,
   HERO_PHASE,
@@ -44,8 +45,13 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Revel in Slaughter`,
-        desc: `You can re-roll hit rolls of 1 for Fuethán units that are affected by the Flood Tide ability from the Tides of Death table (pg 86). In addition, whenever a Fuethán unit would be affected by the Ebb Tide ability from the Tides of Death table, they are instead affected by the Flood Tide ability from the same table.`,
-        when: [DURING_ROUND],
+        desc: `You can re-roll hit rolls of 1 for Fuethán units that are affected by the Flood Tide ability from the Tides of Death.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Revel in Slaughter`,
+        desc: `Whenever a Fuethán unit would be affected by the Ebb Tide ability from the Tides of Death table, they are instead affected by the Flood Tide ability from the same table.`,
+        when: [DURING_GAME],
       },
     ],
   },
