@@ -1,4 +1,5 @@
 import { sortBy } from 'lodash'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TChaos, TDeath, TDestruction, TOrder } from './alliances'
 
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
@@ -60,7 +61,10 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export type TSupportedFaction =
   | TBeastclawRaiders
   | TBeastsOfChaos
+  | TChaos
   | TDaughtersOfKhaine
+  | TDeath
+  | TDestruction
   | TDispossessed
   | TEverchosen
   | TFleshEaterCourts
@@ -76,6 +80,7 @@ export type TSupportedFaction =
   | TLethisianArmy
   | TNighthaunt
   | TNurgle
+  | TOrder
   | TSeraphon
   | TSkaven
   | TSlaanesh
@@ -88,7 +93,10 @@ export type TSupportedFaction =
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  CHAOS,
   DAUGHTERS_OF_KHAINE,
+  DEATH,
+  DESTRUCTION,
   DISPOSSESSED,
   EVERCHOSEN,
   FLESH_EATER_COURTS,
@@ -104,6 +112,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   LETHISIAN_ARMY,
   NIGHTHAUNT,
   NURGLE,
+  ORDER,
   SERAPHON,
   SKAVEN,
   SLAANESH,

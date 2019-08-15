@@ -32,7 +32,10 @@ import {
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
+import Chaos from 'army/grand_alliances/chaos'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
+import Death from 'army/grand_alliances/death'
+import Destruction from 'army/grand_alliances/destruction'
 import Dispossessed from 'army/dispossessed'
 import Everchosen from 'army/everchosen'
 import FleshEaterCourts from 'army/flesh_eater_courts'
@@ -48,6 +51,7 @@ import LegionsOfNagash from 'army/legions_of_nagash'
 import LethisianArmy from 'army/lethisian_army'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
+import Order from 'army/grand_alliances/order'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
@@ -66,9 +70,21 @@ export const ArmyList: TArmyList = {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
   },
+  [CHAOS]: {
+    Army: { ...Chaos },
+    GrandAlliance: CHAOS,
+  },
   [DAUGHTERS_OF_KHAINE]: {
     Army: { ...DaughtersOfKhaine },
     GrandAlliance: ORDER,
+  },
+  [DEATH]: {
+    Army: { ...Death },
+    GrandAlliance: DEATH,
+  },
+  [DESTRUCTION]: {
+    Army: { ...Destruction },
+    GrandAlliance: DESTRUCTION,
   },
   [DISPOSSESSED]: {
     Army: { ...Dispossessed },
@@ -129,6 +145,10 @@ export const ArmyList: TArmyList = {
   [NURGLE]: {
     Army: { ...Nurgle },
     GrandAlliance: CHAOS,
+  },
+  [ORDER]: {
+    Army: { ...Order },
+    GrandAlliance: ORDER,
   },
   [SERAPHON]: {
     Army: { ...Seraphon },
