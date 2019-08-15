@@ -66,6 +66,3 @@ const DestructionArtifacts: TArtifacts = [
 ]
 
 export default sortBy(DestructionArtifacts, 'name')
-
-// Create an empty list of artifacts for army list.
-export const EmptyArtifacts: TArtifacts = []

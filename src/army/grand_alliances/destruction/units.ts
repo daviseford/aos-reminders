@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import GloomspiteGitz from 'army/gloomspite'
 import Gutbusters from 'army/gutbusters'
@@ -11,4 +11,3 @@ export const Units: TUnits = [
   ...Gutbusters.Units,
   ...Ironjawz.Units,
 ]
-export const Battalions: TBattalions = []

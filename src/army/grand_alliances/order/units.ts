@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Dispossessed from 'army/dispossessed'
 import Fyreslayers from 'army/fyreslayers'
@@ -19,4 +19,3 @@ export const Units: TUnits = [
   ...StormcastEternals.Units,
   ...Sylvaneth.Units,
 ]
-export const Battalions: TBattalions = []

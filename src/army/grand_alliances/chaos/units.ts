@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
 import BeastsOfChaos from 'army/beasts_of_chaos'
 import Everchosen from 'army/everchosen'
 import Khorne from 'army/khorne'
@@ -23,4 +23,3 @@ export const Units: TUnits = [
   ...TamurkhansHorde.Units,
   ...Tzeentch.Units,
 ]
-export const Battalions: TBattalions = []
