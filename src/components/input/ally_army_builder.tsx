@@ -13,7 +13,7 @@ import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
-import { ValueType } from 'react-select/lib/types'
+import { ValueType } from 'react-select/src/types'
 import { IStore } from 'types/store'
 
 interface IAllyArmyBuilderProps {

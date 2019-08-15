@@ -1,4 +1,4 @@
-import { ValueType } from 'react-select/lib/types'
+import { ValueType } from 'react-select/src/types'
 import { TDropdownOption } from 'components/input/select'
 
 type TWithSelectOne = (
