@@ -4,7 +4,6 @@ import GenericSpells from './spells'
 import GenericScenery from './scenery'
 //import GenericTriumphs from './triumphs'
 import RealmArtifacts from './realm_artifacts'
-import RealmSpells from './realm_spells'
 //import RealmscapeCommands from './realmscape_commands'
 import RealmscapeFeatures from './realmscape_features'
 import RealmscapeSpells from './realmscape_spells'
@@ -16,7 +15,6 @@ export {
   GenericSpells,
   GenericScenery,
   RealmArtifacts,
-  RealmSpells,
   RealmscapeFeatures,
   RealmscapeSpells,
 }

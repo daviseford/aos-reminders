@@ -7,7 +7,7 @@ import {
   GenericSpells,
   GenericScenery,
   RealmArtifacts,
-  RealmSpells,
+  RealmscapeSpells,
 } from 'army/generic'
 
 import {
@@ -98,7 +98,7 @@ const modifyTraits = (traits: TTraits, alliance: TGrandAlliances): TTraits => {
 }
 
 const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
-  const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
+  const realmSpells = realmscape ? RealmscapeSpells.filter(x => x.name.includes(realmscape)) : []
   return sortBy(spells, 'name')
     .concat(sortBy(realmSpells, 'name'))
     .concat(sortBy(GenericSpells, 'name'))
