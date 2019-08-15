@@ -78,6 +78,26 @@ const Spells: TSpells = [
       },
     ],
   },
+  {
+    name: `Mor'phann: Freezing Mists`,
+    effects: [
+      {
+        name: `Mor'phann: Freezing Mists`,
+        desc: `Casting value 6. Pick an enemy unit within 12" of hte caster that is visible to them. Until your next hero phase, that unit can only move 1" when it piles in, and any abilities that would increase its pilein move are ignored.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Nautilar: Protective Barrier`,
+    effects: [
+      {
+        name: `Nautilar: Protective Barrier`,
+        desc: `Casting value 4. Pick a friendly Nautilar unit within 12" of the caster that is visible to them. Until your next hero phase, worsen the rend characteristic of attacks that target that unit by 1 (to a minimum of '-').`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 export default Spells

@@ -1,15 +1,5 @@
 import { TTraits } from 'types/army'
-import {
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  MOVEMENT_PHASE,
-  TURN_FIVE_DURING_ROUND,
-  TURN_FOUR_DURING_ROUND,
-  TURN_ONE_DURING_ROUND,
-  TURN_THREE_DURING_ROUND,
-  TURN_TWO_DURING_ROUND,
-} from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, BATTLESHOCK_PHASE } from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
@@ -37,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Unstoppable Fury`,
-        desc: `Add 2 to the Attacks characteristic of any weapons used by this general in any battle round in which the High Tide ability is in effect.`,
+        desc: `Add 2 to the Attacks characteristic of any weapons used by this general in any battle round in which the High Tide ability is in effect. Note: this only effects the general and not their mount.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -68,6 +58,16 @@ const CommandTraits: TTraits = [
       {
         name: `Lord of Storm and Sea`,
         desc: `Add 2 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this general.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ionrach: Emissary of the Deep Places`,
+    effects: [
+      {
+        name: `Ionrach: Emissary of the Deep Places`,
+        desc: `Allied units in an Ionrach army are treated as having the Tides of Death battle trait and can therefore use abilities from the Tides of Death table each battle round.`,
         when: [DURING_GAME],
       },
     ],
