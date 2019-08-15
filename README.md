@@ -25,6 +25,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [NiklassMM](https://github.com/NiklasMM)
 + [mmorrison](https://github.com/mmorrison)
 + [wspencermiller](https://github.com/wspencermiller)
++ [Zirhark](https://github.com/Zirhark)
 + [T-Nightingale](https://github.com/T-Nightingale)
 
 ## Available Scripts
