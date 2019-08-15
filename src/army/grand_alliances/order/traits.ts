@@ -65,3 +65,6 @@ const CommandTraits: TTraits = [
 ]
 
 export default CommandTraits
+
+// Create an empty list of traits for army list.
+export const EmptyTraits: TTraits = []

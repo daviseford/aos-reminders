@@ -65,3 +65,6 @@ const Artifacts: TArtifacts = [
 ]
 
 export default Artifacts
+
+// Create an empty list of artifacts for army list.
+export const EmptyArtifacts: TArtifacts = []
