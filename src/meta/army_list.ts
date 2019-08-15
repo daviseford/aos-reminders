@@ -16,6 +16,7 @@ import {
   KHORNE,
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_NAGASH,
+  LETHISIAN_ARMY,
   NIGHTHAUNT,
   NURGLE,
   SERAPHON,
@@ -44,6 +45,7 @@ import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import LethisianArmy from 'army/lethisian_army'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
 import Seraphon from 'army/seraphon'
@@ -115,6 +117,10 @@ export const ArmyList: TArmyList = {
   [LEGIONS_OF_NAGASH]: {
     Army: { ...LegionsOfNagash },
     GrandAlliance: DEATH,
+  },
+  [LETHISIAN_ARMY]: {
+    Army: { ...LethisianArmy },
+    GrandAlliance: ORDER,
   },
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
