@@ -11,6 +11,27 @@ import {
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
+// Export markable Slaves to Darkness units.
+export const getSlavesUnits = () => {
+  const listOfUnits = [
+    `Daemon Prince`,
+    `Chaos Lord on Manticore`,
+    `Chaos Lord on Daemonic Mount`,
+    `Lord of Chaos`,
+    `Exalted Hero of Chaos`,
+    `Chaos Marauders`,
+    `Chaos Chariot`,
+    `Gorebeast Chariot`,
+    `Chaos Chosen`,
+    `Chaos Warriors`,
+    `Chaos Warshrine`,
+    `Chaos Knights`,
+    `Chaos Marauder Horsemen`,
+    `Chaos War Mammoth`,
+  ]
+  return Units.filter(unit => listOfUnits.includes(unit.name))
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
