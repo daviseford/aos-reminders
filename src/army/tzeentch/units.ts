@@ -1,3 +1,4 @@
+import { filterEffectsByMark } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -16,12 +17,22 @@ import {
 } from 'types/phases'
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_TZEENTCH } from 'meta/alliances'
+
+// Mark selection.
+// Filters slaves unit rules that have multiple god marks.
+const getNurgleSlaves = () => {
+  const filterEffects = filterEffectsByMark(MARK_TZEENTCH)
+  return [...getSlavesUnits()].map(({ name, effects }) => {
+    return {
+      name,
+      effects: filterEffects(effects),
+    }
+  })
+}
 
 // Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+export const TzeentchUnits: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -639,3 +650,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...TzeentchUnits, ...getNurgleSlaves(), ...getEverchosenUnits()]
