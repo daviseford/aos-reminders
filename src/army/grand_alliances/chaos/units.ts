@@ -4,7 +4,7 @@ import Everchosen from 'army/everchosen'
 import { KhorneUnits } from 'army/khorne/units'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import { NurgleUnits } from 'army/nurgle/units'
-// Note Tamurkhan's Horde excluded since Nurgle includes that entire list already.
+import TamurkhansHorde from 'army/tamurkhans_horde'
 import Skaven from 'army/skaven'
 import { SlaaneshUnits } from 'army/slaanesh/units'
 import SlavesToDarkness from 'army/slaves_to_darkness'
@@ -19,6 +19,7 @@ export const Units: TUnits = uniqBy(
     ...KhorneUnits,
     ...LegionsOfAzgorh.Units,
     ...NurgleUnits,
+    ...TamurkhansHorde.Units,
     ...Skaven.Units,
     ...SlaaneshUnits,
     ...SlavesToDarkness.Units,
