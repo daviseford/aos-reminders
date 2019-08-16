@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { filterEffectsByMark } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -17,19 +17,18 @@ import {
 } from 'types/phases'
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
-import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_UNDIVIDED } from 'army/slaves_to_darkness/units'
+import { MARK_TZEENTCH } from 'meta/alliances'
 
 // Mark selection.
 // Filters slaves unit rules that have multiple god marks.
 const getNurgleSlaves = () => {
-  const AllSlavesUnits: TUnits = cloneDeep(getSlavesUnits())
-  for (let UnitEntry of AllSlavesUnits) {
-    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_KHORNE))
-    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_NURGLE))
-    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_SLAANESH))
-    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_UNDIVIDED))
-  }
-  return AllSlavesUnits
+  const filterEffects = filterEffectsByMark(MARK_TZEENTCH)
+  return [...getSlavesUnits()].map(({ name, effects }) => {
+    return {
+      name,
+      effects: filterEffects(effects),
+    }
+  })
 }
 
 // Unit Names
