@@ -58,7 +58,6 @@ const CommandTraits: TTraits = [
       {
         name: `Lord of Storm and Sea`,
         desc: `Add 2 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this general.`,
-
         when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
