@@ -163,8 +163,10 @@ const EntryDescription = (props: { text: string }) => {
 
   return (
     <>
-      {splitText.map(text => (
-        <p className="EntryText">{text}</p>
+      {splitText.map((text, i) => (
+        <p className="EntryText" key={i}>
+          {text}
+        </p>
       ))}
     </>
   )
