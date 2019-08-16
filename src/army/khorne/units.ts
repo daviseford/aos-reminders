@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -19,11 +20,23 @@ import {
 } from 'types/phases'
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'army/slaves_to_darkness/units'
 
-// Unit Names
-export const Units: TUnits = [
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+// Mark selection.
+// Filters slaves unit rules that have multiple god marks.
+const getKhorneSlaves = () => {
+  const AllSlavesUnits: TUnits = cloneDeep(getSlavesUnits())
+  for (let UnitEntry of AllSlavesUnits) {
+    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_NURGLE))
+    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_SLAANESH))
+    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_TZEENTCH))
+    UnitEntry.effects = UnitEntry.effects.filter(effect => !effect.name.includes(MARK_UNDIVIDED))
+  }
+  return AllSlavesUnits
+}
+
+// Khorne specific units.  Export for use in Grand Alliance.
+export const KhorneUnits: TUnits = [
   {
     name: `Korghos Khul`,
     effects: [
@@ -1115,3 +1128,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...KhorneUnits, ...getKhorneSlaves(), ...getEverchosenUnits()]
