@@ -2,8 +2,14 @@ import produce from 'immer'
 import { sortBy } from 'lodash'
 import { processGame } from './processGame'
 
-import { GenericEndlessSpells, GenericSpells } from 'army/generic/index'
-import { RealmArtifacts, RealmSpells } from 'army/malign_sorcery'
+import {
+  GenericEndlessSpells,
+  GenericSpells,
+  GenericScenery,
+  RealmArtifacts,
+  RealmscapeSpells,
+} from 'army/generic'
+
 import {
   ChaosArtifacts,
   ChaosTraits,
@@ -24,10 +30,10 @@ import {
   TArtifacts,
   TBattalions,
   TEndlessSpells,
+  TScenery,
   TSpells,
   TTraits,
   TUnits,
-  TScenery,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 
@@ -92,7 +98,7 @@ const modifyTraits = (traits: TTraits, alliance: TGrandAlliances): TTraits => {
 }
 
 const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
-  const realmSpells = realmscape ? RealmSpells.filter(x => x.name.includes(realmscape)) : []
+  const realmSpells = realmscape ? RealmscapeSpells.filter(x => x.name.includes(realmscape)) : []
   return sortBy(spells, 'name')
     .concat(sortBy(realmSpells, 'name'))
     .concat(sortBy(GenericSpells, 'name'))
@@ -100,7 +106,9 @@ const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
 }
 
 const modifyScenery = (scenery: TScenery): TScenery => {
-  return sortBy(scenery, 'name').map(s => ({ ...s, scenery: true }))
+  return sortBy(scenery, 'name')
+    .concat(sortBy(GenericScenery, 'name'))
+    .map(s => ({ ...s, scenery: true }))
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
@@ -117,14 +125,6 @@ type IGrandAllianceConfig = {
 }
 
 const GrandAllianceConfig: IGrandAllianceConfig = {
-  [ORDER]: {
-    Artifacts: OrderArtifacts,
-    Traits: OrderTraits,
-  },
-  [DESTRUCTION]: {
-    Artifacts: DestructionArtifacts,
-    Traits: DestructionTraits,
-  },
   [CHAOS]: {
     Artifacts: ChaosArtifacts,
     Traits: ChaosTraits,
@@ -132,5 +132,13 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
   [DEATH]: {
     Artifacts: DeathArtifacts,
     Traits: DeathTraits,
+  },
+  [DESTRUCTION]: {
+    Artifacts: DestructionArtifacts,
+    Traits: DestructionTraits,
+  },
+  [ORDER]: {
+    Artifacts: OrderArtifacts,
+    Traits: OrderTraits,
   },
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 
 import { titleCase } from 'utils/titleCase'
-import { ActionMeta, ValueType } from 'react-select/lib/types'
+import { ActionMeta, ValueType } from 'react-select/src/types'
 
 export type TDropdownOption = { value: string; label: string }
 export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta) => void

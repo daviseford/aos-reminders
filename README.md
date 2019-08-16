@@ -20,11 +20,12 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [PixelTom](https://github.com/PixelTom)
 + [ctcodie](https://github.com/ctcodie)
 + [Cpt Asgard](https://github.com/CptAsgard)
-+ [Liuseeker](https://github.com/LiuSeeker)
++ [LiuSeeker](https://github.com/LiuSeeker)
 + Lorax
 + [NiklassMM](https://github.com/NiklasMM)
 + [mmorrison](https://github.com/mmorrison)
 + [wspencermiller](https://github.com/wspencermiller)
++ [Zirhark](https://github.com/Zirhark)
 + [T-Nightingale](https://github.com/T-Nightingale)
 
 ## Available Scripts

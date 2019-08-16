@@ -1,15 +1,5 @@
 import { TTraits } from 'types/army'
-import {
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  MOVEMENT_PHASE,
-  TURN_FIVE_DURING_ROUND,
-  TURN_FOUR_DURING_ROUND,
-  TURN_ONE_DURING_ROUND,
-  TURN_THREE_DURING_ROUND,
-  TURN_TWO_DURING_ROUND,
-} from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
@@ -69,66 +59,6 @@ const CommandTraits: TTraits = [
         name: `Lord of Storm and Sea`,
         desc: `Add 2 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this general.`,
         when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Tides of Death (Normal)`,
-    effects: [
-      {
-        name: `Low Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait are treated as being in cover.`,
-        when: [TURN_ONE_DURING_ROUND],
-      },
-      {
-        name: `Flood Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that run can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_TWO_DURING_ROUND],
-      },
-      {
-        name: `High Tide`,
-        desc: `In this battle round, units with the Tides of Death battle trait fight before any other units in the combat phase. Fight with all eligible Idoneth Deepkin units one after the other, and then resolve any fights with any other units.`,
-        when: [TURN_THREE_DURING_ROUND],
-      },
-      {
-        name: `Ebb Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_FOUR_DURING_ROUND],
-      },
-      {
-        name: `Low Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_FIVE_DURING_ROUND],
-      },
-    ],
-  },
-  {
-    name: `Tides of Death (Reversed)`,
-    effects: [
-      {
-        name: `Ebb Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_ONE_DURING_ROUND],
-      },
-      {
-        name: `High Tide`,
-        desc: `In this battle round, units with the Tides of Death battle trait fight before any other units in the combat phase. Fight with all eligible Idoneth Deepkin units one after the other, and then resolve any fights with any other units.`,
-        when: [TURN_TWO_DURING_ROUND],
-      },
-      {
-        name: `Flood Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that run can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_THREE_DURING_ROUND],
-      },
-      {
-        name: `Low Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait are treated as being in cover.`,
-        when: [TURN_FOUR_DURING_ROUND],
-      },
-      {
-        name: `Ebb Tide`,
-        desc: `In this battle round, all units with the Tides of Death battle trait that retreat can still either shoot or charge in the same turn (but not both).`,
-        when: [TURN_FIVE_DURING_ROUND],
       },
     ],
   },

@@ -14,6 +14,27 @@ import {
   START_OF_TURN,
 } from 'types/phases'
 
+/**
+ * Exporting Nighthaunt units per LoN FAQ
+ */
+export const getNighthauntUnits = () => {
+  const listOfUnits = [
+    `Cairn Wraith`,
+    `Chainrasp Horde`,
+    `Glaivewraith Stalkers`,
+    `Grimghast Reapers`,
+    `Guardian of Souls`,
+    `Hexwraiths`,
+    `Knight of Shrouds`,
+    `Knight of Shrouds on Ethereal Steed`,
+    `Lord Executioner`,
+    `Spirit Hosts`,
+    `Spirit Torment`,
+    `Tomb Banshee`,
+  ]
+  return Units.filter(unit => listOfUnits.includes(unit.name))
+}
+
 // Unit Names
 export const Units: TUnits = [
   {

@@ -10,6 +10,12 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
+// Export Chaos god aligned Everchosen units.
+export const getEverchosenUnits = () => {
+  const listOfUnits = [`Archaon`]
+  return Units.filter(unit => listOfUnits.includes(unit.name))
+}
+
 // Unit Names
 export const Units: TUnits = [
   {

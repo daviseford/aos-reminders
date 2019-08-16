@@ -13,10 +13,12 @@ export type TAbilities = TEffects[]
 export type TAllegiances = TEntry[]
 export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
+export type TCommands = TEntry[]
 export type TTraits = TEntry[]
 export type TEndlessSpells = TEntry[]
 export type TScenery = TEntry[]
 export type TSpells = TEntry[]
+export type TTriumphs = TEntry[]
 export type TUnits = TEntry[]
 
 export interface IArmyWithoutGame {

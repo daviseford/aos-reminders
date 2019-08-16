@@ -1,3 +1,4 @@
+import 'core-js/stable' // polyfills
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'

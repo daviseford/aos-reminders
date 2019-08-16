@@ -40,7 +40,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
     return window.print()
   }
 
-  const PrintComponent = is.firefox() ? FirefoxPrintButton : PrintButton
+  const isBadBrowser: boolean = is.edge() || is.firefox() || is.ie()
+  const PrintComponent = isBadBrowser ? PrintWarningButton : PrintButton
 
   return (
     <div className="container d-print-none">
@@ -96,13 +97,26 @@ const PrintButton = (props: { handlePrint: (e: any) => void }) => {
   )
 }
 
-const FirefoxPrintButton = (props: { handlePrint: (e: any) => void }) => {
+interface IBrowser {
+  name: string
+  is: boolean
+  warning: string
+}
+
+const PrintWarningButton = (props: { handlePrint: (e: any) => void }) => {
+  const browsers: IBrowser[] = [
+    { name: 'Edge', is: is.edge(), warning: `crash when printing` },
+    { name: 'Firefox', is: is.firefox(), warning: `not correctly print this page` },
+    { name: 'Internet Explorer', is: is.ie(), warning: `crash when printing` },
+  ]
+  const { name, warning } = browsers.find(b => b.is) as IBrowser
   const tipProps = {
-    'data-for': 'firefoxPrintWarning',
+    'data-for': 'printWarningButton',
     'data-multiline': true,
-    'data-tip': `Warning: Firefox is known to not correctly print this app.<br />Switch to Chrome, Edge, or Safari.`,
+    'data-tip': `Warning: ${name} is known to ${warning}.<br />Switch to Chrome or Safari.`,
     'data-type': 'error',
   }
+
   return (
     <>
       <IconContext.Provider value={{ className: 'text-warning', size: '1.5em' }}>
@@ -110,7 +124,7 @@ const FirefoxPrintButton = (props: { handlePrint: (e: any) => void }) => {
           <MdWarning /> Print Page
         </button>
       </IconContext.Provider>
-      <ReactTooltip id={`firefoxPrintWarning`} />
+      <ReactTooltip id={`printWarningButton`} />
     </>
   )
 }

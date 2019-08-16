@@ -13,37 +13,8 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import Everchosen from 'army/everchosen'
-
-// Importing Slaanesh markable Slaves to Darkness units.
-const getSlavesUnits = () => {
-  const listOfUnits = [
-    `Daemon Prince`,
-    `Chaos Lord on Manticore`,
-    `Chaos Sorcerer Lord on Manticore`,
-    `Chaos Lord on Daemonic Mount`,
-    `Lord of Chaos`,
-    `Chaos Sorcerer Lord`,
-    `Exalted Hero of Chaos`,
-    `Chaos Marauders`,
-    `Chaos Chariot`,
-    `Gorebeast Chariot`,
-    `Chaos Chosen`,
-    `Chaos Warriors`,
-    `Chaos Warshrine`,
-    `Chaos Knights`,
-    `Chaos Marauder Horsemen`,
-    `Chaos War Mammoth`,
-  ]
-  return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
-}
-
-// Importing Slaanesh aligned Everchosen units.
-const getEverchosenUnits = () => {
-  const listOfUnits = [`Archaon`]
-  return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
-}
+import { getSlavesUnits } from 'army/slaves_to_darkness/units'
+import { getEverchosenUnits } from 'army/everchosen/units'
 
 const KeeperOfSecretsBaseEffects = [
   {
