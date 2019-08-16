@@ -143,6 +143,7 @@ export const ArmyList: TArmyList = {
   [MERCENARY_COMPANIES]: {
     Army: { ...MercenaryCompanies },
     GrandAlliance: ORDER,
+    //TODO: Add allyOnly tag
   },
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
