@@ -23,9 +23,11 @@ small {
 }
 
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/@page */
-@page {
+/* Disabled because it was crashing IE11/Edge */
+/* Nice browser, Microsoft */
+/* @page {
     margin: 20cm;
-}
+} */
 
 @media print {
     .ReminderEntry {

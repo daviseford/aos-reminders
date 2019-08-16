@@ -46,19 +46,14 @@ const RemindersComponent = (props: IRemindersProps) => {
     <div className="row w-75 mx-auto mt-3 d-block">
       <div>
         {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} idx={i} factionName={factionName} />
+          return <Entry when={key} actions={reminders[key]} key={i} />
         })}
       </div>
     </div>
   )
 }
 
-const Entry = (props: {
-  when: string
-  actions: TTurnAction[]
-  idx: number
-  factionName: TSupportedFaction
-}) => {
+const Entry = (props: { when: string; actions: TTurnAction[] }) => {
   const { when, actions } = props
 
   const [hidden, setHidden] = useState<string[]>([])
