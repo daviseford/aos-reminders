@@ -3,9 +3,6 @@
     padding-top: 0.5rem;
     padding-bottom: 0px;
     margin-block-end: 0px;
-
-    /* Force newlines to render */
-    white-space: pre-line;
 }
 
 .ReminderHeader {
@@ -37,21 +34,4 @@ small {
     .ReminderHeader {
         font-size: 1.1rem;
     }
-
-    /* IE10+ styles */
-    @media screen and (-ms-high-contrast: active),
-    (-ms-high-contrast: none) {
-        .ReminderEntry {
-            white-space: normal;
-        }
-    }
-
-    /* IE Edge 12+ CSS styles go here */
-    @supports (-ms-accelerator:true) {
-        .ReminderEntry {
-            white-space: normal;
-        }
-    }
-
-
 }

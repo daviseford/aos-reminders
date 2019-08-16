@@ -114,12 +114,12 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name = '', desc, tag, showEntry, hideEntry } = props
-  const [isVisible, setIsVisibile] = useState(true)
+  const { name = '', desc, showEntry, hideEntry } = props
+  const [isVisible, setIsVisible] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
     !isVisible ? showEntry(name) : hideEntry(name)
-    setIsVisibile(!isVisible)
+    setIsVisible(!isVisible)
   }
 
   useEffect(() => {
@@ -131,21 +131,41 @@ const ActionText = (props: IActionTextProps) => {
 
   return (
     <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
-      <div className="d-flex">
+      <div className="d-flex mb-1">
         <div className="flex-grow-1">
-          <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
-          <b>
-            {name && `${name}`}
-            {tag && ` (${tag})`}
-          </b>
+          <EntryTitle {...props} />
         </div>
         <div className="px-2 d-print-none">
           <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
         </div>
       </div>
 
-      {isVisible && desc}
+      {isVisible && <EntryDescription text={desc} />}
     </div>
+  )
+}
+
+const EntryTitle = (props: IActionTextProps) => (
+  <>
+    <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
+    <b>
+      {props.name && `${props.name}`}
+      {props.tag && ` (${props.tag})`}
+    </b>
+  </>
+)
+
+const EntryDescription = (props: { text: string }) => {
+  const splitText = props.text
+    .split('\n')
+    .map(t => t.trim())
+    .filter(t => !!t)
+  return (
+    <>
+      {splitText.map(text => (
+        <p className="EntryText">{text}</p>
+      ))}
+    </>
   )
 }
 
