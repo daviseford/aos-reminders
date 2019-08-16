@@ -10,18 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
-
-type TMarkKhorne = 'Khorne'
-type TMarkNurgle = 'Nurgle'
-type TMarkSlaanesh = 'Slaanesh'
-type TMarkTzeentch = 'Tzeentch'
-type TMarkUndivided = 'Undivided'
-export type TChaosMarks = TMarkKhorne | TMarkNurgle | TMarkSlaanesh | TMarkTzeentch | TMarkUndivided
-export const MARK_KHORNE: TMarkKhorne = 'Khorne'
-export const MARK_NURGLE: TMarkNurgle = 'Nurgle'
-export const MARK_SLAANESH: TMarkSlaanesh = 'Slaanesh'
-export const MARK_TZEENTCH: TMarkTzeentch = 'Tzeentch'
-export const MARK_UNDIVIDED: TMarkUndivided = 'Undivided'
+import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
 // Export markable Slaves to Darkness units.
 export const getSlavesUnits = () => {
