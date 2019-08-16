@@ -78,6 +78,7 @@ const Entry = (props: { when: string; actions: TTurnAction[] }) => {
 
 const getTitle = ({
   artifact,
+  command_ability,
   command_trait,
   condition,
   endless_spell,
@@ -87,6 +88,7 @@ const getTitle = ({
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
   if (artifact) return `Artifact${suffix}`
+  if (command_ability) return `Command Ability: ${condition}`
   if (command_trait) return `Command Trait`
   if (endless_spell) return `Endless Spell${suffix}`
   if (scenery) return `Scenery${suffix}`
@@ -112,7 +114,7 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name = '', desc, command_ability, tag, showEntry, hideEntry } = props
+  const { name = '', desc, tag, showEntry, hideEntry } = props
   const [isVisible, setIsVisibile] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
@@ -133,7 +135,6 @@ const ActionText = (props: IActionTextProps) => {
         <div className="flex-grow-1">
           <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
           <b>
-            {command_ability && `Command Ability: `}
             {name && `${name}`}
             {tag && ` (${tag})`}
           </b>
