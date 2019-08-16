@@ -160,6 +160,7 @@ const EntryDescription = (props: { text: string }) => {
     .split('\n')
     .map(t => t.trim())
     .filter(t => !!t)
+
   return (
     <>
       {splitText.map(text => (
