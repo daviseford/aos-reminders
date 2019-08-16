@@ -71,4 +71,5 @@ const Triumphs: TTriumphs = [
     ],
   },
 ]
-export default Commands
+
+export default Triumphs
