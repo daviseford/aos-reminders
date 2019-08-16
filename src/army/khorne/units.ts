@@ -1,3 +1,4 @@
+import { filterEffectsByMark } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -17,41 +18,24 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
 } from 'types/phases'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import Everchosen from 'army/everchosen'
+import { getSlavesUnits } from 'army/slaves_to_darkness/units'
+import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_KHORNE } from 'meta/alliances'
 
-// Importing Khorne markable Slaves to Darkness units.
-const getSlavesUnits = () => {
-  const listOfUnits = [
-    `Daemon Prince`,
-    `Chaos Lord on Manticore`,
-    `Chaos Lord on Daemonic Mount`,
-    `Lord of Chaos`,
-    `Exalted Hero of Chaos`,
-    `Chaos Marauders`,
-    `Chaos Chariot`,
-    `Gorebeast Chariot`,
-    `Chaos Chosen`,
-    `Chaos Warriors`,
-    `Chaos Warshrine`,
-    `Chaos Knights`,
-    `Chaos Marauder Horsemen`,
-    `Chaos War Mammoth`,
-  ]
-  return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
+// Mark selection.
+// Filters slaves unit rules that have multiple god marks.
+const getKhorneSlaves = () => {
+  const filterEffects = filterEffectsByMark(MARK_KHORNE)
+  return [...getSlavesUnits()].map(({ name, effects }) => {
+    return {
+      name,
+      effects: filterEffects(effects),
+    }
+  })
 }
 
-// Importing Khorne aligned Everchosen units.
-const getEverchosenUnits = () => {
-  const listOfUnits = [`Archaon`]
-  return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
-}
-
-// Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+// Khorne specific units.  Export for use in Grand Alliance.
+export const KhorneUnits: TUnits = [
   {
     name: `Korghos Khul`,
     effects: [
@@ -1143,3 +1127,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...KhorneUnits, ...getKhorneSlaves(), ...getEverchosenUnits()]

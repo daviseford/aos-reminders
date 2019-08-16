@@ -1,3 +1,4 @@
+import { filterEffectsByMark } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -13,36 +14,20 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import Everchosen from 'army/everchosen'
+import { getSlavesUnits } from 'army/slaves_to_darkness/units'
+import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_SLAANESH } from 'meta/alliances'
 
-// Importing Slaanesh markable Slaves to Darkness units.
-const getSlavesUnits = () => {
-  const listOfUnits = [
-    `Daemon Prince`,
-    `Chaos Lord on Manticore`,
-    `Chaos Sorcerer Lord on Manticore`,
-    `Chaos Lord on Daemonic Mount`,
-    `Lord of Chaos`,
-    `Chaos Sorcerer Lord`,
-    `Exalted Hero of Chaos`,
-    `Chaos Marauders`,
-    `Chaos Chariot`,
-    `Gorebeast Chariot`,
-    `Chaos Chosen`,
-    `Chaos Warriors`,
-    `Chaos Warshrine`,
-    `Chaos Knights`,
-    `Chaos Marauder Horsemen`,
-    `Chaos War Mammoth`,
-  ]
-  return SlavesToDarkness.Units.filter(unit => listOfUnits.includes(unit.name))
-}
-
-// Importing Slaanesh aligned Everchosen units.
-const getEverchosenUnits = () => {
-  const listOfUnits = [`Archaon`]
-  return Everchosen.Units.filter(unit => listOfUnits.includes(unit.name))
+// Mark selection.
+// Filters slaves unit rules that have multiple god marks.
+const getNurgleSlaves = () => {
+  const filterEffects = filterEffectsByMark(MARK_SLAANESH)
+  return [...getSlavesUnits()].map(({ name, effects }) => {
+    return {
+      name,
+      effects: filterEffects(effects),
+    }
+  })
 }
 
 const KeeperOfSecretsBaseEffects = [
@@ -75,10 +60,7 @@ const KeeperOfSecretsBaseEffects = [
 ]
 
 // Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+export const SlaaneshUnits: TUnits = [
   {
     name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [
@@ -632,3 +614,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...SlaaneshUnits, ...getNurgleSlaves(), ...getEverchosenUnits()]

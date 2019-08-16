@@ -19,7 +19,7 @@
     "react-tooltip": "^3.10.0",
     "redux": "^4.0.4",
     "redux-starter-kit": "^0.6.3",
-    "typescript": "3.4.5"
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,12 +51,12 @@
   },
   "devDependencies": {
     "@types/jest": "24.0.17",
-    "@types/lodash": "^4.14.136",
+    "@types/lodash": "^4.14.137",
     "@types/node": "^12.7.2",
-    "@types/react": "16.9.1",
+    "@types/react": "16.9.2",
     "@types/react-copy-to-clipboard": "^4.2.6",
     "@types/react-dom": "16.8.5",
-    "@types/react-redux": "^7.1.1",
+    "@types/react-redux": "^7.1.2",
     "@types/react-select": "^3.0.2",
     "@types/react-tooltip": "^3.9.3",
     "@types/webpack-env": "^1.13.9",
