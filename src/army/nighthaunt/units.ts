@@ -32,7 +32,7 @@ export const getNighthauntUnits = () => {
     `Spirit Torment`,
     `Tomb Banshee`,
   ]
-  return Units.filter(unit => listOfUnits.includes(unit.name))
+  return Units.filter(({ name }) => listOfUnits.includes(name))
 }
 
 // Unit Names
