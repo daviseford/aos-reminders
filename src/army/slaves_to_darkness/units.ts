@@ -10,6 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
+import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
 // Export markable Slaves to Darkness units.
 export const getSlavesUnits = () => {
@@ -38,27 +39,27 @@ export const Units: TUnits = [
     name: `Daemon Prince`,
     effects: [
       {
-        name: `Cursed Soul-eater`,
+        name: `Cursed Soul-eater: ${MARK_UNDIVIDED}`,
         desc: `If this model is not dedicated to a Chaos God, it heals 1 wound at the end of this phase if it killed any models.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
-        name: `Immortal Champion: Khorne`,
+        name: `Immortal Champion: ${MARK_KHORNE}`,
         desc: `You can add 1 to all hit rolls made by this unit.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Immortal Champion: Nurgle`,
+        name: `Immortal Champion: ${MARK_NURGLE}`,
         desc: `This model has a save characteristic of 3+.`,
         when: [DURING_GAME],
       },
       {
-        name: `Immortal Champion: Tzeentch`,
+        name: `Immortal Champion: ${MARK_TZEENTCH}`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt and Mystic Shield.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Immortal Champion: Slaanesh`,
+        name: `Immortal Champion: ${MARK_SLAANESH}`,
         desc: `When your opponent selects a unit within 3" of this model to pile in, you can immediately select this Daemon Prince to pile in and attack before the enemy unit, even though it is not your turn to do so.  This can only be done if this Daemon Prince is still eligible for combat activation.`,
         when: [COMBAT_PHASE],
       },
@@ -68,22 +69,22 @@ export const Units: TUnits = [
     name: `Chaos Lord on Manticore`,
     effects: [
       {
-        name: `Mark of Chaos: Khorne`,
+        name: `Mark of Chaos: ${MARK_KHORNE}`,
         desc: `This model can pile in 6" instead of 3".`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Nurgle`,
+        name: `Mark of Chaos: ${MARK_NURGLE}`,
         desc: `This model has a save characteristic of 3+.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Tzeentch`,
+        name: `Mark of Chaos: ${MARK_TZEENTCH}`,
         desc: `This model can attempt to unbind one spell.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Mark of Chaos: Slaanesh`,
+        name: `Mark of Chaos: ${MARK_SLAANESH}`,
         desc: `Enemy units must subtract 1 from their bravery characteristic if they are within 3" of this model in the battleshock phase.`,
         when: [BATTLESHOCK_PHASE],
       },
@@ -149,22 +150,22 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Khorne`,
+        name: `Mark of Chaos: ${MARK_KHORNE}`,
         desc: `Re-roll all hit rolls of a 1 for this model's Cursed Warhammer.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Nurgle`,
+        name: `Mark of Chaos: ${MARK_NURGLE}`,
         desc: `This model has a wounds characteristic of 8 instead of 7.`,
         when: [DURING_GAME],
       },
       {
-        name: `Mark of Chaos: Tzeentch`,
+        name: `Mark of Chaos: ${MARK_TZEENTCH}`,
         desc: `You can re-roll failed save rolls for this model.`,
         when: [DURING_GAME],
       },
       {
-        name: `Mark of Chaos: Slaanesh`,
+        name: `Mark of Chaos: ${MARK_SLAANESH}`,
         desc: `This model can run and charge in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
@@ -200,22 +201,22 @@ export const Units: TUnits = [
         when: [DURING_GAME],
       },
       {
-        name: `Mark of Chaos: Khorne`,
+        name: `Mark of Chaos: ${MARK_KHORNE}`,
         desc: `You can re-roll hit rolls of 1 for attacks made by this model.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Nurgle`,
+        name: `Mark of Chaos: ${MARK_NURGLE}`,
         desc: `You can re-roll wound rolls of 1 for this model.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mark of Chaos: Tzeentch`,
+        name: `Mark of Chaos: ${MARK_TZEENTCH}`,
         desc: `You can re-roll save rolls of 1 for this model.`,
         when: [DURING_GAME],
       },
       {
-        name: `Mark of Chaos: Slaanesh`,
+        name: `Mark of Chaos: ${MARK_SLAANESH}`,
         desc: `This model can run and charge in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
@@ -577,27 +578,27 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Favor of Chaos (Unaligned)`,
+        name: `Favor: ${MARK_UNDIVIDED}`,
         desc: `You can re-roll hit and wound rolls of 1 for the targeted unit until your next hero phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Favor of Khorne`,
+        name: `Favor: ${MARK_KHORNE}`,
         desc: `You can re-roll hit rolls of 1 for the unit. If you picked a Mortal Khorne unit, you can instead re-roll all failed hit rolls.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Favour of Nurgle`,
+        name: `Favour: ${MARK_NURGLE}`,
         desc: `You can re-roll wound rolls of 1 for the unit. If you picked a Mortal Nurgle unit, you can instead re-roll all failed wound rolls.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Favour of Tzeentch`,
+        name: `Favour: ${MARK_TZEENTCH}`,
         desc: `You can re-roll save rolls of 1 for the unit. If you picked a Mortal Tzeentch unit, you can instead re-roll all failed save rolls.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Favour of Slaanesh`,
+        name: `Favour: ${MARK_SLAANESH}`,
         desc: `You can re-roll failed charge rolls and battleshock tests for the unit. If you picked a Mortal Slaanesh unit, you can re-roll failed charge rolls for the unit and it does not need to take battleshock tests.`,
         when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
       },
