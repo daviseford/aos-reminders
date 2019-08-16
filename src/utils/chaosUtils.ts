@@ -14,9 +14,12 @@ export const hasMarkOfChaos = (effect: TEffects) => MARKS_OF_CHAOS.some(mark => 
  * Returns only effects where invalid Marks are not present
  * @param mark
  */
-const filterEffectsByMark = (mark: TMarksOfChaos) => (effects: TEffects[]): TEffects[] => {
+const filterEffectsByMark = (mark: TMarksOfChaos) => {
   const invalidMarks = without(MARKS_OF_CHAOS, mark)
-  return effects.filter(({ name }) => invalidMarks.every(m => !name.includes(m)))
+
+  return (effects: TEffects[]): TEffects[] => {
+    return effects.filter(({ name }) => invalidMarks.every(m => !name.includes(m)))
+  }
 }
 
 /**
