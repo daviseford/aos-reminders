@@ -3,6 +3,9 @@ import { sortBy } from 'lodash'
 import { processGame } from './processGame'
 
 import {
+  GenericCommands,
+  GenericTriumphs,
+  RealmscapeCommands,
   GenericEndlessSpells,
   GenericSpells,
   GenericScenery,
@@ -29,10 +32,12 @@ import {
   TAllegiances,
   TArtifacts,
   TBattalions,
+  TCommands,
   TEndlessSpells,
   TScenery,
   TSpells,
   TTraits,
+  TTriumphs,
   TUnits,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
@@ -104,6 +109,17 @@ const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArt
 const modifyTraits = (traits: TTraits, alliance: TGrandAlliances): TTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
+}
+
+const modifyCommands = (realmscape: TRealms | null): TCommands => {
+  const realmCommands = realmscape ? RealmscapeCommands.filter(x => x.name.includes(realmscape)) : []
+  return sortBy(GenericCommands, 'name')
+    .concat(sortBy(realmCommands, 'name'))
+    .map(c => ({ ...c, command_ability: true }))
+}
+
+const modifyTriumphs = (): TTriumphs => {
+  return sortBy(GenericTriumphs, 'name').map(t => ({ ...t, triumph: true }))
 }
 
 const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
