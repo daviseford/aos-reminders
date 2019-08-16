@@ -16,28 +16,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import Nighthaunt from 'army/nighthaunt'
-
-/**
- * Importing Nighthaunt units per LoN FAQ
- */
-const getNighthauntUnits = () => {
-  const listOfUnits = [
-    `Cairn Wraith`,
-    `Chainrasp Horde`,
-    `Glaivewraith Stalkers`,
-    `Grimghast Reapers`,
-    `Guardian of Souls`,
-    `Hexwraiths`,
-    `Knight of Shrouds`,
-    `Knight of Shrouds on Ethereal Steed`,
-    `Lord Executioner`,
-    `Spirit Hosts`,
-    `Spirit Torment`,
-    `Tomb Banshee`,
-  ]
-  return Nighthaunt.Units.filter(unit => listOfUnits.includes(unit.name))
-}
+import { getNighthauntUnits } from 'army/nighthaunt/units'
 
 // Unit Names
 export const Units: TUnits = [
