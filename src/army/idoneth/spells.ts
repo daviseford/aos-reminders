@@ -78,8 +78,6 @@ const Spells: TSpells = [
       },
     ],
   },
-<<<<<<< HEAD
-=======
   {
     name: `Mor'phann: Freezing Mists`,
     effects: [
@@ -100,7 +98,6 @@ const Spells: TSpells = [
       },
     ],
   },
->>>>>>> IDK_Cleanup
 ]
 
 export default Spells

@@ -2,7 +2,6 @@ import { TAllegiances } from 'types/army'
 import {
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_ROUND,
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,

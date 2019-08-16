@@ -1,9 +1,5 @@
 import { TTraits } from 'types/army'
-<<<<<<< HEAD
-import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
-=======
 import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, BATTLESHOCK_PHASE } from 'types/phases'
->>>>>>> IDK_Cleanup
 
 const CommandTraits: TTraits = [
   {
@@ -62,8 +58,7 @@ const CommandTraits: TTraits = [
       {
         name: `Lord of Storm and Sea`,
         desc: `Add 2 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this general.`,
-<<<<<<< HEAD
-=======
+
         when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
@@ -74,7 +69,6 @@ const CommandTraits: TTraits = [
       {
         name: `Ionrach: Emissary of the Deep Places`,
         desc: `Allied units in an Ionrach army are treated as having the Tides of Death battle trait and can therefore use abilities from the Tides of Death table each battle round.`,
->>>>>>> IDK_Cleanup
         when: [DURING_GAME],
       },
     ],
