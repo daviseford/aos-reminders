@@ -21,6 +21,19 @@ export type TSpells = TEntry[]
 export type TTriumphs = TEntry[]
 export type TUnits = TEntry[]
 
+export interface IInitialArmy {
+  Abilities?: TAbilities
+  Allegiances?: TAllegiances
+  Artifacts?: TArtifacts
+  Battalions?: TBattalions
+  EndlessSpells?: TEndlessSpells
+  Scenery?: TScenery
+  Spells?: TSpells
+  Traits?: TTraits
+  Units?: TUnits
+  Game?: TGameStructure
+}
+
 export interface IArmyWithoutGame {
   Abilities: TAbilities
   Allegiances: TAllegiances

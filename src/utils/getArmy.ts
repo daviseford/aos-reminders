@@ -55,7 +55,16 @@ interface IModifyArmyMeta {
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const { Allegiances, Artifacts, Battalions, EndlessSpells, Scenery, Spells, Traits, Units } = Army
+  const {
+    Allegiances = [],
+    Artifacts = [],
+    Battalions = [],
+    EndlessSpells = [],
+    Scenery = [],
+    Spells = [],
+    Traits = [],
+    Units = [],
+  } = Army
   const { realmscape, GrandAlliance } = meta
 
   Army.Allegiances = modifyAllegiances(Allegiances)

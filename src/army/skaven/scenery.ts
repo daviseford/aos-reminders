@@ -1,10 +1,10 @@
 import { TScenery } from 'types/army'
 import {
-  START_OF_SETUP,
-  START_OF_MOVEMENT_PHASE,
+  CHARGE_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  CHARGE_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 const Scenery: TScenery = [

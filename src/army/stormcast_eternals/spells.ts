@@ -1,10 +1,10 @@
 import {
-  HERO_PHASE,
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  BATTLESHOCK_PHASE,
 } from 'types/phases'
 import { TSpells } from 'types/army'
 

@@ -1,5 +1,5 @@
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
-import { IArmyWithoutGame } from 'types/army'
+import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
@@ -194,6 +194,6 @@ export const ArmyList: TArmyList = {
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  readonly Army: IArmyWithoutGame
+  readonly Army: IInitialArmy
   readonly GrandAlliance: TGrandAlliances
 }
