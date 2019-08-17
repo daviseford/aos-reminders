@@ -1,12 +1,12 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  COMBAT_PHASE,
   BATTLESHOCK_PHASE,
-  TURN_ONE_MOVEMENT_PHASE,
-  DURING_SETUP,
-  SHOOTING_PHASE,
-  MOVEMENT_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_SETUP,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 
 // Unit Names

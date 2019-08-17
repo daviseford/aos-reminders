@@ -1,8 +1,7 @@
+import { uniqBy } from 'lodash'
 import { Battalions, Units } from './units'
 import Abilities from './abilities'
-import Allegiances from './allegiances'
 import Artifacts from './artifacts'
-import EndlessSpells from './endless_spells'
 import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
@@ -10,12 +9,10 @@ import { Battalions as TamurkhansBattalions, Units as TamurkhansUnits } from 'ar
 
 export default {
   Abilities,
-  Allegiances,
   Artifacts,
-  Battalions: Battalions.concat(TamurkhansBattalions),
-  EndlessSpells,
+  Battalions: uniqBy([...Battalions, ...TamurkhansBattalions], 'name'),
   Scenery,
   Spells,
   Traits,
-  Units: Units.concat(TamurkhansUnits),
+  Units: uniqBy([...Units, ...TamurkhansUnits], 'name'),
 }

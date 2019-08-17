@@ -9,11 +9,11 @@ const Artifacts: TArtifacts = [
         name: `Elixir of Frostwyrm`,
         desc: `In each of your shooting phases, the bearer can drink from the Elixir of Frostwyrm. If they do, pick a unit within 9" that is visible to them and roll a dice:
         
-        1 The drinker suffers a mortal wound. They cannot drink the Elixir of Frostwyrm again during this battle.
+        1: The drinker suffers a mortal wound. They cannot drink the Elixir of Frostwyrm again during this battle.
         
-        2-3 The unit you picked suffers 1 mortal wound. 4-5 The unit you picked suffers D3 mortal wounds.
+        2-3: The unit you picked suffers 1 mortal wound. 4-5 The unit you picked suffers D3 mortal wounds.
         
-        6 The unit you picked suffers D6 mortal wounds.`,
+        6: The unit you picked suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],

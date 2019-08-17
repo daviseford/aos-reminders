@@ -13,7 +13,7 @@ import {
 // Export Chaos god aligned Everchosen units.
 export const getEverchosenUnits = () => {
   const listOfUnits = [`Archaon`]
-  return Units.filter(unit => listOfUnits.includes(unit.name))
+  return Units.filter(({ name }) => listOfUnits.includes(name))
 }
 
 // Unit Names
