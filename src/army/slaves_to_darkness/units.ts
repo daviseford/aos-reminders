@@ -30,7 +30,7 @@ export const getSlavesUnits = () => {
     `Chaos Marauder Horsemen`,
     `Chaos War Mammoth`,
   ]
-  return Units.filter(unit => listOfUnits.includes(unit.name))
+  return Units.filter(({ name }) => listOfUnits.includes(name))
 }
 
 // Unit Names

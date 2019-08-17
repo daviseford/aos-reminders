@@ -1,5 +1,5 @@
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
-import { IArmyWithoutGame } from 'types/army'
+import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
@@ -17,6 +17,7 @@ import {
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_NAGASH,
   LETHISIAN_ARMY,
+  MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
   SERAPHON,
@@ -49,6 +50,7 @@ import Khorne from 'army/khorne'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import LethisianArmy from 'army/lethisian_army'
+import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
 import Order from 'army/grand_alliances/order'
@@ -138,6 +140,11 @@ export const ArmyList: TArmyList = {
     Army: { ...LethisianArmy },
     GrandAlliance: ORDER,
   },
+  [MERCENARY_COMPANIES]: {
+    Army: { ...MercenaryCompanies },
+    GrandAlliance: ORDER,
+    //TODO: Add allyOnly tag
+  },
   [NIGHTHAUNT]: {
     Army: { ...Nighthaunt },
     GrandAlliance: DEATH,
@@ -187,6 +194,6 @@ export const ArmyList: TArmyList = {
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  readonly Army: IArmyWithoutGame
+  readonly Army: IInitialArmy
   readonly GrandAlliance: TGrandAlliances
 }

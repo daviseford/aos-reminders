@@ -46,19 +46,14 @@ const RemindersComponent = (props: IRemindersProps) => {
     <div className="row w-75 mx-auto mt-3 d-block">
       <div>
         {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} idx={i} factionName={factionName} />
+          return <Entry when={key} actions={reminders[key]} key={i} />
         })}
       </div>
     </div>
   )
 }
 
-const Entry = (props: {
-  when: string
-  actions: TTurnAction[]
-  idx: number
-  factionName: TSupportedFaction
-}) => {
+const Entry = (props: { when: string; actions: TTurnAction[] }) => {
   const { when, actions } = props
 
   const [hidden, setHidden] = useState<string[]>([])
@@ -83,6 +78,7 @@ const Entry = (props: {
 
 const getTitle = ({
   artifact,
+  command_ability,
   command_trait,
   condition,
   endless_spell,
@@ -92,6 +88,7 @@ const getTitle = ({
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
   if (artifact) return `Artifact${suffix}`
+  if (command_ability) return `Command Ability: ${condition}`
   if (command_trait) return `Command Trait`
   if (endless_spell) return `Endless Spell${suffix}`
   if (scenery) return `Scenery${suffix}`
@@ -117,12 +114,12 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name = '', desc, command_ability, tag, showEntry, hideEntry } = props
-  const [isVisible, setIsVisibile] = useState(true)
+  const { name = '', desc, showEntry, hideEntry } = props
+  const [isVisible, setIsVisible] = useState(true)
   const handleVisibility = e => {
     e.preventDefault()
     !isVisible ? showEntry(name) : hideEntry(name)
-    setIsVisibile(!isVisible)
+    setIsVisible(!isVisible)
   }
 
   useEffect(() => {
@@ -134,22 +131,44 @@ const ActionText = (props: IActionTextProps) => {
 
   return (
     <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
-      <div className="d-flex">
+      <div className="d-flex mb-1">
         <div className="flex-grow-1">
-          <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
-          <b>
-            {command_ability && `Command Ability: `}
-            {name && `${name}`}
-            {tag && ` (${tag})`}
-          </b>
+          <EntryTitle {...props} />
         </div>
         <div className="px-2 d-print-none">
           <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
         </div>
       </div>
 
-      {isVisible && desc}
+      {isVisible && <EntryDescription text={desc} />}
     </div>
+  )
+}
+
+const EntryTitle = (props: IActionTextProps) => (
+  <>
+    <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
+    <b>
+      {props.name && `${props.name}`}
+      {props.tag && ` (${props.tag})`}
+    </b>
+  </>
+)
+
+const EntryDescription = (props: { text: string }) => {
+  const splitText = props.text
+    .split('\n')
+    .map(t => t.trim())
+    .filter(t => !!t)
+
+  return (
+    <>
+      {splitText.map((text, i) => (
+        <p className="EntryText" key={i}>
+          {text}
+        </p>
+      ))}
+    </>
   )
 }
 
