@@ -18,6 +18,7 @@ export type TKhorne = 'KHORNE'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export type TLethisianArmy = 'LETHISIAN_ARMY'
+export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
 export type TSeraphon = 'SERAPHON'
@@ -46,6 +47,7 @@ export const KHORNE: TKhorne = 'KHORNE'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_ARMY: TLethisianArmy = 'LETHISIAN_ARMY'
+export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
@@ -78,6 +80,7 @@ export type TSupportedFaction =
   | TLegionsOfAzgorh
   | TLegionsOfNagash
   | TLethisianArmy
+  | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
   | TOrder
@@ -110,6 +113,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_NAGASH,
   LETHISIAN_ARMY,
+  MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
   ORDER,
