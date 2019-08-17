@@ -1,34 +1,35 @@
 import { TScenery } from 'types/army'
-import { getSceneryEffects } from 'types/terrain'
+import { TSceneryEffects } from 'types/terrain'
 import {
+  CHARGE_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  START_OF_SETUP,
-  START_OF_HERO_PHASE,
-  START_OF_ROUND,
-  TURN_ONE_START_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  CHARGE_PHASE,
   SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_ROUND,
+  START_OF_SETUP,
+  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 import {
-  DAMNED,
   ARCANE,
-  INSPIRING,
-  DEADLY,
-  MYSTICAL,
-  SINISTER,
-  OVERGROWN,
-  ENTANGLING,
-  VOLCANIC,
   COMMANDING,
+  DAMNED,
+  DEADLY,
+  ENTANGLING,
+  GARRISONS,
   HEALING,
+  INSPIRING,
+  MYSTICAL,
   NULLIFICATION,
   OBSTACLE,
-  GARRISONS,
+  OVERGROWN,
+  SINISTER,
+  VOLCANIC,
 } from 'types/terrain'
+import { TEffects, TEntry } from 'types/data'
 
 // Default scenery effects for most games and custom scenery.
 export const DefaultScenery: TScenery = [
@@ -36,12 +37,12 @@ export const DefaultScenery: TScenery = [
     name: DAMNED,
     effects: [
       {
-        name: `Damned`,
+        name: DAMNED,
         desc: `You can pick 1 friendly unit within 1" of this terrain to take D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Damned`,
+        name: DAMNED,
         desc: `If active, buffed unit can re-roll hits of 1.`,
         when: [DURING_GAME],
       },
@@ -51,7 +52,7 @@ export const DefaultScenery: TScenery = [
     name: ARCANE,
     effects: [
       {
-        name: `Arcane`,
+        name: ARCANE,
         desc: `Add 1 to casting and unbinding rolls for wizards within 1" of this terrain.`,
         when: [HERO_PHASE],
       },
@@ -61,7 +62,7 @@ export const DefaultScenery: TScenery = [
     name: INSPIRING,
     effects: [
       {
-        name: `Inspiring`,
+        name: INSPIRING,
         desc: `Add 1 to the bravery characteristic of units within 1" of this terrain.`,
         when: [DURING_GAME],
       },
@@ -71,7 +72,7 @@ export const DefaultScenery: TScenery = [
     name: DEADLY,
     effects: [
       {
-        name: `Deadly`,
+        name: DEADLY,
         desc: `Roll a dice whenever a unit finishes a normal move or charge move within 1" of this terrain.  On a 1, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
@@ -81,7 +82,7 @@ export const DefaultScenery: TScenery = [
     name: MYSTICAL,
     effects: [
       {
-        name: `Mystical`,
+        name: MYSTICAL,
         desc: `Roll a dice each time a unit within 1" of this terrain suffers a wound or mortal wound.  On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
@@ -91,7 +92,7 @@ export const DefaultScenery: TScenery = [
     name: SINISTER,
     effects: [
       {
-        name: `Sinister`,
+        name: SINISTER,
         desc: `Subtract 1 from the bravery characteristic of units within 1" of this terrain.`,
         when: [DURING_GAME],
       },
@@ -101,7 +102,7 @@ export const DefaultScenery: TScenery = [
     name: OVERGROWN,
     effects: [
       {
-        name: `Overgrown`,
+        name: OVERGROWN,
         desc: `Units are not visible if a 1mm immaginary line drawn from the closest points of two models crosses more than 1" of this terrain.  Does not apply if either unit can fly.`,
         when: [DURING_GAME],
       },
@@ -111,7 +112,7 @@ export const DefaultScenery: TScenery = [
     name: ENTANGLING,
     effects: [
       {
-        name: `Entangling`,
+        name: ENTANGLING,
         desc: `Subtract 2 from run and charge rolls (to a minimum of 0) for units that are within 1" of this terrain.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
@@ -121,7 +122,7 @@ export const DefaultScenery: TScenery = [
     name: VOLCANIC,
     effects: [
       {
-        name: `Volcanic`,
+        name: VOLCANIC,
         desc: `Roll a dice for each instance of this terrain.  On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -131,7 +132,7 @@ export const DefaultScenery: TScenery = [
     name: COMMANDING,
     effects: [
       {
-        name: `Commanding`,
+        name: COMMANDING,
         desc: `If your general and no enemy general are within 1" of this terrain, add 1 to the number of command points you receive.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -141,7 +142,7 @@ export const DefaultScenery: TScenery = [
     name: HEALING,
     effects: [
       {
-        name: `Healing`,
+        name: HEALING,
         desc: `Roll a dice for each friendly unit within 1" of any Healing terrain.  On a 6 you can heal D3 wounds to that unit.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -151,12 +152,12 @@ export const DefaultScenery: TScenery = [
     name: NULLIFICATION,
     effects: [
       {
-        name: `Nullification`,
+        name: NULLIFICATION,
         desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell.  Wizards get this unbind in addition to any others they have.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Nullification`,
+        name: NULLIFICATION,
         desc: `If an endless spell is set up or finishes a move within 1" of this terrain it is dispelled.  Any affects from the spell are applied before the model is removed.`,
         when: [DURING_GAME],
       },
@@ -166,7 +167,7 @@ export const DefaultScenery: TScenery = [
     name: OBSTACLE,
     effects: [
       {
-        name: `Obstacle`,
+        name: OBSTACLE,
         desc: `If a unit has all of its models within 1" of this terrain is targeted for a shooting attack, the unit receives cover if the attacking model is closer to the terrain than the targeted unit.`,
         when: [SHOOTING_PHASE],
       },
@@ -176,14 +177,14 @@ export const DefaultScenery: TScenery = [
     name: GARRISONS,
     effects: [
       {
-        name: `Garrisons`,
+        name: GARRISONS,
         desc: `Units can be set up as a garrison if this terrain is wholly within your territory.
               
                The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
         when: [DURING_SETUP],
       },
       {
-        name: `Garrisons`,
+        name: GARRISONS,
         desc: `A unit that is wholly within 6" of this terrain and no enemy models within 3" of this terrain may garrison instead of moving.
         
                A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models.  This counts as the unit's move.
@@ -192,7 +193,7 @@ export const DefaultScenery: TScenery = [
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Garrisons`,
+        name: GARRISONS,
         desc: `A garrisoned unit is assumed to be in cover.  In addition, subtract 1 from hit rolls against a garrisoned unit.
               
               Models cannot finish any move onto this terrain feature.`,
@@ -201,6 +202,14 @@ export const DefaultScenery: TScenery = [
     ],
   },
 ]
+
+const SceneryEffectLookup = DefaultScenery.reduce(
+  (accum, entry: TEntry) => {
+    accum[entry.name] = entry.effects
+    return accum
+  },
+  {} as { [key in TSceneryEffects]: TEffects[] }
+)
 
 // Faction scenery available to all armies and all other official models potentially a part of each battle.
 const OfficialScenery: TScenery = [
@@ -239,11 +248,11 @@ const OfficialScenery: TScenery = [
   },
   {
     name: `Arcane Ruin`,
-    effects: [...getSceneryEffects(OBSTACLE), ...getSceneryEffects(ARCANE)],
+    effects: [...SceneryEffectLookup[OBSTACLE], ...SceneryEffectLookup[ARCANE]],
   },
   {
     name: `Azyrite Ruins`,
-    effects: [...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Baleful Realmgate`,
@@ -253,7 +262,7 @@ const OfficialScenery: TScenery = [
         desc: `You may remove a unit wholly within 6" of this terrain and set it up wholly within 6" of another Baleful Realmgate.  This can only be activated if a priest or wizard is within 6" of the starting gate.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
-      ...getSceneryEffects(OBSTACLE),
+      ...SceneryEffectLookup[OBSTACLE],
     ],
   },
   {
@@ -264,29 +273,29 @@ const OfficialScenery: TScenery = [
         desc: `This terrain consists of 3 models each set up within 1" of at least one other model from the group.`,
         when: [START_OF_SETUP],
       },
-      ...getSceneryEffects(DEADLY),
-      ...getSceneryEffects(OBSTACLE),
+      ...SceneryEffectLookup[DEADLY],
+      ...SceneryEffectLookup[OBSTACLE],
     ],
   },
   {
     name: `Citadel Wood`,
-    effects: [...getSceneryEffects(OVERGROWN), ...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[OVERGROWN], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Dragonfate Dais`,
-    effects: [...getSceneryEffects(DAMNED), ...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[DAMNED], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Magewrath Throne`,
-    effects: [...getSceneryEffects(COMMANDING), ...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[COMMANDING], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Numinous Occulum`,
-    effects: [...getSceneryEffects(MYSTICAL), ...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[MYSTICAL], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Ophidian Archway`,
-    effects: [...getSceneryEffects(SINISTER), ...getSceneryEffects(OBSTACLE)],
+    effects: [...SceneryEffectLookup[SINISTER], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
     name: `Shardwrack Spines`,
@@ -296,8 +305,8 @@ const OfficialScenery: TScenery = [
         desc: `This terrain consists of 2-5 models with all model's bases touching at least one other model's base from the group.`,
         when: [START_OF_SETUP],
       },
-      ...getSceneryEffects(DEADLY),
-      ...getSceneryEffects(OBSTACLE),
+      ...SceneryEffectLookup[DEADLY],
+      ...SceneryEffectLookup[OBSTACLE],
     ],
   },
   {
@@ -313,7 +322,7 @@ const OfficialScenery: TScenery = [
         desc: `This terrain is treated as an additional gravesite as specified in Battletome: Legions of Nagash.`,
         when: [DURING_GAME],
       },
-      ...getSceneryEffects(GARRISONS),
+      ...SceneryEffectLookup[GARRISONS],
     ],
   },
   {
@@ -324,7 +333,7 @@ const OfficialScenery: TScenery = [
         desc: `This terrain feature consists of 2-10 wall and/or fence models and is set up with all model's bases touching at least one other model's base from the group.`,
         when: [START_OF_SETUP],
       },
-      ...getSceneryEffects(OBSTACLE),
+      ...SceneryEffectLookup[OBSTACLE],
     ],
   },
   {
@@ -347,7 +356,7 @@ const OfficialScenery: TScenery = [
                If this terrain has crenellated battlements, it can be garrisoned by a single monster that can fly in addtion to the other models that can garrison it.`,
         when: [DURING_SETUP, MOVEMENT_PHASE],
       },
-      ...getSceneryEffects(GARRISONS),
+      ...SceneryEffectLookup[GARRISONS],
     ],
   },
 ]

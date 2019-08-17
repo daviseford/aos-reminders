@@ -1,5 +1,3 @@
-import { DefaultScenery } from 'army/generic/scenery'
-
 type TDamned = `Damned`
 type TArcane = `Arcane`
 type TInspiring = `Inspiring`
@@ -62,9 +60,3 @@ export const SCENERY_EFFECTS: TSceneryEffects[] = [
   OBSTACLE,
   GARRISONS,
 ]
-
-// Function to return a generic scenery entry from list.
-export const getSceneryEffects = (rule: TSceneryEffects) => {
-  const selected = DefaultScenery.find(({ name }) => name.includes(rule))
-  return selected ? selected.effects : []
-}
