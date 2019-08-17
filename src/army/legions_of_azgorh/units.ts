@@ -57,6 +57,16 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
+        name: `Magic`,
+        desc: `Daemonsmiths are Wizards. They can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield, and Ash Storm spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ash Storm`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 36" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit, and that unit cannot run.`,
+        when: [HERO_PHASE],
+      },
+      {
         name: `Blood of Hashut`,
         desc: `Do not use the attack sequence for an attack made with the Blood of Hashut. Instead roll a dice. On a 2+ the target unit suffers D3 mortal wounds. If the target unit is a War Machine it suffers D6 mortal wounds instead of D3.`,
         when: [SHOOTING_PHASE],
