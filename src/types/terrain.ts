@@ -7,7 +7,7 @@ type TDeadly = `Deadly`
 type TMystical = `Mystical`
 type TSinister = `Sinister`
 type TOvergrown = `Overgrown`
-type TEntangling = `Engtangling`
+type TEntangling = `Entangling`
 type TVolcanic = `Volcanic`
 type TCommanding = `Commanding`
 type THealing = `Healing`
@@ -38,7 +38,7 @@ export const DEADLY: TDeadly = `Deadly`
 export const MYSTICAL: TMystical = `Mystical`
 export const SINISTER: TSinister = `Sinister`
 export const OVERGROWN: TOvergrown = `Overgrown`
-export const ENGTANGLING: TEntangling = `Engtangling`
+export const ENTANGLING: TEntangling = `Entangling`
 export const VOLCANIC: TVolcanic = `Volcanic`
 export const COMMANDING: TCommanding = `Commanding`
 export const HEALING: THealing = `Healing`
@@ -54,7 +54,7 @@ export const SCENERY_EFFECTS: TSceneryEffects[] = [
   MYSTICAL,
   SINISTER,
   OVERGROWN,
-  ENGTANGLING,
+  ENTANGLING,
   VOLCANIC,
   COMMANDING,
   HEALING,

@@ -21,7 +21,7 @@ import {
   MYSTICAL,
   SINISTER,
   OVERGROWN,
-  ENGTANGLING,
+  ENTANGLING,
   VOLCANIC,
   COMMANDING,
   HEALING,
@@ -108,7 +108,7 @@ export const DefaultScenery: TScenery = [
     ],
   },
   {
-    name: ENGTANGLING,
+    name: ENTANGLING,
     effects: [
       {
         name: `Entangling`,
