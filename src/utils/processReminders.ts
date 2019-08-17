@@ -32,7 +32,7 @@ export const processReminders: TProcessReminders = (
   }
 
   // Add Abilities
-  if (army.Abilities.length) {
+  if (army.Abilities && army.Abilities.length) {
     army.Abilities.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
       const t: TTurnAction = {

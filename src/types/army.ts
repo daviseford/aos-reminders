@@ -4,10 +4,10 @@ import { IAllySelections } from './selections'
 
 export type TAllyArmies = { [key: string]: IArmy }
 
-export type TAllyData = {
+export type TAllyData = Array<{
   allyArmy: IArmy
   allySelections: IAllySelections
-}[]
+}>
 
 export type TAbilities = TEffects[]
 export type TAllegiances = TEntry[]

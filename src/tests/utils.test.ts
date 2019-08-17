@@ -181,9 +181,8 @@ describe('getArmy', () => {
     expect(army1.Scenery).toBeDefined()
     expect(army1.Scenery.length).toEqual(army1SceneryNum + genericSceneryNum)
 
-    const army2SceneryNum = seraphon.Scenery.length
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
-    expect(army2.Scenery.length).toEqual(army2SceneryNum + genericSceneryNum)
+    expect(army2.Scenery.length).toEqual(genericSceneryNum)
   })
 })
