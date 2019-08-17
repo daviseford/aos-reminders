@@ -8,8 +8,8 @@ import RealmArtifacts from './realm_artifacts'
 import RealmscapeFeatures from './realmscape_features'
 import RealmscapeSpells from './realmscape_spells'
 
-// This file is used for data re-used across any army
-// For example, Arcane Bolt and Mystic Shield are spells that any army can use
+// This file is used for data re-used across any army.
+// For example, Arcane Bolt and Mystic Shield are spells that any army can use.
 export {
   GenericEndlessSpells,
   GenericSpells,
