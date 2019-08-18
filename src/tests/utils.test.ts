@@ -1,26 +1,39 @@
+import { sortBy, flatten } from 'lodash'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
+import { getArmy } from 'utils/getArmy'
 import { processReminders, addToString } from 'utils/processReminders'
+
+// Army Imports
+import beasts_of_chaos from 'army/beasts_of_chaos'
 import ironjawz from 'army/ironjawz'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
 import {
+  GenericCommands,
+  GenericEndlessSpells,
+  GenericScenery,
+  GenericTriumphs,
+  RealmscapeCommands,
+  RealmscapeFeatures,
+} from 'army/generic'
+
+// Meta
+import {
   BEASTCLAW_RAIDERS,
+  BEASTS_OF_CHAOS,
   DISPOSSESSED,
   EVERCHOSEN,
   IRONJAWZ,
   SERAPHON,
   STORMCAST_ETERNALS,
   SYLVANETH,
-  BEASTS_OF_CHAOS,
 } from '../meta/factions'
-import { RealmscapeFeatures, GenericScenery } from 'army/generic'
-import { getArmy } from '../utils/getArmy'
-import { IArmy, TAllyData } from '../types/army'
+
+// Types
+import { AQSHY } from 'types/realmscapes'
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { IArmy, TAllyData } from 'types/army'
 import { TTurnAction } from 'types/data'
-import { GenericEndlessSpells } from 'army/generic'
-import { sortBy, flatten } from 'lodash'
-import beasts_of_chaos from 'army/beasts_of_chaos'
 
 describe('processReminders', () => {
   it('should work with no selections', () => {
@@ -79,7 +92,7 @@ describe('processReminders', () => {
     expect(mergedAbility).toBeUndefined()
   })
 
-  it('should work with a loaded army,  multiple allies, and realmscape', () => {
+  it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
     const allyData: TAllyData = [
       { allyArmy: getArmy(DISPOSSESSED) as IArmy, allySelections: allySelectionsFactory() },
@@ -149,7 +162,7 @@ describe('processReminders', () => {
 })
 
 describe('getArmy', () => {
-  it('adds GenericEndlessSpells to every army', () => {
+  it('adds GenericEndlessSpells to an army', () => {
     const endlessSpellList = sortBy(GenericEndlessSpells.map(x => x.name))
     const army = getArmy(EVERCHOSEN) as IArmy
     const armyEndlessSpells = sortBy(army.EndlessSpells.map(x => x.name))
@@ -161,7 +174,7 @@ describe('getArmy', () => {
     expect(armyEndlessSpells2).toEqual(endlessSpellList)
   })
 
-  it('adds Allegiances to every army', () => {
+  it('adds Allegiances to an army', () => {
     const numEntries = sylvaneth.Allegiances.length
     const army1 = getArmy(SYLVANETH) as IArmy
 
@@ -184,5 +197,29 @@ describe('getArmy', () => {
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
     expect(army2.Scenery.length).toEqual(genericSceneryNum)
+  })
+
+  it('adds generic Commands to an army', () => {
+    const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
+
+    expect(army1.Commands).toBeDefined()
+    expect(army1.Commands.length).toEqual(GenericCommands.length)
+  })
+
+  it('adds realm Commands to an army', () => {
+    const realm = AQSHY
+    const genericNum = GenericCommands.length
+    const realmNum = RealmscapeCommands.filter(({ name }) => name.includes(realm)).length
+    const army1 = getArmy(BEASTS_OF_CHAOS, realm) as IArmy
+
+    expect(army1.Commands).toBeDefined()
+    expect(army1.Commands.length).toEqual(genericNum + realmNum)
+  })
+
+  it('adds Triumphs to an army', () => {
+    const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
+
+    expect(army1.Triumphs).toBeDefined()
+    expect(army1.Triumphs.length).toEqual(GenericTriumphs.length)
   })
 })
