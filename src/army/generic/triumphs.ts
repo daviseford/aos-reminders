@@ -9,7 +9,7 @@ import {
 import { TTriumphs } from 'types/army'
 
 // General triumphs available from GHB 2019
-const Triumphs: TTriumphs = [
+const GenericTriumphs: TTriumphs = [
   {
     name: `Inspired`,
     effects: [
@@ -72,4 +72,4 @@ const Triumphs: TTriumphs = [
   },
 ]
 
-export default Triumphs
+export default GenericTriumphs

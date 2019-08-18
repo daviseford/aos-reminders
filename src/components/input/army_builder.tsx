@@ -24,10 +24,12 @@ interface IArmyBuilderProps {
   updateArmy: (army: IArmy) => void
   updateArtifacts: (values: string[]) => void
   updateBattalions: (values: string[]) => void
+  updateCommands: (values: string[]) => void
   updateEndlessSpells: (values: string[]) => void
   updateScenery: (values: string[]) => void
   updateSpells: (values: string[]) => void
   updateTraits: (values: string[]) => void
+  updateTriumphs: (values: string[]) => void
   updateUnits: (values: string[]) => void
 }
 
@@ -128,10 +130,12 @@ const mapDispatchToProps = {
   updateArmy: army.actions.updateArmy,
   updateArtifacts: selections.actions.updateArtifacts,
   updateBattalions: selections.actions.updateBattalions,
+  updateCommands: selections.actions.updateCommands,
   updateEndlessSpells: selections.actions.updateEndlessSpells,
   updateScenery: selections.actions.updateScenery,
   updateSpells: selections.actions.updateSpells,
   updateTraits: selections.actions.updateTraits,
+  updateTriumphs: selections.actions.updateTriumphs,
   updateUnits: selections.actions.updateUnits,
 }
 
