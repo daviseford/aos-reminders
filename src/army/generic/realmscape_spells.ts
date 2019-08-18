@@ -1,11 +1,11 @@
 import {
-  HERO_PHASE,
   BATTLESHOCK_PHASE,
-  DURING_GAME,
-  MOVEMENT_PHASE,
   CHARGE_PHASE,
-  SHOOTING_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
 } from 'types/phases'
 import { TSpells } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'

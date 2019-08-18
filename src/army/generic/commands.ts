@@ -8,7 +8,7 @@ import {
 import { TCommands } from 'types/army'
 
 // General command abilities from Core Rules and GHB 2019
-const Commands: TCommands = [
+const GenericCommands: TCommands = [
   {
     name: `At the Double`,
     effects: [
@@ -70,4 +70,4 @@ const Commands: TCommands = [
     ],
   },
 ]
-export default Commands
+export default GenericCommands
