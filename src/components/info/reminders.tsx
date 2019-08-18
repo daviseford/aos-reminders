@@ -25,13 +25,13 @@ interface IRemindersProps {
 
 const RemindersComponent = (props: IRemindersProps) => {
   const {
-    factionName,
-    selections,
-    army,
-    realmscape_feature,
     allyArmies,
-    allySelections,
     allyFactionNames,
+    allySelections,
+    army,
+    factionName,
+    realmscape_feature,
+    selections,
   } = props
 
   const reminders = useMemo(() => {
@@ -85,6 +85,7 @@ const getTitle = ({
   name,
   scenery,
   spell,
+  triumph,
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
   if (artifact) return `Artifact${suffix}`
@@ -93,6 +94,7 @@ const getTitle = ({
   if (endless_spell) return `Endless Spell${suffix}`
   if (scenery) return `Scenery${suffix}`
   if (spell) return `Spell${suffix}`
+  if (triumph) return `Triumph${suffix}`
   return condition
 }
 

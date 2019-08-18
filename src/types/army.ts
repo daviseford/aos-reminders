@@ -34,19 +34,17 @@ export interface IInitialArmy {
   Game?: TGameStructure
 }
 
-export interface IArmyWithoutGame {
+export interface IArmy {
   Abilities: TAbilities
   Allegiances: TAllegiances
   Artifacts: TArtifacts
   Battalions: TBattalions
+  Commands: TCommands
   EndlessSpells: TEndlessSpells
   Scenery: TScenery
   Spells: TSpells
   Traits: TTraits
+  Triumphs: TTriumphs
   Units: TUnits
-  Game?: TGameStructure
-}
-
-export interface IArmy extends IArmyWithoutGame {
   Game: TGameStructure
 }

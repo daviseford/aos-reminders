@@ -17,7 +17,18 @@ interface IPrintHeaderProps {
 
 const PrintArmyComponent = (props: IPrintHeaderProps) => {
   const { realmscape_feature, selections, allySelections } = props
-  const { units, battalions, artifacts, traits, scenery, spells, endless_spells, allegiances } = selections
+  const {
+    allegiances,
+    artifacts,
+    battalions,
+    commands,
+    endless_spells,
+    scenery,
+    spells,
+    traits,
+    triumphs,
+    units,
+  } = selections
   const realmFeature = realmscape_feature ? [realmscape_feature] : []
   return (
     <>
@@ -38,11 +49,13 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
         <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
         <ItemsDisplayComponent name={'Battalion'} items={battalions} />
         <ItemsDisplayComponent name={'Command Trait'} items={traits} />
+        <ItemsDisplayComponent name={'Command'} items={commands} />
         <ItemsDisplayComponent name={'Allegiance'} items={allegiances} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
         <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
         <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
+        <ItemsDisplayComponent name={'Triumph'} items={triumphs} />
       </div>
     </>
   )
