@@ -13,7 +13,7 @@ import {
 } from 'army/generic'
 
 // Meta
-import { BEASTS_OF_CHAOS, EVERCHOSEN, SERAPHON, SYLVANETH } from '../meta/factions'
+import { BEASTS_OF_CHAOS, EVERCHOSEN, SERAPHON, SYLVANETH } from 'meta/factions'
 
 // Types
 import { AQSHY } from 'types/realmscapes'

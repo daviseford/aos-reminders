@@ -24,7 +24,7 @@ import {
   SERAPHON,
   STORMCAST_ETERNALS,
   SYLVANETH,
-} from '../meta/factions'
+} from 'meta/factions'
 
 // Types
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
