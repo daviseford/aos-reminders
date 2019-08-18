@@ -6,7 +6,7 @@ import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
-import { IArmy, TScenery } from 'types/army'
+import { IArmy } from 'types/army'
 import { RealmscapeFeatures } from 'army/generic'
 import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
@@ -35,7 +35,18 @@ interface IArmyBuilderProps {
 
 const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
-  const { allegiances, artifacts, battalions, endless_spells, scenery, spells, traits, units } = selections
+  const {
+    allegiances,
+    artifacts,
+    battalions,
+    commands,
+    endless_spells,
+    scenery,
+    spells,
+    traits,
+    triumphs,
+    units,
+  } = selections
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
@@ -47,16 +58,18 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
   const handleAllegiances = withSelectMultiple(props.updateAllegiances)
   const handleArtifacts = withSelectMultiple(props.updateArtifacts)
   const handleBattalions = withSelectMultiple(props.updateBattalions)
+  const handleCommands = withSelectMultiple(props.updateCommands)
   const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
   const handleRealmscape = withSelectOne(props.setRealmscape)
   const handleRealmscapeFeature = withSelectOne(props.setRealmscapeFeature)
   const handleScenery = withSelectMultiple(props.updateScenery)
   const handleSpells = withSelectMultiple(props.updateSpells)
   const handleTraits = withSelectMultiple(props.updateTraits)
+  const handleTriumphs = withSelectMultiple(props.updateTriumphs)
   const handleUnits = withSelectMultiple(props.updateUnits)
 
   const realmFeatureItems = useMemo(() => {
-    let features = RealmscapeFeatures.map(x => x.name)
+    const features = RealmscapeFeatures.map(x => x.name)
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
@@ -91,11 +104,18 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
             type={'Endless Spells'}
             setValues={handleEndlessSpells}
           />
+          <CardComponent items={army.Scenery} values={scenery} type={'Scenery'} setValues={handleScenery} />
           <CardComponent
-            items={army.Scenery as TScenery}
-            values={scenery}
-            type={'Scenery'}
-            setValues={handleScenery}
+            items={army.Commands}
+            values={commands}
+            type={'Commands'}
+            setValues={handleCommands}
+          />
+          <CardComponent
+            items={army.Triumphs}
+            values={triumphs}
+            type={'Triumphs'}
+            setValues={handleTriumphs}
           />
           <SelectRealmscapeComponent
             value={realmscape || null}
