@@ -39,10 +39,12 @@ export interface IArmy {
   Allegiances: TAllegiances
   Artifacts: TArtifacts
   Battalions: TBattalions
+  Commands: TCommands
   EndlessSpells: TEndlessSpells
   Scenery: TScenery
   Spells: TSpells
   Traits: TTraits
+  Triumphs: TTriumphs
   Units: TUnits
   Game: TGameStructure
 }
