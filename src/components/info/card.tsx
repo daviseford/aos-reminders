@@ -1,23 +1,34 @@
 import React, { useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility } from 'ducks'
+import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
-import { VisibilityToggle } from './visibilityToggle'
 
-const CARD_CLASSNAME = `col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3`
 interface ICardProps {
-  hiddenSelectors: string[] // state2props
-  hideSelector: (value: string) => void // dispatch2props
-  showSelector: (value: string) => void // dispatch2props
   title: string
+  isVisible: boolean
 }
 
-interface ICardMultiProps extends ICardProps {
+const CardComponent: React.FC<ICardProps> = props => {
+  const { title, isVisible, children } = props
+  return (
+    <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3`}>
+      <div className="card">
+        <CardHeader isVisible={isVisible} title={title} />
+        <div className={`card-body${isVisible ? `` : ` d-none`}`}>{children}</div>
+      </div>
+    </div>
+  )
+}
+
+interface ICardMultiProps {
+  hiddenSelectors: string[] // state2props
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  title: string
   values: string[]
 }
 
@@ -28,25 +39,17 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
   if (!items.length) return null
   return (
-    <div className={CARD_CLASSNAME}>
-      <div className="card">
-        <CardHeader
-          hideSelector={props.hideSelector}
-          isVisible={isVisible}
-          showSelector={props.showSelector}
-          title={title}
-        />
-        <div className={`card-body${isVisible ? `` : ` d-none`}`}>
-          <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
-        </div>
-      </div>
-    </div>
+    <CardComponent title={title} isVisible={isVisible}>
+      <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
+    </CardComponent>
   )
 }
 
-interface ICardSingleSelectProps extends ICardProps {
-  setValue: TSelectOneSetValueFn
+interface ICardSingleSelectProps {
+  hiddenSelectors: string[] // state2props
   items: string[]
+  setValue: TSelectOneSetValueFn
+  title: string
   value?: string | null
 }
 
@@ -55,19 +58,9 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
 
   return (
-    <div className={CARD_CLASSNAME}>
-      <div className="card">
-        <CardHeader
-          hideSelector={props.hideSelector}
-          showSelector={props.showSelector}
-          isVisible={isVisible}
-          title={title}
-        />
-        <div className={`card-body${isVisible ? `` : ` d-none`}`}>
-          <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
-        </div>
-      </div>
-    </div>
+    <CardComponent title={title} isVisible={isVisible}>
+      <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
+    </CardComponent>
   )
 }
 
@@ -78,7 +71,7 @@ interface ICardHeaderProps {
   title: string
 }
 
-const CardHeader = (props: ICardHeaderProps) => {
+const CardHeaderComponent = (props: ICardHeaderProps) => {
   const { title, isVisible, hideSelector, showSelector } = props
 
   const handleVisibility = useCallback(
@@ -103,15 +96,20 @@ const CardHeader = (props: ICardHeaderProps) => {
   )
 }
 
+const mapDispatchToProps = {
+  hideSelector: visibility.actions.addSelector,
+  showSelector: visibility.actions.deleteSelector,
+}
+
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   hiddenSelectors: visibility.selectors.getSelectors(state),
 })
 
-const mapDispatchToProps = {
-  hideSelector: visibility.actions.addSelector,
-  showSelector: visibility.actions.deleteSelector,
-}
+const CardHeader = connect(
+  null,
+  mapDispatchToProps
+)(CardHeaderComponent)
 
 export const CardMultiSelect = connect(
   mapStateToProps,
