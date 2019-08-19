@@ -8,6 +8,7 @@ export type TEntryProperties =
   | 'endless_spell'
   | 'scenery'
   | 'spell'
+  | 'triumph'
 
 export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'allegiance_ability',
@@ -17,6 +18,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'endless_spell',
   'scenery',
   'spell',
+  'triumph',
 ]
 
 export type TEntry = {
