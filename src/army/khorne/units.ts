@@ -1,3 +1,4 @@
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -17,13 +18,13 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
 } from 'types/phases'
-import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_KHORNE } from 'meta/alliances'
 
-// Unit Names
-export const Units: TUnits = [
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+const SlaveUnits = getChaosSlaves(MARK_KHORNE)
+
+// Khorne specific units.  Export for use in Grand Alliance.
+export const KhorneUnits: TUnits = [
   {
     name: `Korghos Khul`,
     effects: [
@@ -1115,3 +1116,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...KhorneUnits, ...SlaveUnits, ...getEverchosenUnits()]

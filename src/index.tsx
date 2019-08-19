@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 import App from './components/App'
-import { army, factionNames, realmscape, selections } from 'ducks'
+import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 
 const store = createStore(
   combineReducers({
@@ -15,6 +15,7 @@ const store = createStore(
     factionNames: factionNames.reducer,
     realmscape: realmscape.reducer,
     selections: selections.reducer,
+    visibility: visibility.reducer,
   }),
   //@ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

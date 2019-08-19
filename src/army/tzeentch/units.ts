@@ -1,3 +1,4 @@
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -14,14 +15,13 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_TZEENTCH } from 'meta/alliances'
+
+const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)
 
 // Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+export const TzeentchUnits: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -639,3 +639,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getEverchosenUnits()]

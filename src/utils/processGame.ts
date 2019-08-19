@@ -1,24 +1,26 @@
+import { flatten } from 'lodash'
 import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
-import { addToGame } from './addToGame'
 import { TGameStructure, Game } from 'meta/game_structure'
 import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'
 
 type TEntries = TAllegiances | TArtifacts | TBattalions | TEndlessSpells | TSpells | TTraits | TUnits
 
-export const processGame = (entries: TEntries[]): TGameStructure => {
-  const game = { ...Game }
-  entries.forEach(e => processEntry(game, e))
-  return game
-}
+export const processGame = (allEntries: TEntries[]): TGameStructure => {
+  const entries = flatten(allEntries)
 
-const processEntry = (game: TGameStructure, entries: TEntries): void => {
-  entries.forEach(entry => {
-    const withEntry = addProps(entry)
-    entry.effects.forEach(effect => {
-      const action = withEntry(effect)
-      effect.when.forEach(phase => addToGame(game, phase, action))
-    })
-  })
+  return entries.reduce(
+    (game, entry: TEntry) => {
+      const withEntry = addProps(entry)
+      entry.effects.forEach(effect => {
+        const action = withEntry(effect)
+        effect.when.forEach(phase => {
+          game[phase] = game[phase] ? game[phase].concat(action) : [action]
+        })
+      })
+      return game
+    },
+    { ...Game } as TGameStructure
+  )
 }
 
 /**

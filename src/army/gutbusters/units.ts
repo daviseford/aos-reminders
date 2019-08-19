@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -260,6 +260,3 @@ export const Units: TUnits = [
     ],
   },
 ]
-
-// Battalions
-export const Battalions: TBattalions = []

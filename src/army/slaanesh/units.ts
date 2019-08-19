@@ -1,3 +1,4 @@
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -13,8 +14,10 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_SLAANESH } from 'meta/alliances'
+
+const SlaveUnits = getChaosSlaves(MARK_SLAANESH)
 
 const KeeperOfSecretsBaseEffects = [
   {
@@ -46,10 +49,7 @@ const KeeperOfSecretsBaseEffects = [
 ]
 
 // Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+export const SlaaneshUnits: TUnits = [
   {
     name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [
@@ -603,3 +603,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...SlaaneshUnits, ...SlaveUnits, ...getEverchosenUnits()]

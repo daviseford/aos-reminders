@@ -8,9 +8,9 @@ import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
 import { FaPlus } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { TUnits, IArmy } from 'types/army'
 import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
+import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
@@ -40,8 +40,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
     return window.print()
   }
 
-  const isBadBrowser: boolean = is.edge() || is.firefox() || is.ie()
-  const PrintComponent = isBadBrowser ? PrintWarningButton : PrintButton
+  const PrintComponent = is.firefox() ? PrintWarningButton : PrintButton
 
   return (
     <div className="container d-print-none">
@@ -105,9 +104,7 @@ interface IBrowser {
 
 const PrintWarningButton = (props: { handlePrint: (e: any) => void }) => {
   const browsers: IBrowser[] = [
-    { name: 'Edge', is: is.edge(), warning: `crash when printing` },
     { name: 'Firefox', is: is.firefox(), warning: `not correctly print this page` },
-    { name: 'Internet Explorer', is: is.ie(), warning: `crash when printing` },
   ]
   const { name, warning } = browsers.find(b => b.is) as IBrowser
   const tipProps = {

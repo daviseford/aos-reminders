@@ -1,5 +1,4 @@
 import { TAbilities } from 'types/army'
-
 import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)

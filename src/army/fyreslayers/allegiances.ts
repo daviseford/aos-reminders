@@ -1,14 +1,14 @@
 import { TAllegiances } from 'types/army'
 import {
-  TURN_ONE_MOVEMENT_PHASE,
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  START_OF_COMBAT_PHASE,
-  MOVEMENT_PHASE,
   DURING_GAME,
   HERO_PHASE,
-  BATTLESHOCK_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [

@@ -1,3 +1,4 @@
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -20,14 +21,13 @@ import {
   START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
-import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { getEverchosenUnits } from 'army/everchosen/units'
+import { MARK_NURGLE } from 'meta/alliances'
+
+const SlaveUnits = getChaosSlaves(MARK_NURGLE)
 
 // Unit Names
-export const Units: TUnits = [
-  // Import Everchosen/Slaves to Darkness Units
-  ...getSlavesUnits(),
-  ...getEverchosenUnits(),
+export const NurgleUnits: TUnits = [
   {
     name: `Rotigus`,
     effects: [
@@ -830,3 +830,6 @@ export const Battalions: TBattalions = [
     ],
   },
 ]
+
+// Combine lists together to make army unit entry.
+export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getEverchosenUnits()]

@@ -17,14 +17,14 @@ const getStormcastUnits = () => {
     `Steelheart's Champions`,
     `The Farstriders`,
   ]
-  return StormcastEternals.Units.filter(unit => !listOfUnits.includes(unit.name))
+  return StormcastEternals.Units.filter(({ name }) => !listOfUnits.includes(name))
 }
 
 // Importing valid IDK units.
 // All units valid except Volturnos.
 const getIdonethUnits = () => {
   const listOfUnits = [`Volturnos, High King of the Deep`]
-  return IdonethDeepkin.Units.filter(unit => !listOfUnits.includes(unit.name))
+  return IdonethDeepkin.Units.filter(({ name }) => !listOfUnits.includes(name))
 }
 
 // Importing valid KO units.
@@ -42,10 +42,10 @@ const getFyreslayerUnits = () => {
 // Unit Names
 export const Units: TUnits = [
   // Import valid army units.
-  ...getStormcastUnits(),
+  ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
-  ...getFyreslayerUnits(),
+  ...getStormcastUnits(),
   // Add warpriest manually until Cities of Sigmar is released.
   {
     name: `Excelsior Warpriest`,
