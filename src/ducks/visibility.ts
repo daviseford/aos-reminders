@@ -1,7 +1,6 @@
 import { uniq, without } from 'lodash'
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { TSupportedFaction } from 'meta/factions'
-import { IVisibilityStore, IStore } from 'types/store'
+import { IVisibilityStore } from 'types/store'
 
 const initialState: IVisibilityStore = {
   reminders: {
@@ -14,13 +13,13 @@ const initialState: IVisibilityStore = {
 const addReminder = (state: IVisibilityStore, action: { payload: string }) => {
   state.reminders.items = uniq([...state.reminders.items, action.payload])
 }
-const addSelectors = (state: IVisibilityStore, action: { payload: string }) => {
+const addSelector = (state: IVisibilityStore, action: { payload: string }) => {
   state.selectors = uniq([...state.selectors, action.payload])
 }
 const deleteReminder = (state: IVisibilityStore, action: { payload: string }) => {
   state.reminders.items = without(state.reminders.items, action.payload)
 }
-const deleteSelectors = (state: IVisibilityStore, action: { payload: string }) => {
+const deleteSelector = (state: IVisibilityStore, action: { payload: string }) => {
   state.selectors = without(state.selectors, action.payload)
 }
 const toggleVisibility = (state: IVisibilityStore) => {
@@ -32,9 +31,9 @@ export const visibility = createSlice({
   initialState,
   reducers: {
     addReminder,
-    addSelectors,
+    addSelector,
     deleteReminder,
-    deleteSelectors,
+    deleteSelector,
     toggleVisibility,
   },
 })
