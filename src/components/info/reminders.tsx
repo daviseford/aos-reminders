@@ -1,16 +1,15 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { IconContext } from 'react-icons'
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { without, uniq } from 'lodash'
 import './reminders.css'
 import { realmscape, factionNames, selections, army } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
+import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TSupportedFaction } from 'meta/factions'
-import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
+import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
 
 interface IRemindersProps {
@@ -89,25 +88,13 @@ const getTitle = ({
 }: TTurnAction): string => {
   const suffix = name === condition ? `` : `: ${condition}`
   if (artifact) return `Artifact${suffix}`
-  if (command_ability) return `Command Ability: ${condition}`
-  if (command_trait) return `Command Trait`
+  if (command_ability) return `Command Ability${suffix}`
+  if (command_trait) return `Command Trait${suffix}`
   if (endless_spell) return `Endless Spell${suffix}`
   if (scenery) return `Scenery${suffix}`
   if (spell) return `Spell${suffix}`
   if (triumph) return `Triumph${suffix}`
   return condition
-}
-
-const VisibilityToggle = (props: { isVisible: boolean; setVisibility: (e) => void }) => {
-  const { isVisible, setVisibility } = props
-  const VisibilityComponent = isVisible ? MdVisibility : MdVisibilityOff
-  return (
-    <>
-      <IconContext.Provider value={{ size: '1.4em' }}>
-        <VisibilityComponent onClick={setVisibility} />
-      </IconContext.Provider>
-    </>
-  )
 }
 
 interface IActionTextProps extends TTurnAction {

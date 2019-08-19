@@ -23,9 +23,18 @@ export interface ISelectionStore {
   allySelections: TAllySelectionStore
 }
 
+export interface IVisibilityStore {
+  reminders: {
+    items: string[]
+    hidden: boolean
+  }
+  selectors: string[]
+}
+
 export interface IStore {
   army: IArmyStore
   factionName: IFactionNameStore
   realmscape: IRealmscapeStore
   selections: ISelectionStore
+  visibility: IVisibilityStore
 }
