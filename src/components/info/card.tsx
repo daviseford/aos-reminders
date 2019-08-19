@@ -63,7 +63,7 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
           isVisible={isVisible}
           title={title}
         />
-        <div className="card-body">
+        <div className={`card-body${isVisible ? `` : ` d-none`}`}>
           <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
         </div>
       </div>
