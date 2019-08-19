@@ -1,13 +1,13 @@
-export type TChaos = 'CHAOS'
-export type TDeath = 'DEATH'
-export type TDestruction = 'DESTRUCTION'
-export type TOrder = 'ORDER'
+export type TChaos = 'Chaos'
+export type TDeath = 'Death'
+export type TDestruction = 'Destruction'
+export type TOrder = 'Order'
 export type TGrandAlliances = TChaos | TDeath | TDestruction | TOrder
 
-export const CHAOS: TChaos = 'CHAOS'
-export const DEATH: TDeath = 'DEATH'
-export const DESTRUCTION: TDestruction = 'DESTRUCTION'
-export const ORDER: TOrder = 'ORDER'
+export const CHAOS: TChaos = 'Chaos'
+export const DEATH: TDeath = 'Death'
+export const DESTRUCTION: TDestruction = 'Destruction'
+export const ORDER: TOrder = 'Order'
 export const GRAND_ALLIANCES: TGrandAlliances[] = [CHAOS, DEATH, DESTRUCTION, ORDER]
 
 type TMarkKhorne = 'Khorne'

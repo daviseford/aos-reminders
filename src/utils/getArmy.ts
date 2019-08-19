@@ -3,10 +3,13 @@ import { sortBy } from 'lodash'
 import { processGame } from './processGame'
 
 import {
+  GenericCommands,
   GenericEndlessSpells,
-  GenericSpells,
   GenericScenery,
+  GenericSpells,
+  GenericTriumphs,
   RealmArtifacts,
+  RealmscapeCommands,
   RealmscapeSpells,
 } from 'army/generic'
 
@@ -29,10 +32,12 @@ import {
   TAllegiances,
   TArtifacts,
   TBattalions,
+  TCommands,
   TEndlessSpells,
   TScenery,
   TSpells,
   TTraits,
+  TTriumphs,
   TUnits,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
@@ -55,25 +60,38 @@ interface IModifyArmyMeta {
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const { Allegiances, Artifacts, Battalions, EndlessSpells, Scenery, Spells, Traits, Units } = Army
+  const {
+    Allegiances = [],
+    Artifacts = [],
+    Battalions = [],
+    EndlessSpells = [],
+    Scenery = [],
+    Spells = [],
+    Traits = [],
+    Units = [],
+  } = Army
   const { realmscape, GrandAlliance } = meta
 
   Army.Allegiances = modifyAllegiances(Allegiances)
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
   Army.Battalions = modifyBattalions(Battalions)
+  Army.Commands = modifyCommands(realmscape)
   Army.EndlessSpells = modifyEndlessSpells(EndlessSpells)
   Army.Scenery = modifyScenery(Scenery)
   Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
+  Army.Triumphs = getTriumphs()
   Army.Units = modifyUnits(Units)
   Army.Game = processGame([
     Army.Allegiances,
     Army.Artifacts,
     Army.Battalions,
+    Army.Commands,
     Army.EndlessSpells,
     Army.Scenery,
     Army.Spells,
     Army.Traits,
+    Army.Triumphs,
     Army.Units,
   ])
 
@@ -97,8 +115,19 @@ const modifyTraits = (traits: TTraits, alliance: TGrandAlliances): TTraits => {
   return traits.concat(Traits).map(t => ({ ...t, command_trait: true }))
 }
 
+const modifyCommands = (realmscape: TRealms | null): TCommands => {
+  const realmCommands = realmscape ? RealmscapeCommands.filter(c => c.name.includes(realmscape)) : []
+  return sortBy(GenericCommands, 'name')
+    .concat(sortBy(realmCommands, 'name'))
+    .map(c => ({ ...c, command_ability: true }))
+}
+
+const getTriumphs = (): TTriumphs => {
+  return sortBy(GenericTriumphs, 'name').map(t => ({ ...t, triumph: true }))
+}
+
 const modifySpells = (spells: TSpells, realmscape: TRealms | null): TSpells => {
-  const realmSpells = realmscape ? RealmscapeSpells.filter(x => x.name.includes(realmscape)) : []
+  const realmSpells = realmscape ? RealmscapeSpells.filter(s => s.name.includes(realmscape)) : []
   return sortBy(spells, 'name')
     .concat(sortBy(realmSpells, 'name'))
     .concat(sortBy(GenericSpells, 'name'))

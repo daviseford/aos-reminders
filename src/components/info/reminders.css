@@ -3,9 +3,6 @@
     padding-top: 0.5rem;
     padding-bottom: 0px;
     margin-block-end: 0px;
-
-    /* Force newlines to render */
-    white-space: pre-line;
 }
 
 .ReminderHeader {
@@ -23,9 +20,11 @@ small {
 }
 
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/@page */
-@page {
+/* Disabled because it was crashing IE11/Edge */
+/* Nice browser, Microsoft */
+/* @page {
     margin: 20cm;
-}
+} */
 
 @media print {
     .ReminderEntry {
