@@ -1,8 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import './army_builder.css'
-import { Card } from 'components/info/card'
-import { SelectRealmscapeComponent } from 'components/input/select_realmscape'
+import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { realmscape, selections, factionNames, army } from 'ducks'
@@ -77,40 +76,60 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <Card items={army.Units} values={units} type={'Units'} setValues={handleUnits} />
-          <Card items={army.Traits} type={'Traits'} values={traits} setValues={handleTraits} />
-          <Card items={army.Artifacts} type={'Artifacts'} values={artifacts} setValues={handleArtifacts} />
-          <Card
+          <CardMultiSelect items={army.Units} values={units} title={'Units'} setValues={handleUnits} />
+          <CardMultiSelect items={army.Traits} title={'Traits'} values={traits} setValues={handleTraits} />
+          <CardMultiSelect
+            items={army.Artifacts}
+            title={'Artifacts'}
+            values={artifacts}
+            setValues={handleArtifacts}
+          />
+          <CardMultiSelect
             items={army.Battalions}
             values={battalions}
-            type={'Battalions'}
+            title={'Battalions'}
             setValues={handleBattalions}
           />
-          <Card
+          <CardMultiSelect
             items={army.Allegiances}
             values={allegiances}
-            type={'Allegiances'}
+            title={'Allegiances'}
             setValues={handleAllegiances}
           />
-          <Card items={army.Spells} values={spells} type={'Spells'} setValues={handleSpells} />
-          <Card
+          <CardMultiSelect items={army.Spells} values={spells} title={'Spells'} setValues={handleSpells} />
+          <CardMultiSelect
             items={army.EndlessSpells}
             values={endless_spells}
-            type={'Endless Spells'}
+            title={'Endless Spells'}
             setValues={handleEndlessSpells}
           />
-          <Card items={army.Scenery} values={scenery} type={'Scenery'} setValues={handleScenery} />
-          <Card items={army.Commands} values={commands} type={'Commands'} setValues={handleCommands} />
-          <Card items={army.Triumphs} values={triumphs} type={'Triumphs'} setValues={handleTriumphs} />
-          <SelectRealmscapeComponent
+          <CardMultiSelect
+            items={army.Scenery}
+            values={scenery}
+            title={'Scenery'}
+            setValues={handleScenery}
+          />
+          <CardMultiSelect
+            items={army.Commands}
+            values={commands}
+            title={'Commands'}
+            setValues={handleCommands}
+          />
+          <CardMultiSelect
+            items={army.Triumphs}
+            values={triumphs}
+            title={'Triumphs'}
+            setValues={handleTriumphs}
+          />
+          <CardSingleSelect
             value={realmscape || null}
             title={`Realmscape`}
             setValue={handleRealmscape}
             items={SUPPORTED_REALMSCAPES}
           />
-          <SelectRealmscapeComponent
+          <CardSingleSelect
             value={realmscape_feature || null}
-            title={`Realmscape Feature`}
+            title={`Realm Feature`}
             setValue={handleRealmscapeFeature}
             items={realmFeatureItems}
           />
