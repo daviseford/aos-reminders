@@ -1,6 +1,7 @@
+import { filterUnits } from 'utils/filterUtils'
 import { TUnits } from 'types/army'
-import Nighthaunt from 'army/nighthaunt'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import Nighthaunt from 'army/nighthaunt'
 
 // Importing Nighthaunt units
 const getNighthauntUnits = () => Nighthaunt.Units
@@ -26,7 +27,7 @@ const getLoNUnits = () => {
     `Wight King with Black Axe`,
     `Zombies`,
   ]
-  return LegionsOfNagash.Units.filter(({ name }) => listOfUnits.includes(name))
+  return filterUnits(LegionsOfNagash.Units, listOfUnits)
 }
 
 // Unit export
