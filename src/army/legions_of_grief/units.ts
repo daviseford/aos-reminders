@@ -1,5 +1,4 @@
 import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
 import Nighthaunt from 'army/nighthaunt'
 import LegionsOfNagash from 'army/legions_of_nagash'
 
@@ -33,20 +32,7 @@ const getLoNUnits = () => {
 }
 
 // Unit Names things
-export const Units: TUnits = [
-  ...getNighthauntUnits(),
-  ...getLoNUnits(),
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-]
+export const Units: TUnits = [...getNighthauntUnits(), ...getLoNUnits()]
 
 // There are no valid Battalions for LoG
 export const Battalions: TBattalions = []
