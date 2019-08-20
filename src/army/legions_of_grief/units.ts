@@ -31,7 +31,7 @@ const getLoNUnits = () => {
   return LegionsOfNagash.Units.filter(({ name }) => listOfUnits.includes(name))
 }
 
-// Unit Names things
+// Unit export
 export const Units: TUnits = [...getNighthauntUnits(), ...getLoNUnits()]
 
 // There are no valid Battalions for LoG

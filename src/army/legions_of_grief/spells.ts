@@ -1,7 +1,7 @@
 import { HERO_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
 
-// TODO: Get lore of sorrows spells
+// Lore of Sorrows
 const Spells: TSpells = [
   {
     name: `Dread Withering`,
