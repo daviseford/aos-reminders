@@ -11,8 +11,12 @@ import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { IStore } from 'types/store'
+import is from 'is_js'
+
+import withSizes from 'react-sizes'
 
 interface IArmyBuilderProps {
+  isMobile: boolean
   factionName: TSupportedFaction
   realmscape_feature: string | null
   realmscape: TRealms | null
@@ -46,6 +50,9 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     triumphs,
     units,
   } = selections
+
+  console.log(is.mobile())
+  console.log(props.isMobile)
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
@@ -164,7 +171,13 @@ const mapDispatchToProps = {
   updateUnits: selections.actions.updateUnits,
 }
 
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 480,
+})
+
+const componentWithSize = withSizes(mapSizesToProps)(ArmyBuilderComponent)
+
 export const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArmyBuilderComponent)
+)(componentWithSize)
