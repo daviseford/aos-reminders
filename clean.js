@@ -1,7 +1,7 @@
 const replace = require('replace-in-file')
 
 const replaceOptions = {
-  files: 'src/**/*.*(ts|tsx)',
+  files: 'src/army/**/*.*(ts|tsx)',
   from: [
     /[‘’]/g, // Replace special apostrophes
     /[“”]/g, // Replace special quotes
