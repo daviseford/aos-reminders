@@ -16,6 +16,7 @@ export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
+export type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export type TLethisianArmy = 'LETHISIAN_ARMY'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
@@ -45,6 +46,7 @@ export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
+export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_ARMY: TLethisianArmy = 'LETHISIAN_ARMY'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
@@ -78,6 +80,7 @@ export type TSupportedFaction =
   | TKharadronOverlords
   | TKhorne
   | TLegionsOfAzgorh
+  | TLegionsOfGrief
   | TLegionsOfNagash
   | TLethisianArmy
   | TMercenaryCompanies
@@ -111,6 +114,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_AZGORH,
+  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_ARMY,
   MERCENARY_COMPANIES,

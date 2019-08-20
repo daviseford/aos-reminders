@@ -15,6 +15,7 @@ import {
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_AZGORH,
+  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_ARMY,
   MERCENARY_COMPANIES,
@@ -48,6 +49,7 @@ import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
+import LegionsOfGrief from 'army/legions_of_grief'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
@@ -131,6 +133,10 @@ export const ArmyList: TArmyList = {
   [LEGIONS_OF_AZGORH]: {
     Army: { ...LegionsOfAzgorh },
     GrandAlliance: CHAOS,
+  },
+  [LEGIONS_OF_GRIEF]: {
+    Army: { ...LegionsOfGrief },
+    GrandAlliance: DEATH,
   },
   [LEGIONS_OF_NAGASH]: {
     Army: { ...LegionsOfNagash },
