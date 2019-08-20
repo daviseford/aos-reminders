@@ -42,8 +42,8 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
   return (
-    <div className="row w-75 mx-auto mt-3 d-block">
-      <div>
+    <div className="row mx-auto mt-3 d-block">
+      <div className="col">
         {Object.keys(reminders).map((key, i) => {
           return <Entry when={key} actions={reminders[key]} key={i} />
         })}
@@ -61,9 +61,9 @@ const Entry = (props: { when: string; actions: TTurnAction[] }) => {
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
-      <div className="card border-dark my-3">
-        <div className="card-header text-center">
-          <h4 className="ReminderHeader">{titleCase(when)}</h4>
+      <div className="card border-dark my-3 mx-1">
+        <div className="card-header text-center ReminderHeader">
+          <h4 className="ReminderH4">{titleCase(when)}</h4>
         </div>
         <div className="card-body">
           {actions.map((action, i) => (
@@ -119,7 +119,7 @@ const ActionText = (props: IActionTextProps) => {
   }, [])
 
   return (
-    <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
+    <div className={`mb-2 ${!isVisible && `d-print-none`}`}>
       <div className="d-flex mb-1">
         <div className="flex-grow-1">
           <EntryTitle {...props} />

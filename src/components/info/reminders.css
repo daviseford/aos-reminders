@@ -6,6 +6,11 @@
 }
 
 .ReminderHeader {
+    background-color: #1C7595;
+    color: white;
+}
+
+.ReminderH4 {
     margin-bottom: 0;
 }
 
@@ -31,7 +36,7 @@ small {
         font-size: 0.9rem;
     }
 
-    .ReminderHeader {
+    .ReminderH4 {
         font-size: 1.1rem;
     }
 }
