@@ -18,7 +18,7 @@ export type TKhorne = 'KHORNE'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export type TLethisianArmy = 'LETHISIAN_ARMY'
+export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
@@ -48,7 +48,7 @@ export const KHORNE: TKhorne = 'KHORNE'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export const LETHISIAN_ARMY: TLethisianArmy = 'LETHISIAN_ARMY'
+export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
@@ -82,7 +82,7 @@ export type TSupportedFaction =
   | TLegionsOfAzgorh
   | TLegionsOfGrief
   | TLegionsOfNagash
-  | TLethisianArmy
+  | TLethisianDefenders
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
@@ -116,7 +116,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
-  LETHISIAN_ARMY,
+  LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,

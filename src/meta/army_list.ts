@@ -17,7 +17,7 @@ import {
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
-  LETHISIAN_ARMY,
+  LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
@@ -142,7 +142,7 @@ export const ArmyList: TArmyList = {
     Army: { ...LegionsOfNagash },
     GrandAlliance: DEATH,
   },
-  [LETHISIAN_ARMY]: {
+  [LETHISIAN_DEFENDERS]: {
     Army: { ...LethisianArmy },
     GrandAlliance: ORDER,
   },
