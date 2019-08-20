@@ -9,16 +9,6 @@ const Abilities: TAbilities = [
     when: [DURING_GAME],
   },
   {
-    name: `Guardians of the Deep`,
-    desc: `Roll a dice each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of an Etheric Vortex. On a 6+ the wound is negated.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Predators of the Ethersea`,
-    desc: `At the start of your hero phase, roll a dice for each unit within 3" of an Etheric Vortex. Do not roll for IDONETH DEEPKIN units. On a 4+ the unit suffers 1 mortal wound. On a 6+ the unit suffers D3 mortal wounds instead.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
     name: `Isharann Rituals`,
     desc: `A maximum of one Isharann ritual can be performed in each hero phase.
 
