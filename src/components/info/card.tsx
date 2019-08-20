@@ -89,7 +89,7 @@ const CardHeaderComponent = (props: ICardHeaderProps) => {
           <h4 className="mb-0">{title}</h4>
         </div>
         <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1.2} />
+          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1} type={'fold'} />
         </div>
       </div>
     </div>

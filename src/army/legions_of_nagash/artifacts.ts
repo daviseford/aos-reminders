@@ -254,36 +254,6 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Grave-Sand Gem (Grief)`,
-    effects: [
-      {
-        name: `Grave-sand Gem (Grief)`,
-        desc: `In your hero phase, you can either inflict 1 mortal wound on 1 enemy HERO within 6" of the bearer, or you can heal 1 wound that has been allocated to the bearer.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Gothizzari Mortuary Candle (Grief)`,
-    effects: [
-      {
-        name: `Gothizzari Mortuary Candle (Grief)`,
-        desc: `Subtract 1 from hit rolls for attacks with missile weapons that target the bearer.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Souldrain Pendant (Grief)`,
-    effects: [
-      {
-        name: `Souldrain Pendant (Grief)`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
     name: `The Stalking Blade (Soulblight)`,
     effects: [
       {
