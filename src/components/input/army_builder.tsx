@@ -53,20 +53,6 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     updateArmy(army)
   }, [army, updateArmy])
 
-  // Might want to useCallback these guys
-  const handleAllegiances = withSelectMultiple(props.updateAllegiances)
-  const handleArtifacts = withSelectMultiple(props.updateArtifacts)
-  const handleBattalions = withSelectMultiple(props.updateBattalions)
-  const handleCommands = withSelectMultiple(props.updateCommands)
-  const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
-  const handleRealmscape = withSelectOne(props.setRealmscape)
-  const handleRealmscapeFeature = withSelectOne(props.setRealmscapeFeature)
-  const handleScenery = withSelectMultiple(props.updateScenery)
-  const handleSpells = withSelectMultiple(props.updateSpells)
-  const handleTraits = withSelectMultiple(props.updateTraits)
-  const handleTriumphs = withSelectMultiple(props.updateTriumphs)
-  const handleUnits = withSelectMultiple(props.updateUnits)
-
   const realmFeatureItems = useMemo(() => {
     const features = RealmscapeFeatures.map(x => x.name)
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
@@ -76,62 +62,77 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     <div className="container">
       <div className="row d-print-none pb-3">
         <div className="col card-group mx-auto">
-          <CardMultiSelect items={army.Units} values={units} title={'Units'} setValues={handleUnits} />
-          <CardMultiSelect items={army.Traits} title={'Traits'} values={traits} setValues={handleTraits} />
+          <CardMultiSelect
+            items={army.Units}
+            setValues={withSelectMultiple(props.updateUnits)}
+            title={'Units'}
+            values={units}
+          />
+          <CardMultiSelect
+            items={army.Traits}
+            setValues={withSelectMultiple(props.updateTraits)}
+            title={'Traits'}
+            values={traits}
+          />
           <CardMultiSelect
             items={army.Artifacts}
+            setValues={withSelectMultiple(props.updateArtifacts)}
             title={'Artifacts'}
             values={artifacts}
-            setValues={handleArtifacts}
           />
           <CardMultiSelect
             items={army.Battalions}
-            values={battalions}
+            setValues={withSelectMultiple(props.updateBattalions)}
             title={'Battalions'}
-            setValues={handleBattalions}
+            values={battalions}
           />
           <CardMultiSelect
             items={army.Allegiances}
-            values={allegiances}
+            setValues={withSelectMultiple(props.updateAllegiances)}
             title={'Allegiances'}
-            setValues={handleAllegiances}
+            values={allegiances}
           />
-          <CardMultiSelect items={army.Spells} values={spells} title={'Spells'} setValues={handleSpells} />
+          <CardMultiSelect
+            items={army.Spells}
+            setValues={withSelectMultiple(props.updateSpells)}
+            title={'Spells'}
+            values={spells}
+          />
           <CardMultiSelect
             items={army.EndlessSpells}
-            values={endless_spells}
+            setValues={withSelectMultiple(props.updateEndlessSpells)}
             title={'Endless Spells'}
-            setValues={handleEndlessSpells}
+            values={endless_spells}
           />
           <CardMultiSelect
             items={army.Scenery}
-            values={scenery}
+            setValues={withSelectMultiple(props.updateScenery)}
             title={'Scenery'}
-            setValues={handleScenery}
+            values={scenery}
           />
           <CardMultiSelect
             items={army.Commands}
-            values={commands}
+            setValues={withSelectMultiple(props.updateCommands)}
             title={'Commands'}
-            setValues={handleCommands}
+            values={commands}
           />
           <CardMultiSelect
             items={army.Triumphs}
-            values={triumphs}
+            setValues={withSelectMultiple(props.updateTriumphs)}
             title={'Triumphs'}
-            setValues={handleTriumphs}
+            values={triumphs}
           />
           <CardSingleSelect
-            value={realmscape || null}
-            title={`Realmscape`}
-            setValue={handleRealmscape}
             items={SUPPORTED_REALMSCAPES}
+            setValue={withSelectOne(props.setRealmscape)}
+            title={`Realmscape`}
+            value={realmscape || null}
           />
           <CardSingleSelect
-            value={realmscape_feature || null}
-            title={`Realm Feature`}
-            setValue={handleRealmscapeFeature}
             items={realmFeatureItems}
+            setValue={withSelectOne(props.setRealmscapeFeature)}
+            title={`Realm Feature`}
+            value={realmscape_feature || null}
           />
         </div>
       </div>

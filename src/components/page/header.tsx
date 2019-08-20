@@ -23,7 +23,7 @@ const HeaderComponent: React.FC<IHeaderProps> = props => {
   })
 
   return (
-    <div className="jumbotron jumbotron-fluid text-center HeaderCover text-white py-4 d-print-none">
+    <div className="jumbotron jumbotron-fluid text-center HeaderCover text-white pt-4 mb-0 d-print-none">
       <div className="container">
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1">
