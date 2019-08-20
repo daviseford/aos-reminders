@@ -33,6 +33,3 @@ const getLoNUnits = () => {
 
 // Unit export
 export const Units: TUnits = [...getNighthauntUnits(), ...getLoNUnits()]
-
-// There are no valid Battalions for LoG
-export const Battalions: TBattalions = []
