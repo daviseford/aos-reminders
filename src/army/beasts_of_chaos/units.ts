@@ -103,7 +103,7 @@ export const Units: TUnits = [
       {
         name: `Baying Hatred`,
         desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Half-shields`,
@@ -118,8 +118,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Banner Bearer`,
