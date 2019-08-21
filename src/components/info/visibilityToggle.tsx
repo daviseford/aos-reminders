@@ -16,6 +16,7 @@ interface IVisibilityToggleProps {
   setVisibility: (e) => void
   size?: number
   type?: TVisibilityIconType
+  className?: string
 }
 
 const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconType } } = {
@@ -34,13 +35,13 @@ const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconTy
 }
 
 export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
-  const { isVisible, setVisibility, size = 1.4, type = 'eye' } = props
+  const { isVisible, setVisibility, size = 1.4, type = 'eye', className = '' } = props
   const icon = icons[type]
   const VisibilityComponent = isVisible ? icon.visible : icon.hidden
 
   return (
     <>
-      <IconContext.Provider value={{ size: `${size}em` }}>
+      <IconContext.Provider value={{ size: `${size}em`, className }}>
         <VisibilityComponent onClick={setVisibility} />
       </IconContext.Provider>
     </>
