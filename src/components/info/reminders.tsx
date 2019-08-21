@@ -55,16 +55,16 @@ interface IEntryProps {
   actions: TTurnAction[]
   addReminder: (value: string) => void
   deleteReminder: (value: string) => void
-  getReminders: () => string[]
+  reminders: string[]
   when: string
 }
 
 const EntryComponent: React.FC<IEntryProps> = props => {
-  const { when, actions, addReminder, deleteReminder, getReminders } = props
+  const { when, actions, addReminder, deleteReminder, reminders } = props
 
   const hidden = useMemo(() => {
-    return getReminders().filter(name => name.includes(when))
-  }, [getReminders, when])
+    return reminders.filter(name => name.includes(when))
+  }, [reminders, when])
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
@@ -97,7 +97,7 @@ const EntryComponent: React.FC<IEntryProps> = props => {
 
 const mapEntryStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  getReminders: visibility.selectors.getReminders,
+  reminders: visibility.selectors.getReminders(state),
 })
 
 const mapEntryDispatchToProps = {
