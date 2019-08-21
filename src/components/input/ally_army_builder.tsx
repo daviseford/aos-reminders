@@ -16,6 +16,7 @@ import { ValueType } from 'react-select/src/types'
 import { IStore } from 'types/store'
 import { FaTrashAlt } from 'react-icons/fa'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -140,20 +141,22 @@ interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
   handleClose: (e: any) => void
+  isMobile: boolean
   isVisible: boolean
   items: TUnits
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  setVisibility: () => void
   type: string
   values: string[]
-  setVisibility: () => void
 }
 
-const AllyCardComponent = (props: IAllyCardProps) => {
+const AllyCardComponent = componentWithSize((props: IAllyCardProps) => {
   const {
     allyFactionName,
     allySelectOptions,
     handleClose,
+    isMobile,
     isVisible,
     items,
     setAllyFactionName,
@@ -163,22 +166,28 @@ const AllyCardComponent = (props: IAllyCardProps) => {
     values,
   } = props
   const selectItems = items.map(x => x.name)
+  const selectClass = `flex-grow-1 ${!isVisible ? `text-center text-white` : ``}`
+  const headerClass = `card-header bg-secondary ${isMobile ? `pt-1 pb-2` : `pt-3 pb-2`}`
 
   return (
     <div className="card">
-      <div className="card-header bg-secondary py-2">
+      <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-3">
-            <IconContext.Provider value={{ size: '1.4em', className: 'text-light' }}>
+            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
-          <div className="flex-grow-1">
-            <AddAllySelect
-              allyFactionName={allyFactionName}
-              items={allySelectOptions}
-              setAllyFactionName={setAllyFactionName}
-            />
+          <div className={selectClass}>
+            {isVisible ? (
+              <AddAllySelect
+                allyFactionName={allyFactionName}
+                items={allySelectOptions}
+                setAllyFactionName={setAllyFactionName}
+              />
+            ) : (
+              <h5 className="mb-0">Ally: {titleCase(allyFactionName)}</h5>
+            )}
           </div>
           <div className="pl-3">
             <VisibilityToggle
@@ -196,7 +205,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
       </div>
     </div>
   )
-}
+})
 
 interface IAddAllySelect {
   allyFactionName: TSupportedFaction

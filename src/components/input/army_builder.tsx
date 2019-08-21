@@ -59,8 +59,8 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   }, [realmscape])
 
   return (
-    <div className="row d-print-none pb-3">
-      <div className="col card-group mx-auto">
+    <div className="row d-print-none pb-1">
+      <div className="col col-lg-10 col-xl-6 card-group mx-auto">
         <CardMultiSelect
           items={army.Units}
           setValues={withSelectMultiple(props.updateUnits)}

@@ -17,13 +17,11 @@ interface ICardProps {
 
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
-  const bodyClass = useMemo(() => `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`, [
-    isVisible,
-    isMobile,
-  ])
+  const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
+  const colClass = `col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
 
   return (
-    <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1`}>
+    <div className={colClass}>
       <div className="card">
         <CardHeader
           isMobile={isMobile}
