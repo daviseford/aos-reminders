@@ -29,9 +29,9 @@ const RemindersComponent = (props: IRemindersProps) => {
     allySelections,
     army,
     factionName,
+    hideWhens,
     realmscape_feature,
     selections,
-    hideWhens,
   } = props
 
   const reminders = useMemo(() => {
@@ -75,7 +75,9 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   selections: selections.selectors.getSelections(state),
 })
 
+const mapDispatchToProps = { hideWhens: visibility.actions.addWhens }
+
 export const Reminders = connect(
   mapStateToProps,
-  { hideWhens: visibility.selectors.addWhens }
+  mapDispatchToProps
 )(RemindersComponent)

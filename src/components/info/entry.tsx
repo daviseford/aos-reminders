@@ -63,7 +63,7 @@ const EntryComponent: React.FC<IEntryProps> = props => {
       <div className="card border-dark my-2 mx-1">
         <CardHeaderComponent
           title={title}
-          showCard={showWhen}
+          showCard={handleShowWhen}
           hideCard={hideWhen}
           isVisible={!isCollapsed}
           headerClassName={`ReminderHeader`}
