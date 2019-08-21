@@ -11,12 +11,14 @@ import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { IStore } from 'types/store'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
+  isMobile: boolean
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void
@@ -33,7 +35,7 @@ interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
-  const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
+  const { factionName, selections, isMobile, updateArmy, realmscape, realmscape_feature } = props
   const {
     allegiances,
     artifacts,
@@ -58,8 +60,10 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
+  const rowClass = useMemo(() => `row d-print-none pb-1 ${!isMobile ? `pt-2` : ``}`, [isMobile])
+
   return (
-    <div className="row d-print-none pb-1">
+    <div className={rowClass}>
       <div className="col col-lg-10 col-xl-6 card-group mx-auto">
         <CardMultiSelect
           items={army.Units}
@@ -165,4 +169,4 @@ const mapDispatchToProps = {
 export const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArmyBuilderComponent)
+)(componentWithSize(ArmyBuilderComponent))
