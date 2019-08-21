@@ -6,21 +6,43 @@ import { titleCase } from 'utils/titleCase'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
+import { TTurnWhen } from 'types/phases'
 
 interface IEntryProps {
   actions: TTurnAction[]
   addReminder: (value: string) => void
+  addWhen: (value: string) => void // dispatch
   deleteReminder: (value: string) => void
-  reminders: string[]
+  deleteWhen: (value: string) => void // dispatch
+  hiddenReminders: string[]
+  hiddenWhen: TTurnWhen[]
   when: string
 }
 
 const EntryComponent: React.FC<IEntryProps> = props => {
-  const { when, actions, addReminder, deleteReminder, reminders } = props
+  const {
+    when,
+    actions,
+    addReminder,
+    deleteReminder,
+    hiddenReminders,
+    addWhen,
+    deleteWhen,
+    hiddenWhen,
+  } = props
 
   const hidden = useMemo(() => {
-    return reminders.filter(name => name.includes(when))
-  }, [reminders, when])
+    return hiddenReminders.filter(name => name.includes(when))
+  }, [hiddenReminders, when])
+
+  useEffect(() => {
+    return () => {
+      deleteWhen(when) // un-hide when component unloads
+    }
+    // eslint-disable-next-line
+  }, [])
+
+  const isCollapsed = !!hiddenWhen.find(w => when === w)
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
@@ -53,12 +75,15 @@ const EntryComponent: React.FC<IEntryProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  reminders: visibility.selectors.getReminders(state),
+  hiddenReminders: visibility.selectors.getReminders(state),
+  hiddenWhen: visibility.selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {
   addReminder: visibility.actions.addReminder,
   deleteReminder: visibility.actions.deleteReminder,
+  addWhen: visibility.actions.addWhen,
+  deleteWhen: visibility.actions.deleteWhen,
 }
 
 export const Entry = connect(

@@ -11,8 +11,8 @@ import { Entry } from 'components/info/entry'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
-  allySelections: { [key: string]: IAllySelections }
   allyFactionNames: TSupportedFaction[]
+  allySelections: { [key: string]: IAllySelections }
   army: IArmy
   factionName: TSupportedFaction
   realmscape_feature: string
