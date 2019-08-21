@@ -46,8 +46,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   const hideOtherWhens = useCallback(
     (title: string) => {
-      const titles = whens.map(titleCase)
-      const others = without(titles, title)
+      const others = without(whens.map(titleCase), title)
       return hideWhens(others)
     },
     [hideWhens, whens]
