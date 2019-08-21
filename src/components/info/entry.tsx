@@ -7,29 +7,21 @@ import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
+import { CardHeaderComponent } from './card'
 
 interface IEntryProps {
   actions: TTurnAction[]
-  addReminder: (value: string) => void
-  addWhen: (value: string) => void // dispatch
-  deleteReminder: (value: string) => void
-  deleteWhen: (value: string) => void // dispatch
+  hideReminder: (value: string) => void
+  hideWhen: (value: string) => void // dispatch
+  showReminder: (value: string) => void
+  showWhen: (value: string) => void // dispatch
   hiddenReminders: string[]
   hiddenWhen: TTurnWhen[]
   when: string
 }
 
 const EntryComponent: React.FC<IEntryProps> = props => {
-  const {
-    when,
-    actions,
-    addReminder,
-    deleteReminder,
-    hiddenReminders,
-    addWhen,
-    deleteWhen,
-    hiddenWhen,
-  } = props
+  const { actions, hiddenReminders, hiddenWhen, hideReminder, hideWhen, showReminder, showWhen, when } = props
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
@@ -37,24 +29,29 @@ const EntryComponent: React.FC<IEntryProps> = props => {
 
   useEffect(() => {
     return () => {
-      deleteWhen(when) // un-hide when component unloads
+      showWhen(when) // un-hide when component unloads
     }
     // eslint-disable-next-line
   }, [])
 
-  const isCollapsed = !!hiddenWhen.find(w => when === w)
+  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => when === w), [hiddenWhen, when])
+  const title = useMemo(() => titleCase(when), [when])
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
       <div className="card border-dark my-3 mx-1">
-        <div className="card-header text-center ReminderHeader">
-          <h4 className="ReminderH4">{titleCase(when)}</h4>
-        </div>
+        <CardHeaderComponent
+          title={title}
+          showCard={showWhen}
+          hideCard={hideWhen}
+          isVisible={!isCollapsed}
+          headerClassName={`ReminderHeader`}
+        />
         <div className="card-body">
           {actions.map((action, i) => {
             const name = `${when}_${action.name}`
-            const showEntry = () => deleteReminder(name)
-            const hideEntry = () => addReminder(name)
+            const showEntry = () => showReminder(name)
+            const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)
 
             return (
@@ -80,10 +77,10 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-  addReminder: visibility.actions.addReminder,
-  deleteReminder: visibility.actions.deleteReminder,
-  addWhen: visibility.actions.addWhen,
-  deleteWhen: visibility.actions.deleteWhen,
+  hideReminder: visibility.actions.addReminder,
+  hideWhen: visibility.actions.addWhen,
+  showReminder: visibility.actions.deleteReminder,
+  showWhen: visibility.actions.deleteWhen,
 }
 
 export const Entry = connect(

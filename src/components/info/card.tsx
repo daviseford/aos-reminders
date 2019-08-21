@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility } from 'ducks'
-import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
@@ -65,31 +65,33 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
 }
 
 interface ICardHeaderProps {
-  hideSelector: (value: string) => void // dispatch2props
+  hideCard: (value: string) => void
   isVisible: boolean
-  showSelector: (value: string) => void // dispatch2props
+  showCard: (value: string) => void
   title: string
+  headerClassName?: string
+  type?: TVisibilityIconType
 }
 
-const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isVisible, hideSelector, showSelector } = props
+export const CardHeaderComponent = (props: ICardHeaderProps) => {
+  const { title, isVisible, hideCard, showCard, type = 'fold', headerClassName: className = '' } = props
 
   const handleVisibility = useCallback(
     e => {
       e.preventDefault()
-      return isVisible ? hideSelector(title) : showSelector(title)
+      return isVisible ? hideCard(title) : showCard(title)
     },
-    [isVisible, showSelector, hideSelector, title]
+    [isVisible, showCard, hideCard, title]
   )
 
   return (
-    <div className="card-header">
+    <div className={`card-header ${className}`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
           <h4 className="mb-0">{title}</h4>
         </div>
         <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1} type={'fold'} />
+          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1} type={type} />
         </div>
       </div>
     </div>
@@ -97,8 +99,8 @@ const CardHeaderComponent = (props: ICardHeaderProps) => {
 }
 
 const mapDispatchToProps = {
-  hideSelector: visibility.actions.addSelector,
-  showSelector: visibility.actions.deleteSelector,
+  hideCard: visibility.actions.addSelector,
+  showCard: visibility.actions.deleteSelector,
 }
 
 const mapStateToProps = (state: IStore, ownProps) => ({
@@ -113,10 +115,10 @@ const CardHeader = connect(
 
 export const CardMultiSelect = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(CardMultiComponent)
 
 export const CardSingleSelect = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(CardSingleSelectComponent)

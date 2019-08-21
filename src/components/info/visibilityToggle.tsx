@@ -2,16 +2,16 @@ import React from 'react'
 import { IconContext, IconType } from 'react-icons'
 import { MdVisibility, MdVisibilityOff, MdUnfoldLess, MdUnfoldMore } from 'react-icons/md'
 
-type TIconType = 'eye' | 'fold'
+export type TVisibilityIconType = 'eye' | 'fold'
 
 interface IVisibilityToggleProps {
   isVisible: boolean
   setVisibility: (e) => void
   size?: number
-  type?: TIconType
+  type?: TVisibilityIconType
 }
 
-const icons: { [key in TIconType]: { visible: IconType; hidden: IconType } } = {
+const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconType } } = {
   eye: {
     visible: MdVisibility,
     hidden: MdVisibilityOff,
