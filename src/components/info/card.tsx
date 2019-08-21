@@ -65,16 +65,17 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
 }
 
 interface ICardHeaderProps {
+  headerClassName?: string
   hideCard: (value: string) => void
+  iconSize?: number
   isVisible: boolean
   showCard: (value: string) => void
   title: string
-  headerClassName?: string
   type?: TVisibilityIconType
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isVisible, hideCard, showCard, type = 'fold', headerClassName: className = '' } = props
+  const { title, isVisible, hideCard, showCard, type = 'minus', headerClassName = '', iconSize = 1 } = props
 
   const handleVisibility = useCallback(
     e => {
@@ -85,13 +86,18 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   )
 
   return (
-    <div className={`card-header ${className}`}>
+    <div className={`card-header ${headerClassName}`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
           <h4 className="mb-0">{title}</h4>
         </div>
         <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1} type={type} />
+          <VisibilityToggle
+            isVisible={isVisible}
+            setVisibility={handleVisibility}
+            size={iconSize}
+            type={type}
+          />
         </div>
       </div>
     </div>

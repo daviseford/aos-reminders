@@ -34,20 +34,24 @@ const EntryComponent: React.FC<IEntryProps> = props => {
     // eslint-disable-next-line
   }, [])
 
-  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => when === w), [hiddenWhen, when])
   const title = useMemo(() => titleCase(when), [when])
+  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
+  console.log(hiddenReminders)
+  console.log(hidden)
+  console.log(isCollapsed)
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
-      <div className="card border-dark my-3 mx-1">
+      <div className="card border-dark my-2 mx-1">
         <CardHeaderComponent
           title={title}
           showCard={showWhen}
           hideCard={hideWhen}
           isVisible={!isCollapsed}
           headerClassName={`ReminderHeader`}
+          iconSize={1.2}
         />
-        <div className="card-body">
+        <div className={`card-body ${isCollapsed ? `d-none` : ``}`}>
           {actions.map((action, i) => {
             const name = `${when}_${action.name}`
             const showEntry = () => showReminder(name)

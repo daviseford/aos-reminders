@@ -1,8 +1,15 @@
 import React from 'react'
 import { IconContext, IconType } from 'react-icons'
-import { MdVisibility, MdVisibilityOff, MdUnfoldLess, MdUnfoldMore } from 'react-icons/md'
+import {
+  MdExpandMore,
+  MdRemove,
+  MdUnfoldLess,
+  MdUnfoldMore,
+  MdVisibility,
+  MdVisibilityOff,
+} from 'react-icons/md'
 
-export type TVisibilityIconType = 'eye' | 'fold'
+export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
   isVisible: boolean
@@ -19,6 +26,10 @@ const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconTy
   fold: {
     visible: MdUnfoldLess,
     hidden: MdUnfoldMore,
+  },
+  minus: {
+    visible: MdRemove,
+    hidden: MdExpandMore,
   },
 }
 
