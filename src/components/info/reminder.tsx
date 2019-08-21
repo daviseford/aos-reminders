@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import withSizes from 'react-sizes'
 import './reminders.css'
@@ -17,6 +17,7 @@ interface IReminderProps {
   hideOthers: (value: string) => void
   hideReminder: (value: string) => void
   hideWhen: (value: string) => void // dispatch
+  idx: number
   isMobile: boolean
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
@@ -31,6 +32,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     hideOthers,
     hideReminder,
     hideWhen,
+    idx,
     isMobile,
     showReminder,
     showWhen,
@@ -41,22 +43,24 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     return hiddenReminders.filter(name => name.includes(when))
   }, [hiddenReminders, when])
 
+  const title = useMemo(() => titleCase(when), [when])
+
   useEffect(() => {
+    if (isMobile && idx > 0) hideWhen(title) // Hide initially on Mobile
     return () => {
-      showWhen(when) // un-hide when component unloads
+      showWhen(title) // un-hide when component unloads
     }
     // eslint-disable-next-line
   }, [])
 
-  const title = useMemo(() => titleCase(when), [when])
   const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
 
-  const handleShowWhen = () => {
+  const handleShowWhen = useCallback(() => {
     showWhen(title)
     if (isMobile) {
       hideOthers(title)
     }
-  }
+  }, [title, showWhen, hideOthers, isMobile])
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>

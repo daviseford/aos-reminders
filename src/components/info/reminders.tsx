@@ -56,7 +56,9 @@ const RemindersComponent = (props: IRemindersProps) => {
     <div className="row mx-auto mt-3 d-flex justify-content-center">
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
         {whens.map((when, i) => {
-          return <Reminder when={when} actions={reminders[when]} key={i} hideOthers={hideOtherWhens} />
+          return (
+            <Reminder when={when} actions={reminders[when]} key={i} hideOthers={hideOtherWhens} idx={i} />
+          )
         })}
       </div>
     </div>
