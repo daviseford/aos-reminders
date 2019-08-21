@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import './card.css'
@@ -97,13 +97,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     iconSize = 1,
   } = props
 
-  const handleVisibility = useCallback(
-    e => {
-      e.preventDefault()
-      return isVisible ? hideCard(title) : showCard(title)
-    },
-    [isVisible, showCard, hideCard, title]
-  )
+  const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
 
   useEffect(() => {
     if (isMobile && title !== 'Units') hideCard(title)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { IconContext, IconType } from 'react-icons'
 import {
   MdExpandMore,
@@ -13,7 +13,7 @@ export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
   isVisible: boolean
-  setVisibility: (e) => void
+  setVisibility: () => void
   size?: number
   type?: TVisibilityIconType
   className?: string
@@ -38,11 +38,18 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const { isVisible, setVisibility, size = 1.4, type = 'eye', className = '' } = props
   const icon = icons[type]
   const VisibilityComponent = isVisible ? icon.visible : icon.hidden
+  const handleSetVisibility = useCallback(
+    e => {
+      e.preventDefault()
+      return setVisibility()
+    },
+    [setVisibility]
+  )
 
   return (
     <>
       <IconContext.Provider value={{ size: `${size}em`, className }}>
-        <VisibilityComponent onClick={setVisibility} />
+        <VisibilityComponent onClick={handleSetVisibility} />
       </IconContext.Provider>
     </>
   )

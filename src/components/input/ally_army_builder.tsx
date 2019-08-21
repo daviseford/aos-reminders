@@ -91,10 +91,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   }, [allyFactionName, showAlly])
 
   const setVisibility = useCallback(
-    e => {
-      e.preventDefault()
-      return isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)
-    },
+    () => (isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
     [isVisible, hideAlly, showAlly, allyFactionName]
   )
 
@@ -149,7 +146,7 @@ interface IAllyCardProps {
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   type: string
   values: string[]
-  setVisibility: (e) => void
+  setVisibility: () => void
 }
 
 const AllyCardComponent = (props: IAllyCardProps) => {

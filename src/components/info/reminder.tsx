@@ -136,10 +136,7 @@ interface IActionTextProps extends TTurnAction {
 const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, showEntry, hideEntry } = props
 
-  const handleVisibility = e => {
-    e.preventDefault()
-    !isVisible ? showEntry() : hideEntry()
-  }
+  const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
   useEffect(() => {
     return () => {
