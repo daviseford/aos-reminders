@@ -17,5 +17,5 @@ export const removeUnits: TFilterUnits = (units, unitNames) => {
  * @param unitNames
  */
 export const filterUnits: TFilterUnits = (units, unitNames) => {
-  return units.filter(({ name }) => !unitNames.includes(name))
+  return units.filter(({ name }) => unitNames.includes(name))
 }
