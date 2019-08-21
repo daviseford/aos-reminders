@@ -1,5 +1,6 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import './card.css'
 import { visibility } from 'ducks'
 import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
@@ -11,14 +12,20 @@ import { IStore } from 'types/store'
 interface ICardProps {
   title: string
   isVisible: boolean
+  isMobile: boolean
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
-  const { title, isVisible, children } = props
+  const { title, isVisible, isMobile, children } = props
   return (
     <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3`}>
       <div className="card">
-        <CardHeader isVisible={isVisible} title={title} headerClassName={'SelectorHeader'} />
+        <CardHeader
+          isMobile={isMobile}
+          isVisible={isVisible}
+          title={title}
+          headerClassName={'SelectorHeader'}
+        />
         <div className={`card-body${isVisible ? `` : ` d-none`}`}>{children}</div>
       </div>
     </div>
@@ -27,6 +34,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 
 interface ICardMultiProps {
   hiddenSelectors: string[] // state2props
+  isMobile: boolean
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   title: string
@@ -34,13 +42,13 @@ interface ICardMultiProps {
 }
 
 const CardMultiComponent = (props: ICardMultiProps) => {
-  const { items, setValues, values, hiddenSelectors, title } = props
+  const { items, setValues, values, hiddenSelectors, title, isMobile } = props
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
 
   if (!items.length) return null
   return (
-    <CardComponent title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
       <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
     </CardComponent>
   )
@@ -48,6 +56,7 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
 interface ICardSingleSelectProps {
   hiddenSelectors: string[] // state2props
+  isMobile: boolean
   items: string[]
   setValue: TSelectOneSetValueFn
   title: string
@@ -55,11 +64,11 @@ interface ICardSingleSelectProps {
 }
 
 const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const { setValue, items, title, value = null, hiddenSelectors } = props
+  const { setValue, items, title, value = null, hiddenSelectors, isMobile } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
 
   return (
-    <CardComponent title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
       <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
     </CardComponent>
   )
@@ -69,6 +78,7 @@ interface ICardHeaderProps {
   headerClassName?: string
   hideCard: (value: string) => void
   iconSize?: number
+  isMobile: boolean
   isVisible: boolean
   showCard: (value: string) => void
   title: string
@@ -76,7 +86,16 @@ interface ICardHeaderProps {
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isVisible, hideCard, showCard, type = 'minus', headerClassName = '', iconSize = 1 } = props
+  const {
+    title,
+    isMobile,
+    isVisible,
+    hideCard,
+    showCard,
+    type = 'minus',
+    headerClassName = '',
+    iconSize = 1,
+  } = props
 
   const handleVisibility = useCallback(
     e => {
@@ -85,6 +104,10 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     },
     [isVisible, showCard, hideCard, title]
   )
+
+  useEffect(() => {
+    if (isMobile && title !== 'Units') hideCard(title)
+  }, [hideCard, isMobile, title])
 
   return (
     <div className={`card-header ${headerClassName}`}>
@@ -123,9 +146,9 @@ const CardHeader = connect(
 export const CardMultiSelect = connect(
   mapStateToProps,
   null
-)(CardMultiComponent)
+)(componentWithSize(CardMultiComponent))
 
 export const CardSingleSelect = connect(
   mapStateToProps,
   null
-)(CardSingleSelectComponent)
+)(componentWithSize(CardSingleSelectComponent))

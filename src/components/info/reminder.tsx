@@ -62,6 +62,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
           isVisible={isVisible}
           headerClassName={`ReminderHeader`}
           iconSize={1.2}
+          isMobile={isMobile}
         />
         <div className={`card-body ${isVisible ? `` : `d-none d-print-block`}`}>
           {actions.map((action, i) => {

@@ -1,16 +1,16 @@
 import React, { useMemo, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import withSizes from 'react-sizes'
+import { without } from 'lodash'
+import { componentWithSize } from 'utils/mapSizesToProps'
+import { processReminders } from 'utils/processReminders'
+import { titleCase } from 'utils/titleCase'
 import './reminders.css'
 import { realmscape, factionNames, selections, army, visibility } from 'ducks'
-import { processReminders } from 'utils/processReminders'
+import { Reminder } from 'components/info/reminder'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
-import { Reminder } from 'components/info/reminder'
-import { without } from 'lodash'
-import { titleCase } from 'utils/titleCase'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -117,13 +117,7 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.addWhen,
 }
 
-const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 480,
-})
-
-const RemindersWithSize = withSizes(mapSizesToProps)(RemindersComponent)
-
 export const Reminders = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RemindersWithSize)
+)(componentWithSize(RemindersComponent))
