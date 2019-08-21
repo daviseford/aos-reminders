@@ -4,7 +4,7 @@ import { IVisibilityStore as IHiddenStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
 
 const initialState: IHiddenStore = {
-  cards: [],
+  when: [],
   reminders: [],
   selectors: [],
 }
@@ -21,16 +21,16 @@ const addReminder = (state: IHiddenStore, action: { payload: string }) => {
 const deleteReminder = (state: IHiddenStore, action: { payload: string }) => {
   state.reminders = without(state.reminders, action.payload)
 }
-const addCard = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
-  state.cards = uniq([...state.cards, action.payload])
+const addWhen = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
+  state.when = uniq([...state.when, action.payload])
 }
-const deleteCard = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
-  state.cards = without(state.cards, action.payload)
+const deleteWhen = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
+  state.when = without(state.when, action.payload)
 }
-const clearCards = (state: IHiddenStore) => {
-  state.cards = initialState.cards
+const clearWhen = (state: IHiddenStore) => {
+  state.when = initialState.when
 }
-const clearReminders = (state: IHiddenStore) => {
+const clearReminder = (state: IHiddenStore) => {
   state.reminders = initialState.reminders
 }
 
@@ -38,20 +38,20 @@ export const visibility = createSlice({
   slice: 'visibility',
   initialState,
   reducers: {
-    addCard,
     addReminder,
     addSelector,
-    clearCards,
-    clearReminders,
-    deleteCard,
+    addWhen,
+    clearReminder,
+    clearWhen,
     deleteReminder,
     deleteSelector,
+    deleteWhen,
   },
 })
 
-visibility.selectors.getCards = createSelector(
-  ['visibility.cards'],
-  cards => cards
+visibility.selectors.getWhen = createSelector(
+  ['visibility.when'],
+  when => when
 )
 
 visibility.selectors.getReminders = createSelector(

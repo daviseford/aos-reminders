@@ -25,7 +25,7 @@ export interface ISelectionStore {
 }
 
 export interface IVisibilityStore {
-  cards: TTurnWhen[]
+  when: TTurnWhen[]
   reminders: string[]
   selectors: string[]
 }
