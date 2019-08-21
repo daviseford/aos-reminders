@@ -44,13 +44,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
 
   useEffect(() => {
-    if (!isMobile) showWhen(title)
-    return () => {
-      console.log(hidden.length, actions.length)
-      hideWhen(title) // remove from shown when unloaded
-    }
-    // eslint-disable-next-line
-  }, [isMobile, title])
+    if (!isMobile) showWhen(title) // Auto-open reminders on desktop
+  }, [isMobile, title, showWhen])
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)

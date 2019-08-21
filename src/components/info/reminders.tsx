@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useEffect } from 'react'
+import React, { useMemo, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import withSizes from 'react-sizes'
 import './reminders.css'
@@ -60,18 +60,20 @@ const RemindersComponent = (props: IRemindersProps) => {
     [hideWhens, titles]
   )
 
+  const [firstLoad, setFirstLoad] = useState(true)
+
   useEffect(() => {
-    if (isMobile && !visibleWhens.length && titles.length > 0) {
-      console.log('display first entry')
-      showWhen(titles[0])
+    setFirstLoad(true)
+  }, [factionName])
+
+  useEffect(() => {
+    // If we're on mobile AND it's our first load of a new army AND
+    // we have no phases displayed AND there are phases that could be displayed
+    if (isMobile && firstLoad && !visibleWhens.length && titles.length) {
+      setFirstLoad(false)
+      showWhen(titles[0]) // Show the first phase
     }
-    return () => {
-      // if (isMobile && !visibleWhens.length && titles.length > 0){
-      //   console.log('display first entry')
-      //   showWhen(titles[0])
-      // }
-    }
-  })
+  }, [isMobile, firstLoad, visibleWhens.length, titles.length, showWhen])
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">
