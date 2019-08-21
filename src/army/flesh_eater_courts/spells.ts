@@ -90,6 +90,21 @@ const Spells: TSpells = [
     ],
   },
   {
+    name: `Ferocious Hunger`,
+    effects: [
+      {
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ferocious Hunger`,
+        desc: `If successfully cast, add the D3 roll to the Attacks characteristic of melee weapons used by that unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
     name: `Malefic Hunger`,
     effects: [
       {
