@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import './header.css'
 
@@ -7,23 +7,32 @@ import { logFactionSwitch } from 'utils/analytics'
 import { factionNames, selections } from 'ducks'
 import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IHeaderProps {
+  isMobile: boolean
   resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
 
 const HeaderComponent: React.FC<IHeaderProps> = props => {
-  const { resetSelections, setFactionName } = props
+  const { resetSelections, setFactionName, isMobile } = props
 
   const setValue = withSelectOne((value: string | null) => {
     resetSelections()
     logFactionSwitch(value as TSupportedFaction)
     setFactionName(value)
   })
+  const jumboClass = useMemo(
+    () =>
+      `jumbotron jumbotron-fluid text-center HeaderCover text-white d-print-none mb-0 pt-4 ${
+        isMobile ? `pb-2` : `pb-3`
+      } `,
+    [isMobile]
+  )
 
   return (
-    <div className="jumbotron jumbotron-fluid text-center HeaderCover text-white pt-4 mb-0 d-print-none">
+    <div className={jumboClass}>
       <div className="container">
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1">
@@ -51,4 +60,4 @@ const mapDispatchToProps = {
 export const Header = connect(
   null,
   mapDispatchToProps
-)(HeaderComponent)
+)(componentWithSize(HeaderComponent))

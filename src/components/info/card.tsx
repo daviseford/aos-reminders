@@ -17,6 +17,11 @@ interface ICardProps {
 
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
+  const bodyClass = useMemo(() => `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`, [
+    isVisible,
+    isMobile,
+  ])
+
   return (
     <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1`}>
       <div className="card">
@@ -26,7 +31,7 @@ const CardComponent: React.FC<ICardProps> = props => {
           title={title}
           headerClassName={'SelectorHeader'}
         />
-        <div className={`card-body${isVisible ? `` : ` d-none`} py-3`}>{children}</div>
+        <div className={bodyClass}>{children}</div>
       </div>
     </div>
   )
