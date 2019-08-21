@@ -42,8 +42,8 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
   return (
-    <div className="row mx-auto mt-3 d-block">
-      <div className="col">
+    <div className="row mx-auto mt-3 d-flex justify-content-center">
+      <div className="col col-md-10 col-lg-8 col-xl-8">
         {Object.keys(reminders).map((key, i) => {
           return <Entry when={key} actions={reminders[key]} key={i} />
         })}
