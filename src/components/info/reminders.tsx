@@ -67,13 +67,18 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [factionName])
 
   useEffect(() => {
+    // Remove orphaned phases
+    // (phases where the rules have been removed via army_builder)
+    const orphans = without(visibleWhens, ...titles)
+    if (orphans.length) hideWhens(orphans)
+
     // If we're on mobile AND it's our first load of a new army AND
     // we have no phases displayed AND there are phases that could be displayed
     if (isMobile && firstLoad && !visibleWhens.length && titles.length) {
       setFirstLoad(false)
       showWhen(titles[0]) // Show the first phase
     }
-  }, [isMobile, firstLoad, visibleWhens.length, titles.length, showWhen])
+  }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">

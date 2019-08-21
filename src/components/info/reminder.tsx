@@ -49,9 +49,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)
-    if (isMobile) {
-      hideOthers(title)
-    }
+    if (isMobile) hideOthers(title)
   }, [title, showWhen, hideOthers, isMobile])
 
   return (
