@@ -1,13 +1,15 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import './reminders.css'
-import { realmscape, factionNames, selections, army } from 'ducks'
+import { realmscape, factionNames, selections, army, visibility } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
 import { Entry } from 'components/info/entry'
+import { without } from 'lodash'
+import { titleCase } from 'utils/titleCase'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -17,6 +19,7 @@ interface IRemindersProps {
   factionName: TSupportedFaction
   realmscape_feature: string
   selections: ISelections
+  hideWhens: (values: string[]) => void
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
@@ -28,6 +31,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     factionName,
     realmscape_feature,
     selections,
+    hideWhens,
   } = props
 
   const reminders = useMemo(() => {
@@ -38,11 +42,22 @@ const RemindersComponent = (props: IRemindersProps) => {
     return processReminders(army, factionName, selections, realmscape_feature, allyData)
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
+  const whens = useMemo(() => Object.keys(reminders), [reminders])
+
+  const hideOtherWhens = useCallback(
+    (title: string) => {
+      const titles = whens.map(titleCase)
+      const others = without(titles, title)
+      return hideWhens(others)
+    },
+    [hideWhens, whens]
+  )
+
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
         {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} />
+          return <Entry when={key} actions={reminders[key]} key={i} hideOthers={hideOtherWhens} />
         })}
       </div>
     </div>
@@ -62,5 +77,5 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 export const Reminders = connect(
   mapStateToProps,
-  null
+  { hideWhens: visibility.selectors.addWhens }
 )(RemindersComponent)

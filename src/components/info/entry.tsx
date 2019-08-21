@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
+import withSizes from 'react-sizes'
 import './reminders.css'
 import { visibility } from 'ducks'
 import { titleCase } from 'utils/titleCase'
@@ -11,17 +12,30 @@ import { CardHeaderComponent } from './card'
 
 interface IEntryProps {
   actions: TTurnAction[]
-  hideReminder: (value: string) => void
-  hideWhen: (value: string) => void // dispatch
-  showReminder: (value: string) => void
-  showWhen: (value: string) => void // dispatch
   hiddenReminders: string[]
   hiddenWhen: TTurnWhen[]
+  hideOthers: (value: string) => void
+  hideReminder: (value: string) => void
+  hideWhen: (value: string) => void // dispatch
+  isMobile: boolean
+  showReminder: (value: string) => void
+  showWhen: (value: string) => void // dispatch
   when: string
 }
 
 const EntryComponent: React.FC<IEntryProps> = props => {
-  const { actions, hiddenReminders, hiddenWhen, hideReminder, hideWhen, showReminder, showWhen, when } = props
+  const {
+    actions,
+    hiddenReminders,
+    hiddenWhen,
+    hideOthers,
+    hideReminder,
+    hideWhen,
+    isMobile,
+    showReminder,
+    showWhen,
+    when,
+  } = props
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
@@ -36,9 +50,13 @@ const EntryComponent: React.FC<IEntryProps> = props => {
 
   const title = useMemo(() => titleCase(when), [when])
   const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
-  console.log(hiddenReminders)
-  console.log(hidden)
-  console.log(isCollapsed)
+
+  const handleShowWhen = () => {
+    showWhen(title)
+    if (isMobile) {
+      hideOthers(title)
+    }
+  }
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
@@ -87,10 +105,16 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.deleteWhen,
 }
 
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 480,
+})
+
+const withSize = withSizes(mapSizesToProps)(EntryComponent)
+
 export const Entry = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EntryComponent)
+)(withSize)
 
 const getTitle = ({
   artifact,
