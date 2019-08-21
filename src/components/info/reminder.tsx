@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import withSizes from 'react-sizes'
 import './reminders.css'
 import { visibility } from 'ducks'
 import { titleCase } from 'utils/titleCase'
@@ -13,7 +12,7 @@ import { CardHeaderComponent } from './card'
 interface IReminderProps {
   actions: TTurnAction[]
   hiddenReminders: string[]
-  hiddenWhen: TTurnWhen[]
+  visibleWhens: TTurnWhen[]
   hideOthers: (value: string) => void
   hideReminder: (value: string) => void
   hideWhen: (value: string) => void // dispatch
@@ -27,7 +26,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const {
     actions,
     hiddenReminders,
-    hiddenWhen,
+    visibleWhens,
     hideOthers,
     hideReminder,
     hideWhen,
@@ -42,15 +41,16 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [hiddenReminders, when])
 
   const title = useMemo(() => titleCase(when), [when])
-  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
+  const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
 
   useEffect(() => {
-    if (isMobile) hideWhen(title) // Hide initially on Mobile
+    if (!isMobile) showWhen(title)
     return () => {
-      showWhen(title) // un-hide when component unloads
+      console.log(hidden.length, actions.length)
+      hideWhen(title) // remove from shown when unloaded
     }
     // eslint-disable-next-line
-  }, [isMobile])
+  }, [isMobile, title])
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)
@@ -66,11 +66,11 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
           title={title}
           showCard={handleShowWhen}
           hideCard={hideWhen}
-          isVisible={!isCollapsed}
+          isVisible={isVisible}
           headerClassName={`ReminderHeader`}
           iconSize={1.2}
         />
-        <div className={`card-body ${isCollapsed ? `d-none` : ``}`}>
+        <div className={`card-body ${isVisible ? `` : `d-none d-print-block`}`}>
           {actions.map((action, i) => {
             const name = `${when}_${action.name}`
             const showEntry = () => showReminder(name)
@@ -96,26 +96,20 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   hiddenReminders: visibility.selectors.getReminders(state),
-  hiddenWhen: visibility.selectors.getWhen(state),
+  visibleWhens: visibility.selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {
   hideReminder: visibility.actions.addReminder,
-  hideWhen: visibility.actions.addWhen,
+  hideWhen: visibility.actions.deleteWhen,
   showReminder: visibility.actions.deleteReminder,
-  showWhen: visibility.actions.deleteWhen,
+  showWhen: visibility.actions.addWhen,
 }
-
-const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 480,
-})
-
-const ReminderWithSize = withSizes(mapSizesToProps)(ReminderComponent)
 
 export const Reminder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReminderWithSize)
+)(ReminderComponent)
 
 const getActionTitle = ({
   artifact,

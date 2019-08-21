@@ -30,6 +30,9 @@ const addWhens = (state: IHiddenStore, action: { payload: TTurnWhen[] }) => {
 const deleteWhen = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
   state.when = without(state.when, action.payload)
 }
+const deleteWhens = (state: IHiddenStore, action: { payload: TTurnWhen[] }) => {
+  state.when = without(state.when, ...action.payload)
+}
 const clearWhen = (state: IHiddenStore) => {
   state.when = initialState.when
 }
@@ -50,6 +53,7 @@ export const visibility = createSlice({
     deleteReminder,
     deleteSelector,
     deleteWhen,
+    deleteWhens,
   },
 })
 

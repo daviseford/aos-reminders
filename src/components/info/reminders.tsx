@@ -1,5 +1,6 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
+import withSizes from 'react-sizes'
 import './reminders.css'
 import { realmscape, factionNames, selections, army, visibility } from 'ducks'
 import { processReminders } from 'utils/processReminders'
@@ -17,9 +18,12 @@ interface IRemindersProps {
   allySelections: { [key: string]: IAllySelections }
   army: IArmy
   factionName: TSupportedFaction
+  hideWhens: (values: string[]) => void
+  isMobile: boolean
   realmscape_feature: string
   selections: ISelections
-  hideWhens: (values: string[]) => void
+  showWhen: (value: string) => void
+  visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
@@ -30,8 +34,11 @@ const RemindersComponent = (props: IRemindersProps) => {
     army,
     factionName,
     hideWhens,
+    isMobile,
     realmscape_feature,
     selections,
+    showWhen,
+    visibleWhens,
   } = props
 
   const reminders = useMemo(() => {
@@ -43,21 +50,42 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
+  const titles = useMemo(() => whens.map(titleCase), [whens])
 
   const hideOtherWhens = useCallback(
     (title: string) => {
-      const others = without(whens.map(titleCase), title)
+      const others = without(titles, title)
       return hideWhens(others)
     },
-    [hideWhens, whens]
+    [hideWhens, titles]
   )
+
+  useEffect(() => {
+    if (isMobile && !visibleWhens.length && titles.length > 0) {
+      console.log('display first entry')
+      showWhen(titles[0])
+    }
+    return () => {
+      // if (isMobile && !visibleWhens.length && titles.length > 0){
+      //   console.log('display first entry')
+      //   showWhen(titles[0])
+      // }
+    }
+  })
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
         {whens.map((when, i) => {
           return (
-            <Reminder when={when} actions={reminders[when]} key={i} hideOthers={hideOtherWhens} idx={i} />
+            <Reminder
+              isMobile={isMobile}
+              when={when}
+              actions={reminders[when]}
+              key={i}
+              hideOthers={hideOtherWhens}
+              idx={i}
+            />
           )
         })}
       </div>
@@ -72,13 +100,23 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
+  visibleWhens: visibility.selectors.getWhen(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
 })
 
-const mapDispatchToProps = { hideWhens: visibility.actions.addWhens }
+const mapDispatchToProps = {
+  hideWhens: visibility.actions.deleteWhens,
+  showWhen: visibility.actions.addWhen,
+}
+
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 480,
+})
+
+const RemindersWithSize = withSizes(mapSizesToProps)(RemindersComponent)
 
 export const Reminders = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RemindersComponent)
+)(RemindersWithSize)
