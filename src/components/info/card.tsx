@@ -110,7 +110,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     <div className={`card-header ${headerClassName} py-2`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
-          <h4 className="mb-0">{title}</h4>
+          <h4 className="CardHeaderTitle">{title}</h4>
         </div>
         <div className="px-2 d-print-none">
           <VisibilityToggle

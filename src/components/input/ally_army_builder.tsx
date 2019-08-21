@@ -16,7 +16,6 @@ import { ValueType } from 'react-select/src/types'
 import { IStore } from 'types/store'
 import { FaTrashAlt } from 'react-icons/fa'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -141,7 +140,6 @@ interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
   handleClose: (e: any) => void
-  isMobile: boolean
   isVisible: boolean
   items: TUnits
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
@@ -151,12 +149,11 @@ interface IAllyCardProps {
   values: string[]
 }
 
-const AllyCardComponent = componentWithSize((props: IAllyCardProps) => {
+const AllyCardComponent = (props: IAllyCardProps) => {
   const {
     allyFactionName,
     allySelectOptions,
     handleClose,
-    isMobile,
     isVisible,
     items,
     setAllyFactionName,
@@ -165,9 +162,9 @@ const AllyCardComponent = componentWithSize((props: IAllyCardProps) => {
     type,
     values,
   } = props
-  const selectItems = items.map(x => x.name)
+  const selectItems = items.map(({ name }) => name)
   const selectClass = `flex-grow-1 ${!isVisible ? `text-center text-white` : ``}`
-  const headerClass = `card-header bg-secondary ${isMobile ? `pt-1 pb-2` : `pt-3 pb-2`}`
+  const headerClass = `card-header bg-secondary pt-1 pb-2`
 
   return (
     <div className="card">
@@ -205,7 +202,7 @@ const AllyCardComponent = componentWithSize((props: IAllyCardProps) => {
       </div>
     </div>
   )
-})
+}
 
 interface IAddAllySelect {
   allyFactionName: TSupportedFaction

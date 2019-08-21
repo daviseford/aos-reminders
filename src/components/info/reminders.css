@@ -10,7 +10,7 @@
     color: white;
 }
 
-.ReminderH4 {
+.CardHeaderTitle {
     margin-bottom: 0;
 }
 
@@ -36,7 +36,8 @@ small {
         font-size: 0.9rem;
     }
 
-    .ReminderH4 {
+    .CardHeaderTitle {
         font-size: 1.1rem;
+        color: black;
     }
 }
