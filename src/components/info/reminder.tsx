@@ -17,7 +17,6 @@ interface IReminderProps {
   hideOthers: (value: string) => void
   hideReminder: (value: string) => void
   hideWhen: (value: string) => void // dispatch
-  idx: number
   isMobile: boolean
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
@@ -32,7 +31,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     hideOthers,
     hideReminder,
     hideWhen,
-    idx,
     isMobile,
     showReminder,
     showWhen,
@@ -44,16 +42,15 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [hiddenReminders, when])
 
   const title = useMemo(() => titleCase(when), [when])
+  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
 
   useEffect(() => {
-    if (isMobile && idx > 0) hideWhen(title) // Hide initially on Mobile
+    if (isMobile) hideWhen(title) // Hide initially on Mobile
     return () => {
       showWhen(title) // un-hide when component unloads
     }
     // eslint-disable-next-line
-  }, [])
-
-  const isCollapsed = useMemo(() => !!hiddenWhen.find(w => title === w), [hiddenWhen, title])
+  }, [isMobile])
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)
