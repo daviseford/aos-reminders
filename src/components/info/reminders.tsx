@@ -7,7 +7,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
-import { Entry } from 'components/info/entry'
+import { Reminder } from 'components/info/reminder'
 import { without } from 'lodash'
 import { titleCase } from 'utils/titleCase'
 
@@ -57,7 +57,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     <div className="row mx-auto mt-3 d-flex justify-content-center">
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
         {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} hideOthers={hideOtherWhens} />
+          return <Reminder when={key} actions={reminders[key]} key={i} hideOthers={hideOtherWhens} />
         })}
       </div>
     </div>

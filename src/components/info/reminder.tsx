@@ -10,7 +10,7 @@ import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
 import { CardHeaderComponent } from './card'
 
-interface IEntryProps {
+interface IReminderProps {
   actions: TTurnAction[]
   hiddenReminders: string[]
   hiddenWhen: TTurnWhen[]
@@ -23,7 +23,7 @@ interface IEntryProps {
   when: string
 }
 
-const EntryComponent: React.FC<IEntryProps> = props => {
+const ReminderComponent: React.FC<IReminderProps> = props => {
   const {
     actions,
     hiddenReminders,
@@ -109,14 +109,14 @@ const mapSizesToProps = ({ width }) => ({
   isMobile: width < 480,
 })
 
-const withSize = withSizes(mapSizesToProps)(EntryComponent)
+const ReminderWithSize = withSizes(mapSizesToProps)(ReminderComponent)
 
-export const Entry = connect(
+export const Reminder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withSize)
+)(ReminderWithSize)
 
-const getTitle = ({
+const getActionTitle = ({
   artifact,
   command_ability,
   command_trait,
@@ -163,21 +163,21 @@ const ActionText = (props: IActionTextProps) => {
     <div className={`mb-2 ${!isVisible && `d-print-none`}`}>
       <div className="d-flex mb-1">
         <div className="flex-grow-1">
-          <EntryTitle {...props} />
+          <ActionTitle {...props} />
         </div>
         <div className="px-2 d-print-none">
           <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
         </div>
       </div>
 
-      {isVisible && <EntryDescription text={desc} />}
+      {isVisible && <ActionDescription text={desc} />}
     </div>
   )
 }
 
-const EntryTitle = (props: IActionTextProps) => (
+const ActionTitle = (props: IActionTextProps) => (
   <>
-    <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
+    <span className="text-muted font-weight-bold">{getActionTitle(props)} - </span>
     <b>
       {props.name && `${props.name}`}
       {props.tag && ` (${props.tag})`}
@@ -185,7 +185,7 @@ const EntryTitle = (props: IActionTextProps) => (
   </>
 )
 
-const EntryDescription = (props: { text: string }) => {
+const ActionDescription = (props: { text: string }) => {
   const splitText = props.text
     .split('\n')
     .map(t => t.trim())
