@@ -18,7 +18,7 @@ interface ICardProps {
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
   return (
-    <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3`}>
+    <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1`}>
       <div className="card">
         <CardHeader
           isMobile={isMobile}
@@ -26,7 +26,7 @@ const CardComponent: React.FC<ICardProps> = props => {
           title={title}
           headerClassName={'SelectorHeader'}
         />
-        <div className={`card-body${isVisible ? `` : ` d-none`}`}>{children}</div>
+        <div className={`card-body${isVisible ? `` : ` d-none`} py-3`}>{children}</div>
       </div>
     </div>
   )
@@ -110,7 +110,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   }, [hideCard, isMobile, title])
 
   return (
-    <div className={`card-header ${headerClassName}`}>
+    <div className={`card-header ${headerClassName} py-2`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
           <h4 className="mb-0">{title}</h4>

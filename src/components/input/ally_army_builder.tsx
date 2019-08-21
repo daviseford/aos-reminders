@@ -8,13 +8,13 @@ import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 import './army_builder.css'
 import { selections, army } from 'ducks'
 import { IconContext } from 'react-icons'
-import { FaRegWindowClose } from 'react-icons/fa'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/src/types'
 import { IStore } from 'types/store'
+import { FaTrashAlt } from 'react-icons/fa'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -78,7 +78,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         items={sortBy(allyArmy.Units, 'name')}
         setAllyFactionName={handleSetAllyFactionName}
         setValues={handleUnits}
-        type={`Unit`}
+        type={`Units`}
         values={units}
       />
     </div>
@@ -131,7 +131,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 
   return (
     <div className="card">
-      <div className="card-header bg-secondary">
+      <div className="card-header bg-secondary py-2">
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="flex-grow-1">
             <AddAllySelect
@@ -141,14 +141,14 @@ const AllyCardComponent = (props: IAllyCardProps) => {
             />
           </div>
           <div className="pl-3">
-            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
-              <FaRegWindowClose onClick={handleClose} />
+            <IconContext.Provider value={{ size: '1.4em', className: 'text-light' }}>
+              <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
         </div>
       </div>
-      <div className="card-body">
-        <h4 className="text-center">Add {type}s</h4>
+      <div className="card-body py-3">
+        <h4 className="text-center">{type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>
