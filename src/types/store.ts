@@ -1,6 +1,7 @@
 import { IArmy, TAllyArmies } from './army'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from './selections'
+import { TPhases, TTurnWhen } from './phases'
 
 export interface IArmyStore {
   army: IArmy
@@ -24,10 +25,8 @@ export interface ISelectionStore {
 }
 
 export interface IVisibilityStore {
-  reminders: {
-    items: string[]
-    hidden: boolean
-  }
+  cards: TTurnWhen[]
+  reminders: string[]
   selectors: string[]
 }
 

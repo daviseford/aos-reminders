@@ -11,13 +11,11 @@ import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { IStore } from 'types/store'
-import is from 'is_js'
-
 import withSizes from 'react-sizes'
 
 interface IArmyBuilderProps {
-  isMobile: boolean
   factionName: TSupportedFaction
+  isMobile: boolean
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
@@ -36,8 +34,8 @@ interface IArmyBuilderProps {
   updateUnits: (values: string[]) => void
 }
 
-const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
+const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
+  const { isMobile, factionName, selections, updateArmy, realmscape, realmscape_feature } = props
   const {
     allegiances,
     artifacts,
@@ -50,9 +48,6 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     triumphs,
     units,
   } = selections
-
-  console.log(is.mobile())
-  console.log(props.isMobile)
 
   const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
 
@@ -175,9 +170,9 @@ const mapSizesToProps = ({ width }) => ({
   isMobile: width < 480,
 })
 
-const componentWithSize = withSizes(mapSizesToProps)(ArmyBuilderComponent)
+const ArmyBuilderWithSize = withSizes(mapSizesToProps)(ArmyBuilderComponent)
 
 export const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(componentWithSize)
+)(ArmyBuilderWithSize)
