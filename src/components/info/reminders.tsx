@@ -1,8 +1,7 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { without, uniq } from 'lodash'
 import './reminders.css'
-import { realmscape, factionNames, selections, army } from 'ducks'
+import { realmscape, factionNames, selections, army, visibility } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
@@ -52,12 +51,20 @@ const RemindersComponent = (props: IRemindersProps) => {
   )
 }
 
-const Entry = (props: { when: string; actions: TTurnAction[] }) => {
-  const { when, actions } = props
+interface IEntryProps {
+  actions: TTurnAction[]
+  addReminder: (value: string) => void
+  deleteReminder: (value: string) => void
+  getReminders: () => string[]
+  when: string
+}
 
-  const [hidden, setHidden] = useState<string[]>([])
-  const showEntry = (name: string) => setHidden(without([...hidden], name))
-  const hideEntry = (name: string) => setHidden(uniq([...hidden, name]))
+const EntryComponent: React.FC<IEntryProps> = props => {
+  const { when, actions, addReminder, deleteReminder, getReminders } = props
+
+  const hidden = useMemo(() => {
+    return getReminders().filter(name => name.includes(when))
+  }, [getReminders, when])
 
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
@@ -66,14 +73,42 @@ const Entry = (props: { when: string; actions: TTurnAction[] }) => {
           <h4 className="ReminderH4">{titleCase(when)}</h4>
         </div>
         <div className="card-body">
-          {actions.map((action, i) => (
-            <ActionText {...action} key={i} showEntry={showEntry} hideEntry={hideEntry} />
-          ))}
+          {actions.map((action, i) => {
+            const name = `${when}_${action.name}`
+            const showEntry = () => deleteReminder(name)
+            const hideEntry = () => addReminder(name)
+            const isHidden = !!hidden.find(k => name === k)
+
+            return (
+              <ActionText
+                {...action}
+                isVisible={!isHidden}
+                hideEntry={hideEntry}
+                showEntry={showEntry}
+                key={i}
+              />
+            )
+          })}
         </div>
       </div>
     </div>
   )
 }
+
+const mapEntryStateToProps = (state: IStore, ownProps) => ({
+  ...ownProps,
+  getReminders: visibility.selectors.getReminders,
+})
+
+const mapEntryDispatchToProps = {
+  addReminder: visibility.actions.addReminder,
+  deleteReminder: visibility.actions.deleteReminder,
+}
+
+export const Entry = connect(
+  mapEntryStateToProps,
+  mapEntryDispatchToProps
+)(EntryComponent)
 
 const getTitle = ({
   artifact,
@@ -98,22 +133,22 @@ const getTitle = ({
 }
 
 interface IActionTextProps extends TTurnAction {
-  hideEntry: (name: string) => void
-  showEntry: (name: string) => void
+  hideEntry: () => void
+  showEntry: () => void
+  isVisible: boolean
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { name = '', desc, showEntry, hideEntry } = props
-  const [isVisible, setIsVisible] = useState(true)
+  const { isVisible, desc, showEntry, hideEntry } = props
+
   const handleVisibility = e => {
     e.preventDefault()
-    !isVisible ? showEntry(name) : hideEntry(name)
-    setIsVisible(!isVisible)
+    !isVisible ? showEntry() : hideEntry()
   }
 
   useEffect(() => {
     return () => {
-      showEntry(name) // Remove this from the hidden array on unload
+      showEntry() // Remove this from the hidden array on unload
     }
     // eslint-disable-next-line
   }, [])
