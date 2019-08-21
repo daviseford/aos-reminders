@@ -1,12 +1,12 @@
 import { uniq, without } from 'lodash'
 import { createSlice, createSelector } from 'redux-starter-kit'
 import { IVisibilityStore as IHiddenStore } from 'types/store'
-import { TTurnWhen } from 'types/phases'
 
 const initialState: IHiddenStore = {
-  when: [],
+  allies: [],
   reminders: [],
   selectors: [],
+  when: [],
 }
 
 const addSelector = (state: IHiddenStore, action: { payload: string }) => {
@@ -15,22 +15,28 @@ const addSelector = (state: IHiddenStore, action: { payload: string }) => {
 const deleteSelector = (state: IHiddenStore, action: { payload: string }) => {
   state.selectors = without(state.selectors, action.payload)
 }
+const addAlly = (state: IHiddenStore, action: { payload: string }) => {
+  state.allies = uniq([...state.allies, action.payload])
+}
+const deleteAlly = (state: IHiddenStore, action: { payload: string }) => {
+  state.allies = without(state.allies, action.payload)
+}
 const addReminder = (state: IHiddenStore, action: { payload: string }) => {
   state.reminders = uniq([...state.reminders, action.payload])
 }
 const deleteReminder = (state: IHiddenStore, action: { payload: string }) => {
   state.reminders = without(state.reminders, action.payload)
 }
-const addWhen = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
+const addWhen = (state: IHiddenStore, action: { payload: string }) => {
   state.when = uniq([...state.when, action.payload])
 }
-const addWhens = (state: IHiddenStore, action: { payload: TTurnWhen[] }) => {
+const addWhens = (state: IHiddenStore, action: { payload: string[] }) => {
   state.when = uniq([...state.when, ...action.payload])
 }
-const deleteWhen = (state: IHiddenStore, action: { payload: TTurnWhen }) => {
+const deleteWhen = (state: IHiddenStore, action: { payload: string }) => {
   state.when = without(state.when, action.payload)
 }
-const deleteWhens = (state: IHiddenStore, action: { payload: TTurnWhen[] }) => {
+const deleteWhens = (state: IHiddenStore, action: { payload: string[] }) => {
   state.when = without(state.when, ...action.payload)
 }
 const clearWhen = (state: IHiddenStore) => {
@@ -44,12 +50,14 @@ export const visibility = createSlice({
   slice: 'visibility',
   initialState,
   reducers: {
+    addAlly,
     addReminder,
     addSelector,
     addWhen,
     addWhens,
     clearReminder,
     clearWhen,
+    deleteAlly,
     deleteReminder,
     deleteSelector,
     deleteWhen,
@@ -57,9 +65,9 @@ export const visibility = createSlice({
   },
 })
 
-visibility.selectors.getWhen = createSelector(
-  ['visibility.when'],
-  when => when
+visibility.selectors.getAllies = createSelector(
+  ['visibility.allies'],
+  allies => allies
 )
 
 visibility.selectors.getReminders = createSelector(
@@ -70,4 +78,9 @@ visibility.selectors.getReminders = createSelector(
 visibility.selectors.getSelectors = createSelector(
   ['visibility.selectors'],
   selectors => selectors
+)
+
+visibility.selectors.getWhen = createSelector(
+  ['visibility.when'],
+  when => when
 )

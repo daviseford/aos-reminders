@@ -25,7 +25,8 @@ export interface ISelectionStore {
 }
 
 export interface IVisibilityStore {
-  when: TTurnWhen[]
+  allies: string[]
+  when: string[]
   reminders: string[]
   selectors: string[]
 }
