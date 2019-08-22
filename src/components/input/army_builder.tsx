@@ -64,7 +64,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
 
   return (
     <div className={rowClass}>
-      <div className="col col-lg-10 col-xl-6 card-group mx-auto">
+      <div className="col col-lg-10 col-xl-8 card-group mx-auto">
         <CardMultiSelect
           items={army.Units}
           setValues={withSelectMultiple(props.updateUnits)}
