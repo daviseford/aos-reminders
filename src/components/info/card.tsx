@@ -107,23 +107,27 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     if (isMobile && title !== 'Units') hideCard(title)
   }, [hideCard, isMobile, title])
 
+  const styles = useMemo(() => {
+    return {
+      cardHeader: `card-header ${headerClassName} py-${isMobile ? 3 : 2}`,
+      flexClass: `flex-grow-1 text-center ${!isMobile && `pl-5`}`,
+      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`}`,
+      vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+    }
+  }, [isMobile, headerClassName])
+
   return (
-    <div className={`card-header ${headerClassName} py-2`}>
-      <div className="d-flex justify-content-center">
-        <div className="flex-grow-1 text-center pl-5">
+    <div className={styles.cardHeader} onClick={handleVisibility}>
+      <div className={styles.flexWrapperClass}>
+        <div className={styles.flexClass}>
           {isMobile ? (
             <h5 className="CardHeaderTitle text-nowrap">{title}</h5>
           ) : (
             <h4 className="CardHeaderTitle">{title}</h4>
           )}
         </div>
-        <div className="px-2 d-print-none">
-          <VisibilityToggle
-            isVisible={isVisible}
-            setVisibility={handleVisibility}
-            size={iconSize}
-            type={type}
-          />
+        <div className={styles.vizWrapper}>
+          <VisibilityToggle isVisible={isVisible} size={iconSize} type={type} />
         </div>
       </div>
     </div>
