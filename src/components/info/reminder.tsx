@@ -52,6 +52,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     if (isMobile) hideOthers(title)
   }, [title, showWhen, hideOthers, isMobile])
 
+  const bodyClass = `card-body ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
+
   return (
     <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
       <div className="card border-dark my-2 mx-1">
@@ -64,7 +66,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
           iconSize={1.2}
           isMobile={isMobile}
         />
-        <div className={`card-body ${isVisible ? `` : `d-none d-print-block`}`}>
+        <div className={bodyClass}>
           {actions.map((action, i) => {
             const name = `${when}_${action.name}`
             const showEntry = () => showReminder(name)

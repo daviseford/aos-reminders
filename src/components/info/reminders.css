@@ -32,6 +32,21 @@ small {
 } */
 
 @media print {
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    .ReminderHeader {
+        background-color: white;
+        color: black;
+    }
+
+    .ReminderCardBody {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
     .ReminderEntry {
         font-size: 0.9rem;
     }
@@ -40,4 +55,5 @@ small {
         font-size: 1.1rem;
         color: black;
     }
+    
 }
