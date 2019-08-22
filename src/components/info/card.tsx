@@ -18,8 +18,9 @@ interface ICardProps {
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
   const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
-  const colClass = `col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
+  const colMobile = isMobile && !isVisible ? `col-6 px-1` : `col-12 px-1`
 
+  const colClass = `${colMobile} col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
   return (
     <div className={colClass}>
       <div className="card">
@@ -110,7 +111,11 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     <div className={`card-header ${headerClassName} py-2`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
-          <h4 className="CardHeaderTitle">{title}</h4>
+          {isMobile ? (
+            <h5 className="CardHeaderTitle text-nowrap">{title}</h5>
+          ) : (
+            <h4 className="CardHeaderTitle">{title}</h4>
+          )}
         </div>
         <div className="px-2 d-print-none">
           <VisibilityToggle
