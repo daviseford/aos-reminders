@@ -1,42 +1,39 @@
-import { TBattalions, TUnits } from 'types/army'
-import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
-import StormcastEternals from 'army/stormcast_eternals'
+import { removeUnits } from 'utils/filterUtils'
+import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth'
 import KharadronOverlords from 'army/kharadron_overlords'
-import Fyreslayers from 'army/fyreslayers'
+import StormcastEternals from 'army/stormcast_eternals'
+import { TBattalions, TUnits } from 'types/army'
+import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 
 // Importing valid SCE units.
 // All units valid except Hammers of Sigmar (named).
 const getStormcastUnits = () => {
   const listOfUnits = [
-    `Aventis Firestrike`,
     `Astreia Solbright`,
-    `Vandus Hammerhand`,
-    `Neave Blacktalon`,
+    `Aventis Firestrike`,
     `Gavriel Sureheart`,
+    `Neave Blacktalon`,
     `Steelheart's Champions`,
     `The Farstriders`,
+    `Vandus Hammerhand`,
   ]
-  return StormcastEternals.Units.filter(({ name }) => !listOfUnits.includes(name))
+  return removeUnits(StormcastEternals.Units, listOfUnits)
 }
 
 // Importing valid IDK units.
 // All units valid except Volturnos.
 const getIdonethUnits = () => {
-  const listOfUnits = [`Volturnos, High King of the Deep`]
-  return IdonethDeepkin.Units.filter(({ name }) => !listOfUnits.includes(name))
+  return removeUnits(IdonethDeepkin.Units, [`Volturnos, High King of the Deep`])
 }
 
 // Importing valid KO units.
-const getKharadronUnits = () => {
-  return KharadronOverlords.Units
-}
+const getKharadronUnits = () => KharadronOverlords.Units
 
 // Importing valid FS units.
-// All units valid except Chosen Axes.
+// All units valid except Fjul-Grimnir and Chosen Axes.
 const getFyreslayerUnits = () => {
-  const listOfUnits = [`Fjul-Grimnir`, `The Chosen Axes`]
-  return Fyreslayers.Units.filter(unit => !listOfUnits.includes(unit.name))
+  return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
 }
 
 // Unit Names

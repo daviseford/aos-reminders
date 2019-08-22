@@ -1,3 +1,4 @@
+import { filterUnits } from 'utils/filterUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -25,14 +26,14 @@ export const getNighthauntUnits = () => {
     `Grimghast Reapers`,
     `Guardian of Souls`,
     `Hexwraiths`,
-    `Knight of Shrouds`,
     `Knight of Shrouds on Ethereal Steed`,
+    `Knight of Shrouds`,
     `Lord Executioner`,
     `Spirit Hosts`,
     `Spirit Torment`,
     `Tomb Banshee`,
   ]
-  return Units.filter(({ name }) => listOfUnits.includes(name))
+  return filterUnits(Units, listOfUnits)
 }
 
 // Unit Names
