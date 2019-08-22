@@ -11,12 +11,14 @@ import { ISelections } from 'types/selections'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms, SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { IStore } from 'types/store'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IArmyBuilderProps {
   factionName: TSupportedFaction
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
+  isMobile: boolean
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void
@@ -32,8 +34,8 @@ interface IArmyBuilderProps {
   updateUnits: (values: string[]) => void
 }
 
-const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
-  const { factionName, selections, updateArmy, realmscape, realmscape_feature } = props
+const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
+  const { factionName, selections, isMobile, updateArmy, realmscape, realmscape_feature } = props
   const {
     allegiances,
     artifacts,
@@ -53,87 +55,88 @@ const ArmyBuilderComponent = (props: IArmyBuilderProps) => {
     updateArmy(army)
   }, [army, updateArmy])
 
-  // Might want to useCallback these guys
-  const handleAllegiances = withSelectMultiple(props.updateAllegiances)
-  const handleArtifacts = withSelectMultiple(props.updateArtifacts)
-  const handleBattalions = withSelectMultiple(props.updateBattalions)
-  const handleCommands = withSelectMultiple(props.updateCommands)
-  const handleEndlessSpells = withSelectMultiple(props.updateEndlessSpells)
-  const handleRealmscape = withSelectOne(props.setRealmscape)
-  const handleRealmscapeFeature = withSelectOne(props.setRealmscapeFeature)
-  const handleScenery = withSelectMultiple(props.updateScenery)
-  const handleSpells = withSelectMultiple(props.updateSpells)
-  const handleTraits = withSelectMultiple(props.updateTraits)
-  const handleTriumphs = withSelectMultiple(props.updateTriumphs)
-  const handleUnits = withSelectMultiple(props.updateUnits)
-
   const realmFeatureItems = useMemo(() => {
     const features = RealmscapeFeatures.map(x => x.name)
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
+  const rowClass = useMemo(() => `row d-print-none pb-1 ${!isMobile ? `pt-2` : ``}`, [isMobile])
+
   return (
-    <div className="container">
-      <div className="row d-print-none pb-3">
-        <div className="col card-group mx-auto">
-          <CardMultiSelect items={army.Units} values={units} title={'Units'} setValues={handleUnits} />
-          <CardMultiSelect items={army.Traits} title={'Traits'} values={traits} setValues={handleTraits} />
-          <CardMultiSelect
-            items={army.Artifacts}
-            title={'Artifacts'}
-            values={artifacts}
-            setValues={handleArtifacts}
-          />
-          <CardMultiSelect
-            items={army.Battalions}
-            values={battalions}
-            title={'Battalions'}
-            setValues={handleBattalions}
-          />
-          <CardMultiSelect
-            items={army.Allegiances}
-            values={allegiances}
-            title={'Allegiances'}
-            setValues={handleAllegiances}
-          />
-          <CardMultiSelect items={army.Spells} values={spells} title={'Spells'} setValues={handleSpells} />
-          <CardMultiSelect
-            items={army.EndlessSpells}
-            values={endless_spells}
-            title={'Endless Spells'}
-            setValues={handleEndlessSpells}
-          />
-          <CardMultiSelect
-            items={army.Scenery}
-            values={scenery}
-            title={'Scenery'}
-            setValues={handleScenery}
-          />
-          <CardMultiSelect
-            items={army.Commands}
-            values={commands}
-            title={'Commands'}
-            setValues={handleCommands}
-          />
-          <CardMultiSelect
-            items={army.Triumphs}
-            values={triumphs}
-            title={'Triumphs'}
-            setValues={handleTriumphs}
-          />
-          <CardSingleSelect
-            value={realmscape || null}
-            title={`Realmscape`}
-            setValue={handleRealmscape}
-            items={SUPPORTED_REALMSCAPES}
-          />
-          <CardSingleSelect
-            value={realmscape_feature || null}
-            title={`Realm Feature`}
-            setValue={handleRealmscapeFeature}
-            items={realmFeatureItems}
-          />
-        </div>
+    <div className={rowClass}>
+      <div className="col col-lg-10 col-xl-6 card-group mx-auto">
+        <CardMultiSelect
+          items={army.Units}
+          setValues={withSelectMultiple(props.updateUnits)}
+          title={'Units'}
+          values={units}
+        />
+        <CardMultiSelect
+          items={army.Traits}
+          setValues={withSelectMultiple(props.updateTraits)}
+          title={'Traits'}
+          values={traits}
+        />
+        <CardMultiSelect
+          items={army.Artifacts}
+          setValues={withSelectMultiple(props.updateArtifacts)}
+          title={'Artifacts'}
+          values={artifacts}
+        />
+        <CardMultiSelect
+          items={army.Battalions}
+          setValues={withSelectMultiple(props.updateBattalions)}
+          title={'Battalions'}
+          values={battalions}
+        />
+        <CardMultiSelect
+          items={army.Allegiances}
+          setValues={withSelectMultiple(props.updateAllegiances)}
+          title={'Allegiances'}
+          values={allegiances}
+        />
+        <CardMultiSelect
+          items={army.Spells}
+          setValues={withSelectMultiple(props.updateSpells)}
+          title={'Spells'}
+          values={spells}
+        />
+        <CardMultiSelect
+          items={army.EndlessSpells}
+          setValues={withSelectMultiple(props.updateEndlessSpells)}
+          title={'Endless Spells'}
+          values={endless_spells}
+        />
+        <CardMultiSelect
+          items={army.Scenery}
+          setValues={withSelectMultiple(props.updateScenery)}
+          title={'Scenery'}
+          values={scenery}
+        />
+        <CardMultiSelect
+          items={army.Commands}
+          setValues={withSelectMultiple(props.updateCommands)}
+          title={'Commands'}
+          values={commands}
+        />
+        <CardMultiSelect
+          items={army.Triumphs}
+          setValues={withSelectMultiple(props.updateTriumphs)}
+          title={'Triumphs'}
+          values={triumphs}
+        />
+        <CardSingleSelect
+          items={SUPPORTED_REALMSCAPES}
+          setValue={withSelectOne(props.setRealmscape)}
+          title={`Realmscape`}
+          value={realmscape || null}
+        />
+        <CardSingleSelect
+          items={realmFeatureItems}
+          setValue={withSelectOne(props.setRealmscapeFeature)}
+          title={`Realm Feature`}
+          value={realmscape_feature || null}
+        />
       </div>
     </div>
   )
@@ -166,4 +169,4 @@ const mapDispatchToProps = {
 export const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArmyBuilderComponent)
+)(componentWithSize(ArmyBuilderComponent))

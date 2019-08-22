@@ -1,7 +1,9 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { componentWithSize } from 'utils/mapSizesToProps'
+import './card.css'
 import { visibility } from 'ducks'
-import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
@@ -10,15 +12,24 @@ import { IStore } from 'types/store'
 interface ICardProps {
   title: string
   isVisible: boolean
+  isMobile: boolean
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
-  const { title, isVisible, children } = props
+  const { title, isVisible, isMobile, children } = props
+  const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
+  const colClass = `col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
+
   return (
-    <div className={`col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-3`}>
+    <div className={colClass}>
       <div className="card">
-        <CardHeader isVisible={isVisible} title={title} />
-        <div className={`card-body${isVisible ? `` : ` d-none`}`}>{children}</div>
+        <CardHeader
+          isMobile={isMobile}
+          isVisible={isVisible}
+          title={title}
+          headerClassName={'SelectorHeader'}
+        />
+        <div className={bodyClass}>{children}</div>
       </div>
     </div>
   )
@@ -26,6 +37,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 
 interface ICardMultiProps {
   hiddenSelectors: string[] // state2props
+  isMobile: boolean
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   title: string
@@ -33,13 +45,13 @@ interface ICardMultiProps {
 }
 
 const CardMultiComponent = (props: ICardMultiProps) => {
-  const { items, setValues, values, hiddenSelectors, title } = props
+  const { items, setValues, values, hiddenSelectors, title, isMobile } = props
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
 
   if (!items.length) return null
   return (
-    <CardComponent title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
       <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
     </CardComponent>
   )
@@ -47,6 +59,7 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
 interface ICardSingleSelectProps {
   hiddenSelectors: string[] // state2props
+  isMobile: boolean
   items: string[]
   setValue: TSelectOneSetValueFn
   title: string
@@ -54,42 +67,58 @@ interface ICardSingleSelectProps {
 }
 
 const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const { setValue, items, title, value = null, hiddenSelectors } = props
+  const { setValue, items, title, value = null, hiddenSelectors, isMobile } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
 
   return (
-    <CardComponent title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
       <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
     </CardComponent>
   )
 }
 
 interface ICardHeaderProps {
-  hideSelector: (value: string) => void // dispatch2props
+  headerClassName?: string
+  hideCard: (value: string) => void
+  iconSize?: number
+  isMobile: boolean
   isVisible: boolean
-  showSelector: (value: string) => void // dispatch2props
+  showCard: (value: string) => void
   title: string
+  type?: TVisibilityIconType
 }
 
-const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isVisible, hideSelector, showSelector } = props
+export const CardHeaderComponent = (props: ICardHeaderProps) => {
+  const {
+    title,
+    isMobile,
+    isVisible,
+    hideCard,
+    showCard,
+    type = 'minus',
+    headerClassName = '',
+    iconSize = 1,
+  } = props
 
-  const handleVisibility = useCallback(
-    e => {
-      e.preventDefault()
-      return isVisible ? hideSelector(title) : showSelector(title)
-    },
-    [isVisible, showSelector, hideSelector, title]
-  )
+  const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
+
+  useEffect(() => {
+    if (isMobile && title !== 'Units') hideCard(title)
+  }, [hideCard, isMobile, title])
 
   return (
-    <div className="card-header">
+    <div className={`card-header ${headerClassName} py-2`}>
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1 text-center pl-5">
-          <h4 className="mb-0">{title}</h4>
+          <h4 className="CardHeaderTitle">{title}</h4>
         </div>
         <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} size={1} type={'fold'} />
+          <VisibilityToggle
+            isVisible={isVisible}
+            setVisibility={handleVisibility}
+            size={iconSize}
+            type={type}
+          />
         </div>
       </div>
     </div>
@@ -97,8 +126,8 @@ const CardHeaderComponent = (props: ICardHeaderProps) => {
 }
 
 const mapDispatchToProps = {
-  hideSelector: visibility.actions.addSelector,
-  showSelector: visibility.actions.deleteSelector,
+  hideCard: visibility.actions.addSelector,
+  showCard: visibility.actions.deleteSelector,
 }
 
 const mapStateToProps = (state: IStore, ownProps) => ({
@@ -113,10 +142,10 @@ const CardHeader = connect(
 
 export const CardMultiSelect = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(CardMultiComponent)
+  null
+)(componentWithSize(CardMultiComponent))
 
 export const CardSingleSelect = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(CardSingleSelectComponent)
+  null
+)(componentWithSize(CardSingleSelectComponent))

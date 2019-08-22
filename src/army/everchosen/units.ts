@@ -1,3 +1,4 @@
+import { filterUnits } from 'utils/filterUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -11,10 +12,7 @@ import {
 } from 'types/phases'
 
 // Export Chaos god aligned Everchosen units.
-export const getEverchosenUnits = () => {
-  const listOfUnits = [`Archaon`]
-  return Units.filter(({ name }) => listOfUnits.includes(name))
-}
+export const getEverchosenUnits = () => filterUnits(Units, [`Archaon`])
 
 // Unit Names
 export const Units: TUnits = [

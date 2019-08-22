@@ -90,16 +90,31 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Feeding Frenzy`,
+    name: `Ferocious Hunger`,
     effects: [
       {
-        name: `Feeding Frenzy`,
-        desc: `Casting value of 6. If successfully cast, until your next hero phase you can re-roll all failed wound rolls for FLESH-EATER COURTS models from your army within 10" of the caster in the combat phase.`,
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Feeding Frenzy`,
-        desc: `If successfully cast, you can re-roll all failed wound rolls for FLESH-EATER COURTS models from your army within 10" of the caster in the combat phase.`,
+        name: `Ferocious Hunger`,
+        desc: `If successfully cast, add the D3 roll to the Attacks characteristic of melee weapons used by that unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Malefic Hunger`,
+    effects: [
+      {
+        name: `Malefic Hunger`,
+        desc: `Casting value of 6. If successfully cast, until your next hero phase you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Malefic Hunger`,
+        desc: `If successfully cast, you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
         when: [COMBAT_PHASE],
       },
     ],

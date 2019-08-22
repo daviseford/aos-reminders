@@ -1,25 +1,29 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useCallback, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { without, uniq } from 'lodash'
-import './reminders.css'
-import { realmscape, factionNames, selections, army } from 'ducks'
+import { without } from 'lodash'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/titleCase'
-import { VisibilityToggle } from 'components/info/visibilityToggle'
+import './reminders.css'
+import { realmscape, factionNames, selections, army, visibility } from 'ducks'
+import { Reminder } from 'components/info/reminder'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
-import { TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
-  allySelections: { [key: string]: IAllySelections }
   allyFactionNames: TSupportedFaction[]
+  allySelections: { [key: string]: IAllySelections }
   army: IArmy
   factionName: TSupportedFaction
+  hideWhens: (values: string[]) => void
+  isMobile: boolean
   realmscape_feature: string
   selections: ISelections
+  showWhen: (value: string) => void
+  visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
@@ -29,8 +33,12 @@ const RemindersComponent = (props: IRemindersProps) => {
     allySelections,
     army,
     factionName,
+    hideWhens,
+    isMobile,
     realmscape_feature,
     selections,
+    showWhen,
+    visibleWhens,
   } = props
 
   const reminders = useMemo(() => {
@@ -41,123 +49,54 @@ const RemindersComponent = (props: IRemindersProps) => {
     return processReminders(army, factionName, selections, realmscape_feature, allyData)
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
+  const whens = useMemo(() => Object.keys(reminders), [reminders])
+  const titles = useMemo(() => whens.map(titleCase), [whens])
+
+  const hideOtherWhens = useCallback(
+    (title: string) => {
+      const others = without(titles, title)
+      return hideWhens(others)
+    },
+    [hideWhens, titles]
+  )
+
+  const [firstLoad, setFirstLoad] = useState(true)
+
+  useEffect(() => {
+    setFirstLoad(true)
+  }, [factionName])
+
+  useEffect(() => {
+    // Remove orphaned phases
+    // (phases where the rules have been removed via army_builder)
+    const orphans = without(visibleWhens, ...titles)
+    if (orphans.length) hideWhens(orphans)
+
+    // If we're on mobile AND it's our first load of a new army AND
+    // we have no phases displayed AND there are phases that could be displayed
+    if (isMobile && firstLoad && !visibleWhens.length && titles.length) {
+      setFirstLoad(false)
+      showWhen(titles[0]) // Show the first phase
+    }
+  }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
+
   return (
-    <div className="row w-75 mx-auto mt-3 d-block">
-      <div>
-        {Object.keys(reminders).map((key, i) => {
-          return <Entry when={key} actions={reminders[key]} key={i} />
+    <div className="row mx-auto mt-3 d-flex justify-content-center">
+      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
+        {whens.map((when, i) => {
+          return (
+            <Reminder
+              isMobile={isMobile}
+              when={when}
+              actions={reminders[when]}
+              key={i}
+              hideOthers={hideOtherWhens}
+              idx={i}
+            />
+          )
         })}
       </div>
     </div>
-  )
-}
-
-const Entry = (props: { when: string; actions: TTurnAction[] }) => {
-  const { when, actions } = props
-
-  const [hidden, setHidden] = useState<string[]>([])
-  const showEntry = (name: string) => setHidden(without([...hidden], name))
-  const hideEntry = (name: string) => setHidden(uniq([...hidden, name]))
-
-  return (
-    <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
-      <div className="card border-dark my-3">
-        <div className="card-header text-center">
-          <h4 className="ReminderHeader">{titleCase(when)}</h4>
-        </div>
-        <div className="card-body">
-          {actions.map((action, i) => (
-            <ActionText {...action} key={i} showEntry={showEntry} hideEntry={hideEntry} />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const getTitle = ({
-  artifact,
-  command_ability,
-  command_trait,
-  condition,
-  endless_spell,
-  name,
-  scenery,
-  spell,
-  triumph,
-}: TTurnAction): string => {
-  const suffix = name === condition ? `` : `: ${condition}`
-  if (artifact) return `Artifact${suffix}`
-  if (command_ability) return `Command Ability${suffix}`
-  if (command_trait) return `Command Trait${suffix}`
-  if (endless_spell) return `Endless Spell${suffix}`
-  if (scenery) return `Scenery${suffix}`
-  if (spell) return `Spell${suffix}`
-  if (triumph) return `Triumph${suffix}`
-  return condition
-}
-
-interface IActionTextProps extends TTurnAction {
-  hideEntry: (name: string) => void
-  showEntry: (name: string) => void
-}
-
-const ActionText = (props: IActionTextProps) => {
-  const { name = '', desc, showEntry, hideEntry } = props
-  const [isVisible, setIsVisible] = useState(true)
-  const handleVisibility = e => {
-    e.preventDefault()
-    !isVisible ? showEntry(name) : hideEntry(name)
-    setIsVisible(!isVisible)
-  }
-
-  useEffect(() => {
-    return () => {
-      showEntry(name) // Remove this from the hidden array on unload
-    }
-    // eslint-disable-next-line
-  }, [])
-
-  return (
-    <div className={`ReminderEntry mb-2 ${!isVisible && `d-print-none`}`}>
-      <div className="d-flex mb-1">
-        <div className="flex-grow-1">
-          <EntryTitle {...props} />
-        </div>
-        <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
-        </div>
-      </div>
-
-      {isVisible && <EntryDescription text={desc} />}
-    </div>
-  )
-}
-
-const EntryTitle = (props: IActionTextProps) => (
-  <>
-    <span className="text-muted font-weight-bold">{getTitle(props)} - </span>
-    <b>
-      {props.name && `${props.name}`}
-      {props.tag && ` (${props.tag})`}
-    </b>
-  </>
-)
-
-const EntryDescription = (props: { text: string }) => {
-  const splitText = props.text
-    .split('\n')
-    .map(t => t.trim())
-    .filter(t => !!t)
-
-  return (
-    <>
-      {splitText.map((text, i) => (
-        <p className="EntryText" key={i}>
-          {text}
-        </p>
-      ))}
-    </>
   )
 }
 
@@ -168,11 +107,17 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
+  visibleWhens: visibility.selectors.getWhen(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   selections: selections.selectors.getSelections(state),
 })
 
+const mapDispatchToProps = {
+  hideWhens: visibility.actions.deleteWhens,
+  showWhen: visibility.actions.addWhen,
+}
+
 export const Reminders = connect(
   mapStateToProps,
-  null
-)(RemindersComponent)
+  mapDispatchToProps
+)(componentWithSize(RemindersComponent))
