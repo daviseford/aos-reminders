@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { IconContext, IconType } from 'react-icons'
-import { MdVisibility, MdVisibilityOff, MdUnfoldLess, MdUnfoldMore } from 'react-icons/md'
+import {
+  MdExpandMore,
+  MdRemove,
+  MdUnfoldLess,
+  MdUnfoldMore,
+  MdVisibility,
+  MdVisibilityOff,
+} from 'react-icons/md'
 
-type TIconType = 'eye' | 'fold'
+export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
   isVisible: boolean
-  setVisibility: (e) => void
+  setVisibility: () => void
   size?: number
-  type?: TIconType
+  type?: TVisibilityIconType
+  className?: string
 }
 
-const icons: { [key in TIconType]: { visible: IconType; hidden: IconType } } = {
+const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconType } } = {
   eye: {
     visible: MdVisibility,
     hidden: MdVisibilityOff,
@@ -20,17 +28,28 @@ const icons: { [key in TIconType]: { visible: IconType; hidden: IconType } } = {
     visible: MdUnfoldLess,
     hidden: MdUnfoldMore,
   },
+  minus: {
+    visible: MdRemove,
+    hidden: MdExpandMore,
+  },
 }
 
 export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
-  const { isVisible, setVisibility, size = 1.4, type = 'eye' } = props
+  const { isVisible, setVisibility, size = 1.4, type = 'eye', className = '' } = props
   const icon = icons[type]
   const VisibilityComponent = isVisible ? icon.visible : icon.hidden
+  const handleSetVisibility = useCallback(
+    e => {
+      e.preventDefault()
+      return setVisibility()
+    },
+    [setVisibility]
+  )
 
   return (
     <>
-      <IconContext.Provider value={{ size: `${size}em` }}>
-        <VisibilityComponent onClick={setVisibility} />
+      <IconContext.Provider value={{ size: `${size}em`, className }}>
+        <VisibilityComponent onClick={handleSetVisibility} />
       </IconContext.Provider>
     </>
   )

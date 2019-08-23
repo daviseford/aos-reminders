@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, COMBAT_PHASE } from 'types/phases'
 
 const Spells: TSpells = [
   {
@@ -61,6 +61,61 @@ const Spells: TSpells = [
         
         Then, for each mortal wound that was inflicted on the enemy unit, you can heal 1 wound allocated to the friendly unit. If the friendly unit has a Wounds characteristic of 1, for each mortal wound that was inflicted on the enemy unit, you can return 1 slain model to the friendly unit instead.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Black Hunger`,
+    effects: [
+      {
+        name: `Black Hunger`,
+        desc: `Casting value of 5. If successfully cast, pick a FLESH-EATER COURTS unit within 18". Add 1 to the Attacks characteristic of any melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Black Hunger`,
+        desc: `If successfully cast, add 1 to the Attacks characteristic of any melee weapons used by the chosen unit until your next hero phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Unholy Vitality`,
+    effects: [
+      {
+        name: `Unholy Vitality`,
+        desc: `Casting value of 6. If successfully cast, pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a dice each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ferocious Hunger`,
+    effects: [
+      {
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ferocious Hunger`,
+        desc: `If successfully cast, add the D3 roll to the Attacks characteristic of melee weapons used by that unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Malefic Hunger`,
+    effects: [
+      {
+        name: `Malefic Hunger`,
+        desc: `Casting value of 6. If successfully cast, until your next hero phase you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Malefic Hunger`,
+        desc: `If successfully cast, you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

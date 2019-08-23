@@ -6,15 +6,16 @@ import { titleCase } from 'utils/titleCase'
 import { logAllyFaction } from 'utils/analytics'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 import './army_builder.css'
-import { selections, army } from 'ducks'
+import { selections, army, visibility } from 'ducks'
 import { IconContext } from 'react-icons'
-import { FaRegWindowClose } from 'react-icons/fa'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/src/types'
 import { IStore } from 'types/store'
+import { FaTrashAlt } from 'react-icons/fa'
+import { VisibilityToggle } from 'components/info/visibilityToggle'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -22,10 +23,13 @@ interface IAllyArmyBuilderProps {
   allySelectOptions: TSupportedFaction[] // parent
   deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
   deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
+  hideAlly: (value: string) => void // dispatch2Props
   resetAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
+  showAlly: (value: string) => void // dispatch2Props
   switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction }) => void // dispatch2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
+  visibleAllies: string[] // state2Props
 }
 
 const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
@@ -35,11 +39,15 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     allySelectOptions,
     deleteAllyArmy,
     deleteAllySelection,
+    hideAlly,
     resetAllySelection,
+    showAlly,
     switchAllyArmy,
     updateAllyArmy,
     updateAllyUnits,
+    visibleAllies,
   } = props
+
   const { units = [] } = allySelections[allyFactionName]
 
   const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
@@ -51,9 +59,11 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   const handleSetAllyFactionName = withSelectOne((value: string | null) => {
     const next = value as TSupportedFaction
     deleteAllySelection(allyFactionName)
+    hideAlly(allyFactionName)
     resetAllySelection(next)
     logAllyFaction(next)
     switchAllyArmy({ prev: allyFactionName, next })
+    showAlly(next)
   })
 
   const handleClose = useCallback(
@@ -61,13 +71,29 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
       e.preventDefault()
       deleteAllySelection(allyFactionName)
       deleteAllyArmy(allyFactionName)
+      hideAlly(allyFactionName)
     },
-    [allyFactionName, deleteAllyArmy, deleteAllySelection]
+    [allyFactionName, deleteAllyArmy, deleteAllySelection, hideAlly]
   )
 
   useEffect(() => {
     updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
   }, [allyArmy, updateAllyArmy, allyFactionName])
+
+  const isVisible = useMemo(() => !!visibleAllies.find(a => a === allyFactionName), [
+    allyFactionName,
+    visibleAllies,
+  ])
+
+  // Show ally when first clicked
+  useEffect(() => {
+    showAlly(allyFactionName)
+  }, [allyFactionName, showAlly])
+
+  const setVisibility = useCallback(
+    () => (isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
+    [isVisible, hideAlly, showAlly, allyFactionName]
+  )
 
   return (
     <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
@@ -78,8 +104,10 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         items={sortBy(allyArmy.Units, 'name')}
         setAllyFactionName={handleSetAllyFactionName}
         setValues={handleUnits}
-        type={`Unit`}
+        type={`Units`}
         values={units}
+        isVisible={isVisible}
+        setVisibility={setVisibility}
       />
     </div>
   )
@@ -89,12 +117,15 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyFactionNames: selections.selectors.getAllyFactionNames(state),
   allySelections: selections.selectors.getAllySelections(state),
+  visibleAllies: visibility.selectors.getAllies(state),
 })
 
 const mapDispatchToProps = {
   deleteAllyArmy: army.actions.deleteAllyArmy,
   deleteAllySelection: selections.actions.deleteAllySelection,
+  hideAlly: visibility.actions.deleteAlly,
   resetAllySelection: selections.actions.resetAllySelection,
+  showAlly: visibility.actions.addAlly,
   switchAllyArmy: army.actions.switchAllyArmy,
   updateAllyArmy: army.actions.updateAllyArmy,
   updateAllyUnits: selections.actions.updateAllyUnits,
@@ -109,46 +140,64 @@ interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
   handleClose: (e: any) => void
+  isVisible: boolean
   items: TUnits
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  setVisibility: () => void
   type: string
   values: string[]
 }
 
 const AllyCardComponent = (props: IAllyCardProps) => {
   const {
-    items,
-    type,
-    setValues,
-    values,
-    setAllyFactionName,
-    allySelectOptions,
     allyFactionName,
+    allySelectOptions,
     handleClose,
+    isVisible,
+    items,
+    setAllyFactionName,
+    setValues,
+    setVisibility,
+    type,
+    values,
   } = props
-  const selectItems = items.map(x => x.name)
+  const selectItems = items.map(({ name }) => name)
+  const selectClass = `flex-grow-1 ${!isVisible ? `text-center text-white` : ``}`
+  const headerClass = `card-header bg-secondary pt-1 pb-2`
 
   return (
     <div className="card">
-      <div className="card-header bg-secondary">
+      <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
-          <div className="flex-grow-1">
-            <AddAllySelect
-              allyFactionName={allyFactionName}
-              items={allySelectOptions}
-              setAllyFactionName={setAllyFactionName}
-            />
+          <div className="pr-3">
+            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
+              <FaTrashAlt onClick={handleClose} />
+            </IconContext.Provider>
+          </div>
+          <div className={selectClass}>
+            {isVisible ? (
+              <AddAllySelect
+                allyFactionName={allyFactionName}
+                items={allySelectOptions}
+                setAllyFactionName={setAllyFactionName}
+              />
+            ) : (
+              <h5 className="mb-0">Ally: {titleCase(allyFactionName)}</h5>
+            )}
           </div>
           <div className="pl-3">
-            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
-              <FaRegWindowClose onClick={handleClose} />
-            </IconContext.Provider>
+            <VisibilityToggle
+              isVisible={isVisible}
+              setVisibility={setVisibility}
+              className={`text-light`}
+              type={'minus'}
+            />
           </div>
         </div>
       </div>
-      <div className="card-body">
-        <h4 className="text-center">Add {type}s</h4>
+      <div className={`card-body py-3 ${isVisible ? `` : `d-none`}`}>
+        <h4 className="text-center">{type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>

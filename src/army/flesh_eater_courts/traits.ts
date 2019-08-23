@@ -182,10 +182,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Dark Acoloyte (Nobility)`,
+    name: `Dark Acolyte (Nobility)`,
     effects: [
       {
-        name: `Dark Acoloyte (Nobility)`,
+        name: `Dark Acolyte (Nobility)`,
         desc: `This general gains the WIZARD keyword and can cast and unbind spells in the same manner as an ABHORRANT GHOUL KING from the Abhorrant Ghoul King warscroll.`,
         when: [HERO_PHASE],
       },
