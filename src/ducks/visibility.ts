@@ -1,45 +1,77 @@
 import { uniq, without } from 'lodash'
 import { createSlice, createSelector } from 'redux-starter-kit'
-import { IVisibilityStore } from 'types/store'
+import { IVisibilityStore as IHiddenStore } from 'types/store'
 
-const initialState: IVisibilityStore = {
-  reminders: {
-    items: [],
-    hidden: false,
-  },
+const initialState: IHiddenStore = {
+  allies: [],
+  reminders: [],
   selectors: [],
+  when: [],
 }
 
-const addReminder = (state: IVisibilityStore, action: { payload: string }) => {
-  state.reminders.items = uniq([...state.reminders.items, action.payload])
-}
-const addSelector = (state: IVisibilityStore, action: { payload: string }) => {
+const addSelector = (state: IHiddenStore, action: { payload: string }) => {
   state.selectors = uniq([...state.selectors, action.payload])
 }
-const deleteReminder = (state: IVisibilityStore, action: { payload: string }) => {
-  state.reminders.items = without(state.reminders.items, action.payload)
-}
-const deleteSelector = (state: IVisibilityStore, action: { payload: string }) => {
+const deleteSelector = (state: IHiddenStore, action: { payload: string }) => {
   state.selectors = without(state.selectors, action.payload)
 }
-const toggleVisibility = (state: IVisibilityStore) => {
-  state.reminders.hidden = !state.reminders.hidden
+const addAlly = (state: IHiddenStore, action: { payload: string }) => {
+  state.allies = uniq([...state.allies, action.payload])
+}
+const deleteAlly = (state: IHiddenStore, action: { payload: string }) => {
+  state.allies = without(state.allies, action.payload)
+}
+const addReminder = (state: IHiddenStore, action: { payload: string }) => {
+  state.reminders = uniq([...state.reminders, action.payload])
+}
+const deleteReminder = (state: IHiddenStore, action: { payload: string }) => {
+  state.reminders = without(state.reminders, action.payload)
+}
+const addWhen = (state: IHiddenStore, action: { payload: string }) => {
+  state.when = uniq([...state.when, action.payload])
+}
+const addWhens = (state: IHiddenStore, action: { payload: string[] }) => {
+  state.when = uniq([...state.when, ...action.payload])
+}
+const deleteWhen = (state: IHiddenStore, action: { payload: string }) => {
+  state.when = without(state.when, action.payload)
+}
+const deleteWhens = (state: IHiddenStore, action: { payload: string[] }) => {
+  state.when = without(state.when, ...action.payload)
+}
+const clearWhen = (state: IHiddenStore) => {
+  state.when = initialState.when
+}
+const clearReminder = (state: IHiddenStore) => {
+  state.reminders = initialState.reminders
 }
 
 export const visibility = createSlice({
   slice: 'visibility',
   initialState,
   reducers: {
+    addAlly,
     addReminder,
     addSelector,
+    addWhen,
+    addWhens,
+    clearReminder,
+    clearWhen,
+    deleteAlly,
     deleteReminder,
     deleteSelector,
-    toggleVisibility,
+    deleteWhen,
+    deleteWhens,
   },
 })
 
+visibility.selectors.getAllies = createSelector(
+  ['visibility.allies'],
+  allies => allies
+)
+
 visibility.selectors.getReminders = createSelector(
-  ['visibility.reminders.items'],
+  ['visibility.reminders'],
   reminders => reminders
 )
 
@@ -48,7 +80,7 @@ visibility.selectors.getSelectors = createSelector(
   selectors => selectors
 )
 
-visibility.selectors.getVisibility = createSelector(
-  ['visibility.reminders.hidden'],
-  hidden => hidden
+visibility.selectors.getWhen = createSelector(
+  ['visibility.when'],
+  when => when
 )

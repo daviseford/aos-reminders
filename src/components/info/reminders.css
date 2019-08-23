@@ -6,6 +6,11 @@
 }
 
 .ReminderHeader {
+    background-color: #063647;
+    color: white;
+}
+
+.CardHeaderTitle {
     margin-bottom: 0;
 }
 
@@ -27,11 +32,28 @@ small {
 } */
 
 @media print {
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    .ReminderHeader {
+        background-color: white;
+        color: black;
+    }
+
+    .ReminderCardBody {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
     .ReminderEntry {
         font-size: 0.9rem;
     }
 
-    .ReminderHeader {
+    .CardHeaderTitle {
         font-size: 1.1rem;
+        color: black;
     }
+    
 }

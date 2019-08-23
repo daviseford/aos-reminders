@@ -4,11 +4,11 @@ import { TEndlessSpells } from 'types/army'
 // Endless spells.
 const EndlessSpells: TEndlessSpells = [
   {
-    name: `Wheels of Excruciation (Slaanesh)`,
+    name: `Wheels of Excruciation`,
     effects: [
       {
         name: `Predatory`,
-        desc: `Wheels of Excruciation can move up to 12" and can fly.`,
+        desc: `Can move up to 12" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
@@ -29,11 +29,11 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Mesmerising Mirror (Slaanesh)`,
+    name: `Mesmerising Mirror`,
     effects: [
       {
         name: `Predatory`,
-        desc: `Mesmerising Mirror can move up to 6" and can fly.`,
+        desc: `Can move up to 6" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
@@ -56,11 +56,11 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Dreadful Visage (Slaanesh)`,
+    name: `Dreadful Visage`,
     effects: [
       {
         name: `Predatory`,
-        desc: `Dreadful Visage can move up to 8" and can fly.`,
+        desc: `Can move up to 8" and can fly.`,
         when: [START_OF_ROUND],
       },
       {
