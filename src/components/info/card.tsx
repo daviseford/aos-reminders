@@ -110,8 +110,8 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   const styles = useMemo(() => {
     return {
       cardHeader: `card-header ${headerClassName} py-${isMobile ? 3 : 2}`,
-      flexClass: `flex-grow-1 text-center ${!isMobile && `pl-5`}`,
-      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`}`,
+      flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
+      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
       vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
     }
   }, [isMobile, headerClassName])
@@ -123,7 +123,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
           {isMobile ? (
             <h5 className="CardHeaderTitle text-nowrap">{title}</h5>
           ) : (
-            <h4 className="CardHeaderTitle">{title}</h4>
+            <h4 className="CardHeaderTitle text-nowrap">{title}</h4>
           )}
         </div>
         <div className={styles.vizWrapper}>

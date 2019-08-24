@@ -10,9 +10,6 @@
     color: white;
 }
 
-.CardHeaderTitle {
-    margin-bottom: 0;
-}
 
 small {
     font-size: 12px;
@@ -51,9 +48,5 @@ small {
         font-size: 0.9rem;
     }
 
-    .CardHeaderTitle {
-        font-size: 1.1rem;
-        color: black;
-    }
-    
+
 }
