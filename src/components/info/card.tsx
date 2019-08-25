@@ -18,7 +18,7 @@ interface ICardProps {
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
   const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
-  const colMobile = isMobile && !isVisible ? `col-6 px-1` : `col-12 px-1`
+  const colMobile = isMobile && !isVisible ? `col w-50 px-1` : `col-12 px-1`
 
   const colClass = `${colMobile} col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
   return (

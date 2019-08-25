@@ -8,18 +8,18 @@
     margin-bottom: 0;
 }
 
-@media (max-width: 374px) {
-    .CardHeaderTitle {
-        font-size: 0.8rem;
-    }
-}
-
 @media (max-width: 395px) {
     .CardHeaderTitle {
         font-size: 1.1rem;
     }
 }
 
+
+@media (max-width: 374px) {
+    .CardHeaderTitle {
+        font-size: 0.8rem;
+    }
+}
 
 @media print {
     .CardHeaderTitle {
