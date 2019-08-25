@@ -33,6 +33,7 @@ export type TStormcastEternals = 'STORMCAST_ETERNALS'
 export type TSylvaneth = 'SYLVANETH'
 export type TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export type TTzeentch = 'TZEENTCH'
+export type TWanderers = 'WANDERERS'
 
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
@@ -67,6 +68,7 @@ export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
+export const WANDERERS: TWanderers = 'WANDERERS'
 
 // Supported Factions
 export type TSupportedFaction =
@@ -102,6 +104,7 @@ export type TSupportedFaction =
   | TSylvaneth
   | TTamurkhansHorde
   | TTzeentch
+  | TWanderers
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
@@ -136,4 +139,5 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   SYLVANETH,
   TAMURKHANS_HORDE,
   TZEENTCH,
+  WANDERERS,
 ])
