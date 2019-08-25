@@ -148,7 +148,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spore Squig`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -303,7 +303,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Squigs Go Wild`,
-        desc: `Roll a dice each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
+        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -443,7 +443,7 @@ export const Units: TUnits = [
       },
       {
         name: `Squigs Go Wild`,
-        desc: `Roll a dice each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
+        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -468,7 +468,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crazed Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 6, that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 6, that unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -539,7 +539,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Touched by the Spider God`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -715,12 +715,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `Roll a dice for each Sourbreath Troggoth in each of your hero phases. On a 2+ that model heals D3 wounds.`,
+        desc: `Roll a D6 for each Sourbreath Troggoth in each of your hero phases. On a 2+ that model heals D3 wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Too Dumb to Die`,
-        desc: `Roll a dice each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -735,7 +735,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stony Skin`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {

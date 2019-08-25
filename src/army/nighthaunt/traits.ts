@@ -37,7 +37,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Spiteful Spirit`,
-        desc: `Roll a dice each time you allocate a wound to this general that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        desc: `Roll a D6 each time you allocate a wound to this general that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
     ],

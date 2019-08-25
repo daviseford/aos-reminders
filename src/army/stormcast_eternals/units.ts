@@ -76,7 +76,7 @@ export const Units: TUnits = [
       },
       {
         name: `Meteoric Strike`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -177,7 +177,7 @@ export const Units: TUnits = [
       },
       {
         name: `Storm Breath`,
-        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a dice for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -326,7 +326,7 @@ export const Units: TUnits = [
       },
       {
         name: `Meteoric Strike`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -347,7 +347,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lightning Orb`,
-        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Roll a dice for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -389,7 +389,7 @@ export const Units: TUnits = [
       },
       {
         name: `Storm Lance`,
-        desc: `Casting value of 5. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a dice for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a D6 for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -485,7 +485,7 @@ export const Units: TUnits = [
       },
       {
         name: `Storm Breath`,
-        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a dice for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -546,7 +546,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Heavens`,
-        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a dice for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a dice for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -648,7 +648,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Redemptor Casket`,
-        desc: `Roll a dice for each DAEMON or NIGHTHAUNT unit within 6" of this model. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each DAEMON or NIGHTHAUNT unit within 6" of this model. On a 4+ that unit suffers 1 mortal wound.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -870,7 +870,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Heavens`,
-        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a dice for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a dice for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -990,7 +990,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1015,7 +1015,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1065,7 +1065,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a dice. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {

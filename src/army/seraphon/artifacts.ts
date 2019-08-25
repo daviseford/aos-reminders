@@ -13,7 +13,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Zoetic Dial`,
-        desc: `Roll a dice after set-up is complete, but before the battle begins. In the battle round corresponding to the number you roll, you can re-roll failed save rolls for the bearer. If you roll a 6, you can decide to use this ability at the start of any one battle round, rather than having to use it in the 6th battle round.`,
+        desc: `Roll a D6 after set-up is complete, but before the battle begins. In the battle round corresponding to the number you roll, you can re-roll failed save rolls for the bearer. If you roll a 6, you can decide to use this ability at the start of any one battle round, rather than having to use it in the 6th battle round.`,
         when: [DURING_GAME],
       },
     ],
@@ -23,7 +23,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Incandescent Rectrices`,
-        desc: `Roll a dice the first time a wound is allocated to the bearer that would slay them. On a 1-2 the bearer is slain. On a 3+ heal D6 wounds allocated to the bearer instead.`,
+        desc: `Roll a D6 the first time a wound is allocated to the bearer that would slay them. On a 1-2 the bearer is slain. On a 3+ heal D6 wounds allocated to the bearer instead.`,
         when: [DURING_GAME],
       },
     ],

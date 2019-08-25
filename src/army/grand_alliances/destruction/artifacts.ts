@@ -18,7 +18,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Battered Talisman (${DESTRUCTION})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+, the mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, the mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

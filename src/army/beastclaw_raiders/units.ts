@@ -97,7 +97,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -126,7 +126,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -206,7 +206,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -226,7 +226,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a dice; on 1, 2 or a 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a D6; on 1, 2 or a 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -310,7 +310,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Heart-numbing Chill`,
-        desc: `Roll a dice in each of your hero phases for each enemy unit within 3" of at least one of your Torbadd Thundertusks. Add 1 to the result of this dice roll for each additional Torrbad Thundertusk that is within 3" of the unit being rolled for. On a 6 the unit suffers a mortal wound, on a 7 it suffers D3 mortal wounds and on an 8 or more it suffers D6 mortal wounds.`,
+        desc: `Roll a D6 in each of your hero phases for each enemy unit within 3" of at least one of your Torbadd Thundertusks. Add 1 to the result of this dice roll for each additional Torrbad Thundertusk that is within 3" of the unit being rolled for. On a 6 the unit suffers a mortal wound, on a 7 it suffers D3 mortal wounds and on an 8 or more it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

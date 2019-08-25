@@ -139,7 +139,7 @@ export const Units: TUnits = [
       },
       {
         name: `Orruk-forged Shields!`,
-        desc: `Roll a dice before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
+        desc: `Roll a D6 before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -285,7 +285,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dakkbad's Cunning`,
-        desc: `Roll a dice after set-up is complete, but before the battle begins. On a 2+ subtract 1 from hit rolls for enemy units in the first battle round.`,
+        desc: `Roll a D6 after set-up is complete, but before the battle begins. On a 2+ subtract 1 from hit rolls for enemy units in the first battle round.`,
         when: [END_OF_SETUP],
       },
       {

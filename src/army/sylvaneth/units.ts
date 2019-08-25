@@ -59,7 +59,7 @@ export const Units: TUnits = [
       },
       {
         name: `Living Battering Ram`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {

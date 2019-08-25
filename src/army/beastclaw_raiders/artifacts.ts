@@ -33,7 +33,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Pelt of Charngar`,
-        desc: `Roll a dice at the start of each of your hero phases. On a 1, 2 or 3 the bearer of the Pelt of Charngar heals 1 wound, but on a 4, 5 or 6 he heals D3 wounds.`,
+        desc: `Roll a D6 at the start of each of your hero phases. On a 1, 2 or 3 the bearer of the Pelt of Charngar heals 1 wound, but on a 4, 5 or 6 he heals D3 wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -73,7 +73,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Helwinter Vambrace (Svard Alfrostun)`,
-        desc: `Roll a dice each time the bearer suffers a mortal wound; on a 5 or more that wound is ignored.`,
+        desc: `Roll a D6 each time the bearer suffers a mortal wound; on a 5 or more that wound is ignored.`,
         when: [DURING_GAME],
       },
     ],

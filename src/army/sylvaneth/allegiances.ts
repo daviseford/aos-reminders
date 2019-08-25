@@ -33,7 +33,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dawnflask`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
         artifact: true,
       },
@@ -140,7 +140,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `My Heart Is Ice`,
-        desc: `Roll a dice each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {

@@ -19,7 +19,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Arcane Suggestion`,
-        desc: `Casting value of 7.  If successfully cast, pick an enemy unit (not a hero or monster) within 18" of the caster.  Roll a dice and follow the D3 result:
+        desc: `Casting value of 7.  If successfully cast, pick an enemy unit (not a hero or monster) within 18" of the caster.  Roll a D6 and follow the D3 result:
                1 -  The unit immeadiately suffers D3 mortal wounds.
                2 -  Until the end of this turn, subtract 1 from hit and wound rolls for the unit.
                3 -  Until the end of this turn, subtract 1 from the save rolls for the unit.`,
@@ -86,7 +86,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Treason of Tzeentch`,
-        desc: `Casting value of 5.  If successfully cast, pick an enemy unit with 2 or more models within 18" of the caster that is visible to them. Roll a dice for each model in the unit you picked. It suffers 1 mortal wound for each dice roll of 6 or more. If, after any of the mortal wounds caused by this spell are allocated, only one model remains in the unit, any remaining mortal wounds caused by this spell are negated and have no effect.`,
+        desc: `Casting value of 5.  If successfully cast, pick an enemy unit with 2 or more models within 18" of the caster that is visible to them. Roll a D6 for each model in the unit you picked. It suffers 1 mortal wound for each dice roll of 6 or more. If, after any of the mortal wounds caused by this spell are allocated, only one model remains in the unit, any remaining mortal wounds caused by this spell are negated and have no effect.`,
         when: [HERO_PHASE],
       },
     ],
@@ -116,7 +116,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Fold Reality`,
-        desc: `Casting value of 7.  If successfully cast, pick a friendly unit of Tzeentch Daemons within 18" of the caster and visible to them.  Roll a dice and on a 2+ you can return that many slain models to the unit.  On a 1, the entire unit is slain.`,
+        desc: `Casting value of 7.  If successfully cast, pick a friendly unit of Tzeentch Daemons within 18" of the caster and visible to them.  Roll a D6 and on a 2+ you can return that many slain models to the unit.  On a 1, the entire unit is slain.`,
         when: [HERO_PHASE],
       },
     ],

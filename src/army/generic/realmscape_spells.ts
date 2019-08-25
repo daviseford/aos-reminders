@@ -47,7 +47,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Fiery Blast (${AQSHY})`,
-        desc: `Casting value of 7. If successfully cast, pick a point on the battlefield within 18" of the caster that is visible to them. Roll a dice for each unit (friend or foe) within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. If successfully cast, pick a point on the battlefield within 18" of the caster that is visible to them. Roll a D6 for each unit (friend or foe) within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -57,7 +57,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Glare of Vulcatrix (${AQSHY})`,
-        desc: `Casting value of 8. If successfully cast, pick an enemy unit within 9" of the caster that is visible to them. Roll a dice; if the result is higher than the unit's Wounds characteristic, a model from that unit is slain.`,
+        desc: `Casting value of 8. If successfully cast, pick an enemy unit within 9" of the caster that is visible to them. Roll a D6; if the result is higher than the unit's Wounds characteristic, a model from that unit is slain.`,
         when: [HERO_PHASE],
       },
     ],
@@ -142,7 +142,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Rule of Burning Iron (${CHAMON})`,
-        desc: `Casting value of 8. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. Roll a dice for each model in that unit. For each 6+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 8. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. Roll a D6 for each model in that unit. For each 6+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -277,7 +277,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Whipvines (${GHYRAN})`,
-        desc: `Casting value of 5. If successfully cast, pick a point on the battlefield within 18" of the caster that is visible to them. Roll a dice for each enemy unit within 3" of this point. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, pick a point on the battlefield within 18" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -382,7 +382,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Aetheric Net (${HYSH})`,
-        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 18" of the caster. Roll a dice for each unit (friend or foe) within 3" of that point. On a 4+ that unit suffers 1 mortal wound, and its Move characteristic is halved until your next hero phase.`,
+        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 18" of the caster. Roll a D6 for each unit (friend or foe) within 3" of that point. On a 4+ that unit suffers 1 mortal wound, and its Move characteristic is halved until your next hero phase.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
       },
     ],

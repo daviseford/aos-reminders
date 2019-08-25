@@ -142,7 +142,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Stonehorn Blade (${GHUR})`,
-        desc: `Roll a dice at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -257,7 +257,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Tuskhelm (${GHUR})`,
-        desc: `Roll a dice for each enemy unit within 1" of the bearer after the bearer completes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit within 1" of the bearer after the bearer completes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -357,7 +357,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Godwrought Helm (${CHAMON})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -477,7 +477,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Ignax's Scales (${AQSHY})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -587,7 +587,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Sepulchral Plate (${SHYISH})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -707,7 +707,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Wristbands of Illusion (${ULGU})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -727,7 +727,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Betrayer's Crown (${ULGU})`,
-        desc: `Once per battle, at the start of the combat phase, pick an enemy unit within 3" of the bearer that has two or more models. Roll a dice for each model in that enemy unit. For each 5+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Once per battle, at the start of the combat phase, pick an enemy unit within 3" of the bearer that has two or more models. Roll a D6 for each model in that enemy unit. For each 5+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -827,7 +827,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Mirrored Cuirass (${HYSH})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated. On a 6+ you can also pick an enemy unit within 6" of the bearer. That unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated. On a 6+ you can also pick an enemy unit within 6" of the bearer. That unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],

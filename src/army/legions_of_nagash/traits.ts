@@ -381,7 +381,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `The Master's Teachings (Legin of Sacrament)`,
-        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a dice, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
+        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a D6, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
         when: [DURING_GAME],
       },
     ],
@@ -441,7 +441,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Deathless Thralls (Soulblight)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],

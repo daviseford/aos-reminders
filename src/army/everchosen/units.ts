@@ -21,7 +21,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Eye of Sheerian`,
-        desc: `Roll a dice and note the result.  Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
+        desc: `Roll a D6 and note the result.  Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
         when: [HERO_PHASE],
       },
       {
@@ -41,7 +41,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -66,7 +66,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Everchosen`,
-        desc: `Roll a dice if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
+        desc: `Roll a D6 if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
         when: [DURING_GAME],
       },
       {
@@ -132,7 +132,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpsteel Shields`,
-        desc: `Roll a dice if this unit is affect by a spell cast by an enemy wizard.  If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
+        desc: `Roll a D6 if this unit is affect by a spell cast by an enemy wizard.  If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
         when: [HERO_PHASE],
       },
       {

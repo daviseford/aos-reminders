@@ -88,12 +88,12 @@ export const Units: TUnits = [
       },
       {
         name: `Bloodgruel`,
-        desc: `Roll a dice each time a Butcher successfully casts or unbinds a spell (roll after resolving the effects of the spell). On a 2 or more, the Butcher heals 1 wound. On a roll of 1, however, the Butcher chokes on whatever gobbet of flesh he was ramming down his throat and suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a Butcher successfully casts or unbinds a spell (roll after resolving the effects of the spell). On a 2 or more, the Butcher heals 1 wound. On a roll of 1, however, the Butcher chokes on whatever gobbet of flesh he was ramming down his throat and suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
       {
         name: `Voracious Maw`,
-        desc: `Casting value 7. Pick a unit within 18" that is visible to the caster. That unit suffers D3 mortal wounds. Roll a dice after resolving any damage; on a 1, 2 or 3 the maw emits a satisfied burp and then disappears. On any other roll it chomps again, inflicting another D3 mortal wounds on the unit. Repeat until unit failure or unit death.`,
+        desc: `Casting value 7. Pick a unit within 18" that is visible to the caster. That unit suffers D3 mortal wounds. Roll a D6 after resolving any damage; on a 1, 2 or 3 the maw emits a satisfied burp and then disappears. On any other roll it chomps again, inflicting another D3 mortal wounds on the unit. Repeat until unit failure or unit death.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -129,7 +129,7 @@ export const Units: TUnits = [
       },
       {
         name: `Great Beast Skull`,
-        desc: `Roll a dice whenever an enemy model flees whilst its unit is within 6" of any Great Beast Skulls from your army. On a 6, another model immediately flees from that unit.`,
+        desc: `Roll a D6 whenever an enemy model flees whilst its unit is within 6" of any Great Beast Skulls from your army. On a 6, another model immediately flees from that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -159,12 +159,12 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Maw Bearer`,
-        desc: `Roll a dice whenever an enemy model flees whilst its unit is within 6" of any Rune Maw Bearers from your army. On a 6, another model immediately flees from that unit.`,
+        desc: `Roll a D6 whenever an enemy model flees whilst its unit is within 6" of any Rune Maw Bearers from your army. On a 6, another model immediately flees from that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Rune Maw Bearer`,
-        desc: `Roll a dice if an enemy spell affects an Ironguts unit with any Rune Maw Bearers. On a roll of a 6, that spell has no affect on the Ironguts.`,
+        desc: `Roll a D6 if an enemy spell affects an Ironguts unit with any Rune Maw Bearers. On a roll of a 6, that spell has no affect on the Ironguts.`,
         when: [HERO_PHASE],
       },
       {
@@ -254,7 +254,7 @@ export const Units: TUnits = [
       },
       {
         name: `Trappers`,
-        desc: `Roll a dice each time an enemy unit finishes a charge move within 3" of a unit of Grots; on a 6 that unit immediately suffers D3 mortal wounds.`,
+        desc: `Roll a D6 each time an enemy unit finishes a charge move within 3" of a unit of Grots; on a 6 that unit immediately suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],

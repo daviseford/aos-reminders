@@ -100,7 +100,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -130,7 +130,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon Bearer`,
-        desc: `Roll a dice if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -182,7 +182,7 @@ export const Units: TUnits = [
         name: `Old Grumblers`,
         desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
         
-        "I thought duardin were made of sterner stuff!": Roll a dice each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
+        "I thought duardin were made of sterner stuff!": Roll a D6 each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
         
         "Who does this beardling think he is?": Friendly DISPOSSESSED HEROES within 8" of this unit are treated as if they were your general when working out the range of command abilities.
         
@@ -201,7 +201,7 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer: Runic Icon`,
-        desc: `Roll a dice if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -231,7 +231,7 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer: Runic Icon`,
-        desc: `Roll a dice if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer: Runic Icon`,
-        desc: `Roll a dice if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {

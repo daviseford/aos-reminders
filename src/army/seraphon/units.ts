@@ -82,7 +82,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Configuration`,
-        desc: `Roll a dice and see which constellation is in the ascendant, and how it affects your army.
+        desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
         
         1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
         3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells. 
@@ -272,7 +272,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Rites`,
-        desc: `Roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
+        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -287,7 +287,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Rites`,
-        desc: `Roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
+        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -467,12 +467,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Deadly Cargo`,
-        desc: `Once per game, the unit can drop its boulders onto an enemy unit it moves over during the movement phase. Roll a dice for each Terradon in this unit; for each result of 4 or more, the enemy unit is struck by an exploding boulder and suffers D3 mortal wounds.`,
+        desc: `Once per game, the unit can drop its boulders onto an enemy unit it moves over during the movement phase. Roll a D6 for each Terradon in this unit; for each result of 4 or more, the enemy unit is struck by an exploding boulder and suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Sunleech Bolas`,
-        desc: `If an attack made with a Sunleech Bolas scores a hit, the projectile bursts and spreads flames among the foe. Roll a dice and make that many wound rolls.`,
+        desc: `If an attack made with a Sunleech Bolas scores a hit, the projectile bursts and spreads flames among the foe. Roll a D6 and make that many wound rolls.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -532,7 +532,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `It Burns!`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered any wounds from a Salamander's Stream of Fire in that phase. If the result is 4 or higher, the unit suffers D3 mortal wounds as the corrosive liquid eats through armour, flesh and bone.`,
+        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered any wounds from a Salamander's Stream of Fire in that phase. If the result is 4 or higher, the unit suffers D3 mortal wounds as the corrosive liquid eats through armour, flesh and bone.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {

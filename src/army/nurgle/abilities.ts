@@ -11,7 +11,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Cycle of Corruption`,
-    desc: `Roll a dice to determine the starting stage of corruption.`,
+    desc: `Roll a D6 to determine the starting stage of corruption.`,
     when: [TURN_ONE_START_OF_ROUND],
   },
   {

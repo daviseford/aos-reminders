@@ -185,7 +185,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Murderous to the Last`,
-        desc: `Roll a dice each time a model from this unit is slain by an attack made with a melee weapon, before that model is removed from play. On a 5+ pick 1 enemy unit within 1" of the slain model. That unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        desc: `Roll a D6 each time a model from this unit is slain by an attack made with a melee weapon, before that model is removed from play. On a 5+ pick 1 enemy unit within 1" of the slain model. That unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -416,7 +416,7 @@ export const KhorneUnits: TUnits = [
     effects: [
       {
         name: `Brass-clad Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -735,7 +735,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Runemarked Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a model armed with a Runemarked Shield that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a model armed with a Runemarked Shield that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -886,7 +886,7 @@ export const KhorneUnits: TUnits = [
     effects: [
       {
         name: `Bloody Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {

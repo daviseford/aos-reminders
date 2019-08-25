@@ -24,7 +24,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Truth Revealed.`,
-        desc: `Roll a dice and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
+        desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -199,7 +199,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bladed Impact`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -329,7 +329,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bladed Impact`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -390,7 +390,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bladed Impact`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units.  On a 2+ that nearest enemy suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -400,7 +400,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aura of Agony`,
-        desc: `Roll a dice for each enemy unit within 7" of any friendly Bloodwrack Shrines.  If the dice roll is greater than or equal to the score listed in the damage table, that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 7" of any friendly Bloodwrack Shrines.  If the dice roll is greater than or equal to the score listed in the damage table, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {

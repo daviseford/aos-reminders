@@ -30,7 +30,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Amulet of Dark Fire`,
-        desc: `Roll a dice each time the bearer is allocated a mortal wound inflicted by an enemy spell.  On a 4+ that wound is negated.`,
+        desc: `Roll a D6 each time the bearer is allocated a mortal wound inflicted by an enemy spell.  On a 4+ that wound is negated.`,
         when: [HERO_PHASE],
         artifact: true,
       },

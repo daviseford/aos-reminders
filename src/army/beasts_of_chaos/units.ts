@@ -344,7 +344,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spurting Bile Blood`,
-        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -499,7 +499,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arcanite Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {

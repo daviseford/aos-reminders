@@ -19,7 +19,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `We Cannot Fail`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -47,7 +47,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Martyr's Strength`,
-        desc: `Roll a dice if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all melee weapons, before it is removed from play.`,
+        desc: `Roll a D6 if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all melee weapons, before it is removed from play.`,
         when: [COMBAT_PHASE],
       },
       {

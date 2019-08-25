@@ -48,7 +48,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ossific Diadem (Nagash)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATHRATTLE model within 12" of the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATHRATTLE model within 12" of the bearer. On a 6+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -108,7 +108,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wristbands of Black Gold (Sacrament)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer in the shooting phase. On a 4+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the shooting phase. On a 4+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -128,7 +128,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Black Gem (Sacrament)`,
-        desc: `Once per battle, in your hero phase, you can declare that the bearer will shatter the Black Gem. Pick a point on the battlefield within 8" of the bearer. Roll a dice for each unit within 3" of this point. On a 6+, one model from that unit is slain. If the unit has any models with wounds allocated to it, then that model must be the model that is slain.`,
+        desc: `Once per battle, in your hero phase, you can declare that the bearer will shatter the Black Gem. Pick a point on the battlefield within 8" of the bearer. Roll a D6 for each unit within 3" of this point. On a 6+, one model from that unit is slain. If the unit has any models with wounds allocated to it, then that model must be the model that is slain.`,
         when: [HERO_PHASE],
       },
     ],
@@ -178,7 +178,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Oubliette Arcana (Blood)`,
-        desc: `When an enemy WIZARD successfully casts a spell within 30" of the bearer, instead of attempting to unbind it you can declare that the Oubliette Arcana will attempt to capture the magical energies. Roll a dice. On a 6+ the spell is negated and has no effect. In addition, that spell may not be cast again by that WIZARD for the rest of the battle.`,
+        desc: `When an enemy WIZARD successfully casts a spell within 30" of the bearer, instead of attempting to unbind it you can declare that the Oubliette Arcana will attempt to capture the magical energies. Roll a D6. On a 6+ the spell is negated and has no effect. In addition, that spell may not be cast again by that WIZARD for the rest of the battle.`,
         when: [HERO_PHASE],
       },
     ],

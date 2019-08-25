@@ -78,7 +78,7 @@ export const SlaaneshUnits: TUnits = [
       ...KeeperOfSecretsBaseEffects,
       {
         name: `Shining Aegis`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -198,12 +198,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Swallow Energy`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Horrible Fascination`,
-        desc: `Roll a dice for each enemy unit that is within 6" of any friendly models with this ability.  On a 4+, that unit fights at the end of that combat phase, after the players have picked any other units to fight with in that combat phase. If a unit that is affected by this ability is also affected by any rules that would allow it to fight at the start of the combat phase, that unit is not affected by this rule or those other rules (the effects cancel each other out).`,
+        desc: `Roll a D6 for each enemy unit that is within 6" of any friendly models with this ability.  On a 4+, that unit fights at the end of that combat phase, after the players have picked any other units to fight with in that combat phase. If a unit that is affected by this ability is also affected by any rules that would allow it to fight at the start of the combat phase, that unit is not affected by this rule or those other rules (the effects cancel each other out).`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -263,7 +263,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Inhuman Reflexes`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -273,7 +273,7 @@ export const SlaaneshUnits: TUnits = [
     effects: [
       {
         name: `Lightning Reflexes`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -303,7 +303,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -333,7 +333,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Mutilating Blades`,
-        desc: `Roll a dice for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -358,7 +358,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -378,7 +378,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Mutilating Blades`,
-        desc: `Roll a dice for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.  If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.  If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -393,12 +393,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Excess of Blades`,
-        desc: `Roll a dice for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -423,12 +423,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Excess of Blades`,
-        desc: `Roll a dice for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a dice for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -577,7 +577,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ruling Cabal`,
-        desc: `Roll a dice.  If the roll is less than or equal to the number of heroes from this battalion that are on the battlefield, you receive 1 command point.`,
+        desc: `Roll a D6.  If the roll is less than or equal to the number of heroes from this battalion that are on the battlefield, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

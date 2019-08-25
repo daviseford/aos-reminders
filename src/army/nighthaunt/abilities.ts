@@ -16,7 +16,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Deathless Spirit`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from a unit wholly within 12" of your general or a friendly NIGHTHAUNT HERO. On a 6+, that wound or mortal wound is negated.`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from a unit wholly within 12" of your general or a friendly NIGHTHAUNT HERO. On a 6+, that wound or mortal wound is negated.`,
     when: [COMBAT_PHASE],
   },
   {

@@ -32,7 +32,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hellshard Amulet`,
-        desc: `Roll a dice each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {

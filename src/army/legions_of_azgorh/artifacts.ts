@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Bazherak the Cruel`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
         when: [HERO_PHASE, SHOOTING_PHASE, CHARGE_PHASE, COMBAT_PHASE],
       },
     ],

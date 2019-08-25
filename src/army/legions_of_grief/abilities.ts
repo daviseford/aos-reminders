@@ -12,7 +12,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Deathless Minions`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,
     when: [COMBAT_PHASE],
   },
   {

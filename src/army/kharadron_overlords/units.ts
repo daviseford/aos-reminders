@@ -26,7 +26,7 @@ export const Units: TUnits = [
       },
       {
         name: `Supercharged Harness:`,
-        desc: `Roll a dice. 1 = suffer a mortal wound. 3+ = Aethermight Hammer damage is 3 for this phase.`,
+        desc: `Roll a D6. 1 = suffer a mortal wound. 3+ = Aethermight Hammer damage is 3 for this phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -86,7 +86,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aetherstorm`,
-        desc: `Roll a dice. 3+ = All enemy flyers halve movement if they start within 18" till next hero phase.`,
+        desc: `Roll a D6. 3+ = All enemy flyers halve movement if they start within 18" till next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -184,7 +184,7 @@ export const Units: TUnits = [
       },
       {
         name: `Supercharged Harness`,
-        desc: `Roll a dice; 1 = suffer a mortal wound, 3+ = damage for Aethermatic Saw = 3.`,
+        desc: `Roll a D6; 1 = suffer a mortal wound, 3+ = damage for Aethermatic Saw = 3.`,
         when: [COMBAT_PHASE],
       },
       {

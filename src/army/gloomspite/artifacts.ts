@@ -36,7 +36,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Loonstone Talisman`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -166,7 +166,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Shiny Wotnot`,
-        desc: `Roll a dice each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was inflicted by an endless spell, on a 6+ that mortal wound is negated, and that endless spell is dispelled (any other mortal wounds it could have inflicted are negated).`,
+        desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was inflicted by an endless spell, on a 6+ that mortal wound is negated, and that endless spell is dispelled (any other mortal wounds it could have inflicted are negated).`,
         when: [HERO_PHASE],
       },
     ],
@@ -176,7 +176,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Glowy Howzit`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 4+ that wound is negated. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+ that wound is negated. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
         when: [DURING_GAME],
       },
     ],

@@ -32,7 +32,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Suspicious Stone (Masterclan)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -92,7 +92,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Warpstone Armour (Skryre)`,
-        desc: `Roll a dice each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],

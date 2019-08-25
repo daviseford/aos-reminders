@@ -24,7 +24,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Rod of Misrule (Invaders Host)`,
-        desc: `Roll a dice, on a 1 your opponent receives 1 command point.  On a 2-5 you receive 1 command point.  On a 6 you receive D3 command points.`,
+        desc: `Roll a D6, on a 1 your opponent receives 1 command point.  On a 2-5 you receive 1 command point.  On a 6 you receive D3 command points.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -221,7 +221,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Erapturing Cirlet (Godseekers Host)`,
-        desc: `Roll a dice for each enemy unit within 3" of the bearer.  On a 2+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit within 3" of the bearer.  On a 2+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

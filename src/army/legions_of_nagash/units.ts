@@ -303,7 +303,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Pestilential Breath`,
-        desc: `Roll a dice when you attack with the Zombie Dragon's Pestilential Breath. If the result is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        desc: `Roll a D6 when you attack with the Zombie Dragon's Pestilential Breath. If the result is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -690,7 +690,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Pestilential Breath`,
-        desc: `Roll a dice when you attack with the Zombie Dragon's Pestilential Breath. If the roll is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
+        desc: `Roll a D6 when you attack with the Zombie Dragon's Pestilential Breath. If the roll is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
         when: [SHOOTING_PHASE],
       },
     ],

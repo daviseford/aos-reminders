@@ -119,7 +119,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Amaranthine Orb (Vampires)`,
-        desc: `Casting value of 7. If successfully cast, pick a point on the battlefield within 12" of the caster and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Roll a dice for each unit (friend or foe, apart from the caster) that has any models beneath this line. On a 4+ that unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 7. If successfully cast, pick a point on the battlefield within 12" of the caster and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Roll a D6 for each unit (friend or foe, apart from the caster) that has any models beneath this line. On a 4+ that unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

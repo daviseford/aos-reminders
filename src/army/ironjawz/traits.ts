@@ -34,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Roll a dice at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
+        desc: `Roll a D6 at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],

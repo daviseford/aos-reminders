@@ -25,7 +25,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Starfall`,
-        desc: `Casting value of 5. Pick a point on the battlefield within 12" and visible to caster. Roll a dice for each enemy unit within 3" of that point. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. Pick a point on the battlefield within 12" and visible to caster. Roll a D6 for each enemy unit within 3" of that point. On a 4+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -35,7 +35,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Thundershock`,
-        desc: `Casting value of 6. Roll a dice for each enemy unit within 6" of the caster that is visible to them. On a 4+ that unit suffers 1 mortal wound. In addition subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6. Roll a D6 for each enemy unit within 6" of the caster that is visible to them. On a 4+ that unit suffers 1 mortal wound. In addition subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -65,7 +65,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Stormcaller`,
-        desc: `Casting value of 7. Roll a dice for each enemy unit on the battlefield. On a 6+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Roll a D6 for each enemy unit on the battlefield. On a 6+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

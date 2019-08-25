@@ -123,7 +123,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blood-forged Armour`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -133,7 +133,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Brazen Rune`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -253,7 +253,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Scorn`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. Add 2 to the roll if that wound or mortal wound was caused by a spell. On a 6+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. Add 2 to the roll if that wound or mortal wound was caused by a spell. On a 6+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

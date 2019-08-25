@@ -6,7 +6,7 @@ import { START_OF_SETUP, DURING_GAME, START_OF_HERO_PHASE } from 'types/phases'
 const EthericVortexEffects = [
   {
     name: `Guardians of the Deep`,
-    desc: `Roll a dice each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of an Etheric Vortex. On a 6+ the wound is negated.`,
+    desc: `Roll a D6 each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of an Etheric Vortex. On a 6+ the wound is negated.`,
     when: [DURING_GAME],
   },
   {

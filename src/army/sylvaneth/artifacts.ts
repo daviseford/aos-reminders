@@ -96,7 +96,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Glamourweave`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -106,7 +106,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lashvines`,
-        desc: `Roll a dice each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 6+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 6+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],

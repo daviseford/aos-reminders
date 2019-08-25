@@ -105,7 +105,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blackened Armour of Chaos (Warherds)`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

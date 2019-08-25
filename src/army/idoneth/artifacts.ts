@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Sanguine Pearl`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer that was caused by a melee weapon. On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was caused by a melee weapon. On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -87,7 +87,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Black Pearl`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -147,7 +147,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Steelshell Pearl`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer that was caused by a missile weapon. On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was caused by a missile weapon. On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -189,9 +189,9 @@ const Artifacts: TArtifacts = [
         name: `Disharmony Stones`,
         desc: `Once per battle, at the start of your hero phase, pick up to two enemy HEROES that are within 12" of the bearer. The opposing player must then choose one of the following options:
         
-        a) Roll a dice for each HERO picked. On a 3+ that hero suffers 1 mortal wound.
+        a) Roll a D6 for each HERO picked. On a 3+ that hero suffers 1 mortal wound.
         
-        b) Roll a dice for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.
+        b) Roll a D6 for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.
         
         c) Each HERO picked suffers D3 mortal wounds. Then roll a dice. On a 4+ the bearer suffers D3 mortal wounds`,
         when: [START_OF_HERO_PHASE],
@@ -213,7 +213,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Arcane Pearl`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],

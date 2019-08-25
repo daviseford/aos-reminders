@@ -9,7 +9,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Lash of Slaanesh`,
-        desc: `Casting value of 5.  If successfully cast, pick 1 point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line (1 mm wide).  This line goes between that point and the closest part of the casters base.  Roll a dice for each enemy model passed across by this line.  On a 4+ that model's unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5.  If successfully cast, pick 1 point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line (1 mm wide).  This line goes between that point and the closest part of the casters base.  Roll a D6 for each enemy model passed across by this line.  On a 4+ that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

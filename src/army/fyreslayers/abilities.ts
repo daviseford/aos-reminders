@@ -33,7 +33,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Rune of Searing Heat (enhanced effect)`,
-    desc: `Roll a dice for each enemy unit within 3" of any friendly FYRESLAYERS units when the rune is activated. On a 2+ that enemy unit takes 1 mortal wound.`,
+    desc: `Roll a D6 for each enemy unit within 3" of any friendly FYRESLAYERS units when the rune is activated. On a 2+ that enemy unit takes 1 mortal wound.`,
     when: [HERO_PHASE],
   },
   {

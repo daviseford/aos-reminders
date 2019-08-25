@@ -46,7 +46,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Obsidian Glowhelm`,
-        desc: `Roll a dice if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
+        desc: `Roll a D6 if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

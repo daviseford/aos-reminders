@@ -27,7 +27,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -68,7 +68,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -94,7 +94,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -346,7 +346,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -395,7 +395,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -582,7 +582,7 @@ export const Units: TUnits = [
         
         Disease-disease!: If this prayer is answered, pick 1 enemy unit within 13" of this model, and roll 1 dice for each model in that unit. For each 6, that unit suffers 1 mortal wound. This prayer has no effect on CLANS PESTILENS units.
         
-        Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a dice for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
+        Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a D6 for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
       {
@@ -626,7 +626,7 @@ export const Units: TUnits = [
       },
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -641,7 +641,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -672,7 +672,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -797,7 +797,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -922,7 +922,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Verminous Infestation`,
-        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a dice for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a D6 for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -962,7 +962,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Plague Altar`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

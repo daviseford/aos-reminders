@@ -94,7 +94,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cunning`,
-        desc: `Roll a dice at the start of the combat phase if this general is within 3" of an enemy HERO. On a 4+ the enemy HERO suffers 1 mortal wound.`,
+        desc: `Roll a D6 at the start of the combat phase if this general is within 3" of an enemy HERO. On a 4+ the enemy HERO suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

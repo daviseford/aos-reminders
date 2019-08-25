@@ -29,7 +29,7 @@ export const MonstersOfChaos: TUnits = [
     effects: [
       {
         name: `Aura of Mutation`,
-        desc: `In your hero phase, you can pick a unit within 15". Roll a dice and consult the chart below:
+        desc: `In your hero phase, you can pick a unit within 15". Roll a D6 and consult the chart below:
 
         1. Hideous Disfigurements: Reduce the Bravery of each model in the target unit by 1 for the rest of the battle.
 

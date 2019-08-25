@@ -77,7 +77,7 @@ export const Units: TUnits = [
       },
       {
         name: `Deepmare Horn`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -87,7 +87,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Deepmare Horn`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -172,7 +172,7 @@ export const Units: TUnits = [
       },
       {
         name: `Writhing Tentacles`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
         when: [DURING_GAME],
       },
     ],

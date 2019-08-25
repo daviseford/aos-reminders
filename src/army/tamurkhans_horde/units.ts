@@ -43,7 +43,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Corrupted Flesh`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -64,7 +64,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloated Flesh`,
-        desc: `Roll a dice each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -79,7 +79,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloated Flesh`,
-        desc: `Roll a dice each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -153,7 +153,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Infectious!`,
-        desc: `Roll a dice for each enemy unit within 1" of any units with this ability. On a 4+, that unit suffers 1 mortal wound. This ability has no effect on Nurgle units.`,
+        desc: `Roll a D6 for each enemy unit within 1" of any units with this ability. On a 4+, that unit suffers 1 mortal wound. This ability has no effect on Nurgle units.`,
         when: [HERO_PHASE],
       },
     ],

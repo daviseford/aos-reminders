@@ -73,7 +73,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: DEADLY,
-        desc: `Roll a dice whenever a unit finishes a normal move or charge move within 1" of this terrain.  On a 1, the unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 whenever a unit finishes a normal move or charge move within 1" of this terrain.  On a 1, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -83,7 +83,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: MYSTICAL,
-        desc: `Roll a dice each time a unit within 1" of this terrain suffers a wound or mortal wound.  On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound.  On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -123,7 +123,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: VOLCANIC,
-        desc: `Roll a dice for each instance of this terrain.  On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each instance of this terrain.  On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -143,7 +143,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: HEALING,
-        desc: `Roll a dice for each friendly unit within 1" of any Healing terrain.  On a 6 you can heal D3 wounds to that unit.`,
+        desc: `Roll a D6 for each friendly unit within 1" of any Healing terrain.  On a 6 you can heal D3 wounds to that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -241,7 +241,7 @@ const OfficialScenery: TScenery = [
       },
       {
         name: `Deteriorating State`,
-        desc: `Applies from start of Round 2 onwards.  Roll a dice.  On a 1-4 nothing happens.  On a 5-6, the currently active Orrey function switches to the other option.`,
+        desc: `Applies from start of Round 2 onwards.  Roll a D6.  On a 1-4 nothing happens.  On a 5-6, the currently active Orrey function switches to the other option.`,
         when: [START_OF_ROUND],
       },
     ],
