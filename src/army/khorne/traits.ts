@@ -115,7 +115,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Berzerker Lord (Mortal)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this general. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this general. On a 5+ that wound or mortal wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],

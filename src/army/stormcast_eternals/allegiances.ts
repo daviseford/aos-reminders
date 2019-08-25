@@ -19,7 +19,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `We Cannot Fail`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -36,7 +36,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Soul of the Stormhost`,
-        desc: `You can use this command ability when a friendly HAMMERS OF SIGMAR REDEEMER unit is destroyed. If you do so roll a dice. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit anywhere on the battlefield, more than 9" from any enemy models. Cannot use more than once per phase.`,
+        desc: `You can use this command ability when a friendly HAMMERS OF SIGMAR REDEEMER unit is destroyed. If you do so roll a D6. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit anywhere on the battlefield, more than 9" from any enemy models. Cannot use more than once per phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -47,12 +47,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Martyr's Strength`,
-        desc: `Roll a dice if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all melee weapons, before it is removed from play.`,
+        desc: `Roll a D6 if this general is slain in the combat phase. On a 2+ this general can make a pile-in move and then attack with all melee weapons, before it is removed from play.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Only the Faithful`,
-        desc: `If a friendly HALLOWED KNIGHTS unit is affected by a spell or endless spell, roll a dice. On a 6+ ignore the effects of that spell on that unit.`,
+        desc: `If a friendly HALLOWED KNIGHTS unit is affected by a spell or endless spell, roll a D6. On a 6+ ignore the effects of that spell on that unit.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
       },
@@ -114,7 +114,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Soulthief`,
-        desc: `Pick one of the bearer's melee weapons. At the end of the combat phase, roll a dice for each enemy model that was allocated any wounds caused by this weapon in that combat phase. On a 3+ that model suffers 1 mortal wound.`,
+        desc: `Pick one of the bearer's melee weapons. At the end of the combat phase, roll a D6 for each enemy model that was allocated any wounds caused by this weapon in that combat phase. On a 3+ that model suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
         artifact: true,
       },
@@ -170,7 +170,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Hammers of Augury`,
-        desc: `Pick 1 enemy unit within 3" of the bearer and roll a dice. On a 3+, that unit suffers 1 mortal wound and you can roll another dice. On a 4+, that unit suffers 1 extra mortal wound.`,
+        desc: `Pick 1 enemy unit within 3" of the bearer and roll a D6. On a 3+, that unit suffers 1 mortal wound and you can roll another dice. On a 4+, that unit suffers 1 extra mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
         artifact: true,
       },
@@ -192,13 +192,13 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Grand Strategists`,
-        desc: `At the start of your hero phase roll a dice. On a 4+ you receive 1 extra command point.`,
+        desc: `At the start of your hero phase roll a D6. On a 4+ you receive 1 extra command point.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
       },
       {
         name: `Patrician's Helm`,
-        desc: `If the bearer is on the battlefield, each time you spend a command point, roll a dice. On a 5+ you receive 1 extra command point.`,
+        desc: `If the bearer is on the battlefield, each time you spend a command point, roll a D6. On a 5+ you receive 1 extra command point.`,
         when: [DURING_GAME],
         artifact: true,
       },

@@ -60,11 +60,11 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
-  const rowClass = useMemo(() => `row d-print-none pb-1 ${!isMobile ? `pt-2` : ``}`, [isMobile])
+  const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
 
   return (
-    <div className={rowClass}>
-      <div className="col col-lg-10 col-xl-6 card-group mx-auto">
+    <div className="d-flex justify-content-center">
+      <div className={rowClass}>
         <CardMultiSelect
           items={army.Units}
           setValues={withSelectMultiple(props.updateUnits)}

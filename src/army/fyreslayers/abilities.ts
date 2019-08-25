@@ -13,7 +13,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Ur-Gold Runes`,
-    desc: `Activate 1 of your 6 runes. When you choose, roll a dice. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies. You can only activate a rune once per game unless something specifically allows you to do so.`,
+    desc: `Activate 1 of your 6 runes. When you choose, roll a D6. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies. You can only activate a rune once per game unless something specifically allows you to do so.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -22,7 +22,7 @@ const Abilities: TAbilities = [
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
-    name: `Rune of Fury (enhanced effect)`,
+    name: `Rune of Fury (Enhanced Effect)`,
     desc: `Add 1 to the Attacks of melee weapons for friendly FYRESLAYERS units.`,
     when: [COMBAT_PHASE],
   },
@@ -32,8 +32,8 @@ const Abilities: TAbilities = [
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
-    name: `Rune of Searing Heat (enhanced effect)`,
-    desc: `Roll a dice for each enemy unit within 3" of any friendly FYRESLAYERS units when the rune is activated. On a 2+ that enemy unit takes 1 mortal wound.`,
+    name: `Rune of Searing Heat (Enhanced Effect)`,
+    desc: `Roll a D6 for each enemy unit within 3" of any friendly FYRESLAYERS units when the rune is activated. On a 2+ that enemy unit takes 1 mortal wound.`,
     when: [HERO_PHASE],
   },
   {
@@ -52,7 +52,7 @@ const Abilities: TAbilities = [
     when: [MOVEMENT_PHASE],
   },
   {
-    name: `Rune of Relentless Zeal (enhanced effect)`,
+    name: `Rune of Relentless Zeal (Enhanced Effect)`,
     desc: `Add 2" to the charge rolls of friendly FYRESLAYERS units.`,
     when: [CHARGE_PHASE],
   },

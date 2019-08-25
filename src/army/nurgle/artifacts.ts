@@ -16,7 +16,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Splithorn Helm (Rotbringers)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer.  On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer.  On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -46,7 +46,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Flesh Pealer (Rotbringers)`,
-        desc: `Roll a dice for each enemy unit that is within 6" of the bearer.  On a 5+ the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 6" of the bearer.  On a 5+ the unit being rolled for suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -56,7 +56,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Bileheart (Rotbringers)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -66,7 +66,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Fecund Flask (Rotbringers)`,
-        desc: `Once per battle roll a dice.  On a 2+ any wounds suffered by the are healed.  On a 1 the bearer is slain.  If the bearer is slain by the flask, you can add 1 Beast of Nurgle within 1" of the bearer.`,
+        desc: `Once per battle roll a D6.  On a 2+ any wounds suffered by the are healed.  On a 1 the bearer is slain.  If the bearer is slain by the flask, you can add 1 Beast of Nurgle within 1" of the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -76,7 +76,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Noxious Nexus (Daemon)`,
-        desc: `Roll a dice for each enemy unit within 7" of the bearer.  If the roll is equal to or less than the number of the current battle round, the unit being rolled for suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit within 7" of the bearer.  If the roll is equal to or less than the number of the current battle round, the unit being rolled for suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -96,7 +96,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Bountiful Swarm (Daemon)`,
-        desc: `Pick an enemy model within 3" of the bearer and roll a dice.  If the roll is greater then that model's Wounds characteristic, then it is slain.  If a model with a wounds characteristic of 4+ is slain, you can set up a Beast of Nurgle within 1" of the slain model.`,
+        desc: `Pick an enemy model within 3" of the bearer and roll a D6.  If the roll is greater then that model's Wounds characteristic, then it is slain.  If a model with a wounds characteristic of 4+ is slain, you can set up a Beast of Nurgle within 1" of the slain model.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -126,7 +126,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Endless Gift (Daemon)`,
-        desc: `Roll a dice for each wound that was allocated to this model in that turn and not negated.  On a 4+ the wound is healed.`,
+        desc: `Roll a D6 for each wound that was allocated to this model in that turn and not negated.  On a 4+ the wound is healed.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
     ],

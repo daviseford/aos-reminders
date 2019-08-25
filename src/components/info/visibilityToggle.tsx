@@ -13,7 +13,7 @@ export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
   isVisible: boolean
-  setVisibility: () => void
+  setVisibility?: () => void
   size?: number
   type?: TVisibilityIconType
   className?: string
@@ -41,7 +41,7 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const handleSetVisibility = useCallback(
     e => {
       e.preventDefault()
-      return setVisibility()
+      return setVisibility ? setVisibility() : null
     },
     [setVisibility]
   )

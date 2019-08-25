@@ -27,7 +27,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -68,7 +68,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -94,7 +94,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -104,7 +104,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Great Manipulators`,
-        desc: `If this model is on the battlefield at the start of your hero phase, roll a dice. On a 3+, you receive 1 extra command point. On a 6 you receive D3 extra command points instead of 1.`,
+        desc: `If this model is on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point. On a 6 you receive D3 extra command points instead of 1.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -145,7 +145,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpfire Gauntlet`,
-        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 8" of this model and visible to them, and roll a dice. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 8" of this model and visible to them, and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -185,7 +185,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grinderfist Tunnellers`,
-        desc: `At the end of each of your movement phases, roll a dice for each underground reserve unit. On a 1 or 2, that unit remains underground in reserve (roll for it again in your next movement phase). On a 3+ set up that unit on the battlefield more than 9" from any enemy units.`,
+        desc: `At the end of each of your movement phases, roll a D6 for each underground reserve unit. On a 1 or 2, that unit remains underground in reserve (roll for it again in your next movement phase). On a 3+ set up that unit on the battlefield more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
@@ -200,7 +200,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpfire Projectors`,
-        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll a dice for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll a D6 for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -220,7 +220,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warp Lightning Blast`,
-        desc: `Do not use the attack sequence for an attack made with a Warp Lightning Blast. Instead roll a dice; that roll determines the power of that attack. Then roll 6 more dice. The target suffers 1 mortal wound for each of those rolls that is equal to or greater than the power of that attack.`,
+        desc: `Do not use the attack sequence for an attack made with a Warp Lightning Blast. Instead roll a D6; that roll determines the power of that attack. Then roll 6 more dice. The target suffers 1 mortal wound for each of those rolls that is equal to or greater than the power of that attack.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -255,7 +255,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rolling Doom`,
-        desc: `After this model has made a normal move or a charge move, roll a dice for each unit that has any models it passed across, and each other unit that is within 1" of this model at the end of the move. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `After this model has made a normal move or a charge move, roll a D6 for each unit that has any models it passed across, and each other unit that is within 1" of this model at the end of the move. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -346,7 +346,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -380,7 +380,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aversion to Death`,
-        desc: `After the first wound or mortal wound is allocated to this unit in any phase, you can roll a dice each time you allocate a further wound or mortal wound to this unit in that phase. On a 5+ that wound or mortal wound is negated.`,
+        desc: `After the first wound or mortal wound is allocated to this unit in any phase, you can roll a D6 each time you allocate a further wound or mortal wound to this unit in that phase. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -395,7 +395,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -483,12 +483,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warpfire`,
-        desc: `Do not use the attack sequence for an attack made with a Warpfire Thrower. Instead, roll a dice for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with a Warpfire Thrower. Instead, roll a D6 for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `More-more Warpfire!`,
-        desc: `Before you pick the target for this model's Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, roll 2 dice for each enemy model within 8" of this model instead of 1 dice. However, if you do so, you must roll a dice after the dice have been rolled to see if the Warpfire Thrower inflicts any mortal wounds, and on a 1 or 2 this model is slain.`,
+        desc: `Before you pick the target for this model's Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, roll 2 dice for each enemy model within 8" of this model instead of 1 dice. However, if you do so, you must roll a D6 after the dice have been rolled to see if the Warpfire Thrower inflicts any mortal wounds, and on a 1 or 2 this model is slain.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -503,7 +503,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tunnel Skulkers`,
-        desc: `At the end of any of your movement phases, if this model is tunnelling, it can arrive on the battlefield. If it does so, set up this model anywhere on the battlefield more than 9" from any enemy models, and then set up any unit that joined this model wholly within 13" of this model and more than 9" from any enemy models. Then roll a dice for this model and any unit that joined it. On a 1 or 2, that unit suffers D6 mortal wounds.`,
+        desc: `At the end of any of your movement phases, if this model is tunnelling, it can arrive on the battlefield. If it does so, set up this model anywhere on the battlefield more than 9" from any enemy models, and then set up any unit that joined this model wholly within 13" of this model and more than 9" from any enemy models. Then roll a D6 for this model and any unit that joined it. On a 1 or 2, that unit suffers D6 mortal wounds.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
@@ -543,7 +543,7 @@ export const Units: TUnits = [
       },
       {
         name: `Book of Woes`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a dice. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a D6. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
     ],
@@ -582,7 +582,7 @@ export const Units: TUnits = [
         
         Disease-disease!: If this prayer is answered, pick 1 enemy unit within 13" of this model, and roll 1 dice for each model in that unit. For each 6, that unit suffers 1 mortal wound. This prayer has no effect on CLANS PESTILENS units.
         
-        Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a dice for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
+        Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a D6 for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
       {
@@ -607,7 +607,7 @@ export const Units: TUnits = [
       },
       {
         name: `Great Plague Censer`,
-        desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a dice. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a D6. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -626,7 +626,7 @@ export const Units: TUnits = [
       },
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -641,7 +641,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -672,7 +672,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -712,12 +712,12 @@ export const Units: TUnits = [
       },
       {
         name: `Warpstone Spikes`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+ ignore the effects of that spell on this model.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+ ignore the effects of that spell on this model.`,
         when: [HERO_PHASE],
       },
       {
         name: `Too Horrible to Die`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice and look up the roll on warscroll.`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6 and look up the roll on warscroll.`,
         when: [DURING_GAME],
       },
     ],
@@ -742,7 +742,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unleash More-more Beasts!`,
-        desc: `You can use this command ability when a friendly CLANS MOULDER PACK unit is destroyed if a friendly model with this command ability is on the battlefield. If you do so, roll a dice. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within your territory and wholly within 6" of the edge of the battlefield, more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        desc: `You can use this command ability when a friendly CLANS MOULDER PACK unit is destroyed if a friendly model with this command ability is on the battlefield. If you do so, roll a D6. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within your territory and wholly within 6" of the edge of the battlefield, more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
       },
     ],
@@ -797,7 +797,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Horned Rat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -922,7 +922,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Verminous Infestation`,
-        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a dice for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a D6 for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -962,7 +962,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Plague Altar`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

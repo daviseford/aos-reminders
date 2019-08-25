@@ -96,7 +96,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   )
 
   return (
-    <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
+    <div className="col col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
       <AllyCardComponent
         allyFactionName={allyFactionName}
         allySelectOptions={allySelectOptions}

@@ -10,10 +10,6 @@
     color: white;
 }
 
-.CardHeaderTitle {
-    margin-bottom: 0;
-}
-
 small {
     font-size: 12px;
 }
@@ -30,6 +26,16 @@ small {
 /* @page {
     margin: 20cm;
 } */
+
+@media (max-width: 575.98px) {
+    
+    .ReminderCardBody {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+}
+
 
 @media print {
 
@@ -51,9 +57,5 @@ small {
         font-size: 0.9rem;
     }
 
-    .CardHeaderTitle {
-        font-size: 1.1rem;
-        color: black;
-    }
-    
+
 }

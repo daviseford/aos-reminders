@@ -32,7 +32,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hellshard Amulet`,
-        desc: `Roll a dice each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -68,7 +68,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood of Hashut`,
-        desc: `Do not use the attack sequence for an attack made with the Blood of Hashut. Instead roll a dice. On a 2+ the target unit suffers D3 mortal wounds. If the target unit is a War Machine it suffers D6 mortal wounds instead of D3.`,
+        desc: `Do not use the attack sequence for an attack made with the Blood of Hashut. Instead roll a D6. On a 2+ the target unit suffers D3 mortal wounds. If the target unit is a War Machine it suffers D6 mortal wounds instead of D3.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -83,7 +83,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Mask of the Executioner`,
-        desc: `At the start of your hero phase, you can pick 1 enemy unit within 8" of this model and roll a dice. On a 1 or 2 nothing happens. On a 3-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
+        desc: `At the start of your hero phase, you can pick 1 enemy unit within 8" of this model and roll a D6. On a 1 or 2 nothing happens. On a 3-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -266,7 +266,7 @@ export const Units: TUnits = [
       },
       {
         name: `Magma Blast`,
-        desc: `Do not use the attack sequence for an attack made with a Magma Blast. Instead, roll a dice.Add 1 to the roll if the target unit has 10 or more models. On a 3+, the target unit suffers a number of mortal wounds equal to the roll.`,
+        desc: `Do not use the attack sequence for an attack made with a Magma Blast. Instead, roll a D6.Add 1 to the roll if the target unit has 10 or more models. On a 3+, the target unit suffers a number of mortal wounds equal to the roll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -281,7 +281,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cruel Overlords`,
-        desc: `When this model is picked to shoot in your shooting phase, you can say that the Slavemasters are lashing the Slave Ogor. If you do so, roll a dice. On a 1 or 2, this unit suffers D3 mortal wounds (if it is not slain it can shoot normally). On a 3+, add 1 to the Attacks characteristic of this model's Dreadquake Bombs for that phase.`,
+        desc: `When this model is picked to shoot in your shooting phase, you can say that the Slavemasters are lashing the Slave Ogor. If you do so, roll a D6. On a 1 or 2, this unit suffers D3 mortal wounds (if it is not slain it can shoot normally). On a 3+, add 1 to the Attacks characteristic of this model's Dreadquake Bombs for that phase.`,
         when: [SHOOTING_PHASE],
       },
       {

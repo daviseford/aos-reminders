@@ -67,7 +67,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cealith, the High King's Shield`,
-        desc: `You can roll a dice if this model is affected by a spell. If you do so, on a 3+ the spell has no effect on this model (other units will be affected by the spell normally).`,
+        desc: `You can roll a D6 if this model is affected by a spell. If you do so, on a 3+ the spell has no effect on this model (other units will be affected by the spell normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -77,7 +77,7 @@ export const Units: TUnits = [
       },
       {
         name: `Deepmare Horn`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -87,7 +87,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Deepmare Horn`,
-        desc: `Roll a dice if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -147,7 +147,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hangman's Knot`,
-        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a dice. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can re-roll failed hit rolls for this model's Talúnhook for attacks that target that enemy HERO in that combat phase.`,
+        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a D6. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can re-roll failed hit rolls for this model's Talúnhook for attacks that target that enemy HERO in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -172,7 +172,7 @@ export const Units: TUnits = [
       },
       {
         name: `Writhing Tentacles`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
         when: [DURING_GAME],
       },
     ],

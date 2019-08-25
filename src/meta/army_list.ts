@@ -3,7 +3,10 @@ import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
   EVERCHOSEN,
   FLESH_EATER_COURTS,
@@ -21,6 +24,7 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -28,16 +32,16 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
-  TZEENTCH,
   TSupportedFaction,
+  TZEENTCH,
 } from './factions'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
-import Chaos from 'army/grand_alliances/chaos'
+import ChaosGrandAlliance from 'army/grand_alliances/chaos'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
-import Death from 'army/grand_alliances/death'
-import Destruction from 'army/grand_alliances/destruction'
+import DeathGrandAlliance from 'army/grand_alliances/death'
+import DestructionGrandAlliance from 'army/grand_alliances/destruction'
 import Dispossessed from 'army/dispossessed'
 import Everchosen from 'army/everchosen'
 import FleshEaterCourts from 'army/flesh_eater_courts'
@@ -55,7 +59,7 @@ import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
-import Order from 'army/grand_alliances/order'
+import OrderGrandAlliance from 'army/grand_alliances/order'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
@@ -74,20 +78,20 @@ export const ArmyList: TArmyList = {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
   },
-  [CHAOS]: {
-    Army: { ...Chaos },
+  [CHAOS_GRAND_ALLIANCE]: {
+    Army: { ...ChaosGrandAlliance },
     GrandAlliance: CHAOS,
   },
   [DAUGHTERS_OF_KHAINE]: {
     Army: { ...DaughtersOfKhaine },
     GrandAlliance: ORDER,
   },
-  [DEATH]: {
-    Army: { ...Death },
+  [DEATH_GRAND_ALLIANCE]: {
+    Army: { ...DeathGrandAlliance },
     GrandAlliance: DEATH,
   },
-  [DESTRUCTION]: {
-    Army: { ...Destruction },
+  [DESTRUCTION_GRAND_ALLIANCE]: {
+    Army: { ...DestructionGrandAlliance },
     GrandAlliance: DESTRUCTION,
   },
   [DISPOSSESSED]: {
@@ -159,8 +163,8 @@ export const ArmyList: TArmyList = {
     Army: { ...Nurgle },
     GrandAlliance: CHAOS,
   },
-  [ORDER]: {
-    Army: { ...Order },
+  [ORDER_GRAND_ALLIANCE]: {
+    Army: { ...OrderGrandAlliance },
     GrandAlliance: ORDER,
   },
   [SERAPHON]: {

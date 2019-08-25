@@ -10,15 +10,15 @@ const Abilities: TAbilities = [
   },
   {
     name: `The Everwinter's Blessing`,
-    desc: `Roll a dice at the start of each of your hero phases to determine the effects of Everwinter's Blessing on the battle:
+    desc: `Roll a D6 at the start of each of your hero phases to determine the effects of Everwinter's Blessing on the battle:
     
-    1-2 Fortifying Hoarfrost: You can re-roll save rolls of 1 for all friendly BEASTCLAW RAIDER models until the start of your next hero phase.
+    1-2: Fortifying Hoarfrost - You can re-roll save rolls of 1 for all friendly BEASTCLAW RAIDER models until the start of your next hero phase.
     
-    3-4 Freezing Tailwinds: All friendly BEASTCLAW RAIDERS models can immediately move 3" as if it were the movement phase (they cannot run or retreat as part of this move).
+    3-4: Freezing Tailwinds - All friendly BEASTCLAW RAIDERS models can immediately move 3" as if it were the movement phase (they cannot run or retreat as part of this move).
     
-    5 Deadly Frostbite: Roll a dice for each enemy unit within 3" of at least one of your BEASTCLAW RAIDERS models. On a 6 that unit suffers D3 mortal wounds.
+    5: Deadly Frostbite - Roll a D6 for each enemy unit within 3" of at least one of your BEASTCLAW RAIDERS models. On a 6 that unit suffers D3 mortal wounds.
     
-    6 Raging Blizzard: Roll a dice for each enemy unit within 3" of at least one of your BEASTCLAW RAIDERS models. On a 6 that unit suffers D6 mortal wounds.`,
+    6: Raging Blizzard - Roll a D6 for each enemy unit within 3" of at least one of your BEASTCLAW RAIDERS models. On a 6 that unit suffers D6 mortal wounds.`,
     when: [START_OF_HERO_PHASE],
   },
 ]

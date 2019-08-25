@@ -168,7 +168,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Trail-sniffer (Godseekers Host)`,
-        desc: `Roll a dice for this general if it is wholly within enemy territory.  On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
+        desc: `Roll a D6 for this general if it is wholly within enemy territory.  On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -23,7 +23,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Blood Blessings of Khorne`,
-    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases.  If they do roll a dice.  On a 1 they suffer D3 mortal wounds.  Otherwise on a 4+ the prayer is successful and you may carry out the effect.`,
+    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases.  If they do roll a D6.  On a 1 they suffer D3 mortal wounds.  Otherwise on a 4+ the prayer is successful and you may carry out the effect.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -33,7 +33,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Judgements of Khorne`,
-    desc: `At the end of each battle round, roll a dice for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield.`,
+    desc: `At the end of each battle round, roll a D6 for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield.`,
     when: [END_OF_ROUND],
   },
 ]

@@ -35,7 +35,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Knowing Eye (Brayherds)`,
-        desc: `At the start of your hero phase, roll a dice if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
+        desc: `At the start of your hero phase, roll a D6 if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -55,7 +55,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Bleating Gnarlstaf (Brayherds)`,
-        desc: `If the bearer is within 1" of a terrain feature at the end of your movement phase, roll a dice. On a 3+ each enemy unit within 1" of that terrain feature suffers 1 mortal wound.`,
+        desc: `If the bearer is within 1" of a terrain feature at the end of your movement phase, roll a D6. On a 3+ each enemy unit within 1" of that terrain feature suffers 1 mortal wound.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -105,7 +105,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blackened Armour of Chaos (Warherds)`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -155,7 +155,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Thunderstrike Lodestone (Thunderscorn)`,
-        desc: `Once per battle, if the bearer is on the battlefield, they can call down a bolt of lightning. If they do so, you can heal D3 wounds allocated to the bearer. In addition, roll a dice for each enemy unit within 1" of the bearer. On a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Once per battle, if the bearer is on the battlefield, they can call down a bolt of lightning. If they do so, you can heal D3 wounds allocated to the bearer. In addition, roll a D6 for each enemy unit within 1" of the bearer. On a 2+ that unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],
@@ -185,7 +185,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ruinous Icon (Thunderscorn)`,
-        desc: `Each time the bearer is affected by a spell or endless spell, roll a dice. On a 4+ ignore the effects of that spell on the bearer.`,
+        desc: `Each time the bearer is affected by a spell or endless spell, roll a D6. On a 4+ ignore the effects of that spell on the bearer.`,
         when: [HERO_PHASE],
       },
     ],

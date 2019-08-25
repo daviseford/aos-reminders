@@ -42,6 +42,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const title = useMemo(() => titleCase(when), [when])
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
+  const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
 
   useEffect(() => {
     if (!isMobile) showWhen(title) // Auto-open reminders on desktop
@@ -55,7 +56,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const bodyClass = `card-body ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
   return (
-    <div className={`row d-block PageBreak ${hidden.length === actions.length && `d-print-none`}`}>
+    <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
       <div className="card border-dark my-2 mx-1">
         <CardHeaderComponent
           title={title}
@@ -148,7 +149,7 @@ const ActionText = (props: IActionTextProps) => {
   }, [])
 
   return (
-    <div className={`mb-2 ${!isVisible && `d-print-none`}`}>
+    <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
       <div className="d-flex mb-1">
         <div className="flex-grow-1">
           <ActionTitle {...props} />

@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Idolatrous Plackart`,
-        desc: `Roll a dice each time a mortal wound is allocated to the bearer.  On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time a mortal wound is allocated to the bearer.  On a 5+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
