@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
+import { without } from 'lodash'
 import { factionNames, selections, army } from 'ducks'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
-import { without } from 'lodash'
 import { IStore } from 'types/store'
 
 interface IAlliedArmiesProps {

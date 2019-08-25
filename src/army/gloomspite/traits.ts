@@ -87,7 +87,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Spiteful Git`,
-        desc: `Roll a dice each time a wound or mortal wound is allocated to this model. On a 4+ the unit that inflicted the wound or mortal wound suffers 1 mortal wound. On a 6, it suffers D3 mortal wounds instead.`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ the unit that inflicted the wound or mortal wound suffers 1 mortal wound. On a 6, it suffers D3 mortal wounds instead.`,
         when: [DURING_GAME],
       },
     ],

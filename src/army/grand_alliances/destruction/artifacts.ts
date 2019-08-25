@@ -8,7 +8,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Hammerblade (${DESTRUCTION})`,
-        desc: `Pick one of the bearer's melee weapons. Instead of attacking normally with that weapon, you can roll a dice for each model within 3" of the bearer (apart from the bearer). On 5 or 6, 1 mortal wound is inflicted on that model's unit.`,
+        desc: `Pick one of the bearer's melee weapons. Instead of attacking normally with that weapon, you can roll a D6 for each model within 3" of the bearer (apart from the bearer). On 5 or 6, 1 mortal wound is inflicted on that model's unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -18,7 +18,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Battered Talisman (${DESTRUCTION})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+, the mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, the mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

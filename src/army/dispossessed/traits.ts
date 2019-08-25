@@ -47,7 +47,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Battle Fury`,
-        desc: `Roll a dice after this general completes their attacks in the combat phase; on a roll of 6+ they can fight again (do not roll again after completing the second set of attacks).`,
+        desc: `Roll a D6 after this general completes their attacks in the combat phase; on a roll of 6+ they can fight again (do not roll again after completing the second set of attacks).`,
         when: [COMBAT_PHASE],
       },
     ],

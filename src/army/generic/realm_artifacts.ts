@@ -52,7 +52,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `The Sunderblade (${GHYRAN})`,
-        desc: `In your shooting phase, roll a dice for each enemy unit within 9" of the bearer. On a 6+ that unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, roll a D6 for each enemy unit within 9" of the bearer. On a 6+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -72,7 +72,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Arboreal Stave (${GHYRAN})`,
-        desc: `At the start of the combat phase, you can pick an enemy HERO within 3" of the bearer that is visible to them and roll a dice. On a 5+ that HERO cannot make a pile-in move this combat phase.`,
+        desc: `At the start of the combat phase, you can pick an enemy HERO within 3" of the bearer that is visible to them and roll a D6. On a 5+ that HERO cannot make a pile-in move this combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -82,7 +82,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Hypersnare Seeds (${GHYRAN})`,
-        desc: `At the end of your opponent's shooting phase, pick an enemy unit within 8" of the bearer that is visible to them and roll a dice. On a 5+ that unit may not charge in the subsequent charge phase.`,
+        desc: `At the end of your opponent's shooting phase, pick an enemy unit within 8" of the bearer that is visible to them and roll a D6. On a 5+ that unit may not charge in the subsequent charge phase.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],
@@ -142,7 +142,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Stonehorn Blade (${GHUR})`,
-        desc: `Roll a dice at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 at the end of any phase in which any wounds were inflicted by that weapon. On a 5+ you can pick an enemy unit within 3" of the bearer. That unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -192,7 +192,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Rockjaws (${GHUR})`,
-        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer that is visible to them and roll a dice. On a 3+ that unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer that is visible to them and roll a D6. On a 3+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -202,7 +202,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Beastcaller's Bones (${GHUR})`,
-        desc: `At the start of the combat phase, roll a dice for each MONSTER within 3" of the bearer. On a 5+ the monster being rolled for cannot attack this phase. If the monster is a mount, the rider may still attack with their own weapons as normal.`,
+        desc: `At the start of the combat phase, roll a D6 for each MONSTER within 3" of the bearer. On a 5+ the monster being rolled for cannot attack this phase. If the monster is a mount, the rider may still attack with their own weapons as normal.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -257,7 +257,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Tuskhelm (${GHUR})`,
-        desc: `Roll a dice for each enemy unit within 1" of the bearer after the bearer completes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit within 1" of the bearer after the bearer completes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -347,7 +347,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Hydroxskin Cloak (${CHAMON})`,
-        desc: `The bearer can fly. After the bearer has made a normal move, you can pick 1 unit that has any models that the bearer has passed across and roll a dice. On a 3+ that unit suffers D3 mortal wounds.`,
+        desc: `The bearer can fly. After the bearer has made a normal move, you can pick 1 unit that has any models that the bearer has passed across and roll a D6. On a 3+ that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -357,7 +357,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Godwrought Helm (${CHAMON})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -367,7 +367,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Bejewelled Gauntlet (${CHAMON})`,
-        desc: `At the end of the combat phase, pick an enemy unit within 1" of the bearer and roll a dice. On a 3+ that unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, pick an enemy unit within 1" of the bearer and roll a D6. On a 3+ that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -387,7 +387,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Ruby Ring (${AQSHY})`,
-        desc: `In your hero phase, you can pick the closest enemy unit within 18" of the bearer and roll a dice. On a 5+ that unit suffers D3 mortal wounds. If two or more enemy units are equally close to the bearer, you can pick any of them.`,
+        desc: `In your hero phase, you can pick the closest enemy unit within 18" of the bearer and roll a D6. On a 5+ that unit suffers D3 mortal wounds. If two or more enemy units are equally close to the bearer, you can pick any of them.`,
         when: [HERO_PHASE],
       },
     ],
@@ -407,7 +407,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Magmadroth Blood Vials (${AQSHY})`,
-        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer and roll a dice. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -417,7 +417,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Purefire Brazier (${AQSHY})`,
-        desc: `In your shooting phase, roll a dice for each enemy unit within 9" of the bearer. On a 5+ that unit suffers 1 mortal wound.`,
+        desc: `In your shooting phase, roll a D6 for each enemy unit within 9" of the bearer. On a 5+ that unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -437,7 +437,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Exile Torch (${AQSHY})`,
-        desc: `At the start of the combat phase, pick an enemy HERO within 3" of the bearer and roll a dice. On a 6+ that HERO suffers 1 mortal wound and may not fight or be chosen as the target of an attack until the end of the turn.`,
+        desc: `At the start of the combat phase, pick an enemy HERO within 3" of the bearer and roll a D6. On a 6+ that HERO suffers 1 mortal wound and may not fight or be chosen as the target of an attack until the end of the turn.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -447,7 +447,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Essence of Vulcatrix (${AQSHY})`,
-        desc: `Once per battle, at the start of your hero phase, the bearer may drink the Essence of Vulcatrix. If they do so, roll a dice. On a 1, the bearer suffers D3 mortal wounds. On a 2+ add 1 to hit and wound rolls for the bearer until your next hero phase.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer may drink the Essence of Vulcatrix. If they do so, roll a D6. On a 1, the bearer suffers D3 mortal wounds. On a 2+ add 1 to hit and wound rolls for the bearer until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -477,7 +477,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Ignax's Scales (${AQSHY})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -587,7 +587,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Sepulchral Plate (${SHYISH})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -597,7 +597,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Amethyst Blindmask (${SHYISH})`,
-        desc: `If the bearer is slain, before removing the model, roll a dice for each enemy unit within 6" of the bearer. On a 3+ that unit suffers 1 mortal wound.`,
+        desc: `If the bearer is slain, before removing the model, roll a D6 for each enemy unit within 6" of the bearer. On a 3+ that unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],
@@ -617,7 +617,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Goblet of Draining (${SHYISH})`,
-        desc: `If 1 or more wounds are inflicted on an enemy HERO by the bearer, roll a dice. On a 5+ that HERO suffers D3 mortal wounds.`,
+        desc: `If 1 or more wounds are inflicted on an enemy HERO by the bearer, roll a D6. On a 5+ that HERO suffers D3 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],
@@ -687,7 +687,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Spellmirror (${ULGU})`,
-        desc: `If a friendly unit within 6" of the bearer is affected by a spell, you can roll a dice. On a 5+ that unit is not affected by the spell. On a 1 the Spellmirror may not be used for the rest of the battle.`,
+        desc: `If a friendly unit within 6" of the bearer is affected by a spell, you can roll a D6. On a 5+ that unit is not affected by the spell. On a 1 the Spellmirror may not be used for the rest of the battle.`,
         when: [HERO_PHASE],
       },
     ],
@@ -707,7 +707,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Wristbands of Illusion (${ULGU})`,
-        desc: `Roll a dice each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -727,7 +727,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Betrayer's Crown (${ULGU})`,
-        desc: `Once per battle, at the start of the combat phase, pick an enemy unit within 3" of the bearer that has two or more models. Roll a dice for each model in that enemy unit. For each 5+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Once per battle, at the start of the combat phase, pick an enemy unit within 3" of the bearer that has two or more models. Roll a D6 for each model in that enemy unit. For each 5+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -807,7 +807,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Aetherquartz Brooch (${HYSH})`,
-        desc: `Each time you spend a command point, roll a dice. On a 5+ you receive 1 command point.`,
+        desc: `Each time you spend a command point, roll a D6. On a 5+ you receive 1 command point.`,
         when: [DURING_GAME],
       },
     ],
@@ -827,7 +827,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Mirrored Cuirass (${HYSH})`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated. On a 6+ you can also pick an enemy unit within 6" of the bearer. That unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated. On a 6+ you can also pick an enemy unit within 6" of the bearer. That unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],
@@ -837,7 +837,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Lightshard (${HYSH})`,
-        desc: `If the bearer is slain, before removing the model, roll a dice for each enemy unit within 6" of them. On a 3+ that unit suffers 1 mortal wound.`,
+        desc: `If the bearer is slain, before removing the model, roll a D6 for each enemy unit within 6" of them. On a 3+ that unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],
@@ -847,7 +847,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Guardan's Coronet (${HYSH})`,
-        desc: `Once per battle, at the start of your hero phase, the bearer can call upon the guardian spirits. If they do so, until your next hero phase, roll a dice each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can call upon the guardian spirits. If they do so, until your next hero phase, roll a D6 each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -18,12 +18,12 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Death From Below`,
-        desc: `After this model has moved, roll a dice for each unit within 1" of it. On a 3+ that unit suffers D3 mortal wounds. This ability has no effect on units with the SYLVANETH keyword.`,
+        desc: `After this model has moved, roll a D6 for each unit within 1" of it. On a 3+ that unit suffers D3 mortal wounds. This ability has no effect on units with the SYLVANETH keyword.`,
         when: [HERO_PHASE],
       },
       {
         name: `Healing Mist`,
-        desc: `After this model has moved, roll a dice for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
+        desc: `After this model has moved, roll a D6 for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -40,9 +40,9 @@ const EndlessSpells: TEndlessSpells = [
         name: `The Hive Nourishes`,
         desc: `At the end of the hero phase, if this model is on the battlefield, the player who set it up can pick one of the effects below and immediately resolve that effect. The same unit cannot be picked to be affected by this ability more than once per hero phase. 
         
-        Vital Venoms: Roll a dice for each SYLVANETH unit wholly within 8" of this model. On a 2+ add 3" to that unit's normal moves and charge moves until the end of the turn.
+        Vital Venoms: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ add 3" to that unit's normal moves and charge moves until the end of the turn.
          
-        Shielding Swarm: Roll a dice for each SYLVANETH unit wholly within 8" of this model. On a 2+ re-roll save rolls of 1 for attacks that target that unit until the end of the turn.`,
+        Shielding Swarm: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ re-roll save rolls of 1 for attacks that target that unit until the end of the turn.`,
         when: [END_OF_HERO_PHASE],
       },
     ],

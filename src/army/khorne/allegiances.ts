@@ -33,7 +33,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Skullshard Mantle`,
-        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a dice. If you do so, on a 2+ ignore the effects of that spell on the bearer.`,
+        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a D6. If you do so, on a 2+ ignore the effects of that spell on the bearer.`,
         when: [HERO_PHASE],
         artifact: true,
       },

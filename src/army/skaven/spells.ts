@@ -19,7 +19,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Splinter`,
-        desc: `Casting value of 6.  If successfully cast, pick 1 enemy model within 6" of the caster.  Roll a dice and if the roll is greater than that model's Wounds characteristic, it is slain.`,
+        desc: `Casting value of 6.  If successfully cast, pick 1 enemy model within 6" of the caster.  Roll a D6 and if the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [HERO_PHASE],
       },
     ],

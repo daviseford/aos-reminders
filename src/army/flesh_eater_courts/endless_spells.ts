@@ -37,7 +37,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Soul Stealer`,
-        desc: `Keep track of the number of models that are slain within 12" of this model each turn. At the end of each turn, roll a dice for each model that was slain within 12" of this model during that turn. For each 4+ heal 1 wound allocated to 1 Flesh-eater Courts model within 12" of this model, or return 1 slain model to 1 Flesh-eater Courts unit with a Wounds characteristic of 1 that is wholly within 12" of this model.`,
+        desc: `Keep track of the number of models that are slain within 12" of this model each turn. At the end of each turn, roll a D6 for each model that was slain within 12" of this model during that turn. For each 4+ heal 1 wound allocated to 1 Flesh-eater Courts model within 12" of this model, or return 1 slain model to 1 Flesh-eater Courts unit with a Wounds characteristic of 1 that is wholly within 12" of this model.`,
         when: [END_OF_TURN],
       },
     ],

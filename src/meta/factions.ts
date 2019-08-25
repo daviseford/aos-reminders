@@ -1,10 +1,12 @@
 import { sortBy } from 'lodash'
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TChaos, TDeath, TDestruction, TOrder } from './alliances'
 
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
+export type TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
+export type TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
+export type TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
 export type TDispossessed = 'DISPOSSESSED'
 export type TEverchosen = 'EVERCHOSEN'
 export type TFleshEaterCourts = 'FLESH_EATER_COURTS'
@@ -22,6 +24,7 @@ export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
+export type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSlaanesh = 'SLAANESH'
@@ -34,7 +37,10 @@ export type TTzeentch = 'TZEENTCH'
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
+export const CHAOS_GRAND_ALLIANCE: TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
+export const DEATH_GRAND_ALLIANCE: TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
+export const DESTRUCTION_GRAND_ALLIANCE: TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
 export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 export const EVERCHOSEN: TEverchosen = 'EVERCHOSEN'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
@@ -51,6 +57,7 @@ export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
+export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
@@ -65,10 +72,10 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export type TSupportedFaction =
   | TBeastclawRaiders
   | TBeastsOfChaos
-  | TChaos
+  | TChaosGrandAlliance
   | TDaughtersOfKhaine
-  | TDeath
-  | TDestruction
+  | TDeathGrandAlliance
+  | TDestructionGrandAlliance
   | TDispossessed
   | TEverchosen
   | TFleshEaterCourts
@@ -86,7 +93,7 @@ export type TSupportedFaction =
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
-  | TOrder
+  | TOrderGrandAlliance
   | TSeraphon
   | TSkaven
   | TSlaanesh
@@ -99,10 +106,10 @@ export type TSupportedFaction =
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
-  CHAOS,
+  CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
-  DEATH,
-  DESTRUCTION,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
   EVERCHOSEN,
   FLESH_EATER_COURTS,
@@ -120,7 +127,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
-  ORDER,
+  ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SKAVEN,
   SLAANESH,

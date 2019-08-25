@@ -44,7 +44,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Slitter`,
-        desc: `After picking the bearer to fight, before they pile in you can pick one enemy model within 1" of the bearer and roll a dice; if the roll is greater than the model's Wounds characteristic, it is slain.`,
+        desc: `After picking the bearer to fight, before they pile in you can pick one enemy model within 1" of the bearer and roll a D6; if the roll is greater than the model's Wounds characteristic, it is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -124,7 +124,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Covetous Familiar`,
-        desc: `At the start of the combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 2+, that unit suffers 1 mortal wound.`,
+        desc: `At the start of the combat phase, roll a D6 for each enemy unit within 3" of the bearer. On a 2+, that unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

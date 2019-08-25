@@ -27,7 +27,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Souldrain Pendant`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy unit within 3" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

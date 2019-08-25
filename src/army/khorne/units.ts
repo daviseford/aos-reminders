@@ -50,7 +50,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Reality-splitting Axe`,
-        desc: `At the end of any phase, if any wounds inflicted by this model's Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a dice. On a 5+ that enemy model is slain.`,
+        desc: `At the end of any phase, if any wounds inflicted by this model's Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+ that enemy model is slain.`,
         when: [DURING_GAME],
       },
       {
@@ -83,7 +83,7 @@ export const KhorneUnits: TUnits = [
 
       {
         name: `Undying Hate`,
-        desc: `If this model is slain, before removing the model from play, roll a dice for each enemy model within 3" of this model. On a 4+, that model's unit suffers 1 mortal wound. This model is then removed from play.`,
+        desc: `If this model is slain, before removing the model from play, roll a D6 for each enemy model within 3" of this model. On a 4+, that model's unit suffers 1 mortal wound. This model is then removed from play.`,
         when: [DURING_GAME],
       },
 
@@ -150,7 +150,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Murderous Charge`,
-        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
+        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -185,7 +185,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Murderous to the Last`,
-        desc: `Roll a dice each time a model from this unit is slain by an attack made with a melee weapon, before that model is removed from play. On a 5+ pick 1 enemy unit within 1" of the slain model. That unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        desc: `Roll a D6 each time a model from this unit is slain by an attack made with a melee weapon, before that model is removed from play. On a 5+ pick 1 enemy unit within 1" of the slain model. That unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -295,7 +295,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Bloodfury`,
-        desc: `If a model in this unit is slain, before it is removed from play roll a dice for each enemy unit within 1" of that model. Add 1 to the dice roll if 2 or more models from that enemy unit are within 1" of the slain model. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound after all of its attacks have been resolved. On a 6+ that enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        desc: `If a model in this unit is slain, before it is removed from play roll a D6 for each enemy unit within 1" of that model. Add 1 to the dice roll if 2 or more models from that enemy unit are within 1" of the slain model. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound after all of its attacks have been resolved. On a 6+ that enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [DURING_GAME],
       },
       {
@@ -355,7 +355,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Fiery Anvil`,
-        desc: `At the end of the combat phase, you can pick 1 enemy HERO or MONSTER within 2" of this model and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, you can pick 1 enemy HERO or MONSTER within 2" of this model and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -390,7 +390,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Bloodfuelled Prayers`,
-        desc: `In your hero phase, a Slaughterpriest can pray to Khorne for aid. Pick one of the prayers on the warscroll, then roll a dice, adding 1 to the result if the Slaughterpriest slew any enemy models in the previous turn. If the result is 4 or higher, the effect takes place. If the result is 1, this Slaughterpriest suffers D3 mortal wounds.`,
+        desc: `In your hero phase, a Slaughterpriest can pray to Khorne for aid. Pick one of the prayers on the warscroll, then roll a D6, adding 1 to the result if the Slaughterpriest slew any enemy models in the previous turn. If the result is 4 or higher, the effect takes place. If the result is 1, this Slaughterpriest suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -416,12 +416,12 @@ export const KhorneUnits: TUnits = [
     effects: [
       {
         name: `Brass-clad Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
         name: `Slaughterous Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -519,7 +519,7 @@ export const KhorneUnits: TUnits = [
     effects: [
       {
         name: `Hellfire Breath`,
-        desc: `Do not use the attack sequence for an attack made with Hellfire Breath. Instead, pick an enemy unit that is in range of the attack and roll a dice. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with Hellfire Breath. Instead, pick an enemy unit that is in range of the attack and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -560,7 +560,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Total Carnage`,
-        desc: `Do not use the attack sequence for an attack made with Carnage. Instead, roll a dice. The target unit suffers 8 mortal wounds if the roll is equal to or greater than the Carnage value shown on the damage table above. If the roll is 6, the target unit suffers 16 mortal wounds instead.`,
+        desc: `Do not use the attack sequence for an attack made with Carnage. Instead, roll a D6. The target unit suffers 8 mortal wounds if the roll is equal to or greater than the Carnage value shown on the damage table above. If the roll is 6, the target unit suffers 16 mortal wounds instead.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -626,7 +626,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Slaughterous Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -646,7 +646,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Reality-splitting Axe`,
-        desc: `At the end of any phase, if any wounds inflicted by the Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a dice. On a 5+ that enemy model is slain.`,
+        desc: `At the end of any phase, if any wounds inflicted by the Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+ that enemy model is slain.`,
         when: [DURING_GAME],
       },
       {
@@ -714,7 +714,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `The Land Rebels`,
-        desc: `At the start of your hero phase, roll a dice for each enemy unit within 8" of any friendly models with this ability. On a 5+ that enemy unit suffers 1 mortal wound.`,
+        desc: `At the start of your hero phase, roll a D6 for each enemy unit within 8" of any friendly models with this ability. On a 5+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -735,7 +735,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Runemarked Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a model armed with a Runemarked Shield that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a model armed with a Runemarked Shield that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -836,7 +836,7 @@ export const KhorneUnits: TUnits = [
       },
       {
         name: `Murderous Charge`,
-        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
+        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -886,7 +886,7 @@ export const KhorneUnits: TUnits = [
     effects: [
       {
         name: `Bloody Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {

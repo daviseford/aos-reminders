@@ -33,7 +33,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dawnflask`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
         artifact: true,
       },
@@ -50,7 +50,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Earth Defends`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly GNARLROOT unit wholly within 12" of a friendly GNARLROOT HERO. Until the end of that phase, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6+ that wound or mortal wound is negated.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly GNARLROOT unit wholly within 12" of a friendly GNARLROOT HERO. Until the end of that phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6+ that wound or mortal wound is negated.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -84,7 +84,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Legacy of Valour`,
-        desc: `If this general is slain, you can pick 1 enemy unit within 1" of this general before they are removed from play and roll a dice. On a 2-5 that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
+        desc: `If this general is slain, you can pick 1 enemy unit within 1" of this general before they are removed from play and roll a D6. On a 2-5 that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
         when: [DURING_GAME],
       },
       {
@@ -106,7 +106,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Stand Firm`,
-        desc: `You can use this command ability in the combat phase, before the players pick any units to fight. If you do so, pick 1 enemy unit that made a charge move this turn and is within 1" of a friendly IRONBARK unit and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `You can use this command ability in the combat phase, before the players pick any units to fight. If you do so, pick 1 enemy unit that made a charge move this turn and is within 1" of a friendly IRONBARK unit and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -140,7 +140,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `My Heart Is Ice`,
-        desc: `Roll a dice each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {

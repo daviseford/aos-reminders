@@ -177,7 +177,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Sigmarite Pendant`,
-        desc: `If the bearer is slain by wounds or mortal wounds inflicted by an enemy unit, roll a dice. On a 4+ that enemy unit suffers D6 mortal wounds.`,
+        desc: `If the bearer is slain by wounds or mortal wounds inflicted by an enemy unit, roll a D6. On a 4+ that enemy unit suffers D6 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],
@@ -217,7 +217,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Pennant of Sigmaron`,
-        desc: `If a friendly STORMCAST ETERNAL unit wholly within 24" fails a battleshock test, roll a dice. On a 2+ only one model flees.`,
+        desc: `If a friendly STORMCAST ETERNAL unit wholly within 24" fails a battleshock test, roll a D6. On a 2+ only one model flees.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -307,7 +307,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Storm Scroll`,
-        desc: `Once per battle, pick up to 6 different enemy units, and give each of them a different number from 1 to 6. Then roll a dice. The unit whose number is the same as the roll, suffers D6 mortal wounds.`,
+        desc: `Once per battle, pick up to 6 different enemy units, and give each of them a different number from 1 to 6. Then roll a D6. The unit whose number is the same as the roll, suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

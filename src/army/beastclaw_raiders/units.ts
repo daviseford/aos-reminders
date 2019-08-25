@@ -30,7 +30,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icy Breath`,
-        desc: `Instead of attacking with his missile weapons in your shooting phase, an Icebrow Hunter can unleash his icy breath. If he does so, pick a visible unit within 6" of the Icebrow Hunter and roll a dice; on a 4 or more that unit suffers D3 mortal wounds as its warriors are frozen solid.`,
+        desc: `Instead of attacking with his missile weapons in your shooting phase, an Icebrow Hunter can unleash his icy breath. If he does so, pick a visible unit within 6" of the Icebrow Hunter and roll a D6; on a 4 or more that unit suffers D3 mortal wounds as its warriors are frozen solid.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -61,7 +61,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a D6. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -97,7 +97,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -107,7 +107,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a D6. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -117,7 +117,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blizzard-speaker`,
-        desc: `In your hero phase, a Huskard on a Thundertusk can select a BEASTCLAW RAIDERS unit within 18" and roll a dice. Add one to the result for each other friendly THUNDERTUSK unit within 18" of the unit you picked. On a 4 or more, select one of the abilities from the list below to apply to the unit you picked.
+        desc: `In your hero phase, a Huskard on a Thundertusk can select a BEASTCLAW RAIDERS unit within 18" and roll a D6. Add one to the result for each other friendly THUNDERTUSK unit within 18" of the unit you picked. On a 4 or more, select one of the abilities from the list below to apply to the unit you picked.
         
         Winter's Endurance: A second skin of ice forms on the unit as it is rimed with a healing frost. One model in the unit heals D3 wounds.
         
@@ -126,7 +126,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Huskard with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Huskard. Your opponent then picks one of their own units within 30" of the Huskard. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -156,7 +156,7 @@ export const Units: TUnits = [
       },
       {
         name: `Banner Bearer`,
-        desc: `You can re-roll dice rolls of 6 when taking a battleshock test for a unit that includes any Raiding Banners. Furthermore, roll a dice whenever an enemy model flees whilst its unit is within 6" of any Raiding Banner from your army. On a 6, another model immediately flees from that unit.`,
+        desc: `You can re-roll dice rolls of 6 when taking a battleshock test for a unit that includes any Raiding Banners. Furthermore, roll a D6 whenever an enemy model flees whilst its unit is within 6" of any Raiding Banner from your army. On a 6, another model immediately flees from that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -206,7 +206,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a dice; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a D6; on a 1, 2 or 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -216,7 +216,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blasts of Frost-wreathed Ice`,
-        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a dice. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
+        desc: `In the shooting phase, pick a unit within 18" that is visible to the Thundertusk. Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead roll a D6. On a 1, nothing happens. On a 2+, the target unit suffers the number of mortal wounds shown on the damage table on the warscroll.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -226,7 +226,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Vulture`,
-        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a dice; on 1, 2 or a 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
+        desc: `A Thegn with a Blood Vulture can release it to hunt in each of your shooting phases. When he does so, pick a unit within 30" of the Thegn. Your opponent then picks one of their own units within 30" of the Thegn. Roll a D6; on 1, 2 or a 3 the unit your opponent picked suffers a mortal wound. On a 4, 5 or 6 the unit you picked suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -310,7 +310,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Heart-numbing Chill`,
-        desc: `Roll a dice in each of your hero phases for each enemy unit within 3" of at least one of your Torbadd Thundertusks. Add 1 to the result of this dice roll for each additional Torrbad Thundertusk that is within 3" of the unit being rolled for. On a 6 the unit suffers a mortal wound, on a 7 it suffers D3 mortal wounds and on an 8 or more it suffers D6 mortal wounds.`,
+        desc: `Roll a D6 in each of your hero phases for each enemy unit within 3" of at least one of your Torbadd Thundertusks. Add 1 to the result of this dice roll for each additional Torrbad Thundertusk that is within 3" of the unit being rolled for. On a 6 the unit suffers a mortal wound, on a 7 it suffers D3 mortal wounds and on an 8 or more it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

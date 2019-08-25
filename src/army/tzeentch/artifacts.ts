@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ambition's End`,
-        desc: `Pick one of the bearer's melee weapons to be an Ambition's End. Roll a dice at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a roll of 5 or more, the Hero suffers 1 mortal wound and, if they are a Wizard, they also forget a randomly selected spell that they know.`,
+        desc: `Pick one of the bearer's melee weapons to be an Ambition's End. Roll a D6 at the end of the combat phase for any HERO that suffers an unsaved wound from this weapon. On a roll of 5 or more, the Hero suffers 1 mortal wound and, if they are a Wizard, they also forget a randomly selected spell that they know.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -37,7 +37,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Spiteful Shield`,
-        desc: `Roll a dice for each successful hit roll made against the bearer in the combat phase. On a 6, the attacking unit suffers a mortal wound once the attack has been resolved.`,
+        desc: `Roll a D6 for each successful hit roll made against the bearer in the combat phase. On a 6, the attacking unit suffers a mortal wound once the attack has been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a dice for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a D6 for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -117,7 +117,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daemonheart`,
-        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer's melee weapons for the duration of the turn. However, at the end of the combat phase, roll a dice; on a roll of 1, the bearer suffers a mortal wound.`,
+        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer's melee weapons for the duration of the turn. However, at the end of the combat phase, roll a D6; on a roll of 1, the bearer suffers a mortal wound.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -197,7 +197,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lord of Flux`,
-        desc: `Roll a dice at the beginning of each combat phase for each enemy unit within 3" of this daemon. On a roll of 4 or more that unit suffers a mortal wound.`,
+        desc: `Roll a D6 at the beginning of each combat phase for each enemy unit within 3" of this daemon. On a roll of 4 or more that unit suffers a mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -217,7 +217,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cursed Ichor`,
-        desc: `Roll a dice at the end of the combat phase if any wounds were allocated to this daemon in the combat phase (even if this daemon was slain). On a roll of 2 or more, one enemy unit that attacked this daemon in that combat phase suffers 1 mortal wound. If several enemy units attacked this daemon, randomly select the unit that suffers the mortal wound.`,
+        desc: `Roll a D6 at the end of the combat phase if any wounds were allocated to this daemon in the combat phase (even if this daemon was slain). On a roll of 2 or more, one enemy unit that attacked this daemon in that combat phase suffers 1 mortal wound. If several enemy units attacked this daemon, randomly select the unit that suffers the mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -237,7 +237,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Aspect of Tzeentch`,
-        desc: `Each time you expend a Destiny Dice whilst this daemon is on the battlefield, roll a dice. On a 6 you may immediately roll another dice and add it to your Destiny Dice pool.`,
+        desc: `Each time you expend a Destiny Dice whilst this daemon is on the battlefield, roll a D6. On a 6 you may immediately roll another dice and add it to your Destiny Dice pool.`,
         when: [DURING_GAME],
       },
     ],
