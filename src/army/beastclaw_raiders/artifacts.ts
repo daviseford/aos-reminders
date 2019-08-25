@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Elixir of Frostwyrm`,
-        desc: `In each of your shooting phases, the bearer can drink from the Elixir of Frostwyrm. If they do, pick a unit within 9" that is visible to them and roll a dice:
+        desc: `In each of your shooting phases, the bearer can drink from the Elixir of Frostwyrm. If they do, pick a unit within 9" that is visible to them and roll a D6:
         
         1: The drinker suffers a mortal wound. They cannot drink the Elixir of Frostwyrm again during this battle.
         

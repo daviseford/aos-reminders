@@ -219,7 +219,7 @@ export const Units: TUnits = [
       },
       {
         name: `Swallow Whole`,
-        desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model's attacks have been resolved and roll a dice. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
+        desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model's attacks have been resolved and roll a D6. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -289,7 +289,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Beneath the Tempest`,
-        desc: `If the roll-off at the start of a battle round to determine who takes the first turn is a tie, roll a dice for each THUNDERSCORN unit on the battlefield. On a 4+ heal D3 wounds allocated to that unit.`,
+        desc: `If the roll-off at the start of a battle round to determine who takes the first turn is a tie, roll a D6 for each THUNDERSCORN unit on the battlefield. On a 4+ heal D3 wounds allocated to that unit.`,
         when: [START_OF_TURN],
       },
       {
@@ -339,7 +339,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aura of Madness`,
-        desc: `At the start of your hero phase, roll a dice for each enemy unit that is within 6" of any friendly JABBERSLYTHES . On a 6 that unit cannot attempt to cast or unbind spells, move, or attack until the start of your next hero phase.`,
+        desc: `At the start of your hero phase, roll a D6 for each enemy unit that is within 6" of any friendly JABBERSLYTHES . On a 6 that unit cannot attempt to cast or unbind spells, move, or attack until the start of your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -354,7 +354,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Petrifying Gaze`,
-        desc: `Do not use the attack sequence for an attack made with a Cockatrice's Petrifying Gaze. Instead, roll a dice. On a 4+ the target suffers D6 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with a Cockatrice's Petrifying Gaze. Instead, roll a D6. On a 4+ the target suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -389,7 +389,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stuff 'Em In Me Bag`,
-        desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a dice. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
+        desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -548,7 +548,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Raging Storm`,
-        desc: `In your hero phase, you can roll a dice for each unit from this battalion that is on the battlefield. On a 4+ you can heal 1 wound allocated to that unit. After rolling a dice for each unit from this battalion, roll a dice for each enemy unit within 1" of any models from this battalion. On a 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `In your hero phase, you can roll a D6 for each unit from this battalion that is on the battlefield. On a 4+ you can heal 1 wound allocated to that unit. After rolling a dice for each unit from this battalion, roll a D6 for each enemy unit within 1" of any models from this battalion. On a 4+ that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -588,7 +588,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Entropic Deluge`,
-        desc: `If a unit from this battalion is destroyed, roll a dice for each enemy unit within 7". On a 2+ that enemy unit suffers 1 mortal wound.`,
+        desc: `If a unit from this battalion is destroyed, roll a D6 for each enemy unit within 7". On a 2+ that enemy unit suffers 1 mortal wound.`,
         when: [DURING_GAME],
       },
     ],

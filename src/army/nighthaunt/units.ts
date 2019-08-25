@@ -58,7 +58,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lifting the Veil`,
-        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a dice. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
+        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a D6. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -104,7 +104,7 @@ export const Units: TUnits = [
       },
       {
         name: `If I Cannot Rule, None Shall Rule!`,
-        desc: `At the start of the enemy hero phase, after the opposing player receives their command point for that turn, roll a dice. On a 5+, subtract 1 from the enemy player's command points, to a minimum of 0, and you receive 1 command point.`,
+        desc: `At the start of the enemy hero phase, after the opposing player receives their command point for that turn, roll a D6. On a 5+, subtract 1 from the enemy player's command points, to a minimum of 0, and you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -552,7 +552,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spectral Hunters`,
-        desc: `In your movement phase, immediately after this unit has moved, you can pick an enemy unit that has any models that a model from this unit passed across. If you do so, roll a dice for each model from this unit that passed across the enemy unit. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
+        desc: `In your movement phase, immediately after this unit has moved, you can pick an enemy unit that has any models that a model from this unit passed across. If you do so, roll a D6 for each model from this unit that passed across the enemy unit. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -594,7 +594,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death - Third Level - Spectral Scythes`,
-        desc: `After this model completes a charge move, pick an enemy unit withini 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `After this model completes a charge move, pick an enemy unit withini 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -604,7 +604,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death - Fifth Level - Witch-fire`,
-        desc: `In your hero phase, roll a dice for each enemy unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `In your hero phase, roll a D6 for each enemy unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {

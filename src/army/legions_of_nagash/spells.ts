@@ -38,7 +38,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Prison of Grief (Deathmages)`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. Until your next hero phase, before a unit affected by any Prison of Grief spells moves, roll a dice. On a 5+ the unit may not move in that phase.`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. Until your next hero phase, before a unit affected by any Prison of Grief spells moves, roll a D6. On a 5+ the unit may not move in that phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -58,7 +58,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Soul Harvest (Deathmages)`,
-        desc: `Casting value of 7. If successfully cast, each enemy unit within 3" of the caster suffers D3 mortal wounds. Then, roll a dice for each mortal wound that was allocated to an enemy unit and not negated. For each 5+, heal 1 wound that has been allocated to the caster.`,
+        desc: `Casting value of 7. If successfully cast, each enemy unit within 3" of the caster suffers D3 mortal wounds. Then, roll a D6 for each mortal wound that was allocated to an enemy unit and not negated. For each 5+, heal 1 wound that has been allocated to the caster.`,
         when: [HERO_PHASE],
       },
     ],
@@ -69,7 +69,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Blades of Shyish (Vampires)`,
-        desc: `Casting value of 5. If successfully cast, roll a dice for each enemy unit within 12" of the caster. On a 5+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 12" of the caster. On a 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -140,7 +140,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Wail of Doom (Lore of Sorrows)`,
-        desc: `Casting value of 8. If successfully cast, roll a dice for each enemy unit within 6" of the caster. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 8. If successfully cast, roll a D6 for each enemy unit within 6" of the caster. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

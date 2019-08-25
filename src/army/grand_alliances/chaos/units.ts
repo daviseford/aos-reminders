@@ -33,7 +33,7 @@ export const MonstersOfChaos: TUnits = [
 
         1. Hideous Disfigurements: Reduce the Bravery of each model in the target unit by 1 for the rest of the battle.
 
-        2. Trollbrains: For the rest of the battle, the controlling player must roll a dice at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
+        2. Trollbrains: For the rest of the battle, the controlling player must roll a D6 at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
 
         3. Gift of Mutations: Reduce the Move of each model in the target unit by 1 for the rest of the battle.
 

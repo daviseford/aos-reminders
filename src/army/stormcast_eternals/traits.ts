@@ -28,7 +28,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Consummate Commander`,
-        desc: `If this general is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive 1 extra command point.`,
+        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 extra command point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -98,7 +98,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Savage Loyalty (Mount)`,
-        desc: `If this model is slain by wounds or mortal wounds inflicted by an attack made with an enemy unit's melee weapons, roll a dice. On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `If this model is slain by wounds or mortal wounds inflicted by an attack made with an enemy unit's melee weapons, roll a D6. On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -108,7 +108,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Drake-kin (Mount)`,
-        desc: `Before determining damage for an attack that targets this model that has a Damage characteristic of any value other than 1, roll a dice. On a 5+ change the Damage characteristic of that attack to 1.`,
+        desc: `Before determining damage for an attack that targets this model that has a Damage characteristic of any value other than 1, roll a D6. On a 5+ change the Damage characteristic of that attack to 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -138,7 +138,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Storm-winged (Mount)`,
-        desc: `After this model has moved, you can pick 1 enemy unit that has any models that this model passed across, and roll a dice. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `After this model has moved, you can pick 1 enemy unit that has any models that this model passed across, and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -208,7 +208,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Lashing Tail (Mount)`,
-        desc: `At the end of the combat phase, you can pick an enemy unit within 3" of this model and roll a dice. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, you can pick an enemy unit within 3" of this model and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -248,7 +248,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ear-bursting Roar (Mount)`,
-        desc: `At the start of the combat phase you can pick an enemy unit within 3" oof this model and roll a dice. On a 4+ subtract 1 from hit rolls for attacks made by that unit until the end of that phase.`,
+        desc: `At the start of the combat phase you can pick an enemy unit within 3" oof this model and roll a D6. On a 4+ subtract 1 from hit rolls for attacks made by that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

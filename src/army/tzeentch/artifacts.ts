@@ -97,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a dice for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a D6 for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -117,7 +117,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daemonheart`,
-        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer's melee weapons for the duration of the turn. However, at the end of the combat phase, roll a dice; on a roll of 1, the bearer suffers a mortal wound.`,
+        desc: `Once per battle, at the end of any hero phase, the bearer can tap into the baleful energies of the Daemonheart. Add 1 to the Damage characteristic of all of the bearer's melee weapons for the duration of the turn. However, at the end of the combat phase, roll a D6; on a roll of 1, the bearer suffers a mortal wound.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -237,7 +237,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Aspect of Tzeentch`,
-        desc: `Each time you expend a Destiny Dice whilst this daemon is on the battlefield, roll a dice. On a 6 you may immediately roll another dice and add it to your Destiny Dice pool.`,
+        desc: `Each time you expend a Destiny Dice whilst this daemon is on the battlefield, roll a D6. On a 6 you may immediately roll another dice and add it to your Destiny Dice pool.`,
         when: [DURING_GAME],
       },
     ],

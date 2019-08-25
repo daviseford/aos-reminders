@@ -49,7 +49,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a dice.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
+        desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -78,7 +78,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gaze of Morathi`,
-        desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a dice. If the result exceeds that model's Wounds characteristic, it is slain.`,
+        desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a D6. If the result exceeds that model's Wounds characteristic, it is slain.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -93,7 +93,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a dice.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
+        desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -103,7 +103,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a dice. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
+        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
         when: [HERO_PHASE],
       },
       {
@@ -138,7 +138,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a dice. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
+        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
         when: [HERO_PHASE],
       },
       {
@@ -224,7 +224,7 @@ export const Units: TUnits = [
       },
       {
         name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a dice. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
+        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
         when: [HERO_PHASE],
       },
       {
@@ -344,7 +344,7 @@ export const Units: TUnits = [
       },
       {
         name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a dice. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
+        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
         when: [HERO_PHASE],
       },
       {
@@ -395,7 +395,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bloodwrack Stare`,
-        desc: `Pick a unit visible to this model and roll a dice for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
+        desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -455,7 +455,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloodwrack Stare`,
-        desc: `Pick a unit visible to this model and roll a dice for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
+        desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range.  For each 5+ the unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -520,7 +520,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fire and Flight`,
-        desc: `After this unit has finished making all of its attacks, roll a dice: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
+        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -550,7 +550,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fight and Flight`,
-        desc: `After this unit has finished making all of its attacks, roll a dice: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
+        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
         when: [COMBAT_PHASE],
       },
       {

@@ -22,7 +22,7 @@ const SlaveUnits = getChaosSlaves(MARK_SLAANESH)
 const KeeperOfSecretsBaseEffects = [
   {
     name: `Dark Temptations`,
-    desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a dice. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+    desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
     when: [START_OF_COMBAT_PHASE],
   },
   {
@@ -56,7 +56,7 @@ export const SlaaneshUnits: TUnits = [
       ...KeeperOfSecretsBaseEffects,
       {
         name: `Ritual Knife`,
-        desc: `You can pick 1 enemy model within 1" of this model that has any wounds currently allocated to it and roll a dice. On a 1, nothing happens. On a 2-5, that enemy model suffers 1 mortal wound. On a 6, that enemy model suffers D3 mortal wounds.`,
+        desc: `You can pick 1 enemy model within 1" of this model that has any wounds currently allocated to it and roll a D6. On a 1, nothing happens. On a 2-5, that enemy model suffers 1 mortal wound. On a 6, that enemy model suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -67,7 +67,7 @@ export const SlaaneshUnits: TUnits = [
       ...KeeperOfSecretsBaseEffects,
       {
         name: `Living Whip`,
-        desc: `You can pick 1 enemy Monster model within 6" of this model and roll a dice. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
+        desc: `You can pick 1 enemy Monster model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -163,12 +163,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Living Whip`,
-        desc: `If this model is armed with a Living Whip, you can pick 1 enemy Monster model within 6" of this model and roll a dice. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that melee weapon until the end of that combat phase.`,
+        desc: `If this model is armed with a Living Whip, you can pick 1 enemy Monster model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that melee weapon until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Shining Aegis`,
-        desc: `If this model is armed with a Shining Aegis, roll a dice each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
+        desc: `If this model is armed with a Shining Aegis, roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {

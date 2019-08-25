@@ -63,7 +63,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Bloodbane Venom`,
-        desc: `If a model is allocated any wounds from attacks made using the selected melee weapon but not slain, roll a dice after the bearer has finished all of their attacks.  If the roll equals or exceeds the target's wound characteristic, it is slain.`,
+        desc: `If a model is allocated any wounds from attacks made using the selected melee weapon but not slain, roll a D6 after the bearer has finished all of their attacks.  If the roll equals or exceeds the target's wound characteristic, it is slain.`,
         when: [COMBAT_PHASE],
         artifact: true,
       },
@@ -119,7 +119,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crystal Heart (Wizard)`,
-        desc: `The bearer can attempt to cast a second spell in each of your hero phases.  If they do so, roll a dice before the casting roll is made.  On a 1, the bearer suffers D3 mortal wounds.`,
+        desc: `The bearer can attempt to cast a second spell in each of your hero phases.  If they do so, roll a D6 before the casting roll is made.  On a 1, the bearer suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         artifact: true,
       },
@@ -164,7 +164,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rune of Khaine (Priest)`,
-        desc: `When the bearer is slain, roll a dice.  On a 1 nothing happens.  On a 2-5 the unit that slew the bearer suffers D3 mortal wounds.  On a 6 the slayer suffers D6 mortal wounds.`,
+        desc: `When the bearer is slain, roll a D6.  On a 1 nothing happens.  On a 2-5 the unit that slew the bearer suffers D3 mortal wounds.  On a 6 the slayer suffers D6 mortal wounds.`,
         when: [DURING_GAME],
         artifact: true,
       },

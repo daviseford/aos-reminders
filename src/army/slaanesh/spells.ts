@@ -121,7 +121,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Hellshriek`,
-        desc: `Casting value of 5.  If successfully cast, roll a dice for each enemy unit within 6" of the caster.  On a 5+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5.  If successfully cast, roll a D6 for each enemy unit within 6" of the caster.  On a 5+ that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

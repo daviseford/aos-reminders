@@ -81,7 +81,7 @@ export const Units: TUnits = [
       },
       {
         name: `Righteous Indignation`,
-        desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a dice. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a D6. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -156,7 +156,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lightning Pulse`,
-        desc: `Casting value of 5. If successfully cast, roll a dice for each enemy unit within 12" of the caster that is visible to them. On a 5+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 12" of the caster that is visible to them. On a 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -274,7 +274,7 @@ export const Units: TUnits = [
       },
       {
         name: `Star Falcon`,
-        desc: `Pick 1 enemy unit within 18" of Sanson Farstrider and roll a dice. On a 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Pick 1 enemy unit within 18" of Sanson Farstrider and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -531,7 +531,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.`,
+        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -551,7 +551,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -583,7 +583,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Warcloak`,
-        desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a dice. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -633,12 +633,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Healing Storm`,
-        desc: `Pick a friendly model with the STORMCAST ETERNAL keyword that is within 12" of this model and roll a dice. On a roll of 3 or more you can heal up to D3 wounds that have been suffered by the model that you picked. A Lord-Relictor cannot pray for a healing storm and a lightning storm in the same turn.`,
+        desc: `Pick a friendly model with the STORMCAST ETERNAL keyword that is within 12" of this model and roll a D6. On a roll of 3 or more you can heal up to D3 wounds that have been suffered by the model that you picked. A Lord-Relictor cannot pray for a healing storm and a lightning storm in the same turn.`,
         when: [HERO_PHASE],
       },
       {
         name: `Lightning Storm`,
-        desc: `Pick an enemy unit that is within 12" of this model and roll a dice. On a roll of 3 or more, the unit you picked suffers D3 mortal wounds, and your opponent must subtract 1 from all hit rolls for the unit until your next hero phase. A Lord-Relictor cannot pray for a lightning storm and a healing storm in the same turn.`,
+        desc: `Pick an enemy unit that is within 12" of this model and roll a D6. On a roll of 3 or more, the unit you picked suffers D3 mortal wounds, and your opponent must subtract 1 from all hit rolls for the unit until your next hero phase. A Lord-Relictor cannot pray for a lightning storm and a healing storm in the same turn.`,
         when: [HERO_PHASE],
       },
     ],
@@ -653,7 +653,7 @@ export const Units: TUnits = [
       },
       {
         name: `Purifying Blast`,
-        desc: `Casting value of 5. If successfully cast, roll a dice for each enemy unit within 6" of the caster. Add that unit's Bravery to the roll. If the result is less than 10, that unit suffers D3 mortal wounds. Halve the Bravery (rounding down) of DEATH and DAEMON units for this spell.`,
+        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 6" of the caster. Add that unit's Bravery to the roll. If the result is less than 10, that unit suffers D3 mortal wounds. Halve the Bravery (rounding down) of DEATH and DAEMON units for this spell.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -699,7 +699,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sanction`,
-        desc: `Pick 1 enemy WIZARD within 7" of this model and roll a dice. On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Pick 1 enemy WIZARD within 7" of this model and roll a D6. On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -865,7 +865,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.`,
+        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -875,7 +875,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a dice for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -1160,7 +1160,7 @@ export const Units: TUnits = [
       },
       {
         name: `Thunderbolt Crossbow`,
-        desc: `Do not use the attack sequence for an attack made with a Thunderbolt Crossbow. Instead, roll a dice. Subtract 1 from the roll if the target is a MONSTER. If the result is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with a Thunderbolt Crossbow. Instead, roll a D6. Subtract 1 from the roll if the target is a MONSTER. If the result is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1195,7 +1195,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hunting Call`,
-        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a dice for each model in that Raptor‑Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
+        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a D6 for each model in that Raptor‑Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -1230,7 +1230,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lunar Blade`,
-        desc: `Each time a model armed with a Lunar Blade attacks, after all of that model's attacks have been resolved, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ the unit you picked suffers 1 mortal wound.`,
+        desc: `Each time a model armed with a Lunar Blade attacks, after all of that model's attacks have been resolved, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ the unit you picked suffers 1 mortal wound.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -1310,7 +1310,7 @@ export const Units: TUnits = [
       },
       {
         name: `Redemption Cache`,
-        desc: `Pick a CHAOS or DEATH unit within 6" of a Sequitor-Prime with a Redemption Cache and roll a dice. On a 4+, that unit suffers 1 mortal wound.`,
+        desc: `Pick a CHAOS or DEATH unit within 6" of a Sequitor-Prime with a Redemption Cache and roll a D6. On a 4+, that unit suffers 1 mortal wound.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -1486,7 +1486,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Borne by the High Star`,
-        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units,  roll a dice for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units,  roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },
     ],
@@ -1546,7 +1546,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Storm-born Commanders`,
-        desc: `If any HEROES from this battalion are on the battlefield, roll a dice. On a 4+ you receive 1 additional command point.`,
+        desc: `If any HEROES from this battalion are on the battlefield, roll a D6. On a 4+ you receive 1 additional command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

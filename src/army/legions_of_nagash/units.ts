@@ -37,7 +37,7 @@ export const Units: TUnits = [
       },
       {
         name: `Morikhane`,
-        desc: `Each time a mortal wound is allocated to Nagash, roll a dice. On a 4+ the mortal wound is negated. On a 6+ the attacking unit also suffers a mortal wound.`,
+        desc: `Each time a mortal wound is allocated to Nagash, roll a D6. On a 4+ the mortal wound is negated. On a 6+ the attacking unit also suffers a mortal wound.`,
         when: [DURING_GAME],
       },
       {
@@ -184,7 +184,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dagger of Jet`,
-        desc: `If a model is allocated any wounds from attacks made using Akmet-har but is not slain, roll a dice after Neferata has finished making all of her attacks. On a 6+ that model is slain.`,
+        desc: `If a model is allocated any wounds from attacks made using Akmet-har but is not slain, roll a D6 after Neferata has finished making all of her attacks. On a 6+ that model is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -241,7 +241,7 @@ export const Units: TUnits = [
       },
       {
         name: `Breath of Shyish`,
-        desc: `At the start of your shooting phase, pick an enemy unit within 8" of this model that is visible to it. Then roll a dice, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
+        desc: `At the start of your shooting phase, pick an enemy unit within 8" of this model that is visible to it. Then roll a D6, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -293,7 +293,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ebon-wrought Armour`,
-        desc: `Each time you allocate a mortal wound to this unit, roll a dice. On a 5+ the mortal wound is negated.`,
+        desc: `Each time you allocate a mortal wound to this unit, roll a D6. On a 5+ the mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -395,7 +395,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood-Maddened Feeding Frenzy`,
-        desc: `Each time a model from this unit slays an enemy model, roll a dice. On a 6+ it can immediately make one additional attack against the same unit.`,
+        desc: `Each time a model from this unit slays an enemy model, roll a D6. On a 6+ it can immediately make one additional attack against the same unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -496,7 +496,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Siphon`,
-        desc: `Casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a dice. On a 1-3 the hero suffers a mortal wound. On a 4-5 the hero suffers D3 mortal wounds. On a 6 the hero suffers D6 mortal wounds.`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a D6. On a 1-3 the hero suffers a mortal wound. On a 4-5 the hero suffers D3 mortal wounds. On a 6 the hero suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -574,7 +574,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Undead Minions`,
-        desc: `Before you allocate a wound or mortal wound to this model, you can pick a friendly Summonable unit within 3" of this model and roll a dice. On a 4+ the wound or mortal wound is allocated to that unit instead.`,
+        desc: `Before you allocate a wound or mortal wound to this model, you can pick a friendly Summonable unit within 3" of this model and roll a D6. On a 4+ the wound or mortal wound is allocated to that unit instead.`,
         when: [DURING_GAME],
       },
       {
@@ -615,7 +615,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Newly Dead`,
-        desc: `At the end of the combat phase, roll a dice for each model slain by this unit. For each roll of a 6, add a Zombie to this unit.`,
+        desc: `At the end of the combat phase, roll a D6 for each model slain by this unit. For each roll of a 6, add a Zombie to this unit.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -640,7 +640,7 @@ export const Units: TUnits = [
       },
       {
         name: `Crypt Sword`,
-        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a dice. On a 5+ the unit you picked suffers a mortal wound.`,
+        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -655,12 +655,12 @@ export const Units: TUnits = [
       },
       {
         name: `Malefic Fumes`,
-        desc: `At the start of your hero phase, roll a dice for each enemy WIZARD within 6" any Corpse Carts with a Balefire Brazier. On a 4+ that unit suffers a mortal wound.`,
+        desc: `At the start of your hero phase, roll a D6 for each enemy WIZARD within 6" any Corpse Carts with a Balefire Brazier. On a 4+ that unit suffers a mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Crypt Sword`,
-        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a dice. On a 5+ the unit you picked suffers a mortal wound.`,
+        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -670,7 +670,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Death Shriek`,
-        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a dice and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a D6 and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -726,7 +726,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Black Axe`,
-        desc: `If a model is allocated any wounds from attacks made using the Black Axe but is not slain, roll a dice after the Wight King has finished making all of its attacks. On a 6+ that model is slain.`,
+        desc: `If a model is allocated any wounds from attacks made using the Black Axe but is not slain, roll a D6 after the Wight King has finished making all of its attacks. On a 6+ that model is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -857,7 +857,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death`,
-        desc: `In your hero phase, roll a dice for each friendly DEATH WIZARD within 12" of this model. For each roll of 6, the Black Coach gains a level of power for the rest of the battle; these are cumulative and grant the following abilities:`,
+        desc: `In your hero phase, roll a D6 for each friendly DEATH WIZARD within 12" of this model. For each roll of 6, the Black Coach gains a level of power for the rest of the battle; these are cumulative and grant the following abilities:`,
         when: [HERO_PHASE],
       },
       {
@@ -916,7 +916,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ceaseless Vigil`,
-        desc: `Before you allocate a wound or mortal wound to Nagash, you can pick a friendly Morghast unit from this battalion within 3" of Nagash and roll a dice. On a 3+ the wound or mortal wound is allocated to that unit instead.`,
+        desc: `Before you allocate a wound or mortal wound to Nagash, you can pick a friendly Morghast unit from this battalion within 3" of Nagash and roll a D6. On a 3+ the wound or mortal wound is allocated to that unit instead.`,
         when: [DURING_GAME],
       },
       {

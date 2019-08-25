@@ -13,7 +13,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Ur-Gold Runes`,
-    desc: `Activate 1 of your 6 runes. When you choose, roll a dice. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies. You can only activate a rune once per game unless something specifically allows you to do so.`,
+    desc: `Activate 1 of your 6 runes. When you choose, roll a D6. On a 1-5 the standard rune applies. On a 6 the enhanced effect applies. You can only activate a rune once per game unless something specifically allows you to do so.`,
     when: [START_OF_HERO_PHASE],
   },
   {

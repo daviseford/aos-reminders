@@ -18,7 +18,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Firestarter (${AQSHY})`,
-        desc: `Pick a terrain feature within 12" of a friendly hero and within 3" of another friendly unit; roll a dice.  On a 4+ the terrain feature is set alight.  For the rest of the battle, any unit with models in or on the terrain feature at the end of the movement phase suffers D3 mortal wounds.  In addition the terrain now blocks line of sight for models (measured center to center on bases).`,
+        desc: `Pick a terrain feature within 12" of a friendly hero and within 3" of another friendly unit; roll a D6.  On a 4+ the terrain feature is set alight.  For the rest of the battle, any unit with models in or on the terrain feature at the end of the movement phase suffers D3 mortal wounds.  In addition the terrain now blocks line of sight for models (measured center to center on bases).`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -38,12 +38,12 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Adapt or Die (${CHAMON})`,
-        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general).  Until your next hero phase, roll a dice for each wound or mortal wound allocated to the unit.  On a 6+ the wound is negated.`,
+        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general).  Until your next hero phase, roll a D6 for each wound or mortal wound allocated to the unit.  On a 6+ the wound is negated.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Adapt or Die (${CHAMON})`,
-        desc: `If active, roll a dice for each wound or mortal wound allocated to the buffed unit.  On a 6+ the wound is negated.`,
+        desc: `If active, roll a D6 for each wound or mortal wound allocated to the buffed unit.  On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -98,7 +98,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Honour the Dead (${SHYISH}) (${STYGXX})`,
-        desc: `Pick a friendly unit within 3" of a hero (12" of a general) and roll a dice.  If the roll is less than the number of models that have been slain from the selected unit, you can add 1 to the attacks characteristic of that unit.`,
+        desc: `Pick a friendly unit within 3" of a hero (12" of a general) and roll a D6.  If the roll is less than the number of models that have been slain from the selected unit, you can add 1 to the attacks characteristic of that unit.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

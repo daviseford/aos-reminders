@@ -17,7 +17,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Big Name`,
-        desc: `Before setting this model up, roll a dice to discover its big name. On a 6, choose freely.`,
+        desc: `Before setting this model up, roll a D6 to discover its big name. On a 6, choose freely.`,
         when: [DURING_SETUP],
       },
       {

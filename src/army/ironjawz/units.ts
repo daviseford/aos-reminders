@@ -57,7 +57,7 @@ export const Units: TUnits = [
       },
       {
         name: `Mighty Waaagh!`,
-        desc: `If a Megaboss on Mawkrusha uses this ability, count up the number of Ironjawz units within 15" of them at the start of the combat phase of the turn, and roll a dice. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with each of their me- lee weapons in that combat phase. If the roll is a 6, and there are at least 6 Ironjawz units within 15" of this model, then make 2 extra attacks rather than 1.`,
+        desc: `If a Megaboss on Mawkrusha uses this ability, count up the number of Ironjawz units within 15" of them at the start of the combat phase of the turn, and roll a D6. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with each of their me- lee weapons in that combat phase. If the roll is a 6, and there are at least 6 Ironjawz units within 15" of this model, then make 2 extra attacks rather than 1.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -88,7 +88,7 @@ export const Units: TUnits = [
       },
       {
         name: `Waaagh!`,
-        desc: `If a Megaboss uses this ability, count up the number of Ironjawz units within 10" of them at the start of the combat phase of the turn, and roll a dice. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with their melee weapons in that combat phase. If the roll is 6 or more, and there are at least 6 IRONJAWZ units within 10" of this model, then make 2 extra attacks rather than 1.`,
+        desc: `If a Megaboss uses this ability, count up the number of Ironjawz units within 10" of them at the start of the combat phase of the turn, and roll a D6. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with their melee weapons in that combat phase. If the roll is 6 or more, and there are at least 6 IRONJAWZ units within 10" of this model, then make 2 extra attacks rather than 1.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -134,7 +134,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icon of Gork`,
-        desc: `If a model flees from a unit that includes any of these Icons, roll a dice on a 6 the Standard Bearer thumps the cowardly orruk – they return to the fight and don't flee.`,
+        desc: `If a model flees from a unit that includes any of these Icons, roll a D6 on a 6 the Standard Bearer thumps the cowardly orruk – they return to the fight and don't flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -245,7 +245,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `'Ere We Go! 'Ere We Go! 'Ere We Go!`,
-        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, roll a dice. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
+        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, roll a D6. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
         when: [HERO_PHASE],
       },
     ],

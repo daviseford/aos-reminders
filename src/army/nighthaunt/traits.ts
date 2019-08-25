@@ -17,7 +17,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Terrifying Entity`,
-        desc: `At the start of the enemy movement phase, roll a dice for each enemy unit within 3" of this model. If the roll is equal to or greater than that enemy unit's Bravery characteristic, that unit must make a retreat move in that movement phase.`,
+        desc: `At the start of the enemy movement phase, roll a D6 for each enemy unit within 3" of this model. If the roll is equal to or greater than that enemy unit's Bravery characteristic, that unit must make a retreat move in that movement phase.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],

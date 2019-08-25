@@ -18,12 +18,12 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Death From Below`,
-        desc: `After this model has moved, roll a dice for each unit within 1" of it. On a 3+ that unit suffers D3 mortal wounds. This ability has no effect on units with the SYLVANETH keyword.`,
+        desc: `After this model has moved, roll a D6 for each unit within 1" of it. On a 3+ that unit suffers D3 mortal wounds. This ability has no effect on units with the SYLVANETH keyword.`,
         when: [HERO_PHASE],
       },
       {
         name: `Healing Mist`,
-        desc: `After this model has moved, roll a dice for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
+        desc: `After this model has moved, roll a D6 for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
     ],

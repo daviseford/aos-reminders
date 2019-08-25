@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hulking Muscle-bound Brute`,
-        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of this general and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of this general and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],

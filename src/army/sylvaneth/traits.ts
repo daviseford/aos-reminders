@@ -124,7 +124,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Radiant Spirit (Wizard Only)`,
-        desc: `Each time this general is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+ ignore the effects of that spell or endless spell on this general.`,
+        desc: `Each time this general is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+ ignore the effects of that spell or endless spell on this general.`,
         when: [HERO_PHASE],
       },
     ],

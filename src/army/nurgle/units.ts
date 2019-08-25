@@ -48,7 +48,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Streams of Brackish Filth`,
-        desc: `In your hero phase roll a dice for each enemy unit that is within 6" of Rotigus.  On a 4+ the enemy unit suffers D3 mortal wounds.  Enemy units that can fly suffer D3 mortal wounds on a 6+ instead.`,
+        desc: `In your hero phase roll a D6 for each enemy unit that is within 6" of Rotigus.  On a 4+ the enemy unit suffers D3 mortal wounds.  Enemy units that can fly suffer D3 mortal wounds on a 6+ instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -390,7 +390,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `The Rotaxes`,
-        desc: `At the end of the combat phase, roll a dice for each enemy model that was allocated any wounds caused by the Rotaxes.  On a 4+ that model suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy model that was allocated any wounds caused by the Rotaxes.  On a 4+ that model suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -421,12 +421,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Miasma of Pestilence`,
-        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Until your next hero phase, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Until your next hero phase, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Miasma of Pestilence`,
-        desc: `If successfully cast earlier, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `If successfully cast earlier, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
         when: [
           END_OF_HERO_PHASE,
           END_OF_MOVEMENT_PHASE,
@@ -508,7 +508,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Delightful Brews, Splendid Restoratives`,
-        desc: `You can pick a unit (friend or foe) within 1" of this model.  Pick a friendly or enemy unit and roll a dice.  On a friendly unit, on a 2+ heal D3 wounds that have been allocated to that unit.  On an enemy unit, on a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `You can pick a unit (friend or foe) within 1" of this model.  Pick a friendly or enemy unit and roll a D6.  On a friendly unit, on a 2+ heal D3 wounds that have been allocated to that unit.  On an enemy unit, on a 2+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -533,12 +533,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Rotsword`,
-        desc: `Once per battle, pick an enemy hero within 1" of this model and roll a dice.  On a 2+ that hero suffers D3 mortal wounds.  On a 4+ that hero  suffers D3 mortal wounds and each other enemy unit within 7" of that hero suffers 1 mortal wound.`,
+        desc: `Once per battle, pick an enemy hero within 1" of this model and roll a D6.  On a 2+ that hero suffers D3 mortal wounds.  On a 4+ that hero  suffers D3 mortal wounds and each other enemy unit within 7" of that hero suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Morbid Vigour`,
-        desc: `Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model.  On a 5+ the wound is negated.  The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model.  On a 5+ the wound is negated.  The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -604,7 +604,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Clutching Pseudopods`,
-        desc: `You can pick an enemy model within 1" of this model.  Choose a weapon carried by the target and roll a dice.  On a 4+ that weapon cannot be used in the combat phase.`,
+        desc: `You can pick an enemy model within 1" of this model.  Choose a weapon carried by the target and roll a D6.  On a 4+ that weapon cannot be used in the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {

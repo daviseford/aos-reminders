@@ -147,7 +147,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Eye of the Gods`,
-        desc: `Each time this model slays a monster or hero, roll a dice.  If the result is 2 or more this model heals D3 wounds.  If the model is already at full health, increase the wounds characteristic by 1 instead.`,
+        desc: `Each time this model slays a monster or hero, roll a D6.  If the result is 2 or more this model heals D3 wounds.  If the model is already at full health, increase the wounds characteristic by 1 instead.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -244,7 +244,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Runeshield`,
-        desc: `Each time you allocate a wound or mortal wound to this model, roll a dice.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Each time you allocate a wound or mortal wound to this model, roll a D6.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
         when: [DURING_GAME],
       },
       {
@@ -340,7 +340,7 @@ export const Units: TUnits = [
       },
       {
         name: `Schalkain's Teeth`,
-        desc: `You can pick 1 enemy unit within 8" of this model and roll a dice. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `You can pick 1 enemy unit within 8" of this model and roll a D6. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -470,7 +470,7 @@ export const Units: TUnits = [
       },
       {
         name: `Don't Spare the Lash`,
-        desc: `Before this unit moves, roll a dice and add that many inches to this unit's Move characteristic for the rest of the phase.`,
+        desc: `Before this unit moves, roll a D6 and add that many inches to this unit's Move characteristic for the rest of the phase.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -495,7 +495,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gorebeast Charge`,
-        desc: `After this unit has finished a charge move, roll a dice for each enemy model within 2".  For each 6, that models unit suffers a mortal wound.`,
+        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 2".  For each 6, that models unit suffers a mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -575,7 +575,7 @@ export const Units: TUnits = [
       },
       {
         name: `Favour of the Ruinous Powers`,
-        desc: `This model may pick a mortal unit within 16" and roll a dice.  On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
+        desc: `This model may pick a mortal unit within 16" and roll a D6.  On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
         when: [HERO_PHASE],
       },
       {

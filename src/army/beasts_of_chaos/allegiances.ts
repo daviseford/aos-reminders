@@ -47,7 +47,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Gift of Morghur`,
-        desc: `If a friendly GAVESPAWN HERO is slain, roll a dice before removing the model. On a 2+ one CHAOS SPAWN is added to your army. Set up the CHAOS SPAWN anywhere on the battlefield within 6" of the slain HERO. If the HERO had the KHORNE, NURGLE, SLAANESH or TZEENTCH keyword, the same keyword must be chosen for the CHAOS SPAWN . If they did not, you cannot use the Cursed of the Dark Gods ability to choose a keyword for that CHAOS SPAWN .`,
+        desc: `If a friendly GAVESPAWN HERO is slain, roll a D6 before removing the model. On a 2+ one CHAOS SPAWN is added to your army. Set up the CHAOS SPAWN anywhere on the battlefield within 6" of the slain HERO. If the HERO had the KHORNE, NURGLE, SLAANESH or TZEENTCH keyword, the same keyword must be chosen for the CHAOS SPAWN . If they did not, you cannot use the Cursed of the Dark Gods ability to choose a keyword for that CHAOS SPAWN .`,
         when: [DURING_GAME],
         allegiance_ability: true,
       },
@@ -100,7 +100,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Desolate Shard`,
-        desc: `Once per battle, at the start of your hero phase, the bearer can use the Desolate Shard if they are within 3" of a terrain feature. If they do so, roll a dice for each enemy unit within 1" of that terrain feature. On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can use the Desolate Shard if they are within 3" of a terrain feature. If they do so, roll a D6 for each enemy unit within 1" of that terrain feature. On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
         artifact: true,
       },

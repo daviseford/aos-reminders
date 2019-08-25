@@ -29,12 +29,12 @@ export const Units: TUnits = [
       },
       {
         name: `Roused by Magic`,
-        desc: `In the hero phase, if a spell is successfully cast by a WIZARD wholly within 6" of an AWAKENED WYLDWOOD and not unbound, roll a dice for each unit within 1" of that AWAKENED WYLDWOOD which does not have the SYLVANETH keyword. On a 5+ that unit suffers D3 mortal wounds after that spell's effects have been resolved.`,
+        desc: `In the hero phase, if a spell is successfully cast by a WIZARD wholly within 6" of an AWAKENED WYLDWOOD and not unbound, roll a D6 for each unit within 1" of that AWAKENED WYLDWOOD which does not have the SYLVANETH keyword. On a 5+ that unit suffers D3 mortal wounds after that spell's effects have been resolved.`,
         when: [HERO_PHASE],
       },
       {
         name: `Wyldwood`,
-        desc: `At the end of the charge phase, roll a dice for each unit within 1" of an AWAKENED WYLDWOOD which does not have the SYLVANETH keyword. On a 6, that unit suffers D3 mortal wounds.`,
+        desc: `At the end of the charge phase, roll a D6 for each unit within 1" of an AWAKENED WYLDWOOD which does not have the SYLVANETH keyword. On a 6, that unit suffers D3 mortal wounds.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -136,7 +136,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a dice. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
+        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -161,7 +161,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
     effects: [
       {
         name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a dice. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
+        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -202,7 +202,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
     effects: [
       {
         name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a dice. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
+        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -457,7 +457,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Deadly Chorus`,
-        desc: `In your shooting phase, roll a dice for each enemy unit that is within 6" of 2 or more models from this battalion. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, roll a D6 for each enemy unit that is within 6" of 2 or more models from this battalion. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],

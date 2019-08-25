@@ -193,7 +193,7 @@ const Artifacts: TArtifacts = [
         
         b) Roll a D6 for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.
         
-        c) Each HERO picked suffers D3 mortal wounds. Then roll a dice. On a 4+ the bearer suffers D3 mortal wounds`,
+        c) Each HERO picked suffers D3 mortal wounds. Then roll a D6. On a 4+ the bearer suffers D3 mortal wounds`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -258,7 +258,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Kraken Tooth`,
-        desc: `Once per battle, in your shooting phase, pick an enemy unit within 12" of the bearer that is visible to them. Then, roll a dice and look up the result below.
+        desc: `Once per battle, in your shooting phase, pick an enemy unit within 12" of the bearer that is visible to them. Then, roll a D6 and look up the result below.
         
         1: The bearer suffers D3 mortal wounds.
         

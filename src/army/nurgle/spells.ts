@@ -94,7 +94,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Cloying Quagmire (Mortal)`,
-        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Then roll a dice and compare the enemy unit's save characteristic.  If the roll is equal to or higher that the save characteristic, the unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Then roll a D6 and compare the enemy unit's save characteristic.  If the roll is equal to or higher that the save characteristic, the unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

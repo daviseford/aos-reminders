@@ -72,7 +72,7 @@ const Spells: TSpells = [
       },
       {
         name: `Parch (${AQSHY})`,
-        desc: `If successfully cast, roll a dice each time that unit completes a charge move until your next hero phase. On a 5+ the unit suffers D3 mortal wounds.`,
+        desc: `If successfully cast, roll a D6 each time that unit completes a charge move until your next hero phase. On a 5+ the unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -427,7 +427,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Communion with the Ancient Dead (Priest) (${STYGXX})`,
-        desc: `Select a priest to roll a dice.  On a 1, the priest suffers a mortal wound.  On a 2-5, nothing happens.  On a 6, receive 1 command point.  Can only be attempted once per turn.`,
+        desc: `Select a priest to roll a D6.  On a 1, the priest suffers a mortal wound.  On a 2-5, nothing happens.  On a 6, receive 1 command point.  Can only be attempted once per turn.`,
         when: [HERO_PHASE],
       },
     ],
@@ -437,7 +437,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Word of Ending (${SHYISH})`,
-        desc: `Casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a dice. If the result is more than the number of wounds allocated to that model, it suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. If successfully cast, pick an enemy HERO within 12" of the caster that is visible to them and roll a D6. If the result is more than the number of wounds allocated to that model, it suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -532,7 +532,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Crown of Asphyxiation (${ULGU})`,
-        desc: `Casting value of 6. If successfully cast, roll a dice for each enemy unit within 3" of the caster. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6. If successfully cast, roll a D6 for each enemy unit within 3" of the caster. On a 4+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -552,7 +552,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Phantasmal Guardian (${ULGU})`,
-        desc: `Casting value of 6. If successfully cast, roll a dice each time you allocate a wound or mortal wound to the caster until your next hero phase. On a 5+ the wound is negated.`,
+        desc: `Casting value of 6. If successfully cast, roll a D6 each time you allocate a wound or mortal wound to the caster until your next hero phase. On a 5+ the wound is negated.`,
         when: [HERO_PHASE],
       },
     ],

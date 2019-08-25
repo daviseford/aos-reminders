@@ -47,7 +47,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystical Unforging`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy HERO with an artifact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a dice. On a 5+, that HERO'S artifact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy HERO with an artifact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a D6. On a 5+, that HERO'S artifact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
         when: [HERO_PHASE],
       },
     ],
@@ -87,7 +87,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Celestial Deliverance`,
-        desc: `The caster can attempt to cast this spell up to three times in the same hero phase. Casting value of 8 the first time it is attempted in a hero phase, a casting value of 9 the second time it is attempted in a hero phase, and a casting value of 10 the third time it is attempted in a hero phase. Each time the spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll a dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a Chaos Daemon unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
+        desc: `The caster can attempt to cast this spell up to three times in the same hero phase. Casting value of 8 the first time it is attempted in a hero phase, a casting value of 9 the second time it is attempted in a hero phase, and a casting value of 10 the third time it is attempted in a hero phase. Each time the spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll a D6 for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a Chaos Daemon unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

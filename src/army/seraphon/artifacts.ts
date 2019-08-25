@@ -53,7 +53,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Coronal Shield`,
-        desc: `At the start of each combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+ subtract 1 from hit rolls for that unit in that combat phase.`,
+        desc: `At the start of each combat phase, roll a D6 for each enemy unit within 3" of the bearer. On a 4+ subtract 1 from hit rolls for that unit in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -63,7 +63,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Prism of Amyntok`,
-        desc: `Once per the battle, at the start of your movement phase, pick an enemy unit within 12" of the bearer and roll a dice. On a 1 that unit suffers 1 mortal wound. On a 2-5 that unit suffers D3 mortal wounds. On a 6 that unit suffers D6 mortal wounds.`,
+        desc: `Once per the battle, at the start of your movement phase, pick an enemy unit within 12" of the bearer and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2-5 that unit suffers D3 mortal wounds. On a 6 that unit suffers D6 mortal wounds.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],

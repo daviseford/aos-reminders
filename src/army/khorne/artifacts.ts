@@ -93,7 +93,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Banner of Wrath`,
-        desc: `In the combat phase, roll a dice for each enemy unit within 8" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `In the combat phase, roll a D6 for each enemy unit within 8" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -203,7 +203,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Khartoth the Bloodhunger`,
-        desc: `At the start of the combat phase roll a dice. On a 4+ the bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        desc: `At the start of the combat phase roll a D6. On a 4+ the bearer fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

@@ -21,7 +21,7 @@ const RealmscapeFeatures: TEffects[] = [
   },
   {
     name: `The Winds of Death (${SHYISH})`,
-    desc: `Roll a D6. On a 6+, pick an enemy unit, and then roll a dice for each model in it. For each 5+, that unit suffers 1 mortal wound.`,
+    desc: `Roll a D6. On a 6+, pick an enemy unit, and then roll a D6 for each model in it. For each 5+, that unit suffers 1 mortal wound.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -52,12 +52,12 @@ const RealmscapeFeatures: TEffects[] = [
   },
   {
     name: `Burning Skies (${AQSHY})`,
-    desc: `If an enemy unit can fly and moves more than 6", roll a dice. On a 4+ the enemy unit suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
+    desc: `If an enemy unit can fly and moves more than 6", roll a D6. On a 4+ the enemy unit suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
     when: [MOVEMENT_PHASE],
   },
   {
     name: `Geysers of Boiling Blood (${AQSHY})`,
-    desc: `At the start of each of your hero phases, roll a dice. On a 6+, a geyser explodes. If it does so, pick a point on the battlefield and roll a dice for each unit within 6" of that point; on a 4+ that unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds instead.`,
+    desc: `At the start of each of your hero phases, roll a D6. On a 6+, a geyser explodes. If it does so, pick a point on the battlefield and roll a D6 for each unit within 6" of that point; on a 4+ that unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds instead.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -177,12 +177,12 @@ const RealmscapeFeatures: TEffects[] = [
   },
   {
     name: `Shadowed Mansions (${ULGU})`,
-    desc: `Pick one friendly unit that is part of a garrison. You can immediately transfer that unit to a different terrain feature that can have a garrison. The unit cannot be transferred to a terrain feature that is garrisoned by an enemy unit, or if doing so would result in the number of models that can garrison the terrain feature being exceeded. Then roll a dice for each model you transfer; on a 1 the model being rolled for becomes lost in the shadows and is slain.`,
+    desc: `Pick one friendly unit that is part of a garrison. You can immediately transfer that unit to a different terrain feature that can have a garrison. The unit cannot be transferred to a terrain feature that is garrisoned by an enemy unit, or if doing so would result in the number of models that can garrison the terrain feature being exceeded. Then roll a D6 for each model you transfer; on a 1 the model being rolled for becomes lost in the shadows and is slain.`,
     when: [START_OF_HERO_PHASE],
   },
   {
     name: `Shadow Realm (${ULGU})`,
-    desc: `Pick one friendly unit that has all of its models within 6" of any edge of the battlefield. You can remove that unit from the battlefield, and then set it up more than 9" from any enemy units, and with all models within 6" of a different edge of the battlefield. Then roll a dice for each model you moved; on a 1 the model being rolled for becomes lost in the shadows and is slain. The unit may not move in the subsequent movement phase.`,
+    desc: `Pick one friendly unit that has all of its models within 6" of any edge of the battlefield. You can remove that unit from the battlefield, and then set it up more than 9" from any enemy units, and with all models within 6" of a different edge of the battlefield. Then roll a D6 for each model you moved; on a 1 the model being rolled for becomes lost in the shadows and is slain. The unit may not move in the subsequent movement phase.`,
     when: [START_OF_HERO_PHASE],
   },
   {

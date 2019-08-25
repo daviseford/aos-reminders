@@ -41,9 +41,9 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore`,
-        desc: `In your hero phase a Runelord can use this ability. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a dice; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
+        desc: `In your hero phase a Runelord can use this ability. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a D6; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
         
-        Ancestral Shield: Until your next hero phase, you can roll a dice whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
+        Ancestral Shield: Until your next hero phase, you can roll a D6 whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
         
         Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. '-' becomes -1, -1 becomes -2 and so on).`,
         when: [HERO_PHASE],
@@ -60,7 +60,7 @@ export const Units: TUnits = [
       },
       {
         name: `Epic Deathblow`,
-        desc: `If an Unforged is slain in the combat phase, roll a dice before it is removed. On a roll of 4 or more, you can inflict D3 mortal wounds on the enemy unit that struck the fatal blow (inflict D6 mortal wounds instead if a Chaos model struck the final blow).`,
+        desc: `If an Unforged is slain in the combat phase, roll a D6 before it is removed. On a roll of 4 or more, you can inflict D3 mortal wounds on the enemy unit that struck the fatal blow (inflict D6 mortal wounds instead if a Chaos model struck the final blow).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -80,7 +80,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -105,12 +105,12 @@ export const Units: TUnits = [
       },
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a dice; on a 2 or more, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a D6; on a 2 or more, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -135,7 +135,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -150,7 +150,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a dice; on a 2 or more, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a D6; on a 2 or more, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -165,7 +165,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -196,7 +196,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -226,7 +226,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -256,7 +256,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {

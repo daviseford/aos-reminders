@@ -32,7 +32,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Glimpse the Future`,
-        desc: `Casting value of 7.  If successfully cast, roll a dice and add it to your Destiny Dice pool.`,
+        desc: `Casting value of 7.  If successfully cast, roll a D6 and add it to your Destiny Dice pool.`,
         when: [HERO_PHASE],
       },
     ],
@@ -65,7 +65,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Treacherous Bond`,
-        desc: `Casting value of 6.  If successfully cast, pick a friendly unit within 18" of the caster.  Until your next hero phase, as long as the target is within 9" of the caster, roll a dice whenever the caster suffers an unsaved wound or mortal wound.  On a 2+ the chosen unit suffers the wound or mortal wound instead.`,
+        desc: `Casting value of 6.  If successfully cast, pick a friendly unit within 18" of the caster.  Until your next hero phase, as long as the target is within 9" of the caster, roll a D6 whenever the caster suffers an unsaved wound or mortal wound.  On a 2+ the chosen unit suffers the wound or mortal wound instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -106,7 +106,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Unchecked Mutation`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster.  The unit selected suffers D3 mortal wounds and then you roll a dice.  That unit suffers D3 mortal wounds. After the mortal wounds have been allocated, roll a dice. On a roll of 5 or more, the unit suffers 1 more mortal wound. If the unit suffers 1 more mortal wound, roll a dice after the mortal wound has been allocated; on a roll of 5 or more the unit suffers 1 more mortal wound, and so on until you fail to roll a 5 or more.`,
+        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster.  The unit selected suffers D3 mortal wounds and then you roll a D6.  That unit suffers D3 mortal wounds. After the mortal wounds have been allocated, roll a D6. On a roll of 5 or more, the unit suffers 1 more mortal wound. If the unit suffers 1 more mortal wound, roll a D6 after the mortal wound has been allocated; on a roll of 5 or more the unit suffers 1 more mortal wound, and so on until you fail to roll a 5 or more.`,
         when: [HERO_PHASE],
       },
     ],

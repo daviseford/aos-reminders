@@ -391,7 +391,7 @@ export const Units: TUnits = [
       },
       {
         name: `Supremacy Mine`,
-        desc: `Once per battle, when enemy flying unit ends charge within 1", roll a dice; 2+ = D6 mortal wounds.`,
+        desc: `Once per battle, when enemy flying unit ends charge within 1", roll a D6; 2+ = D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
