@@ -10,7 +10,6 @@
     color: white;
 }
 
-
 small {
     font-size: 12px;
 }
@@ -27,6 +26,16 @@ small {
 /* @page {
     margin: 20cm;
 } */
+
+@media (max-width: 575.98px) {
+    
+    .ReminderCardBody {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+}
+
 
 @media print {
 
