@@ -34,6 +34,7 @@ import {
   TAMURKHANS_HORDE,
   TSupportedFaction,
   TZEENTCH,
+  WANDERERS,
 } from './factions'
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
@@ -68,6 +69,7 @@ import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 import TamurkhansHorde from 'army/tamurkhans_horde'
 import Tzeentch from 'army/tzeentch'
+import Wanderers from 'army/wanderers'
 
 export const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -198,6 +200,10 @@ export const ArmyList: TArmyList = {
   [TZEENTCH]: {
     Army: { ...Tzeentch },
     GrandAlliance: CHAOS,
+  },
+  [WANDERERS]: {
+    Army: { ...Wanderers },
+    GrandAlliance: ORDER,
   },
 }
 
