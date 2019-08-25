@@ -135,7 +135,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -196,16 +196,16 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Standard Bearer: Runic Icon`,
+        name: `Runic Icon`,
         desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
-        name: `Standard Bearer: Clan Banner`,
+        name: `Clan Banner`,
         desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
       },
@@ -226,16 +226,16 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Standard Bearer: Runic Icon`,
+        name: `Runic Icon`,
         desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
-        name: `Standard Bearer: Clan Banner`,
+        name: `Clan Banner`,
         desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
       },
@@ -256,16 +256,16 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, the can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Standard Bearer: Runic Icon`,
+        name: `Runic Icon`,
         desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
-        name: `Standard Bearer: Clan Banner`,
+        name: `Clan Banner`,
         desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
       },

@@ -22,7 +22,7 @@ const Abilities: TAbilities = [
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
-    name: `Rune of Fury (enhanced effect)`,
+    name: `Rune of Fury (Enhanced Effect)`,
     desc: `Add 1 to the Attacks of melee weapons for friendly FYRESLAYERS units.`,
     when: [COMBAT_PHASE],
   },
@@ -32,7 +32,7 @@ const Abilities: TAbilities = [
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
-    name: `Rune of Searing Heat (enhanced effect)`,
+    name: `Rune of Searing Heat (Enhanced Effect)`,
     desc: `Roll a D6 for each enemy unit within 3" of any friendly FYRESLAYERS units when the rune is activated. On a 2+ that enemy unit takes 1 mortal wound.`,
     when: [HERO_PHASE],
   },
@@ -52,7 +52,7 @@ const Abilities: TAbilities = [
     when: [MOVEMENT_PHASE],
   },
   {
-    name: `Rune of Relentless Zeal (enhanced effect)`,
+    name: `Rune of Relentless Zeal (Enhanced Effect)`,
     desc: `Add 2" to the charge rolls of friendly FYRESLAYERS units.`,
     when: [CHARGE_PHASE],
   },
