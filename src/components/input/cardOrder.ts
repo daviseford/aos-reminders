@@ -1,13 +1,12 @@
-import { IArmy } from 'types/army'
 import { IArmyBuilderProps } from './army_builder'
-import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
+import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 
 export const cardOrder: TCardOrder = (army, props, realmFeatureItems) => {
   const { selections } = props
-  console.log('beiong called')
 
   return [
     {
