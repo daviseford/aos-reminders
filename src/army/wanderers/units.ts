@@ -1,14 +1,14 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  SHOOTING_PHASE,
   BATTLESHOCK_PHASE,
-  MOVEMENT_PHASE,
-  DURING_GAME,
-  END_OF_SETUP,
-  COMBAT_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
+  END_OF_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
 } from 'types/phases'
 
 // Unit Names
@@ -33,12 +33,12 @@ export const Units: TUnits = [
       },
       {
         name: `Pennant Bearer`,
-        desc: `Models in this unit may be Pennant Bearers. If the unit includes any Pennant Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+        desc: `If the unit includes any Pennant Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -78,9 +78,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Blessing of Life (Spell)`,
+        name: `Blessing of Life`,
         desc: `The Spellweaver speaks in the tongue of ancient days, restoring life to the fallen. Blessing of Life has a casting value of 5. If successfully cast, select a Wanderers unit within 16". You can return D3 slain models to that unit.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -162,12 +163,12 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -192,12 +193,12 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -237,12 +238,12 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -267,12 +268,12 @@ export const Units: TUnits = [
       },
       {
         name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],

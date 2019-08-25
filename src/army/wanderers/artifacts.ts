@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { HERO_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, COMBAT_PHASE } from 'types/phases'
+import { HERO_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Starcaster Longbow`,
-        desc: `Rn your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a dice. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a dice. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Splinterbirch Blade`,
-        desc: `Pick one of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
+        desc: `Improve the Rend characteristic of this weapon by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -47,8 +47,13 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Viridescent Shawl`,
-        desc: `Add 1 to casting rolls for friendly WANDERER WIZARDS within 9" of the bearer. In addition, subtract 1 from hit rolls for missile weapons that target the bearer.`,
+        desc: `Add 1 to casting rolls for friendly WANDERER WIZARDS within 9" of the bearer.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Viridescent Shawl`,
+        desc: `Subtract 1 from hit rolls for missile weapons that target the bearer.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -58,7 +63,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Forget-me-knot`,
         desc: `Once per battle, at the start of the combat phase, pick an enemy HERO within 3" of the bearer. That HERO cannot fight or use abilities in that combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
