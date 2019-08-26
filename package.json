@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "core-js": "^3.2.1",
     "is_js": "^0.9.0",
@@ -18,6 +19,7 @@
     "react-select": "^3.0.4",
     "react-sizes": "^2.0.0",
     "react-tooltip": "^3.10.0",
+    "react-transition-group": "^4.2.2",
     "redux": "^4.0.4",
     "redux-starter-kit": "^0.6.3",
     "typescript": "3.5.3"

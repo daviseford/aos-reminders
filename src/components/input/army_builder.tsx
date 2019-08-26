@@ -1,18 +1,17 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
-import './army_builder.css'
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { cardOrder } from './cardOrder'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import { realmscape, selections, factionNames, army } from 'ducks'
+import { TSupportedFaction } from 'meta/factions'
 import { RealmscapeFeatures } from 'army/generic'
 import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
-import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { IStore } from 'types/store'
-import { componentWithSize } from 'utils/mapSizesToProps'
 
 export interface IArmyBuilderProps {
   factionName: TSupportedFaction
@@ -62,6 +61,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               setValues={withSelectMultiple(card.setValues)}
               title={card.title}
               values={card.values}
+              key={card.title}
             />
           ) : (
             <CardSingleSelect
@@ -69,6 +69,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               setValue={withSelectOne(card.setValue)}
               title={card.title}
               value={card.value}
+              key={card.title}
             />
           )
         )}
