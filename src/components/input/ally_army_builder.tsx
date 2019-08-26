@@ -95,7 +95,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   )
 
   return (
-    <div className="col col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
+    <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
       <AllyCardComponent
         allyFactionName={allyFactionName}
         allySelectOptions={allySelectOptions}
@@ -170,7 +170,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-3">
-            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
+            <IconContext.Provider value={{ size: '1.25em', className: 'text-light' }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
@@ -182,7 +182,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
                 setAllyFactionName={setAllyFactionName}
               />
             ) : (
-              <h5 className="mb-0">Ally: {titleCase(allyFactionName)}</h5>
+              <h5 className="CardHeaderTitle">Ally: {titleCase(allyFactionName)}</h5>
             )}
           </div>
           <div className="pl-3">
