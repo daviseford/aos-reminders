@@ -62,6 +62,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               setValues={withSelectMultiple(card.setValues)}
               title={card.title}
               values={card.values}
+              key={card.title}
             />
           ) : (
             <CardSingleSelect
@@ -69,6 +70,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               setValue={withSelectOne(card.setValue)}
               title={card.title}
               value={card.value}
+              key={card.title}
             />
           )
         )}
