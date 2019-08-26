@@ -1,3 +1,4 @@
+/* Elements */
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -9,9 +10,86 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+small {
+    font-size: 12px;
+}
+
+/* Custom Classes */
+.CardHeaderTitle {
+    margin-bottom: 0;
+}
+
+.HeaderCover {
+    background-color: #063647;
+}
+
+.ReminderEntry {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0px;
+    margin-block-end: 0px;
+}
+
+.ReminderHeader {
+    background-color: #063647;
+    color: white;
+}
+
+.SelectArmy {
+    margin-block-start: 2rem;
+    margin-inline-end: 5%;
+    margin-inline-start: 5%;
+    text-align: center;
+}
+
+.SelectArmy-Row {
+    margin-block-end: 2px;
+    margin-block-start: 2px;
+}
+
+.SelectorHeader {
+    background-color: #1C7594;
+    color: #fff;
+}
+
+@media (max-width: 575.98px) {
+    .ReminderCardBody {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+}
+
+@media (max-width: 395px) {
+    .CardHeaderTitle {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 374px) {
+    .CardHeaderTitle {
+        font-size: 0.8rem;
+    }
+}
+
+/* Print styles/helpers below */
+.PageBreak {
+    /* https://www.w3schools.com/cssref/pr_print_pagebi.asp */
+    page-break-inside: avoid !important;
+}
+
 @media print {
+
     header>h1 {
         font-size: 1.5rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    .CardHeaderTitle {
+        font-size: 1.1rem;
+        color: black;
     }
 
     .card-header {
@@ -23,4 +101,19 @@ code {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
+
+    .ReminderCardBody {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .ReminderEntry {
+        font-size: 0.9rem;
+    }
+
+    .ReminderHeader {
+        background-color: white;
+        color: black;
+    }
+
 }

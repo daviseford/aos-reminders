@@ -11,12 +11,7 @@ import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css'
 import 'css/animations.css'
-import 'css/army_builder.css'
-import 'css/card.css'
-import 'css/header.css'
 import 'css/index.css'
-import 'css/index.css'
-import 'css/reminders.css'
 
 const store = createStore(
   combineReducers({
