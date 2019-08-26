@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import './reminders.css'
 import { visibility } from 'ducks'
 import { titleCase } from 'utils/titleCase'
 import { VisibilityToggle } from 'components/info/visibilityToggle'

@@ -3,11 +3,20 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import 'bootstrap/dist/css/bootstrap.css'
-import './index.css'
 import * as serviceWorker from './serviceWorker'
-import App from './components/App'
+import App from 'components/App'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
+
+// CSS
+import 'bootstrap/dist/css/bootstrap.css'
+import 'animate.css'
+import 'css/animations.css'
+import 'css/army_builder.css'
+import 'css/card.css'
+import 'css/header.css'
+import 'css/index.css'
+import 'css/index.css'
+import 'css/reminders.css'
 
 const store = createStore(
   combineReducers({

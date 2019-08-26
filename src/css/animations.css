@@ -1,0 +1,18 @@
+
+@keyframes pulse {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: scale3d(1.02, 1.02, 1.02);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.less-pulse {
+    animation-name: pulse;
+}

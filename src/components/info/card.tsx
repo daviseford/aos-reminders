@@ -2,7 +2,6 @@ import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { CSSTransition } from 'react-transition-group'
-import './card.css'
 import { visibility } from 'ducks'
 import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
@@ -24,19 +23,28 @@ const CardComponent: React.FC<ICardProps> = props => {
   const colClass = `${colMobile} ${colDesktop} mx-auto mt-1`
 
   return (
-    <CSSTransition in={isVisible} timeout={500} classNames="card">
-      <div className={colClass}>
-        <div className="card">
-          <CardHeader
-            isMobile={isMobile}
-            isVisible={isVisible}
-            title={title}
-            headerClassName={'SelectorHeader'}
-          />
-          <div className={bodyClass}>{children}</div>
+    <div className={colClass}>
+      <div className="card">
+        <CardHeader
+          isMobile={isMobile}
+          isVisible={isVisible}
+          title={title}
+          headerClassName={'SelectorHeader'}
+        />
+        <div className={bodyClass}>
+          <CSSTransition
+            in={isVisible}
+            timeout={1000}
+            classNames={{
+              enter: 'animated',
+              enterActive: 'less-pulse',
+            }}
+          >
+            {children}
+          </CSSTransition>
         </div>
       </div>
-    </CSSTransition>
+    </div>
   )
 }
 
