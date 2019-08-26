@@ -17,7 +17,7 @@ const Scenery: TScenery = [
       },
       {
         name: `Feculent Gnarlmaw`,
-        desc: `Roll a dice for each unit within 3" of any Feculent Gnarlmaws. On a 4+ the unit suffers 1 mortal wound. Units with the Nurgle keyword are are unaffected by this ability.`,
+        desc: `Roll a D6 for each unit within 3" of any Feculent Gnarlmaws. On a 4+ the unit suffers 1 mortal wound. Units with the Nurgle keyword are are unaffected by this ability.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

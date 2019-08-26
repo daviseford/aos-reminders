@@ -17,7 +17,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Vassal of the Craven King`,
-        desc: `If this general is on the battlefield, each time you spend a command point, roll a dice. On a 5+ you receive 1 extra command point.`,
+        desc: `If this general is on the battlefield, each time you spend a command point, roll a D6. On a 5+ you receive 1 extra command point.`,
         when: [DURING_GAME],
       },
     ],

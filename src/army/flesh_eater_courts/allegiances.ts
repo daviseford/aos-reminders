@@ -22,7 +22,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Heaving Masses`,
-        desc: `You can use this command ability when a friendly MORGAUNT SERFS unit is destroyed. If you do so, roll a dice. On a 4+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy models.`,
+        desc: `You can use this command ability when a friendly MORGAUNT SERFS unit is destroyed. If you do so, roll a D6. On a 4+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy models.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -59,7 +59,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Corpsefane Gauntlet`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -80,7 +80,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Hellish Orator`,
-        desc: `If this general is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive 1 additional command point.`,
+        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 additional command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -110,7 +110,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Ghurish Mawshard`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy model within 1" of the bearer and roll a dice. If the roll is greater than that model's Wounds characteristic, that model is slain.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy model within 1" of the bearer and roll a D6. If the roll is greater than that model's Wounds characteristic, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

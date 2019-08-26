@@ -21,7 +21,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Creatures of the Storm`,
-    desc: `At the start of your hero phase, roll a dice. Each friendly THUNDERSCORN unit more than 3" from any enemy units can move a distance in inches equal to the roll, but cannot move within 3" of any enemy units.`,
+    desc: `At the start of your hero phase, roll a D6. Each friendly THUNDERSCORN unit more than 3" from any enemy units can move a distance in inches equal to the roll, but cannot move within 3" of any enemy units.`,
     when: [START_OF_HERO_PHASE],
   },
   {

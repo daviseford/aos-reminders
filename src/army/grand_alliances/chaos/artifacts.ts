@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Chaos Talisman (${CHAOS})`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6+, the wound is negated. Add 1 to the roll if the wound was inflicted by a model with the ORDER keyword.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+, the wound is negated. Add 1 to the roll if the wound was inflicted by a model with the ORDER keyword.`,
         when: [DURING_GAME],
       },
     ],

@@ -10,7 +10,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Bad Moon Movement`,
-    desc: `Starting from the second battle round, before determining who has the first turn, the player commanding the Gloomspite Gitz army must roll a dice. On a 1 the Bad Moon does not move. On a 2-5 it makes 1 move. On a 6 it makes 2 moves.`,
+    desc: `Starting from the second battle round, before determining who has the first turn, the player commanding the Gloomspite Gitz army must roll a D6. On a 1 the Bad Moon does not move. On a 2-5 it makes 1 move. On a 6 it makes 2 moves.`,
     when: [START_OF_ROUND],
   },
 ]

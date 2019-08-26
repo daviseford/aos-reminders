@@ -29,7 +29,7 @@ const StegadonBaseEffects = [
   },
   {
     name: `Skink Alpha`,
-    desc: `If a Stegadon is ridden by a Skink Alpha, then in your hero phase the Alpha can give orders to a SKINK unit within 8". If that unit is not within 3" of an enemy unit, you can immediately roll a dice and move each of its models up to that many inches. In addition, until your next hero phase, you can re-roll hit rolls of 1 for that unit.`,
+    desc: `If a Stegadon is ridden by a Skink Alpha, then in your hero phase the Alpha can give orders to a SKINK unit within 8". If that unit is not within 3" of an enemy unit, you can immediately roll a D6 and move each of its models up to that many inches. In addition, until your next hero phase, you can re-roll hit rolls of 1 for that unit.`,
     when: [HERO_PHASE],
   },
   {
@@ -56,7 +56,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dead for Innumerable Ages`,
-        desc: `In the battleshock phase of each turn, roll a dice and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is 'slain'. Otherwise, any wounds he has suffered are immediately healed.`,
+        desc: `In the battleshock phase of each turn, roll a D6 and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is 'slain'. Otherwise, any wounds he has suffered are immediately healed.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -82,7 +82,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Configuration`,
-        desc: `Roll a dice and see which constellation is in the ascendant, and how it affects your army.
+        desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
         
         1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
         3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells. 
@@ -101,7 +101,7 @@ export const Units: TUnits = [
       },
       {
         name: `Celestial Configuration`,
-        desc: `At the start of your hero phase, one Slann Starmaster in your army can attempt to turn the constellations to its advantage instead of casting one of its spells. If it does so, roll a dice. If the result is a 1, the Slann is distracted by its exertions and cannot cast any spells this phase. If the result is 4 or higher, you can pick a new ascendant constellation from the table. Otherwise, there is no effect.`,
+        desc: `At the start of your hero phase, one Slann Starmaster in your army can attempt to turn the constellations to its advantage instead of casting one of its spells. If it does so, roll a D6. If the result is a 1, the Slann is distracted by its exertions and cannot cast any spells this phase. If the result is 4 or higher, you can pick a new ascendant constellation from the table. Otherwise, there is no effect.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -127,7 +127,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloodroar`,
-        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
+        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -169,7 +169,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Fury of the Seraphon`,
-        desc: `After this model has made all its Celestite War-pick attacks, roll a dice. If the result is 4 or higher, it can attack again with its Celestite War-pick. Roll again after those attacks; if the result is 6, it can attack for a third and final time.`,
+        desc: `After this model has made all its Celestite War-pick attacks, roll a D6. If the result is 4 or higher, it can attack again with its Celestite War-pick. Roll again after those attacks; if the result is 6, it can attack for a third and final time.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -190,7 +190,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Selfless Protector`,
-        desc: `Each time this model is within 2" of a Slann that suffers a wound or mortal wound, it can attempt to intervene. If it does so, roll a dice. If the result is 2 or higher, the Slann ignores that wound or mortal wound but this model suffers a mortal wound in its place.`,
+        desc: `Each time this model is within 2" of a Slann that suffers a wound or mortal wound, it can attempt to intervene. If it does so, roll a D6. If the result is 2 or higher, the Slann ignores that wound or mortal wound but this model suffers a mortal wound in its place.`,
         when: [DURING_GAME],
       },
       {
@@ -226,7 +226,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bloodroar`,
-        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a dice. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
+        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -272,7 +272,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Rites`,
-        desc: `Roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
+        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -287,7 +287,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Rites`,
-        desc: `Roll a dice. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
+        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -302,7 +302,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cosmic Herald`,
-        desc: `At the start of your hero phase, you can roll a dice for this model. If you do so, on a 2+, you receive 1 command point. On a 1, your opponent receives 1 command point instead.`,
+        desc: `At the start of your hero phase, you can roll a D6 for this model. If you do so, on a 2+, you receive 1 command point. On a 1, your opponent receives 1 command point instead.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -467,12 +467,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Deadly Cargo`,
-        desc: `Once per game, the unit can drop its boulders onto an enemy unit it moves over during the movement phase. Roll a dice for each Terradon in this unit; for each result of 4 or more, the enemy unit is struck by an exploding boulder and suffers D3 mortal wounds.`,
+        desc: `Once per game, the unit can drop its boulders onto an enemy unit it moves over during the movement phase. Roll a D6 for each Terradon in this unit; for each result of 4 or more, the enemy unit is struck by an exploding boulder and suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Sunleech Bolas`,
-        desc: `If an attack made with a Sunleech Bolas scores a hit, the projectile bursts and spreads flames among the foe. Roll a dice and make that many wound rolls.`,
+        desc: `If an attack made with a Sunleech Bolas scores a hit, the projectile bursts and spreads flames among the foe. Roll a D6 and make that many wound rolls.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -532,7 +532,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `It Burns!`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered any wounds from a Salamander's Stream of Fire in that phase. If the result is 4 or higher, the unit suffers D3 mortal wounds as the corrosive liquid eats through armour, flesh and bone.`,
+        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered any wounds from a Salamander's Stream of Fire in that phase. If the result is 4 or higher, the unit suffers D3 mortal wounds as the corrosive liquid eats through armour, flesh and bone.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
@@ -547,7 +547,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Instinctive Defence`,
-        desc: `Once per turn, if an enemy unit ends a charge move within 3" of a Razordon unit, roll a dice. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.`,
+        desc: `Once per turn, if an enemy unit ends a charge move within 3" of a Razordon unit, roll a D6. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -577,7 +577,7 @@ export const Units: TUnits = [
       },
       {
         name: `Jaws like a Steel Trap`,
-        desc: `If the wound roll for an attack made with a model's Vice-like Jaws is 6+, both you and your opponent roll a dice. If you score higher, your opponent does not make a save roll – instead, the target suffers a number of mortal wounds equal to the difference between the two dice rolls. Otherwise, the attack causes no damage.`,
+        desc: `If the wound roll for an attack made with a model's Vice-like Jaws is 6+, both you and your opponent roll a D6. If you score higher, your opponent does not make a save roll – instead, the target suffers a number of mortal wounds equal to the difference between the two dice rolls. Otherwise, the attack causes no damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -602,7 +602,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Impervious Defence`,
-        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a dice whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
+        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a D6 whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
         when: [DURING_GAME],
       },
       {
@@ -617,7 +617,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Impervious Defence`,
-        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a dice whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
+        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a D6 whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
         when: [DURING_GAME],
       },
       {
@@ -806,7 +806,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Ancient Knowledge`,
-        desc: `If Kuoteq is on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point. If Kuoteq is on the battlefield at the start of your hero phase, and this battalion contained the maximum number of battalions at the start of the battle, you receive 1 extra command point on a roll of 2+ instead of 4+.`,
+        desc: `If Kuoteq is on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point. If Kuoteq is on the battlefield at the start of your hero phase, and this battalion contained the maximum number of battalions at the start of the battle, you receive 1 extra command point on a roll of 2+ instead of 4+.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

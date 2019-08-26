@@ -28,7 +28,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Daubing of Mork`,
-        desc: `Roll a dice each time a wound or mortal wound is allocated to the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to the bearer. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],

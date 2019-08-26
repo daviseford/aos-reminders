@@ -7,7 +7,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Bonestorm`,
-        desc: `Casting value of 5. If successfully cast, roll a dice for each enemy unit within 12" of the caster. On a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 12" of the caster. On a 2+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -84,7 +84,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Unholy Vitality`,
-        desc: `Casting value of 6. If successfully cast, pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a dice each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
+        desc: `Casting value of 6. If successfully cast, pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a D6 each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
         when: [HERO_PHASE],
       },
     ],

@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hulking Muscle-bound Brute`,
-        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of this general and roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of this general and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -34,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Roll a dice at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
+        desc: `Roll a D6 at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],

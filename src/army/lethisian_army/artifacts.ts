@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crown of Raven Feathers`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer.  On a 5+ it is negated.`,
         when: [DURING_GAME],
         artifact: true,
       },

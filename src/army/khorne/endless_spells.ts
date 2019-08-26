@@ -70,7 +70,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Hatred's Edge`,
-        desc: `After this model has moved, roll a dice for each unit that has any models it passed across. On a 2+ that unit suffers D3 mortal wounds. Then the player that set up this model picks 1 enemy unit within 3" of this model and rolls a dice (the enemy unit may be one that this model passed across). On a 2+ that enemy unit suffers D6 mortal wounds.`,
+        desc: `After this model has moved, roll a D6 for each unit that has any models it passed across. On a 2+ that unit suffers D3 mortal wounds. Then the player that set up this model picks 1 enemy unit within 3" of this model and rolls a dice (the enemy unit may be one that this model passed across). On a 2+ that enemy unit suffers D6 mortal wounds.`,
         when: [START_OF_HERO_PHASE, START_OF_ROUND],
       },
       {

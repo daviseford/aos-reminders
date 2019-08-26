@@ -25,7 +25,7 @@ const EndlessSpells: TEndlessSpells = [
         name: `Soul Reaper`,
         desc: `Before moving a Shyish Reaper, pivot the model on the centre of its base so that it points lengthways in the direction you wish it to move. Then move it in a straight line in that direction. The initial pivot is free and does not count towards the distance the model moves.
 
-After this model has moved, roll a dice for each model that it moved over (including models it moved over when it pivoted); if the roll is equal to or greater than the model's Save characteristic, that model's unit suffers 1 mortal wound.
+After this model has moved, roll a D6 for each model that it moved over (including models it moved over when it pivoted); if the roll is equal to or greater than the model's Save characteristic, that model's unit suffers 1 mortal wound.
 `,
         when: [HERO_PHASE],
       },
@@ -51,7 +51,7 @@ After this model has moved, roll a dice for each model that it moved over (inclu
       },
       {
         name: `Soul Siphon`,
-        desc: `After this model is set up or has moved, roll a dice for each model within 6" of it. On a 6+, that model's unit suffers 1 mortal wound.`,
+        desc: `After this model is set up or has moved, roll a D6 for each model within 6" of it. On a 6+, that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
       {

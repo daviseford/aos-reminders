@@ -33,7 +33,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Blubber and Bile`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to Rotigus.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to Rotigus.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [DURING_GAME],
       },
       {
@@ -43,12 +43,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a dice for each enemy unit within 1" of Rotigus after he completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of Rotigus after he completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Streams of Brackish Filth`,
-        desc: `In your hero phase roll a dice for each enemy unit that is within 6" of Rotigus.  On a 4+ the enemy unit suffers D3 mortal wounds.  Enemy units that can fly suffer D3 mortal wounds on a 6+ instead.`,
+        desc: `In your hero phase roll a D6 for each enemy unit that is within 6" of Rotigus.  On a 4+ the enemy unit suffers D3 mortal wounds.  Enemy units that can fly suffer D3 mortal wounds on a 6+ instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -68,7 +68,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Blubber and Bile`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model.  On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [DURING_GAME],
       },
       {
@@ -78,7 +78,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a dice for each enemy unit within 1" of this model after it completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -114,7 +114,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -139,7 +139,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -154,7 +154,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -174,7 +174,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -194,12 +194,12 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Acidic Slime Trail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -244,7 +244,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -279,7 +279,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -294,12 +294,12 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Acidic Slime Trail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -319,7 +319,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disease Ridden Demise`,
-        desc: `Roll a dice for each enemy unit that was allocated any wounds caused by a unit of Nurglings in that combat phase.  On a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that was allocated any wounds caused by a unit of Nurglings in that combat phase.  On a 2+ that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -344,7 +344,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a dice for each enemy unit within 1" of this model after it completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.  You cannot use this command ability more than once per hero phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move.  On a 4+ the enemy unit suffers D3 mortal wounds.  You cannot use this command ability more than once per hero phase.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -380,7 +380,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Acid Ichor`,
-        desc: `Roll a dice for each time you allocate a wound to this model in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        desc: `Roll a D6 for each time you allocate a wound to this model in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -390,7 +390,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `The Rotaxes`,
-        desc: `At the end of the combat phase, roll a dice for each enemy model that was allocated any wounds caused by the Rotaxes.  On a 4+ that model suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy model that was allocated any wounds caused by the Rotaxes.  On a 4+ that model suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -406,7 +406,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Daemon-flies`,
-        desc: `Roll a dice for each enemy unit within 7" of Bloab Rotspawned.  On a 4+ subract 1 from the hit rolls for the unit until your next hero phase.`,
+        desc: `Roll a D6 for each enemy unit within 7" of Bloab Rotspawned.  On a 4+ subract 1 from the hit rolls for the unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -421,12 +421,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Miasma of Pestilence`,
-        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Until your next hero phase, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Until your next hero phase, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Miasma of Pestilence`,
-        desc: `If successfully cast earlier, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `If successfully cast earlier, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
         when: [
           END_OF_HERO_PHASE,
           END_OF_MOVEMENT_PHASE,
@@ -452,12 +452,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Nurgle's Rot`,
-        desc: `Roll a dice for each unit (friend or foe) within 3" of any units with this ability.  On a roll of a 6, that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each unit (friend or foe) within 3" of any units with this ability.  On a roll of a 6, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Repugnant Regrowth`,
-        desc: `Roll a dice, on a 4+ heal 1 wound allocated to this model.  Heal D3 on rolls of 6+.`,
+        desc: `Roll a D6, on a 4+ heal 1 wound allocated to this model.  Heal D3 on rolls of 6+.`,
         when: [HERO_PHASE],
       },
     ],
@@ -467,7 +467,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -482,12 +482,12 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Incubatch`,
-        desc: `Roll a dice for each unit (friend or foe) within 3" of this model.  On a 2+ that unit suffers 1 mortal wound.  Nurgle units instead suffer 1 mortal wound on a 6+.`,
+        desc: `Roll a D6 for each unit (friend or foe) within 3" of this model.  On a 2+ that unit suffers 1 mortal wound.  Nurgle units instead suffer 1 mortal wound on a 6+.`,
         when: [HERO_PHASE],
       },
       {
         name: `Virulent Discharge`,
-        desc: `Roll a dice for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
+        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -508,7 +508,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Delightful Brews, Splendid Restoratives`,
-        desc: `You can pick a unit (friend or foe) within 1" of this model.  Pick a friendly or enemy unit and roll a dice.  On a friendly unit, on a 2+ heal D3 wounds that have been allocated to that unit.  On an enemy unit, on a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `You can pick a unit (friend or foe) within 1" of this model.  Pick a friendly or enemy unit and roll a D6.  On a friendly unit, on a 2+ heal D3 wounds that have been allocated to that unit.  On an enemy unit, on a 2+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -528,17 +528,17 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Soulbound Shield`,
-        desc: `Roll a dice each time you allocate a wound to this model as a result of a spell.  On a 4+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to this model as a result of a spell.  On a 4+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Rotsword`,
-        desc: `Once per battle, pick an enemy hero within 1" of this model and roll a dice.  On a 2+ that hero suffers D3 mortal wounds.  On a 4+ that hero  suffers D3 mortal wounds and each other enemy unit within 7" of that hero suffers 1 mortal wound.`,
+        desc: `Once per battle, pick an enemy hero within 1" of this model and roll a D6.  On a 2+ that hero suffers D3 mortal wounds.  On a 4+ that hero  suffers D3 mortal wounds and each other enemy unit within 7" of that hero suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Morbid Vigour`,
-        desc: `Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model.  On a 5+ the wound is negated.  The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model.  On a 5+ the wound is negated.  The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -549,7 +549,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Blessed with Vitality`,
-        desc: `Roll a dice each time this model successfully casts a spell and it is not unbound.  On a 4+ you can heal 1 wound allocated to this model.`,
+        desc: `Roll a D6 each time this model successfully casts a spell and it is not unbound.  On a 4+ you can heal 1 wound allocated to this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -604,7 +604,7 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Clutching Pseudopods`,
-        desc: `You can pick an enemy model within 1" of this model.  Choose a weapon carried by the target and roll a dice.  On a 4+ that weapon cannot be used in the combat phase.`,
+        desc: `You can pick an enemy model within 1" of this model.  Choose a weapon carried by the target and roll a D6.  On a 4+ that weapon cannot be used in the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -634,7 +634,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Rotten Corpse Mulch`,
-        desc: `Roll a dice after this model makes its attacks.  Add the number of wounds inflicted by this model (and which were not saved or negated) to the dice roll.  If the total is a 7+ you immeadiately receive 1 contagion point.`,
+        desc: `Roll a D6 after this model makes its attacks.  Add the number of wounds inflicted by this model (and which were not saved or negated) to the dice roll.  If the total is a 7+ you immeadiately receive 1 contagion point.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -670,7 +670,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Virulent Discharge`,
-        desc: `Roll a dice for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
+        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -685,12 +685,12 @@ export const NurgleUnits: TUnits = [
     effects: [
       {
         name: `Disgustingly Resilient`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit.  On a 5+ the wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Virulent Discharge`,
-        desc: `Roll a dice for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
+        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability.  On a 6+ that unit suffers D3 mortal wounds.  If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -784,7 +784,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Horribly Contagious`,
-        desc: `Roll a dice for each enemy unit within 3" of any units from this battalion.  On a 6+ the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of any units from this battalion.  On a 6+ the unit being rolled for suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

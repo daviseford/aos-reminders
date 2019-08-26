@@ -91,7 +91,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -147,7 +147,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Eye of the Gods`,
-        desc: `Each time this model slays a monster or hero, roll a dice.  If the result is 2 or more this model heals D3 wounds.  If the model is already at full health, increase the wounds characteristic by 1 instead.`,
+        desc: `Each time this model slays a monster or hero, roll a D6.  If the result is 2 or more this model heals D3 wounds.  If the model is already at full health, increase the wounds characteristic by 1 instead.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -172,7 +172,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -244,7 +244,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Runeshield`,
-        desc: `Each time you allocate a wound or mortal wound to this model, roll a dice.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Each time you allocate a wound or mortal wound to this model, roll a D6.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
         when: [DURING_GAME],
       },
       {
@@ -335,12 +335,12 @@ export const Units: TUnits = [
       },
       {
         name: `'Nightmaw, my pet, protect me!'`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
         when: [DURING_GAME],
       },
       {
         name: `Schalkain's Teeth`,
-        desc: `You can pick 1 enemy unit within 8" of this model and roll a dice. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `You can pick 1 enemy unit within 8" of this model and roll a D6. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -370,7 +370,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shadow-kin`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -450,7 +450,7 @@ export const Units: TUnits = [
       },
       {
         name: `Barbarian Hordes`,
-        desc: `Roll a dice before a unit of Chaos Marauders piles in. Add 1 to the roll if the unit includes 20 or more models. If the result is 4 or more, add 1 to the result of any hit rolls for the unit's attacks until the end of the phase. If the result is 6 or more, add 1 to the result of any wound rolls as well.`,
+        desc: `Roll a D6 before a unit of Chaos Marauders piles in. Add 1 to the roll if the unit includes 20 or more models. If the result is 4 or more, add 1 to the result of any hit rolls for the unit's attacks until the end of the phase. If the result is 6 or more, add 1 to the result of any wound rolls as well.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -470,7 +470,7 @@ export const Units: TUnits = [
       },
       {
         name: `Don't Spare the Lash`,
-        desc: `Before this unit moves, roll a dice and add that many inches to this unit's Move characteristic for the rest of the phase.`,
+        desc: `Before this unit moves, roll a D6 and add that many inches to this unit's Move characteristic for the rest of the phase.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -495,7 +495,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gorebeast Charge`,
-        desc: `After this unit has finished a charge move, roll a dice for each enemy model within 2".  For each 6, that models unit suffers a mortal wound.`,
+        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 2".  For each 6, that models unit suffers a mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -550,7 +550,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshields`,
-        desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -570,12 +570,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Protection of the Dark Gods`,
-        desc: `Roll a dice each time a Mortal model from your army suffers a wound or a mortal wound whilst within range of a Warshrine's Protection of the Dark Gods ability. On a 6+ the wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time a Mortal model from your army suffers a wound or a mortal wound whilst within range of a Warshrine's Protection of the Dark Gods ability. On a 6+ the wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Favour of the Ruinous Powers`,
-        desc: `This model may pick a mortal unit within 16" and roll a dice.  On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
+        desc: `This model may pick a mortal unit within 16" and roll a D6.  On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
         when: [HERO_PHASE],
       },
       {
@@ -625,7 +625,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshields`,
-        desc: `Roll a dice each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {

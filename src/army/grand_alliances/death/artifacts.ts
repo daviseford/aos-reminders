@@ -58,7 +58,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ring of Immortality (${DEATH})`,
-        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a dice. On a 3+ the bearer is not slain and D3 wounds allocated to them are healed (any excess damage is negated). Then, remove the bearer from the battlefield and set them up again within 18" of their original location and more than 3" from any enemy models.`,
+        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 3+ the bearer is not slain and D3 wounds allocated to them are healed (any excess damage is negated). Then, remove the bearer from the battlefield and set them up again within 18" of their original location and more than 3" from any enemy models.`,
         when: [DURING_GAME],
       },
     ],

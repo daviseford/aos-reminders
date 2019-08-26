@@ -1,7 +1,5 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import './header.css'
-
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { factionNames, selections } from 'ducks'

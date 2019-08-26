@@ -5,7 +5,6 @@ import { getArmy } from 'utils/getArmy'
 import { titleCase } from 'utils/titleCase'
 import { logAllyFaction } from 'utils/analytics'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
-import './army_builder.css'
 import { selections, army, visibility } from 'ducks'
 import { IconContext } from 'react-icons'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
@@ -171,7 +170,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-3">
-            <IconContext.Provider value={{ size: '1.3em', className: 'text-light' }}>
+            <IconContext.Provider value={{ size: '1.25em', className: 'text-light' }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
@@ -183,7 +182,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
                 setAllyFactionName={setAllyFactionName}
               />
             ) : (
-              <h5 className="mb-0">Ally: {titleCase(allyFactionName)}</h5>
+              <h5 className="CardHeaderTitle">Ally: {titleCase(allyFactionName)}</h5>
             )}
           </div>
           <div className="pl-3">

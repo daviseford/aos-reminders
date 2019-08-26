@@ -116,7 +116,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Morbid Detonation`,
-        desc: `At the end of each battle round, roll a dice for each Malevolent Maelstrom and add the number of energy points allocated to that model to the roll. On a 7+ that Malevolent Maelstrom explodes. Each unit within 3D6" of the model that exploded suffers D3 mortal wounds. The model that exploded is then dispelled.`,
+        desc: `At the end of each battle round, roll a D6 for each Malevolent Maelstrom and add the number of energy points allocated to that model to the roll. On a 7+ that Malevolent Maelstrom explodes. Each unit within 3D6" of the model that exploded suffers D3 mortal wounds. The model that exploded is then dispelled.`,
         when: [END_OF_ROUND],
       },
       {
@@ -136,7 +136,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Blinding Light`,
-        desc: `At the start of each turn, roll a dice for each unit within 6" of this model. On a 5+ subtract 1 from hit rolls for attacks made by that unit until the end of the turn.`,
+        desc: `At the start of each turn, roll a D6 for each unit within 6" of this model. On a 5+ subtract 1 from hit rolls for attacks made by that unit until the end of the turn.`,
         when: [START_OF_TURN],
       },
       {
@@ -261,7 +261,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Bound for the Great Oubliette`,
-        desc: `At the start of the movement phase, roll a dice for each unit within 6" of any Soulsnare Shackles models. On a 3+ halve the move characteristic of that unit until the end of that phase. On a 6 that unit also suffers D3 mortal wounds.`,
+        desc: `At the start of the movement phase, roll a D6 for each unit within 6" of any Soulsnare Shackles models. On a 3+ halve the move characteristic of that unit until the end of that phase. On a 6 that unit also suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {

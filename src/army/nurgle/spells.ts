@@ -28,7 +28,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Gift of Contagion (Rotbringer)`,
-        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 18" of the caster that is visible.  Roll a dice and look up the result applying the penalty to all models in the unit until the start of your next hero phase.
+        desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 18" of the caster that is visible.  Roll a D6 and look up the result applying the penalty to all models in the unit until the start of your next hero phase.
     
         1-2 - Flyblown Palsy: Subtract 1 from the unit's hit rolls in the combat phase.
         
@@ -94,7 +94,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Cloying Quagmire (Mortal)`,
-        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Then roll a dice and compare the enemy unit's save characteristic.  If the roll is equal to or higher that the save characteristic, the unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 5.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Then roll a D6 and compare the enemy unit's save characteristic.  If the roll is equal to or higher that the save characteristic, the unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

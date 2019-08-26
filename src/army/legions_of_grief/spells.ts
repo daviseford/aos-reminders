@@ -18,7 +18,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Wail of Doom`,
-        desc: `Casting value 8. Roll a dice for each enemy unit within 6" of the caster. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 8. Roll a D6 for each enemy unit within 6" of the caster. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

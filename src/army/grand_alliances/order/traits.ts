@@ -58,7 +58,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Master of Defence (${ORDER})`,
-        desc: `Each time you allocate a wound or mortal wound to this general, roll a dice. On a 6+ the wound is negated.`,
+        desc: `Each time you allocate a wound or mortal wound to this general, roll a D6. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
