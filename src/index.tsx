@@ -9,7 +9,7 @@ import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.css'
-// import 'animate.css' // Uncomment if testing animations
+import 'animate.css'
 import 'css/animations.css'
 import 'css/index.css'
 
