@@ -27,9 +27,8 @@ const App = () => {
   return (
     <div className="d-block">
       <BrowserRouter>
-        <header>
-          <NavBar />
-        </header>
+        <NavBar />
+
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/profile" component={Profile} />
