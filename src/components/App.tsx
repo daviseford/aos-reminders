@@ -7,9 +7,11 @@ import { Header } from 'components/page/header'
 import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
-import { useAuth0 } from 'react-auth0-wrapper'
 
+// Auth
+import { useAuth0 } from 'react-auth0-wrapper'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/user/profile'
 
 const App = () => {
@@ -28,7 +30,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/profile" component={Profile} />
+          <PrivateRoute path="/profile" component={Profile} />
         </Switch>
       </BrowserRouter>
     </div>
