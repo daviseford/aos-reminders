@@ -17,8 +17,6 @@ export const NavBar: React.FC<{}> = () => {
   return (
     <header className={styles.header}>
       <div className={styles.flex}>
-        <div className="col"></div>
-
         <div className="col">
           {isAuthenticated && (
             <>
@@ -31,7 +29,7 @@ export const NavBar: React.FC<{}> = () => {
             </>
           )}
         </div>
-        <div className="col-3">
+        <div className="col-4">
           <button className={styles.btn} onClick={() => handleClick({})}>
             {btnText}
           </button>

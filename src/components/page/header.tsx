@@ -4,16 +4,26 @@ import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { factionNames, selections } from 'ducks'
 import { SelectOne } from 'components/input/select'
+import { NavBar } from 'components/page/navbar'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 
-interface IHeaderProps {
+export const Header = () => {
+  return (
+    <div className="HeaderCover">
+      <NavBar />
+      <Jumbotron />
+    </div>
+  )
+}
+
+interface IJumbotronProps {
   isMobile: boolean
   resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
 
-const HeaderComponent: React.FC<IHeaderProps> = props => {
+const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const { resetSelections, setFactionName, isMobile } = props
 
   const setValue = withSelectOne((value: string | null) => {
@@ -21,13 +31,9 @@ const HeaderComponent: React.FC<IHeaderProps> = props => {
     logFactionSwitch(value as TSupportedFaction)
     setFactionName(value)
   })
-  const jumboClass = useMemo(
-    () =>
-      `jumbotron jumbotron-fluid text-center HeaderCover text-white d-print-none mb-0 pt-4 ${
-        isMobile ? `pb-2` : `pb-3`
-      } `,
-    [isMobile]
-  )
+  const jumboClass = `jumbotron jumbotron-fluid text-center HeaderCover text-white d-print-none mb-0 pt-4 ${
+    isMobile ? `pb-2` : `pb-3`
+  }`
 
   return (
     <div className={jumboClass}>
@@ -55,7 +61,7 @@ const mapDispatchToProps = {
   setFactionName: factionNames.actions.setFactionName,
 }
 
-export const Header = connect(
+const Jumbotron = connect(
   null,
   mapDispatchToProps
-)(componentWithSize(HeaderComponent))
+)(componentWithSize(JumbotronComponent))
