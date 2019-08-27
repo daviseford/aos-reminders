@@ -12,15 +12,39 @@ export const Profile = () => {
   }
 
   return (
-    <div className="ThemeDarkBg">
-      <NavBar />
-      <>
-        <img src={user.picture} alt="Profile" />
+    <div className="d-block">
+      <div className="ThemeDarkBg py-2">
+        <NavBar />
+      </div>
 
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-        <code>{JSON.stringify(user, null, 2)}</code>
-      </>
+      <UserCard user={user} loading={loading} />
+    </div>
+  )
+}
+
+interface IUserCardProps {
+  loading: boolean
+  user: IUser
+}
+
+const UserCard: React.FC<IUserCardProps> = props => {
+  const { user, loading } = props
+
+  return (
+    <div className="container py-4">
+      <h2 className="text-center">User Profile</h2>
+
+      {!loading && (
+        <div className="media">
+          <div className="media-body">
+            <h5 className="mt-0">{user.name}</h5>
+            <p>Email: {user.email}</p>
+            <p>Email Verified: {user.email_verified.toString()}</p>
+
+            <code>{JSON.stringify(user, null, 2)}</code>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
