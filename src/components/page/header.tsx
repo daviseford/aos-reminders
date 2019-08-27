@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
@@ -10,7 +10,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 
 export const Header = () => {
   return (
-    <div className="HeaderCover">
+    <div className="ThemeDarkBg">
       <NavBar />
       <Jumbotron />
     </div>
@@ -31,7 +31,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     logFactionSwitch(value as TSupportedFaction)
     setFactionName(value)
   })
-  const jumboClass = `jumbotron jumbotron-fluid text-center HeaderCover text-white d-print-none mb-0 pt-4 ${
+  const jumboClass = `jumbotron jumbotron-fluid text-center ThemeDarkBg text-white d-print-none mb-0 pt-4 ${
     isMobile ? `pb-2` : `pb-3`
   }`
 

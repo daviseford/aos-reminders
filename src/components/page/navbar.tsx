@@ -6,9 +6,11 @@ export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
   const styles = {
     btn: `btn btn-block btn-outline-light btn-sm`,
+    btnCol: `col-4`,
     flex: `d-flex justify-content-between align-items-center`,
-    header: `HeaderCover pt-2 d-print-none`,
+    header: `ThemeDarkBg pt-2 d-print-none`,
     link: `font-weight-bold text-light mx-3`,
+    linkCol: `col ml-3`,
   }
   const btnText = !isAuthenticated ? `Log in` : `Log out`
   const handleClick = !isAuthenticated ? loginWithRedirect : logout
@@ -16,7 +18,8 @@ export const NavBar: React.FC<{}> = () => {
   return (
     <header className={styles.header}>
       <div className={styles.flex}>
-        <div className="col">
+        <div className="col"></div>
+        <div className={styles.linkCol}>
           {isAuthenticated && (
             <>
               <Link to="/" className={styles.link}>
@@ -28,7 +31,7 @@ export const NavBar: React.FC<{}> = () => {
             </>
           )}
         </div>
-        <div className="col-4">
+        <div className={styles.btnCol}>
           <button className={styles.btn} onClick={() => handleClick({})}>
             {btnText}
           </button>
