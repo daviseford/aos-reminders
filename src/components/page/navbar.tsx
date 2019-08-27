@@ -5,11 +5,10 @@ import { useAuth0 } from 'react-auth0-wrapper'
 export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
   const styles = {
-    btn: `btn btn-block btn-outline-light`,
+    btn: `btn btn-block btn-outline-light btn-sm`,
     flex: `d-flex justify-content-between align-items-center`,
     header: `HeaderCover pt-2 d-print-none`,
     link: `font-weight-bold text-light mx-3`,
-    row: `row justify-content-center`,
   }
   const btnText = !isAuthenticated ? `Log in` : `Log out`
   const handleClick = !isAuthenticated ? loginWithRedirect : logout
