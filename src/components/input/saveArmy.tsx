@@ -2,11 +2,14 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
-import { IStore, TSavedArmiesStore } from 'types/store'
-import { factionNames, selections, realmscape } from 'ducks'
+import { IStore, TSavedArmiesStore, ISelectionStore } from 'types/store'
+import { factionNames, selections, realmscape, army } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { savedArmies } from 'ducks/savedArmies'
 import { saveArmyToApi, loadSavedArmiesFromApi, deleteSavedArmyFromApi } from 'api/thunks'
+import { TSupportedFaction } from 'meta/factions'
+import { IArmy, TUnits } from 'types/army'
+import { ISelections } from 'types/selections'
 
 interface ISaveArmyProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
@@ -78,7 +81,7 @@ const ShowSavedArmiesComponent: React.FC<IShowSavedArmiesProps> = props => {
   return (
     <div>
       {savedArmies.map((army, i) => {
-        return <SavedArmyCard key={i} {...army} />
+        return <SavedArmyCard key={i} army={army} />
       })}
     </div>
   )
@@ -105,27 +108,28 @@ export const SavedArmiesDisplay = () => (
   </div>
 )
 
-interface ISavedArmyCardProps extends ISavedArmyFromApi {
+interface ISavedArmyCardProps {
+  army: ISavedArmyFromApi
   deleteArmy: (id: string, userName: string) => void
 }
 
 const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
+  const { army, deleteArmy } = props
+
   const handleDeleteClick = e => {
     e.preventDefault()
-    deleteSavedArmyFromApi(props, props.deleteArmy)
+    deleteSavedArmyFromApi(army, deleteArmy)
   }
 
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{props.armyName}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{props.id}</h6>
+        <h5 className="card-title">{army.factionName}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">{army.id}</h6>
         <p className="card-text">
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </p>
-        <a href="#" className="card-link">
-          Load Army
-        </a>
+        <LoadButton army={army} />
         <button className="btn btn-sm btn-danger" onClick={handleDeleteClick}>
           Delete
         </button>
@@ -134,13 +138,59 @@ const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
   )
 }
 
-const mapStateToProps3 = (state: IStore, ownProps) => ({
-  ...ownProps,
-})
-
 const SavedArmyCard = connect(
-  mapStateToProps3,
+  null,
   {
     deleteArmy: savedArmies.actions.deleteSavedArmy,
   }
 )(SavedArmyCardComponent)
+
+interface ILoadButtonProps {
+  army: ISavedArmyFromApi
+  setFactionName: (value: string | null) => void
+  setRealmscape: (value: string | null) => void
+  setRealmscapeFeature: (value: string | null) => void
+  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
+  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
+  updateSelectionsStore: (payload: ISelectionStore) => void
+}
+
+const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
+  const {
+    setFactionName,
+    setRealmscape,
+    setRealmscapeFeature,
+    updateAllyArmy,
+    updateAllyUnits,
+    updateSelectionsStore,
+    army,
+  } = props
+
+  const handleLoadClick = e => {
+    e.preventDefault()
+    setFactionName(army.factionName)
+    setRealmscape(army.realmscape)
+    setRealmscapeFeature(army.realmscape_feature)
+    updateSelectionsStore({ selections: army.selections, allySelections: army.allySelections })
+  }
+
+  console.log('army ', army)
+
+  return (
+    <button className="btn btn-sm btn-info" onClick={handleLoadClick}>
+      Load Army
+    </button>
+  )
+}
+
+const LoadButton = connect(
+  null,
+  {
+    updateAllyArmy: army.actions.updateAllyArmy,
+    updateAllyUnits: selections.actions.updateAllyUnits,
+    setFactionName: factionNames.actions.setFactionName,
+    setRealmscape: realmscape.actions.setRealmscape,
+    setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
+    updateSelectionsStore: selections.actions.updateSelectionsStore,
+  }
+)(LoadButtonComponent)

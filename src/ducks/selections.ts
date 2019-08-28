@@ -53,6 +53,9 @@ const updateEndlessSpells = (state, action) => {
 const updateScenery = (state, action) => {
   state.selections.scenery = action.payload
 }
+const updateSelectionsStore = (state, action) => {
+  state = action.payload
+}
 const updateSpells = (state, action) => {
   state.selections.spells = action.payload
 }
@@ -82,6 +85,7 @@ export const selections = createSlice({
     updateCommands,
     updateEndlessSpells,
     updateScenery,
+    updateSelectionsStore,
     updateSpells,
     updateTraits,
     updateTriumphs,

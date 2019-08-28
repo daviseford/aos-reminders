@@ -19,7 +19,7 @@ export interface IRealmscapeStore {
 
 export type TSavedArmiesStore = ISavedArmyFromApi[]
 
-type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
+export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 
 export interface ISelectionStore {
   selections: ISelections
