@@ -152,7 +152,7 @@ interface ILoadButtonProps {
   setRealmscapeFeature: (value: string | null) => void
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
-  updateSelectionsStore: (payload: ISelectionStore) => void
+  updateSelections: (payload: ISelections) => void
 }
 
 const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
@@ -162,16 +162,16 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setRealmscapeFeature,
     updateAllyArmy,
     updateAllyUnits,
-    updateSelectionsStore,
+    updateSelections,
     army,
   } = props
 
   const handleLoadClick = e => {
     e.preventDefault()
     setFactionName(army.factionName)
+    updateSelections(army.selections)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
-    updateSelectionsStore({ selections: army.selections, allySelections: army.allySelections })
   }
 
   console.log('load army ', army)
@@ -191,6 +191,6 @@ const LoadButton = connect(
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-    updateSelectionsStore: selections.actions.updateSelectionsStore,
+    updateSelections: selections.actions.updateSelections,
   }
 )(LoadButtonComponent)
