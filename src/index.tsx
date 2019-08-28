@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css'
 import 'css/animations.css'
 import 'css/index.scss'
+import { savedArmies } from 'ducks/savedArmies'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -32,6 +33,7 @@ const store = createStore(
     army: army.reducer,
     factionNames: factionNames.reducer,
     realmscape: realmscape.reducer,
+    savedArmies: savedArmies.reducer,
     selections: selections.reducer,
     visibility: visibility.reducer,
   }),

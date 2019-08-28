@@ -12,6 +12,7 @@ import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { SavedArmiesDisplay } from 'components/input/saveArmy'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -52,6 +53,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <PrintComponent handlePrint={handlePrint} />
         </div>
       </div>
+
+      <SavedArmiesDisplay />
     </div>
   )
 }

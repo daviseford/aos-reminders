@@ -1,7 +1,7 @@
 import { IArmy, TAllyArmies } from './army'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from './selections'
-import { TPhases, TTurnWhen } from './phases'
+import { ISavedArmy, ISavedArmyFromApi } from './savedArmy'
 
 export interface IArmyStore {
   army: IArmy
@@ -16,6 +16,8 @@ export interface IRealmscapeStore {
   realmscape: string | null
   realmscape_feature: string | null
 }
+
+export type TSavedArmiesStore = ISavedArmyFromApi[]
 
 type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 
@@ -35,6 +37,7 @@ export interface IStore {
   army: IArmyStore
   factionName: IFactionNameStore
   realmscape: IRealmscapeStore
+  savedArmies: TSavedArmiesStore
   selections: ISelectionStore
   visibility: IVisibilityStore
 }
