@@ -174,7 +174,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateSelectionsStore({ selections: army.selections, allySelections: army.allySelections })
   }
 
-  console.log('army ', army)
+  console.log('load army ', army)
 
   return (
     <button className="btn btn-sm btn-info" onClick={handleLoadClick}>
