@@ -38,6 +38,9 @@ const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFact
   const { factionName, units } = action.payload
   state.allySelections[factionName] = { units }
 }
+const updateAllySelections = (state, action) => {
+  state.allySelections = action.payload
+}
 const updateArtifacts = (state, action) => {
   state.selections.artifacts = action.payload
 }
@@ -79,6 +82,7 @@ export const selections = createSlice({
     resetAllySelections,
     resetSelections,
     updateAllegiances,
+    updateAllySelections,
     updateAllyUnits,
     updateArtifacts,
     updateBattalions,

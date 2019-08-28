@@ -2,14 +2,15 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
-import { IStore, TSavedArmiesStore, ISelectionStore } from 'types/store'
+import { IStore, TSavedArmiesStore, ISelectionStore, TAllySelectionStore } from 'types/store'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { savedArmies } from 'ducks/savedArmies'
 import { saveArmyToApi, loadSavedArmiesFromApi, deleteSavedArmyFromApi } from 'api/thunks'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
+import { titleCase } from 'utils/titleCase'
 
 interface ISaveArmyProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
@@ -124,15 +125,17 @@ const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{army.factionName}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{army.id}</h6>
+        <h5 className="card-title">{titleCase(army.factionName)}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">ID: {army.id}</h6>
         <p className="card-text">
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </p>
-        <LoadButton army={army} />
-        <button className="btn btn-sm btn-danger" onClick={handleDeleteClick}>
-          Delete
-        </button>
+        <div className="d-flex justify-content-center">
+          <LoadButton army={army} />
+          <button className="btn btn-sm btn-danger mx-3" onClick={handleDeleteClick}>
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -151,25 +154,28 @@ interface ILoadButtonProps {
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
+  updateAllySelections: (payload: TAllySelectionStore) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
   updateSelections: (payload: ISelections) => void
 }
 
 const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   const {
+    army,
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
     updateAllyArmy,
+    updateAllySelections,
     updateAllyUnits,
     updateSelections,
-    army,
   } = props
 
   const handleLoadClick = e => {
     e.preventDefault()
     setFactionName(army.factionName)
     updateSelections(army.selections)
+    // updateAllySelections(army.allySelections) // TODO this is broken
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
   }
@@ -177,7 +183,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   console.log('load army ', army)
 
   return (
-    <button className="btn btn-sm btn-info" onClick={handleLoadClick}>
+    <button className="btn btn-sm btn-info mx-3" onClick={handleLoadClick}>
       Load Army
     </button>
   )
@@ -186,11 +192,12 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 const LoadButton = connect(
   null,
   {
-    updateAllyArmy: army.actions.updateAllyArmy,
-    updateAllyUnits: selections.actions.updateAllyUnits,
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
+    updateAllyArmy: army.actions.updateAllyArmy,
+    updateAllySelections: selections.actions.updateAllySelections,
+    updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
   }
 )(LoadButtonComponent)
