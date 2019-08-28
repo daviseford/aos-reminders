@@ -28,17 +28,22 @@ export const loadSavedArmiesFromApi = async (
     const res = await Api.getUserItems(user.name)
     const savedArmies = res.body as ISavedArmyFromApi[]
     console.log(`loaded ${savedArmies.length} saved armies`)
+    console.log(savedArmies)
     loadSavedArmies(savedArmies)
   } catch (err) {
     console.log(err)
   }
 }
 
-export const deleteSavedArmyFromApi = async (id: string, deleteSavedArmy: (id: string) => void) => {
+export const deleteSavedArmyFromApi = async (
+  army: ISavedArmyFromApi,
+  deleteSavedArmy: (id: string, userName: string) => void
+) => {
   try {
-    await Api.deleteItem(id)
-    console.log(`deleted army id: ${id}`)
-    deleteSavedArmy(id)
+    const { id, userName } = army
+    await Api.deleteItem(id, userName)
+    console.log(`deleted army id: ${id} for user ${userName}`)
+    deleteSavedArmy(id, userName)
   } catch (err) {
     console.error(err)
   }

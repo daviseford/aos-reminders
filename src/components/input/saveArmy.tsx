@@ -6,7 +6,7 @@ import { IStore, TSavedArmiesStore } from 'types/store'
 import { factionNames, selections, realmscape } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { savedArmies } from 'ducks/savedArmies'
-import { saveArmyToApi, loadSavedArmiesFromApi } from 'api/thunks'
+import { saveArmyToApi, loadSavedArmiesFromApi, deleteSavedArmyFromApi } from 'api/thunks'
 
 interface ISaveArmyProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
@@ -105,35 +105,42 @@ export const SavedArmiesDisplay = () => (
   </div>
 )
 
-interface ISavedArmyCardProps extends ISavedArmy {
-  deleteArmy: (id: string) => void
+interface ISavedArmyCardProps extends ISavedArmyFromApi {
+  deleteArmy: (id: string, userName: string) => void
 }
 
-const SavedArmyCardComponent: React.FC<ISavedArmy> = props => {
+const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
+  const handleDeleteClick = e => {
+    e.preventDefault()
+    deleteSavedArmyFromApi(props, props.deleteArmy)
+  }
+
   return (
     <div className="card">
       <div className="card-body">
         <h5 className="card-title">{props.armyName}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{props.factionName}</h6>
+        <h6 className="card-subtitle mb-2 text-muted">{props.id}</h6>
         <p className="card-text">
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </p>
         <a href="#" className="card-link">
           Load Army
         </a>
-        <a href="#" className="card-link text-danger">
-          Delete Army
-        </a>
+        <button className="btn btn-sm btn-danger" onClick={handleDeleteClick}>
+          Delete
+        </button>
       </div>
     </div>
   )
 }
 
-const mapDispatchToProps3 = {
-  deleteArmy: savedArmies.actions.deleteSavedArmy,
-}
+const mapStateToProps3 = (state: IStore, ownProps) => ({
+  ...ownProps,
+})
 
 const SavedArmyCard = connect(
-  null,
-  mapDispatchToProps3
+  mapStateToProps3,
+  {
+    deleteArmy: savedArmies.actions.deleteSavedArmy,
+  }
 )(SavedArmyCardComponent)
