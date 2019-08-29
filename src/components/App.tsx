@@ -13,6 +13,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/user/profile'
+import { Checkout } from './payment/checkout'
 
 const App = () => {
   useEffect(() => {
@@ -45,6 +46,8 @@ const Main = () => {
   return (
     <>
       <Header />
+
+      <Checkout />
 
       <ArmyBuilder />
 

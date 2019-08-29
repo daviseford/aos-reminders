@@ -11,6 +11,9 @@ import App from 'components/App'
 import { Auth0Provider } from './react-auth0-wrapper'
 import config from './auth_config.json'
 
+// Payment
+import { StripeProvider } from 'react-stripe-elements'
+
 // CSS
 import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css'
@@ -50,7 +53,9 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <App />
+      <StripeProvider apiKey="pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b">
+        <App />
+      </StripeProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')
