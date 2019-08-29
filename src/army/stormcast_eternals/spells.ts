@@ -71,10 +71,10 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Celstial Blades`,
+    name: `Celestial Blades`,
     effects: [
       {
-        name: `Celstial Blades`,
+        name: `Celestial Blades`,
         desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL unit wholly within 18" of the caster that is visible. Add 1 to wound rolls for attacks made with that units melee weapons until your next hero phase.`,
         when: [HERO_PHASE, COMBAT_PHASE],
       },
