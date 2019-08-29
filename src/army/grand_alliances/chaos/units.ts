@@ -10,20 +10,9 @@ import Skaven from 'army/skaven'
 import SlavesToDarkness from 'army/slaves_to_darkness'
 import TamurkhansHorde from 'army/tamurkhans_horde'
 import { TUnits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, DURING_SETUP, COMBAT_PHASE, CHARGE_PHASE } from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
-  // TODO: Add more Monsters of Chaos
-  // {
-  //   name: ``,
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [],
-  //     },
-  //   ],
-  // },
   {
     name: `Mutalith Vortex Beast`,
     effects: [
@@ -48,6 +37,21 @@ export const MonstersOfChaos: TUnits = [
         name: `Mutant Regeneration`,
         desc: `Heal D3 wounds in each of your hero phases.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Slaughterbrute`,
+    effects: [
+      {
+        name: `Runes of Binding`,
+        desc: `When you set up a Slaughterbrute, you can pick a Slaves to Darkness Hero in your army to be its master (a model cannot be the master of more than one Slaughterbrute). As long as the Slaughterbrute's master is on the battlefield, the Slaughterbrute's melee weapons hit on rolls of 3+ rather than 4+.`,
+        when: [DURING_SETUP, COMBAT_PHASE],
+      },
+      {
+        name: `Beast Unbound`,
+        desc: `If a Slaughterbrute does not have a master on the battlefield in the charge phase, roll a dice. If the result is 3 or less it lashes out at the nearest model, friend or foe, within 3". That model's unit immediately suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
