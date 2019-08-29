@@ -3,6 +3,7 @@ import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  BONESPLITTERZ,
   DAUGHTERS_OF_KHAINE,
   DISPOSSESSED,
   EVERCHOSEN,
@@ -34,6 +35,7 @@ import {
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
+import Bonesplitterz from 'army/bonesplitterz'
 import Chaos from 'army/grand_alliances/chaos'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import Death from 'army/grand_alliances/death'
@@ -73,6 +75,10 @@ export const ArmyList: TArmyList = {
   [BEASTS_OF_CHAOS]: {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
+  },
+  [BONESPLITTERZ]: {
+    Army: { ...Bonesplitterz },
+    GrandAlliance: DESTRUCTION,
   },
   [CHAOS]: {
     Army: { ...Chaos },
