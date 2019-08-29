@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, START_OF_GAME } from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, START_OF_GAME, DURING_GAME } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -39,9 +39,9 @@ const Artifacts: TArtifacts = [
         name: `Dokk Juice`,
         desc: `In your hero phase, the bearer can drink Dokk Juice. If they do, roll a dice:
 
-          1: the bearer suffers a mortal wound.
-          2-5: the bearer heals D3 wounds.
-          6: the bearer heals D6 wounds.`,
+          1: The bearer suffers a mortal wound.
+          2-5: The bearer heals D3 wounds.
+          6: The bearer heals D6 wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -62,7 +62,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Lucky Bone`,
         desc: `You can re-roll any run rolls, hit rolls, wound rolls, save rolls, and damage rolls of 1 for the bearer.`,
-        when: [MOVEMENT_PHASE, COMBAT_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },
