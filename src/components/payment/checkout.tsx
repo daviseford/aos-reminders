@@ -11,6 +11,7 @@ const CheckoutComponent = props => {
     // When the customer clicks on the button, redirect
     // them to Checkout.
 
+    // If we want to use the Auth0 customerId
     // Research this: https://stripe.com/docs/payments/checkout/server#using-existing-customers
     props.stripe
       .redirectToCheckout({
