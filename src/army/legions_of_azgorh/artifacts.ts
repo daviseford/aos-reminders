@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Bazherak the Cruel`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
         when: [HERO_PHASE, SHOOTING_PHASE, CHARGE_PHASE, COMBAT_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Chalice of Blood and Darkness`,
-        desc: `Once per battle, at the start of the enemy hero phase, the bearer can use this artifact. If they do so, roll a dice for each enemy Wizard within 30" of the bearer. On a 4+, reduce the number of spells that enemy Wizard can attempt to cast in that hero phase by 1.`,
+        desc: `Once per battle, at the start of the enemy hero phase, the bearer can use this artifact. If they do so, roll a D6 for each enemy Wizard within 30" of the bearer. On a 4+, reduce the number of spells that enemy Wizard can attempt to cast in that hero phase by 1.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

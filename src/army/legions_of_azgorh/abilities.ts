@@ -10,7 +10,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Burning Skies`,
-    desc: `In the movement phase, if an enemy unit can fly and moves more than 6", roll a dice. On a 4+ the enemy unit suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
+    desc: `In the movement phase, if an enemy unit can fly and moves more than 6", roll a D6. On a 4+ the enemy unit suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
     when: [MOVEMENT_PHASE],
     command_ability: true,
   },

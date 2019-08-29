@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Grave-sand Timeglass (Nagash)`,
-        desc: `Whilst the bearer is on the battlefield, once per battle, in your hero phase, you can pick an enemy HERO on the battlefield. The enemy hero suffers D3 mortal wounds. At the start of each of your subsequent hero phases, roll a dice. On a 4+ the enemy hero suffers 1 mortal wound.ent hero phases, on a 4+ they suffer a mortal wound.`,
+        desc: `Whilst the bearer is on the battlefield, once per battle, in your hero phase, you can pick an enemy HERO on the battlefield. The enemy hero suffers D3 mortal wounds. At the start of each of your subsequent hero phases, roll a D6. On a 4+ the enemy hero suffers 1 mortal wound.ent hero phases, on a 4+ they suffer a mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -48,7 +48,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ossific Diadem (Nagash)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly DEATHRATTLE model within 12" of the bearer. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATHRATTLE model within 12" of the bearer. On a 6+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -98,7 +98,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Asylumaticae (Sacrament)`,
-        desc: `Once per battle, in your hero phase, you can declare that the bearer will open the Asylumaticae. If you do so, roll a dice. On a 1 the bearer suffers a mortal wound. On a 2+ each enemy unit within 12" of the bearer suffers 1 mortal wound.`,
+        desc: `Once per battle, in your hero phase, you can declare that the bearer will open the Asylumaticae. If you do so, roll a D6. On a 1 the bearer suffers a mortal wound. On a 2+ each enemy unit within 12" of the bearer suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -108,7 +108,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wristbands of Black Gold (Sacrament)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer in the shooting phase. On a 4+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the shooting phase. On a 4+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -128,7 +128,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Black Gem (Sacrament)`,
-        desc: `Once per battle, in your hero phase, you can declare that the bearer will shatter the Black Gem. Pick a point on the battlefield within 8" of the bearer. Roll a dice for each unit within 3" of this point. On a 6+, one model from that unit is slain. If the unit has any models with wounds allocated to it, then that model must be the model that is slain.`,
+        desc: `Once per battle, in your hero phase, you can declare that the bearer will shatter the Black Gem. Pick a point on the battlefield within 8" of the bearer. Roll a D6 for each unit within 3" of this point. On a 6+, one model from that unit is slain. If the unit has any models with wounds allocated to it, then that model must be the model that is slain.`,
         when: [HERO_PHASE],
       },
     ],
@@ -138,7 +138,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ring of Dominion (Blood)`,
-        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a dice. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer.`,
+        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a D6. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -148,7 +148,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Shadeglass Decanter (Blood)`,
-        desc: `After armies have been set up but before the first battle round, select an enemy HERO. In your hero phase, as long as that hero is on the battlefield, you can roll a dice. If the result is higher than the number of the current battle round, that hero suffers 1 mortal wound.`,
+        desc: `After armies have been set up but before the first battle round, select an enemy HERO. In your hero phase, as long as that hero is on the battlefield, you can roll a D6. If the result is higher than the number of the current battle round, that hero suffers 1 mortal wound.`,
         when: [DURING_SETUP, HERO_PHASE],
       },
     ],
@@ -178,7 +178,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Oubliette Arcana (Blood)`,
-        desc: `When an enemy WIZARD successfully casts a spell within 30" of the bearer, instead of attempting to unbind it you can declare that the Oubliette Arcana will attempt to capture the magical energies. Roll a dice. On a 6+ the spell is negated and has no effect. In addition, that spell may not be cast again by that WIZARD for the rest of the battle.`,
+        desc: `When an enemy WIZARD successfully casts a spell within 30" of the bearer, instead of attempting to unbind it you can declare that the Oubliette Arcana will attempt to capture the magical energies. Roll a D6. On a 6+ the spell is negated and has no effect. In addition, that spell may not be cast again by that WIZARD for the rest of the battle.`,
         when: [HERO_PHASE],
       },
     ],
@@ -188,7 +188,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Amulet of Screams (Blood)`,
-        desc: `Once per battle, when an enemy Wizard successfully casts a spell, you can declare that the bearer will use the Amulet of Screams. If you do so, you cannot attempt to unbind the spell. Instead, roll a dice. On a 2+, the spell is not successfully cast.`,
+        desc: `Once per battle, when an enemy Wizard successfully casts a spell, you can declare that the bearer will use the Amulet of Screams. If you do so, you cannot attempt to unbind the spell. Instead, roll a D6. On a 2+, the spell is not successfully cast.`,
         when: [HERO_PHASE],
       },
     ],
@@ -218,7 +218,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Gem of Exsanguination (Night)`,
-        desc: `Once per battle, at the start of the combat phase, you can pick an enemy unit within 6" of the bearer and roll a dice. On a 1 nothing happens. On a 2-5 the unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick an enemy unit within 6" of the bearer and roll a D6. On a 1 nothing happens. On a 2-5 the unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -248,7 +248,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Curseblade (Night)`,
-        desc: `After armies have been set up but before the first battle round begins, you can pick an enemy HERO. In your hero phase, as long as the enemy hero is on the battlefield, you can roll a dice. On a 4+ that enemy hero suffers 1 mortal wound and you may heal a wound that has been allocated to the bearer.`,
+        desc: `After armies have been set up but before the first battle round begins, you can pick an enemy HERO. In your hero phase, as long as the enemy hero is on the battlefield, you can roll a D6. On a 4+ that enemy hero suffers 1 mortal wound and you may heal a wound that has been allocated to the bearer.`,
         when: [DURING_SETUP, HERO_PHASE],
       },
     ],
@@ -278,7 +278,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crimson Wing (Soulblight)`,
-        desc: `In your shooting phase, you can pick an enemy unit within 30" of the bearer and roll a dice. On a roll of 3+ that unit suffers 1 mortal wound.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 30" of the bearer and roll a D6. On a roll of 3+ that unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],

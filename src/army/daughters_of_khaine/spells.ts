@@ -128,12 +128,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Martyr's Sacrifice`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest.  Until the start of your next hero phase, each time a model from that unit is slain in the combat phase, roll a dice.  On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
+        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest.  Until the start of your next hero phase, each time a model from that unit is slain in the combat phase, roll a D6.  On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
         when: [HERO_PHASE],
       },
       {
         name: `Martyr's Sacrifice`,
-        desc: `If in effect, each time a model from buffed unit is slain, roll a dice.  On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
+        desc: `If in effect, each time a model from buffed unit is slain, roll a D6.  On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
         when: [COMBAT_PHASE],
       },
     ],

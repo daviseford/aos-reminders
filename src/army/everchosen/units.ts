@@ -21,7 +21,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Eye of Sheerian`,
-        desc: `Roll a dice and note the result.  Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
+        desc: `Roll a D6 and note the result.  Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
         when: [HERO_PHASE],
       },
       {
@@ -41,7 +41,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -66,7 +66,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Everchosen`,
-        desc: `Roll a dice if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
+        desc: `Roll a D6 if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
         when: [DURING_GAME],
       },
       {
@@ -127,12 +127,12 @@ export const Units: TUnits = [
       },
       {
         name: `Daemonforged Blades`,
-        desc: `On hits of 6+ with Daemonforged Blades, roll a dice instead of making a wound roll.  On a 2+ the attack inflicts a mortal wound on the target.  On a 1 this unit suffers a mortal wound instead.`,
+        desc: `On hits of 6+ with Daemonforged Blades, roll a D6 instead of making a wound roll.  On a 2+ the attack inflicts a mortal wound on the target.  On a 1 this unit suffers a mortal wound instead.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Warpsteel Shields`,
-        desc: `Roll a dice if this unit is affect by a spell cast by an enemy wizard.  If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
+        desc: `Roll a D6 if this unit is affect by a spell cast by an enemy wizard.  If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
         when: [HERO_PHASE],
       },
       {
@@ -161,7 +161,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dark Vizier`,
-        desc: `If Archaon is within 3" of the Gaunt Summoner in this battalion, you can roll a dice (you can look at this roll but hide it from your opponent).`,
+        desc: `If Archaon is within 3" of the Gaunt Summoner in this battalion, you can roll a D6 (you can look at this roll but hide it from your opponent).`,
         when: [HERO_PHASE],
       },
       {
@@ -211,7 +211,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Grandfather's Favour`,
-        desc: `When the leader of a validly set up battalion unit is selected to attack, pick a unit within 1" and roll a dice.  On a 4+ the target suffers 1 mortal wound.`,
+        desc: `When the leader of a validly set up battalion unit is selected to attack, pick a unit within 1" and roll a D6.  On a 4+ the target suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -226,7 +226,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Scions of Change`,
-        desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a dice each time it suffers a wound or mortal wound.  On a 6 the wound is negated.`,
+        desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a D6 each time it suffers a wound or mortal wound.  On a 6 the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -261,7 +261,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Daemonic Pacts`,
-        desc: `If Archaon is your general and on the battlefield, you can roll a dice. If you do so, on a 5+ you can summon one of the following units to the battlefield: 10 Plaguebearers; 10 Daemonettes; 10 Bloodletters; or 5 Pink Horrors. The summoned unit is added to your army, and must be set up wholly within 12" of Archaon and more than 9" from any enemy units.`,
+        desc: `If Archaon is your general and on the battlefield, you can roll a D6. If you do so, on a 5+ you can summon one of the following units to the battlefield: 10 Plaguebearers; 10 Daemonettes; 10 Bloodletters; or 5 Pink Horrors. The summoned unit is added to your army, and must be set up wholly within 12" of Archaon and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {

@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import './card.css'
+import { CSSTransition } from 'react-transition-group'
 import { visibility } from 'ducks'
 import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
@@ -18,7 +18,9 @@ interface ICardProps {
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
   const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
-  const colClass = `col col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto mt-1 ${!isMobile ? `mb-2` : ``}`
+  const colMobile = isMobile && !isVisible ? `col w-50 px-1` : `col-12 px-1`
+  const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${!isMobile ? `mb-2` : ``}`
+  const colClass = `${colMobile} ${colDesktop} mx-auto mt-1`
 
   return (
     <div className={colClass}>
@@ -29,7 +31,18 @@ const CardComponent: React.FC<ICardProps> = props => {
           title={title}
           headerClassName={'SelectorHeader'}
         />
-        <div className={bodyClass}>{children}</div>
+        <div className={bodyClass}>
+          <CSSTransition
+            in={isVisible}
+            timeout={1000}
+            classNames={{
+              enter: 'animated',
+              enterActive: 'less-pulse',
+            }}
+          >
+            {children}
+          </CSSTransition>
+        </div>
       </div>
     </div>
   )
@@ -106,19 +119,27 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     if (isMobile && title !== 'Units') hideCard(title)
   }, [hideCard, isMobile, title])
 
+  const styles = useMemo(() => {
+    return {
+      cardHeader: `card-header ${headerClassName} py-${isMobile ? 3 : 2}`,
+      flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
+      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
+      vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+    }
+  }, [isMobile, headerClassName])
+
   return (
-    <div className={`card-header ${headerClassName} py-2`}>
-      <div className="d-flex justify-content-center">
-        <div className="flex-grow-1 text-center pl-5">
-          <h4 className="CardHeaderTitle">{title}</h4>
+    <div className={styles.cardHeader} onClick={handleVisibility}>
+      <div className={styles.flexWrapperClass}>
+        <div className={styles.flexClass}>
+          {isMobile ? (
+            <h5 className="CardHeaderTitle text-nowrap">{title}</h5>
+          ) : (
+            <h4 className="CardHeaderTitle text-nowrap">{title}</h4>
+          )}
         </div>
-        <div className="px-2 d-print-none">
-          <VisibilityToggle
-            isVisible={isVisible}
-            setVisibility={handleVisibility}
-            size={iconSize}
-            type={type}
-          />
+        <div className={styles.vizWrapper}>
+          <VisibilityToggle isVisible={isVisible} size={iconSize} type={type} />
         </div>
       </div>
     </div>

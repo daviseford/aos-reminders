@@ -58,7 +58,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lifting the Veil`,
-        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a dice. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
+        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a D6. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -104,7 +104,7 @@ export const Units: TUnits = [
       },
       {
         name: `If I Cannot Rule, None Shall Rule!`,
-        desc: `At the start of the enemy hero phase, after the opposing player receives their command point for that turn, roll a dice. On a 5+, subtract 1 from the enemy player's command points, to a minimum of 0, and you receive 1 command point.`,
+        desc: `At the start of the enemy hero phase, after the opposing player receives their command point for that turn, roll a D6. On a 5+, subtract 1 from the enemy player's command points, to a minimum of 0, and you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -552,7 +552,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spectral Hunters`,
-        desc: `In your movement phase, immediately after this unit has moved, you can pick an enemy unit that has any models that a model from this unit passed across. If you do so, roll a dice for each model from this unit that passed across the enemy unit. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
+        desc: `In your movement phase, immediately after this unit has moved, you can pick an enemy unit that has any models that a model from this unit passed across. If you do so, roll a D6 for each model from this unit that passed across the enemy unit. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -594,7 +594,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death - Third Level - Spectral Scythes`,
-        desc: `After this model completes a charge move, pick an enemy unit withini 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `After this model completes a charge move, pick an enemy unit withini 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -604,7 +604,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death - Fifth Level - Witch-fire`,
-        desc: `In your hero phase, roll a dice for each enemy unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `In your hero phase, roll a D6 for each enemy unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -658,7 +658,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Nighthaunt Procession`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from this battalion within 12" of your general or a friendly NIGHTHAUNT HERO from the battalion. On a 6+ the wound is negated. If this battalion is part of a Nighthaunt army, this ability replaces the Deathless Spirits battle trait for all units in this battalion.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from this battalion within 12" of your general or a friendly NIGHTHAUNT HERO from the battalion. On a 6+ the wound is negated. If this battalion is part of a Nighthaunt army, this ability replaces the Deathless Spirits battle trait for all units in this battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -668,7 +668,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Shroudguard`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a BLADEGHEIST REVENANT model from a unit in this battalion wholly within 12" of a KNIGHT OF SHROUDS or REIKENOR THE GRIMHAILER from the same battalion. On a 5+, that wound or mortal wound is negated. If you use this ability, you cannot also use the Deathless Spirits battle trait to try to negate the same wound or mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a BLADEGHEIST REVENANT model from a unit in this battalion wholly within 12" of a KNIGHT OF SHROUDS or REIKENOR THE GRIMHAILER from the same battalion. On a 5+, that wound or mortal wound is negated. If you use this ability, you cannot also use the Deathless Spirits battle trait to try to negate the same wound or mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],

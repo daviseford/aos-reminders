@@ -63,7 +63,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Disciples of Slaughter`,
-        desc: `Roll a dice after a Kraith unit has fought if there are any enemy units within 3" of it.  On a 6, you can pile in and attack with that unit for a second time.`,
+        desc: `Roll a D6 after a Kraith unit has fought if there are any enemy units within 3" of it.  On a 6, you can pile in and attack with that unit for a second time.`,
         when: [COMBAT_PHASE],
       },
       {

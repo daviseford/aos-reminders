@@ -24,7 +24,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Rod of Misrule (Invaders Host)`,
-        desc: `Roll a dice, on a 1 your opponent receives 1 command point.  On a 2-5 you receive 1 command point.  On a 6 you receive D3 command points.`,
+        desc: `Roll a D6, on a 1 your opponent receives 1 command point.  On a 2-5 you receive 1 command point.  On a 6 you receive D3 command points.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -135,7 +135,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Sceptre of Domination (Pretenders Host)`,
-        desc: `If the bearer is within 12" of any enemy heros, and your opponent has any command points, roll a dice.  On a 4+ your opponent loses 1 command point and you receive 1 command point.`,
+        desc: `If the bearer is within 12" of any enemy heros, and your opponent has any command points, roll a D6.  On a 4+ your opponent loses 1 command point and you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -206,7 +206,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lash of Despair (Godseekers Host)`,
-        desc: `You can roll a dice for each enemy unit within 6" of the bearer.  On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `You can roll a D6 for each enemy unit within 6" of the bearer.  On a 4+ that unit suffers 1 mortal wound.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -221,7 +221,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Erapturing Cirlet (Godseekers Host)`,
-        desc: `Roll a dice for each enemy unit within 3" of the bearer.  On a 2+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit within 3" of the bearer.  On a 2+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

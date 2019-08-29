@@ -17,7 +17,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Skilled Manipulators (Masterclan)`,
-        desc: `Each time a friendly MASTERCLAN model uses a command ability, roll a dice. On a 5+ you receive 1 extra command point.`,
+        desc: `Each time a friendly MASTERCLAN model uses a command ability, roll a D6. On a 5+ you receive 1 extra command point.`,
         when: [DURING_GAME],
       },
     ],
@@ -77,7 +77,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of the phase, roll a dice. On a 1, that WIZARD suffers D3 mortal wounds.`,
+        desc: `At the end of the phase, roll a D6. On a 1, that WIZARD suffers D3 mortal wounds.`,
         when: [END_OF_HERO_PHASE],
       },
       {
@@ -87,7 +87,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of the phase, roll a dice. On a 1, that HERO suffers D3 mortal wounds.`,
+        desc: `At the end of the phase, roll a D6. On a 1, that HERO suffers D3 mortal wounds.`,
         when: [END_OF_SHOOTING_PHASE, END_OF_COMBAT_PHASE],
       },
       {

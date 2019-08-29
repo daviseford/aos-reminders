@@ -96,7 +96,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Glamourweave`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -106,7 +106,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lashvines`,
-        desc: `Roll a dice each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 6+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 6+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -136,7 +136,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seed of Rebirth`,
-        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a dice. On a 1, the bearer is slain. On a 2+ the bearer is not slain, you can heal up to D3 wounds allocated to them, and any wounds that remain to be allocated to them are negated.`,
+        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1, the bearer is slain. On a 2+ the bearer is not slain, you can heal up to D3 wounds allocated to them, and any wounds that remain to be allocated to them are negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -166,7 +166,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lifewreath`,
-        desc: `In your hero phase, roll a dice. On a 3+ you can heal D3 wounds allocated to each friendly SYLVANETH unit wholly within 10" of the bearer.`,
+        desc: `In your hero phase, roll a D6. On a 3+ you can heal D3 wounds allocated to each friendly SYLVANETH unit wholly within 10" of the bearer.`,
         when: [HERO_PHASE],
       },
     ],
@@ -216,7 +216,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Vesperal Gem`,
-        desc: `Once in each of your hero phases, when the bearer attempts to cast a spell from the Lore of the Deepwood, instead of making a casting roll you can say they are using the Vesperal Gem. If you do so, that spell is automatically cast (do not roll 2D6) and cannot be unbound. After the effect of that spell has been resolved, roll a dice. On a 1, the bearer suffers D3 mortal wounds.`,
+        desc: `Once in each of your hero phases, when the bearer attempts to cast a spell from the Lore of the Deepwood, instead of making a casting roll you can say they are using the Vesperal Gem. If you do so, that spell is automatically cast (do not roll 2D6) and cannot be unbound. After the effect of that spell has been resolved, roll a D6. On a 1, the bearer suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

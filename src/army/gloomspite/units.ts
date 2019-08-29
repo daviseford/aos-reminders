@@ -28,7 +28,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Babbling Wand`,
-        desc: `If Skragrott is your general and is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive D3 extra command points.`,
+        desc: `If Skragrott is your general and is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive D3 extra command points.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -38,7 +38,7 @@ export const Units: TUnits = [
       },
       {
         name: `Loonking's Crown`,
-        desc: `Add 1 to casting and unbinding rolls for Skragrott. In addition, roll a dice each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
+        desc: `Add 1 to casting and unbinding rolls for Skragrott. In addition, roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -75,7 +75,7 @@ export const Units: TUnits = [
       },
       {
         name: `Watch out!`,
-        desc: `If a Loonboss on Mangler Squigs is slain, before the model is removed from play roll a dice for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `If a Loonboss on Mangler Squigs is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [DURING_GAME],
       },
       {
@@ -138,7 +138,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Mouthpiece of Mork`,
-        desc: `If the Fungoid Cave-Shaman is on the battlefield at the start of your hero phase, roll a dice. On a 4+ you receive 1 extra command point.`,
+        desc: `If the Fungoid Cave-Shaman is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -148,7 +148,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spore Squig`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -158,7 +158,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Sniffer Spite`,
-        desc: `Once per battle, before you attempt to cast a spell with Zarbag, you can roll a dice. On a 2+ add 2 to the casting roll.`,
+        desc: `Once per battle, before you attempt to cast a spell with Zarbag, you can roll a D6. On a 2+ add 2 to the casting roll.`,
         when: [HERO_PHASE],
       },
     ],
@@ -278,7 +278,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Boing! Boing! Boing!`,
-        desc: `After a unit of Squig Hoppers has made a normal move, pick 1 enemy unit and roll a dice for each model in this unit that passed across a model from that unit. For each 4+ that unit suffers 1 mortal wound.`,
+        desc: `After a unit of Squig Hoppers has made a normal move, pick 1 enemy unit and roll a D6 for each model in this unit that passed across a model from that unit. For each 4+ that unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -288,7 +288,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Boing! Smash!`,
-        desc: `After a unit of Boingrot Bounderz has made a charge move, pick 1 enemy unit within 1" of this unit and roll a dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After a unit of Boingrot Bounderz has made a charge move, pick 1 enemy unit within 1" of this unit and roll a D6 for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -303,7 +303,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Squigs Go Wild`,
-        desc: `Roll a dice each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
+        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -323,7 +323,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bogeyman`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a dice. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll charge rolls and run rolls for that unit until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll charge rolls and run rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -348,7 +348,7 @@ export const Units: TUnits = [
       },
       {
         name: `Loonshine Potion`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a dice. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can re-roll hit rolls for that HERO until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can re-roll hit rolls for that HERO until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -373,7 +373,7 @@ export const Units: TUnits = [
       },
       {
         name: `Poison Brewer`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a dice. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll wound rolls of 1 for that unit until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll wound rolls of 1 for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -428,7 +428,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Looncap Mushrooms`,
-        desc: `At the start of your movement phase, you can say that this unit of Sneaky Snufflers is harvesting looncap mushrooms. If you do so, it cannot move in that movement phase, but you can roll a dice. If the roll is less than or equal to the number of models in this unit, pick 1 friendly MOONCLAN unit wholly within 12" of this unit. Add 1 to the Attacks Rend Damage -1 - 1 characteristic of melee weapons used by that unit until your next movement phase. If you pick the same unit to be affected by this ability more than once in the same turn, it suffers 2D6 mortal wounds each time you pick it an additional time.`,
+        desc: `At the start of your movement phase, you can say that this unit of Sneaky Snufflers is harvesting looncap mushrooms. If you do so, it cannot move in that movement phase, but you can roll a D6. If the roll is less than or equal to the number of models in this unit, pick 1 friendly MOONCLAN unit wholly within 12" of this unit. Add 1 to the Attacks Rend Damage -1 - 1 characteristic of melee weapons used by that unit until your next movement phase. If you pick the same unit to be affected by this ability more than once in the same turn, it suffers 2D6 mortal wounds each time you pick it an additional time.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],
@@ -443,7 +443,7 @@ export const Units: TUnits = [
       },
       {
         name: `Squigs Go Wild`,
-        desc: `Roll a dice each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
+        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -458,7 +458,7 @@ export const Units: TUnits = [
       },
       {
         name: `Watch Out!`,
-        desc: `If a Mangler Squigs model is slain, before the model is removed from play roll a dice for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `If a Mangler Squigs model is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],
@@ -468,12 +468,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crazed Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 6, that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 6, that unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Fungoid Squig Explosion`,
-        desc: `If this model is slain, before removing the model from the battlefield, roll a dice for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.`,
+        desc: `If this model is slain, before removing the model from the battlefield, roll a D6 for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.`,
         when: [DURING_GAME],
       },
       {
@@ -539,7 +539,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Touched by the Spider God`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -574,7 +574,7 @@ export const Units: TUnits = [
       },
       {
         name: `Voracious Predator`,
-        desc: `You can re-roll run and charge rolls for this model. In addition, roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `You can re-roll run and charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE, MOVEMENT_PHASE],
       },
     ],
@@ -609,7 +609,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spell-spite`,
-        desc: `Each time this model successfully unbinds a spell, you can roll a dice; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds.`,
+        desc: `Each time this model successfully unbinds a spell, you can roll a D6; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -629,7 +629,7 @@ export const Units: TUnits = [
       },
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for a Dankhold Troggboss. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+        desc: `In your hero phase, you can roll a D6 for a Dankhold Troggboss. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -639,7 +639,7 @@ export const Units: TUnits = [
       },
       {
         name: `Magical Resistance`,
-        desc: `Each time a Dankhold Troggboss is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
+        desc: `Each time a Dankhold Troggboss is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -660,7 +660,7 @@ export const Units: TUnits = [
       },
       {
         name: `Magical Resistance`,
-        desc: `Each time a Mollog is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
+        desc: `Each time a Mollog is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -670,22 +670,22 @@ export const Units: TUnits = [
       },
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for a Mollog. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+        desc: `In your hero phase, you can roll a D6 for a Mollog. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Minion Abilities: Batsquig`,
-        desc: `At the start of your shooting phase, you can pick 1 enemy unit within 18" of this Mollog and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound. This ability cannot be used if the Bat Squig minion has been removed.`,
+        desc: `At the start of your shooting phase, you can pick 1 enemy unit within 18" of this Mollog and roll a D6. On a 5+ that enemy unit suffers 1 mortal wound. This ability cannot be used if the Bat Squig minion has been removed.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
         name: `Minion Abilities: Spiteshroom`,
-        desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this Mollog and roll a dice. On a 5+ subtract 1 from hit rolls for attacks made by that unit in that combat phase. This ability cannot be used if the Spiteshroom minion has been removed before the start of that combat phase.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this Mollog and roll a D6. On a 5+ subtract 1 from hit rolls for attacks made by that unit in that combat phase. This ability cannot be used if the Spiteshroom minion has been removed before the start of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Minion Abilities: Stalagsquig`,
-        desc: `If you choose to remove this minion when you use the Loyal to the End ability, roll a dice. On a 5+ this minion is not removed, but the wound or mortal wound is still negated.`,
+        desc: `If you choose to remove this minion when you use the Loyal to the End ability, roll a D6. On a 5+ this minion is not removed, but the wound or mortal wound is still negated.`,
         when: [DURING_GAME],
       },
       {
@@ -700,7 +700,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for Fellwater Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+        desc: `In your hero phase, you can roll a D6 for Fellwater Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -715,12 +715,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `Roll a dice for each Sourbreath Troggoth in each of your hero phases. On a 2+ that model heals D3 wounds.`,
+        desc: `Roll a D6 for each Sourbreath Troggoth in each of your hero phases. On a 2+ that model heals D3 wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Too Dumb to Die`,
-        desc: `Roll a dice each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -730,17 +730,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for Rockgut Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+        desc: `In your hero phase, you can roll a D6 for Rockgut Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Stony Skin`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Throwin' Boulders`,
-        desc: `In your shooting phase, pick 1 enemy unit within 12" of Rockgut Troggoths and visible to it, and roll a dice. If the roll is equal to or less than the number of models in this unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, pick 1 enemy unit within 12" of Rockgut Troggoths and visible to it, and roll a D6. If the roll is equal to or less than the number of models in this unit, that enemy unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -755,7 +755,7 @@ export const Units: TUnits = [
       },
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for Dankhold Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+        desc: `In your hero phase, you can roll a D6 for Dankhold Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -765,7 +765,7 @@ export const Units: TUnits = [
       },
       {
         name: `Magical Resistance`,
-        desc: `Each time a unit of Dankhold Troggoths is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
+        desc: `Each time a unit of Dankhold Troggoths is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
         when: [HERO_PHASE],
       },
     ],
@@ -780,7 +780,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stuff Em In Me Bag`,
-        desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a dice. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
+        desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -795,12 +795,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `I'll Bite Your Head Off!`,
-        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a D6. On a 6, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Jump Up and Down`,
-        desc: `At the end of the combat phase, you can pick 1 enemy unit within 1" of this model. If you do so, roll a dice. If the dice roll is equal to or less than the number of models in that unit, that unit suffers D6 mortal wounds.`,
+        desc: `At the end of the combat phase, you can pick 1 enemy unit within 1" of this model. If you do so, roll a D6. If the dice roll is equal to or less than the number of models in that unit, that unit suffers D6 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {

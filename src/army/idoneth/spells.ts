@@ -43,7 +43,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Pressure of the Deeps`,
-        desc: `Casting value 7. Pick an enemy model within 12" of the caster that is visible to them, and roll a dice. If the dice roll is greater than that model's Wounds characteristic, it is slain.`,
+        desc: `Casting value 7. Pick an enemy model within 12" of the caster that is visible to them, and roll a D6. If the dice roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [HERO_PHASE],
       },
     ],

@@ -36,7 +36,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Drakeslayer`,
-        desc: `Once per battle instead of this unit throwing a Fyresteel throwing axe, they throw Drakeslayer. If they do so pick an enemy MONSTER within 8" of the bearer and roll a dice. On a 6 that MONSTER suffers 3D6 mortal wounds.`,
+        desc: `Once per battle instead of this unit throwing a Fyresteel throwing axe, they throw Drakeslayer. If they do so pick an enemy MONSTER within 8" of the bearer and roll a D6. On a 6 that MONSTER suffers 3D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -46,7 +46,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Obsidian Glowhelm`,
-        desc: `Roll a dice if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
+        desc: `Roll a D6 if the bearer is on the battlefield. On a 4+ you receive 1 additional command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -176,7 +176,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Icon of Grimnir's Condemnation`,
-        desc: `The bearer can attempt to unbind 1 spell in the same manner as a WIZARD. In addition if the bearer unbinds a spell roll a dice. On a 2+ the caster suffers 1 mortal wound.`,
+        desc: `The bearer can attempt to unbind 1 spell in the same manner as a WIZARD. In addition if the bearer unbinds a spell roll a D6. On a 2+ the caster suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -186,7 +186,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Nulsidian Icon`,
-        desc: `Each time a friendly FYRESLAYERS unit wholly within 12" of the bearer is affected by a spell or endless spell you can roll a dice. If you do so, on a 4+ ignore the effects of that spell or endless spell on that unit.`,
+        desc: `Each time a friendly FYRESLAYERS unit wholly within 12" of the bearer is affected by a spell or endless spell you can roll a D6. If you do so, on a 4+ ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
       },
     ],

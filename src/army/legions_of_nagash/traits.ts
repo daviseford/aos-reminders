@@ -50,7 +50,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Aura of Ages (Grand Host of Nagash)`,
-        desc: `At the start of the combat phase, roll a dice for each enemy unit within 3" of this general. On a 4+ subtract 1 from hit rolls made for that unit until the end of the combat phase.`,
+        desc: `At the start of the combat phase, roll a D6 for each enemy unit within 3" of this general. On a 4+ subtract 1 from hit rolls made for that unit until the end of the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -90,7 +90,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mark of the Favoured (Legion of Sacrament)`,
-        desc: `Each time this general is selected as the target of an attack in the combat phase, roll a dice. On a 6+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        desc: `Each time this general is selected as the target of an attack in the combat phase, roll a D6. On a 6+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -331,7 +331,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Legions Innumerable (Grand Host of Nagash)`,
-        desc: `In your hero phase, you may roll a dice for each friendly GRAND HOST OF NAGASH SUMMONABLE unit on the battlefield. On a 5+ you can heal up to D3 wounds that have been allocated to it. For units with a Wounds characteristic of 1, return 1 slain model to the unit for each wound that would have been healed.`,
+        desc: `In your hero phase, you may roll a D6 for each friendly GRAND HOST OF NAGASH SUMMONABLE unit on the battlefield. On a 5+ you can heal up to D3 wounds that have been allocated to it. For units with a Wounds characteristic of 1, return 1 slain model to the unit for each wound that would have been healed.`,
         when: [HERO_PHASE],
       },
     ],
@@ -381,7 +381,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `The Master's Teachings (Legin of Sacrament)`,
-        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a dice, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
+        desc: `Whenever an enemy unit is destroyed, before removing the last model, you may pick one of your gravesites within 6" of that model. Roll a D6, then remove the model. On a 4+, you may pick a friendly SUMMONABLE unit that has been destroyed and set it up again wholly within 9" of that gravesite and more than 9" from any enemy models.`,
         when: [DURING_GAME],
       },
     ],
@@ -441,7 +441,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Deathless Thralls (Soulblight)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
     ],
