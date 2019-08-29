@@ -10,7 +10,7 @@ export const saveArmyToApi = async (
   createSavedArmy: (army: ISavedArmyFromApi) => void
 ) => {
   try {
-    const payload = { userName: user.name, ...savedArmy }
+    const payload = { userName: user.email, ...savedArmy }
     const res = await Api.createSavedArmy(payload)
     const armyFromApi = res.body as ISavedArmyFromApi
     console.log(`created savedArmy named ${armyFromApi.armyName}, id: ${armyFromApi.id}`)
@@ -25,7 +25,7 @@ export const loadSavedArmiesFromApi = async (
   loadSavedArmies: (savedArmies: ISavedArmyFromApi[]) => void
 ) => {
   try {
-    const res = await Api.getUserItems(user.name)
+    const res = await Api.getUserItems(user.email)
     const savedArmies = res.body as ISavedArmyFromApi[]
     console.log(`loaded ${savedArmies.length} saved armies`)
     console.log(savedArmies)

@@ -37,8 +37,7 @@ const UserCard: React.FC<IUserCardProps> = props => {
       {!loading && (
         <div className="media">
           <div className="media-body">
-            <h5 className="mt-0">{user.name}</h5>
-            <p>Email: {user.email}</p>
+            <h5 className="mt-0">{user.email}</h5>
             <p>Email Verified: {user.email_verified.toString()}</p>
 
             <code>{JSON.stringify(user, null, 2)}</code>
