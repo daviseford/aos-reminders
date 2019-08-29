@@ -109,7 +109,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Gouge-tusks (Warherd)`,
-        desc: `At the end of the combat phase, pick an enemy unit within 3" of this general and roll a dice. On a 1, nothing happens. On a 2-5, that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, pick an enemy unit within 3" of this general and roll a D6. On a 1, nothing happens. On a 2-5, that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

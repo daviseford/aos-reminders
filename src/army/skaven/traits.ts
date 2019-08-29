@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Masterclan)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -67,7 +67,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cunning (Masterclan)`,
-        desc: `After the battle has started, roll a dice each time your opponent receives a command point. On a 6 you receive the command point instead of them.`,
+        desc: `After the battle has started, roll a D6 each time your opponent receives a command point. On a 6 you receive the command point instead of them.`,
         when: [DURING_GAME],
       },
     ],
@@ -87,7 +87,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Skryre)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -147,7 +147,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Pestilens)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -187,7 +187,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Diseased (Pestilens)`,
-        desc: `At the start of your hero phase, roll a dice if this general is within 3" of any enemy units. On a 4+ inflict D3 mortal wounds on 1 enemy unit within 3" of this general.`,
+        desc: `At the start of your hero phase, roll a D6 if this general is within 3" of any enemy units. On a 4+ inflict D3 mortal wounds on 1 enemy unit within 3" of this general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -207,7 +207,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Verminus)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -267,7 +267,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Moulder)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -327,7 +327,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Verminous Valour (Eshin)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a dice. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
         when: [DURING_GAME],
       },
     ],

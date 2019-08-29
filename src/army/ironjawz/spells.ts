@@ -27,7 +27,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Da Blazin' Eyes`,
-        desc: `Casting value of 6. If successfully cast, pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Ten draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a dice for each enemy model passed across by this line. On a 5+ that model's unit suﬀers 1 mortal wound.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Ten draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each enemy model passed across by this line. On a 5+ that model's unit suﬀers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

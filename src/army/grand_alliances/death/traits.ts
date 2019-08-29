@@ -48,7 +48,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Red Fury (${DEATH})`,
-        desc: `The first time this general is picked to fight in each combat phase, roll a dice at the end of that fight. On a 5+ they can immediately fight again.`,
+        desc: `The first time this general is picked to fight in each combat phase, roll a D6 at the end of that fight. On a 5+ they can immediately fight again.`,
         when: [COMBAT_PHASE],
       },
     ],

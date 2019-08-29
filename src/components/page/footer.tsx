@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { DonateComponent } from 'components/info/donate'
 import { logClick } from 'utils/analytics'
 
@@ -8,25 +8,23 @@ import { logClick } from 'utils/analytics'
 export const FooterComponent = () => {
   return (
     <div className="container d-print-none">
-      <DonateComponent />
       <OpenSourceComponent />
+      <DonateComponent />
+      <DisclaimerComponent />
     </div>
   )
 }
 
 const OpenSourceComponent = () => {
   const uri = `https://github.com/daviseford/aos-reminders`
-  const handleClick = useCallback(
-    e => {
-      e.preventDefault()
-      logClick('Github')
-      window.open(uri)
-    },
-    [uri]
-  )
+  const handleClick = e => {
+    e.preventDefault()
+    logClick('Github')
+    window.open(uri)
+  }
 
   return (
-    <div className="row text-center my-3">
+    <div className="row text-center mt-3">
       <div className="col">
         <h5>
           This tool is open source. If you want to contribute, check out{' '}
@@ -38,3 +36,16 @@ const OpenSourceComponent = () => {
     </div>
   )
 }
+
+const DisclaimerComponent = () => (
+  <div className="row justify-content-center text-center pt-0">
+    <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+      <div className="alert alert-light" role="alert">
+        <small className="DisclaimerText">
+          Disclaimer: This tool is in no way endorsed or sanctioned by Games Workshop - it is unofficial and
+          fan-made. I take absolutely no credit for any of the Games Workshop content displayed above.
+        </small>
+      </div>
+    </div>
+  </div>
+)

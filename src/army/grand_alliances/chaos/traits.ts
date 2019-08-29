@@ -28,7 +28,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cunning Deceiver (${CHAOS})`,
-        desc: `Roll a dice at the start of each of your hero phases as long as this general has not been slain. On a 5+ you receive 1 extra command point.`,
+        desc: `Roll a D6 at the start of each of your hero phases as long as this general has not been slain. On a 5+ you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -38,7 +38,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Lord of War (${CHAOS})`,
-        desc: `In your hero phase, pick a friendly CHAOS unit within 3" of this general and roll a dice. On a 4+ you can add 1 to hit rolls for the unit you picked until your next hero phase.`,
+        desc: `In your hero phase, pick a friendly CHAOS unit within 3" of this general and roll a D6. On a 4+ you can add 1 to hit rolls for the unit you picked until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

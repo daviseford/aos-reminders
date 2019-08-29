@@ -26,7 +26,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Living Plague`,
-        desc: `Roll a dice for each enemy unit within 1" of your general.  On a 4+ the unit being rolled for suffers 1 mortal wound and your receive 1 contagion point.`,
+        desc: `Roll a D6 for each enemy unit within 1" of your general.  On a 4+ the unit being rolled for suffers 1 mortal wound and your receive 1 contagion point.`,
         when: [START_OF_HERO_PHASE],
         command_trait: true,
       },
@@ -48,7 +48,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bloated with Corruption (Rotbringer)`,
-        desc: `Roll a dice each time you allocate a wound to your general in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Roll a D6 each time you allocate a wound to your general in the combat phase (and it is not negated).  On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
         when: [COMBAT_PHASE],
         command_trait: true,
       },
@@ -70,7 +70,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Resilient (Rotbringer)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to your general.  On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to your general.  On a 6+ the wound is negated.`,
         when: [DURING_GAME],
         command_trait: true,
       },
@@ -103,7 +103,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Pestilent Breath (Daemon)`,
-        desc: `Pick one enemy unit within 6" of your general.  Roll a dice for each model in that unit that is within 6" of your general.  The unit suffers 1 mortal wound for each roll of 5+.`,
+        desc: `Pick one enemy unit within 6" of your general.  Roll a D6 for each model in that unit that is within 6" of your general.  The unit suffers 1 mortal wound for each roll of 5+.`,
         when: [START_OF_SHOOTING_PHASE],
         command_trait: true,
       },

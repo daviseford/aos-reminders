@@ -90,7 +90,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Breath of Morgrim (GREAT ENDRINWORK)`,
-        desc: `After moving (not running), pick an enemy within 6". Roll a dice for each model, if you roll at least one 6, unit suffers D3 mortal wounds.`,
+        desc: `After moving (not running), pick an enemy within 6". Roll a D6 for each model, if you roll at least one 6, unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

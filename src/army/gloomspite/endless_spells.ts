@@ -22,7 +22,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Malevolent Intentions`,
-        desc: `After this model moves, roll a dice for each unit that has any models that this model passed across. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `After this model moves, roll a D6 for each unit that has any models that this model passed across. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_ROUND],
       },
       {

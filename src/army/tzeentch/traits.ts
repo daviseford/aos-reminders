@@ -25,7 +25,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Nexus of Fate`,
-        desc: `If your general is on the battlefield at the start of your hero phase, roll a dice; on a 1 or 6, you can choose to replace one Destiny Dice from your pool with the number you rolled.`,
+        desc: `If your general is on the battlefield at the start of your hero phase, roll a D6; on a 1 or 6, you can choose to replace one Destiny Dice from your pool with the number you rolled.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -45,7 +45,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Boundless Mutation`,
-        desc: `At the start of each of your hero phases, roll a dice; on a 2 or more, your general heals D3 wounds. On a roll of 1, your general suffers 1 mortal wound; if this slays the general, before you remove the general's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of your general.`,
+        desc: `At the start of each of your hero phases, roll a D6; on a 2 or more, your general heals D3 wounds. On a roll of 1, your general suffers 1 mortal wound; if this slays the general, before you remove the general's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of your general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -105,7 +105,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Blessing of Tzeentch`,
-        desc: `Each time your general suffers a wound or mortal wound, roll a dice; on a roll of 6, the wound is ignored.`,
+        desc: `Each time your general suffers a wound or mortal wound, roll a D6; on a roll of 6, the wound is ignored.`,
         when: [DURING_GAME],
       },
     ],

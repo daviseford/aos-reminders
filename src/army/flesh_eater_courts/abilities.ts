@@ -5,7 +5,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Deathless Courtiers`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,
     when: [DURING_GAME],
   },
   {

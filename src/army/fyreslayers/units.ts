@@ -21,17 +21,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Volcanic Blood`,
-        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -41,7 +41,7 @@ export const Units: TUnits = [
       },
       {
         name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -62,7 +62,7 @@ export const Units: TUnits = [
       },
       {
         name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -72,12 +72,12 @@ export const Units: TUnits = [
       },
       {
         name: `Lashing Tail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Volcanic Blood`,
-        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -87,12 +87,12 @@ export const Units: TUnits = [
       },
       {
         name: `Hrathling`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Runefather's Favour`,
-        desc: `Pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a dice. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
+        desc: `Pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a D6. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
@@ -103,17 +103,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Volcanic Blood`,
-        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -128,7 +128,7 @@ export const Units: TUnits = [
       },
       {
         name: `Molten Battering Ram`,
-        desc: `Pick 1 friendly MAGMADROTH that is within 12" of a friendly model with this command ability. After that unit makes a charge move in that charge phase, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+ that enemy unit suffers D6 mortal wounds. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
+        desc: `Pick 1 friendly MAGMADROTH that is within 12" of a friendly model with this command ability. After that unit makes a charge move in that charge phase, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers D6 mortal wounds. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -139,17 +139,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a dice. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Lashing Tail`,
-        desc: `Roll a dice for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Volcanic Blood`,
-        desc: `Roll a dice each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -179,7 +179,7 @@ export const Units: TUnits = [
       },
       {
         name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -220,7 +220,7 @@ export const Units: TUnits = [
       },
       {
         name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a dice. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -277,7 +277,7 @@ export const Units: TUnits = [
       },
       {
         name: `Volcano's Call`,
-        desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a terrain feature within 18" of this model. Roll a dice for each model within 1" of that terrain feature. For each roll of a 6, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the 'Deadly' scenery rule in addition to any other scenery rules it may have.`,
+        desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a terrain feature within 18" of this model. Roll a D6 for each model within 1" of that terrain feature. For each roll of a 6, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the 'Deadly' scenery rule in addition to any other scenery rules it may have.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -292,7 +292,7 @@ export const Units: TUnits = [
       },
       {
         name: `Battlefury`,
-        desc: `If this model is within 3" of an enemy unit, roll a dice. On a 2+ make a pile in move with this model, and then attack with all the melee weapons this model is armed with.`,
+        desc: `If this model is within 3" of an enemy unit, roll a D6. On a 2+ make a pile in move with this model, and then attack with all the melee weapons this model is armed with.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -352,7 +352,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bladed Slingshield`,
-        desc: `After a unit armed with Bladed Slingshields makes a charge move, pick 1 enemy unit and roll a dice for each model from the charging unit within 8" of that enemy unit. For each 6, the enemy unit suffers 1 mortal wound. In addition, add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
+        desc: `After a unit armed with Bladed Slingshields makes a charge move, pick 1 enemy unit and roll a D6 for each model from the charging unit within 8" of that enemy unit. For each 6, the enemy unit suffers 1 mortal wound. In addition, add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -362,12 +362,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Molten Rockbolts`,
-        desc: `Add 1 to the Damage for attacks made by Magmapike missile weapons that target MONSTERS. In addition, if any wounds are inflicted on a MONSTER by Magmapike missile weapons, roll a dice. On a 4+, until the end of that unit's next turn, halve that unit's Move characteristic and subtract 1 from hit rolls for attacks made by that unit.`,
+        desc: `Add 1 to the Damage for attacks made by Magmapike missile weapons that target MONSTERS. In addition, if any wounds are inflicted on a MONSTER by Magmapike missile weapons, roll a D6. On a 4+, until the end of that unit's next turn, halve that unit's Move characteristic and subtract 1 from hit rolls for attacks made by that unit.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Sworn Protectors`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly FYRESLAYERS HERO that is not mounted on a MAGMADROTH and is within 3" of any friendly units with this ability. On a 4+ that wound or mortal wound is negated, and you must choose a friendly unit with this ability that is within 3" to suffer 1 mortal wound after all wounds or mortal wounds have been allocated to that friendly HERO.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FYRESLAYERS HERO that is not mounted on a MAGMADROTH and is within 3" of any friendly units with this ability. On a 4+ that wound or mortal wound is negated, and you must choose a friendly unit with this ability that is within 3" to suffer 1 mortal wound after all wounds or mortal wounds have been allocated to that friendly HERO.`,
         when: [DURING_GAME],
       },
     ],

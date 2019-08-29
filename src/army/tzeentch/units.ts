@@ -118,7 +118,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Wake of Fire`,
-        desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
+        desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -128,12 +128,12 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Frantic Scribbling`,
-        desc: `Roll a dice each time a WIZARD within 18" of the Blue Scribes successfully casts a spell (whether or not it is unbound); on a 4 or more the Scribes learn that spell and can attempt to cast it in subsequent turns.`,
+        desc: `Roll a D6 each time a WIZARD within 18" of the Blue Scribes successfully casts a spell (whether or not it is unbound); on a 4 or more the Scribes learn that spell and can attempt to cast it in subsequent turns.`,
         when: [HERO_PHASE],
       },
       {
         name: `Scrolls of Sorcery`,
-        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a dice; on a 1, they can't decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
+        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a D6; on a 1, they can't decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
         when: [HERO_PHASE],
       },
     ],
@@ -168,7 +168,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Split`,
-        desc: `If a friendly Pink Horror model is slain, you can either take petty vengeance or receive 2 Blue Horror Points. If you take petty vengeance, pick an enemy unit within 9" of the slain Pink Horror and roll a dice. On a 6+ that enemy unit suffers 1 mortal wound. Any Blue Horror Points you receive can be used instead of or as well as Fate Points when you summon a Blue Horrors unit to the battlefield.`,
+        desc: `If a friendly Pink Horror model is slain, you can either take petty vengeance or receive 2 Blue Horror Points. If you take petty vengeance, pick an enemy unit within 9" of the slain Pink Horror and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Blue Horror Points you receive can be used instead of or as well as Fate Points when you summon a Blue Horrors unit to the battlefield.`,
         when: [DURING_GAME],
       },
     ],
@@ -178,7 +178,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Split Again`,
-        desc: `If a friendly Blue Horror model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain Blue Horror and roll a dice. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a Brimstone Horrors unit to the battlefield.`,
+        desc: `If a friendly Blue Horror model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain Blue Horror and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a Brimstone Horrors unit to the battlefield.`,
         when: [DURING_GAME],
       },
     ],
@@ -188,7 +188,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],
@@ -198,12 +198,12 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
         name: `Locus of Transmogrification`,
-        desc: `Roll a dice each time a model in this unit is slain within 9" of a Tzeentch Daemon Hero from your army; on a 6, add two Flamer models to this unit.`,
+        desc: `Roll a D6 each time a model in this unit is slain within 9" of a Tzeentch Daemon Hero from your army; on a 6, add two Flamer models to this unit.`,
         when: [DURING_GAME],
       },
     ],
@@ -218,7 +218,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Slashing Fins`,
-        desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
+        desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6 for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -238,12 +238,12 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Capricious Warpflame`,
-        desc: `Roll a dice at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
         when: [END_OF_SHOOTING_PHASE],
       },
       {
         name: `Wake of Fire`,
-        desc: `After a Burning Chariot moves in the movement phase, you can pick an enemy unit that it moved across. Roll a dice; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
+        desc: `After a Burning Chariot moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -298,7 +298,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Soulbound Shield`,
-        desc: `If this model suffers any wounds or mortal wounds as the result of a spell, roll a dice. If the result is 4 or more, the wounds are ignored.`,
+        desc: `If this model suffers any wounds or mortal wounds as the result of a spell, roll a D6. If the result is 4 or more, the wounds are ignored.`,
         when: [HERO_PHASE],
       },
       {
@@ -308,7 +308,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Lord of Fate`,
-        desc: `If a Fatemaster uses this ability, roll a dice. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCH MORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
+        desc: `If a Fatemaster uses this ability, roll a D6. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCH MORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -349,7 +349,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Arcanite Shield`,
-        desc: `Roll a dice before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
+        desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
         when: [DURING_GAME],
       },
       {
@@ -374,7 +374,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Arcanite Shield`,
-        desc: `Roll a dice before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
+        desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
         when: [DURING_GAME],
       },
       {
@@ -394,7 +394,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Vulchare`,
-        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a dice each time an enemy WIZARD within 18" of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell's effects have been resolved.`,
+        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a D6 each time an enemy WIZARD within 18" of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell's effects have been resolved.`,
         when: [HERO_PHASE],
       },
     ],
@@ -454,11 +454,11 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Aura of Mutation`,
-        desc: `In your hero phase, you can pick a unit within 15". Roll a dice and consult the chart below:
+        desc: `In your hero phase, you can pick a unit within 15". Roll a D6 and consult the chart below:
 
         1. Hideous Disfigurements: Reduce the Bravery of each model in the target unit by 1 for the rest of the battle.
 
-        2. Trollbrains: For the rest of the battle, the controlling player must roll a dice at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
+        2. Trollbrains: For the rest of the battle, the controlling player must roll a D6 at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
 
         3. Gift of Mutations: Reduce the Move of each model in the target unit by 1 for the rest of the battle.
 
@@ -520,7 +520,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a dice each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a dice each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Tzeentch Chaos Spawn; set up a Tzeentch Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
+        desc: `Roll a D6 each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a D6 each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Tzeentch Chaos Spawn; set up a Tzeentch Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
         when: [DURING_GAME],
       },
     ],
@@ -540,7 +540,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Boon of Mutation`,
-        desc: `In each of your hero phases, roll a dice for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, they are blessed with mutation and transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit.`,
+        desc: `In each of your hero phases, roll a D6 for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, they are blessed with mutation and transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -550,7 +550,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Master of the Cult`,
-        desc: `Each time you use a Destiny Dice to predetermine a dice roll for the master of the cult, roll a dice; on a roll of 4, 5 or 6, you may roll another dice and immediately add it to your Destiny Dice pool.`,
+        desc: `Each time you use a Destiny Dice to predetermine a dice roll for the master of the cult, roll a D6; on a roll of 4, 5 or 6, you may roll another dice and immediately add it to your Destiny Dice pool.`,
         when: [DURING_GAME],
       },
       {
@@ -660,7 +660,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Storm of Daemonic Fire`,
-        desc: `In each of your hero phases, roll a dice for each enemy unit that is within 9" of a unit from a Warpflame Host. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `In each of your hero phases, roll a D6 for each enemy unit that is within 9" of a unit from a Warpflame Host. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
