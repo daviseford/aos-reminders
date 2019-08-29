@@ -45,7 +45,7 @@ export const MonstersOfChaos: TUnits = [
     effects: [
       {
         name: `Runes of Binding`,
-        desc: `When you set up a Slaughterbrute, you can pick a Slavesto Darkness Hero in your army to be its master (a model cannot be the master of more than one Slaughterbrute). As long as the Slaughterbrute's master is on the battlefield, the Slaughterbrute's melee weapons hit on rolls of 3+ rather than 4+.`,
+        desc: `When you set up a Slaughterbrute, you can pick a Slaves to Darkness Hero in your army to be its master (a model cannot be the master of more than one Slaughterbrute). As long as the Slaughterbrute's master is on the battlefield, the Slaughterbrute's melee weapons hit on rolls of 3+ rather than 4+.`,
         when: [DURING_SETUP, COMBAT_PHASE],
       },
       {
