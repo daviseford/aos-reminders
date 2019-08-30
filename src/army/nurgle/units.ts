@@ -23,8 +23,35 @@ import {
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
+
+const getBoCUnits = () => {
+  const listOfUnits = [
+    'Beastlord',
+    'Bestigors',
+    'Bullgors',
+    'Centigors',
+    'Cygor',
+    'Doombull',
+    'Dragon Ogor Shaggoth',
+    'Dragon Ogors',
+    'Ghorgon',
+    'Gors',
+    'Great Bray Shaman',
+    'Tuskgor Chariots',
+    'Ungor Raiders',
+    'Ungors',
+  ]
+  return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getBoCBattalion = () => {
+  const listOfBattalions = ['Pestilent Throng']
+  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
+}
 
 // Unit Names
 export const NurgleUnits: TUnits = [
@@ -585,10 +612,10 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Plague of Flies`,
-        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.  
-        
+        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.
+
                If the unit contains 20 or more models, subtract 2 from the hit rolls of attacks targeting the buffed unit.
-               
+
                The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [SHOOTING_PHASE],
       },
@@ -739,7 +766,7 @@ export const NurgleUnits: TUnits = [
 ]
 
 // Battalions
-export const Battalions: TBattalions = [
+export const NurgleBattalions: TBattalions = [
   {
     name: `The Munificent Wanderers`,
     effects: [
@@ -868,4 +895,7 @@ export const Battalions: TBattalions = [
 ]
 
 // Combine lists together to make army unit entry.
-export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getEverchosenUnits()]
+export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Combine lists together to make army battalion entry.
+export const Battalions: TBattalions = [...NurgleBattalions, ...getBoCBattalion()]
