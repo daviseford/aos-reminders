@@ -65,7 +65,7 @@ export const Units: TUnits = [
       },
       {
         name: `Savage Attack`,
-        desc: `You cna select a Bonesplitterz unit within 10". Until your next hero phase, whenever you make a hit roll of 6 or more for a model in that unit, it can immediately make 1 extra attack using the same weapon.`,
+        desc: `You can select a Bonesplitterz unit within 10". Until your next hero phase, whenever you make a hit roll of 6 or more for a model in that unit, it can immediately make 1 extra attack using the same weapon.`,
         when: [COMBAT_PHASE, HERO_PHASE],
         command_ability: true,
       },
