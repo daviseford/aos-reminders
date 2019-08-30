@@ -17,8 +17,35 @@ import {
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_TZEENTCH } from 'meta/alliances'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)
+
+const getBoCUnits = () => {
+  const listOfUnits = [
+    'Beastlord',
+    'Bestigors',
+    'Bullgors',
+    'Centigors',
+    'Cygor',
+    'Doombull',
+    'Dragon Ogor Shaggoth',
+    'Dragon Ogors',
+    'Ghorgon',
+    'Gors',
+    'Great Bray Shaman',
+    'Tuskgor Chariots',
+    'Ungor Raiders',
+    'Ungors',
+  ]
+  return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getBoCBattalion = () => {
+  const listOfBattalions = ['Phantasmagoria of Fate']
+  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
+}
 
 // Unit Names
 export const TzeentchUnits: TUnits = [
@@ -577,7 +604,7 @@ export const TzeentchUnits: TUnits = [
 ]
 
 // Battalions
-export const Battalions: TBattalions = [
+export const TzeentchBattalions: TBattalions = [
   {
     name: `Witchfyre Coven`,
     effects: [
@@ -766,4 +793,7 @@ export const Battalions: TBattalions = [
 ]
 
 // Combine lists together to make army unit entry.
-export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getEverchosenUnits()]
+export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Combine lists together to make army battalion entry.
+export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]
