@@ -553,6 +553,36 @@ export const SlaaneshUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Soulfeaster Keeper of Secrets`,
+    effects: [
+      {
+        name: `Dark Temptations`,
+        desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Delicate Precision`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulfeaster Tendrils`,
+        desc: `At the start of the combat phase, you can pick 1 enemy Hero within 3" of this model and roll 3D6. If the roll is greater than that model's Bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that Hero until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Cacophonic Choir`,
+        desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
