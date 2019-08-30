@@ -10,7 +10,16 @@ import Skaven from 'army/skaven'
 import SlavesToDarkness from 'army/slaves_to_darkness'
 import TamurkhansHorde from 'army/tamurkhans_horde'
 import { TUnits } from 'types/army'
-import { HERO_PHASE, DURING_SETUP, COMBAT_PHASE, CHARGE_PHASE } from 'types/phases'
+import {
+  HERO_PHASE,
+  DURING_SETUP,
+  COMBAT_PHASE,
+  CHARGE_PHASE,
+  TURN_ONE_HERO_PHASE,
+  SHOOTING_PHASE,
+  MOVEMENT_PHASE,
+  DURING_GAME,
+} from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
   {
@@ -56,6 +65,88 @@ export const MonstersOfChaos: TUnits = [
     ],
   },
 ]
+export const MonstrousArcanumChaos: TUnits = [
+  {
+    name: `Chaos Siege Gargant`,
+    effects: [
+      {
+        name: `Scaling Spikes and Chains`,
+        desc: `When this model makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Siege Armour`,
+        desc: `You can re-roll save rolls for attacks made with ranged weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Timber!`,
+        desc: `If this model is slain, before removing the model from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D3 mortal wounds. This model is then removed from play.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Gigantic Chaos Spawn`,
+    effects: [
+      {
+        name: `Curse of the Dark Gods`,
+        desc: `You can choose one of the following keywords to give to this unit the first time it is set up: Khorne, Nurgle, Slaanesh or Tzeentch.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Plaything of the Dark Gods`,
+        desc: `At the start of your hero phase, roll a dice. On a 1, this model suffers D3 mortal wounds. On a 2+, you can heal up to D3 wounds allocated to this model. If you roll a 2+ and no wounds are allocated to this model, add D3 to its Wounds characteristic for the rest of the battle instead of healing D3 wounds.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Writhing Tentacles`,
+        desc: `If you roll a double when determining the number of attacks made by this model's Freakish Mutations, add 1 to hit and wound rolls for attacks made by this model until the end of the phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Preyton`,
+    effects: [
+      {
+        name: `Agonizing Venom`,
+        desc: `If the unmodified wound roll for an attack made with this model's Venom-dripping Fangs is 6, that attack inflicts 1 mortal wound in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Corrosive Bile`,
+        desc: `If the unmodified hit roll for an attack made with this model's Corrosive Bile is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Goring Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Stalker of the Dark Wilds`,
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is stalking its prey as a reserve unit. In your first hero phase, you must set up this unit anywhere on the battlefield within 12" of the edge of the battlefield and more than 9" from any enemy unit.`,
+        when: [DURING_SETUP, TURN_ONE_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skin Wolves`,
+    effects: [
+      {
+        name: `Bounding Predators`,
+        desc: `This unit can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Terrifying Bloodlust`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+]
 
 // Unit Names
 export const Units: TUnits = uniqBy(
@@ -65,6 +156,7 @@ export const Units: TUnits = uniqBy(
     ...KhorneUnits,
     ...LegionsOfAzgorh.Units,
     ...MonstersOfChaos,
+    ...MonstrousArcanumChaos,
     ...NurgleUnits,
     ...Skaven.Units,
     ...SlaaneshUnits,

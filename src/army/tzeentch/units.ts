@@ -476,6 +476,37 @@ export const TzeentchUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Exalted Greater Demon of Tzeentch`,
+    effects: [
+      {
+        name: `Mastery of Magic`,
+        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Spell-thief`,
+        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Beacon of Sorcery`,
+        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Infernal Gateway spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Infernal Gateway`,
+        desc: `Casting value of 7. If  successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions

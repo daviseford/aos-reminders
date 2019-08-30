@@ -700,6 +700,42 @@ export const NurgleUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Exalted Greater Daemon Of Nurgle`,
+    effects: [
+      {
+        name: `Blubber and Bile`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Corpulent Mass`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mountain of Loathsome Flesh`,
+        desc: `Roll 1 dice for each enemy unit that is within 1" of this model after this model completes a charge move. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `An Exalted Greater Daemon of Nurgle is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Plague Wind spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Plague Wind`,
+        desc: `Casting value of 7.  If successful pick a point 14" from the caster and draw an imaginary straight line between the point and the closest part of the caster's base.  Each unit (friend or foe) crossed by the center of the line suffers D3 mortal wounds.  Nurgle units instead heal D3 wounds.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Grandfather's Exalted Joy`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Nurgle Daemon unit wholly within 28" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until your next hero phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
 ]
 
 // Battalions
