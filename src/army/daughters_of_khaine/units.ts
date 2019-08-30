@@ -51,6 +51,7 @@ export const Units: TUnits = [
         name: `Arnzipal's Black Horror`,
         desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Worship Through Bloodshed`,
@@ -66,13 +67,13 @@ export const Units: TUnits = [
       {
         name: `Monstrous Revelation`,
         desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
-        
+
                Morathi's Shadow Queen model can only be set up within 3" of an enemy unit if her High Oracle of Khaine model was within 3" of that unit before her transformation.
-               
+
                If there is insufficient room to place Morathi exactly where she was standing before her transformation, simply place the model as close as possible to that spot where there is room. If, after her Shadow Queen model has been set up, Morathi is more than 14" away from the spot where she was standing before her transformation, she cannot move in the following movement phase.
-               
+
                Any wounds allocated to Morathi in her High Oracle of Khaine form prior to her transformation are carried over to her Shadow Queen form and then doubled.
-               
+
                Morathi remains in this form for the remainder of the battle.  If she was your general in the High Oracle form she remains your general.`,
         when: [HERO_PHASE],
       },
@@ -95,6 +96,7 @@ export const Units: TUnits = [
         name: `Arnzipal's Black Horror`,
         desc: `Casting value of 7.  If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6.  On a 1 that unit suffers 1 mortal wound.  On a 2 or 3 it suffers D3 mortal wounds.  On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -412,6 +414,7 @@ export const Units: TUnits = [
         name: `Enfeebling Foe`,
         desc: `Casting value of 5.  If successfully cast, pick a unit within 18" and visible to the caster.  Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Enfeebling Foe`,
@@ -467,6 +470,7 @@ export const Units: TUnits = [
         name: `Enfeebling Foe`,
         desc: `Casting value of 5.  If successfully cast, pick a unit within 18" and visible to the caster.  Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Enfeebling Foe`,
@@ -502,6 +506,7 @@ export const Units: TUnits = [
         name: `Doomfire`,
         desc: `Casting value of 6.  If successfully cast, pick an enemy model within 18" and visible to any model in the casting unit.  The target suffers D3 mortal wounds if the casting unit has fewer than 5 models.  D6 mortal wounds if it has 5 to  9 models.  6 mortal wounds if it has 10 or more models.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

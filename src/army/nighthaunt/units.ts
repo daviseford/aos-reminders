@@ -83,9 +83,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Grief Stricken (Spell)`,
+        name: `Grief Stricken`,
         desc: `Casting value of 7. If successfully cast, pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -151,6 +152,7 @@ export const Units: TUnits = [
         name: `Wraithstorm`,
         desc: `Casting value of 7. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -215,9 +217,10 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Spectral Lure (Spell)`,
+        name: `Spectral Lure`,
         desc: `Casting value of 6. If successfully cast, pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -236,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Captured Soul Energy`,
-        desc: `At the start of the battleshock phase, if 3 or more enemy models were slain that turn, pick a friendly NIGHTHAUNT unit within 6" of this model and heal D3 wounds that have been allocated to that unit. If 3 or more enemy STORMCAST ETERNAL models were slain that turn, heal 3 wounds instead of D3 wounds. 
+        desc: `At the start of the battleshock phase, if 3 or more enemy models were slain that turn, pick a friendly NIGHTHAUNT unit within 6" of this model and heal D3 wounds that have been allocated to that unit. If 3 or more enemy STORMCAST ETERNAL models were slain that turn, heal 3 wounds instead of D3 wounds.
 
         Alternatively, instead of healing the unit you picked, if models from that unit have been slain, you can return them to the unit. Roll a D3; you can return any slain models to that unit that have a combined Wounds characteristic of less than or equal to the number you rolled.
 

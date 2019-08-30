@@ -65,8 +65,8 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mindrazor`,
-        desc: `Casting value of 7.  If successfully cast, pick a friendly Daughters of Khaine unit within 18" of the caster.  Until the start of your next hero phase, the rend characteristic of that unit's melee weapons is improved by 1.  
-    
+        desc: `Casting value of 7.  If successfully cast, pick a friendly Daughters of Khaine unit within 18" of the caster.  Until the start of your next hero phase, the rend characteristic of that unit's melee weapons is improved by 1.
+
         In addition the damage characteristic of the unit's melee weapons is increased by 1 while attacking a target that has a lower bravery characteristic than they do.`,
         when: [HERO_PHASE],
       },
