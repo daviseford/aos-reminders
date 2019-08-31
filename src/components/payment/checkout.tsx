@@ -52,12 +52,12 @@ const CheckoutComponent = props => {
   )
 }
 
-const CheckoutThing = injectStripe(CheckoutComponent)
+const InjectedCheckout = injectStripe(CheckoutComponent)
 
 export const Checkout = () => {
   return (
     <Elements>
-      <CheckoutThing />
+      <InjectedCheckout />
     </Elements>
   )
 }

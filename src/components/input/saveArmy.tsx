@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import { IStore, TSavedArmiesStore, TAllySelectionStore } from 'types/store'
-import { factionNames, selections, realmscape, army } from 'ducks'
+import { factionNames, selections, realmscape, army, subscription } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { savedArmies } from 'ducks/savedArmies'
 import { saveArmyToApi, loadSavedArmiesFromApi, deleteSavedArmyFromApi } from 'api/thunks'
@@ -14,20 +14,25 @@ import { titleCase } from 'utils/titleCase'
 
 interface ISaveArmyProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
+  isSubscribed: boolean
 }
 
 const SaveSectionComponent: React.FC<ISaveArmyProps> = props => {
-  const { createSavedArmy, ...savedArmy } = props
+  const { createSavedArmy, isSubscribed, ...savedArmy } = props
   const { isAuthenticated, loginWithRedirect, user } = useAuth0()
-  const isSubscriber = true // TODO
 
-  const btnText = isAuthenticated ? `Save Army` : `Become a supporter to save this army`
+  const btnText =
+    isAuthenticated && isSubscribed
+      ? `Save Army`
+      : `${isAuthenticated ? `Become a supporter` : `Log in`} to save this army`
 
   const handleSaveClick = e => {
     e.preventDefault()
-    if (isAuthenticated && isSubscriber) {
+    if (isAuthenticated && isSubscribed) {
       saveArmyToApi(user, savedArmy, createSavedArmy)
-      console.log('authenticated, not necessarily a subscriber')
+      console.log('authenticated and subscriber')
+    } else if (isAuthenticated) {
+      console.log('authenticated, not subscribed')
     } else {
       console.log('needs to sign up')
       loginWithRedirect()
@@ -55,6 +60,7 @@ const mapStateToProps1 = (state: IStore, ownProps) => ({
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
+  isSubscribed: subscription.selectors.isSubscribed(state),
 })
 
 export const SaveSection = connect(

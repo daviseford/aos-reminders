@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
-import { cardOrder } from './cardOrder'
+import { getArmyBuilderCards } from './army_builder_cards'
 import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -49,7 +49,11 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   }, [realmscape])
 
   const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
-  const cards = useMemo(() => cardOrder(army, props, realmFeatureItems), [army, props, realmFeatureItems])
+  const cards = useMemo(() => getArmyBuilderCards(army, props, realmFeatureItems), [
+    army,
+    props,
+    realmFeatureItems,
+  ])
 
   return (
     <div className="d-flex justify-content-center">
