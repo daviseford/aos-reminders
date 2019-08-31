@@ -11,7 +11,7 @@ import { Header } from 'components/page/header'
 import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
-import { Checkout } from 'components/payment/checkout'
+import { PricingPlans } from 'components/payment/pricingPlans'
 
 interface IHomeProps {
   updateSubscription: () => void
@@ -35,7 +35,7 @@ const HomeComponent: React.FC<IHomeProps> = props => {
     <>
       <Header />
 
-      <Checkout />
+      <PricingPlans />
 
       <ArmyBuilder />
 

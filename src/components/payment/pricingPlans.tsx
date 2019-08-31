@@ -1,18 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { IUser } from 'types/user'
-import { connect } from 'react-redux'
-import { subscription } from 'ducks'
-import { IStore } from 'types/store'
 import { isDev } from 'utils/env'
+import { subscription } from 'ducks'
+import { SupportPlans, ISupportPlan } from './plans'
+import { IStore } from 'types/store'
+import { IUser } from 'types/user'
 
 interface ICheckoutProps {
   isSubscribed: boolean
   stripe: any
 }
 
-const CheckoutComponent: React.FC<ICheckoutProps> = props => {
+const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
   const { stripe, isSubscribed } = props
   const { user }: { user: IUser } = useAuth0()
 
@@ -23,13 +24,38 @@ const CheckoutComponent: React.FC<ICheckoutProps> = props => {
 
   console.log('user for checkout', user)
 
+  // <div className="checkout">
+  //   <p>Would you like to complete the purchase?</p>
+  //   <button onClick={handleSubmit}>Buy</button>
+  // </div>
+
+  return (
+    <div className="container">
+      <div className="card-deck mb-3 text-center">
+        {SupportPlans.map((plan, i) => (
+          <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+interface IPlanProps {
+  stripe: any
+  user: IUser
+  supportPlan: ISupportPlan
+}
+
+const PlanComponent: React.FC<IPlanProps> = props => {
+  const { stripe, user, supportPlan } = props
+
   // When the customer clicks on the button, redirect them to Checkout.
   const handleSubmit = async e => {
     e.preventDefault()
 
     if (isDev) console.log('DEV Checkout')
 
-    const plan = isDev ? 'plan_Fi2fEmmQwMgSGR' : 'plan_Fi2OZlDqziP4bY'
+    const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     stripe
@@ -57,9 +83,21 @@ const CheckoutComponent: React.FC<ICheckoutProps> = props => {
   }
 
   return (
-    <div className="checkout">
-      <p>Would you like to complete the purchase?</p>
-      <button onClick={handleSubmit}>Buy</button>
+    <div className="card mb-4 shadow-sm">
+      <div className="card-header">
+        <h4 className="my-0 font-weight-normal">{supportPlan.title}</h4>
+      </div>
+      <div className="card-body">
+        <h1 className="card-title pricing-card-title">
+          ${supportPlan.monthly_cost} <small className="text-muted">/ mo</small>
+        </h1>
+        <ul className="list-unstyled mt-3 mb-4">
+          <li>Total: ${supportPlan.cost}</li>
+        </ul>
+        <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={handleSubmit}>
+          Buy
+        </button>
+      </div>
     </div>
   )
 }
@@ -69,15 +107,15 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   isSubscribed: subscription.selectors.isSubscribed(state),
 })
 
-const InjectedCheckout = connect(
+const InjectedPricingPlans = connect(
   mapStateToProps,
   null
-)(injectStripe(CheckoutComponent))
+)(injectStripe(PricingPlansComponent))
 
-export const Checkout = () => {
+export const PricingPlans = () => {
   return (
     <Elements>
-      <InjectedCheckout />
+      <InjectedPricingPlans />
     </Elements>
   )
 }
