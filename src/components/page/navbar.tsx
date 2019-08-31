@@ -24,29 +24,32 @@ const NavBarComponent: React.FC<INavBarProps> = props => {
 
   return (
     <header className={styles.header}>
-      {isAuthenticated && (
-        <>
-          {pathname !== '/' && (
-            <Link to="/" className={styles.link}>
-              Home
-            </Link>
-          )}
-          {pathname !== '/profile' && (
-            <Link to="/profile" className={styles.link}>
-              Profile
-            </Link>
-          )}
-          {!isSubscribed && pathname !== '/subscribe' && (
-            <Link to="/subscribe" className={styles.link}>
-              Subscribe
-            </Link>
-          )}
-        </>
-      )}
+      <div className="flex-grow-1"></div>
+      <div>
+        {isAuthenticated && (
+          <>
+            {pathname !== '/' && (
+              <Link to="/" className={styles.link}>
+                Home
+              </Link>
+            )}
+            {pathname !== '/profile' && (
+              <Link to="/profile" className={styles.link}>
+                Profile
+              </Link>
+            )}
+            {!isSubscribed && pathname !== '/subscribe' && (
+              <Link to="/subscribe" className={styles.link}>
+                Subscribe
+              </Link>
+            )}
+          </>
+        )}
 
-      <button className={styles.btn} onClick={() => handleClick({})}>
-        {btnText}
-      </button>
+        <button className={styles.btn} onClick={() => handleClick({})}>
+          {btnText}
+        </button>
+      </div>
     </header>
   )
 }
