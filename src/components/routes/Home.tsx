@@ -11,7 +11,6 @@ import { Header } from 'components/page/header'
 import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
-import { PricingPlans } from 'components/payment/pricingPlans'
 
 interface IHomeProps {
   updateSubscription: () => void
@@ -27,15 +26,12 @@ const HomeComponent: React.FC<IHomeProps> = props => {
   }, [])
 
   useEffect(() => {
-    console.log('yo rendering main')
     getSubscriptionFromApi(user, updateSubscription, resetSubscription)
   })
 
   return (
     <>
       <Header />
-
-      <PricingPlans />
 
       <ArmyBuilder />
 

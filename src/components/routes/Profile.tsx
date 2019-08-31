@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
+import { logPageView } from 'utils/analytics'
 
 export const Profile = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+
+  useEffect(() => {
+    logPageView()
+  }, [])
 
   if (loading || !user) {
     // TODO make this more fancy

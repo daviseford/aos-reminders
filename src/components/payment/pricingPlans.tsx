@@ -24,11 +24,6 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
   console.log('user for checkout', user)
 
-  // <div className="checkout">
-  //   <p>Would you like to complete the purchase?</p>
-  //   <button onClick={handleSubmit}>Buy</button>
-  // </div>
-
   return (
     <div className="container">
       <div className="card-deck mb-3 text-center">
@@ -94,8 +89,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <ul className="list-unstyled mt-3 mb-4">
           <li>Total: ${supportPlan.cost}</li>
         </ul>
-        <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={handleSubmit}>
-          Buy
+        <button type="button" className="btn btn btn-block btn-outline-primary" onClick={handleSubmit}>
+          Buy Now
         </button>
       </div>
     </div>

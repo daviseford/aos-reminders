@@ -6,6 +6,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/routes/Profile'
+import { Subscribe } from './routes/Suscribe'
 
 const App = () => {
   const { loading } = useAuth0()
@@ -21,6 +22,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/subscribe" component={Subscribe} />
         </Switch>
       </BrowserRouter>
     </div>
