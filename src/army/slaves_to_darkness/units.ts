@@ -10,6 +10,8 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_COMBAT_PHASE,
 } from 'types/phases'
 import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
@@ -30,6 +32,7 @@ export const getSlavesUnits = () => {
     `Exalted Hero of Chaos`,
     `Gorebeast Chariot`,
     `Lord of Chaos`,
+    `Curs'd Ettin`,
   ]
   return filterUnits(Units, listOfUnits)
 }
@@ -139,6 +142,7 @@ export const Units: TUnits = [
         name: `Wind of Chaos`,
         desc: `Casting value of 7.  If successfully cast, pick a unit within 18" and visible to the caster.  Roll a number of dice equal to the casting roll.  For each 5, the target suffers a mortal wound.  For each 6, the target suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -297,6 +301,7 @@ export const Units: TUnits = [
         name: `Daemonic Power`,
         desc: `Casting value of 5.  If successfully cast, select a friendly unit within 18" of the caster.  Until your next hero phase, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Daemonic Power`,
@@ -352,6 +357,7 @@ export const Units: TUnits = [
         name: `Traitor's Mist`,
         desc: `Casting value of 7.  If successfully cast, pick 1 friendly Slaves to Darkness unit wholly within 15" and visible to the caster.  Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from enemy units.  It cannot move in the subsequent move phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -412,6 +418,7 @@ export const Units: TUnits = [
         name: `Enfeeblement`,
         desc: `Casting value of 6.  If successfully cast, pick 1 enemy unit within 12" and visible to the caster.  Subtract 1 from wound rolls for attacks made by that units melee weapons until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -702,6 +709,26 @@ export const Units: TUnits = [
         name: `Goring Tusks`,
         desc: `Roll a number of dice equal to the Goring Tusks value shown on the damage table. Add 1 to each roll if the target unit is a Monster. For each 4+, the target unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Curs'd Ettin`,
+    effects: [
+      {
+        name: `Cannibal Feast`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Gibbering Curse`,
+        desc: `At the start of your hero phase, roll 2D6 for each enemy unit within 3" of this model. If the roll is more than that unit's Bravery characteristic, that unit suffers D3 mortal wounds.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Two-headed Horror`,
+        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 2 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

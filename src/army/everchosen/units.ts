@@ -109,6 +109,7 @@ export const Units: TUnits = [
         name: `Fractal Mindstorm`,
         desc: `Casting value equal to the bravery of target unit within 9" of caster.  If successfully cast, roll a number of dice equal to the units bravery.  It suffers 1 mortal wound for each 4+.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

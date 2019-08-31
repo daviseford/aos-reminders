@@ -83,9 +83,9 @@ export const Units: TUnits = [
       {
         name: `Celestial Configuration`,
         desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
-        
+
         1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
-        3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells. 
+        3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells.
         5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army.`,
         when: [END_OF_SETUP],
       },
@@ -309,6 +309,7 @@ export const Units: TUnits = [
         name: `Curse of Fates`,
         desc: `Casting value of 4. If successfully cast, pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

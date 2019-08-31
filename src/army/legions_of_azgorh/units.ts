@@ -65,6 +65,7 @@ export const Units: TUnits = [
         name: `Ash Storm`,
         desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 36" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit, and that unit cannot run.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Blood of Hashut`,

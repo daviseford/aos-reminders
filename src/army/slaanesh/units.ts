@@ -16,8 +16,35 @@ import {
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_SLAANESH } from 'meta/alliances'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_SLAANESH)
+
+const getBoCUnits = () => {
+  const listOfUnits = [
+    'Beastlord',
+    'Bestigors',
+    'Bullgors',
+    'Centigors',
+    'Cygor',
+    'Doombull',
+    'Dragon Ogor Shaggoth',
+    'Dragon Ogors',
+    'Ghorgon',
+    'Gors',
+    'Great Bray Shaman',
+    'Tuskgor Chariots',
+    'Ungor Raiders',
+    'Ungors',
+  ]
+  return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getBoCBattalion = () => {
+  const listOfBattalions = ['Depraved Drove']
+  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
+}
 
 const KeeperOfSecretsBaseEffects = [
   {
@@ -39,6 +66,7 @@ const KeeperOfSecretsBaseEffects = [
     name: `Cacophonic Choir`,
     desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
     when: [HERO_PHASE],
+    spell: true,
   },
   {
     name: `Excess of Violence`,
@@ -105,7 +133,7 @@ export const SlaaneshUnits: TUnits = [
       {
         name: `Deadly Symbiosis`,
         desc: `When this model fights, it must attack with either its Axe of Dominion or Scourging Whip (it cannot attack with both). If another ability or spell allows this model to fight more than once in the same combat phase, this ability still only allows this model to fight at the end of the phase 1 more time.
-        
+
                Each time this model attacks in the same combat phase, it must alternate between attacking with its Axe of Dominion and Scourging Whip. Every other time this model attacks in the same combat phase, you can re-roll hit rolls for the weapon being used.'`,
         when: [COMBAT_PHASE],
       },
@@ -128,6 +156,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Subvert`,
         desc: `Casting value of 7. If successfully cast, you can pick 1 enemy Hero within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Regal Authority`,
@@ -185,6 +214,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Refine Senses`,
         desc: `Casting value of 4. If successfully cast, until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a Hero, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -215,6 +245,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Overwhelming Acquiescence`,
         desc: `Casting value of 7. If successfully cast, you can pick up to D3 enemy units within 24" of the caster that are visible to them. You can re-roll hit rolls of 1 for attacks that target those units until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -290,6 +321,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Acquiescence`,
         desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -315,6 +347,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Acquiescence`,
         desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -345,6 +378,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Acquiescence`,
         desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -410,6 +444,7 @@ export const SlaaneshUnits: TUnits = [
         name: `Acquiescence`,
         desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -553,10 +588,41 @@ export const SlaaneshUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Soulfeaster Keeper of Secrets`,
+    effects: [
+      {
+        name: `Dark Temptations`,
+        desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Delicate Precision`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulfeaster Tendrils`,
+        desc: `At the start of the combat phase, you can pick 1 enemy Hero within 3" of this model and roll 3D6. If the roll is greater than that model's Bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that Hero until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Cacophonic Choir`,
+        desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
 ]
 
 // Battalions
-export const Battalions: TBattalions = [
+export const SlaaneshBattalions: TBattalions = [
   {
     name: `Hedonite Host`,
     effects: [
@@ -605,4 +671,7 @@ export const Battalions: TBattalions = [
 ]
 
 // Combine lists together to make army unit entry.
-export const Units: TUnits = [...SlaaneshUnits, ...SlaveUnits, ...getEverchosenUnits()]
+export const Units: TUnits = [...SlaaneshUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Combine lists together to make army battalion entry.
+export const Battalions: TBattalions = [...SlaaneshBattalions, ...getBoCBattalion()]

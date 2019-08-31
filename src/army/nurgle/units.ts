@@ -23,8 +23,35 @@ import {
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
+
+const getBoCUnits = () => {
+  const listOfUnits = [
+    'Beastlord',
+    'Bestigors',
+    'Bullgors',
+    'Centigors',
+    'Cygor',
+    'Doombull',
+    'Dragon Ogor Shaggoth',
+    'Dragon Ogors',
+    'Ghorgon',
+    'Gors',
+    'Great Bray Shaman',
+    'Tuskgor Chariots',
+    'Ungor Raiders',
+    'Ungors',
+  ]
+  return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getBoCBattalion = () => {
+  const listOfBattalions = ['Pestilent Throng']
+  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
+}
 
 // Unit Names
 export const NurgleUnits: TUnits = [
@@ -60,6 +87,7 @@ export const NurgleUnits: TUnits = [
         name: `Deluge of Nurgle`,
         desc: `Casting value of 7.  If successful roll 7 dice.  For each roll that equals or beats the value from the damage table, pick a visible enemy unit and deal D3 mortal wounds to it.  If more than one roll inflicts mortal wounds, you must pick a different enemy unit to suffer each set of mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -106,6 +134,7 @@ export const NurgleUnits: TUnits = [
         name: `Plague Wind`,
         desc: `Casting value of 7.  If successful pick a point 14" from the caster and draw an imaginary straight line between the point and the closest part of the caster's base.  Each unit (friend or foe) crossed by the center of the line suffers D3 mortal wounds.  Nurgle units instead heal D3 wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -131,6 +160,7 @@ export const NurgleUnits: TUnits = [
         name: `Eruptive Infestation`,
         desc: `Casting value of 6.  If successfully cast, pick an enemy unit that is within 7" of a friendly Plaguebearers unit and visible to the caster.  That unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -366,6 +396,7 @@ export const NurgleUnits: TUnits = [
         name: `Fleshy Abundance`,
         desc: `Casting value of 7.  If successfully cast, pick a friendly unit within 14" that is visible to the caster.  Add 1 to the wounds characteristic of all models in that unit until your next hero phase.  Note this spell expiring can kill models with exisitng allocated wounds equal to or exceeding normal wounds characteristic.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Lord of Nurgle`,
@@ -423,6 +454,7 @@ export const NurgleUnits: TUnits = [
         name: `Miasma of Pestilence`,
         desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 14" of the caster that is visible.  Until your next hero phase, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated.  On a 2+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Miasma of Pestilence`,
@@ -520,6 +552,7 @@ export const NurgleUnits: TUnits = [
         name: `Curse of the Leper`,
         desc: `Casting value of 7.  If successfully cast, select a unit within 14" that is visible.  Subtract 1 from the save rolls for that unit for the rest of the battle.  This spell cannot be cast on the same enemy unit more that once per battle.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -561,6 +594,7 @@ export const NurgleUnits: TUnits = [
         name: `Stream of Corruption`,
         desc: `Casting value of 6.  If successfully cast, pick an enemy unit within 7" and visible.  That unit suffers 3 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -585,10 +619,10 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Plague of Flies`,
-        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.  
-        
+        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.
+
                If the unit contains 20 or more models, subtract 2 from the hit rolls of attacks targeting the buffed unit.
-               
+
                The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [SHOOTING_PHASE],
       },
@@ -700,10 +734,47 @@ export const NurgleUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Exalted Greater Daemon Of Nurgle`,
+    effects: [
+      {
+        name: `Blubber and Bile`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Corpulent Mass`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mountain of Loathsome Flesh`,
+        desc: `Roll 1 dice for each enemy unit that is within 1" of this model after this model completes a charge move. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `An Exalted Greater Daemon of Nurgle is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Plague Wind spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Plague Wind`,
+        desc: `Casting value of 7.  If successful pick a point 14" from the caster and draw an imaginary straight line between the point and the closest part of the caster's base.  Each unit (friend or foe) crossed by the center of the line suffers D3 mortal wounds.  Nurgle units instead heal D3 wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Grandfather's Exalted Joy`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Nurgle Daemon unit wholly within 28" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until your next hero phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
 ]
 
 // Battalions
-export const Battalions: TBattalions = [
+export const NurgleBattalions: TBattalions = [
   {
     name: `The Munificent Wanderers`,
     effects: [
@@ -832,4 +903,7 @@ export const Battalions: TBattalions = [
 ]
 
 // Combine lists together to make army unit entry.
-export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getEverchosenUnits()]
+export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Combine lists together to make army battalion entry.
+export const Battalions: TBattalions = [...NurgleBattalions, ...getBoCBattalion()]
