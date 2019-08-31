@@ -8,7 +8,11 @@ import { IStore } from 'types/store'
 import { subscription } from 'ducks'
 import { PricingPlans } from 'components/payment/pricingPlans'
 
-const SubscribeComponent = () => {
+interface ISubscribeProps {
+  isSubscribed: boolean
+}
+const SubscribeComponent: React.FC<ISubscribeProps> = props => {
+  const { isSubscribed } = props
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
 
   useEffect(() => {
@@ -20,13 +24,18 @@ const SubscribeComponent = () => {
     return <div>Loading...</div>
   }
 
+  // TODO Flesh this out to look nicer
+  if (isSubscribed) return <div>You are already a supporter :) Thanks!</div>
+
+  const headerClass = `col-12 col-lg-8 col-xl-8 py-5 text-center  mx-auto`
+
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
         <NavBar />
       </div>
 
-      <div className="py-5 text-center col-8 mx-auto">
+      <div className={headerClass}>
         <img
           className="d-block mx-auto mb-4 img-fluid"
           src="/img/logo_noURL.png"
@@ -61,12 +70,11 @@ const SubscribeComponent = () => {
   )
 }
 
-const mapStateToProps = (state: IStore, ownProps) => {
-  return {
-    ...ownProps,
-    isSubscribed: subscription.selectors.isSubscribed(state),
-  }
-}
+const mapStateToProps = (state: IStore, ownProps) => ({
+  ...ownProps,
+  isSubscribed: subscription.selectors.isSubscribed(state),
+})
+
 export const Subscribe = connect(
   mapStateToProps,
   null

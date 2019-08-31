@@ -1,26 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { isDev } from 'utils/env'
-import { subscription } from 'ducks'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IStore } from 'types/store'
 import { IUser } from 'types/user'
 
 interface ICheckoutProps {
-  isSubscribed: boolean
-  stripe: any
+  stripe?: any
 }
 
 const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
-  const { stripe, isSubscribed } = props
+  const { stripe } = props
   const { user }: { user: IUser } = useAuth0()
-
-  // TODO add a message like "Login first"
-  if (!user) return null
-  // TODO Flesh this out top be nicer
-  if (isSubscribed) return <div>You are already a supporter :)</div>
 
   console.log('user for checkout', user)
 
@@ -97,15 +89,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   )
 }
 
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  isSubscribed: subscription.selectors.isSubscribed(state),
-})
-
-const InjectedPricingPlans = connect(
-  mapStateToProps,
-  null
-)(injectStripe(PricingPlansComponent))
+const InjectedPricingPlans = injectStripe(PricingPlansComponent)
 
 export const PricingPlans = () => {
   return (
