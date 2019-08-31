@@ -1,6 +1,8 @@
 import { IUser } from 'types/user'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
-import { Api } from './api'
+import { PreferenceApi } from './preferenceApi'
+import { SubscriptionApi } from './subscriptionApi'
+import { ISubscription } from 'types/subscription'
 
 // These aren't technically thunks - maybe one day :)
 
@@ -11,7 +13,7 @@ export const saveArmyToApi = async (
 ) => {
   try {
     const payload = { userName: user.email, ...savedArmy }
-    const res = await Api.createSavedArmy(payload)
+    const res = await PreferenceApi.createSavedArmy(payload)
     const armyFromApi = res.body as ISavedArmyFromApi
     console.log(`created savedArmy named ${armyFromApi.armyName}, id: ${armyFromApi.id}`)
     createSavedArmy(armyFromApi)
@@ -25,7 +27,7 @@ export const loadSavedArmiesFromApi = async (
   loadSavedArmies: (savedArmies: ISavedArmyFromApi[]) => void
 ) => {
   try {
-    const res = await Api.getUserItems(user.email)
+    const res = await PreferenceApi.getUserItems(user.email)
     const savedArmies = res.body as ISavedArmyFromApi[]
     console.log(`loaded ${savedArmies.length} saved armies`)
     console.log(savedArmies)
@@ -41,10 +43,26 @@ export const deleteSavedArmyFromApi = async (
 ) => {
   try {
     const { id, userName } = army
-    await Api.deleteItem(id, userName)
+    await PreferenceApi.deleteItem(id, userName)
     console.log(`deleted army id: ${id} for user ${userName}`)
     deleteSavedArmy(id, userName)
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const getSubscriptionFromApi = async (
+  user: IUser,
+  updateSubscription: (subscription: ISubscription) => void,
+  resetSubscription: () => void
+) => {
+  if (!user) return resetSubscription()
+  try {
+    const response = await SubscriptionApi.getSubscription(user.email)
+    const subscription: ISubscription = response.body
+    updateSubscription(subscription)
+  } catch (err) {
+    console.error(err)
+    resetSubscription()
   }
 }

@@ -1,5 +1,7 @@
 export * from './army'
 export * from './factionNames'
 export * from './realmscape'
+export * from './savedArmies'
 export * from './selections'
+export * from './subscription'
 export * from './visibility'

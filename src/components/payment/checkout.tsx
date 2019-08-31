@@ -26,11 +26,7 @@ const CheckoutComponent = props => {
         customerEmail: user.email, // Used to prefill checkout
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
-        // Do not rely on the redirect to the successUrl for fulfilling
-        // purchases, customers may not always reach the success_url after
-        // a successful payment.
-        // Instead use one of the strategies described in
-        // https://stripe.com/docs/payments/checkout/fulfillment
+        // Redirect after checkout
         successUrl: `${window.location.protocol}//${url}/`,
         cancelUrl: `${window.location.protocol}//${url}/`,
       })
