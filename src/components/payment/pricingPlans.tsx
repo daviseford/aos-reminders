@@ -3,7 +3,6 @@ import { injectStripe, Elements } from 'react-stripe-elements'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { isDev } from 'utils/env'
 import { SupportPlans, ISupportPlan } from './plans'
-import { IStore } from 'types/store'
 import { IUser } from 'types/user'
 
 interface ICheckoutProps {
