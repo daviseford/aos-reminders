@@ -12,6 +12,7 @@ interface INavBarProps {
 const NavBarComponent: React.FC<INavBarProps> = props => {
   const { isSubscribed } = props
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { pathname } = window.location
 
   const styles = {
     btn: `btn btn-block btn-outline-light btn-sm`,
@@ -31,13 +32,17 @@ const NavBarComponent: React.FC<INavBarProps> = props => {
         <div className={styles.linkCol}>
           {isAuthenticated && (
             <>
-              <Link to="/" className={styles.link}>
-                Home
-              </Link>
-              <Link to="/profile" className={styles.link}>
-                Profile
-              </Link>
-              {!isSubscribed && (
+              {pathname !== '/' && (
+                <Link to="/" className={styles.link}>
+                  Home
+                </Link>
+              )}
+              {pathname !== '/profile' && (
+                <Link to="/profile" className={styles.link}>
+                  Profile
+                </Link>
+              )}
+              {!isSubscribed && pathname !== '/subscribe' && (
                 <Link to="/subscribe" className={styles.link}>
                   Subscribe
                 </Link>
