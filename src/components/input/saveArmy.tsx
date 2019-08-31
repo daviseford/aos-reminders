@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
-import { IStore, TSavedArmiesStore, ISelectionStore, TAllySelectionStore } from 'types/store'
+import { IStore, TSavedArmiesStore, TAllySelectionStore } from 'types/store'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { savedArmies } from 'ducks/savedArmies'
 import { saveArmyToApi, loadSavedArmiesFromApi, deleteSavedArmyFromApi } from 'api/thunks'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
+import { ISelections } from 'types/selections'
 import { titleCase } from 'utils/titleCase'
 
 interface ISaveArmyProps extends ISavedArmy {
@@ -165,9 +165,9 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
-    updateAllyArmy,
-    updateAllySelections,
-    updateAllyUnits,
+    // updateAllyArmy,
+    // updateAllySelections,
+    // updateAllyUnits,
     updateSelections,
   } = props
 

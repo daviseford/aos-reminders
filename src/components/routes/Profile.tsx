@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { IUser } from 'types/user'
 import { NavBar } from 'components/page/navbar'
+import { IUser } from 'types/user'
 
 export const Profile = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
