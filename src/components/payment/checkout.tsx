@@ -7,7 +7,9 @@ const isDev = process.env.REACT_APP_AOS_ENV === 'dev'
 
 const CheckoutComponent = props => {
   const { user }: { user: IUser } = useAuth0()
-  console.log(user)
+
+  console.log('user for checkout', user)
+  if (!user) return null
 
   const handleSubmit = async e => {
     // When the customer clicks on the button, redirect

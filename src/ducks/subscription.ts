@@ -9,12 +9,8 @@ export const subscription = createSlice({
   slice: 'subscription',
   initialState,
   reducers: {
-    resetSubscription: (state, action) => {
-      state = initialState
-    },
-    updateSubscription: (state, action) => {
-      state = action.payload
-    },
+    resetSubscription: (state, action) => initialState,
+    updateSubscription: (state, action) => action.payload,
   },
 })
 
