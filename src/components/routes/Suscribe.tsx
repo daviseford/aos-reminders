@@ -3,21 +3,29 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
 import { logPageView } from 'utils/analytics'
+import { getSubscriptionFromApi } from 'api/thunks'
 import { connect } from 'react-redux'
-import { IStore } from 'types/store'
 import { subscription } from 'ducks'
+import { IStore } from 'types/store'
 import { PricingPlans } from 'components/payment/pricingPlans'
 
 interface ISubscribeProps {
   isSubscribed: boolean
+  updateSubscription: () => void
+  resetSubscription: () => void
 }
+
 const SubscribeComponent: React.FC<ISubscribeProps> = props => {
-  const { isSubscribed } = props
+  const { isSubscribed, resetSubscription, updateSubscription } = props
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
 
   useEffect(() => {
     logPageView()
   }, [])
+
+  useEffect(() => {
+    getSubscriptionFromApi(user, updateSubscription, resetSubscription)
+  })
 
   if (loading || !user) {
     // TODO make this more fancy
@@ -77,5 +85,8 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 export const Subscribe = connect(
   mapStateToProps,
-  null
+  {
+    resetSubscription: subscription.actions.resetSubscription,
+    updateSubscription: subscription.actions.updateSubscription,
+  }
 )(SubscribeComponent)

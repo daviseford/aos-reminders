@@ -33,10 +33,10 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
 
   // TODO: Add a tooltip or something explaining to sign up to save armies
 
-  const btnClass = `btn btn-block btn-outline-dark`
+  const btnClass = `btn btn-outline-dark`
 
   return (
-    <div className="row justify-content-center pt-3">
+    <div className="row text-center py-3">
       <div className="col">
         {isAuthenticated && !isSubscribed ? (
           <Link to="/subscribe" className={btnClass}>

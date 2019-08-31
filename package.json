@@ -10,6 +10,7 @@
     "core-js": "^3.2.1",
     "is_js": "^0.9.0",
     "lodash": "^4.17.15",
+    "luxon": "^1.17.2",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-copy-to-clipboard": "^5.0.1",
@@ -27,7 +28,7 @@
     "redux": "^4.0.4",
     "redux-starter-kit": "^0.6.3",
     "superagent": "^5.1.0",
-    "typescript": "3.6.2"
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "REACT_APP_AOS_ENV=dev react-scripts start",
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.138",
+    "@types/luxon": "^1.15.2",
     "@types/node": "^12.7.3",
     "@types/react": "16.9.2",
     "@types/react-copy-to-clipboard": "^4.2.6",
