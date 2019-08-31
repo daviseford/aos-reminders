@@ -2,25 +2,37 @@ import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { IUser } from 'types/user'
+import { connect } from 'react-redux'
+import { subscription } from 'ducks'
+import { IStore } from 'types/store'
+import { isDev } from 'utils/env'
 
-const isDev = process.env.REACT_APP_AOS_ENV === 'dev'
+interface ICheckoutProps {
+  isSubscribed: boolean
+  stripe: any
+}
 
-const CheckoutComponent = props => {
+const CheckoutComponent: React.FC<ICheckoutProps> = props => {
+  const { stripe, isSubscribed } = props
   const { user }: { user: IUser } = useAuth0()
 
-  console.log('user for checkout', user)
+  // TODO add a message like "Login first"
   if (!user) return null
+  // TODO Flesh this out top be nicer
+  if (isSubscribed) return <div>You are already a supporter :)</div>
 
+  console.log('user for checkout', user)
+
+  // When the customer clicks on the button, redirect them to Checkout.
   const handleSubmit = async e => {
-    // When the customer clicks on the button, redirect
-    // them to Checkout.
+    e.preventDefault()
 
-    if (isDev) console.log('Redirecting to DEV Checkout')
+    if (isDev) console.log('DEV Checkout')
 
     const plan = isDev ? 'plan_Fi2fEmmQwMgSGR' : 'plan_Fi2OZlDqziP4bY'
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
-    props.stripe
+    stripe
       .redirectToCheckout({
         items: [{ plan, quantity: 1 }],
 
@@ -52,7 +64,15 @@ const CheckoutComponent = props => {
   )
 }
 
-const InjectedCheckout = injectStripe(CheckoutComponent)
+const mapStateToProps = (state: IStore, ownProps) => ({
+  ...ownProps,
+  isSubscribed: subscription.selectors.isSubscribed(state),
+})
+
+const InjectedCheckout = connect(
+  mapStateToProps,
+  null
+)(injectStripe(CheckoutComponent))
 
 export const Checkout = () => {
   return (
