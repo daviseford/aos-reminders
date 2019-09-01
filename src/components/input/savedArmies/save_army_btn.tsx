@@ -16,7 +16,7 @@ interface ISaveArmyBtnProps extends ISavedArmy {
 const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
   const { createSavedArmy, ...savedArmy } = props
   const { isAuthenticated, loginWithRedirect, user } = useAuth0()
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, saveArmy } = useSubscription()
 
   const btnText =
     isAuthenticated && isSubscribed
@@ -26,7 +26,8 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     if (isAuthenticated && isSubscribed) {
-      saveArmyToApi(user, savedArmy, createSavedArmy)
+      saveArmy(savedArmy)
+      // saveArmyToApi(user, savedArmy, createSavedArmy)
     } else {
       loginWithRedirect()
     }
