@@ -16,7 +16,7 @@ export const Subscribe: React.FC<{}> = () => {
 
   useEffect(() => {
     updateSubscription()
-  }, [user, updateSubscription])
+  }, [updateSubscription])
 
   if (loading || !user) {
     // TODO make this more fancy
@@ -26,7 +26,7 @@ export const Subscribe: React.FC<{}> = () => {
   // TODO Flesh this out to look nicer
   if (isSubscribed) return <div>You are already a supporter :) Thanks!</div>
 
-  const headerClass = `col-12 col-lg-8 col-xl-8 py-5 text-center  mx-auto`
+  const headerClass = `col-12 col-lg-8 col-xl-8 py-5  mx-auto`
 
   return (
     <div className="d-block">
@@ -52,13 +52,12 @@ export const Subscribe: React.FC<{}> = () => {
           in the world. In the future, we aim to offer:
         </p>
         <p className="lead">
-          Importing army lists from Warscroll Builder
-          <br />
-          Importing army lists from Battlescribe
-          <br />
-          Adding custom reminders
-          <br />
-          And much more...
+          <ul>
+            <li>Importing army lists from Warscroll Builder</li>
+            <li>Importing army lists from Battlescribe</li>
+            <li>Adding custom reminders</li>
+            <li>And much more...</li>
+          </ul>
         </p>
       </div>
 

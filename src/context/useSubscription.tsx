@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
 import { isSubscriber } from 'utils/subscriptionUtils'
 
-const initialState = { subscribed: false }
+const initialState = {
+  subscription: { subscribed: false },
+  updateSubscription: () => null,
+  isSubscribed: false,
+}
 
 interface ISubscriptionContext {
   subscription: ISubscription
@@ -12,20 +16,17 @@ interface ISubscriptionContext {
   isSubscribed: boolean
 }
 
-const SubscriptionContext = React.createContext<ISubscriptionContext>({
-  subscription: initialState,
-  updateSubscription: () => null,
-  isSubscribed: false,
-})
+const SubscriptionContext = React.createContext<ISubscriptionContext>(initialState)
 
 type TProviderProps = { children: React.ReactNode }
 
 const SubscriptionProvider = ({ children }: TProviderProps) => {
   const { user } = useAuth0()
-  const [subscription, setSubscription] = useState(initialState)
+  const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
+  const isSubscribed = isSubscriber(subscription)
 
-  const updateSubscription = async () => {
-    if (!user) return setSubscription(initialState)
+  const updateSubscription = useCallback(async () => {
+    if (!user) return setSubscription(initialState.subscription)
 
     try {
       const response = await SubscriptionApi.getSubscription(user.email)
@@ -33,14 +34,12 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
       setSubscription(subscription)
     } catch (err) {
       console.error(err)
-      setSubscription(initialState)
+      setSubscription(initialState.subscription)
     }
-  }
+  }, [user])
 
   return (
-    <SubscriptionContext.Provider
-      value={{ subscription, updateSubscription, isSubscribed: isSubscriber(subscription) }}
-    >
+    <SubscriptionContext.Provider value={{ subscription, updateSubscription, isSubscribed }}>
       {children}
     </SubscriptionContext.Provider>
   )

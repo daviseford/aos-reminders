@@ -17,7 +17,7 @@ export const Profile: React.FC<{}> = () => {
 
   useEffect(() => {
     updateSubscription()
-  }, [user, updateSubscription])
+  }, [updateSubscription])
 
   if (loading || !user) {
     // TODO make this more fancy
