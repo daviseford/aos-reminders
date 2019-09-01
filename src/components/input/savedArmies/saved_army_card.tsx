@@ -52,15 +52,35 @@ const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
 
   return (
     <>
-      {Object.keys(army.selections).map((key, i) => {
-        return army.selections[key].map((item, ii) => {
-          return (
-            <span key={ii} className={`badge ${styles[key] || 'badge-danger'} mx-1`}>
-              {item}
-            </span>
-          )
-        })
-      })}
+      <table className="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(army.selections).map((key, i) => {
+            const items = army.selections[key]
+            if (!items.length) return null
+
+            return (
+              <tr>
+                <td>{titleCase(key)}</td>
+                <td>
+                  {items.map((item, ii) => {
+                    return (
+                      <span key={ii} className={`badge ${styles[key] || 'badge-danger'} mx-1`}>
+                        {item}
+                      </span>
+                    )
+                  })}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </>
   )
 }
