@@ -1,31 +1,22 @@
 import React, { useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { NavBar } from 'components/page/navbar'
-import { IUser } from 'types/user'
+import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
-import { getSubscriptionFromApi } from 'api/thunks'
-import { connect } from 'react-redux'
-import { subscription } from 'ducks'
-import { IStore } from 'types/store'
+import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
+import { IUser } from 'types/user'
 
-interface ISubscribeProps {
-  isSubscribed: boolean
-  updateSubscription: () => void
-  resetSubscription: () => void
-}
-
-const SubscribeComponent: React.FC<ISubscribeProps> = props => {
-  const { isSubscribed, resetSubscription, updateSubscription } = props
+export const Subscribe: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { isSubscribed, updateSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    getSubscriptionFromApi(user, updateSubscription, resetSubscription)
-  })
+    updateSubscription()
+  }, [user, updateSubscription])
 
   if (loading || !user) {
     // TODO make this more fancy
@@ -77,16 +68,3 @@ const SubscribeComponent: React.FC<ISubscribeProps> = props => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  isSubscribed: subscription.selectors.isSubscribed(state),
-})
-
-export const Subscribe = connect(
-  mapStateToProps,
-  {
-    resetSubscription: subscription.actions.resetSubscription,
-    updateSubscription: subscription.actions.updateSubscription,
-  }
-)(SubscribeComponent)

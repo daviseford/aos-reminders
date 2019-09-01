@@ -7,7 +7,6 @@ ReactGA.initialize('UA-55820654-5')
  * Sends a Google Analytics event
  */
 export const logPageView = () => {
-  console.log('loggin page view')
   ReactGA.pageview(window.location.pathname + window.location.search)
 }
 

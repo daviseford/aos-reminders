@@ -2,17 +2,20 @@ import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
+import { isSubscriber } from 'utils/subscriptionUtils'
 
 const initialState = { subscribed: false }
 
 interface ISubscriptionContext {
   subscription: ISubscription
   updateSubscription: () => void
+  isSubscribed: boolean
 }
 
 const SubscriptionContext = React.createContext<ISubscriptionContext>({
   subscription: initialState,
   updateSubscription: () => null,
+  isSubscribed: false,
 })
 
 type TProviderProps = { children: React.ReactNode }
@@ -35,7 +38,9 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
   }
 
   return (
-    <SubscriptionContext.Provider value={{ subscription, updateSubscription }}>
+    <SubscriptionContext.Provider
+      value={{ subscription, updateSubscription, isSubscribed: isSubscriber(subscription) }}
+    >
       {children}
     </SubscriptionContext.Provider>
   )

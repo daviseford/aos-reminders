@@ -1,17 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { IStore } from 'types/store'
-import { subscription } from 'ducks'
-import { connect } from 'react-redux'
+import { useSubscription } from 'context/useSubscription'
 
-interface INavBarProps {
-  isSubscribed: boolean
-}
-
-const NavBarComponent: React.FC<INavBarProps> = props => {
-  const { isSubscribed } = props
+export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { isSubscribed } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
@@ -53,13 +47,3 @@ const NavBarComponent: React.FC<INavBarProps> = props => {
     </header>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  isSubscribed: subscription.selectors.isSubscribed(state),
-})
-
-export const NavBar = connect(
-  mapStateToProps,
-  null
-)(NavBarComponent)

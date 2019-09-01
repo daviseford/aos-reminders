@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { useSubscription } from 'context/useSubscription'
 import { loadSavedArmiesFromApi } from 'api/thunks'
-import { subscription, savedArmies } from 'ducks'
+import { savedArmies } from 'ducks'
 import { SavedArmyCard } from './saved_army_card'
-import { IStore, TSavedArmiesStore } from 'types/store'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import { IStore, TSavedArmiesStore } from 'types/store'
 
 interface IShowSavedArmiesProps {
   savedArmies: TSavedArmiesStore
   loadSavedArmies: (savedArmies: ISavedArmyFromApi[]) => void
-  isSubscribed: boolean
 }
 
 const ShowSavedArmiesComponent: React.FC<IShowSavedArmiesProps> = props => {
-  const { savedArmies, loadSavedArmies, isSubscribed } = props
+  const { savedArmies, loadSavedArmies } = props
   const { isAuthenticated, user } = useAuth0()
+  const { isSubscribed } = useSubscription()
 
   useEffect(() => {
     if (isAuthenticated && isSubscribed) {
@@ -34,7 +35,6 @@ const ShowSavedArmiesComponent: React.FC<IShowSavedArmiesProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  isSubscribed: subscription.selectors.isSubscribed(state),
   savedArmies: savedArmies.selectors.getSavedArmies(state),
 })
 

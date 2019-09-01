@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
-import { army, factionNames, realmscape, selections, visibility, savedArmies, subscription } from 'ducks'
+import { army, factionNames, realmscape, selections, visibility, savedArmies } from 'ducks'
 import App from 'components/App'
 
 // Auth
@@ -38,7 +38,6 @@ const store = createStore(
     realmscape: realmscape.reducer,
     savedArmies: savedArmies.reducer,
     selections: selections.reducer,
-    subscription: subscription.reducer,
     visibility: visibility.reducer,
   }),
   //@ts-ignore

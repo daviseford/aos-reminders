@@ -1,32 +1,23 @@
 import React, { useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { DateTime } from 'luxon'
+import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
-import { connect } from 'react-redux'
-import { DateTime } from 'luxon'
-import { subscription } from 'ducks'
 import { NavBar } from 'components/page/navbar'
-import { IStore } from 'types/store'
 import { IUser } from 'types/user'
-import { ISubscription } from 'types/subscription'
-import { getSubscriptionFromApi } from 'api/thunks'
 
-interface IProfileProps {
-  updateSubscription: () => void
-  resetSubscription: () => void
-}
-
-const ProfileComponent: React.FC<IProfileProps> = props => {
-  const { resetSubscription, updateSubscription } = props
+export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { updateSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    getSubscriptionFromApi(user, updateSubscription, resetSubscription)
-  })
+    updateSubscription()
+  }, [user, updateSubscription])
 
   if (loading || !user) {
     // TODO make this more fancy
@@ -39,27 +30,14 @@ const ProfileComponent: React.FC<IProfileProps> = props => {
         <NavBar />
       </div>
 
-      <UserCard user={user} />
+      <UserCard />
     </div>
   )
 }
 
-export const Profile = connect(
-  null,
-  {
-    resetSubscription: subscription.actions.resetSubscription,
-    updateSubscription: subscription.actions.updateSubscription,
-  }
-)(ProfileComponent)
-
-interface IUserCardProps {
-  isSubscribed: boolean
-  subscription: ISubscription
-  user: IUser
-}
-
-const UserCardComponent: React.FC<IUserCardProps> = props => {
-  const { user, isSubscribed, subscription } = props
+export const UserCard: React.FC<{}> = () => {
+  const { user }: { user: IUser } = useAuth0()
+  const { isSubscribed, subscription } = useSubscription()
 
   return (
     <div className="container py-4">
@@ -108,14 +86,3 @@ const UserCardComponent: React.FC<IUserCardProps> = props => {
     </div>
   )
 }
-
-const mapStateToProps2 = (state: IStore, ownProps) => ({
-  ...ownProps,
-  isSubscribed: subscription.selectors.isSubscribed(state),
-  subscription: subscription.selectors.getSubscription(state),
-})
-
-export const UserCard = connect(
-  mapStateToProps2,
-  null
-)(UserCardComponent)

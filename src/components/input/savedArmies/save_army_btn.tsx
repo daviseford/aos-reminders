@@ -3,19 +3,20 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
+import { useSubscription } from 'context/useSubscription'
 import { saveArmyToApi } from 'api/thunks'
-import { factionNames, selections, realmscape, subscription, savedArmies } from 'ducks'
+import { factionNames, selections, realmscape, savedArmies } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { IStore } from 'types/store'
 
 interface ISaveArmyBtnProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
-  isSubscribed: boolean
 }
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
-  const { createSavedArmy, isSubscribed, ...savedArmy } = props
+  const { createSavedArmy, ...savedArmy } = props
   const { isAuthenticated, loginWithRedirect, user } = useAuth0()
+  const { isSubscribed } = useSubscription()
 
   const btnText =
     isAuthenticated && isSubscribed
@@ -64,7 +65,6 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
   realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
-  isSubscribed: subscription.selectors.isSubscribed(state),
 })
 
 export const SaveArmyBtn = connect(

@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { logPageView } from 'utils/analytics'
-import { getSubscriptionFromApi } from 'api/thunks'
-import { subscription } from 'ducks'
 import { AlliedArmies } from 'components/input/ally_armies'
 import { ArmyBuilder } from 'components/input/army_builder'
 import { FooterComponent } from 'components/page/footer'
@@ -11,23 +8,19 @@ import { Header } from 'components/page/header'
 import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
+import { useSubscription } from 'context/useSubscription'
 
-interface IHomeProps {
-  updateSubscription: () => void
-  resetSubscription: () => void
-}
-
-const HomeComponent: React.FC<IHomeProps> = props => {
-  const { resetSubscription, updateSubscription } = props
+export const Home: React.FC<{}> = () => {
   const { user } = useAuth0()
+  const { updateSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    getSubscriptionFromApi(user, updateSubscription, resetSubscription)
-  })
+    updateSubscription()
+  }, [user, updateSubscription])
 
   return (
     <>
@@ -49,11 +42,3 @@ const HomeComponent: React.FC<IHomeProps> = props => {
     </>
   )
 }
-
-export const Home = connect(
-  null,
-  {
-    resetSubscription: subscription.actions.resetSubscription,
-    updateSubscription: subscription.actions.updateSubscription,
-  }
-)(HomeComponent)
