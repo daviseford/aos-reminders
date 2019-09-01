@@ -4,12 +4,13 @@ import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
-import { army, factionNames, realmscape, selections, visibility, subscription } from 'ducks'
+import { army, factionNames, realmscape, selections, visibility, savedArmies, subscription } from 'ducks'
 import App from 'components/App'
 
 // Auth
 import { Auth0Provider } from './react-auth0-wrapper'
 import config from './auth_config.json'
+import { SubscriptionProvider } from 'context/useSubscription'
 
 // Payment
 import { StripeProvider } from 'react-stripe-elements'
@@ -19,7 +20,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css'
 import 'css/animations.css'
 import 'css/index.scss'
-import { savedArmies } from 'ducks/savedArmies'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -55,7 +55,9 @@ render(
       onRedirectCallback={onRedirectCallback}
     >
       <StripeProvider apiKey="pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b">
-        <App />
+        <SubscriptionProvider>
+          <App />
+        </SubscriptionProvider>
       </StripeProvider>
     </Auth0Provider>
   </Provider>,
