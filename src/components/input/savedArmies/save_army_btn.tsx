@@ -40,11 +40,15 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
       <div className="col">
         {isAuthenticated && !isSubscribed ? (
           <Link to="/subscribe" className={btnClass}>
-            <FaSave /> {btnText}
+            <div className="d-flex align-items-center">
+              <FaSave className="mr-2" /> {btnText}
+            </div>
           </Link>
         ) : (
           <button className={btnClass} onClick={handleSaveClick}>
-            <FaSave /> {btnText}
+            <div className="d-flex align-items-center">
+              <FaSave className="mr-2" /> {btnText}
+            </div>
           </button>
         )}
       </div>
