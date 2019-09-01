@@ -1,22 +1,23 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { titleCase } from 'utils/titleCase'
-import { deleteSavedArmyFromApi } from 'api/thunks'
-import { savedArmies } from 'ducks'
+import { useSubscription } from 'context/useSubscription'
 import { LoadArmyBtn } from './load_army_btn'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
-  deleteArmy: (id: string, userName: string) => void
 }
 
-const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
-  const { army, deleteArmy } = props
+export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
+  const { army } = props
+
+  const { deleteSavedArmy } = useSubscription()
 
   const handleDeleteClick = e => {
     e.preventDefault()
-    deleteSavedArmyFromApi(army, deleteArmy)
+    deleteSavedArmy(army.id)
+    // TODO: Start a progress indicator until unmounted
+    // TO show that we're deleting
   }
 
   return (
@@ -37,10 +38,3 @@ const SavedArmyCardComponent: React.FC<ISavedArmyCardProps> = props => {
     </div>
   )
 }
-
-export const SavedArmyCard = connect(
-  null,
-  {
-    deleteArmy: savedArmies.actions.deleteSavedArmy,
-  }
-)(SavedArmyCardComponent)

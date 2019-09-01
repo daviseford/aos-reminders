@@ -31,7 +31,7 @@ const SubscriptionContext = React.createContext<ISubscriptionContext>(initialSta
 type TProviderProps = { children: React.ReactNode }
 
 const SubscriptionProvider = ({ children }: TProviderProps) => {
-  const { user } = useAuth0()
+  const { user, isAuthenticated } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
   const isSubscribed = isSubscriber(subscription)
@@ -50,7 +50,7 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
   }, [user])
 
   const loadSavedArmies = useCallback(async () => {
-    if (!user) return setSavedArmies(initialState.savedArmies)
+    if (!user || !isAuthenticated || !isSubscribed) return setSavedArmies(initialState.savedArmies)
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
@@ -60,7 +60,7 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
     } catch (err) {
       console.log(err)
     }
-  }, [user])
+  }, [user, isAuthenticated, isSubscribed])
 
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {

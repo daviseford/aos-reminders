@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
-import { saveArmyToApi } from 'api/thunks'
-import { factionNames, selections, realmscape, savedArmies } from 'ducks'
+import { factionNames, selections, realmscape } from 'ducks'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { IStore } from 'types/store'
 
@@ -13,9 +12,8 @@ interface ISaveArmyBtnProps extends ISavedArmy {
   createSavedArmy: (army: ISavedArmyFromApi) => void
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
-  const { createSavedArmy, ...savedArmy } = props
-  const { isAuthenticated, loginWithRedirect, user } = useAuth0()
+const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isSubscribed, saveArmy } = useSubscription()
 
   const btnText =
@@ -26,14 +24,11 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyBtnProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     if (isAuthenticated && isSubscribed) {
-      saveArmy(savedArmy)
-      // saveArmyToApi(user, savedArmy, createSavedArmy)
+      saveArmy(currentArmy)
     } else {
       loginWithRedirect()
     }
   }
-
-  // TODO: Add a tooltip or something explaining to sign up to save armies
 
   const btnClass = `btn btn-outline-dark`
 
@@ -70,7 +65,5 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 export const SaveArmyBtn = connect(
   mapStateToProps,
-  {
-    createSavedArmy: savedArmies.actions.createSavedArmy,
-  }
+  null
 )(SaveArmyBtnComponent)
