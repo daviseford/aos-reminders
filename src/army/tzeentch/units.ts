@@ -17,8 +17,35 @@ import {
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_TZEENTCH } from 'meta/alliances'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)
+
+const getBoCUnits = () => {
+  const listOfUnits = [
+    'Beastlord',
+    'Bestigors',
+    'Bullgors',
+    'Centigors',
+    'Cygor',
+    'Doombull',
+    'Dragon Ogor Shaggoth',
+    'Dragon Ogors',
+    'Ghorgon',
+    'Gors',
+    'Great Bray Shaman',
+    'Tuskgor Chariots',
+    'Ungor Raiders',
+    'Ungors',
+  ]
+  return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getBoCBattalion = () => {
+  const listOfBattalions = ['Phantasmagoria of Fate']
+  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
+}
 
 // Unit Names
 export const TzeentchUnits: TUnits = [
@@ -34,6 +61,12 @@ export const TzeentchUnits: TUnits = [
         name: `Oracle of Eternity`,
         desc: `Once per battle, you can change the result of a single dice roll to the result of your choosing. However, this ability may not be used to affect the roll to see who takes the first turn in a battle round.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Gift of Change`,
+        desc: `Casting value 8. Pick a visible enemy unit within 18" of the caster. That unit suffers a number of mortal wounds as shown in the damage table. If any models were slain by this spell, you can set up a Tzeentch Chaos Spawn within 3" of that unit.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -55,6 +88,12 @@ export const TzeentchUnits: TUnits = [
         desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
         when: [HERO_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Infernal Gateway`,
+        desc: `Casting value 7. Pick a visible enemy within 18" of the caster and roll 9 dice. For each roll that equals or beats the number shown on the damage table, the unit suffers a mortal wound.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -91,6 +130,12 @@ export const TzeentchUnits: TUnits = [
         desc: `If you roll a 9+ for a Herald of Tzeentch's casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Pink Fire of Tzeentch`,
+        desc: `Casting Value 9. Pick an enemy unit within 18" of the caster that is visible and deal D6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -100,6 +145,12 @@ export const TzeentchUnits: TUnits = [
         name: `Arcane Tome`,
         desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Blue Fire of Tzeentch`,
+        desc: `Casting value 4. Pick a visible enemy unit within 18". You roll 9 dice and your opponent rolls 1 dice. The target suffers 1 mortal wound for each one of your dice matches the dice rolled by your opponent.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -121,6 +172,12 @@ export const TzeentchUnits: TUnits = [
         desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
+      {
+        name: `Tzeentch's Firestorm`,
+        desc: `Casting value 9. Roll a dice for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -135,6 +192,12 @@ export const TzeentchUnits: TUnits = [
         name: `Scrolls of Sorcery`,
         desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a D6; on a 1, they can't decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Boon of Tzeentch`,
+        desc: `Casting value 4. You can re-roll failed casting rolls made for Tzeentch wizards within 18" of the Blue Scribes.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -256,6 +319,12 @@ export const TzeentchUnits: TUnits = [
         desc: `Once per battle, at the start of your hero phase, you can attempt to cast a second spell with the Tzaangor Shaman (this can even be the same spell), and can choose to re-roll one or both of the dice when making your casting rolls.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Boon of Mutation`,
+        desc: `Casting value 7. Pick a visible enemy unit within 18". Deal D3 mortal wounds to that unit. For each enemy model slain by this spell you can add 1 new Tzaangor Model to a single friendly Tzaangors unit. Each new Tzaangor model must be set up wholly within 12" of the caster and within 1" fo the unit they are being added to.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -266,6 +335,12 @@ export const TzeentchUnits: TUnits = [
         desc: `Each time a Curseling successfully unbinds an enemy spell, he can immediately attempt to cast it himself even though it is your opponent's hero phase. If this spell is cast, your opponent cannot attempt to unbind it.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Glean Magic`,
+        desc: `Casting value 3. Pick an enemy wizard within 24", choose one of the spells from their warscroll and roll two dice. if the result is equal to or greater than the casting value of the spell, the Curseling leanrs that spell and can us it for the rest of the game.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -275,6 +350,12 @@ export const TzeentchUnits: TUnits = [
         name: `Magic-touched`,
         desc: `If the result of a casting roll for this model is a double, whether or not the spell is successfullycast, it can attempt to cast another spell this turn.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Bolt of Change`,
+        desc: `Casting value 7. Pick a visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. If any models were slain by this spell, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -290,6 +371,12 @@ export const TzeentchUnits: TUnits = [
         name: `Warptongue Blade`,
         desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit's Bravery, one model in the unit is slain. Otherwise, the blade inflicts 1 wound.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Infernal Flames`,
+        desc: `Casting value 8. Pick a visible enemy unit and roll 1 dice for each model in the target unit that is within 18" of the caster; the unit suffers 1 mortal wound for each roll of a 4+. Roll 3 dice for each Monster or War Machine in the target unit.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -331,6 +418,12 @@ export const TzeentchUnits: TUnits = [
         name: `Overwhelming Power`,
         desc: `This model heals 1 wound in each of its hero phases.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Fireblast`,
+        desc: `Casting value 7. Pick a visible enemy unit within 18". The unit suffers D6 mortal wounds. You can set up 1 unit of Brimstone Horrors within 1" of the target. The number of models set up in the new unit is equal to the number of mortal wounds inflicted.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -463,7 +556,7 @@ export const TzeentchUnits: TUnits = [
         3. Gift of Mutations: Reduce the Move of each model in the target unit by 1 for the rest of the battle.
 
         4. Tide of Transmogrification: The target unit sufers D3 mortal wounds.
-        
+
         5. Maelstrom of Change: The target unit suffers D6 mortal wounds.
 
         6. Spawnchange: The target unit suffers D6 mortal wounds. For each model that is slain as a result, set up a Chaos Spawn within 3" of the target unit. All Chaos Spawn created as a result of Spawnchange are added to your army.`,
@@ -504,13 +597,14 @@ export const TzeentchUnits: TUnits = [
         name: `Infernal Gateway`,
         desc: `Casting value of 7. If  successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
 ]
 
 // Battalions
-export const Battalions: TBattalions = [
+export const TzeentchBattalions: TBattalions = [
   {
     name: `Witchfyre Coven`,
     effects: [
@@ -699,4 +793,7 @@ export const Battalions: TBattalions = [
 ]
 
 // Combine lists together to make army unit entry.
-export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getEverchosenUnits()]
+export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Combine lists together to make army battalion entry.
+export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]
