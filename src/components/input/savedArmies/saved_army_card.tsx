@@ -66,7 +66,7 @@ const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
                 <td>
                   {items.map((item, ii) => {
                     return (
-                      <span key={ii} className={`badge badge-primary mx-1`}>
+                      <span key={ii} className={`badge badge-secondary mx-1`}>
                         {item}
                       </span>
                     )
