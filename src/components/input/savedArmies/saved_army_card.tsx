@@ -3,7 +3,6 @@ import { titleCase } from 'utils/titleCase'
 import { useSubscription } from 'context/useSubscription'
 import { LoadArmyBtn } from './load_army_btn'
 import { ISavedArmyFromApi } from 'types/savedArmy'
-import { ISelections } from 'types/selections'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -46,9 +45,6 @@ interface IArmyBadgeProps {
 
 const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
   const { army } = props
-  const styles = {
-    units: 'badge-primary',
-  }
 
   return (
     <>
@@ -65,12 +61,12 @@ const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
             if (!items.length) return null
 
             return (
-              <tr>
+              <tr key={i}>
                 <td>{titleCase(key)}</td>
                 <td>
                   {items.map((item, ii) => {
                     return (
-                      <span key={ii} className={`badge ${styles[key] || 'badge-danger'} mx-1`}>
+                      <span key={ii} className={`badge badge-primary mx-1`}>
                         {item}
                       </span>
                     )
