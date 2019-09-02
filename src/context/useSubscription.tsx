@@ -5,6 +5,7 @@ import { ISubscription } from 'types/subscription'
 import { isSubscriber } from 'utils/subscriptionUtils'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { PreferenceApi } from 'api/preferenceApi'
+import { sortBy } from 'lodash'
 
 const initialState = {
   deleteSavedArmy: (id: string) => null,
@@ -55,7 +56,8 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
-      const savedArmies = res.body as ISavedArmyFromApi[]
+      const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
+
       console.log(`loaded ${savedArmies.length} saved armies`)
       setSavedArmies(savedArmies)
     } catch (err) {

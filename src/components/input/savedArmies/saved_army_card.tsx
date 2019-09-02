@@ -3,6 +3,7 @@ import { titleCase } from 'utils/titleCase'
 import { useSubscription } from 'context/useSubscription'
 import { LoadArmyBtn } from './load_army_btn'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import { sortBy } from 'lodash'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -46,6 +47,8 @@ interface IArmyBadgeProps {
 const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
   const { army } = props
 
+  const selectionKeys = sortBy(Object.keys(army.selections))
+
   return (
     <>
       <table className="table table-sm">
@@ -56,13 +59,15 @@ const ArmyBadges: React.FC<IArmyBadgeProps> = props => {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(army.selections).map((key, i) => {
+          {selectionKeys.map((key, i) => {
             const items = army.selections[key]
             if (!items.length) return null
 
             return (
               <tr key={i}>
-                <td>{titleCase(key)}</td>
+                <td>
+                  <strong>{titleCase(key)}</strong>
+                </td>
                 <td>
                   {items.map((item, ii) => {
                     return (

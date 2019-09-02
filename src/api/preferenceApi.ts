@@ -17,7 +17,7 @@ const createSavedArmy = (data: ICreateSavedArmy) => request.post(`${endpoint}/it
 const deleteItem = (id: string, userName: string) => request.delete(`${endpoint}/items/${id}/${userName}`)
 const getItem = (id: string) => request.get(`${endpoint}/items/${id}`)
 const getUserItems = (userName: string) => request.get(`${endpoint}/user/${userName}`)
-const updateItem = (id: string) => request.put(`${endpoint}/items/${id}`)
+const updateItem = (id: string, data: ICreateSavedArmy) => request.put(`${endpoint}/items/${id}`).send(data)
 
 export const PreferenceApi = {
   createItem,
