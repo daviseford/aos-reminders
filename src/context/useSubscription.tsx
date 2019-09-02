@@ -7,23 +7,23 @@ import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { PreferenceApi } from 'api/preferenceApi'
 
 const initialState = {
+  deleteSavedArmy: (id: string) => null,
+  isSubscribed: false,
+  loadSavedArmies: () => null,
+  saveArmy: (army: ISavedArmy) => null,
+  savedArmies: [] as ISavedArmyFromApi[],
   subscription: { subscribed: false },
   updateSubscription: () => null,
-  isSubscribed: false,
-  savedArmies: [] as ISavedArmyFromApi[],
-  saveArmy: (army: ISavedArmy) => null,
-  loadSavedArmies: () => null,
-  deleteSavedArmy: (id: string) => null,
 }
 
 interface ISubscriptionContext {
+  deleteSavedArmy: (id: string) => void
+  isSubscribed: boolean
+  loadSavedArmies: () => void
+  saveArmy: (army: ISavedArmy) => void
+  savedArmies: ISavedArmyFromApi[]
   subscription: ISubscription
   updateSubscription: () => void
-  isSubscribed: boolean
-  savedArmies: ISavedArmyFromApi[]
-  saveArmy: (army: ISavedArmy) => void
-  loadSavedArmies: () => void
-  deleteSavedArmy: (id: string) => void
 }
 
 const SubscriptionContext = React.createContext<ISubscriptionContext>(initialState)
@@ -34,6 +34,7 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
   const { user } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
+
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
 
   const updateSubscription = useCallback(async () => {
@@ -95,13 +96,13 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
   return (
     <SubscriptionContext.Provider
       value={{
-        savedArmies,
         deleteSavedArmy,
+        isSubscribed,
         loadSavedArmies,
         saveArmy,
+        savedArmies,
         subscription,
         updateSubscription,
-        isSubscribed,
       }}
     >
       {children}
