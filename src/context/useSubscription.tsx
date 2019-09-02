@@ -9,22 +9,24 @@ import { sortBy } from 'lodash'
 
 const initialState = {
   deleteSavedArmy: (id: string) => null,
+  getSubscription: () => null,
   isSubscribed: false,
   loadSavedArmies: () => null,
   saveArmy: (army: ISavedArmy) => null,
   savedArmies: [] as ISavedArmyFromApi[],
   subscription: { subscribed: false },
-  updateSubscription: () => null,
+  subscriptionLoading: true,
 }
 
 interface ISubscriptionContext {
   deleteSavedArmy: (id: string) => void
+  getSubscription: () => void
   isSubscribed: boolean
   loadSavedArmies: () => void
   saveArmy: (army: ISavedArmy) => void
   savedArmies: ISavedArmyFromApi[]
   subscription: ISubscription
-  updateSubscription: () => void
+  subscriptionLoading: boolean
 }
 
 const SubscriptionContext = React.createContext<ISubscriptionContext>(initialState)
@@ -34,20 +36,24 @@ type TProviderProps = { children: React.ReactNode }
 const SubscriptionProvider = ({ children }: TProviderProps) => {
   const { user } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
+  const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
 
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
 
-  const updateSubscription = useCallback(async () => {
+  const getSubscription = useCallback(async () => {
     if (!user) return setSubscription(initialState.subscription)
 
     try {
+      setSubscriptionLoading(true)
       const response = await SubscriptionApi.getSubscription(user.email)
       const subscription: ISubscription = response.body
       setSubscription(subscription)
+      setSubscriptionLoading(false)
     } catch (err) {
       console.error(err)
       setSubscription(initialState.subscription)
+      setSubscriptionLoading(false)
     }
   }, [user])
 
@@ -99,12 +105,13 @@ const SubscriptionProvider = ({ children }: TProviderProps) => {
     <SubscriptionContext.Provider
       value={{
         deleteSavedArmy,
+        getSubscription,
         isSubscribed,
         loadSavedArmies,
         saveArmy,
         savedArmies,
         subscription,
-        updateSubscription,
+        subscriptionLoading,
       }}
     >
       {children}

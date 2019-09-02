@@ -4,8 +4,8 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 
 export const NavBar: React.FC<{}> = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
-  const { isSubscribed } = useSubscription()
+  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
+  const { isSubscribed, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
@@ -15,6 +15,10 @@ export const NavBar: React.FC<{}> = () => {
   }
   const btnText = !isAuthenticated ? `Log in` : `Log out`
   const handleClick = !isAuthenticated ? loginWithRedirect : logout
+
+  if (loading || subscriptionLoading) {
+    return <header className={styles.header}></header>
+  }
 
   return (
     <header className={styles.header}>

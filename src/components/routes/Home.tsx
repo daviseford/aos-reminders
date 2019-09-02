@@ -10,15 +10,15 @@ import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 
 export const Home: React.FC<{}> = () => {
-  const { updateSubscription } = useSubscription()
+  const { getSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    updateSubscription()
-  }, [updateSubscription])
+    getSubscription()
+  }, [getSubscription])
 
   return (
     <>

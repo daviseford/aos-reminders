@@ -6,23 +6,21 @@ import { logPageView } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
 import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
+import { Loading } from 'components/page/loading'
 
 export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { updateSubscription } = useSubscription()
+  const { getSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    updateSubscription()
-  }, [updateSubscription])
+    getSubscription()
+  }, [getSubscription])
 
-  if (loading || !user) {
-    // TODO make this more fancy
-    return <div>Loading...</div>
-  }
+  if (loading || !user) return <Loading />
 
   return (
     <div className="d-block">

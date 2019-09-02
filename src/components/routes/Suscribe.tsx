@@ -5,24 +5,21 @@ import { logPageView } from 'utils/analytics'
 import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { IUser } from 'types/user'
+import { Loading } from 'components/page/loading'
 
 export const Subscribe: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { isSubscribed, updateSubscription } = useSubscription()
+  const { isSubscribed, getSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
   }, [])
 
   useEffect(() => {
-    updateSubscription()
-  }, [updateSubscription])
+    getSubscription()
+  }, [getSubscription])
 
-  if (loading || !user) {
-    // TODO make this more fancy
-    return <div>Loading...</div>
-  }
-
+  if (loading || !user) return <Loading />
   // TODO Flesh this out to look nicer
   if (isSubscribed) return <div>You are already a supporter :) Thanks!</div>
 
