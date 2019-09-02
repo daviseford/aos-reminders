@@ -1397,6 +1397,53 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Lynus Ghalmorian on Gryph Charger`,
+    effects: [
+      {
+        name: `Aethereal Strike`,
+        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sombre Exemplar`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase add 1 to hit rolls for attacks made by friendly ANVILS OF THE HELDENHAMMER units while they are wholly within 12" of this model.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Ride the Winds Aetheric`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Cycle of the Storm`,
+        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Spirit Flask`,
+        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Shield of the Pale Knight`,
+        desc: `You can re-roll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Amethyst Gale`,
+        desc: `Casting value of 6. If successfully cast, pick a enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
+      {
+        name: `Prime Electrids`,
+        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then that spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if this casting roll was 10+.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
@@ -1598,6 +1645,46 @@ export const Battalions: TBattalions = [
         name: `Interception Force`,
         desc: `If any units of VANGUARD-HUNTERS from this battalion were on the battlefield at the start of a turn in which a reserve SACROSANCT unit from the same battalion is set up on the battlefield for the first time, add 1 to the Attacks of missile weapons used by that SACROSANCT unit in that turn.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sempiternals Sacrosanct Chamber`,
+    effects: [
+      {
+        name: `Attuned to the Arcane`,
+        desc: `At the start of your hero phase, you can pick 1 Lord-Arcanum from this battalion. If you do so, add 9" to the range of any spells successfully cast by that model in that phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sempiternals Grand Convocation`,
+    effects: [
+      {
+        name: `Thwart the Arcane`,
+        desc: `Add 2 to the unbinding rolls for WIZARDS from this battalion while they are wholly within 9" of two or more other WIZARDS from the same battalion.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sempiternals Hailstorm Battery`,
+    effects: [
+      {
+        name: `Deadly Hail`,
+        desc: `You can re-roll wound rolls of 1 for attacks made with missle weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sempiternals Cleansing Phalanx`,
+    effects: [
+      {
+        name: `Weapons Ablaze`,
+        desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, improve the Rend characteristics of weapons used by that SEQUITORS unit by 1 until the start of your next hero phase, in addition to the effects of the spell.`,
+        when: [HERO_PHASE],
       },
     ],
   },
