@@ -14,6 +14,6 @@ export const paginateSavedArmies = (
       accum.pages[accum.currPage - 1].push(army)
       return accum
     },
-    { currPage: 1, pages: [[]] as ISavedArmyFromApi[][] }
+    { currPage: 1, pages: [] as ISavedArmyFromApi[][] }
   ).pages
 }

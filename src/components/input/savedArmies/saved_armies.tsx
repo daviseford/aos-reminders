@@ -18,6 +18,8 @@ export const ShowSavedArmies: React.FC<{}> = () => {
     }
   }, [loadSavedArmies, isAuthenticated, isSubscribed])
 
+  if (paginatedArmies.length === 0) return <NoArmiesFound />
+
   return (
     <div>
       {paginatedArmies[pageNum - 1].map((army, i) => (
@@ -27,3 +29,11 @@ export const ShowSavedArmies: React.FC<{}> = () => {
     </div>
   )
 }
+
+const NoArmiesFound = () => (
+  <div>
+    <div className="alert alert-primary text-center" role="alert">
+      You haven't saved any armies yet!
+    </div>
+  </div>
+)
