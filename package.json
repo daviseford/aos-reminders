@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.2.2",
+    "@auth0/auth0-spa-js": "^1.2.3",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "core-js": "^3.2.1",
@@ -32,8 +32,8 @@
     "typescript": "3.5.3"
   },
   "scripts": {
-    "start": "REACT_APP_AOS_ENV=dev react-scripts start",
-    "build": "REACT_APP_AOS_ENV=prod react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test"
   },
   "eslintConfig": {
@@ -62,7 +62,7 @@
     "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.138",
     "@types/luxon": "^1.15.2",
-    "@types/node": "^12.7.3",
+    "@types/node": "^12.7.4",
     "@types/react": "16.9.2",
     "@types/react-copy-to-clipboard": "^4.2.6",
     "@types/react-dom": "^16.9.0",
