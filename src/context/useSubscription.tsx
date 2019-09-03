@@ -15,7 +15,7 @@ const initialState = {
   saveArmy: (army: ISavedArmy) => null,
   savedArmies: [] as ISavedArmyFromApi[],
   subscription: { subscribed: false },
-  subscriptionLoading: true,
+  subscriptionLoading: false,
 }
 
 interface ISubscriptionContext {
