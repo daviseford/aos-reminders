@@ -15,6 +15,7 @@ import { IStore } from 'types/store'
 import { SaveLoadArmies } from './savedArmies'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
+import { useSubscription } from 'context/useSubscription'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -30,6 +31,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
+  const { isSubscribed } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
   const showSavedArmies = () => setIsShowingSavedArmies(true)
@@ -50,6 +52,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   const PrintComponent = is.firefox() ? PrintWarningButton : PrintButton
 
+  const savedArmyBtnWrapperClass = `${
+    isSubscribed ? `col-6` : `col-12`
+  } col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
+
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3">
@@ -59,10 +65,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
         <div className={btnWrapperClass}>
           <PrintComponent handlePrint={handlePrint} />
         </div>
-        <div className={btnWrapperClass}>
+        <div className={savedArmyBtnWrapperClass}>
           <SaveArmyBtn />
         </div>
-        <div className={btnWrapperClass}>
+        <div className={btnWrapperClass} hidden={!isSubscribed}>
           <ShowSavedArmiesBtn
             isShowingSavedArmies={isShowingSavedArmies}
             hideSavedArmies={hideSavedArmies}
