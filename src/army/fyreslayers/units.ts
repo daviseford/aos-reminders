@@ -337,7 +337,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Horn of Grimnir`,
-        desc: `1 in every 5 models in this unit can have a Horn of Grimnir. Add 1 to charge rolls for units that include any Horns of Grimnir.`,
+        desc: `Add 1 to charge rolls for units that include any Horns of Grimnir.`,
         when: [CHARGE_PHASE],
       },
       {

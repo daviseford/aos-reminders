@@ -344,12 +344,12 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Glade Banner Bearer`,
-        desc: `1 in every 5 models in this unit can be a Glade Banner Bearer. Whenever a unit that includes any Glade Banner Bearers makes a pile-in move, you can move it up to 6" instead of up to 3".`,
+        desc: `Whenever a unit that includes any Glade Banner Bearers makes a pile-in move, you can move it up to 6" instead of up to 3".`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Waypipes`,
-        desc: `1 in every 5 models in this unit can carry Waypipes. At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
+        desc: `At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {

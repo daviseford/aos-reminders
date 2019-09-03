@@ -5,7 +5,8 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
-import { TAllySelectionStore } from 'types/store'
+import { TAllySelectionStore, IStore } from 'types/store'
+import { getArmy } from 'utils/getArmy'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -24,17 +25,26 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
-    // updateAllyArmy,
-    // updateAllySelections,
-    // updateAllyUnits,
+    updateAllyArmy,
+    updateAllySelections,
     updateSelections,
   } = props
 
   const handleLoadClick = e => {
     e.preventDefault()
+
     setFactionName(army.factionName)
+
+    // Add Ally Game data to the store
+    if (army.allyFactionNames.length) {
+      army.allyFactionNames.forEach(factionName => {
+        const Army = getArmy(factionName) as IArmy
+        updateAllyArmy({ factionName, Army })
+      })
+    }
+
     updateSelections(army.selections)
-    // updateAllySelections(army.allySelections) // TODO this is broken
+    updateAllySelections(army.allySelections)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
   }
@@ -48,8 +58,15 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   )
 }
 
+const mapStateToProps = (state: IStore, ownProps) => {
+  return {
+    ...ownProps,
+    getAllyFactionNames: selections.selectors.getAllyFactionNames(state),
+  }
+}
+
 export const LoadArmyBtn = connect(
-  null,
+  mapStateToProps,
   {
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
