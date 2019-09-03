@@ -25,11 +25,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">
-          {army.armyName ? `${army.armyName} - ` : ``}
-          {titleCase(army.factionName)}
-        </h5>
-        <h6 className="card-subtitle mb-2 text-muted">ID: {army.id}</h6>
+        <CardTitle armyName={army.armyName} factionName={army.factionName} />
         <div>
           <SavedArmyTable army={army} />
         </div>
@@ -41,5 +37,21 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
         </div>
       </div>
     </div>
+  )
+}
+
+interface ICardTitleProps {
+  armyName: ISavedArmyFromApi['armyName']
+  factionName: ISavedArmyFromApi['factionName']
+}
+
+const CardTitle = ({ armyName, factionName }: ICardTitleProps) => {
+  const faction = titleCase(factionName)
+  return (
+    <h5 className="card-title">
+      {armyName ? armyName : `Untitled`}
+      {' - '}
+      <span className="text-muted">{faction}</span>
+    </h5>
   )
 }

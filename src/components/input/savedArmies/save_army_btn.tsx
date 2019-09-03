@@ -23,7 +23,7 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const btnText = isAuthenticated ? `Save Army` : `Log in to save this army`
 
   return (
-    <div className="row text-center py-3">
+    <div className="row text-center pt-1 pb-3">
       <div className="col">
         {isAuthenticated && !isSubscribed ? (
           <Link to="/subscribe" className={btnClass}>
