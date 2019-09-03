@@ -3,7 +3,7 @@ import { SaveArmyBtn } from './save_army_btn'
 import { ShowSavedArmies } from './saved_armies'
 
 export const SaveLoadArmies = () => {
-  const colClass = `col-10`
+  const colClass = `col-12`
 
   return (
     <div className="row d-flex justify-content-center pt-3">
