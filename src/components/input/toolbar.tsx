@@ -6,9 +6,9 @@ import { getArmy } from 'utils/getArmy'
 import { logPrintEvent } from 'utils/analytics'
 import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
-import { FaPlus } from 'react-icons/fa'
+import { FaPlus, FaPrint } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { MdWarning, MdPrint } from 'react-icons/md'
+import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -116,7 +116,7 @@ const PrintButton = (props: { handlePrint: (e: any) => void }) => {
   return (
     <button className={btnClass} onClick={props.handlePrint}>
       <div className={btnContentWrapper}>
-        <MdPrint className="mr-2" /> Print Page
+        <FaPrint className="mr-2" /> Print Page
       </div>
     </button>
   )
