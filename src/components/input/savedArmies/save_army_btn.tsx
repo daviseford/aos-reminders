@@ -20,10 +20,7 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText =
-    isAuthenticated && isSubscribed
-      ? `Save Army`
-      : `${isAuthenticated ? `Become a supporter` : `Log in`} to save this army`
+  const btnText = isAuthenticated ? `Save Army` : `Log in to save this army`
 
   return (
     <div className="row text-center py-3">

@@ -27,10 +27,10 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
   return (
     <nav aria-label="Saved Army Pagination">
       <ul className="pagination justify-content-center">
-        <li className={`page-item ${!canDecrement ? `disabled` : ``}`} onClick={decrement}>
+        <li className={`page-item ${canDecrement ? `` : `disabled`}`} onClick={decrement}>
           <button className="page-link">Previous</button>
         </li>
-        <li className={`page-item ${!canIncrement ? `disabled` : ``}`} onClick={increment}>
+        <li className={`page-item ${canIncrement ? `` : `disabled`}`} onClick={increment}>
           <button className="page-link">Next</button>
         </li>
       </ul>

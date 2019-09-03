@@ -1,15 +1,13 @@
 import React from 'react'
 import { titleCase } from 'utils/titleCase'
-import { ISavedArmyFromApi } from 'types/savedArmy'
+import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
 import { sortBy } from 'lodash'
 
 interface ISavedArmyTable {
-  army: ISavedArmyFromApi
+  army: ISavedArmyFromApi | ISavedArmy
 }
 
-export const SavedArmyTable: React.FC<ISavedArmyTable> = props => {
-  const { army } = props
-
+export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
   const selectionKeys = sortBy(Object.keys(army.selections))
 
   return (

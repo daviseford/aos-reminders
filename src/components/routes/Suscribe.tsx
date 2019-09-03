@@ -13,6 +13,7 @@ export const Subscribe: React.FC<{}> = () => {
 
   useEffect(() => {
     logPageView()
+    window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export const Subscribe: React.FC<{}> = () => {
   // TODO Flesh this out to look nicer
   if (isSubscribed) return <div>You are already a supporter :) Thanks!</div>
 
-  const headerClass = `col-12 col-lg-8 col-xl-8 py-5  mx-auto`
+  const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
 
   return (
     <div className="d-block">

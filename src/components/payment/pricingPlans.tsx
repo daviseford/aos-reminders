@@ -44,9 +44,13 @@ const PlanComponent: React.FC<IPlanProps> = props => {
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
+    const item = { plan, quantity: 1 }
+
+    console.log('checkout item', item)
+
     stripe
       .redirectToCheckout({
-        items: [{ plan, quantity: 1 }],
+        items: [item],
 
         // Meta
         customerEmail: user.email, // Used to prefill checkout
