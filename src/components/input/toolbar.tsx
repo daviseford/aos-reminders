@@ -17,7 +17,7 @@ import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { useSubscription } from 'context/useSubscription'
 
-const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
+const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
 const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
@@ -54,7 +54,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   const savedArmyBtnWrapperClass = `${
     isSubscribed ? `col-6` : `col-12`
-  } col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
+  } col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
 
   return (
     <div className="container d-print-none">
