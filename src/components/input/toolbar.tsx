@@ -8,7 +8,7 @@ import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
 import { FaPlus } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { MdWarning } from 'react-icons/md'
+import { MdWarning, MdPrint } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -18,6 +18,7 @@ import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
+const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -103,7 +104,7 @@ const AddAllyButton = (props: IAddAllyButton) => {
   return (
     <>
       <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
-        <div className="d-flex align-items-center justify-content-center">
+        <div className={btnContentWrapper}>
           <FaPlus className="mr-2" /> Add Ally
         </div>
       </button>
@@ -114,7 +115,9 @@ const AddAllyButton = (props: IAddAllyButton) => {
 const PrintButton = (props: { handlePrint: (e: any) => void }) => {
   return (
     <button className={btnClass} onClick={props.handlePrint}>
-      Print Page
+      <div className={btnContentWrapper}>
+        <MdPrint className="mr-2" /> Print Page
+      </div>
     </button>
   )
 }
@@ -141,7 +144,9 @@ const PrintWarningButton = (props: { handlePrint: (e: any) => void }) => {
     <>
       <IconContext.Provider value={{ className: 'text-warning', size: '1.5em' }}>
         <button className={btnClass} onClick={props.handlePrint} {...tipProps}>
-          <MdWarning /> Print Page
+          <div className={btnContentWrapper}>
+            <MdWarning className="mr-2" /> Print Page
+          </div>
         </button>
       </IconContext.Provider>
       <ReactTooltip id={`printWarningButton`} />

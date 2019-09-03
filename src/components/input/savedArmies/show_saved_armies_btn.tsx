@@ -21,7 +21,7 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   const { isSubscribed } = useSubscription()
 
   if (!isAuthenticated || !isSubscribed) return null
-  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved Armies`
+  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved`
 
   const handleClick = e => {
     e.preventDefault()
