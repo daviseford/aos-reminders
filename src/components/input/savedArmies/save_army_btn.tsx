@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
+import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { IAllySelections } from 'types/selections'
-import { IconContext } from 'react-icons'
-import ReactTooltip from 'react-tooltip'
 
 const btnClass = `btn btn-outline-dark btn-block`
 const btnContentWrapper = `d-flex align-items-center justify-content-center`
@@ -102,13 +101,11 @@ const CantSaveButton = () => {
 
   return (
     <>
-      <IconContext.Provider value={{ className: 'text-warning', size: '1.5em' }}>
-        <button className={btnClass} onClick={e => e.preventDefault()} {...tipProps}>
-          <div className={btnContentWrapper}>
-            <FaSave className="mr-2" /> Save Army
-          </div>
-        </button>
-      </IconContext.Provider>
+      <button className={btnClass} onClick={e => e.preventDefault()} {...tipProps}>
+        <div className={btnContentWrapper}>
+          <FaSave className="mr-2" /> Save Army
+        </div>
+      </button>
       <ReactTooltip id={`cantSaveButton`} />
     </>
   )
