@@ -1,14 +1,21 @@
 import React from 'react'
 import { titleCase } from 'utils/titleCase'
 import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
-import { sortBy } from 'lodash'
+import { sortBy, flatten } from 'lodash'
 
 interface ISavedArmyTable {
   army: ISavedArmyFromApi | ISavedArmy
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const selectionKeys = sortBy(Object.keys(army.selections))
+  const armySelectionKeys = sortBy(Object.keys(army.selections).filter(key => army.selections[key].length))
+  const allyUnits = sortBy(
+    flatten(
+      Object.keys(army.allySelections).map(factionName => {
+        return army.allySelections[factionName].units
+      })
+    )
+  )
 
   return (
     <>
@@ -20,29 +27,37 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
           </tr>
         </thead>
         <tbody>
-          {selectionKeys.map((key, i) => {
-            const items = army.selections[key]
-            if (!items.length) return null
-
-            return (
-              <tr key={i}>
-                <td className="text-nowrap">
-                  <strong>{titleCase(key)}</strong>
-                </td>
-                <td>
-                  {items.map((item, ii) => {
-                    return (
-                      <span key={ii} className={`badge badge-secondary mx-1`}>
-                        {item}
-                      </span>
-                    )
-                  })}
-                </td>
-              </tr>
-            )
+          {armySelectionKeys.map((key, i) => {
+            let items = army.selections[key]
+            if (key === 'units') {
+              items = items.concat(allyUnits)
+            }
+            return <Tr items={items} title={key} key={i} />
           })}
         </tbody>
       </table>
     </>
   )
 }
+
+interface ITrProps {
+  title: string
+  items: string[]
+}
+
+const Tr = ({ title, items }: ITrProps) => (
+  <tr>
+    <td className="text-nowrap">
+      <strong>{titleCase(title)}</strong>
+    </td>
+    <td>
+      {items.map((item, ii) => {
+        return (
+          <span key={ii} className={`badge badge-secondary mx-1`}>
+            {item}
+          </span>
+        )
+      })}
+    </td>
+  </tr>
+)
