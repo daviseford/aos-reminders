@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import is from 'is_js'
@@ -14,6 +14,7 @@ import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveLoadArmies } from './savedArmies'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
+import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 
 const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -28,6 +29,10 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
+
+  const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
+  const showSavedArmies = () => setIsShowingSavedArmies(true)
+  const hideSavedArmies = () => setIsShowingSavedArmies(false)
 
   const handleAllyClick = e => {
     e.preventDefault()
@@ -56,9 +61,18 @@ const ToolbarComponent = (props: IToolbarProps) => {
         <div className={btnWrapperClass}>
           <SaveArmyBtn />
         </div>
+        <div className={btnWrapperClass}>
+          <ShowSavedArmiesBtn
+            isShowingSavedArmies={isShowingSavedArmies}
+            hideSavedArmies={hideSavedArmies}
+            showSavedArmies={showSavedArmies}
+          />
+        </div>
       </div>
 
-      <SaveLoadArmies />
+      <div hidden={!isShowingSavedArmies}>
+        <SaveLoadArmies />
+      </div>
     </div>
   )
 }
