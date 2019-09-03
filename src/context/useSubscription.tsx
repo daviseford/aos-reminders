@@ -31,9 +31,7 @@ interface ISubscriptionContext {
 
 const SubscriptionContext = React.createContext<ISubscriptionContext>(initialState)
 
-type TProviderProps = { children: React.ReactNode }
-
-const SubscriptionProvider = ({ children }: TProviderProps) => {
+const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   const { user } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
