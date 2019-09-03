@@ -1,36 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape } from 'ducks'
-import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
+import { SaveArmyModal } from './save_army_modal'
 
-interface ISaveArmyBtnProps extends ISavedArmy {
-  createSavedArmy: (army: ISavedArmyFromApi) => void
-}
+const btnClass = `btn btn-outline-dark`
 
 const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
-  const { isSubscribed, saveArmy } = useSubscription()
+  const { isSubscribed } = useSubscription()
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
 
   const btnText =
     isAuthenticated && isSubscribed
       ? `Save Army`
       : `${isAuthenticated ? `Become a supporter` : `Log in`} to save this army`
-
-  const handleSaveClick = e => {
-    e.preventDefault()
-    if (isAuthenticated && isSubscribed) {
-      saveArmy(currentArmy)
-    } else {
-      loginWithRedirect()
-    }
-  }
-
-  const btnClass = `btn btn-outline-dark`
 
   return (
     <div className="row text-center py-3">
@@ -42,13 +35,18 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
             </div>
           </Link>
         ) : (
-          <button className={btnClass} onClick={handleSaveClick}>
+          <button
+            className={btnClass}
+            onClick={isAuthenticated && isSubscribed ? openModal : loginWithRedirect}
+          >
             <div className="d-flex align-items-center">
               <FaSave className="mr-2" /> {btnText}
             </div>
           </button>
         )}
       </div>
+
+      <SaveArmyModal army={currentArmy} modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </div>
   )
 }
