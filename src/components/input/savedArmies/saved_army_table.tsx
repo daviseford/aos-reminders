@@ -8,11 +8,13 @@ interface ISavedArmyTable {
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const armySelectionKeys = sortBy(Object.keys(army.selections).filter(key => army.selections[key].length))
+  const { selections, allySelections, realmscape, realmscape_feature } = army
+
+  const armySelectionKeys = sortBy(Object.keys(selections).filter(key => selections[key].length))
   const allyUnits = sortBy(
     flatten(
-      Object.keys(army.allySelections).map(factionName => {
-        return army.allySelections[factionName].units
+      Object.keys(allySelections).map(factionName => {
+        return allySelections[factionName].units
       })
     )
   )
@@ -28,12 +30,16 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
         </thead>
         <tbody>
           {armySelectionKeys.map((key, i) => {
-            let items = army.selections[key]
+            let items = sortBy(selections[key])
             if (key === 'units') {
               items = items.concat(allyUnits)
             }
             return <Tr items={items} title={key} key={i} />
           })}
+
+          {realmscape && <Tr items={[realmscape]} title={'Realmscape'} />}
+
+          {realmscape_feature && <Tr items={[realmscape_feature]} title={'Realm Feature'} />}
         </tbody>
       </table>
     </>
