@@ -49,14 +49,12 @@ export const Subscribe: React.FC<{}> = () => {
           Currently, purchasing a subscription will allow you to save and load your army rosters from anywhere
           in the world. In the future, we aim to offer:
         </p>
-        <p className="lead">
-          <ul>
-            <li>Importing army lists from Warscroll Builder</li>
-            <li>Importing army lists from Battlescribe</li>
-            <li>Adding custom reminders</li>
-            <li>And much more...</li>
-          </ul>
-        </p>
+        <ul className="lead">
+          <li>Importing army lists from Warscroll Builder</li>
+          <li>Importing army lists from Battlescribe</li>
+          <li>Adding custom reminders</li>
+          <li>And much more...</li>
+        </ul>
       </div>
 
       <div>
