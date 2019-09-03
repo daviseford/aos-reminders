@@ -9,7 +9,8 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 
-const btnClass = `btn btn-outline-dark`
+const btnClass = `btn btn-outline-dark btn-block`
+const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
 const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
@@ -23,28 +24,26 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const btnText = isAuthenticated ? `Save Army` : `Log in to save this army`
 
   return (
-    <div className="row text-center pt-1 pb-3">
-      <div className="col">
-        {isAuthenticated && !isSubscribed ? (
-          <Link to="/subscribe" className={btnClass}>
-            <div className="d-flex align-items-center">
-              <FaSave className="mr-2" /> {btnText}
-            </div>
-          </Link>
-        ) : (
-          <button
-            className={btnClass}
-            onClick={isAuthenticated && isSubscribed ? openModal : loginWithRedirect}
-          >
-            <div className="d-flex align-items-center">
-              <FaSave className="mr-2" /> {btnText}
-            </div>
-          </button>
-        )}
-      </div>
+    <>
+      {isAuthenticated && !isSubscribed ? (
+        <Link to="/subscribe" className={btnClass}>
+          <div className={btnContentWrapper}>
+            <FaSave className="mr-2" /> {btnText}
+          </div>
+        </Link>
+      ) : (
+        <button
+          className={btnClass}
+          onClick={isAuthenticated && isSubscribed ? openModal : loginWithRedirect}
+        >
+          <div className={btnContentWrapper}>
+            <FaSave className="mr-2" /> {btnText}
+          </div>
+        </button>
+      )}
 
       <SaveArmyModal army={currentArmy} modalIsOpen={modalIsOpen} closeModal={closeModal} />
-    </div>
+    </>
   )
 }
 

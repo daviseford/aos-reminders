@@ -13,8 +13,9 @@ import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveLoadArmies } from './savedArmies'
+import { SaveArmyBtn } from './savedArmies/save_army_btn'
 
-const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3`
+const btnWrapperClass = `col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
 
 interface IToolbarProps {
@@ -51,6 +52,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
         <div className={btnWrapperClass}>
           <PrintComponent handlePrint={handlePrint} />
+        </div>
+        <div className={btnWrapperClass}>
+          <SaveArmyBtn />
         </div>
       </div>
 
