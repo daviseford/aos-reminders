@@ -22,7 +22,7 @@ export const Subscribe: React.FC<{}> = () => {
 
   if (loading || !user) return <Loading />
   // TODO Flesh this out to look nicer
-  if (isSubscribed) return <div>You are already a supporter :) Thanks!</div>
+  if (isSubscribed) return <AlreadySubscribed />
 
   const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
 
@@ -59,6 +59,21 @@ export const Subscribe: React.FC<{}> = () => {
 
       <div>
         <PricingPlans />
+      </div>
+    </div>
+  )
+}
+
+const AlreadySubscribed = () => {
+  return (
+    <div className="d-block">
+      <div className="ThemeDarkBg py-2">
+        <NavBar />
+      </div>
+      <div className="row d-flex align-items-center">
+        <div className="mx-5 my-5 py-5 px-5">
+          <p className="lead text-center">You are already a supporter :) Thanks!</p>
+        </div>
       </div>
     </div>
   )
