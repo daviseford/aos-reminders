@@ -52,55 +52,9 @@ export const UserCard: React.FC<{}> = () => {
         <div className="media-body text-center">
           <h3 className="mt-0">{user.email}</h3>
 
-          <div className="card">
-            <div className="card-header">
-              <h4>
-                Subscription Status:{' '}
-                {isSubscribed ? (
-                  <MdCheckCircle className="text-success" />
-                ) : (
-                  <MdNotInterested className="text-danger" />
-                )}
-              </h4>
-            </div>
+          <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
 
-            {isSubscribed && (
-              <div className="card-body">
-                <h5 className="lead">
-                  Subscription Start:{' '}
-                  {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
-                    DateTime.DATE_MED
-                  )}
-                </h5>
-                <h5 className="lead">
-                  Subscription End:{' '}
-                  {DateTime.fromSeconds(subscription.subscriptionCreated as number)
-                    .plus({
-                      [`${subscription.planInterval}s`]: subscription.planIntervalCount,
-                    })
-                    .toLocaleString(DateTime.DATE_MED)}
-                </h5>
-              </div>
-            )}
-          </div>
-
-          <div className="card">
-            <div className="card-header">
-              <h4>
-                Recurring Payment:{' '}
-                {isActive ? (
-                  <MdCheckCircle className="text-success" />
-                ) : (
-                  <MdNotInterested className="text-danger" />
-                )}
-              </h4>
-            </div>
-            {isActive && (
-              <div className="card-body">
-                <CancelSubscription />
-              </div>
-            )}
-          </div>
+          <RecurringPaymentInfo isActive={isActive} />
 
           <p className="align-items-center">
             Email Verified:{' '}
@@ -144,5 +98,63 @@ const CancelSubscription = () => {
     <Elements>
       <InjectedCancelButton />
     </Elements>
+  )
+}
+
+const SubscriptionInfo = ({ subscription, isSubscribed }) => {
+  return (
+    <div className="card">
+      <div className="card-header">
+        <h4>
+          Subscription Status:{' '}
+          {isSubscribed ? (
+            <MdCheckCircle className="text-success" />
+          ) : (
+            <MdNotInterested className="text-danger" />
+          )}
+        </h4>
+      </div>
+
+      {isSubscribed && (
+        <div className="card-body">
+          <h5 className="lead">
+            Subscription Start:{' '}
+            {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
+              DateTime.DATE_MED
+            )}
+          </h5>
+          <h5 className="lead">
+            Subscription End:{' '}
+            {DateTime.fromSeconds(subscription.subscriptionCreated as number)
+              .plus({
+                [`${subscription.planInterval}s`]: subscription.planIntervalCount,
+              })
+              .toLocaleString(DateTime.DATE_MED)}
+          </h5>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const RecurringPaymentInfo = ({ isActive }) => {
+  return (
+    <div className="card">
+      <div className="card-header">
+        <h4>
+          Recurring Payment:{' '}
+          {isActive ? (
+            <MdCheckCircle className="text-success" />
+          ) : (
+            <MdNotInterested className="text-danger" />
+          )}
+        </h4>
+      </div>
+      {isActive && (
+        <div className="card-body">
+          <CancelSubscription />
+        </div>
+      )}
+    </div>
   )
 }
