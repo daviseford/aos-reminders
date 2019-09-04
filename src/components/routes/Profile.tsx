@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
@@ -8,6 +8,7 @@ import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
+import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -67,19 +68,22 @@ interface ICancelBtnProps {
 }
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isSubscribed, cancelSubscription } = useSubscription()
+  const { isSubscribed } = useSubscription()
 
-  const handleClick = e => {
-    e.preventDefault()
-    cancelSubscription()
-  }
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
 
   if (!isSubscribed) return null
 
   return (
-    <button className="btn btn-sm btn-outline-danger" onClick={handleClick}>
-      Cancel Subscription
-    </button>
+    <>
+      <button className="btn btn-sm btn-outline-danger" onClick={openModal}>
+        Cancel Subscription
+      </button>
+      <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+    </>
   )
 }
 
