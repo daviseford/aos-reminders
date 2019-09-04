@@ -58,7 +58,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   return (
     <div className="container d-print-none">
-      <div className="row justify-content-center pt-3">
+      <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
         <div className={btnWrapperClass}>
           <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
