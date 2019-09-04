@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
-import { isSubscriber } from 'utils/subscriptionUtils'
+import { isSubscriber, isActiveSubscriber } from 'utils/subscriptionUtils'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { PreferenceApi } from 'api/preferenceApi'
 import { sortBy } from 'lodash'
@@ -41,7 +41,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
 
-  const isActive = useMemo(() => isActive(subscription), [subscription])
+  const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
 
   const getSubscription = useCallback(async () => {
