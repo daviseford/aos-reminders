@@ -23,7 +23,7 @@ export const Profile: React.FC<{}> = () => {
 
   if (loading || !user) return <Loading />
 
-  const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
+  const userCardWrapperClass = `col-12 col-md-8 col-lg-4 col-xl-4`
 
   return (
     <div className="d-block">
@@ -51,19 +51,9 @@ export const UserCard: React.FC<{}> = () => {
       <div className="media">
         <div className="media-body text-center">
           <h3 className="mt-0">{user.email}</h3>
-
           <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
-
           <RecurringPaymentInfo isActive={isActive} />
-
-          <p className="align-items-center">
-            Email Verified:{' '}
-            {user.email_verified ? (
-              <MdVerifiedUser className="text-success" />
-            ) : (
-              <MdNotInterested className="text-danger" />
-            )}
-          </p>
+          <EmailVerified email_verified={user.email_verified} />
         </div>
       </div>
     </div>
@@ -103,7 +93,7 @@ const CancelSubscription = () => {
 
 const SubscriptionInfo = ({ subscription, isSubscribed }) => {
   return (
-    <div className="card">
+    <div className="card mt-2">
       <div className="card-header">
         <h4>
           Subscription Status:{' '}
@@ -139,7 +129,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
 
 const RecurringPaymentInfo = ({ isActive }) => {
   return (
-    <div className="card">
+    <div className="card mt-2">
       <div className="card-header">
         <h4>
           Recurring Payment:{' '}
@@ -155,6 +145,23 @@ const RecurringPaymentInfo = ({ isActive }) => {
           <CancelSubscription />
         </div>
       )}
+    </div>
+  )
+}
+
+const EmailVerified = ({ email_verified }) => {
+  return (
+    <div className="card mt-2">
+      <div className="card-header">
+        <h4>
+          Email Verified:{' '}
+          {email_verified ? (
+            <MdVerifiedUser className="text-success" />
+          ) : (
+            <MdNotInterested className="text-danger" />
+          )}
+        </h4>
+      </div>
     </div>
   )
 }
