@@ -27,6 +27,14 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     setArmyName(e.target.value)
   }
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      e.stopPropagation()
+      handleSaveClick(e)
+    }
+  }
+
   const handleSaveClick = e => {
     e.preventDefault()
     if (isSubscribed) {
@@ -69,6 +77,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
                   aria-describedby="nameHelp"
                   placeholder="Enter army name"
                   value={armyName}
+                  onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
                 />
                 <small id="nameHelp" className="form-text text-muted">
