@@ -23,13 +23,19 @@ export const Profile: React.FC<{}> = () => {
 
   if (loading || !user) return <Loading />
 
+  const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
+
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
         <NavBar />
       </div>
 
-      <UserCard />
+      <div className="row d-flex justify-content-center">
+        <div className={userCardWrapperClass}>
+          <UserCard />
+        </div>
+      </div>
     </div>
   )
 }
@@ -40,50 +46,61 @@ export const UserCard: React.FC<{}> = () => {
 
   return (
     <div className="container py-4">
-      <h2 className="text-center">User Profile</h2>
+      <h1 className="text-center">Your Profile</h1>
 
       <div className="media">
-        <div className="media-body">
-          <h4 className="mt-0">{user.email}</h4>
+        <div className="media-body text-center">
+          <h3 className="mt-0">{user.email}</h3>
 
-          <h5>
-            Subscription Status:{' '}
-            {isSubscribed ? (
-              <MdCheckCircle className="text-success" />
-            ) : (
-              <MdNotInterested className="text-danger" />
-            )}
-          </h5>
-
-          {isSubscribed && (
-            <ul>
-              <li>
-                Subscription Start:{' '}
-                {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
-                  DateTime.DATE_MED
+          <div className="card">
+            <div className="card-header">
+              <h4>
+                Subscription Status:{' '}
+                {isSubscribed ? (
+                  <MdCheckCircle className="text-success" />
+                ) : (
+                  <MdNotInterested className="text-danger" />
                 )}
-              </li>
-              <li>
-                Subscription End:{' '}
-                {DateTime.fromSeconds(subscription.subscriptionCreated as number)
-                  .plus({
-                    [`${subscription.planInterval}s`]: subscription.planIntervalCount,
-                  })
-                  .toLocaleString(DateTime.DATE_MED)}
-              </li>
-            </ul>
-          )}
+              </h4>
+            </div>
 
-          <h5>
-            Recurring Payment:{' '}
-            {isActive ? (
-              <>
-                <MdCheckCircle className="text-success" /> <CancelSubscription />
-              </>
-            ) : (
-              <MdNotInterested className="text-danger" />
+            {isSubscribed && (
+              <div className="card-body">
+                <h5 className="lead">
+                  Subscription Start:{' '}
+                  {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
+                    DateTime.DATE_MED
+                  )}
+                </h5>
+                <h5 className="lead">
+                  Subscription End:{' '}
+                  {DateTime.fromSeconds(subscription.subscriptionCreated as number)
+                    .plus({
+                      [`${subscription.planInterval}s`]: subscription.planIntervalCount,
+                    })
+                    .toLocaleString(DateTime.DATE_MED)}
+                </h5>
+              </div>
             )}
-          </h5>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h4>
+                Recurring Payment:{' '}
+                {isActive ? (
+                  <MdCheckCircle className="text-success" />
+                ) : (
+                  <MdNotInterested className="text-danger" />
+                )}
+              </h4>
+            </div>
+            {isActive && (
+              <div className="card-body">
+                <CancelSubscription />
+              </div>
+            )}
+          </div>
 
           <p className="align-items-center">
             Email Verified:{' '}
