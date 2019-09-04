@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { FaCheck, FaRegSadCry } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
+import { ModalStyle } from './modalStyle'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -20,20 +21,9 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
     cancelSubscription()
   }
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  }
-
   return (
     <Modal
-      style={customStyles}
+      style={ModalStyle}
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       contentLabel="Cancel Subscription Modal"

@@ -5,6 +5,7 @@ import { useSubscription } from 'context/useSubscription'
 import { ISavedArmy } from 'types/savedArmy'
 import { SavedArmyTable } from './saved_army_table'
 import { prepareArmy } from 'utils/armyUtils'
+import { ModalStyle } from '../modalStyle'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -46,24 +47,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  }
-
   return (
-    <Modal
-      style={customStyles}
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="Save Army Modal"
-    >
+    <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
       <div className={`container`}>
         <div className="row">
           <div className="col">
