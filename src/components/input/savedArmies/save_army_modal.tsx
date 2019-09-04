@@ -16,6 +16,28 @@ interface IModalComponentProps {
 
 Modal.setAppElement('#root')
 
+const makeArmySafe = (army: ISavedArmy): ISavedArmy => {
+  const {
+    armyName,
+    allyFactionNames,
+    allySelections,
+    factionName,
+    realmscape = null,
+    realmscape_feature = null,
+    selections,
+  } = army
+
+  return {
+    allyFactionNames,
+    allySelections,
+    armyName: armyName || 'Untitled',
+    factionName,
+    realmscape_feature,
+    realmscape,
+    selections,
+  }
+}
+
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, showSavedArmies } = props
   const { isSubscribed, saveArmy } = useSubscription()
@@ -29,7 +51,9 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     if (isSubscribed) {
-      saveArmy({ ...army, armyName })
+      const payload = makeArmySafe({ ...army, armyName })
+      debugger
+      saveArmy(payload)
       closeModal()
       setArmyName('')
       showSavedArmies()
