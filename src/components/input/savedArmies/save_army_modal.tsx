@@ -31,12 +31,29 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     if (isSubscribed) {
       saveArmy({ ...army, armyName })
       closeModal()
+      setArmyName('')
       showSavedArmies()
     }
   }
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  }
+
   return (
-    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
+    <Modal
+      style={customStyles}
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="Save Army Modal"
+    >
       <div className={`container`}>
         <div className="row">
           <div className="col">
