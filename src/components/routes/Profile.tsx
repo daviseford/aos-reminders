@@ -181,6 +181,7 @@ const Help = () => {
         <a
           href="https://github.com/daviseford/aos-reminders/issues"
           target="_blank"
+          rel="noopener noreferrer"
           className="btn btn-outline-dark mx-2"
         >
           File an Issue
@@ -189,6 +190,7 @@ const Help = () => {
         <a
           href="mailto:davis.e.ford.alt+aosreminders@gmail.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="btn btn-outline-dark mx-2"
         >
           Email Me
