@@ -22,9 +22,12 @@ export const ShowSavedArmies: React.FC<{}> = () => {
 
   return (
     <div>
+      <PaginateButtons pageNum={pageNum} setPageNum={setPageNum} numPages={paginatedArmies.length} />
+
       {paginatedArmies[pageNum - 1].map((army, i) => (
         <SavedArmyCard key={i} army={army} />
       ))}
+
       <PaginateButtons pageNum={pageNum} setPageNum={setPageNum} numPages={paginatedArmies.length} />
     </div>
   )

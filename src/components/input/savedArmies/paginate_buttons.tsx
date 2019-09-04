@@ -26,7 +26,7 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
 
   return (
     <nav aria-label="Saved Army Pagination">
-      <ul className="pagination justify-content-center">
+      <ul className="pagination justify-content-center my-2">
         <li className={`page-item ${canDecrement ? `` : `disabled`}`} onClick={decrement}>
           <button className="page-link">Previous</button>
         </li>
