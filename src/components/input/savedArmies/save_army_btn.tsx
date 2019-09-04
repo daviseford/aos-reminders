@@ -9,7 +9,7 @@ import { duckUtils } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
-import { armyHasEntries } from 'utils/armyHasEntries'
+import { armyHasEntries } from 'utils/armyUtils'
 
 const btnClass = `btn btn-outline-dark btn-block`
 const btnContentWrapper = `d-flex align-items-center justify-content-center`

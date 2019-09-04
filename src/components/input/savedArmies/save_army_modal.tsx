@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { ISavedArmy } from 'types/savedArmy'
 import { SavedArmyTable } from './saved_army_table'
+import { prepareArmy } from 'utils/armyUtils'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -15,28 +16,6 @@ interface IModalComponentProps {
 }
 
 Modal.setAppElement('#root')
-
-const makeArmySafe = (army: ISavedArmy): ISavedArmy => {
-  const {
-    armyName,
-    allyFactionNames,
-    allySelections,
-    factionName,
-    realmscape = null,
-    realmscape_feature = null,
-    selections,
-  } = army
-
-  return {
-    allyFactionNames,
-    allySelections,
-    armyName: armyName || 'Untitled',
-    factionName,
-    realmscape_feature,
-    realmscape,
-    selections,
-  }
-}
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, showSavedArmies } = props
@@ -51,8 +30,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     if (isSubscribed) {
-      const payload = makeArmySafe({ ...army, armyName })
-      debugger
+      const payload = prepareArmy({ ...army, armyName })
       saveArmy(payload)
       closeModal()
       setArmyName('')

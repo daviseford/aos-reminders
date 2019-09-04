@@ -11,3 +11,29 @@ export const armyHasEntries = (army: ISavedArmy) => {
 
   return false
 }
+
+/**
+ * Prepare an army to be uploaded
+ * @param army
+ */
+export const prepareArmy = (army: ISavedArmy): ISavedArmy => {
+  const {
+    armyName,
+    allyFactionNames,
+    allySelections,
+    factionName,
+    realmscape = null,
+    realmscape_feature = null,
+    selections,
+  } = army
+
+  return {
+    allyFactionNames,
+    allySelections,
+    armyName: armyName || 'Untitled',
+    factionName,
+    realmscape_feature,
+    realmscape,
+    selections,
+  }
+}
