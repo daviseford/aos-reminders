@@ -11,6 +11,7 @@ const initialState = {
   cancelSubscription: () => null,
   deleteSavedArmy: (id: string) => null,
   getSubscription: () => null,
+  isActive: false,
   isSubscribed: false,
   loadSavedArmies: () => null,
   saveArmy: (army: ISavedArmy) => null,
@@ -23,6 +24,7 @@ interface ISubscriptionContext {
   cancelSubscription: () => void
   deleteSavedArmy: (id: string) => void
   getSubscription: () => void
+  isActive: boolean
   isSubscribed: boolean
   loadSavedArmies: () => void
   saveArmy: (army: ISavedArmy) => void
@@ -39,6 +41,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
 
+  const isActive = useMemo(() => isActive(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
 
   const getSubscription = useCallback(async () => {
@@ -60,7 +63,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   const cancelSubscription = useCallback(async () => {
     try {
       console.log('Now cancelling subscriptionId ' + subscription.subscriptionId)
-      const response = await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
+      await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
       await getSubscription()
     } catch (err) {
       console.error(err)
@@ -73,8 +76,6 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
     try {
       const res = await PreferenceApi.getUserItems(user.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
-
-      console.log(`loaded ${savedArmies.length} saved armies`)
       setSavedArmies(savedArmies)
     } catch (err) {
       console.log(err)
@@ -84,10 +85,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {
       try {
-        const payload = { userName: user.email, ...savedArmy }
-        const res = await PreferenceApi.createSavedArmy(payload)
-        const armyFromApi = res.body as ISavedArmyFromApi
-        console.log(`created savedArmy named ${armyFromApi.armyName}, id: ${armyFromApi.id}`)
+        await PreferenceApi.createSavedArmy({ userName: user.email, ...savedArmy })
         await loadSavedArmies()
       } catch (err) {
         console.error(err)
@@ -100,7 +98,6 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
     async (id: string) => {
       try {
         await PreferenceApi.deleteItem(id, user.email)
-        console.log(`deleted army id: ${id} for user ${user.email}`)
         await loadSavedArmies()
       } catch (err) {
         console.error(err)
@@ -109,14 +106,13 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
     [loadSavedArmies, user]
   )
 
-  console.log('loading useSubscription')
-
   return (
     <SubscriptionContext.Provider
       value={{
         cancelSubscription,
         deleteSavedArmy,
         getSubscription,
+        isActive,
         isSubscribed,
         loadSavedArmies,
         saveArmy,

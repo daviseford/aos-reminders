@@ -1,4 +1,5 @@
 export interface ISubscription {
+  active?: boolean
   createdAt?: number
   customerId?: string
   expired?: boolean
