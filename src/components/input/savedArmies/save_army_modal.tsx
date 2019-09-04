@@ -10,13 +10,14 @@ const btnClass = `btn btn-outline-dark`
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
+  showSavedArmies: () => void
   army: ISavedArmy
 }
 
 Modal.setAppElement('#root')
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army } = props
+  const { closeModal, modalIsOpen, army, showSavedArmies } = props
   const { isSubscribed, saveArmy } = useSubscription()
   const [armyName, setArmyName] = useState('')
 
@@ -30,6 +31,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     if (isSubscribed) {
       saveArmy({ ...army, armyName })
       closeModal()
+      showSavedArmies()
     }
   }
 

@@ -9,23 +9,17 @@ import { duckUtils } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
-import { IAllySelections } from 'types/selections'
+import { armyHasEntries } from 'utils/armyHasEntries'
 
 const btnClass = `btn btn-outline-dark btn-block`
 const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
-const armyHasEntries = (army: ISavedArmy) => {
-  const { allySelections, realmscape_feature, realmscape, selections } = army
-
-  if (Object.values(selections).some(x => x.length)) return true
-  if (Object.values(allySelections).some(x => Object.values(x as IAllySelections).some(x => x.length)))
-    return true
-  if (realmscape || realmscape_feature) return true
-
-  return false
+interface ISaveArmyProps {
+  showSavedArmies: () => void
+  currentArmy: ISavedArmy
 }
 
-const SaveArmyBtnComponent: React.FC<{ currentArmy: ISavedArmy }> = ({ currentArmy }) => {
+const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isSubscribed } = useSubscription()
 
@@ -48,7 +42,12 @@ const SaveArmyBtnComponent: React.FC<{ currentArmy: ISavedArmy }> = ({ currentAr
 
       {isAuthenticated && isSubscribed && canSave && <SaveButton btnText={btnText} handleClick={openModal} />}
 
-      <SaveArmyModal army={currentArmy} modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      <SaveArmyModal
+        showSavedArmies={showSavedArmies}
+        army={currentArmy}
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+      />
     </>
   )
 }

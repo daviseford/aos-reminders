@@ -66,7 +66,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <PrintComponent handlePrint={handlePrint} />
         </div>
         <div className={savedArmyBtnWrapperClass}>
-          <SaveArmyBtn />
+          <SaveArmyBtn showSavedArmies={showSavedArmies} />
         </div>
         <div className={btnWrapperClass} hidden={!isSubscribed}>
           <ShowSavedArmiesBtn
