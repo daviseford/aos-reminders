@@ -36,7 +36,7 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText = isAuthenticated ? `Save Army` : `Log in to save this army`
+  const btnText = isAuthenticated ? `Save Army` : `Log in to save army`
 
   return (
     <>
