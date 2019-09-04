@@ -9,6 +9,8 @@ import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
 
+const cardHeaderClass = `card-header mb-0 pb-1`
+
 export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription } = useSubscription()
@@ -46,14 +48,14 @@ export const UserCard: React.FC<{}> = () => {
 
   return (
     <div className="container py-4">
-      <h1 className="text-center">Your Profile</h1>
+      <h1 className="text-center SelectorHeader display-4">Your Profile</h1>
 
       <div className="media">
         <div className="media-body text-center">
-          <h3 className="mt-0">{user.email}</h3>
           <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
           <RecurringPaymentInfo isActive={isActive} />
-          <EmailVerified email_verified={user.email_verified} />
+          <EmailVerified email_verified={user.email_verified} email={user.email} />
+          <Help />
         </div>
       </div>
     </div>
@@ -94,7 +96,7 @@ const CancelSubscription = () => {
 const SubscriptionInfo = ({ subscription, isSubscribed }) => {
   return (
     <div className="card mt-2">
-      <div className="card-header">
+      <div className={cardHeaderClass}>
         <h4>
           Subscription Status:{' '}
           {isSubscribed ? (
@@ -130,7 +132,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
 const RecurringPaymentInfo = ({ isActive }) => {
   return (
     <div className="card mt-2">
-      <div className="card-header">
+      <div className={cardHeaderClass}>
         <h4>
           Recurring Payment:{' '}
           {isActive ? (
@@ -149,10 +151,10 @@ const RecurringPaymentInfo = ({ isActive }) => {
   )
 }
 
-const EmailVerified = ({ email_verified }) => {
+const EmailVerified = ({ email_verified, email }) => {
   return (
     <div className="card mt-2">
-      <div className="card-header">
+      <div className={cardHeaderClass}>
         <h4>
           Email Verified:{' '}
           {email_verified ? (
@@ -161,6 +163,36 @@ const EmailVerified = ({ email_verified }) => {
             <MdNotInterested className="text-danger" />
           )}
         </h4>
+      </div>
+      <div className="card-body">
+        <h5 className="lead">{email}</h5>
+      </div>
+    </div>
+  )
+}
+
+const Help = () => {
+  return (
+    <div className="card mt-2">
+      <div className={cardHeaderClass}>
+        <h4>Need help?</h4>
+      </div>
+      <div className="card-body">
+        <a
+          href="https://github.com/daviseford/aos-reminders/issues"
+          target="_blank"
+          className="btn btn-outline-dark mx-2"
+        >
+          File an Issue
+        </a>
+
+        <a
+          href="mailto:davis.e.ford.alt+aosreminders@gmail.com"
+          target="_blank"
+          className="btn btn-outline-dark mx-2"
+        >
+          Email Me
+        </a>
       </div>
     </div>
   )
