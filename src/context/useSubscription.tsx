@@ -8,6 +8,7 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { sortBy } from 'lodash'
 
 const initialState = {
+  cancelSubscription: () => null,
   deleteSavedArmy: (id: string) => null,
   getSubscription: () => null,
   isSubscribed: false,
@@ -19,6 +20,7 @@ const initialState = {
 }
 
 interface ISubscriptionContext {
+  cancelSubscription: () => void
   deleteSavedArmy: (id: string) => void
   getSubscription: () => void
   isSubscribed: boolean
@@ -54,6 +56,16 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
       setSubscriptionLoading(false)
     }
   }, [user])
+
+  const cancelSubscription = useCallback(async () => {
+    try {
+      console.log('Now cancelling subscriptionId ' + subscription.subscriptionId)
+      const response = await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
+      await getSubscription()
+    } catch (err) {
+      console.error(err)
+    }
+  }, [getSubscription, subscription])
 
   const loadSavedArmies = useCallback(async () => {
     if (!user) return setSavedArmies(initialState.savedArmies)
@@ -102,6 +114,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
   return (
     <SubscriptionContext.Provider
       value={{
+        cancelSubscription,
         deleteSavedArmy,
         getSubscription,
         isSubscribed,

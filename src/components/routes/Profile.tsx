@@ -7,6 +7,7 @@ import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
 import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
+import { injectStripe, Elements } from 'react-stripe-elements'
 
 export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
@@ -29,6 +30,7 @@ export const Profile: React.FC<{}> = () => {
       </div>
 
       <UserCard />
+      <CancelSubscription />
     </div>
   )
 }
@@ -82,5 +84,36 @@ export const UserCard: React.FC<{}> = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+interface ICancelBtnProps {
+  stripe?: any
+}
+
+const CancelBtn: React.FC<ICancelBtnProps> = () => {
+  const { isSubscribed, cancelSubscription } = useSubscription()
+
+  const handleClick = e => {
+    e.preventDefault()
+    cancelSubscription()
+  }
+
+  if (!isSubscribed) return null
+
+  return (
+    <button className="btn btn-large btn-danger" onClick={handleClick}>
+      Cancel Subscription
+    </button>
+  )
+}
+
+const InjectedCancelButton = injectStripe(CancelBtn)
+
+const CancelSubscription = () => {
+  return (
+    <Elements>
+      <InjectedCancelButton />
+    </Elements>
   )
 }
