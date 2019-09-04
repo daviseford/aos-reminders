@@ -5,7 +5,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
-import { factionNames, selections, realmscape } from 'ducks'
+import { duckUtils } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
@@ -25,7 +25,7 @@ const armyHasEntries = (army: ISavedArmy) => {
   return false
 }
 
-const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
+const SaveArmyBtnComponent: React.FC<{ currentArmy: ISavedArmy }> = ({ currentArmy }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isSubscribed } = useSubscription()
 
@@ -55,12 +55,7 @@ const SaveArmyBtnComponent: React.FC<ISavedArmy> = currentArmy => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  factionName: factionNames.selectors.getFactionName(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  realmscape: realmscape.selectors.getRealmscape(state),
-  selections: selections.selectors.getSelections(state),
+  currentArmy: duckUtils.getCurrentArmy(state),
 })
 
 export const SaveArmyBtn = connect(
