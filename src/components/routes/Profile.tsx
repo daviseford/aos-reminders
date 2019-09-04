@@ -30,14 +30,13 @@ export const Profile: React.FC<{}> = () => {
       </div>
 
       <UserCard />
-      <CancelSubscription />
     </div>
   )
 }
 
 export const UserCard: React.FC<{}> = () => {
   const { user }: { user: IUser } = useAuth0()
-  const { isSubscribed, subscription } = useSubscription()
+  const { isActive, isSubscribed, subscription } = useSubscription()
 
   return (
     <div className="container py-4">
@@ -55,6 +54,7 @@ export const UserCard: React.FC<{}> = () => {
               <MdNotInterested className="text-danger" />
             )}
           </h5>
+
           {isSubscribed && (
             <ul>
               <li>
@@ -73,6 +73,18 @@ export const UserCard: React.FC<{}> = () => {
               </li>
             </ul>
           )}
+
+          <h5>
+            Recurring Payment:{' '}
+            {isActive ? (
+              <>
+                <MdCheckCircle className="text-success" /> <CancelSubscription />
+              </>
+            ) : (
+              <MdNotInterested className="text-danger" />
+            )}
+          </h5>
+
           <p className="align-items-center">
             Email Verified:{' '}
             {user.email_verified ? (
@@ -102,7 +114,7 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   if (!isSubscribed) return null
 
   return (
-    <button className="btn btn-large btn-danger" onClick={handleClick}>
+    <button className="btn btn-sm btn-outline-danger" onClick={handleClick}>
       Cancel Subscription
     </button>
   )
