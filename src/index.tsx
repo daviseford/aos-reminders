@@ -13,6 +13,7 @@ import config from './auth_config.json'
 import { SubscriptionProvider } from 'context/useSubscription'
 
 // Payment
+import { STRIPE_KEY } from 'utils/env'
 import { StripeProvider } from 'react-stripe-elements'
 
 // CSS
@@ -52,7 +53,7 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <StripeProvider apiKey="pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b">
+      <StripeProvider apiKey={STRIPE_KEY}>
         <SubscriptionProvider>
           <App />
         </SubscriptionProvider>
