@@ -8,31 +8,24 @@ export interface ISupportPlan {
 
 export const SupportPlans: ISupportPlan[] = [
   {
-    cost: '4.79',
-    dev: 'plan_Fj0pS8B1S5BCbT',
-    monthly_cost: '4.79',
-    prod: 'plan_FkIrgp4JMqAuOr',
+    cost: '1.99',
+    dev: 'plan_FkxFLAaT1qDsha',
+    monthly_cost: '1.99',
+    prod: 'plan_FkxAvHwfImy1WU',
     title: '1 Month',
   },
   {
-    cost: '11.97',
-    dev: 'plan_Fj0yqd54eh9j5M',
-    monthly_cost: '3.99',
-    prod: 'plan_FkIr9jyVcOSl5S',
+    cost: '4.47',
+    dev: 'plan_FkxFWSZADnJp1G',
+    monthly_cost: '1.49',
+    prod: 'plan_FkxCFxAtQuXdSm',
     title: '3 Months',
   },
-  //   {
-  //     cost: '19.88',
-  //     dev: 'plan_Fj0zcqykYVZlDw',
-  //     monthly_cost: '3.31',
-  //     prod: 'plan_FkIrON0CHN0HOI',
-  //     title: '6 Months',
-  //   },
   {
-    cost: '30.00',
-    dev: 'plan_Fj0vu1PrU562gd',
-    monthly_cost: '2.50',
-    prod: 'plan_FkIr2rAI563ONG',
+    cost: '11.88',
+    dev: 'plan_FkxGRttbVwtLzD',
+    monthly_cost: '0.99',
+    prod: 'plan_FkxDFaZM1vCkMF',
     title: '1 Year',
   },
 ]
