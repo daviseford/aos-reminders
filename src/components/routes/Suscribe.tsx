@@ -45,15 +45,30 @@ export const Subscribe: React.FC<{}> = () => {
           <i>always</i> be free, I do offer this subscription service to those who wish to support AoS
           Reminders.
         </p>
-        <p className="lead">
-          Currently, purchasing a subscription will allow you to save and load your army rosters from anywhere
-          in the world. In the future, we aim to offer:
-        </p>
+        <p className="lead">What do you get by joining AoS Reminders?</p>
         <ul className="lead">
-          <li>Importing army lists from Warscroll Builder</li>
-          <li>Importing army lists from Battlescribe</li>
-          <li>Adding custom reminders</li>
-          <li>And much more...</li>
+          <li>
+            Accessing your saved army lists from <b>anywhere</b> on <b>any</b> device
+          </li>
+        </ul>
+        <p className="lead">Coming soon: </p>
+        <ul className="lead">
+          <li>
+            <i>Importing army lists from Warscroll Builder</i>
+          </li>
+          <li>
+            <i>Importing army lists from Battlescribe</i>
+          </li>
+          <li>
+            <i>Adding custom reminders</i>
+          </li>
+          <li>
+            <i>
+              <b>and much more!</b>
+            </i>{' '}
+            - Check out our list of feature enhancements{' '}
+            <a href="https://github.com/daviseford/aos-reminders/labels/enhancement">on our Github!</a>
+          </li>
         </ul>
       </div>
 
