@@ -5,7 +5,7 @@ import { Home } from 'components/routes/Home'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/routes/Profile'
-import { Subscribe } from './routes/Suscribe'
+import { Subscribe } from './routes/Subscribe'
 
 const App = () => {
   return (

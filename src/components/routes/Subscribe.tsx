@@ -25,6 +25,7 @@ export const Subscribe: React.FC<{}> = () => {
   if (isSubscribed) return <AlreadySubscribed />
 
   const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
+  const featuresClass = `col-12 col-lg-6 col-xl-6`
 
   return (
     <div className="d-block">
@@ -46,11 +47,18 @@ export const Subscribe: React.FC<{}> = () => {
           Reminders.
         </p>
         <p className="lead">What do you get by joining AoS Reminders?</p>
-        <ul className="lead">
-          <li>
-            Accessing your saved army lists from <b>anywhere</b> on <b>any</b> device
-          </li>
-        </ul>
+        <div className="row align-items-center">
+          <div className={featuresClass}>
+            <ul className="lead">
+              <li>
+                Access your saved army lists from <b>anywhere</b> on <b>any</b> device
+              </li>
+            </ul>
+          </div>
+          <div className={featuresClass}>
+            <LoadArmyExample />
+          </div>
+        </div>
         <p className="lead">Coming soon: </p>
         <ul className="lead">
           <li>
@@ -91,5 +99,21 @@ const AlreadySubscribed = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+// TODO: Make this a carousel of images showing demo features
+const LoadArmyExample = () => {
+  return (
+    <>
+      <figure className="figure">
+        <img
+          src="/img/load_army_example.png"
+          alt="Load Army Example"
+          className="figure-img img-fluid rounded img-thumbnail"
+        />
+        <figcaption className="figure-caption text-center">Loading a saved army</figcaption>
+      </figure>
+    </>
   )
 }
