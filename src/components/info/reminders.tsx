@@ -41,11 +41,15 @@ const RemindersComponent = (props: IRemindersProps) => {
   } = props
 
   const reminders = useMemo(() => {
-    const allyData = allyFactionNames.map(name => ({
-      allyArmy: allyArmies[name],
-      allySelections: allySelections[name],
-    }))
-    return processReminders(army, factionName, selections, realmscape_feature, allyData)
+    return processReminders(
+      army,
+      factionName,
+      selections,
+      realmscape_feature,
+      allyFactionNames,
+      allyArmies,
+      allySelections
+    )
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])

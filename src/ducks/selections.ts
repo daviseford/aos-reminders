@@ -38,6 +38,9 @@ const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFact
   const { factionName, units } = action.payload
   state.allySelections[factionName] = { units }
 }
+const updateAllySelections = (state, action) => {
+  state.allySelections = action.payload
+}
 const updateArtifacts = (state, action) => {
   state.selections.artifacts = action.payload
 }
@@ -52,6 +55,9 @@ const updateEndlessSpells = (state, action) => {
 }
 const updateScenery = (state, action) => {
   state.selections.scenery = action.payload
+}
+const updateSelections = (state, action) => {
+  state.selections = action.payload
 }
 const updateSpells = (state, action) => {
   state.selections.spells = action.payload
@@ -76,12 +82,14 @@ export const selections = createSlice({
     resetAllySelections,
     resetSelections,
     updateAllegiances,
+    updateAllySelections,
     updateAllyUnits,
     updateArtifacts,
     updateBattalions,
     updateCommands,
     updateEndlessSpells,
     updateScenery,
+    updateSelections,
     updateSpells,
     updateTraits,
     updateTriumphs,

@@ -1,35 +1,22 @@
-import React, { useEffect } from 'react'
-import { logPageView } from 'utils/analytics'
-import { AlliedArmies } from 'components/input/ally_armies'
-import { ArmyBuilder } from 'components/input/army_builder'
-import { FooterComponent } from 'components/page/footer'
-import { Header } from 'components/page/header'
-import { PrintFooterComponent, PrintArmy } from 'components/print/print'
-import { Reminders } from 'components/info/reminders'
-import { Toolbar } from 'components/input/toolbar'
+import React from 'react'
+import { Home } from 'components/routes/Home'
+
+// Auth
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { PrivateRoute } from 'components/page/privateRoute'
+import { Profile } from 'components/routes/Profile'
+import { Subscribe } from './routes/Suscribe'
 
 const App = () => {
-  useEffect(() => {
-    logPageView()
-  }, [])
-
   return (
     <div className="d-block">
-      <Header />
-
-      <ArmyBuilder />
-
-      <AlliedArmies />
-
-      <Toolbar />
-
-      <Reminders />
-
-      <PrintArmy />
-
-      <PrintFooterComponent />
-
-      <FooterComponent />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/subscribe" component={Subscribe} />
+        </Switch>
+      </BrowserRouter>
     </div>
   )
 }
