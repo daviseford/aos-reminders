@@ -13,8 +13,6 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
   const { stripe } = props
   const { user }: { user: IUser } = useAuth0()
 
-  console.log('user for checkout', user)
-
   return (
     <div className="container">
       <div className="card-deck mb-3 text-center">
@@ -39,14 +37,10 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   const handleSubmit = async e => {
     e.preventDefault()
 
-    if (isDev) console.log('DEV Checkout')
-
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     const item = { plan, quantity: 1 }
-
-    console.log('checkout item', item)
 
     stripe
       .redirectToCheckout({
@@ -61,7 +55,6 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         cancelUrl: `${window.location.protocol}//${url}/`,
       })
       .then(function(result) {
-        console.log(result)
         if (result.error) {
           // If `redirectToCheckout` fails due to a browser or network
           // error, display the localized error message to your customer.

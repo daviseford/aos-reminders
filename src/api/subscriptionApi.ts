@@ -1,9 +1,13 @@
 import request from 'superagent'
+import { isDev } from 'utils/env'
 
 const devEndpoint = `https://jzbt3cf6mj.execute-api.us-east-1.amazonaws.com/dev`
+const prodEndpoint = `https://f2hu69yu3a.execute-api.us-east-1.amazonaws.com/prod`
 
-const getSubscription = (userName: string) => request.get(`${devEndpoint}/user/${userName}`)
-const cancelSubscription = (subscriptionId: string) => request.get(`${devEndpoint}/cancel/${subscriptionId}`)
+const endpoint = isDev ? devEndpoint : prodEndpoint
+
+const getSubscription = (userName: string) => request.get(`${endpoint}/user/${userName}`)
+const cancelSubscription = (subscriptionId: string) => request.get(`${endpoint}/cancel/${subscriptionId}`)
 
 export const SubscriptionApi = {
   cancelSubscription,

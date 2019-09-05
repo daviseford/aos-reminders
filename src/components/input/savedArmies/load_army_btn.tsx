@@ -49,10 +49,8 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setRealmscapeFeature(army.realmscape_feature)
   }
 
-  console.log('load army ', army)
-
   return (
-    <button className="btn btn-sm btn-info mx-3" onClick={handleLoadClick}>
+    <button className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
       Load Army
     </button>
   )

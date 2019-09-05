@@ -62,7 +62,6 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
 
   const cancelSubscription = useCallback(async () => {
     try {
-      console.log('Now cancelling subscriptionId ' + subscription.subscriptionId)
       await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
       await getSubscription()
     } catch (err) {
@@ -78,7 +77,7 @@ const SubscriptionProvider: React.FC<{}> = ({ children }) => {
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }, [user])
 
