@@ -5,7 +5,7 @@ import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 
-export const cardOrder: TCardOrder = (army, props, realmFeatureItems) => {
+export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) => {
   const { selections } = props
 
   return [

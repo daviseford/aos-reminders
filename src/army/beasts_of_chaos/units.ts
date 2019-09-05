@@ -63,12 +63,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -93,12 +93,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -119,12 +119,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -144,12 +144,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -230,12 +230,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warherd Drummer`,
-        desc: `1 in every 3 models in this unit can be a Warherd Drummer. Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
+        desc: `Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Warherd Banner Bearer`,
-        desc: `1 in every 3 models in this unit can be a Warherd Banner Bearer. Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
+        desc: `Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -260,12 +260,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 5 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 5 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
@@ -487,12 +487,12 @@ export const Units: TUnits = [
       },
       {
         name: `Icon Bearers`,
-        desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
+        desc: `While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
