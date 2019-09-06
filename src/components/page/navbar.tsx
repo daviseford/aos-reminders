@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { isDev } from 'utils/env'
+import { isDev, BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
 
 export const NavBar: React.FC<{}> = () => {
@@ -19,7 +19,7 @@ export const NavBar: React.FC<{}> = () => {
 
   const handleClick = () => {
     if (isAuthenticated) {
-      return isDev ? logout() : logout({ client_id: config.clientId, returnTo: 'https://aosreminders.com' })
+      return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       return loginWithRedirect()
     }
