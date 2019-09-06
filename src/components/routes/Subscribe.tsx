@@ -4,11 +4,10 @@ import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
-import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
 
 export const Subscribe: React.FC<{}> = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { loading }: { loading: boolean } = useAuth0()
   const { isSubscribed, getSubscription } = useSubscription()
 
   useEffect(() => {
@@ -20,7 +19,7 @@ export const Subscribe: React.FC<{}> = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || !user) return <Loading />
+  if (loading) return <Loading />
   // TODO Flesh this out to look nicer
   if (isSubscribed) return <AlreadySubscribed />
 

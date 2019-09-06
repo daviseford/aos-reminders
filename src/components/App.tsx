@@ -5,7 +5,7 @@ import { Home } from 'components/routes/Home'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/routes/Profile'
-import { Subscribe } from './routes/Subscribe'
+import { Subscribe } from 'components/routes/Subscribe'
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/subscribe" component={Subscribe} />
+          <Route path="/subscribe" component={Subscribe} />
         </Switch>
       </BrowserRouter>
     </div>

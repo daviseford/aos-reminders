@@ -12,3 +12,4 @@ export const isDev = process.env.NODE_ENV === 'development'
 export const STRIPE_KEY = isDev
   ? 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
   : 'pk_live_wFgX8L9sjPz6S9eLxfd4c0sR00beXWRLyZ'
+export const BASE_URL = isDev ? `http://localhost:3000` : 'https://aosreminders.com'
