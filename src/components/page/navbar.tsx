@@ -45,12 +45,12 @@ export const NavBar: React.FC<{}> = () => {
                 Profile
               </Link>
             )}
-            {!isSubscribed && pathname !== '/subscribe' && (
-              <Link to="/subscribe" className={styles.link}>
-                Subscribe
-              </Link>
-            )}
           </>
+        )}
+        {!isSubscribed && pathname !== '/subscribe' && (
+          <Link to="/subscribe" className={styles.link}>
+            Subscribe
+          </Link>
         )}
 
         <button className={styles.btn} onClick={handleClick}>

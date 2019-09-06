@@ -32,9 +32,10 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { stripe, user, supportPlan } = props
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   // When the customer clicks on the button, redirect them to Checkout.
-  const handleSubmit = async e => {
+  const handleCheckout = async e => {
     e.preventDefault()
 
     const plan = isDev ? supportPlan.dev : supportPlan.prod
@@ -77,7 +78,11 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <ul className="list-unstyled mt-3 mb-4">
           <li>Total: ${supportPlan.cost}</li>
         </ul>
-        <button type="button" className="btn btn btn-block btn-outline-primary" onClick={handleSubmit}>
+        <button
+          type="button"
+          className="btn btn btn-block btn-outline-primary"
+          onClick={isAuthenticated ? handleCheckout : loginWithRedirect}
+        >
           Buy Now
         </button>
       </div>
