@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
+import { isDev } from 'utils/env'
+import config from 'auth_config.json'
 
 export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
@@ -14,7 +16,14 @@ export const NavBar: React.FC<{}> = () => {
     link: `font-weight-bold text-light mx-2`,
   }
   const btnText = !isAuthenticated ? `Log in` : `Log out`
-  const handleClick = !isAuthenticated ? loginWithRedirect : logout
+
+  const handleClick = () => {
+    if (isAuthenticated) {
+      return isDev ? logout() : logout({ client_id: config.clientId, returnTo: 'https://aosreminders.com' })
+    } else {
+      return loginWithRedirect()
+    }
+  }
 
   if (loading || subscriptionLoading) {
     return <header className={styles.header}></header>
@@ -44,7 +53,7 @@ export const NavBar: React.FC<{}> = () => {
           </>
         )}
 
-        <button className={styles.btn} onClick={() => handleClick({})}>
+        <button className={styles.btn} onClick={handleClick}>
           {btnText}
         </button>
       </div>
