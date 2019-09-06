@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { isDev, BASE_URL } from 'utils/env'
+import { BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
 
 export const NavBar: React.FC<{}> = () => {
