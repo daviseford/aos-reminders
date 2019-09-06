@@ -15,9 +15,9 @@ export const NavBar: React.FC<{}> = () => {
     header: `ThemeDarkBg pt-2 d-print-none d-flex justify-content-center align-items-center`,
     link: `font-weight-bold text-light mx-2`,
   }
-  const btnText = !isAuthenticated ? `Log in` : `Log out`
+  const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
-  const handleClick = () => {
+  const handleLogin = () => {
     if (isAuthenticated) {
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
@@ -53,8 +53,8 @@ export const NavBar: React.FC<{}> = () => {
           </Link>
         )}
 
-        <button className={styles.btn} onClick={handleClick}>
-          {btnText}
+        <button className={styles.btn} onClick={handleLogin}>
+          {loginBtnText}
         </button>
       </div>
     </header>
