@@ -194,6 +194,36 @@ const CommandTraits: TTraits = [
       },
     ],
   },
+   {
+    name: `Dominator (Allherd)`,
+    effects: [
+      {
+        name: `Dominator (Allherd)`,
+        desc: `Re-roll charges wholly within 18" of general if general is within 3" of enemy`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+   {
+    name: `Nomadic Leader (Darkwalkers)`,
+    effects: [
+      {
+        name: `Nomadic Leader (Darkwalkers)`,
+        desc: `Add 1 to run rolls while wholly within 12" of general.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+   {
+    name: `Unravelling Aura (Gavespawn)`,
+    effects: [
+      {
+        name: `Unravelling Aura (Gavespawn)`,
+        desc: `General can attempt to unbind one spell in enemy hero phase. If general can already unbind, add one to the number he can unbind.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 export default CommandTraits
