@@ -26,6 +26,7 @@ export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
 export type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+export type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export type TSeraphon = 'SERAPHON'
 export type TSkaven = 'SKAVEN'
 export type TSlaanesh = 'SLAANESH'
@@ -61,6 +62,7 @@ export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
@@ -99,6 +101,7 @@ export type TSupportedFaction =
   | TNighthaunt
   | TNurgle
   | TOrderGrandAlliance
+  | TOssiarchBonereapers
   | TSeraphon
   | TSkaven
   | TSlaanesh
@@ -135,6 +138,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   NIGHTHAUNT,
   NURGLE,
   ORDER_GRAND_ALLIANCE,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVEN,
   SLAANESH,

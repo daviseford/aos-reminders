@@ -4,8 +4,8 @@ import { TAbilities } from 'types/army'
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
   {
-    name: ``,
-    desc: ``,
+    name: `TBD`,
+    desc: `Something Awesome I am sure of it.`,
     when: [HERO_PHASE],
   },
 ]
