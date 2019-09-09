@@ -6,7 +6,7 @@ import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
-import { MyDropzone } from './drop'
+import { MyDropzone } from './dropZone'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
