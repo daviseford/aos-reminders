@@ -66,6 +66,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
   const cleanedText = pdfText
     .map(txt =>
       txt
+        .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
         .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
         .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
         .replace(/\\\([0-9]+\\\)/g, '') // Remove point values e.g. "Slann Starmaster \(360\)"
