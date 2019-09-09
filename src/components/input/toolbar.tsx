@@ -42,7 +42,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const hideSavedArmies = () => setIsShowingSavedArmies(false)
 
   const showWarscrollImport = () => setIsShowingWarscrollImport(true)
-  const hideWarscrollImport = () => setIsShowingWarscrollImport(true)
+  const hideWarscrollImport = () => setIsShowingWarscrollImport(false)
 
   const handleAllyClick = e => {
     e.preventDefault()
