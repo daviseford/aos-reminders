@@ -205,7 +205,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
 const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
   let errors: { text: string; severity: 'warn' | 'error' }[] = []
 
-  const { factionName, selections } = army
+  const { factionName, selections, unknownSelections } = army
 
   if (!SUPPORTED_FACTIONS.includes(factionName)) {
     return {
@@ -216,19 +216,29 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
     }
   }
 
+  const foundSelections: string[] = []
+
   const Army = getArmy(factionName) as IArmy
+  const lookup = selectionLookup(Army, selections, errors, unknownSelections, foundSelections)
+
+  const errorFreeSelections = {
+    artifacts: lookup('artifacts'),
+    battalions: lookup('battalions'),
+    endless_spells: lookup('endless_spells'),
+    spells: lookup('spells'),
+    traits: lookup('traits'),
+    units: lookup('units'),
+  }
+
+  console.log('Trying to find the following:', unknownSelections)
+  console.log('Found the following:', foundSelections)
 
   return {
     ...army,
     errors,
     selections: {
       ...selections,
-      artifacts: selectionLookup(Army, selections, 'artifacts', errors),
-      battalions: selectionLookup(Army, selections, 'battalions', errors),
-      endless_spells: selectionLookup(Army, selections, 'endless_spells', errors),
-      spells: selectionLookup(Army, selections, 'spells', errors),
-      traits: selectionLookup(Army, selections, 'traits', errors),
-      units: selectionLookup(Army, selections, 'units', errors),
+      ...errorFreeSelections,
     },
   }
 }
@@ -238,9 +248,10 @@ type TLookupType = 'artifacts' | 'battalions' | 'endless_spells' | 'spells' | 't
 const selectionLookup = (
   Army: IArmy,
   selections: ISelections,
-  type: TLookupType,
-  errors: TError[]
-): string[] => {
+  errors: TError[],
+  unknownSelections: string[],
+  foundSelections: string[]
+) => (type: TLookupType): string[] => {
   const lookup = {
     artifacts: 'Artifacts',
     battalions: 'Battalions',
@@ -256,7 +267,7 @@ const selectionLookup = (
     return a
   }, {})
 
-  return selections[type]
+  const errorFree = selections[type]
     .map((val: string) => {
       // Check for typos
       if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
@@ -272,6 +283,30 @@ const selectionLookup = (
       return ''
     })
     .filter(x => !!x)
+
+  const found = unknownSelections
+    .map(val => {
+      // Check for typos
+      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
+
+      if (NameMap[val]) {
+        foundSelections.push(val)
+        return val
+      }
+
+      // See if we have something like it...
+      const valUpper = val.toUpperCase()
+      const match = Names.find(x => x.toUpperCase().includes(valUpper))
+      if (match) {
+        foundSelections.push(match)
+        return match
+      }
+
+      return ''
+    })
+    .filter(x => !!x)
+
+  return errorFree.concat(found)
 }
 
 const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
