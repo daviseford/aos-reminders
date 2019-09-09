@@ -4,15 +4,15 @@ import GloomspiteGitz from 'army/gloomspite'
 import Gutbusters from 'army/gutbusters'
 import Ironjawz from 'army/ironjawz'
 import {
-  HERO_PHASE,
-  DURING_SETUP,
-  DURING_GAME,
-  COMBAT_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  END_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 export const MonstrousArcanumDestruction: TUnits = [
@@ -232,3 +232,8 @@ export const Units: TUnits = [
   ...Gutbusters.Units,
   ...Ironjawz.Units,
 ]
+
+export default Units
+
+// Available to ALL factions in this Grand Alliance
+export const DestructionUnits = []

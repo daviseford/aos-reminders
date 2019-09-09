@@ -9,3 +9,8 @@ export const Units: TUnits = uniqBy(
   [...FleshEaterCourts.Units, ...LegionsOfNagash.Units, ...Nighthaunt.Units],
   'name'
 )
+
+export default Units
+
+// Available to ALL factions in this Grand Alliance
+export const DeathUnits = []

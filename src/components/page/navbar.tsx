@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
+import { BASE_URL } from 'utils/env'
+import config from 'auth_config.json'
 
 export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
@@ -13,8 +15,15 @@ export const NavBar: React.FC<{}> = () => {
     header: `ThemeDarkBg pt-2 d-print-none d-flex justify-content-center align-items-center`,
     link: `font-weight-bold text-light mx-2`,
   }
-  const btnText = !isAuthenticated ? `Log in` : `Log out`
-  const handleClick = !isAuthenticated ? loginWithRedirect : logout
+  const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
+
+  const handleLogin = () => {
+    if (isAuthenticated) {
+      return logout({ client_id: config.clientId, returnTo: BASE_URL })
+    } else {
+      return loginWithRedirect()
+    }
+  }
 
   if (loading || subscriptionLoading) {
     return <header className={styles.header}></header>
@@ -36,16 +45,16 @@ export const NavBar: React.FC<{}> = () => {
                 Profile
               </Link>
             )}
-            {!isSubscribed && pathname !== '/subscribe' && (
-              <Link to="/subscribe" className={styles.link}>
-                Subscribe
-              </Link>
-            )}
           </>
         )}
+        {!isSubscribed && pathname !== '/subscribe' && (
+          <Link to="/subscribe" className={styles.link}>
+            Subscribe
+          </Link>
+        )}
 
-        <button className={styles.btn} onClick={() => handleClick({})}>
-          {btnText}
+        <button className={styles.btn} onClick={handleLogin}>
+          {loginBtnText}
         </button>
       </div>
     </header>
