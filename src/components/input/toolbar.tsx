@@ -150,10 +150,12 @@ const ImportWarscrollButton = (props: {
     isShowing ? hide() : show()
   }
 
+  const btnTxt = isShowing ? `Hide Import` : `Import Warscroll`
+
   return isSubscribed ? (
     <button className={btnClass} onClick={handleClick}>
       <div className={btnContentWrapper}>
-        <FaPrint className="mr-2" /> Import Warscroll
+        <FaPrint className="mr-2" /> {btnTxt}
       </div>
     </button>
   ) : (
