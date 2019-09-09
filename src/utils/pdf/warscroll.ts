@@ -35,7 +35,7 @@ import {
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
-import { uniq, difference } from 'lodash'
+import { uniq, difference, last } from 'lodash'
 import { getArmy } from 'utils/getArmy'
 import { IArmy } from 'types/army'
 
@@ -157,7 +157,10 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
-        unknownSelections.push(txt.split(' : ')[1].trim())
+        const splitAttr = txt.split(' : ').map(x => x.trim())
+        const attr = (last(splitAttr) as string).replace(/^- /g, '')
+
+        unknownSelections.push(attr)
 
         return accum
       }
@@ -302,7 +305,7 @@ const selectionLookup = (
     })
     .filter(x => !!x)
 
-  return errorFree.concat(found)
+  return uniq(errorFree.concat(found))
 }
 
 const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })

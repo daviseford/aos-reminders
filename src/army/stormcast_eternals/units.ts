@@ -396,7 +396,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Lord-Arcanum on Gryph Charger`,
+    name: `Lord-Arcanum on Gryph-Charger`,
     effects: [
       {
         name: `Aethereal Strike`,
@@ -604,7 +604,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Gryph-Hound`,
+    name: `Gryph-Hounds`,
     effects: [
       {
         name: `Warning Cry`,
@@ -805,7 +805,7 @@ export const Units: TUnits = [
       },
       {
         name: `Meteoric Standard`,
-        desc: `Oonce per battle, pick a point on the battlefield within 24" of this model. Each unit within 2D6" of that point suffers D3 mortal wounds.`,
+        desc: `Once per battle, pick a point on the battlefield within 24" of this model. Each unit within 2D6" of that point suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
