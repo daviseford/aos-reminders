@@ -1,5 +1,4 @@
 import matchAll from 'string.prototype.matchall'
-import { last } from 'lodash'
 import { SERAPHON } from 'meta/factions'
 
 export const parsePdf = (pdfText: string) => {
@@ -93,12 +92,12 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
             .replace('Weapon : ', '')
             .trim()
 
-          const accumMock = [...accum[selector]]
-          const unit = last(accumMock) as { name: string; attr: string[] }
-          unit.attr.push(attr)
-          accumMock.pop()
-          accumMock.push(unit)
-          accum[selector] = accumMock
+          if (warscrollUnitOptionMap[attr]) {
+            const accumMock = [...accum[selector]]
+            accumMock.pop()
+            accumMock.push(warscrollUnitOptionMap[attr])
+            accum[selector] = accumMock
+          }
         }
 
         return accum
@@ -112,11 +111,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
 
       // Add item to accum
       if (selector) {
-        if (selector === 'units') {
-          accum[selector] = accum[selector].concat({ name: txt, attr: [] })
-        } else {
-          accum[selector] = accum[selector].concat(txt)
-        }
+        accum[selector] = accum[selector].concat(txt)
       }
 
       return accum
@@ -125,11 +120,13 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
       allegiances: [] as string[],
       artifacts: [] as string[],
       battalions: [] as string[],
+      commands: [] as string[],
       endless_spells: [] as string[],
       scenery: [] as string[],
       spells: [] as string[],
       traits: [] as string[],
-      units: [] as { name: string; attr: string[] }[],
+      triumphs: [] as string[],
+      units: [] as string[],
     }
   )
 
@@ -147,4 +144,19 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
 
 const warscrollFactionNameMap = {
   Seraphon: SERAPHON,
+}
+
+// const warscrollUnitTypoMap = {}
+
+const warscrollUnitOptionMap = {
+  'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
+  'Solar Engine': 'Bastiladon w/ Solar Engine',
+  'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
+  'Priestly Trappings': 'Skink Priest w/ Priestly Trappings',
+  'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
+  'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
+  'Ritual Knife': 'Keeper of Secrets w/ Ritual Knife',
+  'Living Whip': 'Keeper of Secrets w/ Living Whip',
+  'Shining Aegis': 'Keeper of Secrets w/ Shining Aegis',
+  'Sinistrous Hand': 'Keeper of Secrets w/ Sinistrous Hand',
 }
