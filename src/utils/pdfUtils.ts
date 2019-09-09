@@ -1,5 +1,36 @@
 import matchAll from 'string.prototype.matchall'
-import { SERAPHON } from 'meta/factions'
+import {
+  SERAPHON,
+  BEASTCLAW_RAIDERS,
+  KHORNE,
+  BONESPLITTERZ,
+  DAUGHTERS_OF_KHAINE,
+  TZEENTCH,
+  DISPOSSESSED,
+  EVERCHOSEN,
+  FLESH_EATER_COURTS,
+  FYRESLAYERS,
+  GLOOMSPITE_GITZ,
+  GUTBUSTERS,
+  SLAANESH,
+  IDONETH_DEEPKIN,
+  IRONJAWZ,
+  KHARADRON_OVERLORDS,
+  LEGIONS_OF_AZGORH,
+  LEGIONS_OF_GRIEF,
+  LEGIONS_OF_NAGASH,
+  LETHISIAN_DEFENDERS,
+  NURGLE,
+  MERCENARY_COMPANIES,
+  NIGHTHAUNT,
+  SKAVEN,
+  SLAVES_TO_DARKNESS,
+  STORMCAST_ETERNALS,
+  SYLVANETH,
+  TAMURKHANS_HORDE,
+  WANDERERS,
+  BEASTS_OF_CHAOS,
+} from 'meta/factions'
 
 export const parsePdf = (pdfText: string) => {
   const regex = /^\((.+)\) Tj$/gm
@@ -143,9 +174,49 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
 }
 
 const warscrollFactionNameMap = {
+  'Beastclaw Raiders': BEASTCLAW_RAIDERS,
+  'Beasts of Chaos': BEASTS_OF_CHAOS,
+  'Blades of Khorne': KHORNE,
+  Bonesplitterz: BONESPLITTERZ,
+  'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
+  'Disciples of Tzeentch': TZEENTCH,
+  Dispossessed: DISPOSSESSED,
+  Everchosen: EVERCHOSEN,
+  'Flesh Eater Courts': FLESH_EATER_COURTS,
+  Fyreslayers: FYRESLAYERS,
+  'Gloomspite Gitz': GLOOMSPITE_GITZ,
+  Gutbusters: GUTBUSTERS,
+  'Hedonites of Slaanesh': SLAANESH,
+  'Idoneth Deepkin': IDONETH_DEEPKIN,
+  Ironjawz: IRONJAWZ,
+  'Kharadron Overlords': KHARADRON_OVERLORDS,
+  'Legion of Azgorh': LEGIONS_OF_AZGORH,
+  'Legion of Grief': LEGIONS_OF_GRIEF,
+  'Legions of Nagash': LEGIONS_OF_NAGASH,
+  'Lethisian Defenders': LETHISIAN_DEFENDERS,
+  'Maggotkin of Nurgle': NURGLE,
+  'Mercenaries: Greyfyrd Lodge': MERCENARY_COMPANIES,
+  'Mercenaries: Grugg Brothers': MERCENARY_COMPANIES,
+  "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
+  'Mercenaries: Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
+  'Mercenaries: Rampagers': MERCENARY_COMPANIES,
+  "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
+  'Mercenaries: Sons of the Lichemaster': MERCENARY_COMPANIES,
+  'Mercenaries: Tenebrous Court': MERCENARY_COMPANIES,
+  'Mercenaries: The Blacksmoke Battery': MERCENARY_COMPANIES,
+  'Mercenaries: The Gutstuffers': MERCENARY_COMPANIES,
+  Nighthaunt: NIGHTHAUNT,
   Seraphon: SERAPHON,
+  Skaventide: SKAVEN,
+  'Slaves to Darkness': SLAVES_TO_DARKNESS,
+  'Stormcast Eternals': STORMCAST_ETERNALS,
+  Sylvaneth: SYLVANETH,
+  "Tamurkhan's Horde": TAMURKHANS_HORDE,
+  Wanderers: WANDERERS,
 }
 
+// TODO: Add common typos here
+// Longer TODO: Share with Warscroll Builder author
 // const warscrollUnitTypoMap = {}
 
 const warscrollUnitOptionMap = {
