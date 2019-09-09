@@ -51,11 +51,11 @@ interface IWarscrollArmy {
 
 type TError = { text: string; severity: 'warn' | 'error' }
 
-interface IErrorChecker extends IWarscrollArmy {
-  errors: TError[] | null
+export interface IWarscrollArmyWithErrors extends IWarscrollArmy {
+  errors: TError[]
 }
 
-export const getWarscrollArmyFromPdf = (pdfText: string[]): IErrorChecker => {
+export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmyWithErrors => {
   const army = getInitialWarscrollArmy(pdfText)
   const errorChecked = warscrollPdfErrorChecker(army)
 
@@ -196,7 +196,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
   }
 }
 
-const warscrollPdfErrorChecker = (army: IWarscrollArmy): IErrorChecker => {
+const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
   let errors: { text: string; severity: 'warn' | 'error' }[] = []
 
   const { factionName, selections } = army
@@ -221,8 +221,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IErrorChecker => {
       artifacts,
       units,
     },
-
-    errors: errors.length ? errors : null,
+    errors,
   }
 }
 

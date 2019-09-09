@@ -7,6 +7,7 @@ import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
 import { MyDropzone } from './dropZone'
+import { IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
@@ -29,8 +30,11 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
   } = props
 
   const handleWarscrollDrop = useCallback(
-    army => {
+    (army: IWarscrollArmyWithErrors) => {
       // TODO: Check for errors!
+      if (army.errors.some(x => x.severity === 'error')) {
+        console.log('TODO: UI Element that says "Hey, no bueno!"')
+      }
 
       setFactionName(army.factionName)
 
