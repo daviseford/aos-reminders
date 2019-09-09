@@ -16,14 +16,17 @@ import {
 import {
   ChaosArtifacts,
   ChaosTraits,
+  ChaosUnits,
   DeathArtifacts,
   DeathTraits,
+  DeathUnits,
   DestructionArtifacts,
   DestructionTraits,
+  DestructionUnits,
   OrderArtifacts,
   OrderTraits,
+  OrderUnits,
 } from 'army/grand_alliances'
-
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
@@ -81,7 +84,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Spells = modifySpells(Spells, realmscape)
   Army.Traits = modifyTraits(Traits, GrandAlliance)
   Army.Triumphs = getTriumphs()
-  Army.Units = modifyUnits(Units)
+  Army.Units = modifyUnits(Units, GrandAlliance)
   Army.Game = processGame([
     Army.Allegiances,
     Army.Artifacts,
@@ -100,7 +103,10 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
 
 const modifyAllegiances = (allegiances: TAllegiances): TAllegiances => sortBy(allegiances, 'name')
 const modifyBattalions = (battalions: TBattalions): TBattalions => sortBy(battalions, 'name')
-const modifyUnits = (units: TUnits): TUnits => sortBy(units, 'name')
+const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
+  const { Units } = GrandAllianceConfig[alliance]
+  return units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true }))
+}
 
 const modifyArtifacts = (artifacts: TArtifacts, alliance: TGrandAlliances): TArtifacts => {
   const { Artifacts } = GrandAllianceConfig[alliance]
@@ -150,6 +156,7 @@ type IGrandAllianceConfig = {
   readonly [key in TGrandAlliances]: {
     readonly Artifacts: TArtifacts
     readonly Traits: TTraits
+    readonly Units: TUnits
   }
 }
 
@@ -157,17 +164,21 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
   [CHAOS]: {
     Artifacts: ChaosArtifacts,
     Traits: ChaosTraits,
+    Units: ChaosUnits,
   },
   [DEATH]: {
     Artifacts: DeathArtifacts,
     Traits: DeathTraits,
+    Units: DeathUnits,
   },
   [DESTRUCTION]: {
     Artifacts: DestructionArtifacts,
     Traits: DestructionTraits,
+    Units: DestructionUnits,
   },
   [ORDER]: {
     Artifacts: OrderArtifacts,
     Traits: OrderTraits,
+    Units: OrderUnits,
   },
 }

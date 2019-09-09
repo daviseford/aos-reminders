@@ -166,3 +166,5 @@ export const Units: TUnits = uniqBy(
   ],
   'name'
 )
+
+export default Units

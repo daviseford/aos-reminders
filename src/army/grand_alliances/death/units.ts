@@ -9,3 +9,5 @@ export const Units: TUnits = uniqBy(
   [...FleshEaterCourts.Units, ...LegionsOfNagash.Units, ...Nighthaunt.Units],
   'name'
 )
+
+export default Units

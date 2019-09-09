@@ -232,3 +232,5 @@ export const Units: TUnits = [
   ...Gutbusters.Units,
   ...Ironjawz.Units,
 ]
+
+export default Units
