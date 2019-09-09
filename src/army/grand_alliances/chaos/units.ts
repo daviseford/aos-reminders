@@ -11,14 +11,14 @@ import SlavesToDarkness from 'army/slaves_to_darkness'
 import TamurkhansHorde from 'army/tamurkhans_horde'
 import { TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  DURING_SETUP,
-  COMBAT_PHASE,
   CHARGE_PHASE,
-  TURN_ONE_HERO_PHASE,
-  SHOOTING_PHASE,
-  MOVEMENT_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
@@ -166,3 +166,8 @@ export const Units: TUnits = uniqBy(
   ],
   'name'
 )
+
+export default Units
+
+// Available to ALL factions in this Grand Alliance
+export const ChaosUnits = []

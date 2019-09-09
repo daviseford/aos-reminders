@@ -1,8 +1,8 @@
 import DestructionArtifacts from './artifacts'
 import DestructionTraits from './traits'
-import { Units } from './units'
+import { Units, DestructionUnits } from './units'
 
-export { DestructionArtifacts, DestructionTraits }
+export { DestructionArtifacts, DestructionTraits, DestructionUnits }
 
 export default {
   Units,
