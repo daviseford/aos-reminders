@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
@@ -29,12 +29,14 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     updateSelections,
   } = props
 
+  const [errors, setErrors] = useState<IWarscrollArmyWithErrors['errors']>([])
+
   const handleWarscrollDrop = useCallback(
     (army: IWarscrollArmyWithErrors) => {
-      // TODO: Check for errors!
-      if (army.errors.some(x => x.severity === 'error')) {
-        console.log('TODO: UI Element that says "Hey, no bueno!"')
-      }
+      setErrors(army.errors)
+
+      // Can't proceed if there's an error (usually an unsupported faction)
+      if (army.errors.some(x => x.severity === 'error')) return
 
       setFactionName(army.factionName)
 
@@ -61,7 +63,15 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     ]
   )
 
-  return <MyDropzone handleDrop={handleWarscrollDrop} />
+  return (
+    <>
+      <div className="row my-2 d-flex justify-content-center">
+        <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
+          <MyDropzone handleDrop={handleWarscrollDrop} />
+        </div>
+      </div>
+    </>
+  )
 }
 
 export const LoadWarscrollArmy = connect(

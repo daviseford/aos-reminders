@@ -40,12 +40,13 @@ import { getArmy } from 'utils/getArmy'
 import { IArmy } from 'types/army'
 
 interface IWarscrollArmy {
-  factionName: TSupportedFaction
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
+  factionName: TSupportedFaction
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
+  unknownSelections: string[]
 }
 
 type TError = { text: string; severity: 'warn' | 'error' }
@@ -80,6 +81,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
         txt !== '* See Warscroll'
     )
 
+  let unknownSelections: string[] = []
   let factionName = ''
   let realmscape: TRealms | null = null
   let selector = ''
@@ -151,8 +153,13 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
             accumMock.pop()
             accumMock.push(warscrollUnitOptionMap[attr])
             accum[selector] = accumMock
+            return accum
           }
         }
+
+        // If we've gotten this far, we don't really know what this thing is
+        // So for now, let's add this to the unknownSelections
+        unknownSelections.push(txt.split(' : ')[1].trim())
 
         return accum
       }
@@ -186,6 +193,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
 
   return {
     selections,
+    unknownSelections: uniq(unknownSelections),
     factionName: factionName as TSupportedFaction,
     realmscape,
     allyFactionNames: [],
