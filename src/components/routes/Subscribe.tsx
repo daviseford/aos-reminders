@@ -78,7 +78,7 @@ export const Subscribe: React.FC<{}> = () => {
             <i>
               <b>and much more!</b>
             </i>{' '}
-            - Check out our list of feature enhancements{' '}
+            - Check out our list of planned feature enhancements{' '}
             <a href="https://github.com/daviseford/aos-reminders/labels/enhancement">on our Github!</a>
           </li>
         </ul>
