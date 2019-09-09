@@ -2,7 +2,9 @@ import { HERO_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
 
 // Spells, Prayers, etc. go here
+
 const Spells: TSpells = [
+  /*
   {
     name: ``,
     effects: [
@@ -13,6 +15,7 @@ const Spells: TSpells = [
       },
     ],
   },
+  */
 ]
 
 export default Spells

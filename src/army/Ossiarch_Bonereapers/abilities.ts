@@ -1,13 +1,13 @@
 import { HERO_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
-// General Allegiance Abilities (always active regardless of army composition)
+// General Allegiance Abilities
 const Abilities: TAbilities = [
-  {
-    name: `TBD`,
-    desc: `Something Awesome I am sure of it.`,
-    when: [HERO_PHASE],
-  },
+  //  {
+  //    name: `TBD`,
+  //    desc: `Something Awesome I am sure of it.`,
+  //    when: [HERO_PHASE],
+  //  },
 ]
 
 export default Abilities

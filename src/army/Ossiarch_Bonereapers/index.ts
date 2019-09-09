@@ -13,10 +13,10 @@ import Traits from './traits'
 export default {
   Abilities,
   Artifacts,
-  Battalions,
+  //Battalions,
   EndlessSpells,
   Scenery,
   Spells,
-  Traits,
+  //Traits,
   Units,
 }
