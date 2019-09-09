@@ -41,7 +41,6 @@ import { IArmy } from 'types/army'
 
 interface IWarscrollArmy {
   factionName: TSupportedFaction
-  factionRealm: TRealms | string
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   realmscape_feature: string | null
@@ -82,7 +81,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
     )
 
   let factionName = ''
-  let factionRealm = ''
+  let realmscape: TRealms | null = null
   let selector = ''
 
   console.log(cleanedText)
@@ -102,7 +101,7 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
         }
 
         if (parts.length > 1 && txt.includes('Mortal Realm:')) {
-          factionRealm = parts[1].substring(14).trim()
+          realmscape = parts[1].substring(14).trim() as TRealms
         }
         return accum
       }
@@ -188,11 +187,10 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
   return {
     selections,
     factionName: factionName as TSupportedFaction,
-    factionRealm,
+    realmscape,
     allyFactionNames: [],
     allySelections: {},
     realmscape_feature: null,
-    realmscape: null,
   }
 }
 
@@ -211,54 +209,47 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   }
 
   const Army = getArmy(factionName) as IArmy
-  const units = getUnits(Army, selections, errors)
-  const artifacts = getArtifacts(Army, selections, errors)
 
   return {
     ...army,
+    errors,
     selections: {
       ...selections,
-      artifacts,
-      units,
+      artifacts: selectionLookup(Army, selections, 'artifacts', errors),
+      battalions: selectionLookup(Army, selections, 'battalions', errors),
+      endless_spells: selectionLookup(Army, selections, 'endless_spells', errors),
+      spells: selectionLookup(Army, selections, 'spells', errors),
+      traits: selectionLookup(Army, selections, 'traits', errors),
+      units: selectionLookup(Army, selections, 'units', errors),
     },
-    errors,
   }
 }
 
-const getArtifacts = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
-  const Names = Army.Artifacts.map(({ name }) => name)
+type TLookupType = 'artifacts' | 'battalions' | 'endless_spells' | 'spells' | 'traits' | 'units'
+
+const selectionLookup = (
+  Army: IArmy,
+  selections: ISelections,
+  type: TLookupType,
+  errors: TError[]
+): string[] => {
+  const lookup = {
+    artifacts: 'Artifacts',
+    battalions: 'Battalions',
+    endless_spells: 'EndlessSpells',
+    spells: 'Spells',
+    traits: 'Traits',
+    units: 'Units',
+  }
+
+  const Names: string[] = Army[lookup[type]].map(({ name }) => name)
   const NameMap = Names.reduce((a, b) => {
     a[b] = b
     return a
   }, {})
 
-  return selections.artifacts
-    .map(val => {
-      // Check for typos
-      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
-
-      if (NameMap[val]) return val
-
-      // See if we have something like it...
-      const valUpper = val.toUpperCase()
-      const match = Names.find(x => x.toUpperCase().includes(valUpper))
-      if (match) return match
-
-      errors.push(warn(`${val} is either a typo or an unsupported value.`))
-      return ''
-    })
-    .filter(x => !!x)
-}
-
-const getUnits = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
-  const Names = Army.Units.map(({ name }) => name)
-  const NameMap = Names.reduce((a, b) => {
-    a[b] = b
-    return a
-  }, {})
-
-  return selections.units
-    .map(val => {
+  return selections[type]
+    .map((val: string) => {
       // Check for typos
       if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
 
