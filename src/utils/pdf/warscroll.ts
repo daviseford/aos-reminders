@@ -35,7 +35,7 @@ import {
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
-import { uniq } from 'lodash'
+import { uniq, difference } from 'lodash'
 import { getArmy } from 'utils/getArmy'
 import { IArmy } from 'types/army'
 
@@ -230,8 +230,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
     units: lookup('units'),
   }
 
-  console.log('Trying to find the following:', unknownSelections)
-  console.log('Found the following:', foundSelections)
+  console.log('Could not find: ', difference(unknownSelections, foundSelections))
 
   return {
     ...army,
