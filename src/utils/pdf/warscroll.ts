@@ -285,11 +285,12 @@ const selectionLookup = (
 
   const found = unknownSelections
     .map(val => {
+      const orig = `${val}`
       // Check for typos
       if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
 
       if (NameMap[val]) {
-        foundSelections.push(val)
+        foundSelections.push(orig)
         return val
       }
 
@@ -297,7 +298,7 @@ const selectionLookup = (
       const valUpper = val.toUpperCase()
       const match = Names.find(x => x.toUpperCase().includes(valUpper))
       if (match) {
-        foundSelections.push(match)
+        foundSelections.push(orig)
         return match
       }
 
