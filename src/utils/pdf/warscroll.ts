@@ -88,8 +88,6 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
   let realmscape: TRealms | null = null
   let selector = ''
 
-  console.log(cleanedText)
-
   const selections = cleanedText.reduce(
     (accum, txt) => {
       // Get Allegiance and Mortal Realm

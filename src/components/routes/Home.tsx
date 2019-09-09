@@ -8,7 +8,6 @@ import { Header } from 'components/page/header'
 import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
-import { LoadWarscrollArmy } from 'components/input/warscrollBuilder/dropContainer'
 
 export const Home: React.FC<{}> = () => {
   const { getSubscription } = useSubscription()
@@ -24,8 +23,6 @@ export const Home: React.FC<{}> = () => {
   return (
     <>
       <Header />
-
-      <LoadWarscrollArmy />
 
       <ArmyBuilder />
 

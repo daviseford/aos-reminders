@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { without } from 'lodash'
 import is from 'is_js'
 import { getArmy } from 'utils/getArmy'
-import { logPrintEvent } from 'utils/analytics'
+import { logPrintEvent, logClick } from 'utils/analytics'
 import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
 import { FaPlus, FaPrint, FaFileImport } from 'react-icons/fa'
@@ -157,7 +157,7 @@ const ImportWarscrollButton = (props: {
       </div>
     </button>
   ) : (
-    <Link to="/subscribe" className={btnClass}>
+    <Link to="/subscribe" className={btnClass} onClick={() => logClick('Import-Subscribe')}>
       <div className={btnContentWrapper}>
         <FaFileImport className="mr-2" /> Import Warscroll
       </div>
