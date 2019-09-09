@@ -26,6 +26,7 @@ import {
   NIGHTHAUNT,
   NURGLE,
   ORDER_GRAND_ALLIANCE,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -63,6 +64,7 @@ import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
 import OrderGrandAlliance from 'army/grand_alliances/order'
+import OssiarchBonereapers from 'army/ossiarch_bonereapers'
 import Seraphon from 'army/seraphon'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
@@ -174,6 +176,10 @@ export const ArmyList: TArmyList = {
   [ORDER_GRAND_ALLIANCE]: {
     Army: { ...OrderGrandAlliance },
     GrandAlliance: ORDER,
+  },
+  [OSSIARCH_BONEREAPERS]: {
+    Army: { ...OssiarchBonereapers },
+    GrandAlliance: DEATH,
   },
   [SERAPHON]: {
     Army: { ...Seraphon },
