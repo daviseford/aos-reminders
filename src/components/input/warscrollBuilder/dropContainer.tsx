@@ -110,7 +110,14 @@ const Alert = props => {
   return (
     <div className="my-2">
       <div className={`alert ${alertType} text-center`} role="alert">
-        {prefix}: {text}
+        <strong>{prefix}:</strong> {text}
+        <br />
+        <small>
+          Unexpected {prefix.toLowerCase()}? File an issue on{' '}
+          <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
+            Github
+          </a>
+        </small>
       </div>
     </div>
   )

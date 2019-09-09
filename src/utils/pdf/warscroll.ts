@@ -94,13 +94,11 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
       // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
       // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
       if (txt.includes('Allegiance:')) {
-        const nameRemoved = txt.replace(/.+ - Allegiance: /g, '')
+        const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
         const parts = nameRemoved.split('-').map(t => t.trim())
         const name = parts[0].trim()
 
-        if (warscrollFactionNameMap[name]) {
-          factionName = warscrollFactionNameMap[name] || ''
-        }
+        factionName = warscrollFactionNameMap[name] || name
 
         if (parts.length > 1 && txt.includes('Mortal Realm:')) {
           realmscape = parts[1].substring(14).trim() as TRealms
@@ -210,9 +208,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   if (!SUPPORTED_FACTIONS.includes(factionName)) {
     return {
       ...army,
-      errors: [
-        error(`${factionName} is not supported yet! If you think it should be, file an issue on Github.`),
-      ],
+      errors: [error(`${factionName} are not supported!`)],
     }
   }
 
