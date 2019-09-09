@@ -11,3 +11,6 @@ export const Units: TUnits = uniqBy(
 )
 
 export default Units
+
+// Available to ALL factions in this Grand Alliance
+export const DeathUnits = []

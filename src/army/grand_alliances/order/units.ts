@@ -49,7 +49,8 @@ export const Units: TUnits = uniqBy(
   'name'
 )
 
-const OrderUnits: TUnits = [
+// Available to ALL factions in this Grand Alliance
+export const OrderUnits: TUnits = [
   {
     name: `Gotrek Gurnisson`,
     effects: [
@@ -81,5 +82,3 @@ const OrderUnits: TUnits = [
     ],
   },
 ]
-
-export default OrderUnits

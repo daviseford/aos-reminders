@@ -1,7 +1,6 @@
 import DeathArtifacts from './artifacts'
 import DeathTraits from './traits'
-import DeathUnits from './units'
-import { Units } from './units'
+import { Units, DeathUnits } from './units'
 
 export { DeathArtifacts, DeathTraits, DeathUnits }
 

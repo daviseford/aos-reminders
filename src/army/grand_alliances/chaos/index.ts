@@ -1,7 +1,6 @@
 import ChaosArtifacts from './artifacts'
 import ChaosTraits from './traits'
-import ChaosUnits from './units'
-import { Units } from './units'
+import { Units, ChaosUnits } from './units'
 
 export { ChaosArtifacts, ChaosTraits, ChaosUnits }
 
