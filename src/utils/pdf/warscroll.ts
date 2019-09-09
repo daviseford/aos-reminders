@@ -228,7 +228,6 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IErrorChecker => {
 
 const getArtifacts = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
   const Names = Army.Artifacts.map(({ name }) => name)
-  const NamesUpper = Names.map(x => x.toUpperCase())
   const NameMap = Names.reduce((a, b) => {
     a[b] = b
     return a
@@ -243,7 +242,7 @@ const getArtifacts = (Army: IArmy, selections: ISelections, errors: TError[]): s
 
       // See if we have something like it...
       const valUpper = val.toUpperCase()
-      const match = NamesUpper.find(x => x.includes(valUpper))
+      const match = Names.find(x => x.toUpperCase().includes(valUpper))
       if (match) return match
 
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
@@ -254,7 +253,6 @@ const getArtifacts = (Army: IArmy, selections: ISelections, errors: TError[]): s
 
 const getUnits = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
   const Names = Army.Units.map(({ name }) => name)
-  const NamesUpper = Names.map(x => x.toUpperCase())
   const NameMap = Names.reduce((a, b) => {
     a[b] = b
     return a
@@ -269,7 +267,7 @@ const getUnits = (Army: IArmy, selections: ISelections, errors: TError[]): strin
 
       // See if we have something like it...
       const valUpper = val.toUpperCase()
-      const match = NamesUpper.find(x => x.includes(valUpper))
+      const match = Names.find(x => x.toUpperCase().includes(valUpper))
       if (match) return match
 
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
