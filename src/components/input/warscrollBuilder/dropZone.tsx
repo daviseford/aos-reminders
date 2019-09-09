@@ -29,13 +29,12 @@ export const MyDropzone: React.FC<IDropzoneProps> = props => {
     [handleDrop]
   )
 
-  // eslint-disable-next-line
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: 'application/pdf' })
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'application/pdf' })
 
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      <p>Drag your Warscroll PDF here, or click to select</p>
+      <p className="pt-3">Drag your Warscroll PDF here, or click to select</p>
     </div>
   )
 }
