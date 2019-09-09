@@ -1,5 +1,6 @@
 import matchAll from 'string.prototype.matchall'
 import { last } from 'lodash'
+import { SERAPHON } from 'meta/factions'
 
 export const parsePdf = (pdfText: string) => {
   const regex = /^\((.+)\) Tj$/gm
@@ -30,6 +31,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
   let factionName = ''
   let factionRealm = ''
   let selector = ''
+  let error = null
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
@@ -39,7 +41,12 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
       if (txt.includes('Allegiance:')) {
         const nameRemoved = txt.replace(/.+ - Allegiance: /g, '')
         const parts = nameRemoved.split('-').map(t => t.trim())
-        factionName = parts[0].trim()
+        const name = parts[0].trim()
+
+        if (warscrollFactionNameMap[name]) {
+          factionName = warscrollFactionNameMap[name] || ''
+        }
+
         if (parts.length > 1 && txt.includes('Mortal Realm:')) {
           factionRealm = parts[1].substring(14).trim()
         }
@@ -130,9 +137,14 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
     selections,
     factionName,
     factionRealm,
+    error,
     allyFactionNames: [],
     allySelections: [],
     realmscape_feature: null,
     realmscape: null,
   }
+}
+
+const warscrollFactionNameMap = {
+  Seraphon: SERAPHON,
 }

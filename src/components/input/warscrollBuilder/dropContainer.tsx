@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
-import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
-import { TAllySelectionStore, IStore } from 'types/store'
+import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
 import { MyDropzone } from './drop'
 
@@ -29,22 +28,32 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     updateSelections,
   } = props
 
-  const handleWarscrollDrop = useCallback(army => {
-    setFactionName(army.factionName)
+  const handleWarscrollDrop = useCallback(
+    army => {
+      setFactionName(army.factionName)
 
-    // Add Ally Game data to the store
-    if (army.allyFactionNames.length) {
-      army.allyFactionNames.forEach(factionName => {
-        const Army = getArmy(factionName) as IArmy
-        updateAllyArmy({ factionName, Army })
-      })
-    }
+      // Add Ally Game data to the store
+      if (army.allyFactionNames.length) {
+        army.allyFactionNames.forEach(factionName => {
+          const Army = getArmy(factionName) as IArmy
+          updateAllyArmy({ factionName, Army })
+        })
+      }
 
-    updateSelections(army.selections)
-    updateAllySelections(army.allySelections)
-    setRealmscape(army.realmscape)
-    setRealmscapeFeature(army.realmscape_feature)
-  }, [])
+      updateSelections(army.selections)
+      updateAllySelections(army.allySelections)
+      setRealmscape(army.realmscape)
+      setRealmscapeFeature(army.realmscape_feature)
+    },
+    [
+      setFactionName,
+      setRealmscape,
+      setRealmscapeFeature,
+      updateAllyArmy,
+      updateAllySelections,
+      updateSelections,
+    ]
+  )
 
   return <MyDropzone handleDrop={handleWarscrollDrop} />
 }
