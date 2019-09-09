@@ -56,7 +56,7 @@ const OrderUnits: TUnits = [
       {
         name: `Avatar of Grimnir`,
         desc: `If any damage is inflicted by an attack, spell, or ability that targets Gotrek or affects Gotrek is greater than 1, change it to 1. If a spell or ability would slay Gotrek, instead deal 1 mortal wound.`,
-        when: [COMBAT_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Avatar of Grimnir`,
