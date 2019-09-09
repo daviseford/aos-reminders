@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getWarscrollArmyFromPdf, parsePdf } from 'utils/pdfUtils'
+import { getWarscrollArmyFromPdf, parsePdf } from 'utils/pdf/pdfUtils'
 
 interface IDropzoneProps {
   handleDrop: (army) => void

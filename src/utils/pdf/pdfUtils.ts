@@ -1,36 +1,6 @@
 import matchAll from 'string.prototype.matchall'
-import {
-  SERAPHON,
-  BEASTCLAW_RAIDERS,
-  KHORNE,
-  BONESPLITTERZ,
-  DAUGHTERS_OF_KHAINE,
-  TZEENTCH,
-  DISPOSSESSED,
-  EVERCHOSEN,
-  FLESH_EATER_COURTS,
-  FYRESLAYERS,
-  GLOOMSPITE_GITZ,
-  GUTBUSTERS,
-  SLAANESH,
-  IDONETH_DEEPKIN,
-  IRONJAWZ,
-  KHARADRON_OVERLORDS,
-  LEGIONS_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
-  LEGIONS_OF_NAGASH,
-  LETHISIAN_DEFENDERS,
-  NURGLE,
-  MERCENARY_COMPANIES,
-  NIGHTHAUNT,
-  SKAVEN,
-  SLAVES_TO_DARKNESS,
-  STORMCAST_ETERNALS,
-  SYLVANETH,
-  TAMURKHANS_HORDE,
-  WANDERERS,
-  BEASTS_OF_CHAOS,
-} from 'meta/factions'
+import { uniq } from 'lodash'
+import { warscrollFactionNameMap, warscrollUnitOptionMap } from './warscroll'
 
 export const parsePdf = (pdfText: string) => {
   const regex = /^\((.+)\) Tj$/gm
@@ -46,6 +16,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
     .map(txt =>
       txt
         .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
+        .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
         .replace(/\\\([0-9]+\\\)/g, '') // Remove point values e.g. "Slann Starmaster \(360\)"
         .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
         .trim()
@@ -83,7 +54,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
         return accum
       }
 
-      if (['LEADERS', 'UNITS', 'BEHEMOTHS'].includes(txt)) {
+      if (['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES'].includes(txt)) {
         selector = 'units'
         return accum
       }
@@ -142,7 +113,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
 
       // Add item to accum
       if (selector) {
-        accum[selector] = accum[selector].concat(txt)
+        accum[selector] = uniq(accum[selector].concat(txt))
       }
 
       return accum
@@ -171,63 +142,4 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
     realmscape_feature: null,
     realmscape: null,
   }
-}
-
-const warscrollFactionNameMap = {
-  'Beastclaw Raiders': BEASTCLAW_RAIDERS,
-  'Beasts of Chaos': BEASTS_OF_CHAOS,
-  'Blades of Khorne': KHORNE,
-  Bonesplitterz: BONESPLITTERZ,
-  'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
-  'Disciples of Tzeentch': TZEENTCH,
-  Dispossessed: DISPOSSESSED,
-  Everchosen: EVERCHOSEN,
-  'Flesh Eater Courts': FLESH_EATER_COURTS,
-  Fyreslayers: FYRESLAYERS,
-  'Gloomspite Gitz': GLOOMSPITE_GITZ,
-  Gutbusters: GUTBUSTERS,
-  'Hedonites of Slaanesh': SLAANESH,
-  'Idoneth Deepkin': IDONETH_DEEPKIN,
-  Ironjawz: IRONJAWZ,
-  'Kharadron Overlords': KHARADRON_OVERLORDS,
-  'Legion of Azgorh': LEGIONS_OF_AZGORH,
-  'Legion of Grief': LEGIONS_OF_GRIEF,
-  'Legions of Nagash': LEGIONS_OF_NAGASH,
-  'Lethisian Defenders': LETHISIAN_DEFENDERS,
-  'Maggotkin of Nurgle': NURGLE,
-  'Mercenaries: Greyfyrd Lodge': MERCENARY_COMPANIES,
-  'Mercenaries: Grugg Brothers': MERCENARY_COMPANIES,
-  "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
-  'Mercenaries: Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
-  'Mercenaries: Rampagers': MERCENARY_COMPANIES,
-  "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
-  'Mercenaries: Sons of the Lichemaster': MERCENARY_COMPANIES,
-  'Mercenaries: Tenebrous Court': MERCENARY_COMPANIES,
-  'Mercenaries: The Blacksmoke Battery': MERCENARY_COMPANIES,
-  'Mercenaries: The Gutstuffers': MERCENARY_COMPANIES,
-  Nighthaunt: NIGHTHAUNT,
-  Seraphon: SERAPHON,
-  Skaventide: SKAVEN,
-  'Slaves to Darkness': SLAVES_TO_DARKNESS,
-  'Stormcast Eternals': STORMCAST_ETERNALS,
-  Sylvaneth: SYLVANETH,
-  "Tamurkhan's Horde": TAMURKHANS_HORDE,
-  Wanderers: WANDERERS,
-}
-
-// TODO: Add common typos here
-// Longer TODO: Share with Warscroll Builder author
-// const warscrollUnitTypoMap = {}
-
-const warscrollUnitOptionMap = {
-  'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
-  'Solar Engine': 'Bastiladon w/ Solar Engine',
-  'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
-  'Priestly Trappings': 'Skink Priest w/ Priestly Trappings',
-  'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
-  'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
-  'Ritual Knife': 'Keeper of Secrets w/ Ritual Knife',
-  'Living Whip': 'Keeper of Secrets w/ Living Whip',
-  'Shining Aegis': 'Keeper of Secrets w/ Shining Aegis',
-  'Sinistrous Hand': 'Keeper of Secrets w/ Sinistrous Hand',
 }
