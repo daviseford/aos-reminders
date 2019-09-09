@@ -1,3 +1,7 @@
+import { uniq, difference, last } from 'lodash'
+import { strip } from 'clean-text-utils'
+import { getArmy } from 'utils/getArmy'
+
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
@@ -35,8 +39,6 @@ import {
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
-import { uniq, difference, last } from 'lodash'
-import { getArmy } from 'utils/getArmy'
 import { IArmy } from 'types/army'
 
 interface IWarscrollArmy {
@@ -283,6 +285,11 @@ const selectionLookup = (
       const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
       if (match2) return match2
 
+      // Maybe punctuation is in our way?
+      const valNoPunc = strip.punctuation(valShortened)
+      const match3 = Names.find(x => x.toUpperCase().includes(valNoPunc))
+      if (match3) return match3
+
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
       return ''
     })
@@ -321,45 +328,46 @@ const warscrollFactionNameMap = {
   'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Blades of Khorne': KHORNE,
-  Khorne: KHORNE,
-  Bonesplitterz: BONESPLITTERZ,
   'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
   'Disciples of Tzeentch': TZEENTCH,
-  Tzeentch: TZEENTCH,
-  Dispossessed: DISPOSSESSED,
-  Everchosen: EVERCHOSEN,
   'Flesh Eater Courts': FLESH_EATER_COURTS,
-  Fyreslayers: FYRESLAYERS,
   'Gloomspite Gitz': GLOOMSPITE_GITZ,
-  Gutbusters: GUTBUSTERS,
+  'Grand Host of Nagash': LEGIONS_OF_NAGASH,
   'Hedonites of Slaanesh': SLAANESH,
-  Slaanesh: SLAANESH,
   'Idoneth Deepkin': IDONETH_DEEPKIN,
-  Ironjawz: IRONJAWZ,
   'Kharadron Overlords': KHARADRON_OVERLORDS,
   'Legion of Azgorh': LEGIONS_OF_AZGORH,
   'Legion of Grief': LEGIONS_OF_GRIEF,
   'Legions of Nagash': LEGIONS_OF_NAGASH,
   'Lethisian Defenders': LETHISIAN_DEFENDERS,
   'Maggotkin of Nurgle': NURGLE,
-  Nurgle: NURGLE,
   'Mercenaries: Greyfyrd Lodge': MERCENARY_COMPANIES,
   'Mercenaries: Grugg Brothers': MERCENARY_COMPANIES,
-  "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
   'Mercenaries: Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
   'Mercenaries: Rampagers': MERCENARY_COMPANIES,
-  "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   'Mercenaries: Sons of the Lichemaster': MERCENARY_COMPANIES,
   'Mercenaries: Tenebrous Court': MERCENARY_COMPANIES,
   'Mercenaries: The Blacksmoke Battery': MERCENARY_COMPANIES,
   'Mercenaries: The Gutstuffers': MERCENARY_COMPANIES,
-  Nighthaunt: NIGHTHAUNT,
-  Seraphon: SERAPHON,
-  Skaventide: SKAVEN,
   'Slaves to Darkness': SLAVES_TO_DARKNESS,
   'Stormcast Eternals': STORMCAST_ETERNALS,
-  Sylvaneth: SYLVANETH,
+  "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
+  "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   "Tamurkhan's Horde": TAMURKHANS_HORDE,
+  Bonesplitterz: BONESPLITTERZ,
+  Dispossessed: DISPOSSESSED,
+  Everchosen: EVERCHOSEN,
+  Fyreslayers: FYRESLAYERS,
+  Gutbusters: GUTBUSTERS,
+  Ironjawz: IRONJAWZ,
+  Khorne: KHORNE,
+  Nighthaunt: NIGHTHAUNT,
+  Nurgle: NURGLE,
+  Seraphon: SERAPHON,
+  Skaventide: SKAVEN,
+  Slaanesh: SLAANESH,
+  Sylvaneth: SYLVANETH,
+  Tzeentch: TZEENTCH,
   Wanderers: WANDERERS,
 }
 
