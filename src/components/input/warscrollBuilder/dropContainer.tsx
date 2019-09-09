@@ -30,6 +30,8 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
 
   const handleWarscrollDrop = useCallback(
     army => {
+      // TODO: Check for errors!
+
       setFactionName(army.factionName)
 
       // Add Ally Game data to the store

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getWarscrollArmyFromPdf, parsePdf } from 'utils/pdf/pdfUtils'
+import { parsePdf } from 'utils/pdf/pdfUtils'
+import { getWarscrollArmyFromPdf } from 'utils/pdf/warscroll'
 
 interface IDropzoneProps {
   handleDrop: (army) => void
@@ -15,12 +16,11 @@ export const MyDropzone: React.FC<IDropzoneProps> = props => {
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
-        // Do whatever you want with the file contents
         const pdfText = reader.result
         const parsed = parsePdf(pdfText as string)
         const parsedArmy = getWarscrollArmyFromPdf(parsed)
-        handleDrop(parsedArmy)
         console.log(parsedArmy)
+        handleDrop(parsedArmy)
       }
 
       acceptedFiles.forEach(file => reader.readAsText(file))

@@ -29,9 +29,226 @@ import {
   TAMURKHANS_HORDE,
   TZEENTCH,
   WANDERERS,
+  TSupportedFaction,
+  SUPPORTED_FACTIONS,
 } from 'meta/factions'
+import { TRealms } from 'types/realmscapes'
+import { TAllySelectionStore } from 'types/store'
+import { ISelections } from 'types/selections'
+import { uniq } from 'lodash'
+import { getArmy } from 'utils/getArmy'
+import { IArmy } from 'types/army'
 
-export const warscrollFactionNameMap = {
+interface IWarscrollArmy {
+  factionName: TSupportedFaction
+  factionRealm: TRealms | string
+  allyFactionNames: TSupportedFaction[]
+  allySelections: TAllySelectionStore
+  realmscape_feature: string | null
+  realmscape: TRealms | null
+  selections: ISelections
+}
+
+type TError = { text: string; severity: 'warn' | 'error' }
+
+interface IErrorChecker extends IWarscrollArmy {
+  errors: TError[] | null
+}
+
+export const getWarscrollArmyFromPdf = (pdfText: string[]): IErrorChecker => {
+  const army = getInitialWarscrollArmy(pdfText)
+  const errorChecked = warscrollPdfErrorChecker(army)
+
+  return errorChecked
+}
+
+const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
+  const cleanedText = pdfText
+    .map(txt =>
+      txt
+        .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
+        .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
+        .replace(/\\\([0-9]+\\\)/g, '') // Remove point values e.g. "Slann Starmaster \(360\)"
+        .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
+        .trim()
+    )
+    .filter(
+      txt =>
+        !!txt &&
+        txt.length > 2 &&
+        txt !== 'Warscroll Builder on www.warhammer-community.com' &&
+        txt !== '* See Warscroll'
+    )
+
+  let factionName = ''
+  let factionRealm = ''
+  let selector = ''
+
+  console.log(cleanedText)
+
+  const selections = cleanedText.reduce(
+    (accum, txt) => {
+      // Get Allegiance and Mortal Realm
+      // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
+      // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
+      if (txt.includes('Allegiance:')) {
+        const nameRemoved = txt.replace(/.+ - Allegiance: /g, '')
+        const parts = nameRemoved.split('-').map(t => t.trim())
+        const name = parts[0].trim()
+
+        if (warscrollFactionNameMap[name]) {
+          factionName = warscrollFactionNameMap[name] || ''
+        }
+
+        if (parts.length > 1 && txt.includes('Mortal Realm:')) {
+          factionRealm = parts[1].substring(14).trim()
+        }
+        return accum
+      }
+
+      if (['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES'].includes(txt)) {
+        selector = 'units'
+        return accum
+      }
+
+      if (txt === 'BATTALIONS') {
+        selector = 'battalions'
+        return accum
+      }
+
+      if (txt === 'ENDLESS SPELLS / TERRAIN') {
+        selector = 'endless_spells'
+        return accum
+      }
+
+      if (txt.startsWith('- ')) {
+        if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- Command Trait : ')) {
+          const trait = txt.split('- Command Trait : ')[1].trim()
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.startsWith('- Artefact : ')) {
+          const artifact = txt.split('- Artefact : ')[1].trim()
+          accum.artifacts = accum.artifacts.concat(artifact)
+          return accum
+        }
+        if (txt.startsWith('- Spell : ')) {
+          const spell = txt.split('- Spell : ')[1].trim()
+          accum.spells = accum.spells.concat(spell)
+          return accum
+        }
+
+        // Add weapon options and other configuration
+        if (selector === 'units' && accum[selector].length > 0) {
+          const attr = txt
+            .split('-')[1]
+            .replace('Weapon : ', '')
+            .trim()
+
+          if (warscrollUnitOptionMap[attr]) {
+            const accumMock = [...accum[selector]]
+            accumMock.pop()
+            accumMock.push(warscrollUnitOptionMap[attr])
+            accum[selector] = accumMock
+          }
+        }
+
+        return accum
+      }
+
+      // Check for end of file stuff
+      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: '].some(e => txt.startsWith(e))) {
+        selector = ''
+        return accum
+      }
+
+      // Add item to accum
+      if (selector) {
+        accum[selector] = uniq(accum[selector].concat(txt))
+      }
+
+      return accum
+    },
+    {
+      allegiances: [] as string[],
+      artifacts: [] as string[],
+      battalions: [] as string[],
+      commands: [] as string[],
+      endless_spells: [] as string[],
+      scenery: [] as string[],
+      spells: [] as string[],
+      traits: [] as string[],
+      triumphs: [] as string[],
+      units: [] as string[],
+    }
+  )
+
+  return {
+    selections,
+    factionName: factionName as TSupportedFaction,
+    factionRealm,
+    allyFactionNames: [],
+    allySelections: {},
+    realmscape_feature: null,
+    realmscape: null,
+  }
+}
+
+const warscrollPdfErrorChecker = (army: IWarscrollArmy): IErrorChecker => {
+  let errors: { text: string; severity: 'warn' | 'error' }[] = []
+
+  const { factionName, selections } = army
+
+  if (!SUPPORTED_FACTIONS.includes(factionName)) {
+    return {
+      ...army,
+      errors: [
+        error(`${factionName} is not supported yet! If you think it should be, file an issue on Github.`),
+      ],
+    }
+  }
+
+  const Army = getArmy(factionName) as IArmy
+
+  const UnitNames = Army.Units.reduce((a, b) => {
+    a[b.name] = b.name
+    return a
+  }, {})
+
+  const units = selections.units
+    .map(u => {
+      // Check for typos
+      if (warscrollTypoMap[u]) {
+        u = warscrollTypoMap[u]
+      }
+
+      if (UnitNames[u]) {
+        return u
+      }
+
+      // TODO Some more checking here
+
+      errors.push(warn(`${u} is either a typo or unsupported unit.`))
+      return ''
+    })
+    .filter(x => !!x)
+
+  return {
+    ...army,
+    selections: {
+      ...selections,
+      units,
+    },
+
+    errors: errors.length ? errors : null,
+  }
+}
+
+const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
+const warn = (text: string): { text: string; severity: 'warn' } => ({ text, severity: 'warn' })
+
+const warscrollFactionNameMap = {
   'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Blades of Khorne': KHORNE,
@@ -75,9 +292,9 @@ export const warscrollFactionNameMap = {
 
 // TODO: Add common typos here
 // Longer TODO: Share with Warscroll Builder author
-// export const warscrollUnitTypoMap = {}
+const warscrollTypoMap = {}
 
-export const warscrollUnitOptionMap = {
+const warscrollUnitOptionMap = {
   'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
   'Solar Engine': 'Bastiladon w/ Solar Engine',
   'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
