@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
-import { TAllySelectionStore } from 'types/store'
+import { TAllySelectionStore, IStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
+import { MyDropzone } from './drop'
 
-interface ILoadButtonProps {
-  army: ISavedArmyFromApi
+interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -19,9 +19,8 @@ interface ILoadButtonProps {
   updateSelections: (payload: ISelections) => void
 }
 
-const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
+const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
   const {
-    army,
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
@@ -30,9 +29,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateSelections,
   } = props
 
-  const handleLoadClick = e => {
-    e.preventDefault()
-
+  const handleWarscrollDrop = useCallback(army => {
     setFactionName(army.factionName)
 
     // Add Ally Game data to the store
@@ -47,16 +44,12 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateAllySelections(army.allySelections)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
-  }
+  }, [])
 
-  return (
-    <button className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
-      Load Army
-    </button>
-  )
+  return <MyDropzone handleDrop={handleWarscrollDrop} />
 }
 
-export const LoadArmyBtn = connect(
+export const LoadWarscrollArmy = connect(
   null,
   {
     setFactionName: factionNames.actions.setFactionName,
@@ -67,4 +60,4 @@ export const LoadArmyBtn = connect(
     updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
   }
-)(LoadButtonComponent)
+)(LoadWarscrollArmyComponent)

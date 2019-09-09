@@ -126,5 +126,13 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]) => {
     }
   )
 
-  return { selections, factionName, factionRealm }
+  return {
+    selections,
+    factionName,
+    factionRealm,
+    allyFactionNames: [],
+    allySelections: [],
+    realmscape_feature: null,
+    realmscape: null,
+  }
 }
