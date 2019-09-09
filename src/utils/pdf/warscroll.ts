@@ -278,6 +278,11 @@ const selectionLookup = (
       const match = Names.find(x => x.toUpperCase().includes(valUpper))
       if (match) return match
 
+      // Maybe we have a trailing '... of Slaanesh'?
+      const valShortened = valUpper.replace(/ OF .+/g, '')
+      const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
+      if (match2) return match2
+
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
       return ''
     })
@@ -316,9 +321,11 @@ const warscrollFactionNameMap = {
   'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Blades of Khorne': KHORNE,
+  Khorne: KHORNE,
   Bonesplitterz: BONESPLITTERZ,
   'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
   'Disciples of Tzeentch': TZEENTCH,
+  Tzeentch: TZEENTCH,
   Dispossessed: DISPOSSESSED,
   Everchosen: EVERCHOSEN,
   'Flesh Eater Courts': FLESH_EATER_COURTS,
@@ -335,6 +342,7 @@ const warscrollFactionNameMap = {
   'Legions of Nagash': LEGIONS_OF_NAGASH,
   'Lethisian Defenders': LETHISIAN_DEFENDERS,
   'Maggotkin of Nurgle': NURGLE,
+  Nurgle: NURGLE,
   'Mercenaries: Greyfyrd Lodge': MERCENARY_COMPANIES,
   'Mercenaries: Grugg Brothers': MERCENARY_COMPANIES,
   "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
@@ -358,8 +366,7 @@ const warscrollFactionNameMap = {
 // TODO: Add common typos here
 // Longer TODO: Share with Warscroll Builder author
 const warscrollTypoMap = {
-  'Ghorgon of Slaanesh': 'Ghorgon',
-  'Beastlord of Slaanesh': 'Beastlord',
+  'Chaos Chariots': 'Chaos Chariot',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
 }
 
