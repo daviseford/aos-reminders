@@ -384,7 +384,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Glavewraith Stalkers`,
+    name: `Glaivewraith Stalkers`,
     effects: [
       {
         name: `Ethereal`,

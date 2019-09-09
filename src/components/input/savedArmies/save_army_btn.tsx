@@ -10,6 +10,7 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { armyHasEntries } from 'utils/armyUtils'
+import { logClick } from 'utils/analytics'
 
 const btnClass = `btn btn-outline-dark btn-block`
 const btnContentWrapper = `d-flex align-items-center justify-content-center`
@@ -30,7 +31,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText = isAuthenticated ? `Save Army` : `Log in to save army`
+  const btnText = isAuthenticated ? `Save Army` : `Subscribe to save army`
 
   return (
     <>
@@ -63,7 +64,7 @@ export const SaveArmyBtn = connect(
 )(SaveArmyBtnComponent)
 
 const SubscribeBtn = () => (
-  <Link to="/subscribe" className={btnClass}>
+  <Link to="/subscribe" className={btnClass} onClick={() => logClick('SaveArmy-Subscribe')}>
     <div className={btnContentWrapper}>
       <FaSave className="mr-2" /> Save Army
     </div>

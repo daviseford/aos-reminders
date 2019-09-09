@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { without } from 'lodash'
 import is from 'is_js'
 import { getArmy } from 'utils/getArmy'
-import { logPrintEvent } from 'utils/analytics'
+import { logPrintEvent, logClick } from 'utils/analytics'
 import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
-import { FaPlus, FaPrint } from 'react-icons/fa'
+import { FaPlus, FaPrint, FaFileImport } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
@@ -16,6 +16,8 @@ import { SaveLoadArmies } from './savedArmies'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { useSubscription } from 'context/useSubscription'
+import { LoadWarscrollArmy } from './warscrollBuilder/dropContainer'
+import { Link } from 'react-router-dom'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -34,8 +36,13 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const { isSubscribed } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
+  const [isShowingWarscrollImport, setIsShowingWarscrollImport] = useState(false)
+
   const showSavedArmies = () => setIsShowingSavedArmies(true)
   const hideSavedArmies = () => setIsShowingSavedArmies(false)
+
+  const showWarscrollImport = () => setIsShowingWarscrollImport(true)
+  const hideWarscrollImport = () => setIsShowingWarscrollImport(false)
 
   const handleAllyClick = e => {
     e.preventDefault()
@@ -68,6 +75,14 @@ const ToolbarComponent = (props: IToolbarProps) => {
         <div className={savedArmyBtnWrapperClass}>
           <SaveArmyBtn showSavedArmies={showSavedArmies} />
         </div>
+        <div className={btnWrapperClass}>
+          <ImportWarscrollButton
+            show={showWarscrollImport}
+            hide={hideWarscrollImport}
+            isShowing={isShowingWarscrollImport}
+            isSubscribed={isSubscribed}
+          />
+        </div>
         <div className={btnWrapperClass} hidden={!isSubscribed}>
           <ShowSavedArmiesBtn
             isShowingSavedArmies={isShowingSavedArmies}
@@ -75,6 +90,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
             showSavedArmies={showSavedArmies}
           />
         </div>
+      </div>
+
+      <div hidden={!isShowingWarscrollImport}>
+        <LoadWarscrollArmy />
       </div>
 
       <div hidden={!isShowingSavedArmies}>
@@ -115,6 +134,36 @@ const AddAllyButton = (props: IAddAllyButton) => {
         </div>
       </button>
     </>
+  )
+}
+
+const ImportWarscrollButton = (props: {
+  isSubscribed: boolean
+  isShowing: boolean
+  show: () => void
+  hide: () => void
+}) => {
+  const { show, hide, isShowing, isSubscribed } = props
+
+  const handleClick = e => {
+    e.preventDefault()
+    isShowing ? hide() : show()
+  }
+
+  const btnTxt = isShowing ? `Hide Import` : `Import Warscroll`
+
+  return isSubscribed ? (
+    <button className={btnClass} onClick={handleClick}>
+      <div className={btnContentWrapper}>
+        <FaPrint className="mr-2" /> {btnTxt}
+      </div>
+    </button>
+  ) : (
+    <Link to="/subscribe" className={btnClass} onClick={() => logClick('Import-Subscribe')}>
+      <div className={btnContentWrapper}>
+        <FaFileImport className="mr-2" /> Import Warscroll
+      </div>
+    </Link>
   )
 }
 

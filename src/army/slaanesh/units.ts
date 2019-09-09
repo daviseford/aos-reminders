@@ -300,7 +300,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Viceleader`,
+    name: `Viceleader, Herald of Slaanesh`,
     effects: [
       {
         name: `Lightning Reflexes`,
@@ -314,7 +314,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -326,7 +326,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Bladebringer: Herald on Hellflayer`,
+    name: `Bladebringer, Herald on Hellflayer`,
     effects: [
       {
         name: `Crew and Steeds`,
@@ -352,7 +352,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Bladebringer: Herald on Seeker Chariot`,
+    name: `Bladebringer, Herald on Seeker Chariot`,
     effects: [
       {
         name: `Crew and Steeds`,
@@ -418,7 +418,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Bladebringer: Herald on Exalted Chariot`,
+    name: `Bladebringer, Herald on Exalted Chariot`,
     effects: [
       {
         name: `Crew and Steeds`,

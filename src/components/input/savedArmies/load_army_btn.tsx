@@ -5,7 +5,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
-import { TAllySelectionStore, IStore } from 'types/store'
+import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
 
 interface ILoadButtonProps {
@@ -56,15 +56,8 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   )
 }
 
-const mapStateToProps = (state: IStore, ownProps) => {
-  return {
-    ...ownProps,
-    getAllyFactionNames: selections.selectors.getAllyFactionNames(state),
-  }
-}
-
 export const LoadArmyBtn = connect(
-  mapStateToProps,
+  null,
   {
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
