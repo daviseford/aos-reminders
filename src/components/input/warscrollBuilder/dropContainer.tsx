@@ -70,6 +70,16 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
           <MyDropzone handleDrop={handleWarscrollDrop} />
         </div>
       </div>
+
+      {errors.length > 0 && (
+        <div className="row my-2 d-flex justify-content-center">
+          <div className={'col-12 col-lg-6 col-xl-6'}>
+            {errors.map((x, i) => (
+              <Alert key={i} text={x.text} severity={x.severity} />
+            ))}
+          </div>
+        </div>
+      )}
     </>
   )
 }
@@ -86,3 +96,22 @@ export const LoadWarscrollArmy = connect(
     updateSelections: selections.actions.updateSelections,
   }
 )(LoadWarscrollArmyComponent)
+
+const Alert = props => {
+  const { text, severity } = props
+
+  const alertType = {
+    warn: 'alert-warning',
+    error: 'alert-danger',
+  }[severity]
+
+  const prefix = severity === 'error' ? `Error` : `Warning`
+
+  return (
+    <div className="my-2">
+      <div className={`alert ${alertType} text-center`} role="alert">
+        {prefix}: {text}
+      </div>
+    </div>
+  )
+}
