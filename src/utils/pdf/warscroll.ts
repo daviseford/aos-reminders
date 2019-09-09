@@ -98,8 +98,9 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
         const parts = nameRemoved.split('-').map(t => t.trim())
         const name = parts[0].trim()
 
+        console.log(name)
         factionName = warscrollFactionNameMap[name] || name
-
+        console.log(factionName)
         if (parts.length > 1 && txt.includes('Mortal Realm:')) {
           realmscape = parts[1].substring(14).trim() as TRealms
         }
@@ -325,6 +326,7 @@ const warscrollFactionNameMap = {
   'Gloomspite Gitz': GLOOMSPITE_GITZ,
   Gutbusters: GUTBUSTERS,
   'Hedonites of Slaanesh': SLAANESH,
+  Slaanesh: SLAANESH,
   'Idoneth Deepkin': IDONETH_DEEPKIN,
   Ironjawz: IRONJAWZ,
   'Kharadron Overlords': KHARADRON_OVERLORDS,
@@ -355,7 +357,11 @@ const warscrollFactionNameMap = {
 
 // TODO: Add common typos here
 // Longer TODO: Share with Warscroll Builder author
-const warscrollTypoMap = {}
+const warscrollTypoMap = {
+  'Ghorgon of Slaanesh': 'Ghorgon',
+  'Beastlord of Slaanesh': 'Beastlord',
+  'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+}
 
 const warscrollUnitOptionMap = {
   'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
