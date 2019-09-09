@@ -123,18 +123,18 @@ const getInitialWarscrollArmy = (pdfText: string[]): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
-        if (txt.startsWith('- Command Trait : ')) {
-          const trait = txt.split('- Command Trait : ')[1].trim()
+        if (txt.includes('Command Trait : ')) {
+          const trait = txt.split(' Command Trait : ')[1].trim()
           accum.traits = accum.traits.concat(trait)
           return accum
         }
-        if (txt.startsWith('- Artefact : ')) {
-          const artifact = txt.split('- Artefact : ')[1].trim()
+        if (txt.includes('Artefact : ')) {
+          const artifact = txt.split(' Artefact : ')[1].trim()
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
-        if (txt.startsWith('- Spell : ')) {
-          const spell = txt.split('- Spell : ')[1].trim()
+        if (txt.includes('Spell : ')) {
+          const spell = txt.split(' Spell : ')[1].trim()
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -210,39 +210,71 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IErrorChecker => {
   }
 
   const Army = getArmy(factionName) as IArmy
-
-  const UnitNames = Army.Units.reduce((a, b) => {
-    a[b.name] = b.name
-    return a
-  }, {})
-
-  const units = selections.units
-    .map(u => {
-      // Check for typos
-      if (warscrollTypoMap[u]) {
-        u = warscrollTypoMap[u]
-      }
-
-      if (UnitNames[u]) {
-        return u
-      }
-
-      // TODO Some more checking here
-
-      errors.push(warn(`${u} is either a typo or unsupported unit.`))
-      return ''
-    })
-    .filter(x => !!x)
+  const units = getUnits(Army, selections, errors)
+  const artifacts = getArtifacts(Army, selections, errors)
 
   return {
     ...army,
     selections: {
       ...selections,
+      artifacts,
       units,
     },
 
     errors: errors.length ? errors : null,
   }
+}
+
+const getArtifacts = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
+  const Names = Army.Artifacts.map(({ name }) => name)
+  const NamesUpper = Names.map(x => x.toUpperCase())
+  const NameMap = Names.reduce((a, b) => {
+    a[b] = b
+    return a
+  }, {})
+
+  return selections.artifacts
+    .map(val => {
+      // Check for typos
+      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
+
+      if (NameMap[val]) return val
+
+      // See if we have something like it...
+      const valUpper = val.toUpperCase()
+      const match = NamesUpper.find(x => x.includes(valUpper))
+      if (match) return match
+
+      errors.push(warn(`${val} is either a typo or an unsupported value.`))
+      return ''
+    })
+    .filter(x => !!x)
+}
+
+const getUnits = (Army: IArmy, selections: ISelections, errors: TError[]): string[] => {
+  const Names = Army.Units.map(({ name }) => name)
+  const NamesUpper = Names.map(x => x.toUpperCase())
+  const NameMap = Names.reduce((a, b) => {
+    a[b] = b
+    return a
+  }, {})
+
+  return selections.units
+    .map(val => {
+      // Check for typos
+      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
+
+      if (NameMap[val]) return val
+
+      // See if we have something like it...
+      const valUpper = val.toUpperCase()
+      const match = NamesUpper.find(x => x.includes(valUpper))
+      if (match) return match
+
+      errors.push(warn(`${val} is either a typo or an unsupported value.`))
+      return ''
+    })
+    .filter(x => !!x)
 }
 
 const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
