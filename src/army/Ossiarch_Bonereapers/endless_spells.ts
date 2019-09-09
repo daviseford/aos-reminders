@@ -3,16 +3,16 @@ import { TEndlessSpells } from 'types/army'
 
 // Endless spells go here
 const EndlessSpells: TEndlessSpells = [
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [START_OF_ROUND],
-      },
-    ],
-  },
+//   {
+//     name: ``,
+//     effects: [
+//       {
+//         name: ``,
+//         desc: ``,
+//         when: [START_OF_ROUND],
+//       },
+//     ],
+//   },
 ]
 
 export default EndlessSpells
