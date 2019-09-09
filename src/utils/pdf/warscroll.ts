@@ -287,7 +287,7 @@ const selectionLookup = (
 
       // Maybe punctuation is in our way?
       const valNoPunc = strip.punctuation(valShortened)
-      const match3 = Names.find(x => x.toUpperCase().includes(valNoPunc))
+      const match3 = Names.find(x => strip.punctuation(x.toUpperCase()).includes(valNoPunc))
       if (match3) return match3
 
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
