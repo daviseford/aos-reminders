@@ -116,7 +116,8 @@ const Alert = props => {
           Unexpected {prefix.toLowerCase()}? File an issue on{' '}
           <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
             Github
-          </a>
+          </a>{' '}
+          and be sure to attach this PDF.
         </small>
       </div>
     </div>
