@@ -198,6 +198,7 @@ const Allegiances: TAllegiances = [
         name: `Seek New Fruit`,
         desc: `Each time this general attacks with its melee weapons, it can make a 6" move after all of its attacks have been resolved. If it does so, it must finish the move more than 3" from enemy units.`,
         when: [COMBAT_PHASE],
+        command_trait: true,
       },
       {
         name: `The Silent Sickle`,
