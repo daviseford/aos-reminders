@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { sortBy } from 'lodash'
+import { sortBy, uniqBy } from 'lodash'
 import { processGame } from './processGame'
 
 import {
@@ -44,6 +44,7 @@ import {
   TUnits,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
+import { TEffects, TEntry } from 'types/data'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
@@ -74,6 +75,8 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Units = [],
   } = Army
   const { realmscape, GrandAlliance } = meta
+
+  getCollection(Army)
 
   Army.Allegiances = modifyAllegiances(Allegiances)
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance)
@@ -181,4 +184,78 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
     Traits: OrderTraits,
     Units: OrderUnits,
   },
+}
+
+interface ICollection {
+  Allegiances: TAllegiances
+  Artifacts: TArtifacts
+  Battalions: TBattalions
+  Spells: TSpells
+  Traits: TTraits
+}
+
+const getCollection = (army: IArmy): ICollection => {
+  const {
+    Allegiances = [],
+    Artifacts = [],
+    Battalions = [],
+    EndlessSpells = [],
+    Scenery = [],
+    Spells = [],
+    Traits = [],
+    Units = [],
+  } = army
+
+  const Collection = {
+    Allegiances: [] as TAllegiances,
+    Artifacts: [] as TArtifacts,
+    Battalions: [] as TBattalions,
+    Spells: [] as TSpells,
+    Traits: [] as TTraits,
+  }
+
+  // Brute force it first
+
+  // Go through each thing and get spells, artifacts, etc that are unusual
+  Allegiances.forEach((item, i) => {
+    item.effects.forEach(effect => {
+      if (effect.spell) {
+        // need to add to spells
+        addToCollection(effect, Collection.Spells)
+      } else if (effect.artifact) {
+        debugger
+        addToCollection(effect, Collection.Artifacts)
+      }
+    })
+  })
+
+  console.log(Collection)
+
+  debugger
+
+  return {
+    Allegiances: uniqBy(Collection.Allegiances, 'name'),
+    Artifacts: uniqBy(Collection.Artifacts, 'name'),
+    Battalions: uniqBy(Collection.Battalions, 'name'),
+    Spells: uniqBy(Collection.Spells, 'name'),
+    Traits: uniqBy(Collection.Traits, 'name'),
+  }
+}
+
+const addToCollection = (effect: TEffects, collection: TEntry[]): void => {
+  const existingIdx = collection.findIndex(x => x.name === effect.name)
+  if (existingIdx > -1) {
+    const existingEntry = { ...collection[existingIdx] }
+    const effects = uniqBy([...existingEntry.effects, effect], 'name')
+    collection[existingIdx] = { ...existingEntry, effects }
+  } else {
+    collection.push(effectToEntry(effect))
+  }
+}
+
+const effectToEntry = (effect: TEffects): TEntry => {
+  return {
+    name: effect.name,
+    effects: [effect],
+  }
 }
