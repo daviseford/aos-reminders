@@ -102,7 +102,7 @@ export const LoadWarscrollArmy = connect(
   }
 )(LoadWarscrollArmyComponent)
 
-const ErrorAlert = props => {
+const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
   const { text, severity } = props
 
   const alertType = {
