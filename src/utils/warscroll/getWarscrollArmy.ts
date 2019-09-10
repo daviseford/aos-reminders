@@ -245,6 +245,11 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
           accum.traits = accum.traits.concat(trait)
           return accum
         }
+        if (txt.includes('Mount Trait: ')) {
+          const trait = txt.split(' Mount Trait: ')[1].trim()
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
         if (txt.includes('Artefact: ')) {
           const artifact = txt.split(' Artefact: ')[1].trim()
           accum.artifacts = accum.artifacts.concat(artifact)
