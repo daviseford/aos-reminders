@@ -231,7 +231,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Skyre Acolytes`,
+    name: `Skryre Acolytes`,
     effects: [
       {
         name: `Quick-quick Volley!`,
