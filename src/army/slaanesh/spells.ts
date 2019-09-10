@@ -80,7 +80,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Progeny of Damnation`,
-        desc: `Casting value of 7.  If successfully cast, pick 1 friendly Daemon Hedonite hero within 6" of the caster that is visible to them.  You can heal D3 wounds allocated to that hero.  If the casting roll was 10+ you can heal D3 wounds allocated instead.`,
+        desc: `Casting value of 7.  If successfully cast, pick 1 friendly Daemon Hedonite hero within 6" of the caster that is visible to them.  You can heal D3 wounds allocated to that hero.  If the casting roll was 10+ you can heal D6 wounds allocated instead.`,
         when: [HERO_PHASE],
       },
     ],
