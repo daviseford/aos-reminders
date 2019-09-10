@@ -383,6 +383,7 @@ const warscrollTypoMap = {
   'Chaos Chariots': 'Chaos Chariot',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
+  'Lighntning Blast': 'Lightning Blast',
 }
 
 const warscrollUnitOptionMap = {
