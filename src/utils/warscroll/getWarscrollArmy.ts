@@ -38,6 +38,18 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmyWithEr
   return errorChecked
 }
 
+const unitIndicatorsTxt = [
+  'Leaders',
+  'Units',
+  'Behemoths',
+  'War Machines',
+  'Battleline',
+  'Spearhead',
+  'Main Body',
+  'Rearguard',
+]
+const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
+
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   const cleanedText = pdfText
     .map(txt =>
@@ -59,12 +71,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 
   let unknownSelections: string[] = []
   let factionName = ''
-  let realmscape: TRealms | null = null
   let selector = ''
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
-      // Get Allegiance and Mortal Realm
+      // Get Allegiance
       // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
       // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
       if (txt.includes('Allegiance:')) {
@@ -74,14 +85,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 
         factionName = warscrollFactionNameMap[name] || name
 
-        if (parts.length > 1 && txt.includes('Mortal Realm:')) {
-          realmscape = parts[1].substring(14).trim() as TRealms
-        }
-
         return accum
       }
 
-      if (['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES'].includes(txt)) {
+      if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
         return accum
       }
@@ -169,13 +176,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   )
 
   return {
-    selections,
-    unknownSelections: uniq(unknownSelections),
-    factionName: factionName as TSupportedFaction,
-    realmscape,
     allyFactionNames: [],
     allySelections: {},
+    factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
+    realmscape: null,
+    selections,
+    unknownSelections: uniq(unknownSelections),
   }
 }
 
@@ -201,7 +208,6 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
   let unknownSelections: string[] = []
   let factionName = ''
-  let realmscape: TRealms | null = null
   let selector = ''
 
   const selections = cleanedText.reduce(
@@ -212,12 +218,9 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
         return accum
       }
 
-      if (txt.includes('Mortal Realm: ')) {
-        realmscape = txt.replace('Mortal Realm: ', '').trim() as TRealms
-        return accum
-      }
+      if (txt.includes('Mortal Realm: ')) return accum
 
-      if (['Leaders', 'Units', 'Behemoths', 'War Machines', 'Battleline'].includes(txt)) {
+      if (unitIndicatorsTxt.includes(txt)) {
         selector = 'units'
         return accum
       }
@@ -309,13 +312,13 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   )
 
   return {
-    selections,
-    unknownSelections: uniq(unknownSelections),
-    factionName: factionName as TSupportedFaction,
-    realmscape,
     allyFactionNames: [],
     allySelections: {},
+    factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
+    realmscape: null,
+    selections,
+    unknownSelections: uniq(unknownSelections),
   }
 }
 
