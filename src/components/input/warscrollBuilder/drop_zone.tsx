@@ -3,7 +3,11 @@ import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { getWarscrollArmyFromPdf, IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
+import {
+  getWarscrollArmyFromPdf,
+  IWarscrollArmyWithErrors,
+  getWarscrollArmyFromText,
+} from 'utils/warscroll/warscroll'
 import { logEvent } from 'utils/analytics'
 
 interface IDropzoneProps {
@@ -29,6 +33,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
   const onDrop = useCallback(
     acceptedFiles => {
       try {
+        const file = acceptedFiles[0]
         const reader = new FileReader()
 
         // Set reader options
@@ -38,9 +43,15 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
           console.log('File reading has failed.')
         }
         reader.onload = () => {
-          const pdfText = reader.result
-          const parsed = parsePdf(pdfText as string)
-          const parsedArmy = getWarscrollArmyFromPdf(parsed)
+          const fileText = reader.result
+          let parsedArmy: IWarscrollArmyWithErrors
+
+          if (file.type === 'application/pdf') {
+            const parsed = parsePdf(fileText as string)
+            parsedArmy = getWarscrollArmyFromPdf(parsed)
+          } else {
+            parsedArmy = getWarscrollArmyFromText(fileText as string)
+          }
 
           handleDrop(parsedArmy)
           handleDone()
@@ -48,7 +59,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
         }
 
         // Read the file
-        reader.readAsText(acceptedFiles[0])
+        reader.readAsText(file)
       } catch (err) {
         handleError()
         console.error(err)
@@ -57,13 +68,17 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
     [handleDrop]
   )
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'application/pdf', multiple: false })
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'application/pdf, text/plain',
+    multiple: false,
+  })
 
   const txt = isError
     ? `Unable to process this file`
     : isDone
-    ? `PDF file processed`
-    : `Drag your Warscroll PDF here, or click to select`
+    ? `File processed`
+    : `Drag your Warscroll file here, or click to select`
 
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
