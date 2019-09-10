@@ -377,11 +377,12 @@ const warscrollFactionNameMap = {
   Wanderers: WANDERERS,
 }
 
-// TODO: Add common typos here
+// Add common typos here
 // Longer TODO: Share with Warscroll Builder author
 const warscrollTypoMap = {
   'Chaos Chariots': 'Chaos Chariot',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+  'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
 }
 
 const warscrollUnitOptionMap = {
