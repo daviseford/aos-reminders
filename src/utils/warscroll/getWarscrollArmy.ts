@@ -205,21 +205,14 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
-      // Get Allegiance and Mortal Realm
-      // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
-      // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
-      if (txt.includes('Allegiance:')) {
-        const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
-        const parts = nameRemoved.split('-').map(t => t.trim())
-        const name = parts[0].trim()
-
+      if (txt.includes('Allegiance: ')) {
+        const name = txt.replace('Allegiance: ', '').trim()
         factionName = warscrollFactionNameMap[name] || name
-
         return accum
       }
 
-      if (txt.includes('Mortal Realm:')) {
-        realmscape = txt.substring(14).trim() as TRealms
+      if (txt.includes('Mortal Realm: ')) {
+        realmscape = txt.replace('Mortal Realm: ', '').trim() as TRealms
         return accum
       }
 
