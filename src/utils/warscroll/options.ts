@@ -72,6 +72,7 @@ export const warscrollFactionNameMap = {
   'Idoneth Deepkin': IDONETH_DEEPKIN,
   'Kharadron Overlords': KHARADRON_OVERLORDS,
   'Legion of Azgorh': LEGIONS_OF_AZGORH,
+  'Legion of Blood': LEGIONS_OF_NAGASH,
   'Legion of Grief': LEGIONS_OF_GRIEF,
   'Legions of Nagash': LEGIONS_OF_NAGASH,
   'Lethisian Defenders': LETHISIAN_DEFENDERS,
