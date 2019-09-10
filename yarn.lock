@@ -2713,11 +2713,6 @@ clean-css@4.2.x:
   dependencies:
     source-map "~0.6.0"
 
-clean-text-utils@^1.1.17:
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/clean-text-utils/-/clean-text-utils-1.1.17.tgz#ea7a0fc4104e78d058f23e47b2b19e2244d4f3b7"
-  integrity sha512-Y+1l2vrQwJbORnVrk9p0gSTgLtXIZRERvngyXTwmguaD/PMYvqj7FUF18/WZnwbGaJrFm99jafOhj0D4inx5vQ==
-
 cli-cursor@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
