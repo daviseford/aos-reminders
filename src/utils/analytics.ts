@@ -65,3 +65,17 @@ export const logClick = (label: string) => {
     })
   }
 }
+
+/**
+ * Sends a Google Analytics event
+ * @param event
+ */
+export const logEvent = (event: string) => {
+  if (!!event) {
+    ReactGA.event({
+      category: 'event',
+      action: `event-${event}`,
+      label: 'AoS Reminders',
+    })
+  }
+}

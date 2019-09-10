@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { getArmy } from 'utils/getArmy'
+import { IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
+import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'
+import { WarscrollDropzone } from './dropzone'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { getArmy } from 'utils/getArmy'
-import { MyDropzone } from './dropZone'
-import { IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
@@ -30,6 +32,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
   } = props
 
   const [errors, setErrors] = useState<IWarscrollArmyWithErrors['errors']>([])
+  const { isSubscribed } = useSubscription()
 
   const handleWarscrollDrop = useCallback(
     (army: IWarscrollArmyWithErrors) => {
@@ -67,15 +70,17 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     <>
       <div className="row my-2 d-flex justify-content-center">
         <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
-          <MyDropzone handleDrop={handleWarscrollDrop} />
+          <WarscrollDropzone handleDrop={handleWarscrollDrop} />
         </div>
       </div>
+
+      {!isSubscribed && <InfoAlert />}
 
       {errors.length > 0 && (
         <div className="row my-2 d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
-              <Alert key={i} text={x.text} severity={x.severity} />
+              <ErrorAlert key={i} text={x.text} severity={x.severity} />
             ))}
           </div>
         </div>
@@ -97,7 +102,7 @@ export const LoadWarscrollArmy = connect(
   }
 )(LoadWarscrollArmyComponent)
 
-const Alert = props => {
+const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
   const { text, severity } = props
 
   const alertType = {
@@ -123,3 +128,17 @@ const Alert = props => {
     </div>
   )
 }
+
+const InfoAlert = () => (
+  <div className="row my-2 d-flex justify-content-center">
+    <div className={'col-12 col-lg-6 col-xl-6'}>
+      <div className="my-2">
+        <div className={`alert alert-info text-center`} role="alert">
+          <small>
+            Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+)

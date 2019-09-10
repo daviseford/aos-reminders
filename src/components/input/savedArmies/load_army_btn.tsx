@@ -7,6 +7,7 @@ import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy'
+import { logEvent } from 'utils/analytics'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -32,6 +33,8 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
   const handleLoadClick = e => {
     e.preventDefault()
+
+    logEvent(`LoadArmy`)
 
     setFactionName(army.factionName)
 
