@@ -55,7 +55,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
     [handleDrop]
   )
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'application/pdf' })
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'application/pdf', multiple: false })
 
   const txt = isError
     ? `Unable to process this file`
