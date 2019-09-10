@@ -80,7 +80,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
             show={showWarscrollImport}
             hide={hideWarscrollImport}
             isShowing={isShowingWarscrollImport}
-            isSubscribed={isSubscribed}
+            // isSubscribed={isSubscribed}
+            isSubscribed={true}
           />
         </div>
         <div className={btnWrapperClass} hidden={!isSubscribed}>
