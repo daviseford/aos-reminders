@@ -42,6 +42,7 @@ import {
   TTraits,
   TTriumphs,
   TUnits,
+  TAbilities,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
@@ -187,6 +188,7 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
 }
 
 interface ICollection {
+  Abilities: TAbilities
   Allegiances: TAllegiances
   Artifacts: TArtifacts
   Battalions: TBattalions
@@ -195,45 +197,46 @@ interface ICollection {
 }
 
 const getCollection = (army: IArmy): ICollection => {
-  const {
-    Allegiances = [],
-    Artifacts = [],
-    Battalions = [],
-    EndlessSpells = [],
-    Scenery = [],
-    Spells = [],
-    Traits = [],
-    Units = [],
-  } = army
+  const { Allegiances = [], Artifacts = [], Battalions = [], Scenery = [], Traits = [], Units = [] } = army
 
   const Collection = {
+    Abilities: [] as TAbilities,
     Allegiances: [] as TAllegiances,
     Artifacts: [] as TArtifacts,
     Battalions: [] as TBattalions,
+    Commands: [] as TCommands,
     Spells: [] as TSpells,
     Traits: [] as TTraits,
   }
 
-  // Brute force it first
+  // Brute force it
+  const types = [Allegiances, Artifacts, Battalions, Scenery, Traits, Units]
 
   // Go through each thing and get spells, artifacts, etc that are unusual
-  Allegiances.forEach((item, i) => {
-    item.effects.forEach(effect => {
-      if (effect.spell) {
-        // need to add to spells
-        addToCollection(effect, Collection.Spells)
-      } else if (effect.artifact) {
-        debugger
-        addToCollection(effect, Collection.Artifacts)
-      }
+  types.forEach(items =>
+    items.forEach(item => {
+      item.effects.forEach(effect => {
+        if (effect.spell) {
+          addToCollection(effect, Collection.Spells)
+        } else if (effect.artifact) {
+          addToCollection(effect, Collection.Artifacts)
+        } else if (effect.command_trait) {
+          addToCollection(effect, Collection.Traits)
+        } else if (effect.command_ability) {
+          addToCollection(effect, Collection.Commands)
+        } else if (effect.allegiance_ability) {
+          Collection.Abilities.push(effect)
+        }
+      })
     })
-  })
+  )
 
   console.log(Collection)
 
   debugger
 
   return {
+    Abilities: uniqBy(Collection.Abilities, 'desc'), // Abilities can share names!
     Allegiances: uniqBy(Collection.Allegiances, 'name'),
     Artifacts: uniqBy(Collection.Artifacts, 'name'),
     Battalions: uniqBy(Collection.Battalions, 'name'),
