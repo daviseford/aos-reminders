@@ -44,7 +44,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
 
           handleDrop(parsedArmy)
           handleDone()
-          logEvent(`ImportWarscroll`)
+          logEvent(`ImportWarscroll-${parsedArmy.factionName}`)
         }
 
         // Read the file
