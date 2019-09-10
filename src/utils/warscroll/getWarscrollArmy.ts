@@ -76,7 +76,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
         return accum
       }
 
-      if (['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES'].includes(txt)) {
+      if (
+        ['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES', 'SPEARHEAD', 'MAIN BODY', 'REARGUARD'].includes(txt)
+      ) {
         selector = 'units'
         return accum
       }
@@ -208,7 +210,18 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
       if (txt.includes('Mortal Realm: ')) return accum
 
-      if (['Leaders', 'Units', 'Behemoths', 'War Machines', 'Battleline'].includes(txt)) {
+      if (
+        [
+          'Leaders',
+          'Units',
+          'Behemoths',
+          'War Machines',
+          'Battleline',
+          'Spearhead',
+          'Main Body',
+          'Rearguard',
+        ].includes(txt)
+      ) {
         selector = 'units'
         return accum
       }
