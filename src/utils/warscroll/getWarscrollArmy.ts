@@ -38,6 +38,18 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmyWithEr
   return errorChecked
 }
 
+const unitIndicatorsTxt = [
+  'Leaders',
+  'Units',
+  'Behemoths',
+  'War Machines',
+  'Battleline',
+  'Spearhead',
+  'Main Body',
+  'Rearguard',
+]
+const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
+
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   const cleanedText = pdfText
     .map(txt =>
@@ -76,9 +88,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
         return accum
       }
 
-      if (
-        ['LEADERS', 'UNITS', 'BEHEMOTHS', 'WAR MACHINES', 'SPEARHEAD', 'MAIN BODY', 'REARGUARD'].includes(txt)
-      ) {
+      if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
         return accum
       }
@@ -210,18 +220,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
       if (txt.includes('Mortal Realm: ')) return accum
 
-      if (
-        [
-          'Leaders',
-          'Units',
-          'Behemoths',
-          'War Machines',
-          'Battleline',
-          'Spearhead',
-          'Main Body',
-          'Rearguard',
-        ].includes(txt)
-      ) {
+      if (unitIndicatorsTxt.includes(txt)) {
         selector = 'units'
         return accum
       }
