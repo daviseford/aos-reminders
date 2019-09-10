@@ -77,7 +77,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
       {!isSubscribed && <InfoAlert />}
 
       {errors.length > 0 && (
-        <div className="row my-2 d-flex justify-content-center">
+        <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
               <ErrorAlert key={i} text={x.text} severity={x.severity} />
@@ -113,7 +113,7 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
   const prefix = severity === 'error' ? `Error` : `Warning`
 
   return (
-    <div className="my-2">
+    <div className="mb-2">
       <div className={`alert ${alertType} text-center`} role="alert">
         <strong>{prefix}:</strong> {text}
         <br />
@@ -122,7 +122,7 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
           <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
             Github
           </a>{' '}
-          and be sure to attach this PDF.
+          and be sure to attach this file.
         </small>
       </div>
     </div>
@@ -130,14 +130,12 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
 }
 
 const InfoAlert = () => (
-  <div className="row my-2 d-flex justify-content-center">
+  <div className="row mt-2 d-flex justify-content-center">
     <div className={'col-12 col-lg-6 col-xl-6'}>
-      <div className="my-2">
-        <div className={`alert alert-info text-center`} role="alert">
-          <small>
-            Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
-          </small>
-        </div>
+      <div className={`alert alert-info text-center`} role="alert">
+        <small>
+          Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
+        </small>
       </div>
     </div>
   </div>
