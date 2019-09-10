@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility } from 'ducks'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'

@@ -8,3 +8,5 @@ export const unTitleCase = (val: string): string => {
     .split(' ')
     .join('_')
 }
+
+export const stripPunctuation = (text: string): string => text.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')

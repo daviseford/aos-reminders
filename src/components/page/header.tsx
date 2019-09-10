@@ -7,7 +7,7 @@ import { SelectOne } from 'components/input/select'
 import { NavBar } from 'components/page/navbar'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 
 export const Header = () => {
   return (

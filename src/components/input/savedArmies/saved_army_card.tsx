@@ -1,5 +1,5 @@
 import React from 'react'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { useSubscription } from 'context/useSubscription'
 import { LoadArmyBtn } from './load_army_btn'
 import { ISavedArmyFromApi } from 'types/savedArmy'

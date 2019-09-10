@@ -1,6 +1,6 @@
 import { uniq, difference, last } from 'lodash'
-import { strip } from 'clean-text-utils'
 import { getArmy } from 'utils/getArmy'
+import { stripPunctuation } from 'utils/textUtils'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
@@ -398,8 +398,8 @@ const selectionLookup = (
       if (match2) return match2
 
       // Maybe punctuation is in our way?
-      const valNoPunc = strip.punctuation(valShortened)
-      const match3 = Names.find(x => strip.punctuation(x.toUpperCase()).includes(valNoPunc))
+      const valNoPunc = stripPunctuation(valShortened)
+      const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
       if (match3) return match3
 
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
