@@ -8,7 +8,7 @@ interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmyWithErrors) => void
 }
 
-export const MyDropzone: React.FC<IDropzoneProps> = props => {
+export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
   const { handleDrop } = props
 
   const [isDone, setIsDone] = useState(false)
