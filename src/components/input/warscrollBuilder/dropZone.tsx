@@ -4,6 +4,7 @@ import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf, IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
+import { logEvent } from 'utils/analytics'
 
 interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmyWithErrors) => void
@@ -43,6 +44,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
 
           handleDrop(parsedArmy)
           handleDone()
+          logEvent(`ImportWarscroll`)
         }
 
         // Read the file
