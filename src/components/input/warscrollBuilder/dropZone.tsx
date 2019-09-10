@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { FaCheckCircle } from 'react-icons/fa'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf, IWarscrollArmyWithErrors } from 'utils/pdf/warscroll'
-import { FaCheckCircle } from 'react-icons/fa'
 
 interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmyWithErrors) => void
