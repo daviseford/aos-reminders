@@ -44,6 +44,7 @@ import {
   TUnits,
   TAbilities,
   IInitialArmy,
+  ICollection,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
@@ -198,15 +199,6 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
     Traits: OrderTraits,
     Units: OrderUnits,
   },
-}
-
-interface ICollection {
-  Abilities: TAbilities
-  Artifacts: TArtifacts
-  Battalions: TBattalions
-  Commands: TCommands
-  Spells: TSpells
-  Traits: TTraits
 }
 
 const getCollection = (army: IInitialArmy): ICollection => {

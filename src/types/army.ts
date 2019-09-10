@@ -48,3 +48,12 @@ export interface IArmy {
   Units: TUnits
   Game: TGameStructure
 }
+
+export interface ICollection {
+  Abilities: TAbilities
+  Artifacts: TArtifacts
+  Battalions: TBattalions
+  Commands: TCommands
+  Spells: TSpells
+  Traits: TTraits
+}
