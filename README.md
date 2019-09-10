@@ -79,3 +79,23 @@ This repository is automatically deployed using CodeShip.
 Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
 
 This happens automatically, so be careful when merging to `master`! Your changes will immediately be live.
+
+### Authenticating Locally
+
+If you want to test or use subscriber features _locally_, you can do it :)
+
+First, login through Auth0. You can create a fake account - your email doesn't need to be verified.
+
+Then subscribe and go through checkout as usual. You can use any of Stripes [test card numbers](https://stripe.com/docs/testing#cards) to complete the transaction. Just enter a test card number, and any expiration date/CVC/ZIP code, and your account will be subscribed.
+
+I like to use card # `4242 4242 4242 4242` since I can just spam my keyboard.
+
+Obviously, this does not work in production :)
+
+### Warscroll Builder Import
+
+Found a discrepancy between Warscroll Builder and AoS Reminders? You have two options:
+
+1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
+2. Add to the typo list (`warscrollTypoMap`) in `src/utils/warscroll/options.ts`
+
