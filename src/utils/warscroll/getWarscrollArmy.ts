@@ -205,21 +205,14 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
-      // Get Allegiance and Mortal Realm
-      // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
-      // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
-      if (txt.includes('Allegiance:')) {
-        const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
-        const parts = nameRemoved.split('-').map(t => t.trim())
-        const name = parts[0].trim()
-
+      if (txt.includes('Allegiance: ')) {
+        const name = txt.replace('Allegiance: ', '').trim()
         factionName = warscrollFactionNameMap[name] || name
-
         return accum
       }
 
-      if (txt.includes('Mortal Realm:')) {
-        realmscape = txt.substring(14).trim() as TRealms
+      if (txt.includes('Mortal Realm: ')) {
+        realmscape = txt.replace('Mortal Realm: ', '').trim() as TRealms
         return accum
       }
 
@@ -240,18 +233,23 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
-        if (txt.includes('Command Trait : ')) {
-          const trait = txt.split(' Command Trait : ')[1].trim()
+        if (txt.includes('Command Trait: ')) {
+          const trait = txt.split(' Command Trait: ')[1].trim()
           accum.traits = accum.traits.concat(trait)
           return accum
         }
-        if (txt.includes('Artefact : ')) {
-          const artifact = txt.split(' Artefact : ')[1].trim()
+        if (txt.includes('Mount Trait: ')) {
+          const trait = txt.split(' Mount Trait: ')[1].trim()
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Artefact: ')) {
+          const artifact = txt.split(' Artefact: ')[1].trim()
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
-        if (txt.includes('Spell : ')) {
-          const spell = txt.split(' Spell : ')[1].trim()
+        if (txt.includes('Spell: ')) {
+          const spell = txt.split(' Spell: ')[1].trim()
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -274,7 +272,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
-        const splitAttr = txt.split(' : ').map(x => x.trim())
+        const splitAttr = txt.split(': ').map(x => x.trim())
         const attr = (last(splitAttr) as string).replace(/^- /g, '')
 
         unknownSelections.push(attr)

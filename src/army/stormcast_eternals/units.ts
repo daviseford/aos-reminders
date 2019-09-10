@@ -1444,6 +1444,53 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Averon Stormsire`,
+    effects: [
+      {
+        name: `Spirit Flask`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Voidstorm Scroll`,
+        desc: `Once per battle, when this model attempts to unbind a spell, instead of making an unbinding roll you can say this model is using its Voidstorm Scroll. If you do so, the spell is automatically unbound (do not roll the dice).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Stormsire`,
+        desc: `Casting value of 7. If successfully cast, each enemy unit within 18" of the caster suffers 1 mortal wound. Enemy units within 6" of the caster suffer D3 mortal wounds instead. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Stormsire's Cursebreakers`,
+    effects: [
+      {
+        name: `Blessed Banishment`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `You can re-roll save rolls of 1 for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Empower`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
 ]
 
 // Battalions
@@ -1509,7 +1556,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Vanguard Justicar Chamber`,
+    name: `Vanguard Justicar Conclave`,
     effects: [
       {
         name: `Fight in Concert`,
