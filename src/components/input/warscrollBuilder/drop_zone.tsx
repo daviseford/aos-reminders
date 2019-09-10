@@ -7,7 +7,7 @@ import {
   getWarscrollArmyFromPdf,
   IWarscrollArmyWithErrors,
   getWarscrollArmyFromText,
-} from 'utils/warscroll/warscroll'
+} from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
 
 interface IDropzoneProps {
