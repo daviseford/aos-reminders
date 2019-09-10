@@ -132,8 +132,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
-        const splitAttr = txt.split(' : ').map(x => x.trim())
-        const attr = (last(splitAttr) as string).replace(/^- /g, '')
+        const sep = txt.includes(' : ') ? ' : ' : ':'
+        const splitAttr = txt.split(sep).map(x => x.trim())
+        const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
 
         unknownSelections.push(attr)
 
@@ -273,7 +274,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
         const splitAttr = txt.split(': ').map(x => x.trim())
-        const attr = (last(splitAttr) as string).replace(/^- /g, '')
+        const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
 
         unknownSelections.push(attr)
 
@@ -336,6 +337,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   const lookup = selectionLookup(Army, selections, errors, unknownSelections, foundSelections)
 
   const errorFreeSelections = {
+    allegiances: lookup('allegiances'),
     artifacts: lookup('artifacts'),
     battalions: lookup('battalions'),
     endless_spells: lookup('endless_spells'),
@@ -356,7 +358,14 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   }
 }
 
-type TLookupType = 'artifacts' | 'battalions' | 'endless_spells' | 'spells' | 'traits' | 'units'
+type TLookupType =
+  | 'allegiances'
+  | 'artifacts'
+  | 'battalions'
+  | 'endless_spells'
+  | 'spells'
+  | 'traits'
+  | 'units'
 
 const selectionLookup = (
   Army: IArmy,
@@ -366,6 +375,7 @@ const selectionLookup = (
   foundSelections: string[]
 ) => (type: TLookupType): string[] => {
   const lookup = {
+    allegiances: 'Allegiances',
     artifacts: 'Artifacts',
     battalions: 'Battalions',
     endless_spells: 'EndlessSpells',

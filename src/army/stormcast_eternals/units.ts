@@ -1496,6 +1496,26 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   {
+    name: `Skyborne Slayers`,
+    effects: [
+      {
+        name: `Hurled by Sigmar's Hand`,
+        desc: `Instead of setting up a unit from the Skyborne Slayers on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Hurled by Sigmar's Hand`,
+        desc: `In any of your movement phases, you can transport all of the units from the Skyborne Slayers that you have placed to one side onto the battlefield. When you do so, pick a point anywhere on the battlefield, then set up all of the units within 12" of that point and more than 5" from any enemy models. This is their move for that movement phase.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Honour of the God-King`,
+        desc: `Units from the Skyborne Slayers never need to take battleshock tests.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
     name: `Grand Convocation`,
     effects: [
       {
