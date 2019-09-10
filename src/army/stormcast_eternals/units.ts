@@ -1509,7 +1509,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Vanguard Justicar Chamber`,
+    name: `Vanguard Justicar Conclave`,
     effects: [
       {
         name: `Fight in Concert`,
