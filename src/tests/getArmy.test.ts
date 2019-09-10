@@ -4,19 +4,12 @@ import { getArmy } from 'utils/getArmy'
 // Army Imports
 import beasts_of_chaos from 'army/beasts_of_chaos'
 import sylvaneth from 'army/sylvaneth'
-import {
-  GenericCommands,
-  GenericEndlessSpells,
-  GenericScenery,
-  GenericTriumphs,
-  RealmscapeCommands,
-} from 'army/generic'
+import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
 
 // Meta
 import { BEASTS_OF_CHAOS, EVERCHOSEN, SERAPHON, SYLVANETH } from 'meta/factions'
 
 // Types
-import { AQSHY } from 'types/realmscapes'
 import { IArmy } from 'types/army'
 
 describe('getArmy', () => {
@@ -55,23 +48,6 @@ describe('getArmy', () => {
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
     expect(army2.Scenery.length).toEqual(genericSceneryNum)
-  })
-
-  it('adds generic Commands to an army', () => {
-    const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
-
-    expect(army1.Commands).toBeDefined()
-    expect(army1.Commands.length).toEqual(GenericCommands.length)
-  })
-
-  it('adds realm Commands to an army', () => {
-    const realm = AQSHY
-    const genericNum = GenericCommands.length
-    const realmNum = RealmscapeCommands.filter(({ name }) => name.includes(realm)).length
-    const army1 = getArmy(BEASTS_OF_CHAOS, realm) as IArmy
-
-    expect(army1.Commands).toBeDefined()
-    expect(army1.Commands.length).toEqual(genericNum + realmNum)
   })
 
   it('adds Triumphs to an army', () => {

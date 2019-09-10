@@ -32,6 +32,8 @@ import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import {
   IArmy,
+  ICollection,
+  IInitialArmy,
   TAllegiances,
   TArtifacts,
   TBattalions,
@@ -42,9 +44,6 @@ import {
   TTraits,
   TTriumphs,
   TUnits,
-  TAbilities,
-  IInitialArmy,
-  ICollection,
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
@@ -56,6 +55,7 @@ export const getArmy = (
   if (!factionName || !SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName]
+
   const Collection = getCollection(Army)
 
   const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection })
@@ -104,7 +104,6 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Army.Triumphs,
     Army.Units,
   ])
-  // TODO implement Abilities above
 
   return Army
 })
@@ -114,7 +113,7 @@ const modifyBattalions = (battalions: TBattalions): TBattalions => sortBy(battal
 
 const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
   const { Units } = GrandAllianceConfig[alliance]
-  return units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true }))
+  return uniqBy(units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true })), 'name')
 }
 
 const modifyArtifacts = (
@@ -123,26 +122,35 @@ const modifyArtifacts = (
   Collection: ICollection
 ): TArtifacts => {
   const { Artifacts } = GrandAllianceConfig[alliance]
-  return artifacts
-    .concat(Collection.Artifacts)
-    .concat(Artifacts)
-    .concat(RealmArtifacts)
-    .map(a => ({ ...a, artifact: true }))
+  return uniqBy(
+    artifacts
+      .concat(Collection.Artifacts)
+      .concat(Artifacts)
+      .concat(RealmArtifacts)
+      .map(a => ({ ...a, artifact: true })),
+    'name'
+  )
 }
 
 const modifyTraits = (traits: TTraits, alliance: TGrandAlliances, Collection: ICollection): TTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
-  return traits
-    .concat(Collection.Traits)
-    .concat(Traits)
-    .map(t => ({ ...t, command_trait: true }))
+  return uniqBy(
+    traits
+      .concat(Collection.Traits)
+      .concat(Traits)
+      .map(t => ({ ...t, command_trait: true })),
+    'name'
+  )
 }
 
 const modifyCommands = (realmscape: TRealms | null, Collection: ICollection): TCommands => {
   const realmCommands = realmscape ? RealmscapeCommands.filter(c => c.name.includes(realmscape)) : []
-  return Collection.Commands.concat(sortBy(GenericCommands, 'name'))
-    .concat(sortBy(realmCommands, 'name'))
-    .map(c => ({ ...c, command_ability: true }))
+  return uniqBy(
+    Collection.Commands.concat(sortBy(GenericCommands, 'name'))
+      .concat(sortBy(realmCommands, 'name'))
+      .map(c => ({ ...c, command_ability: true })),
+    'name'
+  )
 }
 
 const getTriumphs = (): TTriumphs => {
@@ -151,11 +159,14 @@ const getTriumphs = (): TTriumphs => {
 
 const modifySpells = (spells: TSpells, realmscape: TRealms | null, Collection: ICollection): TSpells => {
   const realmSpells = realmscape ? RealmscapeSpells.filter(s => s.name.includes(realmscape)) : []
-  return sortBy(spells, 'name')
-    .concat(Collection.Spells)
-    .concat(sortBy(realmSpells, 'name'))
-    .concat(sortBy(GenericSpells, 'name'))
-    .map(s => ({ ...s, spell: true }))
+  return uniqBy(
+    sortBy(spells, 'name')
+      .concat(Collection.Spells)
+      .concat(sortBy(realmSpells, 'name'))
+      .concat(sortBy(GenericSpells, 'name'))
+      .map(s => ({ ...s, spell: true })),
+    'name'
+  )
 }
 
 const modifyScenery = (scenery: TScenery): TScenery => {
@@ -201,11 +212,16 @@ const GrandAllianceConfig: IGrandAllianceConfig = {
   },
 }
 
+/**
+ * There are spells/artifacts/etc that only occur if a certain
+ * allegiance/battalion/unit is selected. We want to make sure
+ * that those are represented in the dropdowns.
+ * @param army
+ */
 const getCollection = (army: IInitialArmy): ICollection => {
   const { Allegiances = [], Artifacts = [], Battalions = [], Scenery = [], Traits = [], Units = [] } = army
 
   const Collection = {
-    Abilities: [] as TAbilities,
     Artifacts: [] as TArtifacts,
     Battalions: [] as TBattalions,
     Commands: [] as TCommands,
@@ -228,26 +244,17 @@ const getCollection = (army: IInitialArmy): ICollection => {
           addToCollection(effect, Collection.Traits)
         } else if (effect.command_ability) {
           addToCollection(effect, Collection.Commands)
-        } else if (effect.allegiance_ability) {
-          Collection.Abilities.push(effect)
         }
       })
     })
   )
 
-  console.log(Collection)
-
-  debugger
-
   return {
-    // Abilities can share names, so we have to check descriptions
-    Abilities: sortBy(uniqBy(Collection.Abilities, 'desc'), 'name'),
-    // The others can't, so it's safe to use uniqBy this way
-    Artifacts: sortBy(uniqBy(Collection.Artifacts, 'name'), 'name'),
-    Battalions: sortBy(uniqBy(Collection.Battalions, 'name'), 'name'),
-    Commands: sortBy(uniqBy(Collection.Commands, 'name'), 'name'),
-    Spells: sortBy(uniqBy(Collection.Spells, 'name'), 'name'),
-    Traits: sortBy(uniqBy(Collection.Traits, 'name'), 'name'),
+    Artifacts: sortBy(Collection.Artifacts, 'name'),
+    Battalions: sortBy(Collection.Battalions, 'name'),
+    Commands: sortBy(Collection.Commands, 'name'),
+    Spells: sortBy(Collection.Spells, 'name'),
+    Traits: sortBy(Collection.Traits, 'name'),
   }
 }
 

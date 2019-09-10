@@ -50,7 +50,6 @@ export interface IArmy {
 }
 
 export interface ICollection {
-  Abilities: TAbilities
   Artifacts: TArtifacts
   Battalions: TBattalions
   Commands: TCommands
