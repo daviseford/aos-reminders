@@ -290,7 +290,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -332,7 +332,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Swift of Wing`,
@@ -370,7 +370,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -434,7 +434,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -1424,7 +1424,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Shield of the Pale Knight`,
