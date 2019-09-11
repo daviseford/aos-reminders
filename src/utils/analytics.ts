@@ -79,3 +79,17 @@ export const logEvent = (event: string) => {
     })
   }
 }
+
+/**
+ * Sends a Google Analytics event
+ * @param value
+ */
+export const logFailedImport = (value: string) => {
+  if (!!value) {
+    ReactGA.event({
+      category: 'event',
+      action: `failedImport-${value}`,
+      label: 'AoS Reminders',
+    })
+  }
+}

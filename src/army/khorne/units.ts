@@ -197,11 +197,6 @@ export const KhorneUnits: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Frenzied Attacks`,
-        desc: `You can re-roll hit rolls of 1 for models armed with Gore-slick Blades or Daemonblades.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Murderous to the Last`,
         desc: `Do not take battleshock tests for this unit.`,
         when: [BATTLESHOCK_PHASE],

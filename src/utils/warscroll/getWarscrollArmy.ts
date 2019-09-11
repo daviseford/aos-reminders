@@ -7,6 +7,7 @@ import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
+import { logFailedImport } from 'utils/analytics'
 
 interface IWarscrollArmy {
   allyFactionNames: TSupportedFaction[]
@@ -328,6 +329,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   const { factionName, selections, unknownSelections } = army
 
   if (!SUPPORTED_FACTIONS.includes(factionName)) {
+    logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,
       errors: [error(`${factionName || 'Unknown Faction'} are not supported!`)],
@@ -415,6 +417,7 @@ const selectionLookup = (
       const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
       if (match3) return match3
 
+      logFailedImport(val)
       errors.push(warn(`${val} is either a typo or an unsupported value.`))
       return ''
     })
