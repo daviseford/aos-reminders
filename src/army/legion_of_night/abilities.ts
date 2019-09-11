@@ -15,8 +15,13 @@ const Abilities: TAbilities = [
   },
   {
     name: `Ageless Cunning`,
-    desc: `Instead of setting up a LEGION OF NIGHT unit on the battlefield, you can place it to one side and say that it is set up in ambush. You can do this with up to 3 units.\n\nAt the end of any of your movement phases, you can set up any of the units in ambush wholly within 6" of any battlefield edge and more than 9" away from any enemy models.`,
-    when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+    desc: `Instead of setting up a LEGION OF NIGHT unit on the battlefield, you can place it to one side and say that it is set up in ambush. You can do this with up to 3 units.`,
+    when: [DURING_SETUP],
+  },
+  {
+    name: `Ageless Cunning`,
+    desc: `At the end of any of your movement phases, you can set up any of the units in ambush wholly within 6" of any battlefield edge and more than 9" away from any enemy models.`,
+    when: [END_OF_MOVEMENT_PHASE],
   },
   {
     name: `Legion of Night`,
