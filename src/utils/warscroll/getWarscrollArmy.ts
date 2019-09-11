@@ -329,7 +329,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   const { factionName, selections, unknownSelections } = army
 
   if (!SUPPORTED_FACTIONS.includes(factionName)) {
-    logFailedImport(`Faction:${factionName || 'Unknown'}`)
+    logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,
       errors: [error(`${factionName || 'Unknown Faction'} are not supported!`)],
