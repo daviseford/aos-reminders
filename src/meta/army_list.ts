@@ -22,6 +22,7 @@ import {
   LEGIONS_OF_BLOOD,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
+  LEGIONS_OF_NIGHT,
   LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
@@ -61,6 +62,7 @@ import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfBlood from 'army/legion_of_blood'
 import LegionsOfGrief from 'army/legions_of_grief'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import LegionsOfNight from 'army/legion_of_night'
 import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
@@ -160,6 +162,10 @@ export const ArmyList: TArmyList = {
   },
   [LEGIONS_OF_NAGASH]: {
     Army: { ...LegionsOfNagash },
+    GrandAlliance: DEATH,
+  },
+  [LEGIONS_OF_NIGHT]: {
+    Army: { ...LegionsOfNight },
     GrandAlliance: DEATH,
   },
   [LETHISIAN_DEFENDERS]: {
