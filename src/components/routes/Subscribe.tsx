@@ -20,7 +20,6 @@ export const Subscribe: React.FC<{}> = () => {
   }, [getSubscription])
 
   if (loading) return <Loading />
-  // TODO Flesh this out to look nicer
   if (isSubscribed) return <AlreadySubscribed />
 
   const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
