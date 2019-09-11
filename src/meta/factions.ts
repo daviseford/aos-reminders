@@ -19,10 +19,10 @@ export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
-export type TLegionsOfBlood = 'LEGIONS_OF_BLOOD'
+export type TLegionOfBlood = 'LEGION_OF_BLOOD'
 export type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export type TLegionsOfNight = 'LEGIONS_OF_NIGHT'
+export type TLegionOfNight = 'LEGION_OF_NIGHT'
 export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
@@ -58,10 +58,10 @@ export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
-export const LEGIONS_OF_BLOOD: TLegionsOfBlood = 'LEGIONS_OF_BLOOD'
+export const LEGION_OF_BLOOD: TLegionOfBlood = 'LEGION_OF_BLOOD'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export const LEGIONS_OF_NIGHT: TLegionsOfNight = 'LEGIONS_OF_NIGHT'
+export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
@@ -98,10 +98,10 @@ export type TSupportedFaction =
   | TKharadronOverlords
   | TKhorne
   | TLegionsOfAzgorh
-  | TLegionsOfBlood
+  | TLegionOfBlood
   | TLegionsOfGrief
   | TLegionsOfNagash
-  | TLegionsOfNight
+  | TLegionOfNight
   | TLethisianDefenders
   | TMercenaryCompanies
   | TNighthaunt
@@ -137,10 +137,10 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_AZGORH,
-  LEGIONS_OF_BLOOD,
+  LEGION_OF_BLOOD,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
-  LEGIONS_OF_NIGHT,
+  LEGION_OF_NIGHT,
   LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
