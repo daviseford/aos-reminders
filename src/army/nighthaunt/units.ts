@@ -39,7 +39,7 @@ export const getNighthauntUnits = () => {
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Lady Olynder`,
+    name: `Lady Olynder, Mortarch of Grief`,
     effects: [
       {
         name: `Ethereal`,

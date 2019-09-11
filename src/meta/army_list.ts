@@ -18,11 +18,12 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_AZGORH,
   LEGION_OF_BLOOD,
+  LEGION_OF_NIGHT,
+  LEGION_OF_SACRAMENT,
+  LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
-  LEGION_OF_NIGHT,
   LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
@@ -58,11 +59,12 @@ import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
-import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionOfBlood from 'army/legion_of_blood'
+import LegionOfNight from 'army/legion_of_night'
+import LegionOfSacrament from 'army/legion_of_sacrament'
+import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfGrief from 'army/legions_of_grief'
 import LegionsOfNagash from 'army/legions_of_nagash'
-import LegionOfNight from 'army/legion_of_night'
 import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
@@ -148,13 +150,21 @@ export const ArmyList: TArmyList = {
     Army: { ...Khorne },
     GrandAlliance: CHAOS,
   },
-  [LEGIONS_OF_AZGORH]: {
-    Army: { ...LegionsOfAzgorh },
-    GrandAlliance: CHAOS,
-  },
   [LEGION_OF_BLOOD]: {
     Army: { ...LegionOfBlood },
     GrandAlliance: DEATH,
+  },
+  [LEGION_OF_NIGHT]: {
+    Army: { ...LegionOfNight },
+    GrandAlliance: DEATH,
+  },
+  [LEGION_OF_SACRAMENT]: {
+    Army: { ...LegionOfSacrament },
+    GrandAlliance: DEATH,
+  },
+  [LEGIONS_OF_AZGORH]: {
+    Army: { ...LegionsOfAzgorh },
+    GrandAlliance: CHAOS,
   },
   [LEGIONS_OF_GRIEF]: {
     Army: { ...LegionsOfGrief },
@@ -162,10 +172,6 @@ export const ArmyList: TArmyList = {
   },
   [LEGIONS_OF_NAGASH]: {
     Army: { ...LegionsOfNagash },
-    GrandAlliance: DEATH,
-  },
-  [LEGION_OF_NIGHT]: {
-    Army: { ...LegionOfNight },
     GrandAlliance: DEATH,
   },
   [LETHISIAN_DEFENDERS]: {

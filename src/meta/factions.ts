@@ -18,11 +18,12 @@ export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
-export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export type TLegionOfBlood = 'LEGION_OF_BLOOD'
+export type TLegionOfNight = 'LEGION_OF_NIGHT'
+export type TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
+export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export type TLegionOfNight = 'LEGION_OF_NIGHT'
 export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
@@ -57,11 +58,12 @@ export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGION_OF_BLOOD: TLegionOfBlood = 'LEGION_OF_BLOOD'
+export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
+export const LEGION_OF_SACRAMENT: TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
+export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
-export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
@@ -97,11 +99,12 @@ export type TSupportedFaction =
   | TIronjawz
   | TKharadronOverlords
   | TKhorne
-  | TLegionsOfAzgorh
   | TLegionOfBlood
+  | TLegionOfSacrament
+  | TLegionOfNight
+  | TLegionsOfAzgorh
   | TLegionsOfGrief
   | TLegionsOfNagash
-  | TLegionOfNight
   | TLethisianDefenders
   | TMercenaryCompanies
   | TNighthaunt
@@ -136,11 +139,12 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_AZGORH,
   LEGION_OF_BLOOD,
+  LEGION_OF_NIGHT,
+  LEGION_OF_SACRAMENT,
+  LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
-  LEGION_OF_NIGHT,
   LETHISIAN_DEFENDERS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
