@@ -14,7 +14,7 @@ const Abilities: TAbilities = [
     when: [DURING_GAME],
   },
   {
-    name: `The Black Desciples (Legion of Sacrament)`,
+    name: `The Black Desciples`,
     desc: `Friendly LEGION OF SACRAMENT WIZARDS may add +1 to casting rolls.`,
     when: [HERO_PHASE],
   },
