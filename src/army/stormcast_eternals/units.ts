@@ -1054,7 +1054,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Libertor-Prime`,
+        name: `Liberator-Prime`,
         desc: `Add 1 to melee attacks.`,
         when: [COMBAT_PHASE],
       },
