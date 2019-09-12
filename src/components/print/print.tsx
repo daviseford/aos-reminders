@@ -1,7 +1,7 @@
 import React, { useMemo, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { factionNames, selections, realmscape } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'

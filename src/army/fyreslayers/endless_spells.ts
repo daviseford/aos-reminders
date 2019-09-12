@@ -38,10 +38,10 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Runic Firewall`,
+    name: `Runic Fyrewall`,
     effects: [
       {
-        name: `Summon Runic Firewall`,
+        name: `Summon Runic Fyrewall`,
         desc: `At the start of your hero phase, 1 friendly FYRESLAYERS Priest can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 18" of that FYRESLAYERS Priest.`,
         when: [START_OF_HERO_PHASE],
       },

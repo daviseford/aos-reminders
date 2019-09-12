@@ -1,5 +1,5 @@
 import React from 'react'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
 import { sortBy, flatten } from 'lodash'
 

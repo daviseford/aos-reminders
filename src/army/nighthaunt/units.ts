@@ -39,7 +39,7 @@ export const getNighthauntUnits = () => {
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Lady Olynder`,
+    name: `Lady Olynder, Mortarch of Grief`,
     effects: [
       {
         name: `Ethereal`,
@@ -384,7 +384,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Glavewraith Stalkers`,
+    name: `Glaivewraith Stalkers`,
     effects: [
       {
         name: `Ethereal`,
@@ -449,7 +449,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Bladegheist Revenenants`,
+    name: `Bladegheist Revenants`,
     effects: [
       {
         name: `Ethereal`,

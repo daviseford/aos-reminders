@@ -1,14 +1,3 @@
-import { uniqBy } from 'lodash'
-import { KhorneUnits } from 'army/khorne/units'
-import { NurgleUnits } from 'army/nurgle/units'
-import { SlaaneshUnits } from 'army/slaanesh/units'
-import { TzeentchUnits } from 'army/tzeentch/units'
-import BeastsOfChaos from 'army/beasts_of_chaos'
-import Everchosen from 'army/everchosen'
-import LegionsOfAzgorh from 'army/legions_of_azgorh'
-import Skaven from 'army/skaven'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import TamurkhansHorde from 'army/tamurkhans_horde'
 import { TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
@@ -148,26 +137,8 @@ export const MonstrousArcanumChaos: TUnits = [
   },
 ]
 
-// Unit Names
-export const Units: TUnits = uniqBy(
-  [
-    ...BeastsOfChaos.Units,
-    ...Everchosen.Units,
-    ...KhorneUnits,
-    ...LegionsOfAzgorh.Units,
-    ...MonstersOfChaos,
-    ...MonstrousArcanumChaos,
-    ...NurgleUnits,
-    ...Skaven.Units,
-    ...SlaaneshUnits,
-    ...SlavesToDarkness.Units,
-    ...TamurkhansHorde.Units,
-    ...TzeentchUnits,
-  ],
-  'name'
-)
-
-export default Units
+// Units available to this Grand Alliance allegiance
+export const Units: TUnits = [...MonstersOfChaos, ...MonstrousArcanumChaos]
 
 // Available to ALL factions in this Grand Alliance
 export const ChaosUnits = []

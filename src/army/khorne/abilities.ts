@@ -18,7 +18,7 @@ const Abilities: TAbilities = [
     name: `Summon Daemons of Khorne`,
     desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one more more units onto the battlefield. If you summon any units in this manner, your Blood Tithe points total is reset to zero immediately after the last unit has been set up (you cannot save any Blood Tithe points you did not use).
     
-    Summoned units must be set up wholly within 12" of a friendly KHORNE HERO and more than 9" away from any enemy units.`,
+    Summoned units must be set up wholly within 12" of a friendly KHORNE HERO or SKULL ALTAR and more than 9" away from any enemy units.`,
     when: [END_OF_MOVEMENT_PHASE],
   },
   {

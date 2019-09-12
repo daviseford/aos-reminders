@@ -1,3 +1,10 @@
+import {
+  CHAOS_GRAND_ALLIANCE,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
+  ORDER_GRAND_ALLIANCE,
+} from './factions'
+
 export type TChaos = 'Chaos'
 export type TDeath = 'Death'
 export type TDestruction = 'Destruction'
@@ -9,6 +16,18 @@ export const DEATH: TDeath = 'Death'
 export const DESTRUCTION: TDestruction = 'Destruction'
 export const ORDER: TOrder = 'Order'
 export const GRAND_ALLIANCES: TGrandAlliances[] = [CHAOS, DEATH, DESTRUCTION, ORDER]
+
+export type TGrandAllianceFactions =
+  | 'CHAOS_GRAND_ALLIANCE'
+  | 'DEATH_GRAND_ALLIANCE'
+  | 'DESTRUCTION_GRAND_ALLIANCE'
+  | 'ORDER_GRAND_ALLIANCE'
+export const GRAND_ALLIANCE_FACTIONS: TGrandAllianceFactions[] = [
+  CHAOS_GRAND_ALLIANCE,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
+  ORDER_GRAND_ALLIANCE,
+]
 
 type TMarkKhorne = 'Khorne'
 type TMarkNurgle = 'Nurgle'

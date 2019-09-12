@@ -387,10 +387,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `The Black Desciples (Legion of Sacrament)`,
+    name: `The Black Disciples (Legion of Sacrament)`,
     effects: [
       {
-        name: `The Black Desciples (Legion of Sacrament)`,
+        name: `The Black Disciples (Legion of Sacrament)`,
         desc: `Friendly LEGION OF SACRAMENT WIZARDS may add 1 to casting rolls.`,
         when: [HERO_PHASE],
       },

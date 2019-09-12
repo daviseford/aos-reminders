@@ -15,6 +15,7 @@
     "react": "^16.9.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.9.0",
+    "react-dropzone": "^10.1.8",
     "react-ga": "^2.6.0",
     "react-icons": "^3.7.0",
     "react-modal": "^3.10.1",
@@ -24,12 +25,13 @@
     "react-select": "^3.0.4",
     "react-sizes": "^2.0.0",
     "react-stripe-elements": "^5.0.0",
-    "react-tooltip": "^3.11.0",
-    "react-transition-group": "^4.2.2",
+    "react-tooltip": "^3.11.1",
+    "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
     "redux-starter-kit": "^0.6.3",
+    "string.prototype.matchall": "^3.0.1",
     "superagent": "^5.1.0",
-    "typescript": "3.5.3"
+    "typescript": "3.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -62,7 +64,7 @@
     "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.138",
     "@types/luxon": "^1.15.2",
-    "@types/node": "^12.7.4",
+    "@types/node": "^12.7.5",
     "@types/react": "16.9.2",
     "@types/react-copy-to-clipboard": "^4.2.6",
     "@types/react-dom": "^16.9.0",

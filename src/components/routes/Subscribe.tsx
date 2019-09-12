@@ -20,11 +20,10 @@ export const Subscribe: React.FC<{}> = () => {
   }, [getSubscription])
 
   if (loading) return <Loading />
-  // TODO Flesh this out to look nicer
   if (isSubscribed) return <AlreadySubscribed />
 
   const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
-  const featuresClass = `col-12 col-lg-6 col-xl-6`
+  const featuresClass = `col-12`
 
   return (
     <div className="d-block">
@@ -45,26 +44,34 @@ export const Subscribe: React.FC<{}> = () => {
           <i>always</i> be free, I do offer this subscription service to those who wish to support AoS
           Reminders.
         </p>
-        <p className="lead">What do you get by joining AoS Reminders?</p>
-        <div className="row align-items-center">
+        <p className="lead">
+          <strong>What do you get by joining AoS Reminders?</strong>
+        </p>
+        <div className="row align-items-start justify-content-center">
           <div className={featuresClass}>
             <ul className="lead">
+              <li>
+                Import your army lists <strong>instantly</strong> from Warscroll Builder
+              </li>
               <li>
                 Access your saved army lists from <b>anywhere</b> on <b>any</b> device
               </li>
             </ul>
           </div>
-          <div className={featuresClass}>
+          <div className={'col-12 col-lg-5 col-xl-5'}>
+            <ImportWarscrollExample />
+          </div>
+          <div className={'col-12 col-lg-5 col-xl-5'}>
             <LoadArmyExample />
           </div>
         </div>
         <p className="lead">Coming soon: </p>
         <ul className="lead">
           <li>
-            <i>Importing army lists from Warscroll Builder</i>
+            <i>Importing army lists from Battlescribe</i>
           </li>
           <li>
-            <i>Importing army lists from Battlescribe</i>
+            <i>Importing army lists from Azyr</i>
           </li>
           <li>
             <i>Adding custom reminders</i>
@@ -73,8 +80,14 @@ export const Subscribe: React.FC<{}> = () => {
             <i>
               <b>and much more!</b>
             </i>{' '}
-            - Check out our list of feature enhancements{' '}
-            <a href="https://github.com/daviseford/aos-reminders/labels/enhancement">on our Github!</a>
+            - Check out our list of planned feature enhancements{' '}
+            <a
+              href="https://github.com/daviseford/aos-reminders/labels/enhancement"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              on our Github!
+            </a>
           </li>
         </ul>
       </div>
@@ -101,7 +114,7 @@ const AlreadySubscribed = () => {
   )
 }
 
-// TODO: Make this a carousel of images showing demo features
+// TODO: Make this a carousel of images showing demo features?
 const LoadArmyExample = () => {
   return (
     <>
@@ -112,6 +125,21 @@ const LoadArmyExample = () => {
           className="figure-img img-fluid rounded img-thumbnail"
         />
         <figcaption className="figure-caption text-center">Loading a saved army</figcaption>
+      </figure>
+    </>
+  )
+}
+
+const ImportWarscrollExample = () => {
+  return (
+    <>
+      <figure className="figure">
+        <img
+          src="/img/warscroll-example3.gif"
+          alt="Import Army from Warscroll Builder"
+          className="figure-img img-fluid rounded img-thumbnail"
+        />
+        <figcaption className="figure-caption text-center">Importing a Warscroll Builder PDF</figcaption>
       </figure>
     </>
   )

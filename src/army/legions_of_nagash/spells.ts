@@ -124,37 +124,6 @@ const Spells: TSpells = [
       },
     ],
   },
-  // Lore of Sorrows
-  {
-    name: `Dread Withering (Lore of Sorrows)`,
-    effects: [
-      {
-        name: `Dread Withering (Lore of Sorrows)`,
-        desc: `Casting value of 5. If successfully cast, pick 1 enemy unit within 18" and visible to the caster. Subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Wail of Doom (Lore of Sorrows)`,
-    effects: [
-      {
-        name: `Wail of Doom (Lore of Sorrows)`,
-        desc: `Casting value of 8. If successfully cast, roll a D6 for each enemy unit within 6" of the caster. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Shroud of Terror (Lore of Sorrows)`,
-    effects: [
-      {
-        name: `Shroud of Terror (Lore of Sorrows)`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy unit within 12" of the caster and visible to them. Subratct D3 from the unit's Bravery Characteristic until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
 ]
 
 export default Spells

@@ -1,12 +1,3 @@
-import { uniqBy } from 'lodash'
-import DaughtersOfKhaine from 'army/daughters_of_khaine'
-import Dispossessed from 'army/dispossessed'
-import Fyreslayers from 'army/fyreslayers'
-import IdonethDeepkin from 'army/idoneth'
-import KharadronOverlords from 'army/kharadron_overlords'
-import Seraphon from 'army/seraphon'
-import StormcastEternals from 'army/stormcast_eternals'
-import Sylvaneth from 'army/sylvaneth'
 import { TUnits } from 'types/army'
 import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, SHOOTING_PHASE, START_OF_GAME } from 'types/phases'
 
@@ -33,21 +24,8 @@ export const MonstrousArcanumOrder: TUnits = [
   },
 ]
 
-// Unit Names
-export const Units: TUnits = uniqBy(
-  [
-    ...DaughtersOfKhaine.Units,
-    ...Dispossessed.Units,
-    ...Fyreslayers.Units,
-    ...IdonethDeepkin.Units,
-    ...KharadronOverlords.Units,
-    ...MonstrousArcanumOrder,
-    ...Seraphon.Units,
-    ...StormcastEternals.Units,
-    ...Sylvaneth.Units,
-  ],
-  'name'
-)
+// Units available to this Grand Alliance allegiance
+export const Units: TUnits = [...MonstrousArcanumOrder]
 
 // Available to ALL factions in this Grand Alliance
 export const OrderUnits: TUnits = [

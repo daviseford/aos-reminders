@@ -4,6 +4,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { isDev } from 'utils/env'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
+import { logClick } from 'utils/analytics'
 
 interface ICheckoutProps {
   stripe?: any
@@ -37,6 +38,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
     e.preventDefault()
+
+    logClick(supportPlan.title)
 
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'

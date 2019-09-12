@@ -208,7 +208,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Akhelian Ishlan Guard`,
+    name: `Akhelian Ishlaen Guard`,
     effects: [
       {
         name: `Biovoltaic Barrier`,

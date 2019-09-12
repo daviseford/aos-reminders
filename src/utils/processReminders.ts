@@ -1,6 +1,6 @@
 import { flatten, sortBy, split, join } from 'lodash'
 import produce from 'immer'
-import { titleCase } from './titleCase'
+import { titleCase } from './textUtils'
 import { RealmscapeFeatures } from 'army/generic'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'

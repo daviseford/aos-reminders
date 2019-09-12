@@ -4,6 +4,7 @@ import { FaCheck, FaRegSadCry } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
 import { ModalStyle } from './modalStyle'
+import { logClick } from 'utils/analytics'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -18,6 +19,7 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
 
   const handleClick = e => {
     e.preventDefault()
+    logClick('CancelSubscription')
     cancelSubscription()
   }
 

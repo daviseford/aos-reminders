@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { ActionMeta, ValueType } from 'react-select/src/types'
 
 export type TDropdownOption = { value: string; label: string }
