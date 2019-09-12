@@ -426,12 +426,12 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Soulscream Bridge`,
-        desc: `Casting value of 6. If successfully cast, set up the first model wholly within 6" of the caster.  Then set up the second model wholly within 12" of the first.`,
+        desc: `Casting value of 6. If successfully cast, set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
         when: [HERO_PHASE],
       },
       {
         name: `Deathly Passage`,
-        desc: `Friendly units wholly within 6" of one of these models can travel across the bridge.  If they do so, remove that unit from the battlefield and set it up wholly within 6" of the other bridge model.  This set up must be more than 9" from enemy models and the unit cannot move in this phase.`,
+        desc: `Friendly units wholly within 6" of one of these models can travel across the bridge. If they do so, remove that unit from the battlefield and set it up wholly within 6" of the other bridge model. This set up must be more than 9" from enemy models and the unit cannot move in this phase.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -451,12 +451,12 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Shards of Valagharr`,
-        desc: `Casting value of 5. If successfully cast, set up the first model wholly within 6" of the caster.  Then set up the second model wholly within 12" of the first.`,
+        desc: `Casting value of 5. If successfully cast, set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
         when: [HERO_PHASE],
       },
       {
         name: `Ensnaring Soul-drain`,
-        desc: `Draw an imaginary straight line 1mm wide between the closest parts of the bases from these two models.  Each unit passed across by this line is ensnared until the end of the turn.`,
+        desc: `Draw an imaginary straight line 1mm wide between the closest parts of the bases from these two models. Each unit passed across by this line is ensnared until the end of the turn.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -471,7 +471,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Twilight Translocation`,
-        desc: `After determining who has the first turn, players roll off.  The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
+        desc: `After determining who has the first turn, players roll off. The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
         when: [START_OF_ROUND],
       },
       {
@@ -501,7 +501,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Soul Price`,
-        desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model.  Remove the unit from the battlefield.  After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units.  Once the unit is set up, 1 model from the unit is slain.`,
+        desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
         when: [DURING_GAME],
       },
       {
@@ -526,7 +526,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Prey on Fear`,
-        desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model.  Subtract 2 instead while they are within 6" of this model.`,
+        desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Subtract 2 instead while they are within 6" of this model.`,
         when: [DURING_GAME],
       },
       {

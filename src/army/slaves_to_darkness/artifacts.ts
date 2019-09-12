@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Hellfire Sword`,
-        desc: `Once per battle, pick 1 enemy unit within 8" of the bearer.  The unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, pick 1 enemy unit within 8" of the bearer. The unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Idolatrous Plackart`,
-        desc: `Roll a D6 each time a mortal wound is allocated to the bearer.  On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time a mortal wound is allocated to the bearer. On a 5+ that mortal wound is negated.`,
         when: [DURING_GAME],
       },
     ],

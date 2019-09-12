@@ -21,7 +21,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Eye of Sheerian`,
-        desc: `Roll a D6 and note the result.  Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
+        desc: `Roll a D6 and note the result. Until your next hero phase, whenever an enemy scores a hit on Archaon and the result equals the rolled number, the opponent must re-roll that dice.`,
         when: [HERO_PHASE],
       },
       {
@@ -41,7 +41,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a D6 each time this Archaon suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this Archaon suffers a mortal wound. On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -66,12 +66,12 @@ export const Units: TUnits = [
       },
       {
         name: `The Everchosen`,
-        desc: `Roll a D6 if Archaon is affected by a spell cast by an enemy wizard.  On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
+        desc: `Roll a D6 if Archaon is affected by a spell cast by an enemy wizard. On a 4+ the spell has no effect on him (however it can still affect other units as normal).`,
         when: [DURING_GAME],
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and any spells learned by Dorghar's Tzeentchian head during the battle.`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and any spells learned by Dorghar's Tzeentchian head during the battle.`,
         when: [HERO_PHASE],
       },
       {
@@ -97,17 +97,17 @@ export const Units: TUnits = [
       },
       {
         name: `Warptongue Blade`,
-        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice.  If the roll is higher than the enemy unit's bravery characteristic, one model in the unit is slain.  Otherwise the blade inflicts 1 wound.`,
+        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit's bravery characteristic, one model in the unit is slain. Otherwise the blade inflicts 1 wound.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Fractal Mindstorm.`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Fractal Mindstorm.`,
         when: [HERO_PHASE],
       },
       {
         name: `Fractal Mindstorm`,
-        desc: `Casting value equal to the bravery of target unit within 9" of caster.  If successfully cast, roll a number of dice equal to the units bravery.  It suffers 1 mortal wound for each 4+.`,
+        desc: `Casting value equal to the bravery of target unit within 9" of caster. If successfully cast, roll a number of dice equal to the units bravery. It suffers 1 mortal wound for each 4+.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -128,12 +128,12 @@ export const Units: TUnits = [
       },
       {
         name: `Daemonforged Blades`,
-        desc: `On hits of 6+ with Daemonforged Blades, roll a D6 instead of making a wound roll.  On a 2+ the attack inflicts a mortal wound on the target.  On a 1 this unit suffers a mortal wound instead.`,
+        desc: `On hits of 6+ with Daemonforged Blades, roll a D6 instead of making a wound roll. On a 2+ the attack inflicts a mortal wound on the target. On a 1 this unit suffers a mortal wound instead.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Warpsteel Shields`,
-        desc: `Roll a D6 if this unit is affect by a spell cast by an enemy wizard.  If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
+        desc: `Roll a D6 if this unit is affect by a spell cast by an enemy wizard. If the result is 4+ the spell has no effect on the unit (although it will still effect other units as normal).`,
         when: [HERO_PHASE],
       },
       {
@@ -167,12 +167,12 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Dark Vizier`,
-        desc: `If used in the previous round, reveal the hidden dice instead of deciding which player will take the first turn in the normal way.  If the hidden result is a 1-3, your opponent goes first.  Otherwise you go first.`,
+        desc: `If used in the previous round, reveal the hidden dice instead of deciding which player will take the first turn in the normal way. If the hidden result is a 1-3, your opponent goes first. Otherwise you go first.`,
         when: [START_OF_ROUND],
       },
       {
         name: `The Will of the Everchosen`,
-        desc: `If Archaon is on the battlefield, pick a unit within 20" of him (or anywhere on the battlfield if the battalions Gaunt Summoner is on the battlefield).  Until your next hero phase, the Varanguard can re-roll failed hit and wound rolls when attacking that unit.`,
+        desc: `If Archaon is on the battlefield, pick a unit within 20" of him (or anywhere on the battlfield if the battalions Gaunt Summoner is on the battlefield). Until your next hero phase, the Varanguard can re-roll failed hit and wound rolls when attacking that unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -197,7 +197,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Raised to Greatness`,
-        desc: `If a hero from this battalion is slain, pick another model in the warband that is not a hero.  That model adds 1 to the attacks characteristic of all of its melee weapons and becomes a separate hero unit for the rest of the battle.`,
+        desc: `If a hero from this battalion is slain, pick another model in the warband that is not a hero. That model adds 1 to the attacks characteristic of all of its melee weapons and becomes a separate hero unit for the rest of the battle.`,
         when: [DURING_GAME],
       },
     ],
@@ -212,7 +212,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Grandfather's Favour`,
-        desc: `When the leader of a validly set up battalion unit is selected to attack, pick a unit within 1" and roll a D6.  On a 4+ the target suffers 1 mortal wound.`,
+        desc: `When the leader of a validly set up battalion unit is selected to attack, pick a unit within 1" and roll a D6. On a 4+ the target suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -227,7 +227,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Scions of Change`,
-        desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a D6 each time it suffers a wound or mortal wound.  On a 6 the wound is negated.`,
+        desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a D6 each time it suffers a wound or mortal wound. On a 6 the wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -237,7 +237,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Conduits of Arcane Power`,
-        desc: `Heroes in this battalion can attempt to cast Arcane Bolt as if they were a wizard.  If this model is already a wizard it can attempt to cast Arcane Bolt twice in each of its hero phases as an extra spell cast.`,
+        desc: `Heroes in this battalion can attempt to cast Arcane Bolt as if they were a wizard. If this model is already a wizard it can attempt to cast Arcane Bolt twice in each of its hero phases as an extra spell cast.`,
         when: [HERO_PHASE],
       },
     ],

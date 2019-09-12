@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crown of Raven Feathers`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ it is negated.`,
         when: [DURING_GAME],
         artifact: true,
       },
@@ -18,7 +18,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Silvered Blade`,
-        desc: `Pick one of the bearers melee weapons.  Add 1 to the damage characteristic of that weapon.  Add 2 instead if it is targeting a Death unit.`,
+        desc: `Pick one of the bearers melee weapons. Add 1 to the damage characteristic of that weapon. Add 2 instead if it is targeting a Death unit.`,
         when: [COMBAT_PHASE],
         artifact: true,
       },

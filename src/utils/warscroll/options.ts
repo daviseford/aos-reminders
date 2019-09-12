@@ -49,7 +49,11 @@ export const warscrollTypoMap = {
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Explosize Charge': 'Explosive Charge',
+  'Great Bray Shaman of Slaanesh': 'Great Bray Shaman',
+  'Hellstriders With Claw-Spears': 'Hellstriders',
+  'Infernal Enrapturess, Herald of Slaanesh': 'Infernal Enrapturess',
   'Lighntning Blast': 'Lightning Blast',
+  Sliverslash: 'Silverslash',
 }
 
 // If a certain trait maps to a specific unit type, put it here

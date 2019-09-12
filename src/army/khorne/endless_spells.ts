@@ -15,17 +15,17 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Compelled by Hate`,
-        desc: `These flying models can be moved 8" by the player who prayed for the Judgement.  Both models must finish any move within 6" of each other.`,
+        desc: `These flying models can be moved 8" by the player who prayed for the Judgement. Both models must finish any move within 6" of each other.`,
         when: [START_OF_ROUND],
       },
       {
         name: `Summon`,
-        desc: `Prayer value of 3+.  Only friendly Khorne Priests can attempt this.  If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other.  You may then immeadiately move these models 8" ending the movement with each model 6" from the other.`,
+        desc: `Prayer value of 3+. Only friendly Khorne Priests can attempt this. If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other. You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Hexgorgers`,
-        desc: `Subtract 2 from the casting rolls for Wizards while they are within 12" of any Hexgorger Skulls models.  If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
+        desc: `Subtract 2 from the casting rolls for Wizards while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
