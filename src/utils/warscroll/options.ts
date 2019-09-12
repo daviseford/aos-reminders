@@ -49,6 +49,7 @@ export const warscrollTypoMap = {
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Explosize Charge': 'Explosive Charge',
+  'Hellstriders With Claw-Spears': 'Hellstriders',
   'Infernal Enrapturess, Herald of Slaanesh': 'Infernal Enrapturess',
   'Lighntning Blast': 'Lightning Blast',
   Sliverslash: 'Silverslash',
