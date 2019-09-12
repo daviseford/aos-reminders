@@ -397,6 +397,9 @@ const selectionLookup = (
 
   const errorFree = selections[type]
     .map((val: string) => {
+      // Fix parentheses
+      val = val.replace(/\\\(/g, '(').replace(/\\\)/g, ')')
+
       // Check for typos
       if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
 
@@ -426,6 +429,9 @@ const selectionLookup = (
   const found = unknownSelections
     .map(val => {
       const orig = `${val}`
+      // Fix parentheses
+      val = val.replace(/\\\(/g, '(').replace(/\\\)/g, ')')
+
       // Check for typos
       if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
 
