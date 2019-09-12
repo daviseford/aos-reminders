@@ -71,6 +71,9 @@ export const Subscribe: React.FC<{}> = () => {
             <i>Importing army lists from Battlescribe</i>
           </li>
           <li>
+            <i>Importing army lists from Azyr</i>
+          </li>
+          <li>
             <i>Adding custom reminders</i>
           </li>
           <li>

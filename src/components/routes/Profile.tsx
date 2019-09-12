@@ -9,8 +9,10 @@ import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
+import { FaGithub, FaEnvelopeOpenText } from 'react-icons/fa'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
+const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
 export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
@@ -102,12 +104,14 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          Subscription Status:{' '}
-          {isSubscribed ? (
-            <MdCheckCircle className="text-success" />
-          ) : (
-            <MdNotInterested className="text-danger" />
-          )}
+          <div className={btnContentWrapper}>
+            Subscription Status:{' '}
+            {isSubscribed ? (
+              <MdCheckCircle className="text-success ml-2" />
+            ) : (
+              <MdNotInterested className="text-danger ml-2" />
+            )}
+          </div>
         </h4>
       </div>
 
@@ -138,12 +142,14 @@ const RecurringPaymentInfo = ({ isActive }) => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          Recurring Payment:{' '}
-          {isActive ? (
-            <MdCheckCircle className="text-success" />
-          ) : (
-            <MdNotInterested className="text-danger" />
-          )}
+          <div className={btnContentWrapper}>
+            Recurring Payment:{' '}
+            {isActive ? (
+              <MdCheckCircle className="text-success ml-2" />
+            ) : (
+              <MdNotInterested className="text-danger ml-2" />
+            )}
+          </div>
         </h4>
       </div>
       {isActive && (
@@ -160,12 +166,14 @@ const EmailVerified = ({ email_verified, email }) => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          Email Verified:{' '}
-          {email_verified ? (
-            <MdVerifiedUser className="text-success" />
-          ) : (
-            <MdNotInterested className="text-danger" />
-          )}
+          <div className={btnContentWrapper}>
+            Email Verified:{' '}
+            {email_verified ? (
+              <MdVerifiedUser className="text-success ml-2" />
+            ) : (
+              <MdNotInterested className="text-danger ml-2" />
+            )}
+          </div>
         </h4>
       </div>
       <div className="card-body">
@@ -188,7 +196,9 @@ const Help = () => {
           rel="noopener noreferrer"
           className="btn btn-outline-dark mx-2"
         >
-          File an Issue
+          <div className={btnContentWrapper}>
+            <FaGithub className="mr-2" /> File an Issue
+          </div>
         </a>
 
         <a
@@ -197,7 +207,9 @@ const Help = () => {
           rel="noopener noreferrer"
           className="btn btn-outline-dark mx-2"
         >
-          Email Me
+          <div className={btnContentWrapper}>
+            <FaEnvelopeOpenText className="mr-2" /> Email Me
+          </div>
         </a>
       </div>
     </div>

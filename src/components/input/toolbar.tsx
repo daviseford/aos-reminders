@@ -14,10 +14,10 @@ import { MdWarning } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { SaveLoadArmies } from './savedArmies'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { LoadWarscrollArmy } from './warscrollBuilder/drop_container'
+import { ShowSavedArmies } from './savedArmies/saved_armies'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
 const btnClass = `btn btn-outline-dark btn-block`
@@ -95,7 +95,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
       </div>
 
       <div hidden={!isShowingSavedArmies}>
-        <SaveLoadArmies />
+        <ShowSavedArmies />
       </div>
     </div>
   )
@@ -148,7 +148,7 @@ const ImportWarscrollButton = (props: {
     isShowing ? hide() : show()
   }
 
-  const btnTxt = isShowing ? `Hide Import` : `Import Warscroll`
+  const btnTxt = isShowing ? `Hide Import` : `Import List`
 
   return isSubscribed ? (
     <button className={btnClass} onClick={handleClick}>
@@ -159,7 +159,7 @@ const ImportWarscrollButton = (props: {
   ) : (
     <Link to="/subscribe" className={btnClass} onClick={() => logClick('Import-Subscribe')}>
       <div className={btnContentWrapper}>
-        <FaFileImport className="mr-2" /> Import Warscroll
+        <FaFileImport className="mr-2" /> Import List
       </div>
     </Link>
   )

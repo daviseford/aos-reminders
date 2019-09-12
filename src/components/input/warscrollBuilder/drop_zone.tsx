@@ -78,7 +78,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
     ? `Unable to process this file`
     : isDone
     ? `File processed`
-    : `Drag your Warscroll file here, or click to select`
+    : `Drag your Warscroll Builder file here, or click to select`
 
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
