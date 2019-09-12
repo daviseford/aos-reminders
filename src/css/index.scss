@@ -139,6 +139,11 @@ small {
         padding-bottom: 0;
     }
 
+    .ReminderContainer {
+        flex: 0 0 90% !important;
+        max-width: 90% !important;
+    }
+
     .ReminderEntry {
         font-size: 0.9rem;
     }

@@ -20,7 +20,7 @@ import { LoadWarscrollArmy } from './warscrollBuilder/drop_container'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
 
-const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
+const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 pb-2`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
