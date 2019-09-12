@@ -1,8 +1,8 @@
 import { uniqBy } from 'lodash'
-import { KhorneUnits } from 'army/khorne/units'
-import { NurgleUnits } from 'army/nurgle/units'
-import { SlaaneshUnits } from 'army/slaanesh/units'
-import { TzeentchUnits } from 'army/tzeentch/units'
+import { KhorneUnits, KhorneBattalions } from 'army/khorne/units'
+import { NurgleUnits, NurgleBattalions } from 'army/nurgle/units'
+import { SlaaneshUnits, SlaaneshBattalions } from 'army/slaanesh/units'
+import { TzeentchUnits, TzeentchBattalions } from 'army/tzeentch/units'
 import BeastsOfChaos from 'army/beasts_of_chaos'
 import Everchosen from 'army/everchosen'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
@@ -167,7 +167,21 @@ export const Units: TUnits = uniqBy(
   'name'
 )
 
-export default Units
-
 // Available to ALL factions in this Grand Alliance
 export const ChaosUnits = []
+
+export const Battalions = uniqBy(
+  [
+    ...BeastsOfChaos.Battalions,
+    ...Everchosen.Battalions,
+    ...KhorneBattalions,
+    ...LegionsOfAzgorh.Battalions,
+    ...NurgleBattalions,
+    ...Skaven.Battalions,
+    ...SlaaneshBattalions,
+    ...SlavesToDarkness.Battalions,
+    ...TamurkhansHorde.Battalions,
+    ...TzeentchBattalions,
+  ],
+  'name'
+)
