@@ -18,10 +18,9 @@ import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { LoadWarscrollArmy } from './warscrollBuilder/drop_container'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
+import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 pb-2`
-const btnClass = `btn btn-outline-dark btn-block`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -151,13 +150,13 @@ const ImportWarscrollButton = (props: {
   const btnTxt = isShowing ? `Hide Import` : `Import List`
 
   return isSubscribed ? (
-    <button className={btnClass} onClick={handleClick}>
+    <button className={btnDarkBlock} onClick={handleClick}>
       <div className={btnContentWrapper}>
         <FaFileImport className="mr-2" /> {btnTxt}
       </div>
     </button>
   ) : (
-    <Link to="/subscribe" className={btnClass} onClick={() => logClick('Import-Subscribe')}>
+    <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('Import-Subscribe')}>
       <div className={btnContentWrapper}>
         <FaFileImport className="mr-2" /> Import List
       </div>
@@ -167,7 +166,7 @@ const ImportWarscrollButton = (props: {
 
 const PrintButton = (props: { handlePrint: (e: any) => void }) => {
   return (
-    <button className={btnClass} onClick={props.handlePrint}>
+    <button className={btnDarkBlock} onClick={props.handlePrint}>
       <div className={btnContentWrapper}>
         <FaPrint className="mr-2" /> Print Page
       </div>
@@ -196,7 +195,7 @@ const PrintWarningButton = (props: { handlePrint: (e: any) => void }) => {
   return (
     <>
       <IconContext.Provider value={{ className: 'text-warning', size: '1.5em' }}>
-        <button className={btnClass} onClick={props.handlePrint} {...tipProps}>
+        <button className={btnDarkBlock} onClick={props.handlePrint} {...tipProps}>
           <div className={btnContentWrapper}>
             <MdWarning className="mr-2" /> Print Page
           </div>

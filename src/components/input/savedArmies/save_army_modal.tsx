@@ -5,7 +5,7 @@ import { useSubscription } from 'context/useSubscription'
 import { ISavedArmy } from 'types/savedArmy'
 import { SavedArmyTable } from './saved_army_table'
 import { prepareArmy } from 'utils/armyUtils'
-import { ModalStyle } from '../modalStyle'
+import { ModalStyle } from '../../../theme/modalStyle'
 import { logEvent } from 'utils/analytics'
 
 const btnClass = `btn btn-outline-dark`

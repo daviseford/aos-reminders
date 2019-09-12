@@ -11,9 +11,7 @@ import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { armyHasEntries } from 'utils/armyUtils'
 import { logClick } from 'utils/analytics'
-
-const btnClass = `btn btn-outline-dark btn-block`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
+import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -64,7 +62,7 @@ export const SaveArmyBtn = connect(
 )(SaveArmyBtnComponent)
 
 const SubscribeBtn = () => (
-  <Link to="/subscribe" className={btnClass} onClick={() => logClick('SaveArmy-Subscribe')}>
+  <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
     <div className={btnContentWrapper}>
       <FaSave className="mr-2" /> Save Army
     </div>
@@ -87,7 +85,7 @@ const SaveButton = ({ handleClick = () => null, btnText, showTooltip = false }: 
 
   return (
     <>
-      <button className={btnClass} onClick={handleClick} {...tipProps}>
+      <button className={btnDarkBlock} onClick={handleClick} {...tipProps}>
         <div className={btnContentWrapper}>
           <FaSave className="mr-2" /> {btnText}
         </div>

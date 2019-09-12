@@ -10,9 +10,9 @@ import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { FaGithub, FaEnvelopeOpenText } from 'react-icons/fa'
+import { btnContentWrapper } from 'theme/helperClasses'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
 export const Profile: React.FC<{}> = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
