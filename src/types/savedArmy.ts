@@ -23,4 +23,12 @@ export interface ISavedArmyFromApi {
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
+  /**
+   * Unix time (milliseconds)
+   */
+  createdAt: number
+  /**
+   * Unix time (milliseconds)
+   */
+  updatedAt: number
 }
