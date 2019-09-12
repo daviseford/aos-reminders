@@ -14,12 +14,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Figureheads of the Dark Prince`,
-        desc: `This army can have up to 3 generals instead of 1.  Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes.  An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general.  In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
+        desc: `This army can have up to 3 generals instead of 1. Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes. An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general. In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
         when: [START_OF_GAME],
       },
       {
         name: `Escalating Havoc`,
-        desc: `You receive D3 depravity points if any friendly Invaders Host units are wholly within enemy territory.  If 3 or more friendly Invaders Host units are wholly within enemy territory at the start of your hero phase, you receive D6 depravity points instead.`,
+        desc: `You receive D3 depravity points if any friendly Invaders Host units are wholly within enemy territory. If 3 or more friendly Invaders Host units are wholly within enemy territory at the start of your hero phase, you receive D6 depravity points instead.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -34,7 +34,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Heir to the Throne`,
-        desc: `If the general of a Pretenders Host army is a hero, they have 2 different command traits instead of 1.  If you randomly generate traits, roll again if the second result matches the first.`,
+        desc: `If the general of a Pretenders Host army is a hero, they have 2 different command traits instead of 1. If you randomly generate traits, roll again if the second result matches the first.`,
         when: [START_OF_GAME],
       },
       {
