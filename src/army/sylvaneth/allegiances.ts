@@ -142,6 +142,7 @@ const Allegiances: TAllegiances = [
         name: `My Heart Is Ice`,
         desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
+        command_trait: true,
       },
       {
         name: `Frozen Kernel`,

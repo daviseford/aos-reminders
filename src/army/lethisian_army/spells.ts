@@ -4,17 +4,17 @@ import { TSpells } from 'types/army'
 // Prayers
 const Spells: TSpells = [
   {
-    name: `Morrda's Ressurection (Priest)`,
+    name: `Raven Priest - Morrda's Resurrection`,
     effects: [
       {
-        name: `Morrda's Ressurection`,
+        name: `Morrda's Resurrection`,
         desc: `Prayer is answered on a 3+.  If successful, pick a friendly Lethisian Defender unit wholly within 18" of the priest.  You may return up to D3 wounds (rounded down) worth of slain models to the unit.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Morrda's Eye (Priest)`,
+    name: `Raven Priest - Morrda's Eye`,
     effects: [
       {
         name: `Morrda's Eye`,
@@ -29,7 +29,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Morrda's Embrace (Priest)`,
+    name: `Raven Priest - Morrda's Embrace`,
     effects: [
       {
         name: `Morrda's Embrace`,

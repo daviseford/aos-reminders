@@ -449,7 +449,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Bladegheist Revenenants`,
+    name: `Bladegheist Revenants`,
     effects: [
       {
         name: `Ethereal`,

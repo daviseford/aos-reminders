@@ -43,6 +43,7 @@ const Allegiances: TAllegiances = [
         name: `Fiery Endurance`,
         desc: `Friendly VOSTARG units wholly within 12" of this general at the start of your movement phase can run and still charge later that turn.`,
         when: [MOVEMENT_PHASE],
+        command_trait: true,
       },
     ],
   },
