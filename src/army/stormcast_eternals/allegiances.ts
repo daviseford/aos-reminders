@@ -21,6 +21,7 @@ const Allegiances: TAllegiances = [
         name: `We Cannot Fail`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
+        command_trait: true,
       },
       {
         name: `First to be Forged`,
@@ -105,6 +106,7 @@ const Allegiances: TAllegiances = [
         name: `Deathly Aura`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of this general.`,
         when: [BATTLESHOCK_PHASE],
+        command_trait: true,
       },
       {
         name: `No True Death`,
