@@ -41,7 +41,7 @@ export const getAllianceItems = (
       without(Object.keys(ArmyList), factionName)
         .filter(faction => ArmyList[faction].GrandAlliance === grandAlliance)
         .map(faction => ArmyList[faction].Army[type])
-        .filter(b => !!b && b.length > 0)
+        .filter(items => !!items && items.length > 0)
         .flat()
         .concat(originalEntries),
       'name'
