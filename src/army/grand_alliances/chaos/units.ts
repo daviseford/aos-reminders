@@ -1,14 +1,3 @@
-import { uniqBy } from 'lodash'
-import { KhorneUnits, KhorneBattalions } from 'army/khorne/units'
-import { NurgleUnits, NurgleBattalions } from 'army/nurgle/units'
-import { SlaaneshUnits, SlaaneshBattalions } from 'army/slaanesh/units'
-import { TzeentchUnits, TzeentchBattalions } from 'army/tzeentch/units'
-import BeastsOfChaos from 'army/beasts_of_chaos'
-import Everchosen from 'army/everchosen'
-import LegionsOfAzgorh from 'army/legions_of_azgorh'
-import Skaven from 'army/skaven'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import TamurkhansHorde from 'army/tamurkhans_horde'
 import { TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
@@ -149,39 +138,7 @@ export const MonstrousArcanumChaos: TUnits = [
 ]
 
 // Unit Names
-export const Units: TUnits = uniqBy(
-  [
-    ...BeastsOfChaos.Units,
-    ...Everchosen.Units,
-    ...KhorneUnits,
-    ...LegionsOfAzgorh.Units,
-    ...MonstersOfChaos,
-    ...MonstrousArcanumChaos,
-    ...NurgleUnits,
-    ...Skaven.Units,
-    ...SlaaneshUnits,
-    ...SlavesToDarkness.Units,
-    ...TamurkhansHorde.Units,
-    ...TzeentchUnits,
-  ],
-  'name'
-)
+export const Units: TUnits = [...MonstersOfChaos, ...MonstrousArcanumChaos]
 
 // Available to ALL factions in this Grand Alliance
 export const ChaosUnits = []
-
-export const Battalions = uniqBy(
-  [
-    ...BeastsOfChaos.Battalions,
-    ...Everchosen.Battalions,
-    ...KhorneBattalions,
-    ...LegionsOfAzgorh.Battalions,
-    ...NurgleBattalions,
-    ...Skaven.Battalions,
-    ...SlaaneshBattalions,
-    ...SlavesToDarkness.Battalions,
-    ...TamurkhansHorde.Battalions,
-    ...TzeentchBattalions,
-  ],
-  'name'
-)

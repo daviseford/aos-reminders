@@ -27,7 +27,16 @@ import {
   OrderTraits,
   OrderUnits,
 } from 'army/grand_alliances'
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
+import {
+  CHAOS,
+  DEATH,
+  DESTRUCTION,
+  ORDER,
+  TGrandAlliances,
+  GRAND_ALLIANCES,
+  GRAND_ALLIANCE_FACTIONS,
+  TGrandAllianceFactions,
+} from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import {
@@ -47,6 +56,8 @@ import {
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
+import { factionNames } from 'ducks'
+import { getAllianceItems } from './getAllianceItems'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
@@ -58,7 +69,7 @@ export const getArmy = (
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection })
+  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection, factionName })
 
   return army
 }
@@ -67,10 +78,11 @@ interface IModifyArmyMeta {
   Collection: ICollection
   GrandAlliance: TGrandAlliances
   realmscape: TRealms | null
+  factionName: TSupportedFaction
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const {
+  let {
     Allegiances = [],
     Artifacts = [],
     Battalions = [],
@@ -80,7 +92,16 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Traits = [],
     Units = [],
   } = Army
-  const { realmscape, GrandAlliance, Collection } = meta
+  const { realmscape, GrandAlliance, Collection, factionName } = meta
+
+  if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
+    Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
+
+    console.log('before', Units.length)
+
+    Units = getAllianceItems(GrandAlliance, 'Units', Units)
+    console.log('after', Units.length)
+  }
 
   Army.Allegiances = modifyAllegiances(Allegiances)
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance, Collection)
