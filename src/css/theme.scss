@@ -7,18 +7,23 @@ $themeRed: #A12F48;
 $themeRoyalBlue: #1237C7;
 $themeYellow: #E0D51F;
 
-
-// Override default bootstrap variables
-$grid-breakpoints: (xs: 0,
+/* Override default Bootstrap variables */
+$grid-breakpoints: (
+    xs: 0,
     sm: 576px,
     md: 768px,
     lg: 992px,
-    xl: 1200px xxl: 1900px);
+    xl: 1200px,
+    xxl: 1900px
+);
 
-$container-max-widths: (sm: 540px,
+$container-max-widths: (
+    sm: 540px,
     md: 720px,
     lg: 960px,
-    xl: 1140px xxl: 1610px);
+    xl: 1140px,
+    xxl: 1610px
+);
 
-// Import BT sources
+/* Import Bootstrap source */
 @import "~bootstrap/scss/bootstrap";
