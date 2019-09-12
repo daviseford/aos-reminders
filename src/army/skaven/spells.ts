@@ -9,7 +9,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Scorch`,
-        desc: `Casting value of 5.  If successfully cast, pick 1 enemy unit within 13" of the caster that is visible to them. Roll a number of dice equal to the casting roll. For each 6, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. If successfully cast, pick 1 enemy unit within 13" of the caster that is visible to them. Roll a number of dice equal to the casting roll. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -19,7 +19,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Splinter`,
-        desc: `Casting value of 6.  If successfully cast, pick 1 enemy model within 6" of the caster.  Roll a D6 and if the roll is greater than that model's Wounds characteristic, it is slain.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy model within 6" of the caster. Roll a D6 and if the roll is greater than that model's Wounds characteristic, it is slain.`,
         when: [HERO_PHASE],
       },
     ],
@@ -29,7 +29,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Skitterleap`,
-        desc: `Casting value of 6.  If successfully cast, pick 1 friendly Skaventide unit with a wounds characteristic of 12 or less within 13" of the caster that is visible to them. Remove that HERO from the battlefield and then set it up again anywhere on the battlefield more than 9" from any enemy units. That HERO may not move in the following movement phase.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Skaventide unit with a wounds characteristic of 12 or less within 13" of the caster that is visible to them. Remove that HERO from the battlefield and then set it up again anywhere on the battlefield more than 9" from any enemy units. That HERO may not move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -39,7 +39,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Plague`,
-        desc: `Casting value of 7.  If successfully cast, pick 1 enemy unit within 13" of the caster. Roll 1 dice for each model in the target unit.  For each 5+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 13" of the caster. Roll 1 dice for each model in the target unit. For each 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -49,7 +49,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Death Frenzy`,
-        desc: `Casting value of 7.  If successfully cast, pick 1 friendly Skaventide unit that is not a hero wholly within 13" of the caster that is visible to them.  Until your next hero phase, when a model from the target unit is slain, it may make a pile-in move and attack with all of its melee weapons.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 friendly Skaventide unit that is not a hero wholly within 13" of the caster that is visible to them. Until your next hero phase, when a model from the target unit is slain, it may make a pile-in move and attack with all of its melee weapons.`,
         when: [HERO_PHASE],
       },
       {
@@ -64,7 +64,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Warpgale`,
-        desc: `Casting value of 8.  If successfully cast, pick 1 enemy unit within 26" of the caster that is visible to them.  That unit suffers D3 mortal wounds and any run or charge rolls for that unit are halved and cannot fly until your next hero phase.`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy unit within 26" of the caster that is visible to them. That unit suffers D3 mortal wounds and any run or charge rolls for that unit are halved and cannot fly until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -80,7 +80,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `More-more-more Warp Power!`,
-        desc: `Casting value of 7.  If successfully cast, pick 1 friendly Clans Skryre unit wholly within 12" of the caster that is visible to them.  You can re-roll hit and wound rolls for that unit until your next hero phase.  However at the end of your next hero phase, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 friendly Clans Skryre unit wholly within 12" of the caster that is visible to them. You can re-roll hit and wound rolls for that unit until your next hero phase. However at the end of your next hero phase, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -100,7 +100,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Chain Warp Lightning`,
-        desc: `Casting value of 6.  If successfully cast, pick up to D6 different enemy units within 18" of the caster.  Each of those units suffers 1 mortal wound.`,
+        desc: `Casting value of 6. If successfully cast, pick up to D6 different enemy units within 18" of the caster. Each of those units suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -110,12 +110,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Warp Lightning Shield`,
-        desc: `Casting value of 6.  If successfully cast, until you next hero phase, the first 3 wounds allocated to the caster in each phase are negated.  If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
+        desc: `Casting value of 6. If successfully cast, until you next hero phase, the first 3 wounds allocated to the caster in each phase are negated. If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
         when: [HERO_PHASE],
       },
       {
         name: `Warp Lightning Shield`,
-        desc: `If active, the first 3 wounds allocated to the caster in each phase are negated.  If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
+        desc: `If active, the first 3 wounds allocated to the caster in each phase are negated. If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
         when: [DURING_GAME],
       },
     ],

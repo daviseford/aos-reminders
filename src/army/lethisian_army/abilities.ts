@@ -31,7 +31,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Onyx Shield Wall (Command Ability)`,
-    desc: `Use this command ability during the enemy's turn. Pick 1 friendly Lethisian Defender Liberator unit wholly within 12" of a Lethisian Defender Stormcast Eternal hero.  Until the end of the phase, add 1 to the save rolls of the Liberator unit.`,
+    desc: `Use this command ability during the enemy's turn. Pick 1 friendly Lethisian Defender Liberator unit wholly within 12" of a Lethisian Defender Stormcast Eternal hero. Until the end of the phase, add 1 to the save rolls of the Liberator unit.`,
     when: [START_OF_COMBAT_PHASE],
   },
   {

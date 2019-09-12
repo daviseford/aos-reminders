@@ -7,7 +7,7 @@ const Scenery: TScenery = [
     effects: [
       {
         name: `The Garden of Nurgle`,
-        desc: `After all terrain features have been setup, but before you choose a territory or set up your army, you can set up one Feculent Gnarlmaw anywhere on the battlefield that is more than 3" away from other terrain features and 1" away from any objectives.  If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
+        desc: `After all terrain features have been setup, but before you choose a territory or set up your army, you can set up one Feculent Gnarlmaw anywhere on the battlefield that is more than 3" away from other terrain features and 1" away from any objectives. If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
         when: [START_OF_SETUP],
       },
       {

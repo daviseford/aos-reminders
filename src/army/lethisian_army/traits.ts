@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Raven Priest`,
-        desc: `This general gains the Priest keyword.  If the model is already a priest, it knows two Prayers of Morrda instead of 1.`,
+        desc: `This general gains the Priest keyword. If the model is already a priest, it knows two Prayers of Morrda instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Sinister Aura`,
-        desc: `Add 1 to the general's wounds characteristic.  Subtract 1 from the bravery characteristic of enemy units within 6" of this general.`,
+        desc: `Add 1 to the general's wounds characteristic. Subtract 1 from the bravery characteristic of enemy units within 6" of this general.`,
         when: [DURING_GAME],
       },
     ],

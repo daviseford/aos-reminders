@@ -46,7 +46,7 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-// Khorne specific units.  Export for use in Grand Alliance.
+// Khorne specific units. Export for use in Grand Alliance.
 export const KhorneUnits: TUnits = [
   {
     name: `Korghos Khul`,

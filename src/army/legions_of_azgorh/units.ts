@@ -42,7 +42,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Black Fortress`,
-        desc: `You can use this command ability at the start of the battleshock phase if this model is on the battlefield. If you do so, do not take battleshock tests for friendly Legion of Azgorh units  while they are wholly within 24" of this model.`,
+        desc: `You can use this command ability at the start of the battleshock phase if this model is on the battlefield. If you do so, do not take battleshock tests for friendly Legion of Azgorh units while they are wholly within 24" of this model.`,
         when: [START_OF_BATTLESHOCK_PHASE],
         command_ability: true,
       },

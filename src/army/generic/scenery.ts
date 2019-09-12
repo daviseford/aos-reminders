@@ -73,7 +73,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: DEADLY,
-        desc: `Roll a D6 whenever a unit finishes a normal move or charge move within 1" of this terrain.  On a 1, the unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 whenever a unit finishes a normal move or charge move within 1" of this terrain. On a 1, the unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -83,7 +83,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: MYSTICAL,
-        desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound.  On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound. On a 6+ the wound is negated.`,
         when: [DURING_GAME],
       },
     ],
@@ -103,7 +103,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: OVERGROWN,
-        desc: `Units are not visible if a 1mm immaginary line drawn from the closest points of two models crosses more than 1" of this terrain.  Does not apply if either unit can fly.`,
+        desc: `Units are not visible if a 1mm imaginary line drawn from the closest points of two models crosses more than 1" of this terrain. Does not apply if either unit can fly.`,
         when: [DURING_GAME],
       },
     ],
@@ -123,7 +123,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: VOLCANIC,
-        desc: `Roll a D6 for each instance of this terrain.  On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each instance of this terrain. On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -143,7 +143,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: HEALING,
-        desc: `Roll a D6 for each friendly unit within 1" of any Healing terrain.  On a 6 you can heal D3 wounds to that unit.`,
+        desc: `Roll a D6 for each friendly unit within 1" of any Healing terrain. On a 6 you can heal D3 wounds to that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -153,12 +153,12 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: NULLIFICATION,
-        desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell.  Wizards get this unbind in addition to any others they have.`,
+        desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell. Wizards get this unbind in addition to any others they have.`,
         when: [HERO_PHASE],
       },
       {
         name: NULLIFICATION,
-        desc: `If an endless spell is set up or finishes a move within 1" of this terrain it is dispelled.  Any affects from the spell are applied before the model is removed.`,
+        desc: `If an endless spell is set up or finishes a move within 1" of this terrain it is dispelled. Any effects from the spell are applied before the model is removed.`,
         when: [DURING_GAME],
       },
     ],
@@ -187,14 +187,14 @@ export const DefaultScenery: TScenery = [
         name: GARRISONS,
         desc: `A unit that is wholly within 6" of this terrain and no enemy models within 3" of this terrain may garrison instead of moving.
         
-               A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models.  This counts as the unit's move.
+               A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models. This counts as the unit's move.
                
                The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: GARRISONS,
-        desc: `A garrisoned unit is assumed to be in cover.  In addition, subtract 1 from hit rolls against a garrisoned unit.
+        desc: `A garrisoned unit is assumed to be in cover. In addition, subtract 1 from hit rolls against a garrisoned unit.
               
               Models cannot finish any move onto this terrain feature.`,
         when: [DURING_GAME],
@@ -218,15 +218,15 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Penumbral Engine`,
-        desc: `After territories have been chosen, but before armies have been set up, you can set up this model wholly within your territory.  It must be more than 12" from enemy territory, at least 3" away from other terrain features, and at least 1" away from any objectives.  If both players can place a terrain features at this time, roll off to see who places first.`,
+        desc: `After territories have been chosen, but before armies have been set up, you can set up this model wholly within your territory. It must be more than 12" from enemy territory, at least 3" away from other terrain features, and at least 1" away from any objectives. If both players can place a terrain features at this time, roll off to see who places first.`,
         when: [START_OF_SETUP],
       },
       {
         name: `Repercussions of the Necroquake`,
-        desc: `After determining who has the first turn, roll a D6 to determine the function of this model for the duration of the battle:                 
+        desc: `After determining who has the first turn, roll a D6 to determine the function of this model for the duration of the battle:
                
-               1-3: Orrery of Obfuscation.
-               4-6: Orrery of Illumination`,
+        1-3: Orrery of Obfuscation.
+        4-6: Orrery of Illumination`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
@@ -241,7 +241,7 @@ const OfficialScenery: TScenery = [
       },
       {
         name: `Deteriorating State`,
-        desc: `Applies from start of Round 2 onwards.  Roll a D6.  On a 1-4 nothing happens.  On a 5-6, the currently active Orrey function switches to the other option.`,
+        desc: `Applies from start of Round 2 onwards. Roll a D6. On a 1-4 nothing happens. On a 5-6, the currently active Orrey function switches to the other option.`,
         when: [START_OF_ROUND],
       },
     ],
@@ -259,7 +259,7 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Spirit Journey`,
-        desc: `You may remove a unit wholly within 6" of this terrain and set it up wholly within 6" of another Baleful Realmgate.  This can only be activated if a priest or wizard is within 6" of the starting gate.`,
+        desc: `You may remove a unit wholly within 6" of this terrain and set it up wholly within 6" of another Baleful Realmgate. This can only be activated if a priest or wizard is within 6" of the starting gate.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       ...SceneryEffectLookup[OBSTACLE],
@@ -314,7 +314,7 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Sigmarite Mausoleum`,
-        desc: `This terrain consists of 3-6 crypt models, 1-2 statue models, 1-2 gate models, and 7-14 wall section models.  All model's bases must be touching at least two other model's bases from the group.`,
+        desc: `This terrain consists of 3-6 crypt models, 1-2 statue models, 1-2 gate models, and 7-14 wall section models. All model's bases must be touching at least two other model's bases from the group.`,
         when: [START_OF_SETUP],
       },
       {
@@ -341,12 +341,12 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Celestium Construct`,
-        desc: `If any heroes from your army are garrisoning this terrain you can roll a D6.  On a 2+, add 1 to the number of command points you receive this phase.  On a 1, subtract 1 from the number of command points your receive instead.`,
+        desc: `If any heroes from your army are garrisoning this terrain you can roll a D6. On a 2+, add 1 to the number of command points you receive this phase. On a 1, subtract 1 from the number of command points your receive instead.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Domed Arcanoscope`,
-        desc: `If any heroes from your army are garrisoning this terrain with a domed arcanoscope, one of them can attempt to unbind 1 spell.  Wizards get this unbind in addition to any others they have.`,
+        desc: `If any heroes from your army are garrisoning this terrain with a domed arcanoscope, one of them can attempt to unbind 1 spell. Wizards get this unbind in addition to any others they have.`,
         when: [HERO_PHASE],
       },
       {

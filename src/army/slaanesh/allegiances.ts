@@ -44,7 +44,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warlord Supreme`,
-        desc: `You receive D3 depravity points if your general is within 3" of any enemy units.  If your general is within 3" of 3 or more enemy units you receive D6 depravity points instead.`,
+        desc: `You receive D3 depravity points if your general is within 3" of any enemy units. If your general is within 3" of 3 or more enemy units you receive D6 depravity points instead.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -64,7 +64,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Maniacal Hunters`,
-        desc: `You receive D3 depravity points if any friendly Godseekers Host units made a charge move in this phase.  If 3 or more friendly Godseekers Host units made a charge move in this phase receive D6 depravity points instead.`,
+        desc: `You receive D3 depravity points if any friendly Godseekers Host units made a charge move in this phase. If 3 or more friendly Godseekers Host units made a charge move in this phase receive D6 depravity points instead.`,
         when: [END_OF_CHARGE_PHASE],
       },
       {

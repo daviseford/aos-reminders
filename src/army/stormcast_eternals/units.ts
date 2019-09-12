@@ -1600,7 +1600,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Borne by the High Star`,
-        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units,  roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units, roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },
     ],

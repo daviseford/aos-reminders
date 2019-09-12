@@ -38,7 +38,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hurler of Obscenities (Invaders Host)`,
-        desc: `You can pick 1 enemy hero within 6" of this general.  Until the end of the combat phase, add 1 to the hit rolls for attacks made by that enemy hero but subtract 1 from the save rolls that target that enemy hero.`,
+        desc: `You can pick 1 enemy hero within 6" of this general. Until the end of the combat phase, add 1 to the hit rolls for attacks made by that enemy hero but subtract 1 from the save rolls that target that enemy hero.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -88,7 +88,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Monarch of Lies (Pretenders Host)`,
-        desc: `Pick 1 enemy hero within 3" of this general.  Subtract 1 from hit rolls for attacks made by that enemy hero in this phase.`,
+        desc: `Pick 1 enemy hero within 3" of this general. Subtract 1 from hit rolls for attacks made by that enemy hero in this phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -98,7 +98,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `True Child of Slaanesh (Pretenders Host)`,
-        desc: `Before determining which player has the first turn, roll 6 dice.  You receive 1 depravity point for each 5+.`,
+        desc: `Before determining which player has the first turn, roll 6 dice. You receive 1 depravity point for each 5+.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],
@@ -148,7 +148,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Thrill-seeker (Godseekers Host)`,
-        desc: `This general can run and charge in the same turn.  If this general already has anability that does this, add 3 to the run rolls for this general instead.`,
+        desc: `This general can run and charge in the same turn. If this general already has anability that does this, add 3 to the run rolls for this general instead.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -168,7 +168,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Trail-sniffer (Godseekers Host)`,
-        desc: `Roll a D6 for this general if it is wholly within enemy territory.  On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
+        desc: `Roll a D6 for this general if it is wholly within enemy territory. On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -178,7 +178,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Symphoniac (Godseekers Host)`,
-        desc: `Roll 1 dice for each enemy unit within 3" of this general.  On a 2+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Roll 1 dice for each enemy unit within 3" of this general. On a 2+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
