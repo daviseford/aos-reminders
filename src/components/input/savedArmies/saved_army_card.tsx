@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { titleCase } from 'utils/textUtils'
 import { useSubscription } from 'context/useSubscription'
 import { LoadArmyBtn } from './load_army_btn'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { SavedArmyTable } from './saved_army_table'
 import { DateTime } from 'luxon'
+import { logEvent } from 'utils/analytics'
+import { DeleteArmyModal } from './delete_army_modal'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -14,16 +16,21 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
   const { deleteSavedArmy } = useSubscription()
 
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
+
   const handleDeleteClick = e => {
     e.preventDefault()
+    logEvent('DeleteArmy')
     deleteSavedArmy(army.id)
-    // TODO: Start a progress indicator until unmounted
-    // TO show that we're deleting
+    closeModal()
   }
 
   // TODO Make the table stuff collapsable
   return (
-    <div className="col-12 col-lg-6 col-xl-4 mb-2">
+    <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
       <div className="card">
         <div className="card-body">
           <CardTitle armyName={army.armyName} factionName={army.factionName} createdAt={army.createdAt} />
@@ -32,9 +39,15 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
           </div>
           <div className="d-flex justify-content-center">
             <LoadArmyBtn army={army} />
-            <button className="btn btn-sm btn-danger mx-3" onClick={handleDeleteClick}>
+            <button className="btn btn-sm btn-danger mx-3" onClick={openModal}>
               Delete
             </button>
+            <DeleteArmyModal
+              modalIsOpen={modalIsOpen}
+              closeModal={closeModal}
+              handleDelete={handleDeleteClick}
+              armyName={army.armyName}
+            />
           </div>
         </div>
       </div>

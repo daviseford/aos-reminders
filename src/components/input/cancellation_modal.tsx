@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { FaCheck, FaRegSadCry } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
-import { ModalStyle } from './modalStyle'
+import { ModalStyle } from 'theme/modalStyle'
 import { logClick } from 'utils/analytics'
 
 interface IModalComponentProps {

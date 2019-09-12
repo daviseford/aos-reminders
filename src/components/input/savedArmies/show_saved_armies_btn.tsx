@@ -2,9 +2,7 @@ import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { MdStorage } from 'react-icons/md'
-
-const btnClass = `btn btn-outline-dark btn-block`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
+import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
@@ -30,7 +28,7 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
 
   return (
     <>
-      <button className={btnClass} onClick={handleClick}>
+      <button className={btnDarkBlock} onClick={handleClick}>
         <div className={btnContentWrapper}>
           <MdStorage className="mr-2" /> {btnText}
         </div>

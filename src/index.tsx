@@ -17,7 +17,6 @@ import { STRIPE_KEY } from 'utils/env'
 import { StripeProvider } from 'react-stripe-elements'
 
 // CSS
-import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css'
 import 'css/animations.css'
 import 'css/index.scss'
