@@ -148,7 +148,7 @@ const ImportWarscrollButton = (props: {
     isShowing ? hide() : show()
   }
 
-  const btnTxt = isShowing ? `Hide Import` : `Import Warscroll`
+  const btnTxt = isShowing ? `Hide Import` : `Import List`
 
   return isSubscribed ? (
     <button className={btnClass} onClick={handleClick}>
@@ -159,7 +159,7 @@ const ImportWarscrollButton = (props: {
   ) : (
     <Link to="/subscribe" className={btnClass} onClick={() => logClick('Import-Subscribe')}>
       <div className={btnContentWrapper}>
-        <FaFileImport className="mr-2" /> Import Warscroll
+        <FaFileImport className="mr-2" /> Import List
       </div>
     </Link>
   )
