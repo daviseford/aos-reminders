@@ -59,7 +59,7 @@ const Tr = ({ title, items }: ITrProps) => (
     <td>
       {items.map((item, ii) => {
         return (
-          <span key={ii} className={`badge badge-secondary mx-1`}>
+          <span key={ii} className={`badge badge-secondary text-wrap mx-1`}>
             {item}
           </span>
         )
