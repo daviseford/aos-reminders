@@ -33,7 +33,6 @@ import {
   DESTRUCTION,
   ORDER,
   TGrandAlliances,
-  GRAND_ALLIANCES,
   GRAND_ALLIANCE_FACTIONS,
   TGrandAllianceFactions,
 } from 'meta/alliances'
@@ -56,7 +55,6 @@ import {
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
-import { factionNames } from 'ducks'
 import { getAllianceItems } from './getAllianceItems'
 
 export const getArmy = (
@@ -95,12 +93,12 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   const { realmscape, GrandAlliance, Collection, factionName } = meta
 
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
+    Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
     Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
-
-    console.log('before', Units.length)
-
+    EndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+    Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
+    Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
-    console.log('after', Units.length)
   }
 
   Army.Allegiances = modifyAllegiances(Allegiances)

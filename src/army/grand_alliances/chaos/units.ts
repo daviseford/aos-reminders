@@ -137,7 +137,7 @@ export const MonstrousArcanumChaos: TUnits = [
   },
 ]
 
-// Unit Names
+// Units available to this Grand Alliance allegiance
 export const Units: TUnits = [...MonstersOfChaos, ...MonstrousArcanumChaos]
 
 // Available to ALL factions in this Grand Alliance
