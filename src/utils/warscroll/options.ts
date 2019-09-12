@@ -46,9 +46,10 @@ import {
 export const warscrollTypoMap = {
   'Chaos Chariots': 'Chaos Chariot',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
-  'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
-  'Lighntning Blast': 'Lightning Blast',
   'Devoted Desciples': 'Devoted Disciples',
+  'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
+  'Explosize Charge': 'Explosive Charge',
+  'Lighntning Blast': 'Lightning Blast',
 }
 
 // If a certain trait maps to a specific unit type, put it here
