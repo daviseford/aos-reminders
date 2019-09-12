@@ -27,7 +27,15 @@ import {
   OrderTraits,
   OrderUnits,
 } from 'army/grand_alliances'
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
+import {
+  CHAOS,
+  DEATH,
+  DESTRUCTION,
+  ORDER,
+  TGrandAlliances,
+  GRAND_ALLIANCE_FACTIONS,
+  TGrandAllianceFactions,
+} from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import {
@@ -47,6 +55,7 @@ import {
 } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { TEffects, TEntry } from 'types/data'
+import { getAllianceItems } from './getAllianceItems'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
@@ -58,7 +67,7 @@ export const getArmy = (
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection })
+  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection, factionName })
 
   return army
 }
@@ -67,10 +76,11 @@ interface IModifyArmyMeta {
   Collection: ICollection
   GrandAlliance: TGrandAlliances
   realmscape: TRealms | null
+  factionName: TSupportedFaction
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
-  const {
+  let {
     Allegiances = [],
     Artifacts = [],
     Battalions = [],
@@ -80,7 +90,16 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Traits = [],
     Units = [],
   } = Army
-  const { realmscape, GrandAlliance, Collection } = meta
+  const { realmscape, GrandAlliance, Collection, factionName } = meta
+
+  if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
+    Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
+    Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
+    EndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+    Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
+    Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
+    Units = getAllianceItems(GrandAlliance, 'Units', Units)
+  }
 
   Army.Allegiances = modifyAllegiances(Allegiances)
   Army.Artifacts = modifyArtifacts(Artifacts, GrandAlliance, Collection)

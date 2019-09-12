@@ -1,8 +1,4 @@
 import { TUnits } from 'types/army'
-import BeastclawRaiders from 'army/beastclaw_raiders'
-import GloomspiteGitz from 'army/gloomspite'
-import Gutbusters from 'army/gutbusters'
-import Ironjawz from 'army/ironjawz'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -224,16 +220,8 @@ export const MonstrousArcanumDestruction: TUnits = [
   },
 ]
 
-// Unit Names
-export const Units: TUnits = [
-  ...BeastclawRaiders.Units,
-  ...GloomspiteGitz.Units,
-  ...MonstrousArcanumDestruction,
-  ...Gutbusters.Units,
-  ...Ironjawz.Units,
-]
-
-export default Units
+// Units available to this Grand Alliance allegiance
+export const Units: TUnits = [...MonstrousArcanumDestruction]
 
 // Available to ALL factions in this Grand Alliance
 export const DestructionUnits = []

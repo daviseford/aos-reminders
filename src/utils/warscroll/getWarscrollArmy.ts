@@ -418,7 +418,7 @@ const selectionLookup = (
       if (match2) return match2
 
       // Maybe punctuation is in our way?
-      const valNoPunc = stripPunctuation(valShortened)
+      const valNoPunc = stripPunctuation(valUpper)
       const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
       if (match3) return match3
 
