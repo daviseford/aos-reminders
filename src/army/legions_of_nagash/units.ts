@@ -626,7 +626,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Corpse Cart with Unholy Lodestone`,
+    name: `Corpse Cart w/ Unholy Lodestone`,
     effects: [
       {
         name: `Unholy Lodestone`,
@@ -646,7 +646,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Corpse Cart with Balefire Brazier`,
+    name: `Corpse Cart w/ Balefire Brazier`,
     effects: [
       {
         name: `Balefire Brazier`,

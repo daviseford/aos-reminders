@@ -54,6 +54,7 @@ export const warscrollTypoMap = {
 // If a certain trait maps to a specific unit type, put it here
 export const warscrollUnitOptionMap = {
   'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
+  'Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
   'Living Whip': 'Keeper of Secrets w/ Living Whip',
   'Priestly Trappings': 'Skink Priest w/ Priestly Trappings',
@@ -63,6 +64,7 @@ export const warscrollUnitOptionMap = {
   'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
   'Solar Engine': 'Bastiladon w/ Solar Engine',
   'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
+  'Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
 }
 
 export const warscrollFactionNameMap = {
