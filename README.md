@@ -98,4 +98,21 @@ Found a discrepancy between Warscroll Builder and AoS Reminders? You have two op
 
 1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
 2. Add to the typo list (`warscrollTypoMap`) in `src/utils/warscroll/options.ts`
+3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
 
+
+### Helpful Commands
+
+Delete all local branches except `master`
+
+Linux/OSX:
+
+```bash
+git branch | grep -v "master" | xargs git branch -D
+```
+
+Windows:
+
+```powershell
+git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }
+```
