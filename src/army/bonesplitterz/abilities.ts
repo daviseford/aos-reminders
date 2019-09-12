@@ -5,7 +5,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Warpaint`,
-    desc: `When making a save roll for a Bonespitterz model, a dice result of 6 (before modifers) is always a successful save.  When you take a mortal wound, roll a dice. On a 6+ that mortal wound is ignored.`,
+    desc: `When making a save roll for a Bonespitterz model, a dice result of 6 (before modifers) is always a successful save. When you take a mortal wound, roll a dice. On a 6+ that mortal wound is ignored.`,
     when: [DURING_GAME],
   },
   {

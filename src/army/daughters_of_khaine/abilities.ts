@@ -13,12 +13,12 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Fanatical Faith`,
-    desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model.  On a 6+ the wound is negated.`,
+    desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model. On a 6+ the wound is negated.`,
     when: [DURING_GAME],
   },
   {
     name: `Blood Rites`,
-    desc: `Friendly Daughters of Khaine units gain an ability each battle round based on the current battle round number.  The effects are cumulative.`,
+    desc: `Friendly Daughters of Khaine units gain an ability each battle round based on the current battle round number. The effects are cumulative.`,
     when: [START_OF_ROUND],
   },
   {
@@ -33,11 +33,11 @@ const Abilities: TAbilities = [
   },
   {
     name: `Blood Rites - Battle Round 3+: Zealot's Rage`,
-    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units.  In addition, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
+    desc: `Re-roll hit rolls of 1 for friendly Daughters of Khaine units. In addition, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
-    name: `Blood Rites - Battle Round 4+:  Slaughterer's Strength`,
+    name: `Blood Rites - Battle Round 4+: Slaughterer's Strength`,
     desc: `Re-roll wound rolls of 1 for friendly Daughters of Khaine units.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },

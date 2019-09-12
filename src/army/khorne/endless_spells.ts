@@ -20,7 +20,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Prayer value of 3+.  Only friendly Khorne Priests can attempt this.  If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other.  You may then immeadiately move these models 8" ending the movement with each model 6" from the other.`,
+        desc: `Prayer value of 3+.  Only friendly Khorne Priests can attempt this.  If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other.  You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
         when: [START_OF_HERO_PHASE],
       },
       {

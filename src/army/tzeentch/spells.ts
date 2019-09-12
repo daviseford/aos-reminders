@@ -20,7 +20,7 @@ const Spells: TSpells = [
       {
         name: `Arcane Suggestion`,
         desc: `Casting value of 7.  If successfully cast, pick an enemy unit (not a hero or monster) within 18" of the caster.  Roll a D6 and follow the D3 result:
-               1 -  The unit immeadiately suffers D3 mortal wounds.
+               1 -  The unit immediately suffers D3 mortal wounds.
                2 -  Until the end of this turn, subtract 1 from hit and wound rolls for the unit.
                3 -  Until the end of this turn, subtract 1 from the save rolls for the unit.`,
         when: [HERO_PHASE],

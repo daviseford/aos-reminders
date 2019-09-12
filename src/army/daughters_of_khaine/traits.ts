@@ -68,7 +68,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `True Believer`,
-        desc: `This general counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table.  This effect is cumulative with other, similar abilities.`,
+        desc: `This general counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
         when: [START_OF_ROUND],
         command_trait: true,
       },

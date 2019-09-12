@@ -78,7 +78,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Strike Quickly (${HYSH})`,
-        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general) and within 3" of an enemy unit.  That unit fights immeadiately instead of later in the combat phase.`,
+        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general) and within 3" of an enemy unit.  That unit fights immediately instead of later in the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

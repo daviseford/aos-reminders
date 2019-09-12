@@ -229,7 +229,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Acidic Slime Trail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model immediately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -329,7 +329,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Acidic Slime Trail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model immeadiately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of this model immediately before this model makes a retreat move.  On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -668,7 +668,7 @@ export const NurgleUnits: TUnits = [
       },
       {
         name: `Rotten Corpse Mulch`,
-        desc: `Roll a D6 after this model makes its attacks.  Add the number of wounds inflicted by this model (and which were not saved or negated) to the dice roll.  If the total is a 7+ you immeadiately receive 1 contagion point.`,
+        desc: `Roll a D6 after this model makes its attacks.  Add the number of wounds inflicted by this model (and which were not saved or negated) to the dice roll.  If the total is a 7+ you immediately receive 1 contagion point.`,
         when: [COMBAT_PHASE],
       },
       {
