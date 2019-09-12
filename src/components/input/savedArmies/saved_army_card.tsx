@@ -30,7 +30,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
 
   // TODO Make the table stuff collapsable
   return (
-    <div className="col-12 col-lg-6 col-xl-4 mb-2">
+    <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
       <div className="card">
         <div className="card-body">
           <CardTitle armyName={army.armyName} factionName={army.factionName} createdAt={army.createdAt} />
