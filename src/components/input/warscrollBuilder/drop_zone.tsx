@@ -5,10 +5,10 @@ import { MdErrorOutline } from 'react-icons/md'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
-import { IWarscrollArmyWithErrors } from 'types/warscrollTypes'
+import { IWarscrollArmy } from 'types/warscrollTypes'
 
 interface IDropzoneProps {
-  handleDrop: (army: IWarscrollArmyWithErrors) => void
+  handleDrop: (army: IWarscrollArmy) => void
 }
 
 export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
@@ -41,7 +41,7 @@ export const WarscrollDropzone: React.FC<IDropzoneProps> = props => {
         }
         reader.onload = () => {
           const fileText = reader.result
-          let parsedArmy: IWarscrollArmyWithErrors
+          let parsedArmy: IWarscrollArmy
 
           if (file.type === 'application/pdf') {
             const parsed = parsePdf(fileText as string)

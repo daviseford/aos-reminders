@@ -8,16 +8,16 @@ import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } fro
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import { IWarscrollArmyWithErrors, IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { IWarscrollArmy, TError } from 'types/warscrollTypes'
 
-export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmyWithErrors => {
+export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
   const errorChecked = warscrollPdfErrorChecker(army)
 
   return errorChecked
 }
 
-export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmyWithErrors => {
+export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
   const errorChecked = warscrollPdfErrorChecker(army)
 
@@ -160,6 +160,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
     allyFactionNames: [],
     allySelections: {},
     allyUnits: uniq(allyUnits),
+    errors: [],
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -171,6 +172,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   const cleanedText = cleanWarscrollText(fileText.split('\n'))
 
+  let errors: TError[] = []
+  let usingShortVersion = false
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
   let factionName = ''
@@ -178,6 +181,9 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
+      // If they are using the short txt version, don't bother trying to process it
+      if (usingShortVersion) return accum
+
       if (txt.includes('Allegiance: ')) {
         const name = txt.replace('Allegiance: ', '').trim()
         factionName = warscrollFactionNameMap[name] || name
@@ -202,6 +208,12 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
       }
 
       if (txt.startsWith('- ')) {
+        if (!selector) {
+          // If a selector hasn't been set at this point, they are using the short list summary
+          // Which we don't support
+          usingShortVersion = true
+          return accum
+        }
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- Allies')) {
           const alliedUnit = last(accum.units)
@@ -287,10 +299,19 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
     }
   )
 
+  if (usingShortVersion) {
+    errors.push(
+      createError(
+        'Are you using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.'
+      )
+    )
+  }
+
   return {
     allyFactionNames: [],
     allySelections: {},
     allyUnits: uniq(allyUnits),
+    errors,
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -299,11 +320,13 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   }
 }
 
-const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
-  let errors: TError[] = []
+const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
+  let { errors, factionName, selections, unknownSelections, allyUnits } = army
 
-  const { factionName, selections, unknownSelections, allyUnits } = army
+  // If we've already gotten an error, go ahead and bail out
+  if (errors.some(({ severity }) => severity === 'error')) return army
 
+  // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
