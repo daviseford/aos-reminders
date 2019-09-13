@@ -13,12 +13,12 @@ import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } fro
 interface IWarscrollArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
+  allyUnits: string[]
   factionName: TSupportedFaction
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
   unknownSelections: string[]
-  hasAllies: boolean
 }
 
 type TError = { text: string; severity: 'warn' | 'error' }
@@ -78,7 +78,7 @@ const cleanText = (pdfText: string[]) => {
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   const cleanedText = cleanText(pdfText)
 
-  let hasAllies = false
+  let allyUnits: string[] = []
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -116,7 +116,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- Allies')) {
-          hasAllies = true
+          const alliedUnit = last(accum.units)
+          if (alliedUnit) {
+            const accumMock = [...accum.units]
+            accumMock.pop()
+            accum[selector] = accumMock
+            allyUnits.push(alliedUnit)
+          }
           return accum
         }
         if (txt.includes('Command Trait : ')) {
@@ -192,8 +198,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
+    allyUnits,
     factionName: factionName as TSupportedFaction,
-    hasAllies,
     realmscape_feature: null,
     realmscape: null,
     selections,
@@ -204,7 +210,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   const cleanedText = cleanText(fileText.split('\n'))
 
-  let hasAllies = false
+  let allyUnits: string[] = []
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -237,7 +243,13 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- Allies')) {
-          hasAllies = true
+          const alliedUnit = last(accum.units)
+          if (alliedUnit) {
+            const accumMock = [...accum.units]
+            accumMock.pop()
+            accum[selector] = accumMock
+            allyUnits.push(alliedUnit)
+          }
           return accum
         }
         if (txt.includes('Command Trait: ')) {
@@ -317,8 +329,8 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
+    allyUnits,
     factionName: factionName as TSupportedFaction,
-    hasAllies,
     realmscape_feature: null,
     realmscape: null,
     selections,
@@ -329,7 +341,11 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
   let errors: { text: string; severity: 'warn' | 'error' }[] = []
 
-  const { factionName, selections, unknownSelections } = army
+  const { factionName, selections, unknownSelections, allyUnits } = army
+
+  if (allyUnits.length > 0) {
+    console.log('We have allies!', allyUnits)
+  }
 
   if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`)
