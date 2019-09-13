@@ -506,24 +506,22 @@ const getAllyData = (
   console.log('We have allies!', allyUnits)
   const allyArmyUnits = getAllyArmyUnits(factionName)
 
-  const allyData = allyUnits.reduce(
-    (a, unit) => {
-      Object.keys(allyArmyUnits).forEach(allyName => {
-        const units: string[] = allyArmyUnits[allyName]
-        const unitsMap = getNameMap(units)
+  const allyData = Object.keys(allyArmyUnits).reduce(
+    (a, allyName) => {
+      const units: string[] = allyArmyUnits[allyName]
+      const unitsMap = getNameMap(units)
 
-        const checkVal = checkSelection(units, unitsMap, errors, false)
-        const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
+      const checkVal = checkSelection(units, unitsMap, errors, false)
+      const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
 
-        if (errorFreeAllyUnits.length > 0) {
-          if (!a.allySelections[allyName]) {
-            a.allySelections[allyName] = { units: [] }
-          }
-
-          a.allySelections[allyName].units = errorFreeAllyUnits
-          a.allyFactionNames = a.allyFactionNames.concat(allyName as TSupportedFaction)
+      if (errorFreeAllyUnits.length > 0) {
+        if (!a.allySelections[allyName]) {
+          a.allySelections[allyName] = { units: [] }
         }
-      })
+
+        a.allySelections[allyName].units = errorFreeAllyUnits
+        a.allyFactionNames = uniq(a.allyFactionNames.concat(allyName as TSupportedFaction))
+      }
 
       return a
     },
