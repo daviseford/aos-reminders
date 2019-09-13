@@ -1,15 +1,15 @@
 import { uniq, difference, last } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { stripPunctuation } from 'utils/textUtils'
+import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
+import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
 
 interface IWarscrollArmy {
   allyFactionNames: TSupportedFaction[]
@@ -340,7 +340,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 }
 
 const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
-  let errors: { text: string; severity: 'warn' | 'error' }[] = []
+  let errors: TError[] = []
 
   const { factionName, selections, unknownSelections, allyUnits } = army
 
@@ -355,7 +355,59 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   if (allyUnits.length > 0) {
     console.log('We have allies!', allyUnits)
     const allyArmyUnits = getAllyArmyUnits(factionName)
+
     console.log(allyArmyUnits)
+
+    const allyData = allyUnits.reduce(
+      (a, unit) => {
+        Object.keys(allyArmyUnits).forEach(allyName => {
+          const units: string[] = allyArmyUnits[allyName]
+          const unitsMap = getNameMap(units)
+
+          const checkVal = checkSelection(units, unitsMap, errors, false)
+          const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
+
+          if (errorFreeAllyUnits.length > 0) {
+            a.allySelections[allyName] = errorFreeAllyUnits
+            a.allyFactionNames = a.allyFactionNames.concat(allyName)
+          }
+        })
+
+        return a
+      },
+      { allySelections: {}, allyFactionNames: [] as string[] }
+    )
+
+    console.log('allydata', allyData)
+
+    // Check for unit name collisions and mark them as errors
+    const collisions = Object.keys(allyData.allySelections).reduce(
+      (a, allyName) => {
+        const units: string[] = allyData.allySelections[allyName]
+        units.forEach(unit => {
+          if (a[unit]) {
+            a[unit] = a[unit].concat(allyName as TSupportedFaction)
+          } else {
+            a[unit] = [allyName as TSupportedFaction]
+          }
+        })
+        return a
+      },
+      {} as { [key: string]: TSupportedFaction[] }
+    )
+
+    console.log('collisions', collisions)
+    Object.keys(collisions).forEach(unit => {
+      if (collisions[unit].length > 1) {
+        errors.push(
+          warn(
+            `Allied unit ${unit} can belong to ${collisions[unit]
+              .map(titleCase)
+              .join(' or ')}. Please add this unit manually.`
+          )
+        )
+      }
+    })
   }
 
   const foundSelections: string[] = []
@@ -413,38 +465,10 @@ const selectionLookup = (
   }
 
   const Names: string[] = Army[lookup[type]].map(({ name }) => name)
-  const NameMap = Names.reduce((a, b) => {
-    a[b] = b
-    return a
-  }, {})
+  const NameMap = getNameMap(Names)
+  const checkVal = checkSelection(Names, NameMap, errors, true)
 
-  const errorFree = selections[type]
-    .map((val: string) => {
-      // Check for typos
-      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
-
-      if (NameMap[val]) return val
-
-      // See if we have something like it...
-      const valUpper = val.toUpperCase()
-      const match = Names.find(x => x.toUpperCase().includes(valUpper))
-      if (match) return match
-
-      // Maybe we have a trailing '... of Slaanesh'?
-      const valShortened = valUpper.replace(/ OF .+/g, '')
-      const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
-      if (match2) return match2
-
-      // Maybe punctuation is in our way?
-      const valNoPunc = stripPunctuation(valUpper)
-      const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
-      if (match3) return match3
-
-      logFailedImport(val)
-      errors.push(warn(`${val} is either a typo or an unsupported value.`))
-      return ''
-    })
-    .filter(x => !!x)
+  const errorFree = selections[type].map(checkVal).filter(x => !!x)
 
   const found = unknownSelections
     .map(val => {
@@ -475,3 +499,46 @@ const selectionLookup = (
 
 const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
 const warn = (text: string): { text: string; severity: 'warn' } => ({ text, severity: 'warn' })
+
+const getNameMap = (names: string[]) => {
+  return names.reduce(
+    (a, b) => {
+      a[b] = b
+      return a
+    },
+    {} as { [key: string]: string }
+  )
+}
+
+const checkSelection = (
+  Names: string[],
+  NameMap: { [key: string]: string },
+  errors: TError[],
+  logError: boolean = true
+) => (val: string) => {
+  // Check for typos
+  if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
+
+  if (NameMap[val]) return val
+
+  // See if we have something like it...
+  const valUpper = val.toUpperCase()
+  const match = Names.find(x => x.toUpperCase().includes(valUpper))
+  if (match) return match
+
+  // Maybe we have a trailing '... of Slaanesh'?
+  const valShortened = valUpper.replace(/ OF .+/g, '')
+  const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
+  if (match2) return match2
+
+  // Maybe punctuation is in our way?
+  const valNoPunc = stripPunctuation(valUpper)
+  const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
+  if (match3) return match3
+
+  if (logError) {
+    logFailedImport(val)
+    errors.push(warn(`${val} is either a typo or an unsupported value.`))
+  }
+  return ''
+}
