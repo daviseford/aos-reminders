@@ -49,5 +49,3 @@ export const getAllianceItems = (
     'name'
   )
 }
-
-export const getMercenaryArmies = () => ArmyList.MERCENARY_COMPANIES.Army

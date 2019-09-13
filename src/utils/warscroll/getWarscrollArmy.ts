@@ -3,6 +3,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { stripPunctuation } from 'utils/textUtils'
 import { logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
+import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
@@ -343,16 +344,18 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
 
   const { factionName, selections, unknownSelections, allyUnits } = army
 
-  if (allyUnits.length > 0) {
-    console.log('We have allies!', allyUnits)
-  }
-
   if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,
       errors: [error(`${factionName || 'Unknown Faction'} are not supported!`)],
     }
+  }
+
+  if (allyUnits.length > 0) {
+    console.log('We have allies!', allyUnits)
+    const allyArmyUnits = getAllyArmyUnits(factionName)
+    console.log(allyArmyUnits)
   }
 
   const foundSelections: string[] = []
