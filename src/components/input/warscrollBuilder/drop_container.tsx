@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { IWarscrollArmyWithErrors } from 'utils/warscroll/getWarscrollArmy'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'
 import { WarscrollDropzone } from './drop_zone'
@@ -10,6 +9,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
+import { IWarscrollArmyWithErrors } from 'types/warscrollTypes'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void

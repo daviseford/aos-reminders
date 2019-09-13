@@ -1,32 +1,14 @@
-import { uniq, difference, last, without } from 'lodash'
+import { uniq, difference, last } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
-import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
+import { getNameMap, checkSelection, createError, cleanWarscrollText } from './warscrollUtils'
+import { getAllyData } from './allyData'
 import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
 import { TSupportedFaction } from 'meta/factions'
-import { TRealms } from 'types/realmscapes'
-import { TAllySelectionStore } from 'types/store'
-import { ISelections, IAllySelections } from 'types/selections'
+import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-
-interface IWarscrollArmy {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  allyUnits: string[]
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  realmscape: TRealms | null
-  selections: ISelections
-  unknownSelections: string[]
-}
-
-type TError = { text: string; severity: 'warn' | 'error' }
-
-export interface IWarscrollArmyWithErrors extends IWarscrollArmy {
-  errors: TError[]
-}
+import { IWarscrollArmyWithErrors, IWarscrollArmy, TError } from 'types/warscrollTypes'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmyWithErrors => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -54,30 +36,8 @@ const unitIndicatorsTxt = [
 ]
 const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
 
-const cleanText = (pdfText: string[]) => {
-  return pdfText
-    .map(txt =>
-      txt
-        .replace(/\\\(/g, '(') // Fix parentheses i.e. "\(value\)"
-        .replace(/\\\)/g, ')') // Fix parentheses i.e. "\(value\)"
-        .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
-        .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
-        .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
-        .replace(/ \([0-9]+\)/g, '') // Remove point values e.g. "Slann Starmaster (360)"
-        .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
-        .trim()
-    )
-    .filter(
-      txt =>
-        !!txt &&
-        txt.length > 2 &&
-        txt !== 'Warscroll Builder on www.warhammer-community.com' &&
-        txt !== '* See Warscroll'
-    )
-}
-
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
-  const cleanedText = cleanText(pdfText)
+  const cleanedText = cleanWarscrollText(pdfText)
 
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -199,7 +159,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
-    allyUnits,
+    allyUnits: uniq(allyUnits),
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -209,7 +169,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 }
 
 const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
-  const cleanedText = cleanText(fileText.split('\n'))
+  const cleanedText = cleanWarscrollText(fileText.split('\n'))
 
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -330,7 +290,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
-    allyUnits,
+    allyUnits: uniq(allyUnits),
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -348,7 +308,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
     logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,
-      errors: [error(`${factionName || 'Unknown Faction'} are not supported!`)],
+      errors: [createError(`${factionName || 'Unknown Faction'} are not supported!`)],
     }
   }
 
@@ -440,137 +400,4 @@ const selectionLookup = (
     .filter(x => !!x)
 
   return uniq(errorFree.concat(found))
-}
-
-const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
-const warn = (text: string): { text: string; severity: 'warn' } => ({ text, severity: 'warn' })
-
-const getNameMap = (names: string[]) => {
-  return names.reduce(
-    (a, b) => {
-      a[b] = b
-      return a
-    },
-    {} as { [key: string]: string }
-  )
-}
-
-const checkSelection = (
-  Names: string[],
-  NameMap: { [key: string]: string },
-  errors: TError[],
-  logError: boolean = true
-) => (val: string) => {
-  // Check for typos
-  if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
-
-  if (NameMap[val]) return val
-
-  // See if we have something like it...
-  const valUpper = val.toUpperCase()
-  const match = Names.find(x => x.toUpperCase().includes(valUpper))
-  if (match) return match
-
-  // Maybe we have a trailing '... of Slaanesh'?
-  const valShortened = valUpper.replace(/ OF .+/g, '')
-  const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
-  if (match2) return match2
-
-  // Maybe punctuation is in our way?
-  const valNoPunc = stripPunctuation(valUpper)
-  const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
-  if (match3) return match3
-
-  if (logError) {
-    logFailedImport(val)
-    errors.push(warn(`${val} is either a typo or an unsupported value.`))
-  }
-  return ''
-}
-
-const getAllyData = (
-  allyUnits: string[],
-  factionName: TSupportedFaction,
-  errors: TError[]
-): {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-} => {
-  if (allyUnits.length === 0) {
-    return {
-      allyFactionNames: [],
-      allySelections: {},
-    }
-  }
-
-  console.log('We have allies!', allyUnits)
-  const allyArmyUnits = getAllyArmyUnits(factionName)
-
-  const allyData = Object.keys(allyArmyUnits).reduce(
-    (a, allyName) => {
-      const units: string[] = allyArmyUnits[allyName]
-      const unitsMap = getNameMap(units)
-
-      const checkVal = checkSelection(units, unitsMap, errors, false)
-      const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
-
-      if (errorFreeAllyUnits.length > 0) {
-        if (!a.allySelections[allyName]) {
-          a.allySelections[allyName] = { units: [] }
-        }
-
-        a.allySelections[allyName].units = errorFreeAllyUnits
-        a.allyFactionNames = uniq(a.allyFactionNames.concat(allyName as TSupportedFaction))
-      }
-
-      return a
-    },
-    { allySelections: {} as TAllySelectionStore, allyFactionNames: [] as TSupportedFaction[] }
-  )
-
-  console.log('allydata', allyData)
-
-  // Check for unit name collisions and mark them as errors
-  const collisions = Object.keys(allyData.allySelections).reduce(
-    (a, allyName) => {
-      const units: string[] = allyData.allySelections[allyName].units
-      units.forEach(unit => {
-        if (a[unit]) {
-          a[unit] = a[unit].concat(allyName as TSupportedFaction)
-        } else {
-          a[unit] = [allyName as TSupportedFaction]
-        }
-      })
-      return a
-    },
-    {} as { [key: string]: TSupportedFaction[] }
-  )
-
-  Object.keys(collisions).forEach(unit => {
-    if (collisions[unit].length > 1) {
-      errors.push(
-        warn(
-          `Allied ${unit} can belong to ${collisions[unit]
-            .map(titleCase)
-            .join(' or ')}. Please add this unit manually.`
-        )
-      )
-
-      // Remove the unit from allySelections
-      // And if that empties the array,
-      // Remove the entry + remove it from allyFactionNames
-      collisions[unit].forEach(faction => {
-        ;(allyData.allySelections[faction] as IAllySelections).units = without(
-          (allyData.allySelections[faction] as IAllySelections).units as string[],
-          unit
-        )
-        if ((allyData.allySelections[faction] as IAllySelections).units.length === 0) {
-          delete allyData.allySelections[faction]
-          allyData.allyFactionNames = without(allyData.allyFactionNames, faction)
-        }
-      })
-    }
-  })
-
-  return allyData
 }

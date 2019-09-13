@@ -3,12 +3,9 @@ import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import {
-  getWarscrollArmyFromPdf,
-  IWarscrollArmyWithErrors,
-  getWarscrollArmyFromText,
-} from 'utils/warscroll/getWarscrollArmy'
+import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
+import { IWarscrollArmyWithErrors } from 'types/warscrollTypes'
 
 interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmyWithErrors) => void
