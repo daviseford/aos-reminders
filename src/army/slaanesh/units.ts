@@ -76,8 +76,11 @@ const KeeperOfSecretsBaseEffects = [
   },
 ]
 
+// Combine lists together to make army unit entry.
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
 // Unit Names
-export const SlaaneshUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [
@@ -669,9 +672,6 @@ export const SlaaneshBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...SlaaneshUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...SlaaneshBattalions, ...getBoCBattalion()]

@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { titleCase } from 'utils/textUtils'
 import { logAllyFaction } from 'utils/analytics'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
@@ -196,7 +196,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
         </div>
       </div>
       <div className={`card-body py-3 ${isVisible ? `` : `d-none`}`}>
-        <h4 className="text-center">{type}</h4>
+        <h4 className="text-center">Allied {type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>

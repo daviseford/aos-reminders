@@ -1,6 +1,6 @@
 import { flatten } from 'lodash'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { processReminders, addToString } from 'utils/processReminders'
 
 // Army Imports

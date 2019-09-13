@@ -36,13 +36,15 @@ const getFyreslayerUnits = () => {
   return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
 }
 
-// Unit Names
-export const Units: TUnits = [
-  // Import valid army units.
+export const AlliedUnits: TUnits = [
   ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
   ...getStormcastUnits(),
+]
+
+// Unit Names
+export const Units: TUnits = [
   // Add warpriest manually until Cities of Sigmar is released.
   {
     name: `Excelsior Warpriest`,

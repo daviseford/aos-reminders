@@ -1,29 +1,14 @@
 import { uniq, difference, last } from 'lodash'
-import { getArmy } from 'utils/getArmy'
-import { stripPunctuation } from 'utils/textUtils'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
-import { TRealms } from 'types/realmscapes'
-import { TAllySelectionStore } from 'types/store'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { logFailedImport } from 'utils/analytics'
+import { isValidFactionName } from 'utils/armyUtils'
+import { getNameMap, checkSelection, createError, cleanWarscrollText } from './warscrollUtils'
+import { getAllyData } from './allyData'
+import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
+import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
-import { logFailedImport } from 'utils/analytics'
-
-interface IWarscrollArmy {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  realmscape: TRealms | null
-  selections: ISelections
-  unknownSelections: string[]
-}
-
-type TError = { text: string; severity: 'warn' | 'error' }
-
-export interface IWarscrollArmyWithErrors extends IWarscrollArmy {
-  errors: TError[]
-}
+import { IWarscrollArmyWithErrors, IWarscrollArmy, TError } from 'types/warscrollTypes'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmyWithErrors => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -52,26 +37,9 @@ const unitIndicatorsTxt = [
 const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
 
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
-  const cleanedText = pdfText
-    .map(txt =>
-      txt
-        .replace(/\\\(/g, '(') // Fix parentheses i.e. "\(value\)"
-        .replace(/\\\)/g, ')') // Fix parentheses i.e. "\(value\)"
-        .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
-        .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
-        .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
-        .replace(/ \([0-9]+\)/g, '') // Remove point values e.g. "Slann Starmaster (360)"
-        .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
-        .trim()
-    )
-    .filter(
-      txt =>
-        !!txt &&
-        txt.length > 2 &&
-        txt !== 'Warscroll Builder on www.warhammer-community.com' &&
-        txt !== '* See Warscroll'
-    )
+  const cleanedText = cleanWarscrollText(pdfText)
 
+  let allyUnits: string[] = []
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -108,6 +76,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- Allies')) {
+          const alliedUnit = last(accum.units)
+          if (alliedUnit) {
+            const accumMock = [...accum.units]
+            accumMock.pop()
+            accum[selector] = accumMock
+            allyUnits.push(alliedUnit)
+          }
+          return accum
+        }
         if (txt.includes('Command Trait : ')) {
           const trait = txt.split(' Command Trait : ')[1].trim()
           accum.traits = accum.traits.concat(trait)
@@ -181,6 +159,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
+    allyUnits: uniq(allyUnits),
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -190,27 +169,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 }
 
 const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
-  const cleanedText = fileText
-    .split('\n')
-    .map(txt =>
-      txt
-        .replace(/\\\(/g, '(') // Fix parentheses i.e. "\(value\)"
-        .replace(/\\\)/g, ')') // Fix parentheses i.e. "\(value\)"
-        .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
-        .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
-        .replace(/^[0-9]{1,2}D6"/g, '') // Remove '2D6"' entries
-        .replace(/ \([0-9]+\)/g, '') // Remove point values e.g. "Slann Starmaster (360)"
-        .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
-        .trim()
-    )
-    .filter(
-      txt =>
-        !!txt &&
-        txt.length > 2 &&
-        txt !== 'Warscroll Builder on www.warhammer-community.com' &&
-        txt !== '* See Warscroll'
-    )
+  const cleanedText = cleanWarscrollText(fileText.split('\n'))
 
+  let allyUnits: string[] = []
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -242,6 +203,16 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- Allies')) {
+          const alliedUnit = last(accum.units)
+          if (alliedUnit) {
+            const accumMock = [...accum.units]
+            accumMock.pop()
+            accum[selector] = accumMock
+            allyUnits.push(alliedUnit)
+          }
+          return accum
+        }
         if (txt.includes('Command Trait: ')) {
           const trait = txt.split(' Command Trait: ')[1].trim()
           accum.traits = accum.traits.concat(trait)
@@ -319,6 +290,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   return {
     allyFactionNames: [],
     allySelections: {},
+    allyUnits: uniq(allyUnits),
     factionName: factionName as TSupportedFaction,
     realmscape_feature: null,
     realmscape: null,
@@ -328,15 +300,15 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 }
 
 const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithErrors => {
-  let errors: { text: string; severity: 'warn' | 'error' }[] = []
+  let errors: TError[] = []
 
-  const { factionName, selections, unknownSelections } = army
+  const { factionName, selections, unknownSelections, allyUnits } = army
 
-  if (!SUPPORTED_FACTIONS.includes(factionName)) {
+  if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,
-      errors: [error(`${factionName || 'Unknown Faction'} are not supported!`)],
+      errors: [createError(`${factionName || 'Unknown Faction'} are not supported!`)],
     }
   }
 
@@ -358,6 +330,8 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0) console.log('Could not find: ', couldNotFind)
 
+  const allyData = getAllyData(allyUnits, factionName, errors)
+
   return {
     ...army,
     errors,
@@ -365,6 +339,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
       ...selections,
       ...errorFreeSelections,
     },
+    ...allyData,
   }
 }
 
@@ -395,38 +370,10 @@ const selectionLookup = (
   }
 
   const Names: string[] = Army[lookup[type]].map(({ name }) => name)
-  const NameMap = Names.reduce((a, b) => {
-    a[b] = b
-    return a
-  }, {})
+  const NameMap = getNameMap(Names)
+  const checkVal = checkSelection(Names, NameMap, errors, true)
 
-  const errorFree = selections[type]
-    .map((val: string) => {
-      // Check for typos
-      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
-
-      if (NameMap[val]) return val
-
-      // See if we have something like it...
-      const valUpper = val.toUpperCase()
-      const match = Names.find(x => x.toUpperCase().includes(valUpper))
-      if (match) return match
-
-      // Maybe we have a trailing '... of Slaanesh'?
-      const valShortened = valUpper.replace(/ OF .+/g, '')
-      const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
-      if (match2) return match2
-
-      // Maybe punctuation is in our way?
-      const valNoPunc = stripPunctuation(valUpper)
-      const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
-      if (match3) return match3
-
-      logFailedImport(val)
-      errors.push(warn(`${val} is either a typo or an unsupported value.`))
-      return ''
-    })
-    .filter(x => !!x)
+  const errorFree = selections[type].map(checkVal).filter(x => !!x)
 
   const found = unknownSelections
     .map(val => {
@@ -454,6 +401,3 @@ const selectionLookup = (
 
   return uniq(errorFree.concat(found))
 }
-
-const error = (text: string): { text: string; severity: 'error' } => ({ text, severity: 'error' })
-const warn = (text: string): { text: string; severity: 'warn' } => ({ text, severity: 'warn' })
