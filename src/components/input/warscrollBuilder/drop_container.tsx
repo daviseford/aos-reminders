@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { IWarscrollArmyWithErrors } from 'utils/warscroll/getWarscrollArmy'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'

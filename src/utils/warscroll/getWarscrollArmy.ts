@@ -1,5 +1,5 @@
 import { uniq, difference, last } from 'lodash'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { stripPunctuation } from 'utils/textUtils'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
