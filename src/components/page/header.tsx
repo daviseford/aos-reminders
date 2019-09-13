@@ -30,7 +30,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   const setValue = withSelectOne((value: string | null) => {
     resetSelections()
-    logFactionSwitch(value as TSupportedFaction)
+    logFactionSwitch(value)
     setFactionName(value)
   })
 

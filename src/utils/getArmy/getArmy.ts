@@ -2,18 +2,19 @@ import produce from 'immer'
 import { processGame } from '../processGame'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { getAllianceItems } from '../getAllianceItems'
 import { getCollection } from './getCollection'
 import { modify } from './modify'
+import { isValidFactionName } from 'utils/armyUtils'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
   realmscape: TRealms | null = null
 ): IArmy | null => {
-  if (!factionName || !SUPPORTED_FACTIONS.includes(factionName as TSupportedFaction)) return null
+  if (!isValidFactionName(factionName)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName]
 

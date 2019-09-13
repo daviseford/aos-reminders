@@ -1,13 +1,14 @@
 import { uniq, difference, last } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { stripPunctuation } from 'utils/textUtils'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { logFailedImport } from 'utils/analytics'
+import { isValidFactionName } from 'utils/armyUtils'
+import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
-import { logFailedImport } from 'utils/analytics'
 
 interface IWarscrollArmy {
   allyFactionNames: TSupportedFaction[]
@@ -345,7 +346,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
 
   const { factionName, selections, unknownSelections } = army
 
-  if (!SUPPORTED_FACTIONS.includes(factionName)) {
+  if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`)
     return {
       ...army,

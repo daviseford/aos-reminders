@@ -1,5 +1,6 @@
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 
 export const armyHasEntries = (army: ISavedArmy) => {
   const { allySelections, realmscape_feature, realmscape, selections } = army
@@ -36,4 +37,8 @@ export const prepareArmy = (army: ISavedArmy): ISavedArmy => {
     realmscape,
     selections,
   }
+}
+
+export const isValidFactionName = (val: any): val is TSupportedFaction => {
+  return val && SUPPORTED_FACTIONS.includes(val)
 }
