@@ -196,7 +196,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
         </div>
       </div>
       <div className={`card-body py-3 ${isVisible ? `` : `d-none`}`}>
-        <h4 className="text-center">{type}</h4>
+        <h4 className="text-center">Allied {type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>
