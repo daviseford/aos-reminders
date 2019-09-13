@@ -9,7 +9,15 @@ import { TEffects, TEntry } from 'types/data'
  * @param army
  */
 export const getCollection = (army: IInitialArmy): ICollection => {
-  const { Allegiances = [], Artifacts = [], Battalions = [], Scenery = [], Traits = [], Units = [] } = army
+  const {
+    Allegiances = [],
+    AlliedUnits = [],
+    Artifacts = [],
+    Battalions = [],
+    Scenery = [],
+    Traits = [],
+    Units = [],
+  } = army
 
   const Collection = {
     Artifacts: [] as TArtifacts,
@@ -20,7 +28,7 @@ export const getCollection = (army: IInitialArmy): ICollection => {
   }
 
   // Brute force it
-  const types = [Allegiances, Artifacts, Battalions, Scenery, Traits, Units]
+  const types = [Allegiances, AlliedUnits, Artifacts, Battalions, Scenery, Traits, Units]
 
   // Go through each thing and get spells, artifacts, etc that are unusual
   types.forEach(items =>

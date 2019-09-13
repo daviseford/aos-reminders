@@ -11,7 +11,7 @@ import {
   TScenery,
   TEndlessSpells,
 } from 'types/army'
-import { sortBy, uniqBy } from 'lodash'
+import { sortBy, uniqBy, sortedUniqBy } from 'lodash'
 import { TGrandAlliances } from 'meta/alliances'
 import { GrandAllianceConfig } from './grandAllianceConfig'
 import {
@@ -26,8 +26,10 @@ import {
 } from 'army/generic'
 import { TRealms } from 'types/realmscapes'
 
-const modifyAllegiances = (allegiances: TAllegiances): TAllegiances => sortBy(allegiances, 'name')
-const modifyBattalions = (battalions: TBattalions): TBattalions => sortBy(battalions, 'name')
+const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
+  sortedUniqBy(sortBy(allegiances, 'name'), 'name')
+const modifyBattalions = (battalions: TBattalions): TBattalions =>
+  sortedUniqBy(sortBy(battalions, 'name'), 'name')
 
 const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
   const { Units } = GrandAllianceConfig[alliance]

@@ -10,6 +10,9 @@ import {
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
+export const getTamurkhansUnits = () => Units
+export const getTamurkhansBattalions = () => Battalions
+
 // Unit Names
 export const Units: TUnits = [
   {

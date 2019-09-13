@@ -47,8 +47,10 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
 // Unit Names
-export const TzeentchUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -791,9 +793,6 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]

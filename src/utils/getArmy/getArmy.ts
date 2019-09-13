@@ -3,7 +3,7 @@ import { processGame } from '../processGame'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
 import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy, ICollection } from 'types/army'
+import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TRealms } from 'types/realmscapes'
 import { getAllianceItems } from './getAllianceItems'
 import { getCollection } from './getCollection'
@@ -35,6 +35,7 @@ interface IModifyArmyMeta {
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   let {
     Allegiances = [],
+    AlliedUnits = [],
     Artifacts = [],
     Battalions = [],
     EndlessSpells = [],
@@ -42,7 +43,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Spells = [],
     Traits = [],
     Units = [],
-  } = Army
+  } = Army as IInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName } = meta
 
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
@@ -63,7 +64,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
   Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
   Army.Triumphs = modify.Triumphs()
-  Army.Units = modify.Units(Units, GrandAlliance)
+  Army.Units = modify.Units([...Units, ...AlliedUnits], GrandAlliance)
   Army.Game = processGame([
     Army.Allegiances,
     Army.Artifacts,

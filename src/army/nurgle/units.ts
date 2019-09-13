@@ -25,6 +25,7 @@ import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
+import { getTamurkhansUnits, getTamurkhansBattalions } from 'army/tamurkhans_horde/units'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
 
@@ -53,8 +54,15 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
+export const AlliedUnits: TUnits = [
+  ...getTamurkhansUnits(),
+  ...SlaveUnits,
+  ...getBoCUnits(),
+  ...getEverchosenUnits(),
+]
+
 // Unit Names
-export const NurgleUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Rotigus`,
     effects: [
@@ -902,8 +910,9 @@ export const NurgleBattalions: TBattalions = [
   },
 ]
 
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...NurgleUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
-
 // Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [...NurgleBattalions, ...getBoCBattalion()]
+export const Battalions: TBattalions = [
+  ...NurgleBattalions,
+  ...getBoCBattalion(),
+  ...getTamurkhansBattalions(),
+]
