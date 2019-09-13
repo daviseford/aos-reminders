@@ -1,4 +1,4 @@
-import { uniq, difference, last } from 'lodash'
+import { uniq, difference, last, without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { logFailedImport } from 'utils/analytics'
@@ -8,7 +8,7 @@ import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } fro
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
-import { ISelections } from 'types/selections'
+import { ISelections, IAllySelections } from 'types/selections'
 import { IArmy } from 'types/army'
 
 interface IWarscrollArmy {
@@ -352,64 +352,6 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
     }
   }
 
-  if (allyUnits.length > 0) {
-    console.log('We have allies!', allyUnits)
-    const allyArmyUnits = getAllyArmyUnits(factionName)
-
-    console.log(allyArmyUnits)
-
-    const allyData = allyUnits.reduce(
-      (a, unit) => {
-        Object.keys(allyArmyUnits).forEach(allyName => {
-          const units: string[] = allyArmyUnits[allyName]
-          const unitsMap = getNameMap(units)
-
-          const checkVal = checkSelection(units, unitsMap, errors, false)
-          const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
-
-          if (errorFreeAllyUnits.length > 0) {
-            a.allySelections[allyName] = errorFreeAllyUnits
-            a.allyFactionNames = a.allyFactionNames.concat(allyName)
-          }
-        })
-
-        return a
-      },
-      { allySelections: {}, allyFactionNames: [] as string[] }
-    )
-
-    console.log('allydata', allyData)
-
-    // Check for unit name collisions and mark them as errors
-    const collisions = Object.keys(allyData.allySelections).reduce(
-      (a, allyName) => {
-        const units: string[] = allyData.allySelections[allyName]
-        units.forEach(unit => {
-          if (a[unit]) {
-            a[unit] = a[unit].concat(allyName as TSupportedFaction)
-          } else {
-            a[unit] = [allyName as TSupportedFaction]
-          }
-        })
-        return a
-      },
-      {} as { [key: string]: TSupportedFaction[] }
-    )
-
-    console.log('collisions', collisions)
-    Object.keys(collisions).forEach(unit => {
-      if (collisions[unit].length > 1) {
-        errors.push(
-          warn(
-            `Allied unit ${unit} can belong to ${collisions[unit]
-              .map(titleCase)
-              .join(' or ')}. Please add this unit manually.`
-          )
-        )
-      }
-    })
-  }
-
   const foundSelections: string[] = []
 
   const Army = getArmy(factionName) as IArmy
@@ -428,6 +370,8 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0) console.log('Could not find: ', couldNotFind)
 
+  const allyData = getAllyData(allyUnits, factionName, errors)
+
   return {
     ...army,
     errors,
@@ -435,6 +379,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmyWithError
       ...selections,
       ...errorFreeSelections,
     },
+    ...allyData,
   }
 }
 
@@ -541,4 +486,93 @@ const checkSelection = (
     errors.push(warn(`${val} is either a typo or an unsupported value.`))
   }
   return ''
+}
+
+const getAllyData = (
+  allyUnits: string[],
+  factionName: TSupportedFaction,
+  errors: TError[]
+): {
+  allyFactionNames: TSupportedFaction[]
+  allySelections: TAllySelectionStore
+} => {
+  if (allyUnits.length === 0) {
+    return {
+      allyFactionNames: [],
+      allySelections: {},
+    }
+  }
+
+  console.log('We have allies!', allyUnits)
+  const allyArmyUnits = getAllyArmyUnits(factionName)
+
+  const allyData = allyUnits.reduce(
+    (a, unit) => {
+      Object.keys(allyArmyUnits).forEach(allyName => {
+        const units: string[] = allyArmyUnits[allyName]
+        const unitsMap = getNameMap(units)
+
+        const checkVal = checkSelection(units, unitsMap, errors, false)
+        const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
+
+        if (errorFreeAllyUnits.length > 0) {
+          if (!a.allySelections[allyName]) {
+            a.allySelections[allyName] = { units: [] }
+          }
+
+          a.allySelections[allyName].units = errorFreeAllyUnits
+          a.allyFactionNames = a.allyFactionNames.concat(allyName as TSupportedFaction)
+        }
+      })
+
+      return a
+    },
+    { allySelections: {} as TAllySelectionStore, allyFactionNames: [] as TSupportedFaction[] }
+  )
+
+  console.log('allydata', allyData)
+
+  // Check for unit name collisions and mark them as errors
+  const collisions = Object.keys(allyData.allySelections).reduce(
+    (a, allyName) => {
+      const units: string[] = allyData.allySelections[allyName].units
+      units.forEach(unit => {
+        if (a[unit]) {
+          a[unit] = a[unit].concat(allyName as TSupportedFaction)
+        } else {
+          a[unit] = [allyName as TSupportedFaction]
+        }
+      })
+      return a
+    },
+    {} as { [key: string]: TSupportedFaction[] }
+  )
+
+  Object.keys(collisions).forEach(unit => {
+    if (collisions[unit].length > 1) {
+      errors.push(
+        warn(
+          `Allied ${unit} can belong to ${collisions[unit]
+            .map(titleCase)
+            .join(' or ')}. Please add this unit manually.`
+        )
+      )
+
+      // Remove the unit from allySelections
+      // And if that empties the array,
+      // Remove the entry + remove it from allyFactionNames
+      collisions[unit].forEach(faction => {
+        ;(allyData.allySelections[faction] as IAllySelections).units = without(
+          (allyData.allySelections[faction] as IAllySelections).units as string[],
+          unit
+        )
+        if ((allyData.allySelections[faction] as IAllySelections).units.length === 0) {
+          delete allyData.allySelections[faction]
+          allyData.allyFactionNames = without(allyData.allyFactionNames, faction)
+        }
+      })
+    }
+  })
+
+  return allyData
 }
