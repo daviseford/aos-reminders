@@ -16,7 +16,8 @@ export const getAllyArmyUnits: TGetAllyArmies = factionName => {
     without(
       Object.keys(ArmyList)
         .filter(x => ArmyList[x].GrandAlliance === GrandAlliance)
-        .concat(MERCENARY_COMPANIES)
+        .concat(MERCENARY_COMPANIES),
+      factionName
     )
   )
 
