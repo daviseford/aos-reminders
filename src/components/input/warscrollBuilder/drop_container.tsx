@@ -9,7 +9,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { IWarscrollArmyWithErrors } from 'types/warscrollTypes'
+import { IWarscrollArmy } from 'types/warscrollTypes'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
@@ -31,11 +31,11 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     updateSelections,
   } = props
 
-  const [errors, setErrors] = useState<IWarscrollArmyWithErrors['errors']>([])
+  const [errors, setErrors] = useState<IWarscrollArmy['errors']>([])
   const { isSubscribed } = useSubscription()
 
   const handleWarscrollDrop = useCallback(
-    (army: IWarscrollArmyWithErrors) => {
+    (army: IWarscrollArmy) => {
       setErrors(army.errors)
 
       // Can't proceed if there's an error (usually an unsupported faction)

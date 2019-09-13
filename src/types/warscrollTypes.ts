@@ -8,6 +8,7 @@ export interface IWarscrollArmy {
   allySelections: TAllySelectionStore
   allyUnits: string[]
   factionName: TSupportedFaction
+  errors: TError[]
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
@@ -15,7 +16,3 @@ export interface IWarscrollArmy {
 }
 
 export type TError = { text: string; severity: 'warn' | 'error' }
-
-export interface IWarscrollArmyWithErrors extends IWarscrollArmy {
-  errors: TError[]
-}
