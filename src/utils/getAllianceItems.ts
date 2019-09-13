@@ -28,7 +28,7 @@ export const getAllianceItems = (
   grandAlliance: TGrandAlliances,
   type: TType,
   originalEntries: TEntry[] = []
-) => {
+): TEntry[] => {
   const factionName = {
     [CHAOS]: CHAOS_GRAND_ALLIANCE,
     [DEATH]: DEATH_GRAND_ALLIANCE,
@@ -49,3 +49,5 @@ export const getAllianceItems = (
     'name'
   )
 }
+
+export const getMercenaryArmies = () => ArmyList.MERCENARY_COMPANIES.Army

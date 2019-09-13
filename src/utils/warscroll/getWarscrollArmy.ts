@@ -17,6 +17,7 @@ interface IWarscrollArmy {
   realmscape: TRealms | null
   selections: ISelections
   unknownSelections: string[]
+  hasAllies: boolean
 }
 
 type TError = { text: string; severity: 'warn' | 'error' }
@@ -72,6 +73,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
         txt !== '* See Warscroll'
     )
 
+  let hasAllies = false
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -108,6 +110,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- Allies')) {
+          hasAllies = true
+          return accum
+        }
         if (txt.includes('Command Trait : ')) {
           const trait = txt.split(' Command Trait : ')[1].trim()
           accum.traits = accum.traits.concat(trait)
@@ -182,6 +188,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
     allyFactionNames: [],
     allySelections: {},
     factionName: factionName as TSupportedFaction,
+    hasAllies,
     realmscape_feature: null,
     realmscape: null,
     selections,
@@ -211,6 +218,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
         txt !== '* See Warscroll'
     )
 
+  let hasAllies = false
   let unknownSelections: string[] = []
   let factionName = ''
   let selector = ''
@@ -242,6 +250,10 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- Allies')) {
+          hasAllies = true
+          return accum
+        }
         if (txt.includes('Command Trait: ')) {
           const trait = txt.split(' Command Trait: ')[1].trim()
           accum.traits = accum.traits.concat(trait)
@@ -320,6 +332,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
     allyFactionNames: [],
     allySelections: {},
     factionName: factionName as TSupportedFaction,
+    hasAllies,
     realmscape_feature: null,
     realmscape: null,
     selections,
