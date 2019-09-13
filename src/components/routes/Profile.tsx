@@ -9,8 +9,8 @@ import { IUser } from 'types/user'
 import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
-import { FaGithub, FaEnvelopeOpenText } from 'react-icons/fa'
 import { btnContentWrapper } from 'theme/helperClasses'
+import { ContactComponent } from 'components/page/contact'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -28,7 +28,7 @@ export const Profile: React.FC<{}> = () => {
 
   if (loading || !user) return <Loading />
 
-  const userCardWrapperClass = `col-12 col-md-8 col-lg-4 col-xl-4`
+  const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
     <div className="d-block">
@@ -51,7 +51,7 @@ export const UserCard: React.FC<{}> = () => {
 
   return (
     <div className="container py-4">
-      <h1 className="text-center SelectorHeader display-4">Your Profile</h1>
+      <h1 className="text-center">Your Profile</h1>
 
       <div className="media">
         <div className="media-body text-center">
@@ -190,27 +190,7 @@ const Help = () => {
         <h4>Need help?</h4>
       </div>
       <div className="card-body">
-        <a
-          href="https://github.com/daviseford/aos-reminders/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline-dark mx-2"
-        >
-          <div className={btnContentWrapper}>
-            <FaGithub className="mr-2" /> File an Issue
-          </div>
-        </a>
-
-        <a
-          href="mailto:davis.e.ford.alt+aosreminders@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline-dark mx-2"
-        >
-          <div className={btnContentWrapper}>
-            <FaEnvelopeOpenText className="mr-2" /> Email Me
-          </div>
-        </a>
+        <ContactComponent size="normal" />
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { DonateComponent } from 'components/info/donate'
 import { logClick } from 'utils/analytics'
+import { ContactComponent } from './contact'
 
 /**
  * Hidden when printing
@@ -11,6 +12,11 @@ export const FooterComponent = () => {
       <OpenSourceComponent />
       <DonateComponent />
       <DisclaimerComponent />
+      <div className="row text-center mt-1 mb-3">
+        <div className="col">
+          <ContactComponent size="small" />
+        </div>
+      </div>
     </div>
   )
 }

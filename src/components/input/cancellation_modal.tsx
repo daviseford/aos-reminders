@@ -45,7 +45,7 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
           </IconContext.Provider>
         </div>
 
-        <div className="row">
+        <div className="row text-center">
           <div className="col">
             <button className={`btn btn-outline-danger mx-2`} onClick={handleClick}>
               <div className="d-flex align-items-center">
