@@ -1,7 +1,8 @@
 import { TError } from '../../types/warscrollTypes'
 import { warscrollTypoMap } from './options'
-import { stripPunctuation } from 'utils/textUtils'
+import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { logFailedImport } from 'utils/analytics'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 
 export const cleanWarscrollText = (pdfText: string[]) => {
   return pdfText
@@ -44,6 +45,18 @@ export const getNameMap = (names: string[]) => {
   )
 }
 
+/**
+ * Accepts an UPPERCASED value and looks for a faction in the name
+ * e.g. Demon Prince of Slaanesh -> Demon Prince
+ * @param val
+ */
+const replaceOf = (val: string) => {
+  const factions = SUPPORTED_FACTIONS.map(titleCase).map(x => x.toUpperCase())
+  const faction = factions.find(x => val.includes(` OF ${x}`))
+  if (faction) val = val.replace(` OF ${faction}`, ``)
+  return val
+}
+
 export const checkSelection = (
   Names: string[],
   NameMap: { [key: string]: string },
@@ -61,7 +74,7 @@ export const checkSelection = (
   if (match) return match
 
   // Maybe we have a trailing '... of Slaanesh'?
-  const valShortened = valUpper.replace(/ OF .+/g, '')
+  const valShortened = replaceOf(valUpper)
   const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
   if (match2) return match2
 
