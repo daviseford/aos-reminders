@@ -72,7 +72,7 @@ export const checkSelection = (
 
   if (logError) {
     logFailedImport(val)
-    errors.push(createWarning(`${val} is either a typo or an unsupported value.`))
+    errors.push(createWarning(val))
   }
   return ''
 }
