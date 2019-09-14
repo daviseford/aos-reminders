@@ -1,7 +1,7 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON, SLAANESH } from 'meta/factions'
+import { SERAPHON, SLAANESH, DAUGHTERS_OF_KHAINE } from 'meta/factions'
 
 // getWarscrollArmyFromPdf
 // getWarscrollArmyFromText
