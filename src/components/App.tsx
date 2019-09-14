@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Home } from 'components/routes/Home'
 
 // Auth
@@ -8,8 +8,7 @@ import { Profile } from 'components/routes/Profile'
 import { Subscribe } from 'components/routes/Subscribe'
 import { logEvent } from 'utils/analytics'
 
-const App = () => {
-  // Post checkout handling
+const handleCheckout = () => {
   if (window.location.search.includes('subscribed=true')) {
     logEvent('Checkout-Subscribed')
     window.history.replaceState({}, document.title, window.location.pathname)
@@ -17,6 +16,10 @@ const App = () => {
     logEvent('Checkout-Canceled')
     window.history.replaceState({}, document.title, window.location.pathname)
   }
+}
+
+const App = () => {
+  useEffect(() => handleCheckout(), []) // Post-checkout handling
 
   return (
     <div className="d-block">
