@@ -159,7 +159,7 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('reads a complex warscroll pdf file with allies correctly', () => {
+  it('reads a complex warscroll txt file with allies correctly', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonMultipleAllies.txt', 'utf8')
     const warscrollTxt = getWarscrollArmyFromText(pdfText)
 
@@ -197,5 +197,18 @@ describe('getWarscrollArmyFromText', () => {
       triumphs: [],
       units: ['Slann Starmaster', 'Bastiladon w/ Ark of Sotek'],
     })
+  })
+
+  it('detects and returns an error if reading a short summary txt', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/ShortSummary.txt', 'utf8')
+    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+
+    expect(warscrollTxt.errors).toEqual([
+      {
+        text:
+          'Are you using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.',
+        severity: 'error',
+      },
+    ])
   })
 })
