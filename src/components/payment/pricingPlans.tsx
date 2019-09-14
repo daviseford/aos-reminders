@@ -55,8 +55,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
         // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/`,
-        cancelUrl: `${window.location.protocol}//${url}/`,
+        successUrl: `${window.location.protocol}//${url}/?subscribed=true`,
+        cancelUrl: `${window.location.protocol}//${url}/?canceled=true`,
       })
       .then(function(result) {
         if (result.error) {

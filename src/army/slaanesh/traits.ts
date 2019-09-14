@@ -114,10 +114,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Hunter of the Godbeasts (Pretenders Host)`,
+    name: `Hunter of Godbeasts (Pretenders Host)`,
     effects: [
       {
-        name: `Hunter of the Godbeasts (Pretenders Host)`,
+        name: `Hunter of Godbeasts (Pretenders Host)`,
         desc: `Add 1 to the damage inflicted by successful attacks made by this general that target a monster.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },

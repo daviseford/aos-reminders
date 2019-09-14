@@ -1,7 +1,7 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON } from 'meta/factions'
+import { SERAPHON, SLAANESH } from 'meta/factions'
 
 // getWarscrollArmyFromPdf
 // getWarscrollArmyFromText
@@ -58,6 +58,47 @@ describe('getWarscrollArmyFromPdf', () => {
         'Ripperdactyl Riders',
         'Skinks',
         'Bastiladon w/ Ark of Sotek',
+      ],
+    })
+  })
+
+  it('reads a slaanesh warscroll pdf file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SlaaneshList.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SLAANESH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.allyFactionNames).toEqual([])
+    expect(warscrollTxt.allyUnits).toEqual([])
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [
+        'Whip of Subversion (Invaders Host)',
+        'The Rod of Misrule (Invaders Host)',
+        'Fallacious Gift (Invaders Host)',
+      ],
+      battalions: ['Hedonite Host'],
+      commands: [],
+      endless_spells: ['Chronomantic Cogs'],
+      scenery: [],
+      spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)'],
+      traits: [
+        'Delusions of Infallibility (Invaders Host)',
+        'Inspirer (Pretenders Host)',
+        'Strongest Alone (Pretenders Host)',
+        'Hunter of Godbeasts (Pretenders Host)',
+        'Monarch of Lies (Pretenders Host)',
+      ],
+      triumphs: [],
+      units: [
+        'Beastlord',
+        'Daemon Prince',
+        'Keeper of Secrets w/ Ritual Knife',
+        'Lord of Chaos',
+        'Viceleader, Herald of Slaanesh',
+        'Cygor',
+        'Ghorgon',
       ],
     })
   })

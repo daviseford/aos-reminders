@@ -362,6 +362,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   return {
     ...army,
     errors,
+    unknownSelections: couldNotFind,
     selections: {
       ...selections,
       ...errorFreeSelections,
@@ -420,6 +421,19 @@ const selectionLookup = (
       if (match) {
         foundSelections.push(orig)
         return match
+      }
+
+      // Sometimes parentheses get in our way
+      const valNoParens = valUpper.replace(/\(.+\)/g, '').trim()
+      const match2 = Names.find(x =>
+        x
+          .toUpperCase()
+          .replace(/\(.+\)/g, '')
+          .includes(valNoParens)
+      )
+      if (match2) {
+        foundSelections.push(orig)
+        return match2
       }
 
       return ''

@@ -82,6 +82,16 @@ export const checkSelection = (
   const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
   if (match3) return match3
 
+  // Sometimes parentheses get in our way
+  const valNoParens = valUpper.replace(/\(.+\)/g, '').trim()
+  const match4 = Names.find(x =>
+    x
+      .toUpperCase()
+      .replace(/\(.+\)/g, '')
+      .includes(valNoParens)
+  )
+  if (match4) return match4
+
   if (logError) {
     errors.push(createWarning(val))
   }
