@@ -2,6 +2,7 @@ import { TError } from '../../types/warscrollTypes'
 import { warscrollTypoMap } from './options'
 import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { last } from 'lodash'
 
 export const cleanWarscrollText = (pdfText: string[]) => {
   return pdfText
@@ -91,6 +92,11 @@ export const checkSelection = (
       .includes(valNoParens)
   )
   if (match4) return match4
+
+  // Maybe semicolons?
+  const valNoSemi = last(valUpper.split(':')) as string
+  const match5 = Names.find(x => x.toUpperCase().includes(valNoSemi))
+  if (match5) return match5
 
   if (logError) {
     errors.push(createWarning(val))
