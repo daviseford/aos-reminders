@@ -4,7 +4,7 @@ import { parsePdf } from 'utils/pdf/pdfUtils'
 import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE } from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('reads a basic warscroll pdf file correctly', () => {
+  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNoMetadata.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

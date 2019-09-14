@@ -1,7 +1,7 @@
 import { IArmy, TAllyArmies } from './army'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from './selections'
-import { ISavedArmy, ISavedArmyFromApi } from './savedArmy'
+import { ISavedArmyFromApi } from './savedArmy'
 
 export interface IArmyStore {
   army: IArmy

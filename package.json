@@ -36,7 +36,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "lint": "eslint --max-warnings=0 --ext js,ts,tsx,jsx src"
   },
   "eslintConfig": {
     "extends": "react-app"
