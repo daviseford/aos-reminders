@@ -28,10 +28,9 @@ import {
 
 // Types
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { IArmy, TAllyData, TAllyArmies } from 'types/army'
+import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
-import { TAllySelectionStore } from 'types/store'
 
 describe('processReminders', () => {
   it('should work with no selections', () => {
@@ -92,14 +91,6 @@ describe('processReminders', () => {
 
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
-    const allyData: TAllyData = [
-      { allyArmy: getArmy(DISPOSSESSED) as IArmy, allySelections: allySelectionsFactory() },
-      {
-        allyArmy: getArmy(IRONJAWZ) as IArmy,
-        allySelections: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
-      },
-      { allyArmy: getArmy(SERAPHON) as IArmy, allySelections: allySelectionsFactory([allyUnits[2].name]) },
-    ]
 
     const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
     const allyArmies: TAllyArmies = {
