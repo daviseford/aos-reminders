@@ -283,6 +283,32 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
+  it('reads an Order meeting engagement txt file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/OrderMeetingEngagement.txt', 'utf8')
+    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+
+    expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: ['Obstinate Blade (Order)'],
+      battalions: ['Shadow Patrol'],
+      commands: [],
+      endless_spells: ['Balewind Vortex'],
+      scenery: [],
+      spells: [],
+      traits: ['Dauntless (Order)'],
+      triumphs: [],
+      units: [
+        'Doomfire Warlocks',
+        'Bloodwrack Medusa',
+        'Khinerai Heartrenders',
+        'Sisters of Slaughter',
+        'Avatar of Khaine',
+      ],
+    })
+  })
+
   it('detects and returns an error if reading a short summary txt', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/ShortSummary.txt', 'utf8')
     const warscrollTxt = getWarscrollArmyFromText(pdfText)
