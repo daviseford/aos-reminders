@@ -9,6 +9,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { isDev } from 'utils/env'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -351,7 +352,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   }
 
   const couldNotFind = difference(unknownSelections, foundSelections)
-  if (couldNotFind.length > 0) console.log('Could not find: ', couldNotFind)
+  if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)
 
   const allyData = getAllyData(allyUnits, factionName, errors)
 

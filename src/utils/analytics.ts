@@ -10,7 +10,9 @@ if (!isTest) {
  * Sends a Google Analytics event
  */
 export const logPageView = () => {
-  ReactGA.pageview(window.location.pathname + window.location.search)
+  if (!isTest) {
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
 }
 
 /**
@@ -18,7 +20,7 @@ export const logPageView = () => {
  * @param factionName
  */
 export const logPrintEvent = (factionName: string | null) => {
-  if (isValidFactionName(factionName)) {
+  if (!isTest && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'button',
       action: `print-${factionName}`,
@@ -32,7 +34,7 @@ export const logPrintEvent = (factionName: string | null) => {
  * @param factionName
  */
 export const logFactionSwitch = (factionName: string | null) => {
-  if (isValidFactionName(factionName)) {
+  if (!isTest && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'select',
       action: `select-${factionName}`,
@@ -46,7 +48,7 @@ export const logFactionSwitch = (factionName: string | null) => {
  * @param factionName
  */
 export const logAllyFaction = (factionName: string | null) => {
-  if (isValidFactionName(factionName)) {
+  if (!isTest && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'select',
       action: `select-ally-${factionName}`,
@@ -60,7 +62,7 @@ export const logAllyFaction = (factionName: string | null) => {
  * @param label
  */
 export const logClick = (label: string) => {
-  if (!!label) {
+  if (!isTest && !!label) {
     ReactGA.event({
       category: 'click',
       action: `click-${label}`,
@@ -74,7 +76,7 @@ export const logClick = (label: string) => {
  * @param event
  */
 export const logEvent = (event: string) => {
-  if (!!event) {
+  if (!isTest && !!event) {
     ReactGA.event({
       category: 'event',
       action: `event-${event}`,
@@ -88,7 +90,7 @@ export const logEvent = (event: string) => {
  * @param value
  */
 export const logFailedImport = (value: string) => {
-  if (!!value) {
+  if (!isTest && !!value) {
     ReactGA.event({
       category: 'event',
       action: `failedImport-${value}`,

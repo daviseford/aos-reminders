@@ -67,6 +67,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
+    // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
+    expect(warscrollTxt.errors).toEqual([
+      {
+        text: 'Sisters of Slaughter is either a typo or an unsupported value.',
+        severity: 'warn',
+      },
+    ])
+
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.allyFactionNames).toEqual([
       'DAUGHTERS_OF_KHAINE',
@@ -80,7 +88,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Concussors',
       'Kurnoth Hunters',
       'Grundstok Gunhauler',
-      'Sisters of Slaughter',
     ])
     expect(warscrollTxt.selections).toEqual({
       allegiances: [],
@@ -156,6 +163,14 @@ describe('getWarscrollArmyFromText', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonMultipleAllies.txt', 'utf8')
     const warscrollTxt = getWarscrollArmyFromText(pdfText)
 
+    // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
+    expect(warscrollTxt.errors).toEqual([
+      {
+        text: 'Sisters of Slaughter is either a typo or an unsupported value.',
+        severity: 'warn',
+      },
+    ])
+
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.allyFactionNames).toEqual([
       'DAUGHTERS_OF_KHAINE',
@@ -169,7 +184,6 @@ describe('getWarscrollArmyFromText', () => {
       'Concussors',
       'Kurnoth Hunters',
       'Grundstok Gunhauler',
-      'Sisters of Slaughter',
     ])
     expect(warscrollTxt.selections).toEqual({
       allegiances: [],
