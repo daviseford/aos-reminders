@@ -34,7 +34,7 @@ const getBoCUnits = () => {
     'Dragon Ogors',
     'Ghorgon',
     'Gors',
-    'Great Bray Shaman',
+    'Great Bray-Shaman',
     'Tuskgor Chariots',
     'Ungor Raiders',
     'Ungors',
