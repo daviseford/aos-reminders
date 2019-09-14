@@ -70,7 +70,7 @@ describe('getWarscrollArmyFromPdf', () => {
     // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
     expect(warscrollTxt.errors).toEqual([
       {
-        text: 'Sisters of Slaughter is either a typo or an unsupported value.',
+        text: 'Sisters of Slaughter',
         severity: 'warn',
       },
     ])
@@ -166,7 +166,7 @@ describe('getWarscrollArmyFromText', () => {
     // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
     expect(warscrollTxt.errors).toEqual([
       {
-        text: 'Sisters of Slaughter is either a typo or an unsupported value.',
+        text: 'Sisters of Slaughter',
         severity: 'warn',
       },
     ])
