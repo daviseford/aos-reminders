@@ -1,7 +1,7 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS } from 'meta/factions'
+import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE } from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file correctly', () => {
@@ -117,6 +117,33 @@ describe('getWarscrollArmyFromPdf', () => {
       'Grundstok Thunderers',
       'Arkanaut Ironclad',
     ])
+  })
+
+  it('reads an Order meeting engagement pdf file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/OrderMeetingEngagement.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: ['Obstinate Blade (Order)'],
+      battalions: ['Shadow Patrol'],
+      commands: [],
+      endless_spells: ['Balewind Vortex'],
+      scenery: [],
+      spells: [],
+      traits: ['Dauntless (Order)'],
+      triumphs: [],
+      units: [
+        'Doomfire Warlocks',
+        'Bloodwrack Medusa',
+        'Khinerai Heartrenders',
+        'Sisters of Slaughter',
+        'Avatar of Khaine',
+      ],
+    })
   })
 
   it('reads a complex warscroll pdf file with allies correctly', () => {
