@@ -253,7 +253,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Infernal Enrapturess`,
+    name: `Infernal Enrapturess, Herald of Slaanesh`,
     effects: [
       {
         name: `Discordant Disruption`,

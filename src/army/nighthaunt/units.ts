@@ -91,7 +91,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Kurdoss Valentian`,
+    name: `Kurdoss Valentian, the Craven King`,
     effects: [
       {
         name: `Ethereal`,

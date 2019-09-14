@@ -51,8 +51,11 @@ export const warscrollTypoMap = {
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray Shaman',
   'Hellstriders With Claw-Spears': 'Hellstriders',
-  'Infernal Enrapturess, Herald of Slaanesh': 'Infernal Enrapturess',
   'Lighntning Blast': 'Lightning Blast',
+  'Magestic Horror': 'Majestic Horror (Royalty)',
+  'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
+  'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
+  'Warrior Indomniate': 'Warrior Indominate',
   Sliverslash: 'Silverslash',
 }
 
