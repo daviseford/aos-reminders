@@ -353,10 +353,13 @@ export const Units: TUnits = [
         name: `Realm Guide`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
         
-        If you do so, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.
-        
         Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
-        when: [END_OF_MOVEMENT_PHASE, START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
+        when: [START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Realm Guide`,
+        desc: `If this unit is placed in reserve, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Terrifying`,
