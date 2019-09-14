@@ -1,10 +1,8 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON, SLAANESH } from 'meta/factions'
+import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS } from 'meta/factions'
 
-// getWarscrollArmyFromPdf
-// getWarscrollArmyFromText
 describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file correctly', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNoMetadata.pdf', 'utf8')
@@ -101,6 +99,24 @@ describe('getWarscrollArmyFromPdf', () => {
         'Ghorgon',
       ],
     })
+  })
+
+  it('reads a KO warscroll pdf file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/KOList.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.traits).toEqual([
+      "FOOTNOTE: There's no Trading With Some People",
+      "FOOTNOTE: There's no Reward Without Risk",
+    ])
+    expect(warscrollTxt.selections.units).toEqual([
+      'Aether-Khemist',
+      'Grundstok Thunderers',
+      'Arkanaut Ironclad',
+    ])
   })
 
   it('reads a complex warscroll pdf file with allies correctly', () => {
