@@ -1,7 +1,6 @@
 import { TError } from '../../types/warscrollTypes'
 import { warscrollTypoMap } from './options'
 import { stripPunctuation, titleCase } from 'utils/textUtils'
-import { logFailedImport } from 'utils/analytics'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 
 export const cleanWarscrollText = (pdfText: string[]) => {
@@ -84,7 +83,6 @@ export const checkSelection = (
   if (match3) return match3
 
   if (logError) {
-    logFailedImport(val)
     errors.push(createWarning(val))
   }
   return ''
