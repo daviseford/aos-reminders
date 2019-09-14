@@ -91,7 +91,6 @@ describe('processReminders', () => {
 
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
-
     const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
     const allyArmies: TAllyArmies = {
       [DISPOSSESSED]: getArmy(DISPOSSESSED) as IArmy,
