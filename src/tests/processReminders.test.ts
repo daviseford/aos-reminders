@@ -28,7 +28,7 @@ import {
 
 // Types
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { IArmy, TAllyData, TAllyArmies } from 'types/army'
+import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
 
