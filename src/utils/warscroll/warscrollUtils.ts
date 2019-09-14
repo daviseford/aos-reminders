@@ -1,7 +1,7 @@
 import { TError } from '../../types/warscrollTypes'
 import { warscrollTypoMap } from './options'
-import { stripPunctuation } from 'utils/textUtils'
-import { logFailedImport } from 'utils/analytics'
+import { stripPunctuation, titleCase } from 'utils/textUtils'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 
 export const cleanWarscrollText = (pdfText: string[]) => {
   return pdfText
@@ -44,6 +44,18 @@ export const getNameMap = (names: string[]) => {
   )
 }
 
+/**
+ * Accepts an UPPERCASED value and looks for a faction in the name
+ * e.g. Demon Prince of Slaanesh -> Demon Prince
+ * @param val
+ */
+const replaceOf = (val: string) => {
+  const factions = SUPPORTED_FACTIONS.map(titleCase).map(x => x.toUpperCase())
+  const faction = factions.find(x => val.includes(` OF ${x}`))
+  if (faction) val = val.replace(` OF ${faction}`, ``)
+  return val
+}
+
 export const checkSelection = (
   Names: string[],
   NameMap: { [key: string]: string },
@@ -61,7 +73,7 @@ export const checkSelection = (
   if (match) return match
 
   // Maybe we have a trailing '... of Slaanesh'?
-  const valShortened = valUpper.replace(/ OF .+/g, '')
+  const valShortened = replaceOf(valUpper)
   const match2 = Names.find(x => x.toUpperCase().includes(valShortened))
   if (match2) return match2
 
@@ -70,9 +82,18 @@ export const checkSelection = (
   const match3 = Names.find(x => stripPunctuation(x.toUpperCase()).includes(valNoPunc))
   if (match3) return match3
 
+  // Sometimes parentheses get in our way
+  const valNoParens = valUpper.replace(/\(.+\)/g, '').trim()
+  const match4 = Names.find(x =>
+    x
+      .toUpperCase()
+      .replace(/\(.+\)/g, '')
+      .includes(valNoParens)
+  )
+  if (match4) return match4
+
   if (logError) {
-    logFailedImport(val)
-    errors.push(createWarning(`${val} is either a typo or an unsupported value.`))
+    errors.push(createWarning(val))
   }
   return ''
 }

@@ -9,7 +9,11 @@
  * You cannot override NODE_ENV manually.
  */
 export const isDev = process.env.NODE_ENV === 'development'
-export const STRIPE_KEY = isDev
-  ? 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
-  : 'pk_live_wFgX8L9sjPz6S9eLxfd4c0sR00beXWRLyZ'
-export const BASE_URL = isDev ? `http://localhost:3000` : 'https://aosreminders.com'
+export const isTest = process.env.NODE_ENV === 'test'
+export const isProd = process.env.NODE_ENV === 'production'
+
+export const STRIPE_KEY = isProd
+  ? 'pk_live_wFgX8L9sjPz6S9eLxfd4c0sR00beXWRLyZ'
+  : 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
+
+export const BASE_URL = isProd ? `https://aosreminders.com` : `http://localhost:3000`

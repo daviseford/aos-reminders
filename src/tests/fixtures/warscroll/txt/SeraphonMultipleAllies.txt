@@ -1,0 +1,45 @@
+Allegiance: Seraphon
+
+Leaders
+Slann Starmaster (260)
+- General
+- Trait: Great Rememberer
+- Artefact: Zoetic Dial
+- Spell: Walk Between Realms
+Knight-Incantor (140)
+- Allies
+Morathi High Oracle of Khaine (480)
+- Allies
+
+Battleline
+10 x Sisters of Slaughter (120)
+- Barbed Whips and Sacrificial Knives
+
+Units
+2 x Concussors (240)
+- Allies
+3 x Kurnoth Hunters (200)
+- Scythes
+- Allies
+3 x Kurnoth Hunters (200)
+- Scythes
+- Allies
+
+Behemoths
+Bastiladon (280)
+
+War Machines
+Grundstok Gunhauler (130)
+- Main Gun: Sky Cannon
+- Allies
+
+Battalions
+Eternal Starhost (150)
+
+Endless Spells / Terrain
+Balewind Vortex (40)
+
+Total: 2240 / 2000
+Extra Command Points: 1
+Allies: 1390 / 400
+Wounds: 86

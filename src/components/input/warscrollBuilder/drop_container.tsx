@@ -112,10 +112,12 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
 
   const prefix = severity === 'error' ? `Error` : `Warning`
 
+  const info = severity === 'error' ? text : `${text} is either a typo or an unsupported value.`
+
   return (
     <div className="mb-2">
       <div className={`alert ${alertType} text-center`} role="alert">
-        <strong>{prefix}:</strong> {text}
+        <strong>{prefix}:</strong> {info}
         <br />
         <small>
           Unexpected {prefix.toLowerCase()}? File an issue on{' '}

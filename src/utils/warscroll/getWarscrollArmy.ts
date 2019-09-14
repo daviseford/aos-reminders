@@ -9,6 +9,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
 import { IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { isDev } from 'utils/env'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -351,13 +352,17 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   }
 
   const couldNotFind = difference(unknownSelections, foundSelections)
-  if (couldNotFind.length > 0) console.log('Could not find: ', couldNotFind)
+  if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)
 
   const allyData = getAllyData(allyUnits, factionName, errors)
+
+  // Fire off any warnings to Google Analytics
+  errors.filter(e => e.severity === 'warn').forEach(e => logFailedImport(e.text))
 
   return {
     ...army,
     errors,
+    unknownSelections: couldNotFind,
     selections: {
       ...selections,
       ...errorFreeSelections,
@@ -416,6 +421,19 @@ const selectionLookup = (
       if (match) {
         foundSelections.push(orig)
         return match
+      }
+
+      // Sometimes parentheses get in our way
+      const valNoParens = valUpper.replace(/\(.+\)/g, '').trim()
+      const match2 = Names.find(x =>
+        x
+          .toUpperCase()
+          .replace(/\(.+\)/g, '')
+          .includes(valNoParens)
+      )
+      if (match2) {
+        foundSelections.push(orig)
+        return match2
       }
 
       return ''

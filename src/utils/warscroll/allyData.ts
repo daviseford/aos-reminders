@@ -76,11 +76,9 @@ export const getAllyData = (
       // And if that empties the array,
       // Remove the entry + remove it from allyFactionNames
       collisions[unit].forEach(faction => {
-        ;(allyData.allySelections[faction] as IAllySelections).units = without(
-          (allyData.allySelections[faction] as IAllySelections).units as string[],
-          unit
-        )
-        if ((allyData.allySelections[faction] as IAllySelections).units.length === 0) {
+        const factionSelections = allyData.allySelections[faction] as IAllySelections
+        factionSelections.units = without(factionSelections.units as string[], unit)
+        if (factionSelections.units.length === 0) {
           delete allyData.allySelections[faction]
           allyData.allyFactionNames = without(allyData.allyFactionNames, faction)
         }
