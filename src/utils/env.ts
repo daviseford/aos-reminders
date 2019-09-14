@@ -9,6 +9,8 @@
  * You cannot override NODE_ENV manually.
  */
 export const isDev = process.env.NODE_ENV === 'development'
+export const isTest = process.env.NODE_ENV === 'test'
+
 export const STRIPE_KEY = isDev
   ? 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
   : 'pk_live_wFgX8L9sjPz6S9eLxfd4c0sR00beXWRLyZ'

@@ -1,7 +1,10 @@
 import ReactGA from 'react-ga'
 import { isValidFactionName } from './armyUtils'
+import { isTest } from './env'
 
-ReactGA.initialize('UA-55820654-5')
+if (!isTest) {
+  ReactGA.initialize('UA-55820654-5')
+}
 
 /**
  * Sends a Google Analytics event
