@@ -247,7 +247,7 @@ describe('getWarscrollArmyFromText', () => {
     expect(warscrollTxt.errors).toEqual([
       {
         text:
-          'Are you using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.',
+          'Are youffff using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.',
         severity: 'error',
       },
     ])
