@@ -15,4 +15,4 @@ export interface IWarscrollArmy {
   unknownSelections: string[]
 }
 
-export type TError = { text: string; severity: 'warn' | 'error' }
+export type TError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }

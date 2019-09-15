@@ -357,7 +357,9 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   const allyData = getAllyData(allyUnits, factionName, errors)
 
   // Fire off any warnings to Google Analytics
-  errors.filter(e => e.severity === 'warn').forEach(e => logFailedImport(e.text, 'Warscroll'))
+  errors
+    .filter(e => e.severity === 'warn' || e.severity === 'ally-warn')
+    .forEach(e => logFailedImport(e.text, 'Warscroll'))
 
   return {
     ...army,

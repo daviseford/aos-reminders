@@ -9,7 +9,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { IWarscrollArmy } from 'types/warscrollTypes'
+import { IWarscrollArmy, TError } from 'types/warscrollTypes'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
@@ -102,10 +102,11 @@ export const LoadWarscrollArmy = connect(
   }
 )(LoadWarscrollArmyComponent)
 
-const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
+const ErrorAlert = (props: TError) => {
   const { text, severity } = props
 
   const alertType = {
+    'ally-warn': 'alert-warning',
     warn: 'alert-warning',
     error: 'alert-danger',
   }[severity]
@@ -113,10 +114,9 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
   const prefix = severity === 'error' ? `Error` : `Warning`
 
   const info =
-    severity === 'error'
+    severity === 'error' || severity === 'ally-warn'
       ? text
       : `We couldn't find '${text}'. It may be a typo, an unsupported value, or an ally that was not correctly marked as "Allies". Make sure to add it manually.`
-
   return (
     <div className="mb-2">
       <div className={`alert ${alertType} text-center`} role="alert">

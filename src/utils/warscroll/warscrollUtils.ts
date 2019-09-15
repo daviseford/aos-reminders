@@ -35,6 +35,11 @@ export const createWarning = (text: string): { text: string; severity: 'warn' } 
   severity: 'warn',
 })
 
+export const createAllyWarning = (text: string): { text: string; severity: 'ally-warn' } => ({
+  text,
+  severity: 'ally-warn',
+})
+
 export const getNameMap = (names: string[]) => {
   return names.reduce(
     (a, b) => {

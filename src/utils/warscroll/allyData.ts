@@ -1,7 +1,7 @@
 import { uniq, without } from 'lodash'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
 import { titleCase } from 'utils/textUtils'
-import { getNameMap, checkSelection, createWarning } from './warscrollUtils'
+import { getNameMap, checkSelection, createAllyWarning } from './warscrollUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { TAllySelectionStore } from 'types/store'
 import { IAllySelections } from 'types/selections'
@@ -65,7 +65,7 @@ export const getAllyData = (
   Object.keys(collisions).forEach(unit => {
     if (collisions[unit].length > 1) {
       errors.push(
-        createWarning(
+        createAllyWarning(
           `Allied ${unit} can belong to ${collisions[unit]
             .map(titleCase)
             .join(' or ')}. Please add this unit manually.`
