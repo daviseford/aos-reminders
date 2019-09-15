@@ -48,9 +48,13 @@ const cleanAzyrText = (text: string) => {
     .replace(/ See the .+ of this unit/g, ',')
     .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
     .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
+    .replace(
+      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w ]+,/g,
+      ', REALMSCAPE: $1,'
+    )
     .replace(/[0-9]{1,4}pts/g, '')
     .replace(/Total: /g, '')
-    .replace(/Allegiance:  /g, 'Allegiance: ')
+    .replace(/Allegiance:  /g, 'ALLEGIANCE: ')
     .split(',')
     .map(x => x.trim())
     .filter(x => !!x)
