@@ -46,7 +46,6 @@ const cleanAzyrText = (text: string) => {
       .replace(/.+Play Type:  .+  \|  /g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
       .replace(/(Allegiance:  .+) Leader Battleline/g, `$1, `)
       .replace(/Quantity:  [0-9]{1,2}/g, '') // Removes "Quantity:  1"
-      .replace(/Behemoth /g, '')
       .replace(/ See the .+ of this unit/g, sep)
       .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
       .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
@@ -62,7 +61,6 @@ const cleanAzyrText = (text: string) => {
       .replace(/[0-9]{1,4}pts/g, '')
       .replace(/Total: /g, '')
       .replace(/Allegiance: /g, 'ALLEGIANCE: ')
-      .replace(/Other Endless Spells/g, '')
       .split(',')
       .map(x => x.trim())
       .filter(x => !!x)
@@ -90,6 +88,11 @@ const cleanAzyrText = (text: string) => {
       .replace(/Weapon:/g, 'WEAPON:')
       .replace(/Artefact:/g, 'ARTIFACT:')
       .replace(/(UNIT:|,) ([\w- ]+) Ally/g, 'ALLY: $2')
+      .replace(/(Artillery|Battalions|Endless Spells)/g, '')
+      .split(',')
+      .map(x => x.trim())
+      .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
+      .join(sep)
       .split(',')
       .map(x => x.trim())
       .filter(x => !!x)
