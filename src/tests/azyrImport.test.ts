@@ -7,6 +7,7 @@ import NagashJSON from './fixtures/azyr/json/Newgash.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
+import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -62,7 +63,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Necromancer',
       'UNIT: Nagash, Supreme Lord of the Undead',
       'UNIT: Grave Guard',
-      'UPGRADE: Standar d Bear er',
+      'UPGRADE: Standard Bearer',
       'UPGRADE: Hornblower',
       'UNIT: Chainrasp Horde',
       'ENDLESS SPELL: Umbral Spellportal',
@@ -99,7 +100,7 @@ describe('handleAzyrPages', () => {
       'FACTION: Stormcast Eternals',
       'REALMSCAPE: GHUR',
       'UNIT: Lord-Arcanum',
-      'COMMAND TRAIT: Staunch Def ender',
+      'COMMAND TRAIT: Staunch Defender',
       'ARTIFACT: Gryph-feather Charm',
       'SPELL: Celestial Blades',
       'MOUNT TRAIT: Pride Leader',
@@ -116,9 +117,34 @@ describe('handleAzyrPages', () => {
       'UNIT: Evocators',
       'SPELL: Terrifying Aspect',
       'UNIT: Vanguard-Palladors',
-      'WEAPON: Starstrik e Javelin',
-      'WEAPON: Boltst orm Pist ol',
+      'WEAPON: Starstrike Javelin',
+      'WEAPON: Boltstorm Pistol',
       'ENDLESS SPELL: Everblaze Comet',
+    ])
+  })
+
+  it('handles a Skaven army', () => {
+    const res = handleAzyrPages(Skaven1JSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Skaventide',
+      'UNIT: Grey Seer',
+      'COMMAND TRAIT: Master of Magic',
+      'SPELL: Death Frenzy',
+      'SPELL: Skitterleap',
+      'UNIT: Warlock Bombardier',
+      'ARTIFACT: Vigor dust Inject or',
+      'SPELL: More-mor e-mor e Warp Power!',
+      'UNIT: Clanrats',
+      'UPGRADE: Clawleader',
+      'UPGRADE: Clanr at Standard Bearer',
+      'UPGRADE: Clanr at Bell-ringer',
+      'UNIT: Warplock Jezzails',
+      'UNIT: Plague Monks',
+      'UPGRADE: Bringer-of-the-Word',
+      'UPGRADE: Standard Bearers',
+      'UPGRADE: Plague Harbingers',
+      'UNIT: Skryre Acolytes',
     ])
   })
 })
