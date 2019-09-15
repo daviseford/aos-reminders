@@ -45,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "node clean.js && pretty-quick --staged --pattern \"**/*.*(ts|tsx|json)\""
+      "pre-commit": "node clean.js && pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
     }
   },
   "browserslist": {
