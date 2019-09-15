@@ -70,7 +70,7 @@ const cleanAzyrText = (text: string) => {
       .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
       .replace(/ {2,4}/g, ' ')
       .replace(
-        /(Artefact|Spell|Weapon|Command Trait|Mount Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+        /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
         '$1: $2, $3'
       )
       .replace(/[0-9]{1,4}pts/g, '')
@@ -82,7 +82,7 @@ const cleanAzyrText = (text: string) => {
       .join(sep)
       // Have to run this twice, really :(
       .replace(
-        /(Artefact|Spell|Weapon|Command Trait|Mount Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+        /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
         '$1: $2, $3'
       )
       .replace(
