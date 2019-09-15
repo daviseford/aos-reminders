@@ -1,5 +1,5 @@
 import pdfjsLib from 'pdfjs-dist'
-import { uniq, without } from 'lodash'
+import { uniq } from 'lodash'
 import { isDev } from 'utils/env'
 
 const sep = ', '
