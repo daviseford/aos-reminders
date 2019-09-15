@@ -1,17 +1,18 @@
 import { readFileSync } from 'fs'
 import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
-import SeraphonJSON from './fixtures/azyr/pdf/Seraphon.json'
-import ChamonJSON from './fixtures/azyr/pdf/Chamon.json'
-import NagashJSON from './fixtures/azyr/pdf/Newgash.json'
-import NoRealmJSON from './fixtures/azyr/pdf/NoRealmscape.json'
-
-const pdfText = readFileSync(__dirname + '/fixtures/azyr/pdf/Cats.and.Judicators.2000.pdf').buffer
+import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
+import ChamonJSON from './fixtures/azyr/json/Chamon.json'
+import NagashJSON from './fixtures/azyr/json/Newgash.json'
+import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
+import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
+import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
 xdescribe('getAzyrArmy', () => {
   it('does it', async () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/azyr/pdf/Cats.and.Judicators.2000.pdf').buffer
     const typedArray = new Uint8Array(pdfText as any)
     const res = await getAzyrPdfText(typedArray)
     console.log(res)
@@ -19,11 +20,10 @@ xdescribe('getAzyrArmy', () => {
 })
 
 /**
- * Testing the Azyr import is a little wonky,
- * because as of right now,
+ * Testing the Azyr import is a little wonky, because as of right now,
  * importing PDF's locally doesn't work in the local test environment
  *
- * The workaround is to `yarn start` and drop your PDF in the box
+ * The workaround is to `yarn start` and drop your PDF in the dropzone
  * Then copy the output that says "Copy me" into a JSON file
  *
  * Then test against that JSON below
@@ -50,12 +50,12 @@ describe('handleAzyrPages', () => {
 
   it('handles a faction-only pdf', () => {
     const res = handleAzyrPages(NoRealmJSON)
+    console.log(res)
     expect(res).toEqual(['FACTION: Death'])
   })
 
   it('handles a Nagash army', () => {
     const res = handleAzyrPages(NagashJSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
       'REALMSCAPE: SHYISH',
@@ -67,6 +67,58 @@ describe('handleAzyrPages', () => {
       'UNIT: Chainrasp Horde',
       'ENDLESS SPELL: Umbral Spellportal',
       'ENDLESS SPELL: Purple Sun of Shyish',
+    ])
+  })
+
+  it('handles Slaanesh + Mercenaries army', () => {
+    const res = handleAzyrPages(SlaaneshMercsJSON)
+    expect(res).toEqual([
+      'FACTION: Slaanesh',
+      'ALLEGIANCE: Invaders Host',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Shalaxi Helbane',
+      'SPELL: Pavane of Slaanesh',
+      'UNIT: Keeper of Secrets',
+      'ALLY: Necromancer',
+      'UNIT: Chaos Marauders',
+      'Mark: Slaanesh',
+      'UNIT: Chaos Warriors',
+      'UNIT: Daemonettes',
+      'UNIT: Hellstriders',
+      'ALLY: Skeleton Warriors',
+      'UNIT: Chaos Marauder Horsemen',
+      'ALLY: Corpse Cart',
+      'UNIT: Seekers',
+      'ENDLESS SPELL: Mesmerising Mirror',
+    ])
+  })
+
+  it('handles a generic Stormcast pdf', () => {
+    const res = handleAzyrPages(Stormcast1JSON)
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'REALMSCAPE: GHUR',
+      'UNIT: Lord-Arcanum',
+      'COMMAND TRAIT: Staunch Def ender',
+      'ARTIFACT: Gryph-feather Charm',
+      'SPELL: Celestial Blades',
+      'MOUNT TRAIT: Pride Leader',
+      'UNIT: Knight-Incantor',
+      'SPELL: Stormcaller',
+      'SPELL: Lightning Blast',
+      'UNIT: Knight-Heraldor',
+      'UNIT: Liberators',
+      'WEAPON: Grandhammer',
+      'WEAPON: Grandblade',
+      'UNIT: Judicators',
+      'WEAPON: Skybolt Bow',
+      'WEAPON: Shockbolt Bow',
+      'UNIT: Evocators',
+      'SPELL: Terrifying Aspect',
+      'UNIT: Vanguard-Palladors',
+      'WEAPON: Starstrik e Javelin',
+      'WEAPON: Boltst orm Pist ol',
+      'ENDLESS SPELL: Everblaze Comet',
     ])
   })
 })
