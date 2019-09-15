@@ -1,6 +1,9 @@
 import pdfjsLib from 'pdfjs-dist'
 import { uniq } from 'lodash'
 import { isDev } from 'utils/env'
+import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { titleCase } from 'utils/textUtils'
 
 const sep = ', '
 const commaAlt = `&&`
@@ -26,9 +29,7 @@ export const getAzyrPdfText = async typedarray => {
       })
     )
 
-    if (isDev) {
-      console.log('Copy me to JSON to debug: ', pages)
-    }
+    if (isDev) console.log('Copy me to JSON to debug: ', pages)
 
     return handleAzyrPages(pages)
   } catch (err) {
@@ -51,15 +52,49 @@ export const handleAzyrPages = (pages: string[]) => {
     })
     .map(x => x.replace(/&&/g, ','))
 
-  console.table(splitText)
+  if (isDev) console.table(splitText)
 
   return splitText
+}
+
+const handleHeader = (text: string) => {
+  const firstRun = text
+    .replace(/([A-Z]) ([a-z])/g, `$1$2`)
+    .replace(/Gener al/g, '')
+    .replace(/T ype/g, 'Type')
+    .replace(/Pur chased/g, 'Purchased')
+    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
+    .replace(/Mercenar y Company/g, 'Mercenary Company')
+    .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
+    .replace(/(Allegiance: {2}.+) (Leader Battleline|Realm of Battle)/g, getFaction(`$1, $2`))
+    .replace(
+      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+(Leader Battleline|,|(?:$))/g,
+      ', REALMSCAPE: $1, '
+    )
+    .replace(/Leader Battleline/g, '')
+
+  if (isDev) console.log('firstRunHeader', firstRun)
+
+  const secondRun = firstRun
+    .replace(/(Allegiance: [\w- ]+) ([\w]+:)/g, '$1, $2')
+    .replace(/(Mercenary Company: ([\w- ]+)),/g, ', MERCENARY COMPANY: $2, ')
+    .replace(/Quantity: {2}[0-9]{1,2}/g, '') // Removes "Quantity:  1"
+    .replace(/Allegiance: /g, 'FACTION: ')
+  if (isDev) console.log('secondRunHeader', secondRun)
+}
+
+const getFaction = (text: string) => {
+  const factions = SUPPORTED_FACTIONS.map(titleCase)
+  const splitText = text.split(', ')
+  const match = factions.find(x => splitText[0].includes(x))
+  return `Allegiance: ${match || 'UNKNOWN'}, ${splitText[1]}`
 }
 
 // Fyreslayers Play Type: Matched | Game T ype: Meeting Engagement | Grand Alliance: Order | Allegiance: Fyreslayers Lodge: Hermdar Realm of Battle: AQSHY, The Realm of FIRE Spearhead Leader Other Main Body Leader 200pts Fjul-Grimnir Role: Leader Quantity: 1 200pts The Chosen Axes Role: Other Quantity: 3
 // Battleline Behemoth Rearguard Leader Behemoth 260pts Auric Runesmiter Gener al Role: Leader , Behemoth Quantity: 1 Command T rait: Warrior Indominate Artefact: Tyrant Sla yer Prayer: Prayer of Ash Mount T rait: Fire-claw Adult 160pts Vulkite Berzerkers Role: Battleline Quantity: 10 Auric Runesmiter See the "Leader " occurr ence of this unit 240pts Auric Runeson Role: Leader , Behemoth Quantity: 1
 // Total: 1000/1000pts 0pts/0pts Allies Army deemed valid by Azyr Roster Builder Other Magmic Inv ocations Auric Runeson See the "Leader " occurr ence of this unit 100pts Doomseeker Role: Other Quantity: 1 40pts Runic Fyrewall Role: Magmic Inv ocation
-const cleanAzyrText = (text: string) => {
+const cleanAzyrText = (text: string, idx: number) => {
+  if (idx === 0) handleHeader(text)
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Gener al/g, '')
@@ -75,7 +110,8 @@ const cleanAzyrText = (text: string) => {
     )
     .replace(/Leader Battleline/g, '')
 
-  console.log('f', firstRun)
+  // if (isDev) console.log('firstRun', firstRun)
+
   const secondRun = firstRun
     .replace(/(Allegiance: [\w- ]+) ([\w]+:)/g, '$1, $2')
     .replace(/(Mercenary Company: ([\w- ]+)),/g, ', MERCENARY COMPANY: $2, ')
