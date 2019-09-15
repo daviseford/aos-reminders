@@ -134,6 +134,9 @@ const cleanAzyrText = (text: string) => {
       const allegianceMatch = allegianceTypes.find(a => x.startsWith(`${a}:`))
       if (allegianceMatch) x = x.replace(allegianceMatch, 'ALLEGIANCE')
       x = x.trim()
+      Object.keys(commonTypos).forEach(typo => {
+        if (x.includes(typo)) x = x.replace(typo, commonTypos[typo])
+      })
       return x
     })
     .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
@@ -161,3 +164,12 @@ const prefixTypes = [
 ]
 
 const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray']
+
+const commonTypos = {
+  'Standar d': 'Standard',
+  'Bear er': 'Bearer',
+  'Def ender': 'Defender',
+  'Pist ol': 'Pistol',
+  'Boltst orm': 'Boltstorm',
+  'Starstrik e': 'Starstrike',
+}
