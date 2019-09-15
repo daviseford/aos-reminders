@@ -59,11 +59,14 @@ const cleanAzyrText = (text: string) => {
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
     .replace(/Mercenar y Company/g, 'Mercenary Company')
     .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
-    .replace(/(Allegiance: {2}.+) Leader Battleline/g, `$1, `)
+    .replace(/(Allegiance: {2}.+) (Leader Battleline|Realm of Battle)/g, `$1, $2`)
     .replace(
-      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+,/g,
+      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+(Leader Battleline|,|(?:$))/g,
       ', REALMSCAPE: $1, '
     )
+
+  console.log('f', firstRun)
+  const secondRun = firstRun
     .replace(/(Allegiance: [\w- ]+) ([\w]+:)/g, '$1, $2')
     .replace(/(Mercenary Company: ([\w- ]+)),/g, ', MERCENARY COMPANY: $2, ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, '') // Removes "Quantity:  1"
@@ -83,9 +86,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  console.log('f', firstRun)
-
-  const secondRun = firstRun
+  const thirdRun = secondRun
     // Have to run this twice, really :(
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
@@ -128,7 +129,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
     .join(sep)
 
-  return secondRun
+  return thirdRun
 }
 
 const prefixTypes = [
