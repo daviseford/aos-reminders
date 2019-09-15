@@ -99,7 +99,6 @@ const cleanAzyrText = (text: string) => {
       })
       .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
       .join(sep)
-      .replace(/Behemoth /g, '')
       .split(',')
       .map(x => x.trim())
       .filter(x => !!x)
