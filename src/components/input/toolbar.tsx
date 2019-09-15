@@ -16,9 +16,10 @@ import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
-import { LoadWarscrollArmy } from './warscrollBuilder/drop_container'
+import { LoadWarscrollArmy } from './warscrollBuilder/warscroll_drop_container'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
+import { LoadAzyrArmy } from './azyr/azyr_drop_container'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 pb-2`
 
@@ -35,7 +36,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const { isSubscribed } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
-  const [isShowingWarscrollImport, setIsShowingWarscrollImport] = useState(false)
+  const [isShowingWarscrollImport, setIsShowingWarscrollImport] = useState(true)
 
   const showSavedArmies = () => setIsShowingSavedArmies(true)
   const hideSavedArmies = () => setIsShowingSavedArmies(false)
@@ -90,6 +91,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
       </div>
 
       <div hidden={!isShowingWarscrollImport}>
+        <LoadAzyrArmy />
         <LoadWarscrollArmy />
       </div>
 

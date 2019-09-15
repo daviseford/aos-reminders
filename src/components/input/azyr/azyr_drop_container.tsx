@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'
-import { WarscrollDropzone } from './drop_zone'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { IWarscrollArmy } from 'types/warscrollTypes'
+import { AzyrDropzone } from './azyr_drop_zone'
 
-interface ILoadWarscrollArmyProps {
+interface ILoadAzyrArmyComponent {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -21,7 +21,7 @@ interface ILoadWarscrollArmyProps {
   updateSelections: (payload: ISelections) => void
 }
 
-const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
+const LoadAzyrArmyComponent: React.FC<ILoadAzyrArmyComponent> = props => {
   const {
     setFactionName,
     setRealmscape,
@@ -70,13 +70,13 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     <>
       <div className="row my-2 d-flex justify-content-center">
         <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
-          <WarscrollDropzone handleDrop={handleWarscrollDrop} />
+          <AzyrDropzone handleDrop={handleWarscrollDrop} />
         </div>
       </div>
 
-      {!isSubscribed && <InfoAlert />}
+      {/* {!isSubscribed && <InfoAlert />} */}
 
-      {errors.length > 0 && (
+      {/* {errors.length > 0 && (
         <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
@@ -84,12 +84,12 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }
 
-export const LoadWarscrollArmy = connect(
+export const LoadAzyrArmy = connect(
   null,
   {
     setFactionName: factionNames.actions.setFactionName,
@@ -100,48 +100,48 @@ export const LoadWarscrollArmy = connect(
     updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
   }
-)(LoadWarscrollArmyComponent)
+)(LoadAzyrArmyComponent)
 
-const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
-  const { text, severity } = props
+// const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
+//   const { text, severity } = props
 
-  const alertType = {
-    warn: 'alert-warning',
-    error: 'alert-danger',
-  }[severity]
+//   const alertType = {
+//     warn: 'alert-warning',
+//     error: 'alert-danger',
+//   }[severity]
 
-  const prefix = severity === 'error' ? `Error` : `Warning`
+//   const prefix = severity === 'error' ? `Error` : `Warning`
 
-  const info =
-    severity === 'error'
-      ? text
-      : `We couldn't find '${text}'. It may be a typo, an unsupported value, or an ally that was not correctly marked as "Allies". Make sure to add it manually.`
+//   const info =
+//     severity === 'error'
+//       ? text
+//       : `We couldn't find '${text}'. It may be a typo, an unsupported value, or an ally that was not correctly marked as "Allies". Make sure to add it manually.`
 
-  return (
-    <div className="mb-2">
-      <div className={`alert ${alertType} text-center`} role="alert">
-        <strong>{prefix}:</strong> {info}
-        <br />
-        <small>
-          Unexpected {prefix.toLowerCase()}? File an issue on{' '}
-          <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
-            Github
-          </a>{' '}
-          and be sure to attach this file.
-        </small>
-      </div>
-    </div>
-  )
-}
+//   return (
+//     <div className="mb-2">
+//       <div className={`alert ${alertType} text-center`} role="alert">
+//         <strong>{prefix}:</strong> {info}
+//         <br />
+//         <small>
+//           Unexpected {prefix.toLowerCase()}? File an issue on{' '}
+//           <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
+//             Github
+//           </a>{' '}
+//           and be sure to attach this file.
+//         </small>
+//       </div>
+//     </div>
+//   )
+// }
 
-const InfoAlert = () => (
-  <div className="row mt-2 d-flex justify-content-center">
-    <div className={'col-12 col-lg-6 col-xl-6'}>
-      <div className={`alert alert-info text-center`} role="alert">
-        <small>
-          Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
-        </small>
-      </div>
-    </div>
-  </div>
-)
+// const InfoAlert = () => (
+//   <div className="row mt-2 d-flex justify-content-center">
+//     <div className={'col-12 col-lg-6 col-xl-6'}>
+//       <div className={`alert alert-info text-center`} role="alert">
+//         <small>
+//           Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
+//         </small>
+//       </div>
+//     </div>
+//   </div>
+// )
