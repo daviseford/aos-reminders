@@ -330,9 +330,12 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
     logFailedImport(`faction:${factionName || 'Unknown'}`, 'Warscroll')
+    const errorTxt = factionName
+      ? `${factionName} are not supported.`
+      : `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`
     return {
       ...army,
-      errors: [createError(`${factionName || 'Unknown Faction'} are not supported!`)],
+      errors: [createError(errorTxt)],
     }
   }
 
