@@ -43,7 +43,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/(Allegiance:  .+) Leader Battleline/g, `$1, `)
     .replace(/Quantity:  [0-9]{1,2}/g, '') // Removes "Quantity:  1"
     .replace(/Role:  (Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g, sep)
-    .replace(/(Artillery|Behemoth|Battalions|Endless Spells)/g, '')
+    .replace(/(Artillery|Behemoth|Battalions|Endless Spells|Other)/g, '')
     .replace(/Behemoth /g, '')
     .replace(/ See the .+ of this unit/g, sep)
     .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
@@ -52,10 +52,36 @@ const cleanAzyrText = (text: string) => {
       /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w ]+,/g,
       ', REALMSCAPE: $1, '
     )
-    .replace(/(Command Trait):  ([\w ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait)/g, '$1: $2, $3')
+    .replace(/ {2,4}/g, ' ')
+    .replace(/(Artefact): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
+    .replace(
+      /(Command Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+      '$1: $2, $3'
+    )
+    .replace(
+      /(Mount Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+      '$1: $2, $3'
+    )
+    .replace(/(Spell): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
+    .replace(/(Weapon): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
     .replace(/[0-9]{1,4}pts/g, '')
     .replace(/Total: /g, '')
-    .replace(/Allegiance:  /g, 'ALLEGIANCE: ')
+    .replace(/Allegiance: /g, 'ALLEGIANCE: ')
+    .split(',')
+    .map(x => x.trim())
+    .filter(x => !!x)
+    .join(sep)
+    .replace(/(Artefact): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
+    .replace(
+      /(Command Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+      '$1: $2, $3'
+    )
+    .replace(
+      /(Mount Trait): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g,
+      '$1: $2, $3'
+    )
+    .replace(/(Spell): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
+    .replace(/(Weapon): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait| {1,3})/g, '$1: $2, $3')
     .split(',')
     .map(x => x.trim())
     .filter(x => !!x)
