@@ -112,7 +112,10 @@ const ErrorAlert = (props: { text: string; severity: 'warn' | 'error' }) => {
 
   const prefix = severity === 'error' ? `Error` : `Warning`
 
-  const info = severity === 'error' ? text : `${text} is either a typo or an unsupported value.`
+  const info =
+    severity === 'error'
+      ? text
+      : `We couldn't find '${text}'. It may be a typo, an unsupported value, or an ally that was not correctly marked as "Allies". Make sure to add it manually.`
 
   return (
     <div className="mb-2">
