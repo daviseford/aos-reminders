@@ -22,7 +22,7 @@ export const getAzyrPdfText = async typedarray => {
     )
 
     const cleanedPages = pages.map(cleanAzyrText)
-    const text = cleanedPages.join(',')
+    const text = cleanedPages.join(', ')
     console.log(text)
     return text
   } catch (err) {}
@@ -42,13 +42,14 @@ const cleanAzyrText = (text: string) => {
       .replace(/(Allegiance:  .+) Leader Battleline/g, `$1, `)
       .replace(/Quantity:  [0-9]{1,2}/g, '') // Removes "Quantity:  1"
       .replace(/Artillery Behemoth Battalions Endless Spells/g, '')
-      .replace(/ Behemoth /g, '')
       .replace(/Role:  (Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell)/g, ',')
+      .replace(/ Behemoth /g, '')
       .replace(/ See the .+ of this unit/g, ',')
       .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
       .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
       .replace(/[0-9]{1,4}pts/g, '')
       .replace(/Total: /g, '')
+      .replace(/Allegiance:  /g, 'Allegiance: ')
       .split(',')
       .map(x => x.trim())
       .filter(x => !!x)
