@@ -8,6 +8,7 @@ import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
+import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -53,6 +54,40 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles a large Ironjawz army', () => {
+    const res = handleAzyrPages(Ironjawz1JSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Ironjawz',
+      'UNIT: Megaboss on Maw-krusha',
+      'COMMAND TRAIT: Brutish Cunning',
+      'ARTIFACT: The Golden Toof',
+      'UNIT: Gordrakk, the Fist of Gork',
+      'UNIT: Orruk Megaboss',
+      'ARTIFACT: The Boss Sk ewer',
+      'UNIT: Orruk Warchanter',
+      'ARTIFACT: Armour of Gork',
+      'UNIT: Orruk Weirdnob Shaman',
+      "ARTIFACT: Metalrippa's Klaw",
+      "SPELL: Da Blazin' Eyes",
+      'UNIT: Orruk Ardboys',
+      'UNIT: Orruk Brutes',
+      'UNIT: Orruk Gore-gruntas',
+      'BATTALION: Ardfist',
+      'BATTALION: Bloodtoofs',
+      'BATTALION: Brawl',
+      'BATTALION: Brutefist',
+      'BATTALION: Gorefist',
+      'BATTALION: Ironfist',
+      'BATTALION: Ironsunz',
+      'BATTALION: Weirdfist',
+      'ALLY: Boingrot Bounderz',
+      'ALLY: Dankhold Troggoths',
+      'ALLY: Sneaky Snufflers',
+      'ALLY: Squig Herd',
+    ])
   })
 
   it('handles a Nagash army', () => {
@@ -125,7 +160,6 @@ describe('handleAzyrPages', () => {
 
   it('handles a Skaven army', () => {
     const res = handleAzyrPages(Skaven1JSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Skaventide',
       'UNIT: Grey Seer',
