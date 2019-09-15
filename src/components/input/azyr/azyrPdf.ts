@@ -42,16 +42,17 @@ const cleanAzyrText = (text: string) => {
     .replace(/.+Play Type:  .+  \|  /g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
     .replace(/(Allegiance:  .+) Leader Battleline/g, `$1, `)
     .replace(/Quantity:  [0-9]{1,2}/g, '') // Removes "Quantity:  1"
-    .replace(/Role:  (Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell)/g, ',')
+    .replace(/Role:  (Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g, sep)
     .replace(/(Artillery|Behemoth|Battalions|Endless Spells)/g, '')
     .replace(/Behemoth /g, '')
-    .replace(/ See the .+ of this unit/g, ',')
+    .replace(/ See the .+ of this unit/g, sep)
     .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
     .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
     .replace(
       /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w ]+,/g,
-      ', REALMSCAPE: $1,'
+      ', REALMSCAPE: $1, '
     )
+    .replace(/(Command Trait):  ([\w ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait)/g, '$1: $2, $3')
     .replace(/[0-9]{1,4}pts/g, '')
     .replace(/Total: /g, '')
     .replace(/Allegiance:  /g, 'ALLEGIANCE: ')
