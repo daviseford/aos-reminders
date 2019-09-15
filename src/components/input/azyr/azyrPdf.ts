@@ -25,7 +25,21 @@ export const getAzyrPdfText = async typedarray => {
         const page = await pdf.getPage(pageNumber + 1)
         //@ts-ignore
         const textContent = await page.getTextContent({ normalizeWhitespace: true })
-        return textContent.items.map(({ str }) => str).join(' ')
+        return textContent.items
+          .map(x => {
+            // x.fontName
+            // g_d0_f1 == bold
+            // g_d0_f2 == not bold
+
+            // First time this appears, we are starting units
+            // fontName: "g_d0_f1"
+            // height: 17.99999925
+            // str: "Leader"
+
+            debugger
+            return x.str
+          })
+          .join(' ')
       })
     )
 
