@@ -100,6 +100,7 @@ const Allegiances: TAllegiances = [
         name: `Warrior Indominate`,
         desc: `Subtract 1 from wound rolls that target this general and friendly HERMDAR units wholly within 12".`,
         when: [HERO_PHASE],
+        command_trait: true,
       },
     ],
   },
