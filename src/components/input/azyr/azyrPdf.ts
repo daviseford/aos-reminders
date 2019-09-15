@@ -25,9 +25,19 @@ export const getAzyrPdfText = async typedarray => {
     )
 
     const cleanedPages = pages.map(cleanAzyrText)
-    console.log(cleanedPages)
-    const splitText = uniq(cleanedPages.join(sep).split(sep))
+
+    console.log('cleanedPages', cleanedPages)
+
+    const joinedPages = uniq(cleanedPages.join(sep).split(sep))
+
+    const splitText = joinedPages.filter(x => {
+      if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
+      console.log('Missing a prefix: ' + x)
+      return !joinedPages.some(s => s.includes(x) && s !== x)
+    })
+
     console.table(splitText)
+
     return splitText
   } catch (err) {
     console.error(err)
@@ -38,7 +48,6 @@ export const getAzyrPdfText = async typedarray => {
 // Battleline Behemoth Rearguard Leader Behemoth 260pts Auric Runesmiter Gener al Role: Leader , Behemoth Quantity: 1 Command T rait: Warrior Indominate Artefact: Tyrant Sla yer Prayer: Prayer of Ash Mount T rait: Fire-claw Adult 160pts Vulkite Berzerkers Role: Battleline Quantity: 10 Auric Runesmiter See the "Leader " occurr ence of this unit 240pts Auric Runeson Role: Leader , Behemoth Quantity: 1
 // Total: 1000/1000pts 0pts/0pts Allies Army deemed valid by Azyr Roster Builder Other Magmic Inv ocations Auric Runeson See the "Leader " occurr ence of this unit 100pts Doomseeker Role: Other Quantity: 1 40pts Runic Fyrewall Role: Magmic Inv ocation
 const cleanAzyrText = (text: string) => {
-  let store: string[] = []
   return (
     text
       .replace(/([A-Z]) ([a-z])/g, `$1$2`)
@@ -102,33 +111,30 @@ const cleanAzyrText = (text: string) => {
         x = x.replace(/^(Behemoth|Other) /g, '')
         const allegianceMatch = allegianceTypes.find(a => x.startsWith(`${a}:`))
         if (allegianceMatch) x = x.replace(allegianceMatch, 'ALLEGIANCE')
+        x = x.trim()
         return x
       })
       .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
-      .join(sep)
-      .split(',')
-      .map(x => x.trim())
-      .filter(x => !!x)
       .join(sep)
   )
 }
 
 const prefixTypes = [
-  'UPGRADE',
-  'REALMSCAPE',
-  'MERCENARY COMPANY',
-  'FACTION',
-  'SPELL',
-  'BATTALION',
   'ALLEGIANCE',
-  'UNIT',
-  'WEAPON',
-  'SPELL',
-  'ENDLESS SPELL',
-  'MOUNT TRAIT',
-  'COMMAND TRAIT',
-  'ARTIFACT',
   'ALLY',
+  'ARTIFACT',
+  'BATTALION',
+  'COMMAND TRAIT',
+  'ENDLESS SPELL',
+  'FACTION',
+  'MERCENARY COMPANY',
+  'MOUNT TRAIT',
+  'REALMSCAPE',
+  'SPELL',
+  'SPELL',
+  'UNIT',
+  'UPGRADE',
+  'WEAPON',
 ]
 
 const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray']
