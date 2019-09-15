@@ -56,7 +56,7 @@ const Allegiances: TAllegiances = [
         command_ability: true,
       },
       {
-        name: `Nutured by Magic`,
+        name: `Nurtured by Magic`,
         desc: `Once in each of your hero phases, if this general successfully casts a spell that is not unbound, pick 1 friendly GNARLROOT unit wholly within 18" of this general. You can heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
         command_trait: true,

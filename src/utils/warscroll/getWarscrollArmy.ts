@@ -329,7 +329,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
 
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
-    logFailedImport(`faction:${factionName || 'Unknown'}`)
+    logFailedImport(`faction:${factionName || 'Unknown'}`, 'Warscroll')
     return {
       ...army,
       errors: [createError(`${factionName || 'Unknown Faction'} are not supported!`)],
@@ -357,7 +357,7 @@ const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
   const allyData = getAllyData(allyUnits, factionName, errors)
 
   // Fire off any warnings to Google Analytics
-  errors.filter(e => e.severity === 'warn').forEach(e => logFailedImport(e.text))
+  errors.filter(e => e.severity === 'warn').forEach(e => logFailedImport(e.text, 'Warscroll'))
 
   return {
     ...army,
