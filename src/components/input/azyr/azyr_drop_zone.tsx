@@ -6,8 +6,7 @@ import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
 import { IWarscrollArmy } from 'types/warscrollTypes'
-var pdfjsLib = require('pdfjs-dist')
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
+import { getAzyrPdfText } from './azyrPdf'
 
 interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmy) => void
@@ -83,33 +82,7 @@ export const AzyrDropzone: React.FC<IDropzoneProps> = props => {
           //Step 4:turn array buffer into typed array
           var typedarray = new Uint8Array(reader.result as any)
 
-          //Step 5:PDFJS should be able to read this
-          pdfjsLib.getDocument(typedarray).then(pdf => {
-            // do stuff
-            console.log(pdf)
-
-            var pages: number[] = []
-
-            for (let i = 0; i < pdf.numPages; i++) {
-              pages.push(i)
-            }
-            return Promise.all(
-              pages.map(function(pageNumber) {
-                return pdf.getPage(pageNumber + 1).then(function(page) {
-                  return page.getTextContent().then(function(textContent) {
-                    return textContent.items
-                      .map(function(item) {
-                        return item.str
-                      })
-                      .join(' ')
-                  })
-                })
-              })
-            ).then(function(pages) {
-              console.log(pages)
-              return pages.join('\r\n')
-            })
-          })
+          getAzyrPdfText(typedarray)
         }
 
         // Read the file
