@@ -1,5 +1,6 @@
 import pdfjsLib from 'pdfjs-dist'
 import { uniq, without } from 'lodash'
+import { isDev } from 'utils/env'
 
 const sep = ', '
 const commaAlt = `&&`
@@ -25,26 +26,34 @@ export const getAzyrPdfText = async typedarray => {
       })
     )
 
-    const cleanedPages = pages.map(cleanAzyrText)
+    if (isDev) {
+      console.log('Copy me to JSON to debug: ', pages)
+    }
 
-    console.log('cleanedPages', cleanedPages)
-
-    const joinedPages = uniq(cleanedPages.join(sep).split(sep))
-
-    const splitText = joinedPages
-      .filter(x => {
-        if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
-        console.log('Missing a prefix: ' + x)
-        return !joinedPages.some(s => s.includes(x) && s !== x)
-      })
-      .map(x => x.replace(/&&/g, ','))
-
-    console.table(splitText)
-
-    return splitText
+    return handleAzyrPages(pages)
   } catch (err) {
     console.error(err)
   }
+}
+
+export const handleAzyrPages = (pages: string[]) => {
+  const cleanedPages = pages.map(cleanAzyrText)
+
+  // console.log('cleanedPages', cleanedPages)
+
+  const joinedPages = uniq(cleanedPages.join(sep).split(sep))
+
+  const splitText = joinedPages
+    .filter(x => {
+      if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
+      console.log('Missing a prefix: ' + x)
+      return !joinedPages.some(s => s.includes(x) && s !== x)
+    })
+    .map(x => x.replace(/&&/g, ','))
+
+  console.table(splitText)
+
+  return splitText
 }
 
 // Fyreslayers Play Type: Matched | Game T ype: Meeting Engagement | Grand Alliance: Order | Allegiance: Fyreslayers Lodge: Hermdar Realm of Battle: AQSHY, The Realm of FIRE Spearhead Leader Other Main Body Leader 200pts Fjul-Grimnir Role: Leader Quantity: 1 200pts The Chosen Axes Role: Other Quantity: 3
@@ -64,6 +73,7 @@ const cleanAzyrText = (text: string) => {
       /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+(Leader Battleline|,|(?:$))/g,
       ', REALMSCAPE: $1, '
     )
+    .replace(/Leader Battleline/g, '')
 
   console.log('f', firstRun)
   const secondRun = firstRun
