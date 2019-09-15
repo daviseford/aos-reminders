@@ -80,7 +80,7 @@ export const AzyrDropzone: React.FC<IDropzoneProps> = props => {
         }
         reader.onload = () => {
           //Step 4:turn array buffer into typed array
-          var typedarray = new Uint8Array(reader.result as any)
+          const typedarray = new Uint8Array(reader.result as any)
 
           getAzyrPdfText(typedarray)
         }
