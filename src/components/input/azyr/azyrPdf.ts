@@ -208,6 +208,7 @@ const commonTypos = {
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
   'Sky Port': 'Skyport',
+  'Warpfir e': 'Warpfire',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')

@@ -1,16 +1,20 @@
 import { readFileSync } from 'fs'
 import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
-import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
 import ChamonJSON from './fixtures/azyr/json/Chamon.json'
-import NagashJSON from './fixtures/azyr/json/Newgash.json'
-import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
-import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
-import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
-import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
+import KhorneJSON from './fixtures/azyr/json/Khorne.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
 import LoGJSON from './fixtures/azyr/json/LoG.json'
+import NagashJSON from './fixtures/azyr/json/Newgash.json'
+import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
+import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
+import Nurgle2JSON from './fixtures/azyr/json/Nurgle_2.json'
+import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
+import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
+import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
+import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
+import Tzeentch1JSON from './fixtures/azyr/json/Tzeentch1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -56,6 +60,265 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles a Khorne pdf', () => {
+    const res = handleAzyrPages(KhorneJSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Khorne',
+      'Slaughterhost: Skullfiend Tribe',
+      'UNIT: Bloodsecrator',
+      'UNIT: Bloodstoker',
+      'UNIT: Bloodthirster',
+      'UNIT: Aspiring Deathbringer',
+      'UNIT: Herald of Khorne on Blood Throne',
+      'UNIT: Mighty Lord of Khorne',
+      'UNIT: Skullgrinder',
+      'UNIT: Flesh Hounds',
+      'UNIT: Blood Warriors',
+      'UNIT: Bloodletters',
+      'UNIT: Bloodreavers',
+      'UNIT: Skull Cannons',
+      'ALLY: Plagueclaw',
+      'UNIT: Chaos War Mammoth',
+      'Mark: Khorne',
+      'UNIT: Soul Grinder',
+      'UNIT: Mazarall the Butcher',
+      'BATTALION: Blood Host',
+      'BATTALION: Blood Hunt',
+      'BATTALION: Blood Legion',
+      'BATTALION: Bloodbound Warhorde',
+      'BATTALION: Bloodforged',
+      'BATTALION: Bloodmad Warband',
+      'BATTALION: Bloodthunder Stampede',
+      'BATTALION: Brass Despoilers',
+      'BATTALION: Brass Stampede',
+      'BATTALION: Charnel Host',
+      'BATTALION: Dark Feast',
+      'BATTALION: Gore Pilgrims',
+      'BATTALION: Gorechosen',
+      'BATTALION: Gorethunder Cohort',
+      'BATTALION: Murderhost',
+      'BATTALION: Red Headsmen',
+      'BATTALION: Skullseeker Host',
+      'BATTALION: Skulltake',
+      'BATTALION: Slaughterborn',
+      'BATTALION: Tyrants of Blood',
+      'UNIT: Bestigors',
+      'UNIT: Bloodcrushers',
+      'UNIT: Bullgors',
+      'UNIT: Centigors',
+      'UNIT: Chaos Chariots',
+      'UNIT: Chaos Chosen',
+      'UNIT: Chaos Gorebeast Chariots',
+      'UNIT: Chaos Knights',
+      'UNIT: Chaos Marauder Horsemen',
+      'UNIT: Chaos Spawn',
+      'UNIT: Dragon Ogors',
+      "UNIT: Garrek's Reavers",
+      'UNIT: Karanak',
+      'UNIT: Khorgoraths',
+      "UNIT: Magore's Fiends",
+      'UNIT: Mighty Skullcrushers',
+      'UNIT: Riptooth',
+      'UNIT: Skullreapers',
+      'UNIT: Tuskgor Chariots',
+      'UNIT: Wrathmongers',
+      'ALLY: Tzaangor Enlightened',
+      'ALLY: The Unmade',
+      'ALLY: Beasts of Nurgle',
+      'ALLY: Chaos Chariots',
+      'ALLY: Chaos Gorebeast Chariots',
+      'ALLY: Chaos Marauder Horsemen',
+      'ALLY: Daemon Plague Toads of Nurgle',
+      'ALLY: Furies',
+      'ALLY: Khorgoraths',
+      'ALLY: Nightmaw',
+      'ALLY: Plague Monks',
+      'ALLY: Pusgoyle Blightlords',
+      'ENDLESS SPELL: Bleeding Icon',
+      'ENDLESS SPELL: Hexgorger Skulls',
+      'ENDLESS SPELL: Wrath-Axe',
+    ])
+  })
+
+  it('handles a 9550pt Tzeentch pdf', () => {
+    const res = handleAzyrPages(Tzeentch1JSON)
+    expect(res).toEqual([
+      'FACTION: Tzeentch',
+      'REALMSCAPE: HYSH',
+      'UNIT: Curseling, Eye of Tzeentch',
+      'COMMAND TRAIT: Cult Demagogue',
+      'ARTIFACT: Windthief Charm',
+      'UNIT: Exalted Greater Daemon of Tzeentch',
+      'ARTIFACT: Cursed Ichor',
+      "SPELL: Tzeentch's Firestorm",
+      'UNIT: Gaunt Summoner of Tzeentch',
+      'ARTIFACT: Warpfire Blade',
+      'SPELL: Fold Reality',
+      'UNIT: Gaunt Summoner on Disc of Tzeentch',
+      'ARTIFACT: Wick ed Shar d',
+      'SPELL: Bolt of Tzeentch',
+      'UNIT: Herald of Tzeentch',
+      'ARTIFACT: Sash of the Ten Paradises',
+      "SPELL: Tzeentch's Inferno",
+      'UNIT: Kairos Fateweaver',
+      'SPELL: Uncheck ed Mutation',
+      'UNIT: Ogroid Thaumaturge',
+      'ARTIFACT: Souldr aught',
+      'UNIT: The Changeling',
+      'SPELL: Treason of Tzeentch',
+      'UNIT: Tzaangors',
+      'UPGRADE: Icon Bearers',
+      'WEAPON: Savage Gr eatblade',
+      'UNIT: Pink Horrors of Tzeentch',
+      'SPELL: Arcane Transformation',
+      'UNIT: Kairic Acolytes',
+      'UNIT: Chaos Warriors',
+      'UPGRADE: Hornblower Mark: tzeentch',
+      'UNIT: Chaos Marauders',
+      'UPGRADE: Brayhorn',
+      'UPGRADE: Tzaangor Mutant',
+      'WEAPON: Savage Blade(s)',
+      'ALLY: Ungors',
+      'ALLY: Gors',
+      'UNIT: Mutalith Vortex Beast of Tzeentch',
+      'UNIT: Gigantic Chaos Spawn',
+      'Mark: Tzeentch',
+      'ALLY: Chaos War Mammoth',
+      'BATTALION: Aether-eater Host',
+      'BATTALION: Alter-kin Coven',
+      'BATTALION: Arcanite Cabal',
+      'BATTALION: Arcanite Cult',
+      'BATTALION: Changehost',
+      'BATTALION: Cult of the Transient Form',
+      'BATTALION: Multitudinous Host',
+      'BATTALION: Omniscient Oracles',
+      "BATTALION: Overseer's Fate-twisters",
+      'BATTALION: Phantasmagoria of Fate',
+      'BATTALION: Skyshoal Coven',
+      'BATTALION: The Eternal Conflagration',
+      'BATTALION: The Hosts Duplicitous',
+      'BATTALION: The Pyrofane Cult',
+      'BATTALION: Tzaangor Coven',
+      'BATTALION: Warpflame Host',
+      'BATTALION: Witchfyre Coven',
+      'UNIT: Bestigors',
+      'UNIT: Blue Horrors of Tzeentch',
+      'UNIT: Brimstone Horrors of Tzeentch',
+      'UNIT: Bullgors',
+      'UNIT: Burning Chariots of Tzeentch',
+      'UNIT: Centigors',
+      'UNIT: Chaos Chariots',
+      'UNIT: Chaos Chosen',
+      'UNIT: Chaos Gorebeast Chariots',
+      'UNIT: Chaos Knights',
+      'UNIT: Chaos Marauder Horsemen',
+      'UNIT: Chaos Spawn',
+      'UNIT: Dragon Ogors',
+      'UNIT: Exalted Flamers of Tzeentch',
+      'UNIT: Eyes of the Nine',
+      'UNIT: Flamers of Tzeentch',
+      'UNIT: Screamers of Tzeentch',
+      'UNIT: Tuskgor Chariots',
+      'UNIT: Tzaangor Enlightened',
+      'UNIT: Tzaangor Skyfires',
+      'UNIT: Tzeentch Chaos Spawn',
+      'UNIT: Ungor Raiders',
+      'ALLY: Nightmaw',
+      'ALLY: Skin Wolves',
+      'ALLY: Razorgors',
+      'ALLY: Varanguard',
+    ])
+  })
+
+  it('handles a Nurgle pdf', () => {
+    const res = handleAzyrPages(Nurgle1JSON)
+    expect(res).toEqual([
+      'FACTION: Nurgle',
+      'UNIT: Bloab Rotspawned',
+      'UNIT: Exalted Greater Daemon of Nurgle',
+      'UNIT: Tamurkhan the Maggot Lord',
+      'UNIT: The Glottkin',
+      'UNIT: Orghotts Daemonspew',
+      'ALLY: Bladebringer',
+      'ALLY: Dragon Ogor Shaggoth',
+      'ALLY: Beastlord',
+      'UNIT: Chaos Marauders',
+      'Mark: Nurgle',
+      'UNIT: Chaos Warriors',
+      'UNIT: Plaguebearers',
+      'UNIT: Putrid Blightkings',
+      'UNIT: Plagueclaw',
+      'ALLY: Skull Cannons',
+      'BATTALION: Thricefold Befoulment',
+      'BATTALION: The Munificent Wanderers',
+      'BATTALION: The Blessed Sons',
+      'BATTALION: Tallyband of Nurgle',
+      'BATTALION: Plague Cyst',
+      'BATTALION: Pestilent Throng',
+      "BATTALION: Nurgle's Menagerie",
+      'BATTALION: Blight Cyst',
+      'BATTALION: Affliction Cyst',
+      'UNIT: Beasts of Nurgle',
+      'UNIT: Bestigors',
+      'UNIT: Bile Troggoths',
+      'UNIT: Bullgors',
+      'UNIT: Centigors',
+      'UNIT: Chaos Chariots',
+      'UNIT: Chaos Chosen',
+      'UNIT: Chaos Gorebeast Chariots',
+      'UNIT: Chaos Knights',
+      'UNIT: Chaos Marauder Horsemen',
+      'UNIT: Chaos Spawn',
+      'UNIT: Daemon Plague Toads of Nurgle',
+      'UNIT: Daemon Pox Riders of Nurgle',
+      'UNIT: Dragon Ogors',
+      'UNIT: Nurglings',
+      'UNIT: Plague Censer Bearers',
+      'UNIT: Plague Drones',
+      'UNIT: Plague Monks',
+      'UNIT: Plague Ogors',
+      'UNIT: Pusgoyle Blightlords',
+      'UNIT: Tuskgor Chariots',
+      'UNIT: Ungor Raiders',
+      'ALLY: Corvus Cabal',
+      'ALLY: Cypher Lords',
+      'ALLY: Cockatrice',
+      'ALLY: Iron Golems',
+      'ALLY: Karanak',
+      'ALLY: Skin Wolves',
+      'ALLY: Splintered Fang',
+      'ALLY: The Unmade',
+      'ALLY: Untamed Beasts',
+      'ENDLESS SPELL: Balewind Vortex',
+    ])
+  })
+
+  it('handles a realistic Nurgle pdf', () => {
+    const res = handleAzyrPages(Nurgle2JSON)
+    expect(res).toEqual([
+      'FACTION: Nurgle',
+      'REALMSCAPE: SHYISH',
+      'UNIT: The Glottkin',
+      'SPELL: Rancid Visitations',
+      'UNIT: Sorcerer',
+      "COMMAND TRAIT: Grandfather's Blessing",
+      'ARTIFACT: Mutter grub',
+      'SPELL: Blades of Putr efaction',
+      'UNIT: Great Bray-Shaman',
+      'UNIT: Chaos Sorcerer Lord',
+      'ARTIFACT: Goblet of Dr aining Mark: nurgle',
+      'UNIT: Ungors',
+      'UNIT: Gors',
+      'BATTALION: Pestilent Throng',
+      'UNIT: Bestigors',
+      'UPGRADE: Brayhorn',
+      'UPGRADE: Banner Bearer',
+      'UNIT: Ungor Raiders',
+      'UNIT: Centigors',
+    ])
   })
 
   it('handles a LoG pdf', () => {
