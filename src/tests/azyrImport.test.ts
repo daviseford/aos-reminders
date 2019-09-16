@@ -10,6 +10,7 @@ import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
+import LoGJSON from './fixtures/azyr/json/LoG.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -57,9 +58,96 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles a LoG pdf', () => {
+    const res = handleAzyrPages(LoGJSON)
+    expect(res).toEqual([
+      'FACTION: Legion of Grief',
+      'REALMSCAPE: ULGU',
+      'UNIT: Lady Olynder',
+      'SPELL: Shroud of Terror',
+      'UNIT: Kurdoss Valentian',
+      'UNIT: Knight of Shrouds',
+      'UNIT: Dreadblade Harrow',
+      'ARTIFACT: Blade of the Thir teen Dominions',
+      'UNIT: Necromancer',
+      'ARTIFACT: Dimensional Blade',
+      'SPELL: Dread Withering',
+      'UNIT: The Briar Queen',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'UNIT: Wight King',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Dire Wolves',
+      'UNIT: Skeleton Warriors',
+      'UPGRADE: Hornblower',
+      'UPGRADE: Standard Bearer',
+      'UNIT: Zombies',
+      'UPGRADE: Noise Mak er',
+      'UNIT: Black Coach',
+      'UNIT: Mortis Engine',
+      'UNIT: Black Knights',
+      'UNIT: Bladegheist Revenants',
+      'UNIT: Chainghasts',
+      'UNIT: Corpse Cart',
+      'UNIT: Dreadscythe Harridans',
+      'UNIT: Glaivewraith Stalkers',
+      'UNIT: Grave Guard',
+      'UNIT: Grimghast Reapers',
+      'UNIT: Hexwraiths',
+      'UNIT: Legion Black Coach',
+      'UNIT: Morghast Archai',
+      'UNIT: Morghast Harbingers',
+      'UNIT: Myrmourn Banshees',
+      'UNIT: Spirit Hosts',
+      'UNIT: The Sepulchral Guard',
+      'UNIT: Thorns of the Briar Queen',
+      'ENDLESS SPELL: Aethervoid Pendulum',
+      'ENDLESS SPELL: Balewind Vortex',
+      'ENDLESS SPELL: Bell of Doom',
+      'ENDLESS SPELL: Cadaverous Barricade',
+      'ENDLESS SPELL: Celestian Vortex',
+      'ENDLESS SPELL: Chalice of Ushoran',
+      'ENDLESS SPELL: Chronomantic Cogs',
+      'ENDLESS SPELL: Corpsemare Stampede',
+      'ENDLESS SPELL: Dais Arcanum',
+      'ENDLESS SPELL: Doomblast Dirgehorn',
+      'ENDLESS SPELL: Dreadful Visage',
+      'ENDLESS SPELL: Emerald Lifeswarm',
+      'ENDLESS SPELL: Everblaze Comet',
+      'ENDLESS SPELL: Geminids of Uhl-Gysh',
+      'ENDLESS SPELL: Gladewyrm',
+      'ENDLESS SPELL: Horrorghast',
+      'ENDLESS SPELL: Lauchon the Soulseeker',
+      'ENDLESS SPELL: Malevolent Maelstrom',
+      'ENDLESS SPELL: Malevolent Moon',
+      'ENDLESS SPELL: Mesmerising Mirror',
+      "ENDLESS SPELL: Mork's Mighty Mushroom",
+      'ENDLESS SPELL: Mortalis Terminexus',
+      'ENDLESS SPELL: Prismatic Palisade',
+      'ENDLESS SPELL: Purple Sun of Shyish',
+      'ENDLESS SPELL: Quicksilver Swords',
+      "ENDLESS SPELL: Ravenak's Gnashing Jaws",
+      'ENDLESS SPELL: Ravening Direflock',
+      "ENDLESS SPELL: Scrapskuttle's Arachnacauldron",
+      'ENDLESS SPELL: Scuttletide',
+      'ENDLESS SPELL: Shards of Valagharr',
+      'ENDLESS SPELL: Shyish Reaper',
+      'ENDLESS SPELL: Soulscream Bridge',
+      'ENDLESS SPELL: Soulsnare Shackles',
+      'ENDLESS SPELL: Spiteswarm Hive',
+      'ENDLESS SPELL: Suffocating Gravetide',
+      'ENDLESS SPELL: The Burning Head',
+      'ENDLESS SPELL: Umbral Spellportal',
+      'ENDLESS SPELL: Vault of Souls',
+      'ENDLESS SPELL: Vengeful Skullroot',
+      'ENDLESS SPELL: Vermintide',
+      'ENDLESS SPELL: Warp Lightning Vortex',
+      'ENDLESS SPELL: Wheels of Excruciation',
+      'ENDLESS SPELL: Wildfire Taurus',
+    ])
+  })
+
   it('handles a KO army', () => {
     const res = handleAzyrPages(KO1JSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Khar adr on Ov erlor ds',
       'ALLEGIANCE: Bar ak-Thr yng City of the Ancest ors',
