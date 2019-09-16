@@ -72,14 +72,19 @@ export const handleAzyrPages = (pages: string[]) => {
   return splitText
 }
 
-const leaderReplacer = (text, p1, p2) => {
-  if (p2.startsWith('Leader')) return `${p1}, `
-  return `${p1}, ${p2}`
-}
-
-const factionReplacer = (match, p1, p2) => {
+const factionReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2.includes('Leader') ? `` : p2
   return `FACTION: ${p1.trim()}, ${suffix}`
+}
+
+const mercenaryReplacer = (match: string, p1: string, p2: string) => {
+  const suffix = p2 === 'Extra Command' ? p2 : ``
+  return `, MERCENARY COMPANY: ${p1.trim()}, ${suffix}`
+}
+
+const realmscapeReplacer = (match: string, p1: string, p2: string) => {
+  const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
+  return `, REALMSCAPE: ${p1.trim()}, ${suffix}`
 }
 
 const handleFirstPass = (text: string) => {
@@ -95,8 +100,8 @@ const handleFirstPass = (text: string) => {
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whtiespace in front of existing commas
     .replace(
-      /Mercenary Company: {1,3}([\w-' ]+)(Leader Battleline|Leader|(?:$))/g,
-      ', MERCENARY COMPANY: $1, '
+      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command | Leader Battleline|Leaders|Leader|(?:$))/g,
+      mercenaryReplacer
     )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
@@ -108,8 +113,8 @@ const handleFirstPass = (text: string) => {
       factionReplacer
     )
     .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leader|,|(?:$))/g,
-      ', REALMSCAPE: $1, '
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leader|,|Mercenary|(?:$))/g,
+      realmscapeReplacer
     )
     .replace(/Army deemed .+ by Azyr Roster Builder/g, ' ')
     .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, ' ')
@@ -191,6 +196,8 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
+    // .replace(prefixRegExp, '$1: ')
+    .replace(/(UNIT): {2,4}/g, '$1: ')
     .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne)/g, '')
     .split(',')
     .map(x => {
@@ -198,13 +205,9 @@ const cleanAzyrText = (text: string) => {
       x = x.replace(/Behemoth /g, '')
       x = x.replace(/^Other /g, '')
 
-      const allegianceMatch = allegianceTypes.find(a => x.startsWith(`${a}:`))
-      if (allegianceMatch) x = x.replace(allegianceMatch, 'ALLEGIANCE')
-
       x = x.trim()
 
-      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), replacer)
-
+      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator)
       return x
     })
     .join(sep)
@@ -214,6 +217,7 @@ const cleanAzyrText = (text: string) => {
         .split(' ')
         .map(y => y.replace(/^(Battleline|Artillery|Behemoth|Other)$/g, ''))
         .join(' ')
+        .replace(/ {2,}/g, ' ')
         .trim()
     })
     .filter(x => !!x)
@@ -224,7 +228,7 @@ const cleanAzyrText = (text: string) => {
   return fourthRun
 }
 
-const replacer = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
+const prefixSeparator = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
 const prefixTypes = [
   'ALLEGIANCE',
@@ -267,3 +271,6 @@ const commonTypos = {
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
 const markRegexp = new RegExp(`Mark: {1,3}(${SUPPORTED_FACTIONS.map(titleCase).join('|')})`, 'gi')
+
+const scenery = ['Penumbral Engine']
+const sceneryRegExp = new RegExp(`(${scenery.join('|')})`, 'g')
