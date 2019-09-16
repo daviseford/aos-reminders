@@ -98,8 +98,10 @@ const cleanAzyrText = (text: string) => {
     .replace(/Army deemed .+ by Azyr Roster Builder/g, '')
     .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, '')
     .replace(/ {2,4}/g, ' ')
+    .replace(/ [‘’]/g, `'`)
+    .replace(/[‘’]/g, `'`)
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       '$1: $2, $3'
     )
     .replace(/[0-9]{1,4}pts/g, '')
@@ -110,6 +112,8 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
+  console.log('sec', secondRun)
+
   const thirdRun = secondRun
     // Have to run this twice, really :(
     .replace(
@@ -117,16 +121,16 @@ const cleanAzyrText = (text: string) => {
       '$1: $2, $3'
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/  ([\w]+(,| {2})[\w- ]+) Role:[ ]+(Leader)/g, `${commaAlt} $3: $1 ${commaAlt}`)
+    .replace(/  ([\w-' ]+(,| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
     .replace(/&& (.+)(, )(.+) &&/g, `, $1${commaAlt} $3, `)
     // Now handle normal units
     .replace(
-      /(,| {2})([\w- ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
+      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
       ', $3: $2, '
     )
     .replace(/ {2,4}/g, ' ')
     .replace(
-      /(,| {2})?([\w- ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
+      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
       ', $3: $2, '
     )
     .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
@@ -139,8 +143,6 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w- ]+) Ally/g, 'ALLY: $2')
-    .replace(/ [‘’]/g, `'`)
-    .replace(/[‘’]/g, `'`)
     .replace(/(Artillery|Battalions|Endless Spells)/g, '')
     .split(',')
     .map(x => {
@@ -189,7 +191,7 @@ const prefixTypes = [
   'WEAPON',
 ]
 
-const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray']
+const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport']
 
 const commonTypos = {
   'Ar tiller y': 'Artillery',
@@ -203,6 +205,7 @@ const commonTypos = {
   'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
+  'Sky Port': 'Skyport',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
