@@ -9,6 +9,7 @@ import KO1JSON from './fixtures/azyr/json/KO1.json'
 import KO2JSON from './fixtures/azyr/json/KO2.json'
 import LoGJSON from './fixtures/azyr/json/LoG.json'
 import NagashJSON from './fixtures/azyr/json/Newgash.json'
+import OrderJSON from './fixtures/azyr/json/Order.json'
 import GHoNJSON from './fixtures/azyr/json/GHoN.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
@@ -63,6 +64,28 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles an Order pdf', () => {
+    const res = handleAzyrPages(OrderJSON)
+    expect(res).toEqual([
+      'FACTION: Order',
+      'REALMSCAPE: AQSHY',
+      "MERCENARY COMPANY: Nimyard's Rough-Riders",
+      'UNIT: Leaders Arch-Revenant',
+      'UNIT: Lord-Arcanum',
+      'UNIT: Morathi, High Oracle of Khaine',
+      'UNIT: Slaughter Queen on Cauldron of Blood',
+      'UNIT: Sisters of Slaughter',
+      'UNIT: Vulkite Berzerkers',
+      'UNIT: Witch Aelves',
+      'UNIT: Razordons',
+      "UNIT: Steelheart's Champions",
+      "UNIT: Stormsire's Cursebreakers",
+      'ENDLESS SPELL: Scenery Geminids of Uhl-Gysh',
+      "ENDLESS SPELL: Scrapskuttle's Arachnacauldron",
+      'SCENERY: Penumbral Engine',
+    ])
   })
 
   it('handles a long KO pdf', () => {
