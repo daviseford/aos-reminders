@@ -69,11 +69,8 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(KO2JSON)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
-      'ALLEGIANCE: Bar ak-Nar',
-      'City of the First Sunrise | Khar adron Code: Respect y our Commanders; Trust Aethermatics',
-      'Not Superstition; Thr ough Knowledge',
-      'Power; Without Our Ships',
-      'We Ar e Naught',
+      'ALLEGIANCE: Bar ak-Nar, City of the First Sunrise',
+      'Kharadron Code: Respect y our Commanders; Trust Aethermatics, Not Superstition; Thr ough Knowledge, Power; Without Our Ships, We Ar e Naught',
       'UNIT: Aether-Khemist',
       'COMMAND TRAIT: Champion of Pr ogr ess',
       'UNIT: Aetheric Navigator',
@@ -108,7 +105,7 @@ describe('handleAzyrPages', () => {
       'ALLY: Thunderers',
       'UPGRADE: Standard Bearer',
       'UPGRADE: Drummers',
-      "UNIT: Steelheart's Champions Ally",
+      "ALLY: Steelheart's Champions",
     ])
   })
 
@@ -149,7 +146,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Bestigors',
       'UNIT: Centigors',
       'UNIT: Chaos Spawn',
-      'Mark: Beasts of Chaos',
       'UNIT: Chaos Warhounds',
       'UNIT: Cockatrice',
       'UNIT: Dragon Ogors',
@@ -169,7 +165,7 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(GHoNJSON)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
-      'UNIT: Supreme Lord of the Undead',
+      'UNIT: Nagash, Supreme Lord of the Undead',
       'SPELL: Amethystine Pinions',
       'UNIT: Arkhan the Black, Mortarch of Sacrament',
       'SPELL: Fading Vigour',
@@ -222,7 +218,7 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(KhorneJSON)
     expect(res).toEqual([
       'FACTION: Khorne',
-      'Slaughterhost: Skullfiend Tribe',
+      'ALLEGIANCE: Skullfiend Tribe',
       'UNIT: Bloodsecrator',
       'UNIT: Bloodstoker',
       'UNIT: Bloodthirster',
@@ -237,7 +233,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Skull Cannons',
       'ALLY: Plagueclaw',
       'UNIT: Chaos War Mammoth',
-      'Mark: Khorne',
       'UNIT: Soul Grinder',
       'UNIT: Mazarall the Butcher',
       'BATTALION: Blood Host',
@@ -331,7 +326,7 @@ describe('handleAzyrPages', () => {
       'SPELL: Arcane Transformation',
       'UNIT: Kairic Acolytes',
       'UNIT: Chaos Warriors',
-      'UPGRADE: Hornblower Mark: tzeentch',
+      'UPGRADE: Hornblower',
       'UNIT: Chaos Marauders',
       'UPGRADE: Brayhorn',
       'UPGRADE: Tzaangor Mutant',
@@ -340,7 +335,6 @@ describe('handleAzyrPages', () => {
       'ALLY: Gors',
       'UNIT: Mutalith Vortex Beast of Tzeentch',
       'UNIT: Gigantic Chaos Spawn',
-      'Mark: Tzeentch',
       'ALLY: Chaos War Mammoth',
       'BATTALION: Aether-eater Host',
       'BATTALION: Alter-kin Coven',
@@ -401,7 +395,6 @@ describe('handleAzyrPages', () => {
       'ALLY: Dragon Ogor Shaggoth',
       'ALLY: Beastlord',
       'UNIT: Chaos Marauders',
-      'Mark: Nurgle',
       'UNIT: Chaos Warriors',
       'UNIT: Plaguebearers',
       'UNIT: Putrid Blightkings',
@@ -464,7 +457,7 @@ describe('handleAzyrPages', () => {
       'SPELL: Blades of Putr efaction',
       'UNIT: Great Bray-Shaman',
       'UNIT: Chaos Sorcerer Lord',
-      'ARTIFACT: Goblet of Dr aining Mark: nurgle',
+      'ARTIFACT: Goblet of Dr aining',
       'UNIT: Ungors',
       'UNIT: Gors',
       'BATTALION: Pestilent Throng',
@@ -568,9 +561,8 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(KO1JSON)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
-      'ALLEGIANCE: Bar ak-Thr yng City of the Ancest ors',
-      'Khar adron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods',
-      'Just In Case; These Ar e Just Guidelines',
+      'ALLEGIANCE: Bar ak-Thr yng, City of the Ancest ors',
+      'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Ar e Just Guidelines',
       'UNIT: Aether-Khemist',
       'UNIT: Aetheric Navigator',
       'UNIT: Arkanaut Admiral',
@@ -648,7 +640,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Keeper of Secrets',
       'ALLY: Necromancer',
       'UNIT: Chaos Marauders',
-      'Mark: Slaanesh',
       'UNIT: Chaos Warriors',
       'UNIT: Daemonettes',
       'UNIT: Hellstriders',
