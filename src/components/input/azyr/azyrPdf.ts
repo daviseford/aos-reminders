@@ -129,6 +129,12 @@ const cleanAzyrText = (text: string) => {
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
+    // This one in case of a '(s)' on the end of a trait/weapon
+    .replace(
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\)) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      '$1: $2$3, $4'
+    )
+    // This one for normal
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       '$1: $2, $3'

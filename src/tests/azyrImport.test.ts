@@ -165,7 +165,7 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(GHoNJSON)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
-      'UNIT: Supreme Lord of the Undead',
+      'UNIT: Nagash, Supreme Lord of the Undead',
       'SPELL: Amethystine Pinions',
       'UNIT: Arkhan the Black, Mortarch of Sacrament',
       'SPELL: Fading Vigour',
