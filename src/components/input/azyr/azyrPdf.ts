@@ -121,13 +121,16 @@ const handleFirstPass = (text: string) => {
       /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leader|,|Mercenary|(?:$))/g,
       realmscapeReplacer
     )
-    .replace(/Army deemed .+ by Azyr Roster Builder/g, ' ')
+    .replace(/Army deemed .+valid/g, ' ')
+    .replace(/by Azyr Roster Builder/g, ' ')
     .replace(/Total: [0-9]{1,4}[/][0-9]{1,4}pts [0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, ' ')
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
     // .replace(/ See the .+ of this unit/g, sep)
     .replace(/ {3}[\w-& ]+ See the .+ of this unit/g, ' ')
+    .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
+    .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
 
@@ -227,7 +230,7 @@ const cleanAzyrText = (text: string) => {
     .map(x => {
       return x
         .split(' ')
-        .map(y => y.replace(/^(Battleline|Artillery|Behemoth|Other)$/g, ''))
+        .map(y => y.replace(/^(Allies|Battlelines|Battleline|Artillery|Behemoth|Other)$/g, ''))
         .join(' ')
         .replace(/ {2,}/g, ' ')
         .trim()
