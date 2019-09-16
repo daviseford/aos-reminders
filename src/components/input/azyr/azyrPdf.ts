@@ -78,11 +78,8 @@ const leaderReplacer = (text, p1, p2) => {
 const cleanAzyrText = (text: string) => {
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
-    .replace(/Gener al/g, '')
-    .replace(/T ype/g, 'Type')
-    .replace(/Pur chased/g, 'Purchased')
+    .replace(typoRegexp, match => commonTypos[match])
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
-    .replace(/Mercenar y Company/g, 'Mercenary Company')
     .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
     .replace(/(Allegiance: {2}.+?) (Leader Battleline|Leader|Realm of Battle)/g, leaderReplacer)
     .replace(
@@ -156,10 +153,6 @@ const cleanAzyrText = (text: string) => {
 
       x = x.trim()
 
-      Object.keys(commonTypos).forEach(typo => {
-        if (x.includes(typo)) x = x.replace(typo, commonTypos[typo])
-      })
-
       x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), replacer)
 
       return x
@@ -199,10 +192,17 @@ const prefixTypes = [
 const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray']
 
 const commonTypos = {
-  'Standar d': 'Standard',
+  'Ar tiller y': 'Artillery',
   'Bear er': 'Bearer',
-  'Def ender': 'Defender',
-  'Pist ol': 'Pistol',
   'Boltst orm': 'Boltstorm',
+  'Def ender': 'Defender',
+  'Gener al': '',
+  'Mercenar y Company': 'Mercenary Company',
+  'Pist ol': 'Pistol',
+  'Pur chased': 'Purchased',
+  'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
+  'T ype': 'Type',
 }
+
+const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')

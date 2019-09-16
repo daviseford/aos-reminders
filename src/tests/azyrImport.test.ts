@@ -9,6 +9,7 @@ import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
+import KO1JSON from './fixtures/azyr/json/KO1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -56,9 +57,33 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles a KO army', () => {
+    const res = handleAzyrPages(KO1JSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Khar adr on Ov erlor ds',
+      'Skyport: Bar ak-Thr yng City of the Ancest ors',
+      'Khar adron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods',
+      'Just In Case; These Ar e Just Guidelines',
+      'UNIT: Aether-Khemist',
+      'UNIT: Aetheric Navigator',
+      'UNIT: Arkanaut Admiral',
+      'UNIT: Bjorgen Thundrik',
+      'UNIT: Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'UNIT: Endrinmaster',
+      'UNIT: Arkanaut Company',
+      'UNIT: Grundstok Gunhauler',
+      'UNIT: Arkanaut Frigate',
+      'UNIT: Arkanaut Ironclad',
+      "UNIT: Thundrik's Profiteers",
+      'UNIT: Skywardens',
+      'UNIT: Grundstok Thunderers',
+      'UNIT: Endrinriggers',
+    ])
+  })
+
   it('handles a large Ironjawz army', () => {
     const res = handleAzyrPages(Ironjawz1JSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Ironjawz',
       'UNIT: Megaboss on Maw-krusha',
