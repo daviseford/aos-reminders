@@ -82,6 +82,11 @@ const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   return `, MERCENARY COMPANY: ${p1.trim()}, ${suffix}`
 }
 
+const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
+  const suffix = p4.includes('Leader') ? `Role: Leader ,` : `, `
+  return `${suffix} ${p4}: ${p2}  `
+}
+
 const realmscapeReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
   return `, REALMSCAPE: ${p1.trim()}, ${suffix}`
@@ -159,12 +164,6 @@ const cleanAzyrText = (text: string) => {
 
   if (isDev) console.log('secondRun', secondRun)
 
-  const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
-    console.log('match', match)
-    const suffix = p4.includes('Leader') ? `Role: Leader ,` : `, `
-    return `${suffix} ${p4}: ${p2}  `
-  }
-
   const thirdRun = secondRun
     // Have to run this twice, really :(
     .replace(
@@ -206,7 +205,6 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
-    // .replace(prefixRegExp, '$1: ')
     .replace(/(UNIT): {2,4}/g, '$1: ')
     .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne)/g, '')
     .split(',')
