@@ -62,7 +62,7 @@ describe('handleAzyrPages', () => {
     console.log(res)
     expect(res).toEqual([
       'FACTION: Khar adr on Ov erlor ds',
-      'Skyport: Bar ak-Thr yng City of the Ancest ors',
+      'ALLEGIANCE: Bar ak-Thr yng City of the Ancest ors',
       'Khar adron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods',
       'Just In Case; These Ar e Just Guidelines',
       'UNIT: Aether-Khemist',
