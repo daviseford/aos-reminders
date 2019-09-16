@@ -1,12 +1,14 @@
 import { readFileSync } from 'fs'
 import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
+import BoCJSON from './fixtures/azyr/json/BoC.json'
 import ChamonJSON from './fixtures/azyr/json/Chamon.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 import KhorneJSON from './fixtures/azyr/json/Khorne.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
 import LoGJSON from './fixtures/azyr/json/LoG.json'
 import NagashJSON from './fixtures/azyr/json/Newgash.json'
+import GHoNJSON from './fixtures/azyr/json/GHoN.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
 import Nurgle2JSON from './fixtures/azyr/json/Nurgle_2.json'
@@ -62,9 +64,115 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles a Beasts of Chaos pdf', () => {
+    const res = handleAzyrPages(BoCJSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Beasts of Chaos',
+      'UNIT: Beastlord',
+      'ARTIFACT: The Knowing Eye',
+      'UNIT: Doombull',
+      'COMMAND TRAIT: Rampant Juggernaut',
+      'ARTIFACT: Black ened Armour of Chaos',
+      'UNIT: Dragon Ogor Shaggoth',
+      'SPELL: Sundering Blades',
+      'UNIT: Great Bray-Shaman',
+      'SPELL: Tendrils of Atrophy',
+      'UNIT: Tzaangor Shaman',
+      'SPELL: Titanic Fur',
+      'ALLY: Sayl the Faithless',
+      'ALLY: Theddra Skull-Scryer',
+      'ALLY: Darkoath Warqueen',
+      'UNIT: Bullgors',
+      'UNIT: Gors',
+      'UNIT: Ungors',
+      'UNIT: Chaos Gargant',
+      'UNIT: Chimera',
+      'UNIT: Cygor',
+      'UNIT: Ghorgon',
+      'UNIT: Jabberslythe',
+      'BATTALION: Brass Despoilers',
+      'BATTALION: Depraved Drove',
+      'BATTALION: Desolating Beastherd',
+      'BATTALION: Hungering Warherd',
+      'BATTALION: Marauding Brayherd',
+      'BATTALION: Pestilent Throng',
+      'BATTALION: Phantasmagoria of Fate',
+      'BATTALION: Thunderscorn Stormherd',
+      'UNIT: Bestigors',
+      'UNIT: Centigors',
+      'UNIT: Chaos Spawn',
+      'Mark: Beasts of Chaos',
+      'UNIT: Chaos Warhounds',
+      'UNIT: Cockatrice',
+      'UNIT: Dragon Ogors',
+      'UNIT: Razorgors',
+      'UNIT: Tuskgor Chariots',
+      'UNIT: Tzaangor Enlightened',
+      'UNIT: Tzaangor Skyfires',
+      'UNIT: Tzaangors',
+      'UNIT: Ungor Raiders',
+      'ALLY: Untamed Beasts',
+      'ALLY: Godsworn Hunt',
+      'ALLY: Furies',
+    ])
+  })
+
+  it('handles a Grand Host of Nagash pdf', () => {
+    const res = handleAzyrPages(GHoNJSON)
+    expect(res).toEqual([
+      'FACTION: Grand Host of Nagash',
+      'UNIT: Supreme Lord of the Undead',
+      'SPELL: Amethystine Pinions',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'SPELL: Fading Vigour',
+      'UNIT: Mannfred, Mortarch of Night',
+      'SPELL: Decr epify',
+      'UNIT: Neferata, Mortarch of Blood',
+      'SPELL: Spirit Gale',
+      'UNIT: Prince Vhordrai',
+      'SPELL: Amar anthine Orb',
+      'ALLY: Lady Olynder',
+      'ALLY: Reikenor The Grimhailer',
+      'ALLY: Varghulf Courtier',
+      'ARTIFACT: Balefir e Lantern',
+      'UNIT: Zombies',
+      'UNIT: Skeleton Warriors',
+      'UNIT: Morghast Harbingers',
+      'UNIT: Morghast Archai',
+      'UNIT: Grave Guard',
+      'UNIT: Dire Wolves',
+      'UNIT: Chainrasp Horde',
+      'BATTALION: The First Cohort',
+      'UNIT: Bat Swarms',
+      'UNIT: Black Knights',
+      'UNIT: Blood Knights',
+      'UNIT: Corpse Cart',
+      'UNIT: Fell Bats',
+      'UNIT: Glaivewraith Stalkers',
+      'UNIT: Grimghast Reapers',
+      'UNIT: Hexwraiths',
+      'UNIT: Legion Black Coach',
+      'UNIT: Spirit Hosts',
+      'UNIT: The Sepulchral Guard',
+      'UNIT: Vargheists',
+      'ALLY: Bladegheist Revenants',
+      'ALLY: Chainghasts',
+      'ALLY: Crypt Flayers',
+      'ALLY: Crypt Horrors',
+      'ALLY: Dreadscythe Harridans',
+      'ALLY: Glaivewraith Stalkers',
+      'ENDLESS SPELL: Horrorghast',
+      'ENDLESS SPELL: Lauchon the Soulseeker',
+      'ENDLESS SPELL: Soulscream Bridge',
+      'ENDLESS SPELL: Soulsnare Shackles',
+      'ENDLESS SPELL: Suffocating Gravetide',
+      'ENDLESS SPELL: Vault of Souls',
+    ])
+  })
+
   it('handles a Khorne pdf', () => {
     const res = handleAzyrPages(KhorneJSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Khorne',
       'Slaughterhost: Skullfiend Tribe',
