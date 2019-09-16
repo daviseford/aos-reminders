@@ -87,7 +87,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
     .replace(/(Allegiance: {2}.+?) (Leader Battleline|Leader|Realm of Battle)/g, leaderReplacer)
     .replace(
-      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+(Leader Battleline|,|(?:$))/g,
+      /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+?(Leader Battleline|Leader|,|(?:$))/g,
       ', REALMSCAPE: $1, '
     )
     .replace(/Leader Battleline/g, '')
