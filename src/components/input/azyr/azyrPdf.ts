@@ -1,5 +1,5 @@
 import pdfjsLib from 'pdfjs-dist'
-import { uniq } from 'lodash'
+import { uniq, first } from 'lodash'
 import { isDev } from 'utils/env'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
@@ -110,11 +110,17 @@ const betterFirstRun = (text: string) => {
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
-    .replace(/ See the .+ of this unit/g, sep)
+    // .replace(/ See the .+ of this unit/g, sep)
+    .replace(/ {3}[\w-& ]+ See the .+ of this unit/g, ' ')
     .replace(/\|/g, sep)
     .replace(/(Kharadron Code: [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
 
   return secondRun
+}
+
+const removeDuplicateBehemoth = match => {
+  console.log(first(match.split('  ')), match)
+  return `${first(match.split('  '))}`
 }
 
 const cleanAzyrText = (text: string) => {
