@@ -152,8 +152,11 @@ const cleanAzyrText = (text: string) => {
     // These next two lines handle Nagash, Supreme Lord of the Undead
     // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
     .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, ` $3: $1  `)
-
     .replace(/&& (.+)(, )(.+) &&/g, `, $1${commaAlt} $3, `)
+    .replace(
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
+      ', $4: $2&& $3 ,'
+    )
 
   if (isDev) console.log('third', thirdRun)
 
