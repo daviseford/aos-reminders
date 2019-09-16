@@ -82,7 +82,7 @@ const factionReplacer = (match, p1, p2) => {
   return `FACTION: ${p1.trim()}, ${suffix}`
 }
 
-const betterFirstRun = (text: string) => {
+const handleFirstPass = (text: string) => {
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,3}(Leader|Battleline|Other) {1,3}, {1,3}Behemoth /g, 'Role: Leader')
@@ -93,14 +93,18 @@ const betterFirstRun = (text: string) => {
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(Leader Battleline|Leader)/g, ', MERCENARY COMPANY: $1, ')
+    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whtiespace in front of existing commas
+    .replace(
+      /Mercenary Company: {1,3}([\w-' ]+)(Leader Battleline|Leader|(?:$))/g,
+      ', MERCENARY COMPANY: $1, '
+    )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
-  if (isDev) console.log('realFirst', firstRun)
+  if (isDev) console.log('handleFirst', firstRun)
 
   const secondRun = firstRun
     .replace(
-      /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:)/g,
+      /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|(?:$))/g,
       factionReplacer
     )
     .replace(
@@ -117,15 +121,15 @@ const betterFirstRun = (text: string) => {
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
 
-  if (isDev) console.log('realSecond', secondRun)
+  if (isDev) console.log('handleSecond', secondRun)
 
   return secondRun
 }
 
 const cleanAzyrText = (text: string) => {
-  const firstRun = betterFirstRun(text)
+  const firstRun = handleFirstPass(text)
 
-  if (isDev) console.log('firstRun', firstRun)
+  if (isDev) console.log('combinedFirst', firstRun)
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
@@ -147,7 +151,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('sec', secondRun)
+  if (isDev) console.log('secondRun', secondRun)
 
   const thirdRun = secondRun
     // Have to run this twice, really :(
@@ -164,9 +168,9 @@ const cleanAzyrText = (text: string) => {
       ', $4: $2&& $3 ,'
     )
 
-  if (isDev) console.log('third', thirdRun)
+  if (isDev) console.log('thirdRun', thirdRun)
 
-  const fourth = thirdRun
+  const fourthRun = thirdRun
     // Now handle normal units
     .replace(
       /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
@@ -215,9 +219,9 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('fourth', fourth)
+  if (isDev) console.log('fourthRun', fourthRun)
 
-  return fourth
+  return fourthRun
 }
 
 const replacer = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
