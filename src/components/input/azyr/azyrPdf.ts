@@ -190,7 +190,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/Weapon:/g, 'WEAPON:')
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
-    .replace(/(UNIT:|,) ([\w- ]+) Ally/g, 'ALLY: $2')
+    .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne)/g, '')
     .split(',')
     .map(x => {

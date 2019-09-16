@@ -105,7 +105,7 @@ describe('handleAzyrPages', () => {
       'ALLY: Thunderers',
       'UPGRADE: Standard Bearer',
       'UPGRADE: Drummers',
-      "UNIT: Steelheart's Champions Ally",
+      "ALLY: Steelheart's Champions",
     ])
   })
 
