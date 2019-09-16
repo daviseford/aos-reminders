@@ -60,7 +60,9 @@ export const handleAzyrPages = (pages: string[]) => {
   const splitText = joinedPages
     .filter(x => {
       if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
-      console.log('Missing a prefix: ' + x)
+
+      if (isDev) console.log('Missing a prefix: ' + x)
+
       return !joinedPages.some(s => s.includes(x) && s !== x)
     })
     .map(x => x.replace(/&&/g, ','))
@@ -79,6 +81,8 @@ const cleanAzyrText = (text: string) => {
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(typoRegexp, match => commonTypos[match])
+    .replace(allegianceRegexp, 'ALLEGIANCE:')
+    .replace(/ALLEGIANCE:.+?\|/, x => x.replace(/,/g, commaAlt))
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
     .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
     .replace(/(Allegiance: {2}.+?) (Leader Battleline|Leader|Realm of Battle)/g, leaderReplacer)
@@ -112,7 +116,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  console.log('sec', secondRun)
+  if (isDev) console.log('sec', secondRun)
 
   const thirdRun = secondRun
     // Have to run this twice, really :(
@@ -168,10 +172,7 @@ const cleanAzyrText = (text: string) => {
   return thirdRun
 }
 
-const replacer = (match: string, p1: string, p2: string) => {
-  console.log(match, 'asdad', p1)
-  return `${p1}, ${p2}:`
-}
+const replacer = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
 const prefixTypes = [
   'ALLEGIANCE',
@@ -192,6 +193,7 @@ const prefixTypes = [
 ]
 
 const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport']
+const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
   'Ar tiller y': 'Artillery',
