@@ -128,7 +128,7 @@ const handleFirstPass = (text: string) => {
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
     // .replace(/ See the .+ of this unit/g, sep)
-    .replace(/ {3}[\w-& ]+ See the .+ of this unit/g, ' ')
+    .replace(/ {3}[\w-& ]+ See the .+? of this unit/g, ' ')
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
     .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
@@ -213,7 +213,7 @@ const cleanAzyrText = (text: string) => {
     .split(',')
     .map(x => {
       x = x.trim()
-      x = x.replace(/Behemoth /g, '')
+      x = x.replace(/(Behemoths|Behemoth) /g, '')
       x = x.replace(/^Other /g, '')
 
       x = x.trim()
