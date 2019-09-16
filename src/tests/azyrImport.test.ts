@@ -218,7 +218,7 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(KhorneJSON)
     expect(res).toEqual([
       'FACTION: Khorne',
-      'Slaughterhost: Skullfiend Tribe',
+      'ALLEGIANCE: Skullfiend Tribe',
       'UNIT: Bloodsecrator',
       'UNIT: Bloodstoker',
       'UNIT: Bloodthirster',

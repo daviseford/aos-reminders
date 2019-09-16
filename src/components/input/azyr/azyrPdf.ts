@@ -96,6 +96,8 @@ const betterFirstRun = (text: string) => {
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(Leader Battleline|Leader)/g, ', MERCENARY COMPANY: $1, ')
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
+  if (isDev) console.log('realFirst', firstRun)
+
   const secondRun = firstRun
     .replace(
       /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:)/g,
@@ -113,14 +115,11 @@ const betterFirstRun = (text: string) => {
     // .replace(/ See the .+ of this unit/g, sep)
     .replace(/ {3}[\w-& ]+ See the .+ of this unit/g, ' ')
     .replace(/\|/g, sep)
-    .replace(/(Kharadron Code: [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
+
+  if (isDev) console.log('realSecond', secondRun)
 
   return secondRun
-}
-
-const removeDuplicateBehemoth = match => {
-  console.log(first(match.split('  ')), match)
-  return `${first(match.split('  '))}`
 }
 
 const cleanAzyrText = (text: string) => {
@@ -241,7 +240,7 @@ const prefixTypes = [
   'WEAPON',
 ]
 
-const allegianceTypes = ['Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport']
+const allegianceTypes = ['Slaughterhost', 'Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport']
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
