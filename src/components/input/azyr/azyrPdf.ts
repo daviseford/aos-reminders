@@ -36,7 +36,6 @@ export const getAzyrPdfText = async typedarray => {
             // height: 17.99999925
             // str: "Leader"
 
-            debugger
             return x.str
           })
           .join(' ')
@@ -71,9 +70,11 @@ export const handleAzyrPages = (pages: string[]) => {
   return splitText
 }
 
-// Fyreslayers Play Type: Matched | Game T ype: Meeting Engagement | Grand Alliance: Order | Allegiance: Fyreslayers Lodge: Hermdar Realm of Battle: AQSHY, The Realm of FIRE Spearhead Leader Other Main Body Leader 200pts Fjul-Grimnir Role: Leader Quantity: 1 200pts The Chosen Axes Role: Other Quantity: 3
-// Battleline Behemoth Rearguard Leader Behemoth 260pts Auric Runesmiter Gener al Role: Leader , Behemoth Quantity: 1 Command T rait: Warrior Indominate Artefact: Tyrant Sla yer Prayer: Prayer of Ash Mount T rait: Fire-claw Adult 160pts Vulkite Berzerkers Role: Battleline Quantity: 10 Auric Runesmiter See the "Leader " occurr ence of this unit 240pts Auric Runeson Role: Leader , Behemoth Quantity: 1
-// Total: 1000/1000pts 0pts/0pts Allies Army deemed valid by Azyr Roster Builder Other Magmic Inv ocations Auric Runeson See the "Leader " occurr ence of this unit 100pts Doomseeker Role: Other Quantity: 1 40pts Runic Fyrewall Role: Magmic Inv ocation
+const leaderReplacer = (text, p1, p2) => {
+  if (p2.startsWith('Leader')) return `${p1}, `
+  return `${p1}, ${p2}`
+}
+
 const cleanAzyrText = (text: string) => {
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
@@ -83,7 +84,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
     .replace(/Mercenar y Company/g, 'Mercenary Company')
     .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
-    .replace(/(Allegiance: {2}.+?) (Leader|Leader Battleline|Realm of Battle)/g, `$1, $2`)
+    .replace(/(Allegiance: {2}.+?) (Leader Battleline|Leader|Realm of Battle)/g, leaderReplacer)
     .replace(
       /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+(Leader Battleline|,|(?:$))/g,
       ', REALMSCAPE: $1, '
@@ -141,24 +142,40 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w- ]+) Ally/g, 'ALLY: $2')
+    .replace(/ [‘’]/g, `'`)
+    .replace(/[‘’]/g, `'`)
     .replace(/(Artillery|Battalions|Endless Spells)/g, '')
     .split(',')
     .map(x => {
       x = x.trim()
       x = x.replace(/Behemoth /g, '')
       x = x.replace(/^Other /g, '')
+
       const allegianceMatch = allegianceTypes.find(a => x.startsWith(`${a}:`))
       if (allegianceMatch) x = x.replace(allegianceMatch, 'ALLEGIANCE')
+
       x = x.trim()
+
       Object.keys(commonTypos).forEach(typo => {
         if (x.includes(typo)) x = x.replace(typo, commonTypos[typo])
       })
+
+      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), replacer)
+
       return x
     })
-    .filter(x => !!x && x !== 'Behemoth' && x !== 'Other')
+    .join(sep)
+    .split(sep)
+    .map(x => x.replace(/^(Leader|Battleline|Artillery|Behemoth|Other)$/g, ''))
+    .filter(x => !!x)
     .join(sep)
 
   return thirdRun
+}
+
+const replacer = (match: string, p1: string, p2: string) => {
+  console.log(match, 'asdad', p1)
+  return `${p1}, ${p2}:`
 }
 
 const prefixTypes = [
