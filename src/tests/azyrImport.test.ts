@@ -6,6 +6,7 @@ import ChamonJSON from './fixtures/azyr/json/Chamon.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 import KhorneJSON from './fixtures/azyr/json/Khorne.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
+import KO2JSON from './fixtures/azyr/json/KO2.json'
 import LoGJSON from './fixtures/azyr/json/LoG.json'
 import NagashJSON from './fixtures/azyr/json/Newgash.json'
 import GHoNJSON from './fixtures/azyr/json/GHoN.json'
@@ -64,9 +65,55 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles a long KO pdf', () => {
+    const res = handleAzyrPages(KO2JSON)
+    expect(res).toEqual([
+      'FACTION: Kharadron Overlords',
+      'ALLEGIANCE: Bar ak-Nar',
+      'City of the First Sunrise | Khar adron Code: Respect y our Commanders; Trust Aethermatics',
+      'Not Superstition; Thr ough Knowledge',
+      'Power; Without Our Ships',
+      'We Ar e Naught',
+      'UNIT: Aether-Khemist',
+      'COMMAND TRAIT: Champion of Pr ogr ess',
+      'UNIT: Aetheric Navigator',
+      'UNIT: Arkanaut Admiral',
+      'ARTIFACT: Staff of Ocular Optimisation',
+      'UNIT: Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'ALLY: Lord-Arcanum',
+      'ALLY: Knight-Incantor',
+      'ALLY: Lord-Exorcist',
+      'UNIT: Arkanaut Company',
+      'UNIT: Grundstok Gunhauler',
+      'UNIT: Arkanaut Frigate',
+      'UNIT: Arkanaut Ironclad',
+      'BATTALION: Aetherstrike Force',
+      'BATTALION: Iron Sky Command',
+      'BATTALION: Grand Armada',
+      'BATTALION: Grundstok Escort Wing',
+      'BATTALION: Iron Sky Squadron',
+      'UNIT: Endrinriggers',
+      'UNIT: Prosecutors',
+      'WEAPON: Celestial Hammer(s)',
+      'WEAPON: Grandhammer',
+      'UNIT: Skywardens',
+      "UNIT: Thundrik's Profiteers",
+      'ALLY: Evocators',
+      'ALLY: Gyrobombers',
+      'ALLY: Gyrocopters',
+      'ALLY: Hammerers',
+      'ALLY: Ironbreakers',
+      'ALLY: Irondrakes',
+      'ALLY: Quarrellers',
+      'ALLY: Thunderers',
+      'UPGRADE: Standard Bearer',
+      'UPGRADE: Drummers',
+      "UNIT: Steelheart's Champions Ally",
+    ])
+  })
+
   it('handles a Beasts of Chaos pdf', () => {
     const res = handleAzyrPages(BoCJSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Beasts of Chaos',
       'UNIT: Beastlord',
@@ -520,7 +567,7 @@ describe('handleAzyrPages', () => {
   it('handles a KO army', () => {
     const res = handleAzyrPages(KO1JSON)
     expect(res).toEqual([
-      'FACTION: Khar adr on Ov erlor ds',
+      'FACTION: Kharadron Overlords',
       'ALLEGIANCE: Bar ak-Thr yng City of the Ancest ors',
       'Khar adron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods',
       'Just In Case; These Ar e Just Guidelines',

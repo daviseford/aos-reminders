@@ -104,6 +104,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/ {2,4}/g, ' ')
     .replace(/ [‘’]/g, `'`)
     .replace(/[‘’]/g, `'`)
+    .replace(/([\w]) 's /g, `$1's `)
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       '$1: $2, $3'
@@ -129,17 +130,17 @@ const cleanAzyrText = (text: string) => {
     .replace(/&& (.+)(, )(.+) &&/g, `, $1${commaAlt} $3, `)
     // Now handle normal units
     .replace(
-      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
+      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
       ', $3: $2, '
     )
     .replace(/ {2,4}/g, ' ')
     .replace(
-      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Other)/g,
+      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
       ', $3: $2, '
     )
     .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
     .replace(/Battalion:/g, 'BATTALION:')
-    .replace(/Endless Spell:/g, 'ENDLESS SPELL:')
+    .replace(/(Endless Spell|Judgement of Khorne):/g, 'ENDLESS SPELL:')
     .replace(/Command Trait:/g, 'COMMAND TRAIT:')
     .replace(/Mount Trait:/g, 'MOUNT TRAIT:')
     .replace(/Spell:/g, 'SPELL:')
@@ -147,7 +148,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w- ]+) Ally/g, 'ALLY: $2')
-    .replace(/(Artillery|Battalions|Endless Spells)/g, '')
+    .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne)/g, '')
     .split(',')
     .map(x => {
       x = x.trim()
@@ -209,6 +210,7 @@ const commonTypos = {
   'T ype': 'Type',
   'Sky Port': 'Skyport',
   'Warpfir e': 'Warpfire',
+  'Khar adr on Ov erlor ds': 'Kharadron Overlords',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
