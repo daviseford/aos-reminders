@@ -90,7 +90,7 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
 const handleFirstPass = (text: string) => {
   const firstRun = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
-    .replace(/Role: {1,3}(Leader|Battleline|Other) {1,3}, {1,3}Behemoth /g, 'Role: Leader')
+    .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/ [‘’]/g, `'`)
     .replace(/[‘’]/g, `'`)
     .replace(/([\w]) {1,3}'s /g, `$1's `)
@@ -100,7 +100,7 @@ const handleFirstPass = (text: string) => {
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whtiespace in front of existing commas
     .replace(
-      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command | Leader Battleline|Leaders|Leader|(?:$))/g,
+      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command| Leader Battleline|Leaders|Leader|(?:$))/g,
       mercenaryReplacer
     )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
@@ -138,6 +138,7 @@ const cleanAzyrText = (text: string) => {
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
+    .replace(sceneryRegExp, ', SCENERY: $1, ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\)) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
@@ -158,6 +159,12 @@ const cleanAzyrText = (text: string) => {
 
   if (isDev) console.log('secondRun', secondRun)
 
+  const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
+    console.log('match', match)
+    const suffix = p4.includes('Leader') ? `Role: Leader ,` : `, `
+    return `${suffix} ${p4}: ${p2}  `
+  }
+
   const thirdRun = secondRun
     // Have to run this twice, really :(
     .replace(
@@ -166,8 +173,11 @@ const cleanAzyrText = (text: string) => {
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
     // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
-    .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, ` $3: $1  `)
-    .replace(/&& (.+)(, )(.+) &&/g, `, $1${commaAlt} $3, `)
+    // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, ` $3: $1  `)
+    .replace(
+      /(Role: Leader +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g,
+      nagashReplacer
+    )
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
       ', $4: $2&& $3 ,'
@@ -207,7 +217,11 @@ const cleanAzyrText = (text: string) => {
 
       x = x.trim()
 
-      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator)
+      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
+      x = x.replace(
+        /^Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)$/g,
+        ''
+      )
       return x
     })
     .join(sep)
