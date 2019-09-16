@@ -125,20 +125,6 @@ const betterFirstRun = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstRun = betterFirstRun(text)
 
-  // const firstRun = text
-  //   .replace(/([A-Z]) ([a-z])/g, `$1$2`)
-  //   .replace(typoRegexp, match => commonTypos[match])
-  //   .replace(allegianceRegexp, 'ALLEGIANCE:')
-  //   .replace(/ALLEGIANCE:.+?\|/, x => x.replace(/,/g, commaAlt))
-  //   .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
-  //   .replace(/.+Play Type: {2}.+ {2}\| {2}/g, '') // Removes "[army name] Play Type:  Open  |  Grand Alliance:  Order  |  "
-  //   .replace(/(Allegiance: {2}.+?) (Leader Battleline|Leader|Realm of Battle)/g, leaderReplacer)
-  //   .replace(
-  //     /Realm of Battle:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU), [\w- ]+?(Leader Battleline|Leader|,|(?:$))/g,
-  //     ', REALMSCAPE: $1, '
-  //   )
-  //   .replace(/Leader Battleline/g, '')
-
   if (isDev) console.log('firstRun', firstRun)
 
   const secondRun = firstRun
@@ -166,7 +152,12 @@ const cleanAzyrText = (text: string) => {
     // These next two lines handle Nagash, Supreme Lord of the Undead
     // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
     .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, ` $3: $1  `)
+
     .replace(/&& (.+)(, )(.+) &&/g, `, $1${commaAlt} $3, `)
+
+  if (isDev) console.log('third', thirdRun)
+
+  const fourth = thirdRun
     // Now handle normal units
     .replace(
       /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
@@ -215,9 +206,9 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('third', thirdRun)
+  if (isDev) console.log('fourth', fourth)
 
-  return thirdRun
+  return fourth
 }
 
 const replacer = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
