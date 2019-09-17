@@ -6,9 +6,8 @@ import { titleCase } from 'utils/textUtils'
 
 const sep = ', '
 const commaAlt = `&&`
-const HEADER = 'HEADER'
 
-export const getAzyrPdfText = async typedarray => {
+const getAzyrPdfText = async typedarray => {
   try {
     pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
 
@@ -35,7 +34,6 @@ export const getAzyrPdfText = async typedarray => {
             // fontName: "g_d0_f1"
             // height: 17.99999925
             // str: "Leader"
-            if (x.height > 15) return HEADER
 
             return x.str
           })
@@ -51,7 +49,7 @@ export const getAzyrPdfText = async typedarray => {
   }
 }
 
-export const handleAzyrPages = (pages: string[]) => {
+const handleAzyrPages = (pages: string[]) => {
   const cleanedPages = pages.map(cleanAzyrText)
 
   // console.log('cleanedPages', cleanedPages)
@@ -62,7 +60,7 @@ export const handleAzyrPages = (pages: string[]) => {
     .filter(x => {
       if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
 
-      // if (isDev) console.log('Missing a prefix: ' + x)
+      if (isDev) console.log('Missing a prefix: ' + x)
 
       return !joinedPages.some(s => s.includes(x) && s !== x)
     })
@@ -95,7 +93,6 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
 
 const handleFirstPass = (text: string) => {
   const firstRun = text
-    .replace(/HEADER( |HEADER)/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/ [‘’]/g, `'`)
@@ -108,18 +105,21 @@ const handleFirstPass = (text: string) => {
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
+    .replace(
+      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command|Leader Battleline|Leaders|Leader|(?:$))/g,
+      mercenaryReplacer
+    )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
-  // if (isDev) console.log('handleFirst', firstRun)
+  if (isDev) console.log('handleFirst', firstRun)
 
   const secondRun = firstRun
     .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      /.+?Allegiance:([\w-' ]+)(Leader Battleline|Leaders|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
     )
     .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|Mercenary|(?:$))/g,
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leaders|Leader|,|Mercenary|(?:$))/g,
       realmscapeReplacer
     )
     .replace(/Army deemed .+valid/g, ' ')
@@ -133,11 +133,11 @@ const handleFirstPass = (text: string) => {
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
     .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1${sep}`) // KO stuff
     .replace(/ Leaders /g, ` `)
     .replace(/ Scenery /g, ' ')
 
-  // if (isDev) console.log('handleSecond', secondRun)
+  if (isDev) console.log('handleSecond', secondRun)
 
   return secondRun
 }
@@ -145,7 +145,7 @@ const handleFirstPass = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstRun = handleFirstPass(text)
 
-  // if (isDev) console.log('combinedFirst', firstRun)
+  if (isDev) console.log('combinedFirst', firstRun)
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
@@ -165,7 +165,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  // if (isDev) console.log('secondRun', secondRun)
+  if (isDev) console.log('secondRun', secondRun)
 
   const thirdRun = secondRun
     // Have to run this twice, really :(
@@ -207,9 +207,13 @@ const cleanAzyrText = (text: string) => {
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .replace(/(UNIT): {2,4}/g, '$1: ')
-    .replace(/HEADER/g, '')
+    .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne|Magmic Invocation)/g, '')
     .split(',')
     .map(x => {
+      x = x.trim()
+      x = x.replace(/(Behemoths|Behemoth) /g, '')
+      x = x.replace(/^Other /g, '')
+
       x = x.trim()
 
       x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
@@ -224,7 +228,9 @@ const cleanAzyrText = (text: string) => {
     .map(x => {
       return x
         .split(' ')
-        .map(y => y.replace(/HEADER/g, ''))
+        .map(y =>
+          y.replace(/^(Allies|Units|Battlelines|Battleline|Artillery|Behemoths|Behemoth|Other)$/g, '')
+        )
         .join(' ')
         .replace(/ {2,}/g, ' ')
         .trim()
