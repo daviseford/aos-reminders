@@ -6,14 +6,18 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { Profile } from 'components/routes/Profile'
 import { Subscribe } from 'components/routes/Subscribe'
+import qs from 'qs'
 import { logEvent } from 'utils/analytics'
 
 const handleCheckout = () => {
-  if (window.location.search.includes('subscribed=true')) {
-    logEvent('Checkout-Subscribed')
-    window.history.replaceState({}, document.title, window.location.pathname)
-  } else if (window.location.search.includes('canceled=true')) {
-    logEvent('Checkout-Canceled')
+  const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  })
+
+  if (subscribed) logEvent(`Checkout-Subscribed-${plan}`)
+  if (canceled) logEvent(`Checkout-Canceled-${plan}`)
+
+  if (subscribed || canceled) {
     window.history.replaceState({}, document.title, window.location.pathname)
   }
 }
