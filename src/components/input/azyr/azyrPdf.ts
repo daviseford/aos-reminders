@@ -113,11 +113,11 @@ const handleFirstPass = (text: string) => {
 
   const secondRun = firstRun
     .replace(
-      /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|(?:$))/g,
+      /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leaders|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|(?:$))/g,
       factionReplacer
     )
     .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leader|,|Mercenary|(?:$))/g,
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leaders|Leader|,|Mercenary|(?:$))/g,
       realmscapeReplacer
     )
     .replace(/Army deemed .+valid/g, ' ')
@@ -131,7 +131,7 @@ const handleFirstPass = (text: string) => {
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
     .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leader|Leader Battleline)/g, `$1 `) // KO stuff
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1 `) // KO stuff
 
   if (isDev) console.log('handleSecond', secondRun)
 
