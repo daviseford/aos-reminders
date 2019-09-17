@@ -57,10 +57,7 @@ export const handleAzyrPages = (pages: string[]) => {
 
   const splitText = joinedPages
     .filter(x => {
-      if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
-
       // if (isDev) console.log('Missing a prefix: ' + x)
-
       return !joinedPages.some(s => s.includes(x) && s !== x)
     })
     .map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
@@ -70,20 +67,8 @@ export const handleAzyrPages = (pages: string[]) => {
   return splitText
 }
 
-const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
-
-const mercenaryReplacer = (match: string, p1: string, p2: string) => {
-  const suffix = p2 === 'Extra Command' ? p2 : ``
-  return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
-}
-
-const realmscapeReplacer = (match: string, p1: string, p2: string) => {
-  const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
-  return `${sep}REALMSCAPE: ${p1.trim()}${sep}${suffix}`
-}
-
 const handleFirstPass = (text: string) => {
-  const firstRun = text
+  const titlePass = text
     .replace(/HEADER( HEADER)+/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
@@ -100,9 +85,7 @@ const handleFirstPass = (text: string) => {
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
-  // if (isDev) console.log('handleFirst', firstRun)
-
-  const secondRun = firstRun
+  const secondaryPass = titlePass
     .replace(
       /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
@@ -126,17 +109,15 @@ const handleFirstPass = (text: string) => {
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
     .replace(/HEADER/g, ' ')
 
-  // if (isDev) console.log('handleSecond', secondRun)
-
-  return secondRun
+  return secondaryPass
 }
 
 const cleanAzyrText = (text: string) => {
-  const firstRun = handleFirstPass(text)
+  const firstPass = handleFirstPass(text)
 
-  // if (isDev) console.log('combinedFirst', firstRun)
+  // if (isDev) console.log('firstPass', firstPass)
 
-  const secondRun = firstRun
+  const secondPass = firstPass
     .replace(/ {2,4}/g, ' ')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
     // This one in case of a '(s)' on the end of a trait/weapon
@@ -154,9 +135,9 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  // if (isDev) console.log('secondRun', secondRun)
+  // if (isDev) console.log('secondPass', secondPass)
 
-  const thirdRun = secondRun
+  const thirdPass = secondPass
     // Have to run this twice, really :(
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
@@ -169,20 +150,16 @@ const cleanAzyrText = (text: string) => {
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
-  // if (isDev) console.log('thirdRun', thirdRun)
+  // if (isDev) console.log('thirdPass', thirdPass)
 
-  const fourthRun = thirdRun
+  const fourthPass = thirdPass
     // Now handle normal units
     .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
     .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
-    .replace(/Battalion:/g, 'BATTALION:')
-    .replace(/Command Trait:/g, 'COMMAND TRAIT:')
-    .replace(/Mount Trait:/g, 'MOUNT TRAIT:')
-    .replace(/Spell:/g, 'SPELL:')
-    .replace(/Weapon:/g, 'WEAPON:')
-    .replace(/Artefact:/g, 'ARTIFACT:')
-    .replace(/Upgrade:/g, 'UPGRADE:')
+    .replace(/(Artefact|Battalion|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, (x: string) =>
+      x.toUpperCase()
+    )
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .split(',')
     .join(sep)
@@ -191,9 +168,21 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  // if (isDev) console.log('fourthRun', fourthRun)
+  // if (isDev) console.log('fourthPass', fourthPass)
 
-  return fourthRun
+  return fourthPass
+}
+
+const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
+
+const mercenaryReplacer = (match: string, p1: string, p2: string) => {
+  const suffix = p2 === 'Extra Command' ? p2 : ``
+  return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
+}
+
+const realmscapeReplacer = (match: string, p1: string, p2: string) => {
+  const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
+  return `${sep}REALMSCAPE: ${p1.trim()}${sep}${suffix}`
 }
 
 const spellTypes = ['Spell', 'Prayer']
@@ -204,24 +193,6 @@ const unitRegexp = new RegExp(`Role: {1,4}(${unitTypes.join('|')})`, 'g')
 
 const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne']
 const endlessRegexp = new RegExp(`Role: {1,4}(${endlessTypes.join('|')})`, 'g')
-
-const prefixTypes = [
-  'ALLEGIANCE',
-  'ALLY',
-  'ARTIFACT',
-  'BATTALION',
-  'COMMAND TRAIT',
-  'ENDLESS SPELL',
-  'FACTION',
-  'MERCENARY COMPANY',
-  'MOUNT TRAIT',
-  'REALMSCAPE',
-  'SPELL',
-  'SPELL',
-  'UNIT',
-  'UPGRADE',
-  'WEAPON',
-]
 
 const allegianceTypes = [
   'Enclave',
