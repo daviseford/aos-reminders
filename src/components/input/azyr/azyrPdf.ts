@@ -53,9 +53,6 @@ export const getAzyrPdfText = async typedarray => {
 
 export const handleAzyrPages = (pages: string[]) => {
   const cleanedPages = pages.map(cleanAzyrText)
-
-  // console.log('cleanedPages', cleanedPages)
-
   const joinedPages = uniq(cleanedPages.join(sep).split(sep))
 
   const splitText = joinedPages
@@ -103,7 +100,7 @@ const handleFirstPass = (text: string) => {
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
-  if (isDev) console.log('handleFirst', firstRun)
+  // if (isDev) console.log('handleFirst', firstRun)
 
   const secondRun = firstRun
     .replace(
@@ -129,7 +126,7 @@ const handleFirstPass = (text: string) => {
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
     .replace(/HEADER/g, ' ')
 
-  if (isDev) console.log('handleSecond', secondRun)
+  // if (isDev) console.log('handleSecond', secondRun)
 
   return secondRun
 }
@@ -137,7 +134,7 @@ const handleFirstPass = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstRun = handleFirstPass(text)
 
-  if (isDev) console.log('combinedFirst', firstRun)
+  // if (isDev) console.log('combinedFirst', firstRun)
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
@@ -157,7 +154,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('secondRun', secondRun)
+  // if (isDev) console.log('secondRun', secondRun)
 
   const thirdRun = secondRun
     // Have to run this twice, really :(
@@ -172,7 +169,7 @@ const cleanAzyrText = (text: string) => {
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
-  if (isDev) console.log('thirdRun', thirdRun)
+  // if (isDev) console.log('thirdRun', thirdRun)
 
   const fourthRun = thirdRun
     // Now handle normal units
@@ -194,7 +191,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('fourthRun', fourthRun)
+  // if (isDev) console.log('fourthRun', fourthRun)
 
   return fourthRun
 }
