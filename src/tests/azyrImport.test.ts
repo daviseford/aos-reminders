@@ -114,7 +114,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Sisters of the Watch',
       'UNIT: Wild Riders',
       'UNIT: Wildwood Rangers',
-      'BATTALION: Scenery Waystone Pathfinders',
+      'BATTALION: Waystone Pathfinders',
       'SCENERY: Penumbral Engine',
     ])
   })
@@ -436,7 +436,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Razordons',
       "UNIT: Steelheart's Champions",
       "UNIT: Stormsire's Cursebreakers",
-      'ENDLESS SPELL: Scenery Geminids of Uhl-Gysh',
+      'ENDLESS SPELL: Geminids of Uhl-Gysh',
       "ENDLESS SPELL: Scrapskuttle's Arachnacauldron",
       'SCENERY: Penumbral Engine',
     ])
