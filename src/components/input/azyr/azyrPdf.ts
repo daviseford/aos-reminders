@@ -73,18 +73,11 @@ export const handleAzyrPages = (pages: string[]) => {
   return splitText
 }
 
-const factionReplacer = (match: string, p1: string, p2: string) => {
-  const suffix = p2.includes('Leader') ? `` : p2
-  return `FACTION: ${p1.trim()}${sep}${suffix}`
-}
+const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
 
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
   return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
-}
-
-const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
-  return `${sep} ${p4}: ${p2}  `
 }
 
 const realmscapeReplacer = (match: string, p1: string, p2: string) => {
@@ -171,7 +164,7 @@ const cleanAzyrText = (text: string) => {
       `$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
+    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
       `${sep}$4: $2${commaAlt} $3 ,`
