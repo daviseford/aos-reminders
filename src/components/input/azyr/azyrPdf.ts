@@ -114,7 +114,7 @@ const handleFirstPass = (text: string) => {
 
   const secondRun = firstRun
     .replace(
-      /.+?Allegiance: ([\w-' ]+)(Leader Battleline|Leaders|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|(?:$))/g,
+      /.+?Allegiance:([\w-' ]+)(Leader Battleline|Leaders|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
     )
     .replace(
@@ -172,15 +172,13 @@ const cleanAzyrText = (text: string) => {
       `$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
-    // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, ` $3: $1  `)
     .replace(
       /(Role: Leader +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g,
       nagashReplacer
     )
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
-      `${sep}$4: $2&& $3 ,`
+      `${sep}$4: $2${commaAlt} $3 ,`
     )
 
   if (isDev) console.log('thirdRun', thirdRun)
