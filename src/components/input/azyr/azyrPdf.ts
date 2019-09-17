@@ -84,8 +84,7 @@ const mercenaryReplacer = (match: string, p1: string, p2: string) => {
 }
 
 const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
-  const suffix = p4.includes('Leader') ? `Role: Leader ,` : sep
-  return `${suffix} ${p4}: ${p2}  `
+  return `${sep} ${p4}: ${p2}  `
 }
 
 const realmscapeReplacer = (match: string, p1: string, p2: string) => {
@@ -119,9 +118,10 @@ const handleFirstPass = (text: string) => {
       factionReplacer
     )
     .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|Mercenary|(?:$))/g,
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
       realmscapeReplacer
     )
+    .replace(/Role: {1,4}(Leader|Battleline|Artillery|Behemoth|Other)/g, 'Role: UNIT')
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
     .replace(/[0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
@@ -130,11 +130,9 @@ const handleFirstPass = (text: string) => {
     .replace(markRegexp, ' ')
     .replace(/ {3}[\w-& ]+ See the .+? of this unit/g, ' ')
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
-    .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
-    .replace(/ Leaders /g, ` `)
-    .replace(/ Scenery /g, ' ')
+    .replace(/HEADER/g, ' ')
 
   if (isDev) console.log('handleSecond', secondRun)
 
@@ -144,7 +142,7 @@ const handleFirstPass = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstRun = handleFirstPass(text)
 
-  // if (isDev) console.log('combinedFirst', firstRun)
+  if (isDev) console.log('combinedFirst', firstRun)
 
   const secondRun = firstRun
     .replace(/ {2,4}/g, ' ')
@@ -164,7 +162,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  // if (isDev) console.log('secondRun', secondRun)
+  if (isDev) console.log('secondRun', secondRun)
 
   const thirdRun = secondRun
     // Have to run this twice, really :(
@@ -173,12 +171,9 @@ const cleanAzyrText = (text: string) => {
       `$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
+    .replace(/(Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
-      /(Role: Leader +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g,
-      nagashReplacer
-    )
-    .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
@@ -187,15 +182,15 @@ const cleanAzyrText = (text: string) => {
   const fourthRun = thirdRun
     // Now handle normal units
     .replace(
-      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
+      /(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
       `${sep}$3: $2${sep}`
     )
     .replace(/ {2,4}/g, ' ')
     .replace(
-      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
+      /(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
       `${sep}$3: $2${sep}`
     )
-    .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
+    .replace(/UNIT:/g, 'UNIT:')
     .replace(/Battalion:/g, 'BATTALION:')
     .replace(/(Endless Spell|Judgement of Khorne|Magmic Invocation):/g, 'ENDLESS SPELL:')
     .replace(/Command Trait:/g, 'COMMAND TRAIT:')
@@ -206,28 +201,20 @@ const cleanAzyrText = (text: string) => {
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .replace(/(UNIT): {2,4}/g, '$1: ')
-    .replace(/HEADER/g, '')
     .split(',')
     .map(x => {
       x = x.trim()
 
       x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
       x = x.replace(
-        /^Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)$/g,
+        /^Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)$/g,
         ''
       )
       return x
     })
     .join(sep)
     .split(sep)
-    .map(x => {
-      return x
-        .split(' ')
-        .map(y => y.replace(/HEADER/g, ''))
-        .join(' ')
-        .replace(/ {2,}/g, ' ')
-        .trim()
-    })
+    .map(x => x.replace(/ {2,}/g, ' ').trim())
     .filter(x => !!x)
     .join(sep)
 

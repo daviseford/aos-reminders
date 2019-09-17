@@ -80,7 +80,7 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
-  it('handles a SCE matched play pdf', () => {
+  it('handles Stormcast2 pdf', () => {
     const res = handleAzyrPages(Stormcast2JSON)
     expect(res).toEqual([
       'FACTION: Stormcast Eternals',
@@ -278,7 +278,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Sloppity Bilepiper, Herald of Nurgle',
       'UNIT: Verminlord Warpseer',
       'UNIT: Viceleader',
-      'UNIT: Skalok The Skull Host of Khorne',
       'UNIT: Wrath of Khorne Bloodthirster',
       'UNIT: Daemonettes',
       'UNIT: Gors',
@@ -297,7 +296,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Tzeentch pdf', () => {
+  it('handles Tzeentch2 pdf', () => {
     const res = handleAzyrPages(Tzeentch2JSON)
     expect(res).toEqual([
       'FACTION: Tzeentch',
@@ -313,7 +312,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles another Nurgle pdf', () => {
+  it('handles Nurgle3 pdf', () => {
     const res = handleAzyrPages(Nurgle3JSON)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -442,7 +441,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a long KO pdf', () => {
+  it('handles KO2 pdf', () => {
     const res = handleAzyrPages(KO2JSON)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
@@ -759,7 +758,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Nurgle pdf', () => {
+  it('handles Nurgle1 pdf', () => {
     const res = handleAzyrPages(Nurgle1JSON)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -821,7 +820,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a realistic Nurgle pdf', () => {
+  it('handles Nurgle2 pdf', () => {
     const res = handleAzyrPages(Nurgle2JSON)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -934,7 +933,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a KO army', () => {
+  it('handles KO1 army', () => {
     const res = handleAzyrPages(KO1JSON)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
