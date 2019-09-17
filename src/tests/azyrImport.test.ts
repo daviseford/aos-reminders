@@ -135,7 +135,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Mourngul',
       'UNIT: Chainghasts',
       'UNIT: Legion Black Coach',
-      'BATTALION: Total Execution Horde',
+      'BATTALION: Execution Horde',
       'BATTALION: The Condemned',
       'ENDLESS SPELL: Aethervoid Pendulum',
     ])
@@ -164,7 +164,7 @@ describe('handleAzyrPages', () => {
       'BATTALION: Anvils of the Heldenhammer Warrior Chamber',
       "BATTALION: Blacktalon's Shadowhammers",
       'BATTALION: Thunderwave Echelon',
-      'BATTALION: Total Vanguard Angelos Conclave',
+      'BATTALION: Vanguard Angelos Conclave',
       'ENDLESS SPELL: Mesmerising Mirror',
     ])
   })
@@ -212,7 +212,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Thundertusk Beastriders',
       'UNIT: Grot Scraplauncher',
       'UNIT: Ironblaster',
-      'UNIT: Total Squig Gobba',
+      'UNIT: Squig Gobba',
       "UNIT: Ironskull's Boyz",
       'UNIT: Maneaters',
       'UNIT: Orruk Gore-gruntas',
@@ -291,7 +291,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Plagueclaw',
       'UNIT: Warp Lightning Cannon',
       'UNIT: Warplock Jezzails',
-      'UNIT: Total Warplock Jezzails',
       'UNIT: Brimstone Horrors of Tzeentch',
       'UNIT: Burning Chariots of Tzeentch',
       'UNIT: Warp-Grinder',
@@ -398,7 +397,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Sisters of Slaughter',
       'UNIT: Witch Aelves',
       'UNIT: Avatar of Khaine',
-      'Total Bloodwrack Shrine',
       'UNIT: Blood Stalkers',
       'BATTALION: War Coven of Morathi',
       'ENDLESS SPELL: Wheels of Excruciation',
