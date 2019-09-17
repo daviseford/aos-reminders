@@ -260,14 +260,15 @@ const prefixTypes = [
 ]
 
 const allegianceTypes = [
-  'Slaughterhost',
-  'Host',
   'Glade',
-  'Lodge',
+  'Grand Court',
   'Greatfray',
+  'Host',
+  'Lodge',
   'Skyport',
-  'Temple',
+  'Slaughterhost',
   'Stormhost',
+  'Temple',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
@@ -277,16 +278,16 @@ const commonTypos = {
   'Boltst orm': 'Boltstorm',
   'Def ender': 'Defender',
   'Gener al': '',
+  'Khar adr on Ov erlor ds': 'Kharadron Overlords',
+  'Khar adron': 'Kharadron',
   'Mercenar y Company': 'Mercenary Company',
   'Pist ol': 'Pistol',
   'Pur chased': 'Purchased',
+  'Sky Port': 'Skyport',
   'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
-  'Sky Port': 'Skyport',
   'Warpfir e': 'Warpfire',
-  'Khar adr on Ov erlor ds': 'Kharadron Overlords',
-  'Khar adron': 'Kharadron',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
