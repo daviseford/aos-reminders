@@ -97,6 +97,7 @@ const handleFirstPass = (text: string) => {
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/ [‘’]/g, `'`)
     .replace(/[‘’]/g, `'`)
+    .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
     .replace(/([\w]) {1,3}'s /g, `$1's `)
     .replace(typoRegexp, match => commonTypos[match])
     .replace(allegianceRegexp, 'ALLEGIANCE:')
@@ -104,7 +105,7 @@ const handleFirstPass = (text: string) => {
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whtiespace in front of existing commas
     .replace(
-      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command| Leader Battleline|Leaders|Leader|(?:$))/g,
+      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command|Leader Battleline|Leaders|Leader|(?:$))/g,
       mercenaryReplacer
     )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
@@ -132,6 +133,7 @@ const handleFirstPass = (text: string) => {
     .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1${sep}`) // KO stuff
+    .replace(/ Leaders /g, ` `)
 
   if (isDev) console.log('handleSecond', secondRun)
 

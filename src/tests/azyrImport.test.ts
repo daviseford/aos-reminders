@@ -426,7 +426,7 @@ describe('handleAzyrPages', () => {
       'FACTION: Order',
       'REALMSCAPE: AQSHY',
       "MERCENARY COMPANY: Nimyard's Rough-Riders",
-      'UNIT: Leaders Arch-Revenant',
+      'UNIT: Arch-Revenant',
       'UNIT: Lord-Arcanum',
       'UNIT: Morathi, High Oracle of Khaine',
       'UNIT: Slaughter Queen on Cauldron of Blood',
