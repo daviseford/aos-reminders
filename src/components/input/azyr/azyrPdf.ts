@@ -64,7 +64,7 @@ export const handleAzyrPages = (pages: string[]) => {
 
       return !joinedPages.some(s => s.includes(x) && s !== x)
     })
-    .map(x => x.replace(/&&/g, ','))
+    .map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
 
   if (isDev) console.table(splitText)
 
@@ -99,6 +99,7 @@ const handleFirstPass = (text: string) => {
     .replace(/[‘’]/g, `'`)
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
     .replace(/([\w]) {1,3}'s /g, `$1's `)
+    .replace(/&/g, 'AMPERSAND')
     .replace(typoRegexp, match => commonTypos[match])
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
