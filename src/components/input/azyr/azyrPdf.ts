@@ -72,18 +72,17 @@ const handleFirstPass = (text: string) => {
     .replace(/HEADER( HEADER)+/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
-    .replace(/ [‘’]/g, `'`)
-    .replace(/[‘’]/g, `'`)
+    .replace(/( )?[‘’]/g, `'`)
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
-    .replace(/([\w]) {1,3}'s /g, `$1's `)
-    .replace(/&/g, 'AMPERSAND')
-    .replace(typoRegexp, match => commonTypos[match])
+    .replace(/([\w]) {1,3}'s /g, `$1's `) // Ford 's -> Ford's
+    .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
+    .replace(typoRegexp, match => commonTypos[match]) // Handle any known typos
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
-    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
+    .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
+    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
 
   const secondaryPass = titlePass
     .replace(
@@ -133,7 +132,7 @@ const cleanAzyrText = (text: string) => {
   if (isDev) console.log('secondPass', secondPass)
 
   const thirdPass = secondPass
-    // Have to run this twice, really :(
+    // You really do have to run this twice, really :(
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       `$1: $2${sep}$3`
