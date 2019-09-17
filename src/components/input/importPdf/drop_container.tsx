@@ -77,7 +77,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
         <ParserSelection activeParser={parser} setParser={setParser} />
       </div>
       <div className="row my-2 d-flex justify-content-center">
-        <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
+        <div className={'col-12 col-lg-6 col-xl-6 border border-secondary px-0'}>
           <ImportDropzone handleDrop={handleDrop} parser={parser} />
         </div>
       </div>
@@ -116,7 +116,7 @@ const ParserSelection: React.FC<{
 }> = props => {
   const { activeParser, setParser } = props
   const parsers: TParsers[] = ['Warscroll', 'Azyr']
-  const colClass = `col-4`
+  const colClass = `col-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2`
 
   return (
     <>
@@ -124,7 +124,7 @@ const ParserSelection: React.FC<{
         {parsers.map(p => (
           <div className={colClass}>
             <button
-              className={`btn btn-sm btn-block btn-${activeParser === p ? 'success' : 'outline-secondary'}`}
+              className={`btn btn-sm btn-block btn-${activeParser === p ? 'success' : 'secondary'}`}
               onClick={() => setParser(p)}
             >
               <div className={btnContentWrapper}>
