@@ -30,6 +30,7 @@ import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
 import SylvanethJSON from './fixtures/azyr/json/Sylvaneth.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
+import Stormcast2JSON from './fixtures/azyr/json/Stormcast2.json'
 import Tzeentch1JSON from './fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2JSON from './fixtures/azyr/json/Tzeentch2.json'
 
@@ -79,9 +80,28 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles a SCE matched play pdf', () => {
+    const res = handleAzyrPages(Stormcast2JSON)
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'ALLEGIANCE: CELESTIAL WARBRINGERS',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Celestant-Prime',
+      'UNIT: Knight-Azyros',
+      'UNIT: Lord-Castellant',
+      'UNIT: Vandus Hammerhand',
+      'UNIT: Judicators',
+      'UNIT: Liberators',
+      'UNIT: Celestar Ballista',
+      'UNIT: Concussors',
+      'UNIT: Desolators',
+      "UNIT: Stormsire's Cursebreakers",
+      'BATTALION: Aetherstrike Force',
+    ])
+  })
+
   it('handles a Wanderers pdf', () => {
     const res = handleAzyrPages(WanderersJSON)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Wanderers',
       'UNIT: Nomad Prince',

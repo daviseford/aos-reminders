@@ -180,7 +180,7 @@ const cleanAzyrText = (text: string) => {
       nagashReplacer
     )
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
       ', $4: $2&& $3 ,'
     )
 
@@ -189,12 +189,12 @@ const cleanAzyrText = (text: string) => {
   const fourthRun = thirdRun
     // Now handle normal units
     .replace(
-      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
+      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
       ', $3: $2, '
     )
     .replace(/ {2,4}/g, ' ')
     .replace(
-      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)/g,
+      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
       ', $3: $2, '
     )
     .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
@@ -208,7 +208,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .replace(/(UNIT): {2,4}/g, '$1: ')
-    .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne)/g, '')
+    .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne|Magmic Invocation)/g, '')
     .split(',')
     .map(x => {
       x = x.trim()
@@ -219,7 +219,7 @@ const cleanAzyrText = (text: string) => {
 
       x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
       x = x.replace(
-        /^Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Other)$/g,
+        /^Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)$/g,
         ''
       )
       return x
@@ -262,7 +262,16 @@ const prefixTypes = [
   'WEAPON',
 ]
 
-const allegianceTypes = ['Slaughterhost', 'Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport', 'Temple']
+const allegianceTypes = [
+  'Slaughterhost',
+  'Host',
+  'Glade',
+  'Lodge',
+  'Greatfray',
+  'Skyport',
+  'Temple',
+  'Stormhost',
+]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
