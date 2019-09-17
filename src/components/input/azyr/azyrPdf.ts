@@ -95,7 +95,7 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
 
 const handleFirstPass = (text: string) => {
   const firstRun = text
-    .replace(/HEADER( |HEADER)/g, HEADER)
+    .replace(/HEADER( HEADER)+/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/ [‘’]/g, `'`)
@@ -111,7 +111,7 @@ const handleFirstPass = (text: string) => {
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
-  // if (isDev) console.log('handleFirst', firstRun)
+  if (isDev) console.log('handleFirst', firstRun)
 
   const secondRun = firstRun
     .replace(
@@ -124,8 +124,7 @@ const handleFirstPass = (text: string) => {
     )
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
-    .replace(/Total \d{1,4}pts( \d{1,4}pts\/\d{1,4}pts)?/g, ' ')
-    .replace(/Total: [0-9]{1,4}[\/][0-9]{1,4}pts [0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
+    .replace(/[0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
@@ -137,7 +136,7 @@ const handleFirstPass = (text: string) => {
     .replace(/ Leaders /g, ` `)
     .replace(/ Scenery /g, ' ')
 
-  // if (isDev) console.log('handleSecond', secondRun)
+  if (isDev) console.log('handleSecond', secondRun)
 
   return secondRun
 }
