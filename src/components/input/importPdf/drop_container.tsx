@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'
-import { WarscrollDropzone } from './warscroll_drop_zone'
+import { ImportDropzone } from './drop_zone'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { TError, IImportedArmy } from 'types/warscrollTypes'
 import { FaCheck } from 'react-icons/fa'
+import { btnContentWrapper } from 'theme/helperClasses'
 
-type TParsers = 'Warscroll' | 'Azyr'
+export type TParsers = 'Warscroll' | 'Azyr'
 
-interface ILoadWarscrollArmyProps {
+interface ILoadArmyProps {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -24,7 +25,7 @@ interface ILoadWarscrollArmyProps {
   updateSelections: (payload: ISelections) => void
 }
 
-const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
+const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
   const {
     setFactionName,
     setRealmscape,
@@ -34,12 +35,12 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
     updateSelections,
   } = props
 
-  const [errors, setErrors] = useState<IWarscrollArmy['errors']>([])
+  const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
-  const [parser, setParser] = useState<TParsers>('Warscroll')
+  const [parser, setParser] = useState<TParsers>('Azyr')
 
-  const handleWarscrollDrop = useCallback(
-    (army: IWarscrollArmy) => {
+  const handleDrop = useCallback(
+    (army: IImportedArmy) => {
       setErrors(army.errors)
 
       // Can't proceed if there's an error (usually an unsupported faction)
@@ -77,7 +78,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
       </div>
       <div className="row my-2 d-flex justify-content-center">
         <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
-          <WarscrollDropzone handleDrop={handleWarscrollDrop} />
+          <ImportDropzone handleDrop={handleDrop} parser={parser} />
         </div>
       </div>
 
@@ -118,15 +119,19 @@ const ParserSelection: React.FC<{
 
   return (
     <>
-      {parsers.map(p => (
-        <button
-          className={`btn btn-sm btn-${activeParser === p ? 'success' : 'secondary'}`}
-          onClick={() => setParser(p)}
-        >
-          {activeParser === p && <FaCheck className="mr-2" />}
-          {p}
-        </button>
-      ))}
+      <div className="row my-2 d-flex justify-content-center">
+        {parsers.map(p => (
+          <button
+            className={`btn btn-sm btn-${activeParser === p ? 'success' : 'secondary'}`}
+            onClick={() => setParser(p)}
+          >
+            <div className={btnContentWrapper}>
+              {activeParser === p && <FaCheck className="mr-2" />}
+              {p}
+            </div>
+          </button>
+        ))}
+      </div>
     </>
   )
 }
@@ -168,7 +173,7 @@ const InfoAlert = () => (
     <div className={'col-12 col-lg-6 col-xl-6'}>
       <div className={`alert alert-info text-center`} role="alert">
         <small>
-          Heads up! This will eventually be a <Link to="/subscribe">subscriber</Link>-only feature.
+          Heads up! This will eventually be a <Link to="/subscribe">subscriber-only</Link> feature.
         </small>
       </div>
     </div>

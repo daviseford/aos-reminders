@@ -16,10 +16,9 @@ import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
-import { LoadWarscrollArmy } from './importPdf/warscroll_drop_container'
+import { LoadWarscrollArmy as ArmyImport } from './importPdf/drop_container'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
-import { LoadAzyrArmy } from './azyr/azyr_drop_container'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 pb-2`
 
@@ -36,13 +35,13 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const { isSubscribed } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
-  const [isShowingWarscrollImport, setIsShowingWarscrollImport] = useState(true)
+  const [isShowingImport, setIsShowingWarscrollImport] = useState(true)
 
   const showSavedArmies = () => setIsShowingSavedArmies(true)
   const hideSavedArmies = () => setIsShowingSavedArmies(false)
 
-  const showWarscrollImport = () => setIsShowingWarscrollImport(true)
-  const hideWarscrollImport = () => setIsShowingWarscrollImport(false)
+  const showImportArmy = () => setIsShowingWarscrollImport(true)
+  const hideImportArmy = () => setIsShowingWarscrollImport(false)
 
   const handleAllyClick = e => {
     e.preventDefault()
@@ -72,10 +71,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <SaveArmyBtn showSavedArmies={showSavedArmies} />
         </div>
         <div className={btnWrapperClass}>
-          <ImportWarscrollButton
-            show={showWarscrollImport}
-            hide={hideWarscrollImport}
-            isShowing={isShowingWarscrollImport}
+          <ImportArmyButton
+            show={showImportArmy}
+            hide={hideImportArmy}
+            isShowing={isShowingImport}
             // TODO: Enable after a couple weeks from now (9/9/19)
             // isSubscribed={isSubscribed}
             isSubscribed={true}
@@ -90,9 +89,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
       </div>
 
-      <div hidden={!isShowingWarscrollImport}>
-        <LoadAzyrArmy />
-        <LoadWarscrollArmy />
+      <div hidden={!isShowingImport}>
+        <ArmyImport />
       </div>
 
       <div hidden={!isShowingSavedArmies}>
@@ -136,7 +134,7 @@ const AddAllyButton = (props: IAddAllyButton) => {
   )
 }
 
-const ImportWarscrollButton = (props: {
+const ImportArmyButton = (props: {
   isSubscribed: boolean
   isShowing: boolean
   show: () => void

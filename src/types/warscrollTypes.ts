@@ -3,7 +3,7 @@ import { TAllySelectionStore } from 'types/store'
 import { TRealms } from 'types/realmscapes'
 import { ISelections } from 'types/selections'
 
-export interface IWarscrollArmy {
+export interface IImportedArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   allyUnits: string[]

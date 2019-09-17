@@ -8,17 +8,17 @@ import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } fro
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import { IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { IImportedArmy, TError } from 'types/warscrollTypes'
 import { isDev } from 'utils/env'
 
-export const getWarscrollArmyFromText = (fileTxt: string): IWarscrollArmy => {
+export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
   const errorChecked = warscrollPdfErrorChecker(army)
 
   return errorChecked
 }
 
-export const getWarscrollArmyFromPdf = (pdfText: string[]): IWarscrollArmy => {
+export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
   const errorChecked = warscrollPdfErrorChecker(army)
 
@@ -37,7 +37,7 @@ const unitIndicatorsTxt = [
 ]
 const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
 
-const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
+const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
 
   let allyUnits: string[] = []
@@ -170,7 +170,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IWarscrollArmy => {
   }
 }
 
-const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
+const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
   const cleanedText = cleanWarscrollText(fileText.split('\n'))
 
   let errors: TError[] = []
@@ -321,7 +321,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IWarscrollArmy => {
   }
 }
 
-const warscrollPdfErrorChecker = (army: IWarscrollArmy): IWarscrollArmy => {
+const warscrollPdfErrorChecker = (army: IImportedArmy): IImportedArmy => {
   let { errors, factionName, selections, unknownSelections, allyUnits } = army
 
   // If we've already gotten an error, go ahead and bail out
