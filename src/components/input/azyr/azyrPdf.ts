@@ -73,22 +73,22 @@ export const handleAzyrPages = (pages: string[]) => {
 
 const factionReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2.includes('Leader') ? `` : p2
-  return `FACTION: ${p1.trim()}, ${suffix}`
+  return `FACTION: ${p1.trim()}${sep}${suffix}`
 }
 
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
-  return `, MERCENARY COMPANY: ${p1.trim()}, ${suffix}`
+  return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
 }
 
 const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
-  const suffix = p4.includes('Leader') ? `Role: Leader ,` : `, `
+  const suffix = p4.includes('Leader') ? `Role: Leader ,` : sep
   return `${suffix} ${p4}: ${p2}  `
 }
 
 const realmscapeReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
-  return `, REALMSCAPE: ${p1.trim()}, ${suffix}`
+  return `${sep}REALMSCAPE: ${p1.trim()}${sep}${suffix}`
 }
 
 const handleFirstPass = (text: string) => {
@@ -127,12 +127,11 @@ const handleFirstPass = (text: string) => {
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
-    // .replace(/ See the .+ of this unit/g, sep)
     .replace(/ {3}[\w-& ]+ See the .+? of this unit/g, ' ')
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
     .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1 `) // KO stuff
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1${sep}`) // KO stuff
 
   if (isDev) console.log('handleSecond', secondRun)
 
@@ -150,16 +149,13 @@ const cleanAzyrText = (text: string) => {
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\)) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      '$1: $2$3, $4'
+      `$1: $2$3${sep}$4`
     )
     // This one for normal
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      '$1: $2, $3'
+      `$1: $2${sep}$3`
     )
-    // .replace(/[0-9]{1,4}pts/g, '')
-    // .replace(/Total: /g, '')
-    // .replace(/Allegiance: /g, 'FACTION: ')
     .split(',')
     .map(x => x.trim())
     .filter(x => !!x)
@@ -171,7 +167,7 @@ const cleanAzyrText = (text: string) => {
     // Have to run this twice, really :(
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      '$1: $2, $3'
+      `$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
     // .replace(/  ([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g, `${commaAlt} $3: $1 ${commaAlt}`)
@@ -182,7 +178,7 @@ const cleanAzyrText = (text: string) => {
     )
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
-      ', $4: $2&& $3 ,'
+      `${sep}$4: $2&& $3 ,`
     )
 
   if (isDev) console.log('thirdRun', thirdRun)
@@ -191,12 +187,12 @@ const cleanAzyrText = (text: string) => {
     // Now handle normal units
     .replace(
       /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
-      ', $3: $2, '
+      `${sep}$3: $2${sep}`
     )
     .replace(/ {2,4}/g, ' ')
     .replace(
       /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
-      ', $3: $2, '
+      `${sep}$3: $2${sep}`
     )
     .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
     .replace(/Battalion:/g, 'BATTALION:')
@@ -230,7 +226,7 @@ const cleanAzyrText = (text: string) => {
     .map(x => {
       return x
         .split(' ')
-        .map(y => y.replace(/^(Allies|Battlelines|Battleline|Artillery|Behemoth|Other)$/g, ''))
+        .map(y => y.replace(/^(Allies|Battlelines|Battleline|Artillery|Behemoths|Behemoth|Other)$/g, ''))
         .join(' ')
         .replace(/ {2,}/g, ' ')
         .trim()
