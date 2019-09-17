@@ -295,7 +295,7 @@ const commonTypos = {
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
-const markRegexp = new RegExp(`Mark: {1,3}(${SUPPORTED_FACTIONS.map(titleCase).join('|')})`, 'gi')
+const markRegexp = new RegExp(`Mark( of Chaos)?: {1,3}(${SUPPORTED_FACTIONS.map(titleCase).join('|')})`, 'gi')
 
 const scenery = ['Penumbral Engine']
 const sceneryRegExp = new RegExp(`(${scenery.join('|')})`, 'g')
