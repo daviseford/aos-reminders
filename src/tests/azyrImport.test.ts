@@ -6,6 +6,7 @@ import Chamon from './fixtures/azyr/json/Chamon1.json'
 import Chaos1 from './fixtures/azyr/json/Chaos1.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
+import Destruction2 from './fixtures/azyr/json/Destruction2.json'
 import DoK1 from './fixtures/azyr/json/DoK1.json'
 import FEC1 from './fixtures/azyr/json/FEC1.json'
 import Fyreslayers1 from './fixtures/azyr/json/Fyreslayers1.json'
@@ -17,6 +18,7 @@ import Ironjawz1 from './fixtures/azyr/json/Ironjawz1.json'
 import Khorne1 from './fixtures/azyr/json/Khorne1.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
+import KO3 from './fixtures/azyr/json/KO3.json'
 import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
 import LoG1 from './fixtures/azyr/json/LoG1.json'
 import LoS1 from './fixtures/azyr/json/LoS1.json'
@@ -31,6 +33,7 @@ import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
 import Stormcast1 from './fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from './fixtures/azyr/json/Stormcast2.json'
+import Stormcast3 from './fixtures/azyr/json/Stormcast3.json'
 import Sylvaneth1 from './fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from './fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from './fixtures/azyr/json/Tzeentch2.json'
@@ -82,9 +85,63 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles Destruction2', () => {
+    const res = handleAzyrPages(Destruction2)
+    expect(res).toEqual([
+      'FACTION: Destruction',
+      'UNIT: Fungoid Cave-Shaman',
+      'UNIT: Frostlord on Thundertusk',
+      'UNIT: Huskard on Thundertusk',
+      'UNIT: Orruk Megaboss',
+      'UNIT: Shootas',
+      'UNIT: Stabbas',
+      'UNIT: Savage Orruks',
+      'UNIT: Orruks',
+      'UNIT: Ogors',
+      'UNIT: Arachnarok Spider',
+    ])
+  })
+
+  it('handles Stormcast3', () => {
+    const res = handleAzyrPages(Stormcast3)
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'UNIT: Lord-Arcanum',
+      'UNIT: Lord-Exorcist',
+      'UNIT: Knight-Incantor',
+      'UNIT: Drakesworn Templar',
+      'UNIT: Judicators',
+      'UNIT: Sequitors',
+      'UNIT: Celestar Ballista',
+      'BATTALION: Grand Convocation',
+      'ENDLESS SPELL: Chronomantic Cogs',
+      'ENDLESS SPELL: Dais Arcanum',
+    ])
+  })
+
+  it('handles KO3', () => {
+    const res = handleAzyrPages(KO3)
+    expect(res).toEqual([
+      'FACTION: Kharadron Overlords',
+      'UNIT: Aether-Khemist',
+      'UNIT: Aetheric Navigator',
+      'UNIT: Arkanaut Admiral',
+      'UNIT: Bjorgen Thundrik',
+      'UNIT: Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'UNIT: Endrinmaster',
+      'UNIT: Arkanaut Company',
+      'UNIT: Grundstok Gunhauler',
+      'UNIT: Arkanaut Frigate',
+      'UNIT: Arkanaut Ironclad',
+      "UNIT: Thundrik's Profiteers",
+      'UNIT: Skywardens',
+      'UNIT: Grundstok Thunderers',
+      'UNIT: Endrinriggers',
+    ])
+  })
+
   it('handles BoC2', () => {
     const res = handleAzyrPages(BoC2)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Beasts of Chaos',
       'ALLEGIANCE: Allherd',
