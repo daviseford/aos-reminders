@@ -115,27 +115,22 @@ const handleFirstPass = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstPass = handleFirstPass(text)
 
-  // if (isDev) console.log('firstPass', firstPass)
+  if (isDev) console.log('firstPass', firstPass)
 
   const secondPass = firstPass
     .replace(/ {2,4}/g, ' ')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\)) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      `$1: $2$3${sep}$4`
-    )
-    // This one for normal
-    .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      `$1: $2${sep}$3`
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      traitReplacer
     )
     .split(',')
     .map(x => x.trim())
     .filter(x => !!x)
     .join(sep)
 
-  // if (isDev) console.log('secondPass', secondPass)
+  if (isDev) console.log('secondPass', secondPass)
 
   const thirdPass = secondPass
     // Have to run this twice, really :(
@@ -150,16 +145,14 @@ const cleanAzyrText = (text: string) => {
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
-  // if (isDev) console.log('thirdPass', thirdPass)
+  if (isDev) console.log('thirdPass', thirdPass)
 
   const fourthPass = thirdPass
     // Now handle normal units
     .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
     .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
-    .replace(/(Artefact|Battalion|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, (x: string) =>
-      x.toUpperCase()
-    )
+    .replace(/(Artefact|Battalion|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
     .split(',')
     .join(sep)
@@ -184,6 +177,12 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2.toUpperCase() === 'MERCENARY' ? p2 : ``
   return `${sep}REALMSCAPE: ${p1.trim()}${sep}${suffix}`
 }
+
+const traitReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
+  return `${p1}: ${p2}${p3 || ''}${sep}${p4}`
+}
+
+const upper = (match: string) => match.toUpperCase()
 
 const spellTypes = ['Spell', 'Prayer']
 const spellRegexp = new RegExp(`(${spellTypes.join('|')}):`, 'g')
