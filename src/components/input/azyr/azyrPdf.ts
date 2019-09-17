@@ -228,7 +228,9 @@ const cleanAzyrText = (text: string) => {
     .map(x => {
       return x
         .split(' ')
-        .map(y => y.replace(/^(Allies|Battlelines|Battleline|Artillery|Behemoths|Behemoth|Other)$/g, ''))
+        .map(y =>
+          y.replace(/^(Allies|Units|Battlelines|Battleline|Artillery|Behemoths|Behemoth|Other)$/g, '')
+        )
         .join(' ')
         .replace(/ {2,}/g, ' ')
         .trim()
