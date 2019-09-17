@@ -116,20 +116,23 @@ const ParserSelection: React.FC<{
 }> = props => {
   const { activeParser, setParser } = props
   const parsers: TParsers[] = ['Warscroll', 'Azyr']
+  const colClass = `col-4`
 
   return (
     <>
-      <div className="row my-2 d-flex justify-content-center">
+      <div className="row my-2 d-flex align-content-center justify-content-center">
         {parsers.map(p => (
-          <button
-            className={`btn btn-sm btn-${activeParser === p ? 'success' : 'secondary'}`}
-            onClick={() => setParser(p)}
-          >
-            <div className={btnContentWrapper}>
-              {activeParser === p && <FaCheck className="mr-2" />}
-              {p}
-            </div>
-          </button>
+          <div className={colClass}>
+            <button
+              className={`btn btn-sm btn-block btn-${activeParser === p ? 'success' : 'outline-secondary'}`}
+              onClick={() => setParser(p)}
+            >
+              <div className={btnContentWrapper}>
+                {activeParser === p && <FaCheck className="mr-2" />}
+                {p}
+              </div>
+            </button>
+          </div>
         ))}
       </div>
     </>
