@@ -1,6 +1,9 @@
 import { handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
+import Dispossessed1 from './fixtures/azyr/json/Dispossessed1.json'
+import IDK1 from './fixtures/azyr/json/IDK1.json'
+import Bonesplitterz1 from './fixtures/azyr/json/Bonesplitterz1.json'
 import BoC2 from './fixtures/azyr/json/BoC2.json'
 import Chamon from './fixtures/azyr/json/Chamon1.json'
 import Chaos1 from './fixtures/azyr/json/Chaos1.json'
@@ -20,8 +23,12 @@ import KO1 from './fixtures/azyr/json/KO1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
 import KO3 from './fixtures/azyr/json/KO3.json'
 import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
+import LoB1 from './fixtures/azyr/json/LoB1.json'
+import LoN1 from './fixtures/azyr/json/LoN1.json'
 import LoG1 from './fixtures/azyr/json/LoG1.json'
 import LoS1 from './fixtures/azyr/json/LoS1.json'
+import LoS2 from './fixtures/azyr/json/LoS2.json'
+import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 import Nighthaunt1 from './fixtures/azyr/json/Nighthaunt1.json'
 import NoRealm from './fixtures/azyr/json/NoRealmscape1.json'
 import Nurgle1 from './fixtures/azyr/json/Nurgle1.json'
@@ -83,6 +90,114 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealm)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Skryre1', () => {
+    const res = handleAzyrPages(Skryre1)
+    expect(res).toEqual([
+      'FACTION: Clans Skryre',
+      'UNIT: Arch-Warlock',
+      'UNIT: Warlock Bombardier',
+      'UNIT: Doomwheel',
+      'UNIT: Warplock Jezzails',
+      'UNIT: Ratling Gun',
+      'UNIT: Stormfiends',
+      'ENDLESS SPELL: Bell of Doom',
+    ])
+  })
+
+  it('handles LoB1', () => {
+    const res = handleAzyrPages(LoB1)
+    expect(res).toEqual([
+      'FACTION: Legion of Blood',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Dire Wolves',
+      'ALLY: Myrmourn Banshees',
+      'BATTALION: Court of Nulahmia',
+      'ENDLESS SPELL: Horrorghast',
+      'SCENERY: Penumbral Engine',
+    ])
+  })
+
+  it('handles LoS2', () => {
+    const res = handleAzyrPages(LoS2)
+    expect(res).toEqual([
+      'FACTION: Legion of Sacrament',
+      'UNIT: Neferata, Mortarch of Blood',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Dire Wolves',
+      'ALLY: Crypt Horrors',
+      'BATTALION: Lords of Sacrament',
+    ])
+  })
+
+  it('handles LoN1', () => {
+    const res = handleAzyrPages(LoN1)
+    expect(res).toEqual([
+      'FACTION: Legion of Night',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'BATTALION: Nightfall Pack',
+      'ENDLESS SPELL: Soulsnare Shackles',
+    ])
+  })
+
+  it('handles Bonesplitterz1', () => {
+    const res = handleAzyrPages(Bonesplitterz1)
+    expect(res).toEqual([
+      'FACTION: Bonesplitterz',
+      "MERCENARY COMPANY: Skroug's Menagerie",
+      'UNIT: Maniak Weirdnob',
+      'UNIT: Savage Big Boss',
+      'UNIT: Wardokk',
+      'UNIT: Wurrgog Prophet',
+      'UNIT: Savage Boarboys',
+      'UNIT: Savage Orruk Arrowboys',
+      'UNIT: Savage Orruk Morboys',
+      'UNIT: Savage Orruks',
+      'UNIT: Savage Big Stabbas',
+      'BATTALION: Icebone Warclan',
+    ])
+  })
+
+  it('handles IDK1', () => {
+    const res = handleAzyrPages(IDK1)
+    expect(res).toEqual([
+      'FACTION: Idoneth Deepkin',
+      "ALLEGIANCE: MOR'PHANN",
+      'MERCENARY COMPANY: Order of the Blood-Drenched Rose',
+      'UNIT: Akhelian King',
+      'UNIT: Eidolon of Mathlann',
+      'UNIT: Isharann Soulrender',
+      'UNIT: Isharann Soulscryer',
+      'UNIT: Namarti Thralls',
+      'UNIT: Akhelian Leviadon',
+      'UNIT: Akhelian Allopexes',
+      'UNIT: Akhelian Ishlaen Guard',
+      'UNIT: Akhelian Morrsarr Guard',
+      'UNIT: Namarti Reavers',
+      'BATTALION: Akhelian Corps',
+      'BATTALION: Alliance of Wood and Sea',
+      'BATTALION: Namarti Corps',
+      'BATTALION: Phalanx',
+      'BATTALION: Royal Council',
+      'ENDLESS SPELL: Cadaverous Barricade',
+      'ENDLESS SPELL: Everblaze Comet',
+    ])
+  })
+
+  it('handles Dispossessed1', () => {
+    const res = handleAzyrPages(Dispossessed1)
+    expect(res).toEqual([
+      'FACTION: Dispossessed',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Warden King',
+      'UNIT: Ironbreakers',
+      'UNIT: Longbeards',
+      'UNIT: Hammerers',
+      'UNIT: Irondrakes',
+      'BATTALION: Grudgebound War Throng',
+    ])
   })
 
   it('handles Destruction2', () => {
