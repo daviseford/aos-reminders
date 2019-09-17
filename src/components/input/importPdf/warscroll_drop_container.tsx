@@ -10,6 +10,9 @@ import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { IWarscrollArmy, TError } from 'types/warscrollTypes'
+import { FaCheck } from 'react-icons/fa'
+
+type TParsers = 'Warscroll' | 'Azyr'
 
 interface ILoadWarscrollArmyProps {
   setFactionName: (value: string | null) => void
@@ -33,6 +36,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
 
   const [errors, setErrors] = useState<IWarscrollArmy['errors']>([])
   const { isSubscribed } = useSubscription()
+  const [parser, setParser] = useState<TParsers>('Warscroll')
 
   const handleWarscrollDrop = useCallback(
     (army: IWarscrollArmy) => {
@@ -68,6 +72,9 @@ const LoadWarscrollArmyComponent: React.FC<ILoadWarscrollArmyProps> = props => {
 
   return (
     <>
+      <div>
+        <ParserSelection activeParser={parser} setParser={setParser} />
+      </div>
       <div className="row my-2 d-flex justify-content-center">
         <div className={'col-12 col-lg-6 col-xl-6 border border-secondary'}>
           <WarscrollDropzone handleDrop={handleWarscrollDrop} />
@@ -101,6 +108,28 @@ export const LoadWarscrollArmy = connect(
     updateSelections: selections.actions.updateSelections,
   }
 )(LoadWarscrollArmyComponent)
+
+const ParserSelection: React.FC<{
+  activeParser: TParsers
+  setParser: (parser: TParsers) => void
+}> = props => {
+  const { activeParser, setParser } = props
+  const parsers: TParsers[] = ['Warscroll', 'Azyr']
+
+  return (
+    <>
+      {parsers.map(p => (
+        <button
+          className={`btn btn-sm btn-${activeParser === p ? 'success' : 'secondary'}`}
+          onClick={() => setParser(p)}
+        >
+          {activeParser === p && <FaCheck className="mr-2" />}
+          {p}
+        </button>
+      ))}
+    </>
+  )
+}
 
 const ErrorAlert = (props: TError) => {
   const { text, severity } = props

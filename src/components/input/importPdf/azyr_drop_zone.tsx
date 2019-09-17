@@ -2,11 +2,9 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
-import { parsePdf } from 'utils/pdf/pdfUtils'
-import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
 import { IWarscrollArmy } from 'types/warscrollTypes'
-import { getAzyrPdfText } from './azyrPdf'
+import { getPdfPages, handleAzyrPages } from 'utils/azyr/azyrPdf'
 
 interface IDropzoneProps {
   handleDrop: (army: IWarscrollArmy) => void
@@ -28,44 +26,6 @@ export const AzyrDropzone: React.FC<IDropzoneProps> = props => {
     setTimeout(() => setIsError(false), 5000)
   }
 
-  // const onDrop = useCallback(
-  //   acceptedFiles => {
-  //     try {
-  //       const file = acceptedFiles[0]
-  //       const reader = new FileReader()
-
-  //       // Set reader options
-  //       reader.onabort = () => console.log('file reading was aborted')
-  //       reader.onerror = () => {
-  //         handleError()
-  //         console.log('File reading has failed.')
-  //       }
-  //       reader.onload = () => {
-  //         const fileText = reader.result
-  //         let parsedArmy: IWarscrollArmy
-
-  //         if (file.type === 'application/pdf') {
-  //           const parsed = parsePdf(fileText as string)
-  //           parsedArmy = getWarscrollArmyFromPdf(parsed)
-  //         } else {
-  //           parsedArmy = getWarscrollArmyFromText(fileText as string)
-  //         }
-
-  //         handleDrop(parsedArmy)
-  //         handleDone()
-  //         logEvent(`ImportWarscroll-${parsedArmy.factionName}`)
-  //       }
-
-  //       // Read the file
-  //       reader.readAsText(file)
-  //     } catch (err) {
-  //       handleError()
-  //       console.error(err)
-  //     }
-  //   },
-  //   [handleDrop]
-  // )
-
   const onDrop = useCallback(
     acceptedFiles => {
       try {
@@ -78,11 +38,16 @@ export const AzyrDropzone: React.FC<IDropzoneProps> = props => {
           handleError()
           console.log('File reading has failed.')
         }
-        reader.onload = () => {
+        reader.onload = async () => {
           //Step 4:turn array buffer into typed array
           const typedarray = new Uint8Array(reader.result as any)
 
-          getAzyrPdfText(typedarray)
+          const pdfPages = await getPdfPages(typedarray)
+          const parsedPages = handleAzyrPages(pdfPages)
+
+          //         handleDrop(parsedArmy)
+          handleDone()
+          //         logEvent(`ImportAzyr-${parsedArmy.factionName}`)
         }
 
         // Read the file

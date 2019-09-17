@@ -9,7 +9,7 @@ import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { IWarscrollArmy } from 'types/warscrollTypes'
-import { AzyrDropzone } from './azyr_drop_zone'
+import { AzyrDropzone } from '../importPdf/azyr_drop_zone'
 
 interface ILoadAzyrArmyComponent {
   setFactionName: (value: string | null) => void

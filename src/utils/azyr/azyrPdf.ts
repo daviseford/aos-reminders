@@ -8,7 +8,7 @@ const sep = ', '
 const commaAlt = `&&`
 const HEADER = 'HEADER'
 
-export const getAzyrPdfText = async typedarray => {
+export const getPdfPages = async typedarray => {
   try {
     pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
 
@@ -41,13 +41,14 @@ export const getAzyrPdfText = async typedarray => {
 
     if (isDev) console.log('Copy me to JSON to debug: ', pages)
 
-    return handleAzyrPages(pages)
+    return pages
   } catch (err) {
     console.error(err)
+    return ['Error: Unable to read file.']
   }
 }
 
-export const handleAzyrPages = (pages: string[]) => {
+export const handleAzyrPages = (pages: string[]): string[] => {
   const cleanedPages = pages.map(cleanAzyrText)
   const joinedPages = uniq(cleanedPages.join(sep).split(sep))
 
