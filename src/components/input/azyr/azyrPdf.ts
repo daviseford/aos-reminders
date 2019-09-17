@@ -122,6 +122,7 @@ const handleFirstPass = (text: string) => {
     )
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
+    .replace(/Total \d{1,4}pts( \d{1,4}pts\/\d{1,4}pts)?/g, ' ')
     .replace(/Total: [0-9]{1,4}[\/][0-9]{1,4}pts [0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
