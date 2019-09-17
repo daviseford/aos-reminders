@@ -134,6 +134,7 @@ const handleFirstPass = (text: string) => {
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1${sep}`) // KO stuff
     .replace(/ Leaders /g, ` `)
+    .replace(/ Scenery /g, ' ')
 
   if (isDev) console.log('handleSecond', secondRun)
 
@@ -196,7 +197,7 @@ const cleanAzyrText = (text: string) => {
     )
     .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
     .replace(/Battalion:/g, 'BATTALION:')
-    .replace(/(Endless Spell|Judgement of Khorne):/g, 'ENDLESS SPELL:')
+    .replace(/(Endless Spell|Judgement of Khorne|Magmic Invocation):/g, 'ENDLESS SPELL:')
     .replace(/Command Trait:/g, 'COMMAND TRAIT:')
     .replace(/Mount Trait:/g, 'MOUNT TRAIT:')
     .replace(/Spell:/g, 'SPELL:')
@@ -240,6 +241,8 @@ const cleanAzyrText = (text: string) => {
 
   return fourthRun
 }
+
+const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne']
 
 const prefixSeparator = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
