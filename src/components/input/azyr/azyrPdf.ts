@@ -27,10 +27,6 @@ export const getAzyrPdfText = async typedarray => {
         const textContent = await page.getTextContent({ normalizeWhitespace: true })
         return textContent.items
           .map(x => {
-            // x.fontName
-            // g_d0_f1 == bold
-            // g_d0_f2 == not bold
-
             // First time this appears, we are starting units
             // fontName: "g_d0_f1"
             // height: 17.99999925
@@ -95,6 +91,7 @@ const handleFirstPass = (text: string) => {
     )
     .replace(unitRegexp, 'Role: UNIT')
     .replace(endlessRegexp, 'Role: ENDLESS SPELL')
+    .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
     .replace(spellRegexp, 'Spell:')
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
@@ -114,7 +111,7 @@ const handleFirstPass = (text: string) => {
 const cleanAzyrText = (text: string) => {
   const firstPass = handleFirstPass(text)
 
-  if (isDev) console.log('firstPass', firstPass)
+  // if (isDev) console.log('firstPass', firstPass)
 
   const secondPass = firstPass
     .replace(/ {2,4}/g, ' ')
@@ -129,7 +126,7 @@ const cleanAzyrText = (text: string) => {
     .filter(x => !!x)
     .join(sep)
 
-  if (isDev) console.log('secondPass', secondPass)
+  // if (isDev) console.log('secondPass', secondPass)
 
   const thirdPass = secondPass
     // You really do have to run this twice, really :(
@@ -140,19 +137,19 @@ const cleanAzyrText = (text: string) => {
     // These next two lines handle Nagash, Supreme Lord of the Undead
     .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
-  if (isDev) console.log('thirdPass', thirdPass)
+  // if (isDev) console.log('thirdPass', thirdPass)
 
   const fourthPass = thirdPass
     // Now handle normal units
-    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
-    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
-    .replace(/(Artefact|Battalion|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
-    .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
+    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(Artefact|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
+    .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2') // Tag ally units
     .split(',')
     .join(sep)
     .split(sep)
