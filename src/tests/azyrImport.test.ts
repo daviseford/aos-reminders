@@ -3,6 +3,8 @@ import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
 import BoCJSON from './fixtures/azyr/json/BoC.json'
 import ChamonJSON from './fixtures/azyr/json/Chamon.json'
+import DoKJSON from './fixtures/azyr/json/DoK.json'
+import FECJSON from './fixtures/azyr/json/FEC.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 import KhorneJSON from './fixtures/azyr/json/Khorne.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
@@ -11,14 +13,18 @@ import LoGJSON from './fixtures/azyr/json/LoG.json'
 import NagashJSON from './fixtures/azyr/json/Newgash.json'
 import OrderJSON from './fixtures/azyr/json/Order.json'
 import GHoNJSON from './fixtures/azyr/json/GHoN.json'
+import GloomspiteJSON from './fixtures/azyr/json/Gloomspite.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
 import Nurgle2JSON from './fixtures/azyr/json/Nurgle_2.json'
+import Nurgle3JSON from './fixtures/azyr/json/Nurgle3.json'
 import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
 import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
+import SylvanethJSON from './fixtures/azyr/json/Sylvaneth.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 import Tzeentch1JSON from './fixtures/azyr/json/Tzeentch1.json'
+import Tzeentch2JSON from './fixtures/azyr/json/Tzeentch2.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -64,6 +70,130 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles a Tzeentch pdf', () => {
+    const res = handleAzyrPages(Tzeentch2JSON)
+    expect(res).toEqual([
+      'FACTION: Tzeentch',
+      "MERCENARY COMPANY: Skroug's Menagerie",
+      'UNIT: Gaunt Summoner of Tzeentch',
+      'UNIT: Pink Horrors of Tzeentch',
+      'UNIT: Burning Chariots of Tzeentch',
+      'UNIT: Chaos Spawn',
+      'BATTALION: Aether-eater Host',
+      'BATTALION: Alter-kin Coven',
+      "BATTALION: Overseer's Fate-twisters",
+      "ENDLESS SPELL: Ravenak's Gnashing Jaws",
+    ])
+  })
+
+  it('handles another Nurgle pdf', () => {
+    const res = handleAzyrPages(Nurgle3JSON)
+    expect(res).toEqual([
+      'FACTION: Nurgle',
+      'UNIT: Archaon',
+      'UNIT: Chaos Lord on Manticore',
+      'UNIT: Nurgle Daemon Prince',
+      'UNIT: Nurgle Great Unclean One',
+      'UNIT: Poxbringer, Herald of Nurgle',
+      'UNIT: Rotigus',
+      'UNIT: Spoilpox Scrivener, Herald of Nurgle',
+      'UNIT: The Glottkin',
+      'UNIT: Verminlord Corruptor',
+      'UNIT: Chaos Marauders',
+      'UNIT: Nurgle Chaos Warriors',
+      'UNIT: Nurgle Plaguebearers',
+      'UNIT: Putrid Blightkings',
+      'UNIT: Plagueclaw',
+      'UNIT: Plague Censer Bearers',
+      'UNIT: Plague Drones',
+      'UNIT: Plague Monks',
+      'BATTALION: Blighted Warband',
+      "BATTALION: Nurgle's Deluge",
+      'ENDLESS SPELL: Emerald Lifeswarm',
+    ])
+  })
+
+  it('handles a Gloomspite pdf', () => {
+    const res = handleAzyrPages(GloomspiteJSON)
+    expect(res).toEqual([
+      'FACTION: Gloomspite Gitz',
+      'UNIT: Dankhold Troggboss',
+      'UNIT: Fungoid Cave-Shaman',
+      'UNIT: Loonboss',
+      'UNIT: Skragrott, The Loonking',
+      'UNIT: Troggoth Hag',
+      'UNIT: Zarbag',
+      'UNIT: Shootas',
+      'UNIT: Stabbas',
+      'UNIT: Arachnarok Spider',
+      'UNIT: Colossal Squig',
+      'UNIT: Mangler Squigs',
+      'UNIT: Skitterstrand Arachnarok',
+      'UNIT: Squig Gobba',
+      'UNIT: Boingrot Bounderz',
+      'UNIT: Fellwater Troggoths',
+      'UNIT: Loonsmasha Fanatics',
+      'UNIT: Rockgut Troggoths',
+      'UNIT: Squig Herd',
+      'UNIT: Squig Hoppers',
+      'BATTALION: Squig Rider Stampede',
+      'ENDLESS SPELL: Aethervoid Pendulum',
+    ])
+  })
+
+  it('handles an FEC pdf', () => {
+    const res = handleAzyrPages(FECJSON)
+    expect(res).toEqual([
+      'FACTION: Flesh-eater Courts',
+      'ALLEGIANCE: Gristlegore',
+      'MERCENARY COMPANY: The Gutstuffers',
+      'UNIT: Abhorrant Ghoul King',
+      'UNIT: Crypt Ghouls',
+      'UNIT: Royal Terrorgheist',
+      'UNIT: Royal Zombie Dragon',
+      'UNIT: Crypt Flayers',
+      'UNIT: Crypt Horrors',
+      'BATTALION: Cannibal Court',
+      "BATTALION: King's Ghouls",
+    ])
+  })
+
+  it('handles a DoK pdf', () => {
+    const res = handleAzyrPages(DoKJSON)
+    expect(res).toEqual([
+      'FACTION: Daughters of Khaine',
+      'ALLEGIANCE: Hagg Nar',
+      'REALMSCAPE: SHYISH',
+      'MERCENARY COMPANY: Order of the Blood-Drenched Rose',
+      'UNIT: Bloodwrack Shrine',
+      'UNIT: Morathi, High Oracle of Khaine',
+      'UNIT: Sisters of Slaughter',
+      'UNIT: Witch Aelves',
+      'UNIT: Avatar of Khaine',
+      'Total Bloodwrack Shrine',
+      'UNIT: Blood Stalkers',
+      'BATTALION: War Coven of Morathi',
+      'ENDLESS SPELL: Wheels of Excruciation',
+    ])
+  })
+
+  it('handles a Sylvaneth pdf', () => {
+    const res = handleAzyrPages(SylvanethJSON)
+    expect(res).toEqual([
+      'FACTION: Sylvaneth',
+      'ALLEGIANCE: Dreadwood',
+      'UNIT: Alarielle the Everqueen',
+      'UNIT: Branchwych',
+      'UNIT: Treelord Ancient',
+      'UNIT: Dryads',
+      'UNIT: Spite-Revenants',
+      'UNIT: Tree-Revenants',
+      'UNIT: Kurnoth Hunters',
+      'BATTALION: Wargrove',
+      'ENDLESS SPELL: Balewind Vortex',
+    ])
   })
 
   it('handles an Order pdf', () => {

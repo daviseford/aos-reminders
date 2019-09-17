@@ -1,7 +1,6 @@
 import pdfjsLib from 'pdfjs-dist'
-import { uniq, first } from 'lodash'
+import { uniq } from 'lodash'
 import { isDev } from 'utils/env'
-import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 
