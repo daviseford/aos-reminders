@@ -262,7 +262,7 @@ const prefixTypes = [
   'WEAPON',
 ]
 
-const allegianceTypes = ['Slaughterhost', 'Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport']
+const allegianceTypes = ['Slaughterhost', 'Host', 'Glade', 'Lodge', 'Greatfray', 'Skyport', 'Temple']
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {

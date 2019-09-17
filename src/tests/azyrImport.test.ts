@@ -3,10 +3,16 @@ import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
 import BoCJSON from './fixtures/azyr/json/BoC.json'
 import ChamonJSON from './fixtures/azyr/json/Chamon.json'
+import ChaosJSON from './fixtures/azyr/json/Chaos.json'
+import DeathJSON from './fixtures/azyr/json/Death.json'
+import DestructionJSON from './fixtures/azyr/json/Destruction.json'
 import DoKJSON from './fixtures/azyr/json/DoK.json'
 import FECJSON from './fixtures/azyr/json/FEC.json'
+import FyreslayersJSON from './fixtures/azyr/json/Fyreslayers.json'
 import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
 import KhorneJSON from './fixtures/azyr/json/Khorne.json'
+import NighthauntJSON from './fixtures/azyr/json/Nighthaunt.json'
+import LethisianJSON from './fixtures/azyr/json/Lethisian.json'
 import KO1JSON from './fixtures/azyr/json/KO1.json'
 import KO2JSON from './fixtures/azyr/json/KO2.json'
 import LoGJSON from './fixtures/azyr/json/LoG.json'
@@ -14,6 +20,7 @@ import NagashJSON from './fixtures/azyr/json/Newgash.json'
 import OrderJSON from './fixtures/azyr/json/Order.json'
 import GHoNJSON from './fixtures/azyr/json/GHoN.json'
 import GloomspiteJSON from './fixtures/azyr/json/Gloomspite.json'
+import WanderersJSON from './fixtures/azyr/json/Wanderers.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
 import Nurgle2JSON from './fixtures/azyr/json/Nurgle_2.json'
@@ -70,6 +77,205 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles a Wanderers pdf', () => {
+    const res = handleAzyrPages(WanderersJSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Wanderers',
+      'UNIT: Nomad Prince',
+      'UNIT: Wayfinder',
+      'UNIT: Waystrider',
+      'UNIT: Waywatcher',
+      'UNIT: Eternal Guard',
+      'UNIT: Glade Guard',
+      'UNIT: Sisters of the Thorn',
+      'UNIT: Sisters of the Watch',
+      'UNIT: Wild Riders',
+      'UNIT: Wildwood Rangers',
+      'BATTALION: Scenery Waystone Pathfinders',
+      'SCENERY: Penumbral Engine',
+    ])
+  })
+
+  it('handles a Nighthaunt pdf', () => {
+    const res = handleAzyrPages(NighthauntJSON)
+    expect(res).toEqual([
+      'FACTION: Nighthaunt',
+      'UNIT: Dreadblade Harrow',
+      'UNIT: Kurdoss Valentian',
+      'UNIT: Reikenor The Grimhailer',
+      'UNIT: Tomb Banshee',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Grimghast Reapers',
+      'UNIT: Hexwraiths',
+      'UNIT: Spirit Hosts',
+      'UNIT: Black Coach',
+      'UNIT: Mourngul',
+      'UNIT: Chainghasts',
+      'UNIT: Legion Black Coach',
+      'BATTALION: Total Execution Horde',
+      'BATTALION: The Condemned',
+      'ENDLESS SPELL: Aethervoid Pendulum',
+    ])
+  })
+
+  it('handles a Lethisian pdf', () => {
+    const res = handleAzyrPages(LethisianJSON)
+    expect(res).toEqual([
+      'FACTION: Lethisian',
+      'UNIT: Arkanaut Admiral',
+      'UNIT: Auric Runemaster',
+      'UNIT: Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'UNIT: Celestant-Prime',
+      'UNIT: Drakesworn Templar',
+      'UNIT: Fjul-Grimnir',
+      'UNIT: Lord-Veritant',
+      'UNIT: Arkanaut Company',
+      'UNIT: Liberators',
+      'UNIT: Namarti Thralls',
+      'UNIT: Vulkite Berzerkers',
+      'UNIT: Arkanaut Frigate',
+      'UNIT: Celestar Ballista',
+      'UNIT: Grundstok Gunhauler',
+      'UNIT: Fulminators',
+      "UNIT: Stormsire's Cursebreakers",
+      'BATTALION: Anvils of the Heldenhammer Warrior Chamber',
+      "BATTALION: Blacktalon's Shadowhammers",
+      'BATTALION: Thunderwave Echelon',
+      'BATTALION: Total Vanguard Angelos Conclave',
+      'ENDLESS SPELL: Mesmerising Mirror',
+    ])
+  })
+
+  it('handles a Fyreslayers pdf', () => {
+    const res = handleAzyrPages(FyreslayersJSON)
+    expect(res).toEqual([
+      'FACTION: Fyreslayers',
+      'ALLEGIANCE: Hermdar',
+      'UNIT: Auric Runefather',
+      'UNIT: Auric Runemaster',
+      'UNIT: Auric Runesmiter',
+      'UNIT: Auric Runeson',
+      'UNIT: Fjul-Grimnir',
+      'UNIT: Vulkite Berzerkers',
+      'BATTALION: Grand Fyrd',
+      'BATTALION: Lords of the Lodge',
+      'ENDLESS SPELL: Chalice of Ushoran',
+      'ENDLESS SPELL: Chronomantic Cogs',
+      'ENDLESS SPELL: Molten Infernoth',
+      'ENDLESS SPELL: Runic Fyrewall',
+      'ENDLESS SPELL: Zharrgron Flame-spitter',
+      'SCENERY: Penumbral Engine',
+    ])
+  })
+
+  it('handles a Destruction pdf', () => {
+    const res = handleAzyrPages(DestructionJSON)
+    expect(res).toEqual([
+      'FACTION: Destruction',
+      'UNIT: Frostlord on Stonehorn',
+      'UNIT: Frostlord on Thundertusk',
+      'UNIT: Fungoid Cave-Shaman',
+      'UNIT: Gordrakk, the Fist of Gork',
+      'UNIT: Megaboss on Maw-krusha',
+      'UNIT: Skragrott, The Loonking',
+      'UNIT: Webspinner Shaman',
+      'UNIT: Wurrgog Prophet',
+      'UNIT: Savage Orruks',
+      'UNIT: Shootas',
+      'UNIT: Stabbas',
+      'UNIT: Aleguzzler Gargant',
+      'UNIT: Arachnarok Spider',
+      'UNIT: Dread Maw',
+      'UNIT: Thundertusk Beastriders',
+      'UNIT: Grot Scraplauncher',
+      'UNIT: Ironblaster',
+      'UNIT: Total Squig Gobba',
+      "UNIT: Ironskull's Boyz",
+      'UNIT: Maneaters',
+      'UNIT: Orruk Gore-gruntas',
+      "UNIT: Zarbag's Gitz",
+      'ENDLESS SPELL: Vermintide',
+    ])
+  })
+
+  it('handles a Death pdf', () => {
+    const res = handleAzyrPages(DeathJSON)
+    expect(res).toEqual([
+      'FACTION: Death',
+      'REALMSCAPE: GHYRAN',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'UNIT: Mannfred, Mortarch of Night',
+      'UNIT: Nagash, Supreme Lord of the Undead',
+      'UNIT: Necrotect',
+      'UNIT: Mortarch of Blood',
+      'UNIT: Neferata, Mortarch of Blood',
+      'UNIT: The Briar Queen',
+      'UNIT: Vampire Lord on Zombie Dragon',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Crypt Ghouls',
+      'UNIT: Dire Wolves',
+      'UNIT: Skeletal Legionnaires',
+      'UNIT: Skeleton Chariots',
+      'UNIT: Skeleton Horsemen',
+      'UNIT: Royal Terrorgheist',
+      'UNIT: Screaming Skull Catapult',
+      'UNIT: Black Knights',
+      'UNIT: Bladegheist Revenants',
+      'UNIT: Blood Knights',
+      'UNIT: Corpse Cart',
+      'UNIT: Crypt Flayers',
+      'UNIT: Crypt Horrors',
+      'UNIT: Glaivewraith Stalkers',
+      'UNIT: Grave Guard',
+      'UNIT: Grimghast Reapers',
+      'UNIT: Hexwraiths',
+      'UNIT: Myrmourn Banshees',
+      'UNIT: Necropolis Knights',
+      'UNIT: Spirit Hosts',
+      'UNIT: The Sepulchral Guard',
+      'UNIT: Thorns of the Briar Queen',
+      'UNIT: Vargheists',
+      'BATTALION: Castellans of the Crimson Keep',
+      'BATTALION: Deathmarch',
+      'ENDLESS SPELL: Aethervoid Pendulum',
+    ])
+  })
+
+  it('handles a Chaos pdf', () => {
+    const res = handleAzyrPages(ChaosJSON)
+    expect(res).toEqual([
+      'FACTION: Chaos',
+      "UNIT: Be'lakor, Chaos Daemon Prince",
+      "UNIT: Bull Centaur Taur'ruk",
+      'UNIT: Curseling, Eye of Tzeentch',
+      'UNIT: Epidemius, Tallyman of Nurgle',
+      'UNIT: Lord Skreech Verminking',
+      'UNIT: Plague Priest',
+      'UNIT: Poxbringer, Herald of Nurgle',
+      'UNIT: Sloppity Bilepiper, Herald of Nurgle',
+      'UNIT: Verminlord Warpseer',
+      'UNIT: Viceleader',
+      'UNIT: Skalok The Skull Host of Khorne',
+      'UNIT: Wrath of Khorne Bloodthirster',
+      'UNIT: Daemonettes',
+      'UNIT: Gors',
+      'UNIT: Kairic Acolytes',
+      'UNIT: Pink Horrors of Tzeentch',
+      'UNIT: Plaguebearers',
+      'UNIT: Chimera',
+      'UNIT: Hell Pit Abomination',
+      'UNIT: Vorgaroth the Scarred & Skalok The Skull Host of Khorne',
+      'UNIT: Plagueclaw',
+      'UNIT: Warp Lightning Cannon',
+      'UNIT: Warplock Jezzails',
+      'UNIT: Total Warplock Jezzails',
+      'UNIT: Brimstone Horrors of Tzeentch',
+      'UNIT: Burning Chariots of Tzeentch',
+      'UNIT: Warp-Grinder',
+    ])
   })
 
   it('handles a Tzeentch pdf', () => {
