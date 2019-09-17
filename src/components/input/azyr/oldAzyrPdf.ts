@@ -6,9 +6,8 @@ import { titleCase } from 'utils/textUtils'
 
 const sep = ', '
 const commaAlt = `&&`
-const HEADER = 'HEADER'
 
-export const getAzyrPdfText = async typedarray => {
+const getAzyrPdfText = async typedarray => {
   try {
     pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
 
@@ -35,7 +34,6 @@ export const getAzyrPdfText = async typedarray => {
             // fontName: "g_d0_f1"
             // height: 17.99999925
             // str: "Leader"
-            if (x.height > 15) return HEADER
 
             return x.str
           })
@@ -51,7 +49,7 @@ export const getAzyrPdfText = async typedarray => {
   }
 }
 
-export const handleAzyrPages = (pages: string[]) => {
+const handleAzyrPages = (pages: string[]) => {
   const cleanedPages = pages.map(cleanAzyrText)
 
   // console.log('cleanedPages', cleanedPages)
@@ -62,7 +60,7 @@ export const handleAzyrPages = (pages: string[]) => {
     .filter(x => {
       if (prefixTypes.some(pre => x.startsWith(`${pre}:`))) return true
 
-      // if (isDev) console.log('Missing a prefix: ' + x)
+      if (isDev) console.log('Missing a prefix: ' + x)
 
       return !joinedPages.some(s => s.includes(x) && s !== x)
     })
@@ -73,11 +71,19 @@ export const handleAzyrPages = (pages: string[]) => {
   return splitText
 }
 
-const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
+const factionReplacer = (match: string, p1: string, p2: string) => {
+  const suffix = p2.includes('Leader') ? `` : p2
+  return `FACTION: ${p1.trim()}${sep}${suffix}`
+}
 
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
   return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
+}
+
+const nagashReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
+  const suffix = p4.includes('Leader') ? `Role: Leader ,` : sep
+  return `${suffix} ${p4}: ${p2}  `
 }
 
 const realmscapeReplacer = (match: string, p1: string, p2: string) => {
@@ -87,7 +93,6 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
 
 const handleFirstPass = (text: string) => {
   const firstRun = text
-    .replace(/HEADER( HEADER)+/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/ [‘’]/g, `'`)
@@ -100,34 +105,37 @@ const handleFirstPass = (text: string) => {
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(Extra Command|HEADER|(?:$))/g, mercenaryReplacer)
+    .replace(
+      /Mercenary Company: {1,3}([\w-' ]+)(Extra Command|Leader Battleline|Leaders|Leader|(?:$))/g,
+      mercenaryReplacer
+    )
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '')
 
   if (isDev) console.log('handleFirst', firstRun)
 
   const secondRun = firstRun
     .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      /.+?Allegiance:([\w-' ]+)(Leader Battleline|Leaders|Leader|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
     )
     .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(Leader Battleline|Leaders|Leader|,|Mercenary|(?:$))/g,
       realmscapeReplacer
     )
-    .replace(unitRegexp, 'Role: UNIT')
-    .replace(endlessRegexp, 'Role: ENDLESS SPELL')
-    .replace(spellRegexp, 'Spell:')
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
-    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, ' ')
+    .replace(/Total \d{1,4}pts( \d{1,4}pts\/\d{1,4}pts)?/g, ' ')
+    .replace(/Total: [0-9]{1,4}[\/][0-9]{1,4}pts [0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
     .replace(/ {3}[\w-& ]+ See the .+? of this unit/g, ' ')
     .replace(/This unit is also a Leader. Their details are listed within the Leader section./g, sep)
+    .replace(/ Other Units /g, sep)
     .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
-    .replace(/HEADER/g, ' ')
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) (Leaders|Leader|Leader Battleline)/g, `$1${sep}`) // KO stuff
+    .replace(/ Leaders /g, ` `)
+    .replace(/ Scenery /g, ' ')
 
   if (isDev) console.log('handleSecond', secondRun)
 
@@ -166,9 +174,12 @@ const cleanAzyrText = (text: string) => {
       `$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g,
+      /(Role: Leader +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(Leader|Behemoth|Other)/g,
+      nagashReplacer
+    )
+    .replace(
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
@@ -176,10 +187,18 @@ const cleanAzyrText = (text: string) => {
 
   const fourthRun = thirdRun
     // Now handle normal units
-    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(
+      /(,| {2})([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
+      `${sep}$3: $2${sep}`
+    )
     .replace(/ {2,4}/g, ' ')
-    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(
+      /(,| {2})?([\w-' ]+) Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)/g,
+      `${sep}$3: $2${sep}`
+    )
+    .replace(/(Leader|Battleline|Artillery|Behemoth|Other):/g, 'UNIT:')
     .replace(/Battalion:/g, 'BATTALION:')
+    .replace(/(Endless Spell|Judgement of Khorne|Magmic Invocation):/g, 'ENDLESS SPELL:')
     .replace(/Command Trait:/g, 'COMMAND TRAIT:')
     .replace(/Mount Trait:/g, 'MOUNT TRAIT:')
     .replace(/Spell:/g, 'SPELL:')
@@ -187,10 +206,35 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
+    .replace(/(UNIT): {2,4}/g, '$1: ')
+    .replace(/(Artillery|Battalions|Endless Spells|Judgements of Khorne|Magmic Invocation)/g, '')
     .split(',')
+    .map(x => {
+      x = x.trim()
+      x = x.replace(/(Behemoths|Behemoth) /g, '')
+      x = x.replace(/^Other /g, '')
+
+      x = x.trim()
+
+      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
+      x = x.replace(
+        /^Role:[ ]+(Leader|Battleline|Artillery|Behemoth|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)$/g,
+        ''
+      )
+      return x
+    })
     .join(sep)
     .split(sep)
-    .map(x => x.replace(/ {2,}/g, ' ').trim())
+    .map(x => {
+      return x
+        .split(' ')
+        .map(y =>
+          y.replace(/^(Allies|Units|Battlelines|Battleline|Artillery|Behemoths|Behemoth|Other)$/g, '')
+        )
+        .join(' ')
+        .replace(/ {2,}/g, ' ')
+        .trim()
+    })
     .filter(x => !!x)
     .join(sep)
 
@@ -199,14 +243,9 @@ const cleanAzyrText = (text: string) => {
   return fourthRun
 }
 
-const spellTypes = ['Spell', 'Prayer']
-const spellRegexp = new RegExp(`(${spellTypes.join('|')}):`, 'g')
-
-const unitTypes = ['Leader', 'Battleline', 'Artillery', 'Behemoth', 'Other']
-const unitRegexp = new RegExp(`Role: {1,4}(${unitTypes.join('|')})`, 'g')
-
 const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne']
-const endlessRegexp = new RegExp(`Role: {1,4}(${endlessTypes.join('|')})`, 'g')
+
+const prefixSeparator = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
 const prefixTypes = [
   'ALLEGIANCE',
@@ -248,7 +287,6 @@ const commonTypos = {
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',
   'Mercenar y Company': 'Mercenary Company',
-  'Inv ocation': 'Invocation',
   'Pist ol': 'Pistol',
   'Pur chased': 'Purchased',
   'Sky Port': 'Skyport',
@@ -256,27 +294,6 @@ const commonTypos = {
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
   'Warpfir e': 'Warpfire',
-  'Dominat or': 'Dominator',
-  'Allher d': 'Allherd',
-  'Desecr ator': 'Desecrator',
-  'Sla yer': 'Slayer',
-  'Dr ead': 'Dread',
-  'Sacr ament': 'Sacrament',
-  'Master y': 'Mastery',
-  'Ether eal': 'Ethereal',
-  'Pr ogr ess': 'Progress',
-  'Black ened': 'Blackened',
-  'Decr epify': 'Decrepify',
-  'Amar anthine': 'Amaranthine',
-  'Balefir e': 'Balefire',
-  'Wick ed': 'Wicked',
-  'Shar d': 'Shard',
-  'Souldr aught': 'Souldraught',
-  'Gr eatblade': 'Greatblade',
-  'Dr aining': 'Draining',
-  'Mak er': 'Maker',
-  'Sk ewer': 'Skewer',
-  'mor e': 'more',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')

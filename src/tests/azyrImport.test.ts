@@ -1,62 +1,64 @@
-import { readFileSync } from 'fs'
-import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
+import { handleAzyrPages } from 'components/input/azyr/azyrPdf'
 
-import BoCJSON from './fixtures/azyr/json/BoC.json'
-import ChamonJSON from './fixtures/azyr/json/Chamon.json'
-import ChaosJSON from './fixtures/azyr/json/Chaos.json'
-import DeathJSON from './fixtures/azyr/json/Death.json'
-import DestructionJSON from './fixtures/azyr/json/Destruction.json'
-import DoKJSON from './fixtures/azyr/json/DoK.json'
-import FECJSON from './fixtures/azyr/json/FEC.json'
-import FyreslayersJSON from './fixtures/azyr/json/Fyreslayers.json'
-import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
-import KhorneJSON from './fixtures/azyr/json/Khorne.json'
-import NighthauntJSON from './fixtures/azyr/json/Nighthaunt.json'
-import LethisianJSON from './fixtures/azyr/json/Lethisian.json'
-import KO1JSON from './fixtures/azyr/json/KO1.json'
-import KO2JSON from './fixtures/azyr/json/KO2.json'
-import LoGJSON from './fixtures/azyr/json/LoG.json'
-import NagashJSON from './fixtures/azyr/json/Newgash.json'
-import OrderJSON from './fixtures/azyr/json/Order.json'
-import GHoNJSON from './fixtures/azyr/json/GHoN.json'
-import GloomspiteJSON from './fixtures/azyr/json/Gloomspite.json'
-import WanderersJSON from './fixtures/azyr/json/Wanderers.json'
-import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
-import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
-import Nurgle2JSON from './fixtures/azyr/json/Nurgle_2.json'
-import Nurgle3JSON from './fixtures/azyr/json/Nurgle3.json'
-import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
-import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
-import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
-import SylvanethJSON from './fixtures/azyr/json/Sylvaneth.json'
-import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
-import Stormcast2JSON from './fixtures/azyr/json/Stormcast2.json'
-import Tzeentch1JSON from './fixtures/azyr/json/Tzeentch1.json'
-import Tzeentch2JSON from './fixtures/azyr/json/Tzeentch2.json'
+import BoC1 from './fixtures/azyr/json/BoC1.json'
+import BoC2 from './fixtures/azyr/json/BoC2.json'
+import Chamon from './fixtures/azyr/json/Chamon1.json'
+import Chaos1 from './fixtures/azyr/json/Chaos1.json'
+import Death1 from './fixtures/azyr/json/Death1.json'
+import Destruction1 from './fixtures/azyr/json/Destruction1.json'
+import DoK1 from './fixtures/azyr/json/DoK1.json'
+import FEC1 from './fixtures/azyr/json/FEC1.json'
+import Fyreslayers1 from './fixtures/azyr/json/Fyreslayers1.json'
+import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
+import GHoN1 from './fixtures/azyr/json/GHoN1.json'
+import GHoN2 from './fixtures/azyr/json/GHoN2.json'
+import Gloomspite1 from './fixtures/azyr/json/Gloomspite1.json'
+import Ironjawz1 from './fixtures/azyr/json/Ironjawz1.json'
+import Khorne1 from './fixtures/azyr/json/Khorne1.json'
+import KO1 from './fixtures/azyr/json/KO1.json'
+import KO2 from './fixtures/azyr/json/KO2.json'
+import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
+import LoG1 from './fixtures/azyr/json/LoG1.json'
+import LoS1 from './fixtures/azyr/json/LoS1.json'
+import Nighthaunt1 from './fixtures/azyr/json/Nighthaunt1.json'
+import NoRealm from './fixtures/azyr/json/NoRealmscape1.json'
+import Nurgle1 from './fixtures/azyr/json/Nurgle1.json'
+import Nurgle2 from './fixtures/azyr/json/Nurgle2.json'
+import Nurgle3 from './fixtures/azyr/json/Nurgle3.json'
+import Order1 from './fixtures/azyr/json/Order1.json'
+import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
+import Skaven1 from './fixtures/azyr/json/Skaven1.json'
+import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
+import Stormcast1 from './fixtures/azyr/json/Stormcast1.json'
+import Stormcast2 from './fixtures/azyr/json/Stormcast2.json'
+import Sylvaneth1 from './fixtures/azyr/json/Sylvaneth1.json'
+import Tzeentch1 from './fixtures/azyr/json/Tzeentch1.json'
+import Tzeentch2 from './fixtures/azyr/json/Tzeentch2.json'
+import Wanderers1 from './fixtures/azyr/json/Wanderers1.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
-xdescribe('getAzyrArmy', () => {
-  it('does it', async () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/azyr/pdf/Cats.and.Judicators.2000.pdf').buffer
-    const typedArray = new Uint8Array(pdfText as any)
-    const res = await getAzyrPdfText(typedArray)
-    console.log(res)
-  }, 300000)
-})
+// xdescribe('getAzyrArmy', () => {
+//   it('does it', async () => {
+//     const pdfText = readFileSync(__dirname + '/fixtures/azyr/pdf/Cats.and.Judicators.2000.pdf').buffer
+//     const typedArray = new Uint8Array(pdfText as any)
+//     const res = await getAzyrPdfText(typedArray)
+//     console.log(res)
+//   }, 300000)
+// })
 
 /**
  * Testing the Azyr import is a little wonky, because as of right now,
- * importing PDF's locally doesn't work in the local test environment
+ * importing's locally doesn't work in the local test environment
  *
- * The workaround is to `yarn start` and drop your PDF in the dropzone
+ * The workaround is to `yarn start` and drop your in the dropzone
  * Then copy the output that says "Copy me" into a JSON file
  *
  * Then test against that JSON below
  */
 describe('handleAzyrPages', () => {
-  it('handles a simple Seraphon army', () => {
-    const res = handleAzyrPages(SeraphonJSON)
+  it('handles Seraphon1', () => {
+    const res = handleAzyrPages(Seraphon1)
     expect(res).toEqual([
       'FACTION: Seraphon',
       'UNIT: Slann Starmaster',
@@ -69,19 +71,88 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Chamon-only pdf', () => {
-    const res = handleAzyrPages(ChamonJSON)
+  it('handles Chamon-only', () => {
+    const res = handleAzyrPages(Chamon)
     expect(res).toEqual(['FACTION: Death', 'REALMSCAPE: CHAMON'])
   })
 
-  it('handles a faction-only pdf', () => {
-    const res = handleAzyrPages(NoRealmJSON)
+  it('handles faction-only', () => {
+    const res = handleAzyrPages(NoRealm)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
   })
 
-  it('handles a SCE matched play pdf', () => {
-    const res = handleAzyrPages(Stormcast2JSON)
+  it('handles BoC2', () => {
+    const res = handleAzyrPages(BoC2)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Beasts of Chaos',
+      'ALLEGIANCE: Allherd',
+      'REALMSCAPE: HYSH',
+      'UNIT: Great Bray-Shaman',
+      'COMMAND TRAIT: Dominator',
+      'ARTIFACT: Aether quartz Brooch',
+      'SPELL: Tendrils of Atrophy',
+      'UNIT: Beastlord',
+      'ARTIFACT: Blade of the Desecrator',
+      'UNIT: Bestigors',
+      'UPGRADE: Brayhorn',
+      'UPGRADE: Banner Bearer',
+      'UNIT: Gors',
+      'BATTALION: Desolating Beastherd',
+      'UNIT: Ungor Raiders',
+      'UNIT: Tuskgor Chariots',
+      'ENDLESS SPELL: Wildfire Taurus',
+      'ENDLESS SPELL: Doomblast Dirgehorn',
+      'ENDLESS SPELL: Ravening Direflock',
+      'ENDLESS SPELL: Malevolent Maelstrom',
+    ])
+  })
+
+  it('handles Fyreslayers2', () => {
+    const res = handleAzyrPages(Fyreslayers2)
+    expect(res).toEqual([
+      'FACTION: Fyreslayers',
+      'ALLEGIANCE: Hermdar',
+      'REALMSCAPE: AQSHY',
+      'UNIT: Fjul-Grimnir',
+      'UNIT: The Chosen Axes',
+      'UNIT: Auric Runesmiter',
+      'COMMAND TRAIT: Warrior Indominate',
+      'ARTIFACT: Tyrant Slayer',
+      'SPELL: Prayer of Ash',
+      'MOUNT TRAIT: Fire-claw Adult',
+      'UNIT: Vulkite Berzerkers',
+      'UNIT: Auric Runeson',
+      'UNIT: Doomseeker',
+      'ENDLESS SPELL: Runic Fyrewall',
+    ])
+  })
+
+  it('handles LoS1', () => {
+    const res = handleAzyrPages(LoS1)
+    expect(res).toEqual([
+      'FACTION: Legion of Sacrament',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Necromancer',
+      'SPELL: Overwhelming Dread',
+      'UNIT: Wight King',
+      'ARTIFACT: The Ragged Cloak',
+      'UNIT: Vampire Lord on Zombie Dragon',
+      'COMMAND TRAIT: Mastery of Death',
+      'ARTIFACT: Ethereal Amulet',
+      'SPELL: Amethystine Pinions',
+      'UNIT: Skeleton Warriors',
+      'UPGRADE: Hornblower',
+      'UPGRADE: Standard Bearer',
+      'BATTALION: Deathmarch',
+      'UNIT: Black Knights',
+      'UNIT: Grave Guard',
+    ])
+  })
+
+  it('handles Stormcast2', () => {
+    const res = handleAzyrPages(Stormcast2)
     expect(res).toEqual([
       'FACTION: Stormcast Eternals',
       'ALLEGIANCE: CELESTIAL WARBRINGERS',
@@ -100,8 +171,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Wanderers pdf', () => {
-    const res = handleAzyrPages(WanderersJSON)
+  it('handles Wanderers1', () => {
+    const res = handleAzyrPages(Wanderers1)
     expect(res).toEqual([
       'FACTION: Wanderers',
       'UNIT: Nomad Prince',
@@ -119,8 +190,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Nighthaunt pdf', () => {
-    const res = handleAzyrPages(NighthauntJSON)
+  it('handles Nighthaunt1', () => {
+    const res = handleAzyrPages(Nighthaunt1)
     expect(res).toEqual([
       'FACTION: Nighthaunt',
       'UNIT: Dreadblade Harrow',
@@ -141,8 +212,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Lethisian pdf', () => {
-    const res = handleAzyrPages(LethisianJSON)
+  it('handles Lethisian1', () => {
+    const res = handleAzyrPages(Lethisian1)
     expect(res).toEqual([
       'FACTION: Lethisian',
       'UNIT: Arkanaut Admiral',
@@ -169,8 +240,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Fyreslayers pdf', () => {
-    const res = handleAzyrPages(FyreslayersJSON)
+  it('handles Fyreslayers1', () => {
+    const res = handleAzyrPages(Fyreslayers1)
     expect(res).toEqual([
       'FACTION: Fyreslayers',
       'ALLEGIANCE: Hermdar',
@@ -191,8 +262,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Destruction pdf', () => {
-    const res = handleAzyrPages(DestructionJSON)
+  it('handles Destruction1', () => {
+    const res = handleAzyrPages(Destruction1)
     expect(res).toEqual([
       'FACTION: Destruction',
       'UNIT: Frostlord on Stonehorn',
@@ -221,8 +292,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Death pdf', () => {
-    const res = handleAzyrPages(DeathJSON)
+  it('handles Death1', () => {
+    const res = handleAzyrPages(Death1)
     expect(res).toEqual([
       'FACTION: Death',
       'REALMSCAPE: GHYRAN',
@@ -230,7 +301,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Mannfred, Mortarch of Night',
       'UNIT: Nagash, Supreme Lord of the Undead',
       'UNIT: Necrotect',
-      'UNIT: Mortarch of Blood',
       'UNIT: Neferata, Mortarch of Blood',
       'UNIT: The Briar Queen',
       'UNIT: Vampire Lord on Zombie Dragon',
@@ -264,8 +334,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Chaos pdf', () => {
-    const res = handleAzyrPages(ChaosJSON)
+  it('handles Chaos1', () => {
+    const res = handleAzyrPages(Chaos1)
     expect(res).toEqual([
       'FACTION: Chaos',
       "UNIT: Be'lakor, Chaos Daemon Prince",
@@ -278,7 +348,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Sloppity Bilepiper, Herald of Nurgle',
       'UNIT: Verminlord Warpseer',
       'UNIT: Viceleader',
-      'UNIT: Skalok The Skull Host of Khorne',
+      'UNIT: Vorgaroth the Scarred & Skalok The Skull Host of Khorne',
       'UNIT: Wrath of Khorne Bloodthirster',
       'UNIT: Daemonettes',
       'UNIT: Gors',
@@ -287,7 +357,6 @@ describe('handleAzyrPages', () => {
       'UNIT: Plaguebearers',
       'UNIT: Chimera',
       'UNIT: Hell Pit Abomination',
-      'UNIT: Vorgaroth the Scarred & Skalok The Skull Host of Khorne',
       'UNIT: Plagueclaw',
       'UNIT: Warp Lightning Cannon',
       'UNIT: Warplock Jezzails',
@@ -297,8 +366,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Tzeentch pdf', () => {
-    const res = handleAzyrPages(Tzeentch2JSON)
+  it('handles Tzeentch2', () => {
+    const res = handleAzyrPages(Tzeentch2)
     expect(res).toEqual([
       'FACTION: Tzeentch',
       "MERCENARY COMPANY: Skroug's Menagerie",
@@ -313,8 +382,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles another Nurgle pdf', () => {
-    const res = handleAzyrPages(Nurgle3JSON)
+  it('handles Nurgle3', () => {
+    const res = handleAzyrPages(Nurgle3)
     expect(res).toEqual([
       'FACTION: Nurgle',
       'UNIT: Archaon',
@@ -340,8 +409,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Gloomspite pdf', () => {
-    const res = handleAzyrPages(GloomspiteJSON)
+  it('handles Gloomspite1', () => {
+    const res = handleAzyrPages(Gloomspite1)
     expect(res).toEqual([
       'FACTION: Gloomspite Gitz',
       'UNIT: Dankhold Troggboss',
@@ -368,8 +437,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles an FEC pdf', () => {
-    const res = handleAzyrPages(FECJSON)
+  it('handles FEC1', () => {
+    const res = handleAzyrPages(FEC1)
     expect(res).toEqual([
       'FACTION: Flesh-eater Courts',
       'ALLEGIANCE: Gristlegore',
@@ -385,8 +454,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a DoK pdf', () => {
-    const res = handleAzyrPages(DoKJSON)
+  it('handles DoK1', () => {
+    const res = handleAzyrPages(DoK1)
     expect(res).toEqual([
       'FACTION: Daughters of Khaine',
       'ALLEGIANCE: Hagg Nar',
@@ -403,8 +472,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Sylvaneth pdf', () => {
-    const res = handleAzyrPages(SylvanethJSON)
+  it('handles Sylvaneth1', () => {
+    const res = handleAzyrPages(Sylvaneth1)
     expect(res).toEqual([
       'FACTION: Sylvaneth',
       'ALLEGIANCE: Dreadwood',
@@ -420,8 +489,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles an Order pdf', () => {
-    const res = handleAzyrPages(OrderJSON)
+  it('handles Order1', () => {
+    const res = handleAzyrPages(Order1)
     expect(res).toEqual([
       'FACTION: Order',
       'REALMSCAPE: AQSHY',
@@ -442,14 +511,14 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a long KO pdf', () => {
-    const res = handleAzyrPages(KO2JSON)
+  it('handles KO2', () => {
+    const res = handleAzyrPages(KO2)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
       'ALLEGIANCE: Bar ak-Nar, City of the First Sunrise',
       'Kharadron Code: Respect y our Commanders; Trust Aethermatics, Not Superstition; Thr ough Knowledge, Power; Without Our Ships, We Ar e Naught',
       'UNIT: Aether-Khemist',
-      'COMMAND TRAIT: Champion of Pr ogr ess',
+      'COMMAND TRAIT: Champion of Progress',
       'UNIT: Aetheric Navigator',
       'UNIT: Arkanaut Admiral',
       'ARTIFACT: Staff of Ocular Optimisation',
@@ -486,15 +555,15 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Beasts of Chaos pdf', () => {
-    const res = handleAzyrPages(BoCJSON)
+  it('handles BoC1', () => {
+    const res = handleAzyrPages(BoC1)
     expect(res).toEqual([
       'FACTION: Beasts of Chaos',
       'UNIT: Beastlord',
       'ARTIFACT: The Knowing Eye',
       'UNIT: Doombull',
       'COMMAND TRAIT: Rampant Juggernaut',
-      'ARTIFACT: Black ened Armour of Chaos',
+      'ARTIFACT: Blackened Armour of Chaos',
       'UNIT: Dragon Ogor Shaggoth',
       'SPELL: Sundering Blades',
       'UNIT: Great Bray-Shaman',
@@ -538,8 +607,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Grand Host of Nagash pdf', () => {
-    const res = handleAzyrPages(GHoNJSON)
+  it('handles GHoN1', () => {
+    const res = handleAzyrPages(GHoN1)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
       'UNIT: Nagash, Supreme Lord of the Undead',
@@ -547,15 +616,15 @@ describe('handleAzyrPages', () => {
       'UNIT: Arkhan the Black, Mortarch of Sacrament',
       'SPELL: Fading Vigour',
       'UNIT: Mannfred, Mortarch of Night',
-      'SPELL: Decr epify',
+      'SPELL: Decrepify',
       'UNIT: Neferata, Mortarch of Blood',
       'SPELL: Spirit Gale',
       'UNIT: Prince Vhordrai',
-      'SPELL: Amar anthine Orb',
+      'SPELL: Amaranthine Orb',
       'ALLY: Lady Olynder',
       'ALLY: Reikenor The Grimhailer',
       'ALLY: Varghulf Courtier',
-      'ARTIFACT: Balefir e Lantern',
+      'ARTIFACT: Balefire Lantern',
       'UNIT: Zombies',
       'UNIT: Skeleton Warriors',
       'UNIT: Morghast Harbingers',
@@ -591,8 +660,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Khorne pdf', () => {
-    const res = handleAzyrPages(KhorneJSON)
+  it('handles Khorne1', () => {
+    const res = handleAzyrPages(Khorne1)
     expect(res).toEqual([
       'FACTION: Khorne',
       'ALLEGIANCE: Skullfiend Tribe',
@@ -670,8 +739,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a 9550pt Tzeentch pdf', () => {
-    const res = handleAzyrPages(Tzeentch1JSON)
+  it('handles Tzeentch1', () => {
+    const res = handleAzyrPages(Tzeentch1)
     expect(res).toEqual([
       'FACTION: Tzeentch',
       'REALMSCAPE: HYSH',
@@ -685,7 +754,7 @@ describe('handleAzyrPages', () => {
       'ARTIFACT: Warpfire Blade',
       'SPELL: Fold Reality',
       'UNIT: Gaunt Summoner on Disc of Tzeentch',
-      'ARTIFACT: Wick ed Shar d',
+      'ARTIFACT: Wicked Shard',
       'SPELL: Bolt of Tzeentch',
       'UNIT: Herald of Tzeentch',
       'ARTIFACT: Sash of the Ten Paradises',
@@ -693,12 +762,12 @@ describe('handleAzyrPages', () => {
       'UNIT: Kairos Fateweaver',
       'SPELL: Uncheck ed Mutation',
       'UNIT: Ogroid Thaumaturge',
-      'ARTIFACT: Souldr aught',
+      'ARTIFACT: Souldraught',
       'UNIT: The Changeling',
       'SPELL: Treason of Tzeentch',
       'UNIT: Tzaangors',
       'UPGRADE: Icon Bearers',
-      'WEAPON: Savage Gr eatblade',
+      'WEAPON: Savage Greatblade',
       'UNIT: Pink Horrors of Tzeentch',
       'SPELL: Arcane Transformation',
       'UNIT: Kairic Acolytes',
@@ -759,8 +828,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Nurgle pdf', () => {
-    const res = handleAzyrPages(Nurgle1JSON)
+  it('handles Nurgle1', () => {
+    const res = handleAzyrPages(Nurgle1)
     expect(res).toEqual([
       'FACTION: Nurgle',
       'UNIT: Bloab Rotspawned',
@@ -821,8 +890,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a realistic Nurgle pdf', () => {
-    const res = handleAzyrPages(Nurgle2JSON)
+  it('handles Nurgle2', () => {
+    const res = handleAzyrPages(Nurgle2)
     expect(res).toEqual([
       'FACTION: Nurgle',
       'REALMSCAPE: SHYISH',
@@ -834,7 +903,7 @@ describe('handleAzyrPages', () => {
       'SPELL: Blades of Putr efaction',
       'UNIT: Great Bray-Shaman',
       'UNIT: Chaos Sorcerer Lord',
-      'ARTIFACT: Goblet of Dr aining',
+      'ARTIFACT: Goblet of Draining',
       'UNIT: Ungors',
       'UNIT: Gors',
       'BATTALION: Pestilent Throng',
@@ -846,8 +915,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a LoG pdf', () => {
-    const res = handleAzyrPages(LoGJSON)
+  it('handles LoG1', () => {
+    const res = handleAzyrPages(LoG1)
     expect(res).toEqual([
       'FACTION: Legion of Grief',
       'REALMSCAPE: ULGU',
@@ -856,6 +925,7 @@ describe('handleAzyrPages', () => {
       'UNIT: Kurdoss Valentian',
       'UNIT: Knight of Shrouds',
       'UNIT: Dreadblade Harrow',
+      // Purposefully not fixing the below typo in order to test later
       'ARTIFACT: Blade of the Thir teen Dominions',
       'UNIT: Necromancer',
       'ARTIFACT: Dimensional Blade',
@@ -869,7 +939,7 @@ describe('handleAzyrPages', () => {
       'UPGRADE: Hornblower',
       'UPGRADE: Standard Bearer',
       'UNIT: Zombies',
-      'UPGRADE: Noise Mak er',
+      'UPGRADE: Noise Maker',
       'UNIT: Black Coach',
       'UNIT: Mortis Engine',
       'UNIT: Black Knights',
@@ -934,10 +1004,11 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a KO army', () => {
-    const res = handleAzyrPages(KO1JSON)
+  it('handles KO1 army', () => {
+    const res = handleAzyrPages(KO1)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
+      // The below typo is left in place to test against later
       'ALLEGIANCE: Bar ak-Thr yng, City of the Ancest ors',
       'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Ar e Just Guidelines',
       'UNIT: Aether-Khemist',
@@ -957,8 +1028,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a large Ironjawz army', () => {
-    const res = handleAzyrPages(Ironjawz1JSON)
+  it('handles Ironjawz1', () => {
+    const res = handleAzyrPages(Ironjawz1)
     expect(res).toEqual([
       'FACTION: Ironjawz',
       'UNIT: Megaboss on Maw-krusha',
@@ -966,7 +1037,7 @@ describe('handleAzyrPages', () => {
       'ARTIFACT: The Golden Toof',
       'UNIT: Gordrakk, the Fist of Gork',
       'UNIT: Orruk Megaboss',
-      'ARTIFACT: The Boss Sk ewer',
+      'ARTIFACT: The Boss Skewer',
       'UNIT: Orruk Warchanter',
       'ARTIFACT: Armour of Gork',
       'UNIT: Orruk Weirdnob Shaman',
@@ -990,8 +1061,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Nagash army', () => {
-    const res = handleAzyrPages(NagashJSON)
+  it('handles Nagash1', () => {
+    const res = handleAzyrPages(GHoN2)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
       'REALMSCAPE: SHYISH',
@@ -1006,8 +1077,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles Slaanesh + Mercenaries army', () => {
-    const res = handleAzyrPages(SlaaneshMercsJSON)
+  it('handles Slaanesh1', () => {
+    const res = handleAzyrPages(Slaanesh1)
     expect(res).toEqual([
       'FACTION: Slaanesh',
       'ALLEGIANCE: Invaders Host',
@@ -1028,8 +1099,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a generic Stormcast pdf', () => {
-    const res = handleAzyrPages(Stormcast1JSON)
+  it('handles Stormcast1', () => {
+    const res = handleAzyrPages(Stormcast1)
     expect(res).toEqual([
       'FACTION: Stormcast Eternals',
       'REALMSCAPE: GHUR',
@@ -1057,8 +1128,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Skaven army', () => {
-    const res = handleAzyrPages(Skaven1JSON)
+  it('handles Skaven1', () => {
+    const res = handleAzyrPages(Skaven1)
     expect(res).toEqual([
       'FACTION: Skaventide',
       'UNIT: Grey Seer',
@@ -1066,8 +1137,9 @@ describe('handleAzyrPages', () => {
       'SPELL: Death Frenzy',
       'SPELL: Skitterleap',
       'UNIT: Warlock Bombardier',
+      // Typo left in place to test against later
       'ARTIFACT: Vigor dust Inject or',
-      'SPELL: More-mor e-mor e Warp Power!',
+      'SPELL: More-more-more Warp Power!',
       'UNIT: Clanrats',
       'UPGRADE: Clawleader',
       'UPGRADE: Clanr at Standard Bearer',
