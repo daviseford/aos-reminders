@@ -116,9 +116,10 @@ const handleFirstPass = (text: string) => {
     )
     .replace(unitRegexp, 'Role: UNIT')
     .replace(endlessRegexp, 'Role: ENDLESS SPELL')
+    .replace(spellRegexp, 'Spell:')
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
-    .replace(/[0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
+    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/g, ' ')
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/g, ' ')
     .replace(markRegexp, ' ')
@@ -198,13 +199,14 @@ const cleanAzyrText = (text: string) => {
   return fourthRun
 }
 
+const spellTypes = ['Spell', 'Prayer']
+const spellRegexp = new RegExp(`(${spellTypes.join('|')}):`, 'g')
+
 const unitTypes = ['Leader', 'Battleline', 'Artillery', 'Behemoth', 'Other']
 const unitRegexp = new RegExp(`Role: {1,4}(${unitTypes.join('|')})`, 'g')
 
 const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne']
 const endlessRegexp = new RegExp(`Role: {1,4}(${endlessTypes.join('|')})`, 'g')
-
-const prefixSeparator = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
 const prefixTypes = [
   'ALLEGIANCE',
@@ -246,6 +248,7 @@ const commonTypos = {
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',
   'Mercenar y Company': 'Mercenary Company',
+  'Inv ocation': 'Invocation',
   'Pist ol': 'Pistol',
   'Pur chased': 'Purchased',
   'Sky Port': 'Skyport',

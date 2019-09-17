@@ -4,35 +4,37 @@ import { getAzyrPdfText, handleAzyrPages } from 'components/input/azyr/azyrPdf'
 import BoCJSON from './fixtures/azyr/json/BoC.json'
 import ChamonJSON from './fixtures/azyr/json/Chamon.json'
 import ChaosJSON from './fixtures/azyr/json/Chaos.json'
-import DeathJSON from './fixtures/azyr/json/Death.json'
+import Death1JSON from './fixtures/azyr/json/Death1.json'
 import DestructionJSON from './fixtures/azyr/json/Destruction.json'
 import DoKJSON from './fixtures/azyr/json/DoK.json'
 import FECJSON from './fixtures/azyr/json/FEC.json'
-import FyreslayersJSON from './fixtures/azyr/json/Fyreslayers.json'
-import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
-import KhorneJSON from './fixtures/azyr/json/Khorne.json'
-import NighthauntJSON from './fixtures/azyr/json/Nighthaunt.json'
-import LethisianJSON from './fixtures/azyr/json/Lethisian.json'
-import KO1JSON from './fixtures/azyr/json/KO1.json'
-import KO2JSON from './fixtures/azyr/json/KO2.json'
-import LoGJSON from './fixtures/azyr/json/LoG.json'
-import NagashJSON from './fixtures/azyr/json/Newgash.json'
-import OrderJSON from './fixtures/azyr/json/Order.json'
+import Fyreslayers1JSON from './fixtures/azyr/json/Fyreslayers1.json'
+import Fyreslayers2JSON from './fixtures/azyr/json/Fyreslayers2.json'
 import GHoNJSON from './fixtures/azyr/json/GHoN.json'
 import GloomspiteJSON from './fixtures/azyr/json/Gloomspite.json'
-import WanderersJSON from './fixtures/azyr/json/Wanderers.json'
+import Ironjawz1JSON from './fixtures/azyr/json/Ironjawz1.json'
+import KhorneJSON from './fixtures/azyr/json/Khorne.json'
+import KO1JSON from './fixtures/azyr/json/KO1.json'
+import KO2JSON from './fixtures/azyr/json/KO2.json'
+import LethisianJSON from './fixtures/azyr/json/Lethisian.json'
+import LoGJSON from './fixtures/azyr/json/LoG.json'
+import LoS1JSON from './fixtures/azyr/json/LoS1.json'
+import NagashJSON from './fixtures/azyr/json/Newgash.json'
+import NighthauntJSON from './fixtures/azyr/json/Nighthaunt.json'
 import NoRealmJSON from './fixtures/azyr/json/NoRealmscape.json'
 import Nurgle1JSON from './fixtures/azyr/json/Nurgle1.json'
 import Nurgle2JSON from './fixtures/azyr/json/Nurgle2.json'
 import Nurgle3JSON from './fixtures/azyr/json/Nurgle3.json'
+import OrderJSON from './fixtures/azyr/json/Order.json'
 import SeraphonJSON from './fixtures/azyr/json/Seraphon.json'
 import Skaven1JSON from './fixtures/azyr/json/Skaven1.json'
 import SlaaneshMercsJSON from './fixtures/azyr/json/SlaaneshWithMercs.json'
-import SylvanethJSON from './fixtures/azyr/json/Sylvaneth.json'
 import Stormcast1JSON from './fixtures/azyr/json/Stormcast1.json'
 import Stormcast2JSON from './fixtures/azyr/json/Stormcast2.json'
+import SylvanethJSON from './fixtures/azyr/json/Sylvaneth.json'
 import Tzeentch1JSON from './fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2JSON from './fixtures/azyr/json/Tzeentch2.json'
+import WanderersJSON from './fixtures/azyr/json/Wanderers.json'
 
 // TODO: Get this to work :(
 // https://github.com/mozilla/pdf.js/issues/7612
@@ -78,6 +80,49 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealmJSON)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Fyreslayers2 pdf', () => {
+    const res = handleAzyrPages(Fyreslayers2JSON)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Fyreslayers',
+      'ALLEGIANCE: Hermdar',
+      'REALMSCAPE: AQSHY',
+      'UNIT: Fjul-Grimnir',
+      'UNIT: The Chosen Axes',
+      'UNIT: Auric Runesmiter',
+      'COMMAND TRAIT: Warrior Indominate',
+      'ARTIFACT: Tyrant Sla yer',
+      'SPELL: Prayer of Ash',
+      'MOUNT TRAIT: Fire-claw Adult',
+      'UNIT: Vulkite Berzerkers',
+      'UNIT: Auric Runeson',
+      'UNIT: Doomseeker',
+      'ENDLESS SPELL: Runic Fyrewall',
+    ])
+  })
+
+  it('handles LoS1 pdf', () => {
+    const res = handleAzyrPages(LoS1JSON)
+    expect(res).toEqual([
+      'FACTION: Legion of Sacr ament',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Necromancer',
+      'SPELL: Overwhelming Dr ead',
+      'UNIT: Wight King',
+      'ARTIFACT: The Ragged Cloak',
+      'UNIT: Vampire Lord on Zombie Dragon',
+      'COMMAND TRAIT: Master y of Death',
+      'ARTIFACT: Ether eal Amulet',
+      'SPELL: Amethystine Pinions',
+      'UNIT: Skeleton Warriors',
+      'UPGRADE: Hornblower',
+      'UPGRADE: Standard Bearer',
+      'BATTALION: Deathmarch',
+      'UNIT: Black Knights',
+      'UNIT: Grave Guard',
+    ])
   })
 
   it('handles Stormcast2 pdf', () => {
@@ -170,7 +215,7 @@ describe('handleAzyrPages', () => {
   })
 
   it('handles a Fyreslayers pdf', () => {
-    const res = handleAzyrPages(FyreslayersJSON)
+    const res = handleAzyrPages(Fyreslayers1JSON)
     expect(res).toEqual([
       'FACTION: Fyreslayers',
       'ALLEGIANCE: Hermdar',
@@ -221,8 +266,8 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles a Death pdf', () => {
-    const res = handleAzyrPages(DeathJSON)
+  it('handles Death1 pdf', () => {
+    const res = handleAzyrPages(Death1JSON)
     expect(res).toEqual([
       'FACTION: Death',
       'REALMSCAPE: GHYRAN',
