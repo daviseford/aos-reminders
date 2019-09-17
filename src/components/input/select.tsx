@@ -62,6 +62,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
       <Select
         value={selectValues}
         defaultValue={hasDefault ? options[0] : null}
+        closeMenuOnSelect={false}
         isClearable={isClearable}
         isMulti={true}
         isSearchable={true}
