@@ -114,7 +114,8 @@ const handleFirstPass = (text: string) => {
       /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
       realmscapeReplacer
     )
-    .replace(/Role: {1,4}(Leader|Battleline|Artillery|Behemoth|Other)/g, 'Role: UNIT')
+    .replace(unitRegexp, 'Role: UNIT')
+    .replace(endlessRegexp, 'Role: ENDLESS SPELL')
     .replace(/Army deemed .+valid/g, ' ')
     .replace(/by Azyr Roster Builder/g, ' ')
     .replace(/[0-9]{1,4}pts[\/][0-9]{1,4}pts Allies/g, ' ')
@@ -166,7 +167,7 @@ const cleanAzyrText = (text: string) => {
     // These next two lines handle Nagash, Supreme Lord of the Undead
     .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g,
       `${sep}$4: $2${commaAlt} $3 ,`
     )
 
@@ -174,18 +175,10 @@ const cleanAzyrText = (text: string) => {
 
   const fourthRun = thirdRun
     // Now handle normal units
-    .replace(
-      /(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
-      `${sep}$3: $2${sep}`
-    )
+    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
-    .replace(
-      /(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation)/g,
-      `${sep}$3: $2${sep}`
-    )
-    .replace(/UNIT:/g, 'UNIT:')
+    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|Battalion|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/Battalion:/g, 'BATTALION:')
-    .replace(/(Endless Spell|Judgement of Khorne|Magmic Invocation):/g, 'ENDLESS SPELL:')
     .replace(/Command Trait:/g, 'COMMAND TRAIT:')
     .replace(/Mount Trait:/g, 'MOUNT TRAIT:')
     .replace(/Spell:/g, 'SPELL:')
@@ -193,18 +186,7 @@ const cleanAzyrText = (text: string) => {
     .replace(/Artefact:/g, 'ARTIFACT:')
     .replace(/Upgrade:/g, 'UPGRADE:')
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2')
-    .replace(/(UNIT): {2,4}/g, '$1: ')
     .split(',')
-    .map(x => {
-      x = x.trim()
-
-      x = x.replace(new RegExp(`([\w]) (${prefixTypes.join('|')}):`, 'g'), prefixSeparator).trim()
-      x = x.replace(
-        /^Role:[ ]+(UNIT|Battalion|Endless Spell|Judgement of Khorne|Magmic Invocation|Other)$/g,
-        ''
-      )
-      return x
-    })
     .join(sep)
     .split(sep)
     .map(x => x.replace(/ {2,}/g, ' ').trim())
@@ -216,7 +198,11 @@ const cleanAzyrText = (text: string) => {
   return fourthRun
 }
 
+const unitTypes = ['Leader', 'Battleline', 'Artillery', 'Behemoth', 'Other']
+const unitRegexp = new RegExp(`Role: {1,4}(${unitTypes.join('|')})`, 'g')
+
 const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne']
+const endlessRegexp = new RegExp(`Role: {1,4}(${endlessTypes.join('|')})`, 'g')
 
 const prefixSeparator = (match: string, p1: string, p2: string) => `${p1}, ${p2}:`
 
