@@ -103,7 +103,7 @@ const handleFirstPass = (text: string) => {
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
-    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whtiespace in front of existing commas
+    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(
       /Mercenary Company: {1,3}([\w-' ]+)(Extra Command|Leader Battleline|Leaders|Leader|(?:$))/g,
       mercenaryReplacer
