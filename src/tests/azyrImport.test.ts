@@ -1,5 +1,4 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
-import { getInitialAzyrArmy } from 'utils/azyr/getAzyrArmy'
 
 import BCR1 from './fixtures/azyr/json/BCR1.json'
 import BoC1 from './fixtures/azyr/json/BoC1.json'
