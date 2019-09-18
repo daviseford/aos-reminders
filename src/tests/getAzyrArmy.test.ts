@@ -2,17 +2,33 @@ import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
-import { BEASTS_OF_CHAOS, FYRESLAYERS, SKAVEN, KHARADRON_OVERLORDS, SERAPHON } from 'meta/factions'
+import {
+  BEASTS_OF_CHAOS,
+  FYRESLAYERS,
+  SKAVEN,
+  KHARADRON_OVERLORDS,
+  SERAPHON,
+  SLAANESH,
+  MERCENARY_COMPANIES,
+} from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
+import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Slaanesh1', () => {
+    const pages = handleAzyrPages(Slaanesh1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.allyFactionNames).toEqual([MERCENARY_COMPANIES])
+  })
+
   it('handles Skryre1', () => {
     const pages = handleAzyrPages(Skryre1)
     const res = getAzyrArmyFromPdf(pages)
