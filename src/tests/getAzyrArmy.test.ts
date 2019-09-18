@@ -1,5 +1,5 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
-import { getInitialAzyrArmy } from 'utils/azyr/getAzyrArmy'
+import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 
 import { BEASTS_OF_CHAOS, FYRESLAYERS, SKAVEN, KHARADRON_OVERLORDS, SERAPHON } from 'meta/factions'
 import { AQSHY } from 'types/realmscapes'
@@ -13,7 +13,7 @@ import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 describe('getAzyrArmyFromPdf', () => {
   it('handles Seraphon1', () => {
     const pages = handleAzyrPages(Seraphon1)
-    const res = getInitialAzyrArmy(pages)
+    const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -36,7 +36,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Slann Starmaster',
           'Engine of the Gods',
           'Saurus Astrolith Bearer',
-          'Skink Priest',
+          'Skink Priest w/ Cloak of Feathers',
           'Saurus Warriors',
         ],
       },
@@ -46,7 +46,7 @@ describe('getAzyrArmyFromPdf', () => {
 
   it('handles KO1', () => {
     const pages = handleAzyrPages(KO1)
-    const res = getInitialAzyrArmy(pages)
+    const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -88,7 +88,7 @@ describe('getAzyrArmyFromPdf', () => {
 
   it('handles Skaven1', () => {
     const pages = handleAzyrPages(Skaven1)
-    const res = getInitialAzyrArmy(pages)
+    const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -104,8 +104,12 @@ describe('getAzyrArmyFromPdf', () => {
         commands: [],
         endless_spells: [],
         scenery: [],
-        spells: ['Death Frenzy', 'Skitterleap', 'More-more-more Warp Power!'],
-        traits: ['Master of Magic'],
+        spells: [
+          'Death Frenzy (Grey Seer)',
+          'Skitterleap (Grey Seer)',
+          'More-more-more Warp Power! (Skryre Wizard)',
+        ],
+        traits: ['Master of Magic (Masterclan)'],
         triumphs: [],
         units: [
           'Grey Seer',
@@ -122,7 +126,7 @@ describe('getAzyrArmyFromPdf', () => {
 
   it('handles Fyreslayers2', () => {
     const pages = handleAzyrPages(Fyreslayers2)
-    const res = getInitialAzyrArmy(pages)
+    const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -132,14 +136,14 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: AQSHY,
       selections: {
-        allegiances: ['Hermdar'],
+        allegiances: ['Hermdar (Lodge)'],
         artifacts: ['Tyrant Slayer'],
         battalions: [],
         commands: [],
         endless_spells: ['Runic Fyrewall'],
         scenery: [],
         spells: ['Prayer of Ash'],
-        traits: ['Warrior Indominate', 'Fire-claw Adult'],
+        traits: ['Warrior Indominate', 'Fire-claw Adult (Mount)'],
         triumphs: [],
         units: [
           'Fjul-Grimnir',
@@ -156,10 +160,14 @@ describe('getAzyrArmyFromPdf', () => {
 
   it('handles BoC1', () => {
     const pages = handleAzyrPages(BoC1)
-    const res = getInitialAzyrArmy(pages)
+    const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
+      allyFactionNames: ['SLAVES_TO_DARKNESS'],
+      allySelections: {
+        SLAVES_TO_DARKNESS: {
+          units: ['Sayl the Faithless', 'Theddra Skull-Scryer', 'Darkoath Warqueen', 'Godsworn Hunt'],
+        },
+      },
       allyUnits: [
         'Sayl the Faithless',
         'Theddra Skull-Scryer',
@@ -174,7 +182,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       selections: {
         allegiances: [],
-        artifacts: ['The Knowing Eye', 'Blackened Armour of Chaos'],
+        artifacts: ['The Knowing Eye (Brayherds)', 'Blackened Armour of Chaos (Warherds)'],
         battalions: [
           'Brass Despoilers',
           'Depraved Drove',
@@ -188,8 +196,12 @@ describe('getAzyrArmyFromPdf', () => {
         commands: [],
         endless_spells: [],
         scenery: [],
-        spells: ['Sundering Blades', 'Tendrils of Atrophy', 'Titanic Fur'],
-        traits: ['Rampant Juggernaut'],
+        spells: [
+          'Sundering Blades (Thunderscorn Wizard)',
+          'Tendrils of Atrophy (Brayherd Wizard)',
+          'Titanic Fury (Brayherd Wizard)',
+        ],
+        traits: ['Rampant Juggernaut (Warherd)'],
         triumphs: [],
         units: [
           'Beastlord',

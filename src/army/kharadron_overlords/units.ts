@@ -170,7 +170,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Brokk Grungsson, Lord-Mangate of Barak-Nar`,
+    name: `Brokk Grungsson, Lord-Magnate of Barak-Nar`,
     effects: [
       {
         name: `The Lord-Magnate Moves`,
