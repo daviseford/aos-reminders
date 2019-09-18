@@ -10,6 +10,18 @@ type TUseParse = (
   handleDone: () => void
 ) => (acceptedFiles: any[]) => void
 
+function ab2str(buf) {
+  //@ts-ignore
+  return String.fromCharCode.apply(null, new Uint16Array(buf))
+}
+
+const check = async typedarray => {
+  const pdfPages = await getPdfPages(typedarray)
+
+  const isWarscroll = pdfPages.some(x => x.includes('Warscroll Builder'))
+  console.log('isWarscroll', isWarscroll)
+}
+
 export const handleParseAzyr: TUseParse = (handleDrop, handleError, handleDone) => {
   return acceptedFiles => {
     try {
@@ -26,6 +38,7 @@ export const handleParseAzyr: TUseParse = (handleDrop, handleError, handleDone) 
         //Step 4:turn array buffer into typed array
         const typedarray = new Uint8Array(reader.result as any)
 
+        const a = await check(typedarray)
         const pdfPages = await getPdfPages(typedarray)
         const parsedPages = handleAzyrPages(pdfPages)
 
