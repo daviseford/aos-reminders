@@ -1,4 +1,5 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
+import { getAzyrArmy } from 'utils/azyr/getAzyrArmy'
 
 import BCR1 from './fixtures/azyr/json/BCR1.json'
 import BoC1 from './fixtures/azyr/json/BoC1.json'
@@ -58,6 +59,47 @@ import Wanderers1 from './fixtures/azyr/json/Wanderers1.json'
 //     console.log(res)
 //   }, 300000)
 // })
+
+describe('getAzyrArmy', () => {
+  it('handles Seraphon1', () => {
+    const pages = handleAzyrPages(Seraphon1)
+    const res = getAzyrArmy(pages)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'Seraphon',
+      realmscape_feature: null,
+      realmscape: '',
+      selections: {
+        allegiances: [],
+        artifacts: [],
+        battalions: ['Fangs of Sotek', 'Sunclaw Starhost'],
+        commands: [],
+        endless_spells: [],
+        scenery: [],
+        spells: [],
+        traits: [],
+        triumphs: [],
+        units: [
+          'Slann Starmaster',
+          'Engine of the Gods',
+          'Saurus Astrolith Bearer',
+          'Skink Priest',
+          'Saurus Warriors',
+        ],
+      },
+      unknownSelections: [],
+    })
+  })
+
+  it('handles Seraphon1', () => {
+    const pages = handleAzyrPages(Seraphon1)
+    const res = getAzyrArmy(pages)
+    console.log(res)
+  })
+})
 
 /**
  * Testing the Azyr import is a little wonky, because as of right now,
