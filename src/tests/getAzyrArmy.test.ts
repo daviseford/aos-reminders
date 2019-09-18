@@ -1,5 +1,8 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
-import { getAzyrArmy } from 'utils/azyr/getAzyrArmy'
+import { getInitialAzyrArmy } from 'utils/azyr/getAzyrArmy'
+
+import { BEASTS_OF_CHAOS, FYRESLAYERS, SKAVEN, KHARADRON_OVERLORDS, SERAPHON } from 'meta/factions'
+import { AQSHY } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
@@ -7,18 +10,18 @@ import KO1 from './fixtures/azyr/json/KO1.json'
 import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 
-describe('getAzyrArmy', () => {
+describe('getAzyrArmyFromPdf', () => {
   it('handles Seraphon1', () => {
     const pages = handleAzyrPages(Seraphon1)
-    const res = getAzyrArmy(pages)
+    const res = getInitialAzyrArmy(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'Seraphon',
+      factionName: SERAPHON,
       realmscape_feature: null,
-      realmscape: '',
+      realmscape: null,
       selections: {
         allegiances: [],
         artifacts: [],
@@ -43,15 +46,15 @@ describe('getAzyrArmy', () => {
 
   it('handles KO1', () => {
     const pages = handleAzyrPages(KO1)
-    const res = getAzyrArmy(pages)
+    const res = getInitialAzyrArmy(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'Kharadron Overlords',
+      factionName: KHARADRON_OVERLORDS,
       realmscape_feature: null,
-      realmscape: '',
+      realmscape: null,
       selections: {
         allegiances: ['Barak-Thryng, City of the Ancestors'],
         artifacts: [],
@@ -85,15 +88,15 @@ describe('getAzyrArmy', () => {
 
   it('handles Skaven1', () => {
     const pages = handleAzyrPages(Skaven1)
-    const res = getAzyrArmy(pages)
+    const res = getInitialAzyrArmy(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'Skaventide',
+      factionName: SKAVEN,
       realmscape_feature: null,
-      realmscape: '',
+      realmscape: null,
       selections: {
         allegiances: [],
         artifacts: ['Vigordust Injector'],
@@ -119,15 +122,15 @@ describe('getAzyrArmy', () => {
 
   it('handles Fyreslayers2', () => {
     const pages = handleAzyrPages(Fyreslayers2)
-    const res = getAzyrArmy(pages)
+    const res = getInitialAzyrArmy(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'Fyreslayers',
+      factionName: FYRESLAYERS,
       realmscape_feature: null,
-      realmscape: 'AQSHY',
+      realmscape: AQSHY,
       selections: {
         allegiances: ['Hermdar'],
         artifacts: ['Tyrant Slayer'],
@@ -153,7 +156,7 @@ describe('getAzyrArmy', () => {
 
   it('handles BoC1', () => {
     const pages = handleAzyrPages(BoC1)
-    const res = getAzyrArmy(pages)
+    const res = getInitialAzyrArmy(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -166,9 +169,9 @@ describe('getAzyrArmy', () => {
         'Furies',
       ],
       errors: [],
-      factionName: 'Beasts of Chaos',
+      factionName: BEASTS_OF_CHAOS,
       realmscape_feature: null,
-      realmscape: '',
+      realmscape: null,
       selections: {
         allegiances: [],
         artifacts: ['The Knowing Eye', 'Blackened Armour of Chaos'],

@@ -14,6 +14,13 @@ import { getAllyData } from 'utils/warscroll/allyData'
 import { ISelections } from 'types/selections'
 import { warscrollTypoMap } from 'utils/warscroll/options'
 
+export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
+  const army = getInitialAzyrArmy(pdfText)
+  const errorChecked = azyrPdfErrorChecker(army)
+
+  return errorChecked
+}
+
 // [
 //   'FACTION: Seraphon',
 //   'UNIT: Slann Starmaster',
@@ -53,7 +60,7 @@ const prefixTypes = [
   // 'WEAPON',
 ]
 
-export const getAzyrArmy = (pages: string[]): IImportedArmy => {
+export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
   let realmscape: TRealms | null = null
   let allyUnits: string[] = []
