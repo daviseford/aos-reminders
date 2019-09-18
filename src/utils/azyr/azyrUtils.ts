@@ -4,11 +4,12 @@ import { azyrTypoMap } from './options'
 import { stripPunctuation } from 'utils/textUtils'
 import { createWarning, replaceOf } from 'utils/warscroll/warscrollUtils'
 
-export const checkAzyrSelection = (
+export const checkImportSelection = (
   Names: string[],
   NameMap: { [key: string]: string },
   errors: TImportError[],
-  logError: boolean = true
+  logError: boolean = true,
+  checkPoorSpacing: boolean
 ) => (val: string) => {
   // Check for typos
   if (azyrTypoMap[val]) val = azyrTypoMap[val]
@@ -45,9 +46,11 @@ export const checkAzyrSelection = (
   const match5 = Names.find(x => x.toUpperCase().includes(valNoSemi))
   if (match5) return match5
 
-  // Last chance - check for bad spacing
-  const match6 = Names.find(x => isPoorlySpacedMatch(val, x))
-  if (match6) return match6
+  if (checkPoorSpacing) {
+    // Last chance - check for bad spacing
+    const match6 = Names.find(x => isPoorlySpacedMatch(val, x))
+    if (match6) return match6
+  }
 
   if (logError) {
     errors.push(createWarning(val))
@@ -56,7 +59,7 @@ export const checkAzyrSelection = (
 }
 
 /**
- * Sometimes the text formatting from Azyr leads to extra spaces in a word
+ * Sometimes the text formatting from PDF.js leads to extra spaces in a word
  * What we want to do is smush the word together (removing all spaces)
  * And then expand the word, adding spaces where our potential match has them
  * And check if we've got a partial match
