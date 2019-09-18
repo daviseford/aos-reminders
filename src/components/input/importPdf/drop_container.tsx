@@ -9,13 +9,9 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { TError, IImportedArmy } from 'types/warscrollTypes'
-import { FaCheck } from 'react-icons/fa'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { TImportError, IImportedArmy } from 'types/import'
 
-export type TParsers = 'Warscroll' | 'Azyr'
-
-interface ILoadArmyProps {
+interface IImportContainerProps {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -25,7 +21,7 @@ interface ILoadArmyProps {
   updateSelections: (payload: ISelections) => void
 }
 
-const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
+const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
   const {
     setFactionName,
     setRealmscape,
@@ -37,7 +33,6 @@ const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
 
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
-  const [parser, setParser] = useState<TParsers>('Azyr')
 
   const handleDrop = useCallback(
     (army: IImportedArmy) => {
@@ -73,12 +68,9 @@ const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
 
   return (
     <>
-      <div>
-        <ParserSelection activeParser={parser} setParser={setParser} />
-      </div>
       <div className="row my-2 d-flex justify-content-center">
         <div className={'col-12 col-lg-6 col-xl-6 border border-secondary px-0'}>
-          <ImportDropzone handleDrop={handleDrop} parser={parser} />
+          <ImportDropzone handleDrop={handleDrop} />
         </div>
       </div>
 
@@ -97,7 +89,7 @@ const LoadWarscrollArmyComponent: React.FC<ILoadArmyProps> = props => {
   )
 }
 
-export const LoadWarscrollArmy = connect(
+export const ImportContainer = connect(
   null,
   {
     setFactionName: factionNames.actions.setFactionName,
@@ -108,38 +100,9 @@ export const LoadWarscrollArmy = connect(
     updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
   }
-)(LoadWarscrollArmyComponent)
+)(ImportContainerComponent)
 
-const ParserSelection: React.FC<{
-  activeParser: TParsers
-  setParser: (parser: TParsers) => void
-}> = props => {
-  const { activeParser, setParser } = props
-  const parsers: TParsers[] = ['Warscroll', 'Azyr']
-  const colClass = `col-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2`
-
-  return (
-    <>
-      <div className="row my-2 d-flex align-content-center justify-content-center">
-        {parsers.map(p => (
-          <div className={colClass}>
-            <button
-              className={`btn btn-sm btn-block btn-${activeParser === p ? 'success' : 'secondary'}`}
-              onClick={() => setParser(p)}
-            >
-              <div className={btnContentWrapper}>
-                {activeParser === p && <FaCheck className="mr-2" />}
-                {p}
-              </div>
-            </button>
-          </div>
-        ))}
-      </div>
-    </>
-  )
-}
-
-const ErrorAlert = (props: TError) => {
+const ErrorAlert = (props: TImportError) => {
   const { text, severity } = props
 
   const alertType = {

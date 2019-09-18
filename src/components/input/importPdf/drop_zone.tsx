@@ -2,21 +2,20 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
-import { IImportedArmy } from 'types/warscrollTypes'
-import { TParsers } from './drop_container'
-import { handleParseFile } from './parseFile'
 import { btnContentWrapper } from 'theme/helperClasses'
+import { handleParseFile } from './parseFile'
+import { IImportedArmy, TImportParsers } from 'types/import'
 
 interface IDropzoneProps {
-  parser: TParsers
   handleDrop: (army: IImportedArmy) => void
 }
 
 export const ImportDropzone: React.FC<IDropzoneProps> = props => {
-  const { handleDrop, parser } = props
+  const { handleDrop } = props
 
   const [isDone, setIsDone] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [parser, setParser] = useState<TImportParsers>('Warscroll Builder')
 
   const handleDone = () => {
     setIsDone(true)
@@ -28,7 +27,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     setTimeout(() => setIsError(false), 5000)
   }
 
-  const onDrop = useCallback(handleParseFile(handleDrop, handleError, handleDone), [handleDrop])
+  const onDrop = useCallback(handleParseFile(handleDrop, handleError, handleDone, setParser), [handleDrop])
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -39,7 +38,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
   const txt = isError
     ? `Unable to process this file`
     : isDone
-    ? `File processed`
+    ? `${parser} file processed!`
     : `Drag your Warscroll Builder or Azyr file here, or click to select`
 
   return (

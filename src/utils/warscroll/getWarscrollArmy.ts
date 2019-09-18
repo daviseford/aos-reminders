@@ -2,14 +2,14 @@ import { uniq, difference, last } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
+import { isDev } from 'utils/env'
 import { getNameMap, checkSelection, createError, cleanWarscrollText } from './warscrollUtils'
 import { getAllyData } from './allyData'
 import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections } from 'types/selections'
 import { IArmy } from 'types/army'
-import { IImportedArmy, TError } from 'types/warscrollTypes'
-import { isDev } from 'utils/env'
+import { IImportedArmy, TImportError } from 'types/import'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -173,7 +173,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
   const cleanedText = cleanWarscrollText(fileText.split('\n'))
 
-  let errors: TError[] = []
+  let errors: TImportError[] = []
   let usingShortVersion = false
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -388,7 +388,7 @@ type TLookupType =
 const selectionLookup = (
   Army: IArmy,
   selections: ISelections,
-  errors: TError[],
+  errors: TImportError[],
   unknownSelections: string[],
   foundSelections: string[]
 ) => (type: TLookupType): string[] => {

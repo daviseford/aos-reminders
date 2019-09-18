@@ -5,12 +5,12 @@ import { getNameMap, checkSelection, createAllyWarning } from './warscrollUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { TAllySelectionStore } from 'types/store'
 import { IAllySelections } from 'types/selections'
-import { TError } from 'types/warscrollTypes'
+import { TImportError } from 'types/import'
 
 export const getAllyData = (
   allyUnits: string[],
   factionName: TSupportedFaction,
-  errors: TError[]
+  errors: TImportError[]
 ): {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore

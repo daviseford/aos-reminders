@@ -1,4 +1,4 @@
-import { TError } from '../../types/warscrollTypes'
+import { TImportError } from '../../types/import'
 import { warscrollTypoMap } from './options'
 import { stripPunctuation, titleCase } from 'utils/textUtils'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
@@ -65,7 +65,7 @@ const replaceOf = (val: string) => {
 export const checkSelection = (
   Names: string[],
   NameMap: { [key: string]: string },
-  errors: TError[],
+  errors: TImportError[],
   logError: boolean = true
 ) => (val: string) => {
   // Check for typos

@@ -16,9 +16,9 @@ import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
-import { LoadWarscrollArmy as ArmyImport } from './importPdf/drop_container'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
+import { ImportContainer } from './importPdf/drop_container'
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
@@ -90,7 +90,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
       </div>
 
       <div hidden={!isShowingImport}>
-        <ArmyImport />
+        <ImportContainer />
       </div>
 
       <div hidden={!isShowingSavedArmies}>

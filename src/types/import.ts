@@ -8,11 +8,15 @@ export interface IImportedArmy {
   allySelections: TAllySelectionStore
   allyUnits: string[]
   factionName: TSupportedFaction
-  errors: TError[]
+  errors: TImportError[]
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections
   unknownSelections: string[]
 }
 
-export type TError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }
+export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }
+
+export type TImportFileTypes = 'application/pdf' | 'text/plain'
+
+export type TImportParsers = 'Warscroll Builder' | 'Azyr'
