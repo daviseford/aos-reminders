@@ -1,26 +1,21 @@
-import { uniq, difference, last } from 'lodash'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { logFailedImport } from 'utils/analytics'
-import { isValidFactionName } from 'utils/armyUtils'
-import { isDev } from 'utils/env'
-import { getNameMap, checkSelection, createError, cleanWarscrollText } from './warscrollUtils'
-import { getAllyData } from './allyData'
-import { warscrollUnitOptionMap, warscrollTypoMap, warscrollFactionNameMap } from './options'
+import { uniq, last } from 'lodash'
+import { cleanWarscrollText } from './warscrollUtils'
+import { warscrollUnitOptionMap, warscrollFactionNameMap } from './options'
 import { TSupportedFaction } from 'meta/factions'
-import { ISelections } from 'types/selections'
-import { IArmy } from 'types/army'
 import { IImportedArmy, TImportError } from 'types/import'
+import { importErrorChecker } from 'utils/import'
+import { createError } from 'utils/import/warnings'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
-  const errorChecked = warscrollPdfErrorChecker(army)
+  const errorChecked = importErrorChecker(army, 'Warscroll Builder')
 
   return errorChecked
 }
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
-  const errorChecked = warscrollPdfErrorChecker(army)
+  const errorChecked = importErrorChecker(army, 'Warscroll Builder')
 
   return errorChecked
 }
@@ -319,131 +314,4 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
     selections,
     unknownSelections: uniq(unknownSelections),
   }
-}
-
-const warscrollPdfErrorChecker = (army: IImportedArmy): IImportedArmy => {
-  let { errors, factionName, selections, unknownSelections, allyUnits } = army
-
-  // If we've already gotten an error, go ahead and bail out
-  if (errors.some(({ severity }) => severity === 'error')) return army
-
-  // If we're missing a faction name, we won't be able to do much with this
-  if (!isValidFactionName(factionName)) {
-    logFailedImport(`faction:${factionName || 'Unknown'}`, 'Warscroll Builder')
-    const errorTxt = !!factionName
-      ? `${factionName} are not supported.`
-      : `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`
-    return {
-      ...army,
-      errors: [createError(errorTxt)],
-    }
-  }
-
-  const foundSelections: string[] = []
-
-  const Army = getArmy(factionName) as IArmy
-  const lookup = selectionLookup(Army, selections, errors, unknownSelections, foundSelections)
-
-  const errorFreeSelections = {
-    allegiances: lookup('allegiances'),
-    artifacts: lookup('artifacts'),
-    battalions: lookup('battalions'),
-    endless_spells: lookup('endless_spells'),
-    spells: lookup('spells'),
-    traits: lookup('traits'),
-    units: lookup('units'),
-  }
-
-  const couldNotFind = difference(unknownSelections, foundSelections)
-  if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)
-
-  const allyData = getAllyData(allyUnits, factionName, errors)
-
-  // Fire off any warnings to Google Analytics
-  errors
-    .filter(e => e.severity === 'warn' || e.severity === 'ally-warn')
-    .forEach(e => logFailedImport(e.text, 'Warscroll Builder'))
-
-  return {
-    ...army,
-    errors,
-    unknownSelections: couldNotFind,
-    selections: {
-      ...selections,
-      ...errorFreeSelections,
-    },
-    ...allyData,
-  }
-}
-
-type TLookupType =
-  | 'allegiances'
-  | 'artifacts'
-  | 'battalions'
-  | 'endless_spells'
-  | 'spells'
-  | 'traits'
-  | 'units'
-
-const selectionLookup = (
-  Army: IArmy,
-  selections: ISelections,
-  errors: TImportError[],
-  unknownSelections: string[],
-  foundSelections: string[]
-) => (type: TLookupType): string[] => {
-  const lookup = {
-    allegiances: 'Allegiances',
-    artifacts: 'Artifacts',
-    battalions: 'Battalions',
-    endless_spells: 'EndlessSpells',
-    spells: 'Spells',
-    traits: 'Traits',
-    units: 'Units',
-  }
-
-  const Names: string[] = Army[lookup[type]].map(({ name }) => name)
-  const NameMap = getNameMap(Names)
-  const checkVal = checkSelection(Names, NameMap, errors, true)
-
-  const errorFree = selections[type].map(checkVal).filter(x => !!x)
-
-  const found = unknownSelections
-    .map(val => {
-      const orig = `${val}`
-
-      // Check for typos
-      if (warscrollTypoMap[val]) val = warscrollTypoMap[val]
-
-      if (NameMap[val]) {
-        foundSelections.push(orig)
-        return val
-      }
-
-      // See if we have something like it...
-      const valUpper = val.toUpperCase()
-      const match = Names.find(x => x.toUpperCase().includes(valUpper))
-      if (match) {
-        foundSelections.push(orig)
-        return match
-      }
-
-      // Sometimes parentheses get in our way
-      const valNoParens = valUpper.replace(/\(.+\)/g, '').trim()
-      const match2 = Names.find(x =>
-        x
-          .toUpperCase()
-          .replace(/\(.+\)/g, '')
-          .includes(valNoParens)
-      )
-      if (match2) {
-        foundSelections.push(orig)
-        return match2
-      }
-
-      return ''
-    })
-    .filter(x => !!x)
-
-  return uniq(errorFree.concat(found))
 }

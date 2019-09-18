@@ -1,6 +1,6 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
-import { isPoorlySpacedMatch } from 'utils/azyr/azyrUtils'
+import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import { BEASTS_OF_CHAOS, FYRESLAYERS, SKAVEN, KHARADRON_OVERLORDS, SERAPHON } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
