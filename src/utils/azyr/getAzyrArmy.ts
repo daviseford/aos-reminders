@@ -16,9 +16,9 @@ const lookup = {
   ALLEGIANCE: 'allegiances',
   ARTEFACT: 'artifacts',
   BATTALION: 'battalions',
-  'ENDLESS SPELLS': 'endless_spells',
+  'ENDLESS SPELL': 'endless_spells',
   SCENERY: 'scenery',
-  SPELLS: 'spells',
+  SPELL: 'spells',
   'COMMAND TRAIT': 'traits',
   'MOUNT TRAIT': 'traits',
   UNIT: 'units',
@@ -27,7 +27,7 @@ const lookup = {
 const prefixTypes = [
   'ALLEGIANCE',
   // 'ALLY',
-  'ARTIFACT',
+  'ARTEFACT',
   'BATTALION',
   'COMMAND TRAIT',
   'ENDLESS SPELL',
@@ -38,13 +38,14 @@ const prefixTypes = [
   'SPELL',
   'UNIT',
   // 'UPGRADE',
-  'WEAPON',
+  // 'WEAPON',
 ]
 
 export const getAzyrArmy = (pages: string[]) => {
   let factionName = ''
   let realmscape = ''
   let allyUnits: string[] = []
+  let unknownSelections: string[] = []
 
   const selections = pages.reduce(
     (accum, name) => {
@@ -67,6 +68,18 @@ export const getAzyrArmy = (pages: string[]) => {
       if (name.startsWith('MERCENARY COMPANY:')) {
         name = name.replace('MERCENARY COMPANY: ', '')
         allyUnits.push(name)
+        return accum
+      }
+
+      if (name.startsWith('WEAPON:')) {
+        name = name.replace('WEAPON: ', '')
+        unknownSelections.push(name)
+        return accum
+      }
+
+      if (name.startsWith('UPGRADE:')) {
+        name = name.replace('UPGRADE: ', '')
+        unknownSelections.push(name)
         return accum
       }
 

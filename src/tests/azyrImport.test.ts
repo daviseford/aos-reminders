@@ -94,10 +94,107 @@ describe('getAzyrArmy', () => {
     })
   })
 
-  it('handles Seraphon1', () => {
-    const pages = handleAzyrPages(Seraphon1)
+  it('handles Fyreslayers2', () => {
+    const pages = handleAzyrPages(Fyreslayers2)
     const res = getAzyrArmy(pages)
-    console.log(res)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'Fyreslayers',
+      realmscape_feature: null,
+      realmscape: 'AQSHY',
+      selections: {
+        allegiances: ['Hermdar'],
+        artifacts: ['Tyrant Slayer'],
+        battalions: [],
+        commands: [],
+        endless_spells: ['Runic Fyrewall'],
+        scenery: [],
+        spells: ['Prayer of Ash'],
+        traits: ['Warrior Indominate', 'Fire-claw Adult'],
+        triumphs: [],
+        units: [
+          'Fjul-Grimnir',
+          'The Chosen Axes',
+          'Auric Runesmiter',
+          'Vulkite Berzerkers',
+          'Auric Runeson',
+          'Doomseeker',
+        ],
+      },
+      unknownSelections: [],
+    })
+  })
+
+  it('handles BoC1', () => {
+    const pages = handleAzyrPages(BoC1)
+    const res = getAzyrArmy(pages)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [
+        'Sayl the Faithless',
+        'Theddra Skull-Scryer',
+        'Darkoath Warqueen',
+        'Untamed Beasts',
+        'Godsworn Hunt',
+        'Furies',
+      ],
+      errors: [],
+      factionName: 'Beasts of Chaos',
+      realmscape_feature: null,
+      realmscape: '',
+      selections: {
+        allegiances: [],
+        artifacts: ['The Knowing Eye', 'Blackened Armour of Chaos'],
+        battalions: [
+          'Brass Despoilers',
+          'Depraved Drove',
+          'Desolating Beastherd',
+          'Hungering Warherd',
+          'Marauding Brayherd',
+          'Pestilent Throng',
+          'Phantasmagoria of Fate',
+          'Thunderscorn Stormherd',
+        ],
+        commands: [],
+        endless_spells: [],
+        scenery: [],
+        spells: ['Sundering Blades', 'Tendrils of Atrophy', 'Titanic Fur'],
+        traits: ['Rampant Juggernaut'],
+        triumphs: [],
+        units: [
+          'Beastlord',
+          'Doombull',
+          'Dragon Ogor Shaggoth',
+          'Great Bray-Shaman',
+          'Tzaangor Shaman',
+          'Bullgors',
+          'Gors',
+          'Ungors',
+          'Chaos Gargant',
+          'Chimera',
+          'Cygor',
+          'Ghorgon',
+          'Jabberslythe',
+          'Bestigors',
+          'Centigors',
+          'Chaos Spawn',
+          'Chaos Warhounds',
+          'Cockatrice',
+          'Dragon Ogors',
+          'Razorgors',
+          'Tuskgor Chariots',
+          'Tzaangor Enlightened',
+          'Tzaangor Skyfires',
+          'Tzaangors',
+          'Ungor Raiders',
+        ],
+      },
+      unknownSelections: [],
+    })
   })
 })
 
