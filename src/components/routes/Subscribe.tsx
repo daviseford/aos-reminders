@@ -54,6 +54,9 @@ export const Subscribe: React.FC<{}> = () => {
                 Import your army lists <strong>instantly</strong> from Warscroll Builder
               </li>
               <li>
+                <strong>NEW:</strong> <i>Import your army lists from Azyr</i>
+              </li>
+              <li>
                 Access your saved army lists from <b>anywhere</b> on <b>any</b> device
               </li>
             </ul>
@@ -69,9 +72,6 @@ export const Subscribe: React.FC<{}> = () => {
         <ul className="lead">
           <li>
             <i>Importing army lists from Battlescribe</i>
-          </li>
-          <li>
-            <i>Importing army lists from Azyr</i>
           </li>
           <li>
             <i>Adding custom reminders</i>

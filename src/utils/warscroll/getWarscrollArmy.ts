@@ -329,7 +329,7 @@ const warscrollPdfErrorChecker = (army: IImportedArmy): IImportedArmy => {
 
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
-    logFailedImport(`faction:${factionName || 'Unknown'}`, 'Warscroll')
+    logFailedImport(`faction:${factionName || 'Unknown'}`, 'Warscroll Builder')
     const errorTxt = !!factionName
       ? `${factionName} are not supported.`
       : `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`
@@ -362,7 +362,7 @@ const warscrollPdfErrorChecker = (army: IImportedArmy): IImportedArmy => {
   // Fire off any warnings to Google Analytics
   errors
     .filter(e => e.severity === 'warn' || e.severity === 'ally-warn')
-    .forEach(e => logFailedImport(e.text, 'Warscroll'))
+    .forEach(e => logFailedImport(e.text, 'Warscroll Builder'))
 
   return {
     ...army,
