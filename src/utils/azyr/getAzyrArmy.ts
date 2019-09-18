@@ -1,6 +1,9 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { uniq } from 'lodash'
+import { IImportedArmy } from 'types/import'
+import { titleCase } from 'utils/textUtils'
+import { azyrFactionNameMap } from './options'
 
 // [
 //   'FACTION: Seraphon',
@@ -41,9 +44,9 @@ const prefixTypes = [
   // 'WEAPON',
 ]
 
-export const getAzyrArmy = (pages: string[]) => {
+export const getAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
-  let realmscape = ''
+  let realmscape: TRealms | null = null
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
 
@@ -51,11 +54,13 @@ export const getAzyrArmy = (pages: string[]) => {
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
         factionName = name.replace('FACTION: ', '')
+        factionName = azyrFactionNameMap[name]
+        if (!factionName) console.log('ALERT: Missing this faction: ' + name)
         return accum
       }
 
       if (name.startsWith('REALMSCAPE:')) {
-        realmscape = name.replace('REALMSCAPE: ', '')
+        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as TRealms
         return accum
       }
 
