@@ -42,7 +42,7 @@ import {
 
 // Add common typos here
 // Azyr on the left - AoS Reminders on the right
-export const azyrTypos = {}
+export const azyrTypoMap = {}
 
 // If a certain trait maps to a specific unit type, put it here
 export const azyrUnitOptionMap = {

@@ -6,13 +6,14 @@ import { titleCase } from 'utils/textUtils'
 import { azyrFactionNameMap } from './options'
 import { isValidFactionName } from 'utils/armyUtils'
 import { logFailedImport } from 'utils/analytics'
-import { createError, getNameMap, checkSelection } from 'utils/warscroll/warscrollUtils'
+import { createError, getNameMap } from 'utils/warscroll/warscrollUtils'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { IArmy } from 'types/army'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/warscroll/allyData'
 import { ISelections } from 'types/selections'
 import { warscrollTypoMap } from 'utils/warscroll/options'
+import { checkAzyrSelection, isPoorlySpacedMatch } from './azyrUtils'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
@@ -152,7 +153,7 @@ const azyrPdfErrorChecker = (army: IImportedArmy): IImportedArmy => {
     logFailedImport(`faction:${factionName || 'Unknown'}`, 'Azyr')
     const errorTxt = !!factionName
       ? `${factionName} are not supported.`
-      : `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`
+      : `There was a problem reading this file.`
     return {
       ...army,
       errors: [createError(errorTxt)],
@@ -224,7 +225,7 @@ const selectionLookup = (
 
   const Names: string[] = Army[lookup[type]].map(({ name }) => name)
   const NameMap = getNameMap(Names)
-  const checkVal = checkSelection(Names, NameMap, errors, true)
+  const checkVal = checkAzyrSelection(Names, NameMap, errors, true)
 
   const errorFree = selections[type].map(checkVal).filter(x => !!x)
 
@@ -259,6 +260,13 @@ const selectionLookup = (
       if (match2) {
         foundSelections.push(orig)
         return match2
+      }
+
+      // Last chance - check for bad spacing
+      const match3 = Names.find(x => isPoorlySpacedMatch(val, x))
+      if (match3) {
+        foundSelections.push(orig)
+        return match3
       }
 
       return ''

@@ -55,7 +55,7 @@ export const getNameMap = (names: string[]) => {
  * e.g. Demon Prince of Slaanesh -> Demon Prince
  * @param val
  */
-const replaceOf = (val: string) => {
+export const replaceOf = (val: string) => {
   const factions = SUPPORTED_FACTIONS.map(titleCase).map(x => x.toUpperCase())
   const faction = factions.find(x => val.includes(` OF ${x}`))
   if (faction) val = val.replace(` OF ${faction}`, ``)

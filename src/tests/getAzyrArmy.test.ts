@@ -1,8 +1,9 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
+import { isPoorlySpacedMatch } from 'utils/azyr/azyrUtils'
 
 import { BEASTS_OF_CHAOS, FYRESLAYERS, SKAVEN, KHARADRON_OVERLORDS, SERAPHON } from 'meta/factions'
-import { AQSHY } from 'types/realmscapes'
+import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
@@ -56,7 +57,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        allegiances: ['Barak-Thryng, City of the Ancestors'],
+        allegiances: ['Barak-Thryng, City of the Ancestors (Skyport)'],
         artifacts: [],
         battalions: [],
         commands: [],
@@ -99,7 +100,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       selections: {
         allegiances: [],
-        artifacts: ['Vigordust Injector'],
+        artifacts: ['Vigordust Injector (Skryre)'],
         battalions: [],
         commands: [],
         endless_spells: [],
@@ -120,7 +121,15 @@ describe('getAzyrArmyFromPdf', () => {
           'Skryre Acolytes',
         ],
       },
-      unknownSelections: [],
+      // These are all upgrades, and we would not expect to find them
+      unknownSelections: [
+        'Clawleader',
+        'Clanr at Standard Bearer',
+        'Clanr at Bell-ringer',
+        'Bringer-of-the-Word',
+        'Standard Bearers',
+        'Plague Harbingers',
+      ],
     })
   })
 
@@ -176,7 +185,13 @@ describe('getAzyrArmyFromPdf', () => {
         'Godsworn Hunt',
         'Furies',
       ],
-      errors: [],
+      // TODO: Remove once #427 is merged in
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Thunderscorn Stormherd',
+        },
+      ],
       factionName: BEASTS_OF_CHAOS,
       realmscape_feature: null,
       realmscape: null,
@@ -191,7 +206,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Marauding Brayherd',
           'Pestilent Throng',
           'Phantasmagoria of Fate',
-          'Thunderscorn Stormherd',
+          // 'Thunderscorn Stormherd',  // TODO: Add once #427 is merged in
         ],
         commands: [],
         endless_spells: [],
@@ -233,5 +248,24 @@ describe('getAzyrArmyFromPdf', () => {
       },
       unknownSelections: [],
     })
+  })
+})
+
+describe('isPoorlySpacedMatch', () => {
+  it('handles stuff', () => {
+    const sample1 = isPoorlySpacedMatch('Vigor dust Inject or', 'Vigordust Injector (Skryre)')
+    expect(sample1).toBeTruthy()
+
+    const sample2 = isPoorlySpacedMatch(
+      'Blade of the Thir teen Dominions',
+      `Blade of the Thirteen Dominions (${ULGU})`
+    )
+    expect(sample2).toBeTruthy()
+
+    const sample3 = isPoorlySpacedMatch(
+      'Bar ak-Thr yng, City of the Ancest ors',
+      `Barak-Thryng, City of the Ancestors`
+    )
+    expect(sample3).toBeTruthy()
   })
 })
