@@ -10,8 +10,25 @@ import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
+import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Skryre1', () => {
+    const pages = handleAzyrPages(Skryre1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.selections.allegiances).toContain('Warpstone Sparks (Skryre)')
+    expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
+    expect(res.selections.units).toEqual([
+      'Arch-Warlock',
+      'Warlock Bombardier',
+      'Doomwheel',
+      'Warplock Jezzails',
+      'Ratling Gun',
+      'Stormfiends',
+    ])
+  })
+
   it('handles Seraphon1', () => {
     const pages = handleAzyrPages(Seraphon1)
     const res = getAzyrArmyFromPdf(pages)

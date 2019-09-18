@@ -1,6 +1,6 @@
 import { uniq } from 'lodash'
 import { titleCase } from 'utils/textUtils'
-import { azyrFactionNameMap } from './options'
+import { azyrFactionNameMap, factionToAllegianceMap } from './options'
 import { importErrorChecker } from 'utils/import'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
@@ -45,10 +45,13 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   const selections = pages.reduce(
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
-        // TODO handle Clans Skryre etc
-        factionName = name.replace('FACTION: ', '')
-        factionName = azyrFactionNameMap[factionName]
-        if (!factionName) console.log('ALERT: Missing this faction: ' + name)
+        const { faction, allegiance } = getFactionName(name)
+        if (faction) {
+          factionName = faction
+        }
+        if (allegiance) {
+          accum.allegiances = accum.allegiances.concat(allegiance)
+        }
         return accum
       }
 
@@ -115,4 +118,12 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
     selections,
     unknownSelections,
   }
+}
+
+const getFactionName = (val: string): { faction: string | null; allegiance: string | null } => {
+  const name = val.replace('FACTION: ', '')
+  const faction = azyrFactionNameMap[name] || null
+  if (!faction) console.log('ALERT: Missing this faction: ' + name)
+  const allegiance = faction ? factionToAllegianceMap[name] : null
+  return { faction: faction || null, allegiance: allegiance || null }
 }
