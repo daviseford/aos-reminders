@@ -1,6 +1,5 @@
 import pdfjsLib from 'pdfjs-dist'
 import { uniq } from 'lodash'
-import { isDev } from 'utils/env'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 
@@ -39,7 +38,7 @@ export const getPdfPages = async typedarray => {
       })
     )
 
-    if (isDev) console.log('Copy me to JSON to debug: ', pages)
+    // if (isDev) console.log('Copy me to JSON to debug: ', pages)
 
     return pages
   } catch (err) {
@@ -59,7 +58,7 @@ export const handleAzyrPages = (pages: string[]): string[] => {
     })
     .map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
 
-  if (isDev) console.table(splitText)
+  // if (isDev) console.table(splitText)
 
   return splitText
 }

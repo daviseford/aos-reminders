@@ -79,7 +79,7 @@ export const azyrFactionNameMap = {
   'Legion of Grief': LEGIONS_OF_GRIEF,
   'Legion of Night': LEGION_OF_NIGHT,
   'Legion of Sacrament': LEGION_OF_SACRAMENT,
-  'Lethisian Defenders': LETHISIAN_DEFENDERS,
+  Lethisian: LETHISIAN_DEFENDERS,
   'Maggotkin of Nurgle': NURGLE,
   'Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
   'Ossiarch Bonereapers': OSSIARCH_BONEREAPERS,

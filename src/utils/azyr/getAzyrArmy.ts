@@ -53,6 +53,7 @@ export const getAzyrArmy = (pages: string[]): IImportedArmy => {
   const selections = pages.reduce(
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
+        // TODO handle Clans Skryre etc
         factionName = name.replace('FACTION: ', '')
         factionName = azyrFactionNameMap[factionName]
         if (!factionName) console.log('ALERT: Missing this faction: ' + name)
@@ -64,14 +65,8 @@ export const getAzyrArmy = (pages: string[]): IImportedArmy => {
         return accum
       }
 
-      if (name.startsWith('ALLY:')) {
-        name = name.replace('ALLY: ', '')
-        allyUnits.push(name)
-        return accum
-      }
-
-      if (name.startsWith('MERCENARY COMPANY:')) {
-        name = name.replace('MERCENARY COMPANY: ', '')
+      if (name.startsWith('ALLY:') || name.startsWith('MERCENARY COMPANY:')) {
+        name = name.replace(/(MERCENARY COMPANY|ALLY): /g, '')
         allyUnits.push(name)
         return accum
       }
@@ -90,6 +85,7 @@ export const getAzyrArmy = (pages: string[]): IImportedArmy => {
 
       let found = false
 
+      // Check all other types
       prefixTypes.forEach(pre => {
         if (found) return
         if (name.startsWith(`${pre}:`)) {
@@ -125,6 +121,6 @@ export const getAzyrArmy = (pages: string[]): IImportedArmy => {
     realmscape_feature: null,
     realmscape,
     selections,
-    unknownSelections: [],
+    unknownSelections,
   }
 }

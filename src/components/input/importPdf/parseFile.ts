@@ -61,6 +61,7 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmy(parsedPages)
+          console.log(parsedArmy)
           handleDrop(parsedArmy)
           handleDone()
           logEvent(`Import${parser}-${parsedArmy.factionName}`)
