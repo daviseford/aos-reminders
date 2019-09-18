@@ -202,13 +202,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Godsworn Hunt',
         'Furies',
       ],
-      // TODO: Remove once #427 is merged in
-      errors: [
-        {
-          severity: 'warn',
-          text: 'Thunderscorn Stormherd',
-        },
-      ],
+      errors: [],
       factionName: BEASTS_OF_CHAOS,
       realmscape_feature: null,
       realmscape: null,
@@ -223,7 +217,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Marauding Brayherd',
           'Pestilent Throng',
           'Phantasmagoria of Fate',
-          // 'Thunderscorn Stormherd',  // TODO: Add once #427 is merged in
+          'Thunderscorn Stormherd',
         ],
         commands: [],
         endless_spells: [],
