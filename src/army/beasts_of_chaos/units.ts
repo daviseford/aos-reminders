@@ -547,7 +547,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Thuderscorn Stormherd`,
+    name: `Thunderscorn Stormherd`,
     effects: [
       {
         name: `Raging Storm`,
