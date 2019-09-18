@@ -54,7 +54,7 @@ export const getAzyrArmy = (pages: string[]): IImportedArmy => {
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
         factionName = name.replace('FACTION: ', '')
-        factionName = azyrFactionNameMap[name]
+        factionName = azyrFactionNameMap[factionName]
         if (!factionName) console.log('ALERT: Missing this faction: ' + name)
         return accum
       }
