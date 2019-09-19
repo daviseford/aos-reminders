@@ -5,7 +5,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { mapListToDict } from 'utils/mapListToDict'
 import { getAllyData } from 'utils/import/allyData'
-import { warscrollTypoMap, azyrTypoMap } from 'utils/import/options'
+import { parserOptions, TNameMap } from 'utils/import/options'
 import { stripPunctuation } from 'utils/textUtils'
 import { createError, createWarning } from './warnings'
 import { isPoorlySpacedMatch } from './isPoorlySpacedMatch'
@@ -13,32 +13,6 @@ import { replaceOf } from './replaceOf'
 import { IArmy } from 'types/army'
 import { TImportError, TImportParsers, IImportedArmy } from 'types/import'
 import { ISelections } from 'types/selections'
-
-type TParserOptions = {
-  [key in TImportParsers]: {
-    checkPoorSpacing: boolean
-    fileReadError: string
-    typoMap: { [key: string]: string }
-  }
-}
-
-const parserOptions: TParserOptions = {
-  'Warscroll Builder': {
-    checkPoorSpacing: false,
-    fileReadError: `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`,
-    typoMap: warscrollTypoMap,
-  },
-  Azyr: {
-    checkPoorSpacing: true,
-    fileReadError: `There was a problem reading this file.`,
-    typoMap: azyrTypoMap,
-  },
-  Battlescribe: {
-    checkPoorSpacing: false,
-    fileReadError: `There was a problem reading this file.`,
-    typoMap: {},
-  },
-}
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -84,7 +58,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)
 
-  const allyData = getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing)
+  const allyData = getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing, opts.typoMap)
 
   // Check for allegiance abilities and remove them from errors if we find them
   const { allegiances } = errorFreeSelections
@@ -149,7 +123,7 @@ export const importSelectionLookup = (
   unknownSelections: string[],
   foundSelections: string[],
   checkPoorSpacing: boolean,
-  typoMap: { [key: string]: string }
+  typoMap: TNameMap
 ) => (type: TLookupType): string[] => {
   const lookup = {
     allegiances: 'Allegiances',
@@ -163,7 +137,7 @@ export const importSelectionLookup = (
 
   const Names: string[] = Army[lookup[type]].map(({ name }) => name)
   const NameMap = mapListToDict(Names)
-  const checkVal = checkImportSelection(Names, NameMap, errors, true, checkPoorSpacing)
+  const checkVal = checkImportSelection(Names, NameMap, errors, true, checkPoorSpacing, typoMap)
 
   const errorFree = selections[type].map(checkVal).filter(x => !!x)
 
@@ -218,13 +192,14 @@ export const importSelectionLookup = (
 
 export const checkImportSelection = (
   Names: string[],
-  NameMap: { [key: string]: string },
+  NameMap: TNameMap,
   errors: TImportError[],
   logError: boolean = true,
-  checkPoorSpacing: boolean
+  checkPoorSpacing: boolean,
+  typoMap: TNameMap
 ) => (val: string) => {
   // Check for typos
-  if (azyrTypoMap[val]) val = azyrTypoMap[val]
+  if (typoMap[val]) val = typoMap[val]
 
   if (NameMap[val]) return val
 

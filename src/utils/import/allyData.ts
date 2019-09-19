@@ -8,12 +8,14 @@ import { TImportError } from 'types/import'
 import { checkImportSelection } from '.'
 import { createAllyWarning } from './warnings'
 import { mapListToDict } from 'utils/mapListToDict'
+import { TNameMap } from './options'
 
 export const getAllyData = (
   allyUnits: string[],
   factionName: TSupportedFaction,
   errors: TImportError[],
-  checkPoorSpacing: boolean
+  checkPoorSpacing: boolean,
+  typoMap: TNameMap
 ): {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
@@ -32,7 +34,7 @@ export const getAllyData = (
       const units: string[] = allyArmyUnits[allyName]
       const unitsMap = mapListToDict(units)
 
-      const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing)
+      const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing, typoMap)
       const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
 
       if (errorFreeAllyUnits.length > 0) {

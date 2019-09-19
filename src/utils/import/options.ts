@@ -39,19 +39,18 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
+import { TImportParsers } from 'types/import'
 
-// TODO: Share with Warscroll Builder author
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
-export const warscrollTypoMap = {
-  'Chaos Chariots': 'Chaos Chariot',
-  'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+const warscrollTypoMap: TNameMap = {
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
   'Hellstriders With Claw-Spears': 'Hellstriders',
+  'Hellstriders with Hellscourges': 'Hellstriders',
   'Lighntning Blast': 'Lightning Blast',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
@@ -62,11 +61,13 @@ export const warscrollTypoMap = {
 }
 
 // Azyr on the left - AoS Reminders on the right
-export const azyrTypoMap = {
-  'Chaos Chariots': 'Chaos Chariot',
-  'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+const azyrTypoMap: TNameMap = {
   'Hellstriders With Claw-Spears': 'Hellstriders',
+  'Hellstriders with Hellscourges': 'Hellstriders',
 }
+
+// Battlescribe on the left - AoS Reminders on the right
+const battlescribeTypoMap: TNameMap = {}
 
 // Azyr helper
 export const factionToAllegianceMap = {
@@ -171,4 +172,32 @@ export const importFactionNameMap = {
   Tzeentch: TZEENTCH,
   Wanderers: WANDERERS,
   Warherds: BEASTS_OF_CHAOS,
+}
+
+export type TNameMap = { [key: string]: string }
+
+type TParserOptions = {
+  [key in TImportParsers]: {
+    checkPoorSpacing: boolean
+    fileReadError: string
+    typoMap: TNameMap
+  }
+}
+
+export const parserOptions: TParserOptions = {
+  'Warscroll Builder': {
+    checkPoorSpacing: false,
+    fileReadError: `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`,
+    typoMap: warscrollTypoMap,
+  },
+  Azyr: {
+    checkPoorSpacing: true,
+    fileReadError: `There was a problem reading this file.`,
+    typoMap: azyrTypoMap,
+  },
+  Battlescribe: {
+    checkPoorSpacing: false,
+    fileReadError: `There was a problem reading this file.`,
+    typoMap: {},
+  },
 }

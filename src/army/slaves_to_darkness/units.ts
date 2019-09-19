@@ -18,7 +18,7 @@ import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH 
 // Export markable Slaves to Darkness units.
 export const getSlavesUnits = () => {
   const listOfUnits = [
-    `Chaos Chariot`,
+    `Chaos Chariots`,
     `Chaos Chosen`,
     `Chaos Knights`,
     `Chaos Lord on Daemonic Mount`,
@@ -30,7 +30,7 @@ export const getSlavesUnits = () => {
     `Chaos Warshrine`,
     `Daemon Prince`,
     `Exalted Hero of Chaos`,
-    `Gorebeast Chariot`,
+    `Chaos Gorebeast Chariots`,
     `Lord of Chaos`,
     `Curs'd Ettin`,
   ]
@@ -468,7 +468,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Chaos Chariot`,
+    name: `Chaos Chariots`,
     effects: [
       {
         name: `Exalted Charioteer`,
@@ -488,7 +488,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Gorebeast Chariot`,
+    name: `Chaos Gorebeast Chariots`,
     effects: [
       {
         name: `Exalted Charioteer`,
