@@ -68,7 +68,8 @@ const handleFirstPass = (text: string) => {
     .replace(/HEADER( HEADER)+/g, HEADER)
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
-    .replace(/( )?[‘’]/g, `'`)
+    .replace(/( )?[‘’]/g, `'`) // Replace special quotes
+    .replace(/[“”]/g, `"`) // Replace special quotes
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
     .replace(/([\w]) {1,3}'s /g, `$1's `) // Ford 's -> Ford's
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
