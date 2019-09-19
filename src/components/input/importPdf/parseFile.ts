@@ -33,7 +33,7 @@ const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
   file.pdfPages = await getPdfPages(typedArray)
   file.isWarscroll = file.pdfPages.some(x => x.includes('Warscroll Builder'))
   file.parser = file.isWarscroll ? 'Warscroll Builder' : 'Azyr'
-  console.log('isWarscroll', file.isWarscroll)
+  // console.log('isWarscroll', file.isWarscroll)
 
   return file
 }
@@ -51,7 +51,6 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
         console.log('File reading has failed.')
       }
       reader.onload = async () => {
-        //Step 4:turn array buffer into typed array
         const typedArray = new Uint8Array(reader.result as any)
 
         const { isPdf, isWarscroll, pdfPages, parser } = await checkFileInformation(typedArray, file.type)
