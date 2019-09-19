@@ -312,7 +312,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Burning Head`,
+    name: `The Burning Head`,
     effects: [
       {
         name: `Summon Burning Head`,
