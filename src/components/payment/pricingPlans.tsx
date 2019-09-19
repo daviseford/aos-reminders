@@ -23,7 +23,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
         ))}
       </div>
       <div className="row text-center justify-content-center">
-        <div className="col-12 col-sm-10 col-md-8 col-xl-6">
+        <div className="col-12 col-sm-10 col-md-10 col-xl-8">
           <small>
             <em>
               Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
