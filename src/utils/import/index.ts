@@ -1,4 +1,4 @@
-import { uniq, difference, last } from 'lodash'
+import { uniq, difference, last, remove } from 'lodash'
 import { isValidFactionName } from 'utils/armyUtils'
 import { logFailedImport } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -86,10 +86,12 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   const allyData = getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing)
 
+  // Check for allegiance abilities and remove them from errors if we find them
+  const { allegiances } = errorFreeSelections
+  checkErrorsForAllegianceAbilities(Army, allegiances, errors)
+
   // Fire off any warnings to Google Analytics
-  errors
-    .filter(e => e.severity === 'warn' || e.severity === 'ally-warn')
-    .forEach(e => logFailedImport(e.text, parser))
+  errors.filter(e => e.severity !== 'error').forEach(e => logFailedImport(e.text, parser))
 
   return {
     ...army,
@@ -101,6 +103,34 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     },
     ...allyData,
   }
+}
+
+/**
+ * Mutates the errors array if it finds a suitable match in the allegiance abilities
+ * @param Army
+ * @param allegiances
+ * @param errors
+ */
+const checkErrorsForAllegianceAbilities = (Army: IArmy, allegiances: string[], errors: TImportError[]) => {
+  if (errors.length === 0 || allegiances.length === 0) return
+
+  const errorText = errors.filter(e => e.severity !== 'error').map(({ text }) => text)
+  let foundError = false
+
+  allegiances.forEach(a => {
+    if (foundError) return
+    const entry = Army.Allegiances.find(al => al.name === a)
+    if (!entry) return
+
+    entry.effects.forEach(e => {
+      if (foundError) return
+      const match = errorText.find(err => e.name.toUpperCase() === err.toUpperCase())
+      if (match) {
+        foundError = true
+        remove(errors, x => x.text === match)
+      }
+    })
+  })
 }
 
 type TLookupType =
