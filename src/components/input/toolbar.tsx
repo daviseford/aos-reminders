@@ -35,7 +35,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const { isSubscribed } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
-  const [isShowingImport, setIsShowingWarscrollImport] = useState(true)
+  const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
 
   const showSavedArmies = () => setIsShowingSavedArmies(true)
   const hideSavedArmies = () => setIsShowingSavedArmies(false)

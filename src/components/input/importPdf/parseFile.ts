@@ -19,17 +19,23 @@ const arrayBufferToString = buf => {
   return String.fromCharCode.apply(null, new Uint8Array(buf))
 }
 
-const checkFileInformation = async (typedarray, fileType: TImportFileTypes) => {
-  let data = { isWarscroll: true, parser: 'Warscroll Builder' as TImportParsers, pdfPages: [] as string[] }
+const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
+  let file = {
+    isPdf: fileType === 'application/pdf',
+    isText: fileType === 'text/plain',
+    isWarscroll: true,
+    parser: 'Warscroll Builder' as TImportParsers,
+    pdfPages: [] as string[],
+  }
 
-  if (fileType === 'text/plain') return data
+  if (file.isText) return file
 
-  data.pdfPages = await getPdfPages(typedarray)
-  data.isWarscroll = data.pdfPages.some(x => x.includes('Warscroll Builder'))
-  data.parser = data.isWarscroll ? 'Warscroll Builder' : 'Azyr'
-  console.log('isWarscroll', data.isWarscroll)
+  file.pdfPages = await getPdfPages(typedArray)
+  file.isWarscroll = file.pdfPages.some(x => x.includes('Warscroll Builder'))
+  file.parser = file.isWarscroll ? 'Warscroll Builder' : 'Azyr'
+  console.log('isWarscroll', file.isWarscroll)
 
-  return data
+  return file
 }
 
 export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, setParser) => {
@@ -48,12 +54,12 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
         //Step 4:turn array buffer into typed array
         const typedArray = new Uint8Array(reader.result as any)
 
-        const { isWarscroll, pdfPages, parser } = await checkFileInformation(typedArray, file.type)
+        const { isPdf, isWarscroll, pdfPages, parser } = await checkFileInformation(typedArray, file.type)
 
         setParser(parser)
 
         if (isWarscroll) {
-          const fileText = arrayBufferToString(reader.result)
+          const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
           const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
           handleDrop(parsedArmy)
           handleDone()
@@ -61,7 +67,6 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
-          console.log(parsedArmy)
           handleDrop(parsedArmy)
           handleDone()
           logEvent(`Import${parser}-${parsedArmy.factionName}`)

@@ -171,11 +171,13 @@ export const importSelectionLookup = (
         return match2
       }
 
-      // Last chance - check for bad spacing
-      const match3 = Names.find(x => isPoorlySpacedMatch(val, x))
-      if (match3) {
-        foundSelections.push(orig)
-        return match3
+      if (checkPoorSpacing) {
+        // Last chance - check for bad spacing
+        const match3 = Names.find(x => isPoorlySpacedMatch(val, x))
+        if (match3) {
+          foundSelections.push(orig)
+          return match3
+        }
       }
 
       return ''
