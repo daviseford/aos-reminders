@@ -74,6 +74,7 @@ const handleFirstPass = (text: string) => {
     .replace(/([\w]) {1,3}'s /g, `$1's `) // Ford 's -> Ford's
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
     .replace(typoRegexp, match => commonTypos[match]) // Handle any known typos
+    .replace(/General/g, ' ') // Handle any known typos
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
