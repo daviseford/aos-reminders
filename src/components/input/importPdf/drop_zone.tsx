@@ -39,7 +39,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     ? `Unable to process this file`
     : isDone
     ? `${parser} file processed!`
-    : `Drag your Warscroll Builder or Azyr file here, or click to select`
+    : `Drag your Azyr or Warscroll Builder file here, or click to select`
 
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
