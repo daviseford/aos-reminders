@@ -17,10 +17,21 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
   return (
     <div className="container">
-      <div className="card-deck mb-3 text-center">
+      <div className="card-deck text-center">
         {SupportPlans.map((plan, i) => (
           <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
         ))}
+      </div>
+      <div className="row text-center justify-content-center">
+        <div className="col-12 col-sm-10 col-md-8 col-xl-6">
+          <small>
+            <em>
+              Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
+              subscription features until the end of your subscription, even if you cancel the recurring
+              payments.
+            </em>
+          </small>
+        </div>
       </div>
     </div>
   )

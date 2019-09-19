@@ -5,6 +5,7 @@ import { logPageView } from 'utils/analytics'
 import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { Loading } from 'components/page/loading'
+import { ContactComponent } from 'components/page/contact'
 
 export const Subscribe: React.FC<{}> = () => {
   const { loading }: { loading: boolean } = useAuth0()
@@ -45,16 +46,16 @@ export const Subscribe: React.FC<{}> = () => {
           Reminders.
         </p>
         <p className="lead">
-          <strong>What do you get by joining AoS Reminders?</strong>
+          <strong>What do you get when you subscribe to AoS Reminders?</strong>
         </p>
         <div className="row align-items-start justify-content-center">
           <div className={featuresClass}>
             <ul className="lead">
               <li>
-                Import your army lists <strong>instantly</strong> from Warscroll Builder
+                <strong>NEW:</strong> Import your army lists from Azyr!
               </li>
               <li>
-                <strong>NEW:</strong> Import your army lists from Azyr
+                Import your army lists <strong>instantly</strong> from Warscroll Builder
               </li>
               <li>
                 Access your saved army lists from <b>anywhere</b> on <b>any</b> device
@@ -94,6 +95,9 @@ export const Subscribe: React.FC<{}> = () => {
 
       <div>
         <PricingPlans />
+      </div>
+      <div className="container text-center mt-5 mb-4">
+        <ContactComponent />
       </div>
     </div>
   )

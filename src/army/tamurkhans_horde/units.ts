@@ -9,6 +9,7 @@ import {
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
+import { Units as NurgleUnits } from 'army/nurgle/units'
 
 export const getTamurkhansUnits = () => Units
 export const getTamurkhansBattalions = () => Battalions
