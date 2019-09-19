@@ -1,6 +1,5 @@
 import React from 'react'
 import { DonateComponent } from 'components/info/donate'
-import { logClick } from 'utils/analytics'
 import { ContactComponent } from './contact'
 
 /**
