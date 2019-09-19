@@ -1,6 +1,7 @@
 import { remove } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
+import { getAllWarnings } from './warnings'
 
 /**
  * Mutates the errors array if it finds a suitable match in the allegiance abilities
@@ -15,7 +16,7 @@ export const checkErrorsForAllegianceAbilities = (
 ) => {
   if (errors.length === 0 || allegiances.length === 0) return
 
-  const errorText = errors.filter(e => e.severity !== 'error').map(({ text }) => text)
+  const warnings = getAllWarnings(errors).map(({ text }) => text)
   let foundError = false
 
   allegiances.forEach(a => {
@@ -25,7 +26,7 @@ export const checkErrorsForAllegianceAbilities = (
 
     entry.effects.forEach(e => {
       if (foundError) return
-      const match = errorText.find(err => err.toUpperCase() === e.name.toUpperCase())
+      const match = warnings.find(err => err.toUpperCase() === e.name.toUpperCase())
       if (match) {
         foundError = true
         remove(errors, x => x.text === match)

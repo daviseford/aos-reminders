@@ -5,7 +5,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/import/allyData'
 import { parserOptions } from 'utils/import/options'
-import { createError } from 'utils/import/warnings'
+import { createFatalError, getAllWarnings, hasFatalError } from 'utils/import/warnings'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
 import { IArmy } from 'types/army'
@@ -17,7 +17,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   let { errors, factionName, selections, unknownSelections, allyUnits } = army
 
   // If we've already gotten an error, go ahead and bail out
-  if (errors.some(e => e.severity === 'error')) return army
+  if (hasFatalError(errors)) return army
 
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
@@ -25,7 +25,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     const errorTxt = !!factionName ? `${factionName} are not supported.` : opts.fileReadError
     return {
       ...army,
-      errors: [createError(errorTxt)],
+      errors: [createFatalError(errorTxt)],
     }
   }
 
@@ -61,7 +61,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
 
   // Fire off any warnings to Google Analytics
-  errors.filter(e => e.severity !== 'error').forEach(e => logFailedImport(e.text, parser))
+  getAllWarnings(errors).forEach(e => logFailedImport(e.text, parser))
 
   return {
     ...army,

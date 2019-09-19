@@ -67,7 +67,7 @@ const azyrTypoMap: TNameMap = {
 }
 
 // Battlescribe on the left - AoS Reminders on the right
-const battlescribeTypoMap: TNameMap = {}
+// const battlescribeTypoMap: TNameMap = {}
 
 // Azyr helper
 export const factionToAllegianceMap = {
