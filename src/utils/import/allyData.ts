@@ -1,14 +1,14 @@
 import { uniq, without } from 'lodash'
+import { checkImportSelection } from 'utils/import/checkImportSelection'
+import { createAllyWarning } from 'utils/import/warnings'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
-import { titleCase } from 'utils/textUtils'
-import { TSupportedFaction } from 'meta/factions'
-import { TAllySelectionStore } from 'types/store'
 import { IAllySelections } from 'types/selections'
-import { TImportError } from 'types/import'
-import { checkImportSelection } from '.'
-import { createAllyWarning } from './warnings'
 import { mapListToDict } from 'utils/mapListToDict'
-import { TNameMap } from './options'
+import { titleCase } from 'utils/textUtils'
+import { TNameMap } from 'utils/import/options'
+import { TSupportedFaction } from 'meta/factions'
+import { TImportError } from 'types/import'
+import { TAllySelectionStore } from 'types/store'
 
 export const getAllyData = (
   allyUnits: string[],
