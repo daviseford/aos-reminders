@@ -116,3 +116,11 @@ Windows:
 ```powershell
 git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }
 ```
+
+### API Repositories
+
++ [REST API](https://github.com/daviseford/aos-reminders-rest-api)
++ [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
+
+
+_Note: These are both private repositories._
