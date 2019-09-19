@@ -65,6 +65,7 @@ export const warscrollTypoMap = {
 export const azyrTypoMap = {
   'Chaos Chariots': 'Chaos Chariot',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+  'Hellstriders With Claw-Spears': 'Hellstriders',
 }
 
 // Azyr helper
