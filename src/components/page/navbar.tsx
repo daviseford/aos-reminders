@@ -33,19 +33,15 @@ export const NavBar: React.FC<{}> = () => {
     <header className={styles.header}>
       <div className="flex-grow-1"></div>
       <div>
-        {isAuthenticated && (
-          <>
-            {pathname !== '/' && (
-              <Link to="/" className={styles.link}>
-                Home
-              </Link>
-            )}
-            {pathname !== '/profile' && (
-              <Link to="/profile" className={styles.link}>
-                Profile
-              </Link>
-            )}
-          </>
+        {pathname !== '/' && (
+          <Link to="/" className={styles.link}>
+            Home
+          </Link>
+        )}
+        {isAuthenticated && pathname !== '/profile' && (
+          <Link to="/profile" className={styles.link}>
+            Profile
+          </Link>
         )}
         {!isSubscribed && pathname !== '/subscribe' && (
           <Link to="/subscribe" className={styles.link}>
