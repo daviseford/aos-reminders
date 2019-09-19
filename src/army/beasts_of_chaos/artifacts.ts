@@ -51,10 +51,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Bleating Gnarlstaf (Brayherds)`,
+    name: `Bleating Gnarlstaff (Brayherds)`,
     effects: [
       {
-        name: `Bleating Gnarlstaf (Brayherds)`,
+        name: `Bleating Gnarlstaff (Brayherds)`,
         desc: `If the bearer is within 1" of a terrain feature at the end of your movement phase, roll a D6. On a 3+ each enemy unit within 1" of that terrain feature suffers 1 mortal wound.`,
         when: [END_OF_MOVEMENT_PHASE],
       },

@@ -35,7 +35,7 @@ const Allegiances: TAllegiances = [
         command_trait: true,
       },
       {
-        name: `Blade of Desecrator`,
+        name: `Blade of the Desecrator`,
         desc: `Improve the Rend characteristic of this weapon by 1 for attacks this target a unit of 10 or more models. Improve the Rend characteristic of this weapon by 2 instead for attacks that target a unit of 20 or more models. Attacks made by this weapon cannot have a Rend characteristic greater than -3.`,
         when: [COMBAT_PHASE],
         artifact: true,
