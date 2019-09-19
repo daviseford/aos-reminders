@@ -578,7 +578,7 @@ export const Units: TUnits = [
       },
       {
         name: `Inescapable Vengeance`,
-        desc: `Add D3 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
