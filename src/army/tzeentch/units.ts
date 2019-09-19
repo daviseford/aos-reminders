@@ -653,7 +653,7 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
   {
-    name: `The Profane Cult`,
+    name: `The Pyrofane Cult`,
     effects: [
       {
         name: `Arch-Pyromancers`,

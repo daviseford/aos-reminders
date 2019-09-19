@@ -43,7 +43,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Cadavervous Barricade`,
+    name: `Cadaverous Barricade`,
     effects: [
       {
         name: `Summon`,
