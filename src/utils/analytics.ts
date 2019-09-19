@@ -1,6 +1,7 @@
 import ReactGA from 'react-ga'
 import { isValidFactionName } from './armyUtils'
 import { isTest } from './env'
+import { TImportParsers } from 'types/import'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5')
@@ -89,7 +90,7 @@ export const logEvent = (event: string) => {
  * Sends a Google Analytics event
  * @param value
  */
-export const logFailedImport = (value: string, type: 'Warscroll' | 'Battlescribe' | 'Azyr') => {
+export const logFailedImport = (value: string, type: TImportParsers) => {
   if (!isTest && !!value) {
     ReactGA.event({
       category: 'event',

@@ -5,6 +5,7 @@ import { isDev } from 'utils/env'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
+import qs from 'qs'
 
 interface ICheckoutProps {
   stripe?: any
@@ -55,8 +56,14 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
         // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/?subscribed=true`,
-        cancelUrl: `${window.location.protocol}//${url}/?canceled=true`,
+        successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+          subscribed: true,
+          plan: supportPlan.title,
+        })}`,
+        cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+          canceled: true,
+          plan: supportPlan.title,
+        })}`,
       })
       .then(function(result) {
         if (result.error) {
