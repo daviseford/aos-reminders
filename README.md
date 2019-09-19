@@ -53,15 +53,19 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.
 
+### `yarn lint`
+
+Checks your code for formatting or logical errors. Run this before opening a PR, since the CI will fail your branch if you don't pass the linting standards.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Learn More about React
+## `yarn analyze`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
 ## Pre-commit
 

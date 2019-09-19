@@ -4,7 +4,7 @@ import { importUnitOptionMap, importFactionNameMap } from '../import/options'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, TImportError } from 'types/import'
 import { importErrorChecker } from 'utils/import'
-import { createError } from 'utils/import/warnings'
+import { createFatalError } from 'utils/import/warnings'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -297,7 +297,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
 
   if (usingShortVersion) {
     errors.push(
-      createError(
+      createFatalError(
         'Are you using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.'
       )
     )

@@ -1,19 +1,21 @@
 import { uniq, without } from 'lodash'
+import { checkImportSelection } from 'utils/import/checkImportSelection'
+import { createAllyWarning } from 'utils/import/warnings'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
-import { titleCase } from 'utils/textUtils'
-import { TSupportedFaction } from 'meta/factions'
-import { TAllySelectionStore } from 'types/store'
 import { IAllySelections } from 'types/selections'
-import { TImportError } from 'types/import'
-import { checkImportSelection } from '.'
-import { createAllyWarning } from './warnings'
 import { mapListToDict } from 'utils/mapListToDict'
+import { titleCase } from 'utils/textUtils'
+import { TNameMap } from 'utils/import/options'
+import { TSupportedFaction } from 'meta/factions'
+import { TImportError } from 'types/import'
+import { TAllySelectionStore } from 'types/store'
 
 export const getAllyData = (
   allyUnits: string[],
   factionName: TSupportedFaction,
   errors: TImportError[],
-  checkPoorSpacing: boolean
+  checkPoorSpacing: boolean,
+  typoMap: TNameMap
 ): {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
@@ -32,7 +34,7 @@ export const getAllyData = (
       const units: string[] = allyArmyUnits[allyName]
       const unitsMap = mapListToDict(units)
 
-      const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing)
+      const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing, typoMap)
       const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
 
       if (errorFreeAllyUnits.length > 0) {

@@ -97,7 +97,7 @@ export const Subscribe: React.FC<{}> = () => {
         <PricingPlans />
       </div>
       <div className="container text-center mt-5 mb-4">
-        <ContactComponent />
+        <ContactComponent size={'small'} />
       </div>
     </div>
   )

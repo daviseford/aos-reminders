@@ -10,6 +10,7 @@ import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { TImportError, IImportedArmy } from 'types/import'
+import { hasFatalError } from 'utils/import/warnings'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -39,7 +40,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setErrors(army.errors)
 
       // Can't proceed if there's an error (usually an unsupported faction)
-      if (army.errors.some(x => x.severity === 'error')) return
+      if (hasFatalError(errors)) return
 
       setFactionName(army.factionName)
 
@@ -57,6 +58,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setRealmscapeFeature(army.realmscape_feature)
     },
     [
+      errors,
       setFactionName,
       setRealmscape,
       setRealmscapeFeature,
