@@ -33,7 +33,6 @@ const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
   file.pdfPages = await getPdfPages(typedArray)
   file.isWarscroll = file.pdfPages.some(x => x.includes('Warscroll Builder'))
   file.parser = file.isWarscroll ? 'Warscroll Builder' : 'Azyr'
-  // console.log('isWarscroll', file.isWarscroll)
 
   return file
 }
