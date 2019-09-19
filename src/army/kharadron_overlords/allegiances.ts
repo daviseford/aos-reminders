@@ -161,9 +161,9 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Champion of Progress`,
-        desc: `Friendly units with 3" do not take battleshock tests.`,
+        desc: `Friendly units within 3" do not take battleshock tests.`,
         when: [DURING_GAME],
-        command_ability: true,
+        command_trait: true,
       },
     ],
   },

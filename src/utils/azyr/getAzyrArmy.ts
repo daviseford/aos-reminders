@@ -1,10 +1,12 @@
 import { uniq } from 'lodash'
 import { titleCase } from 'utils/textUtils'
-import { azyrFactionNameMap, factionToAllegianceMap } from './options'
 import { importErrorChecker } from 'utils/import'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { IImportedArmy } from 'types/import'
+import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
+import KOArmy from 'army/kharadron_overlords'
+import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
@@ -78,6 +80,13 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
         return accum
       }
 
+      // Special KO case for footnotes
+      if (name.startsWith('Kharadron Code:')) {
+        const footnotes = handleKOTraits(name)
+        accum.traits = accum.traits.concat(footnotes)
+        return accum
+      }
+
       let found = false
 
       // Check all other types
@@ -122,8 +131,43 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
 
 const getFactionName = (val: string): { faction: string | null; allegiance: string | null } => {
   const name = val.replace('FACTION: ', '')
-  const faction = azyrFactionNameMap[name] || null
+  const faction = importFactionNameMap[name] || null
   if (!faction) console.log('ALERT: Missing this faction: ' + name)
   const allegiance = faction ? factionToAllegianceMap[name] : null
   return { faction: faction || null, allegiance: allegiance || null }
+}
+
+const handleKOTraits = (name: string): string[] => {
+  const traits = getKOTraits()
+  const footnotes = name
+    .replace('Kharadron Code: ', '')
+    .split(';')
+    .map(x => x.trim())
+  const possiblePrefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
+  return footnotes.map(note => {
+    let result = ''
+    const valUpper = note.toUpperCase()
+    traits.forEach(trait => {
+      if (!!result) return
+      possiblePrefix.forEach(pre => {
+        if (!!result) return
+        let prefixedNote = `${pre}: ${valUpper}`
+        // console.log(prefixedNote + ' vs ' + trait.toUpperCase())
+        if (isPoorlySpacedMatch(prefixedNote, trait.toUpperCase())) {
+          result = trait
+        }
+      })
+    })
+
+    return result || note
+  })
+}
+
+const getKOTraits = () => {
+  const prefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
+  const traits = KOArmy.Traits.filter(x => prefix.some(pre => x.name.startsWith(pre))).map(x => x.name)
+  const allegianceTraits = KOArmy.Allegiances.map(a => {
+    return a.effects.filter(e => prefix.some(pre => e.name.startsWith(pre))).map(e => e.name)
+  }).flat()
+  return traits.concat(allegianceTraits)
 }

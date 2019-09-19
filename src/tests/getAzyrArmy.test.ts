@@ -17,11 +17,25 @@ import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
+import KO2 from './fixtures/azyr/json/KO2.json'
 import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles KO2', () => {
+    const pages = handleAzyrPages(KO2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.selections.traits).toEqual([
+      'ARTYCLE: Respect Your Commanders',
+      'AMENDMENT: Trust Aethermatics, Not Superstition',
+      'FOOTNOTE: Without Our Ships, We Are Naught',
+      'Champion of Progress',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Slaanesh1', () => {
     const pages = handleAzyrPages(Slaanesh1)
     const res = getAzyrArmyFromPdf(pages)
@@ -97,7 +111,11 @@ describe('getAzyrArmyFromPdf', () => {
         endless_spells: [],
         scenery: [],
         spells: [],
-        traits: [],
+        traits: [
+          'ARTYCLE: Settle the Grudges',
+          'AMENDMENT: Trust to Your Guns',
+          'FOOTNOTE: These Are Just Guidelines',
+        ],
         triumphs: [],
         units: [
           'Aether-Khemist',

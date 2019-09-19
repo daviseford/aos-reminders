@@ -1,6 +1,6 @@
 import { uniq, last } from 'lodash'
 import { cleanWarscrollText } from './warscrollUtils'
-import { warscrollUnitOptionMap, warscrollFactionNameMap } from './options'
+import { importUnitOptionMap, importFactionNameMap } from '../import/options'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, TImportError } from 'types/import'
 import { importErrorChecker } from 'utils/import'
@@ -50,7 +50,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         const parts = nameRemoved.split('-').map(t => t.trim())
         const name = parts[0].trim()
 
-        factionName = warscrollFactionNameMap[name] || name
+        factionName = importFactionNameMap[name] || name
 
         return accum
       }
@@ -105,10 +105,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             .replace('Weapon : ', '')
             .trim()
 
-          if (warscrollUnitOptionMap[attr]) {
+          if (importUnitOptionMap[attr]) {
             const accumMock = [...accum[selector]]
             accumMock.pop()
-            accumMock.push(warscrollUnitOptionMap[attr])
+            accumMock.push(importUnitOptionMap[attr])
             accum[selector] = accumMock
             return accum
           }
@@ -182,7 +182,7 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
 
       if (txt.includes('Allegiance: ')) {
         const name = txt.replace('Allegiance: ', '').trim()
-        factionName = warscrollFactionNameMap[name] || name
+        factionName = importFactionNameMap[name] || name
         return accum
       }
 
@@ -249,10 +249,10 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
             .replace('Weapon : ', '')
             .trim()
 
-          if (warscrollUnitOptionMap[attr]) {
+          if (importUnitOptionMap[attr]) {
             const accumMock = [...accum[selector]]
             accumMock.pop()
-            accumMock.push(warscrollUnitOptionMap[attr])
+            accumMock.push(importUnitOptionMap[attr])
             accum[selector] = accumMock
             return accum
           }
