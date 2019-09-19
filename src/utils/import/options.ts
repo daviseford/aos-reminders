@@ -62,7 +62,10 @@ export const warscrollTypoMap = {
 }
 
 // Azyr on the left - AoS Reminders on the right
-export const azyrTypoMap = {}
+export const azyrTypoMap = {
+  'Chaos Chariots': 'Chaos Chariot',
+  'Chaos Gorebeast Chariots': 'Gorebeast Chariot',
+}
 
 // Azyr helper
 export const factionToAllegianceMap = {
