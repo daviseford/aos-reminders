@@ -1,7 +1,7 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE } from 'meta/factions'
+import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE, NIGHTHAUNT } from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
@@ -306,6 +306,26 @@ describe('getWarscrollArmyFromText', () => {
         'Sisters of Slaughter',
         'Avatar of Khaine',
       ],
+    })
+  })
+
+  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NightHauntIssue.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: ['Midnight Tome'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: ['Spiteful Spirit'],
+      triumphs: [],
+      units: ['Lord Executioner'],
     })
   })
 
