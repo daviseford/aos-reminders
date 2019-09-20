@@ -35,10 +35,13 @@ export const getPdfPages = async typedarray => {
 
     pdfText.forEach(x => heights.push(x.height))
     const textHeights = sortBy(uniq(heights)).reverse()
+    console.log(textHeights, textHeights.length)
+    // Meeting Engagement has 6 fontSizes, others have 5
     // textHeights[0] === Army Name
     // textHeights[1] === "Total: "
-    const headerHeight = textHeights[2]
-    const itemHeight = textHeights[3]
+    const headerHeight = textHeights[textHeights.length - 3]
+    const itemHeight = textHeights[textHeights.length - 2]
+    // last(textHeights) === Traits and options
 
     const result = pdfText
       .map(x => {
@@ -88,6 +91,7 @@ const newHandleText = (text: string): string[] => {
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
+  console.log('items', items)
   const title = handleTitle(items.shift() as string)
   const processedItems = uniq(items.map(handleItem).flat()).map(x =>
     x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&')
