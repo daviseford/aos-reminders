@@ -40,6 +40,7 @@ import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
+import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from './fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from './fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from './fixtures/azyr/json/Stormcast3.json'
@@ -92,6 +93,28 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealm)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Slaanesh2', () => {
+    const res = handleAzyrPages(Slaanesh2)
+    expect(res).toEqual([
+      'FACTION: Slaanesh',
+      'ALLEGIANCE: Pretenders Host',
+      'UNIT: Keeper of Secrets',
+      'ARTEFACT: The Crown of Dark Secrets',
+      'COMMAND TRAIT: True Child of Slaanesh',
+      'COMMAND TRAIT: Monarch of Lies',
+      'SPELL: Hysterical Frenzy',
+      'WEAPON: Ritual Knife or Sinistrous',
+      'WEAPON: Living Whip  or Sinistrous',
+      'UNIT: Keeper of Secrets',
+      'ARTEFACT: Sceptre of Domination',
+      'SPELL: Slothful Stupor',
+      'UNIT: The Contorted Epitome',
+      'ARTEFACT: Sliverslash',
+      'SPELL: Soulslice Shards',
+      'UNIT: The Masque',
+    ])
   })
 
   it('handles BCR1', () => {

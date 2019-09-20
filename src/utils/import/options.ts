@@ -57,7 +57,6 @@ const warscrollTypoMap: TNameMap = {
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
-  Sliverslash: 'Silverslash',
 }
 
 // Azyr on the left - AoS Reminders on the right

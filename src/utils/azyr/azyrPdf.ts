@@ -2,6 +2,7 @@ import pdfjsLib from 'pdfjs-dist'
 import { uniq } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
+import { isDev } from 'utils/env'
 
 const sep = ', '
 const commaAlt = `&&`
@@ -38,7 +39,7 @@ export const getPdfPages = async typedarray => {
       })
     )
 
-    // if (isDev) console.log('Copy me to JSON to debug: ', pages)
+    if (isDev) console.log('Copy me to JSON to debug: ', pages)
 
     return pages
   } catch (err) {
