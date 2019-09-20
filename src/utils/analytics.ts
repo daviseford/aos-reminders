@@ -1,6 +1,6 @@
 import ReactGA from 'react-ga'
 import { isValidFactionName } from './armyUtils'
-import { isTest } from './env'
+import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
 
 if (!isTest) {
@@ -11,7 +11,7 @@ if (!isTest) {
  * Sends a Google Analytics event
  */
 export const logPageView = () => {
-  if (!isTest) {
+  if (isProd) {
     ReactGA.pageview(window.location.pathname + window.location.search)
   }
 }
@@ -21,7 +21,7 @@ export const logPageView = () => {
  * @param factionName
  */
 export const logPrintEvent = (factionName: string | null) => {
-  if (!isTest && isValidFactionName(factionName)) {
+  if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'button',
       action: `print-${factionName}`,
@@ -35,7 +35,7 @@ export const logPrintEvent = (factionName: string | null) => {
  * @param factionName
  */
 export const logFactionSwitch = (factionName: string | null) => {
-  if (!isTest && isValidFactionName(factionName)) {
+  if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'select',
       action: `select-${factionName}`,
@@ -49,7 +49,7 @@ export const logFactionSwitch = (factionName: string | null) => {
  * @param factionName
  */
 export const logAllyFaction = (factionName: string | null) => {
-  if (!isTest && isValidFactionName(factionName)) {
+  if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'select',
       action: `select-ally-${factionName}`,
@@ -63,7 +63,7 @@ export const logAllyFaction = (factionName: string | null) => {
  * @param label
  */
 export const logClick = (label: string) => {
-  if (!isTest && !!label) {
+  if (isProd && !!label) {
     ReactGA.event({
       category: 'click',
       action: `click-${label}`,
@@ -77,7 +77,7 @@ export const logClick = (label: string) => {
  * @param event
  */
 export const logEvent = (event: string) => {
-  if (!isTest && !!event) {
+  if (isProd && !!event) {
     ReactGA.event({
       category: 'event',
       action: `event-${event}`,
@@ -91,7 +91,7 @@ export const logEvent = (event: string) => {
  * @param value
  */
 export const logFailedImport = (value: string, type: TImportParsers) => {
-  if (!isTest && !!value) {
+  if (isProd && !!value) {
     ReactGA.event({
       category: 'event',
       action: `failedImport-${type}-${value}`,

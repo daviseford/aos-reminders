@@ -4,6 +4,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
+import { logClick } from 'utils/analytics'
 
 export const NavBar: React.FC<{}> = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
@@ -19,8 +20,10 @@ export const NavBar: React.FC<{}> = () => {
 
   const handleLogin = () => {
     if (isAuthenticated) {
+      logClick('Navbar-Logout')
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
+      logClick('Navbar-Login')
       return loginWithRedirect()
     }
   }
@@ -34,17 +37,17 @@ export const NavBar: React.FC<{}> = () => {
       <div className="flex-grow-1"></div>
       <div>
         {pathname !== '/' && (
-          <Link to="/" className={styles.link}>
+          <Link to="/" className={styles.link} onClick={() => logClick('Navbar-Home')}>
             Home
           </Link>
         )}
         {isAuthenticated && pathname !== '/profile' && (
-          <Link to="/profile" className={styles.link}>
+          <Link to="/profile" className={styles.link} onClick={() => logClick('Navbar-Profile')}>
             Profile
           </Link>
         )}
         {!isSubscribed && pathname !== '/subscribe' && (
-          <Link to="/subscribe" className={styles.link}>
+          <Link to="/subscribe" className={styles.link} onClick={() => logClick('Navbar-Subscribe')}>
             Subscribe
           </Link>
         )}
