@@ -97,6 +97,7 @@ const newHandleText = (text: string): string[] => {
 }
 
 const handleItem = (text: string): string[] => {
+  console.log(text)
   const firstPass = text
     .replace(/HEADER/g, ' ')
     .replace(/.+See the .+? of this unit/gi, '')
@@ -118,6 +119,8 @@ const handleItem = (text: string): string[] => {
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
+
+  console.log('first', firstPass)
 
   const secondPass = splitItem(firstPass)
     .join(sep)
