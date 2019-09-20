@@ -1081,7 +1081,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Prosecutors with Stormcall Javelins`,
+    name: `Prosecutors w/ Stormcall Javelins`,
     effects: [
       {
         name: `Prosecutor-Prime`,
@@ -1106,7 +1106,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Prosecutors with Celestial Hammers`,
+    name: `Prosecutors w/ Celestial Hammers`,
     effects: [
       {
         name: `Prosecutor-Prime`,
