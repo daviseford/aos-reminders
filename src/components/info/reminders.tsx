@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -10,6 +10,8 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
+import { savePdf } from 'components/print/pdf'
+import { TRealms } from 'types/realmscapes'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -17,9 +19,11 @@ interface IRemindersProps {
   allySelections: { [key: string]: IAllySelections }
   army: IArmy
   factionName: TSupportedFaction
+  hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
   realmscape_feature: string
+  realmscape: TRealms | null
   selections: ISelections
   showWhen: (value: string) => void
   visibleWhens: string[]
@@ -32,9 +36,11 @@ const RemindersComponent = (props: IRemindersProps) => {
     allySelections,
     army,
     factionName,
+    hiddenReminders,
     hideWhens,
     isMobile,
     realmscape_feature,
+    realmscape,
     selections,
     showWhen,
     visibleWhens,
@@ -57,6 +63,28 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   const [firstLoad, setFirstLoad] = useState(true)
 
+  const handleSave = useCallback(() => {
+    savePdf({
+      factionName,
+      selections,
+      realmscape_feature,
+      allyFactionNames,
+      allySelections,
+      reminders,
+      realmscape,
+      hiddenReminders,
+    })
+  }, [
+    factionName,
+    selections,
+    realmscape_feature,
+    allyFactionNames,
+    allySelections,
+    reminders,
+    realmscape,
+    hiddenReminders,
+  ])
+
   useEffect(() => {
     setFirstLoad(true)
   }, [factionName])
@@ -76,13 +104,18 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
-    <div className="row mx-auto mt-3 d-flex justify-content-center">
-      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
-        {whens.map((when, i) => {
-          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
-        })}
+    <>
+      <div>
+        <button onClick={handleSave}>PDF</button>
       </div>
-    </div>
+      <div className="row mx-auto mt-3 d-flex justify-content-center">
+        <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
+          {whens.map((when, i) => {
+            return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
+          })}
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -93,9 +126,11 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
-  visibleWhens: visibility.selectors.getWhen(state),
+  hiddenReminders: visibility.selectors.getReminders(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
+  realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
+  visibleWhens: visibility.selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {
