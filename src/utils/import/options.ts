@@ -87,7 +87,7 @@ export const factionToAllegianceMap = {
 export const importUnitOptionMap = {
   'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
   'Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
-  'Celestial Hammer(s)': 'Prosecutors w/ Celestial Hammers',
+  'Celestial Hammer(s)': 'Prosecutors with Celestial Hammers',
   'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
   'Living Whip': 'Keeper of Secrets w/ Living Whip',
   'Priestly Trappings': 'Skink Priest w/ Priestly Trappings',
@@ -96,7 +96,7 @@ export const importUnitOptionMap = {
   'Sinistrous Hand': 'Keeper of Secrets w/ Sinistrous Hand',
   'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
   'Solar Engine': 'Bastiladon w/ Solar Engine',
-  'Stormcall Javelins': 'Prosecutors w/ Stormcall Javelins',
+  'Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
   'Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
 }
