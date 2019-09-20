@@ -105,11 +105,10 @@ describe('handleAzyrPages', () => {
       'COMMAND TRAIT: True Child of Slaanesh',
       'COMMAND TRAIT: Monarch of Lies',
       'SPELL: Hysterical Frenzy',
-      'WEAPON: Ritual Knife or Sinistrous',
-      'WEAPON: Living Whip  or Sinistrous',
-      'UNIT: Keeper of Secrets',
+      'WEAPON: Living Whip',
       'ARTEFACT: Sceptre of Domination',
       'SPELL: Slothful Stupor',
+      'WEAPON: Ritual Knife or Sinistrous Hand',
       'UNIT: The Contorted Epitome',
       'ARTEFACT: Sliverslash',
       'SPELL: Soulslice Shards',
@@ -1375,7 +1374,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles Nagash1', () => {
+  it('handles GHoN2', () => {
     const res = handleAzyrPages(GHoN2)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',

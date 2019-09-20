@@ -1,5 +1,5 @@
 import pdfjsLib from 'pdfjs-dist'
-import { uniq } from 'lodash'
+import { uniq, sortBy } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
@@ -20,28 +20,61 @@ export const getPdfPages = async typedarray => {
       numPages.push(i)
     }
 
+    // textContent.items.forEach(element => {
+    //   heights.push(element.height)
+    // });
+
+    // const textHeights = sortBy(uniq(heights)).reverse()
+    // console.log('asdadas', textHeights)
+    // const headerHeight = textHeights[1]
+    // const itemHeight = textHeights[2]
+
     const pages = await Promise.all(
       numPages.map(async pageNumber => {
         const page = await pdf.getPage(pageNumber + 1)
         //@ts-ignore
         const textContent = await page.getTextContent({ normalizeWhitespace: true })
-        return textContent.items
-          .map(x => {
-            // First time this appears, we are starting units
-            // fontName: "g_d0_f1"
-            // height: 17.99999925
-            // str: "Leader"
-            if (x.height > 15) return HEADER
 
-            return x.str
-          })
-          .join(' ')
+        return textContent.items
       })
     )
 
-    if (isDev) console.log('Copy me to JSON to debug: ', pages)
+    let heights: number[] = []
+    const pdfText = pages.flat()
 
-    return pages
+    pdfText.forEach(x => heights.push(x.height))
+    const textHeights = sortBy(uniq(heights)).reverse()
+    // const textHeights = sortBy(uniq(heights.map(x => Math.floor(x)))).reverse()
+
+    console.log(textHeights)
+    // textHeights[0] === Army Name
+    // textHeights[1] === "Total: "
+    const headerHeight = textHeights[2]
+    const itemHeight = textHeights[3]
+
+    const result = pdfText
+      .map(x => {
+        // First time this appears, we are starting units
+        // fontName: "g_d0_f1"
+        // height: 17.99999925
+        // str: "Leader"
+        if (x.height >= headerHeight) {
+          console.log('header', x.str, x.height)
+          return HEADER
+        }
+
+        if (x.height >= itemHeight) {
+          console.log('item', x.str, x.height)
+          return `ITEM: ${x.str.trim()}`
+        }
+
+        return x.str
+      })
+      .join(' ')
+
+    if (isDev) console.log('Copy me to JSON to debug: ', [result])
+
+    return [result]
   } catch (err) {
     console.error(err)
     return ['Error: Unable to read file.']
@@ -79,6 +112,7 @@ const handleFirstPass = (text: string) => {
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
+    .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
@@ -102,8 +136,11 @@ const handleFirstPass = (text: string) => {
     .replace(/[0-9]{1,4}pts/g, ' ')
     .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ')
     .replace(markRegexp, ' ')
-    .replace(/ {3}[\w-& ]+ See the .+? of this unit/gi, ' ')
-    .replace(/This unit is also a Leader. Their details are listed within the Leader section./gi, sep)
+    .replace(/,[\w-&' ]+ See the .+? of this unit/gi, ' ')
+    .replace(
+      /,[\w-&' ]+ This unit is also a Leader. Their details are listed within the Leader section./gi,
+      sep
+    )
     .replace(/\|/g, sep)
     .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
     .replace(/HEADER/g, ' ')
