@@ -34,21 +34,7 @@ export const getPdfPages = async typedarray => {
     const pdfText = pages.flat()
 
     pdfText.forEach(x => heights.push(x.height))
-    const textHeights = sortBy(uniq(heights)).reverse()
-
-    let headerHeight = 99
-    let itemHeight = 99
-
-    if (textHeights.length > 3) {
-      console.log(textHeights)
-      // A faction/realm-only pdf only has 3
-      // Meeting Engagement has 6 fontSizes, others have 5
-      // textHeights[0] === Army Name
-      // textHeights[1] === "Total: "
-      headerHeight = textHeights[textHeights.length - 3]
-      itemHeight = textHeights[textHeights.length - 2]
-      // last(textHeights) === Traits and options
-    }
+    const { headerHeight, itemHeight } = getTextHeights(heights)
 
     const result = pdfText
       .map(x => {
@@ -56,21 +42,15 @@ export const getPdfPages = async typedarray => {
         // fontName: "g_d0_f1"
         // height: 17.99999925
         // str: "Leader"
-        if (x.height >= headerHeight) {
-          console.log('header', x.str)
-          return HEADER
-        }
+        if (x.height >= headerHeight) return HEADER
 
-        if (x.height >= itemHeight) {
-          console.log('item', x.str)
-          return `ITEM: ${x.str.trim()}`
-        }
+        if (x.height >= itemHeight) return `ITEM: ${x.str.trim()}`
 
         return x.str
       })
       .join(' ')
 
-    if (isDev) console.log('Copy me to JSON to debug: ', [result])
+    if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', [result])
 
     return [result]
   } catch (err) {
@@ -82,8 +62,6 @@ export const getPdfPages = async typedarray => {
 export const handleAzyrPages = (pages: string[]): string[] => {
   const cleanedPages = pages.map(newHandleText)
   const joinedPages = cleanedPages[0]
-
-  debugger
 
   if (isDev) console.table(joinedPages)
 
@@ -161,11 +139,59 @@ const handleItem = (text: string): string[] => {
   return splitItem(secondPass)
 }
 
+const handleTitle = (text: string): string[] => {
+  const firstTitlePass = text
+    .replace(/HEADER( HEADER)+/g, HEADER)
+    .replace(allegianceRegexp, 'ALLEGIANCE:')
+    .replace(/Realm of Battle:/g, 'REALMSCAPE:')
+    .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
+    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
+    .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
+    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
+
+  const secondTitlePass = firstTitlePass
+    .replace(
+      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      factionReplacer
+    )
+    .replace(
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
+      realmscapeReplacer
+    )
+    .replace(/Army deemed .+valid/gi, ' ')
+    .replace(/by Azyr Roster Builder/g, ' ')
+    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
+    .replace(/[0-9]{1,4}pts/g, ' ')
+    .replace(/\|/g, sep)
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
+    .replace(/HEADER/g, ' ')
+
+  return splitItem(secondTitlePass)
+}
+
 const splitItem = (text: string): string[] => {
   return text
     .split(',')
     .map(x => x.replace(/ {2,}/g, ' ').trim())
     .filter(x => !!x)
+}
+
+const getTextHeights = (heights: number[]) => {
+  const textHeights = sortBy(uniq(heights)).reverse()
+
+  let headerHeight = 99
+  let itemHeight = 99
+
+  // A faction/realm-only pdf only has 3, so we don't bother setting this
+  if (textHeights.length > 3) {
+    // Meeting Engagement has 6 fontSizes, others have 5
+    // textHeights[0] === Army Name
+    // textHeights[1] === "Total: "
+    headerHeight = textHeights[textHeights.length - 3]
+    itemHeight = textHeights[textHeights.length - 2]
+    // last(textHeights) === Traits and options
+  }
+  return { headerHeight, itemHeight }
 }
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
@@ -256,33 +282,3 @@ const markRegexp = new RegExp(`Mark( of Chaos)?: {1,3}(${SUPPORTED_FACTIONS.map(
 
 const scenery = ['Penumbral Engine']
 const sceneryRegExp = new RegExp(`(${scenery.join('|')})`, 'g')
-
-const handleTitle = (text: string): string[] => {
-  const firstTitlePass = text
-    .replace(/HEADER( HEADER)+/g, HEADER)
-    .replace(allegianceRegexp, 'ALLEGIANCE:')
-    .replace(/Realm of Battle:/g, 'REALMSCAPE:')
-    .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
-    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
-    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
-
-  const secondTitlePass = firstTitlePass
-    .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
-      factionReplacer
-    )
-    .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
-      realmscapeReplacer
-    )
-    .replace(/Army deemed .+valid/gi, ' ')
-    .replace(/by Azyr Roster Builder/g, ' ')
-    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
-    .replace(/[0-9]{1,4}pts/g, ' ')
-    .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
-    .replace(/HEADER/g, ' ')
-
-  return splitItem(secondTitlePass)
-}
