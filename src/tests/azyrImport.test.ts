@@ -28,7 +28,6 @@ import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
 import LoB1 from './fixtures/azyr/json/LoB1.json'
 import LoG1 from './fixtures/azyr/json/LoG1.json'
 import LoN1 from './fixtures/azyr/json/LoN1.json'
-import LoS1 from './fixtures/azyr/json/LoS1.json'
 import LoS2 from './fixtures/azyr/json/LoS2.json'
 import Nighthaunt1 from './fixtures/azyr/json/Nighthaunt1.json'
 import NoRealm from './fixtures/azyr/json/NoRealmscape1.json'
@@ -319,7 +318,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Fyreslayers2', () => {
+  it('handles Fyreslayers2', () => {
     const res = handleAzyrPages(Fyreslayers2)
     expect(res).toEqual([
       'FACTION: Fyreslayers',
@@ -339,45 +338,21 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles LoS1', () => {
-    const res = handleAzyrPages(LoS1)
-    expect(res).toEqual([
-      'FACTION: Legion of Sacrament',
-      'REALMSCAPE: SHYISH',
-      'UNIT: Necromancer',
-      'SPELL: Overwhelming Dread',
-      'UNIT: Wight King',
-      'ARTEFACT: The Ragged Cloak',
-      'UNIT: Vampire Lord on Zombie Dragon',
-      'COMMAND TRAIT: Mastery of Death',
-      'ARTEFACT: Ethereal Amulet',
-      'SPELL: Amethystine Pinions',
-      'UNIT: Skeleton Warriors',
-      'UPGRADE: Hornblower',
-      'UPGRADE: Standard Bearer',
-      'BATTALION: Deathmarch',
-      'UNIT: Black Knights',
-      'UNIT: Grave Guard',
-    ])
-  })
-
   it('handles Stormcast2', () => {
     const res = handleAzyrPages(Stormcast2)
     expect(res).toEqual([
       'FACTION: Stormcast Eternals',
-      'ALLEGIANCE: CELESTIAL WARBRINGERS',
-      'REALMSCAPE: SHYISH',
-      'UNIT: Celestant-Prime',
-      'UNIT: Knight-Azyros',
-      'UNIT: Lord-Castellant',
-      'UNIT: Vandus Hammerhand',
+      'ALLEGIANCE: TEMPEST LORDS',
+      'UNIT: Knight-Heraldor',
+      'COMMAND TRAIT: Bonds of Noble Duty',
+      "ARTEFACT: Patrician's Helm",
+      'UNIT: Lord-Ordinator',
       'UNIT: Judicators',
       'UNIT: Liberators',
       'UNIT: Celestar Ballista',
-      'UNIT: Concussors',
-      'UNIT: Desolators',
-      "UNIT: Stormsire's Cursebreakers",
-      'BATTALION: Aetherstrike Force',
+      'ALLY: Organ Gun',
+      'ALLY: Skinks',
+      'UNIT: Evocators',
     ])
   })
 
@@ -422,7 +397,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Lethisian1', () => {
+  it('handles Lethisian1', () => {
     const res = handleAzyrPages(Lethisian1)
     expect(res).toEqual([
       'FACTION: Lethisian',
@@ -450,7 +425,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Fyreslayers1', () => {
+  it('handles Fyreslayers1', () => {
     const res = handleAzyrPages(Fyreslayers1)
     expect(res).toEqual([
       'FACTION: Fyreslayers',
@@ -472,7 +447,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Destruction1', () => {
+  it('handles Destruction1', () => {
     const res = handleAzyrPages(Destruction1)
     expect(res).toEqual([
       'FACTION: Destruction',
@@ -502,7 +477,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Death1', () => {
+  it('handles Death1', () => {
     const res = handleAzyrPages(Death1)
     expect(res).toEqual([
       'FACTION: Death',
@@ -592,7 +567,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Nurgle3', () => {
+  it('handles Nurgle3', () => {
     const res = handleAzyrPages(Nurgle3)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -619,7 +594,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Gloomspite1', () => {
+  it('handles Gloomspite1', () => {
     const res = handleAzyrPages(Gloomspite1)
     expect(res).toEqual([
       'FACTION: Gloomspite Gitz',
@@ -647,7 +622,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles FEC1', () => {
+  it('handles FEC1', () => {
     const res = handleAzyrPages(FEC1)
     expect(res).toEqual([
       'FACTION: Flesh-eater Courts',
@@ -664,7 +639,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles DoK1', () => {
+  it('handles DoK1', () => {
     const res = handleAzyrPages(DoK1)
     expect(res).toEqual([
       'FACTION: Daughters of Khaine',
@@ -682,7 +657,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Sylvaneth1', () => {
+  it('handles Sylvaneth1', () => {
     const res = handleAzyrPages(Sylvaneth1)
     expect(res).toEqual([
       'FACTION: Sylvaneth',
@@ -699,7 +674,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Order1', () => {
+  it('handles Order1', () => {
     const res = handleAzyrPages(Order1)
     expect(res).toEqual([
       'FACTION: Order',
@@ -721,7 +696,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles KO2', () => {
+  it('handles KO2', () => {
     const res = handleAzyrPages(KO2)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
@@ -765,7 +740,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles BoC1', () => {
+  it('handles BoC1', () => {
     const res = handleAzyrPages(BoC1)
     expect(res).toEqual([
       'FACTION: Beasts of Chaos',
@@ -817,7 +792,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles GHoN1', () => {
+  it('handles GHoN1', () => {
     const res = handleAzyrPages(GHoN1)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',
@@ -870,7 +845,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Khorne1', () => {
+  it('handles Khorne1', () => {
     const res = handleAzyrPages(Khorne1)
     expect(res).toEqual([
       'FACTION: Khorne',
@@ -1038,7 +1013,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Nurgle1', () => {
+  it('handles Nurgle1', () => {
     const res = handleAzyrPages(Nurgle1)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -1100,7 +1075,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Nurgle2', () => {
+  it('handles Nurgle2', () => {
     const res = handleAzyrPages(Nurgle2)
     expect(res).toEqual([
       'FACTION: Nurgle',
@@ -1125,7 +1100,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles LoG1', () => {
+  it('handles LoG1', () => {
     const res = handleAzyrPages(LoG1)
     expect(res).toEqual([
       'FACTION: Legion of Grief',
@@ -1214,7 +1189,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Chaos2', () => {
+  it('handles Chaos2', () => {
     const res = handleAzyrPages(Chaos2)
     expect(res).toEqual([
       'FACTION: Chaos',
@@ -1341,7 +1316,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  xit('handles Ironjawz1', () => {
+  it('handles Ironjawz1', () => {
     const res = handleAzyrPages(Ironjawz1)
     expect(res).toEqual([
       'FACTION: Ironjawz',

@@ -35,13 +35,20 @@ export const getPdfPages = async typedarray => {
 
     pdfText.forEach(x => heights.push(x.height))
     const textHeights = sortBy(uniq(heights)).reverse()
-    console.log(textHeights, textHeights.length)
-    // Meeting Engagement has 6 fontSizes, others have 5
-    // textHeights[0] === Army Name
-    // textHeights[1] === "Total: "
-    const headerHeight = textHeights[textHeights.length - 3]
-    const itemHeight = textHeights[textHeights.length - 2]
-    // last(textHeights) === Traits and options
+
+    let headerHeight = 99
+    let itemHeight = 99
+
+    if (textHeights.length > 3) {
+      console.log(textHeights)
+      // A faction/realm-only pdf only has 3
+      // Meeting Engagement has 6 fontSizes, others have 5
+      // textHeights[0] === Army Name
+      // textHeights[1] === "Total: "
+      headerHeight = textHeights[textHeights.length - 3]
+      itemHeight = textHeights[textHeights.length - 2]
+      // last(textHeights) === Traits and options
+    }
 
     const result = pdfText
       .map(x => {
@@ -49,9 +56,15 @@ export const getPdfPages = async typedarray => {
         // fontName: "g_d0_f1"
         // height: 17.99999925
         // str: "Leader"
-        if (x.height >= headerHeight) return HEADER
+        if (x.height >= headerHeight) {
+          console.log('header', x.str)
+          return HEADER
+        }
 
-        if (x.height >= itemHeight) return `ITEM: ${x.str.trim()}`
+        if (x.height >= itemHeight) {
+          console.log('item', x.str)
+          return `ITEM: ${x.str.trim()}`
+        }
 
         return x.str
       })
@@ -69,6 +82,8 @@ export const getPdfPages = async typedarray => {
 export const handleAzyrPages = (pages: string[]): string[] => {
   const cleanedPages = pages.map(newHandleText)
   const joinedPages = cleanedPages[0]
+
+  debugger
 
   if (isDev) console.table(joinedPages)
 
@@ -91,17 +106,13 @@ const newHandleText = (text: string): string[] => {
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
-  console.log('items', items)
   const title = handleTitle(items.shift() as string)
-  const processedItems = uniq(items.map(handleItem).flat()).map(x =>
-    x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&')
-  )
+  const processedItems = uniq(items.map(handleItem).flat())
 
-  return title.concat(processedItems)
+  return title.concat(processedItems).map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
 }
 
 const handleItem = (text: string): string[] => {
-  console.log(text)
   const firstPass = text
     .replace(/HEADER/g, ' ')
     .replace(/.+See the .+? of this unit/gi, '')
@@ -123,8 +134,6 @@ const handleItem = (text: string): string[] => {
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
-
-  console.log('first', firstPass)
 
   const secondPass = splitItem(firstPass)
     .join(sep)
@@ -220,6 +229,7 @@ const commonTypos = {
   'Inv ocation': 'Invocation',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',
+  'L ORDS': 'LORDS',
   'Mak er': 'Maker',
   'Master y': 'Mastery',
   'Mercenar y Company': 'Mercenary Company',
