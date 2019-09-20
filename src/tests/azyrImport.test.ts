@@ -28,7 +28,6 @@ import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
 import LoB1 from './fixtures/azyr/json/LoB1.json'
 import LoG1 from './fixtures/azyr/json/LoG1.json'
 import LoN1 from './fixtures/azyr/json/LoN1.json'
-import LoS1 from './fixtures/azyr/json/LoS1.json'
 import LoS2 from './fixtures/azyr/json/LoS2.json'
 import Nighthaunt1 from './fixtures/azyr/json/Nighthaunt1.json'
 import NoRealm from './fixtures/azyr/json/NoRealmscape1.json'
@@ -40,6 +39,7 @@ import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
+import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from './fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from './fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from './fixtures/azyr/json/Stormcast3.json'
@@ -92,6 +92,27 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(NoRealm)
     console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Slaanesh2', () => {
+    const res = handleAzyrPages(Slaanesh2)
+    expect(res).toEqual([
+      'FACTION: Slaanesh',
+      'ALLEGIANCE: Pretenders Host',
+      'UNIT: Keeper of Secrets',
+      'ARTEFACT: The Crown of Dark Secrets',
+      'COMMAND TRAIT: True Child of Slaanesh',
+      'COMMAND TRAIT: Monarch of Lies',
+      'SPELL: Hysterical Frenzy',
+      'WEAPON: Living Whip',
+      'ARTEFACT: Sceptre of Domination',
+      'SPELL: Slothful Stupor',
+      'WEAPON: Ritual Knife or Sinistrous Hand',
+      'UNIT: The Contorted Epitome',
+      'ARTEFACT: Sliverslash',
+      'SPELL: Soulslice Shards',
+      'UNIT: The Masque',
+    ])
   })
 
   it('handles BCR1', () => {
@@ -317,45 +338,21 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles LoS1', () => {
-    const res = handleAzyrPages(LoS1)
-    expect(res).toEqual([
-      'FACTION: Legion of Sacrament',
-      'REALMSCAPE: SHYISH',
-      'UNIT: Necromancer',
-      'SPELL: Overwhelming Dread',
-      'UNIT: Wight King',
-      'ARTEFACT: The Ragged Cloak',
-      'UNIT: Vampire Lord on Zombie Dragon',
-      'COMMAND TRAIT: Mastery of Death',
-      'ARTEFACT: Ethereal Amulet',
-      'SPELL: Amethystine Pinions',
-      'UNIT: Skeleton Warriors',
-      'UPGRADE: Hornblower',
-      'UPGRADE: Standard Bearer',
-      'BATTALION: Deathmarch',
-      'UNIT: Black Knights',
-      'UNIT: Grave Guard',
-    ])
-  })
-
   it('handles Stormcast2', () => {
     const res = handleAzyrPages(Stormcast2)
     expect(res).toEqual([
       'FACTION: Stormcast Eternals',
-      'ALLEGIANCE: CELESTIAL WARBRINGERS',
-      'REALMSCAPE: SHYISH',
-      'UNIT: Celestant-Prime',
-      'UNIT: Knight-Azyros',
-      'UNIT: Lord-Castellant',
-      'UNIT: Vandus Hammerhand',
+      'ALLEGIANCE: TEMPEST LORDS',
+      'UNIT: Knight-Heraldor',
+      'COMMAND TRAIT: Bonds of Noble Duty',
+      "ARTEFACT: Patrician's Helm",
+      'UNIT: Lord-Ordinator',
       'UNIT: Judicators',
       'UNIT: Liberators',
       'UNIT: Celestar Ballista',
-      'UNIT: Concussors',
-      'UNIT: Desolators',
-      "UNIT: Stormsire's Cursebreakers",
-      'BATTALION: Aetherstrike Force',
+      'ALLY: Organ Gun',
+      'ALLY: Skinks',
+      'UNIT: Evocators',
     ])
   })
 
@@ -1352,7 +1349,7 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles Nagash1', () => {
+  it('handles GHoN2', () => {
     const res = handleAzyrPages(GHoN2)
     expect(res).toEqual([
       'FACTION: Grand Host of Nagash',

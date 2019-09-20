@@ -116,15 +116,15 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Silverslash (Pretenders Host)`,
+    name: `Sliverslash (Pretenders Host)`,
     effects: [
       {
-        name: `Silverslash (Pretenders Host)`,
-        desc: `Pick 1 of the bearer's melee weapons.`,
+        name: `Sliverslash (Pretenders Host)`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the attacks characteristic of selected weapon.`,
         when: [START_OF_GAME],
       },
       {
-        name: `Silverslash (Pretenders Host)`,
+        name: `Sliverslash (Pretenders Host)`,
         desc: `Add 2 to the attacks characteristic of selected weapon.`,
         when: [COMBAT_PHASE],
       },

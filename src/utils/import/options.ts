@@ -53,11 +53,16 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Lighntning Blast': 'Lightning Blast',
   'Magestic Horror': 'Majestic Horror (Royalty)',
+  'Midnight Tome - Lifestealer': 'Midnight Tome',
+  'Midnight Tome - Reaping Scythe': 'Midnight Tome',
+  'Midnight Tome - Shademist': 'Midnight Tome',
+  'Midnight Tome - Soul Cage': 'Midnight Tome',
+  'Midnight Tome - Spectral Tether': 'Midnight Tome',
+  'Midnight Tome - Spirit Drain': 'Midnight Tome',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
-  Sliverslash: 'Silverslash',
 }
 
 // Azyr on the left - AoS Reminders on the right
