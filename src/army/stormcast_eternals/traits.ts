@@ -74,20 +74,20 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Lithe Limbed (Mount)`,
+    name: `Lithe-Limbed (Mount)`,
     effects: [
       {
-        name: `Lithe Limbed (Mount)`,
+        name: `Lithe-Limbed (Mount)`,
         desc: `Add 1 to the move characteristic of this model.`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
   {
-    name: `Keen-clawed (Mount)`,
+    name: `Keen Clawed (Mount)`,
     effects: [
       {
-        name: `Keen-clawed (Mount)`,
+        name: `Keen Clawed (Mount)`,
         desc: `If the unmodified wound roll for an attack made with this mount's melee weapons is 6, that attack has a rend characteristic of -3.`,
         when: [COMBAT_PHASE],
       },

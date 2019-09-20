@@ -10,6 +10,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  STORMCAST_ETERNALS,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -22,6 +23,7 @@ import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
 import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
 import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
+import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles KO2', () => {
@@ -41,6 +43,13 @@ describe('getAzyrArmyFromPdf', () => {
         text: 'Prosecutors',
       },
     ])
+  })
+
+  it('handles Stormcast4', () => {
+    const pages = handleAzyrPages(Stormcast4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections.traits).toEqual(['Keen Clawed (Mount)', 'Lithe-Limbed (Mount)'])
   })
 
   it('handles Slaanesh1', () => {

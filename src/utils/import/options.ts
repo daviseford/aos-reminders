@@ -53,6 +53,7 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Lighntning Blast': 'Lightning Blast',
   'Magestic Horror': 'Majestic Horror (Royalty)',
+  'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
   'Midnight Tome - Lifestealer': 'Midnight Tome',
   'Midnight Tome - Reaping Scythe': 'Midnight Tome',
   'Midnight Tome - Shademist': 'Midnight Tome',
