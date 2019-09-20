@@ -20,15 +20,6 @@ export const getPdfPages = async typedarray => {
       numPages.push(i)
     }
 
-    // textContent.items.forEach(element => {
-    //   heights.push(element.height)
-    // });
-
-    // const textHeights = sortBy(uniq(heights)).reverse()
-    // console.log('asdadas', textHeights)
-    // const headerHeight = textHeights[1]
-    // const itemHeight = textHeights[2]
-
     const pages = await Promise.all(
       numPages.map(async pageNumber => {
         const page = await pdf.getPage(pageNumber + 1)
@@ -44,9 +35,6 @@ export const getPdfPages = async typedarray => {
 
     pdfText.forEach(x => heights.push(x.height))
     const textHeights = sortBy(uniq(heights)).reverse()
-    // const textHeights = sortBy(uniq(heights.map(x => Math.floor(x)))).reverse()
-
-    console.log(textHeights)
     // textHeights[0] === Army Name
     // textHeights[1] === "Total: "
     const headerHeight = textHeights[2]
@@ -58,15 +46,9 @@ export const getPdfPages = async typedarray => {
         // fontName: "g_d0_f1"
         // height: 17.99999925
         // str: "Leader"
-        if (x.height >= headerHeight) {
-          console.log('header', x.str, x.height)
-          return HEADER
-        }
+        if (x.height >= headerHeight) return HEADER
 
-        if (x.height >= itemHeight) {
-          console.log('item', x.str, x.height)
-          return `ITEM: ${x.str.trim()}`
-        }
+        if (x.height >= itemHeight) return `ITEM: ${x.str.trim()}`
 
         return x.str
       })
@@ -82,124 +64,92 @@ export const getPdfPages = async typedarray => {
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {
-  const cleanedPages = pages.map(cleanAzyrText)
-  const joinedPages = uniq(cleanedPages.join(sep).split(sep))
+  const cleanedPages = pages.map(newHandleText)
+  const joinedPages = cleanedPages[0]
 
-  const splitText = joinedPages
-    .filter(x => {
-      // if (isDev) console.log('Missing a prefix: ' + x)
-      return !joinedPages.some(s => s.includes(x) && s !== x)
-    })
-    .map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
+  if (isDev) console.table(joinedPages)
 
-  // if (isDev) console.table(splitText)
-
-  return splitText
+  return joinedPages
 }
 
-const handleFirstPass = (text: string) => {
-  const titlePass = text
-    .replace(/HEADER( HEADER)+/g, HEADER)
+const newHandleText = (text: string): string[] => {
+  const preppedText = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
     .replace(/( )?[‘’]/g, `'`) // Replace special quotes
     .replace(/[“”]/g, `"`) // Replace special quotes
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
     .replace(/([\w]) {1,3}'s /g, `$1's `) // Ford 's -> Ford's
-    .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
     .replace(typoRegexp, match => commonTypos[match]) // Handle any known typos
+    .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ') // Remove "Quantity: 1"
+    .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
+    .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
     .replace(/General/g, ' ') // Handle any known typos
-    .replace(allegianceRegexp, 'ALLEGIANCE:')
-    .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
-    .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
-    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
-    .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
-    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
 
-  const secondaryPass = titlePass
-    .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
-      factionReplacer
-    )
-    .replace(
-      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
-      realmscapeReplacer
-    )
+  const items = preppedText.split('ITEM: ')
+  const title = handleTitle(items.shift() as string)
+  const processedItems = uniq(items.map(handleItem).flat()).map(x =>
+    x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&')
+  )
+
+  return title.concat(processedItems)
+}
+
+const handleItem = (text: string): string[] => {
+  const firstPass = text
+    .replace(/HEADER/g, ' ')
+    .replace(/.+See the .+? of this unit/gi, '')
+    .replace(/.+This unit is also a Leader.+ the Leader section./gi, '')
+    .replace(/Army deemed .+valid/gi, ' ')
+    .replace(/by Azyr Roster Builder/gi, ' ')
+    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
+    .replace(/[0-9]{1,4}pts/g, ' ')
+    .replace(/\|/g, sep)
+    .replace(/ {2,4}/g, ' ')
     .replace(unitRegexp, 'Role: UNIT')
     .replace(endlessRegexp, 'Role: ENDLESS SPELL')
     .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
     .replace(spellRegexp, 'Spell:')
-    .replace(/Army deemed .+valid/gi, ' ')
-    .replace(/by Azyr Roster Builder/g, ' ')
-    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
-    .replace(/[0-9]{1,4}pts/g, ' ')
-    .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ')
-    .replace(markRegexp, ' ')
-    .replace(/,[\w-&' ]+ See the .+? of this unit/gi, ' ')
-    .replace(
-      /,[\w-&' ]+ This unit is also a Leader. Their details are listed within the Leader section./gi,
-      sep
-    )
-    .replace(/\|/g, sep)
-    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
-    .replace(/HEADER/g, ' ')
-
-  return secondaryPass
-}
-
-const cleanAzyrText = (text: string) => {
-  const firstPass = handleFirstPass(text)
-
-  // if (isDev) console.log('firstPass', firstPass)
-
-  const secondPass = firstPass
-    .replace(/ {2,4}/g, ' ')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
+    .replace(markRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
-    .split(',')
-    .map(x => x.trim())
-    .filter(x => !!x)
+
+  const secondPass = splitItem(firstPass)
     .join(sep)
-
-  // if (isDev) console.log('secondPass', secondPass)
-
-  const thirdPass = secondPass
     // You really do have to run this twice, really :(
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
-      `$1: $2${sep}$3`
+      `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
     .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
-      `${sep}$4: $2${commaAlt} $3 ,`
+      `$4: $2${commaAlt} $3${sep}`
     )
-
-  // if (isDev) console.log('thirdPass', thirdPass)
-
-  const fourthPass = thirdPass
     // Now handle normal units
     .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
     .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/(Artefact|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
     .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2') // Tag ally units
+    .replace(/\/ Allies/g, '')
     .split(',')
     .join(sep)
-    .split(sep)
+
+  return splitItem(secondPass)
+}
+
+const splitItem = (text: string): string[] => {
+  return text
+    .split(',')
     .map(x => x.replace(/ {2,}/g, ' ').trim())
     .filter(x => !!x)
-    .join(sep)
-
-  // if (isDev) console.log('fourthPass', fourthPass)
-
-  return fourthPass
 }
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
@@ -215,7 +165,7 @@ const realmscapeReplacer = (match: string, p1: string, p2: string) => {
 }
 
 const traitReplacer = (match: string, p1: string, p2: string, p3: string, p4: string) => {
-  return `${p1}: ${p2}${p3 || ''}${sep}${p4}`
+  return `${sep}${p1}: ${p2}${p3 || ''}${sep}${p4}`
 }
 
 const upper = (match: string) => match.toUpperCase()
@@ -289,3 +239,33 @@ const markRegexp = new RegExp(`Mark( of Chaos)?: {1,3}(${SUPPORTED_FACTIONS.map(
 
 const scenery = ['Penumbral Engine']
 const sceneryRegExp = new RegExp(`(${scenery.join('|')})`, 'g')
+
+const handleTitle = (text: string): string[] => {
+  const firstTitlePass = text
+    .replace(/HEADER( HEADER)+/g, HEADER)
+    .replace(allegianceRegexp, 'ALLEGIANCE:')
+    .replace(/Realm of Battle:/g, 'REALMSCAPE:')
+    .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
+    .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
+    .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
+    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
+
+  const secondTitlePass = firstTitlePass
+    .replace(
+      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      factionReplacer
+    )
+    .replace(
+      /REALMSCAPE:.+(AQSHY|CHAMON|GHUR|GHYRAN|HYSH|SHYISH|STYGXX|ULGU)&& [\w- ]+?(HEADER|,|MERCENARY|(?:$))/g,
+      realmscapeReplacer
+    )
+    .replace(/Army deemed .+valid/gi, ' ')
+    .replace(/by Azyr Roster Builder/g, ' ')
+    .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
+    .replace(/[0-9]{1,4}pts/g, ' ')
+    .replace(/\|/g, sep)
+    .replace(/((Kharadron Code|ALLEGIANCE): [\w-&;' ]+) HEADER/g, `$1${sep}`) // KO stuff
+    .replace(/HEADER/g, ' ')
+
+  return splitItem(secondTitlePass)
+}
