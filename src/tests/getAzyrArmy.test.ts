@@ -5,22 +5,23 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import {
   BEASTS_OF_CHAOS,
   FYRESLAYERS,
-  SKAVEN,
   KHARADRON_OVERLORDS,
-  SERAPHON,
-  SLAANESH,
   MERCENARY_COMPANIES,
+  SERAPHON,
+  SKAVEN,
+  SLAANESH,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
-import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
-import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
+import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
+import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
+import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles KO2', () => {
@@ -33,7 +34,7 @@ describe('getAzyrArmyFromPdf', () => {
       'FOOTNOTE: Without Our Ships, We Are Naught',
       'Champion of Progress',
     ])
-    // TODO: Fix below
+
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -47,6 +48,33 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.allyFactionNames).toEqual([MERCENARY_COMPANIES])
+  })
+
+  it('handles Slaanesh2', () => {
+    const pages = handleAzyrPages(Slaanesh2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.selections).toEqual({
+      allegiances: ['Pretenders (Host)'],
+      artifacts: [
+        'The Crown of Dark Secrets (Pretenders Host)',
+        'Sceptre of Domination (Pretenders Host)',
+        'Sliverslash (Pretenders Host)',
+      ],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Hysterical Frenzy (Daemon)', 'Slothful Stupor (Greater Daemon)', 'Soulslice Shards (Daemon)'],
+      traits: ['True Child of Slaanesh (Pretenders Host)', 'Monarch of Lies (Pretenders Host)'],
+      triumphs: [],
+      units: [
+        'Keeper of Secrets w/ Ritual Knife',
+        'The Contorted Epitome',
+        'The Masque',
+        'Keeper of Secrets w/ Living Whip',
+      ],
+    })
   })
 
   it('handles Skryre1', () => {
