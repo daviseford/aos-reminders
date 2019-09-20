@@ -33,6 +33,11 @@ export const getPdfPages = async typedarray => {
             // str: "Leader"
             if (x.height > 15) return HEADER
 
+            // Sample unit name = Keeper of Secrets, 13.600000000000001, g_d0_f2
+            if (x.height > 13 && x.fontName === 'g_d0_f2') return `ITEM: ${x.str}`
+
+            // if (isDev) console.log(x.str, x.height, x.fontName)
+
             return x.str
           })
           .join(' ')
@@ -59,7 +64,7 @@ export const handleAzyrPages = (pages: string[]): string[] => {
     })
     .map(x => x.replace(/&&/g, ',').replace(/AMPERSAND/g, '&'))
 
-  // if (isDev) console.table(splitText)
+  if (isDev) console.table(splitText)
 
   return splitText
 }
@@ -79,6 +84,7 @@ const handleFirstPass = (text: string) => {
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/,/g, commaAlt) // Save any existing commas
+    .replace(/ITEM: /g, sep)
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
