@@ -375,7 +375,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       {
         name: `Unbridled Malice`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability. In addition, re-roll successful battleshock tests for enemy units while they are within 3" of any friendly units with this ability.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
