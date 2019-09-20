@@ -96,12 +96,12 @@ I like to use card # `4242 4242 4242 4242` since I can just spam my keyboard.
 
 Obviously, this does not work in production :)
 
-### Warscroll Builder Import
+### Warscroll Builder/Azyr Import
 
 Found a discrepancy between Warscroll Builder and AoS Reminders? You have two options:
 
 1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
-2. Add to the typo list (`warscrollTypoMap`) in `src/utils/warscroll/options.ts`
+2. Add to the typo list (`[warscroll|azyr]TypoMap`) in `src/utils/import/options.ts`
 3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
 
 
