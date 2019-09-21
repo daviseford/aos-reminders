@@ -5,6 +5,18 @@ import { TRealms } from 'types/realmscapes'
 import { IReminder, TTurnAction } from 'types/data'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 
+const fontSizes = {
+  desc: 12,
+  title: 12,
+  phase: 20,
+}
+
+const spacing = {
+  desc: 4,
+  title: 5,
+  phase: 10,
+}
+
 interface IPrintPdf {
   allyFactionNames: TSupportedFaction[]
   allySelections: { [key: string]: IAllySelections }
@@ -35,27 +47,30 @@ export const savePdf = (data: IPrintPdf) => {
   const doc = new jsPDF()
   let [x, y] = [20, 20]
 
-  Object.keys(visibleReminders).forEach(key => {
-    const title = titleCase(key)
-    doc.text(title, x, y)
-    y = y + 10
-    visibleReminders[key].forEach(action => {
+  Object.keys(visibleReminders).forEach(phase => {
+    // Handle phae title (Start of Round)
+    const title = titleCase(phase)
+    doc.setFontSize(fontSizes.phase).text(title, x, y)
+    y = y + spacing.phase
+
+    visibleReminders[phase].forEach(action => {
+      // Handle action title
       const actionTitle = getTitle(action)
-      doc.text(actionTitle, x, y)
-      y = y + 10
+      doc.setFontSize(fontSizes.title).text(actionTitle, x, y)
+      y = y + spacing.title
 
       const desc = getActionDesc(action)
-      const lines = desc.map(x => doc.splitTextToSize(x, 80)).flat()
+      const lines = desc.map(x => doc.splitTextToSize(x, 170)).flat()
 
+      // Handle description
+      doc.setFontSize(fontSizes.desc)
       lines.forEach(l => {
         doc.text(l, x, y)
-        y = y + 10
+        y = y + spacing.desc
       })
     })
   })
 
-  // doc.text('Hello world!', 20, 20);
-  // doc.text('This is client-side Javascript, pumping out a PDF.', 20, 30);
   doc.save('two-by-four.pdf')
 }
 
