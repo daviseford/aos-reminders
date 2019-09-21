@@ -14,7 +14,7 @@ const fontSizes = {
 const spacing = {
   desc: 5,
   title: 5,
-  phase: 10,
+  phase: 8,
 }
 
 const styles = {
@@ -50,6 +50,7 @@ export const savePdf = (data: IPrintPdf) => {
 
   console.log(visibleReminders)
 
+  // I think a single page can handle 300 y units
   const doc = new jsPDF()
   let [x, y] = [20, 20]
 
@@ -64,22 +65,25 @@ export const savePdf = (data: IPrintPdf) => {
 
     visibleReminders[phase].forEach(action => {
       // Handle action title
-      const actionTitle = getTitle(action)
-      doc
-        .setFontSize(fontSizes.title)
-        .setFontStyle(styles.title)
-        .text(actionTitle, x, y)
-      y = y + spacing.title
+      const title = getTitle(action)
+      const titleLines: string[] = doc.splitTextToSize(title, 180)
+      doc.setFontSize(fontSizes.title).setFontStyle(styles.title)
+      // console.log(actionTitle, y)
+      titleLines.forEach(l => {
+        doc.text(l, x, y)
+        y = y + spacing.title
+      })
 
       // Handle description
-      const lines = doc.splitTextToSize(action.desc, 170)
+      const descLines: string[] = doc.splitTextToSize(action.desc, 180)
       doc.setFontSize(fontSizes.desc).setFontStyle(styles.desc)
-      lines.forEach(l => {
+      descLines.forEach(l => {
         doc.text(l, x, y)
         y = y + spacing.desc
       })
       // Add some spacing for the next phase
       y = y + spacing.phase
+      if (y >= 300) console.log('should go on next page')
     })
   })
 
