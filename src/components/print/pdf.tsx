@@ -66,6 +66,8 @@ export const savePdf = (data: IPrintPdf) => {
 
   const text = getAllText(doc, reminders)
   console.log('text', text)
+  const splitPages = splitTextToPages(text, pageHeight)
+  console.log('splitPages', splitPages)
 
   Object.keys(visibleReminders).forEach(phase => {
     if (y >= pageHeight - margin) {
@@ -78,7 +80,7 @@ export const savePdf = (data: IPrintPdf) => {
       .setFontSize(fontSizes.phase)
       .setFontStyle(styles.phase)
       .text(title, x, y)
-    y = y + 0.2
+    y = y + spacing.phase
 
     visibleReminders[phase].forEach(action => {
       // Handle action title
@@ -115,6 +117,9 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
   let currentPhase = (allText.find(x => x.type === 'phase') as IText).text
   let phaseNum = 1
 
+  let phaseInfo: IPhaseText[] = getPhaseInfo(allText, pageHeight)
+  console.log('phaseInfo', phaseInfo)
+
   allText.forEach(textObj => {
     // If we have to go to a next page,
     // Carry over the previous phase and have it as a header
@@ -134,6 +139,48 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
       // Carry over the phase to the next page and have it as a header
     }
   })
+}
+
+interface IPhaseText {
+  canFitOnPage: boolean
+  yHeight: number
+  phase: string
+}
+
+/**
+ * Do a loop of each phase and assign them a property: canFitOnPage, and yHeight
+ * @param allText
+ * @param pageHeight
+ */
+const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
+  let y = getInitialXY()[1]
+  let currentPhase = ''
+  return allText.reduce(
+    (a, textObj) => {
+      const currentPhaseIdx = a.length - 1
+      if (textObj.type === 'phase') {
+        a.push({
+          canFitOnPage: true,
+          yHeight: y,
+          phase: textObj.text,
+        })
+        currentPhase = textObj.text
+      } else {
+        // if ('End Of Shooting Phase' == currentPhase) {
+        //   console.log('spacing', textObj.spacing)
+        //   console.log('lineHeight', getLineHeight(textObj.fontSize))
+        // }
+        const yHeight = a[currentPhaseIdx].yHeight + textObj.spacing
+        a[currentPhaseIdx] = {
+          ...a[currentPhaseIdx],
+          yHeight,
+          canFitOnPage: yHeight < pageHeight,
+        }
+      }
+      return a
+    },
+    [] as IPhaseText[]
+  )
 }
 
 interface IText {
@@ -209,7 +256,8 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
  * Gets the height of a single line
  * @param fontSize
  */
-const getLineHeight = (fontSize: number) => (fontSize * lineHeight) / ptsPerInch
+const getLineHeight = (fontSize: number) => fontSize / ptsPerInch
+// const getLineHeight = (fontSize: number) => (fontSize * lineHeight) / ptsPerInch
 
 /**
  * Gets the height of multiple lines
