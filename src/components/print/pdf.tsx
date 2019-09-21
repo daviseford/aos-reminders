@@ -4,6 +4,7 @@ import { IAllySelections, ISelections } from 'types/selections'
 import { TRealms } from 'types/realmscapes'
 import { IReminder, TTurnAction } from 'types/data'
 import { titleCase, getActionTitle } from 'utils/textUtils'
+import { findIndex, slice } from 'lodash'
 
 const pageWidth = 8.5
 const lineHeight = 1.2
@@ -111,20 +112,39 @@ export const savePdf = (data: IPrintPdf) => {
 
 const splitTextToPages = (allText: IText[], pageHeight: number) => {
   const pageBottom = pageHeight - margin
-  let [x, y] = getInitialXY()
-  let pages: IText[][] = []
+  let y = getInitialXY()[1]
+  let pages: IText[][] = [[]]
   let pageIdx = 0
-  let currentPhase = (allText.find(x => x.type === 'phase') as IText).text
   let phaseNum = 1
 
   let phaseInfo: IPhaseText[] = getPhaseInfo(allText, pageHeight)
   console.log('phaseInfo', phaseInfo)
 
+  let phaseInfoIdx = 0
+  let currentPhaseInfo = phaseInfo[0]
+  let allTextPhaseidx = 0
+
   allText.forEach(textObj => {
-    // If we have to go to a next page,
-    // Carry over the previous phase and have it as a header
-    const textHeight = getLineHeight(textObj.fontSize) + textObj.spacing
-    if (y + textHeight > pageHeight) {
+    if (textObj.type === 'phase') {
+      if (textObj.text !== currentPhaseInfo.phase) {
+        // New phase, handle
+      } else {
+        // It's the first phase, handle it
+        if (currentPhaseInfo.canFitOnPage) {
+          // Add all elements up to the next phase to the page, and increment Y
+          const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', allTextPhaseidx + 1)
+          const objs = slice(allText, allTextPhaseidx, nextPhaseIdx)
+          console.log(objs, allTextPhaseidx, nextPhaseIdx)
+          y = y + currentPhaseInfo.yHeight
+          pages[pageIdx] = pages[pageIdx].concat(objs)
+          allTextPhaseidx = nextPhaseIdx
+        } else {
+          // Good place to start working on what happens if a phase doesn't fit :)
+        }
+      }
+    }
+
+    if (y > pageHeight) {
       // We need to go to a new page
       pageIdx++
 
@@ -139,6 +159,8 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
       // Carry over the phase to the next page and have it as a header
     }
   })
+
+  return pages
 }
 
 interface IPhaseText {
@@ -153,6 +175,7 @@ interface IPhaseText {
  * @param pageHeight
  */
 const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
+  const pageBottom = pageHeight - margin
   let y = getInitialXY()[1]
   return allText.reduce(
     (a, textObj) => {
@@ -177,7 +200,7 @@ const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
           yHeight,
-          canFitOnPage: yHeight < pageHeight,
+          canFitOnPage: yHeight < pageBottom,
         }
       }
       return a
