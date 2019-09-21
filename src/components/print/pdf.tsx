@@ -56,10 +56,11 @@ export const savePdf = (data: IPrintPdf) => {
     lineHeight: lineHeight,
   }).setProperties({ title: 'AoS Reminders' })
 
+  const pageHeight = doc.internal.pageSize.height
   let [x, y] = getInitialXY()
 
   Object.keys(visibleReminders).forEach(phase => {
-    if (y >= 11.5) {
+    if (y >= pageHeight - margin) {
       y = getInitialXY()[1]
       doc.addPage()
     }
@@ -75,7 +76,7 @@ export const savePdf = (data: IPrintPdf) => {
       // Handle action title
       const title = getTitle(action)
       const titleLines: string[] = doc.splitTextToSize(title, maxTitleLineWidth)
-      console.log(titleLines, y)
+      // console.log(titleLines, y)
       doc.setFontSize(fontSizes.title).setFontStyle(styles.title)
       // console.log(actionTitle, y)
       titleLines.forEach(l => {
@@ -95,7 +96,60 @@ export const savePdf = (data: IPrintPdf) => {
     })
   })
 
+  console.log('all', getAllText(doc, reminders))
+
   doc.save('two-by-four.pdf')
+}
+
+interface IText {
+  type: 'phase' | 'desc' | 'title'
+  fontSize: number
+  spacing: number
+  style: string
+  text: string
+}
+
+const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
+  let allText: IText[] = []
+
+  Object.keys(reminders).forEach(phase => {
+    // Handle phase title (Start of Round)
+    allText.push({
+      type: 'phase',
+      fontSize: fontSizes.phase,
+      style: styles.phase,
+      spacing: spacing.phase,
+      text: titleCase(phase),
+    })
+
+    reminders[phase].forEach(action => {
+      // Handle action title
+      const titleLines: string[] = doc.splitTextToSize(getTitle(action), maxTitleLineWidth)
+      titleLines.forEach(text => {
+        allText.push({
+          type: 'title',
+          fontSize: fontSizes.title,
+          style: styles.title,
+          spacing: spacing.title,
+          text,
+        })
+      })
+
+      // Handle description
+      const descLines: string[] = doc.splitTextToSize(action.desc, maxLineWidth)
+      descLines.forEach(text => {
+        allText.push({
+          type: 'desc',
+          fontSize: fontSizes.desc,
+          style: styles.desc,
+          spacing: spacing.desc,
+          text,
+        })
+      })
+    })
+  })
+
+  return allText
 }
 
 const getTitle = (action: TTurnAction) => {
