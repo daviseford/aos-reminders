@@ -49,7 +49,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Stormcast4)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.traits).toEqual(['Keen Clawed (Mount)', 'Lithe-Limbed (Mount)'])
+    expect(res.selections.traits).toEqual(['Keen-clawed (Mount)', 'Lithe-Limbed (Mount)'])
   })
 
   it('handles Slaanesh1', () => {

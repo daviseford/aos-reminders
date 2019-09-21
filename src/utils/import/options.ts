@@ -70,6 +70,7 @@ const warscrollTypoMap: TNameMap = {
 const azyrTypoMap: TNameMap = {
   'Hellstriders With Claw-Spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Keen Clawed': 'Keen-clawed (Mount)',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
