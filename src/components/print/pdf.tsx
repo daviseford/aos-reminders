@@ -154,22 +154,25 @@ interface IPhaseText {
  */
 const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
   let y = getInitialXY()[1]
-  let currentPhase = ''
   return allText.reduce(
     (a, textObj) => {
       const currentPhaseIdx = a.length - 1
+
       if (textObj.type === 'phase') {
+        // We add padding after a phase, so represent that here
+        if (currentPhaseIdx > 0) {
+          a[currentPhaseIdx] = {
+            ...a[currentPhaseIdx],
+            yHeight: a[currentPhaseIdx].yHeight + spacing.phase,
+          }
+        }
+        // And then push the new phase onto the accumulator
         a.push({
           canFitOnPage: true,
           yHeight: y,
           phase: textObj.text,
         })
-        currentPhase = textObj.text
       } else {
-        // if ('End Of Shooting Phase' == currentPhase) {
-        //   console.log('spacing', textObj.spacing)
-        //   console.log('lineHeight', getLineHeight(textObj.fontSize))
-        // }
         const yHeight = a[currentPhaseIdx].yHeight + textObj.spacing
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
