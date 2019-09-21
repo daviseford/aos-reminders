@@ -12,9 +12,9 @@ const fontSizes = {
 }
 
 const spacing = {
-  desc: 5,
-  title: 5,
-  phase: 8,
+  desc: 0.18,
+  title: 0.18,
+  phase: 0.21,
 }
 
 const styles = {
@@ -50,13 +50,17 @@ export const savePdf = (data: IPrintPdf) => {
 
   console.log(visibleReminders)
 
-  // I think a single page can handle 300 y units
-  const doc = new jsPDF()
-  let [x, y] = [20, 20]
+  // Bottom of the page is 11.5 y units (inches)
+  const doc = new jsPDF({
+    unit: 'in',
+    lineHeight: lineHeight,
+  }).setProperties({ title: 'AoS Reminders' })
+
+  let [x, y] = getInitialXY()
 
   Object.keys(visibleReminders).forEach(phase => {
-    if (y >= 300) {
-      y = 20
+    if (y >= 11.5) {
+      y = getInitialXY()[1]
       doc.addPage()
     }
     // Handle phase title (Start of Round)
@@ -65,13 +69,13 @@ export const savePdf = (data: IPrintPdf) => {
       .setFontSize(fontSizes.phase)
       .setFontStyle(styles.phase)
       .text(title, x, y)
-    y = y + spacing.phase
+    y = y + 0.2
 
     visibleReminders[phase].forEach(action => {
       // Handle action title
       const title = getTitle(action)
-      const titleLines: string[] = doc.splitTextToSize(title, 185)
-      console.log(titleLines, titleLines[0].length)
+      const titleLines: string[] = doc.splitTextToSize(title, maxTitleLineWidth)
+      console.log(titleLines, y)
       doc.setFontSize(fontSizes.title).setFontStyle(styles.title)
       // console.log(actionTitle, y)
       titleLines.forEach(l => {
@@ -80,7 +84,7 @@ export const savePdf = (data: IPrintPdf) => {
       })
 
       // Handle description
-      const descLines: string[] = doc.splitTextToSize(action.desc, 190)
+      const descLines: string[] = doc.splitTextToSize(action.desc, maxLineWidth)
       doc.setFontSize(fontSizes.desc).setFontStyle(styles.desc)
       descLines.forEach(l => {
         doc.text(l, x, y)
@@ -111,3 +115,29 @@ const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): I
     {} as IReminder
   )
 }
+
+const pageWidth = 8.5
+const lineHeight = 1.2
+const margin = 0.5
+const maxLineWidth = pageWidth - margin * 2
+const maxTitleLineWidth = maxLineWidth + 1
+const ptsPerInch = 72
+
+/**
+ * Gets the height of a single line
+ * @param fontSize
+ */
+const getLineHeight = (fontSize: number) => (fontSize * lineHeight) / ptsPerInch
+
+/**
+ * Gets the height of multiple lines
+ * @param textLines
+ * @param fontSize
+ */
+const getMultiTextHeight = (textLines: string[], fontSize: number) =>
+  (textLines.length * fontSize * lineHeight) / ptsPerInch
+
+/**
+ * Returns x,y
+ */
+const getInitialXY = () => [margin, margin + 2 * getLineHeight(fontSizes.phase)]
