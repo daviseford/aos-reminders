@@ -5,6 +5,13 @@ import { TRealms } from 'types/realmscapes'
 import { IReminder, TTurnAction } from 'types/data'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 
+const pageWidth = 8.5
+const lineHeight = 1.2
+const margin = 0.5
+const maxLineWidth = pageWidth - margin * 2
+const maxTitleLineWidth = maxLineWidth + 1
+const ptsPerInch = 72
+
 const fontSizes = {
   desc: 12,
   title: 12,
@@ -48,16 +55,17 @@ export const savePdf = (data: IPrintPdf) => {
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
 
-  console.log(visibleReminders)
-
-  // Bottom of the page is 11.5 y units (inches)
+  // Bottom of the page is ~11 y units (inches)
   const doc = new jsPDF({
     unit: 'in',
     lineHeight: lineHeight,
-  }).setProperties({ title: 'AoS Reminders' })
+  }).setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   const pageHeight = doc.internal.pageSize.height
   let [x, y] = getInitialXY()
+
+  const text = getAllText(doc, reminders)
+  console.log('text', text)
 
   Object.keys(visibleReminders).forEach(phase => {
     if (y >= pageHeight - margin) {
@@ -96,9 +104,36 @@ export const savePdf = (data: IPrintPdf) => {
     })
   })
 
-  console.log('all', getAllText(doc, reminders))
-
   doc.save('two-by-four.pdf')
+}
+
+const splitTextToPages = (allText: IText[], pageHeight: number) => {
+  const pageBottom = pageHeight - margin
+  let [x, y] = getInitialXY()
+  let pages: IText[][] = []
+  let pageIdx = 0
+  let currentPhase = (allText.find(x => x.type === 'phase') as IText).text
+  let phaseNum = 1
+
+  allText.forEach(textObj => {
+    // If we have to go to a next page,
+    // Carry over the previous phase and have it as a header
+    const textHeight = getLineHeight(textObj.fontSize) + textObj.spacing
+    if (y + textHeight > pageHeight) {
+      // We need to go to a new page
+      pageIdx++
+
+      // Situations where we need to check ahead:
+      // 1. We don't want to have a phase at the bottom of the page and then no content
+      // 2. We don't want to have a title at the bottom of the page and then no text
+      // 3. We don't want to have text at the bottom that is missing its siblings
+      // 4. Finally, if we know that a phase can be fit on one whole page (but not this one)
+      //      we should move that entire phase to the next page
+
+      // If this is a phase where the contents will NOT fit on an entire page,
+      // Carry over the phase to the next page and have it as a header
+    }
+  })
 }
 
 interface IText {
@@ -107,6 +142,24 @@ interface IText {
   spacing: number
   style: string
   text: string
+}
+
+const getTitle = (action: TTurnAction) => {
+  return `${getActionTitle(action)} - ${action.name}${action.tag ? ` (${action.tag})` : ``}`
+}
+
+const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): IReminder => {
+  return Object.keys(reminders).reduce(
+    (a, key) => {
+      const actions = reminders[key].filter(action => {
+        const name = `${key}_${action.name}_`
+        return !hiddenReminders.some(hr => hr.includes(name))
+      })
+      if (actions.length > 0) a[key] = actions
+      return a
+    },
+    {} as IReminder
+  )
 }
 
 const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
@@ -151,31 +204,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
 
   return allText
 }
-
-const getTitle = (action: TTurnAction) => {
-  return `${getActionTitle(action)} - ${action.name}${action.tag ? ` (${action.tag})` : ``}`
-}
-
-const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): IReminder => {
-  return Object.keys(reminders).reduce(
-    (a, key) => {
-      const actions = reminders[key].filter(action => {
-        const name = `${key}_${action.name}_`
-        return !hiddenReminders.some(hr => hr.includes(name))
-      })
-      if (actions.length > 0) a[key] = actions
-      return a
-    },
-    {} as IReminder
-  )
-}
-
-const pageWidth = 8.5
-const lineHeight = 1.2
-const margin = 0.5
-const maxLineWidth = pageWidth - margin * 2
-const maxTitleLineWidth = maxLineWidth + 1
-const ptsPerInch = 72
 
 /**
  * Gets the height of a single line
