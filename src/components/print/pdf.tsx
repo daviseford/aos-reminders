@@ -12,9 +12,15 @@ const fontSizes = {
 }
 
 const spacing = {
-  desc: 4,
+  desc: 5,
   title: 5,
   phase: 10,
+}
+
+const styles = {
+  desc: 'normal',
+  title: 'bold',
+  phase: 'bold',
 }
 
 interface IPrintPdf {
@@ -48,37 +54,36 @@ export const savePdf = (data: IPrintPdf) => {
   let [x, y] = [20, 20]
 
   Object.keys(visibleReminders).forEach(phase => {
-    // Handle phae title (Start of Round)
+    // Handle phase title (Start of Round)
     const title = titleCase(phase)
-    doc.setFontSize(fontSizes.phase).text(title, x, y)
+    doc
+      .setFontSize(fontSizes.phase)
+      .setFontStyle(styles.phase)
+      .text(title, x, y)
     y = y + spacing.phase
 
     visibleReminders[phase].forEach(action => {
       // Handle action title
       const actionTitle = getTitle(action)
-      doc.setFontSize(fontSizes.title).text(actionTitle, x, y)
+      doc
+        .setFontSize(fontSizes.title)
+        .setFontStyle(styles.title)
+        .text(actionTitle, x, y)
       y = y + spacing.title
 
-      const desc = getActionDesc(action)
-      const lines = desc.map(x => doc.splitTextToSize(x, 170)).flat()
-
       // Handle description
-      doc.setFontSize(fontSizes.desc)
+      const lines = doc.splitTextToSize(action.desc, 170)
+      doc.setFontSize(fontSizes.desc).setFontStyle(styles.desc)
       lines.forEach(l => {
         doc.text(l, x, y)
         y = y + spacing.desc
       })
+      // Add some spacing for the next phase
+      y = y + spacing.phase
     })
   })
 
   doc.save('two-by-four.pdf')
-}
-
-const getActionDesc = (action: TTurnAction) => {
-  return action.desc
-    .split('\n')
-    .map(t => t.trim())
-    .filter(t => !!t)
 }
 
 const getTitle = (action: TTurnAction) => {
