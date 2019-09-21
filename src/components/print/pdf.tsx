@@ -55,6 +55,10 @@ export const savePdf = (data: IPrintPdf) => {
   let [x, y] = [20, 20]
 
   Object.keys(visibleReminders).forEach(phase => {
+    if (y >= 300) {
+      y = 20
+      doc.addPage()
+    }
     // Handle phase title (Start of Round)
     const title = titleCase(phase)
     doc
@@ -66,7 +70,8 @@ export const savePdf = (data: IPrintPdf) => {
     visibleReminders[phase].forEach(action => {
       // Handle action title
       const title = getTitle(action)
-      const titleLines: string[] = doc.splitTextToSize(title, 180)
+      const titleLines: string[] = doc.splitTextToSize(title, 185)
+      console.log(titleLines, titleLines[0].length)
       doc.setFontSize(fontSizes.title).setFontStyle(styles.title)
       // console.log(actionTitle, y)
       titleLines.forEach(l => {
@@ -75,7 +80,7 @@ export const savePdf = (data: IPrintPdf) => {
       })
 
       // Handle description
-      const descLines: string[] = doc.splitTextToSize(action.desc, 180)
+      const descLines: string[] = doc.splitTextToSize(action.desc, 190)
       doc.setFontSize(fontSizes.desc).setFontStyle(styles.desc)
       descLines.forEach(l => {
         doc.text(l, x, y)
@@ -83,7 +88,6 @@ export const savePdf = (data: IPrintPdf) => {
       })
       // Add some spacing for the next phase
       y = y + spacing.phase
-      if (y >= 300) console.log('should go on next page')
     })
   })
 
