@@ -10,3 +10,7 @@ export const unTitleCase = (val: string): string => {
 }
 
 export const stripPunctuation = (text: string): string => text.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
+
+export const generateUUID = () => {
+  return [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join('')
+}

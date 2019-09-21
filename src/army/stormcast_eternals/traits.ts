@@ -84,10 +84,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Keen Clawed (Mount)`,
+    name: `Keen-clawed (Mount)`,
     effects: [
       {
-        name: `Keen Clawed (Mount)`,
+        name: `Keen-clawed (Mount)`,
         desc: `If the unmodified wound roll for an attack made with this mount's melee weapons is 6, that attack has a rend characteristic of -3.`,
         when: [COMBAT_PHASE],
       },
