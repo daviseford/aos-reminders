@@ -43,9 +43,12 @@ export const savePdf = (data: IPrintPdf) => {
       const actionTitle = getTitle(action)
       doc.text(actionTitle, x, y)
       y = y + 10
+
       const desc = getActionDesc(action)
-      desc.forEach(d => {
-        doc.text(d, x, y)
+      const lines = desc.map(x => doc.splitTextToSize(x, 80)).flat()
+
+      lines.forEach(l => {
+        doc.text(l, x, y)
         y = y + 10
       })
     })
