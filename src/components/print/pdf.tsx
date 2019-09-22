@@ -14,13 +14,15 @@ const maxTitleLineWidth = maxLineWidth + 1
 const lineSpacing = 0.08
 
 const fontSizes = {
+  break: 11,
   desc: 11,
-  phase: 15,
+  phase: 14,
   spacer: 0,
-  title: 13,
+  title: 11.5,
 }
 
 const spacing = {
+  break: 0.15,
   desc: 0.22,
   phase: 0.28,
   spacer: 0.28,
@@ -28,6 +30,7 @@ const spacing = {
 }
 
 const styles = {
+  break: 'normal',
   desc: 'normal',
   phase: 'bold',
   spacer: 'normal',
@@ -240,7 +243,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
 }
 
 interface IText {
-  type: 'phase' | 'desc' | 'title' | 'spacer'
+  type: 'phase' | 'desc' | 'title' | 'spacer' | 'break'
   fontSize: number
   spacing: number
   style: string
@@ -294,12 +297,15 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
       // Handle description
       const descLines: string[] = doc.splitTextToSize(action.desc, maxLineWidth)
       descLines.forEach(text => {
+        const trimmed = text.trim()
+        const type = trimmed === '' ? 'break' : 'desc'
+        if (type === 'break') console.log('break')
         allText.push({
-          type: 'desc',
-          fontSize: fontSizes.desc,
-          style: styles.desc,
-          spacing: spacing.desc,
-          text: text.trim(),
+          type,
+          fontSize: fontSizes[type],
+          style: styles[type],
+          spacing: spacing[type],
+          text: trimmed,
         })
       })
     })
