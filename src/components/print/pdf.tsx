@@ -63,47 +63,27 @@ export const savePdf = (data: IPrintPdf) => {
   }).setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   const pageHeight = doc.internal.pageSize.height
-  let [x, y] = getInitialXY()
 
   const text = getAllText(doc, reminders)
   console.log('text', text)
-  const splitPages = splitTextToPages(text, pageHeight)
-  console.log('splitPages', splitPages)
+  const pages = splitTextToPages(text, pageHeight)
+  console.log('splitPages', pages)
 
-  Object.keys(visibleReminders).forEach(phase => {
-    if (y >= pageHeight - margin) {
-      y = getInitialXY()[1]
-      doc.addPage()
-    }
-    // Handle phase title (Start of Round)
-    const title = titleCase(phase)
-    doc
-      .setFontSize(fontSizes.phase)
-      .setFontStyle(styles.phase)
-      .text(title, x, y)
-    y = y + spacing.phase
+  // doc
+  //   .setFontSize(fontSizes.phase)
+  //   .setFontStyle(styles.phase)
+  //   .text(title, x, y)
 
-    visibleReminders[phase].forEach(action => {
-      // Handle action title
-      const title = getTitle(action)
-      const titleLines: string[] = doc.splitTextToSize(title, maxTitleLineWidth)
-      // console.log(titleLines, y)
-      doc.setFontSize(fontSizes.title).setFontStyle(styles.title)
-      // console.log(actionTitle, y)
-      titleLines.forEach(l => {
-        doc.text(l, x, y)
-        y = y + spacing.title
-      })
+  pages.forEach((page, i) => {
+    if (i !== 0) doc.addPage()
+    let [x, y] = getInitialXY()
 
-      // Handle description
-      const descLines: string[] = doc.splitTextToSize(action.desc, maxLineWidth)
-      doc.setFontSize(fontSizes.desc).setFontStyle(styles.desc)
-      descLines.forEach(l => {
-        doc.text(l, x, y)
-        y = y + spacing.desc
-      })
-      // Add some spacing for the next phase
-      y = y + spacing.phase
+    page.forEach(t => {
+      doc
+        .setFontSize(t.fontSize)
+        .setFontStyle(t.style)
+        .text(t.text, x, y)
+      y = y + t.spacing
     })
   })
 
@@ -115,7 +95,6 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
   let y = getInitialXY()[1]
   let pages: IText[][] = [[]]
   let pageIdx = 0
-  let phaseNum = 1
 
   let phaseInfo: IPhaseText[] = getPhaseInfo(allText, pageHeight)
   console.log('phaseInfo', phaseInfo)
@@ -128,22 +107,32 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
     if (textObj.type === 'phase') {
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
-        // TODO: Insert spacer?
         currentPhaseInfo = phaseInfo[phaseInfoIdx]
+        // Insert spacer?
+        pages[pageIdx].push({
+          text: ' ',
+          type: 'phase',
+          fontSize: fontSizes.phase,
+          spacing: spacing.phase,
+          style: styles.phase,
+        })
         if (!currentPhaseInfo) return console.log('Done processing phases')
       }
 
       // It's the first phase, handle it
       if (currentPhaseInfo.canFitOnPage) {
         // If it won't fit on this page, move it to the next page, and reset the y value
-        if (y + currentPhaseInfo.yHeight > pageBottom) {
+        if (y + currentPhaseInfo.yHeight > pageHeight) {
+          console.log('moving to next page', currentPhaseInfo.phase, currentPhaseInfo.yHeight)
+          console.log('y, pageHeight', y, pageHeight)
           pageIdx++
+          pages.push([])
           y = getInitialXY()[1]
         }
         // Add all elements up to the next phase to the page, and increment Y
         const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
         const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-        console.log(objs, textPhaseIdx, nextPhaseIdx)
+        // console.log(objs, textPhaseIdx, nextPhaseIdx)
         y = y + currentPhaseInfo.yHeight
         pages[pageIdx] = pages[pageIdx].concat(objs)
         textPhaseIdx = nextPhaseIdx
@@ -155,20 +144,20 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
       }
     }
 
-    if (y > pageHeight) {
-      // We need to go to a new page
-      pageIdx++
+    // if (y > pageHeight) {
+    // We need to go to a new page
+    // pageIdx++
 
-      // Situations where we need to check ahead:
-      // 1. We don't want to have a phase at the bottom of the page and then no content
-      // 2. We don't want to have a title at the bottom of the page and then no text
-      // 3. We don't want to have text at the bottom that is missing its siblings
-      // 4. Finally, if we know that a phase can be fit on one whole page (but not this one)
-      //      we should move that entire phase to the next page
+    // Situations where we need to check ahead:
+    // 1. We don't want to have a phase at the bottom of the page and then no content
+    // 2. We don't want to have a title at the bottom of the page and then no text
+    // 3. We don't want to have text at the bottom that is missing its siblings
+    // 4. Finally, if we know that a phase can be fit on one whole page (but not this one)
+    //      we should move that entire phase to the next page
 
-      // If this is a phase where the contents will NOT fit on an entire page,
-      // Carry over the phase to the next page and have it as a header
-    }
+    // If this is a phase where the contents will NOT fit on an entire page,
+    // Carry over the phase to the next page and have it as a header
+    // }
   })
 
   return pages
@@ -186,8 +175,6 @@ interface IPhaseText {
  * @param pageHeight
  */
 const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
-  const pageBottom = pageHeight - margin
-  let y = getInitialXY()[1]
   return allText.reduce(
     (a, textObj) => {
       const currentPhaseIdx = a.length - 1
@@ -203,7 +190,7 @@ const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
         // And then push the new phase onto the accumulator
         a.push({
           canFitOnPage: true,
-          yHeight: y,
+          yHeight: getInitialXY()[1],
           phase: textObj.text,
         })
       } else {
@@ -211,7 +198,7 @@ const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
           yHeight,
-          canFitOnPage: yHeight < pageBottom,
+          canFitOnPage: yHeight < pageHeight,
         }
       }
       return a
