@@ -71,7 +71,8 @@ export const savePdf = (data: IPrintPdf) => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const text = getAllText(doc, visibleReminders)
-  const pages = splitTextToPages(text)
+  const phaseInfo = getPhaseInfo(text)
+  const pages = splitTextToPages(text, phaseInfo)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
@@ -83,11 +84,27 @@ export const savePdf = (data: IPrintPdf) => {
         .setFontSize(t.fontSize)
         .setFontStyle(t.style)
         .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
-      if (t.type === 'spacer') {
-        // doc.setLineWidth(0.0075)
+      // if (t.type === 'spacer') {
+      //   // doc.setLineWidth(0.0075)
+      //   doc.setLineWidth(0.00075)
+      //   doc.line(x, y, pageWidth - margin, y) // horizontal line
+      // }
+
+      if (isPhase) {
+        console.log('ay')
         doc.setLineWidth(0.00075)
-        doc.line(x, y, pageWidth - margin, y) // horizontal line
+        const phaseY = (phaseInfo.find(x => x.phase === t.text) as IPhaseText).yHeight
+        doc.roundedRect(
+          x - 0.1,
+          y - spacing.spacer,
+          pageWidth - margin * 2 + 0.1,
+          phaseY - spacing.spacer - spacing.phase,
+          0.01,
+          0.01,
+          'S'
+        )
       }
+
       y = y + t.spacing
     })
   })
@@ -95,13 +112,10 @@ export const savePdf = (data: IPrintPdf) => {
   doc.save('two-by-four.pdf')
 }
 
-const splitTextToPages = (allText: IText[]) => {
+const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
   let y = getInitialXY()[1]
   let pages: IText[][] = [[]]
   let pageIdx = 0
-
-  let phaseInfo: IPhaseText[] = getPhaseInfo(allText)
-  console.log('phaseInfo', phaseInfo)
 
   let phaseInfoIdx = 0
   let currentPhaseInfo = phaseInfo[phaseInfoIdx]
