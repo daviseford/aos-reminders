@@ -9,7 +9,7 @@ import {
   START_OF_TURN,
 } from 'types/phases'
 
-export const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEndlessSpells = [
   {
     name: `Ravening Direflock`,
     effects: [
