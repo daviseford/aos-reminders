@@ -44,6 +44,11 @@ import { TImportParsers } from 'types/import'
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: TNameMap = {
+  'Blood Sigil - Blessing of Khaine': 'Blood Sigil',
+  'Blood Sigil - Catechism of Murder': 'Blood Sigil',
+  'Blood Sigil - Covenant of the Iron Heart': 'Blood Sigil',
+  'Blood Sigil - Crimson Rejuvenation': 'Blood Sigil',
+  'Blood Sigil - Sacrament of Blood': 'Blood Sigil',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Explosize Charge': 'Explosive Charge',
@@ -60,10 +65,17 @@ const warscrollTypoMap: TNameMap = {
   'Midnight Tome - Soul Cage': 'Midnight Tome',
   'Midnight Tome - Spectral Tether': 'Midnight Tome',
   'Midnight Tome - Spirit Drain': 'Midnight Tome',
+  'Rune of Ulgu - Mindrazor': 'Rune of Ulgu',
+  'Rune of Ulgu - Mirror Dance': 'Rune of Ulgu',
+  'Rune of Ulgu - Pit of Shades': 'Rune of Ulgu',
+  'Rune of Ulgu - Shroud of Despair': 'Rune of Ulgu',
+  'Rune of Ulgu - Steed of Shadows': 'Rune of Ulgu',
+  'Rune of Ulgu - The Withering': 'Rune of Ulgu',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
+  "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
 }
 
 // Azyr on the left - AoS Reminders on the right

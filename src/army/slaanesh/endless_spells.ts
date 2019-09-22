@@ -1,5 +1,6 @@
 import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
+import BoCEndlessSpells from 'army/beasts_of_chaos/endless_spells'
 
 // Endless spells.
 const EndlessSpells: TEndlessSpells = [
@@ -87,4 +88,4 @@ const EndlessSpells: TEndlessSpells = [
   },
 ]
 
-export default EndlessSpells
+export default [...EndlessSpells, ...BoCEndlessSpells]
