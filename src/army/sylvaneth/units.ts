@@ -434,6 +434,27 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
     ],
   },
+  {
+    name: `Skaeth's Wild Hunt`,
+    effects: [
+      {
+        name: `Fleet of foot`,
+        desc: `This unit can run and still shoot and/or charge later in the same turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Karthaen`,
+        desc: `While Karthaen is still in the unit, this unit is considered a Wizard.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Might of Kurnoth`,
+        desc: `Casting value 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
+    ],
+  },
 ]
 
 // Battalions

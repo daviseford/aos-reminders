@@ -522,6 +522,32 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Grashrak Fellhoof`,
+    effects: [
+      {
+        name: `Infuse with Bestial Vigour`,
+        desc: `Add 3" to the move characteristic of models in friendly Brayherd units wholly within 12" of any Great Bray-Shamans until the end of that phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Savage Bolt`,
+        desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Units that attack the target unit in the next combat phase get +1 to their hit rolls.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
+      {
+        name: `Grashrak's Savage herd`,
+        desc: `Roll a dice for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Violent Despoilers`,
+        desc: `Add 1 to hit rolls for attacks made by the Despoilers unit while it is wholly within enemy territory.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
