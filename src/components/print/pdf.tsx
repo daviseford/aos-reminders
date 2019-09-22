@@ -151,6 +151,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         spacing: spacing.spacer,
         style: styles.spacer,
       })
+      console.log('Just switched to ' + currentPhaseInfo.phase)
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
@@ -174,12 +175,16 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       return
     } else {
       // Good place to start working on what happens if a phase doesn't fit :)
-      console.log('Need to work on this')
       let phaseCount = 1
       let titleIdx = 1
-      const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
+      const nextPhaseIdx = findIndex(allText, x => x.text === phaseInfo[phaseInfoIdx + 1].phase)
+      console.log('nextPhaseIdx', nextPhaseIdx)
+      console.log('textPhaseIdx', textPhaseIdx)
       const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
       const phase = objs.shift() as IText
+      debugger
+
+      console.log('Need to work on this' + phase.text)
       const numTitles = sum(objs.filter(x => x.type === 'title'))
 
       // Handle first action
@@ -222,6 +227,8 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
           titleIdx = nextTitleIdx
         }
       })
+      textPhaseIdx = nextPhaseIdx
+      phaseInfoIdx++
     }
 
     // if (y > pageHeight) {
