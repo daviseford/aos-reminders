@@ -4,7 +4,7 @@ import { IAllySelections, ISelections } from 'types/selections'
 import { TRealms } from 'types/realmscapes'
 import { IReminder, TTurnAction } from 'types/data'
 import { titleCase, getActionTitle } from 'utils/textUtils'
-import { findIndex, slice } from 'lodash'
+import { findIndex, slice, sum, range } from 'lodash'
 
 const pageHeight = 14
 const lineHeight = 1.2
@@ -138,44 +138,90 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
     if (i === allText.length - 1 && textObj.type !== 'phase') {
       return pages[pageIdx].push(textObj)
     }
-    if (textObj.type === 'phase') {
-      if (textObj.text !== currentPhaseInfo.phase) {
-        // New phase, handle
-        currentPhaseInfo = phaseInfo[phaseInfoIdx]
-        // Insert spacer
-        pages[pageIdx].push({
-          text: ' ',
-          type: 'spacer',
-          fontSize: fontSizes.spacer,
-          spacing: spacing.spacer,
-          style: styles.spacer,
-        })
-        if (!currentPhaseInfo) return console.log('Done processing phases')
+    if (textObj.type !== 'phase') return
+
+    if (textObj.text !== currentPhaseInfo.phase) {
+      // New phase, handle
+      currentPhaseInfo = phaseInfo[phaseInfoIdx]
+      // Insert spacer
+      pages[pageIdx].push({
+        text: '',
+        type: 'spacer',
+        fontSize: fontSizes.spacer,
+        spacing: spacing.spacer,
+        style: styles.spacer,
+      })
+      if (!currentPhaseInfo) return console.log('Done processing phases')
+    }
+
+    if (currentPhaseInfo.canFitOnPage) {
+      // If it won't fit on this page, move it to the next page, and reset the y value
+      if (y + currentPhaseInfo.yHeight > pageHeight) {
+        console.log('moving to next page', currentPhaseInfo.phase, currentPhaseInfo.yHeight)
+        console.log('y, pageHeight', y, pageHeight)
+        pageIdx++
+        pages.push([])
+        y = getInitialXY()[1]
+      }
+      // Add all elements up to the next phase to the page, and increment Y
+      const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
+      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
+      // console.log(objs, textPhaseIdx, nextPhaseIdx)
+      y = y + currentPhaseInfo.yHeight
+      pages[pageIdx] = pages[pageIdx].concat(objs)
+      textPhaseIdx = nextPhaseIdx
+      phaseInfoIdx++
+      return
+    } else {
+      // Good place to start working on what happens if a phase doesn't fit :)
+      console.log('Need to work on this')
+      let phaseCount = 1
+      let titleIdx = 1
+      const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
+      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
+      const phase = objs.shift() as IText
+      const numTitles = sum(objs.filter(x => x.type === 'title'))
+
+      // Handle first action
+      let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
+      let firstActionObjs = slice(objs, 0, nextTitleIdx)
+      let firstActionYHeight = phase.spacing + sum(firstActionObjs.map(x => x.spacing))
+      if (y + firstActionYHeight > pageHeight) {
+        // Go to next page
+        pageIdx++
+        pages.push([])
+        y = getInitialXY()[1] + firstActionYHeight
+        pages[pageIdx] = pages[pageIdx].concat(phase, ...firstActionObjs)
+        titleIdx = nextTitleIdx
+      } else {
+        // Put on this page
+        y = y + firstActionYHeight
+        pages[pageIdx] = pages[pageIdx].concat(phase, ...firstActionObjs)
+        titleIdx = nextTitleIdx
       }
 
-      // It's the first phase, handle it
-      if (currentPhaseInfo.canFitOnPage) {
-        // If it won't fit on this page, move it to the next page, and reset the y value
-        if (y + currentPhaseInfo.yHeight > pageHeight) {
-          console.log('moving to next page', currentPhaseInfo.phase, currentPhaseInfo.yHeight)
-          console.log('y, pageHeight', y, pageHeight)
+      range(0, numTitles - 1).forEach(i => {
+        nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
+        let items = slice(objs, titleIdx, nextTitleIdx)
+        let itemsYHeight = sum(items.map(x => x.spacing))
+        if (y + itemsYHeight > pageHeight) {
+          // Go to next page, with the phase
+          let updatedPhase: IText = {
+            ...phase,
+            text: `${phase.text} (${phaseCount++})`,
+          }
           pageIdx++
           pages.push([])
-          y = getInitialXY()[1]
+          y = getInitialXY()[1] + itemsYHeight + updatedPhase.spacing
+          pages[pageIdx] = pages[pageIdx].concat(updatedPhase, ...items)
+          titleIdx = nextTitleIdx
+        } else {
+          // Put on this page
+          y = y + itemsYHeight
+          pages[pageIdx] = pages[pageIdx].concat(items)
+          titleIdx = nextTitleIdx
         }
-        // Add all elements up to the next phase to the page, and increment Y
-        const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
-        const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-        // console.log(objs, textPhaseIdx, nextPhaseIdx)
-        y = y + currentPhaseInfo.yHeight
-        pages[pageIdx] = pages[pageIdx].concat(objs)
-        textPhaseIdx = nextPhaseIdx
-        phaseInfoIdx++
-        return
-      } else {
-        // Good place to start working on what happens if a phase doesn't fit :)
-        console.log('Need to work on this')
-      }
+      })
     }
 
     // if (y > pageHeight) {
