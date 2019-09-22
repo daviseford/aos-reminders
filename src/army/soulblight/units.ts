@@ -11,7 +11,7 @@ const getLegionsOfNagashUnits = () => {
     `Coven Throne`,
     `Fell Bats`,
     `Mannfred, Mortarch of Night`,
-    `Neferata Mortach, of Blood`,
+    `Neferata, Mortarch of Blood`,
     `Prince Vhordrai`,
     `Vampire Lord`,
     `Vampire Lord on Zombie Dragon`,
