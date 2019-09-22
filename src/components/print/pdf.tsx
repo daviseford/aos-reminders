@@ -72,6 +72,7 @@ export const savePdf = (data: IPrintPdf) => {
   const text = getAllText(doc, visibleReminders)
   const phaseInfo = getPhaseInfo(text)
   const pages = splitTextToPages(text, phaseInfo)
+  console.log(pages)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
@@ -130,7 +131,10 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
   let currentPhaseInfo = phaseInfo[phaseInfoIdx]
   let textPhaseIdx = 0
 
-  allText.forEach(textObj => {
+  allText.forEach((textObj, i) => {
+    if (i === allText.length - 1 && textObj.type !== 'phase') {
+      return pages[pageIdx].push(textObj)
+    }
     if (textObj.type === 'phase') {
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
