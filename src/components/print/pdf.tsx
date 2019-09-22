@@ -9,7 +9,7 @@ import { findIndex, slice } from 'lodash'
 const pageHeight = 14
 const lineHeight = 1.2
 const margin = 0.5
-const maxLineWidth = 10
+const maxLineWidth = 10.4
 const maxTitleLineWidth = maxLineWidth + 1
 
 const fontSizes = {
@@ -21,7 +21,7 @@ const fontSizes = {
 const spacing = {
   desc: 0.18,
   title: 0.2,
-  phase: 0.24,
+  phase: 0.28,
 }
 
 const styles = {
@@ -64,6 +64,8 @@ export const savePdf = (data: IPrintPdf) => {
   doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   console.log(doc.getFontList())
+  const pageWidth = doc.internal.pageSize.getWidth()
+  const centerX = pageWidth / 2
   const text = getAllText(doc, visibleReminders)
   const pages = splitTextToPages(text)
 
@@ -72,10 +74,11 @@ export const savePdf = (data: IPrintPdf) => {
     let [x, y] = getInitialXY()
 
     page.forEach(t => {
+      const isPhase = t.type === 'phase'
       doc
         .setFontSize(t.fontSize)
         .setFontStyle(t.style)
-        .text(t.text, x, y)
+        .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
       y = y + t.spacing
     })
   })
