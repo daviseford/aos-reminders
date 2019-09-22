@@ -11,7 +11,7 @@ const lineHeight = 1.2
 const margin = 0.5
 const maxLineWidth = 10.4
 const maxTitleLineWidth = maxLineWidth + 1
-const lineSpacing = 0.09
+const lineSpacing = 0.08
 
 const fontSizes = {
   desc: 11,
@@ -21,7 +21,7 @@ const fontSizes = {
 }
 
 const spacing = {
-  desc: 0.18,
+  desc: 0.22,
   phase: 0.28,
   spacer: 0.28,
   title: 0.22,
@@ -59,7 +59,6 @@ export const savePdf = (data: IPrintPdf) => {
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
 
-  // Bottom of the page is ~11 y units (inches)
   const doc = new jsPDF({
     unit: 'in',
     lineHeight,
@@ -84,26 +83,26 @@ export const savePdf = (data: IPrintPdf) => {
         .setFontSize(t.fontSize)
         .setFontStyle(t.style)
         .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
+
       // if (t.type === 'spacer') {
-      //   // doc.setLineWidth(0.0075)
-      //   doc.setLineWidth(0.00075)
-      //   doc.line(x, y, pageWidth - margin, y) // horizontal line
+      //   const lineY = y + lineSpacing + t.spacing
+      //   doc.setLineWidth(0.00055).setDrawColor(211, 211, 211)
+      //   doc.line(x - 0.1, lineY, pageWidth - margin, lineY) // horizontal line
       // }
 
-      if (isPhase) {
-        console.log('ay')
-        doc.setLineWidth(0.00075)
-        const phaseY = (phaseInfo.find(x => x.phase === t.text) as IPhaseText).yHeight
-        doc.roundedRect(
-          x - 0.1,
-          y - spacing.spacer,
-          pageWidth - margin * 2 + 0.1,
-          phaseY - spacing.spacer - spacing.phase,
-          0.01,
-          0.01,
-          'S'
-        )
-      }
+      // if (isPhase) {
+      //   doc.setLineWidth(0.00075).setDrawColor(0, 0, 0)
+      //   const phaseY = (phaseInfo.find(x => x.phase === t.text) as IPhaseText).yHeight
+      //   doc.roundedRect(
+      //     x - 0.1,
+      //     y - spacing.spacer,
+      //     pageWidth - margin * 2 + 0.1,
+      //     phaseY - spacing.spacer - spacing.phase,
+      //     0.05,
+      //     0.05,
+      //     'S'
+      //   )
+      // }
 
       y = y + t.spacing
     })
@@ -114,7 +113,17 @@ export const savePdf = (data: IPrintPdf) => {
 
 const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
   let y = getInitialXY()[1]
-  let pages: IText[][] = [[]]
+  let pages: IText[][] = [
+    [
+      {
+        text: ' ',
+        type: 'spacer',
+        fontSize: fontSizes.spacer,
+        spacing: spacing.spacer,
+        style: styles.spacer,
+      },
+    ],
+  ]
   let pageIdx = 0
 
   let phaseInfoIdx = 0
