@@ -438,7 +438,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
     name: `Skaeth's Wild Hunt`,
     effects: [
       {
-        name: `Fleet of foot`,
+        name: `Fleet of Foot`,
         desc: `This unit can run and still shoot and/or charge later in the same turn.`,
         when: [MOVEMENT_PHASE],
       },
