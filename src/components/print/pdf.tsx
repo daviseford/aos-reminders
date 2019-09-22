@@ -84,7 +84,8 @@ export const savePdf = (data: IPrintPdf) => {
         .setFontStyle(t.style)
         .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
       if (t.type === 'spacer') {
-        doc.setLineWidth(0.0075)
+        // doc.setLineWidth(0.0075)
+        doc.setLineWidth(0.00075)
         doc.line(x, y, pageWidth - margin, y) // horizontal line
       }
       y = y + t.spacing
@@ -259,7 +260,7 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
           fontSize: fontSizes.title,
           style: styles.title,
           spacing: spacing.title,
-          text,
+          text: text.trim(),
         })
       })
 
@@ -271,7 +272,7 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
           fontSize: fontSizes.desc,
           style: styles.desc,
           spacing: spacing.desc,
-          text,
+          text: text.trim(),
         })
       })
     })
