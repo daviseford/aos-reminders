@@ -1,4 +1,10 @@
-import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
+  START_OF_HERO_PHASE,
+  HERO_PHASE,
+} from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -28,6 +34,11 @@ const Abilities: TAbilities = [
     desc: `You can use this command ability at the end of your movement phase. If you do so, pick a gravesite that is within 9" of your general, and then pick a friendly Summonable unit that has been destroyed. Set up that unit wholly within 9" of that gravesite and more than 9" from any enemy units.`,
     when: [END_OF_MOVEMENT_PHASE],
     command_ability: true,
+  },
+  {
+    name: `Locus of Shyish`,
+    desc: `When you cast any spell from any lore and the unmodified casting roll is 9+, then resolve the spell effect twice.`,
+    when: [HERO_PHASE],
   },
 ]
 

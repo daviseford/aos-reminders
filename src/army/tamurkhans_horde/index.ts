@@ -7,8 +7,9 @@ import { Battalions as NurgleBattalions, Units as NurgleUnits } from 'army/nurgl
 
 export default {
   Abilities,
+  AlliedUnits: [...NurgleUnits],
   Artifacts,
   Battalions: uniqBy([...Battalions, ...NurgleBattalions], 'name'),
   Traits,
-  Units: uniqBy([...Units, ...NurgleUnits], 'name'),
+  Units,
 }

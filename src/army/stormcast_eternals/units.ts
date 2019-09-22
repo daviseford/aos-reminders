@@ -290,7 +290,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -332,7 +332,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Swift of Wing`,
@@ -370,7 +370,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -396,7 +396,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Lord-Arcanum on Gryph Charger`,
+    name: `Lord-Arcanum on Gryph-Charger`,
     effects: [
       {
         name: `Aethereal Strike`,
@@ -434,7 +434,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Prime Electrids`,
@@ -578,7 +578,7 @@ export const Units: TUnits = [
       },
       {
         name: `Inescapable Vengeance`,
-        desc: `Add D3 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -604,7 +604,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Gryph-Hound`,
+    name: `Gryph-Hounds`,
     effects: [
       {
         name: `Warning Cry`,
@@ -805,7 +805,7 @@ export const Units: TUnits = [
       },
       {
         name: `Meteoric Standard`,
-        desc: `Oonce per battle, pick a point on the battlefield within 24" of this model. Each unit within 2D6" of that point suffers D3 mortal wounds.`,
+        desc: `Once per battle, pick a point on the battlefield within 24" of this model. Each unit within 2D6" of that point suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -1054,7 +1054,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Libertor-Prime`,
+        name: `Liberator-Prime`,
         desc: `Add 1 to melee attacks.`,
         when: [COMBAT_PHASE],
       },
@@ -1424,7 +1424,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Flask`,
         desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [DURING_GAME],
+        when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Shield of the Pale Knight`,
@@ -1444,10 +1444,77 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Averon Stormsire`,
+    effects: [
+      {
+        name: `Spirit Flask`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Voidstorm Scroll`,
+        desc: `Once per battle, when this model attempts to unbind a spell, instead of making an unbinding roll you can say this model is using its Voidstorm Scroll. If you do so, the spell is automatically unbound (do not roll the dice).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Stormsire`,
+        desc: `Casting value of 7. If successfully cast, each enemy unit within 18" of the caster suffers 1 mortal wound. Enemy units within 6" of the caster suffer D3 mortal wounds instead. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Stormsire's Cursebreakers`,
+    effects: [
+      {
+        name: `Blessed Banishment`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `You can re-roll save rolls of 1 for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Celestial Lightning Arc`,
+        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Empower`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
 ]
 
 // Battalions
 export const Battalions: TBattalions = [
+  {
+    name: `Skyborne Slayers`,
+    effects: [
+      {
+        name: `Hurled by Sigmar's Hand`,
+        desc: `Instead of setting up a unit from the Skyborne Slayers on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Hurled by Sigmar's Hand`,
+        desc: `In any of your movement phases, you can transport all of the units from the Skyborne Slayers that you have placed to one side onto the battlefield. When you do so, pick a point anywhere on the battlefield, then set up all of the units within 12" of that point and more than 5" from any enemy models. This is their move for that movement phase.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Honour of the God-King`,
+        desc: `Units from the Skyborne Slayers never need to take battleshock tests.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
   {
     name: `Grand Convocation`,
     effects: [
@@ -1509,7 +1576,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Vanguard Justicar Chamber`,
+    name: `Vanguard Justicar Conclave`,
     effects: [
       {
         name: `Fight in Concert`,
@@ -1533,7 +1600,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Borne by the High Star`,
-        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units,  roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units, roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },
     ],

@@ -46,8 +46,10 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-// Khorne specific units.  Export for use in Grand Alliance.
-export const KhorneUnits: TUnits = [
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Khorne specific units. Export for use in Grand Alliance.
+export const Units: TUnits = [
   {
     name: `Korghos Khul`,
     effects: [
@@ -194,11 +196,6 @@ export const KhorneUnits: TUnits = [
       {
         name: `Daemonforged Weapons`,
         desc: `If the unmodified hit roll for an attack made with this unit's Gore-slick Blades, Daemonblades, Spinecleavers and Soultearers is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Frenzied Attacks`,
-        desc: `You can re-roll hit rolls of 1 for models armed with Gore-slick Blades or Daemonblades.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1139,9 +1136,6 @@ export const KhorneBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...KhorneUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...KhorneBattalions, ...getBoCBattalion()]

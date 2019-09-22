@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility } from 'ducks'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
@@ -12,7 +12,6 @@ interface IReminderProps {
   actions: TTurnAction[]
   hiddenReminders: string[]
   visibleWhens: TTurnWhen[]
-  hideOthers: (value: string) => void
   hideReminder: (value: string) => void
   hideWhen: (value: string) => void // dispatch
   isMobile: boolean
@@ -26,7 +25,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     actions,
     hiddenReminders,
     visibleWhens,
-    hideOthers,
     hideReminder,
     hideWhen,
     isMobile,
@@ -49,8 +47,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)
-    if (isMobile) hideOthers(title)
-  }, [title, showWhen, hideOthers, isMobile])
+  }, [title, showWhen])
 
   const bodyClass = `card-body ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 

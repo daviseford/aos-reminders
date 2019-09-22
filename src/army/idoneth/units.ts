@@ -105,6 +105,12 @@ export const Units: TUnits = [
         desc: `In the combat phase, this model's Bladed Polearm has a Damage characteristic of 3 if the model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
+      {
+        name: `Lord of the Tides`,
+        desc: `You can use this command ability if this model is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick a friendly Idoneth Deepkin unit wholly within 12" of your general. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [COMBAT_PHASE],
+        command_ability: true
+      },
     ],
   },
   {
@@ -208,7 +214,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Akhelian Ishlan Guard`,
+    name: `Akhelian Ishlaen Guard`,
     effects: [
       {
         name: `Biovoltaic Barrier`,

@@ -25,7 +25,7 @@ small {
   font-size: 11px;
 }
 
-.HeaderCover {
+.ThemeDarkBg {
     background-color: $themeDarkBluePrimary;
 }
 
@@ -57,6 +57,32 @@ small {
     background-color: $themeLightBlue;
     color: white;
 }
+
+/* Dropzone */
+.dropzone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color: #fafafa;
+    color: #bdbdbd;
+    outline: none;
+    transition: border .24s ease-in-out;
+  }
+  
+  .dropzone:focus {
+    border-color: #2196f3;
+  }
+  
+  .dropzone.disabled {
+    opacity: 0.6;
+  }
+
 
 @media (max-width: 575.98px) {
     .ReminderCardBody {
@@ -111,6 +137,11 @@ small {
     .ReminderCardBody {
         padding-top: 0;
         padding-bottom: 0;
+    }
+
+    .ReminderContainer {
+        flex: 0 0 90% !important;
+        max-width: 90% !important;
     }
 
     .ReminderEntry {

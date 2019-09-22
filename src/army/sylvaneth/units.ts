@@ -235,7 +235,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Ultimate Sacrifice`,
-        desc: `"Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
+        desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
         when: [DURING_GAME],
       },
       {
@@ -344,12 +344,12 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Glade Banner Bearer`,
-        desc: `1 in every 5 models in this unit can be a Glade Banner Bearer. Whenever a unit that includes any Glade Banner Bearers makes a pile-in move, you can move it up to 6" instead of up to 3".`,
+        desc: `Whenever a unit that includes any Glade Banner Bearers makes a pile-in move, you can move it up to 6" instead of up to 3".`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Waypipes`,
-        desc: `1 in every 5 models in this unit can carry Waypipes. At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
+        desc: `At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -375,7 +375,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       {
         name: `Unbridled Malice`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability. In addition, re-roll successful battleshock tests for enemy units while they are within 3" of any friendly units with this ability.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -431,6 +431,27 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
         name: `Impenetrable Thicket`,
         desc: `Add 1 to save rolls for attacks that target this unit while it contains 10 or more models.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Skaeth's Wild Hunt`,
+    effects: [
+      {
+        name: `Fleet of Foot`,
+        desc: `This unit can run and still shoot and/or charge later in the same turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Karthaen`,
+        desc: `While Karthaen is still in the unit, this unit is considered a Wizard.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Might of Kurnoth`,
+        desc: `Casting value 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
       },
     ],
   },

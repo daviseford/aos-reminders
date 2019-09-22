@@ -14,7 +14,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Bronzed Flesh (Prayer)`,
-        desc: `Pick 1 friendly Khorne unit wholly within 16" and visible to the priest.  Add 1 to the save rolls of the target.`,
+        desc: `Pick 1 friendly Khorne unit wholly within 16" and visible to the priest. Add 1 to the save rolls of the target.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -29,7 +29,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Blood Sacrifice (Prayer)`,
-        desc: `Pick a friendly Khorne unit wholly within 8" of the priest.  That unit suffers D3 mortal wounds and your receive 1 Blood Tithe point.`,
+        desc: `Pick a friendly Khorne unit wholly within 8" of the priest. That unit suffers D3 mortal wounds and your receive 1 Blood Tithe point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -39,7 +39,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Resanguination (Prayer)`,
-        desc: `Pick a friendly Khorne unit wholly within 16" and visible to the priest.  You can heal up to D3 wounds allocated to that unit.`,
+        desc: `Pick a friendly Khorne unit wholly within 16" and visible to the priest. You can heal up to D3 wounds allocated to that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -49,7 +49,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Brazen Fury (Prayer)`,
-        desc: `Pick a friendly Khorne unit wholly within 16" and visible to the priest.  Do not take battleshock tests for that unit.`,
+        desc: `Pick a friendly Khorne unit wholly within 16" and visible to the priest. Do not take battleshock tests for that unit.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -64,7 +64,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Killing Frenzy (Prayer)`,
-        desc: `Pick a friendly Khorne unit wholly within 16" of the priest.  Add 1 to the hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Pick a friendly Khorne unit wholly within 16" of the priest. Add 1 to the hit rolls for attacks made by that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {

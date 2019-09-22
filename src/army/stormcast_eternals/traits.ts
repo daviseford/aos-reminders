@@ -74,10 +74,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Lithe Limbed (Mount)`,
+    name: `Lithe-Limbed (Mount)`,
     effects: [
       {
-        name: `Lithe Limbed (Mount)`,
+        name: `Lithe-Limbed (Mount)`,
         desc: `Add 1 to the move characteristic of this model.`,
         when: [MOVEMENT_PHASE],
       },

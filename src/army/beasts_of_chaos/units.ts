@@ -63,12 +63,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -93,12 +93,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -119,12 +119,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -144,12 +144,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 10 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -230,12 +230,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warherd Drummer`,
-        desc: `1 in every 3 models in this unit can be a Warherd Drummer. Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
+        desc: `Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Warherd Banner Bearer`,
-        desc: `1 in every 3 models in this unit can be a Warherd Banner Bearer. Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
+        desc: `Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -260,12 +260,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brayhorn`,
-        desc: `1 in every 5 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 5 models in this unit can be a Banner Bearer. A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
         when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
@@ -487,12 +487,12 @@ export const Units: TUnits = [
       },
       {
         name: `Icon Bearers`,
-        desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
+        desc: `While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Brayhorn`,
-        desc: `1 in every 10 models in this unit can have a Brayhorn. A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -522,6 +522,32 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Grashrak Fellhoof`,
+    effects: [
+      {
+        name: `Infuse with Bestial Vigour`,
+        desc: `Add 3" to the move characteristic of models in friendly Brayherd units wholly within 12" of any Great Bray-Shamans until the end of that phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Savage Bolt`,
+        desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Units that attack the target unit in the next combat phase get +1 to their hit rolls.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
+      {
+        name: `Grashrak's Savage Herd`,
+        desc: `Roll a dice for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Violent Despoilers`,
+        desc: `Add 1 to hit rolls for attacks made by the Despoilers unit while it is wholly within enemy territory.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
@@ -547,7 +573,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Thuderscorn Stormherd`,
+    name: `Thunderscorn Stormherd`,
     effects: [
       {
         name: `Raging Storm`,

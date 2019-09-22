@@ -1,6 +1,6 @@
 import { flatten } from 'lodash'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { processReminders, addToString } from 'utils/processReminders'
 
 // Army Imports
@@ -28,7 +28,7 @@ import {
 
 // Types
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { IArmy, TAllyData } from 'types/army'
+import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
 
@@ -36,7 +36,7 @@ describe('processReminders', () => {
   it('should work with no selections', () => {
     const army = getArmy(BEASTCLAW_RAIDERS) as IArmy
     const selections = selectionsFactory({})
-    const reminders = processReminders(army, BEASTCLAW_RAIDERS, selections, null, [])
+    const reminders = processReminders(army, BEASTCLAW_RAIDERS, selections, null, [], {}, {})
 
     const heroPhaseEntry = reminders[START_OF_HERO_PHASE][0]
     expect(heroPhaseEntry.name).toEqual(`The Everwinter's Blessing`)
@@ -52,7 +52,7 @@ describe('processReminders', () => {
   it('should merge similar abilities (issue #183)', () => {
     const army = getArmy(STORMCAST_ETERNALS) as IArmy
     const selections = selectionsFactory({ units: ['Drakesworn Templar', 'Lord-Celestant on Stardrake'] })
-    const reminders = processReminders(army, STORMCAST_ETERNALS, selections, null, [])
+    const reminders = processReminders(army, STORMCAST_ETERNALS, selections, null, [], {}, {})
 
     // The test case defined for me in issue #183
     const mergedHeroAbility = reminders[HERO_PHASE].find(
@@ -78,7 +78,7 @@ describe('processReminders', () => {
       .slice(0, 3)
     const army = getArmy(EVERCHOSEN) as IArmy
     const selections = selectionsFactory({ endless_spells })
-    const reminders = processReminders(army, EVERCHOSEN, selections, null, [])
+    const reminders = processReminders(army, EVERCHOSEN, selections, null, [], {}, {})
     const flattenedGame = flatten(Object.values(reminders))
 
     expect(flattenedGame.filter(x => x.name === 'Predatory').length).toEqual(3)
@@ -91,14 +91,18 @@ describe('processReminders', () => {
 
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
-    const allyData: TAllyData = [
-      { allyArmy: getArmy(DISPOSSESSED) as IArmy, allySelections: allySelectionsFactory() },
-      {
-        allyArmy: getArmy(IRONJAWZ) as IArmy,
-        allySelections: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
-      },
-      { allyArmy: getArmy(SERAPHON) as IArmy, allySelections: allySelectionsFactory([allyUnits[2].name]) },
-    ]
+    const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
+    const allyArmies: TAllyArmies = {
+      [DISPOSSESSED]: getArmy(DISPOSSESSED) as IArmy,
+      [IRONJAWZ]: getArmy(IRONJAWZ) as IArmy,
+      [SERAPHON]: getArmy(SERAPHON) as IArmy,
+    }
+
+    const allySelections = {
+      [DISPOSSESSED]: allySelectionsFactory(),
+      [IRONJAWZ]: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
+      [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
+    }
 
     const allegiance = sylvaneth.Allegiances[0]
     const artifact = sylvaneth.Artifacts[0]
@@ -128,7 +132,15 @@ describe('processReminders', () => {
       units: [unit.name],
     })
     const realmscape_feature = RealmscapeFeatures[0]
-    const reminders = processReminders(army, SYLVANETH, selections, realmscape_feature.name, allyData)
+    const reminders = processReminders(
+      army,
+      SYLVANETH,
+      selections,
+      realmscape_feature.name,
+      allyFactionNames,
+      allyArmies,
+      allySelections
+    )
 
     const testEntries = [
       ...allyUnits,

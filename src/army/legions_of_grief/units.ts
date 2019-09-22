@@ -11,8 +11,8 @@ const getLoNUnits = () => {
   const listOfUnits = [
     `Arkhan the Black, Mortarch of Sacrament`,
     `Black Knights`,
-    `Corpse Cart with Balefire Brazier`,
-    `Corpse Cart with Unholy Lodestone`,
+    `Corpse Cart w/ Balefire Brazier`,
+    `Corpse Cart w/ Unholy Lodestone`,
     `Dire Wolves`,
     `Grave Guard`,
     `Mannfred, Mortarch of Night`,

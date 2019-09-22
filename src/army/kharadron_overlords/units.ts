@@ -170,7 +170,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Brokk Grungsson, Lord-Mangate of Barak-Nar`,
+    name: `Brokk Grungsson, Lord-Magnate of Barak-Nar`,
     effects: [
       {
         name: `The Lord-Magnate Moves`,
@@ -337,7 +337,7 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Tireless Endrinrigger:`,
+        name: `Tireless Endrinrigger`,
         desc: `Heal 1 wound on 4+.`,
         when: [HERO_PHASE],
       },
@@ -395,7 +395,7 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Tireless Endrinrigger:`,
+        name: `Tireless Endrinrigger`,
         desc: `Heal 1 wound on 4+.`,
         when: [HERO_PHASE],
       },

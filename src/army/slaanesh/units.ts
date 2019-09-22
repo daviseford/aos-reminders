@@ -33,7 +33,7 @@ const getBoCUnits = () => {
     'Dragon Ogors',
     'Ghorgon',
     'Gors',
-    'Great Bray Shaman',
+    'Great Bray-Shaman',
     'Tuskgor Chariots',
     'Ungor Raiders',
     'Ungors',
@@ -59,7 +59,7 @@ const KeeperOfSecretsBaseEffects = [
   },
   {
     name: `Magic`,
-    desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+    desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
     when: [HERO_PHASE],
   },
   {
@@ -76,8 +76,11 @@ const KeeperOfSecretsBaseEffects = [
   },
 ]
 
+// Combine lists together to make army unit entry.
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
 // Unit Names
-export const SlaaneshUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [
@@ -149,7 +152,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Subvert.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Subvert.`,
         when: [HERO_PHASE],
       },
       {
@@ -207,7 +210,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Refine Senses.`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Refine Senses.`,
         when: [HERO_PHASE],
       },
       {
@@ -233,12 +236,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Horrible Fascination`,
-        desc: `Roll a D6 for each enemy unit that is within 6" of any friendly models with this ability.  On a 4+, that unit fights at the end of that combat phase, after the players have picked any other units to fight with in that combat phase. If a unit that is affected by this ability is also affected by any rules that would allow it to fight at the start of the combat phase, that unit is not affected by this rule or those other rules (the effects cancel each other out).`,
+        desc: `Roll a D6 for each enemy unit that is within 6" of any friendly models with this ability. On a 4+, that unit fights at the end of that combat phase, after the players have picked any other units to fight with in that combat phase. If a unit that is affected by this ability is also affected by any rules that would allow it to fight at the start of the combat phase, that unit is not affected by this rule or those other rules (the effects cancel each other out).`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Overwhelming Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Overwhelming Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -250,7 +253,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Infernal Enrapturess`,
+    name: `Infernal Enrapturess, Herald of Slaanesh`,
     effects: [
       {
         name: `Discordant Disruption`,
@@ -300,7 +303,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Viceleader`,
+    name: `Viceleader, Herald of Slaanesh`,
     effects: [
       {
         name: `Lightning Reflexes`,
@@ -314,7 +317,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -326,7 +329,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Bladebringer: Herald on Hellflayer`,
+    name: `Bladebringer, Herald on Hellflayer`,
     effects: [
       {
         name: `Crew and Steeds`,
@@ -335,12 +338,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -352,7 +355,7 @@ export const SlaaneshUnits: TUnits = [
     ],
   },
   {
-    name: `Bladebringer: Herald on Seeker Chariot`,
+    name: `Bladebringer, Herald on Seeker Chariot`,
     effects: [
       {
         name: `Crew and Steeds`,
@@ -366,12 +369,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Mutilating Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -392,7 +395,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 4+ that enemy unit suffers D3 mortal wounds.  In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -412,13 +415,13 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Mutilating Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move.  On a 2+, that enemy unit suffers D3 mortal wounds.  If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
         when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `Bladebringer: Herald on Exalted Chariot`,
+    name: `Bladebringer, Herald on Exalted Chariot`,
     effects: [
       {
         name: `Crew and Steeds`,
@@ -427,17 +430,17 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 1 spell and attempt to unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
       {
@@ -458,12 +461,12 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens.  On a 2-4 that unit suffers D3 mortal wounds.  On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model.  On a 2+ that enemy unit suffers D3 mortal wounds.  In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -553,7 +556,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Quicksilver Speed`,
-        desc: `You can roll 2D6 instead of D6 when you make a run roll for this unit.  In addition, this unit can run and charge later in the same turn.`,
+        desc: `You can roll 2D6 instead of D6 when you make a run roll for this unit. In addition, this unit can run and charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -608,7 +611,7 @@ export const SlaaneshUnits: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard.  Can attempt to cast 2 spells and attempt to unbind 2 spells.  Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
         when: [HERO_PHASE],
       },
       {
@@ -643,7 +646,7 @@ export const SlaaneshBattalions: TBattalions = [
     effects: [
       {
         name: `Ruling Cabal`,
-        desc: `Roll a D6.  If the roll is less than or equal to the number of heroes from this battalion that are on the battlefield, you receive 1 command point.`,
+        desc: `Roll a D6. If the roll is less than or equal to the number of heroes from this battalion that are on the battlefield, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -663,15 +666,12 @@ export const SlaaneshBattalions: TBattalions = [
     effects: [
       {
         name: `Drawn to Battle`,
-        desc: `A model from this battalion is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3".  It can also move an extra 3" when it piles in.`,
+        desc: `A model from this battalion is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3". It can also move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...SlaaneshUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...SlaaneshBattalions, ...getBoCBattalion()]

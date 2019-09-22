@@ -1,10 +1,10 @@
 import { flatten, sortBy, split, join } from 'lodash'
 import produce from 'immer'
-import { titleCase } from './titleCase'
+import { titleCase } from './textUtils'
 import { RealmscapeFeatures } from 'army/generic'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TAllyData } from 'types/army'
+import { IArmy, TAllyArmies } from 'types/army'
 import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 
@@ -13,7 +13,9 @@ type TProcessReminders = (
   factionName: TSupportedFaction,
   selections: ISelections,
   realmscape_feature: string | null,
-  allyData: TAllyData
+  allyFactionNames: TSupportedFaction[],
+  allyArmies: TAllyArmies,
+  allySelections: { [key: string]: IAllySelections }
 ) => IReminder
 
 export const processReminders: TProcessReminders = (
@@ -21,8 +23,17 @@ export const processReminders: TProcessReminders = (
   factionName,
   selections,
   realmscape_feature,
-  allyData
+  allyFactionNames,
+  allyArmies,
+  allySelections
 ) => {
+  const allyData = allyFactionNames.map(name => {
+    return {
+      allyArmy: allyArmies[name],
+      allySelections: allySelections[name],
+    }
+  })
+
   let reminders = processConditions(army.Game, selections, {})
 
   if (allyData.length) {

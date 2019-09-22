@@ -34,7 +34,7 @@ const getBoCUnits = () => {
     'Dragon Ogors',
     'Ghorgon',
     'Gors',
-    'Great Bray Shaman',
+    'Great Bray-Shaman',
     'Tuskgor Chariots',
     'Ungor Raiders',
     'Ungors',
@@ -47,8 +47,10 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
 // Unit Names
-export const TzeentchUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -595,7 +597,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Infernal Gateway`,
-        desc: `Casting value of 7. If  successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -651,7 +653,7 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
   {
-    name: `The Profane Cult`,
+    name: `The Pyrofane Cult`,
     effects: [
       {
         name: `Arch-Pyromancers`,
@@ -791,9 +793,6 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]

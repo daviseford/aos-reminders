@@ -1,9 +1,9 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
-import { titleCase } from 'utils/titleCase'
+import { titleCase } from 'utils/textUtils'
 import { realmscape, factionNames, selections, army, visibility } from 'ducks'
 import { Reminder } from 'components/info/reminder'
 import { TSupportedFaction } from 'meta/factions'
@@ -41,23 +41,19 @@ const RemindersComponent = (props: IRemindersProps) => {
   } = props
 
   const reminders = useMemo(() => {
-    const allyData = allyFactionNames.map(name => ({
-      allyArmy: allyArmies[name],
-      allySelections: allySelections[name],
-    }))
-    return processReminders(army, factionName, selections, realmscape_feature, allyData)
+    return processReminders(
+      army,
+      factionName,
+      selections,
+      realmscape_feature,
+      allyFactionNames,
+      allyArmies,
+      allySelections
+    )
   }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
-
-  const hideOtherWhens = useCallback(
-    (title: string) => {
-      const others = without(titles, title)
-      return hideWhens(others)
-    },
-    [hideWhens, titles]
-  )
 
   const [firstLoad, setFirstLoad] = useState(true)
 
@@ -81,18 +77,9 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">
-      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
+      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map((when, i) => {
-          return (
-            <Reminder
-              isMobile={isMobile}
-              when={when}
-              actions={reminders[when]}
-              key={i}
-              hideOthers={hideOtherWhens}
-              idx={i}
-            />
-          )
+          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
         })}
       </div>
     </div>

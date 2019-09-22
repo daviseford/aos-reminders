@@ -18,7 +18,7 @@ import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH 
 // Export markable Slaves to Darkness units.
 export const getSlavesUnits = () => {
   const listOfUnits = [
-    `Chaos Chariot`,
+    `Chaos Chariots`,
     `Chaos Chosen`,
     `Chaos Knights`,
     `Chaos Lord on Daemonic Mount`,
@@ -30,7 +30,7 @@ export const getSlavesUnits = () => {
     `Chaos Warshrine`,
     `Daemon Prince`,
     `Exalted Hero of Chaos`,
-    `Gorebeast Chariot`,
+    `Chaos Gorebeast Chariots`,
     `Lord of Chaos`,
     `Curs'd Ettin`,
   ]
@@ -59,12 +59,12 @@ export const Units: TUnits = [
       },
       {
         name: `Immortal Champion: ${MARK_TZEENTCH}`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt and Mystic Shield.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt and Mystic Shield.`,
         when: [HERO_PHASE],
       },
       {
         name: `Immortal Champion: ${MARK_SLAANESH}`,
-        desc: `When your opponent selects a unit within 3" of this model to pile in, you can immediately select this Daemon Prince to pile in and attack before the enemy unit, even though it is not your turn to do so.  This can only be done if this Daemon Prince is still eligible for combat activation.`,
+        desc: `When your opponent selects a unit within 3" of this model to pile in, you can immediately select this Daemon Prince to pile in and attack before the enemy unit, even though it is not your turn to do so. This can only be done if this Daemon Prince is still eligible for combat activation.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -94,7 +94,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -109,12 +109,12 @@ export const Units: TUnits = [
       },
       {
         name: `Territorial Predator`,
-        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster.  If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
+        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster. If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Iron-willed Overlord`,
-        desc: `Select a Chaos Warriors unit within 15".  Until your next hero phase you can re-roll charge rolls, wound rolls, and battleshock tests for that unit until you next hero phase.`,
+        desc: `Select a Chaos Warriors unit within 15". Until your next hero phase you can re-roll charge rolls, wound rolls, and battleshock tests for that unit until you next hero phase.`,
         when: [HERO_PHASE, CHARGE_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
         command_ability: true,
       },
@@ -125,22 +125,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Oracular Visions`,
-        desc: `Pick a unit within 10" of this model.  Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
+        desc: `Pick a unit within 10" of this model. Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Territorial Predator`,
-        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster.  If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
+        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster. If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Wind of Chaos.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Wind of Chaos.`,
         when: [HERO_PHASE],
       },
       {
         name: `Wind of Chaos`,
-        desc: `Casting value of 7.  If successfully cast, pick a unit within 18" and visible to the caster.  Roll a number of dice equal to the casting roll.  For each 5, the target suffers a mortal wound.  For each 6, the target suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. If successfully cast, pick a unit within 18" and visible to the caster. Roll a number of dice equal to the casting roll. For each 5, the target suffers a mortal wound. For each 6, the target suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -151,7 +151,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Eye of the Gods`,
-        desc: `Each time this model slays a monster or hero, roll a D6.  If the result is 2 or more this model heals D3 wounds.  If the model is already at full health, increase the wounds characteristic by 1 instead.`,
+        desc: `Each time this model slays a monster or hero, roll a D6. If the result is 2 or more this model heals D3 wounds. If the model is already at full health, increase the wounds characteristic by 1 instead.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -176,12 +176,12 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
         name: `The Knights of Chaos`,
-        desc: `Select a friendly unit of Chaos Knights, Chaos Chariots, or Gorebeast Chariots within 15".  Until your next hero phase you can re-roll charge rolls and add 1 to any hit rolls for that unit in the combat phase.`,
+        desc: `Select a friendly unit of Chaos Knights, Chaos Chariots, or Gorebeast Chariots within 15". Until your next hero phase you can re-roll charge rolls and add 1 to any hit rolls for that unit in the combat phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -202,7 +202,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Glory or Damnation`,
-        desc: `If a this model slays the opposing army general, you can choose to replace him with a Daemon Prince model.  If this model is slain, replace him with a Chaos Spawn model.`,
+        desc: `If a this model slays the opposing army general, you can choose to replace him with a Daemon Prince model. If this model is slain, replace him with a Chaos Spawn model.`,
         when: [DURING_GAME],
       },
       {
@@ -227,12 +227,12 @@ export const Units: TUnits = [
       },
       {
         name: `Reaperblade`,
-        desc: `Once per battle, before attacking with this model, you can empower Reaperblade.  It makes only 1 attack but inflicts 2D6 damage.`,
+        desc: `Once per battle, before attacking with this model, you can empower Reaperblade. It makes only 1 attack but inflicts 2D6 damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Aided by the Gods`,
-        desc: `Pick a friendly Slaves to Darkness unit within 10" that has the same Mark of Chaos as this model.  Until your next hero phase, that unit receives the same benefit as the Lord of Chaos for his Mark.`,
+        desc: `Pick a friendly Slaves to Darkness unit within 10" that has the same Mark of Chaos as this model. Until your next hero phase, that unit receives the same benefit as the Lord of Chaos for his Mark.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -243,12 +243,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Savage Duellist`,
-        desc: `Attacks made with this model's Warlord Axe have a damage characteristic of 2 when targeting an enemy hero or monster.  Each time a wound inflicted by this model slays a hero or monster, add 1 to the attacks characteristic of the Warlord Axe for the remainder of the battle.`,
+        desc: `Attacks made with this model's Warlord Axe have a damage characteristic of 2 when targeting an enemy hero or monster. Each time a wound inflicted by this model slays a hero or monster, add 1 to the attacks characteristic of the Warlord Axe for the remainder of the battle.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Infernal Runeshield`,
-        desc: `Each time you allocate a wound or mortal wound to this model, roll a D6.  On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
+        desc: `Each time you allocate a wound or mortal wound to this model, roll a D6. On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
         when: [DURING_GAME],
       },
       {
@@ -274,7 +274,7 @@ export const Units: TUnits = [
       },
       {
         name: `Quest for Glory`,
-        desc: `Keep track of the number of wounds inflicted by this model during the battle.  If the total reaches 8+, you can add 1 to all hit rolls made for this model for the remainder of the battle.  If the total reaches 16+, you can add 1 to all wound rolls as well.`,
+        desc: `Keep track of the number of wounds inflicted by this model during the battle. If the total reaches 8+, you can add 1 to all hit rolls made for this model for the remainder of the battle. If the total reaches 16+, you can add 1 to all wound rolls as well.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -284,22 +284,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Chaos Steed`,
-        desc: `Some Chaos sorcerer lords ride on Chaos Steeds.  If this model has a steed, this model's move characteristic is 10" instead of 5" and it gains the Flailing Hooves attack.`,
+        desc: `Some Chaos sorcerer lords ride on Chaos Steeds. If this model has a steed, this model's move characteristic is 10" instead of 5" and it gains the Flailing Hooves attack.`,
         when: [DURING_GAME],
       },
       {
         name: `Oracular Visions`,
-        desc: `Pick a unit within 10" of this model.  Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
+        desc: `Pick a unit within 10" of this model. Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
         when: [HERO_PHASE],
       },
       {
         name: `Daemonic Power`,
-        desc: `Casting value of 5.  If successfully cast, select a friendly unit within 18" of the caster.  Until your next hero phase, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
+        desc: `Casting value of 5. If successfully cast, select a friendly unit within 18" of the caster. Until your next hero phase, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -350,12 +350,12 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
         when: [HERO_PHASE],
       },
       {
         name: `Traitor's Mist`,
-        desc: `Casting value of 7.  If successfully cast, pick 1 friendly Slaves to Darkness unit wholly within 15" and visible to the caster.  Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from enemy units.  It cannot move in the subsequent move phase.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 friendly Slaves to Darkness unit wholly within 15" and visible to the caster. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from enemy units. It cannot move in the subsequent move phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -411,12 +411,12 @@ export const Units: TUnits = [
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell.  Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
         when: [HERO_PHASE],
       },
       {
         name: `Enfeeblement`,
-        desc: `Casting value of 6.  If successfully cast, pick 1 enemy unit within 12" and visible to the caster.  Subtract 1 from wound rolls for attacks made by that units melee weapons until your next hero phase.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" and visible to the caster. Subtract 1 from wound rolls for attacks made by that units melee weapons until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -468,7 +468,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Chaos Chariot`,
+    name: `Chaos Chariots`,
     effects: [
       {
         name: `Exalted Charioteer`,
@@ -488,7 +488,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Gorebeast Chariot`,
+    name: `Chaos Gorebeast Chariots`,
     effects: [
       {
         name: `Exalted Charioteer`,
@@ -502,7 +502,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gorebeast Charge`,
-        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 2".  For each 6, that models unit suffers a mortal wound.`,
+        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 2". For each 6, that models unit suffers a mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -557,7 +557,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshields`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -582,7 +582,7 @@ export const Units: TUnits = [
       },
       {
         name: `Favour of the Ruinous Powers`,
-        desc: `This model may pick a mortal unit within 16" and roll a D6.  On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
+        desc: `This model may pick a mortal unit within 16" and roll a D6. On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
         when: [HERO_PHASE],
       },
       {
@@ -632,7 +632,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chaos Runeshields`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound.  On a 5+ it is negated.`,
+        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -751,7 +751,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Godswrath Warband`,
-        desc: `Roll a number of dice equal to the number of units from the formation within 24" of a Chaos Warshrine from this battalion.  For every 6+ a selected unit within 18" and visible to the Warshrine takes D3 mortal wound.  A unit may not be selected more than once for this ability.  Should the number of bolts exceed the number of valid enemy targets, friendly units must be selected for the remainder or until no valid target can be selected.`,
+        desc: `Roll a number of dice equal to the number of units from the formation within 24" of a Chaos Warshrine from this battalion. For every 6+ a selected unit within 18" and visible to the Warshrine takes D3 mortal wound. A unit may not be selected more than once for this ability. Should the number of bolts exceed the number of valid enemy targets, friendly units must be selected for the remainder or until no valid target can be selected.`,
         when: [HERO_PHASE],
       },
     ],
@@ -761,7 +761,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ruinbringer Warband`,
-        desc: `Once per game, every unit in this formation can charge as though it were the charge phase.  Each unit that completes the charge successfully deals D3 mortal wounds to enemy units within 1" after charge completion.  This changes to D6 mortal wounds if 10+ models from the unit are in range.`,
+        desc: `Once per game, every unit in this formation can charge as though it were the charge phase. Each unit that completes the charge successfully deals D3 mortal wounds to enemy units within 1" after charge completion. This changes to D6 mortal wounds if 10+ models from the unit are in range.`,
         when: [HERO_PHASE],
       },
     ],

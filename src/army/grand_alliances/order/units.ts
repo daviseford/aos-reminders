@@ -1,14 +1,5 @@
-import { uniqBy } from 'lodash'
-import DaughtersOfKhaine from 'army/daughters_of_khaine'
-import Dispossessed from 'army/dispossessed'
-import Fyreslayers from 'army/fyreslayers'
-import IdonethDeepkin from 'army/idoneth'
-import KharadronOverlords from 'army/kharadron_overlords'
-import Seraphon from 'army/seraphon'
-import StormcastEternals from 'army/stormcast_eternals'
-import Sylvaneth from 'army/sylvaneth'
 import { TUnits } from 'types/army'
-import { DURING_GAME, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, SHOOTING_PHASE, START_OF_GAME } from 'types/phases'
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -33,18 +24,39 @@ export const MonstrousArcanumOrder: TUnits = [
   },
 ]
 
-// Unit Names
-export const Units: TUnits = uniqBy(
-  [
-    ...DaughtersOfKhaine.Units,
-    ...Dispossessed.Units,
-    ...Fyreslayers.Units,
-    ...IdonethDeepkin.Units,
-    ...KharadronOverlords.Units,
-    ...MonstrousArcanumOrder,
-    ...Seraphon.Units,
-    ...StormcastEternals.Units,
-    ...Sylvaneth.Units,
-  ],
-  'name'
-)
+// Units available to this Grand Alliance allegiance
+export const Units: TUnits = [...MonstrousArcanumOrder]
+
+// Available to ALL factions in this Grand Alliance
+export const OrderUnits: TUnits = [
+  {
+    name: `Gotrek Gurnisson`,
+    effects: [
+      {
+        name: `Avatar of Grimnir`,
+        desc: `If any damage is inflicted by an attack, spell, or ability that targets Gotrek or affects Gotrek is greater than 1, change it to 1. If a spell or ability would slay Gotrek, instead deal 1 mortal wound.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Avatar of Grimnir`,
+        desc: `If this model is included in your army, it cannot be set up in reserve and you cannot use spells or abilities on this model that would allow you to set it up again after the battle has begun.`,
+        when: [START_OF_GAME],
+      },
+      {
+        name: `Krag Blackhammer's Master Rune`,
+        desc: `You can re-roll hit and wound rolls for attacks made by this model. In addition, if the unmodified hit roll for an attack made by this model is 6, that attack inflicts D6 mortal wounds on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Unstoppable Battle Fury`,
+        desc: `If this model is within 3" of an enemy unit, this model can fight a second time.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Shoulder Plate of Edassa`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is ignored.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+]

@@ -231,7 +231,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Skyre Acolytes`,
+    name: `Skryre Acolytes`,
     effects: [
       {
         name: `Quick-quick Volley!`,
@@ -353,10 +353,13 @@ export const Units: TUnits = [
         name: `Realm Guide`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
         
-        If you do so, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.
-        
         Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
-        when: [END_OF_MOVEMENT_PHASE, START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
+        when: [START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Realm Guide`,
+        desc: `If this unit is placed in reserve, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Terrifying`,
@@ -932,12 +935,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Arkhspark Voltik`,
-        desc: `In your shooting phase, you can pick 1 WARP LIGHTNING CANNON from this enginecoven that is within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion. If you do so, subtract 1 from the power of that WARP LIGHTNING CANNON's Warp Lightning Blast in that shooting phase (to a minimum power of 1).`,
+        desc: `In your shooting phase, you can pick 1 WARP LIGHTNING CANNON from this enginecoven that is within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion. If you do so, subtract 1 from the power of that WARP LIGHTNING CANNON's Warp Lightning Blast in that shooting phase (to a minimum power of 1).`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Gascloud Chokelung`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -947,12 +950,12 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Rattlegauge Warplock`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Whyrlblade Threshik`,
-        desc: `You can move a unit from this enginecoven an extra 3" when it starts the move wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH- WARLOCK from the same battalion.`,
+        desc: `You can move a unit from this enginecoven an extra 3" when it starts the move wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [MOVEMENT_PHASE],
       },
     ],

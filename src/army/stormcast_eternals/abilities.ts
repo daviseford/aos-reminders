@@ -10,7 +10,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Shock and Awe`,
-    desc: `Subtract 1 from hit rolls for attacks that target any unit setup this turn via SCIONS OF THE STORM.`,
+    desc: `Subtract 1 from hit rolls for attacks that target any unit setup this turn.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
 ]

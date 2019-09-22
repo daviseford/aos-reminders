@@ -1,5 +1,6 @@
 import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
+import BoCEndlessSpells from 'army/beasts_of_chaos/endless_spells'
 
 // Endless spells.
 const EndlessSpells: TEndlessSpells = [
@@ -13,7 +14,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 5.  Only Chaos Slaanesh wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 6" of the caster.`,
+        desc: `Casting value of 5. Only Chaos Slaanesh wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -38,7 +39,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 6.  Only Chaos Slaanesh wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 18" of the caster.`,
+        desc: `Casting value of 6. Only Chaos Slaanesh wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -65,7 +66,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 7.  Only Chaos Slaanesh wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 12" of the caster.`,
+        desc: `Casting value of 7. Only Chaos Slaanesh wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -87,4 +88,4 @@ const EndlessSpells: TEndlessSpells = [
   },
 ]
 
-export default EndlessSpells
+export default [...EndlessSpells, ...BoCEndlessSpells]
