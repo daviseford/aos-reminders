@@ -182,10 +182,10 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       console.log('textPhaseIdx', textPhaseIdx)
       const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
       const phase = objs.shift() as IText
-      debugger
 
       console.log('Need to work on this' + phase.text)
-      const numTitles = sum(objs.filter(x => x.type === 'title'))
+      const numTitles = objs.filter(x => x.type === 'title').length
+      debugger
 
       // Handle first action
       let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
