@@ -11,23 +11,27 @@ const lineHeight = 1.2
 const margin = 0.5
 const maxLineWidth = 10.4
 const maxTitleLineWidth = maxLineWidth + 1
+const lineSpacing = 0.09
 
 const fontSizes = {
   desc: 11,
-  title: 13,
   phase: 15,
+  spacer: 0,
+  title: 13,
 }
 
 const spacing = {
   desc: 0.18,
-  title: 0.2,
   phase: 0.28,
+  spacer: 0.28,
+  title: 0.22,
 }
 
 const styles = {
   desc: 'normal',
-  title: 'bold',
   phase: 'bold',
+  spacer: 'normal',
+  title: 'bold',
 }
 
 interface IPrintPdf {
@@ -79,6 +83,10 @@ export const savePdf = (data: IPrintPdf) => {
         .setFontSize(t.fontSize)
         .setFontStyle(t.style)
         .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
+      if (t.type === 'spacer') {
+        doc.setLineWidth(0.0075)
+        doc.line(x, y, pageWidth - margin, y) // horizontal line
+      }
       y = y + t.spacing
     })
   })
@@ -103,13 +111,13 @@ const splitTextToPages = (allText: IText[]) => {
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
         currentPhaseInfo = phaseInfo[phaseInfoIdx]
-        // Insert spacer?
+        // Insert spacer
         pages[pageIdx].push({
           text: ' ',
-          type: 'phase',
-          fontSize: fontSizes.phase,
-          spacing: spacing.phase,
-          style: styles.phase,
+          type: 'spacer',
+          fontSize: fontSizes.spacer,
+          spacing: spacing.spacer,
+          style: styles.spacer,
         })
         if (!currentPhaseInfo) return console.log('Done processing phases')
       }
@@ -175,11 +183,11 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
       const currentPhaseIdx = a.length - 1
 
       if (textObj.type === 'phase') {
-        // We add padding after a phase, so represent that here
+        // We add a spacer after a phase, so represent that here
         if (currentPhaseIdx > 0) {
           a[currentPhaseIdx] = {
             ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + spacing.phase,
+            yHeight: a[currentPhaseIdx].yHeight + spacing.spacer,
           }
         }
         // And then push the new phase onto the accumulator
@@ -204,7 +212,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
 }
 
 interface IText {
-  type: 'phase' | 'desc' | 'title'
+  type: 'phase' | 'desc' | 'title' | 'spacer'
   fontSize: number
   spacing: number
   style: string
