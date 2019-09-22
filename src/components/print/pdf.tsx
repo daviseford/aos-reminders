@@ -7,22 +7,21 @@ import { titleCase, getActionTitle } from 'utils/textUtils'
 import { findIndex, slice } from 'lodash'
 
 const pageHeight = 14
-const pageWidth = 8.5
 const lineHeight = 1.2
 const margin = 0.5
-const maxLineWidth = pageWidth - margin * 2
+const maxLineWidth = 10
 const maxTitleLineWidth = maxLineWidth + 1
 
 const fontSizes = {
-  desc: 12,
-  title: 12,
-  phase: 20,
+  desc: 11,
+  title: 13,
+  phase: 15,
 }
 
 const spacing = {
   desc: 0.18,
-  title: 0.18,
-  phase: 0.21,
+  title: 0.2,
+  phase: 0.24,
 }
 
 const styles = {
@@ -59,13 +58,14 @@ export const savePdf = (data: IPrintPdf) => {
   // Bottom of the page is ~11 y units (inches)
   const doc = new jsPDF({
     unit: 'in',
-    lineHeight: lineHeight,
-  }).setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+    lineHeight,
+  })
 
+  doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+
+  console.log(doc.getFontList())
   const text = getAllText(doc, visibleReminders)
-  console.log('text', text)
   const pages = splitTextToPages(text)
-  console.log('splitPages', pages)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
