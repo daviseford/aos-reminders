@@ -6,12 +6,12 @@ import { IReminder, TTurnAction } from 'types/data'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { findIndex, slice } from 'lodash'
 
+const pageHeight = 14
 const pageWidth = 8.5
 const lineHeight = 1.2
 const margin = 0.5
 const maxLineWidth = pageWidth - margin * 2
 const maxTitleLineWidth = maxLineWidth + 1
-const ptsPerInch = 72
 
 const fontSizes = {
   desc: 12,
@@ -62,17 +62,10 @@ export const savePdf = (data: IPrintPdf) => {
     lineHeight: lineHeight,
   }).setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
-  const pageHeight = doc.internal.pageSize.height
-
-  const text = getAllText(doc, reminders)
+  const text = getAllText(doc, visibleReminders)
   console.log('text', text)
-  const pages = splitTextToPages(text, pageHeight)
+  const pages = splitTextToPages(text)
   console.log('splitPages', pages)
-
-  // doc
-  //   .setFontSize(fontSizes.phase)
-  //   .setFontStyle(styles.phase)
-  //   .text(title, x, y)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
@@ -90,13 +83,12 @@ export const savePdf = (data: IPrintPdf) => {
   doc.save('two-by-four.pdf')
 }
 
-const splitTextToPages = (allText: IText[], pageHeight: number) => {
-  const pageBottom = pageHeight - margin
+const splitTextToPages = (allText: IText[]) => {
   let y = getInitialXY()[1]
   let pages: IText[][] = [[]]
   let pageIdx = 0
 
-  let phaseInfo: IPhaseText[] = getPhaseInfo(allText, pageHeight)
+  let phaseInfo: IPhaseText[] = getPhaseInfo(allText)
   console.log('phaseInfo', phaseInfo)
 
   let phaseInfoIdx = 0
@@ -174,7 +166,7 @@ interface IPhaseText {
  * @param allText
  * @param pageHeight
  */
-const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
+const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
   return allText.reduce(
     (a, textObj) => {
       const currentPhaseIdx = a.length - 1
@@ -193,6 +185,7 @@ const getPhaseInfo = (allText: IText[], pageHeight: number): IPhaseText[] => {
           yHeight: getInitialXY()[1],
           phase: textObj.text,
         })
+        console.log(getInitialXY()[1])
       } else {
         const yHeight = a[currentPhaseIdx].yHeight + textObj.spacing
         a[currentPhaseIdx] = {
@@ -277,21 +270,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
 }
 
 /**
- * Gets the height of a single line
- * @param fontSize
- */
-const getLineHeight = (fontSize: number) => fontSize / ptsPerInch
-// const getLineHeight = (fontSize: number) => (fontSize * lineHeight) / ptsPerInch
-
-/**
- * Gets the height of multiple lines
- * @param textLines
- * @param fontSize
- */
-const getMultiTextHeight = (textLines: string[], fontSize: number) =>
-  (textLines.length * fontSize * lineHeight) / ptsPerInch
-
-/**
  * Returns x,y
  */
-const getInitialXY = () => [margin, margin + 2 * getLineHeight(fontSizes.phase)]
+const getInitialXY = () => [margin, margin * 2]
