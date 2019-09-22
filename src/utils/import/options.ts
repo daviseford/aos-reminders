@@ -54,9 +54,10 @@ const warscrollTypoMap: TNameMap = {
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
-  'Hellstriders With Claw-Spears': 'Hellstriders',
+  'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Lighntning Blast': 'Lightning Blast',
+  'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
   'Midnight Tome - Lifestealer': 'Midnight Tome',
@@ -80,7 +81,7 @@ const warscrollTypoMap: TNameMap = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
-  'Hellstriders With Claw-Spears': 'Hellstriders',
+  'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
 }
