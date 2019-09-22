@@ -75,13 +75,12 @@ export const savePdf = (data: IPrintPdf) => {
 
   doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
-  console.log(doc.getFontList())
+  console.log('fonts', doc.getFontList())
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const text = getAllText(doc, visibleReminders)
   const phaseInfo = getPhaseInfo(text)
   const pages = splitTextToPages(text, phaseInfo)
-  console.log(pages)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
@@ -140,8 +139,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
     if (textObj.text !== currentPhaseInfo.phase) {
       // New phase, handle
       currentPhaseInfo = phaseInfo[phaseInfoIdx]
-      // Insert spacer
-      console.log(textObj.text + ' is getting a spacer')
+      // Insert spacer for new phases
       pages[pageIdx].push({
         text: '',
         type: 'spacer',
@@ -149,15 +147,12 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         spacing: spacing.spacer,
         style: styles.spacer,
       })
-      console.log('Just switched to ' + currentPhaseInfo.phase)
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
     if (currentPhaseInfo.canFitOnPage) {
       // If it won't fit on this page, move it to the next page, and reset the y value
       if (y + currentPhaseInfo.yHeight >= pageBottom) {
-        console.log('moving to next page', currentPhaseInfo.phase, currentPhaseInfo.yHeight)
-        console.log('y, pageBottom', y, pageBottom)
         pageIdx++
         pages.push([])
         y = getInitialXY()[1]
@@ -165,14 +160,14 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
       const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-      // console.log(objs, textPhaseIdx, nextPhaseIdx)
+
       y = y + currentPhaseInfo.yHeight
       pages[pageIdx] = pages[pageIdx].concat(objs)
       textPhaseIdx = nextPhaseIdx
       phaseInfoIdx++
       return
     } else {
-      // Good place to start working on what happens if a phase doesn't fit :)
+      // What happens if a phase doesn't fit on one page :)
       let titleIdx = 1
       const nextPhaseIdx = findIndex(allText, x => x.text === phaseInfo[phaseInfoIdx + 1].phase)
 
@@ -204,16 +199,16 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
         let items = slice(objs, titleIdx, nextTitleIdx)
         let itemsYHeight = sum(items.map(x => x.spacing))
-        if (y + itemsYHeight > pageBottom) {
+        if (y + itemsYHeight >= pageBottom) {
           // Go to next page, with the phase
-          let updatedPhase: IText = {
+          let phaseContinued: IText = {
             ...phase,
             text: `${phase.text} (continued)`,
           }
           pageIdx++
           pages.push([])
-          y = getInitialXY()[1] + itemsYHeight + updatedPhase.spacing
-          pages[pageIdx] = pages[pageIdx].concat(updatedPhase, ...items)
+          y = getInitialXY()[1] + itemsYHeight + phaseContinued.spacing
+          pages[pageIdx] = pages[pageIdx].concat(phaseContinued, ...items)
           titleIdx = nextTitleIdx
         } else {
           // Put on this page
@@ -274,7 +269,6 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
           yHeight: getInitialXY()[1],
           phase: textObj.text,
         })
-        console.log(getInitialXY()[1])
       } else {
         const yHeight = a[currentPhaseIdx].yHeight + textObj.spacing
         a[currentPhaseIdx] = {
@@ -346,7 +340,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
       descLines.forEach(text => {
         const trimmed = text.trim()
         const type = trimmed === '' ? 'break' : 'desc'
-        if (type === 'break') console.log('break')
         allText.push({
           type,
           fontSize: fontSizes[type],
