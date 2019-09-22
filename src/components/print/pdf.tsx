@@ -121,26 +121,37 @@ const splitTextToPages = (allText: IText[], pageHeight: number) => {
   console.log('phaseInfo', phaseInfo)
 
   let phaseInfoIdx = 0
-  let currentPhaseInfo = phaseInfo[0]
-  let allTextPhaseidx = 0
+  let currentPhaseInfo = phaseInfo[phaseInfoIdx]
+  let textPhaseIdx = 0
 
   allText.forEach(textObj => {
     if (textObj.type === 'phase') {
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
-      } else {
-        // It's the first phase, handle it
-        if (currentPhaseInfo.canFitOnPage) {
-          // Add all elements up to the next phase to the page, and increment Y
-          const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', allTextPhaseidx + 1)
-          const objs = slice(allText, allTextPhaseidx, nextPhaseIdx)
-          console.log(objs, allTextPhaseidx, nextPhaseIdx)
-          y = y + currentPhaseInfo.yHeight
-          pages[pageIdx] = pages[pageIdx].concat(objs)
-          allTextPhaseidx = nextPhaseIdx
-        } else {
-          // Good place to start working on what happens if a phase doesn't fit :)
+        // TODO: Insert spacer?
+        currentPhaseInfo = phaseInfo[phaseInfoIdx]
+        if (!currentPhaseInfo) return console.log('Done processing phases')
+      }
+
+      // It's the first phase, handle it
+      if (currentPhaseInfo.canFitOnPage) {
+        // If it won't fit on this page, move it to the next page, and reset the y value
+        if (y + currentPhaseInfo.yHeight > pageBottom) {
+          pageIdx++
+          y = getInitialXY()[1]
         }
+        // Add all elements up to the next phase to the page, and increment Y
+        const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
+        const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
+        console.log(objs, textPhaseIdx, nextPhaseIdx)
+        y = y + currentPhaseInfo.yHeight
+        pages[pageIdx] = pages[pageIdx].concat(objs)
+        textPhaseIdx = nextPhaseIdx
+        phaseInfoIdx++
+        return
+      } else {
+        // Good place to start working on what happens if a phase doesn't fit :)
+        console.log('Need to work on this')
       }
     }
 
