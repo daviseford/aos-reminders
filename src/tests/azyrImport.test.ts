@@ -24,6 +24,8 @@ import Khorne1 from './fixtures/azyr/json/Khorne1.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
 import KO3 from './fixtures/azyr/json/KO3.json'
+import KO4 from './fixtures/azyr/json/KO4.json'
+import KO5 from './fixtures/azyr/json/KO5.json'
 import Lethisian1 from './fixtures/azyr/json/Lethisian1.json'
 import LoB1 from './fixtures/azyr/json/LoB1.json'
 import LoG1 from './fixtures/azyr/json/LoG1.json'
@@ -90,8 +92,29 @@ describe('handleAzyrPages', () => {
 
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
-    console.log(res)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles KO5', () => {
+    const res = handleAzyrPages(KO5)
+    expect(res).toEqual([
+      'FACTION: Kharadron Overlords',
+      'ALLEGIANCE: Barak-Mhornar, City of Shadow',
+      "Kharadron Code: Seek New Prospects, Prosecute Wars With All Haste, Who Strikes First, Strikes Hardest, There's No Trading With Some People",
+      'UNIT: Arkanaut Company',
+    ])
+  })
+
+  it('handles KO4', () => {
+    const res = handleAzyrPages(KO4)
+    expect(res).toEqual([
+      'FACTION: Kharadron Overlords',
+      'ALLEGIANCE: Barak-Zilfin, The Windswept City',
+      "Kharadron Code: Master The Skies, Don't Argue With The Wind, There's Always a Breeze If You Look For It, Without Our Ships, We Are Naught",
+      'MERCENARY COMPANY: Tenebrous Court',
+      'UNIT: Arkanaut Company',
+      "UNIT: Thundrik's Profiteers",
+    ])
   })
 
   it('handles Slaanesh2', () => {
