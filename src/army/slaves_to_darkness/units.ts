@@ -25,6 +25,8 @@ export const getSlavesUnits = () => {
     `Chaos Lord on Manticore`,
     `Chaos Marauder Horsemen`,
     `Chaos Marauders`,
+    `Chaos Sorcerer Lord on Manticore`,
+    `Chaos Sorcerer Lord`,
     `Chaos War Mammoth`,
     `Chaos Warriors`,
     `Chaos Warshrine`,
