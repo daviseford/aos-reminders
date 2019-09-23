@@ -24,10 +24,23 @@ import {
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
 import BeastsofChaos from 'army/beasts_of_chaos'
+import Skaven from 'army/skaven'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 import { getTamurkhansUnits, getTamurkhansBattalions } from 'army/tamurkhans_horde/units'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
+
+const getSkavenUnits = () => {
+  const listOfUnits = [
+    'Plagueclaw',
+    'Plague Censer Bearers',
+    'Plague Priest',
+    'Plague Priest on Plague Furnace',
+    'Plague Monks',
+    'Verminlord Corruptor',
+  ]
+  return filterUnits(Skaven.Units, listOfUnits)
+}
 
 const getBoCUnits = () => {
   const listOfUnits = [
@@ -59,6 +72,7 @@ export const AlliedUnits: TUnits = [
   ...SlaveUnits,
   ...getBoCUnits(),
   ...getEverchosenUnits(),
+  ...getSkavenUnits(),
 ]
 
 // Unit Names
