@@ -169,9 +169,7 @@ const handleKOTraits = (name: string): string[] => {
       if (!!result) return
       possiblePrefix.forEach(pre => {
         if (!!result) return
-        let prefixedNote = `${pre}: ${valUpper}`
-        // console.log(prefixedNote + ' vs ' + trait.toUpperCase())
-        if (isPoorlySpacedMatch(prefixedNote, trait.toUpperCase())) {
+        if (isPoorlySpacedMatch(`${pre}: ${valUpper}`, trait.toUpperCase())) {
           result = trait
         }
       })
