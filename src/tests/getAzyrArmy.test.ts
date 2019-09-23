@@ -18,6 +18,8 @@ import BoC1 from './fixtures/azyr/json/BoC1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
+import KO4 from './fixtures/azyr/json/KO4.json'
+import KO5 from './fixtures/azyr/json/KO5.json'
 import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from './fixtures/azyr/json/Skaven1.json'
 import Skryre1 from './fixtures/azyr/json/Skryre1.json'
@@ -26,6 +28,30 @@ import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles KO5', () => {
+    const pages = handleAzyrPages(KO5)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.selections.traits).toEqual([
+      'ARTYCLE: Seek New Prospects',
+      'AMENDMENT: Prosecute Wars With All Haste',
+      "FOOTNOTE: There's no Trading With Some People",
+      'FOOTNOTE: Who Strikes First, Strikes Hardest',
+    ])
+  })
+
+  it('handles KO4', () => {
+    const pages = handleAzyrPages(KO4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.selections.traits).toEqual([
+      'ARTYCLE: Master the Skies',
+      "AMENDMENT: Don't Argue With the Wind",
+      'FOOTNOTE: Without Our Ships, We Are Naught',
+      "FOOTNOTE: There's Always a Breeze If You Look For It",
+    ])
+  })
+
   it('handles KO2', () => {
     const pages = handleAzyrPages(KO2)
     const res = getAzyrArmyFromPdf(pages)
