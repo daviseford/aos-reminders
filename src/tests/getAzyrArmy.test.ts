@@ -36,7 +36,6 @@ describe('getAzyrArmyFromPdf', () => {
       'ARTYCLE: Seek New Prospects',
       'AMENDMENT: Prosecute Wars With All Haste',
       "FOOTNOTE: There's no Trading With Some People",
-      'FOOTNOTE: Who Strikes First, Strikes Hardest',
     ])
   })
 
@@ -48,7 +47,6 @@ describe('getAzyrArmyFromPdf', () => {
       'ARTYCLE: Master the Skies',
       "AMENDMENT: Don't Argue With the Wind",
       'FOOTNOTE: Without Our Ships, We Are Naught',
-      "FOOTNOTE: There's Always a Breeze If You Look For It",
     ])
   })
 
