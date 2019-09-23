@@ -8,7 +8,7 @@ import { findIndex, slice, sum, range } from 'lodash'
 
 const xMargin = 0.5
 const yMargin = 0.75
-const pageHeight = 14
+const pageHeight = 13
 const pageBottom = pageHeight - yMargin
 const maxLineWidth = 10.4
 const maxTitleLineWidth = maxLineWidth - 2
@@ -82,12 +82,14 @@ export const savePdf = (data: IPrintPdf) => {
   const phaseInfo = getPhaseInfo(text)
   const pages = splitTextToPages(text, phaseInfo)
 
+  console.log(pages)
+
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
     let [x, y] = getInitialXY()
 
     page.forEach((t, ii) => {
-      if (ii === 0 && t.type === 'spacer') return // Don't add spacers t o the start of page
+      if ((ii === 0 || ii === page.length - 1) && t.type === 'spacer') return // Don't add spacers to the start or end of page
       const isPhase = t.type === 'phase'
       doc
         .setFontSize(t.fontSize)
@@ -147,6 +149,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         spacing: spacing.spacer,
         style: styles.spacer,
       })
+      y = y + spacing.spacer
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
@@ -197,8 +200,9 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
 
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
-        let items = slice(objs, titleIdx, nextTitleIdx)
+        let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
         let itemsYHeight = sum(items.map(x => x.spacing))
+
         if (y + itemsYHeight >= pageBottom) {
           // Go to next page, with the phase
           let phaseContinued: IText = {
@@ -207,7 +211,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
           }
           pageIdx++
           pages.push([])
-          y = getInitialXY()[1] + itemsYHeight + phaseContinued.spacing
+          y = getInitialXY()[1] + itemsYHeight + spacing.phase
           pages[pageIdx] = pages[pageIdx].concat(phaseContinued, ...items)
           titleIdx = nextTitleIdx
         } else {

@@ -716,12 +716,12 @@ export const Units: TUnits = [
       },
       {
         name: `Icon Bearers`,
-        desc: `Models in this unit may be Icon Bearers. Add 1 to this units bravery characteristic while it includes any Icon Bearers.`,
+        desc: `Add 1 to this units bravery characteristic while it includes any Icon Bearers.`,
         when: [DURING_GAME],
       },
       {
         name: `Sonorous Tocsin`,
-        desc: `Models in this unit may carry a Sonorous Tocsin. Add 1 to this unit's run and charge rolls while it includes any models carrying a Sonorous Tocsin.`,
+        desc: `Add 1 to this unit's run and charge rolls while it includes any models carrying a Sonorous Tocsin.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
