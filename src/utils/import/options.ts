@@ -54,6 +54,7 @@ const warscrollTypoMap: TNameMap = {
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
+  'Guardian of Souls With Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Lighntning Blast': 'Lightning Blast',
