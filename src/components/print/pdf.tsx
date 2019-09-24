@@ -187,6 +187,10 @@ const getArmyText = (
       type: 'spacer',
     },
     {
+      text: '',
+      type: 'spacer',
+    },
+    {
       text: titleCase(factionName),
       type: 'armyName',
     },
