@@ -19,7 +19,6 @@ export const Home: React.FC<{}> = () => {
   useEffect(() => {
     getSubscription()
   }, [getSubscription])
-
   return (
     <>
       <Header />

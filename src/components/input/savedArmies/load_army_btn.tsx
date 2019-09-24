@@ -50,6 +50,14 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateAllySelections(army.allySelections)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
+
+    const cachedArmy = localStorage.getItem('armyID')
+
+    if (!cachedArmy) {
+      debugger
+      localStorage.setItem('loadedFaction', army.factionName)
+      localStorage.setItem('armyID', army.id)
+    }
   }
 
   return (

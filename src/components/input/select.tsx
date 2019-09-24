@@ -57,6 +57,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
   const { items, setValues, isClearable = false, hasDefault = false, toTitle = false, values } = props
   const options = convertToOptions(items, toTitle)
   const selectValues = convertToOptions(values, toTitle)
+
   return (
     <>
       <Select
