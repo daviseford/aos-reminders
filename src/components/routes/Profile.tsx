@@ -56,7 +56,7 @@ export const UserCard: React.FC<{}> = () => {
       <div className="media">
         <div className="media-body text-center">
           <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
-          <RecurringPaymentInfo isActive={isActive} />
+          {isSubscribed && <RecurringPaymentInfo isActive={isActive} />}
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
         </div>
