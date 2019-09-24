@@ -843,6 +843,31 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `The Sepulchral Guard`,
+    effects: [
+      {
+        name: `The Sepulchral Warden`,
+        desc: `You can return D3 slain models to this unit if the Sepulchral Warden is on the battlefield.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Crypt Shields`,
+        desc: `If any models in this unit are carrying Crypt Shields, add 1 to save rolls against attacks with a rend characteristic of '-'.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Serve in Death`,
+        desc: `You can add 1 to hit rolls for this unit if it is wholly within 18" of any friendly Death heroes.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Frightening Speed`,
+        desc: `You can re-roll charge rolls for this unit.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
     name: `Legion Black Coach`,
     effects: [
       {
