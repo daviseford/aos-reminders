@@ -536,15 +536,20 @@ export const Units: TUnits = [
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Grashrak's Despoilers`,
+    effects: [
+      {
+        name: `Violent Despoilers`,
+        desc: `Add 1 to hit rolls for attacks made by the Despoilers' unit while it is wholly within enemy territory.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
       {
         name: `Grashrak's Savage Herd`,
         desc: `Roll a dice for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Violent Despoilers`,
-        desc: `Add 1 to hit rolls for attacks made by the Despoilers unit while it is wholly within enemy territory.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
