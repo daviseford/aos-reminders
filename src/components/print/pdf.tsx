@@ -76,7 +76,11 @@ export const savePdf = (data: IPrintPdf) => {
     lineHeight: 1.2,
   })
 
-  doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+  doc
+    .setFont('helvetica')
+    .setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+    .setLineWidth(0.00055)
+    .setDrawColor(211, 211, 211)
 
   console.log('fonts', doc.getFontList())
 
@@ -102,28 +106,17 @@ export const savePdf = (data: IPrintPdf) => {
         .setFontStyle(t.style)
         .text(t.text, textX, y, null, null, textAlign)
 
-      if (t.type === 'phase') {
-        const lineY = y + 0.08
-        doc.setLineWidth(0.00055).setDrawColor(211, 211, 211)
-        doc.line(x - 0.1, lineY, pageWidth - xMargin, lineY) // horizontal line
+      if (isPhase) {
+        doc.roundedRect(
+          x - 0.1,
+          y - spacing.spacer + 0.02,
+          pageWidth - xMargin * 2 + 0.1,
+          spacing.phase + 0.08,
+          0.05,
+          0.05,
+          'S'
+        )
       }
-
-      // if (isPhase) {
-      //   doc.setLineWidth(0.00075).setDrawColor(0, 0, 0)
-      //   const phase = phaseInfo.find(x => x.phase === t.text)
-      //   if (phase) {
-      //     const phaseY = phase.yHeight
-      //     doc.roundedRect(
-      //       x - 0.1,
-      //       y - spacing.spacer,
-      //       pageWidth - xMargin * 2 + 0.1,
-      //       phaseY - spacing.phase,
-      //       0.05,
-      //       0.05,
-      //       'S'
-      //     )
-      //   }
-      // }
 
       y = y + t.spacing
     })
