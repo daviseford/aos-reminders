@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState, useCallback } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -35,11 +35,9 @@ const RemindersComponent = (props: IRemindersProps) => {
     allySelections,
     army,
     factionName,
-    hiddenReminders,
     hideWhens,
     isMobile,
     realmscape_feature,
-    realmscape,
     selections,
     showWhen,
     visibleWhens,
