@@ -169,6 +169,8 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
   let currentPhaseInfo = phaseInfo[phaseInfoIdx]
   let textPhaseIdx = 0
 
+  const ySpacing = Styles.spacer.spacing * 4
+
   allText.forEach((textObj, i) => {
     if (i === allText.length - 1 && textObj.type !== 'phase') {
       return pages[pageIdx].push(textObj)
@@ -217,8 +219,6 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
       let firstAction = slice(objs, 0, nextTitleIdx)
       let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
-
-      const ySpacing = Styles.spacer.spacing * 3
 
       let titleSpace: IText = {
         type: 'titlespacer',
