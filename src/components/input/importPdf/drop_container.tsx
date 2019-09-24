@@ -130,8 +130,12 @@ const ErrorAlert = (props: TImportError) => {
           <strong>{prefix}:</strong> {info}
           <br />
           <small>
-            Unexpected {prefix.toLowerCase()}? File an issue on{' '}
-            <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
+            Unexpected {prefix.toLowerCase()}? Post a comment on{' '}
+            <a
+              href={'https://github.com/daviseford/aos-reminders/issues/431'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Github
             </a>{' '}
             and be sure to attach this file.
