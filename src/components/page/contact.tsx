@@ -23,7 +23,7 @@ export const ContactComponent: React.FC<IContactProps> = props => {
         text={'Github'}
       />
       <Link
-        href="mailto:davis.e.ford.alt+aosreminders@gmail.com"
+        href="mailto:aosreminders@gmail.com"
         btnClass={btnClass}
         Icon={FaEnvelopeOpenText}
         text={'Email'}
