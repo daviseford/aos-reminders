@@ -27,7 +27,9 @@ export const getActionTitle = ({
   spell,
   triumph,
 }: TTurnAction): string => {
-  const suffix = name === condition ? `` : `: ${condition}`
+  const nameRegex = new RegExp(`${name as string}(, )?`, 'gi')
+  const strippedCond = condition.replace(nameRegex, '')
+  const suffix = name === condition ? `` : `: ${strippedCond}`
   if (artifact) return `Artifact${suffix}`
   if (command_ability) return `Command Ability${suffix}`
   if (command_trait) return `Command Trait${suffix}`
@@ -35,5 +37,5 @@ export const getActionTitle = ({
   if (scenery) return `Scenery${suffix}`
   if (spell) return `Spell${suffix}`
   if (triumph) return `Triumph${suffix}`
-  return condition
+  return strippedCond
 }
