@@ -92,29 +92,34 @@ export const savePdf = (data: IPrintPdf) => {
     page.forEach((t, ii) => {
       if ((ii === 0 || ii === page.length - 1) && t.type === 'spacer') return // Don't add spacers to the start or end of page
       const isPhase = t.type === 'phase'
+      const textX = isPhase ? centerX : x
+      const textAlign = isPhase ? 'center' : 'left'
       doc
         .setFontSize(t.fontSize)
         .setFontStyle(t.style)
-        .text(t.text, isPhase ? centerX : x, y, null, null, isPhase ? 'center' : null)
+        .text(t.text, textX, y, null, null, textAlign)
 
-      // if (t.type === 'spacer') {
-      //   const lineY = y + lineSpacing + t.spacing
-      //   doc.setLineWidth(0.00055).setDrawColor(211, 211, 211)
-      //   doc.line(x - 0.1, lineY, pageWidth - margin, lineY) // horizontal line
-      // }
+      if (t.type === 'phase') {
+        const lineY = y + 0.08
+        doc.setLineWidth(0.00055).setDrawColor(211, 211, 211)
+        doc.line(x - 0.1, lineY, pageWidth - xMargin, lineY) // horizontal line
+      }
 
       // if (isPhase) {
       //   doc.setLineWidth(0.00075).setDrawColor(0, 0, 0)
-      //   const phaseY = (phaseInfo.find(x => x.phase === t.text) as IPhaseText).yHeight
-      //   doc.roundedRect(
-      //     x - 0.1,
-      //     y - spacing.spacer,
-      //     pageWidth - margin * 2 + 0.1,
-      //     phaseY - spacing.spacer - spacing.phase,
-      //     0.05,
-      //     0.05,
-      //     'S'
-      //   )
+      //   const phase = phaseInfo.find(x => x.phase === t.text)
+      //   if (phase) {
+      //     const phaseY = phase.yHeight
+      //     doc.roundedRect(
+      //       x - 0.1,
+      //       y - spacing.spacer,
+      //       pageWidth - xMargin * 2 + 0.1,
+      //       phaseY - spacing.phase,
+      //       0.05,
+      //       0.05,
+      //       'S'
+      //     )
+      //   }
       // }
 
       y = y + t.spacing
