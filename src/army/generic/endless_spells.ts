@@ -376,7 +376,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Predatory`,
-        desc: `Aethervoid Pendulum.`,
+        desc: `The Aethervoid Pendulum can moveup to 8" and can fly.`,
         when: [START_OF_ROUND],
       },
       {

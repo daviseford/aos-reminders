@@ -139,11 +139,29 @@ const getFactionName = (val: string): { faction: string | null; allegiance: stri
 
 const handleKOTraits = (name: string): string[] => {
   const traits = getKOTraits()
+  const possiblePrefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
   const footnotes = name
     .replace('Kharadron Code: ', '')
     .split(';')
     .map(x => x.trim())
-  const possiblePrefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
+
+  if (footnotes.length === 1) {
+    // Handle a dumb case where Azyr has just split the codes by commas, not colons
+    // Why are they inconsistent, and only for some codes? God only knows
+    const footnotesUpper = footnotes[0].toUpperCase()
+    const regEx = new RegExp(`(${possiblePrefix.join('|')}): `, 'gi')
+    const trimmedTraits = traits.map(x => x.replace(regEx, '').toUpperCase())
+    return trimmedTraits.reduce(
+      (a, trait, i) => {
+        if (footnotesUpper.includes(trait)) {
+          a.push(traits[i])
+        }
+        return a
+      },
+      [] as string[]
+    )
+  }
+
   return footnotes.map(note => {
     let result = ''
     const valUpper = note.toUpperCase()
@@ -151,9 +169,7 @@ const handleKOTraits = (name: string): string[] => {
       if (!!result) return
       possiblePrefix.forEach(pre => {
         if (!!result) return
-        let prefixedNote = `${pre}: ${valUpper}`
-        // console.log(prefixedNote + ' vs ' + trait.toUpperCase())
-        if (isPoorlySpacedMatch(prefixedNote, trait.toUpperCase())) {
+        if (isPoorlySpacedMatch(`${pre}: ${valUpper}`, trait.toUpperCase())) {
           result = trait
         }
       })
@@ -163,11 +179,11 @@ const handleKOTraits = (name: string): string[] => {
   })
 }
 
-const getKOTraits = () => {
+const getKOTraits = (): string[] => {
   const prefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
   const traits = KOArmy.Traits.filter(x => prefix.some(pre => x.name.startsWith(pre))).map(x => x.name)
   const allegianceTraits = KOArmy.Allegiances.map(a => {
     return a.effects.filter(e => prefix.some(pre => e.name.startsWith(pre))).map(e => e.name)
   }).flat()
-  return traits.concat(allegianceTraits)
+  return uniq(traits.concat(allegianceTraits))
 }

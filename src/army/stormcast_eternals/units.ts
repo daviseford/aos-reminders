@@ -796,6 +796,36 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Knight-Questor Larissa Shadowstalker`,
+    effects: [
+      {
+        name: `Deathstrike`,
+        desc: `If the unmodified hit roll for an attack made with this model's Stormstrike Glaive that targets a MONSTER is 6, that attack has a Damage characteristic of D6 instead of 1.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Malleus Occulum`,
+        desc: `If your battle is taking place in Ulgu, the Realm of Shadow, you can re-roll charge rolls for this model.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `The Malleus Occulum`,
+        desc: `If your battle is taking place in Ulgu, the Realm of Shadow, this model is unaffected by the Mystifying Miasma spell.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Protector Discipline`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `The Shadowstalker's Quarry`,
+        desc: `If this model is within 6" of an enemy MONSTER in the combat phase, it is eligible to fight and can move an extra 3" when it piles in, but must end that pile-in move within 1" of an enemy MONSTER. In addition, you can re-roll hit rolls for attacks made by this model if the target of the attack is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
     name: `Knight-Vexillor`,
     effects: [
       {

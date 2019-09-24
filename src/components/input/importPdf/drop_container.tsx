@@ -106,6 +106,9 @@ export const ImportContainer = connect(
 
 const ErrorAlert = (props: TImportError) => {
   const { text, severity } = props
+  const [isOn, setIsOn] = useState(true)
+
+  if (!isOn) return null
 
   const alertType = {
     'ally-warn': 'alert-warning',
@@ -118,19 +121,31 @@ const ErrorAlert = (props: TImportError) => {
   const info =
     severity === 'error' || severity === 'ally-warn'
       ? text
-      : `We couldn't find '${text}'. It may be a typo, an unsupported value, or an ally that was not correctly marked as "Allies". Make sure to add it manually.`
+      : `We couldn't find '${text}'. It may be a typo or an unmarked ally. Make sure to add it manually.`
+
   return (
     <div className="mb-2">
-      <div className={`alert ${alertType} text-center`} role="alert">
-        <strong>{prefix}:</strong> {info}
-        <br />
-        <small>
-          Unexpected {prefix.toLowerCase()}? File an issue on{' '}
-          <a href={'https://github.com/daviseford/aos-reminders'} target="_blank" rel="noopener noreferrer">
-            Github
-          </a>{' '}
-          and be sure to attach this file.
-        </small>
+      <div className={`alert ${alertType} text-center fade show d-flex`} role="alert">
+        <div className={`flex-grow-1`}>
+          <strong>{prefix}:</strong> {info}
+          <br />
+          <small>
+            Unexpected {prefix.toLowerCase()}? Post a comment on{' '}
+            <a
+              href={'https://github.com/daviseford/aos-reminders/issues/431'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github
+            </a>{' '}
+            and be sure to attach this file.
+          </small>
+        </div>
+        <div className={`align-self-start ml-2`}>
+          <button type="button" className="close" aria-label="Close" onClick={() => setIsOn(false)}>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   )
