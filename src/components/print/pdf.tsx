@@ -182,19 +182,19 @@ const getArmyText = (
 
   const getText = getSelections(doc)
 
-  text.concat(
-    ...getText('Unit', units),
-    ...getText('Artifact', artifacts),
-    ...getText('Battalion', battalions),
-    ...getText('Command Trait', traits),
-    ...getText('Command', commands),
-    ...getText('Allegiance', allegiances),
-    ...getText('Spell', spells),
-    ...getText('Endless Spell', endless_spells),
-    ...getText('Scenery', scenery, false),
-    ...getText('Realmscape Feature', realmFeature),
-    ...getText('Triumph', triumphs)
-  )
+  const selectionText = [
+    getText('Unit', units),
+    getText('Artifact', artifacts),
+    getText('Battalion', battalions),
+    getText('Command Trait', traits),
+    getText('Command', commands),
+    getText('Allegiance', allegiances),
+    getText('Spell', spells),
+    getText('Endless Spell', endless_spells),
+    getText('Scenery', scenery, false),
+    getText('Realmscape Feature', realmFeature),
+    getText('Triumph', triumphs),
+  ].flat()
 
   const endText: IText[] = [
     { text: '', type: 'spacer' },
@@ -203,7 +203,7 @@ const getArmyText = (
     { text: 'aosreminders.com', type: 'title' },
   ]
 
-  return text.concat(endText)
+  return text.concat(selectionText, endText)
 }
 
 const getSelections = (doc: jsPDF) => (name: string, items: string[], pluralize: boolean = true): IText[] => {
