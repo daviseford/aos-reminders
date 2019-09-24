@@ -325,7 +325,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Hunting Pack`,
-        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter's Masters of Ambush ability), you can also set up any units of Frost Sabres that you set to one side earlier – these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
+        desc: `In any of your hero phases, when an Icebrow Hunter from this battalion sets up from ambush (see the Icebrow Hunter's Masters of Ambush ability), you can also set up any units of Frost Sabres that you set to one side earlier - these units are set up anywhere on the battlefield that is within 18" of an ambushing Icebrow Hunter, but not within 9" of any enemy models. This is their move for the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],

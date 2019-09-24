@@ -433,7 +433,7 @@ export const Units: TUnits = [
       },
       {
         name: `Turned to Crystal`,
-        desc: `Each time you score a hit with a Crystal Touch, the target suff ers 1 mortal wound.`,
+        desc: `Each time you score a hit with a Crystal Touch, the target suff ers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -448,7 +448,7 @@ export const Units: TUnits = [
       },
       {
         name: `Heartseekers`,
-        desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
+        desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -520,7 +520,7 @@ export const Units: TUnits = [
       },
       {
         name: `Descend to Battle`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle – set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
         when: [DURING_SETUP],
       },
       {
@@ -535,7 +535,7 @@ export const Units: TUnits = [
       },
       {
         name: `Heartpiercer Shield`,
-        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield – the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield - the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -550,7 +550,7 @@ export const Units: TUnits = [
       },
       {
         name: `Descend to Battle`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle – set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
         when: [DURING_SETUP],
       },
       {
@@ -565,7 +565,7 @@ export const Units: TUnits = [
       },
       {
         name: `Heartpiercer Shield`,
-        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield – the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield - the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
         when: [COMBAT_PHASE],
       },
     ],

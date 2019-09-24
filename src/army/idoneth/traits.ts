@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Merciless Raider`,
-        desc: `You can re-roll run rolls and charge rolls for this general.`,
+        desc: `You can re-roll run rolls and charge rolls for this general.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],

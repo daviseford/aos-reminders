@@ -90,7 +90,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Empowered by Shyish`,
-        desc: `If your battle is being fought in the Realm of Shyish, the range of this model's Keeper of Mortality ability – whether the controlling player chose to reverse or hasten time – is 12" instead of 6"`,
+        desc: `If your battle is being fought in the Realm of Shyish, the range of this model's Keeper of Mortality ability - whether the controlling player chose to reverse or hasten time - is 12" instead of 6"`,
         when: [HERO_PHASE],
       },
     ],
