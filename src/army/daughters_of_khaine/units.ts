@@ -433,7 +433,7 @@ export const Units: TUnits = [
       },
       {
         name: `Turned to Crystal`,
-        desc: `Each time you score a hit with a Crystal Touch, the target suff ers 1 mortal wound.`,
+        desc: `Each time you score a hit with a Crystal Touch, the target suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
