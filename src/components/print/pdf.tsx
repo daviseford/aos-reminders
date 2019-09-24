@@ -19,31 +19,53 @@ const maxTitleLineWidth = maxLineWidth - 2
  */
 const getInitialXY = () => [xMargin, yMargin]
 
-const fontSizes = {
-  break: 0,
-  desc: 11,
-  phase: 14,
-  spacer: 0,
-  title: 11.5,
-  titlespacer: 0,
+type TStyleType = 'phase' | 'desc' | 'title' | 'spacer' | 'break' | 'titlespacer'
+type TTextStyle = 'bold' | 'normal' | 'italic'
+
+interface IText {
+  type: TStyleType
+  text: string
 }
 
-const spacing = {
-  break: 0.14,
-  desc: 0.22,
-  phase: 0.28,
-  spacer: 0.28,
-  title: 0.22,
-  titlespacer: 0.1,
+type TNewStyles = {
+  [key in TStyleType]: {
+    fontSize: number
+    spacing: number
+    style: TTextStyle
+  }
 }
 
-const styles = {
-  break: 'normal',
-  desc: 'normal',
-  phase: 'bold',
-  spacer: 'normal',
-  title: 'bold',
-  titlespacer: 'normal',
+const newStyles: TNewStyles = {
+  break: {
+    fontSize: 0,
+    spacing: 0.14,
+    style: 'normal',
+  },
+  desc: {
+    fontSize: 11,
+    spacing: 0.22,
+    style: 'normal',
+  },
+  phase: {
+    fontSize: 14,
+    spacing: 0.28,
+    style: 'bold',
+  },
+  spacer: {
+    fontSize: 0,
+    spacing: 0.28,
+    style: 'normal',
+  },
+  title: {
+    fontSize: 11.5,
+    spacing: 0.22,
+    style: 'bold',
+  },
+  titlespacer: {
+    fontSize: 0,
+    spacing: 0.1,
+    style: 'normal',
+  },
 }
 
 interface IPrintPdf {
@@ -58,16 +80,7 @@ interface IPrintPdf {
 }
 
 export const savePdf = (data: IPrintPdf) => {
-  const {
-    allyFactionNames,
-    allySelections,
-    factionName,
-    realmscape,
-    realmscape_feature,
-    selections,
-    hiddenReminders,
-    reminders,
-  } = data
+  const { factionName, hiddenReminders, reminders, ...armyData } = data
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
 
@@ -76,17 +89,13 @@ export const savePdf = (data: IPrintPdf) => {
     lineHeight: 1.2,
   })
 
-  doc
-    .setFont('helvetica')
-    .setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
-    .setLineWidth(0.00055)
-    .setDrawColor(211, 211, 211)
+  doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   console.log('fonts', doc.getFontList())
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  const text = getAllText(doc, visibleReminders)
+  const text = getReminderText(doc, visibleReminders)
   const phaseInfo = getPhaseInfo(text)
   const pages = splitTextToPages(text, phaseInfo)
 
@@ -99,30 +108,54 @@ export const savePdf = (data: IPrintPdf) => {
     page.forEach((t, ii) => {
       if ((ii === 0 || ii === page.length - 1) && t.type === 'spacer') return // Don't add spacers to the start or end of page
       const isPhase = t.type === 'phase'
+      const style = newStyles[t.type]
       const textX = isPhase ? centerX : x
       const textAlign = isPhase ? 'center' : 'left'
       doc
-        .setFontSize(t.fontSize)
-        .setFontStyle(t.style)
+        .setFontSize(style.fontSize)
+        .setFontStyle(style.style)
         .text(t.text, textX, y, null, null, textAlign)
 
       if (isPhase) {
-        doc.roundedRect(
-          x - 0.1,
-          y - spacing.spacer + 0.02,
-          pageWidth - xMargin * 2 + 0.1,
-          spacing.phase + 0.08,
-          0.05,
-          0.05,
-          'S'
-        )
+        doc
+          .setLineWidth(0.00055)
+          .setDrawColor(211, 211, 211)
+          .roundedRect(
+            x - 0.1,
+            y - style.spacing + 0.02,
+            pageWidth - xMargin * 2 + 0.1,
+            style.spacing + 0.08,
+            0.05,
+            0.05,
+            'S'
+          )
       }
 
-      y = y + t.spacing
+      y = y + style.spacing
     })
   })
 
   doc.save('two-by-four.pdf')
+}
+
+const getArmyText = (
+  allyFactionNames: TSupportedFaction[],
+  allySelections: { [key: string]: IAllySelections },
+  factionName: TSupportedFaction,
+  realmscape: TRealms | null,
+  realmscape_feature: string | null,
+  selections: ISelections
+): IText[] => {
+  let text: IText[] = [
+    {
+      text: titleCase(factionName),
+      type: 'title',
+    },
+  ]
+  // Handle factionName
+  const faction = titleCase(factionName)
+
+  return text
 }
 
 const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
@@ -147,11 +180,8 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       pages[pageIdx].push({
         text: '',
         type: 'spacer',
-        fontSize: fontSizes.spacer,
-        spacing: spacing.spacer,
-        style: styles.spacer,
       })
-      y = y + spacing.spacer
+      y = y + newStyles.spacer.spacing
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
@@ -184,9 +214,10 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       // Handle first action
       let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
       let firstActionObjs = slice(objs, 0, nextTitleIdx)
-      let firstActionYHeight = phase.spacing + sum(firstActionObjs.map(x => x.spacing))
+      let firstActionYHeight =
+        newStyles.phase.spacing + sum(firstActionObjs.map(x => newStyles[x.type].spacing))
 
-      if (y + firstActionYHeight + spacing.titlespacer + spacing.phase >= pageBottom) {
+      if (y + firstActionYHeight + newStyles.titlespacer.spacing + newStyles.phase.spacing >= pageBottom) {
         // Go to next page
         pageIdx++
         pages.push([])
@@ -203,9 +234,9 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
-        let itemsYHeight = sum(items.map(x => x.spacing))
+        let itemsYHeight = sum(items.map(x => newStyles[x.type].spacing))
 
-        if (y + itemsYHeight + spacing.titlespacer + spacing.phase >= pageBottom) {
+        if (y + itemsYHeight + newStyles.titlespacer.spacing + newStyles.phase.spacing >= pageBottom) {
           // Go to next page, with the phase
           let phaseContinued: IText = {
             ...phase,
@@ -213,7 +244,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
           }
           pageIdx++
           pages.push([])
-          y = getInitialXY()[1] + itemsYHeight + spacing.phase
+          y = getInitialXY()[1] + itemsYHeight + newStyles.phase.spacing
           pages[pageIdx] = pages[pageIdx].concat(phaseContinued, ...items)
           titleIdx = nextTitleIdx
         } else {
@@ -266,7 +297,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
         if (currentPhaseIdx > 0) {
           a[currentPhaseIdx] = {
             ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + spacing.spacer,
+            yHeight: a[currentPhaseIdx].yHeight + newStyles.spacer.spacing,
           }
         }
         // And then push the new phase onto the accumulator
@@ -276,7 +307,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
           phase: textObj.text,
         })
       } else {
-        const yHeight = a[currentPhaseIdx].yHeight + textObj.spacing
+        const yHeight = a[currentPhaseIdx].yHeight + newStyles[textObj.type].spacing
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
           yHeight,
@@ -287,14 +318,6 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
     },
     [] as IPhaseText[]
   )
-}
-
-interface IText {
-  type: 'phase' | 'desc' | 'title' | 'spacer' | 'break' | 'titlespacer'
-  fontSize: number
-  spacing: number
-  style: string
-  text: string
 }
 
 const getTitle = (action: TTurnAction) => {
@@ -315,16 +338,13 @@ const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): I
   )
 }
 
-const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
+const getReminderText = (doc: jsPDF, reminders: IReminder): IText[] => {
   let allText: IText[] = []
 
   Object.keys(reminders).forEach(phase => {
     // Handle phase title (Start of Round)
     allText.push({
       type: 'phase',
-      fontSize: fontSizes.phase,
-      style: styles.phase,
-      spacing: spacing.phase,
       text: titleCase(phase),
     })
 
@@ -334,9 +354,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
       // Add a titlespacer
       allText.push({
         type: 'titlespacer',
-        fontSize: fontSizes.titlespacer,
-        style: styles.titlespacer,
-        spacing: spacing.titlespacer,
         text: '',
       })
 
@@ -345,9 +362,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
       titleLines.forEach(text => {
         allText.push({
           type: 'title',
-          fontSize: fontSizes.title,
-          style: styles.title,
-          spacing: spacing.title,
           text: text.trim(),
         })
       })
@@ -359,9 +373,6 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
         const type = trimmed === '' ? 'break' : 'desc'
         allText.push({
           type,
-          fontSize: fontSizes[type],
-          style: styles[type],
-          spacing: spacing[type],
           text: trimmed,
         })
       })
