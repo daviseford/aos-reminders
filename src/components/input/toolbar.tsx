@@ -10,7 +10,7 @@ import { factionNames, selections, army } from 'ducks'
 import ReactTooltip from 'react-tooltip'
 import { FaPlus, FaPrint, FaFileImport } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { MdWarning } from 'react-icons/md'
+import { MdWarning, MdFileDownload } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -89,7 +89,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
       </div>
 
-      <div hidden={!isShowingImport}>
+      {/* TODO Restore */}
+      {/* <div hidden={!isShowingImport}> */}
+      <div hidden={false}>
         <ImportContainer />
       </div>
 
@@ -169,6 +171,16 @@ const PrintButton = (props: { handlePrint: (e: any) => void }) => {
     <button className={btnDarkBlock} onClick={props.handlePrint}>
       <div className={btnContentWrapper}>
         <FaPrint className="mr-2" /> Print Page
+      </div>
+    </button>
+  )
+}
+
+const DownloadPDF = (props: { handleDownload: (e: any) => void }) => {
+  return (
+    <button className={btnDarkBlock} onClick={props.handleDownload}>
+      <div className={btnContentWrapper}>
+        <MdFileDownload className="mr-2" /> Download PDF
       </div>
     </button>
   )

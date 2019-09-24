@@ -20,7 +20,7 @@ const maxTitleLineWidth = maxLineWidth - 2
 const getInitialXY = () => [xMargin, yMargin]
 
 const fontSizes = {
-  break: 11,
+  break: 0,
   desc: 11,
   phase: 14,
   spacer: 0,
@@ -28,7 +28,7 @@ const fontSizes = {
 }
 
 const spacing = {
-  break: 0.15,
+  break: 0.14,
   desc: 0.22,
   phase: 0.28,
   spacer: 0.28,
@@ -76,6 +76,7 @@ export const savePdf = (data: IPrintPdf) => {
   doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   console.log('fonts', doc.getFontList())
+
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const text = getAllText(doc, visibleReminders)
