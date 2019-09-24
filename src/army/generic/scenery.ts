@@ -286,6 +286,21 @@ const OfficialScenery: TScenery = [
     effects: [...SceneryEffectLookup[DAMNED], ...SceneryEffectLookup[OBSTACLE]],
   },
   {
+    name: `Enduring Stormvault`,
+    effects: [
+      {
+        name: `Rune-locked Vault`,
+        desc: `1 friendly hero within 1" of this terrain feature can roll a dice. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
+              
+               1 - Add 1 to the damage characteristic of one of the hero's melee weapons for the remainder of the battle.
+               2 - Hero can attempt to cast 1 arcane bolt spell as if it were a wizard. This counts as 1 extra spell on wizards.
+               3 - Immeadiately set up an endless spell wholly within 12" of the hero as if they had cast it.`,
+        when: [HERO_PHASE],
+      },
+      ...SceneryEffectLookup[OBSTACLE],
+    ],
+  },
+  {
     name: `Magewrath Throne`,
     effects: [...SceneryEffectLookup[COMMANDING], ...SceneryEffectLookup[OBSTACLE]],
   },
@@ -310,6 +325,27 @@ const OfficialScenery: TScenery = [
     ],
   },
   {
+    name: `Shattered Temple`,
+    effects: [
+      ...SceneryEffectLookup[OBSTACLE],
+      ...SceneryEffectLookup[DEADLY],
+      ...SceneryEffectLookup[ARCANE],
+    ],
+  },
+  {
+    name: `Sigmarite Dias`,
+    effects: [
+      {
+        name: `Bastion of Order`,
+        desc: `Order units treat this terrain as Inspiring. All other grand alliances treat this terrain as Sinister.`,
+        when: [DURING_GAME],
+      },
+      ...SceneryEffectLookup[OBSTACLE],
+      ...SceneryEffectLookup[INSPIRING],
+      ...SceneryEffectLookup[SINISTER],
+    ],
+  },
+  {
     name: `Sigmarite Mausoleum`,
     effects: [
       {
@@ -323,6 +359,18 @@ const OfficialScenery: TScenery = [
         when: [DURING_GAME],
       },
       ...SceneryEffectLookup[GARRISONS],
+    ],
+  },
+  {
+    name: `Timeworn Ruin`,
+    effects: [
+      {
+        name: `Timeworn Ruin`,
+        desc: `This terrain consists of 10 Timeworn Ruin models with each model being set up within 1" of at least one other model from the group.`,
+        when: [START_OF_SETUP],
+      },
+      ...SceneryEffectLookup[OBSTACLE],
+      ...SceneryEffectLookup[DEADLY],
     ],
   },
   {
