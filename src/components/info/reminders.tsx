@@ -10,7 +10,6 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
-import { savePdf } from 'components/print/pdf'
 import { TRealms } from 'types/realmscapes'
 
 interface IRemindersProps {
@@ -63,28 +62,6 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   const [firstLoad, setFirstLoad] = useState(true)
 
-  const handleSave = useCallback(() => {
-    savePdf({
-      factionName,
-      selections,
-      realmscape_feature,
-      allyFactionNames,
-      allySelections,
-      reminders,
-      realmscape,
-      hiddenReminders,
-    })
-  }, [
-    factionName,
-    selections,
-    realmscape_feature,
-    allyFactionNames,
-    allySelections,
-    reminders,
-    realmscape,
-    hiddenReminders,
-  ])
-
   useEffect(() => {
     setFirstLoad(true)
   }, [factionName])
@@ -104,18 +81,13 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
-    <>
-      <div>
-        <button onClick={handleSave}>PDF</button>
+    <div className="row mx-auto mt-3 d-flex justify-content-center">
+      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
+        {whens.map((when, i) => {
+          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
+        })}
       </div>
-      <div className="row mx-auto mt-3 d-flex justify-content-center">
-        <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
-          {whens.map((when, i) => {
-            return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
-          })}
-        </div>
-      </div>
-    </>
+    </div>
   )
 }
 
