@@ -5,6 +5,7 @@ const replaceOptions = {
   from: [
     /[‘’]/g, // Replace special apostrophes
     /[“”]/g, // Replace special quotes
+    /[‑—]/g, // Replace special dashes
     /[.] {2,5}/g, // Replace extra spaces after punctuation
     /[:] {2,5}/g, // Replace extra spaces after punctuation
     /[,] {2,5}/g, // Replace extra spaces after punctuation
@@ -13,7 +14,7 @@ const replaceOptions = {
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
     /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
   ],
-  to: [`'`, `"`, '. ', ': ', ', ', '`', '`', '.`', `Casting value of`],
+  to: [`'`, `"`, '-', '. ', ': ', ', ', '`', '`', '.`', `Casting value of`],
 }
 
 /**
