@@ -35,7 +35,7 @@ type TNewStyles = {
   }
 }
 
-const newStyles: TNewStyles = {
+const Styles: TNewStyles = {
   break: {
     fontSize: 0,
     spacing: 0.14,
@@ -106,9 +106,11 @@ export const savePdf = (data: IPrintPdf) => {
     let [x, y] = getInitialXY()
 
     page.forEach((t, ii) => {
-      if ((ii === 0 || ii === page.length - 1) && t.type === 'spacer') return // Don't add spacers to the start or end of page
+      // Don't add spacers to the start or end of page
+      if ((ii === 0 || ii === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
+
       const isPhase = t.type === 'phase'
-      const style = newStyles[t.type]
+      const style = Styles[t.type]
       const textX = isPhase ? centerX : x
       const textAlign = isPhase ? 'center' : 'left'
       doc
@@ -181,7 +183,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         text: '',
         type: 'spacer',
       })
-      y = y + newStyles.spacer.spacing
+      y = y + Styles.spacer.spacing
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
@@ -213,30 +215,36 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
 
       // Handle first action
       let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
-      let firstActionObjs = slice(objs, 0, nextTitleIdx)
-      let firstActionYHeight =
-        newStyles.phase.spacing + sum(firstActionObjs.map(x => newStyles[x.type].spacing))
+      let firstAction = slice(objs, 0, nextTitleIdx)
+      let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
 
-      if (y + firstActionYHeight + newStyles.titlespacer.spacing + newStyles.phase.spacing >= pageBottom) {
+      const ySpacing = Styles.spacer.spacing * 3
+
+      let titleSpace: IText = {
+        type: 'titlespacer',
+        text: '',
+      }
+
+      if (y + firstActionYHeight + ySpacing >= pageBottom) {
         // Go to next page
         pageIdx++
         pages.push([])
         y = getInitialXY()[1] + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, ...firstActionObjs)
+        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
         titleIdx = nextTitleIdx
       } else {
         // Put on this page
         y = y + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, ...firstActionObjs)
+        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
         titleIdx = nextTitleIdx
       }
 
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
-        let itemsYHeight = sum(items.map(x => newStyles[x.type].spacing))
+        let itemsYHeight = sum(items.map(x => Styles[x.type].spacing))
 
-        if (y + itemsYHeight + newStyles.titlespacer.spacing + newStyles.phase.spacing >= pageBottom) {
+        if (y + itemsYHeight + ySpacing >= pageBottom) {
           // Go to next page, with the phase
           let phaseContinued: IText = {
             ...phase,
@@ -244,8 +252,8 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
           }
           pageIdx++
           pages.push([])
-          y = getInitialXY()[1] + itemsYHeight + newStyles.phase.spacing
-          pages[pageIdx] = pages[pageIdx].concat(phaseContinued, ...items)
+          y = getInitialXY()[1] + itemsYHeight + Styles.phase.spacing
+          pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
           titleIdx = nextTitleIdx
         } else {
           // Put on this page
@@ -257,21 +265,6 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       textPhaseIdx = nextPhaseIdx
       phaseInfoIdx++
     }
-
-    // if (y > pageBottom) {
-    // We need to go to a new page
-    // pageIdx++
-
-    // Situations where we need to check ahead:
-    // 1. We don't want to have a phase at the bottom of the page and then no content
-    // 2. We don't want to have a title at the bottom of the page and then no text
-    // 3. We don't want to have text at the bottom that is missing its siblings
-    // 4. Finally, if we know that a phase can be fit on one whole page (but not this one)
-    //      we should move that entire phase to the next page
-
-    // If this is a phase where the contents will NOT fit on an entire page,
-    // Carry over the phase to the next page and have it as a header
-    // }
   })
 
   return pages
@@ -297,7 +290,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
         if (currentPhaseIdx > 0) {
           a[currentPhaseIdx] = {
             ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + newStyles.spacer.spacing,
+            yHeight: a[currentPhaseIdx].yHeight + Styles.spacer.spacing,
           }
         }
         // And then push the new phase onto the accumulator
@@ -307,7 +300,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
           phase: textObj.text,
         })
       } else {
-        const yHeight = a[currentPhaseIdx].yHeight + newStyles[textObj.type].spacing
+        const yHeight = a[currentPhaseIdx].yHeight + Styles[textObj.type].spacing
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
           yHeight,
