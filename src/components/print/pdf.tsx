@@ -25,6 +25,7 @@ const fontSizes = {
   phase: 14,
   spacer: 0,
   title: 11.5,
+  titlespacer: 0,
 }
 
 const spacing = {
@@ -33,6 +34,7 @@ const spacing = {
   phase: 0.28,
   spacer: 0.28,
   title: 0.22,
+  titlespacer: 0.1,
 }
 
 const styles = {
@@ -41,6 +43,7 @@ const styles = {
   phase: 'bold',
   spacer: 'normal',
   title: 'bold',
+  titlespacer: 'normal',
 }
 
 interface IPrintPdf {
@@ -190,7 +193,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
       let firstActionObjs = slice(objs, 0, nextTitleIdx)
       let firstActionYHeight = phase.spacing + sum(firstActionObjs.map(x => x.spacing))
 
-      if (y + firstActionYHeight >= pageBottom) {
+      if (y + firstActionYHeight + spacing.titlespacer + spacing.phase >= pageBottom) {
         // Go to next page
         pageIdx++
         pages.push([])
@@ -209,7 +212,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[]) => {
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
         let itemsYHeight = sum(items.map(x => x.spacing))
 
-        if (y + itemsYHeight >= pageBottom) {
+        if (y + itemsYHeight + spacing.titlespacer + spacing.phase >= pageBottom) {
           // Go to next page, with the phase
           let phaseContinued: IText = {
             ...phase,
@@ -294,7 +297,7 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
 }
 
 interface IText {
-  type: 'phase' | 'desc' | 'title' | 'spacer' | 'break'
+  type: 'phase' | 'desc' | 'title' | 'spacer' | 'break' | 'titlespacer'
   fontSize: number
   spacing: number
   style: string
@@ -334,6 +337,17 @@ const getAllText = (doc: jsPDF, reminders: IReminder): IText[] => {
 
     reminders[phase].forEach(action => {
       // Handle action title
+
+      // Add a titlespacer
+      allText.push({
+        type: 'titlespacer',
+        fontSize: fontSizes.titlespacer,
+        style: styles.titlespacer,
+        spacing: spacing.titlespacer,
+        text: '',
+      })
+
+      // Add the title itself
       const titleLines: string[] = doc.splitTextToSize(getTitle(action), maxTitleLineWidth)
       titleLines.forEach(text => {
         allText.push({
