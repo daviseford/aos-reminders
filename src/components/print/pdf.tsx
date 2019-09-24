@@ -1,10 +1,10 @@
 import jsPDF from 'jspdf'
+import { findIndex, slice, sum, range } from 'lodash'
+import { titleCase, getActionTitle } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
+import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TRealms } from 'types/realmscapes'
-import { IReminder, TTurnAction } from 'types/data'
-import { titleCase, getActionTitle } from 'utils/textUtils'
-import { findIndex, slice, sum, range } from 'lodash'
 
 const xMargin = 0.5
 const yMargin = 0.75

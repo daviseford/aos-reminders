@@ -1531,10 +1531,10 @@
   resolved "https://registry.yarnpkg.com/@types/jspdf/-/jspdf-1.3.1.tgz#086d0ae4c393a08950d2775e992a6123d5c0d8a8"
   integrity sha512-9MQLH4+uNiFKCD5JG0yfN02O8niO/Md/Cko6pmL46dF/8eWrg61adP1aGNbuxsxuxWngKghnCeIZCeLYr1Poag==
 
-"@types/lodash@^4.14.138":
-  version "4.14.138"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.138.tgz#34f52640d7358230308344e579c15b378d91989e"
-  integrity sha512-A4uJgHz4hakwNBdHNPdxOTkYmXNgmUAKLbXZ7PKGslgeV0Mb8P3BlbYfPovExek1qnod4pDfRbxuzcVs3dlFLg==
+"@types/lodash@^4.14.139":
+  version "4.14.139"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.139.tgz#b7b8a00d014a7debb29dc2dae4f91d3d3c6d5ab3"
+  integrity sha512-Z6pbDYaWpluqcF8+6qgv6STPEl0jIlyQmpYGwTrzhgwqok8ltBh/p7GAmYnz81wUhxQRhEr8MBpQrB4fQ/hwIA==
 
 "@types/luxon@^1.15.2":
   version "1.15.2"
@@ -4042,7 +4042,7 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-ejs@^2.6.2:
+ejs@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.7.1.tgz#5b5ab57f718b79d4aca9254457afecd36fa80228"
   integrity sha512-kS/gEPzZs3Y1rRsbGX4UOSjtP/CeJP0CxSNZHYxGfVM/VgLcv0ZqM7C45YyTj2DI2g7+P9Dd24C+IMIg6D0nYQ==
@@ -7016,10 +7016,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-luxon@^1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.19.0.tgz#8b7d9087284bb1b1a02602449587edfc05a05fe4"
-  integrity sha512-8e+PTZI5+SyHGQE2kvd07lEm3nArzhueSjfHkZGJyFMlKpNKP0V6xjSGLwW+ZlujS71pmTYl+/dDXdzM0DvkUQ==
+luxon@^1.19.2:
+  version "1.19.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.19.2.tgz#f041a9031e7dff6fdbff46e46c73b3fdf4ab2764"
+  integrity sha512-4Dn6oriheX04QQd7mMhuScnyQPdD7h11aCJgSTq9FqkOWdxX7xRUXoX/OXu4rkw98NmcVz3QSLpLbDnT6lVsMw==
 
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
@@ -7844,7 +7844,7 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-open@^6.3.0:
+open@^6.3.0, open@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/open/-/open-6.4.0.tgz#5c13e96d0dc894686164f18965ecfe889ecfc8a9"
   integrity sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==
@@ -10472,22 +10472,22 @@ source-list-map@^2.0.0:
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
   integrity sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==
 
-source-map-explorer@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/source-map-explorer/-/source-map-explorer-2.0.1.tgz#988721e8320d7b6925bc40289e5de658fe4cad4d"
-  integrity sha512-mv2sv2b6oN2L9n18O/eLrYiP5zfWEHESLq4utWBqNw8GnkbuRuXs8twVCOhMT5hxRzfQgS7Yxh7HlQaW8oeiAQ==
+source-map-explorer@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/source-map-explorer/-/source-map-explorer-2.1.0.tgz#d80e2a7fef0f15b3c9c1f57bc22bd1aabfaf2309"
+  integrity sha512-VlOYrBo7gKT72E3IGMzK33ddEWIHGIdyraz8nmpxC7n0ZrzGWq08pWkB8FBxlJJCm9xmP3imlZ9ElUsGbKPpvQ==
   dependencies:
     btoa "^1.2.1"
     chalk "^2.4.2"
     convert-source-map "^1.6.0"
-    ejs "^2.6.2"
+    ejs "^2.7.1"
     escape-html "^1.0.3"
     glob "^7.1.4"
-    lodash "^4.17.11"
-    open "^6.3.0"
+    lodash "^4.17.15"
+    open "^6.4.0"
     source-map "^0.7.3"
     temp "^0.9.0"
-    yargs "^13.2.4"
+    yargs "^14.0.0"
 
 source-map-resolve@^0.5.0, source-map-resolve@^0.5.2:
   version "0.5.2"
@@ -12043,12 +12043,29 @@ yargs@12.0.2:
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^10.1.0"
 
-yargs@^13.2.4, yargs@^13.3.0:
+yargs@^13.3.0:
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.0.tgz#4c657a55e07e5f2cf947f8a366567c04a0dedc83"
   integrity sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
   dependencies:
     cliui "^5.0.0"
+    find-up "^3.0.0"
+    get-caller-file "^2.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^2.0.0"
+    set-blocking "^2.0.0"
+    string-width "^3.0.0"
+    which-module "^2.0.0"
+    y18n "^4.0.0"
+    yargs-parser "^13.1.1"
+
+yargs@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-14.0.0.tgz#ba4cacc802b3c0b3e36a9e791723763d57a85066"
+  integrity sha512-ssa5JuRjMeZEUjg7bEL99AwpitxU/zWGAGpdj0di41pOEmJti8NR6kyUIJBkR78DTYNPZOU08luUo0GTHuB+ow==
+  dependencies:
+    cliui "^5.0.0"
+    decamelize "^1.2.0"
     find-up "^3.0.0"
     get-caller-file "^2.0.1"
     require-directory "^2.1.1"
