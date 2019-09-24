@@ -10,14 +10,15 @@ import qs from 'qs'
 import { logEvent } from 'utils/analytics'
 
 const handleCheckout = () => {
-  const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
+  const { code = false, subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   })
 
   if (subscribed) logEvent(`Checkout-Subscribed-${plan}`)
   if (canceled) logEvent(`Checkout-Canceled-${plan}`)
+  if (!!code) logEvent(`CreatedAccount`)
 
-  if (subscribed || canceled) {
+  if (subscribed || canceled || !!code) {
     window.history.replaceState({}, document.title, window.location.pathname)
   }
 }
