@@ -10,6 +10,8 @@ import { IAllySelections, ISelections } from 'types/selections'
 import { IStore } from 'types/store'
 import { processReminders } from 'utils/processReminders'
 import { savePdf } from './pdf'
+import { componentWithSize } from 'utils/mapSizesToProps'
+import { logDownloadEvent } from 'utils/analytics'
 
 interface IDownloadPDFProps {
   allyArmies: TAllyArmies
@@ -18,6 +20,7 @@ interface IDownloadPDFProps {
   army: IArmy
   factionName: TSupportedFaction
   hiddenReminders: string[]
+  isMobile: boolean
   realmscape_feature: string
   realmscape: TRealms | null
   selections: ISelections
@@ -31,6 +34,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     army,
     factionName,
     hiddenReminders,
+    isMobile,
     realmscape_feature,
     realmscape,
     selections,
@@ -38,6 +42,10 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
   const handleDownload = e => {
     e.preventDefault()
+
+    logDownloadEvent(factionName)
+
+    // Generate reminders
     const reminders = processReminders(
       army,
       factionName,
@@ -48,6 +56,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       allySelections
     )
 
+    // And save the PDF (need to add an option for filename)
     savePdf({
       factionName,
       selections,
@@ -59,10 +68,13 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       hiddenReminders,
     })
   }
+
+  const text = `Download${isMobile ? `` : ` PDF`}`
+
   return (
     <button className={btnDarkBlock} onClick={handleDownload}>
       <div className={btnContentWrapper}>
-        <MdFileDownload className="mr-2" /> Download PDF
+        <MdFileDownload className="mr-2" /> {text}
       </div>
     </button>
   )
@@ -84,4 +96,4 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 export const DownloadPDFButton = connect(
   mapStateToProps,
   null
-)(DownloadPDFComponent)
+)(componentWithSize(DownloadPDFComponent))
