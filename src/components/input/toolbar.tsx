@@ -6,7 +6,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { logClick } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, army } from 'ducks'
-import { FaPlus, FaPrint, FaFileImport } from 'react-icons/fa'
+import { FaPlus, FaFileImport } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -153,20 +153,4 @@ const ImportArmyButton = (props: {
       </div>
     </Link>
   )
-}
-
-const PrintButton = (props: { handlePrint: (e: any) => void }) => {
-  return (
-    <button className={btnDarkBlock} onClick={props.handlePrint}>
-      <div className={btnContentWrapper}>
-        <FaPrint className="mr-2" /> Print Page
-      </div>
-    </button>
-  )
-}
-
-interface IBrowser {
-  name: string
-  is: boolean
-  warning: string
 }
