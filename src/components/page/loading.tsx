@@ -15,8 +15,9 @@ export const Loading = () => {
   return (
     <div className="d-block">
       <EmptyHeader />
-      <div className="row d-flex align-items-center justify-content-center">
-        <div className="my-5 py-5 px-5 text-center">
+      <div className="row align-items-center justify-content-center mt-5 pt-5">
+        <div className="my-5 py-5"> </div>
+        <div className="col my-5 py-5 px-5 text-center">
           <h4>AoS Reminders</h4>
           <p className="lead">Loading...</p>
         </div>
