@@ -17,14 +17,14 @@ export const logPageView = () => {
 }
 
 /**
- * Sends a Google Analytics event indicating a print event
+ * Sends a Google Analytics event indicating a pdf download
  * @param factionName
  */
-export const logPrintEvent = (factionName: string | null) => {
+export const logDownloadEvent = (factionName: string | null) => {
   if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
       category: 'button',
-      action: `print-${factionName}`,
+      action: `download-${factionName}`,
       label: 'AoS Reminders',
     })
   }

@@ -5,7 +5,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { paginateSavedArmies } from 'utils/paginate'
 import { PaginateButtons } from './paginate_buttons'
 
-export const ShowSavedArmies: React.FC<{}> = () => {
+export const ShowSavedArmies: React.FC = () => {
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, savedArmies, loadSavedArmies } = useSubscription()
   const [pageNum, setPageNum] = useState(1)

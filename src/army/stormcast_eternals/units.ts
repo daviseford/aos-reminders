@@ -244,7 +244,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Heroic Guard`,
-        desc: `If one or more enemy units finishes a charge move within ½" of this unit, this unit can take a heroic guard. If it does so, for the rest of the turn, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
+        desc: `If one or more enemy units finishes a charge move within 1/2" of this unit, this unit can take a heroic guard. If it does so, for the rest of the turn, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -254,7 +254,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -423,7 +423,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -470,7 +470,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -618,7 +618,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pack Leader Alpha`,
-        desc: `If a unit of GRYPH-HOUNDS has 3 or more models, one Gryph‑hound can be a Gryph‑hound Alpha. Add 1 to the Attacks of a Gryph‑hound Alpha's Beak and Claws.`,
+        desc: `If a unit of GRYPH-HOUNDS has 3 or more models, one Gryph-hound can be a Gryph-hound Alpha. Add 1 to the Attacks of a Gryph-hound Alpha's Beak and Claws.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -714,7 +714,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Illuminator of the Lost`,
-        desc: `You can re‑roll hit rolls of 1 for attacks made by friendly units that target enemy units while the enemy unit is within 10" of this model.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by friendly units that target enemy units while the enemy unit is within 10" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -729,12 +729,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Strike`,
-        desc: `If the unmodified wound roll for an attack made with a Star‑eagle's Celestial Beak and Talons is 6, that attack has a Rend of ‑3 instead of '‑'.`,
+        desc: `If the unmodified wound roll for an attack made with a Star-eagle's Celestial Beak and Talons is 6, that attack has a Rend of -3 instead of '-'.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Star-fated Arrow`,
-        desc: `Once per battle, this model can shoot a Star‑fated Arrow. If it does so, until the end of that phase, the Attacks of this model's Realmhunter's Bow is reduced to 1, but it has a Damage of D3+3 instead of 1. If the target is a HERO or MONSTER, this weapon has a Damage of D6+3 until the end of that phase instead.`,
+        desc: `Once per battle, this model can shoot a Star-fated Arrow. If it does so, until the end of that phase, the Attacks of this model's Realmhunter's Bow is reduced to 1, but it has a Damage of D3+3 instead of 1. If the target is a HERO or MONSTER, this weapon has a Damage of D6+3 until the end of that phase instead.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -830,7 +830,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon of War`,
-        desc: `You can re‑roll charge rolls for friendly STORMCAST ETERNAL units that are wholly within 18" of this model when the charge roll is made.`,
+        desc: `You can re-roll charge rolls for friendly STORMCAST ETERNAL units that are wholly within 18" of this model when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -920,7 +920,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -945,7 +945,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -975,7 +975,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -1000,7 +1000,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -1020,7 +1020,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1045,7 +1045,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1075,7 +1075,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -1095,7 +1095,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2‑5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1125,7 +1125,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -1155,7 +1155,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re‑roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -1200,7 +1200,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Raptor-Prime`,
-        desc: `he leader of this unit is a Raptor‑Prime. Add 1 to hit rolls for attacks made with a Raptor‑Prime's Hurricane Crossbow and Heavy Stock.`,
+        desc: `he leader of this unit is a Raptor-Prime. Add 1 to hit rolls for attacks made with a Raptor-Prime's Hurricane Crossbow and Heavy Stock.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -1225,7 +1225,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hunting Call`,
-        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor‑Prime, roll a D6 for each model in that Raptor‑Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
+        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor-Prime, roll a D6 for each model in that Raptor-Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -1270,7 +1270,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -1310,12 +1310,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Castigator-Prime`,
-        desc: `Add 1 to hit rolls for attacks made with a Castigator‑Prime's Thunderhead Greatbow.`,
+        desc: `Add 1 to hit rolls for attacks made with a Castigator-Prime's Thunderhead Greatbow.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Castigator Aetheric Channelling`,
-        desc: `Say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, re‑roll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend of ‑2 instead of ‑1 in that shooting phase.`,
+        desc: `Say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, re-roll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend of -2 instead of -1 in that shooting phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -1380,7 +1380,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re‑roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1421,7 +1421,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re‑roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1443,7 +1443,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models – if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
         when: [MOVEMENT_PHASE],
       },
       {

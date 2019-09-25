@@ -65,12 +65,12 @@ export const Units: TUnits = [
       {
         name: `Soul Amphorae`,
         desc: `Once per battle, at the end of your movement phase, you can summon 1 of the following units to the battlefield:
-• 20 Dryads
-• 10 Tree-Revenants
-• 10 Spite-Revenants
-• 3 Kurnoth Hunters
-• 1 Branchwych
-• 1 Treelord
+ 20 Dryads
+ 10 Tree-Revenants
+ 10 Spite-Revenants
+ 3 Kurnoth Hunters
+ 1 Branchwych
+ 1 Treelord
 The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
       },

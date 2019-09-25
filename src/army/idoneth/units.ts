@@ -27,7 +27,7 @@ export const Units: TUnits = [
       },
       {
         name: `Drench with Hate`,
-        desc: `Re-roll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
+        desc: `Re-roll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
         when: [DURING_GAME],
       },
       {
@@ -62,12 +62,12 @@ export const Units: TUnits = [
       },
       {
         name: `The Crest of the High Kings`,
-        desc: `Add 1 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 18" of this model.`,
+        desc: `Add 1 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 18" of this model.`,
         when: [DURING_GAME],
       },
       {
         name: `Cealith, the High King's Shield`,
-        desc: `You can roll a D6 if this model is affected by a spell. If you do so, on a 3+ the spell has no effect on this model (other units will be affected by the spell normally).`,
+        desc: `You can roll a D6 if this model is affected by a spell. If you do so, on a 3+ the spell has no effect on this model (other units will be affected by the spell normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -109,7 +109,7 @@ export const Units: TUnits = [
         name: `Lord of the Tides`,
         desc: `You can use this command ability if this model is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick a friendly Idoneth Deepkin unit wholly within 12" of your general. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
         when: [COMBAT_PHASE],
-        command_ability: true
+        command_ability: true,
       },
     ],
   },
@@ -138,7 +138,7 @@ export const Units: TUnits = [
       },
       {
         name: `Seeker of Souls`,
-        desc: `At the start of your charge phase, you can pick one enemy unit within 24" of this model that is visible to them. If you do so, you must add 3 to charge rolls for friendly IDONETH DEEPKIN units that are within 12" of that unit. However, the first model to be moved from each unit that receives this modifier must finish their charge move within ½" of that unit or their charge will fail.`,
+        desc: `At the start of your charge phase, you can pick one enemy unit within 24" of this model that is visible to them. If you do so, you must add 3 to charge rolls for friendly IDONETH DEEPKIN units that are within 12" of that unit. However, the first model to be moved from each unit that receives this modifier must finish their charge move within " of that unit or their charge will fail.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -148,12 +148,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lurelight`,
-        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talúnhook in the combat phase of the same turn.`,
+        desc: `At the end of your battleshock phase, pick a friendly NAMARTI unit wholly within 12" of this model and roll a D3. Return a number of slain models to the unit you picked up to the value of the roll. Add 1 to the D3 roll for each enemy model that was slain by damage caused by this model's Talnhook in the combat phase of the same turn.`,
         when: [END_OF_BATTLESHOCK_PHASE],
       },
       {
         name: `Hangman's Knot`,
-        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a D6. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can re-roll failed hit rolls for this model's Talúnhook for attacks that target that enemy HERO in that combat phase.`,
+        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a D6. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can re-roll failed hit rolls for this model's Talnhook for attacks that target that enemy HERO in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -188,7 +188,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Jaws of Death`,
-        desc: `Each time you make a hit roll of 6+ for this model's Leviadon's Crushing Jaws attack, that attack inflicts 6 mortal wounds instead of the normal damage.`,
+        desc: `Each time you make a hit roll of 6+ for this model's Leviadon's Crushing Jaws attack, that attack inflicts 6 mortal wounds instead of the normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -218,7 +218,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Biovoltaic Barrier`,
-        desc: `Ignore the Rend characteristic of attacks against this unit when making save rolls for this unit. In addition, this unit has a Save characteristic of 3+ instead of 4+ if it made a charge move in the same turn.`,
+        desc: `Ignore the Rend characteristic of attacks against this unit when making save rolls for this unit. In addition, this unit has a Save characteristic of 3+ instead of 4+ if it made a charge move in the same turn.`,
         when: [DURING_GAME],
       },
     ],
@@ -288,7 +288,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Full Fury of the Storm`,
-        desc: `If your army has the IDONETH DEEPKIN allegiance and includes this battalion, then once per battle at the start of a battle round, you can choose to use the High Tide ability from the Tides of Death table for that battle round instead of the ability that would normally be used.`,
+        desc: `If your army has the IDONETH DEEPKIN allegiance and includes this battalion, then once per battle at the start of a battle round, you can choose to use the High Tide ability from the Tides of Death table for that battle round instead of the ability that would normally be used.`,
         when: [START_OF_ROUND],
       },
     ],

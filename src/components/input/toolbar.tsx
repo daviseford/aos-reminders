@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { without } from 'lodash'
-import is from 'is_js'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { logPrintEvent, logClick } from 'utils/analytics'
+import { logClick } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, army } from 'ducks'
-import ReactTooltip from 'react-tooltip'
-import { FaPlus, FaPrint, FaFileImport } from 'react-icons/fa'
+import { FaPlus, FaFileImport } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { MdWarning } from 'react-icons/md'
-import { IconContext } from 'react-icons'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
-import { ImportContainer } from './importPdf/drop_container'
+
+const ImportContainer = lazy(() => import('components/input/importPdf/drop_container'))
+const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
@@ -50,14 +48,6 @@ const ToolbarComponent = (props: IToolbarProps) => {
     updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
   }
 
-  const handlePrint = e => {
-    e.preventDefault()
-    logPrintEvent(factionName)
-    return window.print()
-  }
-
-  const PrintComponent = is.firefox() ? PrintWarningButton : PrintButton
-
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
@@ -65,7 +55,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
         <div className={btnWrapperClass}>
-          <PrintComponent handlePrint={handlePrint} />
+          <Suspense fallback={<></>}>
+            <DownloadPDFButton />
+          </Suspense>
         </div>
         <div className={btnWrapperClass}>
           <SaveArmyBtn showSavedArmies={showSavedArmies} />
@@ -90,7 +82,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
       </div>
 
       <div hidden={!isShowingImport}>
-        <ImportContainer />
+        <Suspense fallback={<></>}>
+          <ImportContainer />
+        </Suspense>
       </div>
 
       <div hidden={!isShowingSavedArmies}>
@@ -161,47 +155,5 @@ const ImportArmyButton = (props: {
         <FaFileImport className="mr-2" /> Import List
       </div>
     </Link>
-  )
-}
-
-const PrintButton = (props: { handlePrint: (e: any) => void }) => {
-  return (
-    <button className={btnDarkBlock} onClick={props.handlePrint}>
-      <div className={btnContentWrapper}>
-        <FaPrint className="mr-2" /> Print Page
-      </div>
-    </button>
-  )
-}
-
-interface IBrowser {
-  name: string
-  is: boolean
-  warning: string
-}
-
-const PrintWarningButton = (props: { handlePrint: (e: any) => void }) => {
-  const browsers: IBrowser[] = [
-    { name: 'Firefox', is: is.firefox(), warning: `not correctly print this page` },
-  ]
-  const { name, warning } = browsers.find(b => b.is) as IBrowser
-  const tipProps = {
-    'data-for': 'printWarningButton',
-    'data-multiline': true,
-    'data-tip': `Warning: ${name} is known to ${warning}.<br />Switch to Chrome or Safari.`,
-    'data-type': 'error',
-  }
-
-  return (
-    <>
-      <IconContext.Provider value={{ className: 'text-warning', size: '1.5em' }}>
-        <button className={btnDarkBlock} onClick={props.handlePrint} {...tipProps}>
-          <div className={btnContentWrapper}>
-            <MdWarning className="mr-2" /> Print Page
-          </div>
-        </button>
-      </IconContext.Provider>
-      <ReactTooltip id={`printWarningButton`} />
-    </>
   )
 }

@@ -134,7 +134,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icon of Gork`,
-        desc: `If a model flees from a unit that includes any of these Icons, roll a D6 on a 6 the Standard Bearer thumps the cowardly orruk – they return to the fight and don't flee.`,
+        desc: `If a model flees from a unit that includes any of these Icons, roll a D6. On a 6 the Standard Bearer thumps the cowardly orruk - they return to the fight and don't flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
