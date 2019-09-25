@@ -9,6 +9,7 @@ import { ModalStyle } from '../../../theme/modalStyle'
 import { logEvent } from 'utils/analytics'
 
 const btnClass = `btn btn-outline-dark`
+var btnClassHidden = `btn btn-outline-dark`
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -47,6 +48,26 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
       showSavedArmies()
       logEvent(`SaveArmy`)
     }
+    debugger
+  }
+
+  if (!localStorage.getItem('armyID')) {
+    btnClassHidden = 'btnHidden'
+  } else {
+    btnClassHidden = `btn btn-outline-dark`
+  }
+
+  // TODO: Update logic to use new endpoint
+  const handleUpdateClick = e => {
+    e.preventDefault()
+    if (isSubscribed) {
+      const payload = prepareArmy({ ...army, armyName })
+      saveArmy(payload)
+      closeModal()
+      setArmyName('')
+      showSavedArmies()
+      logEvent(`UpdatedArmy`)
+    }
   }
 
   return (
@@ -77,6 +98,12 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
         <div className="row">
           <div className="col">
+            <button className={btnClassHidden} onClick={handleUpdateClick}>
+              <div className="d-flex align-items-center">
+                <FaSave className="mr-2" /> Updated Army
+              </div>
+            </button>
+
             <button className={btnClass} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
                 <FaSave className="mr-2" /> Save Army

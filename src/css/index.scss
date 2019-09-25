@@ -17,6 +17,10 @@ small {
 }
 
 /* Custom Classes */
+.btnHidden {
+    display: none;
+}
+
 .CardHeaderTitle {
     margin-bottom: 0;
 }
@@ -74,11 +78,11 @@ small {
     outline: none;
     transition: border .24s ease-in-out;
   }
-  
+
   .dropzone:focus {
     border-color: #2196f3;
   }
-  
+
   .dropzone.disabled {
     opacity: 0.6;
   }
