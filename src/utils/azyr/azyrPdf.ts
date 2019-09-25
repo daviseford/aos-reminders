@@ -3,17 +3,20 @@ import { uniq, sortBy } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
+import { TImportParsers } from 'types/import'
 
 const sep = ', '
 const commaAlt = `&&`
 const HEADER = 'HEADER'
 
-export const getPdfPages = async typedarray => {
+type TGetPdfPages = (typedarray: string) => Promise<{ pdfPages: string[]; parser: TImportParsers }>
+
+export const getPdfPages: TGetPdfPages = async typedarray => {
   try {
     pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
 
     //Step 5:PDFJS should be able to read this
-    const pdf = await pdfjsLib.getDocument(typedarray as any).promise
+    const pdf = await pdfjsLib.getDocument(typedarray).promise
 
     var numPages: number[] = []
     for (let i = 0; i < pdf.numPages; i++) {
@@ -50,12 +53,15 @@ export const getPdfPages = async typedarray => {
       })
       .join(' ')
 
-    if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', [result])
+    const pdfPages = [result]
+    const parser = pdfPages.some(x => x.includes('Warscroll Builder')) ? 'Warscroll Builder' : 'Azyr'
 
-    return [result]
+    if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
+
+    return { pdfPages, parser }
   } catch (err) {
     console.error(err)
-    return ['Error: Unable to read file.']
+    return { pdfPages: [], parser: 'Warscroll Builder' }
   }
 }
 

@@ -8,7 +8,7 @@ import { TAllyArmies, IArmy } from 'types/army'
 import { IAllySelections, ISelections } from 'types/selections'
 import { IStore } from 'types/store'
 import { processReminders } from 'utils/processReminders'
-import { savePdf } from './pdf'
+import { savePdf } from 'utils/pdf/generatePdf'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { logDownloadEvent } from 'utils/analytics'
 
