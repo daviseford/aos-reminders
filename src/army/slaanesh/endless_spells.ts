@@ -25,7 +25,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Exquisite Agony`,
         desc: `After this model has moved, roll 6 dice for each unit that has any models that this model passed across. That unit suffers 1 mortal wound for each roll that is less than that unit's unmodified Save characteristic.`,
-        when: [START_OF_ROUND, HERO_PHASE],
+        when: [START_OF_ROUND],
       },
     ],
   },
@@ -51,8 +51,8 @@ const EndlessSpells: TEndlessSpells = [
         name: `Gaze Not into its Depths`,
         desc: `After this model is set up, and after this model has moved, roll 6 dice for each Hero within 6" of this model (roll separately for each Hero). For each 6, that Hero suffers a number of mortal wounds equal to the number of 6s that were rolled for that Hero. This ability has no effect on Chaos Slaanesh Heroes. 
   
-                 For example, if you rolled one 6 for a Hero, that Hero would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that Hero would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that Hero would suffer 3 x 3 = 9 mortal wounds, and so on.`,
-        when: [START_OF_ROUND, HERO_PHASE],
+        For example, if you rolled one 6 for a Hero, that Hero would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that Hero would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that Hero would suffer 3 x 3 = 9 mortal wounds, and so on.`,
+        when: [START_OF_ROUND],
       },
     ],
   },
@@ -77,7 +77,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Flensing Tongues`,
         desc: `After this model has moved, roll 6 dice for the closest other unit within 6". If more than 1 other unit is equally close, the player that moved this model can choose which unit to roll the 6 dice for. That unit suffers 1 mortal wound for each roll of 4+.`,
-        when: [START_OF_ROUND, HERO_PHASE],
+        when: [START_OF_ROUND],
       },
       {
         name: `Terrifying Entity`,

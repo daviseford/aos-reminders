@@ -4,7 +4,6 @@ import { titleCase, getActionTitle } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections, ISelections } from 'types/selections'
-import { TRealms } from 'types/realmscapes'
 
 const xMargin = 0.5
 const yMargin = 0.75
@@ -22,11 +21,11 @@ type TStyleType =
   | 'army'
   | 'armyFooter'
   | 'armyName'
-  | 'phase'
-  | 'desc'
-  | 'title'
-  | 'spacer'
   | 'break'
+  | 'desc'
+  | 'phase'
+  | 'spacer'
+  | 'title'
   | 'titlespacer'
 type TTextStyle = 'bold' | 'normal' | 'italic'
 
@@ -95,7 +94,6 @@ interface IPrintPdf {
   allyFactionNames: TSupportedFaction[]
   allySelections: { [key: string]: IAllySelections }
   factionName: TSupportedFaction
-  realmscape: TRealms | null
   realmscape_feature: string | null
   selections: ISelections
   hiddenReminders: string[]
@@ -114,17 +112,12 @@ export const savePdf = (data: IPrintPdf) => {
 
   doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
-  console.log('fonts', doc.getFontList())
-
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const reminderText = getReminderText(doc, visibleReminders)
   const armyText = getArmyText(doc, { factionName, ...armyData })
-  console.log(armyText)
   const phaseInfo = getPhaseInfo(reminderText)
   const pages = splitTextToPages(reminderText, phaseInfo, armyText)
-
-  console.log(pages)
 
   pages.forEach((page, i) => {
     if (i !== 0) doc.addPage()
@@ -148,7 +141,8 @@ export const savePdf = (data: IPrintPdf) => {
       if (isPhase) {
         doc
           .setLineWidth(0.00055)
-          .setDrawColor(211, 211, 211)
+          // .setDrawColor(211, 211, 211)
+          .setDrawColor(28, 117, 149)
           .roundedRect(
             x - 0.1,
             y - style.spacing + 0.02,
@@ -177,14 +171,13 @@ interface IGetArmyText {
   allyFactionNames: TSupportedFaction[]
   allySelections: { [key: string]: IAllySelections }
   factionName: TSupportedFaction
-  realmscape: TRealms | null
   realmscape_feature: string | null
   selections: ISelections
 }
 
 const getArmyText = (
   doc: jsPDF,
-  { allyFactionNames, allySelections, factionName, realmscape, realmscape_feature, selections }: IGetArmyText
+  { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: IGetArmyText
 ): IText[] => {
   const {
     allegiances,
@@ -220,6 +213,7 @@ const getArmyText = (
 
   const selectionText = [
     getText('Unit', units),
+    ...allyFactionNames.map(n => getText(`Allied ${titleCase(n)} Unit`, allySelections[n].units)),
     getText('Artifact', artifacts),
     getText('Battalion', battalions),
     getText('Command Trait', traits),

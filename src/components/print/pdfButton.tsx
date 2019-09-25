@@ -5,7 +5,6 @@ import { MdFileDownload } from 'react-icons/md'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { TSupportedFaction } from 'meta/factions'
 import { TAllyArmies, IArmy } from 'types/army'
-import { TRealms } from 'types/realmscapes'
 import { IAllySelections, ISelections } from 'types/selections'
 import { IStore } from 'types/store'
 import { processReminders } from 'utils/processReminders'
@@ -22,7 +21,6 @@ interface IDownloadPDFProps {
   hiddenReminders: string[]
   isMobile: boolean
   realmscape_feature: string
-  realmscape: TRealms | null
   selections: ISelections
 }
 
@@ -36,7 +34,6 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     hiddenReminders,
     isMobile,
     realmscape_feature,
-    realmscape,
     selections,
   } = props
 
@@ -58,14 +55,13 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
     // And save the PDF (need to add an option for filename)
     savePdf({
-      factionName,
-      selections,
-      realmscape_feature,
       allyFactionNames,
       allySelections,
-      reminders,
-      realmscape,
+      factionName,
       hiddenReminders,
+      realmscape_feature,
+      reminders,
+      selections,
     })
   }
 
@@ -89,7 +85,6 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   factionName: factionNames.selectors.getFactionName(state),
   hiddenReminders: visibility.selectors.getReminders(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
 })
 
