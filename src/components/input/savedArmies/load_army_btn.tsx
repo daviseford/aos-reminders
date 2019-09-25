@@ -54,9 +54,9 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     const cachedArmy = localStorage.getItem('armyID')
 
     if (!cachedArmy) {
-      debugger
-      localStorage.setItem('loadedFaction', army.factionName)
+      localStorage.setItem('armyName', army.armyName)
       localStorage.setItem('armyID', army.id)
+      localStorage.setItem('userName', army.userName)
     }
   }
 

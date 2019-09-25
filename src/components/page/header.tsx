@@ -32,6 +32,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections()
     logFactionSwitch(value)
     setFactionName(value)
+    localStorage.clear()
   })
 
   const jumboClass = `jumbotron jumbotron-fluid text-center ThemeDarkBg text-white d-print-none mb-0 pt-4 ${

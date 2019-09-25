@@ -24,6 +24,7 @@ const handleCheckout = () => {
 
 const App = () => {
   useEffect(() => handleCheckout(), []) // Post-checkout handling
+  useEffect(() => localStorage.clear())
 
   return (
     <div className="d-block">
