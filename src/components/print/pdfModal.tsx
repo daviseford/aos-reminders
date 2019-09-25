@@ -61,7 +61,8 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
             <form>
               <div className="form-group">
                 <label htmlFor="nameInput">
-                  <strong>Filename</strong> <span className="text-muted">.pdf</span>
+                  <strong>Filename.</strong>
+                  <span className="text-muted">pdf</span>
                 </label>
                 <input
                   className="form-control form-control-sm"

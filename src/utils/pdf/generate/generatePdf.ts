@@ -5,6 +5,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TStyleType, Styles } from './styles'
+import { Logo } from './logo'
 
 const xMargin = 0.5
 const yMargin = 0.75
@@ -43,7 +44,10 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  doc.setFont('helvetica').setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+  doc
+    .setFont('helvetica')
+    .setTextColor(0, 0, 0)
+    .setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
@@ -52,13 +56,13 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
   const phaseInfo = getPhaseInfo(reminderText)
   const pages = splitTextToPages(reminderText, phaseInfo, armyText)
 
-  pages.forEach((page, i) => {
-    if (i !== 0) doc.addPage()
+  pages.forEach((page, pageNum) => {
+    if (pageNum !== 0) doc.addPage()
     let [x, y] = getInitialXY()
 
-    page.forEach((t, ii) => {
+    page.forEach((t, i) => {
       // Don't add spacers to the start or end of page
-      if ((ii === 0 || ii === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
+      if ((i === 0 || i === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
 
       const isPhase = t.type === 'phase'
       const isArmy = t.type.startsWith('army')
@@ -100,6 +104,28 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
       }
 
       y = y + style.spacing
+
+      // Add page numbers and watermark on the first pass of a page
+      if (i === 0) {
+        const watermarkY = 0.33
+        doc
+          .setTextColor(128, 128, 128)
+          .setFontSize(Styles.desc.fontSize)
+          .setFontStyle(Styles.desc.style)
+          .text(`${pageNum + 1}`, pageWidth - xMargin - 0.11, watermarkY)
+          .setFontStyle(Styles.title.style)
+          .text(`aosreminders.com`, centerX, watermarkY, null, null, 'center')
+          .setTextColor(0, 0, 0) // Set color back to black
+      }
+
+      // If there's enough room on the last page, add the logo to it
+      if (pageNum === pages.length - 1 && i === page.length - 1) {
+        const [logoW, logoH, logoSpacer] = [1.43, 1, 0.25]
+
+        if (y + logoH + logoSpacer <= pageBottom) {
+          doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
+        }
+      }
     })
   })
 
@@ -170,7 +196,7 @@ const getSelections = (doc: jsPDF) => (name: string, items: string[], pluralize:
   const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
   const str = `${title}: ${items.join(' | ')}`
 
-  const lines: string[] = doc.splitTextToSize(str, maxTitleLineWidth)
+  const lines: string[] = doc.splitTextToSize(str, maxLineWidth)
 
   return lines.map(text => ({
     type: 'army',
@@ -187,7 +213,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
   let currentPhaseInfo = phaseInfo[phaseInfoIdx]
   let textPhaseIdx = 0
 
-  const ySpacing = Styles.spacer.spacing * 3
+  const ySpacing = Styles.spacer.spacing * 4
 
   allText.forEach((textObj, i) => {
     if (i === allText.length - 1 && textObj.type !== 'phase') {
@@ -245,7 +271,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
 
       if (y + firstActionYHeight + ySpacing >= pageBottom) {
         // Go to next page
-        pageIdx++
+        pageIdx = pageIdx + 1
         pages.push([])
         y = getInitialXY()[1] + firstActionYHeight
         pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
