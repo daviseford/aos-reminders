@@ -5,15 +5,16 @@ import { useSubscription } from 'context/useSubscription'
 import { BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
+import { EmptyHeader } from './loading'
+import { headerClass } from 'theme/helperClasses'
 
-export const NavBar: React.FC<{}> = () => {
+export const NavBar: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
   const { isSubscribed, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
     btn: `btn btn btn-outline-light btn-sm mx-2`,
-    header: `ThemeDarkBg pt-2 d-print-none d-flex justify-content-center align-items-center`,
     link: `font-weight-bold text-light mx-2`,
   }
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
@@ -29,11 +30,11 @@ export const NavBar: React.FC<{}> = () => {
   }
 
   if (loading || subscriptionLoading) {
-    return <header className={styles.header}></header>
+    return <EmptyHeader />
   }
 
   return (
-    <header className={styles.header}>
+    <header className={headerClass}>
       <div className="flex-grow-1"></div>
       <div>
         {pathname !== '/' && (

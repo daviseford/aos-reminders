@@ -14,7 +14,7 @@ import { ContactComponent } from 'components/page/contact'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
-export const Profile: React.FC<{}> = () => {
+const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription } = useSubscription()
 
@@ -45,7 +45,9 @@ export const Profile: React.FC<{}> = () => {
   )
 }
 
-export const UserCard: React.FC<{}> = () => {
+export default Profile
+
+const UserCard: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
   const { isActive, isSubscribed, subscription } = useSubscription()
 
