@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { without } from 'lodash'
@@ -14,8 +14,9 @@ import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
-import { ImportContainer } from './importPdf/drop_container'
-import { DownloadPDFButton } from 'components/print/pdfButton'
+
+const ImportContainer = lazy(() => import('components/input/importPdf/drop_container'))
+const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
@@ -54,7 +55,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
         <div className={btnWrapperClass}>
-          <DownloadPDFButton />
+          <Suspense fallback={<></>}>
+            <DownloadPDFButton />
+          </Suspense>
         </div>
         <div className={btnWrapperClass}>
           <SaveArmyBtn showSavedArmies={showSavedArmies} />
@@ -78,10 +81,10 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
       </div>
 
-      {/* TODO Restore */}
-      {/* <div hidden={!isShowingImport}> */}
-      <div hidden={false}>
-        <ImportContainer />
+      <div hidden={!isShowingImport}>
+        <Suspense fallback={<></>}>
+          <ImportContainer />
+        </Suspense>
       </div>
 
       <div hidden={!isShowingSavedArmies}>

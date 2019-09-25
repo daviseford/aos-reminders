@@ -88,7 +88,9 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   selections: selections.selectors.getSelections(state),
 })
 
-export const DownloadPDFButton = connect(
+const DownloadPDFButton = connect(
   mapStateToProps,
   null
 )(componentWithSize(DownloadPDFComponent))
+
+export default DownloadPDFButton
