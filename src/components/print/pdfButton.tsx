@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { army, selections, factionNames, visibility, realmscape } from 'ducks'
 import { MdFileDownload } from 'react-icons/md'
@@ -11,6 +11,8 @@ import { processReminders } from 'utils/processReminders'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { logDownloadEvent } from 'utils/analytics'
+import jsPDF from 'jspdf'
+import { DownloadPDFModal } from './pdfModal'
 
 interface IDownloadPDFProps {
   allyArmies: TAllyArmies
@@ -37,6 +39,12 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     selections,
   } = props
 
+  const [pdf, setPdf] = useState<jsPDF | null>(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
+
   const handleDownload = e => {
     e.preventDefault()
 
@@ -53,8 +61,8 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       allySelections
     )
 
-    // And save the PDF (need to add an option for filename)
-    savePdf({
+    // Get the PDF ready to be saved
+    const doc = savePdf({
       allyFactionNames,
       allySelections,
       factionName,
@@ -63,16 +71,27 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       reminders,
       selections,
     })
+
+    setPdf(doc)
+    openModal()
   }
 
   const text = `Download${isMobile ? `` : ` PDF`}`
 
   return (
-    <button className={btnDarkBlock} onClick={handleDownload}>
-      <div className={btnContentWrapper}>
-        <MdFileDownload className="mr-2" /> {text}
-      </div>
-    </button>
+    <>
+      <button className={btnDarkBlock} onClick={handleDownload}>
+        <div className={btnContentWrapper}>
+          <MdFileDownload className="mr-2" /> {text}
+        </div>
+      </button>
+      <DownloadPDFModal
+        factionName={factionName}
+        pdf={pdf as jsPDF}
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+      />
+    </>
   )
 }
 

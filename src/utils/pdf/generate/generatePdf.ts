@@ -33,7 +33,7 @@ interface IPrintPdf {
   reminders: IReminder
 }
 
-export const savePdf = (data: IPrintPdf) => {
+export const savePdf = (data: IPrintPdf): jsPDF => {
   const { factionName, hiddenReminders, reminders, ...armyData } = data
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
@@ -74,7 +74,6 @@ export const savePdf = (data: IPrintPdf) => {
       if (isPhase) {
         doc
           .setLineWidth(0.00055)
-          // .setDrawColor(211, 211, 211)
           .setDrawColor(28, 117, 149)
           .roundedRect(
             x - 0.1,
@@ -88,14 +87,14 @@ export const savePdf = (data: IPrintPdf) => {
       }
       if (t.type === 'armyName') {
         doc
-          .setLineWidth(0.02)
+          .setLineWidth(0.00055)
           .setDrawColor(28, 117, 149)
           .line(x - 0.1, y - style.spacing, pageWidth - xMargin + 0.1, y - style.spacing)
       }
 
       if (t.type === 'armyEnd') {
         doc
-          .setLineWidth(0.02)
+          .setLineWidth(0.00055)
           .setDrawColor(28, 117, 149)
           .line(x - 0.1, y + style.spacing, pageWidth - xMargin + 0.1, y + style.spacing)
       }
@@ -104,7 +103,7 @@ export const savePdf = (data: IPrintPdf) => {
     })
   })
 
-  doc.save('two-by-four.pdf')
+  return doc
 }
 
 interface IGetArmyText {
