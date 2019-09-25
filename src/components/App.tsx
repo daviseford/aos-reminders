@@ -1,4 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
+import Home from 'components/routes/Home'
 import { Loading } from 'components/page/loading'
 
 // Auth
@@ -21,7 +22,6 @@ const handleCheckout = () => {
 }
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import('components/routes/Home'))
 const Profile = lazy(() => import('components/routes/Profile'))
 const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
