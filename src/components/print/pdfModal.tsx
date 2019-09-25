@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
@@ -18,9 +18,19 @@ interface IModalComponentProps {
 
 Modal.setAppElement('#root')
 
+const getDefaultName = (factionName: TSupportedFaction) => {
+  return `${titleCase(factionName)
+    .split(' ')
+    .join('_')}_Reminders`
+}
+
 export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
-  const [fileName, setFileName] = useState(titleCase(factionName))
+  const [fileName, setFileName] = useState(getDefaultName(factionName))
+
+  useEffect(() => {
+    setFileName(getDefaultName(factionName))
+  }, [factionName])
 
   const handleUpdateName = (e: any) => {
     e.preventDefault()
@@ -45,22 +55,22 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
 
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
-      <div className={`container`}>
+      <div className={`container mr-3 pl-0`}>
         <div className="row">
           <div className="col">
             <form>
               <div className="form-group">
                 <label htmlFor="nameInput">
-                  <strong>File Name</strong>
+                  <strong>Filename</strong>
+                  <span className="text-muted">.pdf</span>
                 </label>
                 <input
-                  className="form-control"
+                  className="form-control form-control-sm"
                   aria-describedby="nameHelp"
                   placeholder="Enter file name"
-                  // value={titleCase(factionName)}
+                  value={getDefaultName(factionName)}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
-                  defaultValue={titleCase(factionName)}
                 />
               </div>
             </form>
@@ -68,14 +78,14 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
         </div>
 
         <div className="row">
-          <div className="col">
-            <button className={btnClass} onClick={handleSaveClick}>
+          <div className="col px-0">
+            <button className={`${btnClass} ml-3 mr-5`} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
                 <MdFileDownload className="mr-2" /> Download
               </div>
             </button>
 
-            <button className={`btn btn-outline-danger`} onClick={closeModal}>
+            <button className={`btn btn-outline-danger ml-3`} onClick={closeModal}>
               <div className="d-flex align-items-center">Cancel</div>
             </button>
           </div>

@@ -147,7 +147,7 @@ const getArmyText = (
     getText('Artifact', artifacts),
     getText('Battalion', battalions),
     getText('Command Trait', traits),
-    getText('Command', commands),
+    getText('Command Abilities', commands, false),
     getText('Allegiance', allegiances),
     getText('Spell', spells),
     getText('Endless Spell', endless_spells),
@@ -187,7 +187,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
   let currentPhaseInfo = phaseInfo[phaseInfoIdx]
   let textPhaseIdx = 0
 
-  const ySpacing = Styles.spacer.spacing * 4
+  const ySpacing = Styles.spacer.spacing * 3
 
   allText.forEach((textObj, i) => {
     if (i === allText.length - 1 && textObj.type !== 'phase') {
