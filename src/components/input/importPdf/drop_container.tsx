@@ -91,7 +91,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
   )
 }
 
-export const ImportContainer = connect(
+const ImportContainer = connect(
   null,
   {
     setFactionName: factionNames.actions.setFactionName,
@@ -103,6 +103,8 @@ export const ImportContainer = connect(
     updateSelections: selections.actions.updateSelections,
   }
 )(ImportContainerComponent)
+
+export default ImportContainer
 
 const ErrorAlert = (props: TImportError) => {
   const { text, severity } = props

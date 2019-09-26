@@ -30,11 +30,14 @@ const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
 
   if (file.isText) return file
 
-  file.pdfPages = await getPdfPages(typedArray)
-  file.isWarscroll = file.pdfPages.some(x => x.includes('Warscroll Builder'))
-  file.parser = file.isWarscroll ? 'Warscroll Builder' : 'Azyr'
+  const { pdfPages, parser } = await getPdfPages(typedArray)
 
-  return file
+  return {
+    ...file,
+    pdfPages,
+    parser,
+    isWarscroll: parser === 'Warscroll Builder',
+  }
 }
 
 export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, setParser) => {

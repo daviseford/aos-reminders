@@ -37,7 +37,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ankusha Spu`,
-        desc: `Add 3" to the bearer's Move characteristic. In addition, re-roll hit rolls of 1 for attacks made by the bearer's mount.`,
+        desc: `Add 3" to the bearer's Move characteristic. In addition, re-roll hit rolls of 1 for attacks made by the bearer's mount.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lliandra's Last Lament`,
-        desc: `Once per battle, at the start of the battleshock phase, you can say that the bearer will release Lliandra's Last Lament. If you do so, friendly IDONETH DEEPKIN units wholly within 18" of the bearer do not have to take battleshock tests that phase.`,
+        desc: `Once per battle, at the start of the battleshock phase, you can say that the bearer will release Lliandra's Last Lament. If you do so, friendly IDONETH DEEPKIN units wholly within 18" of the bearer do not have to take battleshock tests that phase.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
     ],
@@ -193,7 +193,7 @@ const Artifacts: TArtifacts = [
         
         b) Roll a D6 for each HERO picked. On a 5+ that hero suffers D3 mortal wounds.
         
-        c) Each HERO picked suffers D3 mortal wounds. Then roll a D6. On a 4+ the bearer suffers D3 mortal wounds`,
+        c) Each HERO picked suffers D3 mortal wounds. Then roll a D6. On a 4+ the bearer suffers D3 mortal wounds`,
         when: [START_OF_HERO_PHASE],
       },
     ],

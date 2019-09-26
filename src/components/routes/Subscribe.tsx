@@ -7,7 +7,7 @@ import { PricingPlans } from 'components/payment/pricingPlans'
 import { Loading } from 'components/page/loading'
 import { ContactComponent } from 'components/page/contact'
 
-export const Subscribe: React.FC<{}> = () => {
+const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
   const { isSubscribed, getSubscription } = useSubscription()
 
@@ -102,6 +102,8 @@ export const Subscribe: React.FC<{}> = () => {
     </div>
   )
 }
+
+export default Subscribe
 
 const AlreadySubscribed = () => {
   return (

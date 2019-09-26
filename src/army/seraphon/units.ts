@@ -210,7 +210,7 @@ export const Units: TUnits = [
       },
       {
         name: `Scent of Weakness`,
-        desc: `If the Saurus Sunblood uses this ability, pick an enemy unit within 15" – until your next hero phase, re-roll failed hit rolls for attacks made in the combat phase against that unit by any of your Saurus models.`,
+        desc: `If the Saurus Sunblood uses this ability, pick an enemy unit within 15" - until your next hero phase, re-roll failed hit rolls for attacks made in the combat phase against that unit by any of your Saurus models.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -523,7 +523,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aim for their Eyes`,
-        desc: `If you roll a hit roll of 6 or more for a Goad-spear, that attack has struck the target in the eyes and wounds automatically – there is no need to make a wound roll for that attack.`,
+        desc: `If you roll a hit roll of 6 or more for a Goad-spear, that attack has struck the target in the eyes and wounds automatically - there is no need to make a wound roll for that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -578,7 +578,7 @@ export const Units: TUnits = [
       },
       {
         name: `Jaws like a Steel Trap`,
-        desc: `If the wound roll for an attack made with a model's Vice-like Jaws is 6+, both you and your opponent roll a D6. If you score higher, your opponent does not make a save roll – instead, the target suffers a number of mortal wounds equal to the difference between the two dice rolls. Otherwise, the attack causes no damage.`,
+        desc: `If the wound roll for an attack made with a model's Vice-like Jaws is 6+, both you and your opponent roll a D6. If you score higher, your opponent does not make a save roll - instead, the target suffers a number of mortal wounds equal to the difference between the two dice rolls. Otherwise, the attack causes no damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -643,7 +643,7 @@ export const Units: TUnits = [
       },
       {
         name: `Drawn to the Screams`,
-        desc: `If a unit suffers any wounds from this model's Noxious Spittle in the shooting phase, and the Troglodon charges in the subsequent charge phase, you can add 3" to its charge distance as long as it ends its charge within 1⁄2" of a screaming unit.`,
+        desc: `If a unit suffers any wounds from this model's Noxious Spittle in the shooting phase, and the Troglodon charges in the subsequent charge phase, you can add 3" to its charge distance as long as it ends its charge within 1/2" of a screaming unit.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -802,7 +802,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Appear at Kuoteq's Command`,
-        desc: `In your hero phase, you can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll – Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up in this way cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq's command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
+        desc: `In your hero phase, you can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll - Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up in this way cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq's command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [HERO_PHASE],
       },
       {

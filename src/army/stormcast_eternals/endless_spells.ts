@@ -68,7 +68,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Burning Vengeance`,
-        desc: `After this model is set up, roll a D6 for each unit within 10" of this model. On a 1‑2, that unit suffers 1 mortal wound. On a 3‑4, that unit suffers D3 mortal wounds. On a 5‑6, that unit suffers 3 mortal wounds.`,
+        desc: `After this model is set up, roll a D6 for each unit within 10" of this model. On a 1-2, that unit suffers 1 mortal wound. On a 3-4, that unit suffers D3 mortal wounds. On a 5-6, that unit suffers 3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -78,7 +78,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Burning Vengeance`,
-        desc: `At the start of each battle round, roll a D6 for each unit within 5" of this model. On a 1‑3, that unit suffers 1 mortal wound. On a 4‑6, that unit suffers D3 mortal wounds.`,
+        desc: `At the start of each battle round, roll a D6 for each unit within 5" of this model. On a 1-3, that unit suffers 1 mortal wound. On a 4-6, that unit suffers D3 mortal wounds.`,
         when: [START_OF_ROUND],
       },
     ],

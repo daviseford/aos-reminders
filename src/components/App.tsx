@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
-import { Home } from 'components/routes/Home'
+import React, { useEffect, lazy, Suspense } from 'react'
+import Home from 'components/routes/Home'
+import { Loading } from 'components/page/loading'
 
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
-import { Profile } from 'components/routes/Profile'
-import { Subscribe } from 'components/routes/Subscribe'
 import qs from 'qs'
 import { logEvent } from 'utils/analytics'
 
@@ -22,17 +21,23 @@ const handleCheckout = () => {
   }
 }
 
+// Lazy loading routes (takes advantage of code splitting)
+const Profile = lazy(() => import('components/routes/Profile'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
+
 const App = () => {
   useEffect(() => handleCheckout(), []) // Post-checkout handling
 
   return (
     <div className="d-block">
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <Route path="/subscribe" component={Subscribe} />
-        </Switch>
+        <Suspense fallback={<Loading />}>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <Route path="/subscribe" component={Subscribe} />
+          </Switch>
+        </Suspense>
       </BrowserRouter>
     </div>
   )

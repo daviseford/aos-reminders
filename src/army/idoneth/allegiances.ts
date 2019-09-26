@@ -39,17 +39,17 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Fiercest of Creatures`,
-        desc: `In the combat phase, re-roll wound rolls of 1 for Fuethán mounts.`,
+        desc: `In the combat phase, re-roll wound rolls of 1 for Fuethan mounts.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Revel in Slaughter`,
-        desc: `You can re-roll hit rolls of 1 for Fuethán units that are affected by the Flood Tide ability from the Tides of Death.`,
+        desc: `You can re-roll hit rolls of 1 for Fuethan units that are affected by the Flood Tide ability from the Tides of Death.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Revel in Slaughter`,
-        desc: `Whenever a Fuethán unit would be affected by the Ebb Tide ability from the Tides of Death table, they are instead affected by the Flood Tide ability from the same table.`,
+        desc: `Whenever a Fuethan unit would be affected by the Ebb Tide ability from the Tides of Death table, they are instead affected by the Flood Tide ability from the same table.`,
         when: [DURING_GAME],
       },
     ],

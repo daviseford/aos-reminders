@@ -10,6 +10,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
+import { TRealms } from 'types/realmscapes'
 
 interface IRemindersProps {
   allyArmies: TAllyArmies
@@ -17,9 +18,11 @@ interface IRemindersProps {
   allySelections: { [key: string]: IAllySelections }
   army: IArmy
   factionName: TSupportedFaction
+  hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
   realmscape_feature: string
+  realmscape: TRealms | null
   selections: ISelections
   showWhen: (value: string) => void
   visibleWhens: string[]
@@ -93,9 +96,11 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   allySelections: selections.selectors.getAllySelections(state),
   army: army.selectors.getArmy(state),
   factionName: factionNames.selectors.getFactionName(state),
-  visibleWhens: visibility.selectors.getWhen(state),
+  hiddenReminders: visibility.selectors.getReminders(state),
   realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
+  realmscape: realmscape.selectors.getRealmscape(state),
   selections: selections.selectors.getSelections(state),
+  visibleWhens: visibility.selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {

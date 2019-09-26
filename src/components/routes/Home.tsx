@@ -9,7 +9,7 @@ import { PrintFooterComponent, PrintArmy } from 'components/print/print'
 import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
 
-export const Home: React.FC<{}> = () => {
+const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
 
   useEffect(() => {
@@ -40,3 +40,5 @@ export const Home: React.FC<{}> = () => {
     </>
   )
 }
+
+export default Home

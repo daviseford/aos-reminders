@@ -7,7 +7,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Brain-busta`,
-        desc: `Brain-busta has a casting value of 5. If successfully cast, pick 1 enemy unit within 15" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Bravery characteristic, that unit suﬀers D3 mortal wounds; if not, that unit suﬀers 1 mortal wound.`,
+        desc: `Brain-busta has a casting value of 5. If successfully cast, pick 1 enemy unit within 15" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Bravery characteristic, that unit suffers D3 mortal wounds; if not, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mighty 'Eadbutt`,
-        desc: `Casting value of 5. If successfully cast, pick 1 enemy HERO within 16" of the caster and visible to them. That HERO suﬀers 1 mortal wound. If that HERO is a WIZARD, they suﬀer D3 mortal wounds instead of 1.`,
+        desc: `Casting value of 5. If successfully cast, pick 1 enemy HERO within 16" of the caster and visible to them. That HERO suffers 1 mortal wound. If that HERO is a WIZARD, they suffer D3 mortal wounds instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Da Blazin' Eyes`,
-        desc: `Casting value of 6. If successfully cast, pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Ten draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each enemy model passed across by this line. On a 5+ that model's unit suﬀers 1 mortal wound.`,
+        desc: `Casting value of 6. If successfully cast, pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each enemy model passed across by this line. On a 5+ that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -57,7 +57,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Power of Da Waaagh!`,
-        desc: `Power of Da Waaagh! has a casting value of 8. If successfully cast, roll 1 dice for each friendly IRONJAWZ unit with 2 or more models that is wholly within 18" of the caster. For each 3+, you can pick 1 diﬀerent enemy unit within 24" of the caster. That unit suﬀers D3 mortal wounds. For each 6, that unit suﬀers D6 mortal wounds instead of D3.`,
+        desc: `Casting value of 8. If successfully cast, roll 1 dice for each friendly IRONJAWZ unit with 2 or more models that is wholly within 18" of the caster. For each 3+, you can pick 1 different enemy unit within 24" of the caster. That unit suffers D3 mortal wounds. For each 6, that unit suffers D6 mortal wounds instead of D3.`,
         when: [HERO_PHASE],
       },
     ],
