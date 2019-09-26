@@ -1,4 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
+import Home from 'components/routes/Home'
 import { Loading } from 'components/page/loading'
 
 // Auth
@@ -7,7 +8,6 @@ import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
 const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
 const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
 
