@@ -46,7 +46,9 @@ const mapDispatchToProps = {
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
-export const AlliedArmies = connect(
+const AlliedArmies = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AlliedArmiesComponent)
+
+export default AlliedArmies
