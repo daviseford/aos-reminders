@@ -5,7 +5,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { titleCase } from 'utils/textUtils'
 import { logAllyFaction } from 'utils/analytics'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
-import { selections, army, visibility } from 'ducks'
+import { selections, army, visibility, selectors } from 'ducks'
 import { IconContext } from 'react-icons'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
@@ -114,9 +114,9 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  visibleAllies: visibility.selectors.getAllies(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
+  allySelections: selectors.getAllySelections(state),
+  visibleAllies: selectors.getAllies(state),
 })
 
 const mapDispatchToProps = {
