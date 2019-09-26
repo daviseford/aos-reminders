@@ -68,7 +68,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
                   className="form-control form-control-sm"
                   aria-describedby="nameHelp"
                   placeholder="Enter file name"
-                  value={getDefaultName(factionName)}
+                  defaultValue={getDefaultName(factionName)}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
                 />
