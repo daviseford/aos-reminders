@@ -3,7 +3,7 @@ import { StripeProvider } from 'react-stripe-elements'
 
 type TProvider = React.FC<{ apiKey: string }>
 
-const AsyncStripeProviderFC: TProvider = props => {
+const AsyncStripeProvider: TProvider = props => {
   const { apiKey, children } = props
   const [stripe, setStripe] = useState<stripe.Stripe | null>(null)
   const isMounted = useRef(false)
@@ -27,7 +27,8 @@ const AsyncStripeProviderFC: TProvider = props => {
     const stripeJs = document.createElement('script')
     stripeJs.src = 'https://js.stripe.com/v3/'
     stripeJs.async = true
-    // And tell our component what to do once the script has loaded
+
+    // Tell our component what to do once the script has loaded
     stripeJs.onload = () => {
       // Only update Stripe if this component is still mounted
       if (isMounted) setStripe(window.Stripe(apiKey))
@@ -46,4 +47,4 @@ const AsyncStripeProviderFC: TProvider = props => {
   )
 }
 
-export default AsyncStripeProviderFC
+export default AsyncStripeProvider
