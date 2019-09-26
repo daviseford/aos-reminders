@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { IRealmscapeStore } from 'types/store'
 
@@ -40,13 +40,3 @@ export const realmscape = createSlice({
     setRealmscapeFeature,
   },
 })
-
-realmscape.selectors.getRealmscape = createSelector(
-  ['realmscape.realmscape'],
-  realmscape => realmscape
-)
-
-realmscape.selectors.getRealmscapeFeature = createSelector(
-  ['realmscape.realmscape_feature'],
-  realmscape_feature => realmscape_feature
-)

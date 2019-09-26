@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
-import { factionNames, selections } from 'ducks'
+import { factionNames, selections, selectors } from 'ducks'
 import { SelectOne } from 'components/input/select'
 import { NavBar } from 'components/page/navbar'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
@@ -68,7 +68,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
-    factionName: factionNames.selectors.getFactionName(state),
+    factionName: selectors.getFactionName(state),
   }
 }
 

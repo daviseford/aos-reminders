@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { army, selections, factionNames, visibility, realmscape } from 'ducks'
+import { selectors } from 'ducks'
 import { MdFileDownload } from 'react-icons/md'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { TSupportedFaction } from 'meta/factions'
@@ -95,16 +95,17 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   )
 }
 
+// TODO: Replace with getCurrentArmy
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyArmies: army.selectors.getAllyArmies(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  army: army.selectors.getArmy(state),
-  factionName: factionNames.selectors.getFactionName(state),
-  hiddenReminders: visibility.selectors.getReminders(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  selections: selections.selectors.getSelections(state),
+  allyArmies: selectors.getAllyArmies(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
+  allySelections: selectors.getAllySelections(state),
+  army: selectors.getArmy(state),
+  factionName: selectors.getFactionName(state),
+  hiddenReminders: selectors.getReminders(state),
+  realmscape_feature: selectors.getRealmscapeFeature(state),
+  selections: selectors.getSelections(state),
 })
 
 const DownloadPDFButton = connect(

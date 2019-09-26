@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
 import { ISelectionStore } from 'types/store'
@@ -96,19 +96,3 @@ export const selections = createSlice({
     updateUnits,
   },
 })
-
-selections.selectors.getSelections = createSelector(
-  ['selections.selections'],
-  selections => selections
-)
-
-selections.selectors.getAllySelections = createSelector(
-  ['selections.allySelections'],
-  allySelections => allySelections
-)
-
-//@ts-ignore
-selections.selectors.getAllyFactionNames = createSelector(
-  ['selections.allySelections'],
-  allySelections => Object.keys(allySelections)
-)

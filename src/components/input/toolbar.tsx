@@ -5,7 +5,7 @@ import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logClick } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
-import { factionNames, selections, army } from 'ducks'
+import { selections, army, selectors } from 'ducks'
 import { FaPlus, FaFileImport } from 'react-icons/fa'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
@@ -96,8 +96,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  factionName: factionNames.selectors.getFactionName(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
+  factionName: selectors.getFactionName(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {

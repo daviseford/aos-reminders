@@ -2,7 +2,7 @@ import React, { useMemo, Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import { titleCase } from 'utils/textUtils'
-import { factionNames, selections, realmscape } from 'ducks'
+import { selectors } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { IStore } from 'types/store'
@@ -63,10 +63,10 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allySelections: selections.selectors.getAllySelections(state),
-  factionName: factionNames.selectors.getFactionName(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  selections: selections.selectors.getSelections(state),
+  allySelections: selectors.getAllySelections(state),
+  factionName: selectors.getFactionName(state),
+  realmscape_feature: selectors.getRealmscapeFeature(state),
+  selections: selectors.getSelections(state),
 })
 
 const PrintArmy = connect(

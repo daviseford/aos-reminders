@@ -35,7 +35,7 @@ export interface IVisibilityStore {
 
 export interface IStore {
   army: IArmyStore
-  factionName: IFactionNameStore
+  factionNames: IFactionNameStore
   realmscape: IRealmscapeStore
   savedArmies: TSavedArmiesStore
   selections: ISelectionStore

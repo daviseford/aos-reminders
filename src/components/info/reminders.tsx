@@ -4,7 +4,7 @@ import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/textUtils'
-import { realmscape, factionNames, selections, army, visibility } from 'ducks'
+import { visibility, selectors } from 'ducks'
 import { Reminder } from 'components/info/reminder'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
@@ -89,18 +89,19 @@ const RemindersComponent = (props: IRemindersProps) => {
   )
 }
 
+// TODO: Replace with getCurrentArmy
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyArmies: army.selectors.getAllyArmies(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  army: army.selectors.getArmy(state),
-  factionName: factionNames.selectors.getFactionName(state),
-  hiddenReminders: visibility.selectors.getReminders(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  realmscape: realmscape.selectors.getRealmscape(state),
-  selections: selections.selectors.getSelections(state),
-  visibleWhens: visibility.selectors.getWhen(state),
+  allyArmies: selectors.getAllyArmies(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
+  allySelections: selectors.getAllySelections(state),
+  army: selectors.getArmy(state),
+  factionName: selectors.getFactionName(state),
+  hiddenReminders: selectors.getReminders(state),
+  realmscape_feature: selectors.getRealmscapeFeature(state),
+  realmscape: selectors.getRealmscape(state),
+  selections: selectors.getSelections(state),
+  visibleWhens: selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {

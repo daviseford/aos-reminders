@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
-import { factionNames, selections, army } from 'ducks'
+import { selections, army, selectors } from 'ducks'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'
 import { TUnits, IArmy } from 'types/army'
@@ -36,8 +36,8 @@ const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  factionName: factionNames.selectors.getFactionName(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
+  factionName: selectors.getFactionName(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
 })
 
 const mapDispatchToProps = {

@@ -5,13 +5,13 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
-import { duckUtils } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { armyHasEntries } from 'utils/armyUtils'
 import { logClick } from 'utils/analytics'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
+import { selectors } from 'ducks'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -53,7 +53,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  currentArmy: duckUtils.getCurrentArmy(state),
+  currentArmy: selectors.getCurrentArmy(state),
 })
 
 export const SaveArmyBtn = connect(

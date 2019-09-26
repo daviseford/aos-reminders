@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { IArmy } from 'types/army'
 import { Game } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
@@ -58,13 +58,3 @@ export const army = createSlice({
     updateArmy,
   },
 })
-
-army.selectors.getArmy = createSelector(
-  ['army.army'],
-  army => army
-)
-
-army.selectors.getAllyArmies = createSelector(
-  ['army.allyArmies'],
-  allyArmies => allyArmies
-)
