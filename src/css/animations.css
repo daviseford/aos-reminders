@@ -81,8 +81,7 @@
     }
 }
 
-
 .fade-out {
-    -webkit-animation: fade-out 1s ease-out infinite alternate-reverse both;
-    animation: fade-out 1s ease-out infinite alternate-reverse both;
+    -webkit-animation: fade-out 1s ease-out 1s infinite alternate both;
+    animation: fade-out 1s ease-out 1s infinite alternate both;
 }
