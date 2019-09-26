@@ -1,5 +1,4 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-// import Home from 'components/routes/Home'
 import { Loading } from 'components/page/loading'
 
 // Auth
