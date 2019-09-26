@@ -1,11 +1,12 @@
 import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { isDev } from 'utils/env'
+import { isDev, STRIPE_KEY } from 'utils/env'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import qs from 'qs'
+import AsyncStripeProvider from './asyncStripeProvider'
 
 interface ICheckoutProps {
   stripe?: any
@@ -115,8 +116,10 @@ const InjectedPricingPlans = injectStripe(PricingPlansComponent)
 
 export const PricingPlans = () => {
   return (
-    <Elements>
-      <InjectedPricingPlans />
-    </Elements>
+    <AsyncStripeProvider apiKey={STRIPE_KEY}>
+      <Elements>
+        <InjectedPricingPlans />
+      </Elements>
+    </AsyncStripeProvider>
   )
 }

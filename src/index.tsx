@@ -52,11 +52,9 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <SubscriptionProvider>
-          <App />
-        </SubscriptionProvider>
-      </StripeProvider>
+      <SubscriptionProvider>
+        <App />
+      </SubscriptionProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')
