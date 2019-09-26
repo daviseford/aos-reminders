@@ -15,8 +15,3 @@ export const factionNames = createSlice({
     },
   },
 })
-
-factionNames.selectors.getFactionName = createSelector(
-  ['factionNames.factionName'],
-  factionName => factionName
-)

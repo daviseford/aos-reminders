@@ -64,23 +64,3 @@ export const visibility = createSlice({
     deleteWhens,
   },
 })
-
-visibility.selectors.getAllies = createSelector(
-  ['visibility.allies'],
-  allies => allies
-)
-
-visibility.selectors.getReminders = createSelector(
-  ['visibility.reminders'],
-  reminders => reminders
-)
-
-visibility.selectors.getSelectors = createSelector(
-  ['visibility.selectors'],
-  selectors => selectors
-)
-
-visibility.selectors.getWhen = createSelector(
-  ['visibility.when'],
-  when => when
-)

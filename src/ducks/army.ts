@@ -58,13 +58,3 @@ export const army = createSlice({
     updateArmy,
   },
 })
-
-army.selectors.getArmy = createSelector(
-  ['army.army'],
-  army => army
-)
-
-army.selectors.getAllyArmies = createSelector(
-  ['army.allyArmies'],
-  allyArmies => allyArmies
-)
