@@ -333,7 +333,7 @@ const OfficialScenery: TScenery = [
     ],
   },
   {
-    name: `Sigmarite Dias`,
+    name: `Sigmarite Dais`,
     effects: [
       {
         name: `Bastion of Order`,
