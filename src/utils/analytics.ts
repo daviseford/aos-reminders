@@ -2,9 +2,12 @@ import ReactGA from 'react-ga'
 import { isValidFactionName } from './armyUtils'
 import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
+import { generateUUID } from './textUtils'
+import { SupportPlans } from 'components/payment/plans'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5')
+  if (isProd) ReactGA.plugin.require('ecommerce')
 }
 
 /**
@@ -98,4 +101,22 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
       label: 'AoS Reminders',
     })
   }
+}
+
+export const logSubscription = (planTitle: string) => {
+  const plan = SupportPlans.find(x => x.title === planTitle)
+  if (!isProd || !plan) return
+
+  const id = generateUUID()
+  ReactGA.plugin.execute('ecommerce', 'addItem', {
+    id,
+    name: plan.title,
+    sku: plan.prod,
+    price: plan.cost,
+    category: 'Subscription',
+    quantity: '1',
+  })
+  ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue: plan.cost })
+  ReactGA.plugin.execute('ecommerce', 'send', 'ga')
+  ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
 }
