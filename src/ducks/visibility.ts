@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { IVisibilityStore as IHiddenStore } from 'types/store'
 
 const initialState: IHiddenStore = {
