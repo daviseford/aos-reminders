@@ -12,10 +12,6 @@ import { Auth0Provider } from './react-auth0-wrapper'
 import config from './auth_config.json'
 import { SubscriptionProvider } from 'context/useSubscription'
 
-// Payment
-import { STRIPE_KEY } from 'utils/env'
-import { StripeProvider } from 'react-stripe-elements'
-
 // CSS
 import 'animate.css'
 import 'css/animations.css'
@@ -52,11 +48,9 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <SubscriptionProvider>
-          <App />
-        </SubscriptionProvider>
-      </StripeProvider>
+      <SubscriptionProvider>
+        <App />
+      </SubscriptionProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')
