@@ -22,8 +22,8 @@ export const Loading = () => (
         />
     </div> */}
     <div className="col text-center">
-      <h3>AoS Reminders</h3>
-      <p className="lead text-muted">Loading...</p>
+      <h3 className="pulsate-fwd">AoS Reminders</h3>
+      <p className="lead text-muted fade-out">Loading...</p>
     </div>
   </div>
 )
