@@ -52,7 +52,7 @@ const UserCard: React.FC = () => {
   const { isActive, isSubscribed, subscription } = useSubscription()
 
   return (
-    <div className="container py-4">
+    <div className="py-4">
       <h1 className="text-center">Your Profile</h1>
 
       <div className="media">
