@@ -1,7 +1,7 @@
 import { IStore } from 'types/store'
 
 // Army
-export const getArmy = (state: IStore) => state.army
+export const getArmy = (state: IStore) => state.army.army
 export const getAllyArmies = (state: IStore) => state.army.allyArmies
 
 // Faction Name
