@@ -106,17 +106,18 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
 export const logSubscription = (planTitle: string) => {
   const plan = SupportPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
-
-  const id = generateUUID()
-  ReactGA.plugin.execute('ecommerce', 'addItem', {
-    id,
-    name: plan.title,
-    sku: plan.prod,
-    price: plan.cost,
-    category: 'Subscription',
-    quantity: '1',
-  })
-  ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue: plan.cost })
-  ReactGA.plugin.execute('ecommerce', 'send', 'ga')
-  ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
+  try {
+    const id = generateUUID()
+    ReactGA.plugin.execute('ecommerce', 'addItem', {
+      id,
+      name: plan.title,
+      sku: plan.prod,
+      price: plan.cost,
+      category: 'Subscription',
+      quantity: '1',
+    })
+    ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue: plan.cost })
+    ReactGA.plugin.execute('ecommerce', 'send', 'ga')
+    ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
+  } catch (err) {}
 }
