@@ -28,7 +28,9 @@ const Home: React.FC = () => {
 
       <ArmyBuilder />
 
-      <AlliedArmies />
+      <Suspense fallback={<></>}>
+        <AlliedArmies />
+      </Suspense>
 
       <Toolbar />
 
