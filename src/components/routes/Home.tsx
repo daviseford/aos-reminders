@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense, lazy } from 'react'
 import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
-import { AlliedArmies } from 'components/input/ally_armies'
 import { ArmyBuilder } from 'components/input/army_builder'
-import { FooterComponent } from 'components/page/footer'
 import { Header } from 'components/page/header'
-import { PrintFooterComponent, PrintArmy } from 'components/print/print'
-import { Reminders } from 'components/info/reminders'
 import { Toolbar } from 'components/input/toolbar'
+
+const AlliedArmies = lazy(() => import('components/input/ally_armies'))
+const FooterComponent = lazy(() => import('components/page/footer'))
+const PrintArmy = lazy(() => import('components/print/printArmy'))
+const PrintFooter = lazy(() => import('components/print/printFooter'))
+const Reminders = lazy(() => import('components/info/reminders'))
 
 const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
@@ -30,13 +32,15 @@ const Home: React.FC = () => {
 
       <Toolbar />
 
-      <Reminders />
+      <Suspense fallback={<></>}>
+        <Reminders />
 
-      <PrintArmy />
+        <PrintArmy />
 
-      <PrintFooterComponent />
+        <PrintFooter />
 
-      <FooterComponent />
+        <FooterComponent />
+      </Suspense>
     </>
   )
 }

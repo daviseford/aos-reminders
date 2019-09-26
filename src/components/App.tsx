@@ -25,8 +25,8 @@ const handleCheckout = () => {
 }
 
 // Lazy loading routes (takes advantage of code splitting)
-const Profile = lazy(() => import('components/routes/Profile'))
-const Subscribe = lazy(() => import('components/routes/Subscribe'))
+const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
+const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => handleCheckout(), []) // Post-checkout handling

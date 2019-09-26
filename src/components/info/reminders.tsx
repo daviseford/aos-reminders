@@ -108,7 +108,9 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.addWhen,
 }
 
-export const Reminders = connect(
+const Reminders = connect(
   mapStateToProps,
   mapDispatchToProps
 )(componentWithSize(RemindersComponent))
+
+export default Reminders
