@@ -30,7 +30,7 @@
     "react-tooltip": "^3.11.1",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
-    "redux-starter-kit": "^0.6.3",
+    "redux-starter-kit": "^0.7.0",
     "string.prototype.matchall": "^3.0.1",
     "superagent": "^5.1.0",
     "typescript": "3.6.3"
