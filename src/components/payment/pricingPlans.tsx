@@ -1,12 +1,12 @@
 import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
+import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
+import AsyncStripeProvider from './asyncStripeProvider'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
-import { logClick } from 'utils/analytics'
-import qs from 'qs'
-import AsyncStripeProvider from './asyncStripeProvider'
 
 interface ICheckoutProps {
   stripe?: any
