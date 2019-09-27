@@ -18,9 +18,11 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   if (!loadedArmy) return null
 
   return (
-    <div className="row d-flex justify-content-center align-content-center">
+    <div className="row d-flex justify-content-center align-content-center mt-2">
       <div className="col-12 text-center">
-        <h5 className="text-secondary">{loadedArmy.armyName}</h5>
+        <h4 className="text-secondary">{loadedArmy.armyName}</h4>
+      </div>
+      <div className="col-6">
         {hasChanges && (
           <UpdateArmyBtn
             currentArmy={{ ...currentArmy, ...loadedArmy }}

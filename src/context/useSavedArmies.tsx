@@ -104,7 +104,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     async (id: string, data: { [key: string]: any }) => {
       try {
         const payload = { ...data, userName: user.email }
-        const res = await PreferenceApi.updateItem(id, payload)
+        await PreferenceApi.updateItem(id, payload)
         await loadSavedArmies()
       } catch (err) {
         console.error(err)
