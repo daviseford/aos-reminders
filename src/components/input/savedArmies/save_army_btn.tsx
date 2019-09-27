@@ -29,7 +29,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText = isAuthenticated ? `Save Army` : `Save Army`
+  const btnText = `Save Army`
 
   return (
     <>

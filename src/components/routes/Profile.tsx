@@ -5,7 +5,6 @@ import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
 import { IUser } from 'types/user'
-import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
@@ -94,16 +93,6 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   )
 }
 
-const InjectedCancelButton = injectStripe(CancelBtn)
-
-const CancelSubscription = () => {
-  return (
-    <Elements>
-      <InjectedCancelButton />
-    </Elements>
-  )
-}
-
 const SubscriptionInfo = ({ subscription, isSubscribed }) => {
   return (
     <div className="card mt-2">
@@ -159,7 +148,7 @@ const RecurringPaymentInfo = ({ isActive }) => {
       </div>
       {isActive && (
         <div className="card-body">
-          <CancelSubscription />
+          <CancelBtn />
         </div>
       )}
     </div>

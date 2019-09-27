@@ -6,6 +6,7 @@ import { btnContentWrapper } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
 import { IImportedArmy, TImportParsers } from 'types/import'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
@@ -13,6 +14,7 @@ interface IDropzoneProps {
 
 export const ImportDropzone: React.FC<IDropzoneProps> = props => {
   const { handleDrop } = props
+  const { setLoadedArmy } = useSavedArmies()
 
   const [isDone, setIsDone] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -30,6 +32,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
   }
 
   const startProcessing = () => {
+    setLoadedArmy(null)
     setIsDone(false)
     setIsError(false)
     setIsProcessing(true)

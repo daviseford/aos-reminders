@@ -1,4 +1,7 @@
 import { IStore } from 'types/store'
+import { ICurrentArmy } from 'types/army'
+import { TSupportedFaction } from 'meta/factions'
+import { TRealms } from 'types/realmscapes'
 
 // Army
 export const getArmy = (state: IStore) => state.army.army
@@ -8,11 +11,12 @@ export const getAllyArmies = (state: IStore) => state.army.allyArmies
 export const getFactionName = (state: IStore) => state.factionNames.factionName
 
 // Realmscape
-export const getRealmscape = (state: IStore) => state.realmscape.realmscape
+export const getRealmscape = (state: IStore) => state.realmscape.realmscape as TRealms | null
 export const getRealmscapeFeature = (state: IStore) => state.realmscape.realmscape_feature
 
 // Selections
-export const getAllyFactionNames = (state: IStore) => Object.keys(state.selections.allySelections)
+export const getAllyFactionNames = (state: IStore) =>
+  Object.keys(state.selections.allySelections) as TSupportedFaction[]
 export const getAllySelections = (state: IStore) => state.selections.allySelections
 export const getSelections = (state: IStore) => state.selections.selections
 
@@ -23,7 +27,7 @@ export const getSelectors = (state: IStore) => state.visibility.selectors
 export const getWhen = (state: IStore) => state.visibility.when
 
 // Utils
-export const getCurrentArmy = (state: IStore) => {
+export const getCurrentArmy = (state: IStore): ICurrentArmy => {
   return {
     allyFactionNames: getAllyFactionNames(state),
     allySelections: getAllySelections(state),

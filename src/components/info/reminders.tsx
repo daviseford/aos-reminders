@@ -6,54 +6,33 @@ import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/textUtils'
 import { visibility, selectors } from 'ducks'
 import { Reminder } from 'components/info/reminder'
-import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TAllyArmies } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
+import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { TRealms } from 'types/realmscapes'
 
-interface IRemindersProps {
+interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
-  allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
   army: IArmy
-  factionName: TSupportedFaction
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
-  realmscape_feature: string
-  realmscape: TRealms | null
-  selections: ISelections
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const {
-    allyArmies,
-    allyFactionNames,
-    allySelections,
-    army,
-    factionName,
-    hideWhens,
-    isMobile,
-    realmscape_feature,
-    selections,
-    showWhen,
-    visibleWhens,
-  } = props
+  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
   const reminders = useMemo(() => {
     return processReminders(
       army,
-      factionName,
-      selections,
-      realmscape_feature,
-      allyFactionNames,
+      currentArmy.factionName,
+      currentArmy.selections,
+      currentArmy.realmscape_feature,
+      currentArmy.allyFactionNames,
       allyArmies,
-      allySelections
+      currentArmy.allySelections
     )
-  }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
+  }, [army, allyArmies, currentArmy])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
@@ -62,7 +41,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   useEffect(() => {
     setFirstLoad(true)
-  }, [factionName])
+  }, [currentArmy.factionName])
 
   useEffect(() => {
     // Remove orphaned phases
@@ -82,25 +61,27 @@ const RemindersComponent = (props: IRemindersProps) => {
     <div className="row mx-auto mt-3 d-flex justify-content-center">
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map((when, i) => {
-          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
+          return (
+            <Reminder
+              isMobile={isMobile}
+              when={when}
+              actions={reminders[when]}
+              key={`${when}_${i}`}
+              idx={i}
+            />
+          )
         })}
       </div>
     </div>
   )
 }
 
-// TODO: Replace with getCurrentArmy
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
+  ...selectors.getCurrentArmy(state),
   allyArmies: selectors.getAllyArmies(state),
-  allyFactionNames: selectors.getAllyFactionNames(state),
-  allySelections: selectors.getAllySelections(state),
   army: selectors.getArmy(state),
-  factionName: selectors.getFactionName(state),
   hiddenReminders: selectors.getReminders(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  realmscape: selectors.getRealmscape(state),
-  selections: selectors.getSelections(state),
   visibleWhens: selectors.getWhen(state),
 })
 

@@ -10,15 +10,15 @@ import { IconContext } from 'react-icons'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
-import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/src/types'
-import { IStore } from 'types/store'
+import { IStore, TAllySelectionStore } from 'types/store'
 import { FaTrashAlt } from 'react-icons/fa'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { IAllySelections } from 'types/selections'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
-  allySelections: { [key: string]: IAllySelections } // state2Props
+  allySelections: TAllySelectionStore // state2Props
   allySelectOptions: TSupportedFaction[] // parent
   deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
   deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
@@ -47,7 +47,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     visibleAllies,
   } = props
 
-  const { units = [] } = allySelections[allyFactionName]
+  const { units = [] } = allySelections[allyFactionName] as IAllySelections
 
   const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
 

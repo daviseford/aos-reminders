@@ -1,30 +1,25 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { FaSave } from 'react-icons/fa'
-import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
-import { prepareArmy } from 'utils/armyUtils'
-import { SavedArmyTable } from './saved_army_table'
 import { ModalStyle } from 'theme/modalStyle'
-import { ISavedArmy } from 'types/savedArmy'
 
 const btnClass = `btn btn-outline-dark`
 
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
-  showSavedArmies: () => void
-  army: ISavedArmy
+  currentArmyName: string
+  id: string
 }
 
 Modal.setAppElement('#root')
 
-export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, showSavedArmies } = props
-  const { isSubscribed } = useSubscription()
-  const { saveArmy } = useSavedArmies()
-  const [armyName, setArmyName] = useState('')
+const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
+  const { closeModal, modalIsOpen, currentArmyName, id } = props
+  const { updateArmyName } = useSavedArmies()
+  const [armyName, setArmyName] = useState(currentArmyName)
 
   const handleUpdateName = (e: any) => {
     e.preventDefault()
@@ -35,36 +30,40 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     if (e.key === 'Enter') {
       e.stopPropagation()
       e.preventDefault()
-      handleSaveClick(e)
+      handleUpdateClick(e)
     }
   }
 
-  const handleSaveClick = e => {
+  const handleUpdateClick = e => {
     e.preventDefault()
-    if (isSubscribed) {
-      const payload = prepareArmy({ ...army, armyName }, 'save')
-      saveArmy(payload as ISavedArmy)
+    if (armyName === currentArmyName) {
       closeModal()
-      setArmyName('')
-      showSavedArmies()
-      logEvent(`SaveArmy`)
+      return // Don't hit the API if they don't make a change :)
     }
+    updateArmyName(id, armyName || 'Untitled')
+    closeModal()
+    setArmyName(armyName || 'Untitled')
+    logEvent(`UpdateArmyName`)
   }
 
   return (
-    <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
+    <Modal
+      style={ModalStyle}
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="Update Army Name Modal"
+    >
       <div className={`container`}>
         <div className="row">
           <div className="col">
             <form>
               <div className="form-group">
                 <label htmlFor="nameInput">
-                  <strong>Army Name</strong>
+                  <strong>Rename Army</strong>
                 </label>
                 <input
                   className="form-control"
                   aria-describedby="nameHelp"
-                  placeholder="Enter army name"
                   value={armyName}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
@@ -79,9 +78,9 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
         <div className="row">
           <div className="col">
-            <button className={btnClass} onClick={handleSaveClick}>
+            <button className={btnClass} onClick={handleUpdateClick}>
               <div className="d-flex align-items-center">
-                <FaSave className="mr-2" /> Save Army
+                <FaSave className="mr-2" /> Update
               </div>
             </button>
 
@@ -90,13 +89,9 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
             </button>
           </div>
         </div>
-
-        <div className="row mt-3">
-          <div className="col">
-            <SavedArmyTable army={army} />
-          </div>
-        </div>
       </div>
     </Modal>
   )
 }
+
+export default UpdateArmyNameModal
