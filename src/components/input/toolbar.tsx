@@ -10,14 +10,18 @@ import { FaPlus, FaFileImport } from 'react-icons/fa'
 import { FallbackBtn } from 'components/helpers/suspenseFallbacks'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
-import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 
-const ImportContainer = lazy(() => import('components/input/importPdf/drop_container'))
-const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
+const ImportContainer = lazy(() =>
+  import(/* webpackChunkName: 'drop_container' */ 'components/input/importPdf/drop_container')
+)
+const DownloadPDFButton = lazy(() => import(/* webpackChunkName: 'pdfButton' */ 'components/print/pdfButton'))
+const ShowSavedArmies = lazy(() =>
+  import(/* webpackChunkName: 'saved_armies' */ './savedArmies/saved_armies')
+)
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
@@ -89,7 +93,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
       </div>
 
       <div hidden={!isShowingSavedArmies}>
-        <ShowSavedArmies />
+        <Suspense fallback={<></>}>
+          <ShowSavedArmies />
+        </Suspense>
       </div>
     </div>
   )
