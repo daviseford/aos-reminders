@@ -7,13 +7,14 @@ import { logClick } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
 import { FaPlus, FaFileImport } from 'react-icons/fa'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { TUnits, IArmy } from 'types/army'
-import { IStore } from 'types/store'
+import { FallbackBtn } from 'components/helpers/suspenseFallbacks'
 import { SaveArmyBtn } from './savedArmies/save_army_btn'
 import { ShowSavedArmiesBtn } from './savedArmies/show_saved_armies_btn'
 import { ShowSavedArmies } from './savedArmies/saved_armies'
 import { btnContentWrapper, btnDarkBlock } from 'theme/helperClasses'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { TUnits, IArmy } from 'types/army'
+import { IStore } from 'types/store'
 
 const ImportContainer = lazy(() => import('components/input/importPdf/drop_container'))
 const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
@@ -55,7 +56,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
           <AddAllyButton setAllyClick={handleAllyClick} />
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<></>}>
+          <Suspense fallback={<FallbackBtn />}>
             <DownloadPDFButton />
           </Suspense>
         </div>
