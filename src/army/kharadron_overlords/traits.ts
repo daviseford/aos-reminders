@@ -4,6 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -130,6 +131,16 @@ const CommandTraits: TTraits = [
         name: `ARTYCLE: Settle the Grudges`,
         desc: `Choose an enemy unit, re-roll hit and wounds of 1 vs this enemy.`,
         when: [END_OF_SETUP, DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `AMENDMENT: Always Take What You Are Owed`,
+    effects: [
+      {
+        name: `AMENDMENT: Always Take What You Are Owed`,
+        desc: `Your Army can include one additional artifact of power.`,
+        when: [DURING_SETUP],
       },
     ],
   },
