@@ -10,7 +10,7 @@ interface IShowSavedArmiesBtn {
   isShowingSavedArmies: boolean
 }
 
-export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
+const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   isShowingSavedArmies,
   showSavedArmies,
   hideSavedArmies,
@@ -36,3 +36,5 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
     </>
   )
 }
+
+export default ShowSavedArmiesBtn
