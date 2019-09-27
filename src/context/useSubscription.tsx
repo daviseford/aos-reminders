@@ -47,6 +47,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
+  console.log(loadedArmy)
 
   const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])

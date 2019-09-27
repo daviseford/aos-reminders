@@ -24,7 +24,7 @@ const ShowSavedArmies: React.FC = () => {
     <div>
       <PaginateButtons pageNum={pageNum} setPageNum={setPageNum} numPages={paginatedArmies.length} />
 
-      <div className="row">
+      <div className="row justify-content-center">
         {paginatedArmies[pageNum - 1].map((army, i) => (
           <SavedArmyCard key={i} army={army} />
         ))}
