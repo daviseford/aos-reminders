@@ -4,6 +4,7 @@ import { useSubscription } from 'context/useSubscription'
 import ArmyBuilder from 'components/input/army_builder'
 import { Header } from 'components/page/homeHeader'
 import { Toolbar } from 'components/input/toolbar'
+import LoadedArmyHeader from 'components/input/savedArmies/loaded_army_header'
 
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
 const FooterComponent = lazy(() => import(/* webpackChunkName: 'footer' */ 'components/page/footer'))
@@ -25,6 +26,8 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
+
+      <LoadedArmyHeader />
 
       <ArmyBuilder />
 

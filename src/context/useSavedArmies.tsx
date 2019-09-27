@@ -4,11 +4,12 @@ import sortBy from 'lodash/sortBy'
 import isEqual from 'lodash/isEqual'
 import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { ICurrentArmy } from 'types/army'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 
 const initialState = {
-  armyHasChanges: (currentArmy: ISavedArmyFromApi) => false,
+  armyHasChanges: (currentArmy: ICurrentArmy) => false,
   deleteSavedArmy: (id: string) => null,
   loadedArmy: null,
   loadSavedArmies: () => null,
@@ -18,7 +19,7 @@ const initialState = {
 }
 
 interface ISavedArmiesContext {
-  armyHasChanges: (currentArmy: ISavedArmyFromApi) => boolean
+  armyHasChanges: (currentArmy: ICurrentArmy) => boolean
   deleteSavedArmy: (id: string) => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => void
@@ -35,13 +36,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
   console.log(loadedArmy)
 
-  const armyHasChanges: (currentArmy: ISavedArmyFromApi) => boolean = useCallback(
+  const armyHasChanges: (currentArmy: ICurrentArmy) => boolean = useCallback(
     currentArmy => {
       if (!loadedArmy) return false
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
-
+      const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
       debugger
-      return isEqual(currentArmy, original)
+      return !isEqual(currentArmy, loaded)
     },
     [loadedArmy, savedArmies]
   )
