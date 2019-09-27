@@ -6,6 +6,7 @@ import { logDownloadEvent } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { ModalStyle } from 'theme/modalStyle'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -18,7 +19,7 @@ interface IModalComponentProps {
 
 Modal.setAppElement('#root')
 
-const getDefaultName = (factionName: TSupportedFaction) => {
+const getDefaultName = (factionName: string) => {
   return `${titleCase(factionName)
     .split(' ')
     .join('_')}_Reminders`
@@ -26,11 +27,14 @@ const getDefaultName = (factionName: TSupportedFaction) => {
 
 export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
-  const [fileName, setFileName] = useState(getDefaultName(factionName))
+  const { loadedArmy } = useSavedArmies()
+  const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
+  console.log(defaultName)
+  const [fileName, setFileName] = useState(defaultName)
 
   useEffect(() => {
-    setFileName(getDefaultName(factionName))
-  }, [factionName])
+    setFileName(getDefaultName(defaultName))
+  }, [factionName, defaultName])
 
   const handleUpdateName = (e: any) => {
     e.preventDefault()
@@ -61,14 +65,14 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
             <form>
               <div className="form-group">
                 <label htmlFor="nameInput">
-                  <strong>Filename.</strong>
-                  <span className="text-muted">pdf</span>
+                  <strong>Filename</strong>
+                  <span className="text-muted">.pdf</span>
                 </label>
                 <input
                   className="form-control form-control-sm"
                   aria-describedby="nameHelp"
                   placeholder="Enter file name"
-                  defaultValue={getDefaultName(factionName)}
+                  defaultValue={defaultName}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
                 />
