@@ -39,7 +39,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
-  console.log(loadedArmy)
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {

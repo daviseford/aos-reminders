@@ -82,7 +82,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
         <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
-              <ErrorAlert key={i} text={x.text} severity={x.severity} />
+              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} />
             ))}
           </div>
         </div>
