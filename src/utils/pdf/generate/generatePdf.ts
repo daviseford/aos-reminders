@@ -30,7 +30,7 @@ interface IPrintPdf extends ICurrentArmy {
 }
 
 export const savePdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, ...armyData } = data
+  const { factionName, hiddenReminders, reminders, ...currentArmy } = data
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
 
@@ -47,7 +47,7 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const reminderText = getReminderText(doc, visibleReminders)
-  const armyText = getArmyText(doc, { factionName, ...armyData })
+  const armyText = getArmyText(doc, { factionName, ...currentArmy })
   const phaseInfo = getPhaseInfo(reminderText)
   const pages = splitTextToPages(reminderText, phaseInfo, armyText)
 

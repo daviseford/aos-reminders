@@ -20,31 +20,19 @@ interface IRemindersProps extends ICurrentArmy {
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const {
-    allyArmies,
-    allyFactionNames,
-    allySelections,
-    army,
-    factionName,
-    hideWhens,
-    isMobile,
-    realmscape_feature,
-    selections,
-    showWhen,
-    visibleWhens,
-  } = props
+  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
   const reminders = useMemo(() => {
     return processReminders(
       army,
-      factionName,
-      selections,
-      realmscape_feature,
-      allyFactionNames,
+      currentArmy.factionName,
+      currentArmy.selections,
+      currentArmy.realmscape_feature,
+      currentArmy.allyFactionNames,
       allyArmies,
-      allySelections
+      currentArmy.allySelections
     )
-  }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
+  }, [army, allyArmies, currentArmy])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
@@ -53,7 +41,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   useEffect(() => {
     setFirstLoad(true)
-  }, [factionName])
+  }, [currentArmy.factionName])
 
   useEffect(() => {
     // Remove orphaned phases
