@@ -1,28 +1,12 @@
-import { TSupportedFaction } from 'meta/factions'
-import { ISelections } from './selections'
-import { TRealms } from './realmscapes'
-import { TAllySelectionStore } from './store'
+import { ICurrentArmy } from './army'
 
-export interface ISavedArmy {
+export interface ISavedArmy extends ICurrentArmy {
   armyName: string
-  factionName: TSupportedFaction
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  realmscape_feature: string | null
-  realmscape: TRealms | null
-  selections: ISelections
 }
 
-export interface ISavedArmyFromApi {
+export interface ISavedArmyFromApi extends ISavedArmy {
   id: string
   userName: string
-  armyName: string
-  factionName: TSupportedFaction
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  realmscape_feature: string | null
-  realmscape: TRealms | null
-  selections: ISelections
   /**
    * Unix time (milliseconds)
    */

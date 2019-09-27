@@ -1,12 +1,11 @@
 import jsPDF from 'jspdf'
 import { findIndex, slice, sum, range } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
-import { TSupportedFaction } from 'meta/factions'
 import { IReminder, TTurnAction } from 'types/data'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections } from 'types/selections'
 import { TStyleType, Styles } from './styles'
 import { Logo } from './logo'
-import { TAllySelectionStore } from 'types/store'
+import { ICurrentArmy } from 'types/army'
 
 const xMargin = 0.5
 const yMargin = 0.75
@@ -25,12 +24,7 @@ interface IText {
   text: string
 }
 
-interface IPrintPdf {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  selections: ISelections
+interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
 }
@@ -133,17 +127,9 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
   return doc
 }
 
-interface IGetArmyText {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  selections: ISelections
-}
-
 const getArmyText = (
   doc: jsPDF,
-  { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: IGetArmyText
+  { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: ICurrentArmy
 ): IText[] => {
   const {
     allegiances,

@@ -28,6 +28,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     factionName,
     hiddenReminders,
     isMobile,
+    realmscape,
     realmscape_feature,
     selections,
   } = props
@@ -60,6 +61,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       allySelections,
       factionName,
       hiddenReminders,
+      realmscape,
       realmscape_feature,
       reminders,
       selections,

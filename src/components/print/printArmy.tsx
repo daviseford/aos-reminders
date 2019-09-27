@@ -3,19 +3,10 @@ import { connect } from 'react-redux'
 
 import { titleCase } from 'utils/textUtils'
 import { selectors } from 'ducks'
-import { TSupportedFaction } from 'meta/factions'
-import { ISelections } from 'types/selections'
-import { IStore, TAllySelectionStore } from 'types/store'
+import { IStore } from 'types/store'
+import { ICurrentArmy } from 'types/army'
 
-interface IPrintHeaderProps {
-  allySelections: TAllySelectionStore
-  factionName: TSupportedFaction
-  printing: boolean
-  realmscape_feature: string | null
-  selections: ISelections
-}
-
-const PrintArmyComponent = (props: IPrintHeaderProps) => {
+const PrintArmyComponent = (props: ICurrentArmy) => {
   const { realmscape_feature, selections, allySelections } = props
   const {
     allegiances,
