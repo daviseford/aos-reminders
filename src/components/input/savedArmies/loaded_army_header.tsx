@@ -2,9 +2,10 @@ import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
-import { IStore } from 'types/store'
-import { ICurrentArmy } from 'types/army'
 import UpdateArmyBtn from './update_army_btn'
+import UpdateNameButton from './update_name_btn'
+import { ICurrentArmy } from 'types/army'
+import { IStore } from 'types/store'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props
@@ -18,9 +19,14 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   if (!loadedArmy) return null
 
   return (
-    <div className="row d-flex justify-content-center align-content-center mt-2">
-      <div className="col-12 text-center">
-        <h4 className="text-secondary">{loadedArmy.armyName}</h4>
+    <div className="row d-flex justify-content-center align-content-center my-2">
+      <div className="text-center d-flex align-content-center">
+        <div className="flex-grow-1">
+          <h4 className="text-secondary">{loadedArmy.armyName}</h4>
+        </div>
+        <div>
+          <UpdateNameButton {...loadedArmy} />
+        </div>
       </div>
       <div className="col-12 text-center">
         {hasChanges && (
