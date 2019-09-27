@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { titleCase } from 'utils/textUtils'
-import { useSubscription } from 'context/useSubscription'
-import { LoadArmyBtn } from './load_army_btn'
-import { ISavedArmyFromApi } from 'types/savedArmy'
-import { SavedArmyTable } from './saved_army_table'
 import { DateTime } from 'luxon'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { titleCase } from 'utils/textUtils'
 import { logEvent } from 'utils/analytics'
+import { LoadArmyBtn } from './load_army_btn'
+import { SavedArmyTable } from './saved_army_table'
 import { DeleteArmyModal } from './delete_army_modal'
+import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -14,7 +14,7 @@ interface ISavedArmyCardProps {
 
 export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
-  const { deleteSavedArmy } = useSubscription()
+  const { deleteSavedArmy } = useSavedArmies()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 

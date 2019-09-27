@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { factionNames, selections, realmscape, army } from 'ducks'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { logEvent } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { logEvent } from 'utils/analytics'
-import { useSubscription } from 'context/useSubscription'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -32,7 +32,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateSelections,
   } = props
 
-  const { setLoadedArmy } = useSubscription()
+  const { setLoadedArmy } = useSavedArmies()
 
   const handleLoadClick = e => {
     e.preventDefault()

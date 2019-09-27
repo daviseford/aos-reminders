@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { FaSave } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
-import { ISavedArmy } from 'types/savedArmy'
-import { SavedArmyTable } from './saved_army_table'
-import { prepareArmy } from 'utils/armyUtils'
-import { ModalStyle } from '../../../theme/modalStyle'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
+import { prepareArmy } from 'utils/armyUtils'
+import { SavedArmyTable } from './saved_army_table'
+import { ModalStyle } from 'theme/modalStyle'
+import { ISavedArmy } from 'types/savedArmy'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -21,7 +22,8 @@ Modal.setAppElement('#root')
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, showSavedArmies } = props
-  const { isSubscribed, saveArmy } = useSubscription()
+  const { isSubscribed } = useSubscription()
+  const { saveArmy } = useSavedArmies()
   const [armyName, setArmyName] = useState('')
 
   const handleUpdateName = (e: any) => {

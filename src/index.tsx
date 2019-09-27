@@ -3,6 +3,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import { SavedArmiesProvider } from 'context/useSavedArmies'
 import * as serviceWorker from './serviceWorker'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import App from 'components/App'
@@ -49,7 +50,9 @@ render(
       onRedirectCallback={onRedirectCallback}
     >
       <SubscriptionProvider>
-        <App />
+        <SavedArmiesProvider>
+          <App />
+        </SavedArmiesProvider>
       </SubscriptionProvider>
     </Auth0Provider>
   </Provider>,

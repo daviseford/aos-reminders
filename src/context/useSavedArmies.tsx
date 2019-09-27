@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { PreferenceApi } from 'api/preferenceApi'
-import { sortBy } from 'lodash'
+import sortBy from 'lodash/sortBy'
+import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 
