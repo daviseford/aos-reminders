@@ -8,6 +8,7 @@ import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logEvent } from 'utils/analytics'
+import { useSubscription } from 'context/useSubscription'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -31,11 +32,14 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateSelections,
   } = props
 
+  const { setLoadedArmy } = useSubscription()
+
   const handleLoadClick = e => {
     e.preventDefault()
 
     logEvent(`LoadArmy`)
 
+    setLoadedArmy({ id: army.id, armyName: army.armyName })
     setFactionName(army.factionName)
 
     // Add Ally Game data to the store
