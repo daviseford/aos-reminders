@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { factionNames, selections, selectors } from 'ducks'
 import { SelectOne } from 'components/input/select'
-import { NavBar } from 'components/page/navbar'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
+import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+
+const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
   return (
     <div className="ThemeDarkBg">
-      <NavBar />
+      <Suspense fallback={<EmptyHeader />}>
+        <Navbar />
+      </Suspense>
       <Jumbotron />
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-import { Loading } from 'components/page/loading'
+import { Loading } from './helpers/suspenseFallbacks'
 
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'

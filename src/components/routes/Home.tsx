@@ -2,7 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react'
 import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { ArmyBuilder } from 'components/input/army_builder'
-import { Header } from 'components/page/header'
+import { Header } from 'components/page/homeHeader'
 import { Toolbar } from 'components/input/toolbar'
 
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
