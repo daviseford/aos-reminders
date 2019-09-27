@@ -63,10 +63,7 @@ const PrintArmyComponent = (props: IPrintHeaderProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allySelections: selectors.getAllySelections(state),
-  factionName: selectors.getFactionName(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  selections: selectors.getSelections(state),
+  ...selectors.getCurrentArmy(state),
 })
 
 const PrintArmy = connect(

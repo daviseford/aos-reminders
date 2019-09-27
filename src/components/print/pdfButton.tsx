@@ -95,17 +95,12 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   )
 }
 
-// TODO: Replace with getCurrentArmy
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
+  ...selectors.getCurrentArmy(state),
   allyArmies: selectors.getAllyArmies(state),
-  allyFactionNames: selectors.getAllyFactionNames(state),
-  allySelections: selectors.getAllySelections(state),
   army: selectors.getArmy(state),
-  factionName: selectors.getFactionName(state),
   hiddenReminders: selectors.getReminders(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  selections: selectors.getSelections(state),
 })
 
 const DownloadPDFButton = connect(

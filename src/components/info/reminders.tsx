@@ -89,18 +89,12 @@ const RemindersComponent = (props: IRemindersProps) => {
   )
 }
 
-// TODO: Replace with getCurrentArmy
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
+  ...selectors.getCurrentArmy(state),
   allyArmies: selectors.getAllyArmies(state),
-  allyFactionNames: selectors.getAllyFactionNames(state),
-  allySelections: selectors.getAllySelections(state),
   army: selectors.getArmy(state),
-  factionName: selectors.getFactionName(state),
   hiddenReminders: selectors.getReminders(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  realmscape: selectors.getRealmscape(state),
-  selections: selectors.getSelections(state),
   visibleWhens: selectors.getWhen(state),
 })
 
