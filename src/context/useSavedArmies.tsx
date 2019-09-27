@@ -1,12 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { PreferenceApi } from 'api/preferenceApi'
 import sortBy from 'lodash/sortBy'
+import isEqual from 'lodash/isEqual'
+import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 
 const initialState = {
+  armyHasChanges: (currentArmy: ISavedArmyFromApi) => false,
   deleteSavedArmy: (id: string) => null,
   loadedArmy: null,
   loadSavedArmies: () => null,
@@ -16,6 +18,7 @@ const initialState = {
 }
 
 interface ISavedArmiesContext {
+  armyHasChanges: (currentArmy: ISavedArmyFromApi) => boolean
   deleteSavedArmy: (id: string) => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => void
@@ -31,6 +34,17 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
   console.log(loadedArmy)
+
+  const armyHasChanges: (currentArmy: ISavedArmyFromApi) => boolean = useCallback(
+    currentArmy => {
+      if (!loadedArmy) return false
+      const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
+
+      debugger
+      return isEqual(currentArmy, original)
+    },
+    [loadedArmy, savedArmies]
+  )
 
   const loadSavedArmies = useCallback(async () => {
     if (!user) return setSavedArmies(initialState.savedArmies)
@@ -73,6 +87,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   return (
     <SavedArmiesContext.Provider
       value={{
+        armyHasChanges,
         deleteSavedArmy,
         loadedArmy,
         loadSavedArmies,
