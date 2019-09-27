@@ -4,7 +4,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
 import { IStore } from 'types/store'
 import { ICurrentArmy } from 'types/army'
-import UpdateArmyBtn from './save_changes_btn'
+import UpdateArmyBtn from './update_army_btn'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props

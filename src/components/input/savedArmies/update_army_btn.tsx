@@ -17,7 +17,7 @@ const UpdateArmyBtn: React.FC<IUpdateArmyProps> = ({ currentArmy, id }) => {
 
   const handleClick = e => {
     e.preventDefault()
-    const payload = prepareArmy(currentArmy)
+    const payload = prepareArmy(currentArmy, 'update')
     updateArmy(id, payload)
     logEvent(`UpdateArmy`)
   }

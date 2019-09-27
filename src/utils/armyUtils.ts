@@ -17,7 +17,7 @@ export const armyHasEntries = (army: ISavedArmy) => {
  * Prepare an army to be uploaded
  * @param army
  */
-export const prepareArmy = (army: ISavedArmy): ISavedArmy => {
+export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update') => {
   const {
     armyName,
     allyFactionNames,
@@ -28,15 +28,16 @@ export const prepareArmy = (army: ISavedArmy): ISavedArmy => {
     selections,
   } = army
 
-  return {
+  let prepared = {
     allyFactionNames,
     allySelections,
-    armyName: armyName || 'Untitled',
-    factionName,
     realmscape_feature,
     realmscape,
     selections,
   }
+
+  if (type === 'update') return prepared
+  return { ...prepared, armyName: armyName || 'Untitled', factionName }
 }
 
 export const isValidFactionName = (val: any): val is TSupportedFaction => {

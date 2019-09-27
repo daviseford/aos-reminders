@@ -42,8 +42,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     if (isSubscribed) {
-      const payload = prepareArmy({ ...army, armyName })
-      saveArmy(payload)
+      const payload = prepareArmy({ ...army, armyName }, 'save')
+      saveArmy(payload as ISavedArmy)
       closeModal()
       setArmyName('')
       showSavedArmies()
