@@ -8,6 +8,7 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -31,8 +32,10 @@ interface IJumbotronProps {
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const { resetSelections, setFactionName, isMobile, factionName } = props
+  const { setLoadedArmy } = useSavedArmies()
 
   const setValue = withSelectOne((value: string | null) => {
+    setLoadedArmy(null)
     resetSelections()
     logFactionSwitch(value)
     setFactionName(value)
