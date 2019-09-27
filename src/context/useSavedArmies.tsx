@@ -41,7 +41,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       if (!loadedArmy) return false
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
-      debugger
       return !isEqual(currentArmy, loaded)
     },
     [loadedArmy, savedArmies]
