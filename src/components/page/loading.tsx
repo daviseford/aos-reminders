@@ -1,11 +1,14 @@
 import React from 'react'
-import { headerClass } from 'theme/helperClasses'
+import { emptyHeaderClass } from 'theme/helperClasses'
+import Spinner from 'components/helpers/spinner'
 
 export const EmptyHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
-      <header className={headerClass}>
-        <div className={`py-2`}> </div>
+      <header className={emptyHeaderClass}>
+        <div className={`py-1`}>
+          <Spinner variant="light" size="small" />
+        </div>
       </header>
     </div>
   )
