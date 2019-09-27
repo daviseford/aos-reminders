@@ -12,7 +12,7 @@ const ShowSavedArmies: React.FC = () => {
   const { savedArmies, loadSavedArmies } = useSavedArmies()
   const [pageNum, setPageNum] = useState(1)
 
-  const paginatedArmies = useMemo(() => paginateSavedArmies(savedArmies, 5), [savedArmies])
+  const paginatedArmies = useMemo(() => paginateSavedArmies(savedArmies, 6), [savedArmies])
 
   useEffect(() => {
     if (isAuthenticated && isSubscribed) {

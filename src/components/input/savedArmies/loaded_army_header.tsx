@@ -25,7 +25,7 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
           <h4 className="text-secondary">{loadedArmy.armyName}</h4>
         </div>
         <div>
-          <UpdateNameButton {...loadedArmy} />
+          <UpdateNameButton className="ml-3" {...loadedArmy} />
         </div>
       </div>
       <div className="col-12 text-center">

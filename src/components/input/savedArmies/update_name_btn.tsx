@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
 import UpdateArmyNameModal from './update_name_modal'
 
-type TUpdateName = React.FC<{ id: string; armyName: string }>
+type TUpdateName = React.FC<{ id: string; armyName: string; className: string }>
 
-const UpdateNameButton: TUpdateName = ({ id, armyName }) => {
+const UpdateNameButton: TUpdateName = ({ id, armyName, className }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
@@ -17,7 +17,7 @@ const UpdateNameButton: TUpdateName = ({ id, armyName }) => {
 
   return (
     <>
-      <FaPencilAlt className="ml-3" onClick={handleClick} />
+      <FaPencilAlt className={className} onClick={handleClick} />
       <UpdateArmyNameModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}

@@ -7,6 +7,7 @@ import { LoadArmyBtn } from './load_army_btn'
 import { SavedArmyTable } from './saved_army_table'
 import { DeleteArmyModal } from './delete_army_modal'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import UpdateNameButton from './update_name_btn'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -33,7 +34,12 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
     <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
       <div className="card">
         <div className="card-body">
-          <CardTitle armyName={army.armyName} factionName={army.factionName} createdAt={army.createdAt} />
+          <CardTitle
+            id={army.id}
+            armyName={army.armyName}
+            factionName={army.factionName}
+            createdAt={army.createdAt}
+          />
           <div className="mt-1">
             <SavedArmyTable army={army} />
           </div>
@@ -59,9 +65,10 @@ interface ICardTitleProps {
   armyName: ISavedArmyFromApi['armyName']
   factionName: ISavedArmyFromApi['factionName']
   createdAt: ISavedArmyFromApi['createdAt']
+  id: ISavedArmyFromApi['id']
 }
 
-const CardTitle = ({ armyName, factionName, createdAt }: ICardTitleProps) => {
+const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) => {
   const faction = titleCase(factionName)
   const created = DateTime.fromMillis(createdAt).toLocaleString({
     year: 'numeric',
@@ -73,11 +80,18 @@ const CardTitle = ({ armyName, factionName, createdAt }: ICardTitleProps) => {
 
   return (
     <>
-      <h5 className="card-title mb-0">
-        {armyName ? armyName : `Untitled`}
-        {' - '}
-        <span className="text-muted">{faction}</span>
-      </h5>
+      <div className="d-flex">
+        <div>
+          <UpdateNameButton className="mr-2" armyName={armyName} id={id} />
+        </div>
+        <div className="flex-grow-1">
+          <h5 className="card-title mb-0">
+            {armyName ? armyName : `Untitled`}
+            {' - '}
+            <span className="text-muted">{faction}</span>
+          </h5>
+        </div>
+      </div>
       <small className="text-muted">Created: {created}</small>
     </>
   )
