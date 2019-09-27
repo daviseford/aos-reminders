@@ -4,6 +4,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
 import { IStore } from 'types/store'
 import { ICurrentArmy } from 'types/army'
+import UpdateArmyBtn from './save_changes_btn'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props
@@ -13,7 +14,14 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
 
   if (!loadedArmy) return null
 
-  return <div>HasChanges: {hasChanges.toString()}</div>
+  return (
+    <div className="row d-flex justify-content-center align-content-center">
+      <div className="col-12 text-center">
+        <h5 className="text-secondary">{loadedArmy.armyName}</h5>
+        {hasChanges && <UpdateArmyBtn currentArmy={{ ...currentArmy, ...loadedArmy }} id={loadedArmy.id} />}
+      </div>
+    </div>
+  )
 }
 
 const mapStateToProps = (state: IStore, ownProps) => ({

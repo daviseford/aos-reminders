@@ -16,6 +16,7 @@ const initialState = {
   saveArmy: (army: ISavedArmy) => null,
   savedArmies: [] as ISavedArmyFromApi[],
   setLoadedArmy: (army: TLoadedArmy) => null,
+  updateArmy: (id: string, data: { [key: string]: any }) => null,
 }
 
 interface ISavedArmiesContext {
@@ -26,6 +27,7 @@ interface ISavedArmiesContext {
   saveArmy: (army: ISavedArmy) => void
   savedArmies: ISavedArmyFromApi[]
   setLoadedArmy: (army: TLoadedArmy) => void
+  updateArmy: (id: string, data: { [key: string]: any }) => void
 }
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext>(initialState)
@@ -84,6 +86,20 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
+  const updateArmy = useCallback(
+    async (id: string, data: { [key: string]: any }) => {
+      try {
+        const payload = { ...data, userName: user.email }
+        const res = await PreferenceApi.updateItem(id, payload)
+        console.log(res)
+        await loadSavedArmies()
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    [loadSavedArmies, user]
+  )
+
   return (
     <SavedArmiesContext.Provider
       value={{
@@ -94,6 +110,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         saveArmy,
         savedArmies,
         setLoadedArmy,
+        updateArmy,
       }}
     >
       {children}
