@@ -31,7 +31,7 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
 
   return (
     <button className={btnSecondarySmall} onClick={handleClick}>
-      <div className={`${btnContentWrapper} text-${isSaving ? `dark` : `secondary`}`}>
+      <div className={`${btnContentWrapper}`}>
         {isSaving ? (
           <span
             className="spinner-border spinner-border-sm mr-2 text-dark"
@@ -39,7 +39,7 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
             aria-hidden="true"
           ></span>
         ) : (
-          <FaSave className="mr-2 text-secondary" />
+          <FaSave className="mr-2" />
         )}{' '}
         {isSaving ? `Saving` : `Save Changes`}
       </div>
