@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
-import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
-import { Loading } from 'components/page/loading'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
+import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
+
+const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
 const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
@@ -33,7 +34,9 @@ const Profile: React.FC = () => {
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Suspense fallback={<EmptyHeader />}>
+          <Navbar />
+        </Suspense>
       </div>
 
       <div className="row d-flex justify-content-center">

@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
-import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
-import { Loading } from 'components/page/loading'
 import { ContactComponent } from 'components/page/contact'
+import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
+
+const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
 const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
@@ -29,7 +30,9 @@ const Subscribe: React.FC = () => {
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Suspense fallback={<EmptyHeader />}>
+          <Navbar />
+        </Suspense>
       </div>
 
       <div className={headerClass}>
@@ -109,7 +112,7 @@ const AlreadySubscribed = () => {
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Navbar />
       </div>
       <div className="row d-flex align-items-center">
         <div className="mx-5 my-5 py-5 px-5">

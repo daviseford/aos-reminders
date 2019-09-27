@@ -1,11 +1,25 @@
 import React from 'react'
-import { headerClass } from 'theme/helperClasses'
+import { btnDarkBlock, btnContentWrapper, emptyHeaderClass } from 'theme/helperClasses'
+import Spinner from 'components/helpers/spinner'
+
+export const FallbackBtn = () => {
+  return (
+    <button className={btnDarkBlock} disabled type="button">
+      <div className={btnContentWrapper}>
+        <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>{' '}
+        Loading
+      </div>
+    </button>
+  )
+}
 
 export const EmptyHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
-      <header className={headerClass}>
-        <div className={`py-2`}> </div>
+      <header className={emptyHeaderClass}>
+        <div className={`py-1`}>
+          <Spinner variant="light" size="small" />
+        </div>
       </header>
     </div>
   )
