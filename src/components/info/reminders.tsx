@@ -6,24 +6,15 @@ import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/textUtils'
 import { visibility, selectors } from 'ducks'
 import { Reminder } from 'components/info/reminder'
-import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TAllyArmies } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
+import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { TRealms } from 'types/realmscapes'
 
-interface IRemindersProps {
+interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
-  allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
   army: IArmy
-  factionName: TSupportedFaction
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
-  realmscape_feature: string
-  realmscape: TRealms | null
-  selections: ISelections
   showWhen: (value: string) => void
   visibleWhens: string[]
 }

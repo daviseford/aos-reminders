@@ -6,6 +6,7 @@ import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TStyleType, Styles } from './styles'
 import { Logo } from './logo'
+import { TAllySelectionStore } from 'types/store'
 
 const xMargin = 0.5
 const yMargin = 0.75
@@ -26,7 +27,7 @@ interface IText {
 
 interface IPrintPdf {
   allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
+  allySelections: TAllySelectionStore
   factionName: TSupportedFaction
   realmscape_feature: string | null
   selections: ISelections
@@ -134,7 +135,7 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
 
 interface IGetArmyText {
   allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
+  allySelections: TAllySelectionStore
   factionName: TSupportedFaction
   realmscape_feature: string | null
   selections: ISelections
@@ -169,7 +170,9 @@ const getArmyText = (
 
   const selectionText = [
     getText('Unit', units),
-    ...allyFactionNames.map(n => getText(`Allied ${titleCase(n)} Unit`, allySelections[n].units)),
+    ...allyFactionNames.map(n =>
+      getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
+    ),
     getText('Artifact', artifacts),
     getText('Battalion', battalions),
     getText('Command Trait', traits),

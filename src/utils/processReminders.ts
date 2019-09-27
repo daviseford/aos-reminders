@@ -7,6 +7,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
+import { TAllySelectionStore } from 'types/store'
 
 type TProcessReminders = (
   army: IArmy,
@@ -15,7 +16,7 @@ type TProcessReminders = (
   realmscape_feature: string | null,
   allyFactionNames: TSupportedFaction[],
   allyArmies: TAllyArmies,
-  allySelections: { [key: string]: IAllySelections }
+  allySelections: TAllySelectionStore
 ) => IReminder
 
 export const processReminders: TProcessReminders = (
@@ -38,6 +39,7 @@ export const processReminders: TProcessReminders = (
 
   if (allyData.length) {
     reminders = allyData.reduce((accum, data) => {
+      if (!data.allySelections) return {}
       return processConditions(data.allyArmy.Game, data.allySelections, accum)
     }, reminders)
   }

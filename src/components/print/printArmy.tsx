@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { titleCase } from 'utils/textUtils'
 import { selectors } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
-import { ISelections, IAllySelections } from 'types/selections'
-import { IStore } from 'types/store'
+import { ISelections } from 'types/selections'
+import { IStore, TAllySelectionStore } from 'types/store'
 
 interface IPrintHeaderProps {
-  allySelections: { [key: string]: IAllySelections }
+  allySelections: TAllySelectionStore
   factionName: TSupportedFaction
   printing: boolean
   realmscape_feature: string | null
