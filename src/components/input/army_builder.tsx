@@ -106,7 +106,9 @@ const mapDispatchToProps = {
   updateUnits: selections.actions.updateUnits,
 }
 
-export const ArmyBuilder = connect(
+const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
 )(componentWithSize(ArmyBuilderComponent))
+
+export default ArmyBuilder
