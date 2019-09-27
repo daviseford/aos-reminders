@@ -21,11 +21,11 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   return (
     <div className="row d-flex justify-content-center align-content-center mt-3 mb-1">
       <div className="col text-center d-flex align-items-center">
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 col">
           <h4 className="text-secondary">{loadedArmy.armyName}</h4>
         </div>
         <div>
-          <UpdateNameButton size="0.85rem" className="mx-3 text-secondary" {...loadedArmy} />
+          <UpdateNameButton size="0.85rem" className="ml-2 mr-5 text-secondary" {...loadedArmy} />
         </div>
       </div>
       <div className="col-12 text-center">
