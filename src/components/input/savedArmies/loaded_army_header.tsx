@@ -19,13 +19,13 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   if (!loadedArmy) return null
 
   return (
-    <div className="row d-flex justify-content-center align-content-center my-2">
-      <div className="text-center d-flex align-content-center">
+    <div className="row d-flex justify-content-center align-content-center mt-3 mb-1">
+      <div className="col text-center d-flex align-items-center">
         <div className="flex-grow-1">
           <h4 className="text-secondary">{loadedArmy.armyName}</h4>
         </div>
         <div>
-          <UpdateNameButton size="0.85rem" className="ml-3 text-secondary" {...loadedArmy} />
+          <UpdateNameButton size="0.85rem" className="mx-3 text-secondary" {...loadedArmy} />
         </div>
       </div>
       <div className="col-12 text-center">

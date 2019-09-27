@@ -80,9 +80,9 @@ const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) =>
 
   return (
     <>
-      <div className="d-flex mb-1 justify-content-start">
+      <div className="d-flex mb-1 justify-content-start align-items-center">
         <div>
-          <UpdateNameButton size="0.75rem" className="mr-2" armyName={armyName} id={id} />
+          <UpdateNameButton size="0.75rem" className="mr-3" armyName={armyName} id={id} />
         </div>
         <div className="flex-grow-1">
           <h5 className="card-title mb-0">{armyName ? armyName : `Untitled`}</h5>
