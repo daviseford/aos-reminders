@@ -33,8 +33,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
-      e.preventDefault()
       e.stopPropagation()
+      e.preventDefault()
       handleSaveClick(e)
     }
   }

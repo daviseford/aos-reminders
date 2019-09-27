@@ -10,7 +10,10 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props
   const { loadedArmy, armyHasChanges } = useSavedArmies()
 
-  const hasChanges = useMemo(() => armyHasChanges(currentArmy), [currentArmy, armyHasChanges])
+  const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
+    currentArmy,
+    armyHasChanges,
+  ])
 
   if (!loadedArmy) return null
 
@@ -18,7 +21,13 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
     <div className="row d-flex justify-content-center align-content-center">
       <div className="col-12 text-center">
         <h5 className="text-secondary">{loadedArmy.armyName}</h5>
-        {hasChanges && <UpdateArmyBtn currentArmy={{ ...currentArmy, ...loadedArmy }} id={loadedArmy.id} />}
+        {hasChanges && (
+          <UpdateArmyBtn
+            currentArmy={{ ...currentArmy, ...loadedArmy }}
+            changedKeys={changedKeys}
+            id={loadedArmy.id}
+          />
+        )}
       </div>
     </div>
   )

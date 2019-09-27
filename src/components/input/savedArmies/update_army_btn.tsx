@@ -9,15 +9,18 @@ import { ISavedArmy } from 'types/savedArmy'
 interface IUpdateArmyProps {
   id: string
   currentArmy: ISavedArmy
+  changedKeys: string[]
 }
 
-const UpdateArmyBtn: React.FC<IUpdateArmyProps> = ({ currentArmy, id }) => {
+type TUpdateArmyBtn = React.FC<IUpdateArmyProps>
+
+const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const { updateArmy } = useSavedArmies()
   const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
   const handleClick = e => {
     e.preventDefault()
-    const payload = prepareArmy(currentArmy, 'update')
+    const payload = prepareArmy(currentArmy, 'update', changedKeys)
     updateArmy(id, payload)
     logEvent(`UpdateArmy`)
   }

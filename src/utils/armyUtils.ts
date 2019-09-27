@@ -17,7 +17,7 @@ export const armyHasEntries = (army: ISavedArmy) => {
  * Prepare an army to be uploaded
  * @param army
  */
-export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update') => {
+export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: string[] = []) => {
   const {
     armyName,
     allyFactionNames,
@@ -28,16 +28,25 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update') => {
     selections,
   } = army
 
-  let prepared = {
+  const prepared = {
+    armyName: armyName || 'Untitled',
     allyFactionNames,
     allySelections,
+    factionName,
     realmscape_feature,
     realmscape,
     selections,
   }
 
-  if (type === 'update') return prepared
-  return { ...prepared, armyName: armyName || 'Untitled', factionName }
+  if (type === 'save') return prepared
+
+  // Prepare for update
+  return Object.keys(prepared).reduce((a, k) => {
+    if (['factionName', 'armyName'].includes(k)) return a // Don't include these in army updates
+    if (!include.length) a[k] = prepared[k] // If there's no include array, include everything
+    if (include.includes(k)) a[k] = prepared[k] // If there is an include array, only include... included keys
+    return a
+  }, {})
 }
 
 export const isValidFactionName = (val: any): val is TSupportedFaction => {

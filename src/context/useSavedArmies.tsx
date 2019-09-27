@@ -7,9 +7,10 @@ import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
 
 type TLoadedArmy = { id: string; armyName: string } | null
+type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
 
 const initialState = {
-  armyHasChanges: (currentArmy: ICurrentArmy) => false,
+  armyHasChanges: (currentArmy: ICurrentArmy) => ({ hasChanges: false, changedKeys: [] }),
   deleteSavedArmy: (id: string) => null,
   loadedArmy: null,
   loadSavedArmies: () => null,
@@ -20,7 +21,7 @@ const initialState = {
 }
 
 interface ISavedArmiesContext {
-  armyHasChanges: (currentArmy: ICurrentArmy) => boolean
+  armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => void
@@ -38,12 +39,25 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
   console.log(loadedArmy)
 
-  const armyHasChanges: (currentArmy: ICurrentArmy) => boolean = useCallback(
+  const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      if (!loadedArmy) return false
+      if (!loadedArmy || !currentArmy) return { hasChanges: false, changedKeys: [] }
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
-      return !isEqual(currentArmy, loaded)
+
+      const hasChanges = !isEqual(currentArmy, loaded)
+
+      const changedKeys = !hasChanges
+        ? []
+        : Object.keys(currentArmy).reduce(
+            (a, key) => {
+              if (!isEqual(currentArmy[key], original[key])) a.push(key)
+              return a
+            },
+            [] as string[]
+          )
+
+      return { hasChanges, changedKeys }
     },
     [loadedArmy, savedArmies]
   )
@@ -64,8 +78,8 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     async (savedArmy: ISavedArmy) => {
       try {
         const { body } = await PreferenceApi.createSavedArmy({ userName: user.email, ...savedArmy })
-        setLoadedArmy({ id: body.id, armyName: body.armyName })
         await loadSavedArmies()
+        setLoadedArmy({ id: body.id, armyName: body.armyName })
       } catch (err) {
         console.error(err)
       }
@@ -91,7 +105,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       try {
         const payload = { ...data, userName: user.email }
         const res = await PreferenceApi.updateItem(id, payload)
-        console.log(res)
         await loadSavedArmies()
       } catch (err) {
         console.error(err)
