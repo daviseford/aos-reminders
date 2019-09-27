@@ -20,18 +20,7 @@ interface IDownloadPDFProps extends ICurrentArmy {
 }
 
 const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
-  const {
-    allyArmies,
-    allyFactionNames,
-    allySelections,
-    army,
-    factionName,
-    hiddenReminders,
-    isMobile,
-    realmscape,
-    realmscape_feature,
-    selections,
-  } = props
+  const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
 
   const [pdf, setPdf] = useState<jsPDF | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -42,30 +31,21 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const handleDownload = e => {
     e.preventDefault()
 
-    logDownloadEvent(factionName)
+    logDownloadEvent(currentArmy.factionName)
 
     // Generate reminders
     const reminders = processReminders(
       army,
-      factionName,
-      selections,
-      realmscape_feature,
-      allyFactionNames,
+      currentArmy.factionName,
+      currentArmy.selections,
+      currentArmy.realmscape_feature,
+      currentArmy.allyFactionNames,
       allyArmies,
-      allySelections
+      currentArmy.allySelections
     )
 
     // Get the PDF ready to be saved
-    const doc = savePdf({
-      allyFactionNames,
-      allySelections,
-      factionName,
-      hiddenReminders,
-      realmscape,
-      realmscape_feature,
-      reminders,
-      selections,
-    })
+    const doc = savePdf({ ...currentArmy, hiddenReminders, reminders })
 
     setPdf(doc)
     openModal()
@@ -81,7 +61,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
         </div>
       </button>
       <DownloadPDFModal
-        factionName={factionName}
+        factionName={currentArmy.factionName}
         pdf={pdf as jsPDF}
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
