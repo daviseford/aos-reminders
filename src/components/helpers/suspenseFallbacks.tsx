@@ -1,5 +1,5 @@
 import React from 'react'
-import { btnDarkBlock, btnContentWrapper, emptyHeaderClass } from 'theme/helperClasses'
+import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 
 export const FallbackBtn = () => {
@@ -16,7 +16,9 @@ export const FallbackBtn = () => {
 export const EmptyHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
-      <header className={emptyHeaderClass}>
+      <header
+        className={`ThemeDarkBg pt-2 d-print-none d-flex justify-content-end mr-3 mr-sm-5 align-items-center`}
+      >
         <div className={`py-1`}>
           <Spinner variant="light" size="small" />
         </div>
