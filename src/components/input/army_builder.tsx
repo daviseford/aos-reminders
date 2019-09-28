@@ -12,6 +12,7 @@ import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
 import { TRealms } from 'types/realmscapes'
 import { IStore } from 'types/store'
+import Spinner from 'components/helpers/spinner'
 
 export interface IArmyBuilderProps {
   factionName: TSupportedFaction
@@ -64,25 +65,31 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   return (
     <div className="d-flex justify-content-center">
       <div className={rowClass}>
-        {cards.map(card =>
-          card.type === 'multi' ? (
-            <CardMultiSelect
-              items={card.items}
-              setValues={withSelectMultiple(card.setValues)}
-              title={card.title}
-              values={card.values}
-              key={card.title}
-            />
-          ) : (
-            <CardSingleSelect
-              items={card.items}
-              setValue={withSelectOne(card.setValue)}
-              title={card.title}
-              value={card.value}
-              key={card.title}
-            />
-          )
+        {cards.length === 0 && (
+          <div className="text-center mt-3">
+            <Spinner />
+          </div>
         )}
+        {cards.length > 0 &&
+          cards.map(card =>
+            card.type === 'multi' ? (
+              <CardMultiSelect
+                items={card.items}
+                setValues={withSelectMultiple(card.setValues)}
+                title={card.title}
+                values={card.values}
+                key={card.title}
+              />
+            ) : (
+              <CardSingleSelect
+                items={card.items}
+                setValue={withSelectOne(card.setValue)}
+                title={card.title}
+                value={card.value}
+                key={card.title}
+              />
+            )
+          )}
       </div>
     </div>
   )
