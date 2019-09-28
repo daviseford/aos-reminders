@@ -29,7 +29,6 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
   const { loadedArmy } = useSavedArmies()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
-  console.log(defaultName)
   const [fileName, setFileName] = useState(defaultName)
 
   useEffect(() => {

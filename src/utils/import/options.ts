@@ -221,4 +221,9 @@ export const parserOptions: TParserOptions = {
     fileReadError: `There was a problem reading this file.`,
     typoMap: {},
   },
+  Unknown: {
+    checkPoorSpacing: false,
+    fileReadError: `This file format is not recognized.`,
+    typoMap: {},
+  },
 }

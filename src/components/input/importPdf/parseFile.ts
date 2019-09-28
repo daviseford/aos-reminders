@@ -72,6 +72,8 @@ export const handleParseFile: TUseParse = ({
 
         setParser(parser)
 
+        if (parser === 'Unknown') return stopProcessing() && handleError()
+
         if (isWarscroll) {
           const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
           const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
