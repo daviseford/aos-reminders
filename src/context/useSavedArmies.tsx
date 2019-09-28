@@ -1,10 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import sortBy from 'lodash/sortBy'
-import isEqual from 'lodash/isEqual'
 import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
+import { isEqual, sortBy } from 'lodash'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
