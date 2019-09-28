@@ -7,7 +7,7 @@ import {
 import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
 import { sortedUniqBy, sortBy, without } from 'lodash-es'
 import { TEntry } from 'types/data'
-import { getArmiesInfo } from './getArmies'
+import { getArmiesInfo } from 'meta/army_list'
 
 type TType =
   | 'Artifacts'

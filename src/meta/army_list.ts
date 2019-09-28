@@ -1,5 +1,4 @@
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
-import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
@@ -43,212 +42,184 @@ import {
   WANDERERS,
 } from './factions'
 
-import BeastclawRaiders from 'army/beastclaw_raiders'
-import BeastsOfChaos from 'army/beasts_of_chaos'
-import Bonesplitterz from 'army/bonesplitterz'
-import ChaosGrandAlliance from 'army/grand_alliances/chaos'
-import DaughtersOfKhaine from 'army/daughters_of_khaine'
-import DeathGrandAlliance from 'army/grand_alliances/death'
-import DestructionGrandAlliance from 'army/grand_alliances/destruction'
-import Dispossessed from 'army/dispossessed'
-import Everchosen from 'army/everchosen'
-import FleshEaterCourts from 'army/flesh_eater_courts'
-import Fyreslayers from 'army/fyreslayers'
-import GloomspiteGitz from 'army/gloomspite'
-import GrandHostOfNagash from 'army/grand_host_of_nagash'
-import Gutbusters from 'army/gutbusters'
-import IdonethDeepkin from 'army/idoneth'
-import Ironjawz from 'army/ironjawz'
-import KharadronOverlords from 'army/kharadron_overlords'
-import Khorne from 'army/khorne'
-import LegionOfBlood from 'army/legion_of_blood'
-import LegionOfNight from 'army/legion_of_night'
-import LegionOfSacrament from 'army/legion_of_sacrament'
-import LegionsOfAzgorh from 'army/legions_of_azgorh'
-import LegionsOfGrief from 'army/legions_of_grief'
-import LethisianArmy from 'army/lethisian_army'
-import MercenaryCompanies from 'army/mercenary_companies'
-import Nighthaunt from 'army/nighthaunt'
-import Nurgle from 'army/nurgle'
-import OrderGrandAlliance from 'army/grand_alliances/order'
-import OssiarchBonereapers from 'army/ossiarch_bonereapers'
-import Seraphon from 'army/seraphon'
-import Skaven from 'army/skaven'
-import Slaanesh from 'army/slaanesh'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import Soulblight from 'army/soulblight'
-import StormcastEternals from 'army/stormcast_eternals'
-import Sylvaneth from 'army/sylvaneth'
-import TamurkhansHorde from 'army/tamurkhans_horde'
-import Tzeentch from 'army/tzeentch'
-import Wanderers from 'army/wanderers'
-
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
-    Army: { ...BeastclawRaiders },
+    dir: 'beastclaw_raiders',
     GrandAlliance: DESTRUCTION,
   },
   [BEASTS_OF_CHAOS]: {
-    Army: { ...BeastsOfChaos },
+    dir: 'beasts_of_chaos',
     GrandAlliance: CHAOS,
   },
   [BONESPLITTERZ]: {
-    Army: { ...Bonesplitterz },
+    dir: 'bonesplitterz',
     GrandAlliance: DESTRUCTION,
   },
   [CHAOS_GRAND_ALLIANCE]: {
-    Army: { ...ChaosGrandAlliance },
+    dir: 'grand_alliances/chaos',
     GrandAlliance: CHAOS,
   },
   [DAUGHTERS_OF_KHAINE]: {
-    Army: { ...DaughtersOfKhaine },
+    dir: 'daughters_of_khaine',
     GrandAlliance: ORDER,
   },
   [DEATH_GRAND_ALLIANCE]: {
-    Army: { ...DeathGrandAlliance },
+    dir: 'grand_alliances/death',
     GrandAlliance: DEATH,
   },
   [DESTRUCTION_GRAND_ALLIANCE]: {
-    Army: { ...DestructionGrandAlliance },
+    dir: 'grand_alliances/destruction',
     GrandAlliance: DESTRUCTION,
   },
   [DISPOSSESSED]: {
-    Army: { ...Dispossessed },
+    dir: 'dispossessed',
     GrandAlliance: ORDER,
   },
   [EVERCHOSEN]: {
-    Army: { ...Everchosen },
+    dir: 'everchosen',
     GrandAlliance: CHAOS,
   },
   [FLESH_EATER_COURTS]: {
-    Army: { ...FleshEaterCourts },
+    dir: 'flesh_eater_courts',
     GrandAlliance: DEATH,
   },
   [FYRESLAYERS]: {
-    Army: { ...Fyreslayers },
+    dir: 'fyreslayers',
     GrandAlliance: ORDER,
   },
   [GLOOMSPITE_GITZ]: {
-    Army: { ...GloomspiteGitz },
+    dir: 'gloomspite',
     GrandAlliance: DESTRUCTION,
   },
   [GRAND_HOST_OF_NAGASH]: {
-    Army: { ...GrandHostOfNagash },
+    dir: 'grand_host_of_nagash',
     GrandAlliance: DEATH,
   },
   [GUTBUSTERS]: {
-    Army: { ...Gutbusters },
+    dir: 'gutbusters',
     GrandAlliance: DESTRUCTION,
   },
   [IDONETH_DEEPKIN]: {
-    Army: { ...IdonethDeepkin },
+    dir: 'idoneth',
     GrandAlliance: ORDER,
   },
   [IRONJAWZ]: {
-    Army: { ...Ironjawz },
+    dir: 'ironjawz',
     GrandAlliance: DESTRUCTION,
   },
   [KHARADRON_OVERLORDS]: {
-    Army: { ...KharadronOverlords },
+    dir: 'kharadron_overlords',
     GrandAlliance: ORDER,
   },
   [KHORNE]: {
-    Army: { ...Khorne },
+    dir: 'khorne',
     GrandAlliance: CHAOS,
   },
   [LEGION_OF_BLOOD]: {
-    Army: { ...LegionOfBlood },
+    dir: 'legion_of_blood',
     GrandAlliance: DEATH,
   },
   [LEGION_OF_NIGHT]: {
-    Army: { ...LegionOfNight },
+    dir: 'legion_of_night',
     GrandAlliance: DEATH,
   },
   [LEGION_OF_SACRAMENT]: {
-    Army: { ...LegionOfSacrament },
+    dir: 'legion_of_sacrament',
     GrandAlliance: DEATH,
   },
   [LEGIONS_OF_AZGORH]: {
-    Army: { ...LegionsOfAzgorh },
+    dir: 'legions_of_azgorh',
     GrandAlliance: CHAOS,
   },
   [LEGIONS_OF_GRIEF]: {
-    Army: { ...LegionsOfGrief },
+    dir: 'legions_of_grief',
     GrandAlliance: DEATH,
   },
   [LETHISIAN_DEFENDERS]: {
-    Army: { ...LethisianArmy },
+    dir: 'lethisian_army',
     GrandAlliance: ORDER,
   },
   [MERCENARY_COMPANIES]: {
-    Army: { ...MercenaryCompanies },
+    dir: 'mercenary_companies',
     GrandAlliance: ORDER,
     //TODO: Add allyOnly tag
   },
   [NIGHTHAUNT]: {
-    Army: { ...Nighthaunt },
+    dir: 'nighthaunt',
     GrandAlliance: DEATH,
   },
   [NURGLE]: {
-    Army: { ...Nurgle },
+    dir: 'nurgle',
     GrandAlliance: CHAOS,
   },
   [ORDER_GRAND_ALLIANCE]: {
-    Army: { ...OrderGrandAlliance },
+    dir: 'grand_alliances/order',
     GrandAlliance: ORDER,
   },
   [OSSIARCH_BONEREAPERS]: {
-    Army: { ...OssiarchBonereapers },
+    dir: 'ossiarch_bonereapers',
     GrandAlliance: DEATH,
   },
   [SERAPHON]: {
-    Army: { ...Seraphon },
+    dir: 'seraphon',
     GrandAlliance: ORDER,
   },
   [SKAVEN]: {
-    Army: { ...Skaven },
+    dir: 'skaven',
     GrandAlliance: CHAOS,
   },
   [SLAANESH]: {
-    Army: { ...Slaanesh },
+    dir: 'slaanesh',
     GrandAlliance: CHAOS,
   },
   [SLAVES_TO_DARKNESS]: {
-    Army: { ...SlavesToDarkness },
+    dir: 'slaves_to_darkness',
     GrandAlliance: CHAOS,
   },
   [SOULBLIGHT]: {
-    Army: { ...Soulblight },
+    dir: 'soulblight',
     GrandAlliance: DEATH,
   },
   [STORMCAST_ETERNALS]: {
-    Army: { ...StormcastEternals },
+    dir: 'stormcast_eternals',
     GrandAlliance: ORDER,
   },
   [SYLVANETH]: {
-    Army: { ...Sylvaneth },
+    dir: 'sylvaneth',
     GrandAlliance: ORDER,
   },
   [TAMURKHANS_HORDE]: {
-    Army: { ...TamurkhansHorde },
+    dir: 'tamurkhans_horde',
     GrandAlliance: CHAOS,
   },
   [TZEENTCH]: {
-    Army: { ...Tzeentch },
+    dir: 'tzeentch',
     GrandAlliance: CHAOS,
   },
   [WANDERERS]: {
-    Army: { ...Wanderers },
+    dir: 'wanderers',
     GrandAlliance: ORDER,
   },
 }
 
-// This should not be imported by anything except utils/getArmy/getArmies.ts!
-export default ArmyList
+export const getArmyList = async (factionName: TSupportedFaction) => {
+  const { default: Army } = await import(`army/${ArmyList[factionName].dir}`)
+  return { ...ArmyList[factionName], Army }
+}
+
+export const getArmiesInfo = () => {
+  return Object.keys(ArmyList).reduce(
+    (a, k) => {
+      a[k] = { GrandAlliance: a[k].GrandAlliance }
+      return a
+    },
+    {} as { [key in TSupportedFaction]: { GrandAlliance: TGrandAlliances } }
+  )
+}
 
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  readonly Army: IInitialArmy
+  readonly dir: string
   readonly GrandAlliance: TGrandAlliances
 }

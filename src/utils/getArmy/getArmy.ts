@@ -8,7 +8,7 @@ import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TRealms } from 'types/realmscapes'
-import { getArmyList } from './getArmies'
+import { getArmyList } from 'meta/army_list'
 
 export const getArmy = async (
   factionName: TSupportedFaction | null,
@@ -16,7 +16,7 @@ export const getArmy = async (
 ): Promise<IArmy | null> => {
   if (!isValidFactionName(factionName)) return null
 
-  const { Army, GrandAlliance } = getArmyList(factionName)
+  const { Army, GrandAlliance } = await getArmyList(factionName)
 
   const Collection = getCollection(Army)
 
