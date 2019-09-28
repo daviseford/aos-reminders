@@ -11,7 +11,10 @@ import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy } from 'types/import'
 
-export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
+export const importErrorChecker = async (
+  army: IImportedArmy,
+  parser: TImportParsers
+): Promise<IImportedArmy> => {
   const opts = parserOptions[parser]
 
   let { errors, factionName, selections, unknownSelections, allyUnits } = army
@@ -31,7 +34,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   const foundSelections: string[] = []
 
-  const Army = getArmy(factionName) as IArmy
+  const Army = (await getArmy(factionName)) as IArmy
   const lookup = importSelectionLookup(
     Army,
     selections,

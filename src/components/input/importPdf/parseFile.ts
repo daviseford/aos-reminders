@@ -76,13 +76,13 @@ export const handleParseFile: TUseParse = ({
 
         if (isWarscroll) {
           const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
-          const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
+          const parsedArmy: IImportedArmy = await handleWarscroll(fileText, file.type)
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
           logEvent(`Import${parser}-${parsedArmy.factionName}`)
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
-          const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
+          const parsedArmy: IImportedArmy = await getAzyrArmyFromPdf(parsedPages)
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
           logEvent(`Import${parser}-${parsedArmy.factionName}`)
@@ -105,14 +105,14 @@ export const handleParseFile: TUseParse = ({
   }
 }
 
-const handleWarscroll = (fileText: string, fileType: TImportFileTypes) => {
+const handleWarscroll = async (fileText: string, fileType: TImportFileTypes) => {
   let parsedArmy: IImportedArmy
 
   if (fileType === 'application/pdf') {
     const parsed = parsePdf(fileText)
-    parsedArmy = getWarscrollArmyFromPdf(parsed)
+    parsedArmy = await getWarscrollArmyFromPdf(parsed)
   } else {
-    parsedArmy = getWarscrollArmyFromText(fileText)
+    parsedArmy = await getWarscrollArmyFromText(fileText)
   }
 
   return parsedArmy

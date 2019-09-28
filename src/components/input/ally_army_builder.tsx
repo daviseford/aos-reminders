@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useCallback } from 'react'
+import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -48,8 +48,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   } = props
 
   const { units = [] } = allySelections[allyFactionName] as IAllySelections
-
-  const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
+  const [allyArmy, setAllyArmy] = useState<IArmy | null>(null)
 
   const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', {
     factionName: allyFactionName,
@@ -76,6 +75,15 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
   )
 
   useEffect(() => {
+    const fetchAllyArmy = async () => {
+      const army = await getArmy(allyFactionName)
+      setAllyArmy(army)
+    }
+    fetchAllyArmy()
+  }, [allyFactionName])
+
+  useEffect(() => {
+    if (!allyArmy) return
     updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
   }, [allyArmy, updateAllyArmy, allyFactionName])
 
@@ -93,6 +101,8 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     () => (isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
     [isVisible, hideAlly, showAlly, allyFactionName]
   )
+
+  if (!allyArmy) return null
 
   return (
     <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">

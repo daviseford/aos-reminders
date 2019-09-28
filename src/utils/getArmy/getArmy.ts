@@ -10,10 +10,10 @@ import { getCollection } from './getCollection'
 import { modify } from './modify'
 import { isValidFactionName } from 'utils/armyUtils'
 
-export const getArmy = (
+export const getArmy = async (
   factionName: TSupportedFaction | null,
   realmscape: TRealms | null = null
-): IArmy | null => {
+): Promise<IArmy | null> => {
   if (!isValidFactionName(factionName)) return null
 
   const { Army, GrandAlliance } = ArmyList[factionName]

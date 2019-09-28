@@ -44,8 +44,8 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
     // Add Ally Game data to the store
     if (army.allyFactionNames.length) {
-      army.allyFactionNames.forEach(factionName => {
-        const Army = getArmy(factionName) as IArmy
+      army.allyFactionNames.forEach(async factionName => {
+        const Army = (await getArmy(factionName)) as IArmy
         updateAllyArmy({ factionName, Army })
       })
     }

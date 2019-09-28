@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { getArmyBuilderCards } from './army_builder_cards'
@@ -36,10 +36,18 @@ export interface IArmyBuilderProps {
 
 const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   const { factionName, isMobile, updateArmy, realmscape } = props
-
-  const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
+  const [army, setArmy] = useState<IArmy | null>(null)
 
   useEffect(() => {
+    const fetchArmy = async () => {
+      const army = await getArmy(factionName, realmscape)
+      setArmy(army)
+    }
+    fetchArmy()
+  }, [factionName, realmscape])
+
+  useEffect(() => {
+    if (!army) return
     updateArmy(army)
   }, [army, updateArmy])
 
@@ -49,11 +57,9 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   }, [realmscape])
 
   const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
-  const cards = useMemo(() => getArmyBuilderCards(army, props, realmFeatureItems), [
-    army,
-    props,
-    realmFeatureItems,
-  ])
+  const cards = useMemo(() => {
+    return army ? getArmyBuilderCards(army, props, realmFeatureItems) : []
+  }, [army, props, realmFeatureItems])
 
   return (
     <div className="d-flex justify-content-center">

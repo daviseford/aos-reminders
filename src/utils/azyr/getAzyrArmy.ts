@@ -8,9 +8,9 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import KOArmy from 'army/kharadron_overlords'
 import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
 
-export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
+export const getAzyrArmyFromPdf = async (pdfText: string[]): Promise<IImportedArmy> => {
   const army = getInitialAzyrArmy(pdfText)
-  const errorChecked = importErrorChecker(army, 'Azyr')
+  const errorChecked = await importErrorChecker(army, 'Azyr')
 
   return errorChecked
 }

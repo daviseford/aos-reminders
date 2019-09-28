@@ -6,16 +6,16 @@ import { IImportedArmy, TImportError } from 'types/import'
 import { importErrorChecker } from 'utils/import'
 import { createFatalError } from 'utils/import/warnings'
 
-export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
+export const getWarscrollArmyFromText = async (fileTxt: string): Promise<IImportedArmy> => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
-  const errorChecked = importErrorChecker(army, 'Warscroll Builder')
+  const errorChecked = await importErrorChecker(army, 'Warscroll Builder')
 
   return errorChecked
 }
 
-export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
+export const getWarscrollArmyFromPdf = async (pdfText: string[]): Promise<IImportedArmy> => {
   const army = getInitialWarscrollArmyPdf(pdfText)
-  const errorChecked = importErrorChecker(army, 'Warscroll Builder')
+  const errorChecked = await importErrorChecker(army, 'Warscroll Builder')
 
   return errorChecked
 }
