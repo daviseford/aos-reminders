@@ -6,8 +6,8 @@ import {
 } from 'meta/factions'
 import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
 import { sortedUniqBy, sortBy, without } from 'lodash'
-import { ArmyList } from 'meta/army_list'
 import { TEntry } from 'types/data'
+import { getArmiesInfo } from 'meta/army_list'
 
 type TType =
   | 'Artifacts'
@@ -36,11 +36,13 @@ export const getAllianceItems = (
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
 
+  const armiesInfo = getArmiesInfo()
+
   return sortedUniqBy(
     sortBy(
-      without(Object.keys(ArmyList), factionName)
-        .filter(faction => ArmyList[faction].GrandAlliance === grandAlliance)
-        .map(faction => ArmyList[faction].Army[type])
+      without(Object.keys(armiesInfo), factionName)
+        .filter(faction => armiesInfo[faction].GrandAlliance === grandAlliance)
+        .map(faction => armiesInfo[faction].Army[type])
         .filter(items => !!items && items.length > 0)
         .flat()
         .concat(originalEntries),

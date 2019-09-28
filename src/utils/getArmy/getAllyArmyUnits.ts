@@ -7,18 +7,19 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { ArmyList } from 'meta/army_list'
+import { getArmiesInfo } from 'meta/army_list'
 
 type TAllyArmies = { [key in TSupportedFaction]: string[] }
-type TGetAllyArmies = (factionName: string) => TAllyArmies
+type TGetAllyArmies = (factionName: TSupportedFaction) => TAllyArmies
 
 export const getAllyArmyUnits: TGetAllyArmies = factionName => {
-  const { GrandAlliance } = ArmyList[factionName]
+  const armiesInfo = getArmiesInfo()
+  const { GrandAlliance } = armiesInfo[factionName]
 
   const allyFactionNames = uniq(
     without(
-      Object.keys(ArmyList)
-        .filter(x => ArmyList[x].GrandAlliance === GrandAlliance)
+      Object.keys(armiesInfo)
+        .filter(x => armiesInfo[x].GrandAlliance === GrandAlliance)
         .concat(MERCENARY_COMPANIES),
       ...[
         factionName,
@@ -32,7 +33,7 @@ export const getAllyArmyUnits: TGetAllyArmies = factionName => {
 
   const allyArmies = allyFactionNames.reduce(
     (a, faction) => {
-      a[faction] = ArmyList[faction].Army.Units.map(({ name }) => name)
+      a[faction] = armiesInfo[faction].Army.Units.map(({ name }) => name)
       return a
     },
     {} as TAllyArmies

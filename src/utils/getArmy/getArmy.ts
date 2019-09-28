@@ -1,14 +1,14 @@
 import produce from 'immer'
 import { processGame } from '../processGame'
+import { getAllianceItems } from './getAllianceItems'
+import { getCollection } from './getCollection'
+import { isValidFactionName } from 'utils/armyUtils'
+import { modify } from './modify'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
-import { ArmyList } from 'meta/army_list'
+import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TRealms } from 'types/realmscapes'
-import { getAllianceItems } from './getAllianceItems'
-import { getCollection } from './getCollection'
-import { modify } from './modify'
-import { isValidFactionName } from 'utils/armyUtils'
 
 export const getArmy = async (
   factionName: TSupportedFaction | null,
@@ -16,7 +16,7 @@ export const getArmy = async (
 ): Promise<IArmy | null> => {
   if (!isValidFactionName(factionName)) return null
 
-  const { Army, GrandAlliance } = ArmyList[factionName]
+  const { Army, GrandAlliance } = getArmyList(factionName)
 
   const Collection = getCollection(Army)
 
