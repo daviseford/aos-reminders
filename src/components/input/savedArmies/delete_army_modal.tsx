@@ -36,7 +36,7 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
       style={ModalStyle}
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      contentLabel="Cancel Army Modal"
+      contentLabel="Delete Army Modal"
     >
       <div className={`container`}>
         {processing && <Spinner />}
