@@ -4,10 +4,10 @@ import { parsePdf } from 'utils/pdf/pdfUtils'
 import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE, NIGHTHAUNT } from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
+  it('reads a basic warscroll pdf file (no metadata) correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNoMetadata.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections).toEqual({
@@ -32,10 +32,10 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a warscroll pdf file with metadata correctly', () => {
+  it('reads a warscroll pdf file with metadata correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonWithMetadata.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections).toEqual({
@@ -60,10 +60,10 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a slaanesh warscroll pdf file correctly', () => {
+  it('reads a slaanesh warscroll pdf file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SlaaneshList.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SLAANESH)
     expect(warscrollTxt.errors).toEqual([])
@@ -101,10 +101,10 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a KO warscroll pdf file correctly', () => {
+  it('reads a KO warscroll pdf file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/KOList.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(warscrollTxt.errors).toEqual([])
@@ -119,10 +119,10 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  it('reads an Order meeting engagement pdf file correctly', () => {
+  it('reads an Order meeting engagement pdf file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/OrderMeetingEngagement.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
     expect(warscrollTxt.errors).toEqual([])
@@ -146,10 +146,10 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a complex warscroll pdf file with allies correctly', () => {
+  it('reads a complex warscroll pdf file with allies correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonMultipleAllies.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
     expect(warscrollTxt.errors).toEqual([
@@ -189,9 +189,9 @@ describe('getWarscrollArmyFromPdf', () => {
 })
 
 describe('getWarscrollArmyFromText', () => {
-  it('reads a basic warscroll text file correctly', () => {
+  it('reads a basic warscroll text file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonNoMetadata.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+    const warscrollTxt = await getWarscrollArmyFromText(pdfText)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections).toEqual({
@@ -216,9 +216,9 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('reads a basic warscroll text file correctly', () => {
+  it('reads a basic warscroll text file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonWithMetadata.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+    const warscrollTxt = await getWarscrollArmyFromText(pdfText)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections).toEqual({
@@ -243,9 +243,9 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('reads a complex warscroll txt file with allies correctly', () => {
+  it('reads a complex warscroll txt file with allies correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonMultipleAllies.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+    const warscrollTxt = await getWarscrollArmyFromText(pdfText)
 
     // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
     expect(warscrollTxt.errors).toEqual([
@@ -283,9 +283,9 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('reads an Order meeting engagement txt file correctly', () => {
+  it('reads an Order meeting engagement txt file correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/OrderMeetingEngagement.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+    const warscrollTxt = await getWarscrollArmyFromText(pdfText)
 
     expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
     expect(warscrollTxt.errors).toEqual([])
@@ -309,10 +309,10 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
+  it('reads a basic warscroll pdf file (no metadata) correctly', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NightHauntIssue.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const warscrollTxt = await getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
     expect(warscrollTxt.selections).toEqual({
@@ -329,9 +329,9 @@ describe('getWarscrollArmyFromText', () => {
     })
   })
 
-  it('detects and returns an error if reading a short summary txt', () => {
+  it('detects and returns an error if reading a short summary txt', async () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/ShortSummary.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
+    const warscrollTxt = await getWarscrollArmyFromText(pdfText)
 
     expect(warscrollTxt.errors).toEqual([
       {

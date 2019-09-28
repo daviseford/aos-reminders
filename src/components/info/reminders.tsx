@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { without } from 'lodash-es'
+import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/textUtils'

@@ -1,4 +1,4 @@
-import { flatten, sortBy, split, join } from 'lodash-es'
+import { flatten, sortBy, split, join } from 'lodash'
 import produce from 'immer'
 import { titleCase } from './textUtils'
 import { RealmscapeFeatures } from 'army/generic'

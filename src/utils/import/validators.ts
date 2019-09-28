@@ -1,6 +1,6 @@
 import { replaceOf } from './replaceOf'
 import { stripPunctuation } from 'utils/textUtils'
-import { last } from 'lodash-es'
+import { last } from 'lodash'
 import { isPoorlySpacedMatch } from './isPoorlySpacedMatch'
 
 export const Validators = (Names: string[]) => {

@@ -1,7 +1,7 @@
 import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { without } from 'lodash-es'
+import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logClick } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'

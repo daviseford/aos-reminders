@@ -1,4 +1,4 @@
-import { remove } from 'lodash-es'
+import { remove } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
 import { getAllWarnings } from './warnings'

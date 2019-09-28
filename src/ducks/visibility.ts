@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash-es'
+import { uniq, without } from 'lodash'
 import { createSlice } from 'redux-starter-kit'
 import { IVisibilityStore as IHiddenStore } from 'types/store'
 

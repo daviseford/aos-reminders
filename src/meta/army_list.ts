@@ -41,6 +41,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from './factions'
+import { IInitialArmy } from 'types/army'
 
 const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
@@ -202,15 +203,22 @@ const ArmyList: TArmyList = {
   },
 }
 
-export const getArmyList = async (factionName: TSupportedFaction) => {
+interface IGetArmyReturn extends IArmyListEntry {
+  Army: IInitialArmy
+  factionName: TSupportedFaction
+}
+
+type TGetArmyList = (factionName: TSupportedFaction) => Promise<IGetArmyReturn>
+
+export const getArmyList: TGetArmyList = async factionName => {
   const { default: Army } = await import(`army/${ArmyList[factionName].dir}`)
-  return { ...ArmyList[factionName], Army }
+  return { ...ArmyList[factionName], factionName, Army }
 }
 
 export const getArmiesInfo = () => {
   return Object.keys(ArmyList).reduce(
     (a, k) => {
-      a[k] = { GrandAlliance: a[k].GrandAlliance }
+      a[k] = { GrandAlliance: ArmyList[k].GrandAlliance }
       return a
     },
     {} as { [key in TSupportedFaction]: { GrandAlliance: TGrandAlliances } }

@@ -1,4 +1,4 @@
-import { flatten } from 'lodash-es'
+import { flatten } from 'lodash'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { processReminders, addToString } from 'utils/processReminders'
@@ -33,8 +33,8 @@ import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
 
 describe('processReminders', () => {
-  it('should work with no selections', () => {
-    const army = getArmy(BEASTCLAW_RAIDERS) as IArmy
+  it('should work with no selections', async () => {
+    const army = (await getArmy(BEASTCLAW_RAIDERS)) as IArmy
     const selections = selectionsFactory({})
     const reminders = processReminders(army, BEASTCLAW_RAIDERS, selections, null, [], {}, {})
 
@@ -49,8 +49,8 @@ describe('processReminders', () => {
     expect(combatPhaseEntry.allegiance_ability).toEqual(true)
   })
 
-  it('should merge similar abilities (issue #183)', () => {
-    const army = getArmy(STORMCAST_ETERNALS) as IArmy
+  it('should merge similar abilities (issue #183)', async () => {
+    const army = (await getArmy(STORMCAST_ETERNALS)) as IArmy
     const selections = selectionsFactory({ units: ['Drakesworn Templar', 'Lord-Celestant on Stardrake'] })
     const reminders = processReminders(army, STORMCAST_ETERNALS, selections, null, [], {}, {})
 
@@ -72,11 +72,11 @@ describe('processReminders', () => {
     expect(skyboltBow && skyboltBow.condition).toEqual('Drakesworn Templar')
   })
 
-  it('should not merge abilities with the same name but different descriptions (issue #186)', () => {
+  it('should not merge abilities with the same name but different descriptions (issue #186)', async () => {
     const endless_spells = GenericEndlessSpells.filter(x => x.effects.some(y => y.name === 'Predatory'))
       .map(x => x.name)
       .slice(0, 3)
-    const army = getArmy(EVERCHOSEN) as IArmy
+    const army = (await getArmy(EVERCHOSEN)) as IArmy
     const selections = selectionsFactory({ endless_spells })
     const reminders = processReminders(army, EVERCHOSEN, selections, null, [], {}, {})
     const flattenedGame = flatten(Object.values(reminders))
@@ -89,13 +89,13 @@ describe('processReminders', () => {
     expect(mergedAbility).toBeUndefined()
   })
 
-  it('should work with a loaded army, multiple allies, and realmscape', () => {
+  it('should work with a loaded army, multiple allies, and realmscape', async () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
     const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
     const allyArmies: TAllyArmies = {
-      [DISPOSSESSED]: getArmy(DISPOSSESSED) as IArmy,
-      [IRONJAWZ]: getArmy(IRONJAWZ) as IArmy,
-      [SERAPHON]: getArmy(SERAPHON) as IArmy,
+      [DISPOSSESSED]: (await getArmy(DISPOSSESSED)) as IArmy,
+      [IRONJAWZ]: (await getArmy(IRONJAWZ)) as IArmy,
+      [SERAPHON]: (await getArmy(SERAPHON)) as IArmy,
     }
 
     const allySelections = {
@@ -117,7 +117,7 @@ describe('processReminders', () => {
     const triumph = GenericTriumphs[0]
     const unit = sylvaneth.Units[0]
 
-    const army = getArmy(SYLVANETH, getRealmscape(command2.name)) as IArmy
+    const army = (await getArmy(SYLVANETH, getRealmscape(command2.name))) as IArmy
 
     const selections = selectionsFactory({
       allegiances: [allegiance.name],

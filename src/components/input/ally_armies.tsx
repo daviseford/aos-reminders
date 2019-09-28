@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { without } from 'lodash-es'
+import { without } from 'lodash'
 import { selections, army, selectors } from 'ducks'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { AllyArmyBuilder } from './ally_army_builder'

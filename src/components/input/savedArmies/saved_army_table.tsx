@@ -1,7 +1,7 @@
 import React from 'react'
 import { titleCase } from 'utils/textUtils'
 import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
-import { sortBy, flatten } from 'lodash-es'
+import { sortBy, flatten } from 'lodash'
 
 interface ISavedArmyTable {
   army: ISavedArmyFromApi | ISavedArmy

@@ -47,12 +47,12 @@ const modifyArmy = produce(async (Army: IArmy, meta: IModifyArmyMeta) => {
   const { realmscape, GrandAlliance, Collection, factionName } = meta
 
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
-    Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
-    Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
-    EndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
-    Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
-    Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
-    Units = getAllianceItems(GrandAlliance, 'Units', Units)
+    Artifacts = await getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
+    Battalions = await getAllianceItems(GrandAlliance, 'Battalions', Battalions)
+    EndlessSpells = await getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+    Spells = await getAllianceItems(GrandAlliance, 'Spells', Spells)
+    Traits = await getAllianceItems(GrandAlliance, 'Traits', Traits)
+    Units = await getAllianceItems(GrandAlliance, 'Units', Units)
   }
 
   Army.Allegiances = modify.Allegiances(Allegiances)

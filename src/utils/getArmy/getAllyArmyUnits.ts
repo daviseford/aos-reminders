@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash-es'
+import { uniq, without } from 'lodash'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
@@ -7,12 +7,12 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { getArmiesInfo } from 'meta/army_list'
+import { getArmiesInfo, getArmyList } from 'meta/army_list'
 
 type TAllyArmies = { [key in TSupportedFaction]: string[] }
-type TGetAllyArmies = (factionName: TSupportedFaction) => TAllyArmies
+type TGetAllyArmies = (factionName: TSupportedFaction) => Promise<TAllyArmies>
 
-export const getAllyArmyUnits: TGetAllyArmies = factionName => {
+export const getAllyArmyUnits: TGetAllyArmies = async factionName => {
   const armiesInfo = getArmiesInfo()
   const { GrandAlliance } = armiesInfo[factionName]
 
@@ -29,15 +29,26 @@ export const getAllyArmyUnits: TGetAllyArmies = factionName => {
         ORDER_GRAND_ALLIANCE,
       ]
     )
-  )
+  ) as TSupportedFaction[]
 
-  const allyArmies = allyFactionNames.reduce(
-    (a, faction) => {
-      a[faction] = armiesInfo[faction].Army.Units.map(({ name }) => name)
+  const allyArmies = await Promise.all(allyFactionNames.map(getArmyList))
+
+  const allyUnits = allyArmies.reduce(
+    (a, b) => {
+      const units = b.Army.Units || []
+      a[b.factionName] = units.map(({ name }) => name)
       return a
     },
     {} as TAllyArmies
   )
 
-  return allyArmies
+  // const allyUnits = allyFactionNames.reduce(
+  //   (a, faction) => {
+  //     a[faction] = allyArmies[faction].Army.Units.map(({ name }) => name)
+  //     return a
+  //   },
+  //   {} as TAllyArmies
+  // )
+
+  return allyUnits
 }

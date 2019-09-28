@@ -28,9 +28,9 @@ import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
-  it('handles KO5', () => {
+  it('handles KO5', async () => {
     const pages = handleAzyrPages(KO5)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Seek New Prospects',
@@ -39,9 +39,9 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles KO4', () => {
+  it('handles KO4', async () => {
     const pages = handleAzyrPages(KO4)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Master the Skies',
@@ -50,9 +50,9 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles KO2', () => {
+  it('handles KO2', async () => {
     const pages = handleAzyrPages(KO2)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
@@ -69,23 +69,23 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles Stormcast4', () => {
+  it('handles Stormcast4', async () => {
     const pages = handleAzyrPages(Stormcast4)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.traits).toEqual(['Keen-clawed (Mount)', 'Lithe-Limbed (Mount)'])
   })
 
-  it('handles Slaanesh1', () => {
+  it('handles Slaanesh1', async () => {
     const pages = handleAzyrPages(Slaanesh1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.allyFactionNames).toEqual([MERCENARY_COMPANIES])
   })
 
-  it('handles Slaanesh2', () => {
+  it('handles Slaanesh2', async () => {
     const pages = handleAzyrPages(Slaanesh2)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.selections).toEqual({
       allegiances: ['Pretenders (Host)'],
@@ -110,9 +110,9 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles Skryre1', () => {
+  it('handles Skryre1', async () => {
     const pages = handleAzyrPages(Skryre1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVEN)
     expect(res.selections.allegiances).toContain('Warpstone Sparks (Skryre)')
     expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
@@ -126,9 +126,9 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles Seraphon1', () => {
+  it('handles Seraphon1', async () => {
     const pages = handleAzyrPages(Seraphon1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -159,9 +159,9 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles KO1', () => {
+  it('handles KO1', async () => {
     const pages = handleAzyrPages(KO1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -205,9 +205,9 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles Skaven1', () => {
+  it('handles Skaven1', async () => {
     const pages = handleAzyrPages(Skaven1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -251,9 +251,9 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles Fyreslayers2', () => {
+  it('handles Fyreslayers2', async () => {
     const pages = handleAzyrPages(Fyreslayers2)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -285,9 +285,9 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles BoC1', () => {
+  it('handles BoC1', async () => {
     const pages = handleAzyrPages(BoC1)
-    const res = getAzyrArmyFromPdf(pages)
+    const res = await getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: ['SLAVES_TO_DARKNESS'],
       allySelections: {
@@ -364,7 +364,7 @@ describe('getAzyrArmyFromPdf', () => {
 })
 
 describe('isPoorlySpacedMatch', () => {
-  it('handles stuff', () => {
+  it('handles stuff', async () => {
     const sample1 = isPoorlySpacedMatch('Vigor dust Inject or', 'Vigordust Injector (Skryre)')
     expect(sample1).toBeTruthy()
 

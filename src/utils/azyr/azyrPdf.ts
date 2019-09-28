@@ -1,5 +1,5 @@
 import pdfjsLib from 'pdfjs-dist'
-import { uniq, sortBy } from 'lodash-es'
+import { uniq, sortBy } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'

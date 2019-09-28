@@ -1,4 +1,4 @@
-import { uniq, last } from 'lodash-es'
+import { uniq, last } from 'lodash'
 import { cleanWarscrollText } from './warscrollUtils'
 import { importUnitOptionMap, importFactionNameMap } from '../import/options'
 import { TSupportedFaction } from 'meta/factions'

@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash-es'
+import { uniq, without } from 'lodash'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { createAllyWarning } from 'utils/import/warnings'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
@@ -10,16 +10,16 @@ import { TSupportedFaction } from 'meta/factions'
 import { TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
 
-export const getAllyData = (
+export const getAllyData = async (
   allyUnits: string[],
   factionName: TSupportedFaction,
   errors: TImportError[],
   checkPoorSpacing: boolean,
   typoMap: TNameMap
-): {
+): Promise<{
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
-} => {
+}> => {
   if (allyUnits.length === 0) {
     return {
       allyFactionNames: [],
@@ -27,7 +27,7 @@ export const getAllyData = (
     }
   }
 
-  const allyArmyUnits = getAllyArmyUnits(factionName)
+  const allyArmyUnits = await getAllyArmyUnits(factionName)
 
   const allyData = Object.keys(allyArmyUnits).reduce(
     (a, allyName) => {

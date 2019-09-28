@@ -1,4 +1,4 @@
-import { difference } from 'lodash-es'
+import { difference } from 'lodash'
 import { isValidFactionName } from 'utils/armyUtils'
 import { logFailedImport } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -58,7 +58,7 @@ export const importErrorChecker = async (
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)
 
-  const allyData = getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing, opts.typoMap)
+  const allyData = await getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing, opts.typoMap)
 
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)

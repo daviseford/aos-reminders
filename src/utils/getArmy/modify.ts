@@ -11,7 +11,7 @@ import {
   TScenery,
   TEndlessSpells,
 } from 'types/army'
-import { sortBy, uniqBy, sortedUniqBy } from 'lodash-es'
+import { sortBy, uniqBy, sortedUniqBy } from 'lodash'
 import { TGrandAlliances } from 'meta/alliances'
 import { GrandAllianceConfig } from './grandAllianceConfig'
 import {

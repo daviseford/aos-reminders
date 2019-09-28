@@ -1,4 +1,4 @@
-import { uniq } from 'lodash-es'
+import { uniq } from 'lodash'
 import { titleCase } from 'utils/textUtils'
 import { importErrorChecker } from 'utils/import'
 import { TSupportedFaction } from 'meta/factions'
@@ -11,6 +11,8 @@ import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/optio
 export const getAzyrArmyFromPdf = async (pdfText: string[]): Promise<IImportedArmy> => {
   const army = getInitialAzyrArmy(pdfText)
   const errorChecked = await importErrorChecker(army, 'Azyr')
+
+  debugger
 
   return errorChecked
 }
