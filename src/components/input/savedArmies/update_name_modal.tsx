@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
 import { ModalStyle } from 'theme/modalStyle'
+import Spinner from 'components/helpers/spinner'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -20,6 +21,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, currentArmyName, id } = props
   const { updateArmyName } = useSavedArmies()
   const [armyName, setArmyName] = useState(currentArmyName)
+  const [processing, setProcessing] = useState(false)
 
   const handleUpdateName = (e: any) => {
     e.preventDefault()
@@ -34,13 +36,15 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const handleUpdateClick = e => {
+  const handleUpdateClick = async e => {
     e.preventDefault()
     if (armyName === currentArmyName) {
       closeModal()
       return // Don't hit the API if they don't make a change :)
     }
-    updateArmyName(id, armyName || 'Untitled')
+    setProcessing(true)
+    await updateArmyName(id, armyName || 'Untitled')
+    setProcessing(false)
     closeModal()
     setArmyName(armyName || 'Untitled')
     logEvent(`UpdateArmyName`)
@@ -54,7 +58,8 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
       contentLabel="Update Army Name Modal"
     >
       <div className={`container`}>
-        <div className="row">
+        {processing && <Spinner />}
+        <div className="row" hidden={processing}>
           <div className="col">
             <form>
               <div className="form-group">
@@ -76,7 +81,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row" hidden={processing}>
           <div className="col">
             <button className={btnClass} onClick={handleUpdateClick}>
               <div className="d-flex align-items-center">
