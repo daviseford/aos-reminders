@@ -8,6 +8,7 @@ import { prepareArmy } from 'utils/armyUtils'
 import { SavedArmyTable } from './saved_army_table'
 import { ModalStyle } from 'theme/modalStyle'
 import { ISavedArmy } from 'types/savedArmy'
+import Spinner from 'components/helpers/spinner'
 
 const btnClass = `btn btn-outline-dark`
 
@@ -25,6 +26,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { isSubscribed } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const [armyName, setArmyName] = useState('')
+  const [processing, setProcessing] = useState(false)
 
   const handleUpdateName = (e: any) => {
     e.preventDefault()
@@ -39,11 +41,13 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const handleSaveClick = e => {
+  const handleSaveClick = async e => {
     e.preventDefault()
     if (isSubscribed) {
+      setProcessing(true)
       const payload = prepareArmy({ ...army, armyName }, 'save')
-      saveArmy(payload as ISavedArmy)
+      await saveArmy(payload as ISavedArmy)
+      setProcessing(false)
       closeModal()
       setArmyName('')
       showSavedArmies()
@@ -54,7 +58,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
       <div className={`container`}>
-        <div className="row">
+        {processing && <Spinner />}
+        <div className="row" hidden={processing}>
           <div className="col">
             <form>
               <div className="form-group">
@@ -77,7 +82,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row" hidden={processing}>
           <div className="col">
             <button className={btnClass} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
@@ -91,7 +96,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
           </div>
         </div>
 
-        <div className="row mt-3">
+        <div className="row mt-3" hidden={processing}>
           <div className="col">
             <SavedArmyTable army={army} />
           </div>

@@ -20,6 +20,7 @@ const initialState = {
   updateArmyName: (id: string, armyName: string) => null,
 }
 
+// TODO: Add promise returns to all of these :)
 interface ISavedArmiesContext {
   armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => void

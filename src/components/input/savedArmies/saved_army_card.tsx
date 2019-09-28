@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { DateTime } from 'luxon'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { titleCase } from 'utils/textUtils'
-import { logEvent } from 'utils/analytics'
 import { LoadArmyBtn } from './load_army_btn'
 import { SavedArmyTable } from './saved_army_table'
 import { DeleteArmyModal } from './delete_army_modal'
@@ -15,19 +13,11 @@ interface ISavedArmyCardProps {
 
 export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
-  const { deleteSavedArmy } = useSavedArmies()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
-
-  const handleDeleteClick = e => {
-    e.preventDefault()
-    logEvent('DeleteArmy')
-    deleteSavedArmy(army.id)
-    closeModal()
-  }
 
   // TODO Make the table stuff collapsable
   return (
@@ -51,8 +41,8 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
             <DeleteArmyModal
               modalIsOpen={modalIsOpen}
               closeModal={closeModal}
-              handleDelete={handleDeleteClick}
               armyName={army.armyName}
+              id={army.id}
             />
           </div>
         </div>
