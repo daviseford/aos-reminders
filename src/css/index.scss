@@ -30,6 +30,10 @@ small {
   font-size: 11px;
 }
 
+.text-light-gray {
+    color: $themeLightGray !important;
+}
+
 .ThemeDarkBg {
     background-color: $themeDarkBluePrimary;
 }

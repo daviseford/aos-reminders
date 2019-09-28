@@ -57,17 +57,18 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
-  const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
   const cards = useMemo(() => {
     return army ? getArmyBuilderCards(army, props, realmFeatureItems) : []
   }, [army, props, realmFeatureItems])
 
   return (
     <div className="d-flex justify-content-center">
-      <div className={rowClass}>
+      <div
+        className={`row d-flex d-print-none pb-1 justify-content-center ${isMobile ? `mx-1` : `pt-2 w-75`}`}
+      >
         {cards.length === 0 && (
-          <div className="text-center mt-3">
-            <Spinner />
+          <div className="d-flex flex-row text-center mt-3">
+            <Spinner variant="light-gray" size="large" />
           </div>
         )}
         {cards.length > 0 &&
