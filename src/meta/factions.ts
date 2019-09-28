@@ -1,4 +1,4 @@
-import { sortBy } from 'lodash'
+import { sortBy } from 'lodash-es'
 
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'

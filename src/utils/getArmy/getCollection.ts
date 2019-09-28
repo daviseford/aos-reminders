@@ -1,4 +1,4 @@
-import { sortBy, uniqBy } from 'lodash'
+import { sortBy, uniqBy } from 'lodash-es'
 import { IInitialArmy, ICollection, TArtifacts, TBattalions, TCommands, TSpells, TTraits } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 

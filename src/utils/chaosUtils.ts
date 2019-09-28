@@ -1,4 +1,4 @@
-import { without } from 'lodash'
+import { without } from 'lodash-es'
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { MARKS_OF_CHAOS, TMarksOfChaos } from 'meta/alliances'
 import { TEffects } from 'types/data'

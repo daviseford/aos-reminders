@@ -1,4 +1,4 @@
-import { startCase, camelCase } from 'lodash'
+import { startCase, camelCase } from 'lodash-es'
 import { TTurnAction } from 'types/data'
 
 export const titleCase = (val: string): string => startCase(camelCase(val))

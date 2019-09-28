@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import { uniq } from 'lodash-es'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { mapListToDict } from 'utils/mapListToDict'
 import { TImportError } from 'types/import'

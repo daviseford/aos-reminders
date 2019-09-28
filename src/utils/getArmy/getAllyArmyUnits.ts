@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash'
+import { uniq, without } from 'lodash-es'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,

@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import { findIndex, slice, sum, range } from 'lodash'
+import { findIndex, slice, sum, range } from 'lodash-es'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections } from 'types/selections'

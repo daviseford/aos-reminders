@@ -1,4 +1,4 @@
-import { difference } from 'lodash'
+import { difference } from 'lodash-es'
 import { isValidFactionName } from 'utils/armyUtils'
 import { logFailedImport } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'

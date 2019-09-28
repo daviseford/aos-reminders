@@ -1,4 +1,4 @@
-import { flatten } from 'lodash'
+import { flatten } from 'lodash-es'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { processReminders, addToString } from 'utils/processReminders'

@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
-import { sortBy } from 'lodash'
+import { sortBy } from 'lodash-es'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { titleCase } from 'utils/textUtils'
 import { logAllyFaction } from 'utils/analytics'

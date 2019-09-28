@@ -5,7 +5,7 @@ import {
   ORDER_GRAND_ALLIANCE,
 } from 'meta/factions'
 import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
-import { sortedUniqBy, sortBy, without } from 'lodash'
+import { sortedUniqBy, sortBy, without } from 'lodash-es'
 import { TEntry } from 'types/data'
 import { getArmiesInfo } from 'meta/army_list'
 

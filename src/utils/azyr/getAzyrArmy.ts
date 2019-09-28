@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import { uniq } from 'lodash-es'
 import { titleCase } from 'utils/textUtils'
 import { importErrorChecker } from 'utils/import'
 import { TSupportedFaction } from 'meta/factions'

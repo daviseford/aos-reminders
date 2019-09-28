@@ -1,4 +1,4 @@
-import { flatten } from 'lodash'
+import { flatten } from 'lodash-es'
 import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { TGameStructure, Game } from 'meta/game_structure'
 import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'

@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash'
+import { uniq, without } from 'lodash-es'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { createAllyWarning } from 'utils/import/warnings'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
