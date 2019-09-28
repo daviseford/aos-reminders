@@ -40,7 +40,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setErrors(army.errors)
 
       // Can't proceed if there's an error (usually an unsupported faction)
-      if (hasFatalError(errors)) return
+      if (hasFatalError(army.errors)) return
 
       setFactionName(army.factionName)
 
@@ -58,7 +58,6 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setRealmscapeFeature(army.realmscape_feature)
     },
     [
-      errors,
       setFactionName,
       setRealmscape,
       setRealmscapeFeature,

@@ -66,9 +66,9 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
       <div className={btnContentWrapper}>
+        {isProcessing && <Spinner />}
         <p className="pt-3 text-center">
           {getText()}
-          {isProcessing && <Spinner />}
           {isDone && <FaRegCheckCircle className="text-success ml-2" />}
           {isError && <MdErrorOutline className="text-danger ml-2" />}
         </p>
