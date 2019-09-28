@@ -7,7 +7,7 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { getArmiesInfo } from 'meta/army_list'
+import { getArmiesInfo } from './getArmies'
 
 type TAllyArmies = { [key in TSupportedFaction]: string[] }
 type TGetAllyArmies = (factionName: TSupportedFaction) => TAllyArmies

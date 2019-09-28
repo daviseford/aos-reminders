@@ -243,19 +243,8 @@ const ArmyList: TArmyList = {
   },
 }
 
-export const getArmyList = (factionName: TSupportedFaction) => {
-  return ArmyList[factionName]
-}
-
-export const getArmiesInfo = () => {
-  return Object.keys(ArmyList).reduce(
-    (a, k) => {
-      a[k] = { GrandAlliance: a[k].GrandAlliance }
-      return a
-    },
-    {} as { [key in TSupportedFaction]: { GrandAlliance: TGrandAlliances } }
-  )
-}
+// This should not be imported by anything except utils/getArmy/getArmies.ts!
+export default ArmyList
 
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 

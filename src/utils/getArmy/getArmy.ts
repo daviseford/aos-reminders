@@ -5,10 +5,10 @@ import { getCollection } from './getCollection'
 import { isValidFactionName } from 'utils/armyUtils'
 import { modify } from './modify'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
-import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TRealms } from 'types/realmscapes'
+import { getArmyList } from './getArmies'
 
 export const getArmy = async (
   factionName: TSupportedFaction | null,
@@ -20,7 +20,7 @@ export const getArmy = async (
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection, factionName })
+  const army = await modifyArmy(Army, { realmscape, GrandAlliance, Collection, factionName })
 
   return army
 }
@@ -32,7 +32,7 @@ interface IModifyArmyMeta {
   factionName: TSupportedFaction
 }
 
-const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
+const modifyArmy = produce(async (Army: IArmy, meta: IModifyArmyMeta) => {
   let {
     Allegiances = [],
     AlliedUnits = [],
