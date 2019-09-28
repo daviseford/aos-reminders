@@ -9,7 +9,7 @@ import { IImportedArmy, TImportParsers } from 'types/import'
 import { useSavedArmies } from 'context/useSavedArmies'
 
 interface IDropzoneProps {
-  handleDrop: (army: IImportedArmy) => void
+  handleDrop: (army: IImportedArmy) => Promise<void>
 }
 
 export const ImportDropzone: React.FC<IDropzoneProps> = props => {
