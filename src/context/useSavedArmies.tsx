@@ -119,12 +119,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         const payload = { armyName, userName: user.email }
         await PreferenceApi.updateItem(id, payload)
         await loadSavedArmies()
-        setLoadedArmy({ id, armyName })
+        if (loadedArmy) setLoadedArmy({ id, armyName })
       } catch (err) {
         console.error(err)
       }
     },
-    [loadSavedArmies, user]
+    [loadSavedArmies, user, loadedArmy]
   )
 
   return (
