@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
 import { titleCase } from 'utils/textUtils'
 import { LoadArmyBtn } from './load_army_btn'
@@ -6,6 +6,7 @@ import { SavedArmyTable } from './saved_army_table'
 import { DeleteArmyModal } from './delete_army_modal'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import UpdateNameButton from './update_name_btn'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -15,14 +16,33 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [border, setBorder] = useState('')
+  const { loadedArmy } = useSavedArmies()
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
+  useEffect(() => {
+    if (!loadedArmy) {
+      if (border.includes('border-success')) {
+        setBorder('border-success shadow-drop-2-center-reverse')
+        setTimeout(() => setBorder(''), 2000)
+      }
+      return
+    }
+
+    if (loadedArmy.id === army.id) {
+      setBorder('border-success shadow-drop-2-center')
+    } else if (border.includes('border-success')) {
+      setBorder('border-success shadow-drop-2-center-reverse')
+      setTimeout(() => setBorder(''), 1000)
+    }
+  }, [loadedArmy, army.id, border])
+
   // TODO Make the table stuff collapsable
   return (
     <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
-      <div className="card">
+      <div className={`card ${border}`}>
         <div className="card-body">
           <CardTitle
             id={army.id}

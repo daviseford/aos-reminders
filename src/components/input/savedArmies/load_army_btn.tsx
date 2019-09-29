@@ -5,7 +5,7 @@ import { factionNames, selections, realmscape, army } from 'ducks'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logEvent } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TUnits } from 'types/army'
+import { IArmy } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
@@ -17,7 +17,6 @@ interface ILoadButtonProps {
   setRealmscapeFeature: (value: string | null) => void
   updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
   updateAllySelections: (payload: TAllySelectionStore) => void
-  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
   updateSelections: (payload: ISelections) => void
 }
 
@@ -34,7 +33,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
   const { setLoadedArmy } = useSavedArmies()
 
-  const handleLoadClick = e => {
+  const handleLoadClick = async e => {
     e.preventDefault()
 
     logEvent(`LoadArmy`)
@@ -72,7 +71,6 @@ export const LoadArmyBtn = connect(
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
     updateAllyArmies: army.actions.updateAllyArmies,
     updateAllySelections: selections.actions.updateAllySelections,
-    updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
   }
 )(LoadButtonComponent)
