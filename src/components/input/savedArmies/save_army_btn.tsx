@@ -41,12 +41,14 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 
       {isAuthenticated && isSubscribed && canSave && <SaveButton btnText={btnText} handleClick={openModal} />}
 
-      <SaveArmyModal
-        showSavedArmies={showSavedArmies}
-        army={currentArmy}
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-      />
+      {modalIsOpen && (
+        <SaveArmyModal
+          showSavedArmies={showSavedArmies}
+          army={currentArmy}
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }

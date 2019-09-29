@@ -60,12 +60,14 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
           <MdFileDownload className="mr-2" /> {text}
         </div>
       </button>
-      <DownloadPDFModal
-        factionName={currentArmy.factionName}
-        pdf={pdf as jsPDF}
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-      />
+      {modalIsOpen && (
+        <DownloadPDFModal
+          factionName={currentArmy.factionName}
+          pdf={pdf as jsPDF}
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }

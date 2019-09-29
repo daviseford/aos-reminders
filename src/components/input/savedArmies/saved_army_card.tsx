@@ -38,12 +38,14 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
             <button className="btn btn-sm btn-danger mx-3" onClick={openModal}>
               Delete
             </button>
-            <DeleteArmyModal
-              modalIsOpen={modalIsOpen}
-              closeModal={closeModal}
-              armyName={army.armyName}
-              id={army.id}
-            />
+            {modalIsOpen && (
+              <DeleteArmyModal
+                modalIsOpen={modalIsOpen}
+                closeModal={closeModal}
+                armyName={army.armyName}
+                id={army.id}
+              />
+            )}
           </div>
         </div>
       </div>
