@@ -7,8 +7,8 @@ import { titleCase } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { ModalStyle } from 'theme/modalStyle'
 import { useSavedArmies } from 'context/useSavedArmies'
-
-const btnClass = `btn btn-outline-dark`
+import Spinner from 'components/helpers/spinner'
+import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -30,6 +30,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { loadedArmy } = useSavedArmies()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
+  const [processing, setProcessing] = useState(false)
 
   useEffect(() => {
     setFileName(getDefaultName(defaultName))
@@ -50,7 +51,9 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
 
   const handleSaveClick = e => {
     e.preventDefault()
+    setProcessing(true)
     pdf.save(`${fileName}.pdf`)
+    setProcessing(false)
     logDownloadEvent(factionName)
     closeModal()
     setFileName('')
@@ -59,7 +62,8 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
       <div className={`container mr-3 pl-0`}>
-        <div className="row">
+        {processing && <Spinner />}
+        <div className="row" hidden={processing}>
           <div className="col">
             <form>
               <div className="form-group">
@@ -80,15 +84,15 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row" hidden={processing}>
           <div className="col px-0">
-            <button className={`${btnClass} ml-3 mr-5`} onClick={handleSaveClick}>
+            <button className={modalConfirmClass} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
                 <MdFileDownload className="mr-2" /> Download
               </div>
             </button>
 
-            <button className={`btn btn-outline-danger ml-3`} onClick={closeModal}>
+            <button className={modalDenyClass} onClick={closeModal}>
               <div className="d-flex align-items-center">Cancel</div>
             </button>
           </div>

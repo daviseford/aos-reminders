@@ -20,12 +20,14 @@ const UpdateNameButton: TUpdateName = ({ id, armyName, className = '', size = '1
     <>
       <IconContext.Provider value={{ size }}>
         <FaPencilAlt className={className} onClick={handleClick} />
-        <UpdateArmyNameModal
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          id={id}
-          currentArmyName={armyName}
-        />
+        {modalIsOpen && (
+          <UpdateArmyNameModal
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            id={id}
+            currentArmyName={armyName}
+          />
+        )}
       </IconContext.Provider>
     </>
   )

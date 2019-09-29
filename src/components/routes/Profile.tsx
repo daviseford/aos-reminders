@@ -88,7 +88,7 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
       <button className="btn btn-sm btn-outline-danger" onClick={openModal}>
         Cancel Subscription
       </button>
-      <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )
 }
