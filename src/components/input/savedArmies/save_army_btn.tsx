@@ -56,10 +56,12 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   currentArmy: selectors.getCurrentArmy(state),
 })
 
-export const SaveArmyBtn = connect(
+const SaveArmyBtn = connect(
   mapStateToProps,
   null
 )(SaveArmyBtnComponent)
+
+export default SaveArmyBtn
 
 const SubscribeBtn = () => (
   <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>

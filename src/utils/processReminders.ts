@@ -39,7 +39,7 @@ export const processReminders: TProcessReminders = (
 
   if (allyData.length) {
     reminders = allyData.reduce((accum, data) => {
-      if (!data.allySelections) return {}
+      if (!data.allySelections) return accum
       return processConditions(data.allyArmy.Game, data.allySelections, accum)
     }, reminders)
   }

@@ -11,6 +11,7 @@ import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
+import { logClick } from 'utils/analytics'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -131,11 +132,14 @@ const ErrorAlert = (props: TImportError) => {
           <strong>{prefix}:</strong> {info}
           <br />
           <small>
-            Unexpected {prefix.toLowerCase()}? Post a comment on{' '}
+            Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
             <a
-              href={'https://github.com/daviseford/aos-reminders/issues/431'}
+              href={'https://github.com/daviseford/aos-reminders/issues'}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={e => {
+                logClick(`failedImport-GithubClick`)
+              }}
             >
               Github
             </a>{' '}

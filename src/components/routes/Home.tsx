@@ -1,10 +1,10 @@
 import React, { useEffect, Suspense, lazy } from 'react'
 import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
-import ArmyBuilder from 'components/input/army_builder'
 import { Header } from 'components/page/homeHeader'
-import { Toolbar } from 'components/input/toolbar'
+import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 
+const ArmyBuilder = lazy(() => import(/* webpackChunkName: 'army_builder' */ 'components/input/army_builder'))
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
 const FooterComponent = lazy(() => import(/* webpackChunkName: 'footer' */ 'components/page/footer'))
 const LoadedArmyHeader = lazy(() =>
@@ -13,6 +13,7 @@ const LoadedArmyHeader = lazy(() =>
 const PrintArmy = lazy(() => import(/* webpackChunkName: 'printArmy' */ 'components/print/printArmy'))
 const PrintFooter = lazy(() => import(/* webpackChunkName: 'printFooter' */ 'components/print/printFooter'))
 const Reminders = lazy(() => import(/* webpackChunkName: 'reminders' */ 'components/info/reminders'))
+const Toolbar = lazy(() => import(/* webpackChunkName: 'toolbar' */ 'components/input/toolbar/toolbar'))
 
 const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
@@ -33,13 +34,17 @@ const Home: React.FC = () => {
         <LoadedArmyHeader />
       </Suspense>
 
-      <ArmyBuilder />
+      <Suspense fallback={<LargeSpinner />}>
+        <ArmyBuilder />
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <AlliedArmies />
       </Suspense>
 
-      <Toolbar />
+      <Suspense fallback={<></>}>
+        <Toolbar />
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <Reminders />

@@ -36,6 +36,12 @@ const updateAllyArmy = (state, action: { payload: { factionName: TSupportedFacti
   const { factionName, Army } = action.payload
   state.allyArmies[factionName] = Army
 }
+const updateAllyArmies = (state, action: { payload: { factionName: TSupportedFaction; Army: IArmy }[] }) => {
+  action.payload.forEach(update => {
+    const { factionName, Army } = update
+    state.allyArmies[factionName] = Army
+  })
+}
 const switchAllyArmy = (state, action: { payload: { next: TSupportedFaction; prev: TSupportedFaction } }) => {
   const { next, prev } = action.payload
   delete state.allyArmies[prev]
@@ -50,10 +56,11 @@ export const army = createSlice({
   initialState,
   reducers: {
     deleteAllyArmy,
-    switchAllyArmy,
     resetAllArmies: (state, action) => initialState,
     resetAllyArmies,
     resetArmy,
+    switchAllyArmy,
+    updateAllyArmies,
     updateAllyArmy,
     updateArmy,
   },
