@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
 interface IPaginateButtonsProps {
   pageNum: number
@@ -28,10 +29,10 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
     <nav aria-label="Saved Army Pagination">
       <ul className="pagination justify-content-center my-2">
         <li className={`page-item ${canDecrement ? `` : `disabled`}`} onClick={decrement}>
-          <button className="page-link">Previous</button>
+          <button className="page-link">{canDecrement && <FaAngleLeft className="mr-1" />}Previous</button>
         </li>
         <li className={`page-item ${canIncrement ? `` : `disabled`}`} onClick={increment}>
-          <button className="page-link">Next</button>
+          <button className="page-link">Next{canIncrement && <FaAngleRight className="ml-1" />}</button>
         </li>
       </ul>
     </nav>
