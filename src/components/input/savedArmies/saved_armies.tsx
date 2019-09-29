@@ -23,7 +23,7 @@ const ShowSavedArmies: React.FC = () => {
   if (paginatedArmies.length === 0) return <NoArmiesFound />
 
   return (
-    <div className="mt-1">
+    <div className="mt-2">
       <PaginateButtons pageNum={pageNum} setPageNum={setPageNum} numPages={paginatedArmies.length} />
 
       <div className="row justify-content-center">
