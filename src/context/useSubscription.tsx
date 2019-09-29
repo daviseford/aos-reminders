@@ -5,8 +5,6 @@ import { ISubscription } from 'types/subscription'
 import { isSubscriber, isActiveSubscriber } from 'utils/subscriptionUtils'
 
 const initialState = {
-  cancelSubscription: () => null,
-  getSubscription: () => null,
   isActive: false,
   isSubscribed: false,
   subscription: { subscribed: false },
@@ -14,15 +12,15 @@ const initialState = {
 }
 
 interface ISubscriptionContext {
-  cancelSubscription: () => void
-  getSubscription: () => void
+  cancelSubscription: () => Promise<void>
+  getSubscription: () => Promise<void>
   isActive: boolean
   isSubscribed: boolean
   subscription: ISubscription
   subscriptionLoading: boolean
 }
 
-const SubscriptionContext = React.createContext<ISubscriptionContext>(initialState)
+const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
 
 const SubscriptionProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()

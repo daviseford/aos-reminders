@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
-import { factionNames, selections, selectors } from 'ducks'
+import { factionNames, selections, selectors, realmscape } from 'ducks'
 import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -27,16 +27,27 @@ interface IJumbotronProps {
   isMobile: boolean
   factionName: TSupportedFaction
   resetSelections: () => void
+  resetRealmscapeStore: () => void
+  resetAllySelections: () => void
   setFactionName: (value: string | null) => void
 }
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
-  const { resetSelections, setFactionName, isMobile, factionName } = props
+  const {
+    resetAllySelections,
+    resetSelections,
+    resetRealmscapeStore,
+    setFactionName,
+    isMobile,
+    factionName,
+  } = props
   const { setLoadedArmy } = useSavedArmies()
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
     resetSelections()
+    resetRealmscapeStore()
+    resetAllySelections()
     logFactionSwitch(value)
     setFactionName(value)
   })
@@ -80,6 +91,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  resetAllySelections: selections.actions.resetAllySelections,
+  resetRealmscapeStore: realmscape.actions.resetRealmscapeStore,
   resetSelections: selections.actions.resetSelections,
   setFactionName: factionNames.actions.setFactionName,
 }

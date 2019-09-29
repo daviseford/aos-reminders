@@ -8,37 +8,24 @@ import { isEqual, sortBy } from 'lodash'
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
 
-const initialState = {
-  armyHasChanges: (currentArmy: ICurrentArmy) => ({ hasChanges: false, changedKeys: [] }),
-  deleteSavedArmy: (id: string) => null,
-  loadedArmy: null,
-  loadSavedArmies: () => null,
-  saveArmy: (army: ISavedArmy) => null,
-  savedArmies: [] as ISavedArmyFromApi[],
-  setLoadedArmy: (army: TLoadedArmy) => null,
-  updateArmy: (id: string, data: { [key: string]: any }) => null,
-  updateArmyName: (id: string, armyName: string) => null,
-}
-
-// TODO: Add promise returns to all of these :)
 interface ISavedArmiesContext {
   armyHasChanges: THasChanges
-  deleteSavedArmy: (id: string) => void
+  deleteSavedArmy: (id: string) => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
-  loadSavedArmies: () => void
-  saveArmy: (army: ISavedArmy) => void
+  loadSavedArmies: () => Promise<void>
+  saveArmy: (army: ISavedArmy) => Promise<void>
   savedArmies: ISavedArmyFromApi[]
   setLoadedArmy: (army: TLoadedArmy) => void
-  updateArmy: (id: string, data: { [key: string]: any }) => void
-  updateArmyName: (id: string, armyName: string) => void
+  updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
+  updateArmyName: (id: string, armyName: string) => Promise<void>
 }
 
-const SavedArmiesContext = React.createContext<ISavedArmiesContext>(initialState)
+const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
-  const [savedArmies, setSavedArmies] = useState(initialState.savedArmies)
-  const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(initialState.loadedArmy)
+  const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
+  const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
@@ -64,7 +51,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const loadSavedArmies = useCallback(async () => {
-    if (!user) return setSavedArmies(initialState.savedArmies)
+    if (!user) return setSavedArmies([])
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)

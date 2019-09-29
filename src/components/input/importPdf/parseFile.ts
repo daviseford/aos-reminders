@@ -4,6 +4,7 @@ import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscro
 import { logEvent } from 'utils/analytics'
 import { IImportedArmy, TImportParsers } from 'types/import'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
+import { isValidFactionName } from 'utils/armyUtils'
 
 type TImportFileTypes = 'application/pdf' | 'text/plain'
 
@@ -79,13 +80,17 @@ export const handleParseFile: TUseParse = ({
           const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          if (isValidFactionName(parsedArmy.factionName)) {
+            logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          }
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          if (isValidFactionName(parsedArmy.factionName)) {
+            logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          }
         }
       }
 
