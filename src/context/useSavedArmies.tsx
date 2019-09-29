@@ -33,6 +33,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
 
+      loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
+      currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
+
       const hasChanges = !isEqual(currentArmy, loaded)
 
       const changedKeys = !hasChanges
