@@ -25,8 +25,8 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   useEffect(() => {
     if (!loadedArmy) {
       if (border.includes('border-success')) {
-        setBorder('border-success shadow-drop-2-center-reverse')
-        setTimeout(() => setBorder(''), 2000)
+        setBorder('shadow-drop-2-center-reverse')
+        setTimeout(() => setBorder(''), 1000)
       }
       return
     }
@@ -34,7 +34,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
     if (loadedArmy.id === army.id) {
       setBorder('border-success shadow-drop-2-center')
     } else if (border.includes('border-success')) {
-      setBorder('border-success shadow-drop-2-center-reverse')
+      setBorder('shadow-drop-2-center-reverse')
       setTimeout(() => setBorder(''), 1000)
     }
   }, [loadedArmy, army.id, border])
