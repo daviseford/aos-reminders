@@ -25,7 +25,7 @@ interface IAllyArmyBuilderProps {
   hideAlly: (value: string) => void // dispatch2Props
   resetAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   showAlly: (value: string) => void // dispatch2Props
-  switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction }) => void // dispatch2Props
+  switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction; nextArmy: IArmy }) => void // dispatch2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
   visibleAllies: string[] // state2Props
@@ -56,12 +56,19 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
   const handleSetAllyFactionName = withSelectOne((value: string | null) => {
     const next = value as TSupportedFaction
-    deleteAllySelection(allyFactionName)
-    hideAlly(allyFactionName)
-    resetAllySelection(next)
-    logAllyFaction(next)
-    switchAllyArmy({ prev: allyFactionName, next })
-    showAlly(next)
+
+    const switchArmy = async () => {
+      const nextArmy = (await getArmy(next)) as IArmy
+      deleteAllySelection(allyFactionName)
+      hideAlly(allyFactionName)
+      resetAllySelection(next)
+      logAllyFaction(next)
+      switchAllyArmy({ prev: allyFactionName, next, nextArmy })
+      setAllyArmy(nextArmy)
+      showAlly(next)
+    }
+
+    switchArmy()
   })
 
   const handleClose = useCallback(
@@ -101,8 +108,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     () => (isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
     [isVisible, hideAlly, showAlly, allyFactionName]
   )
-
-  if (!allyArmy) return null
+  debugger
 
   return (
     <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 pb-2">
@@ -110,7 +116,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         allyFactionName={allyFactionName}
         allySelectOptions={allySelectOptions}
         handleClose={handleClose}
-        items={sortBy(allyArmy.Units, 'name')}
+        items={allyArmy ? sortBy(allyArmy.Units, 'name') : []}
         setAllyFactionName={handleSetAllyFactionName}
         setValues={handleUnits}
         type={`Units`}

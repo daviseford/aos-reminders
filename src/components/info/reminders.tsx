@@ -22,6 +22,7 @@ interface IRemindersProps extends ICurrentArmy {
 const RemindersComponent = (props: IRemindersProps) => {
   const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
+  debugger
   const reminders = useMemo(() => {
     return processReminders(
       army,

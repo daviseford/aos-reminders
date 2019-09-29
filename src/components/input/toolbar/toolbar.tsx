@@ -47,11 +47,16 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const hideImportArmy = () => setIsShowingWarscrollImport(false)
 
   const handleAllyClick = async e => {
-    e.preventDefault()
-    const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
-    resetAllySelection(newAllyFaction)
-    const Army = (await getArmy(newAllyFaction)) as IArmy
-    updateAllyArmy({ factionName: newAllyFaction, Army })
+    try {
+      e.preventDefault()
+      const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
+      const Army = (await getArmy(newAllyFaction)) as IArmy
+      debugger
+      updateAllyArmy({ factionName: newAllyFaction, Army })
+      resetAllySelection(newAllyFaction)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (

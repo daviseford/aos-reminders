@@ -37,9 +37,12 @@ export const processReminders: TProcessReminders = (
 
   let reminders = processConditions(army.Game, selections, {})
 
+  debugger
+
   if (allyData.length) {
+    debugger
     reminders = allyData.reduce((accum, data) => {
-      if (!data.allySelections) return {}
+      if (!data.allySelections || !data.allyArmy) return accum
       return processConditions(data.allyArmy.Game, data.allySelections, accum)
     }, reminders)
   }
