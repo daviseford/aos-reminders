@@ -128,11 +128,14 @@ const AzyrExample = () => {
   return (
     <>
       <figure className="figure">
-        <img
-          src="/img/azyr-example1.gif"
-          alt="Azyr Import and Save/Load Army Example"
+        <video
+          preload="auto"
+          autoPlay={true}
+          loop={true}
           className="figure-img img-fluid rounded img-thumbnail"
-        />
+        >
+          <source src="/img/azyr-example1.mp4" type="video/webm"></source>
+        </video>
         <figcaption className="figure-caption text-center">
           Importing Azyr lists, saving and loading armies
         </figcaption>
