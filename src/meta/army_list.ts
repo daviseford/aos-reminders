@@ -243,7 +243,8 @@ const ArmyList: TArmyList = {
   },
 }
 
-export default ArmyList
+export const getArmyList = () => ArmyList
+export const getArmyFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
 
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
