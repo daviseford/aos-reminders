@@ -82,7 +82,6 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
   useEffect(() => {
     const fetchAllyArmy = async () => {
-      debugger
       const Army = (await getArmy(allyFactionName)) as IArmy
       setAllyArmy(Army)
       updateAllyArmy({ factionName: allyFactionName, Army })
@@ -181,7 +180,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
     <div className="card">
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
-          <div className="pr-3">
+          <div className="pr-2">
             <IconContext.Provider value={{ size: '1.25em', className: 'text-light' }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>

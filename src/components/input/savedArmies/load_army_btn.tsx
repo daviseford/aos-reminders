@@ -15,7 +15,7 @@ interface ILoadButtonProps {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
+  updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
   updateAllySelections: (payload: TAllySelectionStore) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
   updateSelections: (payload: ISelections) => void
@@ -27,7 +27,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
-    updateAllyArmy,
+    updateAllyArmies,
     updateAllySelections,
     updateSelections,
   } = props
@@ -44,12 +44,13 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
     // Add Ally Game data to the store
     if (army.allyFactionNames.length) {
-      await Promise.all(
+      const updates = await Promise.all(
         army.allyFactionNames.map(async factionName => {
           const Army = (await getArmy(factionName)) as IArmy
-          updateAllyArmy({ factionName, Army })
+          return { factionName, Army }
         })
       )
+      updateAllyArmies(updates)
     }
 
     updateSelections(army.selections)
@@ -71,7 +72,7 @@ export const LoadArmyBtn = connect(
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-    updateAllyArmy: army.actions.updateAllyArmy,
+    updateAllyArmies: army.actions.updateAllyArmies,
     updateAllySelections: selections.actions.updateAllySelections,
     updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
