@@ -33,13 +33,17 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
 
+      // This fixes an issue where the names are not in exactly the same order
+      loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
+      currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
+
       const hasChanges = !isEqual(currentArmy, loaded)
 
       const changedKeys = !hasChanges
         ? []
         : Object.keys(currentArmy).reduce(
             (a, key) => {
-              if (!isEqual(currentArmy[key], original[key])) a.push(key)
+              if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
               return a
             },
             [] as string[]
