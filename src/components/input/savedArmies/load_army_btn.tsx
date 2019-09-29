@@ -34,7 +34,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
   const { setLoadedArmy } = useSavedArmies()
 
-  const handleLoadClick = e => {
+  const handleLoadClick = async e => {
     e.preventDefault()
 
     logEvent(`LoadArmy`)
@@ -44,10 +44,12 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
     // Add Ally Game data to the store
     if (army.allyFactionNames.length) {
-      army.allyFactionNames.forEach(async factionName => {
-        const Army = (await getArmy(factionName)) as IArmy
-        updateAllyArmy({ factionName, Army })
-      })
+      await Promise.all(
+        army.allyFactionNames.map(async factionName => {
+          const Army = (await getArmy(factionName)) as IArmy
+          updateAllyArmy({ factionName, Army })
+        })
+      )
     }
 
     updateSelections(army.selections)

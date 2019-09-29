@@ -28,19 +28,20 @@ export const processReminders: TProcessReminders = (
   allyArmies,
   allySelections
 ) => {
-  const allyData = allyFactionNames.map(name => {
-    return {
-      allyArmy: allyArmies[name],
-      allySelections: allySelections[name],
-    }
-  })
+  const allyData = allyFactionNames
+    .map(name => {
+      return {
+        allyArmy: allyArmies[name],
+        allySelections: allySelections[name],
+      }
+    })
+    .filter(x => x.allySelections && x.allyArmy)
 
   let reminders = processConditions(army.Game, selections, {})
 
   debugger
 
   if (allyData.length) {
-    debugger
     reminders = allyData.reduce((accum, data) => {
       if (!data.allySelections || !data.allyArmy) return accum
       return processConditions(data.allyArmy.Game, data.allySelections, accum)

@@ -64,7 +64,6 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
       resetAllySelection(next)
       logAllyFaction(next)
       switchAllyArmy({ prev: allyFactionName, next, nextArmy })
-      setAllyArmy(nextArmy)
       showAlly(next)
     }
 
@@ -83,16 +82,13 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
   useEffect(() => {
     const fetchAllyArmy = async () => {
-      const army = await getArmy(allyFactionName)
-      setAllyArmy(army)
+      debugger
+      const Army = (await getArmy(allyFactionName)) as IArmy
+      setAllyArmy(Army)
+      updateAllyArmy({ factionName: allyFactionName, Army })
     }
     fetchAllyArmy()
-  }, [allyFactionName])
-
-  useEffect(() => {
-    if (!allyArmy) return
-    updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
-  }, [allyArmy, updateAllyArmy, allyFactionName])
+  }, [allyFactionName, updateAllyArmy])
 
   const isVisible = useMemo(() => !!visibleAllies.find(a => a === allyFactionName), [
     allyFactionName,

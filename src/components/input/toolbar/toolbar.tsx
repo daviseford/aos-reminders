@@ -51,7 +51,6 @@ const ToolbarComponent = (props: IToolbarProps) => {
       e.preventDefault()
       const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
       const Army = (await getArmy(newAllyFaction)) as IArmy
-      debugger
       updateAllyArmy({ factionName: newAllyFaction, Army })
       resetAllySelection(newAllyFaction)
     } catch (err) {
