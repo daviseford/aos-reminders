@@ -45,7 +45,7 @@ export const Loading = () => (
 )
 
 export const LargeSpinner = () => (
-  <div className="d-flex flex-row justify-content-center mt-3">
+  <div className="d-flex flex-row justify-content-center mt-5">
     <Spinner variant="light-gray" size="large" />
   </div>
 )
