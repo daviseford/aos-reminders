@@ -53,7 +53,7 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
           <div className="col">
             <button className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
               <div className={btnContentWrapper}>
-                <FaCheck className="mr-2" /> Delete Army
+                <FaCheck className="mr-2" /> Delete
               </div>
             </button>
 

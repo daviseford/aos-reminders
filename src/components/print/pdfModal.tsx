@@ -8,8 +8,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ModalStyle } from 'theme/modalStyle'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
-
-const btnClass = `btn btn-outline-dark`
+import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -87,13 +86,13 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
 
         <div className="row" hidden={processing}>
           <div className="col px-0">
-            <button className={`${btnClass} ml-3 mr-5`} onClick={handleSaveClick}>
+            <button className={modalConfirmClass} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
                 <MdFileDownload className="mr-2" /> Download
               </div>
             </button>
 
-            <button className={`btn btn-outline-danger ml-3`} onClick={closeModal}>
+            <button className={modalDenyClass} onClick={closeModal}>
               <div className="d-flex align-items-center">Cancel</div>
             </button>
           </div>

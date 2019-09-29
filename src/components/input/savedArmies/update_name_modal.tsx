@@ -5,8 +5,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
 import { ModalStyle } from 'theme/modalStyle'
 import Spinner from 'components/helpers/spinner'
-
-const btnClass = `btn btn-outline-dark`
+import { modalDenyClass, modalConfirmClass } from 'theme/helperClasses'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -57,7 +56,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
       onRequestClose={closeModal}
       contentLabel="Update Army Name Modal"
     >
-      <div className={`container`}>
+      <div className={`container mr-3 pl-0`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">
@@ -67,7 +66,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
                   <strong>Rename Army</strong>
                 </label>
                 <input
-                  className="form-control"
+                  className="form-control form-control-sm"
                   aria-describedby="nameHelp"
                   value={armyName}
                   onKeyDown={handleKeyDown}
@@ -82,14 +81,14 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
         </div>
 
         <div className="row" hidden={processing}>
-          <div className="col">
-            <button className={btnClass} onClick={handleUpdateClick}>
+          <div className="col px-0">
+            <button className={modalConfirmClass} onClick={handleUpdateClick}>
               <div className="d-flex align-items-center">
                 <FaSave className="mr-2" /> Update
               </div>
             </button>
 
-            <button className={`btn btn-outline-danger`} onClick={closeModal}>
+            <button className={modalDenyClass} onClick={closeModal}>
               <div className="d-flex align-items-center">Cancel</div>
             </button>
           </div>

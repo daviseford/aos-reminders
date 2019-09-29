@@ -7,10 +7,9 @@ import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
 import { SavedArmyTable } from './saved_army_table'
 import { ModalStyle } from 'theme/modalStyle'
+import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 import { ISavedArmy } from 'types/savedArmy'
 import Spinner from 'components/helpers/spinner'
-
-const btnClass = `btn btn-outline-dark`
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -57,7 +56,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
-      <div className={`container`}>
+      <div className={`container mr-3 pl-0`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">
@@ -67,7 +66,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
                   <strong>Army Name</strong>
                 </label>
                 <input
-                  className="form-control"
+                  className="form-control form-control-sm"
                   aria-describedby="nameHelp"
                   placeholder="Enter army name"
                   value={armyName}
@@ -83,14 +82,14 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
         </div>
 
         <div className="row" hidden={processing}>
-          <div className="col">
-            <button className={btnClass} onClick={handleSaveClick}>
+          <div className="col pl-0">
+            <button className={modalConfirmClass} onClick={handleSaveClick}>
               <div className="d-flex align-items-center">
-                <FaSave className="mr-2" /> Save Army
+                <FaSave className="mr-2" /> Save
               </div>
             </button>
 
-            <button className={`btn btn-outline-danger`} onClick={closeModal}>
+            <button className={modalDenyClass} onClick={closeModal}>
               <div className="d-flex align-items-center">Cancel</div>
             </button>
           </div>
