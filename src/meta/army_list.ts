@@ -83,7 +83,7 @@ import TamurkhansHorde from 'army/tamurkhans_horde'
 import Tzeentch from 'army/tzeentch'
 import Wanderers from 'army/wanderers'
 
-export const ArmyList: TArmyList = {
+const ArmyList: TArmyList = {
   [BEASTCLAW_RAIDERS]: {
     Army: { ...BeastclawRaiders },
     GrandAlliance: DESTRUCTION,
@@ -242,6 +242,8 @@ export const ArmyList: TArmyList = {
     GrandAlliance: ORDER,
   },
 }
+
+export default ArmyList
 
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 

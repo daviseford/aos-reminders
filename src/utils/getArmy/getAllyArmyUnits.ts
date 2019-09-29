@@ -7,12 +7,13 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { ArmyList } from 'meta/army_list'
+import { getArmyList } from './getArmyList'
 
 type TAllyArmies = { [key in TSupportedFaction]: string[] }
 type TGetAllyArmies = (factionName: string) => TAllyArmies
 
 export const getAllyArmyUnits: TGetAllyArmies = factionName => {
+  const ArmyList = getArmyList()
   const { GrandAlliance } = ArmyList[factionName]
 
   const allyFactionNames = uniq(
