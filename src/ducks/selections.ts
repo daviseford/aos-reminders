@@ -18,6 +18,7 @@ const initialState: ISelectionStore = {
     units: [],
   },
   allySelections: {},
+  sideEffects: [],
 }
 
 const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {

@@ -24,6 +24,7 @@ export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections
 export interface ISelectionStore {
   selections: ISelections
   allySelections: TAllySelectionStore
+  sideEffects: string[]
 }
 
 export interface IVisibilityStore {
