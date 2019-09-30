@@ -49,14 +49,14 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const handleSaveClick = e => {
+  const handleSaveClick = async e => {
     e.preventDefault()
     setProcessing(true)
     pdf.save(`${fileName}.pdf`)
-    setProcessing(false)
     logDownloadEvent(factionName)
-    closeModal()
+    setProcessing(false)
     setFileName('')
+    closeModal()
   }
 
   return (
