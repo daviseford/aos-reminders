@@ -55,8 +55,6 @@ interface ISelectMultiProps {
 
 export const SelectMulti = (props: ISelectMultiProps) => {
   const { items, setValues, isClearable = false, hasDefault = false, toTitle = false, values } = props
-  debugger
-  // we would need to hook in here
   const options = convertToOptions(items, toTitle)
   const selectValues = convertToOptions(values, toTitle)
   return (
