@@ -47,8 +47,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
       const payload = prepareArmy({ ...army, armyName }, 'save')
       await saveArmy(payload as ISavedArmy)
       setProcessing(false)
-      closeModal()
       setArmyName('')
+      closeModal()
       showSavedArmies()
       logEvent(`SaveArmy`)
     }

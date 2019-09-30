@@ -44,8 +44,8 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
     setProcessing(true)
     await updateArmyName(id, armyName || 'Untitled')
     setProcessing(false)
-    closeModal()
     setArmyName(armyName || 'Untitled')
+    closeModal()
     logEvent(`UpdateArmyName`)
   }
 
