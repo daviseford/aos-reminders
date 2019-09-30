@@ -25,6 +25,7 @@ export interface IArmyBuilderProps {
   realmscape: TRealms | null
   selections: ISelections
   isMobile: boolean
+  addToSelections: (payload: { values: string[]; type: string }) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void
@@ -96,7 +97,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               const obj = a[item.name].artifacts || {}
               const vals = obj.values || []
               obj.values = vals.concat(effect.name)
-              obj.updateFn = props.updateArtifacts
+              obj.updateFn = props.addToSelections
               a[item.name].artifacts = { ...obj }
             }
             //  else if (effect.command_trait) {
@@ -160,6 +161,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 })
 
 const mapDispatchToProps = {
+  addToSelections: selections.actions.addToSelections,
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateAllegiances: selections.actions.updateAllegiances,

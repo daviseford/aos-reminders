@@ -53,7 +53,10 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
 
 export interface IWithSelectMultipleWithFunctionArrayPayload {
   [key: string]: {
-    [key: string]: { values: string[]; updateFn: (values: string[]) => void }
+    [key: string]: {
+      values: string[]
+      updateFn: (payload: { values: string[]; type: string }) => void
+    }
   }
 }
 
@@ -81,12 +84,13 @@ export const withSelectMultipleWithFunctionArray: TWithSelectMultipleWithFunctio
       // Has Hermdar Lodge
 
       // Fire off the updateFn with the values
+      const type = 'artifacts'
 
       const otherVals = payload[key].artifacts.values
       const updateFn = payload[key].artifacts.updateFn
 
       if (otherVals) {
-        updateFn(otherVals)
+        updateFn({ values: otherVals, type })
       }
     }
   })

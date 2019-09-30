@@ -2,6 +2,7 @@ import { createSlice } from 'redux-starter-kit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
 import { ISelectionStore } from 'types/store'
+import { uniq } from 'lodash'
 
 const initialState: ISelectionStore = {
   selections: {
@@ -44,6 +45,24 @@ const updateAllySelections = (state, action) => {
 const updateArtifacts = (state, action) => {
   state.selections.artifacts = action.payload
 }
+
+type TAddToSelectionsAction = {
+  payload: {
+    values: string[]
+    type: string // e.g. artifacts, spells, etc
+  }
+}
+
+/**
+ * Non destructive way to add to selections - big potential for side effects :(
+ * @param state
+ * @param action
+ */
+const addToSelections = (state, action: TAddToSelectionsAction) => {
+  const { type, values } = action.payload
+  state.selections[type] = uniq(state.selections[type].concat(values))
+}
+
 const updateBattalions = (state, action) => {
   state.selections.battalions = action.payload
 }
@@ -76,6 +95,7 @@ export const selections = createSlice({
   slice: 'selections',
   initialState,
   reducers: {
+    addToSelections,
     deleteAllySelection,
     resetAllSelections: (state, action) => initialState,
     resetAllySelection,
