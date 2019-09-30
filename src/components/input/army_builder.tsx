@@ -5,7 +5,7 @@ import { getArmyBuilderCards } from './army_builder_cards'
 import {
   withSelectOne,
   withSelectMultiple,
-  withSelectMultipleWithFunctionArray,
+  withSelectMultiWithUpdateFunction,
   IWithSelectMultipleWithFunctionArrayPayload,
 } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -62,74 +62,15 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
     realmFeatureItems,
   ])
 
-  const findOtherItems = (items: TEntry[], type: string) => {
-    // okay, we need to check getCollections to see if
-    // anything associated with this card should be populated
-
-    // updateAllegicnes
-    // Here is the new list of allegiances ['Hermdar']
-    // Please update the redux store with these values
-
-    // Hey dude, let me see your card items
-
-    // And if any of those card items are not of this type 'Allegiances'
-
-    // e.g. one of the effects is an artifact
-    // we need to fire off an event to Redux saying "hey, update the Artifact store"
-
-    // const Collection = {
-    //   artifacts: [] as string[],
-    // battalions: [] as string[],
-    // commands: [] as string[],
-    // spells: [] as string[],
-    // traits: [] as string[],
-    // }
-
-    if (type === 'Allegiances') {
-      const Collection = items.reduce(
-        (a, item) => {
-          a[item.name] = {}
-          item.effects.forEach(effect => {
-            // if (effect.spell) {
-            //   IDK.push(() => props.updateSpells([effect.name]))
-            // } else
-            if (effect.artifact) {
-              const obj = a[item.name].artifacts || {}
-              const vals = obj.values || []
-              obj.values = vals.concat(effect.name)
-              obj.updateFn = props.addToSelections
-              a[item.name].artifacts = { ...obj }
-            }
-            //  else if (effect.command_trait) {
-            //   addToCollection(effect, Collection.Traits)
-            // } else if (effect.command_ability) {
-            //   addToCollection(effect, Collection.Commands)
-            // }
-          })
-          return a
-        },
-        {} as IWithSelectMultipleWithFunctionArrayPayload
-      )
-
-      debugger
-
-      return Collection
-    }
-
-    return {}
-  }
-
   return (
     <div className="d-flex justify-content-center">
       <div className={rowClass}>
         {cards.map(card => {
           if (card.type === 'multi') {
-            const otherItems = findOtherItems(card.items, card.title)
-
             return (
               <CardMultiSelect
                 items={card.items}
-                setValues={withSelectMultipleWithFunctionArray(card.setValues, otherItems)}
+                setValues={withSelectMultiWithUpdateFunction(card.setValues, card.sideEffects)}
                 title={card.title}
                 values={card.values}
                 key={card.title}
