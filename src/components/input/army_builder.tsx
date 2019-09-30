@@ -70,7 +70,11 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
             return (
               <CardMultiSelect
                 items={card.items}
-                setValues={withSelectMultiWithUpdateFunction(card.setValues, card.sideEffects)}
+                setValues={withSelectMultiWithUpdateFunction(
+                  card.setValues,
+                  card.sideEffects,
+                  props.addToSelections
+                )}
                 title={card.title}
                 values={card.values}
                 key={card.title}

@@ -1,22 +1,19 @@
 import { IWithSelectMultipleWithFunctionArrayPayload } from 'utils/withSelect'
 import { TEntry } from 'types/data'
-import { IArmyBuilderProps } from './army_builder'
 
-export const getSideEffects = (props: IArmyBuilderProps) => (items: TEntry[]) => {
-  const add = addToAccum(props.addToSelections)
-
+export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce(
     (accum, item) => {
       accum[item.name] = {}
       item.effects.forEach(effect => {
         if (effect.spell) {
-          add(accum, item.name, effect.name, 'spells')
+          addToAccum(accum, item.name, effect.name, 'spells')
         } else if (effect.artifact) {
-          add(accum, item.name, effect.name, 'artifacts')
+          addToAccum(accum, item.name, effect.name, 'artifacts')
         } else if (effect.command_trait) {
-          add(accum, item.name, effect.name, 'traits')
+          addToAccum(accum, item.name, effect.name, 'traits')
         } else if (effect.command_ability) {
-          add(accum, item.name, effect.name, 'commands')
+          addToAccum(accum, item.name, effect.name, 'commands')
         }
       })
       return accum
@@ -27,13 +24,13 @@ export const getSideEffects = (props: IArmyBuilderProps) => (items: TEntry[]) =>
   return Collection
 }
 
-const addToAccum = (updateFn: IArmyBuilderProps['addToSelections']) => (
+const addToAccum = (
   accum: IWithSelectMultipleWithFunctionArrayPayload,
   itemName: string,
   effectName: string,
   type: string
 ) => {
-  const obj = accum[itemName].spell || {}
+  const obj = accum[itemName][type] || {}
   const values = obj.values || []
-  accum[itemName][type] = { values: values.concat(effectName), updateFn }
+  accum[itemName][type] = { values: values.concat(effectName) }
 }

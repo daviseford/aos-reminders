@@ -51,34 +51,36 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   method({ ...payload, [key]: values })
 }
 
+type TTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
+
 export interface IWithSelectMultipleWithFunctionArrayPayload {
   [key: string]: {
-    [key: string]: {
+    [key in TTypes]?: {
       values: string[]
-      updateFn: (payload: { values: string[]; type: string }) => void
     }
   }
 }
 
 type TWithSelectMultiWithUpdateFunction = (
   method: (payload: any) => void,
-  payload: IWithSelectMultipleWithFunctionArrayPayload
+  payload: IWithSelectMultipleWithFunctionArrayPayload,
+  updateFn: (payload: { value: string; values: string[]; type: string }) => void
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
 export const withSelectMultiWithUpdateFunction: TWithSelectMultiWithUpdateFunction = (
   method,
-  payload
+  payload,
+  updateFn
 ) => selectValues => {
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
 
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
       Object.keys(payload[value]).forEach(type => {
-        const otherVals = payload[value][type].values
-        const updateFn = payload[value][type].updateFn
+        const sideEffectVals = payload[value][type].values
 
-        if (otherVals) {
-          updateFn({ values: otherVals, type })
+        if (sideEffectVals) {
+          updateFn({ value, values: sideEffectVals, type })
         }
       })
     }
