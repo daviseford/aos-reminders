@@ -2,7 +2,7 @@ import { IArmyBuilderProps } from './army_builder'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
-import { IWithSelectMultipleWithFunctionArrayPayload } from 'utils/withSelect'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { getSideEffects } from './getSideEffects'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
@@ -114,7 +114,7 @@ type TMulti = {
   title: string
   type: 'multi'
   values: string[]
-  sideEffects: IWithSelectMultipleWithFunctionArrayPayload
+  sideEffects: IWithSelectMultipleWithSideEffectsPayload
 }
 
 type TSingle = {

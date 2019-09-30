@@ -1,4 +1,4 @@
-import { IWithSelectMultipleWithFunctionArrayPayload } from 'utils/withSelect'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { TEntry } from 'types/data'
 
 export const getSideEffects = (items: TEntry[]) => {
@@ -18,14 +18,14 @@ export const getSideEffects = (items: TEntry[]) => {
       })
       return accum
     },
-    {} as IWithSelectMultipleWithFunctionArrayPayload
+    {} as IWithSelectMultipleWithSideEffectsPayload
   )
 
   return Collection
 }
 
 const addToAccum = (
-  accum: IWithSelectMultipleWithFunctionArrayPayload,
+  accum: IWithSelectMultipleWithSideEffectsPayload,
   itemName: string,
   effectName: string,
   type: string

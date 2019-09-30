@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
-import { ISelectionStore } from 'types/store'
-import { uniq } from 'lodash'
+import { ISelectionStore, IStore } from 'types/store'
+import { uniq, without } from 'lodash'
+import { TSelectionTypes } from 'types/selections'
 
 const initialState: ISelectionStore = {
   selections: {
@@ -18,7 +19,7 @@ const initialState: ISelectionStore = {
     units: [],
   },
   allySelections: {},
-  sideEffects: [],
+  sideEffects: {},
 }
 
 const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
@@ -33,9 +34,12 @@ const resetAllySelections = (state, action) => {
 const resetSelections = (state, action) => {
   state.selections = initialState.selections
 }
-const updateAllegiances = (state, action) => {
+const updateAllegiances = (state: IStore['selections'], action) => {
+  handleSideEffects(state, action.payload, 'allegiances')
+
   state.selections.allegiances = action.payload
 }
+
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
   state.allySelections[factionName] = { units }
@@ -49,7 +53,8 @@ const updateArtifacts = (state, action) => {
 
 type TAddToSelectionsAction = {
   payload: {
-    values: string[]
+    value: string // Hermdar Lodge
+    values: string[] // ['Tyrant Slayer']
     type: string // e.g. artifacts, spells, etc
   }
 }
@@ -60,8 +65,9 @@ type TAddToSelectionsAction = {
  * @param action
  */
 const addToSelections = (state, action: TAddToSelectionsAction) => {
-  const { type, values } = action.payload
+  const { value, type, values } = action.payload
   state.selections[type] = uniq(state.selections[type].concat(values))
+  state.sideEffects[value] = { ...state.sideEffects[value], [type]: values }
 }
 
 const updateBattalions = (state, action) => {
@@ -117,3 +123,24 @@ export const selections = createSlice({
     updateUnits,
   },
 })
+
+const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
+  const sideEffectNames = Object.keys(state.sideEffects)
+
+  const removedSideEffects = state.selections[type]
+    .reduce(
+      (a, v) => {
+        if (sideEffectNames.includes(v)) a.push(v)
+        return a
+      },
+      [] as string[]
+    )
+    .filter(e => !payload.includes(e))
+
+  removedSideEffects.forEach(r => {
+    const sideEffect = state.sideEffects[r]
+    Object.keys(sideEffect).forEach(slice => {
+      state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
+    })
+  })
+}
