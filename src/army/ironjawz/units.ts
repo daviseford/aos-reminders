@@ -216,7 +216,7 @@ export const Battalions: TBattalions = [
       {
         name: `Big Waaagh!`,
         desc: `If the Megaboss of this battalion is within 10" of a Warchanter and a Weirdnob Shaman from the battalion in the hero phase, then the Megaboss can use the Big Waaagh! command ability.
-        
+
         When a Megaboss calls a Big Waaagh!, all units from the Brawl that are within 15" of the Megaboss at the start of the following combat phase make 2 extra attacks with each of their melee weapons. Any units that don't receive this bonus but which are within 10" of a Big Boss from the Brawl make 1 extra attack instead with each of their melee weapons.`,
         when: [HERO_PHASE],
       },
