@@ -50,3 +50,46 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
   method({ ...payload, [key]: values })
 }
+
+export interface IWithSelectMultipleWithFunctionArrayPayload {
+  [key: string]: {
+    [key: string]: { values: string[]; updateFn: (values: string[]) => void }
+  }
+}
+
+type TWithSelectMultipleWithFunctionArray = (
+  method: (payload: any) => void,
+  payload: IWithSelectMultipleWithFunctionArrayPayload
+) => (selectValues: ValueType<TDropdownOption>[]) => void
+
+// The shape of the data I want
+
+// Hermdar Lodge
+
+// {
+//   artifacts: ['Tyrant Slayer']
+// }
+
+export const withSelectMultipleWithFunctionArray: TWithSelectMultipleWithFunctionArray = (
+  method,
+  payload
+) => selectValues => {
+  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+
+  Object.keys(payload).forEach(key => {
+    if (values.includes(key)) {
+      // Has Hermdar Lodge
+
+      // Fire off the updateFn with the values
+
+      const otherVals = payload[key].artifacts.values
+      const updateFn = payload[key].artifacts.updateFn
+
+      if (otherVals) {
+        updateFn(otherVals)
+      }
+    }
+  })
+
+  method(values)
+}
