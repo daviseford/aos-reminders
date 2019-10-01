@@ -53,15 +53,15 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
     e.preventDefault()
     setProcessing(true)
     pdf.save(`${fileName}.pdf`)
-    setProcessing(false)
     logDownloadEvent(factionName)
-    closeModal()
+    setProcessing(false)
     setFileName('')
+    closeModal()
   }
 
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
-      <div className={`container mr-3 pl-0`}>
+      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">

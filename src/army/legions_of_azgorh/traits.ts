@@ -19,7 +19,6 @@ const CommandTraits: TTraits = [
         name: `Relentless`,
         desc: `After this general has fought in each combat phase for the first time, if it is within 3" of an enemy Hero or Monster, roll a D6. On a 5+, it can make a pile-in move and then attack with all of the melee weapons it is armed with for a second time.`,
         when: [COMBAT_PHASE],
-        command_ability: true,
       },
     ],
   },
