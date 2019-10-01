@@ -224,4 +224,4 @@ export const MonstrousArcanumDestruction: TUnits = [
 export const Units: TUnits = [...MonstrousArcanumDestruction]
 
 // Available to ALL factions in this Grand Alliance
-export const DestructionUnits = []
+export const DestructionUnits = [...MonstrousArcanumDestruction]

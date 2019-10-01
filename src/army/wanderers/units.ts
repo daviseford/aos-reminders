@@ -224,7 +224,7 @@ export const Units: TUnits = [
       },
       {
         name: `Loose Until the Last`,
-        desc: `Once per turn, if an enemy unit ends its charge move within ½" of this unit, the Sisters of the Watch can immediately shoot their Watch Bows against the charging unit.`,
+        desc: `Once per turn, if an enemy unit ends its charge move within 1/2" of this unit, the Sisters of the Watch can immediately shoot their Watch Bows against the charging unit.`,
         when: [CHARGE_PHASE],
       },
     ],

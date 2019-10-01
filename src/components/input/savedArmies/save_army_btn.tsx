@@ -5,15 +5,13 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
-import { duckUtils } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { armyHasEntries } from 'utils/armyUtils'
 import { logClick } from 'utils/analytics'
-
-const btnClass = `btn btn-outline-dark btn-block`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
+import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
+import { selectors } from 'ducks'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -31,40 +29,42 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText = isAuthenticated ? `Save Army` : `Save Army`
-
   return (
     <>
-      {!isAuthenticated && <SaveButton btnText={btnText} handleClick={loginWithRedirect} />}
+      {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
 
       {isAuthenticated && !isSubscribed && <SubscribeBtn />}
 
-      {isAuthenticated && isSubscribed && !canSave && <SaveButton btnText={btnText} showTooltip={true} />}
+      {isAuthenticated && isSubscribed && !canSave && <SaveButton showTooltip={true} />}
 
-      {isAuthenticated && isSubscribed && canSave && <SaveButton btnText={btnText} handleClick={openModal} />}
+      {isAuthenticated && isSubscribed && canSave && <SaveButton handleClick={openModal} />}
 
-      <SaveArmyModal
-        showSavedArmies={showSavedArmies}
-        army={currentArmy}
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-      />
+      {modalIsOpen && (
+        <SaveArmyModal
+          showSavedArmies={showSavedArmies}
+          army={currentArmy}
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  currentArmy: duckUtils.getCurrentArmy(state),
+  currentArmy: selectors.getCurrentArmy(state),
 })
 
-export const SaveArmyBtn = connect(
+const SaveArmyBtn = connect(
   mapStateToProps,
   null
 )(SaveArmyBtnComponent)
 
+export default SaveArmyBtn
+
 const SubscribeBtn = () => (
-  <Link to="/subscribe" className={btnClass} onClick={() => logClick('SaveArmy-Subscribe')}>
+  <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
     <div className={btnContentWrapper}>
       <FaSave className="mr-2" /> Save Army
     </div>
@@ -73,11 +73,10 @@ const SubscribeBtn = () => (
 
 interface ISaveButtonProps {
   handleClick?: () => void
-  btnText: string
   showTooltip?: boolean
 }
 
-const SaveButton = ({ handleClick = () => null, btnText, showTooltip = false }: ISaveButtonProps) => {
+const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
   const tipProps = {
     'data-for': 'cantSaveButton',
     'data-multiline': true,
@@ -87,9 +86,9 @@ const SaveButton = ({ handleClick = () => null, btnText, showTooltip = false }: 
 
   return (
     <>
-      <button className={btnClass} onClick={handleClick} {...tipProps}>
+      <button className={btnDarkBlock} onClick={handleClick} {...tipProps}>
         <div className={btnContentWrapper}>
-          <FaSave className="mr-2" /> {btnText}
+          <FaSave className="mr-2" /> Save Army
         </div>
       </button>
       <ReactTooltip id={`cantSaveButton`} disable={!showTooltip} />

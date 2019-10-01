@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { visibility } from 'ducks'
+import { visibility, selectors } from 'ducks'
 import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
@@ -141,7 +141,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenSelectors: visibility.selectors.getSelectors(state),
+  hiddenSelectors: selectors.getSelectors(state),
 })
 
 const CardHeader = connect(

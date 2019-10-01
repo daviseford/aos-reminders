@@ -17,6 +17,11 @@ small {
 }
 
 /* Custom Classes */
+
+.LoadingContainer {
+    margin-top: 40vh;
+}
+
 .CardHeaderTitle {
     margin-bottom: 0;
 }
@@ -27,6 +32,10 @@ small {
 
 .ThemeDarkBg {
     background-color: $themeDarkBluePrimary;
+}
+
+.text-light-gray {
+    color: $themeLightGray !important;
 }
 
 .ReminderEntry {
@@ -137,6 +146,11 @@ small {
     .ReminderCardBody {
         padding-top: 0;
         padding-bottom: 0;
+    }
+
+    .ReminderContainer {
+        flex: 0 0 90% !important;
+        max-width: 90% !important;
     }
 
     .ReminderEntry {

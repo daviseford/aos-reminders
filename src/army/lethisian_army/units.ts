@@ -36,20 +36,22 @@ const getFyreslayerUnits = () => {
   return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
 }
 
-// Unit Names
-export const Units: TUnits = [
-  // Import valid army units.
+export const AlliedUnits: TUnits = [
   ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
   ...getStormcastUnits(),
+]
+
+// Unit Names
+export const Units: TUnits = [
   // Add warpriest manually until Cities of Sigmar is released.
   {
     name: `Excelsior Warpriest`,
     effects: [
       {
         name: `Light of Sigmar`,
-        desc: `Prayer is answered on a 3+.  If successful, pick one unit within 10" of the priest.  Selected friendly unit heal 1 wound (Order units heal D3 instead).  Selected enemy unit suffers 1 mortal wound (Chaos units suffer D3 instead).`,
+        desc: `Prayer is answered on a 3+. If successful, pick one unit within 10" of the priest. Selected friendly unit heal 1 wound (Order units heal D3 instead). Selected enemy unit suffers 1 mortal wound (Chaos units suffer D3 instead).`,
         when: [HERO_PHASE],
       },
       {
@@ -59,7 +61,7 @@ export const Units: TUnits = [
       },
       {
         name: `Loyal Companion`,
-        desc: `After setting up the Warpriest, you can set up 1 Gryph-hound within 3" of this model.  The Gryph-hound is bound to that Warpriest.`,
+        desc: `After setting up the Warpriest, you can set up 1 Gryph-hound within 3" of this model. The Gryph-hound is bound to that Warpriest.`,
         when: [DURING_SETUP],
       },
       {

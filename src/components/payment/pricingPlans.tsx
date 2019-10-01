@@ -1,10 +1,12 @@
 import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
+import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { isDev } from 'utils/env'
+import { logClick } from 'utils/analytics'
+import { isDev, STRIPE_KEY } from 'utils/env'
+import AsyncStripeProvider from './asyncStripeProvider'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
-import { logClick } from 'utils/analytics'
 
 interface ICheckoutProps {
   stripe?: any
@@ -16,10 +18,21 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
   return (
     <div className="container">
-      <div className="card-deck mb-3 text-center">
+      <div className="card-deck text-center">
         {SupportPlans.map((plan, i) => (
           <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
         ))}
+      </div>
+      <div className="row text-center justify-content-center">
+        <div className="col-12 col-sm-10 col-md-10 col-xl-8">
+          <small>
+            <em>
+              Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
+              subscription features until the end of your subscription, even if you cancel the recurring
+              payments.
+            </em>
+          </small>
+        </div>
       </div>
     </div>
   )
@@ -55,8 +68,14 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
         // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/`,
-        cancelUrl: `${window.location.protocol}//${url}/`,
+        successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+          subscribed: true,
+          plan: supportPlan.title,
+        })}`,
+        cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+          canceled: true,
+          plan: supportPlan.title,
+        })}`,
       })
       .then(function(result) {
         if (result.error) {
@@ -97,8 +116,10 @@ const InjectedPricingPlans = injectStripe(PricingPlansComponent)
 
 export const PricingPlans = () => {
   return (
-    <Elements>
-      <InjectedPricingPlans />
-    </Elements>
+    <AsyncStripeProvider apiKey={STRIPE_KEY}>
+      <Elements>
+        <InjectedPricingPlans />
+      </Elements>
+    </AsyncStripeProvider>
   )
 }

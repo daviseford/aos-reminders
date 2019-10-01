@@ -1,24 +1,24 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { sortBy } from 'lodash'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { titleCase } from 'utils/textUtils'
 import { logAllyFaction } from 'utils/analytics'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
-import { selections, army, visibility } from 'ducks'
+import { selections, army, visibility, selectors } from 'ducks'
 import { IconContext } from 'react-icons'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
-import { IAllySelections } from 'types/selections'
 import { ValueType } from 'react-select/src/types'
-import { IStore } from 'types/store'
+import { IStore, TAllySelectionStore } from 'types/store'
 import { FaTrashAlt } from 'react-icons/fa'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { IAllySelections } from 'types/selections'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
-  allySelections: { [key: string]: IAllySelections } // state2Props
+  allySelections: TAllySelectionStore // state2Props
   allySelectOptions: TSupportedFaction[] // parent
   deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
   deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
@@ -47,7 +47,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     visibleAllies,
   } = props
 
-  const { units = [] } = allySelections[allyFactionName]
+  const { units = [] } = allySelections[allyFactionName] as IAllySelections
 
   const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
 
@@ -114,9 +114,9 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  visibleAllies: visibility.selectors.getAllies(state),
+  allyFactionNames: selectors.getAllyFactionNames(state),
+  allySelections: selectors.getAllySelections(state),
+  visibleAllies: selectors.getAllies(state),
 })
 
 const mapDispatchToProps = {
@@ -169,7 +169,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
     <div className="card">
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
-          <div className="pr-3">
+          <div className="pr-2">
             <IconContext.Provider value={{ size: '1.25em', className: 'text-light' }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
@@ -196,7 +196,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
         </div>
       </div>
       <div className={`card-body py-3 ${isVisible ? `` : `d-none`}`}>
-        <h4 className="text-center">{type}</h4>
+        <h4 className="text-center">Allied {type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>

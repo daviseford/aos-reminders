@@ -60,9 +60,9 @@ git push origin branch-123 -f   # Force-push your changes to the branch
 
 ### <a name="ts_warnings"></a>Resolve TypeScript warnings
 
-Run `yarn start` and make sure you don't recieve any errors or warnings in your console, such as:
+Run `yarn start` and make sure you don't receive any errors or warnings in your console, such as:
 
-`Line 11:  'SUPPORTED_FACTIONS' is defined but never used  @typescript-eslint/no-unused-vars`
+`Line 11: 'SUPPORTED_FACTIONS' is defined but never used @typescript-eslint/no-unused-vars`
 
 These warnings must be resolved before opening a PR. If they are merged to `master`, the resulting deployment will fail.
 

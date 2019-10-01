@@ -1,0 +1,40 @@
+Allegiance: Seraphon
+Mortal Realm: Ghur
+
+Leaders
+Slann Starmaster (260)
+- General
+- Trait: Great Rememberer
+- Artefact: Incandescent Rectrices
+- Spell: Meteoric Convocation
+Skink Starpriest (80)
+- Artefact: Zoetic Dial
+- Spell: Claws of Glory
+Saurus Astrolith Bearer (160)
+
+Battleline
+10 x Skinks (70)
+- Meteoric Javelins & Star Bucklers
+40 x Skinks (280)
+- Meteoric Javelins & Star Bucklers
+10 x Skinks (70)
+- Meteoric Javelins & Star Bucklers
+
+Units
+1 x Razordons (50)
+6 x Ripperdactyl Riders (280)
+
+Behemoths
+Bastiladon (280)
+
+Battalions
+Shadowstrike Starhost (180)
+
+Endless Spells / Terrain
+Balewind Vortex (40)
+Chronomantic Cogs (80)
+
+Total: 1830 / 2000
+Extra Command Points: 1
+Allies: 0 / 400
+Wounds: 106

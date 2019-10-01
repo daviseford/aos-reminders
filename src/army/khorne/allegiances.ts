@@ -30,6 +30,7 @@ const Allegiances: TAllegiances = [
         name: `Mage Eater`,
         desc: `This general can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. In addition, if this general attempts to unbind a spell and the unmodified unbinding roll is 8, that spell is successfully unbound and the caster suffers D6 mortal wounds. If this general can already unbind spells, they can attempt to unbind 1 extra spell in the enemy hero phase (only the first unbinding roll in the phase can inflict mortal wounds).`,
         when: [HERO_PHASE],
+        command_trait: true,
       },
       {
         name: `Skullshard Mantle`,
@@ -58,11 +59,13 @@ const Allegiances: TAllegiances = [
         name: `Slaughterer's Thirst`,
         desc: `Add 4" to the Move characteristic of this general.`,
         when: [MOVEMENT_PHASE],
+        command_trait: true,
       },
       {
         name: `Slaughterer's Thirst`,
         desc: `You can re-roll charge rolls for this general.`,
         when: [CHARGE_PHASE],
+        command_trait: true,
       },
       {
         name: `Halo of Blood`,
@@ -91,6 +94,7 @@ const Allegiances: TAllegiances = [
         name: `Hew the Foe`,
         desc: `Add 1 to the Damage characteristic of this general's melee weapons.`,
         when: [COMBAT_PHASE],
+        command_trait: true,
       },
       {
         name: `Thronebreaker's Torc`,
@@ -119,6 +123,7 @@ const Allegiances: TAllegiances = [
         name: `Master Decapitator`,
         desc: `You receive 2 Blood Tithe points instead of 1 when this general slays a HERO.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        command_trait: true,
       },
       {
         name: `Crowncleaver`,

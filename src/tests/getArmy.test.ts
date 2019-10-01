@@ -1,5 +1,5 @@
 import { sortBy } from 'lodash'
-import { getArmy } from 'utils/getArmy'
+import { getArmy } from 'utils/getArmy/getArmy'
 
 // Army Imports
 import beasts_of_chaos from 'army/beasts_of_chaos'

@@ -34,7 +34,7 @@ const getBoCUnits = () => {
     'Dragon Ogors',
     'Ghorgon',
     'Gors',
-    'Great Bray Shaman',
+    'Great Bray-Shaman',
     'Tuskgor Chariots',
     'Ungor Raiders',
     'Ungors',
@@ -47,8 +47,10 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
 // Unit Names
-export const TzeentchUnits: TUnits = [
+export const Units: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
@@ -102,7 +104,7 @@ export const TzeentchUnits: TUnits = [
     effects: [
       {
         name: `Arch-deceiver`,
-        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army – they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy Hero at the end of any phase, it is revealed and this ability no longer has an effect.`,
+        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army - they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy Hero at the end of any phase, it is revealed and this ability no longer has an effect.`,
         when: [END_OF_SETUP],
       },
       {
@@ -595,7 +597,7 @@ export const TzeentchUnits: TUnits = [
       },
       {
         name: `Infernal Gateway`,
-        desc: `Casting value of 7. If  successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -651,7 +653,7 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
   {
-    name: `The Profane Cult`,
+    name: `The Pyrofane Cult`,
     effects: [
       {
         name: `Arch-Pyromancers`,
@@ -735,7 +737,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Knowledge of Past, Present and Future`,
-        desc: `You can re-roll any hit, wound, save and run rolls of 1 – as well as any dice rolls of 1 in a charge roll –for models from this battalion.`,
+        desc: `You can re-roll any hit, wound, save and run rolls of 1 - as well as any dice rolls of 1 in a charge roll -for models from this battalion.`,
         when: [DURING_GAME],
       },
     ],
@@ -791,9 +793,6 @@ export const TzeentchBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...TzeentchUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]

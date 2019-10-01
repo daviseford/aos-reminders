@@ -4,53 +4,35 @@ import { without } from 'lodash'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { titleCase } from 'utils/textUtils'
-import { realmscape, factionNames, selections, army, visibility } from 'ducks'
+import { visibility, selectors } from 'ducks'
 import { Reminder } from 'components/info/reminder'
-import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TAllyArmies } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
+import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
 
-interface IRemindersProps {
+interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
-  allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
   army: IArmy
-  factionName: TSupportedFaction
+  hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
-  realmscape_feature: string
-  selections: ISelections
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const {
-    allyArmies,
-    allyFactionNames,
-    allySelections,
-    army,
-    factionName,
-    hideWhens,
-    isMobile,
-    realmscape_feature,
-    selections,
-    showWhen,
-    visibleWhens,
-  } = props
+  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
   const reminders = useMemo(() => {
     return processReminders(
       army,
-      factionName,
-      selections,
-      realmscape_feature,
-      allyFactionNames,
+      currentArmy.factionName,
+      currentArmy.selections,
+      currentArmy.realmscape_feature,
+      currentArmy.allyFactionNames,
       allyArmies,
-      allySelections
+      currentArmy.allySelections
     )
-  }, [army, factionName, selections, realmscape_feature, allyArmies, allySelections, allyFactionNames])
+  }, [army, allyArmies, currentArmy])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
@@ -59,7 +41,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   useEffect(() => {
     setFirstLoad(true)
-  }, [factionName])
+  }, [currentArmy.factionName])
 
   useEffect(() => {
     // Remove orphaned phases
@@ -77,9 +59,17 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">
-      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8">
+      <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map((when, i) => {
-          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={i} idx={i} />
+          return (
+            <Reminder
+              isMobile={isMobile}
+              when={when}
+              actions={reminders[when]}
+              key={`${when}_${i}`}
+              idx={i}
+            />
+          )
         })}
       </div>
     </div>
@@ -88,14 +78,11 @@ const RemindersComponent = (props: IRemindersProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyArmies: army.selectors.getAllyArmies(state),
-  allyFactionNames: selections.selectors.getAllyFactionNames(state),
-  allySelections: selections.selectors.getAllySelections(state),
-  army: army.selectors.getArmy(state),
-  factionName: factionNames.selectors.getFactionName(state),
-  visibleWhens: visibility.selectors.getWhen(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  selections: selections.selectors.getSelections(state),
+  ...selectors.getCurrentArmy(state),
+  allyArmies: selectors.getAllyArmies(state),
+  army: selectors.getArmy(state),
+  hiddenReminders: selectors.getReminders(state),
+  visibleWhens: selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {
@@ -103,7 +90,9 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.addWhen,
 }
 
-export const Reminders = connect(
+const Reminders = connect(
   mapStateToProps,
   mapDispatchToProps
 )(componentWithSize(RemindersComponent))
+
+export default Reminders

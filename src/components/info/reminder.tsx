@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { visibility } from 'ducks'
-import { titleCase } from 'utils/textUtils'
+import { visibility, selectors } from 'ducks'
+import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
@@ -76,7 +76,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={!isHidden}
                 hideEntry={hideEntry}
                 showEntry={showEntry}
-                key={i}
+                key={`${name}_${i}`}
               />
             )
           })}
@@ -88,8 +88,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenReminders: visibility.selectors.getReminders(state),
-  visibleWhens: visibility.selectors.getWhen(state),
+  hiddenReminders: selectors.getReminders(state),
+  visibleWhens: selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {
@@ -103,28 +103,6 @@ export const Reminder = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ReminderComponent)
-
-const getActionTitle = ({
-  artifact,
-  command_ability,
-  command_trait,
-  condition,
-  endless_spell,
-  name,
-  scenery,
-  spell,
-  triumph,
-}: TTurnAction): string => {
-  const suffix = name === condition ? `` : `: ${condition}`
-  if (artifact) return `Artifact${suffix}`
-  if (command_ability) return `Command Ability${suffix}`
-  if (command_trait) return `Command Trait${suffix}`
-  if (endless_spell) return `Endless Spell${suffix}`
-  if (scenery) return `Scenery${suffix}`
-  if (spell) return `Spell${suffix}`
-  if (triumph) return `Triumph${suffix}`
-  return condition
-}
 
 interface IActionTextProps extends TTurnAction {
   hideEntry: () => void

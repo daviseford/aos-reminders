@@ -15,7 +15,7 @@ export const Units: TUnits = [
     name: `Greyfyrd Mercenary Company`,
     effects: [
       {
-        name: `Fulfil One's Oaths`,
+        name: `Fulfill One's Oaths`,
         desc: `Add 1 to hit rolls for attacks made with melee weapons by FYRESLAYERS MERCENARY units that target enemy units that made a charge move in the same turn. However, from the start of the third battle round, subtract 1 from the Bravery characteristic of friendly FYRESLAYERS MERCENARY units while they are not wholly within 18" of your general.`,
         when: [COMBAT_PHASE],
       },

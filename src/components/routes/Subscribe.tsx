@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
-import { NavBar } from 'components/page/navbar'
 import { PricingPlans } from 'components/payment/pricingPlans'
-import { Loading } from 'components/page/loading'
+import { ContactComponent } from 'components/page/contact'
+import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
 
-export const Subscribe: React.FC<{}> = () => {
+const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
+
+const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
   const { isSubscribed, getSubscription } = useSubscription()
 
@@ -28,7 +30,9 @@ export const Subscribe: React.FC<{}> = () => {
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Suspense fallback={<EmptyHeader />}>
+          <Navbar />
+        </Suspense>
       </div>
 
       <div className={headerClass}>
@@ -45,11 +49,14 @@ export const Subscribe: React.FC<{}> = () => {
           Reminders.
         </p>
         <p className="lead">
-          <strong>What do you get by joining AoS Reminders?</strong>
+          <strong>What do you get when you subscribe to AoS Reminders?</strong>
         </p>
         <div className="row align-items-start justify-content-center">
           <div className={featuresClass}>
             <ul className="lead">
+              <li>
+                <strong>NEW:</strong> Import your army lists from Azyr!
+              </li>
               <li>
                 Import your army lists <strong>instantly</strong> from Warscroll Builder
               </li>
@@ -59,19 +66,16 @@ export const Subscribe: React.FC<{}> = () => {
             </ul>
           </div>
           <div className={'col-12 col-lg-5 col-xl-5'}>
-            <ImportWarscrollExample />
+            <AzyrExample />
           </div>
           <div className={'col-12 col-lg-5 col-xl-5'}>
-            <LoadArmyExample />
+            <ImportWarscrollExample />
           </div>
         </div>
         <p className="lead">Coming soon: </p>
         <ul className="lead">
           <li>
             <i>Importing army lists from Battlescribe</i>
-          </li>
-          <li>
-            <i>Importing army lists from Azyr</i>
           </li>
           <li>
             <i>Adding custom reminders</i>
@@ -95,15 +99,20 @@ export const Subscribe: React.FC<{}> = () => {
       <div>
         <PricingPlans />
       </div>
+      <div className="container text-center mt-5 mb-4">
+        <ContactComponent size={'small'} />
+      </div>
     </div>
   )
 }
+
+export default Subscribe
 
 const AlreadySubscribed = () => {
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Navbar />
       </div>
       <div className="row d-flex align-items-center">
         <div className="mx-5 my-5 py-5 px-5">
@@ -115,16 +124,21 @@ const AlreadySubscribed = () => {
 }
 
 // TODO: Make this a carousel of images showing demo features?
-const LoadArmyExample = () => {
+const AzyrExample = () => {
   return (
     <>
       <figure className="figure">
-        <img
-          src="/img/load_army_example.png"
-          alt="Load Army Example"
+        <video
+          preload="auto"
+          autoPlay={true}
+          loop={true}
           className="figure-img img-fluid rounded img-thumbnail"
-        />
-        <figcaption className="figure-caption text-center">Loading a saved army</figcaption>
+        >
+          <source src="/img/azyr-example1.mp4" type="video/webm"></source>
+        </video>
+        <figcaption className="figure-caption text-center">
+          Importing Azyr lists, saving and loading armies
+        </figcaption>
       </figure>
     </>
   )

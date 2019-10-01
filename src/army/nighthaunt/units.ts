@@ -3,6 +3,7 @@ import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
@@ -13,6 +14,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
+  CHARGE_PHASE,
 } from 'types/phases'
 
 /**
@@ -25,6 +27,7 @@ export const getNighthauntUnits = () => {
     `Glaivewraith Stalkers`,
     `Grimghast Reapers`,
     `Guardian of Souls`,
+    `Guardian of Souls w/ Mortality Glass`,
     `Hexwraiths`,
     `Knight of Shrouds on Ethereal Steed`,
     `Knight of Shrouds`,
@@ -36,16 +39,20 @@ export const getNighthauntUnits = () => {
   return filterUnits(Units, listOfUnits)
 }
 
+const Ethereal = [
+  {
+    name: `Ethereal`,
+    desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
+    when: [DURING_GAME],
+  },
+]
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Lady Olynder, Mortarch of Grief`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with the Banshee Handmaidens' Spectral Claws is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
@@ -91,13 +98,9 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Kurdoss Valentian`,
+    name: `Kurdoss Valentian, the Craven King`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with the Wraith Heralds' Spectral Claws is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
@@ -123,15 +126,11 @@ export const Units: TUnits = [
   {
     name: `Reikenor the Grimhailer`,
     effects: [
+      ...Ethereal,
       {
         name: `Corpse Candles`,
         desc: `In your hero phase, before this model attempts to cast a spell, you can say that it will snuff out a corpse candle. If you do so, pick either this model or an enemy model within 12" of this model. That model suffers 1 mortal wound. If the mortal wound was suffered by an enemy model, add 1 to the casting roll; if the mortal wound was suffered by this model, add 3 to the casting roll.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Frightful Touch`,
@@ -159,11 +158,7 @@ export const Units: TUnits = [
   {
     name: `Knight of Shrouds`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Stolen Hours`,
         desc: `Each time a wound inflicted by this model's Sword of Stolen Hours slays an enemy HERO, heal 1 wound allocated to this model.`,
@@ -180,11 +175,7 @@ export const Units: TUnits = [
   {
     name: `Knight of Shrouds on Ethereal Steed`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Stolen Hours`,
         desc: `Each time a wound inflicted by this model's Sword of Stolen Hours slays an enemy HERO, heal 1 wound allocated to this model.`,
@@ -201,11 +192,7 @@ export const Units: TUnits = [
   {
     name: `Guardian of Souls`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Nightmare Lantern`,
         desc: `Add 1 to wound rolls for attacks made with melee weapons used by friendly NIGHTHAUNT units that are wholly within 12" of this model.`,
@@ -225,13 +212,31 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Guardian of Souls w/ Mortality Glass`,
+    effects: [
+      ...Ethereal,
+      {
+        name: `Mortality Glass`,
+        desc: `When enemy units within 9" of this model charge, roll a D6 instead of 2D6 when determining the distance they can move.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Temporal Translocation spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Temporal Translocation`,
+        desc: `Casting value of 6. If successfully cast, pick a friendly NIGHTHAUNT unit wholly within 24" of the caster. You can make a normal move up to 6" with that unit. If the unit retreats as a part of this move it can still charge later in the turn.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
     name: `Spirit Torment`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Nagash's Bidding`,
         desc: `You can re-roll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of any friendly SPIRIT TORMENTS.`,
@@ -251,11 +256,7 @@ export const Units: TUnits = [
   {
     name: `Chainghasts`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Another Link in the Chain`,
         desc: `While this unit is wholly within 12" of a friendly SPIRIT TORMENT, you can re-roll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of this unit.`,
@@ -271,11 +272,7 @@ export const Units: TUnits = [
   {
     name: `Dreadblade Harrow`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Phantasmal Discorporation`,
         desc: `If this model is more than 3" from any enemy models at the start of your movement phase, instead of making a normal move, you can remove it from the battlefield and then set it up anywhere on the battlefield more than 9" from any enemy models.`,
@@ -296,11 +293,7 @@ export const Units: TUnits = [
   {
     name: `Lord Executioner`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Beheading Strike`,
         desc: `If the unmodified wound roll for an attack made with a Decapitating Greataxe is 6, add 2 to the Damage characteristic of that weapon for that attack.`,
@@ -321,11 +314,7 @@ export const Units: TUnits = [
   {
     name: `Tomb Banshee`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with a Chill Dagger is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
@@ -341,11 +330,7 @@ export const Units: TUnits = [
   {
     name: `Cairn Wraith`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with a Reaper Scythe is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
@@ -361,11 +346,7 @@ export const Units: TUnits = [
   {
     name: `Mourngul`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Devourer of Flesh and Souls`,
         desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
@@ -386,11 +367,7 @@ export const Units: TUnits = [
   {
     name: `Glaivewraith Stalkers`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Deathbeat Drummer`,
         desc: `Models in this unit can be Deathbeat Drummers. A unit that includes any Deathbeat Drummers can retreat and charge in the same turn.`,
@@ -406,11 +383,7 @@ export const Units: TUnits = [
   {
     name: `Grimghast Reapers`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Reaped Like Corn`,
         desc: `You can re-roll failed hit rolls for attacks made with this unit's Slasher Scythes if the target unit has 5 or more models.`,
@@ -426,11 +399,7 @@ export const Units: TUnits = [
   {
     name: `Chainrasp Horde`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Dreadwarden`,
         desc: `The leader of this unit is a Dreadwarden. Add 1 to the Attacks characteristic of a Dreadwarden's Malignant Weapon.`,
@@ -451,11 +420,7 @@ export const Units: TUnits = [
   {
     name: `Bladegheist Revenants`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Fearful Frenzy`,
         desc: `You can re-roll failed hit rolls for attacks made by this unit if it is wholly within 12" of any friendly SPIRIT TORMENTS or CHAINGHASTS.`,
@@ -476,11 +441,7 @@ export const Units: TUnits = [
   {
     name: `Myrmourn Banshees`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Spell-eaters`,
         desc: `Once in each enemy hero phase, if this unit is within 18" of an enemy WIZARD that successfully casts a spell, this unit can attempt to unbind the spell in the same manner as a WIZARD. If it does so, add 1 to the unbinding roll for every 4 models in this unit. In addition, if this unit unbinds an enemy spell, add 1 to the Attacks characteristic of this unit's Chill Daggers until the next enemy hero phase.
@@ -498,11 +459,7 @@ export const Units: TUnits = [
   {
     name: `Dreadscythe Harridans`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Slasher Crone`,
         desc: `The leader of this unit is a Slasher Crone. Add 1 to the Attacks characteristic of a Slasher Crone's Scythed Limbs.`,
@@ -523,11 +480,7 @@ export const Units: TUnits = [
   {
     name: `Spirit Hosts`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
@@ -538,11 +491,7 @@ export const Units: TUnits = [
   {
     name: `Hexwraiths`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Hellwraith`,
         desc: `The leader of this unit is a Hellwraith. Add 1 to the Attacks characteristic of a Hellwraith's Spectral Scythe.`,
@@ -563,11 +512,7 @@ export const Units: TUnits = [
   {
     name: `Black Coach`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Frightful Touch`,
         desc: `If the unmodified hit roll for an attack made with the Cairn Wraith's Reaper Scythe is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).
@@ -619,22 +564,12 @@ export const Units: TUnits = [
   },
   {
     name: `The Briar Queen`,
-    effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...Ethereal],
   },
   {
     name: `Thorns of the Briar Queen`,
     effects: [
-      {
-        name: `Ethereal`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      ...Ethereal,
       {
         name: `Varclav the Cruel`,
         desc: `The leader of this unit is Varclav the Cruel. Add 1 to the Attacks characteristic of Varclav the Cruel's Malignant Weapon.`,

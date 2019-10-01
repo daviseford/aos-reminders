@@ -53,15 +53,19 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.
 
+### `yarn lint`
+
+Checks your code for formatting or logical errors. Run this before opening a PR, since the CI will fail your branch if you don't pass the linting standards.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Learn More about React
+## `yarn analyze`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
 ## Pre-commit
 
@@ -92,10 +96,40 @@ I like to use card # `4242 4242 4242 4242` since I can just spam my keyboard.
 
 Obviously, this does not work in production :)
 
-### Warscroll Builder Import
+### Warscroll Builder/Azyr Import
 
 Found a discrepancy between Warscroll Builder and AoS Reminders? You have two options:
 
 1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
-2. Add to the typo list (`warscrollTypoMap`) in `src/utils/warscroll/options.ts`
+2. Add to the typo list (`[warscroll|azyr]TypoMap`) in `src/utils/import/options.ts`
+3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
 
+
+### Helpful Commands
+
+Delete all local branches except `master`
+
+Linux/OSX:
+
+```bash
+git branch | grep -v "master" | xargs git branch -D
+```
+
+Windows:
+
+```powershell
+git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }
+```
+
+### API Repositories
+
++ [REST API](https://github.com/daviseford/aos-reminders-rest-api)
++ [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
+
+_Note: These are both private repositories._
+
+### Will you ever add units stats or points?
+
+No.
+
+This is something I will never add to AoS Reminders (unless we get a blessing from GW). It gets too close to entirely replacing the need for a battletome, and I don't want GW to think I'm trying to do that. It's a great idea but not one that I will do :)

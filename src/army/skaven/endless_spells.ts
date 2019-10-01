@@ -15,12 +15,12 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon`,
-        desc: `Casting value of 8.  Only Skaventide wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 26" of the caster.  Then set up the second and third models exactly 7" from each other to form a triangle.`,
+        desc: `Casting value of 8. Only Skaventide wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 26" of the caster. Then set up the second and third models exactly 7" from each other to form a triangle.`,
         when: [HERO_PHASE],
       },
       {
         name: `Warp Lightning Bolts`,
-        desc: `Roll 1 dice for each unit within 6" of any of the models from this spell.  Add 1 to the dice roll if that unit is within 6" of two models.  Add 2 to the roll if that unit is within 6" of all three spell models.  On a 4+ that unit suffers D3 mortal wounds.  On an unmodified 6, that unit suffers D6 mortal wounds instead.`,
+        desc: `Roll 1 dice for each unit within 6" of any of the models from this spell. Add 1 to the dice roll if that unit is within 6" of two models. Add 2 to the roll if that unit is within 6" of all three spell models. On a 4+ that unit suffers D3 mortal wounds. On an unmodified 6, that unit suffers D6 mortal wounds instead.`,
         when: [HERO_PHASE, END_OF_MOVEMENT_PHASE],
       },
       {
@@ -40,7 +40,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 7.  Only Skaventide wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 13" of the caster.`,
+        desc: `Casting value of 7. Only Skaventide wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 13" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -75,7 +75,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 6.  Only Skaventide wizards can attempt to cast this spell.  If successfully cast, set up 1 of these models wholly within 13" of the caster.`,
+        desc: `Casting value of 6. Only Skaventide wizards can attempt to cast this spell. If successfully cast, set up 1 of these models wholly within 13" of the caster.`,
         when: [HERO_PHASE],
       },
       {

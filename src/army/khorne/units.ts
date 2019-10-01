@@ -46,8 +46,10 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-// Khorne specific units.  Export for use in Grand Alliance.
-export const KhorneUnits: TUnits = [
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+
+// Khorne specific units. Export for use in Grand Alliance.
+export const Units: TUnits = [
   {
     name: `Korghos Khul`,
     effects: [
@@ -1134,9 +1136,6 @@ export const KhorneBattalions: TBattalions = [
     ],
   },
 ]
-
-// Combine lists together to make army unit entry.
-export const Units: TUnits = [...KhorneUnits, ...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [...KhorneBattalions, ...getBoCBattalion()]

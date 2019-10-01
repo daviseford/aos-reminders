@@ -2,9 +2,7 @@ import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { MdStorage } from 'react-icons/md'
-
-const btnClass = `btn btn-outline-dark btn-block`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
+import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
@@ -12,7 +10,7 @@ interface IShowSavedArmiesBtn {
   isShowingSavedArmies: boolean
 }
 
-export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
+const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   isShowingSavedArmies,
   showSavedArmies,
   hideSavedArmies,
@@ -21,7 +19,7 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   const { isSubscribed } = useSubscription()
 
   if (!isAuthenticated || !isSubscribed) return null
-  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved`
+  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved Armies`
 
   const handleClick = e => {
     e.preventDefault()
@@ -30,7 +28,7 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
 
   return (
     <>
-      <button className={btnClass} onClick={handleClick}>
+      <button className={btnDarkBlock} onClick={handleClick}>
         <div className={btnContentWrapper}>
           <MdStorage className="mr-2" /> {btnText}
         </div>
@@ -38,3 +36,5 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
     </>
   )
 }
+
+export default ShowSavedArmiesBtn

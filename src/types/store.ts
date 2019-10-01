@@ -1,7 +1,8 @@
 import { IArmy, TAllyArmies } from './army'
 import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from './selections'
-import { ISavedArmy, ISavedArmyFromApi } from './savedArmy'
+import { ISavedArmyFromApi } from './savedArmy'
+import { TSideEffectTypes } from 'utils/withSelect'
 
 export interface IArmyStore {
   army: IArmy
@@ -24,6 +25,12 @@ export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections
 export interface ISelectionStore {
   selections: ISelections
   allySelections: TAllySelectionStore
+  sideEffects: {
+    [key: string]: {
+      // Hermdar Lodge
+      [key in TSideEffectTypes]: string[] // artifacts // ['Tyrant Slayer']
+    }
+  }
 }
 
 export interface IVisibilityStore {
@@ -35,7 +42,7 @@ export interface IVisibilityStore {
 
 export interface IStore {
   army: IArmyStore
-  factionName: IFactionNameStore
+  factionNames: IFactionNameStore
   realmscape: IRealmscapeStore
   savedArmies: TSavedArmiesStore
   selections: ISelectionStore

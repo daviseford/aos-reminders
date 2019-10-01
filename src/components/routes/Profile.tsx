@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
-import { NavBar } from 'components/page/navbar'
 import { IUser } from 'types/user'
-import { Loading } from 'components/page/loading'
-import { injectStripe, Elements } from 'react-stripe-elements'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
-import { FaGithub, FaEnvelopeOpenText } from 'react-icons/fa'
+import { btnContentWrapper } from 'theme/helperClasses'
+import { ContactComponent } from 'components/page/contact'
+import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
-const btnContentWrapper = `d-flex align-items-center justify-content-center`
 
-export const Profile: React.FC<{}> = () => {
+const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
+
+const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription } = useSubscription()
 
@@ -28,12 +28,14 @@ export const Profile: React.FC<{}> = () => {
 
   if (loading || !user) return <Loading />
 
-  const userCardWrapperClass = `col-12 col-md-8 col-lg-4 col-xl-4`
+  const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <NavBar />
+        <Suspense fallback={<EmptyHeader />}>
+          <Navbar />
+        </Suspense>
       </div>
 
       <div className="row d-flex justify-content-center">
@@ -45,18 +47,20 @@ export const Profile: React.FC<{}> = () => {
   )
 }
 
-export const UserCard: React.FC<{}> = () => {
+export default Profile
+
+const UserCard: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
   const { isActive, isSubscribed, subscription } = useSubscription()
 
   return (
-    <div className="container py-4">
-      <h1 className="text-center SelectorHeader display-4">Your Profile</h1>
+    <div className="py-4">
+      <h1 className="text-center">Your Profile</h1>
 
       <div className="media">
         <div className="media-body text-center">
           <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
-          <RecurringPaymentInfo isActive={isActive} />
+          {isSubscribed && <RecurringPaymentInfo isActive={isActive} />}
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
         </div>
@@ -84,18 +88,8 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
       <button className="btn btn-sm btn-outline-danger" onClick={openModal}>
         Cancel Subscription
       </button>
-      <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
-  )
-}
-
-const InjectedCancelButton = injectStripe(CancelBtn)
-
-const CancelSubscription = () => {
-  return (
-    <Elements>
-      <InjectedCancelButton />
-    </Elements>
   )
 }
 
@@ -154,7 +148,7 @@ const RecurringPaymentInfo = ({ isActive }) => {
       </div>
       {isActive && (
         <div className="card-body">
-          <CancelSubscription />
+          <CancelBtn />
         </div>
       )}
     </div>
@@ -190,27 +184,7 @@ const Help = () => {
         <h4>Need help?</h4>
       </div>
       <div className="card-body">
-        <a
-          href="https://github.com/daviseford/aos-reminders/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline-dark mx-2"
-        >
-          <div className={btnContentWrapper}>
-            <FaGithub className="mr-2" /> File an Issue
-          </div>
-        </a>
-
-        <a
-          href="mailto:davis.e.ford.alt+aosreminders@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline-dark mx-2"
-        >
-          <div className={btnContentWrapper}>
-            <FaEnvelopeOpenText className="mr-2" /> Email Me
-          </div>
-        </a>
+        <ContactComponent size="normal" />
       </div>
     </div>
   )

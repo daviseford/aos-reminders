@@ -44,7 +44,7 @@ const GenericCommands: TCommands = [
     effects: [
       {
         name: `All-out Attack`,
-        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero (18" of a friendly general).  You can re-roll hit rolls of 1 for the target.`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero (18" of a friendly general). You can re-roll hit rolls of 1 for the target.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -54,7 +54,7 @@ const GenericCommands: TCommands = [
     effects: [
       {
         name: `All-out Defence`,
-        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero (18" of a friendly general).  You can re-roll save rolls of 1 for the target.`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero (18" of a friendly general). You can re-roll save rolls of 1 for the target.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

@@ -65,12 +65,12 @@ export const Units: TUnits = [
       {
         name: `Soul Amphorae`,
         desc: `Once per battle, at the end of your movement phase, you can summon 1 of the following units to the battlefield:
-• 20 Dryads
-• 10 Tree-Revenants
-• 10 Spite-Revenants
-• 3 Kurnoth Hunters
-• 1 Branchwych
-• 1 Treelord
+ 20 Dryads
+ 10 Tree-Revenants
+ 10 Spite-Revenants
+ 3 Kurnoth Hunters
+ 1 Branchwych
+ 1 Treelord
 The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
       },
@@ -235,7 +235,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       },
       {
         name: `Ultimate Sacrifice`,
-        desc: `"Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
+        desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
         when: [DURING_GAME],
       },
       {
@@ -375,7 +375,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       {
         name: `Unbridled Malice`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability. In addition, re-roll successful battleshock tests for enemy units while they are within 3" of any friendly units with this ability.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -431,6 +431,27 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
         name: `Impenetrable Thicket`,
         desc: `Add 1 to save rolls for attacks that target this unit while it contains 10 or more models.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Skaeth's Wild Hunt`,
+    effects: [
+      {
+        name: `Fleet of Foot`,
+        desc: `This unit can run and still shoot and/or charge later in the same turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Karthaen`,
+        desc: `While Karthaen is still in the unit, this unit is considered a Wizard.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Might of Kurnoth`,
+        desc: `Casting value 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
       },
     ],
   },

@@ -1,6 +1,9 @@
-import { TEffects, TEntry } from './data'
+import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
-import { IAllySelections } from './selections'
+import { TEffects, TEntry } from './data'
+import { IAllySelections, ISelections } from './selections'
+import { TRealms } from './realmscapes'
+import { TAllySelectionStore } from './store'
 
 export type TAllyArmies = { [key: string]: IArmy }
 
@@ -24,6 +27,7 @@ export type TUnits = TEntry[]
 export interface IInitialArmy {
   Abilities?: TAbilities
   Allegiances?: TAllegiances
+  AlliedUnits?: TUnits
   Artifacts?: TArtifacts
   Battalions?: TBattalions
   EndlessSpells?: TEndlessSpells
@@ -55,4 +59,13 @@ export interface ICollection {
   Commands: TCommands
   Spells: TSpells
   Traits: TTraits
+}
+
+export interface ICurrentArmy {
+  allyFactionNames: TSupportedFaction[]
+  allySelections: TAllySelectionStore
+  factionName: TSupportedFaction
+  realmscape_feature: string | null
+  realmscape: TRealms | null
+  selections: ISelections
 }

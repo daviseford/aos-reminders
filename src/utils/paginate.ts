@@ -2,7 +2,7 @@ import { ISavedArmyFromApi } from 'types/savedArmy'
 
 export const paginateSavedArmies = (
   savedArmies: ISavedArmyFromApi[],
-  pageSize = 5
+  pageSize = 6
 ): ISavedArmyFromApi[][] => {
   return savedArmies.reduce(
     (accum, army, i) => {

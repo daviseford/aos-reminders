@@ -210,7 +210,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Aethersight Loupe (SKY-PORT TREASURE)`,
-        desc: `Can unbind spell. If they can already +1 dice to unbind.`,
+        desc: `Can unbind spell. If they can already attempt to unbind a spell, they can attempt to unbind one extra spell instead.`,
         when: [HERO_PHASE],
       },
     ],

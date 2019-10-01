@@ -34,7 +34,7 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
             if (key === 'units') {
               items = items.concat(allyUnits)
             }
-            return <Tr items={items} title={key} key={i} />
+            return <Tr items={items} title={key} key={`${key}_${i}`} />
           })}
 
           {realmscape && <Tr items={[realmscape]} title={'Realmscape'} />}
@@ -59,7 +59,7 @@ const Tr = ({ title, items }: ITrProps) => (
     <td>
       {items.map((item, ii) => {
         return (
-          <span key={ii} className={`badge badge-secondary mx-1`}>
+          <span key={`${item}_${ii}`} className={`badge badge-secondary text-wrap mx-1`}>
             {item}
           </span>
         )

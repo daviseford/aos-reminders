@@ -33,7 +33,7 @@ const Abilities: TAbilities = [
     name: `Eye of the Gods`,
     desc: `If a friendly Slaves to Darkness hero (excluding Daemon Princes) makes an attack with a melee weapon that slays one or more enemy heroes or monsters, make 1 roll on the Eye of Gods table after that friendly hero's attacks have been resolved.
            
-           If that friendly hero receives a reward it already has, roll a D6.  On a 1-3 that hero receives the 'Spawndom' reward instead.  On a 4-6 they receive the 'Dark Apotheosis' reward instead.`,
+           If that friendly hero receives a reward it already has, roll a D6. On a 1-3 that hero receives the 'Spawndom' reward instead. On a 4-6 they receive the 'Dark Apotheosis' reward instead.`,
     when: [COMBAT_PHASE],
   },
 ]

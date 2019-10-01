@@ -21,11 +21,11 @@ const Abilities: TAbilities = [
   },
   {
     name: `Summon Daemons of Nurgle`,
-    desc: `You receive 3 contagion points if there are any friendly Nurgle models in your own territory.  
+    desc: `You receive 3 contagion points if there are any friendly Nurgle models in your own territory. 
            
-           You receive 3 additional contagion points if there are any friendly Nurgle models in your opponents territory.  
+           You receive 3 additional contagion points if there are any friendly Nurgle models in your opponents territory. 
            
-           You receive 1 extra contagion point if no enemy models are in a territory occupied by friendly Nurgle units.  
+           You receive 1 extra contagion point if no enemy models are in a territory occupied by friendly Nurgle units. 
            
            In addition you receive D3 contagion points for each Feculent Gnarlmaw that has no enemy models within 3" of it.`,
     when: [START_OF_HERO_PHASE],
