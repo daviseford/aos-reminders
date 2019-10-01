@@ -44,17 +44,16 @@ const resetAllySelections = (state, action) => {
 const resetSelections = (state, action) => {
   state.selections = initialState.selections
 }
-const updateAllegiances = (state: IStore['selections'], action: TAction) => {
-  handleSideEffects(state, action.payload, 'allegiances')
-  state.selections.allegiances = action.payload
-}
-
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
   state.allySelections[factionName] = { units }
 }
 const updateAllySelections = (state, action) => {
   state.allySelections = action.payload
+}
+const updateAllegiances = (state: IStore['selections'], action: TAction) => {
+  handleSideEffects(state, action.payload, 'allegiances')
+  state.selections.allegiances = action.payload
 }
 const updateArtifacts = (state: IStore['selections'], action: TAction) => {
   state.selections.artifacts = action.payload
@@ -72,6 +71,7 @@ const addToSelections = (state: IStore['selections'], action: TAddToSelectionsAc
 }
 
 const updateBattalions = (state: IStore['selections'], action: TAction) => {
+  handleSideEffects(state, action.payload, 'battalions')
   state.selections.battalions = action.payload
 }
 const updateCommands = (state: IStore['selections'], action: TAction) => {
@@ -96,6 +96,7 @@ const updateTriumphs = (state: IStore['selections'], action: TAction) => {
   state.selections.triumphs = action.payload
 }
 const updateUnits = (state: IStore['selections'], action: TAction) => {
+  handleSideEffects(state, action.payload, 'units')
   state.selections.units = action.payload
 }
 
