@@ -59,33 +59,29 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
   return (
     <div className="d-flex justify-content-center">
       <div className={rowClass}>
-        {cards.map(card => {
-          if (card.type === 'multi') {
-            return (
-              <CardMultiSelect
-                items={card.items}
-                setValues={withSelectMultiWithSideEffects(
-                  card.setValues,
-                  card.sideEffects,
-                  props.addToSelections
-                )}
-                title={card.title}
-                values={card.values}
-                key={card.title}
-              />
-            )
-          } else {
-            return (
-              <CardSingleSelect
-                items={card.items}
-                setValue={withSelectOne(card.setValue)}
-                title={card.title}
-                value={card.value}
-                key={card.title}
-              />
-            )
-          }
-        })}
+        {cards.map(card =>
+          card.type === 'multi' ? (
+            <CardMultiSelect
+              items={card.items}
+              setValues={withSelectMultiWithSideEffects(
+                card.setValues,
+                card.sideEffects,
+                props.addToSelections
+              )}
+              title={card.title}
+              values={card.values}
+              key={card.title}
+            />
+          ) : (
+            <CardSingleSelect
+              items={card.items}
+              setValue={withSelectOne(card.setValue)}
+              title={card.title}
+              value={card.value}
+              key={card.title}
+            />
+          )
+        )}
       </div>
     </div>
   )
