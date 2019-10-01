@@ -88,7 +88,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Lord of the Shadow Realm (${ULGU})`,
-        desc: `You can use either Shadowed Mansions or Shadow Realm realmscape features. In addition, you do not need to perform the lost in shadow realm check for these actions. Note this action is in addtion to the active realmscape feature.`,
+        desc: `You can use either Shadowed Mansions or Shadow Realm realmscape features. In addition, you do not need to perform the lost in shadow realm check for these actions. Note this action is in addition to the active realmscape feature.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
