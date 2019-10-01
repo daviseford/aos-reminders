@@ -19,7 +19,7 @@ export interface IArmyBuilderProps {
   realmscape: TRealms | null
   selections: ISelections
   isMobile: boolean
-  addToSelections: (payload: { values: string[]; type: string }) => void
+  addToSelections: (payload: { values: string[]; slice: string }) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void

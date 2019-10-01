@@ -64,7 +64,7 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
 type TWithSelectMultiWithSideEffects = (
   method: (payload: any) => void,
   payload: IWithSelectMultipleWithSideEffectsPayload,
-  updateFn: (payload: { value: string; values: string[]; type: string }) => void
+  updateFn: (payload: { value: string; values: string[]; slice: string }) => void
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
 export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
@@ -76,11 +76,11 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
 
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
-      Object.keys(payload[value]).forEach(type => {
-        const sideEffectVals = payload[value][type].values
+      Object.keys(payload[value]).forEach(slice => {
+        const sideEffectVals = payload[value][slice].values
 
         if (sideEffectVals) {
-          updateFn({ value, values: sideEffectVals, type })
+          updateFn({ value, values: sideEffectVals, slice })
         }
       })
     }

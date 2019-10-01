@@ -28,7 +28,7 @@ type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
     values: string[] // ['Tyrant Slayer']
-    type: string // e.g. artifacts, spells, etc
+    slice: string // e.g. artifacts, spells, etc
   }
 }
 
@@ -65,9 +65,9 @@ const updateArtifacts = (state: IStore['selections'], action: TAction) => {
  * @param action
  */
 const addToSelections = (state: IStore['selections'], action: TAddToSelectionsAction) => {
-  const { value, type, values } = action.payload
-  state.selections[type] = uniq(state.selections[type].concat(values))
-  state.sideEffects[value] = { ...state.sideEffects[value], [type]: values }
+  const { value, slice, values } = action.payload
+  state.selections[slice] = uniq(state.selections[slice].concat(values))
+  state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
 }
 
 const updateBattalions = (state: IStore['selections'], action: TAction) => {

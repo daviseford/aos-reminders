@@ -25,7 +25,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Traits',
       values: selections.traits,
       type: 'multi',
-      sideEffects: getSideEffects(army.Traits),
+      sideEffects: {},
     },
     {
       items: army.Artifacts,
@@ -33,7 +33,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Artifacts',
       values: selections.artifacts,
       type: 'multi',
-      sideEffects: getSideEffects(army.Artifacts),
+      sideEffects: {},
     },
     {
       items: army.Battalions,
@@ -57,7 +57,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Spells',
       values: selections.spells,
       type: 'multi',
-      sideEffects: getSideEffects(army.Spells),
+      sideEffects: {},
     },
     {
       items: army.EndlessSpells,
@@ -73,7 +73,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Scenery',
       values: selections.scenery,
       type: 'multi',
-      sideEffects: getSideEffects(army.Scenery),
+      sideEffects: {},
     },
     {
       items: army.Commands,
@@ -81,7 +81,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Commands',
       values: selections.commands,
       type: 'multi',
-      sideEffects: getSideEffects(army.Commands),
+      sideEffects: {},
     },
     {
       items: army.Triumphs,
