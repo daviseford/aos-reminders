@@ -56,7 +56,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
   return (
     <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
-      <div className={`container mr-3 pl-0`}>
+      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">

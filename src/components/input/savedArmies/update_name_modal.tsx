@@ -56,7 +56,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
       onRequestClose={closeModal}
       contentLabel="Update Army Name Modal"
     >
-      <div className={`container mr-3 pl-0`}>
+      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">
