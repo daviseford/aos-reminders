@@ -58,16 +58,6 @@ const SubscriptionProvider: React.FC = ({ children }) => {
     }
   }, [getSubscription, subscription])
 
-  console.log({
-    cancelSubscription,
-    getSubscription,
-    isActive,
-    isCanceled,
-    isSubscribed,
-    subscription,
-    subscriptionLoading,
-  })
-
   return (
     <SubscriptionContext.Provider
       value={{
