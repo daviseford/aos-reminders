@@ -254,6 +254,7 @@ const commonTypos = {
   'Ar tiller y': 'Artillery',
   'Balefir e': 'Balefire',
   'Bear er': 'Bearer',
+  'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
   'Boltst orm': 'Boltstorm',
   'Decr epify': 'Decrepify',
