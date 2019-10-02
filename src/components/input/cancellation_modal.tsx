@@ -23,8 +23,8 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
     e.preventDefault()
     setProcessing(true)
     await cancelSubscription()
-    setProcessing(false)
     logClick('CancelSubscription')
+    setProcessing(false)
   }
 
   return (
