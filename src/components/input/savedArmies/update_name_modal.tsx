@@ -71,6 +71,8 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
                   value={armyName}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
+                  tabIndex={0}
+                  autoFocus
                 />
                 <small id="nameHelp" className="form-text text-muted">
                   Hint: Use a descriptive name.
