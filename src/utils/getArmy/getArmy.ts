@@ -1,7 +1,6 @@
 import produce from 'immer'
 import { processGame } from '../processGame'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
-import { ArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TRealms } from 'types/realmscapes'
@@ -9,6 +8,7 @@ import { getAllianceItems } from './getAllianceItems'
 import { getCollection } from './getCollection'
 import { modify } from './modify'
 import { isValidFactionName } from 'utils/armyUtils'
+import { getArmyFromList } from 'meta/army_list'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
@@ -16,7 +16,7 @@ export const getArmy = (
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
 
-  const { Army, GrandAlliance } = ArmyList[factionName]
+  const { Army, GrandAlliance } = getArmyFromList(factionName)
 
   const Collection = getCollection(Army)
 

@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { visibility } from 'ducks'
+import { visibility, selectors } from 'ducks'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TTurnAction } from 'types/data'
@@ -76,7 +76,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={!isHidden}
                 hideEntry={hideEntry}
                 showEntry={showEntry}
-                key={i}
+                key={`${name}_${i}`}
               />
             )
           })}
@@ -88,8 +88,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenReminders: visibility.selectors.getReminders(state),
-  visibleWhens: visibility.selectors.getWhen(state),
+  hiddenReminders: selectors.getReminders(state),
+  visibleWhens: selectors.getWhen(state),
 })
 
 const mapDispatchToProps = {

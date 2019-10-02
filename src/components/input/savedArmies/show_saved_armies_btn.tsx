@@ -10,7 +10,7 @@ interface IShowSavedArmiesBtn {
   isShowingSavedArmies: boolean
 }
 
-export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
+const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   isShowingSavedArmies,
   showSavedArmies,
   hideSavedArmies,
@@ -19,7 +19,7 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   const { isSubscribed } = useSubscription()
 
   if (!isAuthenticated || !isSubscribed) return null
-  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved`
+  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved Armies`
 
   const handleClick = e => {
     e.preventDefault()
@@ -36,3 +36,5 @@ export const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
     </>
   )
 }
+
+export default ShowSavedArmiesBtn

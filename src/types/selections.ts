@@ -1,3 +1,15 @@
+export type TSelectionTypes =
+  | 'allegiances'
+  | 'artifacts'
+  | 'battalions'
+  | 'commands'
+  | 'endless_spells'
+  | 'scenery'
+  | 'spells'
+  | 'traits'
+  | 'triumphs'
+  | 'units'
+
 export interface ISelections {
   allegiances: string[]
   artifacts: string[]

@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { IVisibilityStore as IHiddenStore } from 'types/store'
 
 const initialState: IHiddenStore = {
@@ -64,23 +64,3 @@ export const visibility = createSlice({
     deleteWhens,
   },
 })
-
-visibility.selectors.getAllies = createSelector(
-  ['visibility.allies'],
-  allies => allies
-)
-
-visibility.selectors.getReminders = createSelector(
-  ['visibility.reminders'],
-  reminders => reminders
-)
-
-visibility.selectors.getSelectors = createSelector(
-  ['visibility.selectors'],
-  selectors => selectors
-)
-
-visibility.selectors.getWhen = createSelector(
-  ['visibility.when'],
-  when => when
-)

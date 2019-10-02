@@ -5,12 +5,12 @@ import { useSubscription } from 'context/useSubscription'
 import { BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
-import { EmptyHeader } from './loading'
 import { headerClass } from 'theme/helperClasses'
+import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 
-export const NavBar: React.FC = () => {
+const Navbar: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
-  const { isSubscribed, subscriptionLoading } = useSubscription()
+  const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
@@ -29,9 +29,7 @@ export const NavBar: React.FC = () => {
     }
   }
 
-  if (loading || subscriptionLoading) {
-    return <EmptyHeader />
-  }
+  if (loading || subscriptionLoading) return <EmptyHeader />
 
   return (
     <header className={headerClass}>
@@ -47,7 +45,7 @@ export const NavBar: React.FC = () => {
             Profile
           </Link>
         )}
-        {!isSubscribed && pathname !== '/subscribe' && (
+        {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
           <Link to="/subscribe" className={styles.link} onClick={() => logClick('Navbar-Subscribe')}>
             Subscribe
           </Link>
@@ -60,3 +58,5 @@ export const NavBar: React.FC = () => {
     </header>
   )
 }
+
+export default Navbar

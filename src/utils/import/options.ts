@@ -51,9 +51,12 @@ const warscrollTypoMap: TNameMap = {
   'Blood Sigil - Sacrament of Blood': 'Blood Sigil',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
+  'Exalted Deathbringer With Impaling Spear': 'Exalted Deathbringer',
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
+  'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
+  'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
   'Guardian of Souls With Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
@@ -85,6 +88,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
+  'Orruk Gore Gruntas': 'Orruk Gore-Gruntas',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -219,6 +223,11 @@ export const parserOptions: TParserOptions = {
   Battlescribe: {
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
+    typoMap: {},
+  },
+  Unknown: {
+    checkPoorSpacing: false,
+    fileReadError: `This file format is not recognized.`,
     typoMap: {},
   },
 }

@@ -1,11 +1,11 @@
 import jsPDF from 'jspdf'
 import { findIndex, slice, sum, range } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
-import { TSupportedFaction } from 'meta/factions'
 import { IReminder, TTurnAction } from 'types/data'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections } from 'types/selections'
 import { TStyleType, Styles } from './styles'
 import { Logo } from './logo'
+import { ICurrentArmy } from 'types/army'
 
 const xMargin = 0.5
 const yMargin = 0.75
@@ -24,18 +24,13 @@ interface IText {
   text: string
 }
 
-interface IPrintPdf {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  selections: ISelections
+interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
 }
 
 export const savePdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, ...armyData } = data
+  const { factionName, hiddenReminders, reminders, ...currentArmy } = data
 
   const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
 
@@ -52,7 +47,7 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const reminderText = getReminderText(doc, visibleReminders)
-  const armyText = getArmyText(doc, { factionName, ...armyData })
+  const armyText = getArmyText(doc, { factionName, ...currentArmy })
   const phaseInfo = getPhaseInfo(reminderText)
   const pages = splitTextToPages(reminderText, phaseInfo, armyText)
 
@@ -132,17 +127,9 @@ export const savePdf = (data: IPrintPdf): jsPDF => {
   return doc
 }
 
-interface IGetArmyText {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: { [key: string]: IAllySelections }
-  factionName: TSupportedFaction
-  realmscape_feature: string | null
-  selections: ISelections
-}
-
 const getArmyText = (
   doc: jsPDF,
-  { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: IGetArmyText
+  { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: ICurrentArmy
 ): IText[] => {
   const {
     allegiances,
@@ -169,7 +156,9 @@ const getArmyText = (
 
   const selectionText = [
     getText('Unit', units),
-    ...allyFactionNames.map(n => getText(`Allied ${titleCase(n)} Unit`, allySelections[n].units)),
+    ...allyFactionNames.map(n =>
+      getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
+    ),
     getText('Artifact', artifacts),
     getText('Battalion', battalions),
     getText('Command Trait', traits),

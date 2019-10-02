@@ -4,10 +4,11 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  END_OF_HERO_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_SETUP,
@@ -21,28 +22,32 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Smasha`,
-        desc: `Wound rolls of 6 or more inflict 1D3 mortal wounds if the target is a Hero instead of their normal damage.`,
+        desc: `Unmodified wound rolls of 4+ inflict D3 mortal wounds if the target is a HERO and not a WIZARD and the attack sequence ends.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Kunnin'`,
-        desc: `Wound rolls of 4 or more inflict 1D3 mortal wounds if the target is a Wizard instead of their normal damage.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `Unmodified wound rolls of 4+ inflict D3 mortal wounds if the target is a WIZARD and the attack sequence ends.`,
+        when: [COMBAT_PHASE],
       },
       {
-        name: `Destructive Bulk`,
-        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
+        name: `Massively Destructive Bulk`,
+        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Massively Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 5+.
+          
+          In addition, after this model makes a charge move, you can pick 1 terrain feature within 1" of this model and rull a number of dice equal to the Massively Destructive Bulk table, if you score any 6+ then units no longer benefit from cover provided by that terrain feature.
+          
+          If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Massively Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `On the Rampage`,
-        desc: `If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
-        when: [CHARGE_PHASE],
+        name: `Strength from Victory`,
+        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in the combat phase, add 1 to this model's Wounds characteristic and add 1 to the attacks of Smasha and Kunnin'.`,
+        when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Voice of Gork`,
-        desc: `Once per battle, in your hero phase, you can use this command ability once per battle, in your hero phase. If you do so, pick a friendly Destruction unit wholly within 24" of Gordrakk . In the following charge phase, that unit can declare a charge if it is within 18" of the enemy, and you can roll three dice to determine the distance it can charge. In addition, the unit makes 2 extra attacks with each of its melee weapons in the following combat phase. If the unit you chose is part of a warscroll battalion, then these benefits also apply to all other units from the battalion.`,
-        when: [HERO_PHASE],
+        desc: `Pick up to 3 friendly DESTRUCTION units wholly within 24", until the end of the combat phase add 1 to hit rolls for attacks made by those units. A unit cannot benefit from this CA multiple times, and this CA does not stack with 'Go on Ladz, Get Stuck In!'`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
@@ -52,24 +57,28 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Strength from Victory`,
-        desc: `If a Megaboss makes an attack with their Boss Gore-hacka, Scrap-tooth, Choppa or Rip-tooth Fist that slays an enemy Hero, add 1 to their Wounds characteristic and to the Attacks characteristic of the weapon that inflicted the killing wound.`,
-        when: [COMBAT_PHASE],
+        desc: `If any enemy models were slain in this combat phase, add +1 attack to the Megaboss's weapon (not Mount) and add +1 to the models Wounds characteristic.`,
+        when: [END_OF_COMBAT_PHASE],
       },
       {
-        name: `Mighty Waaagh!`,
-        desc: `If a Megaboss on Mawkrusha uses this ability, count up the number of Ironjawz units within 15" of them at the start of the combat phase of the turn, and roll a D6. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with each of their me- lee weapons in that combat phase. If the roll is a 6, and there are at least 6 Ironjawz units within 15" of this model, then make 2 extra attacks rather than 1.`,
-        when: [HERO_PHASE],
+        name: `Go on Ladz, Get Stuck In!`,
+        desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of the phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
       {
         name: `Destructive Bulk`,
-        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 4 or more.`,
+        desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 5+.
+        
+        In addition, after this model makes a charge move, you can pick 1 terrain feature within 1" of this model and rull a number of dice equal to the Destructive Bulk table, if you score any 6+ then units no longer benefit from cover provided by that terrain feature.
+          
+        If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `On the Rampage`,
-        desc: `If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
-        when: [CHARGE_PHASE],
+        name: `Rip-toof First`,
+        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -77,18 +86,18 @@ export const Units: TUnits = [
     name: `Orruk Megaboss`,
     effects: [
       {
-        name: `Go on Ladz, Get Stuck In!`,
-        desc: `You can re-roll hit rolls of 1 for friendly units of Brutes that are within 5" of this model when they make their attacks in the combat phase.`,
+        name: `Rip-toof First`,
+        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Strength from Victory`,
-        desc: `If a Megaboss makes an attack that slays an enemy Hero, add 1 to their Wounds characte- ristic and to the Attacks characteristic of their Boss Choppa.`,
-        when: [COMBAT_PHASE],
+        desc: `If any enemy models were slain in this combat phase, add +1 attack to the Megaboss's weapon (not Mount) and add +1 to the models Wounds characteristic.`,
+        when: [END_OF_COMBAT_PHASE],
       },
       {
-        name: `Waaagh!`,
-        desc: `If a Megaboss uses this ability, count up the number of Ironjawz units within 10" of them at the start of the combat phase of the turn, and roll a D6. If the roll is less than or equal to the number of units, then this model and all models in those units make 1 extra attack with their melee weapons in that combat phase. If the roll is 6 or more, and there are at least 6 IRONJAWZ units within 10" of this model, then make 2 extra attacks rather than 1.`,
+        name: `Go on Ladz, Get Stuck In!`,
+        desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of the phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -99,12 +108,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warchanter's Beat`,
-        desc: `Each time you make a hit roll of 6 for a Warchanter's Gorkstikk and Morkstikk, you can make one additio- nal attack with the weapon.`,
+        desc: `Each time you make a hit roll of 6 for a Warchanter's Gorkstikk and Morkstikk, you score 2 attacks instead of 1 with the weapon.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Frenzy of Violence`,
-        desc: `Pick one Ironjawz unit that is within 10" of the Warchanter in your hero phase. You can add 1 to all hit rolls made for that unit in the following combat phase.`,
+        desc: `Pick one IRONJAWZ unit that is wholly within 15" of the Warchanter in your hero phase. Add 1 to the damage inflicted by attacks made with melee weapons by that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -113,9 +122,15 @@ export const Units: TUnits = [
     name: `Orruk Weirdnob Shaman`,
     effects: [
       {
-        name: `Power of the Waaagh!!`,
-        desc: `Add 1 to a Weirdnob Shaman's casting or unbinding rolls if there are 10 or more Orruk models within 10". Add 2 to the roll instead if there are 20 or more Orruk models within 10". However, if the casting or unbinding roll was a double, then the closest other friendly Orruk unit within 10" of the Weirdnob Shaman suffers 1D3 mortal wounds.`,
+        name: `Brutal POwer`,
+        desc: `If this model is wholly within 18" of a friendly IRONJAWZ unit with 10 or more models at the end of its hero phase, it can attempt to cast the Green Puke Spell in addition to any other spells it can cast, even if Green Puke was already attempted earlier in the phase.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Green Puke`,
+        desc: `Casting value 6. Pick 1 point on the battlefield within 2d6" of the caster that is visible, draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 Mortal Wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -124,22 +139,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Waaagh! Drummers`,
-        desc: `Models in this unit may be Waaagh! Drummers. Add 2 to charge rolls for a unit that includes any Waaagh! Drummers.`,
+        desc: `Add 2 to charge rolls for a unit that includes any Waaagh! Drummers.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Orruk Banner`,
-        desc: `You can add 2 to the Bra- very of all models in a unit that includes any Orruk Banners, as long as the enemy are within 3" of the unit.`,
+        name: `Gorkamorka Banner Bearer`,
+        desc: `You can add 2 to the Bravery of all models in a unit that includes any Orruk Banners.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Icon of Gork`,
-        desc: `If a model flees from a unit that includes any of these Icons, roll a D6. On a 6 the Standard Bearer thumps the cowardly orruk - they return to the fight and don't flee.`,
+        name: `Gorkamorka Glyph Bearer`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly Gorkamorka Glyph Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Orruk-forged Shields!`,
-        desc: `Roll a D6 before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
+        desc: `Roll a dice before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -149,12 +164,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Duff Up da Big Thing`,
-        desc: `You can re-roll failed hit rolls for an Orruk Brute if the target has a Wounds characteristic of 4 or more.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Da Grab an'Bash`,
-        desc: `When you make attacks for a Brute Boss armed with a Boss Klaw and Brute Smasha, roll to hit with the Boss Klaw first. If it scores any hits, then a model from the target unit has been grabbed by the Klaw, and the Brute Smasha hits automatically as long as it is used to attack the same target unit.`,
+        desc: `Add 1 to hit rolls for an Orruk Brute if the target has a Wounds characteristic of 4+.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -164,7 +174,9 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `When you declare a charge with a unit of Gore-gruntas, measure the distance to the nearest enemy unit. If the distance is 8" or more and the charge is successful, the grunta's Fanged Maw and Hooves have a Damage characteristic of 1D3 instead of 1 until the end of that turn.`,
+        desc: `Roll a dice for each enemy unit that is within 1" of a model from this unit after the model has finished a charge move. On a 4+, that enemy unit suffers 1 Mortal Wound. Allocate the Mortal Wounds after all models have completed their charge. 
+          
+          In addition, add 1 to hit rolls and wound rolls for attacks made with this unit's Jagged Gore-hackas and tucks and hooves if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -176,6 +188,11 @@ export const Units: TUnits = [
         name: `Dead 'Ard`,
         desc: `Roll a 1D6 each time you allocate a wound or mortal wound to this unit. On a 6+ the wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6+.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Paired Choppas`,
+        desc: `Add 1 to hit rolls for attacks made with a Pair of Ardboy Choppas.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -199,7 +216,7 @@ export const Battalions: TBattalions = [
       {
         name: `Big Waaagh!`,
         desc: `If the Megaboss of this battalion is within 10" of a Warchanter and a Weirdnob Shaman from the battalion in the hero phase, then the Megaboss can use the Big Waaagh! command ability.
-        
+
         When a Megaboss calls a Big Waaagh!, all units from the Brawl that are within 15" of the Megaboss at the start of the following combat phase make 2 extra attacks with each of their melee weapons. Any units that don't receive this bonus but which are within 10" of a Big Boss from the Brawl make 1 extra attack instead with each of their melee weapons.`,
         when: [HERO_PHASE],
       },

@@ -3,6 +3,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import { SavedArmiesProvider } from 'context/useSavedArmies'
 import * as serviceWorker from './serviceWorker'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import App from 'components/App'
@@ -11,10 +12,6 @@ import App from 'components/App'
 import { Auth0Provider } from './react-auth0-wrapper'
 import config from './auth_config.json'
 import { SubscriptionProvider } from 'context/useSubscription'
-
-// Payment
-import { STRIPE_KEY } from 'utils/env'
-import { StripeProvider } from 'react-stripe-elements'
 
 // CSS
 import 'animate.css'
@@ -52,11 +49,11 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <SubscriptionProvider>
+      <SubscriptionProvider>
+        <SavedArmiesProvider>
           <App />
-        </SubscriptionProvider>
-      </StripeProvider>
+        </SavedArmiesProvider>
+      </SubscriptionProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')

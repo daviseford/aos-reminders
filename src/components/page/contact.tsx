@@ -1,6 +1,6 @@
 import React from 'react'
 import { btnContentWrapper } from 'theme/helperClasses'
-import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter, FaDiscord } from 'react-icons/fa'
 import { IconType } from 'react-icons'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { logClick } from 'utils/analytics'
@@ -17,7 +17,7 @@ export const ContactComponent: React.FC<IContactProps> = props => {
   return (
     <>
       <Link
-        href="https://github.com/daviseford/aos-reminders/issues"
+        href="https://github.com/daviseford/aos-reminders/"
         btnClass={btnClass}
         Icon={FaGithub}
         text={'Github'}
@@ -29,6 +29,7 @@ export const ContactComponent: React.FC<IContactProps> = props => {
         text={'Email'}
       />
       <Link href="https://reddit.com/r/AoSReminders/" btnClass={btnClass} Icon={FaReddit} text={'Reddit'} />
+      <Link href="https://discord.gg/2nt9Fxp" btnClass={btnClass} Icon={FaDiscord} text={'Discord'} />
       <Link href="https://twitter.com/daviseford" btnClass={btnClass} Icon={FaTwitter} text={'Twitter'} />
     </>
   )
@@ -50,11 +51,11 @@ const LinkComponent: React.FC<ILinkProps> = componentWithSize(props => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={btnClass}
+      className={`${btnClass} mb-1`}
       onClick={e => logClick(`Contact-${text}`)}
     >
       <div className={btnContentWrapper}>
-        <Icon className={isMobile ? `` : `mr-2`} />
+        <Icon className={isMobile ? `mx-2 my-1` : `mr-2`} />
         {isMobile ? `` : ` ${text}`}
       </div>
     </a>

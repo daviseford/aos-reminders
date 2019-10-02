@@ -4,15 +4,20 @@ import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscro
 import { logEvent } from 'utils/analytics'
 import { IImportedArmy, TImportParsers } from 'types/import'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
+import { isValidFactionName } from 'utils/armyUtils'
 
 type TImportFileTypes = 'application/pdf' | 'text/plain'
 
-type TUseParse = (
-  handleDrop: (parsedArmy: IImportedArmy) => void,
-  handleError: () => void,
-  handleDone: () => void,
+interface IUseParseArgs {
+  handleDone: () => void
+  handleDrop: (parsedArmy: IImportedArmy) => void
+  handleError: () => void
   setParser: (parser: TImportParsers) => void
-) => (acceptedFiles: any[]) => void
+  startProcessing: () => boolean
+  stopProcessing: () => boolean
+}
+
+type TUseParse = (args: IUseParseArgs) => (acceptedFiles: any[]) => void
 
 const arrayBufferToString = buf => {
   //@ts-ignore
@@ -40,16 +45,25 @@ const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
   }
 }
 
-export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, setParser) => {
+export const handleParseFile: TUseParse = ({
+  handleDrop,
+  handleError,
+  handleDone,
+  setParser,
+  startProcessing,
+  stopProcessing,
+}) => {
   return acceptedFiles => {
     try {
       const file = acceptedFiles[0]
       const reader = new FileReader()
 
       // Set reader options
-      reader.onabort = () => console.log('file reading was aborted')
+      reader.onabort = () => {
+        stopProcessing() && console.log('File reading was aborted.')
+      }
       reader.onerror = () => {
-        handleError()
+        stopProcessing() && handleError()
         console.log('File reading has failed.')
       }
       reader.onload = async () => {
@@ -59,20 +73,29 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
 
         setParser(parser)
 
+        if (parser === 'Unknown') return stopProcessing() && handleError()
+
         if (isWarscroll) {
           const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
           const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
           handleDrop(parsedArmy)
-          handleDone()
-          logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          stopProcessing() && handleDone()
+          if (isValidFactionName(parsedArmy.factionName)) {
+            logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          }
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
           handleDrop(parsedArmy)
-          handleDone()
-          logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          stopProcessing() && handleDone()
+          if (isValidFactionName(parsedArmy.factionName)) {
+            logEvent(`Import${parser}-${parsedArmy.factionName}`)
+          }
         }
       }
+
+      // Start processing spinner
+      startProcessing()
 
       // Read the file
       if (file.type === 'application/pdf') {
@@ -81,7 +104,7 @@ export const handleParseFile: TUseParse = (handleDrop, handleError, handleDone, 
         reader.readAsText(file)
       }
     } catch (err) {
-      handleError()
+      stopProcessing() && handleError()
       console.error(err)
     }
   }

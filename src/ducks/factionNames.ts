@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from 'redux-starter-kit'
+import { createSlice } from 'redux-starter-kit'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { IFactionNameStore } from 'types/store'
 
@@ -15,8 +15,3 @@ export const factionNames = createSlice({
     },
   },
 })
-
-factionNames.selectors.getFactionName = createSelector(
-  ['factionNames.factionName'],
-  factionName => factionName
-)

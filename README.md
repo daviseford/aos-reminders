@@ -127,3 +127,9 @@ git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }
 + [Subscription API](https://github.com/daviseford/aos-reminders-subscription-api)
 
 _Note: These are both private repositories._
+
+### Will you ever add units stats or points?
+
+No.
+
+This is something I will never add to AoS Reminders (unless we get a blessing from GW). It gets too close to entirely replacing the need for a battletome, and I don't want GW to think I'm trying to do that. It's a great idea but not one that I will do :)

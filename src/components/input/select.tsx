@@ -20,7 +20,7 @@ interface ISelectOneProps {
 export const SelectOne = (props: ISelectOneProps) => {
   const { items, setValue, isClearable = false, hasDefault = false, toTitle = false, value = null } = props
   const options = convertToOptions(items, toTitle)
-  const controlledValue = value ? convertToOptions([value], false)[0] : null
+  const controlledValue = value ? convertToOptions([value], false)[0] : value
 
   const selectProps: { [key: string]: any } = {
     defaultValue: hasDefault ? options[0] : null,
@@ -30,7 +30,7 @@ export const SelectOne = (props: ISelectOneProps) => {
     options: options,
   }
 
-  if (controlledValue) {
+  if (controlledValue !== undefined) {
     selectProps.value = controlledValue
   }
   return (

@@ -19,4 +19,4 @@ export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-wa
 
 export type TImportFileTypes = 'application/pdf' | 'text/plain'
 
-export type TImportParsers = 'Warscroll Builder' | 'Azyr' | 'Battlescribe'
+export type TImportParsers = 'Warscroll Builder' | 'Azyr' | 'Battlescribe' | 'Unknown'

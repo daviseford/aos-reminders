@@ -1,11 +1,12 @@
 import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
+import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { isDev } from 'utils/env'
+import { logClick } from 'utils/analytics'
+import { isDev, STRIPE_KEY } from 'utils/env'
+import AsyncStripeProvider from './asyncStripeProvider'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
-import { logClick } from 'utils/analytics'
-import qs from 'qs'
 
 interface ICheckoutProps {
   stripe?: any
@@ -23,7 +24,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
         ))}
       </div>
       <div className="row text-center justify-content-center">
-        <div className="col-12 col-sm-10 col-md-10 col-xl-8">
+        <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
           <small>
             <em>
               Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
@@ -89,7 +90,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
   return (
     <div className="card mb-4 shadow-sm">
-      <div className="card-header">
+      <div className="card-header ThemeDarkBg text-light">
         <h4 className="my-0 font-weight-normal">{supportPlan.title}</h4>
       </div>
       <div className="card-body">
@@ -115,8 +116,10 @@ const InjectedPricingPlans = injectStripe(PricingPlansComponent)
 
 export const PricingPlans = () => {
   return (
-    <Elements>
-      <InjectedPricingPlans />
-    </Elements>
+    <AsyncStripeProvider apiKey={STRIPE_KEY}>
+      <Elements>
+        <InjectedPricingPlans />
+      </Elements>
+    </AsyncStripeProvider>
   )
 }

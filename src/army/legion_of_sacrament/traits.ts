@@ -66,7 +66,6 @@ const CommandTraits: TTraits = [
         name: `Bound to the Master`,
         desc: `This general may use Arkhan the Black's First of the Mortarchs command ability.\n\n (Until the end of the hero phase all friendly DEATH WIZARDS within 18" of this general can increase the range of their spells by 6".)`,
         when: [HERO_PHASE],
-        command_ability: true,
       },
     ],
   },

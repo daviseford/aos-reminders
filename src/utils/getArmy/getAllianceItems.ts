@@ -6,8 +6,8 @@ import {
 } from 'meta/factions'
 import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
 import { sortedUniqBy, sortBy, without } from 'lodash'
-import { ArmyList } from 'meta/army_list'
 import { TEntry } from 'types/data'
+import { getArmyList } from 'meta/army_list'
 
 type TType =
   | 'Artifacts'
@@ -35,6 +35,8 @@ export const getAllianceItems = (
     [DESTRUCTION]: DESTRUCTION_GRAND_ALLIANCE,
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
+
+  const ArmyList = getArmyList()
 
   return sortedUniqBy(
     sortBy(

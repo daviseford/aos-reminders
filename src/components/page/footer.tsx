@@ -5,7 +5,7 @@ import { ContactComponent } from './contact'
 /**
  * Hidden when printing
  */
-export const FooterComponent = () => {
+const FooterComponent = () => {
   return (
     <div className="container d-print-none">
       <DonateComponent />
@@ -18,6 +18,8 @@ export const FooterComponent = () => {
     </div>
   )
 }
+
+export default FooterComponent
 
 const DisclaimerComponent = () => (
   <div className="row justify-content-center text-center pt-0">

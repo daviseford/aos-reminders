@@ -107,7 +107,7 @@ const Allegiances: TAllegiances = [
         name: `Opportunistic Privateers`,
         desc: `Pick an enemy unit, re-roll failed hits vs that unit for all units within 3".`,
         when: [SHOOTING_PHASE],
-        command_ability: true,
+        command_trait: true,
       },
     ],
   },

@@ -2,10 +2,10 @@ import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { getArmyBuilderCards } from './army_builder_cards'
-import { withSelectOne, withSelectMultiple } from 'utils/withSelect'
+import { withSelectOne, withSelectMultiWithSideEffects } from 'utils/withSelect'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { realmscape, selections, factionNames, army } from 'ducks'
+import { realmscape, selections, army, selectors } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { RealmscapeFeatures } from 'army/generic'
 import { IArmy } from 'types/army'
@@ -19,6 +19,7 @@ export interface IArmyBuilderProps {
   realmscape: TRealms | null
   selections: ISelections
   isMobile: boolean
+  addToSelections: (payload: { values: string[]; slice: string }) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void
@@ -62,7 +63,11 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
           card.type === 'multi' ? (
             <CardMultiSelect
               items={card.items}
-              setValues={withSelectMultiple(card.setValues)}
+              setValues={withSelectMultiWithSideEffects(
+                card.setValues,
+                card.sideEffects,
+                props.addToSelections
+              )}
               title={card.title}
               values={card.values}
               key={card.title}
@@ -84,13 +89,14 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  realmscape: realmscape.selectors.getRealmscape(state),
-  realmscape_feature: realmscape.selectors.getRealmscapeFeature(state),
-  selections: selections.selectors.getSelections(state),
-  factionName: factionNames.selectors.getFactionName(state),
+  realmscape: selectors.getRealmscape(state),
+  realmscape_feature: selectors.getRealmscapeFeature(state),
+  selections: selectors.getSelections(state),
+  factionName: selectors.getFactionName(state),
 })
 
 const mapDispatchToProps = {
+  addToSelections: selections.actions.addToSelections,
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateAllegiances: selections.actions.updateAllegiances,
@@ -106,7 +112,9 @@ const mapDispatchToProps = {
   updateUnits: selections.actions.updateUnits,
 }
 
-export const ArmyBuilder = connect(
+const ArmyBuilder = connect(
   mapStateToProps,
   mapDispatchToProps
 )(componentWithSize(ArmyBuilderComponent))
+
+export default ArmyBuilder

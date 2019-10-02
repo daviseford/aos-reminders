@@ -1,29 +1,15 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-import Home from 'components/routes/Home'
-import { Loading } from 'components/page/loading'
+import { Loading } from './helpers/suspenseFallbacks'
 
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
-import qs from 'qs'
-import { logEvent } from 'utils/analytics'
-
-const handleCheckout = () => {
-  const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  })
-
-  if (subscribed) logEvent(`Checkout-Subscribed-${plan}`)
-  if (canceled) logEvent(`Checkout-Canceled-${plan}`)
-
-  if (subscribed || canceled) {
-    window.history.replaceState({}, document.title, window.location.pathname)
-  }
-}
+import { handleCheckout } from 'utils/handleCheckout'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Profile = lazy(() => import('components/routes/Profile'))
-const Subscribe = lazy(() => import('components/routes/Subscribe'))
+const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
+const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
+const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => handleCheckout(), []) // Post-checkout handling

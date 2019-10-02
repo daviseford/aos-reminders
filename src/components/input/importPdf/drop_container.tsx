@@ -11,12 +11,13 @@ import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
+import { logClick } from 'utils/analytics'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
+  updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
   updateAllySelections: (payload: TAllySelectionStore) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
   updateSelections: (payload: ISelections) => void
@@ -27,7 +28,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
-    updateAllyArmy,
+    updateAllyArmies,
     updateAllySelections,
     updateSelections,
   } = props
@@ -40,16 +41,17 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setErrors(army.errors)
 
       // Can't proceed if there's an error (usually an unsupported faction)
-      if (hasFatalError(errors)) return
+      if (hasFatalError(army.errors)) return
 
       setFactionName(army.factionName)
 
       // Add Ally Game data to the store
       if (army.allyFactionNames.length) {
-        army.allyFactionNames.forEach(factionName => {
+        const armies = army.allyFactionNames.map(factionName => {
           const Army = getArmy(factionName) as IArmy
-          updateAllyArmy({ factionName, Army })
+          return { factionName, Army }
         })
+        updateAllyArmies(armies)
       }
 
       updateSelections(army.selections)
@@ -58,11 +60,10 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
       setRealmscapeFeature(army.realmscape_feature)
     },
     [
-      errors,
       setFactionName,
       setRealmscape,
       setRealmscapeFeature,
-      updateAllyArmy,
+      updateAllyArmies,
       updateAllySelections,
       updateSelections,
     ]
@@ -82,7 +83,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
         <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
-              <ErrorAlert key={i} text={x.text} severity={x.severity} />
+              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} />
             ))}
           </div>
         </div>
@@ -97,7 +98,7 @@ const ImportContainer = connect(
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-    updateAllyArmy: army.actions.updateAllyArmy,
+    updateAllyArmies: army.actions.updateAllyArmies,
     updateAllySelections: selections.actions.updateAllySelections,
     updateAllyUnits: selections.actions.updateAllyUnits,
     updateSelections: selections.actions.updateSelections,
@@ -132,11 +133,14 @@ const ErrorAlert = (props: TImportError) => {
           <strong>{prefix}:</strong> {info}
           <br />
           <small>
-            Unexpected {prefix.toLowerCase()}? Post a comment on{' '}
+            Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
             <a
-              href={'https://github.com/daviseford/aos-reminders/issues/431'}
+              href={'https://github.com/daviseford/aos-reminders/issues'}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={e => {
+                logClick(`failedImport-GithubClick`)
+              }}
             >
               Github
             </a>{' '}

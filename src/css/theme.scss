@@ -6,13 +6,14 @@ $themeLightPurple: #93A9FA;
 $themeRed: #A12F48;
 $themeRoyalBlue: #1237C7;
 $themeYellow: #E0D51F;
+$themeLightGray: #E9ECEF;
 
 /* Override default Bootstrap variables */
 $grid-breakpoints: (
     xs: 0,
     sm: 576px,
     md: 768px,
-    lg: 992px,
+    lg: 1025px,
     xl: 1200px,
     xxl: 1900px
 );
@@ -20,7 +21,7 @@ $grid-breakpoints: (
 $container-max-widths: (
     sm: 540px,
     md: 720px,
-    lg: 960px,
+    lg: 992px,
     xl: 1140px,
     xxl: 1610px
 );
