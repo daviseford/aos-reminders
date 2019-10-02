@@ -24,7 +24,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
         ))}
       </div>
       <div className="row text-center justify-content-center">
-        <div className="col-12 col-sm-10 col-md-10 col-xl-8">
+        <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
           <small>
             <em>
               Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
@@ -90,7 +90,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
   return (
     <div className="card mb-4 shadow-sm">
-      <div className="card-header">
+      <div className="card-header ThemeDarkBg text-light">
         <h4 className="my-0 font-weight-normal">{supportPlan.title}</h4>
       </div>
       <div className="card-body">

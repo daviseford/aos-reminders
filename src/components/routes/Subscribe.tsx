@@ -36,15 +36,18 @@ const Subscribe: React.FC = () => {
 
       <Intro />
 
-      <CurrentFeatures />
-
-      <ExamplesRow />
-
-      <ComingSoon />
-
-      <div>
+      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
         <PricingPlans />
       </div>
+
+      <div className="container">
+        <div className="row align-items-start justify-content-center">
+          <CurrentFeatures />
+          <ComingSoon />
+        </div>
+      </div>
+
+      <ExamplesRow />
 
       <div className="container text-center mt-5 mb-4">
         <ContactComponent size={'small'} />
@@ -79,60 +82,60 @@ const Intro = () => (
       It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
       <i>always</i> be free, I do offer this subscription service to those who wish to support AoS Reminders.
     </p>
-    <p className="lead">
-      <strong>What do you get when you subscribe to AoS Reminders?</strong>
-    </p>
   </div>
 )
 
+const featuresColClass = `col-12 col-lg-5 col-xl-5 col-xxl-5 mt-3`
+
 const CurrentFeatures = () => (
-  <div className="row align-items-start justify-content-center">
-    <div className={`col-12 col-lg-8 col-xl-8 mx-auto`}>
-      <ul className="lead">
-        <li>
-          <strong>NEW:</strong> Import your army lists from Azyr!
-        </li>
-        <li>
-          Import your army lists <strong>instantly</strong> from Warscroll Builder
-        </li>
-        <li>
-          Save and load your army lists from <strong>anywhere</strong> on <strong>any</strong> device
-        </li>
-        <li>Edit, update, and delete your armies effortlessly</li>
-      </ul>
-    </div>
+  <div className={featuresColClass}>
+    <p className="lead">
+      <strong>What do you get when you subscribe to AoS Reminders?</strong>
+    </p>
+    <ul className="lead">
+      <li>
+        <strong>NEW:</strong> Import your army lists from Azyr!
+      </li>
+      <li>
+        Import your army lists <strong>instantly</strong> from Warscroll Builder
+      </li>
+      <li>
+        Save and load your army lists from <strong>anywhere</strong> on <strong>any</strong> device
+      </li>
+      <li>Edit, update, and delete your armies effortlessly</li>
+    </ul>
   </div>
 )
 
 const ComingSoon = () => (
-  <div className="row align-items-start justify-content-center">
-    <div className={`col-12 col-lg-8 col-xl-8 py-5 mx-auto`}>
-      <p className="lead">Coming soon: </p>
-      <ul className="lead">
-        <li>
-          <i>Importing army lists from Battlescribe</i>
-        </li>
-        <li>
-          <i>Favorite armies</i>
-        </li>
-        <li>
-          <i>Adding custom reminders</i>
-        </li>
-        <li>
-          <i>
-            <b>and much more!</b>
-          </i>{' '}
-          - Check out our list of planned feature enhancements{' '}
-          <a
-            href="https://github.com/daviseford/aos-reminders/labels/enhancement"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            on our Github!
-          </a>
-        </li>
-      </ul>
-    </div>
+  <div className={featuresColClass}>
+    <p className="lead">
+      <strong>Coming soon: </strong>
+    </p>
+    <ul className="lead">
+      <li>
+        <i>Importing army lists from Battlescribe</i>
+      </li>
+      <li>
+        <i>Favorite armies</i>
+      </li>
+      <li>
+        <i>Adding custom reminders</i>
+      </li>
+      <li>
+        <i>
+          <strong>and much more!</strong>
+        </i>{' '}
+        - Check out our list of planned feature enhancements{' '}
+        <a
+          href="https://github.com/daviseford/aos-reminders/labels/enhancement"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          on our Github!
+        </a>
+      </li>
+    </ul>
   </div>
 )
 
