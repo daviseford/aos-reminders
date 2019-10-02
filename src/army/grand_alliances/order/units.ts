@@ -24,9 +24,6 @@ export const MonstrousArcanumOrder: TUnits = [
   },
 ]
 
-// Units available to this Grand Alliance allegiance
-export const Units: TUnits = [...MonstrousArcanumOrder]
-
 // Available to ALL factions in this Grand Alliance
 export const OrderUnits: TUnits = [
   {
@@ -60,3 +57,6 @@ export const OrderUnits: TUnits = [
     ],
   },
 ]
+
+// Units available to this Grand Alliance allegiance
+export const Units: TUnits = [...OrderUnits, ...MonstrousArcanumOrder]
