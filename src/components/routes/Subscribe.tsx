@@ -61,7 +61,7 @@ const Subscribe: React.FC = () => {
                 Import your army lists <strong>instantly</strong> from Warscroll Builder
               </li>
               <li>
-                Access your saved army lists from <b>anywhere</b> on <b>any</b> device
+                Save and load your army lists from <b>anywhere</b> on <b>any</b> device
               </li>
             </ul>
           </div>
