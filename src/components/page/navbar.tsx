@@ -10,7 +10,7 @@ import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
-  const { isSubscribed, subscriptionLoading } = useSubscription()
+  const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
             Profile
           </Link>
         )}
-        {!isSubscribed && pathname !== '/subscribe' && (
+        {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
           <Link to="/subscribe" className={styles.link} onClick={() => logClick('Navbar-Subscribe')}>
             Subscribe
           </Link>

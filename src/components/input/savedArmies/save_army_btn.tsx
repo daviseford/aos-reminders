@@ -20,7 +20,7 @@ interface ISaveArmyProps {
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive } = useSubscription()
 
   const canSave = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
@@ -33,11 +33,11 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
     <>
       {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
 
-      {isAuthenticated && !isSubscribed && <SubscribeBtn />}
+      {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
 
-      {isAuthenticated && isSubscribed && !canSave && <SaveButton showTooltip={true} />}
+      {isAuthenticated && isSubscribed && isActive && !canSave && <SaveButton showTooltip={true} />}
 
-      {isAuthenticated && isSubscribed && canSave && <SaveButton handleClick={openModal} />}
+      {isAuthenticated && isSubscribed && isActive && canSave && <SaveButton handleClick={openModal} />}
 
       {modalIsOpen && (
         <SaveArmyModal

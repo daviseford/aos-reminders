@@ -2,13 +2,14 @@ import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
-import { logPageView } from 'utils/analytics'
+import { logPageView, logClick } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
 import { IUser } from 'types/user'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
 import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
+import { Link } from 'react-router-dom'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -51,7 +52,7 @@ export default Profile
 
 const UserCard: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
-  const { isActive, isSubscribed, subscription } = useSubscription()
+  const { isActive, isSubscribed, isCanceled, subscription } = useSubscription()
 
   return (
     <div className="py-4">
@@ -59,8 +60,13 @@ const UserCard: React.FC = () => {
 
       <div className="media">
         <div className="media-body text-center">
-          <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
-          {isSubscribed && <RecurringPaymentInfo isActive={isActive} />}
+          <SubscriptionInfo
+            subscription={subscription}
+            isCanceled={isCanceled}
+            isSubscribed={isSubscribed}
+            isActive={isActive}
+          />
+          {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
         </div>
@@ -74,14 +80,14 @@ interface ICancelBtnProps {
 }
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive, isCanceled } = useSubscription()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isSubscribed) return null
+  if (!isSubscribed || !isActive || isCanceled) return null
 
   return (
     <>
@@ -93,14 +99,14 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed }) => {
+const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) => {
   return (
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
           <div className={btnContentWrapper}>
             Subscription Status:{' '}
-            {isSubscribed ? (
+            {isSubscribed && isActive ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -109,7 +115,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
         </h4>
       </div>
 
-      {isSubscribed && (
+      {isSubscribed && isActive && (
         <div className="card-body">
           <h5 className="lead">
             Subscription Start:{' '}
@@ -127,18 +133,23 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
           </h5>
         </div>
       )}
+      {isSubscribed && !isActive && (
+        <div className="card-body">
+          <SubscriptionExpired />
+        </div>
+      )}
     </div>
   )
 }
 
-const RecurringPaymentInfo = ({ isActive }) => {
+const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
   return (
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
           <div className={btnContentWrapper}>
             Recurring Payment:{' '}
-            {isActive ? (
+            {isActive && !isCanceled ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -146,7 +157,7 @@ const RecurringPaymentInfo = ({ isActive }) => {
           </div>
         </h4>
       </div>
-      {isActive && (
+      {isActive && !isCanceled && (
         <div className="card-body">
           <CancelBtn />
         </div>
@@ -189,3 +200,15 @@ const Help = () => {
     </div>
   )
 }
+
+const SubscriptionExpired = () => (
+  <div className="mt-2">
+    <div className="alert alert-danger text-center" role="alert">
+      <strong>Your subscription has expired!</strong>
+      <br />
+      <Link to="/subscribe" className={`btn btn-md btn-success mt-2`} onClick={() => logClick('Resubscribe')}>
+        Resubscribe now!
+      </Link>
+    </div>
+  </div>
+)
