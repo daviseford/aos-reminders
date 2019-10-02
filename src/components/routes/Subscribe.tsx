@@ -41,7 +41,7 @@ const Subscribe: React.FC = () => {
       </div>
 
       <div className="container">
-        <div className="row align-items-start justify-content-center">
+        <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
           <ComingSoon />
         </div>
@@ -79,13 +79,16 @@ const Intro = () => (
     />
     <h2>Support AoS Reminders</h2>
     <p className="lead">
-      It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
-      <i>always</i> be free, I do offer this subscription service to those who wish to support AoS Reminders.
+      <strong>
+        It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
+        <i>always</i> be free, I do offer this subscription service to those who wish to support AoS
+        Reminders.
+      </strong>
     </p>
   </div>
 )
 
-const featuresColClass = `col-12 col-lg-5 col-xl-5 col-xxl-5 mt-3`
+const featuresColClass = `col-12 col-lg-5 col-xl-5 col-xxl-5 mt-2`
 
 const CurrentFeatures = () => (
   <div className={featuresColClass}>
