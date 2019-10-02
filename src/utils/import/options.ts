@@ -85,7 +85,6 @@ const warscrollTypoMap: TNameMap = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
-  'Berserk Er Lor D': 'Berserker Lord',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
