@@ -16,7 +16,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/pa
 
 const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { getSubscription, isSubscribed, isActive } = useSubscription()
+  const { getSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
