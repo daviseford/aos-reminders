@@ -2,10 +2,11 @@ import React, { useState, useCallback, useMemo } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
-import { isSubscriber, isActiveSubscriber } from 'utils/subscriptionUtils'
+import { isSubscriber, isActiveSubscriber, isCanceledSubscriber } from 'utils/subscriptionUtils'
 
 const initialState = {
   isActive: false,
+  isCanceled: false,
   isSubscribed: false,
   subscription: { subscribed: false },
   subscriptionLoading: false,
@@ -15,6 +16,7 @@ interface ISubscriptionContext {
   cancelSubscription: () => Promise<void>
   getSubscription: () => Promise<void>
   isActive: boolean
+  isCanceled: boolean
   isSubscribed: boolean
   subscription: ISubscription
   subscriptionLoading: boolean
@@ -29,6 +31,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
 
   const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
+  const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
 
   const getSubscription = useCallback(async () => {
     if (!user) return setSubscription(initialState.subscription)
@@ -59,6 +62,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
     cancelSubscription,
     getSubscription,
     isActive,
+    isCanceled,
     isSubscribed,
     subscription,
     subscriptionLoading,
@@ -70,6 +74,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         cancelSubscription,
         getSubscription,
         isActive,
+        isCanceled,
         isSubscribed,
         subscription,
         subscriptionLoading,
