@@ -10,7 +10,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/pa
 
 const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
-  const { isSubscribed, getSubscription } = useSubscription()
+  const { isSubscribed, isActive, getSubscription } = useSubscription()
 
   useEffect(() => {
     logPageView()
@@ -22,7 +22,7 @@ const Subscribe: React.FC = () => {
   }, [getSubscription])
 
   if (loading) return <Loading />
-  if (isSubscribed) return <AlreadySubscribed />
+  if (isSubscribed && isActive) return <AlreadySubscribed />
 
   const headerClass = `col-12 col-lg-8 col-xl-8 py-5 mx-auto`
   const featuresClass = `col-12`

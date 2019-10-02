@@ -16,7 +16,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/pa
 
 const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { getSubscription } = useSubscription()
+  const { getSubscription, isSubscribed, isActive } = useSubscription()
 
   useEffect(() => {
     logPageView()
@@ -59,7 +59,7 @@ const UserCard: React.FC = () => {
 
       <div className="media">
         <div className="media-body text-center">
-          <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} />
+          <SubscriptionInfo subscription={subscription} isSubscribed={isSubscribed} isActive={isActive} />
           {isSubscribed && <RecurringPaymentInfo isActive={isActive} />}
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
@@ -74,14 +74,14 @@ interface ICancelBtnProps {
 }
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive } = useSubscription()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isSubscribed) return null
+  if (!isSubscribed || !isActive) return null
 
   return (
     <>
@@ -93,14 +93,14 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed }) => {
+const SubscriptionInfo = ({ subscription, isSubscribed, isActive }) => {
   return (
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
           <div className={btnContentWrapper}>
             Subscription Status:{' '}
-            {isSubscribed ? (
+            {isSubscribed && isActive ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -109,7 +109,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
         </h4>
       </div>
 
-      {isSubscribed && (
+      {isSubscribed && isActive && (
         <div className="card-body">
           <h5 className="lead">
             Subscription Start:{' '}
@@ -125,6 +125,11 @@ const SubscriptionInfo = ({ subscription, isSubscribed }) => {
               })
               .toLocaleString(DateTime.DATE_MED)}
           </h5>
+        </div>
+      )}
+      {isSubscribed && !isActive && (
+        <div className="card-body">
+          <SubscriptionExpired />
         </div>
       )}
     </div>
@@ -189,3 +194,11 @@ const Help = () => {
     </div>
   )
 }
+
+const SubscriptionExpired = () => (
+  <div className="mt-2">
+    <div className="alert alert-danger text-center" role="alert">
+      <strong>Your subscription has expired!</strong>
+    </div>
+  </div>
+)
