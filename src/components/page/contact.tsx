@@ -55,7 +55,7 @@ const LinkComponent: React.FC<ILinkProps> = componentWithSize(props => {
       onClick={e => logClick(`Contact-${text}`)}
     >
       <div className={btnContentWrapper}>
-        <Icon className={isMobile ? `mx-2` : `mr-2`} />
+        <Icon className={isMobile ? `mx-2 my-1` : `mr-2`} />
         {isMobile ? `` : ` ${text}`}
       </div>
     </a>
