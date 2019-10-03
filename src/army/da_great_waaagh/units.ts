@@ -11,7 +11,7 @@ const getBonesplitterzUnits = () => Bonesplitterz.Units
 const getBonesplitterzBattalions = () => Bonesplitterz.Battalions
 
 // Exporting the units
-export const Units: TUnits = [...getIronjawzUnits(), ...getBonesplitterzUnits()]
+export const AlliedUnits: TUnits = [...getIronjawzUnits(), ...getBonesplitterzUnits()]
 
 // Battalions
 export const Battalions: TBattalions = [...getIronjawzBattalions(), ...getBonesplitterzBattalions()]
