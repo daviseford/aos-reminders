@@ -8,7 +8,7 @@ const initialState = {
   isActive: false,
   isCanceled: false,
   isSubscribed: false,
-  subscription: { subscribed: false },
+  subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
 }
 

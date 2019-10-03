@@ -4,6 +4,10 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
 import { isEqual, sortBy } from 'lodash'
+import { useSubscription } from './useSubscription'
+import { isValidFactionName } from 'utils/armyUtils'
+import { SubscriptionApi } from 'api/subscriptionApi'
+import { TSupportedFaction } from 'meta/factions'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -11,6 +15,8 @@ type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changed
 interface ISavedArmiesContext {
   armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => Promise<void>
+  favoriteFaction: TSupportedFaction | null
+  getFavoriteFaction: (userName: string) => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -18,14 +24,17 @@ interface ISavedArmiesContext {
   setLoadedArmy: (army: TLoadedArmy) => void
   updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
+  updateFavoriteFaction: (factionName: TSupportedFaction | null) => Promise<void>
 }
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
+  const { subscription, isSubscribed } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
+  const [favoriteFaction, setFavoriteArmy] = useState<TSupportedFaction | null>(null)
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
@@ -119,11 +128,41 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
+  const getFavoriteFaction = useCallback(async () => {
+    try {
+      const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
+      if (body.factionName !== favoriteFaction) {
+        setFavoriteArmy(favoriteFaction)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }, [favoriteFaction, subscription.userName])
+
+  const updateFavoriteFaction = useCallback(
+    async (factionName: string | null) => {
+      if (!isSubscribed || !subscription) return
+
+      if (factionName !== null && !isValidFactionName(factionName)) return
+
+      try {
+        const payload = { id: subscription.id, userName: subscription.userName, factionName }
+        await SubscriptionApi.updateFavoriteFaction(payload)
+        setFavoriteArmy(factionName)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    [subscription, isSubscribed]
+  )
+
   return (
     <SavedArmiesContext.Provider
       value={{
         armyHasChanges,
         deleteSavedArmy,
+        favoriteFaction,
+        getFavoriteFaction,
         loadedArmy,
         loadSavedArmies,
         saveArmy,
@@ -131,6 +170,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         setLoadedArmy,
         updateArmy,
         updateArmyName,
+        updateFavoriteFaction,
       }}
     >
       {children}
