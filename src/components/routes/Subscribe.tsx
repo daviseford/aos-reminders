@@ -59,7 +59,7 @@ const Subscribe: React.FC = () => {
 export default Subscribe
 
 const ExamplesRow = () => (
-  <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
+  <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
     <div className={'col-12 col-lg-5 col-xl-5'}>
       <ImportExample />
     </div>
@@ -173,7 +173,7 @@ const ImportExample = () => {
             loop={true}
             className="figure-img img-fluid rounded img-thumbnail"
           >
-            <source src="/img/import_demo.mp4" type="video/webm"></source>
+            <source src="/img/import_demo.mp4" type="video/mp4"></source>
           </video>
         </a>
         <figcaption className="figure-caption text-center">Importing Warscroll Builder/Azyr files</figcaption>
@@ -198,7 +198,7 @@ const SaveLoadExample = () => {
             loop={true}
             className="figure-img img-fluid rounded img-thumbnail"
           >
-            <source src="/img/save_load_demo.mp4" type="video/webm"></source>
+            <source src="/img/save_load_demo.mp4" type="video/mp4"></source>
           </video>
         </a>
         <figcaption className="figure-caption text-center">Saving, loading, and deleting armies</figcaption>
