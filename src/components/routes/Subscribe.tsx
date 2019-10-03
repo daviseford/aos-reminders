@@ -174,6 +174,7 @@ const ImportExample = () => {
             className="figure-img img-fluid rounded img-thumbnail"
           >
             <source src="/img/import_demo.mp4" type="video/mp4"></source>
+            <source src="/img/import_demo.mp4" type="video/webm"></source>
           </video>
         </a>
         <figcaption className="figure-caption text-center">Importing Warscroll Builder/Azyr files</figcaption>
@@ -199,6 +200,7 @@ const SaveLoadExample = () => {
             className="figure-img img-fluid rounded img-thumbnail"
           >
             <source src="/img/save_load_demo.mp4" type="video/mp4"></source>
+            <source src="/img/save_load_demo.mp4" type="video/webm"></source>
           </video>
         </a>
         <figcaption className="figure-caption text-center">Saving, loading, and deleting armies</figcaption>
