@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
@@ -9,6 +9,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -41,7 +42,17 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     isMobile,
     factionName,
   } = props
-  const { setLoadedArmy } = useSavedArmies()
+  const { isActive } = useSubscription()
+  const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+
+  useEffect(() => {
+    if (!isActive) return
+    const get = async () => {
+      await getFavoriteFaction()
+      if (favoriteFaction) setFactionName(favoriteFaction)
+    }
+    get()
+  }, [getFavoriteFaction, isActive, setFactionName, favoriteFaction])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
