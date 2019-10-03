@@ -23,7 +23,7 @@
     "react-modal": "3.10.1",
     "react-redux": "7.1.1",
     "react-router-dom": "5.1.2",
-    "react-scripts": "3.1.2",
+    "react-scripts": "3.2.0",
     "react-select": "3.0.8",
     "react-sizes": "2.0.0",
     "react-stripe-elements": "5.0.1",
@@ -32,8 +32,7 @@
     "redux": "4.0.4",
     "redux-starter-kit": "0.7.0",
     "string.prototype.matchall": "3.0.2",
-    "superagent": "5.1.0",
-    "typescript": "3.6.3"
+    "superagent": "5.1.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
@@ -69,7 +68,7 @@
     "@types/jspdf": "1.3.1",
     "@types/lodash": "4.14.141",
     "@types/luxon": "1.15.2",
-    "@types/node": "12.7.9",
+    "@types/node": "12.7.10",
     "@types/pdfjs-dist": "2.1.2",
     "@types/qs": "6.5.3",
     "@types/react": "16.9.4",
@@ -88,6 +87,7 @@
     "pretty-quick": "1.11.1",
     "react-app-rewired": "2.1.3",
     "replace-in-file": "4.1.3",
-    "source-map-explorer": "2.1.0"
+    "source-map-explorer": "2.1.0",    
+    "typescript": "^3.7.0-beta"
   }
 }
