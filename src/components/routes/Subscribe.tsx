@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense, useState } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView, logClick } from 'utils/analytics'
@@ -59,28 +59,23 @@ const Subscribe: React.FC = () => {
 export default Subscribe
 
 const ExamplesRow = () => {
-  const [supportsWebm, setSupport] = useState(true)
-
-  const turnOffSupport = () => setSupport(false)
-
-  useEffect(() => {
-    const videoElement = document.querySelector('video')
-    console.log(videoElement)
-    if (!videoElement) return
-    videoElement.addEventListener('error', turnOffSupport)
-
-    return () => {
-      videoElement.removeEventListener('error', turnOffSupport)
-    }
-  })
-
   return (
     <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
       <div className={'col-12 col-lg-5 col-xl-5'}>
-        <ImportExample supportsWebm={supportsWebm} />
+        <WebmWithFallback
+          webmUrl={'/img/import_demo.mp4'}
+          gifUrl={'/img/import_demo.gif'}
+          description={'Importing Warscroll Builder/Azyr files'}
+          label={'Demo-Import'}
+        />
       </div>
       <div className={'col-12 col-lg-5 col-xl-5'}>
-        <SaveLoadExample supportsWebm={supportsWebm} />
+        <WebmWithFallback
+          webmUrl={'/img/save_load_demo.mp4'}
+          gifUrl={'/img/save_load_demo.gif'}
+          description={'Saving, loading, and deleting armies'}
+          label={'Demo-SaveLoad'}
+        />
       </div>
     </div>
   )
@@ -174,55 +169,32 @@ const AlreadySubscribed = () => {
   )
 }
 
-const ImportExample = ({ supportsWebm }) => {
-  const url = supportsWebm ? '/img/import_demo.mp4' : '/img/import_demo.gif'
+type TWebmWithFallback = React.FC<{ webmUrl: string; gifUrl: string; description: string; label: string }>
+
+const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, label }) => {
+  const supportsWebm = !!document.createElement('video').canPlayType
+  const url = supportsWebm ? webmUrl : gifUrl
 
   return (
     <>
       <figure className="figure">
-        <a href={url} target="_blank" rel="noopener noreferrer" onClick={() => logClick('Demo-Import')}>
+        <a href={url} target="_blank" rel="noopener noreferrer" onClick={() => logClick(label)}>
           {supportsWebm ? (
             <video
               preload="auto"
-              controls={true}
               loop={true}
+              poster={gifUrl}
+              autoPlay={true}
               className="figure-img img-fluid rounded img-thumbnail"
             >
-              <source src={url} type="video/mp4"></source>
-              <source src={url} type="video/webm"></source>
+              <source src={webmUrl} type="video/mp4"></source>
+              <source src={webmUrl} type="video/webm"></source>
             </video>
           ) : (
-            <img src={url} alt="Importing" />
+            <img src={gifUrl} alt={description} className="figure-img img-fluid rounded img-thumbnail" />
           )}
         </a>
-        <figcaption className="figure-caption text-center">Importing Warscroll Builder/Azyr files</figcaption>
-      </figure>
-    </>
-  )
-}
-
-const SaveLoadExample = ({ supportsWebm }) => {
-  const url = supportsWebm ? '/img/save_load_demo.mp4' : '/img/save_load_demo.gif'
-
-  return (
-    <>
-      <figure className="figure">
-        <a href={url} target="_blank" rel="noopener noreferrer" onClick={() => logClick('Demo-SaveLoad')}>
-          {supportsWebm ? (
-            <video
-              preload="auto"
-              controls={true}
-              loop={true}
-              className="figure-img img-fluid rounded img-thumbnail"
-            >
-              <source src={url} type="video/mp4"></source>
-              <source src={url} type="video/webm"></source>
-            </video>
-          ) : (
-            <img src={url} alt="Save and Load" />
-          )}
-        </a>
-        <figcaption className="figure-caption text-center">Saving, loading, and deleting armies</figcaption>
+        <figcaption className="figure-caption text-center">{description}</figcaption>
       </figure>
     </>
   )
