@@ -175,12 +175,18 @@ const ImportExample = () => {
           >
             <source src="/img/import_demo.mp4" type="video/mp4"></source>
             <source src="/img/import_demo.mp4" type="video/webm"></source>
+            <img src="/img/import_demo.gif" />
           </video>
         </a>
         <figcaption className="figure-caption text-center">Importing Warscroll Builder/Azyr files</figcaption>
       </figure>
     </>
   )
+}
+
+const fallback = video => {
+  var img = video.querySelector('img')
+  if (img) video.parentNode.replaceChild(img, video)
 }
 
 const SaveLoadExample = () => {
@@ -201,6 +207,7 @@ const SaveLoadExample = () => {
           >
             <source src="/img/save_load_demo.mp4" type="video/mp4"></source>
             <source src="/img/save_load_demo.mp4" type="video/webm"></source>
+            <img src="/img/save_load_demo.gif" />
           </video>
         </a>
         <figcaption className="figure-caption text-center">Saving, loading, and deleting armies</figcaption>
