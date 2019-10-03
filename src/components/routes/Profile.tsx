@@ -10,6 +10,11 @@ import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
 import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
 import { Link } from 'react-router-dom'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { withSelectOne } from 'utils/withSelect'
+import { SelectOne } from 'components/input/select'
+import { titleCase } from 'utils/textUtils'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -58,6 +63,8 @@ const UserCard: React.FC = () => {
     <div className="py-4">
       <h1 className="text-center">Your Profile</h1>
 
+      <FavoriteArmySelect />
+
       <div className="media">
         <div className="media-body text-center">
           <SubscriptionInfo
@@ -72,6 +79,32 @@ const UserCard: React.FC = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+const FavoriteArmySelect = () => {
+  const { favoriteFaction, updateFavoriteFaction, getFavoriteFaction } = useSavedArmies()
+
+  console.log('On Render, favoriteFaction is ' + favoriteFaction)
+
+  useEffect(() => {
+    getFavoriteFaction()
+  }, [getFavoriteFaction])
+
+  return (
+    <>
+      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+          <SelectOne
+            value={favoriteFaction ? titleCase(favoriteFaction) : null}
+            items={SUPPORTED_FACTIONS}
+            setValue={withSelectOne(updateFavoriteFaction)}
+            hasDefault={true}
+            toTitle={true}
+          />
+        </div>
+      </div>
+    </>
   )
 }
 

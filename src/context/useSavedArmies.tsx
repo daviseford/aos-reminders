@@ -8,6 +8,7 @@ import { useSubscription } from './useSubscription'
 import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
+import { unTitleCase } from 'utils/textUtils'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -16,7 +17,7 @@ interface ISavedArmiesContext {
   armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
-  getFavoriteFaction: (userName: string) => Promise<void>
+  getFavoriteFaction: () => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -24,7 +25,7 @@ interface ISavedArmiesContext {
   setLoadedArmy: (army: TLoadedArmy) => void
   updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
-  updateFavoriteFaction: (factionName: TSupportedFaction | null) => Promise<void>
+  updateFavoriteFaction: (factionName: string | null) => Promise<void>
 }
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
@@ -131,8 +132,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const getFavoriteFaction = useCallback(async () => {
     try {
       const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
-      if (body.factionName !== favoriteFaction) {
-        setFavoriteArmy(favoriteFaction)
+      if (body.favoriteFaction !== favoriteFaction) {
+        console.log('Got a new favoriteFaction from the API: ' + body.favoriteFaction)
+        setFavoriteArmy(body.favoriteFaction)
       }
     } catch (err) {
       console.error(err)
@@ -140,14 +142,17 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   }, [favoriteFaction, subscription.userName])
 
   const updateFavoriteFaction = useCallback(
-    async (factionName: string | null) => {
+    async (faction: string | null) => {
       if (!isSubscribed || !subscription) return
+
+      const factionName = faction ? unTitleCase(faction) : faction
 
       if (factionName !== null && !isValidFactionName(factionName)) return
 
       try {
         const payload = { id: subscription.id, userName: subscription.userName, factionName }
         await SubscriptionApi.updateFavoriteFaction(payload)
+        console.log('Set favoriteFaction to: ' + factionName)
         setFavoriteArmy(factionName)
       } catch (err) {
         console.error(err)
