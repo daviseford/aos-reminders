@@ -169,7 +169,7 @@ const ImportExample = () => {
         >
           <video
             preload="auto"
-            autoPlay={true}
+            controls={true}
             loop={true}
             className="figure-img img-fluid rounded img-thumbnail"
           >
@@ -194,7 +194,7 @@ const SaveLoadExample = () => {
         >
           <video
             preload="auto"
-            autoPlay={true}
+            controls={true}
             loop={true}
             className="figure-img img-fluid rounded img-thumbnail"
           >
