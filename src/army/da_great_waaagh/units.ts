@@ -1,5 +1,4 @@
 import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
 import Bonesplitterz from 'army/bonesplitterz'
 import Ironjawz from 'army/ironjawz'
 
