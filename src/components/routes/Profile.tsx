@@ -63,8 +63,6 @@ const UserCard: React.FC = () => {
     <div className="py-4">
       <h1 className="text-center">Your Profile</h1>
 
-      <FavoriteArmySelect />
-
       <div className="media">
         <div className="media-body text-center">
           <SubscriptionInfo
@@ -74,6 +72,7 @@ const UserCard: React.FC = () => {
             isActive={isActive}
           />
           {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
+          <FavoriteArmySelect />
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
         </div>
@@ -83,28 +82,37 @@ const UserCard: React.FC = () => {
 }
 
 const FavoriteArmySelect = () => {
+  const { isActive } = useSubscription()
   const { favoriteFaction, updateFavoriteFaction, getFavoriteFaction } = useSavedArmies()
 
-  console.log('On Render, favoriteFaction is ' + favoriteFaction)
-
   useEffect(() => {
+    if (!isActive) return
     getFavoriteFaction()
-  }, [getFavoriteFaction])
+  }, [getFavoriteFaction, isActive])
 
   return (
-    <>
-      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
-          <SelectOne
-            value={favoriteFaction ? titleCase(favoriteFaction) : null}
-            items={SUPPORTED_FACTIONS}
-            setValue={withSelectOne(updateFavoriteFaction)}
-            hasDefault={true}
-            toTitle={true}
-          />
+    <div className="card mt-2">
+      <div className={cardHeaderClass}>
+        <h4>
+          <div className={btnContentWrapper}>Favorite Faction</div>
+        </h4>
+      </div>
+
+      <div className="card-body">
+        <div className={`d-flex justify-content-center`}>
+          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+            <SelectOne
+              value={favoriteFaction ? titleCase(favoriteFaction) : null}
+              items={SUPPORTED_FACTIONS}
+              setValue={withSelectOne(updateFavoriteFaction)}
+              hasDefault={true}
+              toTitle={true}
+              isDisabled={!isActive}
+            />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
