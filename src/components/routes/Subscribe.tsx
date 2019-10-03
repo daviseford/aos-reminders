@@ -58,16 +58,28 @@ const Subscribe: React.FC = () => {
 
 export default Subscribe
 
-const ExamplesRow = () => (
-  <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
-    <div className={'col-12 col-lg-5 col-xl-5'}>
-      <ImportExample />
+const ExamplesRow = () => {
+  return (
+    <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
+      <div className={'col-12 col-lg-5 col-xl-5'}>
+        <WebmWithFallback
+          webmUrl={'/img/import_demo.mp4'}
+          gifUrl={'/img/import_demo.gif'}
+          description={'Importing Warscroll Builder/Azyr files'}
+          label={'Demo-Import'}
+        />
+      </div>
+      <div className={'col-12 col-lg-5 col-xl-5'}>
+        <WebmWithFallback
+          webmUrl={'/img/save_load_demo.mp4'}
+          gifUrl={'/img/save_load_demo.gif'}
+          description={'Saving, loading, and deleting armies'}
+          label={'Demo-SaveLoad'}
+        />
+      </div>
     </div>
-    <div className={'col-12 col-lg-5 col-xl-5'}>
-      <SaveLoadExample />
-    </div>
-  </div>
-)
+  )
+}
 
 const Intro = () => (
   <div className={headerClass}>
@@ -157,53 +169,32 @@ const AlreadySubscribed = () => {
   )
 }
 
-const ImportExample = () => {
-  return (
-    <>
-      <figure className="figure">
-        <a
-          href="/img/import_demo.mp4"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => logClick('Demo-Import')}
-        >
-          <video
-            preload="auto"
-            controls={true}
-            loop={true}
-            className="figure-img img-fluid rounded img-thumbnail"
-          >
-            <source src="/img/import_demo.mp4" type="video/mp4"></source>
-            <source src="/img/import_demo.mp4" type="video/webm"></source>
-          </video>
-        </a>
-        <figcaption className="figure-caption text-center">Importing Warscroll Builder/Azyr files</figcaption>
-      </figure>
-    </>
-  )
-}
+type TWebmWithFallback = React.FC<{ webmUrl: string; gifUrl: string; description: string; label: string }>
 
-const SaveLoadExample = () => {
+const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, label }) => {
+  const supportsWebm = !!document.createElement('video').canPlayType
+
   return (
     <>
       <figure className="figure">
         <a
-          href="/img/save_load_demo.mp4"
+          href={supportsWebm ? webmUrl : gifUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => logClick('Demo-SaveLoad')}
+          onClick={() => logClick(label)}
         >
           <video
             preload="auto"
-            controls={true}
             loop={true}
+            poster={gifUrl}
+            autoPlay={true}
             className="figure-img img-fluid rounded img-thumbnail"
           >
-            <source src="/img/save_load_demo.mp4" type="video/mp4"></source>
-            <source src="/img/save_load_demo.mp4" type="video/webm"></source>
+            <source src={webmUrl} type="video/mp4"></source>
+            <source src={webmUrl} type="video/webm"></source>
           </video>
         </a>
-        <figcaption className="figure-caption text-center">Saving, loading, and deleting armies</figcaption>
+        <figcaption className="figure-caption text-center">{description}</figcaption>
       </figure>
     </>
   )
