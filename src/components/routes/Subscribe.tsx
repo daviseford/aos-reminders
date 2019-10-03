@@ -173,26 +173,26 @@ type TWebmWithFallback = React.FC<{ webmUrl: string; gifUrl: string; description
 
 const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, label }) => {
   const supportsWebm = !!document.createElement('video').canPlayType
-  const url = supportsWebm ? webmUrl : gifUrl
 
   return (
     <>
       <figure className="figure">
-        <a href={url} target="_blank" rel="noopener noreferrer" onClick={() => logClick(label)}>
-          {supportsWebm ? (
-            <video
-              preload="auto"
-              loop={true}
-              poster={gifUrl}
-              autoPlay={true}
-              className="figure-img img-fluid rounded img-thumbnail"
-            >
-              <source src={webmUrl} type="video/mp4"></source>
-              <source src={webmUrl} type="video/webm"></source>
-            </video>
-          ) : (
-            <img src={gifUrl} alt={description} className="figure-img img-fluid rounded img-thumbnail" />
-          )}
+        <a
+          href={supportsWebm ? webmUrl : gifUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => logClick(label)}
+        >
+          <video
+            preload="auto"
+            loop={true}
+            poster={gifUrl}
+            autoPlay={true}
+            className="figure-img img-fluid rounded img-thumbnail"
+          >
+            <source src={webmUrl} type="video/mp4"></source>
+            <source src={webmUrl} type="video/webm"></source>
+          </video>
         </a>
         <figcaption className="figure-caption text-center">{description}</figcaption>
       </figure>
