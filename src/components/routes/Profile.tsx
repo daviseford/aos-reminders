@@ -44,9 +44,11 @@ const Profile: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="row d-flex justify-content-center mx-1 px-0">
-        <div className={userCardWrapperClass}>
-          <UserCard />
+      <div className="container px-0">
+        <div className="row d-flex justify-content-center">
+          <div className={userCardWrapperClass}>
+            <UserCard />
+          </div>
         </div>
       </div>
     </div>
@@ -60,23 +62,18 @@ const UserCard: React.FC = () => {
   const { isActive, isSubscribed, isCanceled, subscription } = useSubscription()
 
   return (
-    <div className="py-4">
+    <div className="col py-4 text-center">
       <h1 className="text-center">Your Profile</h1>
-
-      <div className="media">
-        <div className="media-body text-center">
-          <FavoriteArmySelect />
-          <SubscriptionInfo
-            subscription={subscription}
-            isCanceled={isCanceled}
-            isSubscribed={isSubscribed}
-            isActive={isActive}
-          />
-          {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
-          <EmailVerified email_verified={user.email_verified} email={user.email} />
-          <Help />
-        </div>
-      </div>
+      <FavoriteArmySelect />
+      <SubscriptionInfo
+        subscription={subscription}
+        isCanceled={isCanceled}
+        isSubscribed={isSubscribed}
+        isActive={isActive}
+      />
+      {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
+      <EmailVerified email_verified={user.email_verified} email={user.email} />
+      <Help />
     </div>
   )
 }
@@ -100,7 +97,7 @@ const FavoriteArmySelect = () => {
 
       <div className="card-body">
         <div className={`d-flex justify-content-center`}>
-          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+          <div className="col-12 col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-dark text-left">
             {isActive ? (
               <SelectOne
                 value={favoriteFaction ? titleCase(favoriteFaction) : null}
