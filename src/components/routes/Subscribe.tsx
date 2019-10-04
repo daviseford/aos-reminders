@@ -61,7 +61,7 @@ export default Subscribe
 const ExamplesRow = () => {
   return (
     <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
-      <div className={'col-12 col-lg-5 col-xl-5'}>
+      <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/import_demo.mp4'}
           gifUrl={'/img/import_demo.gif'}
@@ -69,7 +69,7 @@ const ExamplesRow = () => {
           label={'Demo-Import'}
         />
       </div>
-      <div className={'col-12 col-lg-5 col-xl-5'}>
+      <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
           gifUrl={'/img/save_load_demo.gif'}
@@ -194,7 +194,9 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
             <source src={webmUrl} type="video/webm"></source>
           </video>
         </a>
-        <figcaption className="figure-caption text-center">{description}</figcaption>
+        <figcaption className="figure-caption text-center">
+          <strong>{description}</strong>
+        </figcaption>
       </figure>
     </>
   )
