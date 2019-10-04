@@ -9,12 +9,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-
-const LOCAL_FAVORITE_KEY = 'favoriteFaction'
-const setLocalFavorite = (factionName: TSupportedFaction) => {
-  localStorage.setItem(LOCAL_FAVORITE_KEY, factionName)
-  console.log(`Set ${LOCAL_FAVORITE_KEY} in localStorage to ${factionName}`)
-}
+import { setLocalFavorite, getLocalFavorite } from 'utils/localStore'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -38,7 +33,7 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
-  const { subscription, isSubscribed } = useSubscription()
+  const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
@@ -138,31 +133,32 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const getFavoriteFaction = useCallback(async () => {
     try {
-      if (!user || waitingForApi) return
+      if (waitingForApi) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
-      const localFavorite = localStorage.getItem(LOCAL_FAVORITE_KEY) as TSupportedFaction | null
+      const localFavorite = getLocalFavorite()
       if (!favoriteFaction && localFavorite) {
-        console.log(`Got local favorite: ${localFavorite}`)
         setFavoriteFaction(localFavorite)
       }
 
-      // Grab it from the API to check for changes that may have been made from other browsers
-      // Don't update state if it's the same as our localStorage value
-      const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
-      const apiFavoriteFaction = body.favoriteFaction || null
-      if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
-        console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
-        setLocalFavorite(apiFavoriteFaction)
-        setFavoriteFaction(apiFavoriteFaction)
+      if (isActive) {
+        // Grab it from the API to check for changes that may have been made from other browsers
+        // Don't update state if it's the same as our localStorage value
+        const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
+        const apiFavoriteFaction = body.favoriteFaction || null
+        if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
+          console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
+          setLocalFavorite(apiFavoriteFaction)
+          setFavoriteFaction(apiFavoriteFaction)
+        }
       }
     } catch (err) {
       console.error(err)
     }
-  }, [favoriteFaction, subscription.userName, user, waitingForApi])
+  }, [favoriteFaction, subscription.userName, waitingForApi, isActive])
 
   const updateFavoriteFaction = useCallback(
     async (faction: string | null) => {
-      if (!isSubscribed || !subscription) return
+      if (!subscription || !isActive) return
 
       const factionName = faction ? unTitleCase(faction) : faction
 
@@ -181,9 +177,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         setWaitingForApi(false)
       } catch (err) {
         console.error(err)
+        setWaitingForApi(false)
       }
     },
-    [subscription, isSubscribed]
+    [subscription, isActive]
   )
 
   return (
