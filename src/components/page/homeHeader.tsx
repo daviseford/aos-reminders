@@ -9,7 +9,6 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { useSubscription } from 'context/useSubscription'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -35,21 +34,19 @@ interface IJumbotronProps {
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
-    resetAllySelections,
-    resetSelections,
-    resetRealmscapeStore,
-    setFactionName,
-    isMobile,
     factionName,
+    isMobile,
+    resetAllySelections,
+    resetRealmscapeStore,
+    resetSelections,
+    setFactionName,
   } = props
-  const { isActive } = useSubscription()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
-  // Get our user's favorite faction from the API
+  // Get our user's favorite faction from localStorage/API
   useEffect(() => {
     getFavoriteFaction()
-    // if (isActive) getFavoriteFaction()
-  }, [getFavoriteFaction, isActive])
+  }, [getFavoriteFaction])
 
   // Set our favorite faction
   useEffect(() => {
