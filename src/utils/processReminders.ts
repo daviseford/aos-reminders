@@ -9,6 +9,8 @@ import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
+const SEP = `&& `
+
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
@@ -105,7 +107,16 @@ const processConditions = (
     return accum
   }, startVal)
 
-  return reminders
+  const replaceSep = new RegExp(SEP, 'g')
+
+  // Replace SEP with a comma and space
+  return Object.keys(reminders).reduce((accum, when) => {
+    accum[when] = reminders[when].map(action => ({
+      ...action,
+      condition: action.condition.replace(replaceSep, ', '),
+    }))
+    return accum
+  }, reminders)
 }
 
 /**
@@ -138,6 +149,6 @@ const processCondition = produce((phase: TTurnAction[], action: TTurnAction) => 
  * @param newString
  * @param sep
  */
-export const addToString = (existingString: string, newString: string, sep: string = `, `) => {
-  return join(sortBy(split(existingString, sep).concat(newString)), sep)
+export const addToString = (existingString: string, newString: string) => {
+  return join(sortBy(split(existingString, SEP).concat(newString)), SEP)
 }
