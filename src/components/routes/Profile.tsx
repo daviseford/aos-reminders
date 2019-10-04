@@ -101,14 +101,22 @@ const FavoriteArmySelect = () => {
       <div className="card-body">
         <div className={`d-flex justify-content-center`}>
           <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
-            <SelectOne
-              value={favoriteFaction ? titleCase(favoriteFaction) : null}
-              items={SUPPORTED_FACTIONS}
-              setValue={withSelectOne(updateFavoriteFaction)}
-              hasDefault={true}
-              toTitle={true}
-              isDisabled={!isActive}
-            />
+            {isActive ? (
+              <SelectOne
+                value={favoriteFaction ? titleCase(favoriteFaction) : null}
+                items={SUPPORTED_FACTIONS}
+                setValue={withSelectOne(updateFavoriteFaction)}
+                hasDefault={true}
+                toTitle={true}
+              />
+            ) : (
+              <div className="alert alert-info text-center mt-3" role="alert">
+                <Link to="/subscribe" onClick={() => logClick('SubscribeFavoriteFaction')}>
+                  Subscribe now
+                </Link>{' '}
+                to save your favorite faction!
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -121,14 +129,14 @@ interface ICancelBtnProps {
 }
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isSubscribed, isActive, isCanceled } = useSubscription()
+  const { isActive, isCanceled } = useSubscription()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isSubscribed || !isActive || isCanceled) return null
+  if (!isActive || isCanceled) return null
 
   return (
     <>
@@ -147,7 +155,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         <h4>
           <div className={btnContentWrapper}>
             Subscription Status:{' '}
-            {isSubscribed && isActive ? (
+            {isActive ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -156,7 +164,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         </h4>
       </div>
 
-      {isSubscribed && isActive && (
+      {isActive && (
         <div className="card-body">
           <h5 className="lead">
             Subscription Start:{' '}
