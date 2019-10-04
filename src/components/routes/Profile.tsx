@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="row d-flex justify-content-center">
+      <div className="row d-flex justify-content-center mx-1 px-0">
         <div className={userCardWrapperClass}>
           <UserCard />
         </div>
@@ -115,6 +115,11 @@ const FavoriteArmySelect = () => {
                   Subscribe now
                 </Link>{' '}
                 to save your favorite faction!
+                <br />
+                <small>
+                  No more scrolling through the long list of armies when you visit - your favorite is
+                  automatically loaded!
+                </small>
               </div>
             )}
           </div>
