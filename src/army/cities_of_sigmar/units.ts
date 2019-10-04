@@ -497,6 +497,192 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Warden King`,
+    effects: [
+      {
+        name: `Oath Stone`,
+        desc: `In your hero phase, you can say this model will stand atop its oath stone. If you do so, until the start of your next turn, this model cannot move. In addition, until the start of your next turn, do not take battleshock tests for friendly DISPOSSESSED units wholly within 18" of this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ancestral Grudge`,
+        desc: `Pick 1 enemy unit within 18" of a friendly HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of attacks made with melee weapons used by friendly DISPOSSESSED units that target that unit. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Runelord`,
+    effects: [
+      {
+        name: `Runes of Spellbreaking`,
+        desc: `This model can attempt to dispel 1 endless spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. Add 2 to dispelling and unbinding rolls for this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Rune Lore: Ancestral Shield`,
+        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Rune Lore: Forge Fire`,
+        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, improve the Rend characteristic of that unit's weapons by 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Longbeards`,
+    effects: [
+      {
+        name: `Old Guard`,
+        desc: `Add 1 to the Attacks characteristic of the leader's melee weapon.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Musician`,
+        desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Gromril Shieldwall`,
+        desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Gromril Shields.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Old Grumblers`,
+        desc: `Pick a grumble. That complaint is in effect until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `'I thought duardin were made of sterner stuff !'`,
+        desc: `Add 1 to the Bravery characteristic of friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `'Put your back into it, beardling!'`,
+        desc: `You can re-roll wound rolls of 1 for attacks made by friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `'Too much damned magic flying about these days!'`,
+        desc: `A unit with this complaint can attempt to dispel 1 endless spell in your hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ironbreakers`,
+    effects: [
+      {
+        name: `Ironbeard`,
+        desc: `+1 melee attacks. Can carry Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Drummer`,
+        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Cinderblast Bomb`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Paired Drakefire Pistols`,
+        desc: `Add 1 to the Attacks characteristic of a Drakefire Pistol for models armed with a pair of Drakefire Pistols.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Irondrakes`,
+    effects: [
+      {
+        name: `Ironwarden`,
+        desc: `+1 Melee attack. Can carry Grudgehammer Torpedo; Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblower.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Blaze Away`,
+        desc: `Add 1 to the Attacks characteristic of this unit's missile weapons if there are no enemy units within 3" of this unit and this unit has not made a move in the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Cinderblast Bomb`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Forge-proven Gromril Armour`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Grudgehammer Torpedo`,
+        desc: `A Grudgehammer Torpedo has a Damage characteristic of D6 instead of D3 if the target is a MONSTER.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Paired Drakefire Pistols`,
+        desc: `Add 1 to the Attacks characteristic of a Drakefire Pistol for models armed with a pair of Drakefire Pistols.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hammerers`,
+    effects: [
+      {
+        name: `Keeper of the gate`,
+        desc: `Add 1 to the Attacks characteristic of this model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Musician`,
+        desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Kingsguard`,
+        desc: `Do not take battleshock tests for this unit while it is wholly within 12" of a friendly DISPOSSESSED HERO.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Shattering Blow`,
+        desc: `If the unmodified wound roll for an attack made with a Gromril Great Hammer is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Allied units (usually this will involve writing a function to grab units from another army)
