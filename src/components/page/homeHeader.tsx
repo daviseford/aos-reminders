@@ -53,7 +53,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   // Set our favorite faction
   useEffect(() => {
     if (favoriteFaction) setFactionName(favoriteFaction)
-  }, [favoriteFaction])
+  }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
