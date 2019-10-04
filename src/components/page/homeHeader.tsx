@@ -45,14 +45,15 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const { isActive } = useSubscription()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
+  // Get our user's favorite faction from the API
   useEffect(() => {
-    if (!isActive) return
-    const get = async () => {
-      await getFavoriteFaction()
-      if (favoriteFaction) setFactionName(favoriteFaction)
-    }
-    get()
-  }, [getFavoriteFaction, isActive, setFactionName, favoriteFaction])
+    if (isActive) getFavoriteFaction()
+  }, [getFavoriteFaction, isActive])
+
+  // Set our favorite faction
+  useEffect(() => {
+    if (favoriteFaction) setFactionName(favoriteFaction)
+  }, [favoriteFaction])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
