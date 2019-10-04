@@ -1,5 +1,4 @@
 import { TSupportedFaction } from 'meta/factions'
-import { isDev } from './env'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 
@@ -14,11 +13,9 @@ export const setLocalFavorite = (factionName: TSupportedFaction | null) => {
   } else {
     localStorage.removeItem(LOCAL_FAVORITE_KEY)
   }
-  if (isDev) console.log(`Set ${LOCAL_FAVORITE_KEY} in localStorage to ${factionName}`)
 }
 
 export const getLocalFavorite = () => {
   const localFavorite = localStorage.getItem(LOCAL_FAVORITE_KEY) as TSupportedFaction | null
-  if (isDev) console.log(`Got local favorite: ${localFavorite}`)
   return localFavorite
 }
