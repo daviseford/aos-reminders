@@ -60,6 +60,7 @@ const warscrollTypoMap: TNameMap = {
   'Guardian of Souls With Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
