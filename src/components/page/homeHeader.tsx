@@ -47,7 +47,8 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Get our user's favorite faction from the API
   useEffect(() => {
-    if (isActive) getFavoriteFaction()
+    getFavoriteFaction()
+    // if (isActive) getFavoriteFaction()
   }, [getFavoriteFaction, isActive])
 
   // Set our favorite faction
