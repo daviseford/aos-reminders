@@ -65,6 +65,7 @@ const UserCard: React.FC = () => {
 
       <div className="media">
         <div className="media-body text-center">
+          <FavoriteArmySelect />
           <SubscriptionInfo
             subscription={subscription}
             isCanceled={isCanceled}
@@ -72,7 +73,6 @@ const UserCard: React.FC = () => {
             isActive={isActive}
           />
           {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
-          <FavoriteArmySelect />
           <EmailVerified email_verified={user.email_verified} email={user.email} />
           <Help />
         </div>
