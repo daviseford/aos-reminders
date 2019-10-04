@@ -10,6 +10,7 @@ import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
 import { setLocalFavorite, getLocalFavorite } from 'utils/localStore'
+import { logEvent } from 'utils/analytics'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -173,6 +174,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         // Update API
         const payload = { id: subscription.id, userName: subscription.userName, factionName }
         await SubscriptionApi.updateFavoriteFaction(payload)
+        logEvent(`FavoriteFaction-${factionName}`)
         console.log(`Set favoriteFaction in API to ${factionName}`)
         setWaitingForApi(false)
       } catch (err) {
