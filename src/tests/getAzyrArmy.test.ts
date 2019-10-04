@@ -4,6 +4,7 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
+  DAUGHTERS_OF_KHAINE,
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
   MERCENARY_COMPANIES,
@@ -15,6 +16,7 @@ import {
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
+import DoK2 from './fixtures/azyr/json/DoK2.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
 import KO2 from './fixtures/azyr/json/KO2.json'
@@ -28,6 +30,24 @@ import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles DoK2', () => {
+    const pages = handleAzyrPages(DoK2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
+    expect(res.selections).toEqual({
+      allegiances: ['The Kraith (Temple)'],
+      artifacts: ['Crimson Shard (Priest)'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ["Martyr's Sacrifice (Priest)", 'Mindrazor (Wizard)'],
+      traits: [],
+      triumphs: [],
+      units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+    })
+  })
+
   it('handles KO5', () => {
     const pages = handleAzyrPages(KO5)
     const res = getAzyrArmyFromPdf(pages)

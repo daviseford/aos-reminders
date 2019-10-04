@@ -134,7 +134,7 @@ const handleItem = (text: string): string[] => {
       `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
+    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  ${sep}`)
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
       `$4: $2${commaAlt} $3${sep}`
