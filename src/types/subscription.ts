@@ -3,7 +3,7 @@ export interface ISubscription {
   createdAt?: number
   customerId?: string
   expired?: boolean
-  id?: string
+  id: string
   planId?: string
   planInterval?: string
   planIntervalCount?: number
@@ -15,5 +15,5 @@ export interface ISubscription {
   subscriptionEnd?: number
   livemode?: boolean
   updatedAt?: number
-  userName?: string
+  userName: string
 }
