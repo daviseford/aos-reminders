@@ -170,13 +170,11 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         <div className="card-body">
           <h5 className="lead">
             Subscription Start:{' '}
-            {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
-              DateTime.DATE_MED
-            )}
+            {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
           </h5>
           <h5 className="lead">
             Subscription End:{' '}
-            {DateTime.fromSeconds(subscription.subscriptionCreated as number)
+            {DateTime.fromSeconds(subscription.subscriptionStart as number)
               .plus({
                 [`${subscription.planInterval}s`]: subscription.planIntervalCount,
               })
