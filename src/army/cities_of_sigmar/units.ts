@@ -1,10 +1,13 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  START_OF_HERO_PHASE,
   HERO_PHASE,
   DURING_GAME,
+  MOVEMENT_PHASE,
   START_OF_CHARGE_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  START_OF_SHOOTING_PHASE,
   SHOOTING_PHASE,
   BATTLESHOCK_PHASE,
 } from 'types/phases'
@@ -680,6 +683,132 @@ export const Units: TUnits = [
         name: `Shattering Blow`,
         desc: `If the unmodified wound roll for an attack made with a Gromril Great Hammer is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steam Tank with Commander`,
+    effects: [
+      {
+        name: `Bouncing Cannon Balls`,
+        desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Target Sighted`,
+        desc: `Pick 1 friendly IRONWELD ARSENEL HERO with this command ability and 1 enemy unit. Until the end of that phase, add 1 to hit rolls for attacks that target that enemy unit made by friendly STEAM TANKS while they are within 6" of that friendly IRONWELD ARSENEL HERO. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_SHOOTING_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `I'll Fix It`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if it includes a Commander and has not used the More Pressure! ability.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `More Pressure!`,
+        desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Steel Behemoth`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Cogsmith`,
+    effects: [
+      {
+        name: `Free Arm`,
+        desc: `Add 1 to hit rolls for attacks made with this model's missile weapons if it is not armed with a Cog Axe. Add 1 to hit rolls for attacks made with this model's melee weapons if it is not armed with a Grudge-raker.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Master Engineer`,
+        desc: `In your hero phase, you can pick 1 friendly IRONWELD ARSENAL WAR MACHINE unit within 3" of this model. You can heal up to D3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steamtank`,
+    effects: [
+      {
+        name: `Bouncing Cannon Balls`,
+        desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `More Pressure!`,
+        desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Steel Behemoth`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hellstorm Rocket Battery`,
+    effects: [
+      {
+        name: `Rocket Salvo`,
+        desc: `Add 1 to hit rolls for attacks made with this model's Helstorm Rocket Salvo if all of the attacks made by that Helstorm Rocket Salvo in the same phase target the same enemy unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Calculated Trajectory`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with this model's Helstorm Rocket Salvo if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hellblaster Volley Gun`,
+    effects: [
+      {
+        name: `Point Blank`,
+        desc: `Add 1 to hit rolls for attacks made with this model's missile weapons that target an enemy unit wholly within 12" of this model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Hellblaster Volley`,
+        desc: `Before attacking with a Volley of Shots, choose either the 1 Deck, 2 Decks or 3 Decks missile weapon characteristics for that shooting attack. However, if the roll to determine the Attacks characteristic includes a double, this model cannot shoot in that phase and instead suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Working Like Clockwork`,
+        desc: `You can re-roll any dice when rolling to determine the Attacks characteristic of this model's Volley of Shots if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gyrobombers`,
+    effects: [
+      {
+        name: `Grudgebuster Bombs`,
+        desc: `After this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that enemy unit. For each 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gyrocopters`,
+    effects: [
+      {
+        name: `Steam Gun`,
+        desc: `Before attacking with a Steam Gun, pick 1 enemy unit within 8" of the attacking model. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within 8" of the attacking model. All attacks made with that Steam Gun must target that enemy unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Guild Bombs`,
+        desc: `Once per battle, after this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that enemy unit. For each 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
