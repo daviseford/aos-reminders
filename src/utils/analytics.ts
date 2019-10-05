@@ -28,8 +28,8 @@ export const logPageView = () => {
 export const logDownloadEvent = (factionName: string | null) => {
   if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
-      category: 'button',
-      action: `download-${factionName}`,
+      category: 'Button',
+      action: `Download-${factionName}`,
       label: 'AoS Reminders',
     })
   }
@@ -42,8 +42,8 @@ export const logDownloadEvent = (factionName: string | null) => {
 export const logFactionSwitch = (factionName: string | null) => {
   if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
-      category: 'select',
-      action: `select-${factionName}`,
+      category: 'Select',
+      action: `Select-${factionName}`,
       label: 'AoS Reminders',
     })
   }
@@ -56,8 +56,8 @@ export const logFactionSwitch = (factionName: string | null) => {
 export const logAllyFaction = (factionName: string | null) => {
   if (isProd && isValidFactionName(factionName)) {
     ReactGA.event({
-      category: 'select',
-      action: `select-ally-${factionName}`,
+      category: 'Select',
+      action: `Select-Ally-${factionName}`,
       label: 'AoS Reminders',
     })
   }
@@ -70,8 +70,8 @@ export const logAllyFaction = (factionName: string | null) => {
 export const logClick = (label: string) => {
   if (isProd && !!label) {
     ReactGA.event({
-      category: 'click',
-      action: `click-${label}`,
+      category: 'Click',
+      action: `Click-${label}`,
       label: 'AoS Reminders',
     })
   }
@@ -84,8 +84,8 @@ export const logClick = (label: string) => {
 export const logEvent = (event: string) => {
   if (isProd && !!event) {
     ReactGA.event({
-      category: 'event',
-      action: `event-${event}`,
+      category: 'Event',
+      action: `Event-${event}`,
       label: 'AoS Reminders',
     })
   }
@@ -98,7 +98,7 @@ export const logEvent = (event: string) => {
 export const logFailedImport = (value: string, type: TImportParsers) => {
   if (isProd && !!value) {
     ReactGA.event({
-      category: 'event',
+      category: 'Event',
       action: `failedImport-${type}-${value}`,
       label: 'AoS Reminders',
     })
