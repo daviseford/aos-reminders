@@ -1,7 +1,7 @@
-import { filterUnits } from 'utils/filterUtils'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
@@ -14,30 +14,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
-  CHARGE_PHASE,
 } from 'types/phases'
-
-/**
- * Exporting Nighthaunt units per LoN FAQ
- */
-export const getNighthauntUnits = () => {
-  const listOfUnits = [
-    `Cairn Wraith`,
-    `Chainrasp Horde`,
-    `Glaivewraith Stalkers`,
-    `Grimghast Reapers`,
-    `Guardian of Souls`,
-    `Guardian of Souls w/ Mortality Glass`,
-    `Hexwraiths`,
-    `Knight of Shrouds on Ethereal Steed`,
-    `Knight of Shrouds`,
-    `Lord Executioner`,
-    `Spirit Hosts`,
-    `Spirit Torment`,
-    `Tomb Banshee`,
-  ]
-  return filterUnits(Units, listOfUnits)
-}
 
 const Ethereal = [
   {
