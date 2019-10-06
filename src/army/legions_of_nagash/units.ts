@@ -16,12 +16,34 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import { getNighthauntUnits } from 'army/nighthaunt/units'
+import { Units as NighthauntUnits } from 'army/nighthaunt/units'
+import { filterUnits } from 'utils/filterUtils'
 
-// Unit Names
+/**
+ * Allied Nighthaunt units per LoN FAQ
+ */
+const getNighthauntUnits = () => {
+  const listOfUnits = [
+    `Cairn Wraith`,
+    `Chainrasp Horde`,
+    `Glaivewraith Stalkers`,
+    `Grimghast Reapers`,
+    `Guardian of Souls`,
+    `Guardian of Souls w/ Mortality Glass`,
+    `Hexwraiths`,
+    `Knight of Shrouds on Ethereal Steed`,
+    `Knight of Shrouds`,
+    `Lord Executioner`,
+    `Spirit Hosts`,
+    `Spirit Torment`,
+    `Tomb Banshee`,
+  ]
+  return filterUnits(NighthauntUnits, listOfUnits)
+}
+
+// Units
 export const Units: TUnits = [
   ...getNighthauntUnits(),
-
   {
     name: `Nagash, Supreme Lord of the Undead`,
     effects: [
