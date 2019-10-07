@@ -311,7 +311,6 @@ describe('getWarscrollArmyFromPdf', () => {
 
     console.log(warscrollTxt)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt).toEqual({
       allyFactionNames: ['STORMCAST_ETERNALS'],
       allySelections: {
@@ -319,7 +318,7 @@ describe('getWarscrollArmyFromPdf', () => {
           units: [
             'Celestant-Prime',
             'Knight-Vexillor',
-            'Lynus Ghalmorian on Gryph-Charger',
+            'Lynus Ghalmorian on Gryph Charger',
             'Concussors',
             'Evocators',
             'Celestar Ballista',
@@ -329,7 +328,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [
         'Celestant-Prime',
         'Knight-Vexillor',
-        'Lynus Ghalmorian on Gryph-Charger',
+        'Lynus Ghalmorian on Gryph Charger',
         'Concussors',
         'Evocators',
         'Aleguzzler Gargant',
