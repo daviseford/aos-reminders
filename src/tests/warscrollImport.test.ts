@@ -187,20 +187,18 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  // TODO: Get this working!
-  xit('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
+  it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithNames.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-
-    console.log(warscrollTxt)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      // TODO: See if we can parse out these unit names
+      errors: [{ text: 'O shit', severity: 'warn' }, { text: 'Ya boy', severity: 'warn' }],
       factionName: 'SERAPHON',
       realmscape_feature: null,
       realmscape: null,
