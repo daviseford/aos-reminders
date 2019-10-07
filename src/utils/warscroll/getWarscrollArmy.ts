@@ -65,7 +65,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'ENDLESS SPELLS / TERRAIN') {
+      if (txt === 'ENDLESS SPELLS / TERRAIN' || txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS') {
         selector = 'endless_spells'
         return accum
       }
