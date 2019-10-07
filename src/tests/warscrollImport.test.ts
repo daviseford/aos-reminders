@@ -328,11 +328,12 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [
         'Celestant-Prime',
         'Knight-Vexillor',
-        'Lynus Ghalmorian on Gryph Charger',
+        'Lynus Ghalmorian on Gryph-Charger',
         'Concussors',
         'Evocators',
         'Aleguzzler Gargant',
         'Celestar Ballista',
+        'Dread Saurian',
       ],
       errors: [],
       factionName: 'SERAPHON',
