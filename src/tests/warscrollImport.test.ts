@@ -303,6 +303,64 @@ describe('getWarscrollArmyFromPdf', () => {
       unknownSelections: [],
     })
   })
+
+  it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNewList.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    console.log(warscrollTxt)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: ['STORMCAST_ETERNALS'],
+      allySelections: {
+        STORMCAST_ETERNALS: {
+          units: [
+            'Celestant-Prime',
+            'Knight-Vexillor',
+            'Lynus Ghalmorian on Gryph-Charger',
+            'Concussors',
+            'Evocators',
+            'Celestar Ballista',
+          ],
+        },
+      },
+      allyUnits: [
+        'Celestant-Prime',
+        'Knight-Vexillor',
+        'Lynus Ghalmorian on Gryph-Charger',
+        'Concussors',
+        'Evocators',
+        'Aleguzzler Gargant',
+        'Celestar Ballista',
+      ],
+      errors: [],
+      factionName: 'SERAPHON',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: [],
+        artifacts: ['Blade of Realities'],
+        battalions: [],
+        commands: [],
+        endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+        scenery: [],
+        spells: [],
+        traits: ['Disciplined Fury'],
+        triumphs: [],
+        units: [
+          'Engine of the Gods',
+          'Chameleon Skinks',
+          'Saurus Warriors',
+          'Bastiladon w/ Solar Engine',
+          'Bastiladon w/ Ark of Sotek',
+          'Dread Saurian',
+        ],
+      },
+      unknownSelections: ['Meteoric Standard', 'Clubs'],
+    })
+  })
 })
 
 describe('getWarscrollArmyFromText', () => {
