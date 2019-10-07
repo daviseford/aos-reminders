@@ -192,7 +192,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithNames.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-
     console.log(warscrollTxt)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)

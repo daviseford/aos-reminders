@@ -57,6 +57,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
+      if (txt.startsWith('- Mortal Realm: ')) return accum
+
       if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
         return accum
