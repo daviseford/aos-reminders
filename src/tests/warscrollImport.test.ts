@@ -186,6 +186,47 @@ describe('getWarscrollArmyFromPdf', () => {
       units: ['Slann Starmaster', 'Bastiladon w/ Ark of Sotek'],
     })
   })
+
+  // TODO: Get this working!
+  xit('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithNames.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    console.log(warscrollTxt)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'SERAPHON',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: [],
+        artifacts: ['Incandescent Rectrices'],
+        battalions: [],
+        commands: [],
+        endless_spells: ['Emerald Lifeswarm'],
+        scenery: ['Penumbral Engine'],
+        spells: ['Meteoric Convocation'],
+        traits: ['Master of Star Rituals'],
+        triumphs: [],
+        units: [
+          'Lord Kroak',
+          'Engine of the Gods',
+          'Saurus Oldblood on Carnosaur',
+          'Kroxigor',
+          'Razordons',
+          'Saurus Guard',
+          'Stegadon w/ Skystreak Bow',
+        ],
+      },
+      unknownSelections: [],
+    })
+  })
 })
 
 describe('getWarscrollArmyFromText', () => {
