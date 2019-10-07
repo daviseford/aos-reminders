@@ -5,6 +5,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, TImportError } from 'types/import'
 import { importErrorChecker } from 'utils/import'
 import { createFatalError } from 'utils/import/warnings'
+import GenericScenery from 'army/generic/scenery'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -34,6 +35,7 @@ const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
 
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
+  const genericScenery = GenericScenery.map(x => x.name)
 
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -69,6 +71,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         selector = 'endless_spells'
         return accum
       }
+
+      if (txt === 'Extra Command Point') return accum
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
@@ -133,7 +137,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       // Add item to accum
       if (selector) {
-        accum[selector] = uniq(accum[selector].concat(txt))
+        // Endless spells and terrain are grouped together, so we have to do this check manually
+        if (selector === 'endless_spells' && genericScenery.includes(txt)) {
+          accum['scenery'] = uniq(accum['scenery'].concat(txt))
+        } else {
+          accum[selector] = uniq(accum[selector].concat(txt))
+        }
       }
 
       return accum
@@ -167,6 +176,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
 const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
   const cleanedText = cleanWarscrollText(fileText.split('\n'))
+  const genericScenery = GenericScenery.map(x => x.name)
 
   let errors: TImportError[] = []
   let usingShortVersion = false
@@ -198,10 +208,12 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'Endless Spells / Terrain') {
+      if (txt === 'Endless Spells / Terrain' || txt === 'Endless Spells / Terrain / Command Points') {
         selector = 'endless_spells'
         return accum
       }
+
+      if (txt === 'Extra Command Point') return accum
 
       if (txt.startsWith('- ')) {
         if (!selector) {
@@ -276,7 +288,12 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
 
       // Add item to accum
       if (selector) {
-        accum[selector] = uniq(accum[selector].concat(txt))
+        // Endless spells and terrain are grouped together, so we have to do this check manually
+        if (selector === 'endless_spells' && genericScenery.includes(txt)) {
+          accum['scenery'] = uniq(accum['scenery'].concat(txt))
+        } else {
+          accum[selector] = uniq(accum[selector].concat(txt))
+        }
       }
 
       return accum

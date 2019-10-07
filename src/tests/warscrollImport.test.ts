@@ -188,7 +188,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   // TODO: Get this working!
-  xit('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
+  it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
     const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithNames.pdf', 'utf8')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
