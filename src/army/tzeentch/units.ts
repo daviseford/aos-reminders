@@ -524,7 +524,7 @@ export const Units: TUnits = [
       },
       {
         name: `Judgement from Afar`,
-        desc: `If the hit roll for a Greatbow's Arrow of Fate is a 6+, the attack sequence ends and the target immediately suffers D3 mortal wounds.`,
+        desc: `An unmodified hit roll of 6 for an attack made with an arrow of fate indlicts D3 mortal wounds on the target and the attack sequence ends.`,
         when: [SHOOTING_PHASE],
       },
       {
