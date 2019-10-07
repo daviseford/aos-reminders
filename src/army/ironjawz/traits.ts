@@ -3,9 +3,12 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  TURN_ONE_HERO_PHASE,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -24,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Live to Fight`,
-        desc: `You can re-roll wound rolls for attacks made by this general if they charged in the same turn.`,
+        desc: `You can re-roll wound rolls for attacks made by this general and their mount if they charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -34,8 +37,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Roll a D6 at the start of your opponent's charge phase. On a 5+ 1 friendly IRONJAWZ unit wholly within 12" of this general can attempt to charge. This charge takes place before any enemy charges.`,
-        when: [START_OF_CHARGE_PHASE],
+        desc: `Once per battle round, this general can use the mighty destroyers command ability without spending a command point.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -44,17 +47,17 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bestial Charisma`,
-        desc: `If this general is chosen as the model from which the Inspiring Presence command ability is measured, you can pick D3 units rather than 1 to be affected by the command ability.`,
+        desc: `Once per battle round this general can use the Inspiring Presence without spending a command point.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   {
-    name: `Prophet of the Waaagh!`,
+    name: `Mighty Waagh!`,
     effects: [
       {
-        name: `Prophet of the Waaagh!`,
-        desc: `If this general has the Waaagh! or Mighty Waaagh! command ability, you can re-roll the dice to see if the relevant units can make an extra attack. If this general does not have one of these abilities, they can use the Waaagh! command ability from the Orruk Megaboss warscroll.`,
+        name: `Mighty Waagh!`,
+        desc: `Your Ironjawz Waagh! ability increases range from 18" to 24".`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -64,8 +67,98 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ironclad`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this general.`,
+        desc: `Add 1 to the save rolls for this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Dead Kunnin'`,
+    effects: [
+      {
+        name: `Dead Kunnin'`,
+        desc: `Gain D3 extra command points at the start of the first hero phase.`,
+        when: [TURN_ONE_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Master of the Weird`,
+    effects: [
+      {
+        name: `Master of the Weird`,
+        desc: `This general gains +1 to casting and unbinding attempts.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Burstin' with Power`,
+    effects: [
+      {
+        name: `Burstin' with Power`,
+        desc: `The general knows 1 extra spell from the lore of the weird, in addition, they can cast 1 extra spell.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Big 'Un`,
+    effects: [
+      {
+        name: `Big 'Un`,
+        desc: `+1 to the wound characteristic to this model.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Fast 'Un`,
+    effects: [
+      {
+        name: `Fast 'Un`,
+        desc: `Add +2 to the movement characteristic of this model.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Mean 'Un`,
+    effects: [
+      {
+        name: `Mean 'Un`,
+        desc: `Add +1 to the damage characteristic of this model's Mighty Fists and Tail attacks.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Heavy 'Un`,
+    effects: [
+      {
+        name: `Heavy 'Un`,
+        desc: `Add 1 to the dice rolls for the Destructive Bulk ability.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Loud 'Un`,
+    effects: [
+      {
+        name: `Loud 'Un`,
+        desc: `Once per battle, give -1 to hit for enemies withint 3".`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Weird 'Un`,
+    effects: [
+      {
+        name: `Weird 'Un`,
+        desc: `Ignore spell and endless spell effects on this model with a dice roll of a 4+.`,
+        when: [HERO_PHASE],
       },
     ],
   },
