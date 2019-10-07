@@ -72,7 +72,10 @@ export const handleParseFile: TUseParse = ({
 
         setParser(parser)
 
-        if (parser === 'Unknown') return stopProcessing() && handleError()
+        if (parser === 'Unknown') {
+          logEvent(`Import${parser}`)
+          return stopProcessing() && handleError()
+        }
 
         if (isWarscroll) {
           const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
