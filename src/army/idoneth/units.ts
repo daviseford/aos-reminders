@@ -14,6 +14,7 @@ import {
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
+import { when } from 'q'
 
 // Unit Names
 export const Units: TUnits = [
@@ -49,6 +50,18 @@ export const Units: TUnits = [
         name: `Tranquility of the Abyss`,
         desc: `Add 3 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Cloying Seas Mists`,
+        desc: `Casting value 6. Pick a unit within 12" of the caster and that is visible. If a deepkin unit heald D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Tsunami of Terror`,
+        desc: `Casting value 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -125,6 +138,12 @@ export const Units: TUnits = [
         name: `The Wide Ethersea`,
         desc: `If this model is the general of your army, at the start of the first battle round you can declare that the Tides of Death table will be reversed. If you do so, the Ebb Tide ability is used in the first battle round, the High Tide ability is used in the second battle round, the Flood Tide ability is used in the third battle round, and the Low Tide ability is used in the fourth battle round. Then the four Tides of Death steps are repeated in reverse order, starting with Ebb Tide.`,
         when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Riptide`,
+        desc: `Casting value 7. Pick an enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for that unit. In addition, at the start of your next hero phase the unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
