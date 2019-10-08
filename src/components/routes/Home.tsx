@@ -3,6 +3,7 @@ import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import { NotificationBanner } from 'components/info/notification_banner'
 
 const ArmyBuilder = lazy(() => import(/* webpackChunkName: 'army_builder' */ 'components/input/army_builder'))
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
@@ -29,6 +30,11 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
+
+      <NotificationBanner name="Orukk_CoS_Banner" persistClose={true}>
+        Looking for Cities of Sigmar or Orruk Warclans? Don't fret, our goblins are hard at work getting this
+        information updated.
+      </NotificationBanner>
 
       <Suspense fallback={<></>}>
         <LoadedArmyHeader />
