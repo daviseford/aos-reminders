@@ -33,7 +33,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const [processing, setProcessing] = useState(false)
 
   useEffect(() => {
-    setFileName(getDefaultName(defaultName))
+    setFileName(defaultName)
   }, [factionName, defaultName])
 
   const handleUpdateName = (e: any) => {
