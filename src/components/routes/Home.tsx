@@ -31,7 +31,7 @@ const Home: React.FC = () => {
     <>
       <Header />
 
-      <NotificationBanner name="Orukk_CoS_WaitingForBooks" persistClose={true}>
+      <NotificationBanner name="Orruk_CoS_WaitingForBooks" persistClose={true}>
         Looking for{' '}
         <a href={'//github.com/daviseford/aos-reminders/pull/535'} target="_blank" rel="noopener noreferrer">
           Cities of Sigmar
