@@ -32,8 +32,15 @@ const Home: React.FC = () => {
       <Header />
 
       <NotificationBanner name="Orukk_CoS_Banner" persistClose={true}>
-        Looking for Cities of Sigmar or Orruk Warclans? Don't fret, our goblins are hard at work getting this
-        information updated.
+        Looking for{' '}
+        <a href={'//github.com/daviseford/aos-reminders/pull/535'} target="_blank" rel="noopener noreferrer">
+          Cities of Sigmar
+        </a>{' '}
+        or{' '}
+        <a href={'//github.com/daviseford/aos-reminders/pull/534'} target="_blank" rel="noopener noreferrer">
+          Orruk Warclans
+        </a>
+        ? Don't fret, our goblins are hard at work getting this information updated.
       </NotificationBanner>
 
       <Suspense fallback={<></>}>
