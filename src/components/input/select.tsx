@@ -11,6 +11,7 @@ export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], actio
 interface ISelectOneProps {
   hasDefault?: boolean
   isClearable?: boolean
+  isDisabled?: boolean
   items: string[]
   setValue: TSelectOneSetValueFn
   toTitle?: boolean
@@ -18,16 +19,25 @@ interface ISelectOneProps {
 }
 
 export const SelectOne = (props: ISelectOneProps) => {
-  const { items, setValue, isClearable = false, hasDefault = false, toTitle = false, value = null } = props
+  const {
+    items,
+    setValue,
+    isClearable = false,
+    isDisabled = false,
+    hasDefault = false,
+    toTitle = false,
+    value = null,
+  } = props
   const options = convertToOptions(items, toTitle)
   const controlledValue = value ? convertToOptions([value], false)[0] : value
 
   const selectProps: { [key: string]: any } = {
     defaultValue: hasDefault ? options[0] : null,
-    isClearable: isClearable,
+    isClearable,
+    isDisabled,
     isSearchable: true,
     onChange: setValue,
-    options: options,
+    options,
   }
 
   if (controlledValue !== undefined) {

@@ -27,7 +27,7 @@ export const getActionTitle = ({
   spell,
   triumph,
 }: TTurnAction): string => {
-  const nameRegex = new RegExp(`${name as string}(, )?`, 'gi')
+  const nameRegex = new RegExp(`(, )?${name}(, )?`, 'gi')
   const strippedCond = condition.replace(nameRegex, '')
   const suffix = name === condition ? `` : `: ${strippedCond}`
   if (artifact) return `Artifact${suffix}`

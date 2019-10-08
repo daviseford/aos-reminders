@@ -4,6 +4,7 @@ import {
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
+  BIG_WAAAGH,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
@@ -51,12 +52,16 @@ const warscrollTypoMap: TNameMap = {
   'Blood Sigil - Sacrament of Blood': 'Blood Sigil',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
+  'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
-  'Guardian of Souls With Nightmare Lantern': 'Guardian of Souls',
+  'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
+  'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
+  'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
@@ -85,6 +90,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
+  'Orruk Gore Gruntas': 'Orruk Gore-Gruntas',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -120,6 +126,7 @@ export const importUnitOptionMap = {
 export const importFactionNameMap = {
   'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
+  'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
   'Clans Eshin': SKAVEN,
   'Clans Moulder': SKAVEN,

@@ -7,10 +7,11 @@ import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
 import { headerClass } from 'theme/helperClasses'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { setLocalFavorite } from 'utils/localStore'
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
-  const { isSubscribed, subscriptionLoading } = useSubscription()
+  const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
 
   const styles = {
@@ -22,6 +23,7 @@ const Navbar: React.FC = () => {
   const handleLogin = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
+      setLocalFavorite(null) // Get rid of any existing local favoriteFaction value
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')
@@ -45,7 +47,7 @@ const Navbar: React.FC = () => {
             Profile
           </Link>
         )}
-        {!isSubscribed && pathname !== '/subscribe' && (
+        {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
           <Link to="/subscribe" className={styles.link} onClick={() => logClick('Navbar-Subscribe')}>
             Subscribe
           </Link>

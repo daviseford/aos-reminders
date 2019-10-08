@@ -54,8 +54,10 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
       .join(' ')
 
     const pdfPages = [result]
-    const isWarscroll = pdfPages.some(x => x.includes('Warscroll Builder'))
-    const isAzyr = isWarscroll ? false : checkIfAzyr(pdfPages)
+    const isAzyr = checkIfAzyr(pdfPages)
+    const isWarscroll = isAzyr
+      ? false
+      : pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
     const parser: TImportParsers = isWarscroll ? 'Warscroll Builder' : isAzyr ? 'Azyr' : 'Unknown'
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
@@ -134,7 +136,7 @@ const handleItem = (text: string): string[] => {
       `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
+    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  ${sep}`)
     .replace(
       /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
       `$4: $2${commaAlt} $3${sep}`
@@ -254,6 +256,7 @@ const commonTypos = {
   'Ar tiller y': 'Artillery',
   'Balefir e': 'Balefire',
   'Bear er': 'Bearer',
+  'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
   'Boltst orm': 'Boltstorm',
   'Decr epify': 'Decrepify',

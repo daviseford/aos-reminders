@@ -401,7 +401,7 @@ const OfficialScenery: TScenery = [
         name: `Crenellated Battlements`,
         desc: `A model with a wounds characteristic of 10+ cannot garrison this terrain unless the terrain has crenellated battlements.
               
-               If this terrain has crenellated battlements, it can be garrisoned by a single monster that can fly in addtion to the other models that can garrison it.`,
+               If this terrain has crenellated battlements, it can be garrisoned by a single monster that can fly in addition to the other models that can garrison it.`,
         when: [DURING_SETUP, MOVEMENT_PHASE],
       },
       ...SceneryEffectLookup[GARRISONS],

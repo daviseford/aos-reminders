@@ -44,8 +44,8 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
     setProcessing(true)
     await updateArmyName(id, armyName || 'Untitled')
     setProcessing(false)
-    closeModal()
     setArmyName(armyName || 'Untitled')
+    closeModal()
     logEvent(`UpdateArmyName`)
   }
 
@@ -56,7 +56,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
       onRequestClose={closeModal}
       contentLabel="Update Army Name Modal"
     >
-      <div className={`container mr-3 pl-0`}>
+      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>
           <div className="col">
@@ -71,6 +71,8 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
                   value={armyName}
                   onKeyDown={handleKeyDown}
                   onChange={handleUpdateName}
+                  tabIndex={0}
+                  autoFocus
                 />
                 <small id="nameHelp" className="form-text text-muted">
                   Hint: Use a descriptive name.

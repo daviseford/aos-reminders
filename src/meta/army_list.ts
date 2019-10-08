@@ -3,6 +3,7 @@ import { IInitialArmy } from 'types/army'
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
@@ -46,6 +47,7 @@ import {
 
 import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
+import BigWaaagh from 'army/big_waaagh'
 import Bonesplitterz from 'army/bonesplitterz'
 import ChaosGrandAlliance from 'army/grand_alliances/chaos'
 import CitiesOfSigmar from 'army/cities_of_sigmar'
@@ -93,6 +95,10 @@ const ArmyList: TArmyList = {
   [BEASTS_OF_CHAOS]: {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
+  },
+  [BIG_WAAAGH]: {
+    Army: { ...BigWaaagh },
+    GrandAlliance: DESTRUCTION,
   },
   [BONESPLITTERZ]: {
     Army: { ...Bonesplitterz },

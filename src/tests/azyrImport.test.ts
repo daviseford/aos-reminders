@@ -12,6 +12,7 @@ import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
 import Dispossessed1 from './fixtures/azyr/json/Dispossessed1.json'
 import DoK1 from './fixtures/azyr/json/DoK1.json'
+import DoK2 from './fixtures/azyr/json/DoK2.json'
 import FEC1 from './fixtures/azyr/json/FEC1.json'
 import Fyreslayers1 from './fixtures/azyr/json/Fyreslayers1.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
@@ -93,6 +94,20 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles DoK2', () => {
+    const res = handleAzyrPages(DoK2)
+    expect(res).toEqual([
+      'FACTION: Daughters of Khaine',
+      'ALLEGIANCE: The Kraith',
+      'UNIT: Hag Queen on Cauldron of Blood',
+      'ARTEFACT: Crimson Shard',
+      "SPELL: Martyr's Sacrifice",
+      'UNIT: Morathi, High Oracle of Khaine',
+      'SPELL: Mindrazor',
+      'UNIT: Sisters of Slaughter',
+    ])
   })
 
   it('handles KO5', () => {

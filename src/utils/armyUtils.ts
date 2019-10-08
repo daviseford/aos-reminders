@@ -1,6 +1,7 @@
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { TEntry } from 'types/data'
 
 export const armyHasEntries = (army: ISavedArmy) => {
   const { allySelections, realmscape_feature, realmscape, selections } = army
@@ -52,3 +53,6 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
 export const isValidFactionName = (val: any): val is TSupportedFaction => {
   return val && SUPPORTED_FACTIONS.includes(val)
 }
+
+// Appends a string to an entry
+export const appendTag = (entry: TEntry, tag: string) => ({ ...entry, name: `${entry.name} (${tag})` })

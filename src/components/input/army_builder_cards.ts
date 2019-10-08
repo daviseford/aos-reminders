@@ -2,6 +2,8 @@ import { IArmyBuilderProps } from './army_builder'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
+import { getSideEffects } from './getSideEffects'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 
@@ -15,6 +17,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Units',
       values: selections.units,
       type: 'multi',
+      sideEffects: getSideEffects(army.Units),
     },
     {
       items: army.Traits,
@@ -22,6 +25,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Traits',
       values: selections.traits,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.Artifacts,
@@ -29,6 +33,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Artifacts',
       values: selections.artifacts,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.Battalions,
@@ -36,6 +41,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Battalions',
       values: selections.battalions,
       type: 'multi',
+      sideEffects: getSideEffects(army.Battalions),
     },
     {
       items: army.Allegiances,
@@ -43,6 +49,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Allegiances',
       values: selections.allegiances,
       type: 'multi',
+      sideEffects: getSideEffects(army.Allegiances),
     },
     {
       items: army.Spells,
@@ -50,6 +57,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Spells',
       values: selections.spells,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.EndlessSpells,
@@ -57,6 +65,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Endless Spells',
       values: selections.endless_spells,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.Scenery,
@@ -64,6 +73,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Scenery',
       values: selections.scenery,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.Commands,
@@ -71,6 +81,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Commands',
       values: selections.commands,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: army.Triumphs,
@@ -78,6 +89,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Triumphs',
       values: selections.triumphs,
       type: 'multi',
+      sideEffects: {},
     },
     {
       items: SUPPORTED_REALMSCAPES,
@@ -102,6 +114,7 @@ type TMulti = {
   title: string
   type: 'multi'
   values: string[]
+  sideEffects: IWithSelectMultipleWithSideEffectsPayload
 }
 
 type TSingle = {

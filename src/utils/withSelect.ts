@@ -50,3 +50,41 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
   method({ ...payload, [key]: values })
 }
+
+export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
+
+export interface IWithSelectMultipleWithSideEffectsPayload {
+  [key: string]: {
+    [key in TSideEffectTypes]?: {
+      values: string[]
+    }
+  }
+}
+
+type TWithSelectMultiWithSideEffects = (
+  method: (payload: any) => void,
+  payload: IWithSelectMultipleWithSideEffectsPayload,
+  updateFn: (payload: { value: string; values: string[]; slice: string }) => void
+) => (selectValues: ValueType<TDropdownOption>[]) => void
+
+export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
+  method,
+  payload,
+  updateFn
+) => selectValues => {
+  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+
+  Object.keys(payload).forEach(value => {
+    if (values.includes(value)) {
+      Object.keys(payload[value]).forEach(slice => {
+        const sideEffectVals = payload[value][slice].values
+
+        if (sideEffectVals) {
+          updateFn({ value, values: sideEffectVals, slice })
+        }
+      })
+    }
+  })
+
+  method(values)
+}

@@ -20,7 +20,7 @@ interface ISaveArmyProps {
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive } = useSubscription()
 
   const canSave = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
@@ -29,17 +29,15 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const btnText = `Save Army`
-
   return (
     <>
-      {!isAuthenticated && <SaveButton btnText={btnText} handleClick={loginWithRedirect} />}
+      {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
 
-      {isAuthenticated && !isSubscribed && <SubscribeBtn />}
+      {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
 
-      {isAuthenticated && isSubscribed && !canSave && <SaveButton btnText={btnText} showTooltip={true} />}
+      {isAuthenticated && isSubscribed && isActive && !canSave && <SaveButton showTooltip={true} />}
 
-      {isAuthenticated && isSubscribed && canSave && <SaveButton btnText={btnText} handleClick={openModal} />}
+      {isAuthenticated && isSubscribed && isActive && canSave && <SaveButton handleClick={openModal} />}
 
       {modalIsOpen && (
         <SaveArmyModal
@@ -75,11 +73,10 @@ const SubscribeBtn = () => (
 
 interface ISaveButtonProps {
   handleClick?: () => void
-  btnText: string
   showTooltip?: boolean
 }
 
-const SaveButton = ({ handleClick = () => null, btnText, showTooltip = false }: ISaveButtonProps) => {
+const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
   const tipProps = {
     'data-for': 'cantSaveButton',
     'data-multiline': true,
@@ -91,7 +88,7 @@ const SaveButton = ({ handleClick = () => null, btnText, showTooltip = false }: 
     <>
       <button className={btnDarkBlock} onClick={handleClick} {...tipProps}>
         <div className={btnContentWrapper}>
-          <FaSave className="mr-2" /> {btnText}
+          <FaSave className="mr-2" /> Save Army
         </div>
       </button>
       <ReactTooltip id={`cantSaveButton`} disable={!showTooltip} />

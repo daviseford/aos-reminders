@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { FaCheck, FaRegSadCry } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
 import { ModalStyle } from 'theme/modalStyle'
 import { logClick } from 'utils/analytics'
+import Spinner from 'components/helpers/spinner'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -16,11 +17,14 @@ Modal.setAppElement('#root')
 export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen } = props
   const { cancelSubscription } = useSubscription()
+  const [processing, setProcessing] = useState(false)
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault()
+    setProcessing(true)
+    await cancelSubscription()
     logClick('CancelSubscription')
-    cancelSubscription()
+    setProcessing(false)
   }
 
   return (
@@ -31,7 +35,8 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
       contentLabel="Cancel Subscription Modal"
     >
       <div className={`container`}>
-        <div className="row">
+        {processing && <Spinner />}
+        <div className="row" hidden={processing}>
           <IconContext.Provider value={{ size: '1.7em' }}>
             <div className="col">
               <h4 className="mb-3">Cancel Subscription?</h4>
@@ -45,7 +50,7 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
           </IconContext.Provider>
         </div>
 
-        <div className="row text-center">
+        <div className="row text-center" hidden={processing}>
           <div className="col">
             <button className={`btn btn-outline-danger mx-2`} onClick={handleClick}>
               <div className="d-flex align-items-center">

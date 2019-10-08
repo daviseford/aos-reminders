@@ -24,6 +24,7 @@ const ShowSavedArmiesBtn = lazy(() =>
 )
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
+const showSavedWrapperClass = `col-8 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -35,7 +36,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
   const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
@@ -83,7 +84,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </Suspense>
         </div>
-        <div className={btnWrapperClass} hidden={!isSubscribed}>
+        <div className={showSavedWrapperClass} hidden={!isSubscribed || !isActive}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}

@@ -3,6 +3,7 @@ import { sortBy } from 'lodash'
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
+export type TBigWaaagh = 'BIG_WAAAGH'
 export type TBonesplitterz = 'BONESPLITTERZ'
 export type TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export type TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
@@ -45,9 +46,10 @@ export type TWanderers = 'WANDERERS'
 // Exported Faction Names
 export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
+export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
+export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
 export const CHAOS_GRAND_ALLIANCE: TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export const CITIES_OF_SIGMAR: TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
-export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DEATH_GRAND_ALLIANCE: TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
 export const DESTRUCTION_GRAND_ALLIANCE: TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
@@ -70,9 +72,9 @@ export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
+export const NURGLE: TNurgle = 'NURGLE'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
-export const NURGLE: TNurgle = 'NURGLE'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
@@ -88,6 +90,7 @@ export const WANDERERS: TWanderers = 'WANDERERS'
 export type TSupportedFaction =
   | TBeastclawRaiders
   | TBeastsOfChaos
+  | TBigWaaagh
   | TBonesplitterz
   | TChaosGrandAlliance
   | TCitiesOfSigmar
@@ -106,8 +109,8 @@ export type TSupportedFaction =
   | TKharadronOverlords
   | TKhorne
   | TLegionOfBlood
-  | TLegionOfSacrament
   | TLegionOfNight
+  | TLegionOfSacrament
   | TLegionsOfAzgorh
   | TLegionsOfGrief
   | TLethisianDefenders
@@ -130,6 +133,7 @@ export type TSupportedFaction =
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
