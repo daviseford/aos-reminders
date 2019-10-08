@@ -12,7 +12,7 @@ interface IBannerProps {
  * @param props
  */
 export const NotificationBanner: React.FC<IBannerProps> = props => {
-  const { name, persistClose, children } = props
+  const { name, persistClose = true, children } = props
   const isHidden = persistClose ? getNotificationBanner(name) === 'hidden' : false
   const [isOn, setIsOn] = useState(!isHidden)
 
