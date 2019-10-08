@@ -3,11 +3,11 @@ import { TSpells } from 'types/army'
 
 const Spells: TSpells = [
   {
-    name: `Brain-busta`,
+    name: `Brain Burst`,
     effects: [
       {
-        name: `Brain-busta`,
-        desc: `Brain-busta has a casting value of 5. If successfully cast, pick 1 enemy unit within 15" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Bravery characteristic, that unit suffers D3 mortal wounds; if not, that unit suffers 1 mortal wound.`,
+        name: `Brain Burst`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 16" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Bravery characteristic, that unit suffers D6 mortal wounds; if not, that unit suffers D3 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mighty 'Eadbutt`,
-        desc: `Casting value of 5. If successfully cast, pick 1 enemy HERO within 16" of the caster and visible to them. That HERO suffers 1 mortal wound. If that HERO is a WIZARD, they suffer D3 mortal wounds instead of 1.`,
+        desc: `Casting value of 5. Pick 1 enemy HERO within 16" of the caster and visible to them. That HERO suffers D3 mortal wounds. If that HERO is a WIZARD, they suffer D6 mortal wounds instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Da Blazin' Eyes`,
-        desc: `Casting value of 6. If successfully cast, pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each enemy model passed across by this line. On a 5+ that model's unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6. Pick 1 point on the battlefeld within 4D6" of the caster and visible to them. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each enemy model passed across by this line. On a 4+ that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -47,17 +47,17 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Bash 'Em Ladz`,
-        desc: `Casting value of 8. If successfully cast, until your next hero phase you can re-roll wound rolls for attacks made by friendly IRONJAWZ units while they are wholly within 12" of the caster.`,
+        desc: `Casting value of 8. Until your next hero phase add 1 to wound rolls for friendly units within 16" of the caster.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `Power of Da Waaagh!`,
+    name: `Wrath of Gork`,
     effects: [
       {
-        name: `Power of Da Waaagh!`,
-        desc: `Casting value of 8. If successfully cast, roll 1 dice for each friendly IRONJAWZ unit with 2 or more models that is wholly within 18" of the caster. For each 3+, you can pick 1 different enemy unit within 24" of the caster. That unit suffers D3 mortal wounds. For each 6, that unit suffers D6 mortal wounds instead of D3.`,
+        name: `Wrath of Gork`,
+        desc: `Casting value of 8. Pick en enemy unit within 16" and visible. roll 2 dice for each IRONJAWZ unit with 2+ models wholly within 16", for each 2+ inflict 1 mortal wound to the chosen enemy unit.`,
         when: [HERO_PHASE],
       },
     ],
