@@ -1,5 +1,6 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  DURING_SETUP,
   START_OF_HERO_PHASE,
   HERO_PHASE,
   DURING_GAME,
@@ -7,6 +8,8 @@ import {
   START_OF_CHARGE_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  START_OF_COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
   SHOOTING_PHASE,
   BATTLESHOCK_PHASE,
@@ -809,6 +812,723 @@ export const Units: TUnits = [
         name: `Guild Bombs`,
         desc: `Once per battle, after this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that enemy unit. For each 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sorceress`,
+    effects: [
+      {
+        name: `Blood Sacrifice`,
+        desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Word of Pain`,
+        desc: `Cast on 7+. Pick 1 visible enemy unit within 18". That unit suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Command Underlings`,
+        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Sorceress on Black Dragon`,
+    effects: [
+      {
+        name: `Noxious Breath`,
+        desc: `Roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Blood Sacrifice`,
+        desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Command Underlings`,
+        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Bladewind`,
+        desc: `Cast on 6+. Pick 1 visible enemy unit within 18" and roll 9 dice. For each roll that is lower than that unit's Save characteristic, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Inspire Hatred`,
+        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. You can re-roll wound rolls of 1 for attacks made by that unit in that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Dreadspears`,
+    effects: [
+      {
+        name: `Lordling`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Coven Guard`,
+        desc: `If the unmodified hit roll for an attack made with a Darkling Spear is 6, that weapon has a Rend characteristic of -1 for that attack.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ranks of Cold Steel`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bleakswords`,
+    effects: [
+      {
+        name: `Lordling`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Quicksilver Strike`,
+        desc: `If the unmodified hit roll for an attack made with a Darkling Sword is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ranks of Cold Steel`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Darkshards`,
+    effects: [
+      {
+        name: `Guardmaster`,
+        desc: `Add 1 to hit rolls for attacks made with this model's missile weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Storm of Iron-tipped Bolts`,
+        desc: `Add 1 to hit rolls for attacks made with this unit's Repeater Crossbows if it has 10 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Black Guard`,
+    effects: [
+      {
+        name: `Captain`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Drummer`,
+        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Elite Bodyguard`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if this unit is wholly within 12" of a friendly DARKLING COVEN HERO.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: `Draich Master`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Drummer`,
+        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Severing Strike`,
+        desc: `If the unmodified hit roll for an attack made with an Executioner's Draich is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Anointed`,
+    effects: [
+      {
+        name: `Blessing of the Ur-Phoenix`,
+        desc: `This model can attempt to dispel 1 endless spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Witness to Destiny`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `Pick 1 friendly HERO with this command ability. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Anointed on Flamespyre Phoenix`,
+    effects: [
+      {
+        name: `Attuned to Magic`,
+        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Phoenix Reborn`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Wake of Fire`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Witness to Destiny`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Anointed on Frostheart Phoenix`,
+    effects: [
+      {
+        name: `Attuned to Magic`,
+        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Blizzard Aura`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Witness to Destiny`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Flamespyre Phoenix`,
+    effects: [
+      {
+        name: `Attuned to Magic`,
+        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Phoenix Reborn`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Wake of Fire`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Frostheart Phoenix`,
+    effects: [
+      {
+        name: `Attuned to Magic`,
+        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Blizzard Aura`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Phoenix Guard`,
+    effects: [
+      {
+        name: `Keeper of the Flame`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Drummer`,
+        desc: `Add 1 to charge rolls for units that include any Drummers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Emboldened`,
+        desc: `Do not take battleshock tests for this unit while it is wholly within 12" of a friendly PHOENIX TEMPLE HERO.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Witness to Destiny`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Dreadlord on Black Dragon`,
+    effects: [
+      {
+        name: `Lance of Spite`,
+        desc: `This model's Lance of Spite has a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Noxious Breath`,
+        desc: `Do not use the attack sequence for an attack made with a Black Dragon's Noxious Breath. Instead, roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Paired Exile Blades`,
+        desc: `You can re-roll hit rolls for attacks made with a pair of Exile Blades.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Tyrant Shield`,
+        desc: `Add 1 to save rolls for attacks that target this model if it is armed with a Tyrant Shield.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Do Not Disappoint Me`,
+        desc: `Pick 1 friendly HERO that knows this ability. Add 1 to wound rolls for attacks made by friendly ORDER SERPENTIS units that are wholly within 18" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Drakespawn Knights`,
+    effects: [
+      {
+        name: `Dread Knight`,
+        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Lance Charge`,
+        desc: `This unit's Barbed Lances have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Drakespawn Chariots`,
+    effects: [
+      {
+        name: `Scythed Runners`,
+        desc: `Each time a model from this unit finishes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `War Hydra`,
+    effects: [
+      {
+        name: `Quick with the Lash`,
+        desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Sever One Head, Another Takes Its Place`,
+        desc: `Heal up to D3 wounds allocated to this model.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Assassin`,
+    effects: [
+      {
+        name: `Deathshead Poison`,
+        desc: `If the unmodified wound roll for an attack made with Poison-coated Blades is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hidden Murderer`,
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly Cities of Sigmar unit that has 5 or more models and a Wounds characteristic of 1. If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
+        when: [DURING_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Dark Riders`,
+    effects: [
+      {
+        name: `Herald`,
+        desc: `+1 to hit for that model's missile weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Sow Terror and Confusion`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of any friendly DARK RIDERS.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Murderous Charge`,
+        desc: `This unit's Barbed Spears have a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shadow Warriors`,
+    effects: [
+      {
+        name: `Shadow Walker`,
+        desc: `+1 to hit for that model's missile weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `One with the Shadows`,
+        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side and say that it is set up in the shadows as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from any enemy units. Any reserve units in the shadows that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Strike Unseen`,
+        desc: `Add 1 to hit and wound rolls for attacks made with missile weapons by this unit if this unit is in cover.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Black Art Fleetmaster`,
+    effects: [
+      {
+        name: `Murderous Swashbuckler`,
+        desc: `If the unmodified hit roll for an attack made with a Black Ark Cutlass is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sea Dragon Cloak`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `At Them, You Curs!`,
+        desc: `Pick 1 friendly Scourge Privateers unit wholly within 12" of a friendly Hero with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Black Ark Corsairs`,
+    effects: [
+      {
+        name: `Reaver`,
+        desc: `+1 to hit for that model's attacks.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Flashing Steel`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if it has 15 or more models.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Sea Dragon Cloak`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Scourgerunner Chariots`,
+    effects: [
+      {
+        name: `High Beastmaster`,
+        desc: `1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Lay the Beast Low`,
+        desc: `If the unmodified hit roll for an attack made with a Ravager Harpoon is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Kharibdyss`,
+    effects: [
+      {
+        name: `Abyssal Howl`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units within 12" of any models with this ability.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Feast of Bones`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Quick with the Lash`,
+        desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Nomad Prince`,
+    effects: [
+      {
+        name: `Harrying Bird of Prey`,
+        desc: `In your hero phase, you can pick 1 enemy Hero within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Lord of the Deepwood Host`,
+        desc: `Pick 1 friendly HERO with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly WANDERER units while they are wholly within 12" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_SHOOTING_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Eternal Guard`,
+    effects: [
+      {
+        name: `Eternal Warden`,
+        desc: `+1 to this model's melee attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Fortress of Boughs`,
+        desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a move in the same turn.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Form Fortress of Boughs`,
+        desc: `Add 1 to hit and wound rolls for attacks made by this unit if this unit has not made a move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wildwood Rangers`,
+    effects: [
+      {
+        name: `Wildwood Warden`,
+        desc: `+1 to this model's melee attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Guardians of the Kindred`,
+        desc: `A Ranger's Draich has a Damage characteristic of 2 instead of 1 if the target is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wild Riders`,
+    effects: [
+      {
+        name: `Wild Hunter`,
+        desc: `+1 to this model's Hunting Spear attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Unbound Fury`,
+        desc: `This unit's Hunting Spears have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sisters of the Watch`,
+    effects: [
+      {
+        name: `High Sister`,
+        desc: `Add 1 to the Attacks characteristic of that model's missile weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Eldritch Arrows`,
+        desc: `If the unmodified wound roll for an attack made with a Watch Bow is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Loose Until the Last`,
+        desc: `Once per turn, if an enemy unit ends a charge move within 3" of this unit and there are no other enemy units within 3" of this unit, this unit can shoot.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Quicksilver Shot`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Watch Bows if there are no enemy models within 3" of this unit and this unit has not made a move in the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sisters of the Thorn`,
+    effects: [
+      {
+        name: `Handmaiden of the Thorn`,
+        desc: `+1 to this model's Deepwood Coven Staff attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Magic`,
+        desc: `This unit is a Wizard while it has 2 or more models.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Armour of Thorns`,
+        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [HERO_PHASE],
       },
     ],
   },
