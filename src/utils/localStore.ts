@@ -19,3 +19,9 @@ export const getLocalFavorite = () => {
   const localFavorite = localStorage.getItem(LOCAL_FAVORITE_KEY) as TSupportedFaction | null
   return localFavorite
 }
+
+export const hideNotificationBanner = (name: string) => {
+  localStorage.setItem(name, 'hidden')
+}
+
+export const getNotificationBanner = (name: string) => localStorage.getItem(name)

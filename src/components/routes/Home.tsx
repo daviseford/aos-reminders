@@ -3,6 +3,7 @@ import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import { NotificationBanner } from 'components/info/notification_banner'
 
 const ArmyBuilder = lazy(() => import(/* webpackChunkName: 'army_builder' */ 'components/input/army_builder'))
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
@@ -29,6 +30,18 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
+
+      <NotificationBanner name="Orruk_CoS_WaitingForBooks" persistClose={true}>
+        Looking for{' '}
+        <a href={'//github.com/daviseford/aos-reminders/pull/535'} target="_blank" rel="noopener noreferrer">
+          Cities of Sigmar
+        </a>{' '}
+        or{' '}
+        <a href={'//github.com/daviseford/aos-reminders/pull/534'} target="_blank" rel="noopener noreferrer">
+          Orruk Warclans
+        </a>
+        ? Don't fret, our goblins are hard at work getting this information updated.
+      </NotificationBanner>
 
       <Suspense fallback={<></>}>
         <LoadedArmyHeader />
