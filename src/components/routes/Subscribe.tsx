@@ -38,10 +38,6 @@ const Subscribe: React.FC = () => {
 
       <Intro />
 
-      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
-        <PricingPlans />
-      </div>
-
       <div className="container">
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
@@ -50,6 +46,10 @@ const Subscribe: React.FC = () => {
       </div>
 
       <ExamplesRow />
+
+      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
+        <PricingPlans />
+      </div>
 
       <div className="container text-center mt-5 mb-4">
         <ContactComponent size={'small'} />

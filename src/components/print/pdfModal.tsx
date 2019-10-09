@@ -3,12 +3,13 @@ import Modal from 'react-modal'
 import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
 import { logDownloadEvent } from 'utils/analytics'
-import { titleCase } from 'utils/textUtils'
+import { titleCase, stripPunctuation } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { ModalStyle } from 'theme/modalStyle'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
+import { isValidFactionName } from 'utils/armyUtils'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -19,8 +20,10 @@ interface IModalComponentProps {
 
 Modal.setAppElement('#root')
 
-const getDefaultName = (factionName: string) => {
-  return `${titleCase(factionName)
+const getDefaultName = (name: string) => {
+  name = isValidFactionName(name) ? titleCase(name) : stripPunctuation(name)
+  return `${name
+    .trim()
     .split(' ')
     .join('_')}_Reminders`
 }
