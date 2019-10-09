@@ -222,7 +222,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
-    // If it can fit on this page, do it
+    // If the entire phase can fit on this page, do it
     if (y + currentPhaseInfo.yHeight < pageBottom) {
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
