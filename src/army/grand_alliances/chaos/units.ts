@@ -53,6 +53,26 @@ export const MonstersOfChaos: TUnits = [
       },
     ],
   },
+  {
+    name: `Soul Grinder`,
+    effects: [
+      {
+        name: `Daemon Engine of the Dark Gods`,
+        desc: `This unit can be marked with one of the following keywords for the duration of the battle: Khorne, Tzeentch, Nurgle, or Slaanesh.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Implacable Advance`,
+        desc: `A Soul Grinder can shoot even if it ran in the movement phase.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Caught by the Claw`,
+        desc: `Each time a Hellforged Claw attack hits a hero or monster both you and your opponent hide a selected dice face. Upon revealing the dice, if the values match, the target suffers 6 mortal wounds instead of normal weapon damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 export const MonstrousArcanumChaos: TUnits = [
   {
