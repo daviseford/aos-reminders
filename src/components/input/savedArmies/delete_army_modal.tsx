@@ -7,18 +7,20 @@ import { btnContentWrapper } from 'theme/helperClasses'
 import { logEvent } from 'utils/analytics'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
+import { TSupportedFaction } from 'meta/factions'
 
 interface IModalComponentProps {
   armyName: string
-  modalIsOpen: boolean
   closeModal: () => void
+  factionName: TSupportedFaction
   id: string
+  modalIsOpen: boolean
 }
 
 Modal.setAppElement('#root')
 
 export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, armyName, id } = props
+  const { closeModal, modalIsOpen, armyName, factionName, id } = props
   const { deleteSavedArmy } = useSavedArmies()
   const [processing, setProcessing] = useState(false)
 
@@ -28,7 +30,7 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
     await deleteSavedArmy(id)
     setProcessing(false)
     closeModal()
-    logEvent('DeleteArmy')
+    logEvent(`DeleteArmy-${factionName}`)
   }
 
   return (
