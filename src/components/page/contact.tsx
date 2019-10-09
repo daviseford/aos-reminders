@@ -4,6 +4,8 @@ import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter, FaDiscord } from 're
 import { IconType } from 'react-icons'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { logClick } from 'utils/analytics'
+import { LinkNewTab } from 'components/helpers/link'
+import { GITHUB_URL } from 'utils/env'
 
 interface IContactProps {
   size?: 'normal' | 'small' | 'large'
@@ -16,21 +18,16 @@ export const ContactComponent: React.FC<IContactProps> = props => {
 
   return (
     <>
-      <Link
-        href="https://github.com/daviseford/aos-reminders/"
-        btnClass={btnClass}
-        Icon={FaGithub}
-        text={'Github'}
-      />
+      <Link href={GITHUB_URL} btnClass={btnClass} Icon={FaGithub} text={'Github'} />
       <Link
         href="mailto:aosreminders@gmail.com"
         btnClass={btnClass}
         Icon={FaEnvelopeOpenText}
         text={'Email'}
       />
-      <Link href="https://reddit.com/r/AoSReminders/" btnClass={btnClass} Icon={FaReddit} text={'Reddit'} />
-      <Link href="https://discord.gg/2nt9Fxp" btnClass={btnClass} Icon={FaDiscord} text={'Discord'} />
-      <Link href="https://twitter.com/daviseford" btnClass={btnClass} Icon={FaTwitter} text={'Twitter'} />
+      <Link href="//reddit.com/r/AoSReminders/" btnClass={btnClass} Icon={FaReddit} text={'Reddit'} />
+      <Link href="//discord.gg/2nt9Fxp" btnClass={btnClass} Icon={FaDiscord} text={'Discord'} />
+      <Link href="//twitter.com/daviseford" btnClass={btnClass} Icon={FaTwitter} text={'Twitter'} />
     </>
   )
 }
@@ -47,18 +44,12 @@ const LinkComponent: React.FC<ILinkProps> = componentWithSize(props => {
   const { Icon, href, btnClass, isMobile, text } = props
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${btnClass} mb-1`}
-      onClick={e => logClick(`Contact-${text}`)}
-    >
+    <LinkNewTab href={href} className={`${btnClass} mb-1`} onClick={e => logClick(`Contact-${text}`)}>
       <div className={btnContentWrapper}>
         <Icon className={isMobile ? `mx-2 my-1` : `mr-2`} />
         {isMobile ? `` : ` ${text}`}
       </div>
-    </a>
+    </LinkNewTab>
   )
 })
 

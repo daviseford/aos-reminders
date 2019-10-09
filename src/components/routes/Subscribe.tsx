@@ -6,6 +6,7 @@ import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
 import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { LinkNewTab } from 'components/helpers/link'
+import { GITHUB_URL } from 'utils/env'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
@@ -140,7 +141,7 @@ const ComingSoon = () => (
           <strong>and much more!</strong>
         </i>{' '}
         - Check out our list of planned feature enhancements{' '}
-        <LinkNewTab url="//github.com/daviseford/aos-reminders/labels/enhancement">on our Github!</LinkNewTab>
+        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`}>on our Github!</LinkNewTab>
       </li>
     </ul>
   </div>
@@ -169,7 +170,7 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
   return (
     <>
       <figure className="figure">
-        <LinkNewTab url={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)}>
+        <LinkNewTab href={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)}>
           <video
             preload="auto"
             loop={true}

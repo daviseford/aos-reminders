@@ -13,6 +13,7 @@ import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
 import { logClick } from 'utils/analytics'
 import { LinkNewTab } from 'components/helpers/link'
+import { GITHUB_URL } from 'utils/env'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -135,10 +136,7 @@ const ErrorAlert = (props: TImportError) => {
           <br />
           <small>
             Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
-            <LinkNewTab
-              url={'//github.com/daviseford/aos-reminders/issues'}
-              onClick={e => logClick(`failedImport-GithubClick`)}
-            >
+            <LinkNewTab href={`${GITHUB_URL}/issues`} onClick={e => logClick(`failedImport-GithubClick`)}>
               Github
             </LinkNewTab>{' '}
             and be sure to attach this file.
