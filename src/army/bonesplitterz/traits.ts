@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Killa Instinkt`,
-        desc: `Attacks with an unmodified 6 wound roll do 1 MW in addition to normal damage.`,
+        desc: `Attacks with an unmodified 6 wound roll do 1 mortal wound in addition to normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -34,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Great Hunter`,
-        desc: `When using the Tireless Trackers trait, move up to 8" instead of 5" for all units at the start of the game.`,
+        desc: `When using the Tireless Trackers trait, move up to 8" instead of 5" for all eligible units at the start of the game.`,
         when: [START_OF_GAME],
       },
     ],
@@ -59,7 +59,6 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  //TODO: NEED TO CONFIRM THIS TRAIT.
   {
     name: `Monster Killa`,
     effects: [
@@ -95,7 +94,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Fuelled by the Spirits`,
-        desc: `Pick 1 extra spell from the lore table. This general may also cast 1 addtional spell.`,
+        desc: `Pick 1 extra spell from the Lore of the Savage Beast table. This general may also cast 1 addtional spell.`,
         when: [HERO_PHASE],
       },
     ],

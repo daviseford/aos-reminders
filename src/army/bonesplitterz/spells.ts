@@ -61,7 +61,6 @@ const Spells: TSpells = [
       },
     ],
   },
-  // TODO: CONFIRM THE TIMING FOR THIS SPELL EFFECT
   {
     name: `Gorkamorka's War Cry`,
     effects: [

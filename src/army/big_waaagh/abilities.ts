@@ -8,18 +8,23 @@ const Abilities: TAbilities = [
     when: [DURING_GAME],
   },
   {
+    name: `Zog 'Em - 4+ points`,
+    desc: `At the end of any phase, if any wound or mortal wounds have been inflicted in that phase on an Orruk unit that is more than 9" away from any enemy units, that unit may move D6".`,
+    when: [DURING_GAME],
+  },
+  {
     name: `Zap 'Em - 6+ points`,
     desc: `You can use the Waagh Magic battle trait - Any time you cast you can use the Waagh energy, lose D3 points to get +1 casting or lose D6 points for +2.`,
     when: [HERO_PHASE],
   },
   {
     name: `Get 'Em - 8+ points`,
-    desc: `Add 1 to charge rolls for any orruk units.`,
+    desc: `Add 1 to charge rolls for any Orruk units.`,
     when: [CHARGE_PHASE],
   },
   {
     name: `Laugh at 'Em - 12+ points`,
-    desc: `Roll a dice when you take damage, on a 6+ it's ignored.`,
+    desc: `Roll a dice when you take a wound or mortal wound, on a 6+ it is ignored.`,
     when: [DURING_GAME],
   },
   {
@@ -34,7 +39,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Waaagh!!!`,
-    desc: `General can use Da Big Waagh ability at start of combat phase - Add 1 to the attack characteristics to all Orruk units in the waagh army. - After the combat phase roll a dice, on 1 you lose all your waagh points, on a 2-5 you halve your waagh points, on a 6 you keep everything.`,
+    desc: `The general can use Da Big Waagh ability at start of combat phase - Add 1 to the attack characteristics to all Orruk units in the waagh army. - After the combat phase roll a dice, on 1 you lose all your waagh points, on a 2-5 you halve your waagh points, on a 6 you keep everything.`,
     when: [START_OF_COMBAT_PHASE],
   },
   {

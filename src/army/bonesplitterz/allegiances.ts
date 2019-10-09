@@ -22,7 +22,6 @@ const Allegiances: TAllegiances = [
         desc: `Enemy units within 12" of your units must attempt and finish a charge move if they are able. Enemy units wihtin 3" of your units cannot choose to retreat.`,
         when: [CHARGE_PHASE],
       },
-      // TODO: double check this.
       {
         name: `Feel da Spirit`,
         desc: `At the start of the combat phase, pick 1 friendly unit wholly within 18" of a Savage Big Boss, if that unit makes unmodified hit rolls of 6, they score 2 hits.`,
@@ -31,13 +30,13 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `A Right Monster`,
-        desc: `Enemy units within 12" of this general lose 1 from their Bravery characteristic.`,
+        desc: `Enemy units within 12" of this general subtract 1 from their Bravery characteristic.`,
         when: [BATTLESHOCK_PHASE],
         command_trait: true,
       },
       {
         name: `Maw-Krusha Beast Totem`,
-        desc: `In the shooting phase, the bearer can use the Innard-Bursting Bellow from the Maw Krusha warscroll.`,
+        desc: `Once per battle, the bearer can use the Innard-Bursting Bellow from the Maw Krusha warscroll.`,
         when: [SHOOTING_PHASE],
         artifact: true,
       },
@@ -78,7 +77,6 @@ const Allegiances: TAllegiances = [
         desc: `Units in this clan can ignore the etheral save keyword. Also all abilities that negate wounds are ignored whe taking wounds from this clan.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      // TODO: Double check this CA.
       {
         name: `Shout Down da Magic!`,
         desc: `If an enemy wizard casts a spell you may pick a unit with 10+ models and wholly within 18" of a friendly Wurrgog prophet or Wardokk, that unit can attempt to unbind that spell. +1 to unbind if the unit has 20 or more models.`,
@@ -87,7 +85,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Fireball!`,
-        desc: `The general gains the Fireball spell and can cast it. Casting Value 5. Pick 1 enemy unit withi 18". It suffers 1 mortal wound if it has 1 model, D3 mortal wounds instead if it has 2-9 models, or D6 mortal wounds instead if it has 10+ models.`,
+        desc: `All wizards in the clan know the Fireball spell instead of Arcane bolt and can cast it. Casting Value 5. Pick 1 enemy unit withi 18". It suffers 1 mortal wound if it has 1 model, D3 mortal wounds instead if it has 2-9 models, or D6 mortal wounds instead if it has 10+ models.`,
         when: [HERO_PHASE],
         command_trait: true,
       },
