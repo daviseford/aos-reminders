@@ -50,7 +50,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
       setArmyName('')
       closeModal()
       showSavedArmies()
-      logEvent(`SaveArmy`)
+      logEvent(`SaveArmy-${army.factionName}`)
     }
   }
 

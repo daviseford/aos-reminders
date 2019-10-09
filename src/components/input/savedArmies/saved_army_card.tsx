@@ -63,6 +63,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
                 armyName={army.armyName}
+                factionName={army.factionName}
                 id={army.id}
               />
             )}
