@@ -5,6 +5,8 @@ import { logPageView, logClick } from 'utils/analytics'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
 import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LinkNewTab } from 'components/helpers/link'
+import { GITHUB_URL } from 'utils/env'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
@@ -36,10 +38,6 @@ const Subscribe: React.FC = () => {
 
       <Intro />
 
-      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
-        <PricingPlans />
-      </div>
-
       <div className="container">
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
@@ -48,6 +46,10 @@ const Subscribe: React.FC = () => {
       </div>
 
       <ExamplesRow />
+
+      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
+        <PricingPlans />
+      </div>
 
       <div className="container text-center mt-5 mb-4">
         <ContactComponent size={'small'} />
@@ -61,7 +63,7 @@ export default Subscribe
 const ExamplesRow = () => {
   return (
     <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
-      <div className={'col-12 col-lg-5 col-xl-5'}>
+      <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/import_demo.mp4'}
           gifUrl={'/img/import_demo.gif'}
@@ -69,7 +71,7 @@ const ExamplesRow = () => {
           label={'Demo-Import'}
         />
       </div>
-      <div className={'col-12 col-lg-5 col-xl-5'}>
+      <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
           gifUrl={'/img/save_load_demo.gif'}
@@ -109,15 +111,15 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Import your army lists from Azyr!
+        <strong>NEW:</strong> Choose your favorite faction!
       </li>
       <li>
-        Import your army lists <strong>instantly</strong> from Warscroll Builder
+        Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
+        device
       </li>
       <li>
-        Save and load your army lists from <strong>anywhere</strong> on <strong>any</strong> device
+        Import your army lists <strong>instantly</strong> from Warscroll Builder and Azyr
       </li>
-      <li>Edit, update, and delete your armies effortlessly</li>
     </ul>
   </div>
 )
@@ -132,9 +134,6 @@ const ComingSoon = () => (
         <i>Importing army lists from Battlescribe</i>
       </li>
       <li>
-        <i>Favorite armies</i>
-      </li>
-      <li>
         <i>Adding custom reminders</i>
       </li>
       <li>
@@ -142,13 +141,7 @@ const ComingSoon = () => (
           <strong>and much more!</strong>
         </i>{' '}
         - Check out our list of planned feature enhancements{' '}
-        <a
-          href="https://github.com/daviseford/aos-reminders/labels/enhancement"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          on our Github!
-        </a>
+        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`}>on our Github!</LinkNewTab>
       </li>
     </ul>
   </div>
@@ -161,7 +154,7 @@ const AlreadySubscribed = () => {
         <Navbar />
       </div>
       <div className="row d-flex justify-content-center align-items-center">
-        <div className="mx-5 my-5 py-5 px-5">
+        <div className="col mx-5 my-5 py-5 px-5">
           <p className="lead text-center">You are already a supporter :) Thanks!</p>
         </div>
       </div>
@@ -177,12 +170,7 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
   return (
     <>
       <figure className="figure">
-        <a
-          href={supportsWebm ? webmUrl : gifUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => logClick(label)}
-        >
+        <LinkNewTab href={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)}>
           <video
             preload="auto"
             loop={true}
@@ -193,8 +181,10 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
             <source src={webmUrl} type="video/mp4"></source>
             <source src={webmUrl} type="video/webm"></source>
           </video>
-        </a>
-        <figcaption className="figure-caption text-center">{description}</figcaption>
+        </LinkNewTab>
+        <figcaption className="figure-caption text-center">
+          <strong>{description}</strong>
+        </figcaption>
       </figure>
     </>
   )

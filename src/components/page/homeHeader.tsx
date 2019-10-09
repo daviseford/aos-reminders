@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
@@ -9,6 +9,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { LinkNewTab } from 'components/helpers/link'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -34,14 +35,24 @@ interface IJumbotronProps {
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
-    resetAllySelections,
-    resetSelections,
-    resetRealmscapeStore,
-    setFactionName,
-    isMobile,
     factionName,
+    isMobile,
+    resetAllySelections,
+    resetRealmscapeStore,
+    resetSelections,
+    setFactionName,
   } = props
-  const { setLoadedArmy } = useSavedArmies()
+  const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+
+  // Get our user's favorite faction from localStorage/API
+  useEffect(() => {
+    getFavoriteFaction()
+  }, [getFavoriteFaction])
+
+  // Set our favorite faction
+  useEffect(() => {
+    if (favoriteFaction) setFactionName(favoriteFaction)
+  }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
@@ -62,9 +73,9 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1">
           By Davis E. Ford -{' '}
-          <a className="text-white" href="https://daviseford.com" target="_blank" rel="noopener noreferrer">
+          <LinkNewTab className="text-white" href="//daviseford.com">
             daviseford.com
-          </a>
+          </LinkNewTab>
         </p>
         <span>This tool offers gameplay reminders for:</span>
         <div className={`d-flex pt-3 pb-2 justify-content-center`}>

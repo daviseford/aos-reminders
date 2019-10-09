@@ -20,8 +20,7 @@ interface IUseParseArgs {
 type TUseParse = (args: IUseParseArgs) => (acceptedFiles: any[]) => void
 
 const arrayBufferToString = buf => {
-  //@ts-ignore
-  return String.fromCharCode.apply(null, new Uint8Array(buf))
+  return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
 const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
@@ -73,11 +72,14 @@ export const handleParseFile: TUseParse = ({
 
         setParser(parser)
 
-        if (parser === 'Unknown') return stopProcessing() && handleError()
+        if (parser === 'Unknown') {
+          logEvent(`Import${parser}`)
+          return stopProcessing() && handleError()
+        }
 
         if (isWarscroll) {
           const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
-          const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
+          const parsedArmy: IImportedArmy = handleWarscroll(fileText as string, file.type)
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
           if (isValidFactionName(parsedArmy.factionName)) {

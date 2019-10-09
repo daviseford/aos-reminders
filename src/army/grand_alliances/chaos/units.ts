@@ -1,16 +1,59 @@
 import { TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
+  {
+    name: `Be'Lakor, Chaos Daemon Prince`,
+    effects: [
+      {
+        name: `Shadow Form`,
+        desc: `This model ignores rend when making save rolls.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `The Dark Master`,
+        desc: `Secretly note down an enemy unit for manipulation. When activated, for one battle round your opponent must roll a dice each time the target attempts to cast a spell, move, charge, or attack. On a 4+, the action can be performed normally otherwise it cannot be completed.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `The Dark Master`,
+        desc: `You may reveal your unit choice. The target is affected by this ability for this battle round. Can only be used once per game.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Lord of Torment`,
+        desc: `If any models within 10" flee, this model heals D3 wounds.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeeble Foe`,
+        desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the wound rolls made by the target in the combat phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeeble Foe`,
+        desc: `If active, subtract 1 from the wound rolls made by the target in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
   {
     name: `Mutalith Vortex Beast`,
     effects: [
@@ -50,6 +93,26 @@ export const MonstersOfChaos: TUnits = [
         name: `Beast Unbound`,
         desc: `If a Slaughterbrute does not have a master on the battlefield in the charge phase, roll a dice. If the result is 3 or less it lashes out at the nearest model, friend or foe, within 3". That model's unit immediately suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Soul Grinder`,
+    effects: [
+      {
+        name: `Daemon Engine of the Dark Gods`,
+        desc: `This unit can be marked with one of the following keywords for the duration of the battle: Khorne, Tzeentch, Nurgle, or Slaanesh.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Implacable Advance`,
+        desc: `A Soul Grinder can shoot even if it ran in the movement phase.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Caught by the Claw`,
+        desc: `Each time a Hellforged Claw attack hits a hero or monster both you and your opponent hide a selected dice face. Upon revealing the dice, if the values match, the target suffers 6 mortal wounds instead of normal weapon damage.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

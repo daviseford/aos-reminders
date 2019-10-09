@@ -36,7 +36,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   const handleLoadClick = async e => {
     e.preventDefault()
 
-    logEvent(`LoadArmy`)
+    logEvent(`LoadArmy-${army.factionName}`)
 
     setLoadedArmy({ id: army.id, armyName: army.armyName })
     setFactionName(army.factionName)
