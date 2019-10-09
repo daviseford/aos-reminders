@@ -1,9 +1,9 @@
 import React from 'react'
-import { NotificationBanner } from 'components/info/notification_banner'
+import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
 
-const OrrukCoSBanner = () => (
+const AppBanner = () => (
   <NotificationBanner name="CoS_WaitingForBook" persistClose={true} variant={'primary'}>
     <strong>Orruk Warclans are updated!</strong>
     <br />
@@ -12,4 +12,4 @@ const OrrukCoSBanner = () => (
   </NotificationBanner>
 )
 
-export default OrrukCoSBanner
+export default AppBanner
