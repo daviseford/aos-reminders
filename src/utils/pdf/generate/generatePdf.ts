@@ -235,7 +235,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
       return
     }
 
-    // What happens if a phase doesn't fit on one page :)
+    // Handle when a phase won't fit on the current page
     let titleIdx = 1
     let nextPhaseIdx: number | undefined = undefined
     if (!!phaseInfo[phaseInfoIdx + 1]) {
