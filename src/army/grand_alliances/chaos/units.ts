@@ -8,9 +8,52 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   TURN_ONE_HERO_PHASE,
+  END_OF_SETUP,
+  START_OF_HERO_PHASE,
+  BATTLESHOCK_PHASE,
 } from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
+  {
+    name: `Be'lakor`,
+    effects: [
+      {
+        name: `Shadow Form`,
+        desc: `This model ignores rend when making save rolls.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `The Dark Master`,
+        desc: `Secretly note down an enemy unit for manipulation. When activated, for one battle round your opponent must roll a dice each time the target attempts to cast a spell, move, charge, or attack. On a 4+, the action can be performed normally otherwise it cannot be completed.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `The Dark Master`,
+        desc: `You may reveal your unit choice. The target is affected by this ability for this battle round. Can only be used once per game.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Lord of Torment`,
+        desc: `If any models within 10" flee, this model heals D3 wounds.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeeble Foe`,
+        desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the wound rolls made by the target in the combat phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Enfeeble Foe`,
+        desc: `If active, subtract 1 from the wound rolls made by the target in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
   {
     name: `Mutalith Vortex Beast`,
     effects: [
