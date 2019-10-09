@@ -296,7 +296,6 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
     })
     if (nextPhaseIdx) textPhaseIdx = nextPhaseIdx
     phaseInfoIdx++
-    // }
   })
 
   // Handle armyText
