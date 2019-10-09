@@ -113,7 +113,7 @@ const PayPalButton = () => {
   const handleClick = useCallback(e => {
     e.preventDefault()
     logClick('DonatePayPal')
-    window.open('https://paypal.me/daviseford')
+    window.open('//paypal.me/daviseford')
   }, [])
 
   return (
