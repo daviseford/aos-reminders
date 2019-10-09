@@ -2,6 +2,7 @@ import React from 'react'
 
 interface ILinkProps {
   url: string
+  onClick?: (...args: any[]) => void
 }
 
 export const LinkNewTab: React.FC<ILinkProps> = ({ url, children, ...props }) => (

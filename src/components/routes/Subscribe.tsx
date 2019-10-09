@@ -5,6 +5,7 @@ import { logPageView, logClick } from 'utils/analytics'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
 import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LinkNewTab } from 'components/helpers/link'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
@@ -139,13 +140,7 @@ const ComingSoon = () => (
           <strong>and much more!</strong>
         </i>{' '}
         - Check out our list of planned feature enhancements{' '}
-        <a
-          href="https://github.com/daviseford/aos-reminders/labels/enhancement"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          on our Github!
-        </a>
+        <LinkNewTab url="//github.com/daviseford/aos-reminders/labels/enhancement">on our Github!</LinkNewTab>
       </li>
     </ul>
   </div>
@@ -174,12 +169,7 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
   return (
     <>
       <figure className="figure">
-        <a
-          href={supportsWebm ? webmUrl : gifUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => logClick(label)}
-        >
+        <LinkNewTab url={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)}>
           <video
             preload="auto"
             loop={true}
@@ -190,7 +180,7 @@ const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, lab
             <source src={webmUrl} type="video/mp4"></source>
             <source src={webmUrl} type="video/webm"></source>
           </video>
-        </a>
+        </LinkNewTab>
         <figcaption className="figure-caption text-center">
           <strong>{description}</strong>
         </figcaption>

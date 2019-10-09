@@ -12,6 +12,7 @@ import { TAllySelectionStore } from 'types/store'
 import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
 import { logClick } from 'utils/analytics'
+import { LinkNewTab } from 'components/helpers/link'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -134,16 +135,12 @@ const ErrorAlert = (props: TImportError) => {
           <br />
           <small>
             Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
-            <a
-              href={'https://github.com/daviseford/aos-reminders/issues'}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={e => {
-                logClick(`failedImport-GithubClick`)
-              }}
+            <LinkNewTab
+              url={'//github.com/daviseford/aos-reminders/issues'}
+              onClick={e => logClick(`failedImport-GithubClick`)}
             >
               Github
-            </a>{' '}
+            </LinkNewTab>{' '}
             and be sure to attach this file.
           </small>
         </div>
