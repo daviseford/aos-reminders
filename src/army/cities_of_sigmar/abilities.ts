@@ -1,12 +1,22 @@
-import { HERO_PHASE } from 'types/phases'
+import { START_OF_HERO_PHASE, HERO_PHASE, DURING_GAME, DURING_ROUND } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
   {
-    name: ``,
-    desc: ``,
+    name: `Amplified Sorceries`,
+    desc: `If a CITIES OF SIGMAR WIZARD casts an endless spell that is empowered by being cast in a specific realm, that spell is counted as empowered regardless of the realm in which the battle is taking place.`,
     when: [HERO_PHASE],
+  },
+  {
+    name: `Loyal Shields`,
+    desc: `If your general is within 3" of their retinue, roll a dice before allocating a wound or mw to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Wise Council`,
+    desc: `If your general is within 3" of their adjutant, roll a dice. On a 4+ receive 1 extra command point.`,
+    when: [START_OF_HERO_PHASE],
   },
 ]
 

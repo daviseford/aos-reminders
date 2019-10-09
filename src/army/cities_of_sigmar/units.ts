@@ -1541,12 +1541,72 @@ export const AlliedUnits: TUnits = []
 // Battalions
 export const Battalions: TBattalions = [
   {
-    name: ``,
+    name: `Hammerhalian Lancers`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Glorious Cavalry Charge`,
+        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by units from this battalion that made a charge move in the same turn and are wholly within 18" of the Freeguild General on Griffon from the same battalion.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Viridian Pathfinders`,
+    effects: [
+      {
+        name: `Masters of Ambush`,
+        desc: `Add 1 to charge rolls for friendly units from this battalion if they used the Hunters of the Hidden Paths battle trait to setup on the battlefield in the same turn.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Greywater Artillery Company`,
+    effects: [
+      {
+        name: `A Greywater Welcome`,
+        desc: `In your shooting phase in the first battleround, friendly WARMACHINES from this battalion can shoot twice if they are within 6" of a friendly HERO from this battalion and are not within 3" of any enemy units.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Whitefire Retinue`,
+    effects: [
+      {
+        name: `Triarch Covenant`,
+        desc: `Add 1 to casting and unbinding rolls for friendly WIZARDS from this battalion while they are within 6" of another friendly model from the same battalion.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aetherguard Windrunners`,
+    effects: [
+      {
+        name: `Swift Like the Wind`,
+        desc: `Units from this battalion can retreat and still shoot and/or charge later in the same turn.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Charrwind Beasthunters`,
+    effects: [
+      {
+        name: `Beasthunters`,
+        desc: `+1 to wound for attacks made by units in this battalion against an enemy MONSTER.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Phoenix Flight`,
+    effects: [
+      {
+        name: `Golden Aura of the Phoenicium`,
+        desc: `Heal 1 wound allocated to each friendly PHOENICIUM unit wholly within 12" of any units from this battalion.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
