@@ -1,21 +1,21 @@
 import { TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  TURN_ONE_HERO_PHASE,
-  END_OF_SETUP,
   START_OF_HERO_PHASE,
-  BATTLESHOCK_PHASE,
+  TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
 export const MonstersOfChaos: TUnits = [
   {
-    name: `Be'lakor`,
+    name: `Be'lakor, Chaos Daemon Prince`,
     effects: [
       {
         name: `Shadow Form`,
