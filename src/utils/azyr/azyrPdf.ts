@@ -54,8 +54,10 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
       .join(' ')
 
     const pdfPages = [result]
-    const isWarscroll = pdfPages.some(x => x.includes('Warscroll Builder'))
-    const isAzyr = isWarscroll ? false : checkIfAzyr(pdfPages)
+    const isAzyr = checkIfAzyr(pdfPages)
+    const isWarscroll = isAzyr
+      ? false
+      : pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
     const parser: TImportParsers = isWarscroll ? 'Warscroll Builder' : isAzyr ? 'Azyr' : 'Unknown'
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)

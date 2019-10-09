@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
@@ -34,14 +34,24 @@ interface IJumbotronProps {
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
-    resetAllySelections,
-    resetSelections,
-    resetRealmscapeStore,
-    setFactionName,
-    isMobile,
     factionName,
+    isMobile,
+    resetAllySelections,
+    resetRealmscapeStore,
+    resetSelections,
+    setFactionName,
   } = props
-  const { setLoadedArmy } = useSavedArmies()
+  const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+
+  // Get our user's favorite faction from localStorage/API
+  useEffect(() => {
+    getFavoriteFaction()
+  }, [getFavoriteFaction])
+
+  // Set our favorite faction
+  useEffect(() => {
+    if (favoriteFaction) setFactionName(favoriteFaction)
+  }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)

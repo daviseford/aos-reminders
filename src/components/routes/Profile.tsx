@@ -10,6 +10,11 @@ import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
 import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
 import { Link } from 'react-router-dom'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { withSelectOne } from 'utils/withSelect'
+import { SelectOne } from 'components/input/select'
+import { titleCase } from 'utils/textUtils'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -39,9 +44,11 @@ const Profile: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="row d-flex justify-content-center">
-        <div className={userCardWrapperClass}>
-          <UserCard />
+      <div className="container px-0">
+        <div className="row d-flex justify-content-center">
+          <div className={userCardWrapperClass}>
+            <UserCard />
+          </div>
         </div>
       </div>
     </div>
@@ -55,20 +62,64 @@ const UserCard: React.FC = () => {
   const { isActive, isSubscribed, isCanceled, subscription } = useSubscription()
 
   return (
-    <div className="py-4">
+    <div className="col py-4 text-center">
       <h1 className="text-center">Your Profile</h1>
+      <FavoriteArmySelect />
+      <SubscriptionInfo
+        subscription={subscription}
+        isCanceled={isCanceled}
+        isSubscribed={isSubscribed}
+        isActive={isActive}
+      />
+      {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
+      <EmailVerified email_verified={user.email_verified} email={user.email} />
+      <Help />
+    </div>
+  )
+}
 
-      <div className="media">
-        <div className="media-body text-center">
-          <SubscriptionInfo
-            subscription={subscription}
-            isCanceled={isCanceled}
-            isSubscribed={isSubscribed}
-            isActive={isActive}
-          />
-          {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
-          <EmailVerified email_verified={user.email_verified} email={user.email} />
-          <Help />
+const FavoriteArmySelect = () => {
+  const { isActive } = useSubscription()
+  const { favoriteFaction, updateFavoriteFaction, getFavoriteFaction } = useSavedArmies()
+
+  useEffect(() => {
+    if (!isActive) return
+    getFavoriteFaction()
+  }, [getFavoriteFaction, isActive])
+
+  return (
+    <div className="card mt-2">
+      <div className={cardHeaderClass}>
+        <h4>
+          <div className={btnContentWrapper}>Favorite Faction</div>
+        </h4>
+      </div>
+
+      <div className="card-body">
+        <div className={`d-flex justify-content-center`}>
+          <div className="col-12 col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-dark text-left">
+            {isActive ? (
+              <SelectOne
+                value={favoriteFaction ? titleCase(favoriteFaction) : null}
+                items={SUPPORTED_FACTIONS}
+                setValue={withSelectOne(updateFavoriteFaction)}
+                hasDefault={true}
+                toTitle={true}
+              />
+            ) : (
+              <div className="alert alert-info text-center mt-3" role="alert">
+                <Link to="/subscribe" onClick={() => logClick('SubscribeFavoriteFaction')}>
+                  Subscribe now
+                </Link>{' '}
+                to save your favorite faction!
+                <br />
+                <small>
+                  No more scrolling through the long list of armies when you visit - your favorite is
+                  automatically loaded!
+                </small>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -80,14 +131,14 @@ interface ICancelBtnProps {
 }
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isSubscribed, isActive, isCanceled } = useSubscription()
+  const { isActive, isCanceled } = useSubscription()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isSubscribed || !isActive || isCanceled) return null
+  if (!isActive || isCanceled) return null
 
   return (
     <>
@@ -106,7 +157,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         <h4>
           <div className={btnContentWrapper}>
             Subscription Status:{' '}
-            {isSubscribed && isActive ? (
+            {isActive ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -115,17 +166,15 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         </h4>
       </div>
 
-      {isSubscribed && isActive && (
+      {isActive && (
         <div className="card-body">
           <h5 className="lead">
             Subscription Start:{' '}
-            {DateTime.fromSeconds(subscription.subscriptionCreated as number).toLocaleString(
-              DateTime.DATE_MED
-            )}
+            {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
           </h5>
           <h5 className="lead">
             Subscription End:{' '}
-            {DateTime.fromSeconds(subscription.subscriptionCreated as number)
+            {DateTime.fromSeconds(subscription.subscriptionStart as number)
               .plus({
                 [`${subscription.planInterval}s`]: subscription.planIntervalCount,
               })

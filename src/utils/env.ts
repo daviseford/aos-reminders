@@ -17,3 +17,5 @@ export const STRIPE_KEY = isProd
   : 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
 
 export const BASE_URL = isProd ? `https://aosreminders.com` : `http://localhost:3000`
+
+export const SUBSCRIPTION_AUTH_KEY = 'b5bef450-e624-11e9-81b4-2a2ae2dbcce4'
