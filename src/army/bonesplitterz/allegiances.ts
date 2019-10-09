@@ -12,14 +12,13 @@ import {
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
-// Grand Courts, Hosts, Clans, Glades, Lodges, etc
 const Allegiances: TAllegiances = [
   {
     name: `Bonegrinz Clan`,
     effects: [
       {
         name: `Bring it On!`,
-        desc: `Enemy units within 12" of your units must attempt and finish a charge move if they are able. Enemy units wihtin 3" of your units cannot choose to retreat.`,
+        desc: `Enemy units within 12" of your units must attempt and finish a charge move if they are able. Enemy units within 3" of your units cannot choose to retreat.`,
         when: [CHARGE_PHASE],
       },
       {

@@ -144,7 +144,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit wihtin 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -268,7 +268,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dead Sneaky`,
-        desc: `Pick one unit from the Kunnin' Rukk that is wholly wihtin 12" of the battalion's Big Boss. That unit can move as if it were the movement phase, or shoot as if it were the shooting phase. Units in this battalion cannot have more than 20 models.`,
+        desc: `Pick one unit from the Kunnin' Rukk that is wholly within 12" of the battalion's Big Boss. That unit can move as if it were the movement phase, or shoot as if it were the shooting phase. Units in this battalion cannot have more than 20 models.`,
         when: [HERO_PHASE],
       },
     ],
