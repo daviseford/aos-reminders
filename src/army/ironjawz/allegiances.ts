@@ -22,7 +22,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Alright - Get 'Em`,
-        desc: `Use at the end of the enemy charge phase, pick 1 friendly unit that is between 3" and 12" of an enemy unit and wholly wihtin 18" of a friendly hero, that unit can charge.`,
+        desc: `Use at the end of the enemy charge phase, pick 1 friendly unit that is between 3" and 12" of an enemy unit and wholly within 18" of a friendly hero, that unit can charge.`,
         when: [END_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -49,7 +49,7 @@ const Allegiances: TAllegiances = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Breakthrough da line`,
+        name: `Break Through da Line`,
         desc: `Pick a friendly unit that's already fought wholly within 24" of a hero, that unit can make a normal move but can't retreat or run.`,
         when: [COMBAT_PHASE],
         command_ability: true,

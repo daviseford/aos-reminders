@@ -87,7 +87,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Master of the Weird`,
-        desc: `This general gains +1 to casting and unbinding attempts.`,
+        desc: `This general gains +1 to casting, dispelling, and unbinding attempts.`,
         when: [HERO_PHASE],
       },
     ],
@@ -127,7 +127,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mean 'Un`,
-        desc: `Add +1 to the damage characteristic of this model's Mighty Fists and Tail attacks.`,
+        desc: `Add 1 to the damage characteristic of this model's Mighty Fists and Tail attacks.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -147,7 +147,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Loud 'Un`,
-        desc: `Once per battle, give -1 to hit for enemies withint 3".`,
+        desc: `Once per battle, give -1 to hit for enemies within 3".`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -157,7 +157,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Weird 'Un`,
-        desc: `Ignore spell and endless spell effects on this model with a dice roll of a 4+.`,
+        desc: `You may ignore spell and endless spell effects on this model with a dice roll of a 4+.`,
         when: [HERO_PHASE],
       },
     ],

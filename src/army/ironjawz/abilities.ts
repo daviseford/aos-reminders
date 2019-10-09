@@ -26,7 +26,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Ironjawz Waaaagh!`,
-    desc: `You can use this command ability once per battle at the start of your combat phase if your army has a MEGABOSS' general, count up all the units that are wholly within 18" of your general and roll a dice. Add the number of units to the dice roll, on an 11 or lower, all friendly Ironjawz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
+    desc: `You can use this command ability once per battle at the start of your combat phase if your army has a MEGABOSS' general, Roll a dice and add all the units that are wholly within 18" of your general. On an 11 or lower, all friendly Ironjawz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
     when: [START_OF_COMBAT_PHASE],
     command_ability: true,
   },

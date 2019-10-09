@@ -144,7 +144,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit wihtin 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -243,7 +243,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Waaagh! Stomp`,
-        desc: `Add 1 to any wound rolls for Morboys if its unit is wihtin 12" of at least two Wardokks from this battalion.`,
+        desc: `Add 1 to any wound rolls for Morboys if its unit is within 12" of at least two Wardokks from this battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -273,7 +273,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dead Sneaky`,
-        desc: `Pick one unit from the Kunnin' Rukk that is wihtin 10" of the battalion's Big Boss. That unit can move as if it were the movement phase (it is allowed to run), shoot as if it were the shooting phase, or pile in and attack as if it were the combat phase if within 3" of an enemy.`,
+        desc: `Pick one unit from the Kunnin' Rukk that is within 10" of the battalion's Big Boss. That unit can move as if it were the movement phase (it is allowed to run), shoot as if it were the shooting phase, or pile in and attack as if it were the combat phase if within 3" of an enemy.`,
         when: [HERO_PHASE],
       },
     ],

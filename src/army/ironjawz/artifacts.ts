@@ -1,5 +1,4 @@
 import { TArtifacts } from 'types/army'
-
 import {
   COMBAT_PHASE,
   BATTLESHOCK_PHASE,

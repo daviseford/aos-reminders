@@ -218,8 +218,8 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Green-skinned Battering Ram`,
-        desc: `In your hero phase, units from the battalion within 10" of its Brute Big Boss (including his own unit) can make a charge move as if it were the charge phase. If the charge is successful, pick one enemy unit within 3" of the unit that charged; it suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
+        desc: `After a model from this battalion makes a charge move, pick 1 enemy unit within 1" of each model and roll a dice. On a 4+ that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -232,8 +232,8 @@ export const Battalions: TBattalions = [
         when: [DURING_GAME],
       },
       {
-        name: `Gore-grunta Formations`,
-        desc: `If all of the battalion's units are set up within 10" of the Big Boss' unit, all of the units in the battalion may make a move of 15" in the hero phase of their first turn. The move is made as if it were the movement phase, except that the units cannot run. It does not stop the units from moving again normally later in the turn. After the first turn, the formation dissolves, and the normal rules apply for the rest of the battle.`,
+        name: `Da Boss's Big Idea`,
+        desc: `Each unit from this battalion that is wholly within 18" of the Big Boss can make a normal move, but cannot run, in the hero phase.`,
         when: [TURN_ONE_HERO_PHASE],
       },
     ],
@@ -247,8 +247,8 @@ export const Battalions: TBattalions = [
         when: [DURING_GAME],
       },
       {
-        name: `'Ere We Go! 'Ere We Go! 'Ere We Go!`,
-        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, roll a D6. Each unit from the same battalion can make a normal move of up to a number of inches equal to the roll (they cannot run or retreat).`,
+        name: `Up and At'Em`,
+        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, the Big Boss may use the Mighty Destroyers command ability as if they were a Megaboss and without spending a command point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -258,8 +258,8 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Weird Energy`,
-        desc: `Roll one dice for each unit from the battalion that is within 10" of the Weirdnob when an Arcane Bolt, Green Puke, of Foot of Gork spell is successfully cast. Add 6" to the spell's range for each of these dice that rolls 1-3, and add 1 to the mortal wounds inflicted by the spell for each roll of 4-6. If the spell inflicts mortal wounds more than once, add the bonus each time!`,
-        when: [HERO_PHASE],
+        desc: `If the Weirdknob Shaman from this battalion is wholly within 18" of 2 or more units from the same battalion that each have 10 or more models, it can use its Brutal Power ability twice instead of only once.`,
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
