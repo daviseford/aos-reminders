@@ -3,6 +3,7 @@ import { hideNotificationBanner, getNotificationBanner } from 'utils/localStore'
 
 interface IBannerProps {
   name: string
+  variant?: TAlertTypes
   persistClose?: boolean
 }
 
@@ -12,7 +13,7 @@ interface IBannerProps {
  * @param props
  */
 export const NotificationBanner: React.FC<IBannerProps> = props => {
-  const { name, persistClose = true, children } = props
+  const { name, variant = 'primary', persistClose = true, children } = props
   const isHidden = persistClose ? getNotificationBanner(name) === 'hidden' : false
   const [isOn, setIsOn] = useState(!isHidden)
 
@@ -25,7 +26,7 @@ export const NotificationBanner: React.FC<IBannerProps> = props => {
 
   return (
     <div className="mb-2">
-      <div className={`alert alert-primary text-center fade show d-flex`} role="alert">
+      <div className={`alert alert-${variant} text-center fade show d-flex`} role="alert">
         <div className={`flex-grow-1`}>{children}</div>
         <div className={`align-self-start ml-2`}>
           <button type="button" className="close" aria-label="Close" onClick={handleClose}>
@@ -36,3 +37,5 @@ export const NotificationBanner: React.FC<IBannerProps> = props => {
     </div>
   )
 }
+
+type TAlertTypes = 'primary' | 'secondary' | 'danger' | 'info' | 'warning' | 'success' | 'light' | 'dark'

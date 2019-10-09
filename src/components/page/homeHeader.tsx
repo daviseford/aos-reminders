@@ -9,6 +9,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { LinkNewTab } from 'components/helpers/link'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -72,9 +73,9 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1">
           By Davis E. Ford -{' '}
-          <a className="text-white" href="https://daviseford.com" target="_blank" rel="noopener noreferrer">
+          <LinkNewTab className="text-white" href="//daviseford.com">
             daviseford.com
-          </a>
+          </LinkNewTab>
         </p>
         <span>This tool offers gameplay reminders for:</span>
         <div className={`d-flex pt-3 pb-2 justify-content-center`}>
