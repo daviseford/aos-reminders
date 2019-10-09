@@ -15,7 +15,7 @@ import {
 
 export const MonstersOfChaos: TUnits = [
   {
-    name: `Be'lakor, Chaos Daemon Prince`,
+    name: `Be'Lakor, Chaos Daemon Prince`,
     effects: [
       {
         name: `Shadow Form`,
