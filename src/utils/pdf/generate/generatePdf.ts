@@ -222,13 +222,8 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
       if (!currentPhaseInfo) return console.log('Done processing phases')
     }
 
-    if (currentPhaseInfo.canFitOnPage) {
-      // If it won't fit on this page, move it to the next page, and reset the y value
-      if (y + currentPhaseInfo.yHeight >= pageBottom) {
-        pageIdx++
-        pages.push([])
-        y = getInitialXY()[1]
-      }
+    // If it can fit on this page, do it
+    if (y + currentPhaseInfo.yHeight < pageBottom) {
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
       const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
@@ -238,66 +233,70 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
       textPhaseIdx = nextPhaseIdx
       phaseInfoIdx++
       return
+    }
+
+    // What happens if a phase doesn't fit on one page :)
+    let titleIdx = 1
+    let nextPhaseIdx: number | undefined = undefined
+    if (!!phaseInfo[phaseInfoIdx + 1]) {
+      nextPhaseIdx = findIndex(allText, x => x.text === phaseInfo[phaseInfoIdx + 1].phase)
+    }
+
+    const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
+    const phase = objs.shift() as IText
+
+    const numTitles = objs.filter(x => x.type === 'title').length
+
+    // Handle first action
+    let nextTitleIdx = findIndex(objs, x => x.type === 'title', 2)
+    let firstAction = slice(objs, 0, nextTitleIdx)
+    let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
+
+    let titleSpace: IText = {
+      type: 'titlespacer',
+      text: '',
+    }
+
+    if (y + firstActionYHeight + ySpacing >= pageBottom) {
+      // Go to next page
+      pageIdx = pageIdx + 1
+      pages.push([])
+      y = getInitialXY()[1] + firstActionYHeight
+      pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
+      titleIdx = nextTitleIdx
     } else {
-      // What happens if a phase doesn't fit on one page :)
-      let titleIdx = 1
-      const nextPhaseIdx = findIndex(allText, x => x.text === phaseInfo[phaseInfoIdx + 1].phase)
+      // Put on this page
+      y = y + firstActionYHeight
+      pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
+      titleIdx = nextTitleIdx
+    }
 
-      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-      const phase = objs.shift() as IText
+    range(0, numTitles - 1).forEach(i => {
+      nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
+      let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
+      let itemsYHeight = sum(items.map(x => Styles[x.type].spacing))
 
-      const numTitles = objs.filter(x => x.type === 'title').length
-
-      // Handle first action
-      let nextTitleIdx = findIndex(objs, x => x.type === 'title', 1)
-      let firstAction = slice(objs, 0, nextTitleIdx)
-      let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
-
-      let titleSpace: IText = {
-        type: 'titlespacer',
-        text: '',
-      }
-
-      if (y + firstActionYHeight + ySpacing >= pageBottom) {
-        // Go to next page
-        pageIdx = pageIdx + 1
+      if (y + itemsYHeight + ySpacing >= pageBottom) {
+        // Go to next page, with the phase
+        let phaseContinued: IText = {
+          ...phase,
+          text: `${phase.text} (continued)`,
+        }
+        pageIdx++
         pages.push([])
-        y = getInitialXY()[1] + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
+        y = getInitialXY()[1] + itemsYHeight + Styles.phase.spacing
+        pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
         titleIdx = nextTitleIdx
       } else {
         // Put on this page
-        y = y + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
+        y = y + itemsYHeight
+        pages[pageIdx] = pages[pageIdx].concat(items)
         titleIdx = nextTitleIdx
       }
-
-      range(0, numTitles - 1).forEach(i => {
-        nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
-        let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
-        let itemsYHeight = sum(items.map(x => Styles[x.type].spacing))
-
-        if (y + itemsYHeight + ySpacing >= pageBottom) {
-          // Go to next page, with the phase
-          let phaseContinued: IText = {
-            ...phase,
-            text: `${phase.text} (continued)`,
-          }
-          pageIdx++
-          pages.push([])
-          y = getInitialXY()[1] + itemsYHeight + Styles.phase.spacing
-          pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
-          titleIdx = nextTitleIdx
-        } else {
-          // Put on this page
-          y = y + itemsYHeight
-          pages[pageIdx] = pages[pageIdx].concat(items)
-          titleIdx = nextTitleIdx
-        }
-      })
-      textPhaseIdx = nextPhaseIdx
-      phaseInfoIdx++
-    }
+    })
+    if (nextPhaseIdx) textPhaseIdx = nextPhaseIdx
+    phaseInfoIdx++
+    // }
   })
 
   // Handle armyText
