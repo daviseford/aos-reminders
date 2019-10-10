@@ -105,9 +105,9 @@ describe('getAzyrArmyFromPdf', () => {
       traits: ['Seat on the Council (Greywater Fastness)'],
       triumphs: [],
       units: [
-        'Luminark of Hysh with White Battlemage',
-        'Freeguild General on Griffon',
         'Freeguild General',
+        'Freeguild General on Griffon',
+        'Luminark of Hysh with White Battlemage',
         'Sorceress on Black Dragon',
         'Steam Tank with Commander',
         'Freeguild Handgunners',
@@ -115,7 +115,6 @@ describe('getAzyrArmyFromPdf', () => {
         'War Hydra',
         'Helblaster Volley Gun',
         'Helstorm Rocket Battery',
-        'Knight-Azyros',
       ],
     })
   })

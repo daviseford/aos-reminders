@@ -733,7 +733,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Hellstorm Rocket Battery`,
+    name: `Helstorm Rocket Battery`,
     effects: [
       {
         name: `Rocket Salvo`,
