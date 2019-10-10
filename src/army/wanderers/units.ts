@@ -79,7 +79,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blessing of Life`,
-        desc: `The Spellweaver speaks in the tongue of ancient days, restoring life to the fallen. Blessing of Life has a casting value of 5. If successfully cast, select a Wanderers unit within 16". You can return D3 slain models to that unit.`,
+        desc: `Casting value of 5. Select a Wanderers unit within 16". You can return D3 slain models to that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -183,7 +183,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shield of Thorns`,
-        desc: `The Sisters cause crawling brambles to burst from the ground and form a living barrier around their allies. Shield of Thorns has a casting value of 6. If successfully cast, pick a unit within 18". You can re-roll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
+        desc: `Casting value of 6. Pick a unit within 18". You can re-roll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -214,7 +214,7 @@ export const Units: TUnits = [
       },
       {
         name: `Eldritch Arrowsr`,
-        desc: `Creatures of Chaos cannot abide the magical flames of these enchanted arrows. You can add 1 to any wound roll made when a Sister of the Watch targets a Chaos unit with her Watch Bow.`,
+        desc: `You can add 1 to any wound roll made when a Sister of the Watch targets a Chaos unit with her Watch Bow.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -259,7 +259,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Guardians of the Kindreds`,
-        desc: `The Wildwood Rangers have had cause to master the art of hunting monstrous creatures that roam the wildwoods. Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
+        desc: `Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -288,12 +288,12 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Realm Wanderers`,
-        desc: `Waystone Pathfinders have travelled the realms for countless years and know many hidden paths. Instead of setting up units in this battalion on the battlefield, you can place them to one side. In your first movement phase, set up all of these wholly within 6" of the edges of the battlefield, and more than 9" from any enemy models. This is each unit's move for that movement phase.`,
+        desc: `Instead of setting up units in this battalion on the battlefield, you can place them to one side. In your first movement phase, set up all of these wholly within 6" of the edges of the battlefield, and more than 9" from any enemy models. This is each unit's move for that movement phase.`,
         when: [DURING_SETUP],
       },
       {
         name: `Protective Volley`,
-        desc: `Perhaps the greatest weapon of the Waystone Pathfinders lies in their ability to cut down any foes that draw close eonugh to threaten their leader with devastatingly effective volleys of bow-fire. In your hero phase, pick one enemy unity within 12" of the battalions Nomad Prince. All other Waystone Pathfinder units can immediately make a shooting attack against the unit as if it were the shooting phase.`,
+        desc: `In your hero phase, pick one enemy unit within 12" of the battalions Nomad Prince. All other Waystone Pathfinder units can immediately make a shooting attack against the unit as if it were the shooting phase.`,
         when: [DURING_SETUP],
       },
     ],

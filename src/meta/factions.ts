@@ -6,6 +6,7 @@ export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export type TBigWaaagh = 'BIG_WAAAGH'
 export type TBonesplitterz = 'BONESPLITTERZ'
 export type TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
+export type TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export type TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
 export type TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
@@ -48,6 +49,7 @@ export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
 export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
 export const CHAOS_GRAND_ALLIANCE: TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
+export const CITIES_OF_SIGMAR: TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DEATH_GRAND_ALLIANCE: TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
 export const DESTRUCTION_GRAND_ALLIANCE: TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
@@ -91,6 +93,7 @@ export type TSupportedFaction =
   | TBigWaaagh
   | TBonesplitterz
   | TChaosGrandAlliance
+  | TCitiesOfSigmar
   | TDaughtersOfKhaine
   | TDeathGrandAlliance
   | TDestructionGrandAlliance
@@ -133,6 +136,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   BIG_WAAAGH,
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,

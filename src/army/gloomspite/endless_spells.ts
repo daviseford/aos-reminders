@@ -7,7 +7,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Malevolent Moon`,
-        desc: `Casting value of 6. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. If successfully cast, set up a Malevolent Moon model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. Set up a Malevolent Moon model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -37,7 +37,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Mork's Mighty Mushroom`,
-        desc: `Casting value of 6. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. If successfully cast, set up a Mork's Mighty Mushroom model wholly within 6D6" of the caster.`,
+        desc: `Casting value of 6. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. Set up a Mork's Mighty Mushroom model wholly within 6D6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -52,7 +52,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Scrapskuttle's Arachnacauldron`,
-        desc: `Casting value of 5. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. If successfully cast, set up a Scrapskuttle's Arachnacauldron model within 1" of the caster. As long as the Scrapskuttle's Arachnacauldron is not dispelled, the caster and the Scrapskuttle's Arachnacauldron are treated as being a single model from the caster's army that uses the caster's warscroll as well as the Endless Spells rules. The Scrapskuttle's Arachnacauldron must remain within 1" of the caster. If the caster is slain, then the Scrapskuttle's Arachnacauldron is immediately dispelled and removed from play along with the caster.`,
+        desc: `Casting value of 5. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. Set up a Scrapskuttle's Arachnacauldron model within 1" of the caster. As long as the Scrapskuttle's Arachnacauldron is not dispelled, the caster and the Scrapskuttle's Arachnacauldron are treated as being a single model from the caster's army that uses the caster's warscroll as well as the Endless Spells rules. The Scrapskuttle's Arachnacauldron must remain within 1" of the caster. If the caster is slain, then the Scrapskuttle's Arachnacauldron is immediately dispelled and removed from play along with the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -72,7 +72,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Scuttletide`,
-        desc: `Casting value of 7. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. Add 1 to casting rolls for this spell if the caster is a SPIDERFANG WIZARD . If successfully cast, set up a Scuttletide model wholly within 6" of a terrain feature.`,
+        desc: `Casting value of 7. Only GLOOMSPITE GITZ WIZARDS can attempt to cast this spell. Add 1 to casting rolls for this spell if the caster is a SPIDERFANG WIZARD . Set up a Scuttletide model wholly within 6" of a terrain feature.`,
         when: [HERO_PHASE],
       },
       {
