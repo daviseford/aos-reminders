@@ -1,5 +1,12 @@
 import { TTraits } from 'types/army'
-import { HERO_PHASE, COMBAT_PHASE, DURING_GAME } from 'types/phases'
+import {
+  HERO_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  START_OF_HERO_PHASE,
+  SHOOTING_PHASE,
+  MOVEMENT_PHASE,
+} from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
@@ -59,6 +66,36 @@ const CommandTraits: TTraits = [
         name: `Druid of the Everspring`,
         desc: `If this general is a WIZARD, they know all spells from the Lore of Leaves instead of only 1. If this general is not a WIZARD, they know 1 spell from the Lore of Leaves.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seat on the Council (Greywater Fastness)`,
+    effects: [
+      {
+        name: `Seat on the Council (Greywater Fastness)`,
+        desc: `At the start of your hero phase, if this general is on the battlefield,roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Drillmaster (Greywater Fastness)`,
+    effects: [
+      {
+        name: `Drillmaster (Greywater Fastness)`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by friendly GREYWATER FASTNESS units that are wholly within 12" of this general while this general is more than 3" away from any enemy units.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ghoul Mere Ranger (Greywater Fastness)`,
+    effects: [
+      {
+        name: `Ghoul Mere Ranger (Greywater Fastness)`,
+        desc: `Friendly units wholly within 12" of this general can run and still shoot later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
