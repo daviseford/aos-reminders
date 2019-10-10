@@ -1,4 +1,4 @@
-import { HERO_PHASE, COMBAT_PHASE, CHARGE_PHASE } from 'types/phases'
+import { COMBAT_PHASE, CHARGE_PHASE, DURING_GAME, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -18,6 +18,17 @@ const Abilities: TAbilities = [
     name: `Eager for Battle`,
     desc: `Add 1 to charge rolls for friendly IRONJAWZ units.`,
     when: [CHARGE_PHASE],
+  },
+  {
+    name: `Mad as Hell`,
+    desc: `At the end of any phase, if any wounds or mortal wounds have been inflicted in that phase on an IRONJAWZ unit that is more than 9" from any enemy units, that IRONJAWZ unit can move D6".`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Ironjawz Waaaagh!`,
+    desc: `You can use this command ability once per battle at the start of your combat phase if your army has a MEGABOSS' general, Roll a dice and add all the units that are wholly within 18" of your general. On an 11 or lower, all friendly Ironjawz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
+    when: [START_OF_COMBAT_PHASE],
+    command_ability: true,
   },
 ]
 

@@ -87,6 +87,8 @@ const FavoriteArmySelect = () => {
     getFavoriteFaction()
   }, [getFavoriteFaction, isActive])
 
+  const colClass = `col-12${isActive ? ` col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-dark text-left` : ``}`
+
   return (
     <div className="card mt-2">
       <div className={cardHeaderClass}>
@@ -97,7 +99,7 @@ const FavoriteArmySelect = () => {
 
       <div className="card-body">
         <div className={`d-flex justify-content-center`}>
-          <div className="col-12 col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-dark text-left">
+          <div className={colClass}>
             {isActive ? (
               <SelectOne
                 value={favoriteFaction ? titleCase(favoriteFaction) : null}
