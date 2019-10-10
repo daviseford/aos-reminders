@@ -189,7 +189,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Luminark of Hysh (with Battlemage)`,
+    name: `Luminark of Hysh with White Battlemage`,
     effects: [
       {
         name: `Aura of Protection`,
