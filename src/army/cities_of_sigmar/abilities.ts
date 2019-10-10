@@ -1,4 +1,4 @@
-import { START_OF_HERO_PHASE, HERO_PHASE, DURING_GAME, DURING_ROUND } from 'types/phases'
+import { START_OF_HERO_PHASE, HERO_PHASE, DURING_GAME } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)

@@ -488,7 +488,7 @@ export const Units: TUnits = [
       },
       {
         name: `Trumpeter`,
-        desc: `Add 1 to run and charge rolls for units that include any Trumpeters.`,
+        desc: `Add 1 to charge rolls for units that include any Trumpeters.`,
         when: [DURING_GAME],
       },
       {
