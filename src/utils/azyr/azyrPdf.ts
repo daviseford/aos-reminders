@@ -122,6 +122,7 @@ const handleItem = (text: string): string[] => {
     .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
     .replace(spellRegexp, 'Spell:')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
+    .replace(/Battle Trait/g, 'Command Trait')
     .replace(markRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
