@@ -20,6 +20,7 @@ import BoC1 from './fixtures/azyr/json/BoC1.json'
 import CoS1 from './fixtures/azyr/json/CoS1.json'
 import CoS2 from './fixtures/azyr/json/CoS2.json'
 import CoS3 from './fixtures/azyr/json/CoS3.json'
+import CoS4 from './fixtures/azyr/json/CoS4.json'
 import DoK2 from './fixtures/azyr/json/DoK2.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
@@ -125,6 +126,23 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
     expect(res.selections.traits).toEqual(['Aggressive General (Hammerhal)'])
+  })
+
+  it('handles CoS4', () => {
+    const pages = handleAzyrPages(CoS4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections).toEqual({
+      allegiances: ['Anvilgard'],
+      artifacts: ['Venomfang Blade (Anvilgard)'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Sap Strength (Anvilgard)'],
+      traits: ['Blackfang Crimelord (Anvilgard)', 'Hidden Agents (Anvilgard Battle Trait)'],
+      triumphs: [],
+      units: ['Battlemage on Griffon', 'Freeguild Handgunners', 'War Hydra'],
+    })
   })
 
   it('handles KO5', () => {

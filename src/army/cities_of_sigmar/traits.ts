@@ -154,6 +154,36 @@ const CommandTraits: TTraits = [
     ],
   },
   {
+    name: `Black Market Bounty (Anvilgard Battle Trait)`,
+    effects: [
+      {
+        name: `Black Market Bounty (Anvilgard Battle Trait)`,
+        desc: `1 additional friendly ANVILGARD HERO can bear an artefact of power from the Anvilgard Artefacts of Power table.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Dabblings in Sorcery (Anvilgard Battle Trait)`,
+    effects: [
+      {
+        name: `Dabblings in Sorcery (Anvilgard Battle Trait)`,
+        desc: `1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA can have a Drakeblood curse from the Drakeblood Curses table.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Hidden Agents (Anvilgard Battle Trait)`,
+    effects: [
+      {
+        name: `Hidden Agents (Anvilgard Battle Trait)`,
+        desc: `You receive D3 extra command points.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
     name: `Secretive Warlock (Anvilgard)`,
     effects: [
       {

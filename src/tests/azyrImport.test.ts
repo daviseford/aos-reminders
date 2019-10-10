@@ -10,6 +10,7 @@ import Chaos2 from './fixtures/azyr/json/Chaos2.json'
 import CoS1 from './fixtures/azyr/json/CoS1.json'
 import CoS2 from './fixtures/azyr/json/CoS2.json'
 import CoS3 from './fixtures/azyr/json/CoS3.json'
+import CoS4 from './fixtures/azyr/json/CoS4.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
@@ -167,6 +168,23 @@ describe('handleAzyrPages', () => {
       'UPGRADE: Lordling',
       'UPGRADE: Standard Bearer',
       'UPGRADE: Hornblower',
+    ])
+  })
+
+  it('handles CoS4', () => {
+    const res = handleAzyrPages(CoS4)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Anvilgard',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Battlemage on Griffon',
+      'ARTEFACT: Venomfang Blade',
+      'COMMAND TRAIT: Blackfang Crimelord',
+      'SPELL: Sap Strength',
+      'COMMAND TRAIT: Hidden Agents',
+      'UNIT: Freeguild Handgunners',
+      'UPGRADE: Marksman',
+      'UNIT: War Hydra',
     ])
   })
 

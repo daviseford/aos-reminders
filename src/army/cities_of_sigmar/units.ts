@@ -132,7 +132,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Celestial Hurricanum (with Battlemage)`,
+    name: `Celestial Hurricanum with Celestial Battlemage`,
     effects: [
       {
         name: `Celestial Battlemage`,
@@ -1220,7 +1220,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Black Art Fleetmaster`,
+    name: `Black Ark Fleetmaster`,
     effects: [
       {
         name: `Murderous Swashbuckler`,
