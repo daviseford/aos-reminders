@@ -96,7 +96,7 @@ const newHandleText = (text: string): string[] => {
     .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
     .replace(/General's Adjutant/g, ' ') // Get rid of General markings
-    .replace(/(?<!Freeguild )General/g, ' ') // Get rid of General markings
+    .replace(/(?<!(Freeguild|Aggressive) )General/g, ' ') // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
@@ -253,6 +253,7 @@ const allegianceTypes = [
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
+  'Aggr essiv e': 'Aggressive',
   'Allher d': 'Allherd',
   'Amar anthine': 'Amaranthine',
   'Ar tiller y': 'Artillery',

@@ -19,6 +19,7 @@ import { AQSHY, ULGU } from 'types/realmscapes'
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import CoS1 from './fixtures/azyr/json/CoS1.json'
 import CoS2 from './fixtures/azyr/json/CoS2.json'
+import CoS3 from './fixtures/azyr/json/CoS3.json'
 import DoK2 from './fixtures/azyr/json/DoK2.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
@@ -117,6 +118,13 @@ describe('getAzyrArmyFromPdf', () => {
         'Helstorm Rocket Battery',
       ],
     })
+  })
+
+  it('handles CoS3', () => {
+    const pages = handleAzyrPages(CoS3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
+    expect(res.selections.traits).toEqual(['Aggressive General (Hammerhal)'])
   })
 
   it('handles KO5', () => {

@@ -9,6 +9,7 @@ import Chaos1 from './fixtures/azyr/json/Chaos1.json'
 import Chaos2 from './fixtures/azyr/json/Chaos2.json'
 import CoS1 from './fixtures/azyr/json/CoS1.json'
 import CoS2 from './fixtures/azyr/json/CoS2.json'
+import CoS3 from './fixtures/azyr/json/CoS3.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
@@ -152,6 +153,20 @@ describe('handleAzyrPages', () => {
       'BATTALION: Viridian Pathfinders',
       'BATTALION: Whitefire Retinue',
       'ENDLESS SPELL: Prismatic Palisade',
+    ])
+  })
+  it('handles CoS3', () => {
+    const res = handleAzyrPages(CoS3)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Hammerhal',
+      'UNIT: Battlemage',
+      'COMMAND TRAIT: Aggressive General',
+      'UNIT: Freeguild General',
+      'UNIT: Dreadspears',
+      'UPGRADE: Lordling',
+      'UPGRADE: Standard Bearer',
+      'UPGRADE: Hornblower',
     ])
   })
 
