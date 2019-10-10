@@ -1,6 +1,5 @@
 import { TTraits } from 'types/army'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,

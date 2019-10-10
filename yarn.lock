@@ -1386,10 +1386,10 @@
   resolved "https://registry.yarnpkg.com/@types/jspdf/-/jspdf-1.3.1.tgz#086d0ae4c393a08950d2775e992a6123d5c0d8a8"
   integrity sha512-9MQLH4+uNiFKCD5JG0yfN02O8niO/Md/Cko6pmL46dF/8eWrg61adP1aGNbuxsxuxWngKghnCeIZCeLYr1Poag==
 
-"@types/lodash@4.14.142":
-  version "4.14.142"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.142.tgz#52d5daff878e36e72e299bb9c5871fd6aee55829"
-  integrity sha512-ZhNS7c4D4WQ49Dr1FftQj7SwngRswOnPfxktmqSy5BettRCuum2q784jRwNTYfxH00r8+fEgRz6Da8j5DHNd1Q==
+"@types/lodash@4.14.144":
+  version "4.14.144"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.144.tgz#12e57fc99064bce45e5ab3c8bc4783feb75eab8e"
+  integrity sha512-ogI4g9W5qIQQUhXAclq6zhqgqNUr7UlFaqDHbch7WLSLeeM/7d3CRaw7GLajxvyFvhJqw4Rpcz5bhoaYtIx6Tg==
 
 "@types/luxon@1.15.2":
   version "1.15.2"
