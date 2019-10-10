@@ -7,6 +7,7 @@ import Bonesplitterz1 from './fixtures/azyr/json/Bonesplitterz1.json'
 import Chamon from './fixtures/azyr/json/Chamon1.json'
 import Chaos1 from './fixtures/azyr/json/Chaos1.json'
 import Chaos2 from './fixtures/azyr/json/Chaos2.json'
+import CoS1 from './fixtures/azyr/json/CoS1.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
@@ -94,6 +95,29 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles CoS1', () => {
+    const res = handleAzyrPages(CoS1)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Greywater Fastness',
+      'REALMSCAPE: GHYRAN',
+      'UNIT: Battlemage',
+      'SPELL: Descending Ash Cloud',
+      'SPELL: Choking Fumes',
+      'UNIT: Cogsmith',
+      'ARTEFACT: Wand of Restoration',
+      'COMMAND TRAIT: Drillmaster',
+      'UNIT: Runelord',
+      'UNIT: Freeguild Guard',
+      'UNIT: Freeguild Handgunners',
+      'UNIT: Steam Tank',
+      'UNIT: Helblaster Volley Gun',
+      'UNIT: Dark Riders',
+      'UNIT: Freeguild Greatswords',
+      'BATTALION: Greywater Artillery Battery',
+    ])
   })
 
   it('handles DoK2', () => {

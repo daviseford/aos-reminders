@@ -95,7 +95,7 @@ const newHandleText = (text: string): string[] => {
     .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ') // Remove "Quantity: 1"
     .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
-    .replace(/General/g, ' ') // Handle any known typos
+    .replace(/(General's Adjutant|General)/g, ' ') // Handle any known typos
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
@@ -246,6 +246,7 @@ const allegianceTypes = [
   'Skyport',
   'Slaughterhost',
   'Stormhost',
+  'Stronghold',
   'Temple',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
@@ -266,7 +267,7 @@ const commonTypos = {
   'Dr aining': 'Draining',
   'Dr ead': 'Dread',
   'Ether eal': 'Ethereal',
-  'Gener al': '',
+  'Gener al': 'General',
   'Gr eatblade': 'Greatblade',
   'Inv ocation': 'Invocation',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',

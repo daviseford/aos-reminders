@@ -12,10 +12,12 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  CITIES_OF_SIGMAR,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
+import CoS1 from './fixtures/azyr/json/CoS1.json'
 import DoK2 from './fixtures/azyr/json/DoK2.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
@@ -45,6 +47,34 @@ describe('getAzyrArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+    })
+  })
+
+  it('handles CoS1', () => {
+    const pages = handleAzyrPages(CoS1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections).toEqual({
+      allegiances: ['Greywater Fastness'],
+      artifacts: ['Wand of Restoration (Ghyran)'],
+      battalions: ['Greywater Artillery Company'],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Descending Ash Cloud (Greywater Fastness)', 'Choking Fumes (Greywater Fastness)'],
+      traits: ['Drillmaster (Greywater Fastness)'],
+      triumphs: [],
+      units: [
+        'Battlemage',
+        'Cogsmith',
+        'Runelord',
+        'Freeguild Guard',
+        'Freeguild Handgunners',
+        'Steam Tank with Commander',
+        'Helblaster Volley Gun',
+        'Dark Riders',
+        'Freeguild Greatswords',
+      ],
     })
   })
 
