@@ -88,6 +88,7 @@ const warscrollTypoMap: TNameMap = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
+  'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',

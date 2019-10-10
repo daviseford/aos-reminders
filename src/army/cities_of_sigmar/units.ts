@@ -771,7 +771,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Hellblaster Volley Gun`,
+    name: `Helblaster Volley Gun`,
     effects: [
       {
         name: `Point Blank`,
@@ -779,7 +779,7 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Hellblaster Volley`,
+        name: `Helblaster Volley`,
         desc: `Before attacking with a Volley of Shots, choose either the 1 Deck, 2 Decks or 3 Decks missile weapon characteristics for that shooting attack. However, if the roll to determine the Attacks characteristic includes a double, this model cannot shoot in that phase and instead suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
