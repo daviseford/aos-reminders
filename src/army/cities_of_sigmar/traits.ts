@@ -16,7 +16,7 @@ const CommandTraits: TTraits = [
     name: `Acadamae Prodigy (Hammerhal)`,
     effects: [
       {
-        name: `Acadamae Prodigy`,
+        name: `Acadamae Prodigy (Hammerhal)`,
         desc: `+1 Attacks for this general's melee weapons. In addition, at the start of the battle, you receive 1 extra command point.`,
         when: [DURING_GAME],
       },
@@ -26,7 +26,7 @@ const CommandTraits: TTraits = [
     name: `Blood of the Twelve (Hammerhal)`,
     effects: [
       {
-        name: `Blood of the Twelve`,
+        name: `Blood of the Twelve (Hammerhal)`,
         desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly HAMMERHAL units wholly within 12" of this general.`,
         when: [COMBAT_PHASE],
       },
@@ -36,7 +36,7 @@ const CommandTraits: TTraits = [
     name: `Aggressive General (Hammerhal)`,
     effects: [
       {
-        name: `Aggressive General`,
+        name: `Aggressive General (Hammerhal)`,
         desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly HAMMERHAL units that are wholly within 12" of this general if this general made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
@@ -46,7 +46,7 @@ const CommandTraits: TTraits = [
     name: `Ironoak Artisan (Living City)`,
     effects: [
       {
-        name: `Ironoak Artisan`,
+        name: `Ironoak Artisan (Living City)`,
         desc: `Add 1 to save rolls for attacks that target this general. In addition, add 1 to wound rolls for attacks made with melee weapons by this general.`,
         when: [DURING_GAME],
       },
@@ -56,7 +56,7 @@ const CommandTraits: TTraits = [
     name: `Forest Strider (Living City)`,
     effects: [
       {
-        name: `Forest Strider`,
+        name: `Forest Strider (Living City)`,
         desc: `This general can run and still charge in the same turn. In addition, friendly units are not affected by the Deadly scenery rule if they start a move wholly within 12" of this general.`,
         when: [DURING_GAME],
       },
@@ -66,7 +66,7 @@ const CommandTraits: TTraits = [
     name: `Druid of the Everspring (Living City)`,
     effects: [
       {
-        name: `Druid of the Everspring`,
+        name: `Druid of the Everspring (Living City)`,
         desc: `If this general is a WIZARD, they know all spells from the Lore of Leaves instead of only 1. If this general is not a WIZARD, they know 1 spell from the Lore of Leaves.`,
         when: [HERO_PHASE],
       },
@@ -189,6 +189,36 @@ const CommandTraits: TTraits = [
         name: `Fell Gaze (Drakeblood Curse)`,
         desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 12" of any models that have this Drakeblood curse.`,
         when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Veteran of the Blazing Crusade (Hallowheart)`,
+    effects: [
+      {
+        name: `Veteran of the Blazing Crusade (Hallowheart)`,
+        desc: `Do not take battleshock tests for friendly HALLOWHEART units while they are wholly within 18" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warden of the Flame (Hallowheart)`,
+    effects: [
+      {
+        name: `Warden of the Flame (Hallowheart)`,
+        desc: `At the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Famed Spell-hunter (Hallowheart)`,
+    effects: [
+      {
+        name: `Famed Spell-hunter (Hallowheart)`,
+        desc: `If this general is a WIZARD, add 3 to the roll when this general attempts to dispel an endless spell. If this general is not a WIZARD, they can attempt to dispel 1 endless spell in your hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },

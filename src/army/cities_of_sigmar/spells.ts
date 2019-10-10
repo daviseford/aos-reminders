@@ -152,6 +152,66 @@ const Spells: TSpells = [
       },
     ],
   },
+  {
+    name: `Roaming Wildfire (Hallowheart)`,
+    effects: [
+      {
+        name: `Roaming Wildfire (Hallowheart)`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Then roll a dice for each other enemy unit within 6" of that unit. On a 4+, that other unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sear Wounds (Hallowheart)`,
+    effects: [
+      {
+        name: `Sear Wounds (Hallowheart)`,
+        desc: `Casting value of 6. Pick 1 friendly unit within 18" of the caster that is visible to them. You can heal up to D6 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Elemental Cyclone (Hallowheart)`,
+    effects: [
+      {
+        name: `Elemental Cyclone (Hallowheart)`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster that is visible to them. Roll 1 dice for each model from that unit that is within 12" of the caster. For each 4+, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warding Brand (Hallowheart)`,
+    effects: [
+      {
+        name: `Warding Brand (Hallowheart)`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, roll a dice each time a wound inflicted by a melee weapon is allocated to a model from that unit and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Crystal Aegis (Hallowheart)`,
+    effects: [
+      {
+        name: `Crystal Aegis (Hallowheart)`,
+        desc: `Casting value of 5. Until the start of your next hero phase, add 1 to rolls for the Eldritch Attunement battle trait (see opposite) for friendly HALLOWHEART units wholly within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ignite Weapons (Hallowheart)`,
+    effects: [
+      {
+        name: `Ignite Weapons (Hallowheart)`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster that is visible to them. Add 1 to wound rolls for attacks made by that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 export default Spells

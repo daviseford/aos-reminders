@@ -182,6 +182,36 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
+  {
+    name: `Agloraxi Prism (Hallowheart)`,
+    effects: [
+      {
+        name: `Agloraxi Prism (Hallowheart)`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target the bearer.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Pauldrons of Living Flame (Hallowheart)`,
+    effects: [
+      {
+        name: `Pauldrons of Living Flame (Hallowheart)`,
+        desc: `At the end of your combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Whitefire Tome (Hallowheart)`,
+    effects: [
+      {
+        name: `Whitefire Tome (Hallowheart)`,
+        desc: `If the bearer is a WIZARD, they know all spells from the Lore of Whitefire instead of only 2. If the bearer is not a WIZARD, they know 1 spell from the Lore of Whitefire and can attempt to cast it in your hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 export default Artifacts
