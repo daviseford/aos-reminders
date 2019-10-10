@@ -86,6 +86,21 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'warn',
         text: 'Prosecutors',
       },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Hammerers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Irondrakes can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
     ])
   })
 
