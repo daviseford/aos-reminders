@@ -52,7 +52,7 @@ export const Units: TUnits = [
       },
       {
         name: `Devolve`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -300,7 +300,7 @@ export const Units: TUnits = [
       },
       {
         name: `Summon Lightning`,
-        desc: `Casting value of 7. If successfully cast, pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 7. Pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -456,7 +456,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Mutation`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. For each enemy model slain by these mortal wounds, you can add 1 new TZAANGOR model to a single friendly TZAANGORS unit. Each new TZAANGOR model must be set up wholly within 12" of the caster and within 1" of the unit they are being added to.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. For each enemy model slain by these mortal wounds, you can add 1 new TZAANGOR model to a single friendly TZAANGORS unit. Each new TZAANGOR model must be set up wholly within 12" of the caster and within 1" of the unit they are being added to.`,
         when: [HERO_PHASE],
         spell: true,
       },

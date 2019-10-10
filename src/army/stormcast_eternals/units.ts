@@ -102,7 +102,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pyroelectric Blast`,
-        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 9" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Each unit, apart from the caster, that has any models beneath this line suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick a point on the battlefield within 9" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Each unit, apart from the caster, that has any models beneath this line suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -156,7 +156,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lightning Pulse`,
-        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 12" of the caster that is visible to them. On a 5+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. Roll a D6 for each enemy unit within 12" of the caster that is visible to them. On a 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -347,7 +347,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lightning Orb`,
-        desc: `Casting value of 6. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -389,7 +389,7 @@ export const Units: TUnits = [
       },
       {
         name: `Storm Lance`,
-        desc: `Casting value of 5. If successfully cast, pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a D6 for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
+        desc: `Casting value of 5. Pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a D6 for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -443,7 +443,7 @@ export const Units: TUnits = [
       },
       {
         name: `Healing Light`,
-        desc: `Casting value of 5. If successfully cast, pick a friendly STORMCAST ETERNAL model within 18" of the caster. Heal D3 wounds that have been allocated to that model. If the casting roll was 8+, heal D6 wounds that have been allocated to that model instead.`,
+        desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL model within 18" of the caster. Heal D3 wounds that have been allocated to that model. If the casting roll was 8+, heal D6 wounds that have been allocated to that model instead.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -653,7 +653,7 @@ export const Units: TUnits = [
       },
       {
         name: `Purifying Blast`,
-        desc: `Casting value of 5. If successfully cast, roll a D6 for each enemy unit within 6" of the caster. Add that unit's Bravery to the roll. If the result is less than 10, that unit suffers D3 mortal wounds. Halve the Bravery (rounding down) of DEATH and DAEMON units for this spell.`,
+        desc: `Casting value of 5. Roll a D6 for each enemy unit within 6" of the caster. Add that unit's Bravery to the roll. If the result is less than 10, that unit suffers D3 mortal wounds. Halve the Bravery (rounding down) of DEATH and DAEMON units for this spell.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -754,7 +754,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spirit Storm`,
-        desc: `Casting value of 7. If successfully cast, each enemy unit within 18" of the caster suffers a mortal wound. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
+        desc: `Casting value of 7. Each enemy unit within 18" of the caster suffers a mortal wound. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
         when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
         spell: true,
       },
@@ -1380,7 +1380,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1421,7 +1421,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1463,7 +1463,7 @@ export const Units: TUnits = [
       },
       {
         name: `Amethyst Gale`,
-        desc: `Casting value of 6. If successfully cast, pick a enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1489,7 +1489,7 @@ export const Units: TUnits = [
       },
       {
         name: `Stormsire`,
-        desc: `Casting value of 7. If successfully cast, each enemy unit within 18" of the caster suffers 1 mortal wound. Enemy units within 6" of the caster suffer D3 mortal wounds instead. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
+        desc: `Casting value of 7. Each enemy unit within 18" of the caster suffers 1 mortal wound. Enemy units within 6" of the caster suffer D3 mortal wounds instead. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -1515,7 +1515,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -142,7 +142,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wind of Chaos`,
-        desc: `Casting value of 7. If successfully cast, pick a unit within 18" and visible to the caster. Roll a number of dice equal to the casting roll. For each 5, the target suffers a mortal wound. For each 6, the target suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick a unit within 18" and visible to the caster. Roll a number of dice equal to the casting roll. For each 5, the target suffers a mortal wound. For each 6, the target suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -301,7 +301,7 @@ export const Units: TUnits = [
       },
       {
         name: `Daemonic Power`,
-        desc: `Casting value of 5. If successfully cast, select a friendly unit within 18" of the caster. Until your next hero phase, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
+        desc: `Casting value of 5. Select a friendly unit within 18" of the caster. Until your next hero phase, you can re-roll any hit, wound, and save rolls of 1 for the targeted unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -357,7 +357,7 @@ export const Units: TUnits = [
       },
       {
         name: `Traitor's Mist`,
-        desc: `Casting value of 7. If successfully cast, pick 1 friendly Slaves to Darkness unit wholly within 15" and visible to the caster. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from enemy units. It cannot move in the subsequent move phase.`,
+        desc: `Casting value of 7. Pick 1 friendly Slaves to Darkness unit wholly within 15" and visible to the caster. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from enemy units. It cannot move in the subsequent move phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -418,7 +418,7 @@ export const Units: TUnits = [
       },
       {
         name: `Enfeeblement`,
-        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" and visible to the caster. Subtract 1 from wound rolls for attacks made by that units melee weapons until your next hero phase.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 12" and visible to the caster. Subtract 1 from wound rolls for attacks made by that units melee weapons until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },

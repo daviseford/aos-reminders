@@ -212,6 +212,36 @@ const Spells: TSpells = [
       },
     ],
   },
+  {
+    name: `Aura of Glory (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Aura of Glory (Tempest's Eye)`,
+        desc: `Casting value of 7. Until the start of your next hero phase, add 1 to the Attacks characteristic of melee weapons used by friendly TEMPEST'S EYE units while they are wholly within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Strike of Eagles (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Strike of Eagles (Tempest's Eye)`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 30" of the caster that is visible to them, and roll 6 dice. For each 4+, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Celestial Visions (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Celestial Visions (Tempest's Eye)`,
+        desc: `Casting value of 7. You receive 1 extra command point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 export default Spells

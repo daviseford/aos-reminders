@@ -79,7 +79,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blessing of Life`,
-        desc: `The Spellweaver speaks in the tongue of ancient days, restoring life to the fallen. Blessing of Life has a casting value of 5. If successfully cast, select a Wanderers unit within 16". You can return D3 slain models to that unit.`,
+        desc: `The Spellweaver speaks in the tongue of ancient days, restoring life to the fallen. Blessing of Life has a casting value of 5. Select a Wanderers unit within 16". You can return D3 slain models to that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -183,7 +183,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shield of Thorns`,
-        desc: `The Sisters cause crawling brambles to burst from the ground and form a living barrier around their allies. Shield of Thorns has a casting value of 6. If successfully cast, pick a unit within 18". You can re-roll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
+        desc: `The Sisters cause crawling brambles to burst from the ground and form a living barrier around their allies. Shield of Thorns has a casting value of 6. Pick a unit within 18". You can re-roll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -1,5 +1,6 @@
 import { TArtifacts } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -7,6 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
@@ -209,6 +211,36 @@ const Artifacts: TArtifacts = [
         name: `Whitefire Tome (Hallowheart)`,
         desc: `If the bearer is a WIZARD, they know all spells from the Lore of Whitefire instead of only 2. If the bearer is not a WIZARD, they know 1 spell from the Lore of Whitefire and can attempt to cast it in your hero phase.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Patrician's Helm (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Patrician's Helm (Tempest's Eye)`,
+        desc: `Do not take battleshock tests for friendly TEMPEST'S EYE units while they are wholly within 12" of the bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seerstone Amulet (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Seerstone Amulet (Tempest's Eye)`,
+        desc: `At the start of your hero phase, if the bearer is on the battlefield,roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Zephyrite Banner (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Zephyrite Banner (Tempest's Eye)`,
+        desc: `You can re-roll charge rolls for friendly TEMPEST'S EYE units while they are wholly within 12" of the bearer.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },

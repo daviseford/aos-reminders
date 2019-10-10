@@ -307,7 +307,7 @@ export const Units: TUnits = [
       },
       {
         name: `Curse of Fates`,
-        desc: `Casting value of 4. If successfully cast, pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
+        desc: `Casting value of 4. Pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
         when: [HERO_PHASE],
         spell: true,
       },

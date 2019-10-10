@@ -7,6 +7,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
 } from 'types/phases'
@@ -219,6 +220,41 @@ const CommandTraits: TTraits = [
         name: `Famed Spell-hunter (Hallowheart)`,
         desc: `If this general is a WIZARD, add 3 to the roll when this general attempts to dispel an endless spell. If this general is not a WIZARD, they can attempt to dispel 1 endless spell in your hero phase.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aetherguard Captain (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Aetherguard Captain (Tempest's Eye)`,
+        desc: `Add 1 to charge rolls for friendly TEMPEST'S EYE units while they are wholly within 12" of this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hawk-eyed (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Hawk-eyed (Tempest's Eye)`,
+        desc: `Add 1 to wound rolls for attacks made with missile weapons by friendly TEMPEST'S EYE units wholly within 12" of this general.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Swift as the Wind (Tempest's Eye)`,
+    effects: [
+      {
+        name: `Swift as the Wind (Tempest's Eye)`,
+        desc: `This general can run and still charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Swift as the Wind (Tempest's Eye)`,
+        desc: `This general (and their mount) fights at the start of the combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

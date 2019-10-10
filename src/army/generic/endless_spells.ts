@@ -21,7 +21,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Balewind Vortex`,
-        desc: `Casting value of 6. Wizards with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. If successfully cast, set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
+        desc: `Casting value of 6. Wizards with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
         when: [HERO_PHASE],
       },
       {
@@ -41,7 +41,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Emerald Lifeswarm`,
-        desc: `Casting value of 6. If successfully cast, set up an Emerald Lifeswarm model wholly within 15" of the caster.`,
+        desc: `Casting value of 6. Set up an Emerald Lifeswarm model wholly within 15" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -66,7 +66,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Geminids of Uhl-Gysh`,
-        desc: `Casting value of 7. If successfully cast, set up both models within 6" of each other and both wholly within 18" of the caster. You must then nominate one model to be the Light Geminid and the other to be the Shadow Geminid.`,
+        desc: `Casting value of 7. Set up both models within 6" of each other and both wholly within 18" of the caster. You must then nominate one model to be the Light Geminid and the other to be the Shadow Geminid.`,
         when: [HERO_PHASE],
       },
       {
@@ -101,7 +101,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Malevolent Maelstrom`,
-        desc: `Casting value of 7. If successfully cast, set up a Malevolent Maelstrom model wholly within 18" of the caster.`,
+        desc: `Casting value of 7. Set up a Malevolent Maelstrom model wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -131,7 +131,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Prismatic Palisade`,
-        desc: `Casting value of 5. If successfully cast, set up a Prismatic Palisade model wholly within 18" of the caster.`,
+        desc: `Casting value of 5. Set up a Prismatic Palisade model wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -156,7 +156,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Purple Sun of Shyish`,
-        desc: `Casting value of 8. If successfully cast, set up a Purple Sun of Shyish model wholly within 6" of the caster.`,
+        desc: `Casting value of 8. Set up a Purple Sun of Shyish model wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -191,7 +191,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Quicksilver Swords`,
-        desc: `Casting value of 6. If successfully cast, set up a Quicksilver Swords model wholly within 10" of the caster.`,
+        desc: `Casting value of 6. Set up a Quicksilver Swords model wholly within 10" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -221,7 +221,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Ravenak's Gnashing Jaws`,
-        desc: `Casting value of 8. If successfully cast, set up a Ravenak's Gnashing Jaws model wholly within 6" of the caster.`,
+        desc: `Casting value of 8. Set up a Ravenak's Gnashing Jaws model wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -256,7 +256,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Soulsnare Shackles`,
-        desc: `Casting value of 5. If successfully cast, set up a Soulsnare Shackles model wholly within 12" of the caster, then set up the second and third Soulsnare Shackles models wholly within 6" of the first.`,
+        desc: `Casting value of 5. Set up a Soulsnare Shackles model wholly within 12" of the caster, then set up the second and third Soulsnare Shackles models wholly within 6" of the first.`,
         when: [HERO_PHASE],
       },
       {
@@ -276,7 +276,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Suffocating Gravetide`,
-        desc: `Casting value of 6. If successfully cast, set up a Suffocating Gravetide model wholly within 4" of the caster.`,
+        desc: `Casting value of 6. Set up a Suffocating Gravetide model wholly within 4" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -316,7 +316,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Burning Head`,
-        desc: `Casting value of 7. If successfully cast, set up a Burning Head model wholly within 3" of the caster.`,
+        desc: `Casting value of 7. Set up a Burning Head model wholly within 3" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -351,7 +351,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Umbral Spellportal`,
-        desc: `Casting value of 5. If successfully cast, set up the first Umbral Spellportal model wholly within 12" of the caster, and then set up the second Umbral Spellportal model wholly within 18" of the first.`,
+        desc: `Casting value of 5. Set up the first Umbral Spellportal model wholly within 12" of the caster, and then set up the second Umbral Spellportal model wholly within 18" of the first.`,
         when: [HERO_PHASE],
       },
       {
@@ -371,7 +371,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Aethervoid Pendulum`,
-        desc: `Casting value of 6. If successfully cast, set up an Aethervoid Pendulum model wholly within 6" of the caster so that it points lengthways in the direction you wish it to move.`,
+        desc: `Casting value of 6. Set up an Aethervoid Pendulum model wholly within 6" of the caster so that it points lengthways in the direction you wish it to move.`,
         when: [HERO_PHASE],
       },
       {
@@ -401,7 +401,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Chronomantic Cogs`,
-        desc: `Casting value of 7. If successfully cast, set up a Chronomantic Cogs model wholly within 12" of the caster.`,
+        desc: `Casting value of 7. Set up a Chronomantic Cogs model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -426,7 +426,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Soulscream Bridge`,
-        desc: `Casting value of 6. If successfully cast, set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
+        desc: `Casting value of 6. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
         when: [HERO_PHASE],
       },
       {
@@ -451,7 +451,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Shards of Valagharr`,
-        desc: `Casting value of 5. If successfully cast, set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
+        desc: `Casting value of 5. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
         when: [HERO_PHASE],
       },
       {
@@ -486,7 +486,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Lauchon the Soulseeker`,
-        desc: `Casting value of 6. If successfully cast, set up the model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Set up the model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -516,7 +516,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Horrorghast`,
-        desc: `Casting value of 5. If successfully cast, set up the model wholly within 12" of the caster.`,
+        desc: `Casting value of 5. Set up the model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
