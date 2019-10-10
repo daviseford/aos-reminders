@@ -8,6 +8,8 @@ import Chamon from './fixtures/azyr/json/Chamon1.json'
 import Chaos1 from './fixtures/azyr/json/Chaos1.json'
 import Chaos2 from './fixtures/azyr/json/Chaos2.json'
 import CoS1 from './fixtures/azyr/json/CoS1.json'
+import CoS2 from './fixtures/azyr/json/CoS2.json'
+import CoS3 from './fixtures/azyr/json/CoS3.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
@@ -117,6 +119,54 @@ describe('handleAzyrPages', () => {
       'UNIT: Dark Riders',
       'UNIT: Freeguild Greatswords',
       'BATTALION: Greywater Artillery Battery',
+    ])
+  })
+
+  it('handles CoS2', () => {
+    const res = handleAzyrPages(CoS2)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Greywater Fastness',
+      'REALMSCAPE: GHYRAN',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Freeguild General',
+      'ARTEFACT: The Sunderblade',
+      'UNIT: Freeguild General on Griffon',
+      "ARTEFACT: Mastro Vivetti's Magnificent Macroscope",
+      'COMMAND TRAIT: Seat on the Council',
+      'UNIT: Knight-Azyros',
+      'UNIT: Luminark of Hysh with White Battlemage',
+      'ARTEFACT: Steam-piston Plate Mail',
+      'SPELL: Eroding Blast',
+      'UNIT: Sorceress on Black Dragon',
+      'UNIT: Steam Tank with Commander',
+      'UNIT: Freeguild Handgunners',
+      'UNIT: Ironbreakers',
+      'UNIT: War Hydra',
+      'UNIT: Celestar Ballista',
+      'UNIT: Helblaster Volley Gun',
+      'UNIT: Helstorm Rocket Battery',
+      'BATTALION: Aetherguard Windrunners',
+      'BATTALION: Greywater Artillery Battery',
+      'BATTALION: Hammerhalian Lancers',
+      'BATTALION: Phoenix Flight',
+      'BATTALION: Viridian Pathfinders',
+      'BATTALION: Whitefire Retinue',
+      'ENDLESS SPELL: Prismatic Palisade',
+    ])
+  })
+  it('handles CoS3', () => {
+    const res = handleAzyrPages(CoS3)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Hammerhal',
+      'UNIT: Battlemage',
+      'COMMAND TRAIT: Aggressive General',
+      'UNIT: Freeguild General',
+      'UNIT: Dreadspears',
+      'UPGRADE: Lordling',
+      'UPGRADE: Standard Bearer',
+      'UPGRADE: Hornblower',
     ])
   })
 
