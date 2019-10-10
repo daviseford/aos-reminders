@@ -195,7 +195,6 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-// TODO: Update the rest of the battalions
 export const Battalions: TBattalions = [
   {
     name: `Ardfist`,
