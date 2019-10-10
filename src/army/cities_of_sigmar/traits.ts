@@ -1,11 +1,14 @@
 import { TTraits } from 'types/army'
 import {
-  HERO_PHASE,
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  START_OF_HERO_PHASE,
-  SHOOTING_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -96,6 +99,96 @@ const CommandTraits: TTraits = [
         name: `Ghoul Mere Ranger (Greywater Fastness)`,
         desc: `Friendly units wholly within 12" of this general can run and still shoot later in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seeker of Vengeance (The Phoenicium)`,
+    effects: [
+      {
+        name: `Seeker of Vengeance (The Phoenicium)`,
+        desc: `Add 1 to the Attacks characteristic of this general's melee weapons if 1 or more friendly models have been slain in the same phase. Add 3 to the Attacks characteristic of this general's melee weapons instead of 1 if 5 or more friendly models have been slain in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `One with Fire and Ice (The Phoenicium)`,
+    effects: [
+      {
+        name: `One with Fire and Ice (The Phoenicium)`,
+        desc: `If this general is a WIZARD, they know all spells from the Lore of the Phoenix instead of only 1. If this general is not a WIZARD, they know 1 spell from the Lore of the Phoenix and can attempt to cast it in your hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Aura of Serenity (The Phoenicium)`,
+    effects: [
+      {
+        name: `Aura of Serenity (The Phoenicium)`,
+        desc: `Do not take battleshock tests for friendly PHOENICIUM units while they are wholly within 12" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Blackfang Crimelord (Anvilgard)`,
+    effects: [
+      {
+        name: `Blackfang Crimelord (Anvilgard)`,
+        desc: `Pick 2 different benefits of illicit dealing instead of 1.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Slayer of Monsters (Anvilgard)`,
+    effects: [
+      {
+        name: `Slayer of Monsters (Anvilgard)`,
+        desc: `Add 1 to hit and wound rolls for attacks made by this general that target an enemy MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Secretive Warlock (Anvilgard)`,
+    effects: [
+      {
+        name: `Secretive Warlock (Anvilgard)`,
+        desc: `If this general is a WIZARD, they know all spells from the Lore of Dark Sorcery instead of only 1. If this general is not a WIZARD, they know 1 spell from the Lore of Dark Sorcery and can attempt to cast it in their hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Acidic Blood (Drakeblood Curse)`,
+    effects: [
+      {
+        name: `Acidic Blood (Drakeblood Curse)`,
+        desc: `Roll a dice each time you allocate a wound to this model that was inflicted by a melee weapon and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Jutting Bones (Drakeblood Curse)`,
+    effects: [
+      {
+        name: `Jutting Bones (Drakeblood Curse)`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fell Gaze (Drakeblood Curse)`,
+    effects: [
+      {
+        name: `Fell Gaze (Drakeblood Curse)`,
+        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 12" of any models that have this Drakeblood curse.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

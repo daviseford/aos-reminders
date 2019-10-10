@@ -1,17 +1,20 @@
 import { TAllegiances } from 'types/army'
 import {
-  DURING_SETUP,
-  TURN_ONE_START_OF_HERO_PHASE,
-  START_OF_HERO_PHASE,
-  END_OF_SHOOTING_PHASE,
-  END_OF_COMBAT_PHASE,
   BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
+  TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// This is where we store sub-allegiances such as
-// Grand Courts, Hosts, Clans, Glades, Lodges, etc
 const Allegiances: TAllegiances = [
   {
     name: `Hammerhal`,
@@ -92,52 +95,56 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: ``,
+    name: `The Phoenicium`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Vengeful Revenants`,
+        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by friendly PHOENICIUM units if any friendly PHOENICIUM units have been destroyed in the same phase.`,
+        when: [COMBAT_PHASE],
+        allegiance_ability: true,
       },
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Blood of the Ur-Phoenix`,
+        desc: `Add 1 to the Wounds characteristic of PHOENICIUM FROSTHEART PHOENIXES and PHOENICIUM FLAMESPYRE PHOENIXES.`,
+        when: [DURING_GAME],
+        allegiance_ability: true,
       },
       {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-      {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Living Idols`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly PHOENICIUM HERO FLAMESPYRE PHOENIX or 1 friendly PHOENICIUM HERO FROSTHEART PHOENIX. Until the end of that phase, if a friendly PHOENICIUM model is slain while it is within 12" of that HERO, that model can fight before it is removed from play.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
       },
     ],
   },
   {
-    name: ``,
+    name: `Anvilgard`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Illicit Dealings`,
+        desc: `When you choose an Anvilgard army, you can profit from one of the following benefits of illicit dealings:
+        
+        Black Market Bounty: 1 additional friendly ANVILGARD HERO can bear an artefact of power from the Anvilgard Artefacts of Power table.
+        
+        Dabblings in Sorcery: 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA can have a Drakeblood curse from the Drakeblood Curses table.
+        
+        Hidden Agents: You receive D3 extra command points.`,
+        when: [START_OF_SETUP],
+        allegiance_ability: true,
       },
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Drakeblood Curses`,
+        desc: `If an Anvilgard army includes any DRAGONS, KHARIBDYSSES or WAR HYDRAS, 1 of those models has a Drakeblood curse. Choose which model will have the Drakeblood curse, then pick from or roll on the Drakeblood Curses table opposite.
+
+        You can choose 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA to have a Drakeblood curse for each warscroll battalion in your army. A model cannot have more than 1 Drakeblood curse, and an army may not include duplicates of the same Drakeblood curse.`,
+        when: [START_OF_SETUP],
+        allegiance_ability: true,
       },
       {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-      {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Make an Example of the Weak`,
+        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick 1 friendly ANVILGARD unit wholly within 12" of a friendly ANVILGARD HERO. 1 model in that unit is slain. However, in that phase, you do not need to take battleshock tests for friendly ANVILGARD units wholly within 18" of that unit.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+        command_ability: true,
       },
     ],
   },

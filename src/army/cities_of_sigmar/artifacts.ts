@@ -1,10 +1,12 @@
 import { TArtifacts } from 'types/army'
 import {
-  DURING_GAME,
-  HERO_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
-  SHOOTING_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
@@ -117,6 +119,66 @@ const Artifacts: TArtifacts = [
         name: `Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)`,
         desc: `Add 1 to hit rolls for attacks made with missile weapons by the bearer.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Amber Armour (The Phoenicium)`,
+    effects: [
+      {
+        name: `Amber Armour (The Phoenicium)`,
+        desc: `If the weapon used for an attack that targets the bearer has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Phoenix Pinion (The Phoenicium)`,
+    effects: [
+      {
+        name: `Phoenix Pinion (The Phoenicium)`,
+        desc: `The bearer can fly. In addition, the bearer can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Phoenix Pyre Ashes (The Phoenicium)`,
+    effects: [
+      {
+        name: `Phoenix Pyre Ashes (The Phoenicium)`,
+        desc: `If the unmodified save roll for an attack that targets the bearer is 6, you can heal 1 wound allocated to the bearer.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Drakescale Cloak (Anvilgard)`,
+    effects: [
+      {
+        name: `Drakescale Cloak (Anvilgard)`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Venomfang Blade (Anvilgard)`,
+    effects: [
+      {
+        name: `Venomfang Blade (Anvilgard)`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Asphyxica Censer (Anvilgard)`,
+    effects: [
+      {
+        name: `Asphyxica Censer (Anvilgard)`,
+        desc: `At the end of your combat phase, roll 1 dice for each enemy unit within 3" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
