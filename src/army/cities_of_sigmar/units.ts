@@ -12,8 +12,27 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
+
+const DrummerEffect = {
+  name: `Drummer`,
+  desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
+
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -22,8 +41,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Magic of the Realms`,
-        desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from. Add 1 to casting rolls for thismodel if the battle is taking place in the realm it comes from.`,
-        when: [DURING_GAME],
+        desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Magic of the Realms`,
+        desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
+        when: [HERO_PHASE],
       },
       {
         name: `Magic`,
@@ -277,7 +301,7 @@ export const Units: TUnits = [
       },
       {
         name: `Freeguild Shield`,
-        desc: `+1 save.`,
+        desc: `+1 to save.`,
         when: [DURING_GAME],
       },
       {
@@ -306,16 +330,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Drummer`,
-        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      DrummerEffect,
+      StandardBearerEffect,
       {
         name: `Massed Ranks`,
         desc: `+1 to hit for attacks made by this unit if it has 10 or more models. Add 2 to hit rolls instead of 1 if this unit has 20 or more models.`,
@@ -344,13 +360,9 @@ export const Units: TUnits = [
       {
         name: `Piper`,
         desc: `Add 1 to run and charge rolls for units that include any Pipers.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Reload, Fire!`,
         desc: `Add 1 to the Attacks characteristic of this unit's Freeguild Crossbows if it has 10 or more models, there are no enemy models within 3" of this unit, and this unit has not made a move in the same turn.`,
@@ -364,18 +376,14 @@ export const Units: TUnits = [
       {
         name: `Marksman`,
         desc: `May replace their Freeguild Handgun with: Long Rifle; or Repeater Handgun. In addition, add 2 to hit rolls for attacks made with that model's Freeguild Handgun.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Piper`,
         desc: `Add 1 to run and charge rolls for units that include any Pipers.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Stand and Shoot`,
         desc: `Once per turn, when an enemy unit ends a charge move within 3" of this unit and there are no other enemy units within 3" of this unit, this unit can shoot.`,
@@ -401,16 +409,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Decapitating Swing`,
         desc: `If the unmodified hit roll for an attack made with a Zweihander is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
@@ -431,16 +431,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's Demigryph Knight's Halberd or Demigryph Knight's Lance.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Charging Lance`,
         desc: `Rend and Damage 2 for lances if this unit made a charge move in the same turn.`,
@@ -464,7 +456,7 @@ export const Units: TUnits = [
       {
         name: `Trumpeter`,
         desc: `Add 1 to run and charge rolls for units that include any Trumpeters.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Expert Gunners`,
@@ -474,7 +466,7 @@ export const Units: TUnits = [
       {
         name: `Skilled Riders`,
         desc: `This unit can run and/or retreat and still shoot later in the same turn.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -489,7 +481,7 @@ export const Units: TUnits = [
       {
         name: `Trumpeter`,
         desc: `Add 1 to charge rolls for units that include any Trumpeters.`,
-        when: [DURING_GAME],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Hail of Bullets`,
@@ -499,7 +491,7 @@ export const Units: TUnits = [
       {
         name: `Reckless Riders`,
         desc: `You can re-roll run and charge rolls for this unit.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -545,17 +537,13 @@ export const Units: TUnits = [
       {
         name: `Old Guard`,
         desc: `Add 1 to the Attacks characteristic of the leader's melee weapon.`,
-        when: [DURING_GAME],
+        when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Musician`,
         desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Gromril Shieldwall`,
@@ -592,16 +580,8 @@ export const Units: TUnits = [
         desc: `+1 melee attacks. Can carry Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Drummer`,
-        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      DrummerEffect,
       {
         name: `Cinderblast Bomb`,
         desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
@@ -622,15 +602,11 @@ export const Units: TUnits = [
         desc: `+1 Melee attack. Can carry Grudgehammer Torpedo; Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Hornblower`,
         desc: `Add 1 to run and charge rolls for units that include any Hornblower.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Blaze Away`,
@@ -667,15 +643,11 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of this model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Musician`,
         desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Kingsguard`,
@@ -725,8 +697,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Free Arm`,
-        desc: `Add 1 to hit rolls for attacks made with this model's missile weapons if it is not armed with a Cog Axe. Add 1 to hit rolls for attacks made with this model's melee weapons if it is not armed with a Grudge-raker.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to hit rolls for attacks made with this model's missile weapons if it is not armed with a Cog Axe.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Free Arm`,
+        desc: `Add 1 to hit rolls for attacks made with this model's melee weapons if it is not armed with a Grudge-raker.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Master Engineer`,
@@ -878,16 +855,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Coven Guard`,
         desc: `If the unmodified hit roll for an attack made with a Darkling Spear is 6, that weapon has a Rend characteristic of -1 for that attack.`,
@@ -908,16 +877,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Quicksilver Strike`,
         desc: `If the unmodified hit roll for an attack made with a Darkling Sword is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -938,16 +899,8 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for attacks made with this model's missile weapon.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Storm of Iron-tipped Bolts`,
         desc: `Add 1 to hit rolls for attacks made with this unit's Repeater Crossbows if it has 10 or more models.`,
@@ -963,16 +916,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Drummer`,
-        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      DrummerEffect,
       {
         name: `Elite Bodyguard`,
         desc: `Add 1 to hit rolls for attacks made by this unit if this unit is wholly within 12" of a friendly DARKLING COVEN HERO.`,
@@ -988,16 +933,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Drummer`,
-        desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      DrummerEffect,
       {
         name: `Severing Strike`,
         desc: `If the unmodified hit roll for an attack made with an Executioner's Draich is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
@@ -1126,15 +1063,11 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Drummer`,
         desc: `Add 1 to charge rolls for units that include any Drummers.`,
-        when: [DURING_GAME],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Emboldened`,
@@ -1187,15 +1120,11 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Hornblower`,
         desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Lance Charge`,
@@ -1252,15 +1181,11 @@ export const Units: TUnits = [
         desc: `+1 to hit for that model's missile weapon.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
       {
         name: `Hornblower`,
         desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
+        when: [CHARGE_PHASE],
       },
       {
         name: `Sow Terror and Confusion`,
@@ -1323,16 +1248,8 @@ export const Units: TUnits = [
         desc: `+1 to hit for that model's attacks.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Flashing Steel`,
         desc: `Add 1 to hit rolls for attacks made by this unit if it has 15 or more models.`,
@@ -1405,16 +1322,8 @@ export const Units: TUnits = [
         desc: `+1 to this model's melee attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Fortress of Boughs`,
         desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a move in the same turn.`,
@@ -1435,16 +1344,8 @@ export const Units: TUnits = [
         desc: `+1 to this model's melee attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Guardians of the Kindred`,
         desc: `A Ranger's Draich has a Damage characteristic of 2 instead of 1 if the target is a MONSTER.`,
@@ -1460,16 +1361,8 @@ export const Units: TUnits = [
         desc: `+1 to this model's Hunting Spear attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Unbound Fury`,
         desc: `This unit's Hunting Spears have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
@@ -1510,16 +1403,8 @@ export const Units: TUnits = [
         desc: `+1 to this model's Deepwood Coven Staff attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-        when: [DURING_GAME],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Magic`,
         desc: `This unit is a Wizard while it has 2 or more models.`,
