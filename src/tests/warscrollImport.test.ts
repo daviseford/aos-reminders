@@ -2,13 +2,13 @@ import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscro
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import {
+  BIG_WAAAGH,
+  CITIES_OF_SIGMAR,
+  KHARADRON_OVERLORDS,
+  NIGHTHAUNT,
+  ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SLAANESH,
-  KHARADRON_OVERLORDS,
-  ORDER_GRAND_ALLIANCE,
-  NIGHTHAUNT,
-  CITIES_OF_SIGMAR,
-  BIG_WAAAGH,
 } from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
@@ -117,8 +117,43 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
-    // TODO Add better tests
-    // expect(warscrollTxt.selections).toEqual({})
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [
+        'Amberglaive (Ghur)',
+        'Savage Trophy (Bonesplitterz)',
+        "Glowin' Tattooz (Bonesplitterz)",
+        'Mystic Waaagh! Paint (Bonesplitterz)',
+      ],
+      battalions: ["Kunnin' Rukk"],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [
+        "Da Blazin' Eyes (Ironjawz)",
+        'Brutal Beast Spirits (Bonesplitterz)',
+        'Bone Krusha (Bonesplitterz)',
+      ],
+      traits: ["Fast 'Un (Ironjawz)", "Dead Kunnin' (Bonesplitterz)", "Weird 'Un (Ironjawz)"],
+      triumphs: [],
+      units: [
+        'Gordrakk the Fist of Gork',
+        'Orruk Weirdnob Shaman',
+        'Savage Big Boss',
+        'Wurrgog Prophet',
+        'Maniak Weirdnob',
+        'Orruk Ardboys',
+        'Savage Boarboy Maniaks',
+        'Savage Orruk Morboys',
+        "Ironskull's Boyz",
+      ],
+    })
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Kattanak Pelt',
+      },
+    ])
   })
 
   it('reads a warscroll pdf file with metadata correctly', () => {

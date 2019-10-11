@@ -1200,7 +1200,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Raptor-Prime`,
-        desc: `he leader of this unit is a Raptor-Prime. Add 1 to hit rolls for attacks made with a Raptor-Prime's Hurricane Crossbow and Heavy Stock.`,
+        desc: `The leader of this unit is a Raptor-Prime. Add 1 to hit rolls for attacks made with a Raptor-Prime's Hurricane Crossbow and Heavy Stock.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {

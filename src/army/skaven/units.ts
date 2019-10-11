@@ -730,7 +730,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crack the Whip`,
-        desc: `dd 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+        desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
         when: [COMBAT_PHASE],
       },
       {

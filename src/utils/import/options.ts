@@ -100,6 +100,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
+  'Madcap Shamans': 'Madcap Shaman',
   'Orruk Gore Gruntas': 'Orruk Gore-Gruntas',
 }
 
