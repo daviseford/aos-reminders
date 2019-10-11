@@ -64,6 +64,7 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
+  'Lunestone Talisman': 'Loonstone Talisman',
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
