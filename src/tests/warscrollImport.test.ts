@@ -46,8 +46,69 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    // TODO Add better tests
-    // expect(warscrollTxt.selections).toEqual({})
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([
+      'Witch Rod',
+      'Shield & Lance',
+      'Vicious Blade & Wicked Cutlass',
+    ])
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: ['Anvilgard'],
+      artifacts: [
+        "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
+        'Armour of Mallus (Hammerhal)',
+        'Whitefire Tome (Hallowheart)',
+        'Asphyxica Censer (Anvilgard)',
+        'Drakescale Cloak (Anvilgard)',
+        "Saint's Blade (Hammerhal)",
+        'Deepmire Cloak (The Living City)',
+        "Patrician's Helm (Tempest's Eye)",
+        'Entangling Blade (Ghyran)',
+      ],
+      battalions: ['Greywater Artillery Company'],
+      commands: [],
+      endless_spells: ['Quicksilver Swords'],
+      scenery: [],
+      spells: [
+        "Strike of Eagles (Tempest's Eye)",
+        'Warding Brand (Hallowheart)',
+        'Choking Fumes (Greywater Fastness)',
+        'Ignite Weapons (Hallowheart)',
+        'Twin-Tailed Comet (Hammerhal)',
+        'Elemental Cyclone (Hallowheart)',
+        'Crystal Aegis (Hallowheart)',
+        'Sear Wounds (Hallowheart)',
+        'Shield of Thorns (Ghyran)',
+        'Sap Strength (Anvilgard)',
+      ],
+      traits: [
+        'Black Market Bounty (Anvilgard Battle Trait)',
+        'Jutting Bones (Drakeblood Curse)',
+        'Acidic Blood (Drakeblood Curse)',
+        'Fell Gaze (Drakeblood Curse)',
+        'Blackfang Crimelord (Anvilgard)',
+      ],
+      triumphs: [],
+      units: [
+        'Celestial Hurricanum with Celestial Battlemage',
+        'Luminark of Hysh with White Battlemage',
+        'Sorceress on Black Dragon',
+        'Steam Tank with Commander',
+        'Freeguild General on Griffon',
+        'Freeguild General',
+        'Nomad Prince',
+        'Cogsmith',
+        'Battlemage',
+        'Battlemage on Griffon',
+        'Black Ark Corsairs',
+        'Drakespawn Chariots',
+        'Dark Riders',
+        'Kharibdyss',
+        'War Hydra',
+        'Helblaster Volley Gun',
+        'Helstorm Rocket Battery',
+      ],
+    })
   })
 
   it('reads a Big Waaagh warscroll pdf file correctly', () => {

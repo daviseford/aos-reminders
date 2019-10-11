@@ -80,5 +80,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
 const removeFoundErrors = (errors: TImportError[], selections: { [key: string]: string[] }) => {
   const found = Object.values(selections).flat()
-  return errors.filter(e => !found.some(f => f === e.text))
+  return errors
+    .filter(e => !found.some(f => f === e.text))
+    .filter(e => !found.some(f => f.startsWith(e.text)))
 }

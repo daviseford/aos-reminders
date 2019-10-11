@@ -33,7 +33,7 @@ const Allegiances: TAllegiances = [
         command_trait: true,
       },
       {
-        name: `Sunblessed Armour`,
+        name: `Sunzblessed Armour`,
         desc: `Attacks that target the bearer have their rend reduced by 1, to a minimum of 0.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         artifact: true,

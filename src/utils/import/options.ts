@@ -83,7 +83,15 @@ const warscrollTypoMap: TNameMap = {
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
+  'Whitefire Tome - All Spells': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Crystal Aegis': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Elemental Cyclone': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Ignite Weapons': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Roaming Wildfire': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Sear Wounds': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Warding Brand': 'Whitefire Tome (Hallowheart)',
   "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
+  "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
 }
 
 // Azyr on the left - AoS Reminders on the right
