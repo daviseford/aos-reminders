@@ -503,7 +503,7 @@ export const Units: TUnits = [
       {
         name: `Arcanite Shield`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [DURING_GAME],
       },
       {
         name: `Paired Savage Blades`,
