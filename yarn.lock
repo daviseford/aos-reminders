@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@auth0/auth0-spa-js@1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.2.4.tgz#7ed5ae0676e13f7a91ffbdab91c75bd494395e6b"
-  integrity sha512-UdP2ec/yGw2xkrZQS+0PufaNXakpdtPy1wQ0z/pTKhWvN2tpsGG4xRVYAwwwrjzw90seqqzIg6xaqZFFOfYoWw==
+"@auth0/auth0-spa-js@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.3.0.tgz#623d9b5e5b87e450f8032c96f109ee8d682058ed"
+  integrity sha512-Hpmzm4Jq1V1nFaI7Gmd07VcChxsBXMgp5fJizIug84AhCrjj8non3MdtD7MnIxnP9Z3BT5rtYQ9HDLz6aRX2eA==
   dependencies:
     core-js "^3.2.1"
     es-cookie "^1.2.0"
@@ -1488,10 +1488,10 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
-"@types/react-stripe-elements@1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react-stripe-elements/-/react-stripe-elements-1.3.3.tgz#248c472d8d7c0c74b5282ba67c3f8e677c1c75cb"
-  integrity sha512-dWAGvT6pUqsYYVTDMVntEtJUi4TpWOvY/di05H4lEoqOGQnKRqX79hoPrXOy2iT3MqXlqp7cp8rK4w9j/W4XYw==
+"@types/react-stripe-elements@1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@types/react-stripe-elements/-/react-stripe-elements-1.3.4.tgz#d1736fd4111c1c695d697fbc881409fbf356500c"
+  integrity sha512-qtj31iRy1reUASk3aT3Cyu069m3hsAIKl4fNa2tR1axVQ/HndgFAok21DQY8IzRrN9Wv8/pwUa0ou/9B10VSLg==
   dependencies:
     "@types/react" "*"
     "@types/stripe-v3" "*"
