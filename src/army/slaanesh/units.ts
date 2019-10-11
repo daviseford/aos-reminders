@@ -64,7 +64,7 @@ const KeeperOfSecretsBaseEffects = [
   },
   {
     name: `Cacophonic Choir`,
-    desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+    desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
     when: [HERO_PHASE],
     spell: true,
   },
@@ -157,7 +157,7 @@ export const Units: TUnits = [
       },
       {
         name: `Subvert`,
-        desc: `Casting value of 7. If successfully cast, you can pick 1 enemy Hero within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
+        desc: `Casting value of 7. You can pick 1 enemy Hero within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -215,7 +215,7 @@ export const Units: TUnits = [
       },
       {
         name: `Refine Senses`,
-        desc: `Casting value of 4. If successfully cast, until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a Hero, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
+        desc: `Casting value of 4. Until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a Hero, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -246,7 +246,7 @@ export const Units: TUnits = [
       },
       {
         name: `Overwhelming Acquiescence`,
-        desc: `Casting value of 7. If successfully cast, you can pick up to D3 enemy units within 24" of the caster that are visible to them. You can re-roll hit rolls of 1 for attacks that target those units until your next hero phase.`,
+        desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can re-roll hit rolls of 1 for attacks that target those units until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -322,7 +322,7 @@ export const Units: TUnits = [
       },
       {
         name: `Acquiescence`,
-        desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -348,7 +348,7 @@ export const Units: TUnits = [
       },
       {
         name: `Acquiescence`,
-        desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -379,7 +379,7 @@ export const Units: TUnits = [
       },
       {
         name: `Acquiescence`,
-        desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -445,7 +445,7 @@ export const Units: TUnits = [
       },
       {
         name: `Acquiescence`,
-        desc: `Casting value of 5. If successfully cast, you can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -616,7 +616,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cacophonic Choir`,
-        desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -12,10 +12,15 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  CITIES_OF_SIGMAR,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from './fixtures/azyr/json/BoC1.json'
+import CoS1 from './fixtures/azyr/json/CoS1.json'
+import CoS2 from './fixtures/azyr/json/CoS2.json'
+import CoS3 from './fixtures/azyr/json/CoS3.json'
+import CoS4 from './fixtures/azyr/json/CoS4.json'
 import DoK2 from './fixtures/azyr/json/DoK2.json'
 import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
 import KO1 from './fixtures/azyr/json/KO1.json'
@@ -45,6 +50,98 @@ describe('getAzyrArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+    })
+  })
+
+  it('handles CoS1', () => {
+    const pages = handleAzyrPages(CoS1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections).toEqual({
+      allegiances: ['Greywater Fastness'],
+      artifacts: ['Wand of Restoration (Ghyran)'],
+      battalions: ['Greywater Artillery Company'],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Descending Ash Cloud (Greywater Fastness)', 'Choking Fumes (Greywater Fastness)'],
+      traits: ['Drillmaster (Greywater Fastness)'],
+      triumphs: [],
+      units: [
+        'Battlemage',
+        'Cogsmith',
+        'Runelord',
+        'Freeguild Guard',
+        'Freeguild Handgunners',
+        'Steam Tank with Commander',
+        'Helblaster Volley Gun',
+        'Dark Riders',
+        'Freeguild Greatswords',
+      ],
+    })
+  })
+
+  it('handles CoS2', () => {
+    const pages = handleAzyrPages(CoS2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections).toEqual({
+      allegiances: ['Greywater Fastness'],
+      artifacts: [
+        'The Sunderblade (Ghyran)',
+        "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
+        'Steam-piston Plate Mail (Greywater Fastness)',
+      ],
+      battalions: [
+        'Aetherguard Windrunners',
+        'Greywater Artillery Company',
+        'Hammerhalian Lancers',
+        'Phoenix Flight',
+        'Viridian Pathfinders',
+        'Whitefire Retinue',
+      ],
+      commands: [],
+      endless_spells: ['Prismatic Palisade'],
+      scenery: [],
+      spells: ['Eroding Blast (Greywater Fastness)'],
+      traits: ['Seat on the Council (Greywater Fastness)'],
+      triumphs: [],
+      units: [
+        'Freeguild General',
+        'Freeguild General on Griffon',
+        'Luminark of Hysh with White Battlemage',
+        'Sorceress on Black Dragon',
+        'Steam Tank with Commander',
+        'Freeguild Handgunners',
+        'Ironbreakers',
+        'War Hydra',
+        'Helblaster Volley Gun',
+        'Helstorm Rocket Battery',
+      ],
+    })
+  })
+
+  it('handles CoS3', () => {
+    const pages = handleAzyrPages(CoS3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
+    expect(res.selections.traits).toEqual(['Aggressive General (Hammerhal)'])
+  })
+
+  it('handles CoS4', () => {
+    const pages = handleAzyrPages(CoS4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections).toEqual({
+      allegiances: ['Anvilgard'],
+      artifacts: ['Venomfang Blade (Anvilgard)'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Sap Strength (Anvilgard)'],
+      traits: ['Blackfang Crimelord (Anvilgard)', 'Hidden Agents (Anvilgard Battle Trait)'],
+      triumphs: [],
+      units: ['Battlemage on Griffon', 'Freeguild Handgunners', 'War Hydra'],
     })
   })
 
@@ -85,6 +182,21 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Prosecutors',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Hammerers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Irondrakes can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
       },
     ])
   })

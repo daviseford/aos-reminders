@@ -49,7 +49,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -94,7 +94,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -412,7 +412,7 @@ export const Units: TUnits = [
       },
       {
         name: `Enfeebling Foe`,
-        desc: `Casting value of 5. If successfully cast, pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
+        desc: `Casting value of 5. Pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -468,7 +468,7 @@ export const Units: TUnits = [
       },
       {
         name: `Enfeebling Foe`,
-        desc: `Casting value of 5. If successfully cast, pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
+        desc: `Casting value of 5. Pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -504,7 +504,7 @@ export const Units: TUnits = [
       },
       {
         name: `Doomfire`,
-        desc: `Casting value of 6. If successfully cast, pick an enemy model within 18" and visible to any model in the casting unit. The target suffers D3 mortal wounds if the casting unit has fewer than 5 models. D6 mortal wounds if it has 5 to 9 models. 6 mortal wounds if it has 10 or more models.`,
+        desc: `Casting value of 6. Pick an enemy model within 18" and visible to any model in the casting unit. The target suffers D3 mortal wounds if the casting unit has fewer than 5 models. D6 mortal wounds if it has 5 to 9 models. 6 mortal wounds if it has 10 or more models.`,
         when: [HERO_PHASE],
         spell: true,
       },

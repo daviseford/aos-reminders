@@ -8,7 +8,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Gladewyrm`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Gladewyrm. Casting value of 7. If successfully cast, set up a Gladewyrm model wholly within 6" of the caster.`,
+        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Gladewyrm. Casting value of 7. Set up a Gladewyrm model wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -33,7 +33,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Spiteswarm Hive`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Spiteswarm Hive. Casting value of 7. If successfully cast, set up a Spiteswarm Hive model wholly within 15" of the caster.`,
+        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Spiteswarm Hive. Casting value of 7. Set up a Spiteswarm Hive model wholly within 15" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -52,7 +52,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Vengeful Skullroot`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Vengeful Skullroot. Casting value of 6. If successfully cast, set up a Vengeful Skullroot model wholly within 6" of the caster.`,
+        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Vengeful Skullroot. Casting value of 6. Set up a Vengeful Skullroot model wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {

@@ -597,7 +597,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Gateway`,
-        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },

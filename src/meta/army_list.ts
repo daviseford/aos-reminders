@@ -6,6 +6,7 @@ import {
   BIG_WAAAGH,
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -49,6 +50,7 @@ import BeastsOfChaos from 'army/beasts_of_chaos'
 import BigWaaagh from 'army/big_waaagh'
 import Bonesplitterz from 'army/bonesplitterz'
 import ChaosGrandAlliance from 'army/grand_alliances/chaos'
+import CitiesOfSigmar from 'army/cities_of_sigmar'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import DeathGrandAlliance from 'army/grand_alliances/death'
 import DestructionGrandAlliance from 'army/grand_alliances/destruction'
@@ -105,6 +107,10 @@ const ArmyList: TArmyList = {
   [CHAOS_GRAND_ALLIANCE]: {
     Army: { ...ChaosGrandAlliance },
     GrandAlliance: CHAOS,
+  },
+  [CITIES_OF_SIGMAR]: {
+    Army: { ...CitiesOfSigmar },
+    GrandAlliance: ORDER,
   },
   [DAUGHTERS_OF_KHAINE]: {
     Army: { ...DaughtersOfKhaine },

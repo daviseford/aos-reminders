@@ -1,10 +1,11 @@
 import {
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
-  BIG_WAAAGH,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
@@ -87,6 +88,7 @@ const warscrollTypoMap: TNameMap = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
+  'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
@@ -128,6 +130,7 @@ export const importFactionNameMap = {
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
+  'Cities of Sigmar': CITIES_OF_SIGMAR,
   'Clans Eshin': SKAVEN,
   'Clans Moulder': SKAVEN,
   'Clans Pestilens': SKAVEN,

@@ -95,7 +95,8 @@ const newHandleText = (text: string): string[] => {
     .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ') // Remove "Quantity: 1"
     .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
-    .replace(/General/g, ' ') // Handle any known typos
+    .replace(/General's Adjutant/g, ' ') // Get rid of General markings
+    .replace(/([\w]+)? (General)/g, generalReplacer) // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
@@ -121,6 +122,7 @@ const handleItem = (text: string): string[] => {
     .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
     .replace(spellRegexp, 'Spell:')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
+    .replace(/Battle Trait/g, 'Command Trait')
     .replace(markRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
@@ -211,6 +213,12 @@ const getTextHeights = (heights: number[]) => {
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
 
+const generalReplacer = (match: string, p1: string, p2: string) => {
+  const validPrefixes = ['Aggressive', 'Freeguild']
+  if (p1 && validPrefixes.includes(p1)) return match // Leave General
+  return `${p1}  ` // Remove General
+}
+
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
   return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
@@ -246,11 +254,13 @@ const allegianceTypes = [
   'Skyport',
   'Slaughterhost',
   'Stormhost',
+  'Stronghold',
   'Temple',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
+  'Aggr essiv e': 'Aggressive',
   'Allher d': 'Allherd',
   'Amar anthine': 'Amaranthine',
   'Ar tiller y': 'Artillery',
@@ -266,8 +276,10 @@ const commonTypos = {
   'Dr aining': 'Draining',
   'Dr ead': 'Dread',
   'Ether eal': 'Ethereal',
-  'Gener al': '',
+  'Gener al': 'General',
   'Gr eatblade': 'Greatblade',
+  'Honour ed Retinue': '',
+  'Honoured Retinue': '',
   'Inv ocation': 'Invocation',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',

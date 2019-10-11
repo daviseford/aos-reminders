@@ -1,6 +1,5 @@
 import { TTraits } from 'types/army'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
@@ -11,66 +10,6 @@ import {
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
-  {
-    name: `Crusading Army (Delusion)`,
-    effects: [
-      {
-        name: `Crusading Army (Delusion)`,
-        desc: `Add 1 to run and charge rolls for friendly FLESH-EATER COURTS units.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Royal Hunt (Delusion)`,
-    effects: [
-      {
-        name: `The Royal Hunt (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 and wound rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Feast Day (Delusion)`,
-    effects: [
-      {
-        name: `The Feast Day (Delusion)`,
-        desc: `Once per turn, you can use the Feeding Frenzy command ability without a command point being spent.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `A Matter of Honour (Delusion)`,
-    effects: [
-      {
-        name: `A Matter of Honour (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a HERO. If the target is a general, you can re-roll wound rolls of 1 as well.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Grand Tournament (Delusion)`,
-    effects: [
-      {
-        name: `The Grand Tournament (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS HEROES other than your general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Defenders of the Realm (Delusion)`,
-    effects: [
-      {
-        name: `Defenders of the Realm (Delusion)`,
-        desc: `You can re-roll save rolls of 1 for friendly FLESH- EATER COURTS units that have at least half their models wholly within their own territory.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
   {
     name: `Bringer of Death (Royalty)`,
     effects: [

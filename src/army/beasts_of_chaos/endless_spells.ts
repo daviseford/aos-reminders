@@ -15,7 +15,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Ravening Direflock`,
-        desc: `Casting value of 5. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Ravening Direflock model wholly within 12" of the caster and more than 3" from any units, then set up the second and third Ravening Direflock models wholly within 6" of the first and more than 3" from any units.`,
+        desc: `Casting value of 5. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Ravening Direflock model wholly within 12" of the caster and more than 3" from any units, then set up the second and third Ravening Direflock models wholly within 6" of the first and more than 3" from any units.`,
         when: [HERO_PHASE],
       },
       {
@@ -35,7 +35,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Doomblast Dirgehorn`,
-        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Doomblast Dirgehorn model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Doomblast Dirgehorn model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -55,7 +55,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Wildfire Taurus`,
-        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. If successfully cast, set up a Wildfire Taurus model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Wildfire Taurus model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {

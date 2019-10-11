@@ -68,7 +68,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grief Stricken`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
+        desc: `Casting value of 7. Pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -126,7 +126,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wraithstorm`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -182,7 +182,7 @@ export const Units: TUnits = [
       },
       {
         name: `Spectral Lure`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
+        desc: `Casting value of 6. Pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -204,7 +204,7 @@ export const Units: TUnits = [
       },
       {
         name: `Temporal Translocation`,
-        desc: `Casting value of 6. If successfully cast, pick a friendly NIGHTHAUNT unit wholly within 24" of the caster. You can make a normal move up to 6" with that unit. If the unit retreats as a part of this move it can still charge later in the turn.`,
+        desc: `Casting value of 6. Pick a friendly NIGHTHAUNT unit wholly within 24" of the caster. You can make a normal move up to 6" with that unit. If the unit retreats as a part of this move it can still charge later in the turn.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -7,6 +7,10 @@ import Bonesplitterz1 from './fixtures/azyr/json/Bonesplitterz1.json'
 import Chamon from './fixtures/azyr/json/Chamon1.json'
 import Chaos1 from './fixtures/azyr/json/Chaos1.json'
 import Chaos2 from './fixtures/azyr/json/Chaos2.json'
+import CoS1 from './fixtures/azyr/json/CoS1.json'
+import CoS2 from './fixtures/azyr/json/CoS2.json'
+import CoS3 from './fixtures/azyr/json/CoS3.json'
+import CoS4 from './fixtures/azyr/json/CoS4.json'
 import Death1 from './fixtures/azyr/json/Death1.json'
 import Destruction1 from './fixtures/azyr/json/Destruction1.json'
 import Destruction2 from './fixtures/azyr/json/Destruction2.json'
@@ -94,6 +98,94 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles CoS1', () => {
+    const res = handleAzyrPages(CoS1)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Greywater Fastness',
+      'REALMSCAPE: GHYRAN',
+      'UNIT: Battlemage',
+      'SPELL: Descending Ash Cloud',
+      'SPELL: Choking Fumes',
+      'UNIT: Cogsmith',
+      'ARTEFACT: Wand of Restoration',
+      'COMMAND TRAIT: Drillmaster',
+      'UNIT: Runelord',
+      'UNIT: Freeguild Guard',
+      'UNIT: Freeguild Handgunners',
+      'UNIT: Steam Tank',
+      'UNIT: Helblaster Volley Gun',
+      'UNIT: Dark Riders',
+      'UNIT: Freeguild Greatswords',
+      'BATTALION: Greywater Artillery Battery',
+    ])
+  })
+
+  it('handles CoS2', () => {
+    const res = handleAzyrPages(CoS2)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Greywater Fastness',
+      'REALMSCAPE: GHYRAN',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Freeguild General',
+      'ARTEFACT: The Sunderblade',
+      'UNIT: Freeguild General on Griffon',
+      "ARTEFACT: Mastro Vivetti's Magnificent Macroscope",
+      'COMMAND TRAIT: Seat on the Council',
+      'UNIT: Knight-Azyros',
+      'UNIT: Luminark of Hysh with White Battlemage',
+      'ARTEFACT: Steam-piston Plate Mail',
+      'SPELL: Eroding Blast',
+      'UNIT: Sorceress on Black Dragon',
+      'UNIT: Steam Tank with Commander',
+      'UNIT: Freeguild Handgunners',
+      'UNIT: Ironbreakers',
+      'UNIT: War Hydra',
+      'UNIT: Celestar Ballista',
+      'UNIT: Helblaster Volley Gun',
+      'UNIT: Helstorm Rocket Battery',
+      'BATTALION: Aetherguard Windrunners',
+      'BATTALION: Greywater Artillery Battery',
+      'BATTALION: Hammerhalian Lancers',
+      'BATTALION: Phoenix Flight',
+      'BATTALION: Viridian Pathfinders',
+      'BATTALION: Whitefire Retinue',
+      'ENDLESS SPELL: Prismatic Palisade',
+    ])
+  })
+  it('handles CoS3', () => {
+    const res = handleAzyrPages(CoS3)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Hammerhal',
+      'UNIT: Battlemage',
+      'COMMAND TRAIT: Aggressive General',
+      'UNIT: Freeguild General',
+      'UNIT: Dreadspears',
+      'UPGRADE: Lordling',
+      'UPGRADE: Standard Bearer',
+      'UPGRADE: Hornblower',
+    ])
+  })
+
+  it('handles CoS4', () => {
+    const res = handleAzyrPages(CoS4)
+    expect(res).toEqual([
+      'FACTION: Cities of Sigmar',
+      'ALLEGIANCE: Anvilgard',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Battlemage on Griffon',
+      'ARTEFACT: Venomfang Blade',
+      'COMMAND TRAIT: Blackfang Crimelord',
+      'SPELL: Sap Strength',
+      'COMMAND TRAIT: Hidden Agents',
+      'UNIT: Freeguild Handgunners',
+      'UPGRADE: Marksman',
+      'UNIT: War Hydra',
+    ])
   })
 
   it('handles DoK2', () => {

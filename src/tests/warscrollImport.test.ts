@@ -309,8 +309,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    console.log(warscrollTxt)
-
     expect(warscrollTxt).toEqual({
       allyFactionNames: ['STORMCAST_ETERNALS'],
       allySelections: {
@@ -333,6 +331,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Evocators',
         'Aleguzzler Gargant',
         'Celestar Ballista',
+        // TODO: Why is Dread Saurian here?
         'Dread Saurian',
       ],
       errors: [],

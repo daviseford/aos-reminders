@@ -58,12 +58,12 @@ const Spells: TSpells = [
       },
       {
         name: `Tide of Fear`,
-        desc: `If successfully cast, units affected by Tide of Fear subtract 1 from hit rolls for that unit.`,
+        desc: `Units affected by Tide of Fear subtract 1 from hit rolls for that unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Tide of Fear`,
-        desc: `If successfully cast, units affected by Tide of Fear subtract 1 from their Bravery characteristic.`,
+        desc: `Units affected by Tide of Fear subtract 1 from their Bravery characteristic.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
