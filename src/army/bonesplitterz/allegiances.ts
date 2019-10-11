@@ -63,8 +63,9 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Kattanak Pelt`,
-        desc: `add 1 to the Bravery characteristic of friendly units that are wholly within 18" of the bearer.`,
+        desc: `Add 1 to the Bravery characteristic of friendly units that are wholly within 18" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
+        artifact: true,
       },
     ],
   },
