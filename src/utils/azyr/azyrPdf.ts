@@ -96,7 +96,7 @@ const newHandleText = (text: string): string[] => {
     .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
     .replace(/General's Adjutant/g, ' ') // Get rid of General markings
-    .replace(/(?<!(Freeguild|Aggressive) )General/g, ' ') // Get rid of General markings
+    .replace(/([\w]+)? (General)/g, generalReplacer) // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
@@ -212,6 +212,12 @@ const getTextHeights = (heights: number[]) => {
 }
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
+
+const generalReplacer = (match: string, p1: string, p2: string) => {
+  const validPrefixes = ['Aggressive', 'Freeguild']
+  if (p1 && validPrefixes.includes(p1)) return match // Leave General
+  return `${p1}  ` // Remove General
+}
 
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
