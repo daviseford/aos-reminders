@@ -67,6 +67,7 @@ const warscrollTypoMap: TNameMap = {
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
+  "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
   'Midnight Tome - Lifestealer': 'Midnight Tome',
   'Midnight Tome - Reaping Scythe': 'Midnight Tome',
   'Midnight Tome - Shademist': 'Midnight Tome',

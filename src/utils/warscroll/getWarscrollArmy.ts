@@ -59,6 +59,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       if (txt.startsWith('- Mortal Realm: ')) return accum
 
+      console.log(txt)
+
       if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
         return accum
@@ -78,6 +80,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- City Role')) return accum
+
         if (txt.startsWith('- Allies')) {
           const alliedUnit = last(accum.units)
           if (alliedUnit) {
@@ -89,17 +93,22 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
         if (txt.includes('Command Trait : ')) {
-          const trait = txt.split(' Command Trait : ')[1].trim()
+          const trait = getTrait('Command Trait', txt)
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Mount Trait : ')) {
+          const trait = getTrait('Mount Trait', txt)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Artefact : ')) {
-          const artifact = txt.split(' Artefact : ')[1].trim()
+          const artifact = getTrait('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
         if (txt.includes('Spell : ')) {
-          const spell = txt.split(' Spell : ')[1].trim()
+          const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -225,6 +234,8 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
           return accum
         }
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- City Role')) return accum
+
         if (txt.startsWith('- Allies')) {
           const alliedUnit = last(accum.units)
           if (alliedUnit) {
@@ -236,22 +247,22 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
           return accum
         }
         if (txt.includes('Command Trait: ')) {
-          const trait = txt.split(' Command Trait: ')[1].trim()
+          const trait = getTrait('Command Trait', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Mount Trait: ')) {
-          const trait = txt.split(' Mount Trait: ')[1].trim()
+          const trait = getTrait('Mount Trait', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Artefact: ')) {
-          const artifact = txt.split(' Artefact: ')[1].trim()
+          const artifact = getTrait('Artefact', txt, false)
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
         if (txt.includes('Spell: ')) {
-          const spell = txt.split(' Spell: ')[1].trim()
+          const spell = getTrait('Spell', txt, false)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -333,4 +344,28 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
     selections,
     unknownSelections: uniq(unknownSelections),
   }
+}
+
+type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait'
+
+const getTrait = (type: TTraitType, txt: string, isPdf = true) => {
+  const sep = isPdf ? `${type} : ` : `${type}: `
+  return removePrefix(txt.split(sep)[1].trim())
+}
+
+/**
+ * Removes unnecessary prefixes
+ * @param txt
+ */
+const removePrefix = (txt: string) => {
+  const prefixes = [
+    'Secretive Warlock -',
+    'Lore of Cinder -',
+    'Lore of Eagles -',
+    'Lore of Whitefire -',
+    'Whitefire Tome -',
+    'Lore of Smog -',
+  ]
+  const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
+  return txt.replace(regexp, '').trim()
 }
