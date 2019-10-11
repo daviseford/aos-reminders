@@ -46,44 +46,47 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    console.log(warscrollTxt)
-    // TODO Add better tests
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([
+      'Witch Rod',
+      'Shield & Lance',
+      'Vicious Blade & Wicked Cutlass',
+    ])
     expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
+      allegiances: ['Anvilgard'],
       artifacts: [
+        "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
         'Armour of Mallus (Hammerhal)',
+        'Whitefire Tome (Hallowheart)',
         'Asphyxica Censer (Anvilgard)',
         'Drakescale Cloak (Anvilgard)',
         "Saint's Blade (Hammerhal)",
         'Deepmire Cloak (The Living City)',
         "Patrician's Helm (Tempest's Eye)",
         'Entangling Blade (Ghyran)',
-        "Mastro Vivetti's Maginificent Macroscope",
       ],
       battalions: ['Greywater Artillery Company'],
       commands: [],
       endless_spells: ['Quicksilver Swords'],
       scenery: [],
       spells: [
-        'Warding Brand (Hallowheart)',
-        'Ignite Weapons (Hallowheart)',
-        'Elemental Cyclone (Hallowheart)',
-        'Sear Wounds (Hallowheart)',
-        'Crystal Aegis (Hallowheart)',
-        'Shield of Thorns (Ghyran)',
-        'Sap Strength (Anvilgard)',
-        'Twin-tailed Comet (Hammerhal)',
-        'Crystal Aegis (Hallowheart)',
-        'Choking Fumes (Greywater Fastness)',
         "Strike of Eagles (Tempest's Eye)",
+        'Warding Brand (Hallowheart)',
+        'Choking Fumes (Greywater Fastness)',
+        'Ignite Weapons (Hallowheart)',
+        'Twin-Tailed Comet (Hammerhal)',
+        'Elemental Cyclone (Hallowheart)',
+        'Crystal Aegis (Hallowheart)',
+        'Sear Wounds (Hallowheart)',
+        'Shield of Thorns (Ghyran)',
         'Sap Strength (Anvilgard)',
       ],
       traits: [
+        'Black Market Bounty (Anvilgard Battle Trait)',
         'Jutting Bones (Drakeblood Curse)',
         'Acidic Blood (Drakeblood Curse)',
-        'Blackfang Crimelord (Anvilgard)',
         'Fell Gaze (Drakeblood Curse)',
-        'Black Market Bounty (Anvilgard Battle Trait)',
+        'Blackfang Crimelord (Anvilgard)',
       ],
       triumphs: [],
       units: [

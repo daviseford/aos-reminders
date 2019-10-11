@@ -389,7 +389,6 @@ const removePrefix = (txt: string) => {
     'Lore of Cinder -',
     'Lore of Eagles -',
     'Lore of Whitefire -',
-    'Whitefire Tome -',
     'Lore of Smog -',
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
