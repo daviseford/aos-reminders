@@ -1,7 +1,15 @@
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { SERAPHON, SLAANESH, KHARADRON_OVERLORDS, ORDER_GRAND_ALLIANCE, NIGHTHAUNT } from 'meta/factions'
+import {
+  SERAPHON,
+  SLAANESH,
+  KHARADRON_OVERLORDS,
+  ORDER_GRAND_ALLIANCE,
+  NIGHTHAUNT,
+  CITIES_OF_SIGMAR,
+  BIG_WAAAGH,
+} from 'meta/factions'
 
 describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
@@ -30,6 +38,26 @@ describe('getWarscrollArmyFromPdf', () => {
         'Bastiladon w/ Ark of Sotek',
       ],
     })
+  })
+
+  it('reads a CoS warscroll pdf file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/CoS1.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    // TODO Add better tests
+    // expect(warscrollTxt.selections).toEqual({})
+  })
+
+  it('reads a Big Waaagh warscroll pdf file correctly', () => {
+    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/BigWaaagh1.pdf', 'utf8')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    // TODO Add better tests
+    // expect(warscrollTxt.selections).toEqual({})
   })
 
   it('reads a warscroll pdf file with metadata correctly', () => {
