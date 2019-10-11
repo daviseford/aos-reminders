@@ -13,7 +13,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import { getEverchosenUnits } from 'army/everchosen/units'
+import EverChosen from 'army/everchosen'
 import { MARK_TZEENTCH } from 'meta/alliances'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
@@ -42,6 +42,11 @@ const getBoCUnits = () => {
     'Ungors',
   ]
   return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getEverchosenUnits = () => {
+  const listOfUnits = [`Archaon`, `Gaunt Summoner on Disc of Tzeentch`]
+  return filterUnits(EverChosen.Units, listOfUnits)
 }
 
 const getBoCBattalion = () => {
