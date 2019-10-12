@@ -13,7 +13,7 @@ interface IUpdateFavorite {
   factionName: TSupportedFaction | null
 }
 
-const cancelSubscription = (userName: string) => request.get(`${endpoint}/cancel/${userName}`)
+const cancelSubscription = (userName: string) => request.get(`${endpoint}/cancel_subscription/${userName}`)
 const getSubscription = (userName: string) => request.get(`${endpoint}/user/${userName}`)
 const getFavoriteFaction = (userName: string) => request.get(`${endpoint}/favorite/${userName}`)
 const updateFavoriteFaction = (data: IUpdateFavorite) =>
