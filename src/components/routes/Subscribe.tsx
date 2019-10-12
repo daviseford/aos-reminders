@@ -134,6 +134,9 @@ const ComingSoon = () => (
         <i>Importing army lists from Battlescribe</i>
       </li>
       <li>
+        <i>Share army lists with your friends</i>
+      </li>
+      <li>
         <i>Adding custom reminders</i>
       </li>
       <li>
