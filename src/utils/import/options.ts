@@ -64,6 +64,7 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
+  'Lunestone Talisman': 'Loonstone Talisman',
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
@@ -83,7 +84,15 @@ const warscrollTypoMap: TNameMap = {
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
+  'Whitefire Tome - All Spells': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Crystal Aegis': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Elemental Cyclone': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Ignite Weapons': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Roaming Wildfire': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Sear Wounds': 'Whitefire Tome (Hallowheart)',
+  'Whitefire Tome - Warding Brand': 'Whitefire Tome (Hallowheart)',
   "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
+  "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
 }
 
 // Azyr on the left - AoS Reminders on the right
@@ -92,6 +101,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
+  'Madcap Shamans': 'Madcap Shaman',
   'Orruk Gore Gruntas': 'Orruk Gore-Gruntas',
 }
 

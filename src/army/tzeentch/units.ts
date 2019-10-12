@@ -11,11 +11,9 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import { getEverchosenUnits } from 'army/everchosen/units'
+import EverChosen from 'army/everchosen'
 import { MARK_TZEENTCH } from 'meta/alliances'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
@@ -36,10 +34,19 @@ const getBoCUnits = () => {
     'Gors',
     'Great Bray-Shaman',
     'Tuskgor Chariots',
+    'Tzaangors',
+    `Tzaangor Enlightened`,
+    `Tzaangor Skyfires`,
+    `Tzaangor Shaman`,
     'Ungor Raiders',
     'Ungors',
   ]
   return filterUnits(BeastsofChaos.Units, listOfUnits)
+}
+
+const getEverchosenUnits = () => {
+  const listOfUnits = [`Archaon`, `Gaunt Summoner on Disc of Tzeentch`]
+  return filterUnits(EverChosen.Units, listOfUnits)
 }
 
 const getBoCBattalion = () => {
@@ -314,22 +321,6 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Tzaangor Shaman`,
-    effects: [
-      {
-        name: `Sorcerous Elixir`,
-        desc: `Once per battle, at the start of your hero phase, you can attempt to cast a second spell with the Tzaangor Shaman (this can even be the same spell), and can choose to re-roll one or both of the dice when making your casting rolls.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Boon of Mutation`,
-        desc: `Casting value 7. Pick a visible enemy unit within 18". Deal D3 mortal wounds to that unit. For each enemy model slain by this spell you can add 1 new Tzaangor Model to a single friendly Tzaangors unit. Each new Tzaangor model must be set up wholly within 12" of the caster and within 1" fo the unit they are being added to.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
-  },
-  {
     name: `Curseling, Eye of Tzeentch`,
     effects: [
       {
@@ -430,41 +421,6 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Tzaangors`,
-    effects: [
-      {
-        name: `Icon Bearers`,
-        desc: `If this unit includes one or more Icon Bearers, then at the start of each of your hero phases, take a dice for each WIZARD (friend or foe) within 9" of this unit. Then, pick an enemy unit within 18" and roll the dice; the unit suffers a mortal wound for each roll of 4 or more.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Brayhorns`,
-        desc: `A unit that includes any Brayhorns can run and charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Arcanite Shield`,
-        desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Anarchy and Mayhem`,
-        desc: `If this unit is within 9" of any friendly ARCANITE HEROESat the start of the combat phase, you can add 1 to any wound rolls made for the unit in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Paired Savage Blades`,
-        desc: `You can add 1 to any hit rolls made for models attacking with Paired Savage Blades.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Savagery Unleashed`,
-        desc: `You can make one additional attack for each model in this unit with its Savage Blade, Two Savage Blades or Savage Greatblade for every 9 models in the unit (to a maximum of 3 additional attacks per model).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
     name: `Kairic Acolytes`,
     effects: [
       {
@@ -491,46 +447,6 @@ export const Units: TUnits = [
         name: `Vulchare`,
         desc: `If at least one model in the unit is equipped with a Vulcharc, roll a D6 each time an enemy WIZARD within 18" of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell's effects have been resolved.`,
         when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Tzaangor Enlightened`,
-    effects: [
-      {
-        name: `Babbling Stream of Secrets`,
-        desc: `If an enemy unit within 9" of any Tzaangor Enlightened models fails a battleshock test, one additional model flees.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Guided by the Past`,
-        desc: `In the combat phase, you can re-roll all failed hit and wound rolls for a unit of Tzaangor Enlightened if there are any enemy units within 3" of them that have already attacked in that phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Preternatural Enhancement`,
-        desc: `If this unit is within 9" of a Tzaangor Shaman at the start of the combat phase, add 1 to all hit rolls you make for their Tzeentchian Spear and Vicious Beak attacks.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Tzaangor Skyfires`,
-    effects: [
-      {
-        name: `Guided by the Future`,
-        desc: `In the combat phase, you can re-roll all failed hit and wound rolls for a unit of Tzaangor Skyfiresif no enemy units within 3" of them have attacked yet in that phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Judgement from Afar`,
-        desc: `An unmodified hit roll of 6 for an attack made with an arrow of fate indlicts D3 mortal wounds on the target and the attack sequence ends.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Preternatural Enhancement`,
-        desc: `If this unit is within 9" of a friendly Tzaangor Shaman at the start of the shooting phase, add 1 to any hit rolls made for their Greatbow's Arrow of Fate attacks.`,
-        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },

@@ -126,7 +126,7 @@ const handleItem = (text: string): string[] => {
     .replace(markRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
 
@@ -134,21 +134,21 @@ const handleItem = (text: string): string[] => {
     .join(sep)
     // You really do have to run this twice, really :(
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  ${sep}`)
+    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-!' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  ${sep}`)
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-!' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
       `$4: $2${commaAlt} $3${sep}`
     )
     // Now handle normal units
-    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(,| {2})([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
-    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(,| {2})?([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/(Artefact|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
-    .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2') // Tag ally units
+    .replace(/(UNIT:|,) ([\w-&!' ]+) Ally/g, 'ALLY: $2') // Tag ally units
     .replace(/\/ Allies/g, '')
     .split(',')
     .join(sep)
@@ -168,7 +168,7 @@ const handleTitle = (text: string): string[] => {
 
   const secondTitlePass = firstTitlePass
     .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      /.+?Allegiance:([\w-!' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
     )
     .replace(

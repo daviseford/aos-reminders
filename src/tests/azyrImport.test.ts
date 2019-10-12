@@ -1,5 +1,6 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 
+import BigWaaagh1 from './fixtures/azyr/json/BigWaaagh1.json'
 import BCR1 from './fixtures/azyr/json/BCR1.json'
 import BoC1 from './fixtures/azyr/json/BoC1.json'
 import BoC2 from './fixtures/azyr/json/BoC2.json'
@@ -98,6 +99,28 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles BigWaaagh1', () => {
+    const res = handleAzyrPages(BigWaaagh1)
+    expect(res).toEqual([
+      'FACTION: Big Waaagh!',
+      'REALMSCAPE: AQSHY',
+      'UNIT: Gordrakk, the Fist of Gork',
+      "MOUNT TRAIT: Mean'Un",
+      'UNIT: Megaboss',
+      "ARTEFACT: Metalrippa's Klaw",
+      "MOUNT TRAIT: Fast'Un",
+      'UNIT: Savage Big Boss',
+      'ARTEFACT: Weepwood Big Shiv',
+      'UNIT: Wurrgog Prophet',
+      "ARTEFACT: Mork's Boney Bitz",
+      'COMMAND TRAIT: Waaagh!-monger',
+      'SPELL: Breath of Gorkamorka',
+      'UNIT: Orruks',
+      'UNIT: Savage Boarboys',
+      'ENDLESS SPELL: Balewind Vortex',
+    ])
   })
 
   it('handles CoS1', () => {
