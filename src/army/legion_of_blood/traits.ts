@@ -9,10 +9,10 @@ import {
 
 const CommandTraits: TTraits = [
   {
-    name: `Swift Strike`,
+    name: `Swift Strikes`,
     effects: [
       {
-        name: `Swift Strike`,
+        name: `Swift Strikes`,
         desc: `Each time you make a hit roll of 6+ in the combat phase for this general, you can make one additional hit roll for the same weapon against the same target.`,
         when: [COMBAT_PHASE],
       },
