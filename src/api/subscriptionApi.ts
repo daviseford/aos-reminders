@@ -13,15 +13,15 @@ interface IUpdateFavorite {
   factionName: TSupportedFaction | null
 }
 
-const cancelSubscription = (subscriptionId: string) => request.get(`${endpoint}/cancel/${subscriptionId}`)
+const cancelSubscription = (userName: string) => request.get(`${endpoint}/cancel/${userName}`)
 const getSubscription = (userName: string) => request.get(`${endpoint}/user/${userName}`)
-const getFavoriteArmy = (userName: string) => request.get(`${endpoint}/favorite/${userName}`)
-const updateFavoriteArmy = (data: IUpdateFavorite) =>
+const getFavoriteFaction = (userName: string) => request.get(`${endpoint}/favorite/${userName}`)
+const updateFavoriteFaction = (data: IUpdateFavorite) =>
   request.post(`${endpoint}/favorite`).send({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
 
 export const SubscriptionApi = {
   cancelSubscription,
-  getFavoriteFaction: getFavoriteArmy,
+  getFavoriteFaction,
   getSubscription,
-  updateFavoriteFaction: updateFavoriteArmy,
+  updateFavoriteFaction,
 }

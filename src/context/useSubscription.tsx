@@ -53,7 +53,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
 
   const cancelSubscription = useCallback(async () => {
     try {
-      await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
+      await SubscriptionApi.cancelSubscription(subscription.userName)
       await getSubscription()
     } catch (err) {
       console.error(err)
