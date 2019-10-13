@@ -385,11 +385,12 @@ const getTrait = (type: TTraitType, txt: string, isPdf = true) => {
  */
 const removePrefix = (txt: string) => {
   const prefixes = [
-    'Secretive Warlock -',
     'Lore of Cinder -',
     'Lore of Eagles -',
-    'Lore of Whitefire -',
+    'Lore of Leaves -',
     'Lore of Smog -',
+    'Lore of Whitefire -',
+    'Secretive Warlock -',
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
   return txt.replace(regexp, '').trim()
