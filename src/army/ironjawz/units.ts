@@ -166,7 +166,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Orruk Gore Gruntas`,
+    name: `Orruk Gore-gruntas`,
     effects: [
       {
         name: `Gore-grunta Charge`,
