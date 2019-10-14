@@ -70,12 +70,12 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
 }
 
 const checkIfAzyr = (pdfPages: string[]): boolean => {
-  const matches = ['azyr', 'play type', 'game type', 'army deemed']
+  const matches = [' azyr ', 'play type', 'game type', 'army deemed']
   return new RegExp(matches.join('|'), 'gi').test(pdfPages[0])
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {
-  const cleanedPages = pages.map(newHandleText)
+  const cleanedPages = pages.map(handlePages)
   const joinedPages = cleanedPages[0]
 
   if (isDev) console.table(joinedPages)
@@ -83,7 +83,7 @@ export const handleAzyrPages = (pages: string[]): string[] => {
   return joinedPages
 }
 
-const newHandleText = (text: string): string[] => {
+const handlePages = (text: string): string[] => {
   const preppedText = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
@@ -216,7 +216,7 @@ const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p
 const generalReplacer = (match: string, p1: string, p2: string) => {
   const validPrefixes = ['Aggressive', 'Freeguild']
   if (p1 && validPrefixes.includes(p1)) return match // Leave General
-  return `${p1}  ` // Remove General
+  return `${p1 || ''}  ` // Remove General
 }
 
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {

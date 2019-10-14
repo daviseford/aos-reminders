@@ -51,6 +51,7 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from '../fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from '../fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from '../fixtures/azyr/json/Stormcast3.json'
+import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Sylvaneth1 from '../fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from '../fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from '../fixtures/azyr/json/Tzeentch2.json'
@@ -69,7 +70,7 @@ import Wanderers1 from '../fixtures/azyr/json/Wanderers1.json'
 
 /**
  * Testing the Azyr import is a little wonky, because as of right now,
- * importing's locally doesn't work in the local test environment
+ * importing PDFs locally doesn't work in the local test environment
  *
  * The workaround is to `yarn start` and drop your in the dropzone
  * Then copy the output that says "Copy me" into a JSON file
