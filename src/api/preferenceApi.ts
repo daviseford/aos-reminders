@@ -27,7 +27,7 @@ interface IUpdateItem {
   [key: string]: any
 }
 
-const createError = (data: ICreateError) => request.post(`${api}/errors`).send(data)
+const createErrorFile = (data: ICreateError) => request.post(`${api}/errors`).send(data)
 const createItem = (data: ICreateItem) => request.post(`${api}/items`).send(data)
 const createSavedArmy = (data: ICreateSavedArmy) => request.post(`${api}/items`).send(data)
 const deleteItem = (id: string, userName: string) => request.delete(`${api}/items/${id}/${userName}`)
@@ -36,7 +36,7 @@ const getUserItems = (userName: string) => request.get(`${api}/user/${userName}`
 const updateItem = (id: string, data: IUpdateItem) => request.post(`${api}/update/`).send({ ...data, id })
 
 export const PreferenceApi = {
-  createError,
+  createErrorFile,
   createItem,
   createSavedArmy,
   deleteItem,
