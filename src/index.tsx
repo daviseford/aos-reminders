@@ -15,7 +15,7 @@ import { SubscriptionProvider } from 'context/useSubscription'
 
 // CSS
 import 'animate.css'
-import 'css/animations.css'
+import 'css/animations.scss'
 import 'css/index.scss'
 
 // A function that routes the user to the right place

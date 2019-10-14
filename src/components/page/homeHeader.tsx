@@ -10,6 +10,7 @@ import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
+import { getStoredArmy } from 'utils/localStore'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -46,7 +47,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
-    getFavoriteFaction()
+    if (!getStoredArmy) getFavoriteFaction()
   }, [getFavoriteFaction])
 
   // Set our favorite faction
