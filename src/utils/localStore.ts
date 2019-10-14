@@ -1,5 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
+import { ICurrentArmy } from 'types/army'
 
+const STORED_ARMY_KEY = 'storedArmy'
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 
 /**
@@ -25,3 +27,14 @@ export const hideNotificationBanner = (name: string) => {
 }
 
 export const getNotificationBanner = (name: string) => localStorage.getItem(name)
+
+export const storeArmy = (currentArmy: ICurrentArmy) => {
+  localStorage.setItem(STORED_ARMY_KEY, JSON.stringify(currentArmy))
+}
+
+export const clearStoredArmy = () => localStorage.removeItem(STORED_ARMY_KEY)
+
+export const getStoredArmy = () => {
+  const storedArmy = localStorage.getItem(STORED_ARMY_KEY)
+  return !storedArmy ? null : (JSON.parse(storedArmy) as ICurrentArmy)
+}

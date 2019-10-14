@@ -9,8 +9,10 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { setLocalFavorite, getLocalFavorite } from 'utils/localStore'
+import { setLocalFavorite, getLocalFavorite, storeArmy, getStoredArmy } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
+import { store } from 'index'
+import { selectors } from 'ducks'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -20,6 +22,7 @@ interface ISavedArmiesContext {
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
   getFavoriteFaction: () => Promise<void>
+  handleLogin: () => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -33,7 +36,7 @@ interface ISavedArmiesContext {
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
-  const { user } = useAuth0()
+  const { user, loginWithRedirect } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
@@ -134,7 +137,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const getFavoriteFaction = useCallback(async () => {
     try {
-      if (waitingForApi) return
+      if (waitingForApi || !!getStoredArmy()) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
       const localFavorite = getLocalFavorite()
       if (!favoriteFaction && localFavorite) {
@@ -185,6 +188,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [subscription, isActive]
   )
 
+  const handleLogin = useCallback(() => {
+    const currentArmy = selectors.getCurrentArmy(store.getState())
+    if (currentArmy) storeArmy(currentArmy)
+    loginWithRedirect()
+  }, [loginWithRedirect])
+
   return (
     <SavedArmiesContext.Provider
       value={{
@@ -192,6 +201,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         deleteSavedArmy,
         favoriteFaction,
         getFavoriteFaction,
+        handleLogin,
         loadedArmy,
         loadSavedArmies,
         saveArmy,

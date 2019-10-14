@@ -28,7 +28,7 @@ const onRedirectCallback = appState => {
   )
 }
 
-const store = createStore(
+export const store = createStore(
   combineReducers({
     army: army.reducer,
     factionNames: factionNames.reducer,
