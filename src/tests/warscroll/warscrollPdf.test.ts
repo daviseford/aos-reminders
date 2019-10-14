@@ -5,6 +5,7 @@ import path from 'path'
 import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
+  IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
   ORDER_GRAND_ALLIANCE,
@@ -271,6 +272,33 @@ describe('getWarscrollArmyFromPdf', () => {
         'Khinerai Heartrenders',
         'Sisters of Slaughter',
         'Avatar of Khaine',
+      ],
+    })
+  })
+
+  it('reads an Ironjawz warscroll pdf correctly', () => {
+    const pdfText = getFile('Ironjawz.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: ['Da Choppas'],
+      artifacts: ['Destroyer'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: ['Checked Out', "Fast 'Un"],
+      triumphs: [],
+      units: [
+        'Gordrakk the Fist of Gork',
+        'Megaboss on Maw-Krusha',
+        "Ironskull's Boyz",
+        'Orruk Ardboys',
+        'Orruk Brutes',
+        'Orruk Gore-gruntas',
       ],
     })
   })

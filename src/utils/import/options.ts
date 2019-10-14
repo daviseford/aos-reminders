@@ -74,6 +74,7 @@ const warscrollTypoMap: TNameMap = {
   'Midnight Tome - Soul Cage': 'Midnight Tome',
   'Midnight Tome - Spectral Tether': 'Midnight Tome',
   'Midnight Tome - Spirit Drain': 'Midnight Tome',
+  'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Rune of Ulgu - Mindrazor': 'Rune of Ulgu',
   'Rune of Ulgu - Mirror Dance': 'Rune of Ulgu',
   'Rune of Ulgu - Pit of Shades': 'Rune of Ulgu',
@@ -102,7 +103,6 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
   'Madcap Shamans': 'Madcap Shaman',
-  'Orruk Gore Gruntas': 'Orruk Gore-Gruntas',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
