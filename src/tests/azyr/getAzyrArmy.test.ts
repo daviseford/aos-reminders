@@ -4,7 +4,9 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  FLESH_EATER_COURTS,
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
   MERCENARY_COMPANIES,
@@ -12,27 +14,27 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
-  CITIES_OF_SIGMAR,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
-import BoC1 from './fixtures/azyr/json/BoC1.json'
-import CoS1 from './fixtures/azyr/json/CoS1.json'
-import CoS2 from './fixtures/azyr/json/CoS2.json'
-import CoS3 from './fixtures/azyr/json/CoS3.json'
-import CoS4 from './fixtures/azyr/json/CoS4.json'
-import DoK2 from './fixtures/azyr/json/DoK2.json'
-import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
-import KO1 from './fixtures/azyr/json/KO1.json'
-import KO2 from './fixtures/azyr/json/KO2.json'
-import KO4 from './fixtures/azyr/json/KO4.json'
-import KO5 from './fixtures/azyr/json/KO5.json'
-import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
-import Skaven1 from './fixtures/azyr/json/Skaven1.json'
-import Skryre1 from './fixtures/azyr/json/Skryre1.json'
-import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
-import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
-import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
+import BoC1 from '../fixtures/azyr/json/BoC1.json'
+import CoS1 from '../fixtures/azyr/json/CoS1.json'
+import CoS2 from '../fixtures/azyr/json/CoS2.json'
+import CoS3 from '../fixtures/azyr/json/CoS3.json'
+import CoS4 from '../fixtures/azyr/json/CoS4.json'
+import DoK2 from '../fixtures/azyr/json/DoK2.json'
+import FEC2 from '../fixtures/azyr/json/FEC2.json'
+import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
+import KO1 from '../fixtures/azyr/json/KO1.json'
+import KO2 from '../fixtures/azyr/json/KO2.json'
+import KO4 from '../fixtures/azyr/json/KO4.json'
+import KO5 from '../fixtures/azyr/json/KO5.json'
+import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
+import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
+import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
+import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
+import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
+import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles DoK2', () => {
@@ -50,6 +52,34 @@ describe('getAzyrArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+    })
+  })
+
+  it('handles FEC2', () => {
+    const pages = handleAzyrPages(FEC2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'FLESH_EATER_COURTS',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Gristlegore (Grand Court)'],
+        artifacts: ['Ghurish Mawshard', 'The Grim Garland (Royal Treasury)'],
+        battalions: ['Royal Menagerie'],
+        commands: [],
+        endless_spells: ['Cadaverous Barricade', 'Aethervoid Pendulum'],
+        scenery: [],
+        spells: ['Monstrous Vigour', 'Blood Feast'],
+        traits: ['Savage Strike', 'The Feast Day (Delusion)'],
+        triumphs: [],
+        units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
+      },
+      unknownSelections: [],
     })
   })
 
