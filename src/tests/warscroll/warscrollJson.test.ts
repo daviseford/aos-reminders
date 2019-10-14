@@ -1,16 +1,7 @@
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
-import { parsePdf } from 'utils/pdf/pdfUtils'
 import path from 'path'
-import {
-  BIG_WAAAGH,
-  CITIES_OF_SIGMAR,
-  KHARADRON_OVERLORDS,
-  NIGHTHAUNT,
-  ORDER_GRAND_ALLIANCE,
-  SERAPHON,
-  SLAANESH,
-} from 'meta/factions'
+import { CITIES_OF_SIGMAR } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}`), 'utf8'))
