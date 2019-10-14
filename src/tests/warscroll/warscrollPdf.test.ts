@@ -1,6 +1,7 @@
-import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
+import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import { parsePdf } from 'utils/pdf/pdfUtils'
+import path from 'path'
 import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
@@ -11,9 +12,13 @@ import {
   SLAANESH,
 } from 'meta/factions'
 
+const getFile = (filename: string) => {
+  return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}`), 'utf8')
+}
+
 describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNoMetadata.pdf', 'utf8')
+    const pdfText = getFile('SeraphonNoMetadata.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -41,7 +46,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a CoS warscroll pdf file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/CoS1.pdf', 'utf8')
+    const pdfText = getFile('CoS1.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -112,7 +117,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a Big Waaagh warscroll pdf file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/BigWaaagh1.pdf', 'utf8')
+    const pdfText = getFile('BigWaaagh1.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -157,7 +162,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a warscroll pdf file with metadata correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonWithMetadata.pdf', 'utf8')
+    const pdfText = getFile('SeraphonWithMetadata.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -185,7 +190,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a slaanesh warscroll pdf file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SlaaneshList.pdf', 'utf8')
+    const pdfText = getFile('SlaaneshList.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -226,7 +231,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a KO warscroll pdf file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/KOList.pdf', 'utf8')
+    const pdfText = getFile('KOList.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -244,7 +249,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/OrderMeetingEngagement.pdf', 'utf8')
+    const pdfText = getFile('OrderMeetingEngagement.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -270,8 +275,28 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
+  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
+    const pdfText = getFile('NightHauntIssue.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: ['Midnight Tome'],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: ['Spiteful Spirit'],
+      triumphs: [],
+      units: ['Lord Executioner'],
+    })
+  })
+
   it('reads a complex warscroll pdf file with allies correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonMultipleAllies.pdf', 'utf8')
+    const pdfText = getFile('SeraphonMultipleAllies.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -312,7 +337,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats) correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithMetadata.pdf', 'utf8')
+    const pdfText = getFile('NewFormatWithMetadata.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -350,7 +375,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NewFormatWithNames.pdf', 'utf8')
+    const pdfText = getFile('NewFormatWithNames.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -388,10 +413,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats and character names) correctly', () => {
-    const pdfText = readFileSync(
-      __dirname + '/fixtures/warscroll/pdf/NewFormatWithNamesAndMetadata.pdf',
-      'utf8'
-    )
+    const pdfText = getFile('NewFormatWithNamesAndMetadata.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -429,7 +451,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/SeraphonNewList.pdf', 'utf8')
+    const pdfText = getFile('SeraphonNewList.pdf')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -483,160 +505,5 @@ describe('getWarscrollArmyFromPdf', () => {
       },
       unknownSelections: ['Meteoric Standard', 'Clubs'],
     })
-  })
-})
-
-describe('getWarscrollArmyFromText', () => {
-  it('reads a basic warscroll text file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonNoMetadata.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
-
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
-      artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
-      battalions: ['Shadowstrike Starhost'],
-      commands: [],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
-      scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory'],
-      traits: ['Great Rememberer'],
-      triumphs: [],
-      units: [
-        'Slann Starmaster',
-        'Skink Starpriest',
-        'Saurus Astrolith Bearer',
-        'Skinks',
-        'Razordons',
-        'Ripperdactyl Riders',
-        'Bastiladon w/ Ark of Sotek',
-      ],
-    })
-  })
-
-  it('reads a basic warscroll text file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonWithMetadata.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
-
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
-      artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
-      battalions: ['Shadowstrike Starhost'],
-      commands: [],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
-      scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory'],
-      traits: ['Great Rememberer'],
-      triumphs: [],
-      units: [
-        'Slann Starmaster',
-        'Skink Starpriest',
-        'Saurus Astrolith Bearer',
-        'Skinks',
-        'Razordons',
-        'Ripperdactyl Riders',
-        'Bastiladon w/ Ark of Sotek',
-      ],
-    })
-  })
-
-  it('reads a complex warscroll txt file with allies correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/SeraphonMultipleAllies.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
-
-    // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
-    expect(warscrollTxt.errors).toEqual([
-      {
-        text: 'Sisters of Slaughter',
-        severity: 'warn',
-      },
-    ])
-
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.allyFactionNames).toEqual([
-      'DAUGHTERS_OF_KHAINE',
-      'KHARADRON_OVERLORDS',
-      'STORMCAST_ETERNALS',
-      'SYLVANETH',
-    ])
-    expect(warscrollTxt.allyUnits).toEqual([
-      'Knight-Incantor',
-      'Morathi High Oracle of Khaine',
-      'Concussors',
-      'Kurnoth Hunters',
-      'Grundstok Gunhauler',
-    ])
-    expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
-      artifacts: ['Zoetic Dial'],
-      battalions: ['Eternal Starhost'],
-      commands: [],
-      endless_spells: ['Balewind Vortex'],
-      scenery: [],
-      spells: ['Walk Between Realms'],
-      traits: ['Great Rememberer'],
-      triumphs: [],
-      units: ['Slann Starmaster', 'Bastiladon w/ Ark of Sotek'],
-    })
-  })
-
-  it('reads an Order meeting engagement txt file correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/OrderMeetingEngagement.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
-
-    expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
-      artifacts: ['Obstinate Blade (Order)'],
-      battalions: ['Shadow Patrol'],
-      commands: [],
-      endless_spells: ['Balewind Vortex'],
-      scenery: [],
-      spells: [],
-      traits: ['Dauntless (Order)'],
-      triumphs: [],
-      units: [
-        'Doomfire Warlocks',
-        'Bloodwrack Medusa',
-        'Khinerai Heartrenders',
-        'Sisters of Slaughter',
-        'Avatar of Khaine',
-      ],
-    })
-  })
-
-  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/pdf/NightHauntIssue.pdf', 'utf8')
-    const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-
-    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
-    expect(warscrollTxt.selections).toEqual({
-      allegiances: [],
-      artifacts: ['Midnight Tome'],
-      battalions: [],
-      commands: [],
-      endless_spells: [],
-      scenery: [],
-      spells: [],
-      traits: ['Spiteful Spirit'],
-      triumphs: [],
-      units: ['Lord Executioner'],
-    })
-  })
-
-  it('detects and returns an error if reading a short summary txt', () => {
-    const pdfText = readFileSync(__dirname + '/fixtures/warscroll/txt/ShortSummary.txt', 'utf8')
-    const warscrollTxt = getWarscrollArmyFromText(pdfText)
-
-    expect(warscrollTxt.errors).toEqual([
-      {
-        text:
-          'Are you using the "Short" summary from Warscroll Builder? Please use the "Full" summary and try again.',
-        severity: 'error',
-      },
-    ])
   })
 })
