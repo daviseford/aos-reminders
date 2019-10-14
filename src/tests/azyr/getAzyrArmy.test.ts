@@ -4,6 +4,7 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
@@ -12,27 +13,26 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
-  CITIES_OF_SIGMAR,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
-import BoC1 from './fixtures/azyr/json/BoC1.json'
-import CoS1 from './fixtures/azyr/json/CoS1.json'
-import CoS2 from './fixtures/azyr/json/CoS2.json'
-import CoS3 from './fixtures/azyr/json/CoS3.json'
-import CoS4 from './fixtures/azyr/json/CoS4.json'
-import DoK2 from './fixtures/azyr/json/DoK2.json'
-import Fyreslayers2 from './fixtures/azyr/json/Fyreslayers2.json'
-import KO1 from './fixtures/azyr/json/KO1.json'
-import KO2 from './fixtures/azyr/json/KO2.json'
-import KO4 from './fixtures/azyr/json/KO4.json'
-import KO5 from './fixtures/azyr/json/KO5.json'
-import Seraphon1 from './fixtures/azyr/json/Seraphon1.json'
-import Skaven1 from './fixtures/azyr/json/Skaven1.json'
-import Skryre1 from './fixtures/azyr/json/Skryre1.json'
-import Slaanesh1 from './fixtures/azyr/json/Slaanesh1.json'
-import Slaanesh2 from './fixtures/azyr/json/Slaanesh2.json'
-import Stormcast4 from './fixtures/azyr/json/Stormcast4.json'
+import BoC1 from '../fixtures/azyr/json/BoC1.json'
+import CoS1 from '../fixtures/azyr/json/CoS1.json'
+import CoS2 from '../fixtures/azyr/json/CoS2.json'
+import CoS3 from '../fixtures/azyr/json/CoS3.json'
+import CoS4 from '../fixtures/azyr/json/CoS4.json'
+import DoK2 from '../fixtures/azyr/json/DoK2.json'
+import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
+import KO1 from '../fixtures/azyr/json/KO1.json'
+import KO2 from '../fixtures/azyr/json/KO2.json'
+import KO4 from '../fixtures/azyr/json/KO4.json'
+import KO5 from '../fixtures/azyr/json/KO5.json'
+import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
+import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
+import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
+import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
+import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
+import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles DoK2', () => {
