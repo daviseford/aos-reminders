@@ -1,7 +1,7 @@
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 
-import BigWaaagh1 from '../fixtures/azyr/json/BigWaaagh1.json'
 import BCR1 from '../fixtures/azyr/json/BCR1.json'
+import BigWaaagh1 from '../fixtures/azyr/json/BigWaaagh1.json'
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
 import BoC2 from '../fixtures/azyr/json/BoC2.json'
 import Bonesplitterz1 from '../fixtures/azyr/json/Bonesplitterz1.json'
@@ -19,6 +19,7 @@ import Dispossessed1 from '../fixtures/azyr/json/Dispossessed1.json'
 import DoK1 from '../fixtures/azyr/json/DoK1.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC1 from '../fixtures/azyr/json/FEC1.json'
+import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import Fyreslayers1 from '../fixtures/azyr/json/Fyreslayers1.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import GHoN1 from '../fixtures/azyr/json/GHoN1.json'
@@ -51,7 +52,6 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from '../fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from '../fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from '../fixtures/azyr/json/Stormcast3.json'
-import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Sylvaneth1 from '../fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from '../fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from '../fixtures/azyr/json/Tzeentch2.json'
@@ -100,6 +100,25 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles FEC2', () => {
+    const res = handleAzyrPages(FEC2)
+    expect(res).toEqual([
+      'FACTION: Flesh-eater Courts',
+      'ALLEGIANCE: Gristlegore',
+      'UNIT: Abhorrant Ghoul King',
+      'COMMAND TRAIT: Savage Strik e',
+      'ARTEFACT: Ghurish Mawshar d',
+      'SPELL: Monstr ous Vigour',
+      'COMMAND TRAIT: The Feast Da y',
+      'ARTEFACT: The Grim Garland',
+      'SPELL: Blood Feast',
+      'UNIT: Royal Terrorgheist',
+      'BATTALION: Royal Menagerie',
+      'ENDLESS SPELL: Cadaverous Barricade',
+      'ENDLESS SPELL: Aethervoid Pendulum',
+    ])
   })
 
   it('handles BigWaaagh1', () => {
