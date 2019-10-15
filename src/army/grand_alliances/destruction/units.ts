@@ -183,7 +183,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Da Big' Un`,
-        desc: `Halve the damage inflicted by an attack that targets this model (rounding up). In addition, roll a dice each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
