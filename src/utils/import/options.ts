@@ -88,6 +88,7 @@ const warscrollTypoMap: TNameMap = {
   'Rune of Ulgu - Steed of Shadows': 'Rune of Ulgu',
   'Rune of Ulgu - The Withering': 'Rune of Ulgu',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
+  'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
