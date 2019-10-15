@@ -5,7 +5,7 @@ import BannerGif from './banner_gif'
 const AppBanner = () => (
   <div className="row d-flex justify-content-center">
     <div className="col-12 col-sm-10 col-md-8 col-lg-5">
-      <NotificationBanner name="Subscribe_Nudge_1" persistClose={true} variant={'light'}>
+      <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'light'}>
         <BannerGif
           gifUrl="/img/AoS_Subscribe_Support.gif"
           webmUrl="/img/AoS_Subscribe_Support.mp4"
