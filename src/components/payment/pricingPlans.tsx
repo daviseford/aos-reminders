@@ -2,11 +2,13 @@ import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
+import AsyncStripeProvider from './asyncStripeProvider'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import AsyncStripeProvider from './asyncStripeProvider'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
+import { storeArmy } from 'utils/localStore'
 
 interface ICheckoutProps {
   stripe?: any
@@ -46,13 +48,16 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { stripe, user, supportPlan } = props
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated } = useAuth0()
+  const { handleLogin } = useSavedArmies()
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
     e.preventDefault()
 
     logClick(supportPlan.title)
+
+    storeArmy() // Store our current army in local storage so we don't lose it
 
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
@@ -103,7 +108,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <button
           type="button"
           className="btn btn btn-block btn-outline-primary"
-          onClick={isAuthenticated ? handleCheckout : loginWithRedirect}
+          onClick={isAuthenticated ? handleCheckout : handleLogin}
         >
           Buy Now
         </button>

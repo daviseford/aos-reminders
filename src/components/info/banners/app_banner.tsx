@@ -1,10 +1,12 @@
 import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 
-const AppBanner = () => (
-  <NotificationBanner name="Notification_Name_here" persistClose={true} variant={'primary'}>
-    Add Application Notification here
-  </NotificationBanner>
-)
+const AppBanner = () => {
+  return (
+    <NotificationBanner name="App_Notification" persistClose={false} variant={'info'}>
+      Application Notification Goes Here
+    </NotificationBanner>
+  )
+}
 
 export default AppBanner

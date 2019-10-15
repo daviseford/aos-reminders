@@ -7,11 +7,13 @@ import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
 import { headerClass } from 'theme/helperClasses'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
-import { setLocalFavorite } from 'utils/localStore'
+import { setLocalFavorite, clearStoredArmy } from 'utils/localStore'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 const Navbar: React.FC = () => {
-  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0()
+  const { isAuthenticated, logout, loading } = useAuth0()
   const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
+  const { handleLogin } = useSavedArmies()
   const { pathname } = window.location
 
   const styles = {
@@ -20,14 +22,15 @@ const Navbar: React.FC = () => {
   }
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
-  const handleLogin = () => {
+  const handleLoginBtn = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
       setLocalFavorite(null) // Get rid of any existing local favoriteFaction value
+      clearStoredArmy() // Remove stored army from redirect if it exists
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')
-      return loginWithRedirect()
+      return handleLogin()
     }
   }
 
@@ -53,7 +56,7 @@ const Navbar: React.FC = () => {
           </Link>
         )}
 
-        <button className={styles.btn} onClick={handleLogin}>
+        <button className={styles.btn} onClick={handleLoginBtn}>
           {loginBtnText}
         </button>
       </div>

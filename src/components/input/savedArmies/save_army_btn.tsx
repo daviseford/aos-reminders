@@ -5,13 +5,14 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
-import { ISavedArmy } from 'types/savedArmy'
-import { IStore } from 'types/store'
-import { SaveArmyModal } from './save_army_modal'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { armyHasEntries } from 'utils/armyUtils'
 import { logClick } from 'utils/analytics'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { selectors } from 'ducks'
+import { ISavedArmy } from 'types/savedArmy'
+import { IStore } from 'types/store'
+import { SaveArmyModal } from './save_army_modal'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -19,8 +20,9 @@ interface ISaveArmyProps {
 }
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
+  const { handleLogin } = useSavedArmies()
 
   const canSave = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
@@ -31,7 +33,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 
   return (
     <>
-      {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
+      {!isAuthenticated && <SaveButton handleClick={handleLogin} />}
 
       {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
 
