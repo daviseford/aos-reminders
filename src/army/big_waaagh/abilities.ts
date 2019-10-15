@@ -10,7 +10,7 @@ import { TAbilities } from 'types/army'
 
 const Abilities: TAbilities = [
   {
-    name: `Waagh Ability table`,
+    name: `Waaagh Ability Table`,
     desc: `During the game you will gain bonuses based on the number of Waagh points you have. If you spend the points you may lose access to abilities you previously had.`,
     when: [DURING_GAME],
   },
@@ -56,16 +56,34 @@ const Abilities: TAbilities = [
     when: [START_OF_HERO_PHASE],
   },
   {
-    name: `Waagh Points Table`,
+    name: `Waaagh Points Table`,
     desc: `During the game you will generate Waagh points at certain points in the game. Your total can never exceed 30 points.
 
       - D6 points if you general is alive at the start of your hero phase, 6 if your general is Gordrakk.
       - 2 points for each warchanter at the start of your hero phase.
       - 1 point for each wurgrogg prophet or wardokk at the start of your hero phase.
       - 1 point in your charge phase for each orruk unit with 10 or more models that made a charge move.
-      - 1 point in the combat phase for each orruk hero within 3" of an enemy unit.
-      - 1 point in the combat phase for each orruk unit with 10 or more models within 3" of an enemy unit.`,
+      - 1 point at the start of your combat phase for each orruk hero within 3" of an enemy unit.
+      - 1 point at the start of your combat phase for each orruk unit with 10 or more models within 3" of an enemy unit.`,
     when: [DURING_GAME],
+  },
+  {
+    name: `Waaagh Points`,
+    desc: `+1 point at the start of your combat phase for each orruk hero within 3" of an enemy unit.
+    +1 point at the start of your combat phase for each orruk unit with 10 or more models within 3" of an enemy unit.`,
+    when: [START_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Waaagh Points`,
+    desc: `+1 point in your charge phase for each orruk unit with 10 or more models that made a charge move.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Waaagh Points`,
+    desc: `+D6 points if you general is alive at the start of your hero phase, 6 if your general is Gordrakk.
+    +2 points for each warchanter at the start of your hero phase.
+    +1 point for each wurgrogg prophet or wardokk at the start of your hero phase.`,
+    when: [START_OF_HERO_PHASE],
   },
 ]
 
