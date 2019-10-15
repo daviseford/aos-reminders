@@ -23,10 +23,10 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Monstrous Vigor`,
+    name: `Monstrous Vigour`,
     effects: [
       {
-        name: `Monstrous Vigor`,
+        name: `Monstrous Vigour`,
         desc: `Casting value of 5. Pick 1 friendly FLESH-EATER COURTS MONSTER within 24" of the caster that is visible to them. Until your next hero phase, when you look up a value on that MONSTER's damage table, that MONSTER is treated as if it has suffered 0 wounds.`,
         when: [HERO_PHASE],
       },
