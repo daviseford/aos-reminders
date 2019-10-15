@@ -10,9 +10,9 @@ const FooterComponent = lazy(() => import(/* webpackChunkName: 'footer' */ 'comp
 const LoadedArmyHeader = lazy(() =>
   import(/* webpackChunkName: 'loaded_army_header' */ 'components/input/savedArmies/loaded_army_header')
 )
-const AppBanner = lazy(() =>
-  import(/* webpackChunkName: 'app_banner' */ 'components/info/banners/app_banner')
-)
+// const AppBanner = lazy(() =>
+//   import(/* webpackChunkName: 'app_banner' */ 'components/info/banners/app_banner')
+// )
 const PrintArmy = lazy(() => import(/* webpackChunkName: 'printArmy' */ 'components/print/printArmy'))
 const PrintFooter = lazy(() => import(/* webpackChunkName: 'printFooter' */ 'components/print/printFooter'))
 const Reminders = lazy(() => import(/* webpackChunkName: 'reminders' */ 'components/info/reminders'))
@@ -33,9 +33,9 @@ const Home: React.FC = () => {
     <>
       <Header />
 
-      <Suspense fallback={<></>}>
+      {/* <Suspense fallback={<></>}>
         <AppBanner />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<></>}>
         <LoadedArmyHeader />
