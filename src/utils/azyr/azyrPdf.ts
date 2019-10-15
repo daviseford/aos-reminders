@@ -268,6 +268,8 @@ const commonTypos = {
   'Bear er': 'Bearer',
   'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
+  'Bloodlor ds': 'Bloodlords',
+  'Bloodr eaper': 'Bloodreaper',
   'Boltst orm': 'Boltstorm',
   'Cour t': 'Court',
   'Court s': 'Courts',
