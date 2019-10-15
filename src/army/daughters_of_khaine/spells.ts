@@ -15,7 +15,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Steed of Shadows`,
-        desc: `Casting value of 5. If successfully cast, until the start of your next hero phase, the caster can fly and has a move characteristic of 16".`,
+        desc: `Casting value of 5. Until the start of your next hero phase, the caster can fly and has a move characteristic of 16".`,
         when: [HERO_PHASE],
       },
       {
@@ -30,7 +30,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Pit of Shades`,
-        desc: `Casting value of 7. If successfully cast, pick and enemy unit within 18" and visible to the caster. Roll two dice and add the scores together. The enemy unit suffers 1 mortal wound for each point by which the total exceeds their move characteristic.`,
+        desc: `Casting value of 7. Pick and enemy unit within 18" and visible to the caster. Roll two dice and add the scores together. The enemy unit suffers 1 mortal wound for each point by which the total exceeds their move characteristic.`,
         when: [HERO_PHASE],
       },
     ],
@@ -40,7 +40,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mirror Dance`,
-        desc: `Casting value of 4. If successfully cast, pick two friendly Daughters of Khaine heroes within 24" of the caster. So long as neither hero is within 6" of any other unit, the two models can swap positions on the battlefield (neither can be set up within 3" of any enemy units).`,
+        desc: `Casting value of 4. Pick two friendly Daughters of Khaine heroes within 24" of the caster. So long as neither hero is within 6" of any other unit, the two models can swap positions on the battlefield (neither can be set up within 3" of any enemy units).`,
         when: [HERO_PHASE],
       },
     ],
@@ -50,7 +50,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `The Withering`,
-        desc: `Casting value of 7. If successfully cast, pick an enemy unit within 18" and visible to the caster. Until the start of your next hero phase, add 1 to wound rolls for attacks against the target.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" and visible to the caster. Until the start of your next hero phase, add 1 to wound rolls for attacks against the target.`,
         when: [HERO_PHASE],
       },
       {
@@ -65,7 +65,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mindrazor`,
-        desc: `Casting value of 7. If successfully cast, pick a friendly Daughters of Khaine unit within 18" of the caster. Until the start of your next hero phase, the rend characteristic of that unit's melee weapons is improved by 1.
+        desc: `Casting value of 7. Pick a friendly Daughters of Khaine unit within 18" of the caster. Until the start of your next hero phase, the rend characteristic of that unit's melee weapons is improved by 1.
 
         In addition the damage characteristic of the unit's melee weapons is increased by 1 while attacking a target that has a lower bravery characteristic than they do.`,
         when: [HERO_PHASE],
@@ -82,7 +82,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Shroud of Despair`,
-        desc: `Casting value of 4. If successfully cast, pick an enemy unit within 18" and visible to the caster. Until the start of your next hero phase, subtract 1 from the bravery characteristic of that unit. If the spell was successfully cast with an 8 or more, subtract D3 instead.`,
+        desc: `Casting value of 4. Pick an enemy unit within 18" and visible to the caster. Until the start of your next hero phase, subtract 1 from the bravery characteristic of that unit. If the spell was successfully cast with an 8 or more, subtract D3 instead.`,
         when: [HERO_PHASE],
       },
       {

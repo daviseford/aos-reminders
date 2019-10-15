@@ -9,7 +9,7 @@ import { createFatalError, getAllWarnings, hasFatalError } from 'utils/import/wa
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
 import { IArmy } from 'types/army'
-import { TImportParsers, IImportedArmy } from 'types/import'
+import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -60,6 +60,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
 
+  // Remove errors where we have found the missing item
+  errors = removeFoundErrors(errors, errorFreeSelections)
+
   // Fire off any warnings to Google Analytics
   getAllWarnings(errors).forEach(e => logFailedImport(e.text, parser))
 
@@ -73,4 +76,11 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     },
     ...allyData,
   }
+}
+
+const removeFoundErrors = (errors: TImportError[], selections: { [key: string]: string[] }) => {
+  const found = Object.values(selections).flat()
+  return errors
+    .filter(e => !found.some(f => f === e.text))
+    .filter(e => !found.some(f => f.startsWith(e.text)))
 }

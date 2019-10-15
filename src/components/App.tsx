@@ -5,6 +5,7 @@ import { Loading } from './helpers/suspenseFallbacks'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
+import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
@@ -12,7 +13,10 @@ const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/
 const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
 
 const App = () => {
-  useEffect(() => handleCheckout(), []) // Post-checkout handling
+  useEffect(() => {
+    handleCheckout() // Post-checkout handling
+    loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
+  }, [])
 
   return (
     <div className="d-block">

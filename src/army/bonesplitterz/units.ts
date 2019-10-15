@@ -144,7 +144,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit wihtin 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -237,14 +237,9 @@ export const Battalions: TBattalions = [
     name: `Kop Rukk`,
     effects: [
       {
-        name: `Savage Waaagh! Energy`,
-        desc: `Add 1 to all casting rolls made by a Kop Rukk Wardokk that is wthinin 12" of 20 or more Savage Orruk Morboys. Add 2 instead if within 12" of 30 or more Morboys. If the casting roll is a double, remove D3 models from the nearest unit of Savage Orruk Morboys.`,
+        name: `Savage Weird Power`,
+        desc: `Pick 1 Wardokk from this battalion that is wholly within 18" of 2 or more units from this same battalion that each have 10 or more models. That Wardokk can attempt to cast the Fists of Gork spell from the Wurrgog Prophet warscroll in that phase in addtion to any other spells it can cast.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Waaagh! Stomp`,
-        desc: `Add 1 to any wound rolls for Morboys if its unit is wihtin 12" of at least two Wardokks from this battalion.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -253,8 +248,8 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Maniak Stampede`,
-        desc: `A unit of Boarboy Maniaks can attempt to charge in the hero phase. You can re-roll this charge if a Weirdnob is within 10" of the charging unit. Roll a dice for each model that ends it's charge within 1" of an enemy model. On a 4+ the enemy suffers 1 mortal wound. If the roll is a 1, the Boarboys take 1 mortal wound instead.`,
-        when: [HERO_PHASE],
+        desc: `You can re-roll charge rolls for units in this battalion while they are wholly within 12" of the Maniak Weirdknob from this battalion.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -263,8 +258,8 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Savage Swiftness`,
-        desc: `You can re-roll the dice when determining how far a unit from a Brutal Rukk runs. The Savage Big Boss and any unit that starts their move within 10" of the big boss always run 6.`,
-        when: [MOVEMENT_PHASE],
+        desc: `Units in this battalion that are wholly within 12" of the Savage Big Boxx at the start of the charge phase can charge even if they have run earlier in the turn.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -273,7 +268,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dead Sneaky`,
-        desc: `Pick one unit from the Kunnin' Rukk that is wihtin 10" of the battalion's Big Boss. That unit can move as if it were the movement phase (it is allowed to run), shoot as if it were the shooting phase, or pile in and attack as if it were the combat phase if within 3" of an enemy.`,
+        desc: `Pick one unit from the Kunnin' Rukk that is wholly within 12" of the battalion's Big Boss. That unit can move as if it were the movement phase, or shoot as if it were the shooting phase. Units in this battalion cannot have more than 20 models.`,
         when: [HERO_PHASE],
       },
     ],
@@ -282,9 +277,9 @@ export const Battalions: TBattalions = [
     name: `Teef Rukk`,
     effects: [
       {
-        name: `Crazed Monster Hunters`,
-        desc: `Pick an enemy Monster. Each unit from a Teef Rukk that is within 6" of the Monster can pile in 6" and then make an attack as if it were the combat phase.`,
-        when: [HERO_PHASE],
+        name: `We're Da Best`,
+        desc: `Add 1 to the attacks characteristic of melee weapons use by units from this battalion while they are wholly within 12" of the Savage Big Boss from this battalion.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

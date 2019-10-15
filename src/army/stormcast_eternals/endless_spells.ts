@@ -8,7 +8,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Celestian Vortex`,
-        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS can cast. If successfully cast, set up a Celestian Vortex model wholly within 12" of the caster.`,
+        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS can cast. Set up a Celestian Vortex model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -38,7 +38,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Dais Arcanum`,
-        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS with >6 wounds, are a single model, and are not already on a Dais Arcanum, can cast. If successfully cast, set up a Dais Arcanum model within 1" of the caster and more than 3" from any enemy models and then place the caster on top of it.`,
+        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS with >6 wounds, are a single model, and are not already on a Dais Arcanum, can cast. Set up a Dais Arcanum model within 1" of the caster and more than 3" from any enemy models and then place the caster on top of it.`,
         when: [HERO_PHASE],
       },
       {
@@ -63,7 +63,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Everblaze Comet`,
-        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS can cast. If successfully cast, set up an Everblaze Comet model wholly within 36" of the caster.`,
+        desc: `Casting value of 6. Only STORMCAST ETERNAL WIZARDS can cast. Set up an Everblaze Comet model wholly within 36" of the caster.`,
         when: [HERO_PHASE],
       },
       {

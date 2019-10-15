@@ -10,7 +10,7 @@ export const unTitleCase = (val: string): string => {
     .join('_')
 }
 
-export const stripPunctuation = (text: string): string => text.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
+export const stripPunctuation = (text: string): string => text.replace(/[.,/#!$%^&*;:{}=\-_`'"~()]/g, '')
 
 export const generateUUID = () => {
   return [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join('')
@@ -27,7 +27,7 @@ export const getActionTitle = ({
   spell,
   triumph,
 }: TTurnAction): string => {
-  const nameRegex = new RegExp(`(, )?${name as string}(, )?`, 'gi')
+  const nameRegex = new RegExp(`(, )?${name}(, )?`, 'gi')
   const strippedCond = condition.replace(nameRegex, '')
   const suffix = name === condition ? `` : `: ${strippedCond}`
   if (artifact) return `Artifact${suffix}`

@@ -2,11 +2,11 @@ import { getPdfPages, handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
-import { IImportedArmy, TImportParsers } from 'types/import'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
-
-type TImportFileTypes = 'application/pdf' | 'text/plain'
+import { hasErrorOrWarning } from 'utils/import/warnings'
+import { PreferenceApi } from 'api/preferenceApi'
+import { IImportedArmy, TImportParsers, TImportFileTypes } from 'types/import'
 
 interface IUseParseArgs {
   handleDone: () => void
@@ -20,8 +20,7 @@ interface IUseParseArgs {
 type TUseParse = (args: IUseParseArgs) => (acceptedFiles: any[]) => void
 
 const arrayBufferToString = buf => {
-  //@ts-ignore
-  return String.fromCharCode.apply(null, new Uint8Array(buf))
+  return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
 const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
@@ -73,11 +72,21 @@ export const handleParseFile: TUseParse = ({
 
         setParser(parser)
 
-        if (parser === 'Unknown') return stopProcessing() && handleError()
+        if (parser === 'Unknown') {
+          logEvent(`Import${parser}`)
+          return stopProcessing() && handleError()
+        }
 
         if (isWarscroll) {
-          const fileText = isPdf ? arrayBufferToString(reader.result) : reader.result
-          const parsedArmy: IImportedArmy = handleWarscroll(fileText, file.type)
+          const fileTxt = isPdf ? arrayBufferToString(reader.result) : (reader.result as string)
+          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt, file.type)
+
+          // Send a copy of our file to S3
+          if (hasErrorOrWarning(parsedArmy.errors)) {
+            const payload = { fileTxt: parsedFile, parser, fileType: file.type }
+            Promise.resolve(PreferenceApi.createErrorFile(payload))
+          }
+
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
           if (isValidFactionName(parsedArmy.factionName)) {
@@ -86,6 +95,12 @@ export const handleParseFile: TUseParse = ({
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
+
+          if (hasErrorOrWarning(parsedArmy.errors)) {
+            const payload = { fileTxt: pdfPages, parser, fileType: file.type }
+            Promise.resolve(PreferenceApi.createErrorFile(payload))
+          }
+
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
           if (isValidFactionName(parsedArmy.factionName)) {
@@ -111,14 +126,12 @@ export const handleParseFile: TUseParse = ({
 }
 
 const handleWarscroll = (fileText: string, fileType: TImportFileTypes) => {
-  let parsedArmy: IImportedArmy
-
   if (fileType === 'application/pdf') {
-    const parsed = parsePdf(fileText)
-    parsedArmy = getWarscrollArmyFromPdf(parsed)
+    const parsedFile = parsePdf(fileText)
+    const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
+    return { parsedFile, parsedArmy }
   } else {
-    parsedArmy = getWarscrollArmyFromText(fileText)
+    const parsedArmy = getWarscrollArmyFromText(fileText)
+    return { parsedFile: fileText, parsedArmy }
   }
-
-  return parsedArmy
 }

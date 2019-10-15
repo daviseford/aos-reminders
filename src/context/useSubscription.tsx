@@ -2,12 +2,14 @@ import React, { useState, useCallback, useMemo } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
-import { isSubscriber, isActiveSubscriber } from 'utils/subscriptionUtils'
+import { isSubscriber, isActiveSubscriber, isCanceledSubscriber } from 'utils/subscriptionUtils'
+import { setLocalFavorite } from 'utils/localStore'
 
 const initialState = {
   isActive: false,
+  isCanceled: false,
   isSubscribed: false,
-  subscription: { subscribed: false },
+  subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
 }
 
@@ -15,6 +17,7 @@ interface ISubscriptionContext {
   cancelSubscription: () => Promise<void>
   getSubscription: () => Promise<void>
   isActive: boolean
+  isCanceled: boolean
   isSubscribed: boolean
   subscription: ISubscription
   subscriptionLoading: boolean
@@ -29,6 +32,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
 
   const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
+  const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
 
   const getSubscription = useCallback(async () => {
     if (!user) return setSubscription(initialState.subscription)
@@ -40,15 +44,22 @@ const SubscriptionProvider: React.FC = ({ children }) => {
       setSubscription(subscription)
       setSubscriptionLoading(false)
     } catch (err) {
-      console.error(err)
+      if (err.status === 501) {
+        console.log(`${user.email} is not registered with the Subscription API`)
+      } else {
+        console.log(`There was an unexpected error retrieving ${user.email} from the Subscription API`)
+        console.error(err)
+      }
       setSubscription(initialState.subscription)
+      setLocalFavorite(null)
       setSubscriptionLoading(false)
     }
   }, [user])
 
   const cancelSubscription = useCallback(async () => {
     try {
-      await SubscriptionApi.cancelSubscription(subscription.subscriptionId as string)
+      const { userName, subscriptionId = '' } = subscription
+      await SubscriptionApi.cancelSubscription({ userName, subscriptionId })
       await getSubscription()
     } catch (err) {
       console.error(err)
@@ -61,6 +72,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         cancelSubscription,
         getSubscription,
         isActive,
+        isCanceled,
         isSubscribed,
         subscription,
         subscriptionLoading,

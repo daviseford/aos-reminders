@@ -36,7 +36,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
-  const { isSubscribed } = useSubscription()
+  const { isSubscribed, isActive } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
   const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
@@ -84,7 +84,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </Suspense>
         </div>
-        <div className={showSavedWrapperClass} hidden={!isSubscribed}>
+        <div className={showSavedWrapperClass} hidden={!isSubscribed || !isActive}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}

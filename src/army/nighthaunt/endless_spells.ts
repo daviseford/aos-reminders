@@ -8,7 +8,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Shyish Reaper`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Shyish Reaper. Casting value of 7. If successfully cast, set up a Shyish Reaper model wholly within 6" of the caster.`,
+        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Shyish Reaper. Casting value of 7. Set up a Shyish Reaper model wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -25,8 +25,7 @@ const EndlessSpells: TEndlessSpells = [
         name: `Soul Reaper`,
         desc: `Before moving a Shyish Reaper, pivot the model on the centre of its base so that it points lengthways in the direction you wish it to move. Then move it in a straight line in that direction. The initial pivot is free and does not count towards the distance the model moves.
 
-        After this model has moved, roll a D6 for each model that it moved over (including models it moved over when it pivoted); if the roll is equal to or greater than the model's Save characteristic, that model's unit suffers 1 mortal wound.
-      `,
+        After this model has moved, roll a D6 for each model that it moved over (including models it moved over when it pivoted); if the roll is equal to or greater than the model's Save characteristic, that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
       {
@@ -41,7 +40,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Vault of Souls`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Vault of Souls. Casting value of 6. If successfully cast, set up a Vault of Souls model wholly within 18" of the caster.`,
+        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Vault of Souls. Casting value of 6. Set up a Vault of Souls model wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -71,7 +70,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Mortalis Terminexus`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Mortalis Terminexus. Casting value of 6. If successfully cast, set up a Mortalis Terminexus model wholly within 18" of the caster.`,
+        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Mortalis Terminexus. Casting value of 6. Set up a Mortalis Terminexus model wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {

@@ -12,7 +12,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Casting value of 7. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. If successfully cast, set up a Corpsemare Stampede model wholly within 3D6" of the caster.`,
+        desc: `Casting value of 7. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. Set up a Corpsemare Stampede model wholly within 3D6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -32,7 +32,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon`,
-        desc: `Casting value of 6. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. If successfully cast, set up a Chalice of Ushoran model wholly within 24" of the caster.`,
+        desc: `Casting value of 6. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. Set up a Chalice of Ushoran model wholly within 24" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -47,7 +47,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon`,
-        desc: `Casting value of 5. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. If successfully cast, set up a Cadaverous Barricade model wholly within 24" of the caster and more than 1" from any enemy units.`,
+        desc: `Casting value of 5. Only Nagash, Supreme Lord of the Undead and Abhorrants can attempt to cast this spell. Set up a Cadaverous Barricade model wholly within 24" of the caster and more than 1" from any enemy units.`,
         when: [HERO_PHASE],
       },
       {

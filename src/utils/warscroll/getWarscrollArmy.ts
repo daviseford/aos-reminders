@@ -5,6 +5,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, TImportError } from 'types/import'
 import { importErrorChecker } from 'utils/import'
 import { createFatalError } from 'utils/import/warnings'
+import GenericScenery from 'army/generic/scenery'
 
 export const getWarscrollArmyFromText = (fileTxt: string): IImportedArmy => {
   const army = getInitialWarscrollArmyTxt(fileTxt)
@@ -34,6 +35,7 @@ const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
 
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
+  const genericScenery = GenericScenery.map(x => x.name)
 
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -55,6 +57,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
+      if (txt.startsWith('- Mortal Realm: ')) return accum
+
       if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
         return accum
@@ -65,13 +69,26 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'ENDLESS SPELLS / TERRAIN') {
+      if (txt === 'ENDLESS SPELLS / TERRAIN' || txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS') {
         selector = 'endless_spells'
         return accum
       }
 
+      if (txt === 'Extra Command Point') return accum
+
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- City Role')) return accum
+
+        if (txt.startsWith('- City: ')) {
+          const { allegiance, trait } = getCity(txt)
+          accum.allegiances = accum.allegiances.concat(allegiance)
+          if (trait) {
+            accum.traits = accum.traits.concat(trait)
+          }
+          return accum
+        }
+
         if (txt.startsWith('- Allies')) {
           const alliedUnit = last(accum.units)
           if (alliedUnit) {
@@ -83,17 +100,27 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
         if (txt.includes('Command Trait : ')) {
-          const trait = txt.split(' Command Trait : ')[1].trim()
+          const trait = getTrait('Command Trait', txt)
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Mount Trait : ')) {
+          const trait = getTrait('Mount Trait', txt)
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Drakeblood Curse : ')) {
+          const trait = getTrait('Drakeblood Curse', txt)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Artefact : ')) {
-          const artifact = txt.split(' Artefact : ')[1].trim()
+          const artifact = getTrait('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
         if (txt.includes('Spell : ')) {
-          const spell = txt.split(' Spell : ')[1].trim()
+          const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -133,7 +160,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       // Add item to accum
       if (selector) {
-        accum[selector] = uniq(accum[selector].concat(txt))
+        // Endless spells and terrain are grouped together, so we have to do this check manually
+        if (selector === 'endless_spells' && genericScenery.includes(txt)) {
+          accum['scenery'] = uniq(accum['scenery'].concat(txt))
+        } else {
+          accum[selector] = uniq(accum[selector].concat(txt))
+        }
       }
 
       return accum
@@ -167,6 +199,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
 const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
   const cleanedText = cleanWarscrollText(fileText.split('\n'))
+  const genericScenery = GenericScenery.map(x => x.name)
 
   let errors: TImportError[] = []
   let usingShortVersion = false
@@ -198,10 +231,12 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'Endless Spells / Terrain') {
+      if (txt === 'Endless Spells / Terrain' || txt === 'Endless Spells / Terrain / Command Points') {
         selector = 'endless_spells'
         return accum
       }
+
+      if (txt === 'Extra Command Point') return accum
 
       if (txt.startsWith('- ')) {
         if (!selector) {
@@ -211,6 +246,17 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
           return accum
         }
         if (txt.startsWith('- General')) return accum
+        if (txt.startsWith('- City Role')) return accum
+
+        if (txt.startsWith('- City: ')) {
+          const { allegiance, trait } = getCity(txt)
+          accum.allegiances = accum.allegiances.concat(allegiance)
+          if (trait) {
+            accum.traits = accum.traits.concat(trait)
+          }
+          return accum
+        }
+
         if (txt.startsWith('- Allies')) {
           const alliedUnit = last(accum.units)
           if (alliedUnit) {
@@ -222,22 +268,27 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
           return accum
         }
         if (txt.includes('Command Trait: ')) {
-          const trait = txt.split(' Command Trait: ')[1].trim()
+          const trait = getTrait('Command Trait', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Mount Trait: ')) {
-          const trait = txt.split(' Mount Trait: ')[1].trim()
+          const trait = getTrait('Mount Trait', txt, false)
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Drakeblood Curse: ')) {
+          const trait = getTrait('Drakeblood Curse', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
         if (txt.includes('Artefact: ')) {
-          const artifact = txt.split(' Artefact: ')[1].trim()
+          const artifact = getTrait('Artefact', txt, false)
           accum.artifacts = accum.artifacts.concat(artifact)
           return accum
         }
         if (txt.includes('Spell: ')) {
-          const spell = txt.split(' Spell: ')[1].trim()
+          const spell = getTrait('Spell', txt, false)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
@@ -276,7 +327,12 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
 
       // Add item to accum
       if (selector) {
-        accum[selector] = uniq(accum[selector].concat(txt))
+        // Endless spells and terrain are grouped together, so we have to do this check manually
+        if (selector === 'endless_spells' && genericScenery.includes(txt)) {
+          accum['scenery'] = uniq(accum['scenery'].concat(txt))
+        } else {
+          accum[selector] = uniq(accum[selector].concat(txt))
+        }
       }
 
       return accum
@@ -313,5 +369,45 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
     realmscape: null,
     selections,
     unknownSelections: uniq(unknownSelections),
+  }
+}
+
+type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse'
+
+const getTrait = (type: TTraitType, txt: string, isPdf = true) => {
+  const sep = isPdf ? `${type} : ` : `${type}: `
+  return removePrefix(txt.split(sep)[1].trim())
+}
+
+/**
+ * Removes unnecessary prefixes
+ * @param txt
+ */
+const removePrefix = (txt: string) => {
+  const prefixes = [
+    'Lore of Cinder -',
+    'Lore of Eagles -',
+    'Lore of Leaves -',
+    'Lore of Smog -',
+    'Lore of Whitefire -',
+    'Secretive Warlock -',
+  ]
+  const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
+  return txt.replace(regexp, '').trim()
+}
+
+const getCity = (txt: string) => {
+  const city = txt.split('- City: ')[1].split('(')
+  const allegiance = city[0].trim()
+  try {
+    const trait = city[1]
+      ? city[1]
+          .split('Illicit Dealings: ')[1]
+          .replace(')', '')
+          .trim()
+      : null
+    return { allegiance, trait }
+  } catch (err) {
+    return { allegiance, trait: null }
   }
 }

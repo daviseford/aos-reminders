@@ -4,6 +4,13 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
 import { isEqual, sortBy } from 'lodash'
+import { useSubscription } from './useSubscription'
+import { isValidFactionName } from 'utils/armyUtils'
+import { SubscriptionApi } from 'api/subscriptionApi'
+import { TSupportedFaction } from 'meta/factions'
+import { unTitleCase } from 'utils/textUtils'
+import { setLocalFavorite, getLocalFavorite, storeArmy } from 'utils/localStore'
+import { logEvent } from 'utils/analytics'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -11,6 +18,9 @@ type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changed
 interface ISavedArmiesContext {
   armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => Promise<void>
+  favoriteFaction: TSupportedFaction | null
+  getFavoriteFaction: () => Promise<void>
+  handleLogin: () => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -18,14 +28,18 @@ interface ISavedArmiesContext {
   setLoadedArmy: (army: TLoadedArmy) => void
   updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
+  updateFavoriteFaction: (factionName: string | null) => Promise<void>
 }
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
-  const { user } = useAuth0()
+  const { user, loginWithRedirect } = useAuth0()
+  const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
+  const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
+  const [waitingForApi, setWaitingForApi] = useState(false)
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
@@ -119,11 +133,72 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
+  const getFavoriteFaction = useCallback(async () => {
+    try {
+      if (waitingForApi) return
+      // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
+      const localFavorite = getLocalFavorite()
+      if (!favoriteFaction && localFavorite) {
+        setFavoriteFaction(localFavorite)
+      }
+
+      if (isActive) {
+        // Grab it from the API to check for changes that may have been made from other browsers
+        // Don't update state if it's the same as our localStorage value
+        const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
+        const apiFavoriteFaction = body.favoriteFaction || null
+        if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
+          console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
+          setLocalFavorite(apiFavoriteFaction)
+          setFavoriteFaction(apiFavoriteFaction)
+        }
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }, [favoriteFaction, subscription.userName, waitingForApi, isActive])
+
+  const updateFavoriteFaction = useCallback(
+    async (faction: string | null) => {
+      if (!subscription || !isActive) return
+
+      const factionName = faction ? unTitleCase(faction) : faction
+
+      if (!isValidFactionName(factionName)) return
+
+      try {
+        // Update local storage
+        setWaitingForApi(true)
+        setLocalFavorite(factionName)
+        setFavoriteFaction(factionName)
+
+        // Update API
+        const payload = { id: subscription.id, userName: subscription.userName, factionName }
+        await SubscriptionApi.updateFavoriteFaction(payload)
+        logEvent(`FavoriteFaction-${factionName}`)
+        console.log(`Set favoriteFaction in API to ${factionName}`)
+        setWaitingForApi(false)
+      } catch (err) {
+        console.error(err)
+        setWaitingForApi(false)
+      }
+    },
+    [subscription, isActive]
+  )
+
+  const handleLogin = useCallback(() => {
+    storeArmy()
+    loginWithRedirect()
+  }, [loginWithRedirect])
+
   return (
     <SavedArmiesContext.Provider
       value={{
         armyHasChanges,
         deleteSavedArmy,
+        favoriteFaction,
+        getFavoriteFaction,
+        handleLogin,
         loadedArmy,
         loadSavedArmies,
         saveArmy,
@@ -131,6 +206,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         setLoadedArmy,
         updateArmy,
         updateArmyName,
+        updateFavoriteFaction,
       }}
     >
       {children}

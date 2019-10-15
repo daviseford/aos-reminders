@@ -7,7 +7,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Celestial Apotheosis`,
-        desc: `Casting value of 5. If successfully cast, pick 1 friendly unit wholly within 18" of the caster and visible to them. Heal 1 wound allocated to that unit. In addition, until your next hero phase, subtract 1 from the Bravery characteristic of enemy units while they are within 3" of that unit.`,
+        desc: `Casting value of 5. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Heal 1 wound allocated to that unit. In addition, until your next hero phase, subtract 1 from the Bravery characteristic of enemy units while they are within 3" of that unit.`,
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Claws of Glory`,
-        desc: `Casting value of 6. If successfully cast, pick 1 friendly unit wholly within 18" of the caster and visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Walk Between Realms`,
-        desc: `Casting value of 6. If successfully cast, pick 1 friendly unit wholly within 18" of the caster and visible to them. That unit can fly until your next hero phase.`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. That unit can fly until your next hero phase.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
       },
     ],
@@ -37,7 +37,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Meteoric Convocation`,
-        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 24" of the caster and visible to them. Roll 8 dice for that unit. For each 5+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 24" of the caster and visible to them. Roll 8 dice for that unit. For each 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystical Unforging`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy HERO with an artifact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a D6. On a 5+, that HERO'S artifact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
+        desc: `Casting value of 8. Pick 1 enemy HERO with an artifact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds, and you must roll a D6. On a 5+, that HERO'S artifact of power can no longer be used (if a weapon was picked when it was selected, the weapon reverts to normal).`,
         when: [HERO_PHASE],
       },
     ],
@@ -57,7 +57,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Stellar Tempest`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy unit within 24" of the caster and visible to them. Roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 8. Pick 1 enemy unit within 24" of the caster and visible to them. Roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -67,7 +67,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Light of the Heavens`,
-        desc: `Casting value of 6. If successfully cast, then until your next hero phase any battleshock tests for CELESTIAL DAEMON or CHAOS DAEMON units are made by rolling two dice rather than one. For CELESTIAL units, discard the highest of the two dice; for CHAOS units, discard the lowest.`,
+        desc: `Casting value of 6. Then until your next hero phase any battleshock tests for CELESTIAL DAEMON or CHAOS DAEMON units are made by rolling two dice rather than one. For CELESTIAL units, discard the highest of the two dice; for CHAOS units, discard the lowest.`,
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
@@ -77,7 +77,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Comet's Call`,
-        desc: `Casting value of 7. If successfully cast, pick up to D3 enemy units, or D6 if the result of the casting roll was 10 or more. Each of these units is struck by a comet and suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick up to D3 enemy units, or D6 if the result of the casting roll was 10 or more. Each of these units is struck by a comet and suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Curse of Fates`,
-        desc: `Casting value of 4. If successfully cast, pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
+        desc: `Casting value of 4. Pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
         when: [HERO_PHASE],
       },
     ],

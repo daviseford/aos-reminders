@@ -54,8 +54,10 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
       .join(' ')
 
     const pdfPages = [result]
-    const isWarscroll = pdfPages.some(x => x.includes('Warscroll Builder'))
-    const isAzyr = isWarscroll ? false : checkIfAzyr(pdfPages)
+    const isAzyr = checkIfAzyr(pdfPages)
+    const isWarscroll = isAzyr
+      ? false
+      : pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
     const parser: TImportParsers = isWarscroll ? 'Warscroll Builder' : isAzyr ? 'Azyr' : 'Unknown'
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
@@ -68,12 +70,12 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
 }
 
 const checkIfAzyr = (pdfPages: string[]): boolean => {
-  const matches = ['azyr', 'play type', 'game type', 'army deemed']
+  const matches = [' azyr ', 'play type', 'game type', 'army deemed']
   return new RegExp(matches.join('|'), 'gi').test(pdfPages[0])
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {
-  const cleanedPages = pages.map(newHandleText)
+  const cleanedPages = pages.map(handlePages)
   const joinedPages = cleanedPages[0]
 
   if (isDev) console.table(joinedPages)
@@ -81,7 +83,7 @@ export const handleAzyrPages = (pages: string[]): string[] => {
   return joinedPages
 }
 
-const newHandleText = (text: string): string[] => {
+const handlePages = (text: string): string[] => {
   const preppedText = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
@@ -93,7 +95,8 @@ const newHandleText = (text: string): string[] => {
     .replace(/Quantity: {2}[0-9]{1,2}/gi, ' ') // Remove "Quantity: 1"
     .replace(/[0-9]{1,4}pts/g, ' ') // Remove '123pts'
     .replace(/&/g, 'AMPERSAND') // Save any existing ampersands
-    .replace(/General/g, ' ') // Handle any known typos
+    .replace(/General's Adjutant/g, ' ') // Get rid of General markings
+    .replace(/([\w]+)? (General)/g, generalReplacer) // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
 
   const items = preppedText.split('ITEM: ')
@@ -119,10 +122,11 @@ const handleItem = (text: string): string[] => {
     .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
     .replace(spellRegexp, 'Spell:')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
+    .replace(/Battle Trait/g, 'Command Trait')
     .replace(markRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
 
@@ -130,21 +134,21 @@ const handleItem = (text: string): string[] => {
     .join(sep)
     // You really do have to run this twice, really :(
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w- ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
-    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  `)
+    .replace(/(^|Role: UNIT +| {2})([\w-' ]+(&&| {2})[\w-!' ]+) Role: +(UNIT)/g, `$1 ${sep} UNIT: $2  ${sep}`)
     .replace(
-      /(,| {2})([\w-' ]+?)&& ([\w-' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
+      /(,| {2})([\w-' ]+?)&& ([\w-!' ]+?) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g,
       `$4: $2${commaAlt} $3${sep}`
     )
     // Now handle normal units
-    .replace(/(,| {2})([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(,| {2})([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
-    .replace(/(,| {2})?([\w-' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
+    .replace(/(,| {2})?([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/(Artefact|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
-    .replace(/(UNIT:|,) ([\w-&' ]+) Ally/g, 'ALLY: $2') // Tag ally units
+    .replace(/(UNIT:|,) ([\w-&!' ]+) Ally/g, 'ALLY: $2') // Tag ally units
     .replace(/\/ Allies/g, '')
     .split(',')
     .join(sep)
@@ -164,7 +168,7 @@ const handleTitle = (text: string): string[] => {
 
   const secondTitlePass = firstTitlePass
     .replace(
-      /.+?Allegiance:([\w-' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
+      /.+?Allegiance:([\w-!' ]+)(HEADER|ALLEGIANCE:|REALMSCAPE:|MERCENARY COMPANY:|,|(?:$))/g,
       factionReplacer
     )
     .replace(
@@ -209,6 +213,12 @@ const getTextHeights = (heights: number[]) => {
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
 
+const generalReplacer = (match: string, p1: string, p2: string) => {
+  const validPrefixes = ['Aggressive', 'Freeguild']
+  if (p1 && validPrefixes.includes(p1)) return match // Leave General
+  return `${p1 || ''}  ` // Remove General
+}
+
 const mercenaryReplacer = (match: string, p1: string, p2: string) => {
   const suffix = p2 === 'Extra Command' ? p2 : ``
   return `${sep}MERCENARY COMPANY: ${p1.trim()}${sep}${suffix}`
@@ -244,11 +254,13 @@ const allegianceTypes = [
   'Skyport',
   'Slaughterhost',
   'Stormhost',
+  'Stronghold',
   'Temple',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {
+  'Aggr essiv e': 'Aggressive',
   'Allher d': 'Allherd',
   'Amar anthine': 'Amaranthine',
   'Ar tiller y': 'Artillery',
@@ -256,7 +268,11 @@ const commonTypos = {
   'Bear er': 'Bearer',
   'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
+  'Bloodlor ds': 'Bloodlords',
+  'Bloodr eaper': 'Bloodreaper',
   'Boltst orm': 'Boltstorm',
+  'Cour t': 'Court',
+  'Court s': 'Courts',
   'Decr epify': 'Decrepify',
   'Def ender': 'Defender',
   'Desecr ator': 'Desecrator',
@@ -264,8 +280,11 @@ const commonTypos = {
   'Dr aining': 'Draining',
   'Dr ead': 'Dread',
   'Ether eal': 'Ethereal',
-  'Gener al': '',
+  'Gener al': 'General',
   'Gr eatblade': 'Greatblade',
+  'Gristlegor e': 'Gristlegore',
+  'Honour ed Retinue': '',
+  'Honoured Retinue': '',
   'Inv ocation': 'Invocation',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',

@@ -30,6 +30,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [mattbarkerdev](https://github.com/mattbarkerdev)
 + [exonian](https://github.com/exonian)
 + [Sobakaa](https://github.com/Sobakaa)
++ [lucienLopez](https://github.com/lucienLopez)
 
 ## Available Scripts
 

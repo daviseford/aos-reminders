@@ -136,10 +136,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Swift Strike (Legion of Blood)`,
+    name: `Swift Strikes (Legion of Blood)`,
     effects: [
       {
-        name: `Swift Strike (Legion of Blood)`,
+        name: `Swift Strikes (Legion of Blood)`,
         desc: `Each time you make a hit roll of 6+ in the combat phase for this general, you can make one additional hit roll for the same weapon against the same target.`,
         when: [COMBAT_PHASE],
       },

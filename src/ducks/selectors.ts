@@ -37,3 +37,7 @@ export const getCurrentArmy = (state: IStore): ICurrentArmy => {
     selections: getSelections(state),
   }
 }
+export const hasSelections = (state: IStore): boolean => {
+  const selections = getSelections(state)
+  return Object.values(selections).some(x => x.length > 0)
+}

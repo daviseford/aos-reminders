@@ -47,7 +47,7 @@ const clearReminder = (state: IHiddenStore) => {
 }
 
 export const visibility = createSlice({
-  slice: 'visibility',
+  name: 'visibility',
   initialState,
   reducers: {
     addAlly,
