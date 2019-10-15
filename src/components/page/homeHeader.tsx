@@ -47,12 +47,12 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
-    if (!getStoredArmy) getFavoriteFaction()
+    getFavoriteFaction()
   }, [getFavoriteFaction])
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction) setFactionName(favoriteFaction)
+    if (favoriteFaction && !getStoredArmy()) setFactionName(favoriteFaction)
   }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {

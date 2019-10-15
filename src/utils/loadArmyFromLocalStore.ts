@@ -2,7 +2,7 @@ import { store } from 'index'
 import { logEvent } from './analytics'
 import { factionNames, army, selections, realmscape } from 'ducks'
 import { getArmy } from './getArmy/getArmy'
-import { getStoredArmy, clearStoredArmy } from './localStore'
+import { getStoredArmy } from './localStore'
 import { isDev } from './env'
 import { IArmy } from 'types/army'
 
@@ -28,8 +28,6 @@ export const loadArmyFromLocalStore = () => {
   store.dispatch(selections.actions.updateAllySelections(storedArmy.allySelections))
   store.dispatch(realmscape.actions.setRealmscape(storedArmy.realmscape))
   store.dispatch(realmscape.actions.setRealmscapeFeature(storedArmy.realmscape_feature))
-
-  clearStoredArmy()
 
   logEvent(`LoadArmyFromStore-${storedArmy.factionName}`)
 }

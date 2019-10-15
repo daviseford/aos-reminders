@@ -9,7 +9,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { setLocalFavorite, getLocalFavorite, storeArmy, getStoredArmy } from 'utils/localStore'
+import { setLocalFavorite, getLocalFavorite, storeArmy } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
 import { store } from 'index'
 import { selectors } from 'ducks'
@@ -137,7 +137,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const getFavoriteFaction = useCallback(async () => {
     try {
-      if (waitingForApi || !!getStoredArmy()) return
+      if (waitingForApi) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
       const localFavorite = getLocalFavorite()
       if (!favoriteFaction && localFavorite) {
