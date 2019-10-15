@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
-import { clearStoredArmy } from 'utils/localStore'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
@@ -17,9 +16,6 @@ const App = () => {
   useEffect(() => {
     handleCheckout() // Post-checkout handling
     loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
-    return () => {
-      clearStoredArmy()
-    }
   }, [])
 
   return (

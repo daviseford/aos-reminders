@@ -26,17 +26,19 @@ export const Header = () => {
 }
 
 interface IJumbotronProps {
-  isMobile: boolean
   factionName: TSupportedFaction
-  resetSelections: () => void
-  resetRealmscapeStore: () => void
+  hasSelections: boolean
+  isMobile: boolean
   resetAllySelections: () => void
+  resetRealmscapeStore: () => void
+  resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
     factionName,
+    hasSelections,
     isMobile,
     resetAllySelections,
     resetRealmscapeStore,
@@ -52,8 +54,10 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !hasStoredArmy()) setFactionName(favoriteFaction)
-  }, [favoriteFaction, setFactionName])
+    if (favoriteFaction && !hasStoredArmy() && !hasSelections) {
+      setFactionName(favoriteFaction)
+    }
+  }, [favoriteFaction, setFactionName, hasSelections])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
@@ -99,6 +103,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
     factionName: selectors.getFactionName(state),
+    hasSelections: selectors.hasSelections(state),
   }
 }
 
