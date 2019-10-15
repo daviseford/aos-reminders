@@ -7,22 +7,18 @@ const AppBanner = () => {
   const { isSubscribed } = useSubscription()
   if (isSubscribed) return null
   return (
-    <div className="row d-flex justify-content-center">
-      <div className="col-12 col-lg-8">
-        <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'info'}>
-          <p>
-            We work hard to maintain our rules library and constantly add premium features for the community.
-            You can help support us by subscribing!
-          </p>
+    <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'info'}>
+      <p>
+        We work hard to maintain our rules library and constantly add premium features for the community. You
+        can help support us by subscribing!
+      </p>
 
-          <p className="highlight-animation mb-0">
-            <Link to="/subscribe">
-              <span>Subscribe Today</span>
-            </Link>
-          </p>
-        </NotificationBanner>
-      </div>
-    </div>
+      <p className="highlight-animation mb-0">
+        <Link to="/subscribe">
+          <span>Subscribe Today</span>
+        </Link>
+      </p>
+    </NotificationBanner>
   )
 }
 
