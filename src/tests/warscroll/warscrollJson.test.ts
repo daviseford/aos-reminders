@@ -8,7 +8,7 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should work', () => {
+  it('should work with FEC Command Traits', () => {
     const parsedText = getFile('1571084621521-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -18,7 +18,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.unknownSelections).toEqual([])
   })
 
-  it('should work', () => {
+  it('should work with The Grand Fyrd of Furios Peak', () => {
     const parsedText = getFile('1571131908806-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -35,7 +35,7 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  xit('should work', () => {
+  xit('should work with Voltik', () => {
     const parsedText = getFile('1571158898802-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -43,7 +43,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work', () => {
+  xit('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -51,7 +51,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work', () => {
+  xit('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
