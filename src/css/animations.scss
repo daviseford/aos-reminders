@@ -187,24 +187,18 @@
 	        animation: shadow-drop-2-center-reverse 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
 }
 
-.subscribe-text{
-    font-size: 2em;
-    font-family: sans-serif;
-    position: relative;
-    display: inline-block;
-}
-
-.subscribe-text:after{
-    content: "";
-    background: $themeYellow;
-    height: 100%;
-    width: 0%;
-    position: absolute;
-    z-index: -1;
-    transition: all .5s ease 0s;
-    right: 0;
-}
-
-.subscribe-text.highlight:after{
-   width: 100%;
-}
+.highlight-animation span {
+    background-image: linear-gradient(to right, rgba(255,255,255,0) 50%, $themeYellow 50%);
+    background-position: -0% 0;
+    background-size: 200% auto;
+    color: inherit;
+    // font-size: 1.75em;
+    // line-height: 1.15em;
+    text-decoration: none;
+    transition: background-position 0.5s ease-out;
+  }
+  .highlight-animation span:hover {
+    background-position: -99.99% 0;
+    text-decoration: none;
+    color: #000000;
+  }

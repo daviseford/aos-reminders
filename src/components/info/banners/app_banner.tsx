@@ -1,21 +1,26 @@
 import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import BannerGif from './banner_gif'
+import { Link } from 'react-router-dom'
 
-const AppBanner = () => (
-  <div className="row d-flex justify-content-center">
-    <div className="col-12 col-sm-10 col-md-8 col-lg-5">
-      <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'light'}>
-        <BannerGif
-          gifUrl="/img/AoS_Subscribe_Support.gif"
-          webmUrl="/img/AoS_Subscribe_Support.mp4"
-          linkUrl={'/subscribe'}
-          label={'SubscribeNudgeBanner1'}
-          className="py-0 my-0"
-        />
-      </NotificationBanner>
+const AppBanner = () => {
+  return (
+    <div className="row d-flex justify-content-center">
+      <div className="col-12 col-md-8 col-lg-6">
+        <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'light'}>
+          <p>
+            We work hard to maintain our rules library and constantly implement new premium features for the
+            community. You can help support these efforts by subscribing!
+          </p>
+
+          <p className="highlight-animation">
+            <Link to="/subscribe">
+              <span>Subscribe Today</span>
+            </Link>
+          </p>
+        </NotificationBanner>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default AppBanner

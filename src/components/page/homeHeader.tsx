@@ -10,7 +10,7 @@ import { titleCase } from 'utils/textUtils'
 import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
-import { getStoredArmy } from 'utils/localStore'
+import { hasStoredArmy } from 'utils/localStore'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -52,7 +52,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !getStoredArmy()) setFactionName(favoriteFaction)
+    if (favoriteFaction && !hasStoredArmy()) setFactionName(favoriteFaction)
   }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
