@@ -101,7 +101,7 @@ const updateUnits = (state: IStore['selections'], action: TAction) => {
 }
 
 export const selections = createSlice({
-  slice: 'selections',
+  name: 'selections',
   initialState,
   reducers: {
     addToSelections,

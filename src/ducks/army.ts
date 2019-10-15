@@ -52,7 +52,7 @@ const deleteAllyArmy = (state, action: { payload: TSupportedFaction }) => {
 }
 
 export const army = createSlice({
-  slice: 'army',
+  name: 'army',
   initialState,
   reducers: {
     deleteAllyArmy,
