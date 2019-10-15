@@ -40,6 +40,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SKAVEN)
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   xit('should work', () => {
@@ -47,6 +48,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   xit('should work', () => {
@@ -54,6 +56,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should figure out allies from context clues', () => {
