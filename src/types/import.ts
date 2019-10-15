@@ -17,6 +17,6 @@ export interface IImportedArmy {
 
 export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }
 
-export type TImportFileTypes = 'application/pdf' | 'text/plain'
+export type TImportFileTypes = 'application/pdf'
 
 export type TImportParsers = 'Warscroll Builder' | 'Azyr' | 'Battlescribe' | 'Unknown'
