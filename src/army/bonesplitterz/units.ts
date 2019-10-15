@@ -230,36 +230,6 @@ export const Units: TUnits = [
       },
     ],
   },
-  {
-    name: `Rogue Idol`,
-    effects: [
-      {
-        name: `Avalanche!`,
-        desc: `If this model is slain, before removing the model from play, roll a dice for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Da Big' Un`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Livin' Idol`,
-        desc: `Add 1 to casting rolls for friendly Orruk Wizards and friendly Grot Wizards while they are within 6" of any friendly models with this ability. In addition, add 1 to the Bravery characteristic of friendly Orruk and friendly Grot units while they are wholly within 18" of any friendly models with this ability.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rubble and Ruin`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. On a 4+, that unit suffers 1 mortal wound.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Spirit of the Waaagh!`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
 ]
 
 // Battalions
