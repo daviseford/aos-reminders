@@ -11,6 +11,7 @@ import {
   ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SLAANESH,
+  STORMCAST_ETERNALS,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -300,6 +301,66 @@ describe('getWarscrollArmyFromPdf', () => {
         'Orruk Brutes',
         'Orruk Gore-gruntas',
       ],
+    })
+  })
+
+  xit('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
+    const pdfText = getFile('Drakesworn.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: [],
+      triumphs: [],
+      units: ['Drakesworn Templar'],
+    })
+  })
+
+  it('correctly imports the Drakesworn Templar and LAoCD together', () => {
+    const pdfText = getFile('DrakeswornandLAoCD.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Storm Lance'],
+      traits: [],
+      triumphs: [],
+      units: ['Drakesworn Templar', 'Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
+  xit('correctly imports the LAoCD and its Storm Lance spell', () => {
+    const pdfText = getFile('LAoCD.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Storm Lance'],
+      traits: [],
+      triumphs: [],
+      units: ['Lord-Arcanum on Celestial Dracoline'],
     })
   })
 
