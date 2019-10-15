@@ -1,12 +1,12 @@
 import { getPdfPages, handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
+import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
-import { IImportedArmy, TImportParsers } from 'types/import'
+import { IImportedArmy, TImportParsers, TImportFileTypes } from 'types/import'
 
 interface IUseParseArgs {
   handleDone: () => void
@@ -23,9 +23,25 @@ const arrayBufferToString = buf => {
   return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
-const checkFileInformation = async typedArray => {
+const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
+  let file = {
+    isPdf: fileType === 'application/pdf',
+    isText: fileType === 'text/plain',
+    isWarscroll: true,
+    parser: 'Warscroll Builder' as TImportParsers,
+    pdfPages: [] as string[],
+  }
+
+  if (file.isText) return file
+
   const { pdfPages, parser } = await getPdfPages(typedArray)
-  return { pdfPages, parser }
+
+  return {
+    ...file,
+    pdfPages,
+    parser,
+    isWarscroll: parser === 'Warscroll Builder',
+  }
 }
 
 export const handleParseFile: TUseParse = ({
@@ -52,7 +68,7 @@ export const handleParseFile: TUseParse = ({
       reader.onload = async () => {
         const typedArray = new Uint8Array(reader.result as any)
 
-        const { pdfPages, parser } = await checkFileInformation(typedArray)
+        const { isPdf, isWarscroll, pdfPages, parser } = await checkFileInformation(typedArray, file.type)
 
         setParser(parser)
 
@@ -61,9 +77,9 @@ export const handleParseFile: TUseParse = ({
           return stopProcessing() && handleError()
         }
 
-        if (parser === 'Warscroll Builder') {
-          const fileTxt = arrayBufferToString(reader.result)
-          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt)
+        if (isWarscroll) {
+          const fileTxt = isPdf ? arrayBufferToString(reader.result) : (reader.result as string)
+          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt, file.type)
 
           // Send a copy of our file to S3
           if (hasErrorOrWarning(parsedArmy.errors)) {
@@ -93,14 +109,14 @@ export const handleParseFile: TUseParse = ({
         }
       }
 
-      startProcessing() // Start processing spinner
+      // Start processing spinner
+      startProcessing()
 
       // Read the file
       if (file.type === 'application/pdf') {
         reader.readAsArrayBuffer(file)
       } else {
-        console.error(`Error: File type not supported - ${file.type}`)
-        stopProcessing()
+        reader.readAsText(file)
       }
     } catch (err) {
       stopProcessing() && handleError()
@@ -109,8 +125,13 @@ export const handleParseFile: TUseParse = ({
   }
 }
 
-const handleWarscroll = (fileText: string) => {
-  const parsedFile = parsePdf(fileText)
-  const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
-  return { parsedFile, parsedArmy }
+const handleWarscroll = (fileText: string, fileType: TImportFileTypes) => {
+  if (fileType === 'application/pdf') {
+    const parsedFile = parsePdf(fileText)
+    const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
+    return { parsedFile, parsedArmy }
+  } else {
+    const parsedArmy = getWarscrollArmyFromText(fileText)
+    return { parsedFile: fileText, parsedArmy }
+  }
 }

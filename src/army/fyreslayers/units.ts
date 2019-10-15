@@ -392,16 +392,6 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   {
-    name: `The Grand Fyrd of Furios Peak`,
-    effects: [
-      {
-        name: `Ancestral Fury`,
-        desc: `You can add 1 to hit rolls made with melee weapons by units in this battalion. In addition, if the target is a CHAOS unit, you can re-roll wound rolls of 1 for melee attacks.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
     name: `Grand Fyrd`,
     effects: [
       {
