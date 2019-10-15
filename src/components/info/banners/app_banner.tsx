@@ -11,11 +11,11 @@ const AppBanner = () => {
       <div className="col-12 col-lg-8">
         <NotificationBanner name="Subscribe_Nudge_01" persistClose={false} variant={'info'}>
           <p>
-            We work hard to maintain our rules library and constantly implement new premium features for the
-            community. You can help support these efforts by subscribing!
+            We work hard to maintain our rules library and constantly add premium features for the community.
+            You can help support us by subscribing!
           </p>
 
-          <p className="highlight-animation">
+          <p className="highlight-animation mb-0">
             <Link to="/subscribe">
               <span>Subscribe Today</span>
             </Link>

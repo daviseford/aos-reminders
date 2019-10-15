@@ -194,13 +194,12 @@
     padding-left: 1%;
     padding-right: 1%;
     color: inherit;
-    // font-size: 1.75em;
-    // line-height: 1.15em;
     text-decoration: none;
     transition: background-position 0.5s ease-out;
   }
-  .highlight-animation span:hover {
+
+.highlight-animation span:hover {
     background-position: -99.99% 0;
     text-decoration: none;
     color: #000000;
-  }
+}
