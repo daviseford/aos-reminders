@@ -186,20 +186,3 @@
 	-webkit-animation: shadow-drop-2-center-reverse 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
 	        animation: shadow-drop-2-center-reverse 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
 }
-
-.highlight-animation span {
-    background-image: linear-gradient(to right, rgba(255,255,255,0) 50%, $themeYellow 50%);
-    background-position: -0% 0;
-    background-size: 200% auto;
-    padding-left: 1%;
-    padding-right: 1%;
-    color: inherit;
-    text-decoration: none;
-    transition: background-position 0.5s ease-out;
-  }
-
-.highlight-animation span:hover {
-    background-position: -99.99% 0;
-    text-decoration: none;
-    color: #000000;
-}

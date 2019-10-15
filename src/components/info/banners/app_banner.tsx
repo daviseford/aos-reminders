@@ -13,11 +13,9 @@ const AppBanner = () => {
         can help support us by subscribing!
       </p>
 
-      <p className="highlight-animation mb-0">
-        <Link to="/subscribe">
-          <span>Subscribe Today</span>
-        </Link>
-      </p>
+      <Link to="/subscribe">
+        <span>Subscribe Today</span>
+      </Link>
     </NotificationBanner>
   )
 }
