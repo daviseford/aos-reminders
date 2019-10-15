@@ -1,5 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
+import { selectors } from 'ducks'
+import { store } from 'index'
 
 const STORED_ARMY_KEY = 'storedArmy'
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
@@ -28,8 +30,11 @@ export const hideNotificationBanner = (name: string) => {
 
 export const getNotificationBanner = (name: string) => localStorage.getItem(name)
 
-export const storeArmy = (currentArmy: ICurrentArmy) => {
-  localStorage.setItem(STORED_ARMY_KEY, JSON.stringify(currentArmy))
+export const storeArmy = () => {
+  const currentArmy = selectors.getCurrentArmy(store.getState())
+  if (currentArmy) {
+    localStorage.setItem(STORED_ARMY_KEY, JSON.stringify(currentArmy))
+  }
 }
 
 export const clearStoredArmy = () => localStorage.removeItem(STORED_ARMY_KEY)

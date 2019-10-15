@@ -11,8 +11,6 @@ import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
 import { setLocalFavorite, getLocalFavorite, storeArmy } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
-import { store } from 'index'
-import { selectors } from 'ducks'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -189,8 +187,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const handleLogin = useCallback(() => {
-    const currentArmy = selectors.getCurrentArmy(store.getState())
-    if (currentArmy) storeArmy(currentArmy)
+    storeArmy()
     loginWithRedirect()
   }, [loginWithRedirect])
 
