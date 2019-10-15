@@ -44,12 +44,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
       setSubscription(subscription)
       setSubscriptionLoading(false)
     } catch (err) {
-      if (err.statusCode === 501) {
-        console.log(`${user.email} is not registered with the Subscription API`)
-      } else {
-        console.log(`There was an unexpected error retrieving ${user.email} from the Subscription API`)
-        console.error(err)
-      }
+      console.log(`${user.email} is not registered with the Subscription API`)
       setSubscription(initialState.subscription)
       setLocalFavorite(null)
       setSubscriptionLoading(false)
