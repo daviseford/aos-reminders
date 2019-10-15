@@ -1,13 +1,64 @@
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import path from 'path'
-import { CITIES_OF_SIGMAR } from 'meta/factions'
+import { CITIES_OF_SIGMAR, FLESH_EATER_COURTS, FYRESLAYERS, SKAVEN, BIG_WAAAGH } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}`), 'utf8'))
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with FEC Command Traits', () => {
+    const parsedText = getFile('1571084621521-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.selections.traits).toEqual(['The Feast Day (Delusion)', 'Dark Acolyte (Nobility)'])
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([])
+  })
+
+  it('should work with The Grand Fyrd of Furios Peak', () => {
+    const parsedText = getFile('1571131908806-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.battalions).toEqual([
+      'Forge Brethren',
+      'Lords of Vostarg',
+      'Lords of the Lodge',
+      'The Grand Fyrd of Furios Peak',
+      'Vostarg Forge Brethren',
+      'Vostarg Warrior Kinband',
+      'Warrior Kinband',
+    ])
+  })
+
+  xit('should work with Voltik', () => {
+    const parsedText = getFile('1571158898802-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SKAVEN)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with Orruk Warboss', () => {
+    const parsedText = getFile('1571165179317-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with Orruk Warboss', () => {
+    const parsedText = getFile('1571171962804-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should figure out allies from context clues', () => {
     const parsedText = getFile('1571040089053-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
