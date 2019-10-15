@@ -1,6 +1,5 @@
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { isDev } from './env'
 
 const STORED_ARMY_KEY = 'storedArmy'
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
@@ -42,10 +41,5 @@ export const getStoredArmy = () => {
 
 export const hasStoredArmy = () => {
   const storedArmy = getStoredArmy()
-  if (storedArmy && Object.values(storedArmy.selections).some(x => x.length > 0)) {
-    if (isDev) console.log('Has a locally stored army')
-    return true
-  }
-  if (isDev) console.log('Does not have a locally stored army')
-  return false
+  return storedArmy && Object.values(storedArmy.selections).some(x => x.length > 0)
 }

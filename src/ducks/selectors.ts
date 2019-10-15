@@ -38,5 +38,5 @@ export const getCurrentArmy = (state: IStore): ICurrentArmy => {
   }
 }
 export const hasSelections = (state: IStore): boolean => {
-  return Object.values(state.selections).some(x => x.length > 0)
+  return Object.values(state.selections.selections).some(x => x.length > 0)
 }
