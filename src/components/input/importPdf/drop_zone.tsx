@@ -51,7 +51,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'application/pdf, text/plain',
+    accept: 'application/pdf',
     multiple: false,
   })
 
