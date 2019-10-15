@@ -1,13 +1,43 @@
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import path from 'path'
-import { CITIES_OF_SIGMAR } from 'meta/factions'
+import { CITIES_OF_SIGMAR, FLESH_EATER_COURTS, FYRESLAYERS, SKAVEN, BIG_WAAAGH } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}`), 'utf8'))
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work', () => {
+    const parsedText = getFile('1571084621521-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.selections.traits).toEqual(['The Feast Day (Delusion)', 'Dark Acolyte (Nobility)'])
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([])
+  })
+
+  xit('should work', () => {
+    const parsedText = getFile('1571131908806-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+  })
+
+  xit('should work', () => {
+    const parsedText = getFile('1571158898802-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SKAVEN)
+  })
+  xit('should work', () => {
+    const parsedText = getFile('1571165179317-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+  })
+
   it('should figure out allies from context clues', () => {
     const parsedText = getFile('1571040089053-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

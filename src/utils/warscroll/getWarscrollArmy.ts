@@ -80,6 +80,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
 
+        if (txt.startsWith('- Grand Court: ')) {
+          const allegiance = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x =>
+            txt.includes(x)
+          )
+          if (allegiance) {
+            accum.allegiances = accum.allegiances.concat(allegiance)
+            return accum
+          }
+        }
+
         if (txt.startsWith('- City: ')) {
           const { allegiance, trait } = getCity(txt)
           accum.allegiances = accum.allegiances.concat(allegiance)
@@ -111,6 +121,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
         if (txt.includes('Drakeblood Curse : ')) {
           const trait = getTrait('Drakeblood Curse', txt)
+          accum.traits = accum.traits.concat(trait)
+          return accum
+        }
+        if (txt.includes('Grand Court: ')) {
+          const trait = getTrait('Grand Court', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
@@ -372,10 +387,10 @@ const getInitialWarscrollArmyTxt = (fileText: string): IImportedArmy => {
   }
 }
 
-type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse'
+type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'
 
-const getTrait = (type: TTraitType, txt: string, isPdf = true) => {
-  const sep = isPdf ? `${type} : ` : `${type}: `
+const getTrait = (type: TTraitType, txt: string, addSpace = true) => {
+  const sep = addSpace ? `${type} : ` : `${type}: `
   return removePrefix(txt.split(sep)[1].trim())
 }
 
@@ -385,6 +400,7 @@ const getTrait = (type: TTraitType, txt: string, isPdf = true) => {
  */
 const removePrefix = (txt: string) => {
   const prefixes = [
+    'Court of Delusion -',
     'Lore of Cinder -',
     'Lore of Eagles -',
     'Lore of Leaves -',
