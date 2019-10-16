@@ -219,11 +219,11 @@ const removePrefix = (txt: string) => {
   const prefixes = [
     'Court of Delusion -',
     'Lore of Cinder -',
+    'Lore of Dark Sorcerey -',
     'Lore of Eagles -',
     'Lore of Leaves -',
     'Lore of Smog -',
     'Lore of Whitefire -',
-    'Secretive Warlock -',
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
   return txt.replace(regexp, '').trim()

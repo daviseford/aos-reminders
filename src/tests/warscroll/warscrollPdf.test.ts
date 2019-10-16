@@ -91,6 +91,7 @@ describe('getWarscrollArmyFromPdf', () => {
       traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
         'Jutting Bones (Drakeblood Curse)',
+        'Secretive Warlock (Anvilgard)',
         'Acidic Blood (Drakeblood Curse)',
         'Fell Gaze (Drakeblood Curse)',
         'Blackfang Crimelord (Anvilgard)',

@@ -8,6 +8,28 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Cities of Sigmar', () => {
+    const parsedText = getFile('1571220408099-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    console.log(warscrollTxt)
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
+    expect(warscrollTxt.selections.traits).toContain('Secretive Warlock (Anvilgard)')
+    expect(warscrollTxt.errors).toEqual([
+      { text: 'Knight-Azyros', severity: 'warn' },
+      { text: 'Prosecutors with Celestial Hammers', severity: 'warn' },
+    ])
+  })
+
+  xit('should work with Cities of Sigmar', () => {
+    const parsedText = getFile('1571233444845-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with FEC Command Traits', () => {
     const parsedText = getFile('1571084621521-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
