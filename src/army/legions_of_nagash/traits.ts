@@ -14,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
+// TODO: Import these traits from the armies, don't re-write them
 const CommandTraits: TTraits = [
   {
     name: `Master of Death (Grand Host of Nagash)`,

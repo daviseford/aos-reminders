@@ -81,12 +81,12 @@ describe('getWarscrollArmyFromPdf', () => {
         'Warding Brand (Hallowheart)',
         'Choking Fumes (Greywater Fastness)',
         'Ignite Weapons (Hallowheart)',
+        'Crystal Aegis (Hallowheart)',
         'Twin-Tailed Comet (Hammerhal)',
         'Elemental Cyclone (Hallowheart)',
-        'Crystal Aegis (Hallowheart)',
+        'Sap Strength (Anvilgard)',
         'Sear Wounds (Hallowheart)',
         'Shield of Thorns (Ghyran)',
-        'Sap Strength (Anvilgard)',
       ],
       traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
@@ -231,6 +231,21 @@ describe('getWarscrollArmyFromPdf', () => {
         'Ghorgon',
       ],
     })
+  })
+
+  it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
+    const pdfText = getFile('CommandTraitWithSpell.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
+    expect(warscrollTxt.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
+    expect(warscrollTxt.selections.spells).toEqual([
+      'Sap Strength (Anvilgard)',
+      'Elemental Cyclone (Hallowheart)',
+    ])
   })
 
   it('reads a KO warscroll pdf file correctly', () => {
@@ -378,7 +393,7 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: [],
       endless_spells: [],
       scenery: [],
-      spells: [],
+      spells: ['Shademist'],
       traits: ['Spiteful Spirit'],
       triumphs: [],
       units: ['Lord Executioner'],

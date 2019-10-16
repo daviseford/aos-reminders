@@ -102,8 +102,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
         if (txt.includes('Command Trait : ')) {
-          const trait = getTrait('Command Trait', txt)
+          const [trait, spell] = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
+          if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
         if (txt.includes('Mount Trait : ')) {
@@ -122,8 +123,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
         if (txt.includes('Artefact : ')) {
-          const artifact = getTrait('Artefact', txt)
+          const [artifact, spell] = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
+          if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
         if (txt.includes('Spell : ')) {
@@ -254,10 +256,25 @@ const getCity = (txt: string) => {
  * We will want to extract the trait AND the spell, if possible
  */
 const traitToSpellMapper = [
-  'Blood Sigil',
-  'Dark Acolyte',
-  'Midnight Tome',
-  'Rune of Ulgu',
-  'Secretive Warlock',
-  'Whitefire Tome',
+  'Blood Sigil -',
+  'Dark Acolyte -',
+  'Midnight Tome -',
+  'Rune of Ulgu -',
+  'Secretive Warlock -',
+  'Whitefire Tome -',
 ]
+
+/**
+ * Extracts a given trait, and optionally, a spell associated with it
+ * @param txt
+ */
+const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [string, string | null] => {
+  const cleaned = getTrait(type, txt, addSpace)
+  const hasSpell = traitToSpellMapper.some(x => cleaned.startsWith(x))
+
+  if (!hasSpell) return [cleaned, null]
+
+  const [trait, spell] = cleaned.split(' - ').map(x => x.trim())
+
+  return [trait, spell === 'All Spells' ? null : spell]
+}

@@ -1,6 +1,6 @@
-import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { readFileSync } from 'fs'
 import path from 'path'
+import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { CITIES_OF_SIGMAR, FLESH_EATER_COURTS, FYRESLAYERS, SKAVEN, BIG_WAAAGH } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -12,22 +12,28 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = getFile('1571220408099-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    console.log(warscrollTxt)
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
     expect(warscrollTxt.selections.traits).toContain('Secretive Warlock (Anvilgard)')
+
+    // TODO: This should be empty once we add ally detection
     expect(warscrollTxt.errors).toEqual([
       { text: 'Knight-Azyros', severity: 'warn' },
       { text: 'Prosecutors with Celestial Hammers', severity: 'warn' },
     ])
   })
 
-  xit('should work with Cities of Sigmar', () => {
+  it('should work with Cities of Sigmar', () => {
     const parsedText = getFile('1571233444845-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.errors).toEqual([])
+
+    // TODO: This should be empty once we add ally detection
+    expect(warscrollTxt.errors).toEqual([
+      { text: 'Knight-Azyros', severity: 'warn' },
+      { text: 'Desolators', severity: 'warn' },
+    ])
   })
 
   it('should work with FEC Command Traits', () => {
