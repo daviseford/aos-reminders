@@ -1406,10 +1406,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.8.tgz#cb1bf6800238898bc2ff6ffa5702c3cadd350708"
   integrity sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A==
 
-"@types/node@12.11.0":
-  version "12.11.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.0.tgz#7f893924970076b20ca0089df50ab9f171088909"
-  integrity sha512-7v0K9WHdjFpE3LMj1rdRan7PDO2d9Qky51T0cYzzk7fWoqoYKu/fZHnrF7OhNZVx0uKwYoQFMZ3dgVD51s/vYA==
+"@types/node@12.11.1":
+  version "12.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.1.tgz#1fd7b821f798b7fa29f667a1be8f3442bb8922a3"
+  integrity sha512-TJtwsqZ39pqcljJpajeoofYRfeZ7/I/OMUQ5pR4q5wOKf2ocrUvBAZUMhWsOvKx3dVc/aaV5GluBivt0sWqA5A==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -9469,10 +9469,10 @@ redux-immutable-state-invariant@^2.1.0:
     invariant "^2.1.0"
     json-stringify-safe "^5.0.1"
 
-redux-starter-kit@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/redux-starter-kit/-/redux-starter-kit-0.8.0.tgz#8eb197fc0dd79cbf89a01a47a5f477d4e36c4318"
-  integrity sha512-FmIJVCTh/PzU7j3BSIPfsXTUlCWSHzvT4n67XyxMUDiVqB+qcXRJXQbB4PoHBbnHb347gy4olJiIuu8JWQYCkQ==
+redux-starter-kit@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/redux-starter-kit/-/redux-starter-kit-0.8.1.tgz#c5fa30f8d05eec8a080e691bc54d3461b59453df"
+  integrity sha512-+izk2dCXt4RNDkegN6W4jfDCmJqC7RLyP12kyMKErpNMjU+mSNy6blctG76btq0FJGFFhAPQ5IQvciiDmJKcZQ==
   dependencies:
     immer "^2.1.5"
     redux "^4.0.0"
