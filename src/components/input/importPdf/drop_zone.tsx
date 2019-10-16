@@ -7,13 +7,15 @@ import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
 import { IImportedArmy, TImportParsers } from 'types/import'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
+  isMobile: boolean
 }
 
-export const ImportDropzone: React.FC<IDropzoneProps> = props => {
-  const { handleDrop } = props
+export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
+  const { handleDrop, isMobile } = props
   const { setLoadedArmy } = useSavedArmies()
 
   const [isDone, setIsDone] = useState(false)
@@ -64,6 +66,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     if (isProcessing) return ``
     if (isError) return errorTxt || `Unable to process this file`
     if (isDone) return `${parser} file processed!`
+    if (isMobile) return `Tap to select your Azyr/Warscroll Builder PDF`
     return `Drag your Azyr or Warscroll Builder PDF here, or click to select`
   }
 
@@ -79,3 +82,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     </div>
   )
 }
+
+const ImportDropzone = componentWithSize(ImportDropzoneComponent)
+
+export default ImportDropzone
