@@ -2,12 +2,12 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import {
+  BIG_WAAAGH,
+  BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   SKAVEN,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
