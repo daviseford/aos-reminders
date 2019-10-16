@@ -15,10 +15,12 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  BONESPLITTERZ,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
+import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
 import CoS1 from '../fixtures/azyr/json/CoS1.json'
 import CoS2 from '../fixtures/azyr/json/CoS2.json'
 import CoS3 from '../fixtures/azyr/json/CoS3.json'
@@ -44,6 +46,16 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.errors).toEqual([])
+  })
+
+  it('handles Bonesplitterz2', () => {
+    const pages = handleAzyrPages(Bonesplitterz2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.errors).toEqual([])
+    expect(res.selections.allegiances).toEqual(['Icebone Clan'])
+    expect(res.selections.battalions).toEqual(["Kunnin' Rukk"])
+    expect(res.selections.artifacts).toEqual(["Mork's Boney Bitz", 'Kattanak Pelt'])
   })
 
   it('handles DoK2', () => {
