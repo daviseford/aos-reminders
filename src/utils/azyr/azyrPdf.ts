@@ -256,6 +256,7 @@ const allegianceTypes = [
   'Stormhost',
   'Stronghold',
   'Temple',
+  'Warclan',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
