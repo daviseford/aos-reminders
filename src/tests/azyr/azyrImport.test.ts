@@ -5,6 +5,7 @@ import BigWaaagh1 from '../fixtures/azyr/json/BigWaaagh1.json'
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
 import BoC2 from '../fixtures/azyr/json/BoC2.json'
 import Bonesplitterz1 from '../fixtures/azyr/json/Bonesplitterz1.json'
+import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
 import Chamon from '../fixtures/azyr/json/Chamon1.json'
 import Chaos1 from '../fixtures/azyr/json/Chaos1.json'
 import Chaos2 from '../fixtures/azyr/json/Chaos2.json'
@@ -100,6 +101,30 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Bonesplitterz2', () => {
+    const res = handleAzyrPages(Bonesplitterz2)
+    expect(res).toEqual([
+      'FACTION: Bonesplitterz',
+      'ALLEGIANCE: Icebone',
+      'UNIT: Wurrgog Prophet',
+      'COMMAND TRAIT: Master of the Weird',
+      "ARTEFACT: Mork' s Bone y Bitz",
+      'SPELL: Breath of Gorkamorka',
+      'UNIT: Savage Big Boss',
+      'UNIT: Wardokk',
+      'SPELL: Brutal Beast Spirits',
+      'UNIT: Maniak Weirdnob',
+      'ARTEFACT: Kattanak Pelt',
+      "SPELL: Gorkamorka's War Cry",
+      "SPELL: Kunnin ' Beast Spirits",
+      'UNIT: Savage Orruks',
+      'UNIT: Savage Orruk Arrowboys',
+      'UNIT: Savage Boarboy Maniaks',
+      "BATTALION: Kunnin' Rukk",
+      'UNIT: Savage Big Stabbas',
+    ])
   })
 
   it('handles FEC2', () => {
