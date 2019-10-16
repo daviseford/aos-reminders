@@ -1,13 +1,30 @@
 import { readFileSync } from 'fs'
 import path from 'path'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
-import { CITIES_OF_SIGMAR, FLESH_EATER_COURTS, FYRESLAYERS, SKAVEN, BIG_WAAAGH } from 'meta/factions'
+import {
+  CITIES_OF_SIGMAR,
+  FLESH_EATER_COURTS,
+  FYRESLAYERS,
+  SKAVEN,
+  BIG_WAAAGH,
+  BONESPLITTERZ,
+} from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}`), 'utf8'))
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it("should work with Bonesplitterz Burnin' Tattooz", () => {
+    const parsedText = getFile('1571240331862-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BONESPLITTERZ)
+    expect(warscrollTxt.selections.allegiances).toEqual(['Drakkfoot Clan'])
+    expect(warscrollTxt.selections.artifacts).toEqual(["Burnin' Tattooz"])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Cities of Sigmar', () => {
     const parsedText = getFile('1571220408099-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
