@@ -11,7 +11,7 @@ import { IImportedArmy, TImportParsers } from 'types/import'
 interface IUseParseArgs {
   handleDone: () => void
   handleDrop: (parsedArmy: IImportedArmy) => void
-  handleError: () => void
+  handleError: (error?: string) => void
   setParser: (parser: TImportParsers) => void
   startProcessing: () => boolean
   stopProcessing: () => boolean
@@ -56,6 +56,11 @@ export const handleParseFile: TUseParse = ({
 
         setParser(parser)
 
+        if (pdfPages[0].startsWith('HEADER 1 aosreminders.com')) {
+          logEvent(`ImportAoSReminders`)
+          return stopProcessing() && handleError(`Unable to process AoS Reminder PDFs`)
+        }
+
         if (parser === 'Unknown') {
           logEvent(`Import${parser}`)
           return stopProcessing() && handleError()
@@ -96,10 +101,12 @@ export const handleParseFile: TUseParse = ({
       startProcessing() // Start processing spinner
 
       // Read the file
-      if (file.type === 'application/pdf') {
+      if (file && file.type === 'application/pdf') {
         reader.readAsArrayBuffer(file)
       } else {
-        console.error(`Error: File type not supported - ${file.type}`)
+        const fileType = file ? file.type : 'Unknown'
+        logEvent(`Import${fileType}`)
+        console.error(`Error: File type not supported - ${fileType}`)
         stopProcessing()
       }
     } catch (err) {

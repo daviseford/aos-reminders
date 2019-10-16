@@ -18,6 +18,7 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
 
   const [isDone, setIsDone] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [errorTxt, setErrorText] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
   const [parser, setParser] = useState<TImportParsers>('Warscroll Builder')
 
@@ -26,9 +27,13 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
     setTimeout(() => setIsDone(false), 6000)
   }
 
-  const handleError = () => {
+  const handleError = (error?: string) => {
+    if (error) setErrorText(error)
     setIsError(true)
-    setTimeout(() => setIsError(false), 6000)
+    setTimeout(() => {
+      setIsError(false)
+      setErrorText(null)
+    }, 6000)
   }
 
   const startProcessing = () => {
@@ -57,9 +62,9 @@ export const ImportDropzone: React.FC<IDropzoneProps> = props => {
 
   const getText = () => {
     if (isProcessing) return ``
-    if (isError) return `Unable to process this file`
+    if (isError) return errorTxt || `Unable to process this file`
     if (isDone) return `${parser} file processed!`
-    return `Drag your Azyr or Warscroll Builder file here, or click to select`
+    return `Drag your Azyr or Warscroll Builder PDF here, or click to select`
   }
 
   return (
