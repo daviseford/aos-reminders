@@ -107,11 +107,11 @@ export const handleParseFile: TUseParse = ({
         const fileType = file ? file.type : 'Unknown'
         logEvent(`Import${fileType}`)
         console.error(`Error: File type not supported - ${fileType}`)
-        stopProcessing()
+        return stopProcessing() && handleError(`Only feed me PDF files, please`)
       }
     } catch (err) {
-      stopProcessing() && handleError()
       console.error(err)
+      return stopProcessing() && handleError()
     }
   }
 }
