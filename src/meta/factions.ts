@@ -16,7 +16,6 @@ export type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export type TFyreslayers = 'FYRESLAYERS'
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export type TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
-export type TGreenskinz = 'GREENSKINZ'
 export type TGutbusters = 'GUTBUSTERS'
 export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export type TIronjawz = 'IRONJAWZ'
@@ -60,7 +59,6 @@ export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
-export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const GUTBUSTERS: TGutbusters = 'GUTBUSTERS'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
@@ -105,7 +103,6 @@ export type TSupportedFaction =
   | TFyreslayers
   | TGloomspiteGitz
   | TGrandHostOfNagash
-  | TGreenskinz
   | TGutbusters
   | TIdonethDeepkin
   | TIronjawz
@@ -149,7 +146,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
-  GREENSKINZ,
   GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,

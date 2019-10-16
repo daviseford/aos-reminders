@@ -16,7 +16,6 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
-  GREENSKINZ,
   GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
@@ -61,7 +60,6 @@ import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
 import GrandHostOfNagash from 'army/grand_host_of_nagash'
-import Greenskinz from 'army/greenskinz'
 import Gutbusters from 'army/gutbusters'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
@@ -149,10 +147,6 @@ const ArmyList: TArmyList = {
   [GRAND_HOST_OF_NAGASH]: {
     Army: { ...GrandHostOfNagash },
     GrandAlliance: DEATH,
-  },
-  [GREENSKINZ]: {
-    Army: { ...Greenskinz },
-    GrandAlliance: DESTRUCTION,
   },
   [GUTBUSTERS]: {
     Army: { ...Gutbusters },
