@@ -244,3 +244,20 @@ const getCity = (txt: string) => {
     return { allegiance, trait: null }
   }
 }
+
+/**
+ * Warscroll Builder sometimes (confusingly) will mingle Command Traits (that grant a spell) with the spell itself
+ * A typical entry might look like:
+ * "- Command Trait : Secretive Warlock - Shadow Daggers"
+ *                       ^ trait ^          ^ spell ^
+ *
+ * We will want to extract the trait AND the spell, if possible
+ */
+const traitToSpellMapper = [
+  'Blood Sigil',
+  'Dark Acolyte',
+  'Midnight Tome',
+  'Rune of Ulgu',
+  'Secretive Warlock',
+  'Whitefire Tome',
+]
