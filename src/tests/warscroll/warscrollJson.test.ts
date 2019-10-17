@@ -8,6 +8,7 @@ import {
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   SKAVEN,
+  DESTRUCTION_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -15,6 +16,32 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it("should work with Bonesplitterz Burnin' Tattooz", () => {
+    const parsedText = getFile('1571263525536-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it("should work with Bonesplitterz Burnin' Tattooz", () => {
+    const parsedText = getFile('1571285206236-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  // Uncomment when https://github.com/daviseford/aos-reminders/issues/598 is complete
+  xit('should work with Firebelly', () => {
+    const parsedText = getFile('1571287948786-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.units).toContain('Firebelly')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it("should work with Bonesplitterz Burnin' Tattooz", () => {
     const parsedText = getFile('1571240331862-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
