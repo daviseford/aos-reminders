@@ -8,6 +8,7 @@ import { SupportPlans } from 'components/payment/plans'
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
     titleCase: false,
+    gaOptions: { siteSpeedSampleRate: 100 },
   })
   if (isProd) ReactGA.plugin.require('ecommerce')
 }
