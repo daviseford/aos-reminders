@@ -5,6 +5,7 @@ import {
   BIG_WAAAGH,
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
+  DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   SKAVEN,
@@ -15,6 +16,33 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Horrible Resilient', () => {
+    const parsedText = getFile('1571263525536-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Anointed on Frostheart Phoenix', () => {
+    const parsedText = getFile('1571285206236-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.units).toContain('Anointed on Frostheart Phoenix')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  // Uncomment when https://github.com/daviseford/aos-reminders/issues/598 is complete
+  xit('should work with Firebelly', () => {
+    const parsedText = getFile('1571287948786-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.units).toContain('Firebelly')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it("should work with Bonesplitterz Burnin' Tattooz", () => {
     const parsedText = getFile('1571240331862-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -88,19 +116,21 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
