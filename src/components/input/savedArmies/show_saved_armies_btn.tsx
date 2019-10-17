@@ -4,6 +4,7 @@ import { useSubscription } from 'context/useSubscription'
 import { MdStorage } from 'react-icons/md'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { useAppStatus } from 'context/useAppStatus'
+import { LocalSavedArmies } from 'utils/localStore'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
@@ -16,11 +17,13 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   showSavedArmies,
   hideSavedArmies,
 }) => {
-  const { isOnline } = useAppStatus()
+  const { isOnline, isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
 
   if (isOnline && (!isAuthenticated || !isSubscribed)) return null
+  if (isOffline && LocalSavedArmies.get().length === 0) return null
+
   const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved Armies`
 
   const handleClick = e => {
