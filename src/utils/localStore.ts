@@ -5,6 +5,7 @@ import { store } from 'index'
 
 const STORED_ARMY_KEY = 'storedArmy'
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
+const USERNAME_KEY = 'userName'
 
 /**
  * Set the local favoriteFaction to a faction name
@@ -47,4 +48,14 @@ export const getStoredArmy = () => {
 export const hasStoredArmy = () => {
   const storedArmy = getStoredArmy()
   return storedArmy && Object.values(storedArmy.selections).some(x => x.length > 0)
+}
+
+export const setLocalUsername = (userName: string) => {
+  console.log(`Set localUsername to ${userName}`)
+  localStorage.setItem(USERNAME_KEY, userName)
+}
+
+export const clearLocalUsername = () => {
+  console.log(`Cleared localUsername`)
+  localStorage.removeItem(USERNAME_KEY)
 }

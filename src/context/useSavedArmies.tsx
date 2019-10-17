@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
@@ -9,7 +9,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { setLocalFavorite, getLocalFavorite, storeArmy } from 'utils/localStore'
+import { setLocalFavorite, getLocalFavorite, storeArmy, setLocalUsername } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
 
 type TLoadedArmy = { id: string; armyName: string } | null
@@ -190,6 +190,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     storeArmy()
     loginWithRedirect()
   }, [loginWithRedirect])
+
+  useEffect(() => {
+    if (user && isActive) setLocalUsername(user.email)
+  }, [user, isActive])
 
   return (
     <SavedArmiesContext.Provider

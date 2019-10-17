@@ -7,7 +7,7 @@ interface IOfflineStatusProvider {
 const OfflineStatusContext = React.createContext<IOfflineStatusProvider | void>(undefined)
 
 const OfflineStatusProvider: React.FC = ({ children }) => {
-  const [isOffline, setIsOffline] = useState(true) // just doing this for dev, switch to false for prod
+  const [isOffline, setIsOffline] = useState(false) // just doing this for dev, switch to false for prod
 
   const setOffline = () => {
     console.log('No internet connection found. App is running in offline mode.')
