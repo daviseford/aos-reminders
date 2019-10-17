@@ -116,19 +116,21 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
