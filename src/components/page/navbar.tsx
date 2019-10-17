@@ -9,10 +9,10 @@ import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 const Navbar: React.FC = () => {
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
   const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
   const { handleLogin } = useSavedArmies()

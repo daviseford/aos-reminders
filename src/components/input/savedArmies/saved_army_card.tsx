@@ -7,7 +7,7 @@ import { DeleteArmyModal } from './delete_army_modal'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import UpdateNameButton from './update_name_btn'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -15,7 +15,7 @@ interface ISavedArmyCardProps {
 
 export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [border, setBorder] = useState('')
@@ -84,7 +84,7 @@ interface ICardTitleProps {
 }
 
 const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) => {
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const faction = titleCase(factionName)
   const created = DateTime.fromMillis(createdAt).toLocaleString({
     year: 'numeric',

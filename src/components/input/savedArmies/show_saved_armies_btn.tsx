@@ -3,7 +3,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { MdStorage } from 'react-icons/md'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
@@ -16,7 +16,7 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   showSavedArmies,
   hideSavedArmies,
 }) => {
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
 

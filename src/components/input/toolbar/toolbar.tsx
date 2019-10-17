@@ -2,7 +2,7 @@ import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
 import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
@@ -37,7 +37,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
   const { isSubscribed, isActive } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)

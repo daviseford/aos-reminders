@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 import { btnContentWrapper } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
@@ -17,7 +17,7 @@ interface IDropzoneProps {
 
 export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   const { handleDrop, isMobile } = props
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
 
   const [isDone, setIsDone] = useState(false)

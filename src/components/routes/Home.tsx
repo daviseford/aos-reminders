@@ -4,19 +4,20 @@ import { useSubscription } from 'context/useSubscription'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 
-const ArmyBuilder = lazy(() => import(/* webpackChunkName: 'army_builder' */ 'components/input/army_builder'))
 const AlliedArmies = lazy(() => import(/* webpackChunkName: 'ally_armies' */ 'components/input/ally_armies'))
+// const AppBanner = lazy(() => import(/* webpackChunkName: 'app_banner' */ 'components/info/banners/app_banner') )
+const ArmyBuilder = lazy(() => import(/* webpackChunkName: 'army_builder' */ 'components/input/army_builder'))
 const FooterComponent = lazy(() => import(/* webpackChunkName: 'footer' */ 'components/page/footer'))
 const LoadedArmyHeader = lazy(() =>
   import(/* webpackChunkName: 'loaded_army_header' */ 'components/input/savedArmies/loaded_army_header')
 )
-// const AppBanner = lazy(() =>
-//   import(/* webpackChunkName: 'app_banner' */ 'components/info/banners/app_banner')
-// )
 const PrintArmy = lazy(() => import(/* webpackChunkName: 'printArmy' */ 'components/print/printArmy'))
 const PrintFooter = lazy(() => import(/* webpackChunkName: 'printFooter' */ 'components/print/printFooter'))
 const Reminders = lazy(() => import(/* webpackChunkName: 'reminders' */ 'components/info/reminders'))
 const Toolbar = lazy(() => import(/* webpackChunkName: 'toolbar' */ 'components/input/toolbar/toolbar'))
+const UpdateBanner = lazy(() =>
+  import(/* webpackChunkName: 'update_banner' */ 'components/info/banners/update_banner')
+)
 
 const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
@@ -36,6 +37,10 @@ const Home: React.FC = () => {
       {/* <Suspense fallback={<></>}>
         <AppBanner />
       </Suspense> */}
+
+      <Suspense fallback={<></>}>
+        <UpdateBanner />
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <LoadedArmyHeader />

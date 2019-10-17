@@ -6,11 +6,11 @@ import UpdateArmyBtn from './update_army_btn'
 import UpdateNameButton from './update_name_btn'
 import { ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const { loadedArmy, armyHasChanges } = useSavedArmies()
 
   const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [

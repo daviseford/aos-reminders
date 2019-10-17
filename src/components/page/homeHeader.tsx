@@ -11,7 +11,7 @@ import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
 import { LocalStoredArmy } from 'utils/localStore'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -46,7 +46,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections,
     setFactionName,
   } = props
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
   // Get our user's favorite faction from localStorage/API
