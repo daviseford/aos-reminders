@@ -5,10 +5,10 @@ import {
   BIG_WAAAGH,
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
+  DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   SKAVEN,
-  DESTRUCTION_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
