@@ -926,7 +926,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: ``,
+    name: `Executioners`,
     effects: [
       {
         name: `Draich Master`,
