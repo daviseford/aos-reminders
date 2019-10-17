@@ -28,7 +28,7 @@ const OfflineStatusProvider: React.FC = ({ children }) => {
     const poll = async () => {
       try {
         await timeout(
-          8000,
+          10000,
           fetch('https://google.com', {
             method: 'GET',
             mode: 'no-cors',
