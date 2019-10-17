@@ -8,7 +8,7 @@ import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { SupportPlans, ISupportPlan } from './plans'
 import { IUser } from 'types/user'
-import { storeArmy } from 'utils/localStore'
+import { LocalStoredArmy } from 'utils/localStore'
 
 interface ICheckoutProps {
   stripe?: any
@@ -57,7 +57,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     logClick(supportPlan.title)
 
-    storeArmy() // Store our current army in local storage so we don't lose it
+    LocalStoredArmy.set() // Store our current army in local storage so we don't lose it
 
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'

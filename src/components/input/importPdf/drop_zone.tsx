@@ -2,12 +2,13 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 import { btnContentWrapper } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
-import { IImportedArmy, TImportParsers } from 'types/import'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import { IImportedArmy, TImportParsers } from 'types/import'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
@@ -16,6 +17,7 @@ interface IDropzoneProps {
 
 export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   const { handleDrop, isMobile } = props
+  const { isOnline } = useOfflineStatus()
   const { setLoadedArmy } = useSavedArmies()
 
   const [isDone, setIsDone] = useState(false)
@@ -52,7 +54,15 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   }
 
   const onDrop = useCallback(
-    handleParseFile({ handleDrop, handleError, handleDone, setParser, startProcessing, stopProcessing }),
+    handleParseFile({
+      handleDrop,
+      handleError,
+      handleDone,
+      isOnline,
+      setParser,
+      startProcessing,
+      stopProcessing,
+    }),
     [handleDrop]
   )
 

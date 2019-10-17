@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { PreferenceApi } from 'api/preferenceApi'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
@@ -9,8 +9,9 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { setLocalFavorite, getLocalFavorite, storeArmy } from 'utils/localStore'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
+import { useOfflineStatus } from './useOfflineStatus'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -34,6 +35,7 @@ interface ISavedArmiesContext {
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
+  const { isOffline } = useOfflineStatus()
   const { user, loginWithRedirect } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
@@ -69,16 +71,18 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const loadSavedArmies = useCallback(async () => {
+    if (isOffline) return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
     if (!user) return setSavedArmies([])
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
+      LocalSavedArmies.set(savedArmies)
     } catch (err) {
       console.error(err)
     }
-  }, [user])
+  }, [user, isOffline])
 
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {
@@ -137,7 +141,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     try {
       if (waitingForApi) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
-      const localFavorite = getLocalFavorite()
+      const localFavorite = LocalFavoriteFaction.get()
       if (!favoriteFaction && localFavorite) {
         setFavoriteFaction(localFavorite)
       }
@@ -149,7 +153,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         const apiFavoriteFaction = body.favoriteFaction || null
         if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
           console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
-          setLocalFavorite(apiFavoriteFaction)
+          LocalFavoriteFaction.set(apiFavoriteFaction)
           setFavoriteFaction(apiFavoriteFaction)
         }
       }
@@ -169,7 +173,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       try {
         // Update local storage
         setWaitingForApi(true)
-        setLocalFavorite(factionName)
+        LocalFavoriteFaction.set(factionName)
         setFavoriteFaction(factionName)
 
         // Update API
@@ -187,9 +191,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const handleLogin = useCallback(() => {
-    storeArmy()
+    LocalStoredArmy.set()
     loginWithRedirect()
   }, [loginWithRedirect])
+
+  useEffect(() => {
+    if (user && isActive) LocalUserName.set(user.email)
+  }, [user, isActive])
 
   return (
     <SavedArmiesContext.Provider

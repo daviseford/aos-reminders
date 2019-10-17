@@ -6,9 +6,11 @@ import UpdateArmyBtn from './update_army_btn'
 import UpdateNameButton from './update_name_btn'
 import { ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props
+  const { isOffline } = useOfflineStatus()
   const { loadedArmy, armyHasChanges } = useSavedArmies()
 
   const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
@@ -24,11 +26,11 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
         <div className="flex-grow-1 ml-3">
           <h4 className="text-secondary">{loadedArmy.armyName}</h4>
         </div>
-        <div className="ml-2 mr-3">
+        <div className="ml-2 mr-3" hidden={isOffline}>
           <UpdateNameButton size="0.85rem" className="text-secondary" {...loadedArmy} />
         </div>
       </div>
-      <div className="col-12">
+      <div className="col-12" hidden={isOffline}>
         {hasChanges && (
           <UpdateArmyBtn
             currentArmy={{ ...currentArmy, ...loadedArmy }}

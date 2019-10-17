@@ -7,17 +7,18 @@ import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
-import { hasStoredArmy } from 'utils/localStore'
+import { LocalStoredArmy } from 'utils/localStore'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
   return (
     <div className="ThemeDarkBg">
-      <Suspense fallback={<EmptyHeader />}>
+      <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
       <Jumbotron />
@@ -45,6 +46,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections,
     setFactionName,
   } = props
+  const { isOnline } = useOfflineStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
   // Get our user's favorite faction from localStorage/API
@@ -54,7 +56,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !hasStoredArmy() && !hasSelections) {
+    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections) {
       setFactionName(favoriteFaction)
     }
   }, [favoriteFaction, setFactionName, hasSelections])
@@ -64,7 +66,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections()
     resetRealmscapeStore()
     resetAllySelections()
-    logFactionSwitch(value)
+    if (isOnline) logFactionSwitch(value)
     setFactionName(value)
   })
 

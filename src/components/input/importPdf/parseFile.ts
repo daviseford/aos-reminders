@@ -12,6 +12,7 @@ interface IUseParseArgs {
   handleDone: () => void
   handleDrop: (parsedArmy: IImportedArmy) => void
   handleError: (error?: string) => void
+  isOnline: boolean
   setParser: (parser: TImportParsers) => void
   startProcessing: () => boolean
   stopProcessing: () => boolean
@@ -32,6 +33,7 @@ export const handleParseFile: TUseParse = ({
   handleDrop,
   handleError,
   handleDone,
+  isOnline,
   setParser,
   startProcessing,
   stopProcessing,
@@ -71,28 +73,28 @@ export const handleParseFile: TUseParse = ({
           const { parsedFile, parsedArmy } = handleWarscroll(fileTxt)
 
           // Send a copy of our file to S3
-          if (hasErrorOrWarning(parsedArmy.errors)) {
+          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
             const payload = { fileTxt: parsedFile, parser, fileType: file.type }
             Promise.resolve(PreferenceApi.createErrorFile(payload))
           }
 
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          if (isValidFactionName(parsedArmy.factionName)) {
+          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
             logEvent(`Import${parser}-${parsedArmy.factionName}`)
           }
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
 
-          if (hasErrorOrWarning(parsedArmy.errors)) {
+          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
             const payload = { fileTxt: pdfPages, parser, fileType: file.type }
             Promise.resolve(PreferenceApi.createErrorFile(payload))
           }
 
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          if (isValidFactionName(parsedArmy.factionName)) {
+          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
             logEvent(`Import${parser}-${parsedArmy.factionName}`)
           }
         }
@@ -105,7 +107,7 @@ export const handleParseFile: TUseParse = ({
         reader.readAsArrayBuffer(file)
       } else {
         const fileType = file ? file.type : 'Unknown'
-        logEvent(`Import${fileType}`)
+        if (isOnline) logEvent(`Import${fileType}`)
         console.error(`Error: File type not supported - ${fileType}`)
         return stopProcessing() && handleError(`Only feed me PDF files, please`)
       }

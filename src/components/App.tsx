@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-import { Loading } from './helpers/suspenseFallbacks'
+import { LoadingBody } from './helpers/suspenseFallbacks'
 
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div className="d-block">
       <BrowserRouter>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingBody />}>
           <Switch>
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />

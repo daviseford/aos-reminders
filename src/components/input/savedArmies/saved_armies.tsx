@@ -5,8 +5,10 @@ import { SavedArmyCard } from './saved_army_card'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { paginateSavedArmies } from 'utils/paginate'
 import { PaginateButtons } from './paginate_buttons'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 
 const ShowSavedArmies: React.FC = () => {
+  const { isOffline } = useOfflineStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
   const { savedArmies, loadSavedArmies } = useSavedArmies()
@@ -15,10 +17,10 @@ const ShowSavedArmies: React.FC = () => {
   const paginatedArmies = useMemo(() => paginateSavedArmies(savedArmies, 6), [savedArmies])
 
   useEffect(() => {
-    if (isAuthenticated && isSubscribed) {
+    if (isOffline || (isAuthenticated && isSubscribed)) {
       loadSavedArmies()
     }
-  }, [loadSavedArmies, isAuthenticated, isSubscribed])
+  }, [loadSavedArmies, isAuthenticated, isSubscribed, isOffline])
 
   if (paginatedArmies.length === 0) return <NoArmiesFound />
 

@@ -1,8 +1,10 @@
 import React from 'react'
-import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
+import { Link } from 'react-router-dom'
+import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
+import { FiWifiOff } from 'react-icons/fi'
 
-export const FallbackBtn = () => {
+export const LoadingBtn = () => {
   return (
     <button className={btnDarkBlock} disabled type="button">
       <div className={btnContentWrapper}>
@@ -13,7 +15,18 @@ export const FallbackBtn = () => {
   )
 }
 
-export const EmptyHeader = () => {
+export const OfflineBtn = (props: { text?: string }) => {
+  const { text = 'Offline' } = props
+  return (
+    <button className={btnDarkBlock} disabled type="button">
+      <div className={btnContentWrapper}>
+        <FiWifiOff className="mr-2 text-danger" /> {text}
+      </div>
+    </button>
+  )
+}
+
+export const LoadingHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
       <header
@@ -27,16 +40,30 @@ export const EmptyHeader = () => {
   )
 }
 
-export const Loading = () => (
+export const OfflineHeader = () => {
+  const { pathname } = window.location
+
+  return (
+    <header className={navbarStyles.headerClass}>
+      <div className="flex-grow-1"></div>
+      <div>
+        {pathname !== '/' && (
+          <Link to="/" className={navbarStyles.link}>
+            Home
+          </Link>
+        )}
+        <button className={navbarStyles.btn} disabled type="button">
+          <div className={btnContentWrapper}>
+            <FiWifiOff className="mr-2" /> Offline
+          </div>
+        </button>
+      </div>
+    </header>
+  )
+}
+
+export const LoadingBody = () => (
   <div className="container d-flex flex-column align-items-center justify-content-center LoadingContainer">
-    {/* <div className="col text-center">
-    <img
-          className="d-block mx-auto mb-3 img-fluid"
-          src="/img/logo_noURL.png"
-          width="100px"
-          alt="AoS Reminders"
-        />
-    </div> */}
     <div className="col text-center">
       <h3 className="pulsate-fwd">AoS Reminders</h3>
       <p className="lead text-muted fade-out">Loading...</p>

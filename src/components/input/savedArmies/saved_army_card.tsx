@@ -7,6 +7,7 @@ import { DeleteArmyModal } from './delete_army_modal'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import UpdateNameButton from './update_name_btn'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -14,6 +15,7 @@ interface ISavedArmyCardProps {
 
 export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
+  const { isOffline } = useOfflineStatus()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [border, setBorder] = useState('')
@@ -55,7 +57,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
           </div>
           <div className="d-flex justify-content-center">
             <LoadArmyBtn army={army} />
-            <button className="btn btn-sm btn-danger mx-3" onClick={openModal}>
+            <button className="btn btn-sm btn-danger mx-3" onClick={openModal} disabled={isOffline}>
               Delete
             </button>
             {modalIsOpen && (
@@ -82,6 +84,7 @@ interface ICardTitleProps {
 }
 
 const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) => {
+  const { isOffline } = useOfflineStatus()
   const faction = titleCase(factionName)
   const created = DateTime.fromMillis(createdAt).toLocaleString({
     year: 'numeric',
@@ -94,7 +97,7 @@ const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) =>
   return (
     <>
       <div className="d-flex mb-1 justify-content-start align-items-center">
-        <div>
+        <div hidden={isOffline}>
           <UpdateNameButton size="0.75rem" className="mr-3" armyName={armyName} id={id} />
         </div>
         <div className="flex-grow-1">
