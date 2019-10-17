@@ -78,14 +78,14 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [
         "Strike of Eagles (Tempest's Eye)",
-        'Warding Brand (Hallowheart)',
         'Choking Fumes (Greywater Fastness)',
-        'Ignite Weapons (Hallowheart)',
         'Crystal Aegis (Hallowheart)',
         'Twin-Tailed Comet (Hammerhal)',
-        'Elemental Cyclone (Hallowheart)',
         'Sap Strength (Anvilgard)',
         'Sear Wounds (Hallowheart)',
+        'Warding Brand (Hallowheart)',
+        'Ignite Weapons (Hallowheart)',
+        'Elemental Cyclone (Hallowheart)',
         'Shield of Thorns (Ghyran)',
       ],
       traits: [

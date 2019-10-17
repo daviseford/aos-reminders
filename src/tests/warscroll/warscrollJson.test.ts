@@ -16,7 +16,7 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it("should work with Bonesplitterz Burnin' Tattooz", () => {
+  it('should work with Horrible Resilient', () => {
     const parsedText = getFile('1571263525536-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -24,11 +24,12 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it("should work with Bonesplitterz Burnin' Tattooz", () => {
+  it('should work with Anointed on Frostheart Phoenix', () => {
     const parsedText = getFile('1571285206236-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.units).toContain('Anointed on Frostheart Phoenix')
     expect(warscrollTxt.errors).toEqual([])
   })
 

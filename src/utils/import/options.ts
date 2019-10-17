@@ -57,6 +57,7 @@ const warscrollTypoMap: TNameMap = {
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
+  'Horrible Resilient': 'Horribly Resilient',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Khorghos Khul': 'Korghos Khul',

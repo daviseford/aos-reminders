@@ -101,34 +101,34 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
           return accum
         }
-        if (txt.includes('Command Trait : ')) {
+        if (txt.startsWith('- Command Trait : ')) {
           const [trait, spell] = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
-        if (txt.includes('Mount Trait : ')) {
+        if (txt.startsWith('- Mount Trait : ')) {
           const trait = getTrait('Mount Trait', txt)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
-        if (txt.includes('Drakeblood Curse : ')) {
+        if (txt.startsWith('- Drakeblood Curse : ')) {
           const trait = getTrait('Drakeblood Curse', txt)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
-        if (txt.includes('Grand Court: ')) {
+        if (txt.startsWith('- Grand Court: ')) {
           const trait = getTrait('Grand Court', txt, false)
           accum.traits = accum.traits.concat(trait)
           return accum
         }
-        if (txt.includes('Artefact : ')) {
+        if (txt.startsWith('- Artefact : ')) {
           const [artifact, spell] = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
-        if (txt.includes('Spell : ')) {
+        if (txt.startsWith('- Spell : ')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
