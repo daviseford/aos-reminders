@@ -19,7 +19,7 @@ const AppStatusContext = React.createContext<IAppStatusProvider | void>(undefine
 
 const AppStatusProvider: React.FC = ({ children }) => {
   const [isOffline, setIsOffline] = useState(false)
-  const [hasNewContent, setHasNewContent] = useState(true) // just doing this for dev, switch to false for prod
+  const [hasNewContent, setHasNewContent] = useState(false)
 
   const setOffline = () => {
     console.log('No internet connection found. App is running in offline mode.')
