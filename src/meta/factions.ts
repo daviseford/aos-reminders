@@ -59,6 +59,10 @@ export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
+<<<<<<< HEAD
+=======
+export const GUTBUSTERS: TGutbusters = 'GUTBUSTERS'
+>>>>>>> b6e3cd5... Adding for #590 Warboss
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
@@ -107,6 +111,10 @@ export type TPrimaryFactions =
   | TGloomspiteGitz
   | TGrandHostOfNagash
   | TGreenskinz
+<<<<<<< HEAD
+=======
+  | TGutbusters
+>>>>>>> b6e3cd5... Adding for #590 Warboss
   | TIdonethDeepkin
   | TIronjawz
   | TKharadronOverlords
@@ -154,6 +162,10 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
+<<<<<<< HEAD
+=======
+  GUTBUSTERS,
+>>>>>>> b6e3cd5... Adding for #590 Warboss
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
