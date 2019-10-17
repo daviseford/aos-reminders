@@ -13,7 +13,7 @@ import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 
 interface ISaveArmyProps {
@@ -22,7 +22,7 @@ interface ISaveArmyProps {
 }
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
   const { handleLogin } = useSavedArmies()

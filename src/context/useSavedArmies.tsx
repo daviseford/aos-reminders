@@ -11,7 +11,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
 import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
-import { useOfflineStatus } from './useOfflineStatus'
+import { useAppStatus } from './useAppStatus'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -35,7 +35,7 @@ interface ISavedArmiesContext {
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const { user, loginWithRedirect } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])

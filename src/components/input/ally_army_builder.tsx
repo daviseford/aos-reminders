@@ -9,7 +9,7 @@ import { selections, army, visibility, selectors } from 'ducks'
 import { IconContext } from 'react-icons'
 import { TDropdownOption, SelectMulti, SelectOne } from './select'
 import { ValueType } from 'react-select/src/types'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 import { FaTrashAlt } from 'react-icons/fa'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TSupportedFaction } from 'meta/factions'
@@ -48,7 +48,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     visibleAllies,
   } = props
 
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
 
   const { units = [] } = allySelections[allyFactionName] as IAllySelections
 

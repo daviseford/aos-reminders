@@ -10,7 +10,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 import { isValidFactionName } from 'utils/armyUtils'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -31,7 +31,7 @@ const getDefaultName = (name: string) => {
 
 export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
-  const { isOnline } = useOfflineStatus()
+  const { isOnline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)

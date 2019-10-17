@@ -5,10 +5,10 @@ import { SavedArmyCard } from './saved_army_card'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { paginateSavedArmies } from 'utils/paginate'
 import { PaginateButtons } from './paginate_buttons'
-import { useOfflineStatus } from 'context/useOfflineStatus'
+import { useAppStatus } from 'context/useAppStatus'
 
 const ShowSavedArmies: React.FC = () => {
-  const { isOffline } = useOfflineStatus()
+  const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
   const { savedArmies, loadSavedArmies } = useSavedArmies()
