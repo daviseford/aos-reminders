@@ -20,7 +20,7 @@ const ShowSavedArmies: React.FC = () => {
     if (isOffline || (isAuthenticated && isSubscribed)) {
       loadSavedArmies()
     }
-  }, [loadSavedArmies, isAuthenticated, isSubscribed])
+  }, [loadSavedArmies, isAuthenticated, isSubscribed, isOffline])
 
   if (paginatedArmies.length === 0) return <NoArmiesFound />
 
