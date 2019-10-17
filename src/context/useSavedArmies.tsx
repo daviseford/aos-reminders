@@ -9,7 +9,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { setLocalFavorite, getLocalFavorite, storeArmy, setLocalUsername } from 'utils/localStore'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
 
 type TLoadedArmy = { id: string; armyName: string } | null
@@ -137,7 +137,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     try {
       if (waitingForApi) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
-      const localFavorite = getLocalFavorite()
+      const localFavorite = LocalFavoriteFaction.get()
       if (!favoriteFaction && localFavorite) {
         setFavoriteFaction(localFavorite)
       }
@@ -149,7 +149,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         const apiFavoriteFaction = body.favoriteFaction || null
         if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
           console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
-          setLocalFavorite(apiFavoriteFaction)
+          LocalFavoriteFaction.set(apiFavoriteFaction)
           setFavoriteFaction(apiFavoriteFaction)
         }
       }
@@ -169,7 +169,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       try {
         // Update local storage
         setWaitingForApi(true)
-        setLocalFavorite(factionName)
+        LocalFavoriteFaction.set(factionName)
         setFavoriteFaction(factionName)
 
         // Update API
@@ -187,12 +187,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const handleLogin = useCallback(() => {
-    storeArmy()
+    LocalStoredArmy.set()
     loginWithRedirect()
   }, [loginWithRedirect])
 
   useEffect(() => {
-    if (user && isActive) setLocalUsername(user.email)
+    if (user && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
 
   return (

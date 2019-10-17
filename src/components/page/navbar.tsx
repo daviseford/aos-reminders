@@ -7,7 +7,7 @@ import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
 import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
-import { setLocalFavorite, clearStoredArmy, clearLocalUsername } from 'utils/localStore'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction } from 'utils/localStore'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useOfflineStatus } from 'context/useOfflineStatus'
 
@@ -22,9 +22,9 @@ const Navbar: React.FC = () => {
   const handleLoginBtn = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
-      setLocalFavorite(null) // Get rid of any existing local favoriteFaction value
-      clearLocalUsername() // Get rid of stored user info
-      clearStoredArmy() // Remove stored army from redirect if it exists
+      LocalFavoriteFaction.clear() // Get rid of any existing local favoriteFaction value
+      LocalUserName.clear() // Get rid of stored user info
+      LocalStoredArmy.clear() // Remove stored army from redirect if it exists
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')

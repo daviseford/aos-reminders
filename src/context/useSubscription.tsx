@@ -3,7 +3,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
 import { isSubscriber, isActiveSubscriber, isCanceledSubscriber } from 'utils/subscriptionUtils'
-import { setLocalFavorite } from 'utils/localStore'
+import { LocalFavoriteFaction } from 'utils/localStore'
 
 const initialState = {
   isActive: false,
@@ -51,7 +51,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         console.error(err)
       }
       setSubscription(initialState.subscription)
-      setLocalFavorite(null)
+      LocalFavoriteFaction.clear()
       setSubscriptionLoading(false)
     }
   }, [user])
