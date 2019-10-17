@@ -5,7 +5,7 @@ import { useSubscription } from 'context/useSubscription'
 import { BASE_URL } from 'utils/env'
 import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
-import { headerClass, navbarStyles } from 'theme/helperClasses'
+import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import { setLocalFavorite, clearStoredArmy } from 'utils/localStore'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
   if (loading || subscriptionLoading) return <LoadingHeader />
 
   return (
-    <header className={headerClass}>
+    <header className={navbarStyles.headerClass}>
       <div className="flex-grow-1"></div>
       <div>
         {pathname !== '/' && (

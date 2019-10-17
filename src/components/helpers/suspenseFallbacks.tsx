@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { btnDarkBlock, btnContentWrapper, navbarStyles, headerClass } from 'theme/helperClasses'
+import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { logClick } from 'utils/analytics'
 import { FaNetworkWired } from 'react-icons/fa'
@@ -34,7 +34,7 @@ export const OfflineHeader = () => {
   const { pathname } = window.location
 
   return (
-    <header className={headerClass}>
+    <header className={navbarStyles.headerClass}>
       <div className="flex-grow-1"></div>
       <div>
         {pathname !== '/' && (
