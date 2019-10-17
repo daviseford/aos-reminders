@@ -18,6 +18,10 @@ const App = () => {
     loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
   }, [])
 
+  window.addEventListener('isOffline', () => {
+    console.log('We are now offline!')
+  })
+
   return (
     <div className="d-block">
       <BrowserRouter>
