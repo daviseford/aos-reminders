@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
-import { logClick } from 'utils/analytics'
-import { FaNetworkWired } from 'react-icons/fa'
+import { FiWifiOff } from 'react-icons/fi'
 
 export const LoadingBtn = () => {
   return (
@@ -21,7 +20,7 @@ export const OfflineBtn = (props: { text?: string }) => {
   return (
     <button className={btnDarkBlock} disabled type="button">
       <div className={btnContentWrapper}>
-        <FaNetworkWired className="mr-2 text-danger" /> {text}
+        <FiWifiOff className="mr-2 text-danger" /> {text}
       </div>
     </button>
   )
@@ -49,13 +48,13 @@ export const OfflineHeader = () => {
       <div className="flex-grow-1"></div>
       <div>
         {pathname !== '/' && (
-          <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Offline-Home')}>
+          <Link to="/" className={navbarStyles.link}>
             Home
           </Link>
         )}
         <button className={navbarStyles.btn} disabled type="button">
           <div className={btnContentWrapper}>
-            <FaNetworkWired className="mr-2 text-danger" /> Offline
+            <FiWifiOff className="mr-2" /> Offline
           </div>
         </button>
       </div>

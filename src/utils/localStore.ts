@@ -47,12 +47,10 @@ export const LocalSavedArmies = {
   clear: () => localStorage.removeItem(LOCAL_SAVED_ARMIES_KEY),
   get: () => {
     const savedArmies = localStorage.getItem(LOCAL_SAVED_ARMIES_KEY)
-    console.log('getting', savedArmies)
     if (!savedArmies) return []
     return JSON.parse(savedArmies) as ISavedArmyFromApi[]
   },
   set: (savedArmies: ISavedArmyFromApi[]) => {
-    console.log('saving armies:', savedArmies)
     localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(savedArmies))
   },
 }
