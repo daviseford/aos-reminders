@@ -2,13 +2,13 @@ import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
 import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { useOfflineStatus } from 'context/useOfflineStatus'
 
 const AddAllyButton = lazy(() => import(/* webpackChunkName: 'add_ally_btn' */ './add_ally_btn'))
 const DownloadPDFButton = lazy(() => import(/* webpackChunkName: 'pdfButton' */ 'components/print/pdfButton'))
