@@ -152,7 +152,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
         const apiFavoriteFaction = body.favoriteFaction || null
         if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
-          console.log('Got a new favoriteFaction from the API: ' + apiFavoriteFaction)
           LocalFavoriteFaction.set(apiFavoriteFaction)
           setFavoriteFaction(apiFavoriteFaction)
         }
@@ -180,7 +179,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         const payload = { id: subscription.id, userName: subscription.userName, factionName }
         await SubscriptionApi.updateFavoriteFaction(payload)
         logEvent(`FavoriteFaction-${factionName}`)
-        console.log(`Set favoriteFaction in API to ${factionName}`)
         setWaitingForApi(false)
       } catch (err) {
         console.error(err)

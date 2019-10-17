@@ -59,7 +59,9 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections) {
       setFactionName(favoriteFaction)
     }
-  }, [favoriteFaction, setFactionName, hasSelections])
+    // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
+    // eslint-disable-next-line
+  }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
