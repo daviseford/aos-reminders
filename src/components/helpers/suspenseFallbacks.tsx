@@ -16,11 +16,12 @@ export const LoadingBtn = () => {
   )
 }
 
-export const OfflineBtn = () => {
+export const OfflineBtn = (props: { text?: string }) => {
+  const { text = 'Offline' } = props
   return (
     <button className={btnDarkBlock} disabled type="button">
       <div className={btnContentWrapper}>
-        <FaNetworkWired className="mr-2 text-danger" /> Offline
+        <FaNetworkWired className="mr-2 text-danger" /> {text}
       </div>
     </button>
   )

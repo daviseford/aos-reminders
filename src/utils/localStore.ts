@@ -1,7 +1,7 @@
+import { store } from 'index'
+import { selectors } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { selectors } from 'ducks'
-import { store } from 'index'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
@@ -46,9 +46,13 @@ export const LocalUserName = {
 export const LocalSavedArmies = {
   clear: () => localStorage.removeItem(LOCAL_SAVED_ARMIES_KEY),
   get: () => {
-    const storedArmies = localStorage.getItem(LOCAL_SAVED_ARMIES_KEY)
-    if (!storedArmies) return null
-    return JSON.parse(storedArmies) as ISavedArmyFromApi[]
+    const savedArmies = localStorage.getItem(LOCAL_SAVED_ARMIES_KEY)
+    console.log('getting', savedArmies)
+    if (!savedArmies) return []
+    return JSON.parse(savedArmies) as ISavedArmyFromApi[]
   },
-  set: (armies: ISavedArmyFromApi[]) => localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(armies)),
+  set: (savedArmies: ISavedArmyFromApi[]) => {
+    console.log('saving armies:', savedArmies)
+    localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(savedArmies))
+  },
 }

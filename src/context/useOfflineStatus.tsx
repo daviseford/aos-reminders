@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 interface IOfflineStatusProvider {
   isOffline: boolean
+  isOnline: boolean
 }
 
 const OfflineStatusContext = React.createContext<IOfflineStatusProvider | void>(undefined)
@@ -19,7 +20,11 @@ const OfflineStatusProvider: React.FC = ({ children }) => {
     return () => window.removeEventListener('isOffline', setOffline)
   })
 
-  return <OfflineStatusContext.Provider value={{ isOffline }}>{children}</OfflineStatusContext.Provider>
+  return (
+    <OfflineStatusContext.Provider value={{ isOffline, isOnline: !isOffline }}>
+      {children}
+    </OfflineStatusContext.Provider>
+  )
 }
 
 const useOfflineStatus = () => {

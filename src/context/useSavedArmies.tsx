@@ -9,8 +9,9 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { TSupportedFaction } from 'meta/factions'
 import { unTitleCase } from 'utils/textUtils'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction } from 'utils/localStore'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { logEvent } from 'utils/analytics'
+import { useOfflineStatus } from './useOfflineStatus'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -34,6 +35,7 @@ interface ISavedArmiesContext {
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
+  const { isOffline } = useOfflineStatus()
   const { user, loginWithRedirect } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
@@ -69,16 +71,18 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const loadSavedArmies = useCallback(async () => {
+    if (isOffline) return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
     if (!user) return setSavedArmies([])
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
+      LocalSavedArmies.set(savedArmies)
     } catch (err) {
       console.error(err)
     }
-  }, [user])
+  }, [user, isOffline])
 
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {

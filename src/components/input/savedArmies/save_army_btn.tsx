@@ -34,7 +34,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (isOffline) return <OfflineBtn />
+  if (isOffline) return <OfflineBtn text="Save Army" />
 
   return (
     <>

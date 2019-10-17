@@ -8,6 +8,7 @@ import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { useOfflineStatus } from 'context/useOfflineStatus'
 
 const AddAllyButton = lazy(() => import(/* webpackChunkName: 'add_ally_btn' */ './add_ally_btn'))
 const DownloadPDFButton = lazy(() => import(/* webpackChunkName: 'pdfButton' */ 'components/print/pdfButton'))
@@ -36,6 +37,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
+  const { isOnline } = useOfflineStatus()
   const { isSubscribed, isActive } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
@@ -84,7 +86,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </Suspense>
         </div>
-        <div className={showSavedWrapperClass} hidden={!isSubscribed || !isActive}>
+        <div className={showSavedWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}
