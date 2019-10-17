@@ -4,7 +4,7 @@ import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
-import { FallbackBtn } from 'components/helpers/suspenseFallbacks'
+import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -58,22 +58,22 @@ const ToolbarComponent = (props: IToolbarProps) => {
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <AddAllyButton setAllyClick={handleAllyClick} />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <DownloadPDFButton />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <SaveArmyBtn showSavedArmies={showSavedArmies} />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <ImportArmyButton
               show={showImportArmy}
               hide={hideImportArmy}

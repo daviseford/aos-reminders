@@ -5,12 +5,22 @@ import Spinner from 'components/helpers/spinner'
 import { logClick } from 'utils/analytics'
 import { FaNetworkWired } from 'react-icons/fa'
 
-export const FallbackBtn = () => {
+export const LoadingBtn = () => {
   return (
     <button className={btnDarkBlock} disabled type="button">
       <div className={btnContentWrapper}>
         <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>{' '}
         Loading
+      </div>
+    </button>
+  )
+}
+
+export const OfflineBtn = () => {
+  return (
+    <button className={btnDarkBlock} disabled type="button">
+      <div className={btnContentWrapper}>
+        <FaNetworkWired className="mr-2 text-danger" /> Offline
       </div>
     </button>
   )
