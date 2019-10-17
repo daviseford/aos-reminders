@@ -4,7 +4,7 @@ import { useSubscription } from 'context/useSubscription'
 import { logPageView, logClick } from 'utils/analytics'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
-import { Loading, EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
 
@@ -25,13 +25,13 @@ const Subscribe: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading) return <Loading />
+  if (loading) return <LoadingBody />
   if (isSubscribed && isActive) return <AlreadySubscribed />
 
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <Suspense fallback={<EmptyHeader />}>
+        <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
       </div>

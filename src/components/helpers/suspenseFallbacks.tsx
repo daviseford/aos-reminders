@@ -1,6 +1,9 @@
 import React from 'react'
-import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
+import { Link } from 'react-router-dom'
+import { btnDarkBlock, btnContentWrapper, navbarStyles, headerClass } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
+import { logClick } from 'utils/analytics'
+import { FaNetworkWired } from 'react-icons/fa'
 
 export const FallbackBtn = () => {
   return (
@@ -13,7 +16,7 @@ export const FallbackBtn = () => {
   )
 }
 
-export const EmptyHeader = () => {
+export const LoadingHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
       <header
@@ -27,16 +30,30 @@ export const EmptyHeader = () => {
   )
 }
 
-export const Loading = () => (
+export const OfflineHeader = () => {
+  const { pathname } = window.location
+
+  return (
+    <header className={headerClass}>
+      <div className="flex-grow-1"></div>
+      <div>
+        {pathname !== '/' && (
+          <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Offline-Home')}>
+            Home
+          </Link>
+        )}
+        <button className={navbarStyles.btn} disabled type="button">
+          <div className={btnContentWrapper}>
+            <FaNetworkWired className="mr-2 text-danger" /> Offline
+          </div>
+        </button>
+      </div>
+    </header>
+  )
+}
+
+export const LoadingBody = () => (
   <div className="container d-flex flex-column align-items-center justify-content-center LoadingContainer">
-    {/* <div className="col text-center">
-    <img
-          className="d-block mx-auto mb-3 img-fluid"
-          src="/img/logo_noURL.png"
-          width="100px"
-          alt="AoS Reminders"
-        />
-    </div> */}
     <div className="col text-center">
       <h3 className="pulsate-fwd">AoS Reminders</h3>
       <p className="lead text-muted fade-out">Loading...</p>

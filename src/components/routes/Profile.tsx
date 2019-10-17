@@ -8,7 +8,7 @@ import { IUser } from 'types/user'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
-import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import { Link } from 'react-router-dom'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
@@ -32,14 +32,14 @@ const Profile: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || !user) return <Loading />
+  if (loading || !user) return <LoadingBody />
 
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <Suspense fallback={<EmptyHeader />}>
+        <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
       </div>

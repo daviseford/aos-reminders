@@ -7,7 +7,7 @@ import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
 import { hasStoredArmy } from 'utils/localStore'
@@ -17,7 +17,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 export const Header = () => {
   return (
     <div className="ThemeDarkBg">
-      <Suspense fallback={<EmptyHeader />}>
+      <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
       <Jumbotron />
