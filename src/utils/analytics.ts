@@ -106,6 +106,16 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
   }
 }
 
+export const logDisplay = (element: string) => {
+  if (isProd && !!element) {
+    ReactGA.event({
+      category: 'Display',
+      action: `Display-${element}`,
+      label: 'AoS Reminders',
+    })
+  }
+}
+
 export const logSubscription = (planTitle: string) => {
   const plan = SupportPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
