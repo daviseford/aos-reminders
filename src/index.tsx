@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
-import { OnlineStatusProvider } from 'context/useOnlineStatus'
+import { OfflineStatusProvider } from 'context/useOfflineStatus'
 import * as serviceWorker from './serviceWorker'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import App from 'components/App'
@@ -50,13 +50,13 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <OnlineStatusProvider>
+      <OfflineStatusProvider>
         <SubscriptionProvider>
           <SavedArmiesProvider>
             <App />
           </SavedArmiesProvider>
         </SubscriptionProvider>
-      </OnlineStatusProvider>
+      </OfflineStatusProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')
