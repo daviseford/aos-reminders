@@ -22,7 +22,8 @@ export const LocalStoredArmy = {
   clear: () => localStorage.removeItem(LOCAL_STORED_ARMY_KEY),
   get: () => {
     const storedArmy = localStorage.getItem(LOCAL_STORED_ARMY_KEY)
-    return !storedArmy ? null : (JSON.parse(storedArmy) as ICurrentArmy)
+    if (!storedArmy) return null
+    return JSON.parse(storedArmy) as ICurrentArmy
   },
   exists: () => {
     const storedArmy = LocalStoredArmy.get()
@@ -42,6 +43,12 @@ export const LocalUserName = {
   set: (userName: string) => localStorage.setItem(LOCAL_USERNAME_KEY, userName),
 }
 
-export const setLocalSavedArmies = (armies: ISavedArmyFromApi[]) => {
-  localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(armies))
+export const LocalSavedArmies = {
+  clear: () => localStorage.removeItem(LOCAL_SAVED_ARMIES_KEY),
+  get: () => {
+    const storedArmies = localStorage.getItem(LOCAL_SAVED_ARMIES_KEY)
+    if (!storedArmies) return null
+    return JSON.parse(storedArmies) as ISavedArmyFromApi[]
+  },
+  set: (armies: ISavedArmyFromApi[]) => localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(armies)),
 }
