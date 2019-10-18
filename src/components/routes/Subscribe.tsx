@@ -45,11 +45,11 @@ const Subscribe: React.FC = () => {
         </div>
       </div>
 
-      <ExamplesRow />
-
       <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
         <PricingPlans />
       </div>
+
+      <ExamplesRow />
 
       <div className="container text-center mt-5 mb-4">
         <ContactComponent size={'small'} />

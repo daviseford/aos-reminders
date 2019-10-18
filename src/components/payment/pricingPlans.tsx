@@ -31,9 +31,11 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
         <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
           <small>
             <em>
-              Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
-              subscription features until the end of your subscription, even if you cancel the recurring
-              payments.
+              Subscriptions are handled by Stripe and can be canceled at any time. I do not store your credit
+              card information.
+              <br />
+              You will have access to all subscription features until the end of your subscription, even if
+              you cancel the recurring payments.
             </em>
           </small>
         </div>
