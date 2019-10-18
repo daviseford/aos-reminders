@@ -119,13 +119,13 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </h1>
         <ul className="list-unstyled mt-3 mb-4">
           <li>
-            Total: ${supportPlan.cost}
             {!!supportPlan.discount_pct && (
-              <small className="text-danger">
-                {'  '}
-                {supportPlan.discount_pct}% off!
-              </small>
+              <>
+                <span className="badge badge-pill badge-danger mb-2">{supportPlan.discount_pct}% off!</span>
+                <br />
+              </>
             )}
+            Total: ${supportPlan.cost}
           </li>
         </ul>
         <button
