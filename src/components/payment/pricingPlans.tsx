@@ -6,7 +6,7 @@ import AsyncStripeProvider from './asyncStripeProvider'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { SupportPlans, ISupportPlan } from './plans'
+import SupportPlans, { ISupportPlan } from './plans'
 import { IUser } from 'types/user'
 import { LocalStoredArmy } from 'utils/localStore'
 
