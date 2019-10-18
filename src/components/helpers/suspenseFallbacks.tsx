@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
+import NavbarWrapper from 'components/page/navbar_wrapper'
 import { FiWifiOff } from 'react-icons/fi'
+import { ROUTES } from 'utils/env'
 
 export const LoadingBtn = () => {
   return (
@@ -29,36 +31,31 @@ export const OfflineBtn = (props: { text?: string }) => {
 export const LoadingHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
-      <header
-        className={`ThemeDarkBg pt-2 d-print-none d-flex justify-content-end mr-3 mr-sm-5 align-items-center`}
-      >
-        <div className={`py-1`}>
+      <NavbarWrapper>
+        <div className={`py-1 mr-3 mr-sm-5 align-items-center`}>
           <Spinner variant="light" size="small" />
         </div>
-      </header>
+      </NavbarWrapper>
     </div>
   )
 }
 
-export const OfflineHeader = () => {
+export const OfflineHeader: React.FC = () => {
   const { pathname } = window.location
 
   return (
-    <header className={navbarStyles.headerClass}>
-      <div className="flex-grow-1"></div>
-      <div>
-        {pathname !== '/' && (
-          <Link to="/" className={navbarStyles.link}>
-            Home
-          </Link>
-        )}
-        <button className={navbarStyles.btn} disabled type="button">
-          <div className={btnContentWrapper}>
-            <FiWifiOff className="mr-2" /> Offline
-          </div>
-        </button>
-      </div>
-    </header>
+    <NavbarWrapper>
+      {pathname !== ROUTES.HOME && (
+        <Link to={ROUTES.HOME} className={navbarStyles.link}>
+          Home
+        </Link>
+      )}
+      <button className={navbarStyles.btn} disabled type="button">
+        <div className={btnContentWrapper}>
+          <FiWifiOff className="mr-2" /> Offline
+        </div>
+      </button>
+    </NavbarWrapper>
   )
 }
 

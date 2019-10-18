@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { logClick } from 'utils/analytics'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { FaFileImport } from 'react-icons/fa'
+import { ROUTES } from 'utils/env'
 
 interface IImportArmyButtonProps {
   isSubscribed: boolean
@@ -28,7 +29,7 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
       </div>
     </button>
   ) : (
-    <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('Import-Subscribe')}>
+    <Link to={ROUTES.SUBSCRIBE} className={btnDarkBlock} onClick={() => logClick('Import-Subscribe')}>
       <div className={btnContentWrapper}>
         <FaFileImport className="mr-2" /> Import List
       </div>

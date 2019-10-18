@@ -45,11 +45,11 @@ const Subscribe: React.FC = () => {
         </div>
       </div>
 
-      <ExamplesRow />
-
       <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
         <PricingPlans />
       </div>
+
+      <ExamplesRow />
 
       <div className="container text-center mt-5 mb-4">
         <ContactComponent size={'small'} />
@@ -107,12 +107,13 @@ const featuresColClass = `col-12 col-lg-5 col-xl-5 col-xxl-5 mt-2`
 const CurrentFeatures = () => (
   <div className={featuresColClass}>
     <p className="lead">
-      <strong>What do you get when you subscribe to AoS Reminders?</strong>
+      <strong>What do you get when you subscribe?</strong>
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Choose your favorite faction!
+        <strong>NEW:</strong> Access your saved armies <strong>offline</strong>!
       </li>
+      <li>Choose your favorite faction</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
         device
@@ -140,11 +141,14 @@ const ComingSoon = () => (
         <i>Adding custom reminders</i>
       </li>
       <li>
+        <i>Drag and drop sorting of rules</i>
+      </li>
+      <li>
         <i>
           <strong>and much more!</strong>
         </i>{' '}
         - Check out our list of planned feature enhancements{' '}
-        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`}>on our Github!</LinkNewTab>
+        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`}>on Github!</LinkNewTab>
       </li>
     </ul>
   </div>

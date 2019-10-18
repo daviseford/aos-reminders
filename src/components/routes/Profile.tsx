@@ -15,6 +15,7 @@ import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
 import { SelectOne } from 'components/input/select'
 import { titleCase } from 'utils/textUtils'
+import { ROUTES } from 'utils/env'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -110,7 +111,7 @@ const FavoriteArmySelect = () => {
               />
             ) : (
               <div className="alert alert-info text-center mt-3" role="alert">
-                <Link to="/subscribe" onClick={() => logClick('SubscribeFavoriteFaction')}>
+                <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeFavoriteFaction')}>
                   Subscribe now
                 </Link>{' '}
                 to save your favorite faction!
@@ -257,7 +258,11 @@ const SubscriptionExpired = () => (
     <div className="alert alert-danger text-center" role="alert">
       <strong>Your subscription has expired!</strong>
       <br />
-      <Link to="/subscribe" className={`btn btn-md btn-success mt-2`} onClick={() => logClick('Resubscribe')}>
+      <Link
+        to={ROUTES.SUBSCRIBE}
+        className={`btn btn-md btn-success mt-2`}
+        onClick={() => logClick('Resubscribe')}
+      >
         Resubscribe now!
       </Link>
     </div>

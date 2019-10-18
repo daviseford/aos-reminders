@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { BASE_URL } from 'utils/env'
+import { BASE_URL, ROUTES } from 'utils/env'
 import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
 import { navbarStyles } from 'theme/helperClasses'
@@ -10,11 +10,14 @@ import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbac
 import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import NavbarWrapper from './navbar_wrapper'
+import SupportPlans from 'components/payment/plans'
+import { max } from 'lodash'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
-  const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
+  const { isActive, subscriptionLoading } = useSubscription()
   const { handleLogin } = useSavedArmies()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
@@ -36,31 +39,35 @@ const Navbar: React.FC = () => {
   if (isOffline) return <OfflineHeader />
   if (loading || subscriptionLoading) return <LoadingHeader />
 
-  return (
-    <header className={navbarStyles.headerClass}>
-      <div className="flex-grow-1"></div>
-      <div>
-        {pathname !== '/' && (
-          <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
-            Home
-          </Link>
-        )}
-        {isAuthenticated && pathname !== '/profile' && (
-          <Link to="/profile" className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
-            Profile
-          </Link>
-        )}
-        {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
-          <Link to="/subscribe" className={navbarStyles.link} onClick={() => logClick('Navbar-Subscribe')}>
-            Subscribe
-          </Link>
-        )}
+  const discount = SupportPlans.some(x => x.sale) ? max(SupportPlans.map(x => x.discount_pct)) : 0
 
-        <button className={navbarStyles.btn} onClick={handleLoginBtn}>
-          {loginBtnText}
-        </button>
-      </div>
-    </header>
+  return (
+    <NavbarWrapper>
+      {pathname !== ROUTES.HOME && (
+        <Link to={ROUTES.HOME} className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
+          Home
+        </Link>
+      )}
+      {isAuthenticated && pathname !== ROUTES.PROFILE && (
+        <Link to={ROUTES.PROFILE} className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
+          Profile
+        </Link>
+      )}
+      {!isActive && pathname !== ROUTES.SUBSCRIBE && (
+        <Link
+          to={ROUTES.SUBSCRIBE}
+          className={navbarStyles.link}
+          onClick={() => logClick('Navbar-Subscribe')}
+        >
+          Subscribe
+          {!!discount && <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>}
+        </Link>
+      )}
+
+      <button className={navbarStyles.btn} onClick={handleLoginBtn}>
+        {loginBtnText}
+      </button>
+    </NavbarWrapper>
   )
 }
 

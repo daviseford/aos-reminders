@@ -3,7 +3,7 @@ import { isValidFactionName } from './armyUtils'
 import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
 import { generateUUID } from './textUtils'
-import { SupportPlans } from 'components/payment/plans'
+import SupportPlans from 'components/payment/plans'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {

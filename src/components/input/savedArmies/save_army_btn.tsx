@@ -15,6 +15,7 @@ import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
+import { ROUTES } from 'utils/env'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -71,7 +72,7 @@ const SaveArmyBtn = connect(
 export default SaveArmyBtn
 
 const SubscribeBtn = () => (
-  <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
+  <Link to={ROUTES.SUBSCRIBE} className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
     <div className={btnContentWrapper}>
       <FaSave className="mr-2" /> Save Army
     </div>
