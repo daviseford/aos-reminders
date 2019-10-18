@@ -1,6 +1,7 @@
 import React from 'react'
 import { DonateComponent } from 'components/info/donate'
 import { ContactComponent } from './contact'
+import OfflineComponent from 'components/info/offline'
 
 /**
  * Hidden when printing
@@ -9,6 +10,7 @@ const FooterComponent = () => {
   return (
     <div className="container d-print-none">
       <DonateComponent />
+      <OfflineComponent />
       <DisclaimerComponent />
       <div className="row text-center mt-1 mb-3">
         <div className="col">

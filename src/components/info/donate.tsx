@@ -3,8 +3,10 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconContext } from 'react-icons'
 import { FaCcPaypal, FaEthereum, FaRegCopy, FaBtc } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
+import { useAppStatus } from 'context/useAppStatus'
 
 export const DonateComponent = () => {
+  const { isOffline } = useAppStatus()
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
 
@@ -21,6 +23,8 @@ export const DonateComponent = () => {
     setBtcClicked(true)
     setEthClicked(false)
   }, [])
+
+  if (isOffline) return null
 
   return (
     <>

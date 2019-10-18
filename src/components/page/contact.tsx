@@ -2,15 +2,19 @@ import React from 'react'
 import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter, FaDiscord } from 'react-icons/fa'
 import { GITHUB_URL } from 'utils/env'
 import { LinkButton } from 'components/helpers/link'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface IContactProps {
   size?: 'normal' | 'small' | 'large'
 }
 
 export const ContactComponent: React.FC<IContactProps> = props => {
+  const { isOffline } = useAppStatus()
   const { size = 'normal' } = props
   const btnSize = size === 'small' ? 'btn-sm' : size === 'large' ? 'btn-lg' : ''
   const btnClass = `btn ${btnSize} btn-outline-dark mx-1`
+
+  if (isOffline) return null
 
   return (
     <>

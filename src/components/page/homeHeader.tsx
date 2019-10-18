@@ -7,16 +7,18 @@ import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
+import { LocalStoredArmy } from 'utils/localStore'
+import { useAppStatus } from 'context/useAppStatus'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
   return (
     <div className="ThemeDarkBg">
-      <Suspense fallback={<EmptyHeader />}>
+      <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
       <Jumbotron />
@@ -25,23 +27,26 @@ export const Header = () => {
 }
 
 interface IJumbotronProps {
-  isMobile: boolean
   factionName: TSupportedFaction
-  resetSelections: () => void
-  resetRealmscapeStore: () => void
+  hasSelections: boolean
+  isMobile: boolean
   resetAllySelections: () => void
+  resetRealmscapeStore: () => void
+  resetSelections: () => void
   setFactionName: (value: string | null) => void
 }
 
 const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
     factionName,
+    hasSelections,
     isMobile,
     resetAllySelections,
     resetRealmscapeStore,
     resetSelections,
     setFactionName,
   } = props
+  const { isOnline } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
   // Get our user's favorite faction from localStorage/API
@@ -51,7 +56,11 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction) setFactionName(favoriteFaction)
+    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections) {
+      setFactionName(favoriteFaction)
+    }
+    // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
+    // eslint-disable-next-line
   }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
@@ -59,7 +68,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections()
     resetRealmscapeStore()
     resetAllySelections()
-    logFactionSwitch(value)
+    if (isOnline) logFactionSwitch(value)
     setFactionName(value)
   })
 
@@ -71,7 +80,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     <div className={jumboClass}>
       <div className="container">
         <h1 className="display-5">Age of Sigmar Reminders</h1>
-        <p className="mt-3 mb-1">
+        <p className="mt-3 mb-1 d-none d-sm-block">
           By Davis E. Ford -{' '}
           <LinkNewTab className="text-white" href="//daviseford.com">
             daviseford.com
@@ -98,6 +107,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
     factionName: selectors.getFactionName(state),
+    hasSelections: selectors.hasSelections(state),
   }
 }
 

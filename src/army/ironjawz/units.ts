@@ -10,6 +10,10 @@ import {
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
+import { filterUnits } from 'utils/filterUtils'
+import { DestructionUnits } from 'army/grand_alliances'
+
+const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 
 // Unit Names
 export const Units: TUnits = [
@@ -65,8 +69,6 @@ export const Units: TUnits = [
       {
         name: `Destructive Bulk`,
         desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 5+.
-
-        In addition, after this model makes a charge move, you can pick 1 terrain feature within 1" of this model and rull a number of dice equal to the Destructive Bulk table, if you score any 6+ then units no longer benefit from cover provided by that terrain feature.
 
         If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
@@ -192,6 +194,7 @@ export const Units: TUnits = [
       },
     ],
   },
+  getRogueIdol(),
 ]
 
 // Battalions

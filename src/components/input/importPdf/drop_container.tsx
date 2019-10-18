@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { useSubscription } from 'context/useSubscription'
 import { factionNames, selections, realmscape, army } from 'ducks'
-import { ImportDropzone } from './drop_zone'
+import ImportDropzone from './drop_zone'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TUnits } from 'types/army'
 import { ISelections } from 'types/selections'
@@ -13,7 +13,7 @@ import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
 import { logClick } from 'utils/analytics'
 import { LinkNewTab } from 'components/helpers/link'
-import { GITHUB_URL } from 'utils/env'
+import { GITHUB_URL, ROUTES } from 'utils/env'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -157,7 +157,7 @@ const InfoAlert = () => (
     <div className={'col-12 col-lg-6 col-xl-6'}>
       <div className={`alert alert-info text-center`} role="alert">
         <small>
-          Heads up! This will eventually be a <Link to="/subscribe">subscriber-only</Link> feature.
+          Heads up! This will eventually be a <Link to={ROUTES.SUBSCRIBE}>subscriber-only</Link> feature.
         </small>
       </div>
     </div>

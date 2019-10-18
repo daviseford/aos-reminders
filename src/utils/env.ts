@@ -21,3 +21,9 @@ export const BASE_URL = isProd ? `https://aosreminders.com` : `http://localhost:
 export const SUBSCRIPTION_AUTH_KEY = 'b5bef450-e624-11e9-81b4-2a2ae2dbcce4'
 
 export const GITHUB_URL = '//github.com/daviseford/aos-reminders'
+
+export const ROUTES = {
+  HOME: '/',
+  SUBSCRIBE: '/subscribe',
+  PROFILE: '/profile',
+}

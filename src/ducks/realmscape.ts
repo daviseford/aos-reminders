@@ -32,7 +32,7 @@ const setRealmscapeFeature = (state: IStore['realmscape'], action) => {
 }
 
 export const realmscape = createSlice({
-  slice: 'realmscape',
+  name: 'realmscape',
   initialState,
   reducers: {
     resetRealmscapeStore: (state, action) => initialState,

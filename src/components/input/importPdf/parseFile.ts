@@ -1,17 +1,18 @@
 import { getPdfPages, handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { parsePdf } from 'utils/pdf/pdfUtils'
-import { getWarscrollArmyFromPdf, getWarscrollArmyFromText } from 'utils/warscroll/getWarscrollArmy'
+import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import { logEvent } from 'utils/analytics'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
-import { IImportedArmy, TImportParsers, TImportFileTypes } from 'types/import'
+import { IImportedArmy, TImportParsers } from 'types/import'
 
 interface IUseParseArgs {
   handleDone: () => void
   handleDrop: (parsedArmy: IImportedArmy) => void
-  handleError: () => void
+  handleError: (error?: string) => void
+  isOnline: boolean
   setParser: (parser: TImportParsers) => void
   startProcessing: () => boolean
   stopProcessing: () => boolean
@@ -23,31 +24,16 @@ const arrayBufferToString = buf => {
   return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
-const checkFileInformation = async (typedArray, fileType: TImportFileTypes) => {
-  let file = {
-    isPdf: fileType === 'application/pdf',
-    isText: fileType === 'text/plain',
-    isWarscroll: true,
-    parser: 'Warscroll Builder' as TImportParsers,
-    pdfPages: [] as string[],
-  }
-
-  if (file.isText) return file
-
+const checkFileInformation = async typedArray => {
   const { pdfPages, parser } = await getPdfPages(typedArray)
-
-  return {
-    ...file,
-    pdfPages,
-    parser,
-    isWarscroll: parser === 'Warscroll Builder',
-  }
+  return { pdfPages, parser }
 }
 
 export const handleParseFile: TUseParse = ({
   handleDrop,
   handleError,
   handleDone,
+  isOnline,
   setParser,
   startProcessing,
   stopProcessing,
@@ -68,70 +54,77 @@ export const handleParseFile: TUseParse = ({
       reader.onload = async () => {
         const typedArray = new Uint8Array(reader.result as any)
 
-        const { isPdf, isWarscroll, pdfPages, parser } = await checkFileInformation(typedArray, file.type)
+        const { pdfPages, parser } = await checkFileInformation(typedArray)
 
         setParser(parser)
+
+        if (pdfPages[0].startsWith('HEADER 1 aosreminders.com')) {
+          logEvent(`ImportAoSReminders`)
+          return stopProcessing() && handleError(`Unable to process AoS Reminder PDFs`)
+        }
+
+        if (parser === 'Battlescribe') {
+          logEvent(`Import${parser}`)
+          return stopProcessing() && handleError(`We don't support Battlescribe... yet!`)
+        }
 
         if (parser === 'Unknown') {
           logEvent(`Import${parser}`)
           return stopProcessing() && handleError()
         }
 
-        if (isWarscroll) {
-          const fileTxt = isPdf ? arrayBufferToString(reader.result) : (reader.result as string)
-          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt, file.type)
+        if (parser === 'Warscroll Builder') {
+          const fileTxt = arrayBufferToString(reader.result)
+          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt)
 
           // Send a copy of our file to S3
-          if (hasErrorOrWarning(parsedArmy.errors)) {
+          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
             const payload = { fileTxt: parsedFile, parser, fileType: file.type }
             Promise.resolve(PreferenceApi.createErrorFile(payload))
           }
 
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          if (isValidFactionName(parsedArmy.factionName)) {
+          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
             logEvent(`Import${parser}-${parsedArmy.factionName}`)
           }
         } else {
           const parsedPages = handleAzyrPages(pdfPages)
           const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
 
-          if (hasErrorOrWarning(parsedArmy.errors)) {
+          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
             const payload = { fileTxt: pdfPages, parser, fileType: file.type }
             Promise.resolve(PreferenceApi.createErrorFile(payload))
           }
 
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
-          if (isValidFactionName(parsedArmy.factionName)) {
+          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
             logEvent(`Import${parser}-${parsedArmy.factionName}`)
           }
         }
       }
 
-      // Start processing spinner
-      startProcessing()
+      startProcessing() // Start processing spinner
 
       // Read the file
-      if (file.type === 'application/pdf') {
+      if (file && file.type === 'application/pdf') {
         reader.readAsArrayBuffer(file)
       } else {
-        reader.readAsText(file)
+        const fileType = file ? file.type : 'Unknown'
+        if (isOnline) logEvent(`Import${fileType}`)
+        console.error(`Error: File type not supported - ${fileType}`)
+        return stopProcessing() && handleError(`Only feed me PDF files, please`)
       }
     } catch (err) {
-      stopProcessing() && handleError()
       console.error(err)
+      return stopProcessing() && handleError()
     }
   }
 }
 
-const handleWarscroll = (fileText: string, fileType: TImportFileTypes) => {
-  if (fileType === 'application/pdf') {
-    const parsedFile = parsePdf(fileText)
-    const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
-    return { parsedFile, parsedArmy }
-  } else {
-    const parsedArmy = getWarscrollArmyFromText(fileText)
-    return { parsedFile: fileText, parsedArmy }
-  }
+const handleWarscroll = (fileText: string) => {
+  const parsedFile = parsePdf(fileText)
+  const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
+  return { parsedFile, parsedArmy }
 }

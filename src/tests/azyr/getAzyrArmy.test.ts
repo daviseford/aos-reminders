@@ -4,6 +4,7 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
+  KHORNE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
@@ -14,10 +15,12 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  BONESPLITTERZ,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
+import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
 import CoS1 from '../fixtures/azyr/json/CoS1.json'
 import CoS2 from '../fixtures/azyr/json/CoS2.json'
 import CoS3 from '../fixtures/azyr/json/CoS3.json'
@@ -25,6 +28,7 @@ import CoS4 from '../fixtures/azyr/json/CoS4.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
+import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
@@ -37,6 +41,23 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Khorne2', () => {
+    const pages = handleAzyrPages(Khorne2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Bonesplitterz2', () => {
+    const pages = handleAzyrPages(Bonesplitterz2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.errors).toEqual([])
+    expect(res.selections.allegiances).toEqual(['Icebone Clan'])
+    expect(res.selections.battalions).toEqual(["Kunnin' Rukk"])
+    expect(res.selections.artifacts).toEqual(["Mork's Boney Bitz", 'Kattanak Pelt'])
+  })
+
   it('handles DoK2', () => {
     const pages = handleAzyrPages(DoK2)
     const res = getAzyrArmyFromPdf(pages)

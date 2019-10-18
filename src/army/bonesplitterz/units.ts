@@ -9,6 +9,10 @@ import {
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import { filterUnits } from 'utils/filterUtils'
+import { DestructionUnits } from 'army/grand_alliances'
+
+const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 
 // Unit Names
 export const Units: TUnits = [
@@ -229,6 +233,7 @@ export const Units: TUnits = [
       },
     ],
   },
+  getRogueIdol(),
 ]
 
 // Battalions

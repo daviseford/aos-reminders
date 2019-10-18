@@ -4,6 +4,7 @@ import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
+import { AppStatusProvider } from 'context/useAppStatus'
 import * as serviceWorker from './serviceWorker'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import App from 'components/App'
@@ -15,7 +16,7 @@ import { SubscriptionProvider } from 'context/useSubscription'
 
 // CSS
 import 'animate.css'
-import 'css/animations.css'
+import 'css/animations.scss'
 import 'css/index.scss'
 
 // A function that routes the user to the right place
@@ -28,7 +29,7 @@ const onRedirectCallback = appState => {
   )
 }
 
-const store = createStore(
+export const store = createStore(
   combineReducers({
     army: army.reducer,
     factionNames: factionNames.reducer,
@@ -49,11 +50,13 @@ render(
       // @ts-ignore
       onRedirectCallback={onRedirectCallback}
     >
-      <SubscriptionProvider>
-        <SavedArmiesProvider>
-          <App />
-        </SavedArmiesProvider>
-      </SubscriptionProvider>
+      <AppStatusProvider>
+        <SubscriptionProvider>
+          <SavedArmiesProvider>
+            <App />
+          </SavedArmiesProvider>
+        </SubscriptionProvider>
+      </AppStatusProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById('root')
@@ -62,4 +65,4 @@ render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+serviceWorker.register()

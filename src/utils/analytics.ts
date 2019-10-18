@@ -3,11 +3,12 @@ import { isValidFactionName } from './armyUtils'
 import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
 import { generateUUID } from './textUtils'
-import { SupportPlans } from 'components/payment/plans'
+import SupportPlans from 'components/payment/plans'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
     titleCase: false,
+    gaOptions: { siteSpeedSampleRate: 100 },
   })
   if (isProd) ReactGA.plugin.require('ecommerce')
 }
@@ -100,6 +101,16 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
     ReactGA.event({
       category: 'Event',
       action: `failedImport-${type}-${value}`,
+      label: 'AoS Reminders',
+    })
+  }
+}
+
+export const logDisplay = (element: string) => {
+  if (isProd && !!element) {
+    ReactGA.event({
+      category: 'Display',
+      action: `Display-${element}`,
       label: 'AoS Reminders',
     })
   }

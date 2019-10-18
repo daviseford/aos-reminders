@@ -90,9 +90,10 @@ const Allegiances: TAllegiances = [
         command_trait: true,
       },
       {
-        name: `Burnin' Tattoo`,
+        name: `Burnin' Tattooz`,
         desc: `If you make a sucessful warpaint save, pick an enemy unit within 1" and deal 1 mortal wound in return.`,
         when: [DURING_GAME],
+        artifact: true,
       },
     ],
   },

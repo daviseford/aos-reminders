@@ -8,13 +8,14 @@ import { IUser } from 'types/user'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { btnContentWrapper } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
-import { EmptyHeader, Loading } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import { Link } from 'react-router-dom'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { withSelectOne } from 'utils/withSelect'
 import { SelectOne } from 'components/input/select'
 import { titleCase } from 'utils/textUtils'
+import { ROUTES } from 'utils/env'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -32,14 +33,14 @@ const Profile: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || !user) return <Loading />
+  if (loading || !user) return <LoadingBody />
 
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
     <div className="d-block">
       <div className="ThemeDarkBg py-2">
-        <Suspense fallback={<EmptyHeader />}>
+        <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
       </div>
@@ -110,7 +111,7 @@ const FavoriteArmySelect = () => {
               />
             ) : (
               <div className="alert alert-info text-center mt-3" role="alert">
-                <Link to="/subscribe" onClick={() => logClick('SubscribeFavoriteFaction')}>
+                <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeFavoriteFaction')}>
                   Subscribe now
                 </Link>{' '}
                 to save your favorite faction!
@@ -257,7 +258,11 @@ const SubscriptionExpired = () => (
     <div className="alert alert-danger text-center" role="alert">
       <strong>Your subscription has expired!</strong>
       <br />
-      <Link to="/subscribe" className={`btn btn-md btn-success mt-2`} onClick={() => logClick('Resubscribe')}>
+      <Link
+        to={ROUTES.SUBSCRIBE}
+        className={`btn btn-md btn-success mt-2`}
+        onClick={() => logClick('Resubscribe')}
+      >
         Resubscribe now!
       </Link>
     </div>

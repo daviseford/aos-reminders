@@ -11,6 +11,7 @@ import {
   ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SLAANESH,
+  STORMCAST_ETERNALS,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -77,19 +78,20 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [
         "Strike of Eagles (Tempest's Eye)",
-        'Warding Brand (Hallowheart)',
         'Choking Fumes (Greywater Fastness)',
-        'Ignite Weapons (Hallowheart)',
-        'Twin-Tailed Comet (Hammerhal)',
-        'Elemental Cyclone (Hallowheart)',
         'Crystal Aegis (Hallowheart)',
-        'Sear Wounds (Hallowheart)',
-        'Shield of Thorns (Ghyran)',
+        'Twin-Tailed Comet (Hammerhal)',
         'Sap Strength (Anvilgard)',
+        'Sear Wounds (Hallowheart)',
+        'Warding Brand (Hallowheart)',
+        'Ignite Weapons (Hallowheart)',
+        'Elemental Cyclone (Hallowheart)',
+        'Shield of Thorns (Ghyran)',
       ],
       traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
         'Jutting Bones (Drakeblood Curse)',
+        'Secretive Warlock (Anvilgard)',
         'Acidic Blood (Drakeblood Curse)',
         'Fell Gaze (Drakeblood Curse)',
         'Blackfang Crimelord (Anvilgard)',
@@ -231,6 +233,21 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
+  it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
+    const pdfText = getFile('CommandTraitWithSpell.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
+    expect(warscrollTxt.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
+    expect(warscrollTxt.selections.spells).toEqual([
+      'Sap Strength (Anvilgard)',
+      'Elemental Cyclone (Hallowheart)',
+    ])
+  })
+
   it('reads a KO warscroll pdf file correctly', () => {
     const pdfText = getFile('KOList.pdf')
     const parsedText = parsePdf(pdfText)
@@ -303,6 +320,66 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
+  xit('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
+    const pdfText = getFile('Drakesworn.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: [],
+      triumphs: [],
+      units: ['Drakesworn Templar'],
+    })
+  })
+
+  it('correctly imports the Drakesworn Templar and LAoCD together', () => {
+    const pdfText = getFile('DrakeswornandLAoCD.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Storm Lance'],
+      traits: [],
+      triumphs: [],
+      units: ['Drakesworn Templar', 'Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
+  xit('correctly imports the LAoCD and its Storm Lance spell', () => {
+    const pdfText = getFile('LAoCD.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Storm Lance'],
+      traits: [],
+      triumphs: [],
+      units: ['Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = getFile('NightHauntIssue.pdf')
     const parsedText = parsePdf(pdfText)
@@ -316,7 +393,7 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: [],
       endless_spells: [],
       scenery: [],
-      spells: [],
+      spells: ['Shademist'],
       traits: ['Spiteful Spirit'],
       triumphs: [],
       units: ['Lord Executioner'],

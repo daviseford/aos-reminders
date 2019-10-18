@@ -7,7 +7,7 @@ const initialState: IFactionNameStore = {
 }
 
 export const factionNames = createSlice({
-  slice: 'factionNames',
+  name: 'factionNames',
   initialState,
   reducers: {
     setFactionName: (state, action) => {
