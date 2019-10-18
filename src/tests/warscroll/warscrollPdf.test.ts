@@ -5,6 +5,7 @@ import path from 'path'
 import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
+  DAUGHTERS_OF_KHAINE,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
@@ -12,6 +13,7 @@ import {
   SERAPHON,
   SLAANESH,
   STORMCAST_ETERNALS,
+  SYLVANETH,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -415,10 +417,10 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.allyFactionNames).toEqual([
-      'DAUGHTERS_OF_KHAINE',
-      'KHARADRON_OVERLORDS',
-      'STORMCAST_ETERNALS',
-      'SYLVANETH',
+      DAUGHTERS_OF_KHAINE,
+      KHARADRON_OVERLORDS,
+      STORMCAST_ETERNALS,
+      SYLVANETH,
     ])
     expect(warscrollTxt.allyUnits).toEqual([
       'Knight-Incantor',
@@ -452,7 +454,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -490,7 +492,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -528,7 +530,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -561,7 +563,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt).toEqual({
-      allyFactionNames: ['STORMCAST_ETERNALS'],
+      allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
         STORMCAST_ETERNALS: {
           units: [
@@ -586,7 +588,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Dread Saurian',
       ],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
