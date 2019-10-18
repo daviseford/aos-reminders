@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
+import { ROUTES } from 'utils/env'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
@@ -23,9 +24,9 @@ const App = () => {
       <BrowserRouter>
         <Suspense fallback={<LoadingBody />}>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/subscribe" component={Subscribe} />
+            <Route path={ROUTES.HOME} exact component={Home} />
+            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
+            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
           </Switch>
         </Suspense>
       </BrowserRouter>

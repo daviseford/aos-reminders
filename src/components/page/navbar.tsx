@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { BASE_URL } from 'utils/env'
+import { BASE_URL, ROUTES } from 'utils/env'
 import config from 'auth_config.json'
 import { logClick } from 'utils/analytics'
 import { navbarStyles } from 'theme/helperClasses'
@@ -15,7 +15,7 @@ import NavbarWrapper from './navbar_wrapper'
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
-  const { isSubscribed, isActive, subscriptionLoading } = useSubscription()
+  const { isActive, subscriptionLoading } = useSubscription()
   const { handleLogin } = useSavedArmies()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
@@ -39,18 +39,22 @@ const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      {pathname !== '/' && (
-        <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
+      {pathname !== ROUTES.HOME && (
+        <Link to={ROUTES.HOME} className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
           Home
         </Link>
       )}
-      {isAuthenticated && pathname !== '/profile' && (
-        <Link to="/profile" className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
+      {isAuthenticated && pathname !== ROUTES.PROFILE && (
+        <Link to={ROUTES.PROFILE} className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
           Profile
         </Link>
       )}
-      {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
-        <Link to="/subscribe" className={navbarStyles.link} onClick={() => logClick('Navbar-Subscribe')}>
+      {!isActive && pathname !== ROUTES.SUBSCRIBE && (
+        <Link
+          to={ROUTES.SUBSCRIBE}
+          className={navbarStyles.link}
+          onClick={() => logClick('Navbar-Subscribe')}
+        >
           Subscribe
         </Link>
       )}

@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
-import { FiWifiOff } from 'react-icons/fi'
 import NavbarWrapper from 'components/page/navbar_wrapper'
+import { FiWifiOff } from 'react-icons/fi'
+import { ROUTES } from 'utils/env'
 
 export const LoadingBtn = () => {
   return (
@@ -27,7 +28,7 @@ export const OfflineBtn = (props: { text?: string }) => {
   )
 }
 
-export const LoadingHeader = props => {
+export const LoadingHeader = () => {
   return (
     <div className="ThemeDarkBg py-2">
       <NavbarWrapper>
@@ -44,8 +45,8 @@ export const OfflineHeader: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      {pathname !== '/' && (
-        <Link to="/" className={navbarStyles.link}>
+      {pathname !== ROUTES.HOME && (
+        <Link to={ROUTES.HOME} className={navbarStyles.link}>
           Home
         </Link>
       )}
