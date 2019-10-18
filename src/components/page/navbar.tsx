@@ -10,6 +10,7 @@ import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbac
 import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import NavbarWrapper from './navbar_wrapper'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
@@ -37,30 +38,27 @@ const Navbar: React.FC = () => {
   if (loading || subscriptionLoading) return <LoadingHeader />
 
   return (
-    <header className={navbarStyles.headerClass}>
-      <div className="flex-grow-1"></div>
-      <div>
-        {pathname !== '/' && (
-          <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
-            Home
-          </Link>
-        )}
-        {isAuthenticated && pathname !== '/profile' && (
-          <Link to="/profile" className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
-            Profile
-          </Link>
-        )}
-        {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
-          <Link to="/subscribe" className={navbarStyles.link} onClick={() => logClick('Navbar-Subscribe')}>
-            Subscribe
-          </Link>
-        )}
+    <NavbarWrapper>
+      {pathname !== '/' && (
+        <Link to="/" className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
+          Home
+        </Link>
+      )}
+      {isAuthenticated && pathname !== '/profile' && (
+        <Link to="/profile" className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
+          Profile
+        </Link>
+      )}
+      {(!isSubscribed || (isSubscribed && !isActive)) && pathname !== '/subscribe' && (
+        <Link to="/subscribe" className={navbarStyles.link} onClick={() => logClick('Navbar-Subscribe')}>
+          Subscribe
+        </Link>
+      )}
 
-        <button className={navbarStyles.btn} onClick={handleLoginBtn}>
-          {loginBtnText}
-        </button>
-      </div>
-    </header>
+      <button className={navbarStyles.btn} onClick={handleLoginBtn}>
+        {loginBtnText}
+      </button>
+    </NavbarWrapper>
   )
 }
 
