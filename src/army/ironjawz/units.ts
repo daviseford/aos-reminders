@@ -110,7 +110,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Frenzy of Violence`,
+        name: `Violent Fury`,
         desc: `Pick one IRONJAWZ unit that is wholly within 15" of the Warchanter in your hero phase. Add 1 to the damage inflicted by attacks made with melee weapons by that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },

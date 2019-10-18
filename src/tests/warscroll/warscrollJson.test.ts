@@ -8,6 +8,8 @@ import {
   DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
+  IRONJAWZ,
   SERAPHON,
   SKAVEN,
 } from 'meta/factions'
@@ -24,6 +26,28 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections.endless_spells).toContain('Everblaze Comet')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  // TODO: Uncomment when https://github.com/daviseford/aos-reminders/issues/575 is resolved
+  // TODO: Uncomment once we add ally detection
+  xit('should work with Ironjawz allied with Gloomspite Gitz', () => {
+    const parsedText = getFile('1571425644480-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw", 'Thermalrider Cloak (Aqshy)'])
+    expect(warscrollTxt.allyFactionNames).toEqual([GLOOMSPITE_GITZ])
+    expect(warscrollTxt.allyUnits).toEqual(['Fungoid Cave-Shaman', 'Wurrgog Prophet'])
+    expect(warscrollTxt.selections.units).toEqual([
+      'Megaboss on Maw-Krusha',
+      'Orruk Megaboss',
+      'Orruk Warchanter',
+      'Orruk Ardboys',
+      'Orruk Brutes',
+      'Orruk Gore-gruntas',
+    ])
+    expect(warscrollTxt.selections.endless_spells).toContain('Scuttletide')
     expect(warscrollTxt.errors).toEqual([])
   })
 
