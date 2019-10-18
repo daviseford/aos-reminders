@@ -20,6 +20,8 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
   return (
     <div className="container">
+      <PlansHeader />
+
       <div className="card-deck text-center">
         {SupportPlans.map((plan, i) => (
           <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
@@ -36,6 +38,19 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
           </small>
         </div>
       </div>
+    </div>
+  )
+}
+
+const PlansHeader = () => {
+  const hasSale = Object.values(SupportPlans).some(x => x.sale)
+
+  return (
+    <div className="col-12 bg-light text-center mb-3">
+      <h2>
+        Subscription Plans
+        {hasSale && <span className="ml-2 badge badge-danger">Sale!</span>}
+      </h2>
     </div>
   )
 }
