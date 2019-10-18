@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
           className={navbarStyles.link}
           onClick={() => logClick('Navbar-Subscribe')}
         >
-          Subscribe
+          Subscribe <span className="badge badge-pill badge-danger">50% off!</span>
         </Link>
       )}
 
