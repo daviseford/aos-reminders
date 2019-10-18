@@ -11,6 +11,8 @@ import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies 
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
 import NavbarWrapper from './navbar_wrapper'
+import SupportPlans from 'components/payment/plans'
+import { max } from 'lodash'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
@@ -37,6 +39,8 @@ const Navbar: React.FC = () => {
   if (isOffline) return <OfflineHeader />
   if (loading || subscriptionLoading) return <LoadingHeader />
 
+  const discount = SupportPlans.some(x => x.sale) ? max(SupportPlans.map(x => x.discount_pct)) : 0
+
   return (
     <NavbarWrapper>
       {pathname !== ROUTES.HOME && (
@@ -55,7 +59,8 @@ const Navbar: React.FC = () => {
           className={navbarStyles.link}
           onClick={() => logClick('Navbar-Subscribe')}
         >
-          Subscribe <span className="badge badge-pill badge-danger">50% off!</span>
+          Subscribe
+          {!!discount && <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>}
         </Link>
       )}
 
