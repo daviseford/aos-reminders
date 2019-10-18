@@ -45,7 +45,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 }
 
 const PlansHeader = () => {
-  const hasSale = Object.values(SupportPlans).some(x => x.sale)
+  const hasSale = SupportPlans.some(x => x.sale)
 
   return (
     <div className="col-12 bg-light text-center mb-3">
