@@ -115,7 +115,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       </div>
       <div className="card-body">
         <h1 className="card-title pricing-card-title">
-          ${supportPlan.monthly_cost} <small className="text-muted">/ mo</small>
+          ${supportPlan.monthly_cost}
+          <small className="text-muted">/ month</small>
         </h1>
         <ul className="list-unstyled mt-3 mb-4">
           <li>
