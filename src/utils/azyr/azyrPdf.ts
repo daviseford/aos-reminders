@@ -75,7 +75,10 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
 }
 
 const checkIfAzyr = (pdfPages: string[]): boolean => {
-  const matches = [' azyr ', 'play type', 'game type', 'army deemed']
+  const regex = / by {1,3}Azyr {1,3}Roster/gi
+  const azyrTest1 = regex.test(pdfPages[0])
+  if (azyrTest1) return true
+  const matches = ['play type', 'game type', 'army deemed']
   return new RegExp(matches.join('|'), 'gi').test(pdfPages[0])
 }
 
