@@ -118,7 +118,15 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           ${supportPlan.monthly_cost} <small className="text-muted">/ mo</small>
         </h1>
         <ul className="list-unstyled mt-3 mb-4">
-          <li>Total: ${supportPlan.cost}</li>
+          <li>
+            Total: ${supportPlan.cost}
+            {!!supportPlan.discount_pct && (
+              <small className="text-danger">
+                {'  '}
+                {supportPlan.discount_pct}% off!
+              </small>
+            )}
+          </li>
         </ul>
         <button
           type="button"

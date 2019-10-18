@@ -5,6 +5,7 @@ export interface ISupportPlan {
   prod: string // plan ID in prod
   title: string
   sale?: boolean
+  discount_pct?: number
 }
 
 // Half off sale (started 10/18/19)
@@ -12,26 +13,29 @@ const SupportPlansHalfOff: ISupportPlan[] = [
   {
     cost: '0.99',
     dev: 'plan_G0yVJPZbI0cf06',
+    discount_pct: 50,
     monthly_cost: '0.99',
     prod: 'plan_G0ycrWfS8rZzAE',
-    title: '1 Month',
     sale: true,
+    title: '1 Month',
   },
   {
     cost: '2.25',
     dev: 'plan_G0yZ65ptRDRCq8',
+    discount_pct: 50,
     monthly_cost: '0.75',
     prod: 'plan_G0ydXormf4dUIG',
-    title: '3 Months',
     sale: true,
+    title: '3 Months',
   },
   {
     cost: '5.99',
     dev: 'plan_G0yb7jFjMhn2p1',
+    discount_pct: 50,
     monthly_cost: '0.49',
     prod: 'plan_G0ydQlnA9O63Pf',
-    title: '1 Year',
     sale: true,
+    title: '1 Year',
   },
 ]
 
