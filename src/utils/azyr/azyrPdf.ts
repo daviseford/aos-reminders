@@ -54,11 +54,16 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
       .join(' ')
 
     const pdfPages = [result]
-    const isAzyr = checkIfAzyr(pdfPages)
-    const isWarscroll = isAzyr
-      ? false
-      : pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
-    const parser: TImportParsers = isWarscroll ? 'Warscroll Builder' : isAzyr ? 'Azyr' : 'Unknown'
+    const isBattlescribe = checkIfBattlescribe(pdfPages)
+    const isAzyr = isBattlescribe ? false : checkIfAzyr(pdfPages)
+    const isWarscroll = isAzyr || isBattlescribe ? false : checkIfWarscroll(pdfPages)
+    const parser: TImportParsers = isWarscroll
+      ? 'Warscroll Builder'
+      : isAzyr
+      ? 'Azyr'
+      : isBattlescribe
+      ? 'Battlescribe'
+      : 'Unknown'
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
 
@@ -72,6 +77,15 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
 const checkIfAzyr = (pdfPages: string[]): boolean => {
   const matches = [' azyr ', 'play type', 'game type', 'army deemed']
   return new RegExp(matches.join('|'), 'gi').test(pdfPages[0])
+}
+
+const checkIfBattlescribe = (pdfPages: string[]): boolean => {
+  const regex = /Created {1,3}with {1,3}BattleScribe/gi
+  return regex.test(pdfPages[0])
+}
+
+const checkIfWarscroll = (pdfPages: string[]): boolean => {
+  return pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {

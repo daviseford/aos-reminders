@@ -63,6 +63,11 @@ export const handleParseFile: TUseParse = ({
           return stopProcessing() && handleError(`Unable to process AoS Reminder PDFs`)
         }
 
+        if (parser === 'Battlescribe') {
+          logEvent(`Import${parser}`)
+          return stopProcessing() && handleError(`We don't support Battlescribe... yet!`)
+        }
+
         if (parser === 'Unknown') {
           logEvent(`Import${parser}`)
           return stopProcessing() && handleError()
