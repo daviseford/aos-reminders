@@ -130,10 +130,10 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </ul>
         <button
           type="button"
-          className="btn btn btn-block btn-outline-primary"
+          className="btn btn btn-block btn-primary"
           onClick={isAuthenticated ? handleCheckout : handleLogin}
         >
-          Buy Now
+          Subscribe for {supportPlan.title}
         </button>
       </div>
     </div>
