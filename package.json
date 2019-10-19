@@ -87,7 +87,7 @@
     "pretty-quick": "2.0.0",
     "react-app-rewired": "2.1.3",
     "replace-in-file": "4.1.3",
-    "source-map-explorer": "2.1.0",    
+    "source-map-explorer": "2.1.0",
     "typescript": "^3.7.0-beta"
   }
 }
