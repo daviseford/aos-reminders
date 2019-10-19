@@ -27,7 +27,7 @@ const DisclaimerComponent = () => (
   <div className="row justify-content-center text-center pt-0">
     <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
       <div className="alert alert-light" role="alert">
-        <small className="DisclaimerText">
+        <small className="DisclaimerText text-dark">
           Disclaimer: This tool is in no way endorsed or sanctioned by Games Workshop - it is unofficial and
           fan-made. I take absolutely no credit for any of the Games Workshop content displayed above.
         </small>
