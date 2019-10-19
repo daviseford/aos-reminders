@@ -96,9 +96,12 @@ const modifyScenery = (scenery: TScenery): TScenery => {
 }
 
 const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
-  return sortBy(endlessSpells, 'name')
-    .concat(sortBy(GenericEndlessSpells, 'name'))
-    .map(e => ({ ...e, endless_spell: true }))
+  return uniqBy(
+    sortBy(endlessSpells, 'name')
+      .concat(sortBy(GenericEndlessSpells, 'name'))
+      .map(e => ({ ...e, endless_spell: true })),
+    'name'
+  )
 }
 
 export const modify = {

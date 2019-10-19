@@ -407,15 +407,16 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
-    expect(warscrollTxt.errors).toEqual([
-      {
-        text: 'Sisters of Slaughter',
-        severity: 'warn',
-      },
-    ])
-
+    expect(warscrollTxt.errors).toEqual([])
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.allySelections).toEqual({
+      DAUGHTERS_OF_KHAINE: {
+        units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
+      },
+      KHARADRON_OVERLORDS: { units: ['Grundstok Gunhauler'] },
+      STORMCAST_ETERNALS: { units: ['Knight-Incantor', 'Concussors'] },
+      SYLVANETH: { units: ['Kurnoth Hunters'] },
+    })
     expect(warscrollTxt.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
       KHARADRON_OVERLORDS,

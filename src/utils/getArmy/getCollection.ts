@@ -76,7 +76,7 @@ const effectToEntry = (effect: TEffects): TEntry => {
 
 type TGetAlliedType = 'artifact' | 'spell' | 'trait'
 /**
- * Gets the entries for another army for 'artifacts' | 'spells' | 'traits'
+ * Gets the entries for another army for 'artifact' | 'spell' | 'trait'
  * @param Allegiances
  * @param Entries
  * @param param2
