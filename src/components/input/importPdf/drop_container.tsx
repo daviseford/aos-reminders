@@ -136,7 +136,11 @@ const ErrorAlert = (props: TImportError) => {
           <br />
           <small>
             Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
-            <LinkNewTab href={`${GITHUB_URL}/issues`} onClick={e => logClick(`failedImport-GithubClick`)}>
+            <LinkNewTab
+              href={`${GITHUB_URL}/issues`}
+              onClick={e => logClick(`failedImport-GithubClick`)}
+              label={'Github'}
+            >
               Github
             </LinkNewTab>{' '}
             and be sure to attach this file.
