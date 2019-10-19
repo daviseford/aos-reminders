@@ -20,7 +20,7 @@ export const getArmy = (
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army, { realmscape, GrandAlliance, Collection, factionName })
+  const army = modifyArmy(Army as IArmy, { realmscape, GrandAlliance, Collection, factionName })
 
   return army
 }
@@ -46,10 +46,12 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   } = Army as IInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName } = meta
 
+  const AlliedEndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
     Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
     Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
-    EndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+    EndlessSpells = AlliedEndlessSpells
     Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
     Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
@@ -59,7 +61,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Artifacts = modify.Artifacts(Artifacts, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
   Army.Commands = modify.Commands(realmscape, Collection)
-  Army.EndlessSpells = modify.EndlessSpells(EndlessSpells)
+  Army.EndlessSpells = modify.EndlessSpells(EndlessSpells.concat(AlliedEndlessSpells))
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
   Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
