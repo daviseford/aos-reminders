@@ -82,7 +82,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1 d-none d-sm-block">
           By Davis E. Ford -{' '}
-          <LinkNewTab className="text-white" href="//daviseford.com">
+          <LinkNewTab className="text-white" href="//daviseford.com" label={'Davis E. Ford website'}>
             daviseford.com
           </LinkNewTab>
         </p>

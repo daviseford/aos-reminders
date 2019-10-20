@@ -7,20 +7,27 @@ import sylvaneth from 'army/sylvaneth'
 import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
 
 // Meta
-import { BEASTS_OF_CHAOS, EVERCHOSEN, SERAPHON, SYLVANETH } from 'meta/factions'
+import { BEASTS_OF_CHAOS, SERAPHON, SYLVANETH } from 'meta/factions'
 
 // Types
 import { IArmy } from 'types/army'
+import { ORDER } from 'meta/alliances'
+import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
 
 describe('getArmy', () => {
-  it('adds GenericEndlessSpells to an army', () => {
-    const endlessSpellList = sortBy(GenericEndlessSpells.map(x => x.name))
-    const army = getArmy(EVERCHOSEN) as IArmy
+  it('adds Grand Alliance + Generic Endless Spells to an army', () => {
+    const genericSpellList = GenericEndlessSpells.map(x => x.name)
+    const endlessSpellList = sortBy(
+      getAllianceItems(ORDER, 'EndlessSpells', [])
+        .map(x => x.name)
+        .concat(...genericSpellList)
+    )
+    const army = getArmy(SERAPHON) as IArmy
     const armyEndlessSpells = sortBy(army.EndlessSpells.map(x => x.name))
     expect(armyEndlessSpells).toEqual(endlessSpellList)
 
     // Make sure we don't add duplicates (was an issue before using Immer)
-    const army2 = getArmy(EVERCHOSEN) as IArmy
+    const army2 = getArmy(SERAPHON) as IArmy
     const armyEndlessSpells2 = sortBy(army2.EndlessSpells.map(x => x.name))
     expect(armyEndlessSpells2).toEqual(endlessSpellList)
   })

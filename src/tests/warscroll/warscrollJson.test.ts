@@ -8,6 +8,8 @@ import {
   DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
+  IRONJAWZ,
   SERAPHON,
   SKAVEN,
 } from 'meta/factions'
@@ -17,13 +19,35 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  // Uncomment when https://github.com/daviseford/aos-reminders/issues/575 is resolved
-  xit('should work with allied endless spells', () => {
+  it('should work with allied endless spells', () => {
     const parsedText = getFile('1571327027143-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections.endless_spells).toContain('Everblaze Comet')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz allied with Gloomspite Gitz', () => {
+    const parsedText = getFile('1571425644480-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw", 'Thermalrider Cloak (Aqshy)'])
+    expect(warscrollTxt.allyFactionNames).toEqual([BONESPLITTERZ, GLOOMSPITE_GITZ])
+    expect(warscrollTxt.allySelections).toEqual({
+      BONESPLITTERZ: { units: ['Wurrgog Prophet'] },
+      GLOOMSPITE_GITZ: { units: ['Fungoid Cave-Shaman'] },
+    })
+    expect(warscrollTxt.selections.units).toEqual([
+      'Megaboss on Maw-Krusha',
+      'Orruk Megaboss',
+      'Orruk Warchanter',
+      'Orruk Ardboys',
+      'Orruk Brutes',
+      'Orruk Gore-gruntas',
+    ])
+    expect(warscrollTxt.selections.endless_spells).toContain('Scuttletide')
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -35,8 +59,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  // TODO: Uncomment once we add ally detection
-  xit('should work with allied Grundstock Thunderers', () => {
+  it('should work with Grundstock Thunderers', () => {
     const parsedText = getFile('1571347470427-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -89,21 +112,16 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
     expect(warscrollTxt.selections.traits).toContain('Secretive Warlock (Anvilgard)')
-
-    // TODO: This should be empty once we add ally detection
-    expect(warscrollTxt.errors).toEqual([
-      { text: 'Knight-Azyros', severity: 'warn' },
-      { text: 'Prosecutors with Celestial Hammers', severity: 'warn' },
-    ])
+    expect(warscrollTxt.selections.units).toContain('Knight-Azyros')
+    expect(warscrollTxt.selections.units).toContain('Prosecutors with Celestial Hammers')
+    expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Cities of Sigmar and allies', () => {
+  it('should work with Cities of Sigmar and allies', () => {
     const parsedText = getFile('1571233444845-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-
-    // TODO: This should be empty once we add ally detection
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -169,12 +187,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      // We should consider adding some logic that would look up Liberators
-      // (by searching all armies in the same Grand Alliance)
-      // Find out they are in SCE and add SCE as an ally + Liberators as an allyUnit
-      // For now, this is an acceptable error
-      // This is mainly a mockup of what a WSB JSON test should look like
-      errors: [{ text: 'Liberators', severity: 'warn' }],
+      errors: [],
       factionName: 'CITIES_OF_SIGMAR',
       realmscape_feature: null,
       realmscape: null,
@@ -193,6 +206,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Irondrakes',
           'Gyrobombers',
           'Battlemage',
+          'Liberators',
           'Cogsmith',
           'Freeguild Guard',
           'Helblaster Volley Gun',

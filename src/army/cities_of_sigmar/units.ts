@@ -15,6 +15,13 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
+import Stormcast from 'army/stormcast_eternals'
+import KharadronOverlords from 'army/kharadron_overlords'
+import Sylvaneth from 'army/sylvaneth'
+
+const getStormcastUnits = () => Stormcast.Units
+const getKharadronUnits = () => KharadronOverlords.Units
+const getSylvanethUnits = () => Sylvaneth.Units
 
 const DrummerEffect = {
   name: `Drummer`,
@@ -1421,7 +1428,7 @@ export const Units: TUnits = [
 
 // Allied units (usually this will involve writing a function to grab units from another army)
 // Check out Nurgle or Khorne for good examples
-export const AlliedUnits: TUnits = []
+export const AlliedUnits: TUnits = [...getStormcastUnits(), ...getKharadronUnits(), ...getSylvanethUnits()]
 
 // Battalions
 export const Battalions: TBattalions = [

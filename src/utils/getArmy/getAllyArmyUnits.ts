@@ -41,7 +41,8 @@ export const getAllyArmyUnits: TGetAllyArmies = factionName => {
 
   const allyArmies = allyFactionNames.reduce(
     (a, faction) => {
-      a[faction] = ArmyList[faction].Army.Units.map(({ name }) => name)
+      const units = ArmyList[faction].Army.Units || []
+      a[faction] = units.map(({ name }) => name)
       return a
     },
     {} as TAllyArmies

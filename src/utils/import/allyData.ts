@@ -1,6 +1,6 @@
 import { uniq, without } from 'lodash'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
-import { createAllyWarning } from 'utils/import/warnings'
+import { createAllyWarning, getWarnings } from 'utils/import/warnings'
 import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
 import { IAllySelections } from 'types/selections'
 import { mapListToDict } from 'utils/mapListToDict'
@@ -20,7 +20,11 @@ export const getAllyData = (
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
 } => {
-  if (allyUnits.length === 0) {
+  const mergedAllyUnits = getWarnings(errors)
+    .map(x => x.text)
+    .concat(allyUnits)
+
+  if (mergedAllyUnits.length === 0) {
     return {
       allyFactionNames: [],
       allySelections: {},
@@ -35,7 +39,7 @@ export const getAllyData = (
       const unitsMap = mapListToDict(units)
 
       const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing, typoMap)
-      const errorFreeAllyUnits = allyUnits.map(checkVal).filter(x => !!x)
+      const errorFreeAllyUnits = mergedAllyUnits.map(checkVal).filter(x => !!x)
 
       if (errorFreeAllyUnits.length > 0) {
         if (!a.allySelections[allyName]) {
