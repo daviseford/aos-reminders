@@ -48,7 +48,7 @@ const CommandTraits: TTraits = [
       {
         name: `Nightmare Legacy`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this general.`,
-        when: [DURING_GAME],
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
   },
