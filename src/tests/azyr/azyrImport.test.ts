@@ -21,6 +21,7 @@ import DoK1 from '../fixtures/azyr/json/DoK1.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC1 from '../fixtures/azyr/json/FEC1.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
+import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers1 from '../fixtures/azyr/json/Fyreslayers1.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import GHoN1 from '../fixtures/azyr/json/GHoN1.json'
@@ -101,6 +102,23 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles FEC3', () => {
+    const res = handleAzyrPages(FEC3)
+    expect(res).toEqual([
+      'FACTION: Flesh-eater Courts',
+      'UNIT: Abhorrant Archregent',
+      'ARTEFACT: The Dermal Robe',
+      'COMMAND TRAIT: Dark Wizardry',
+      'SPELL: Deranged Transformation',
+      'COMMAND TRAIT: The Feast Day',
+      'UNIT: Abhorrant Ghoul King',
+      'SPELL: Miasmal Shroud',
+      'MOUNT TRAIT: Gruesome Bite',
+      'UNIT: Crypt Ghouls',
+      'ENDLESS SPELL: Chalice of Ushoran',
+    ])
   })
 
   it('handles Bonesplitterz2', () => {

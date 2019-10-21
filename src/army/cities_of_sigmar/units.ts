@@ -789,7 +789,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Steam Gun`,
-        desc: `Before attacking with a Steam Gun, pick 1 enemy unit within 8" of the attacking model. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within 8" of the attacking model. All attacks made with that Steam Gun must target that enemy unit.`,
+        desc: `Before attacking with a Steam Gun, pick 1 enemy unit that is within range of the attacking model's Steam Gun. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within range of the attacking model's Steam Gun. All attacks made with that Steam Gun must target that enemy unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1274,7 +1274,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `High Beastmaster`,
-        desc: `1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
+        desc: `If this unit has 3 or more models, 1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
         when: [SHOOTING_PHASE],
       },
       {

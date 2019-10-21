@@ -112,10 +112,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Dark Wizardy (Royalty)`,
+    name: `Dark Wizardry (Royalty)`,
     effects: [
       {
-        name: `Dark Wizardy (Royalty)`,
+        name: `Dark Wizardry (Royalty)`,
         desc: `Add 1 to casting, dispelling and unbinding rolls for this general.`,
         when: [HERO_PHASE],
       },

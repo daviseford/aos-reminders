@@ -12,6 +12,7 @@ import {
   IRONJAWZ,
   SERAPHON,
   SKAVEN,
+  SYLVANETH,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -26,6 +27,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections.endless_spells).toContain('Everblaze Comet')
     expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Horn of the Consort', () => {
+    const parsedText = getFile('1571520651334-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SYLVANETH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual(['Horn of the Consort'])
   })
 
   it('should work with Ironjawz allied with Gloomspite Gitz', () => {
