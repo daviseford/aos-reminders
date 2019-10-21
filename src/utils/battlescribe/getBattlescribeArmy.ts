@@ -7,8 +7,10 @@ export const getBattleScribeArmy = (html_string: string) => {
   const strippedDoc = stripParentNode(document as ParentNode)
 
   const selections = traverseDoc(strippedDoc)
+  const parsedRoots = selections.rootSelections.map(parseRootSelection)
   console.log(strippedDoc)
   console.log(selections)
+  console.log(parsedRoots)
 }
 
 /**
@@ -21,7 +23,7 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
 
   if (docObj.childNodes.length > 0) {
     docObj.childNodes = docObj.childNodes.map(stripParentNode).filter(x => {
-      if (x.value && (!x.childNodes || !x.childNodes.length)) {
+      if (isChildNode(x)) {
         const trimmedVal = x.value.trim()
         if (trimmedVal === '') return false
         if (trimmedVal === '\n') return false
@@ -58,6 +60,19 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
     console.log('There was an error detecting the faction name')
     console.error(err)
     return { alliance: null, faction: null }
+  }
+}
+
+const parseRootSelection = (obj: ParentNode) => {
+  try {
+    const nameObj = obj.childNodes.find(x => x.nodeName === 'h4')
+    if (!nameObj || !nameObj.childNodes.length) throw new Error('Could not find the item name')
+    const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
+
+    return { name }
+  } catch (err) {
+    console.log('There was an error parsing a root selection')
+    console.error(err)
   }
 }
 
