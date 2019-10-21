@@ -35,7 +35,11 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
   return docObj
 }
 
-const isFactionObj = (obj: ParentNode) => {
+const isParentNode = (val: ParentNode | ChildNode): val is ParentNode => 'attrs' in val
+const isChildNode = (val: ParentNode | ChildNode): val is ChildNode => 'value' in val
+
+const isFactionObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
+  if (isChildNode(obj)) return false
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
 }
 
@@ -57,25 +61,24 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
   }
 }
 
-const isRootSelection = (obj: ParentNode) => {
+const isRootSelection = (obj: ParentNode | ChildNode): obj is ParentNode => {
+  if (isChildNode(obj)) return false
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection'
 }
 
 const traverseDoc = (docObj: ParentNode | ChildNode) => {
   let results = {
     faction: null as null | IFaction,
-    rootSelections: [] as any[],
+    rootSelections: [] as ParentNode[],
   }
 
   const traverse = (obj: ParentNode | ChildNode) => {
     if (!obj.childNodes) return
 
-    // @ts-ignore
     if (isRootSelection(obj)) {
       results.rootSelections.push(obj)
     }
 
-    // @ts-ignore
     if (!results.faction && isFactionObj(obj)) {
       results.faction = parseFaction(obj)
     }
