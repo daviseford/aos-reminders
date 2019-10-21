@@ -1360,7 +1360,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Lightning Arc`,
-        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1391,7 +1391,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Lightning Arc`,
-        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1510,7 +1510,7 @@ export const Units: TUnits = [
       },
       {
         name: `Celestial Lightning Arc`,
-        desc: `Each time this unit attacks, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       {

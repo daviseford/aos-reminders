@@ -98,7 +98,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ghoul Mere Ranger (Greywater Fastness)`,
-        desc: `Friendly units wholly within 12" of this general can run and still shoot later in the same turn.`,
+        desc: `In your shooting phase, friendly units wholly within 12" of this general can shoot even if they ran in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
     ],

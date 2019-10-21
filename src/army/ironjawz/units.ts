@@ -74,8 +74,8 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Rip-toof First`,
-        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        name: `Rip-toof Fist`,
+        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -84,8 +84,8 @@ export const Units: TUnits = [
     name: `Orruk Megaboss`,
     effects: [
       {
-        name: `Rip-toof First`,
-        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        name: `Rip-toof Fist`,
+        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -250,7 +250,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Up and At'Em`,
-        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, the Big Boss may use the Mighty Destroyers command ability as if they were a Megaboss and without spending a command point.`,
+        desc: `Once in each of your hero phases, the Big Boss from this battalion can use the Mighty Destroyers command ability (pg 55) without spending 1 command point.`,
         when: [HERO_PHASE],
       },
     ],

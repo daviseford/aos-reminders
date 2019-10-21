@@ -29,7 +29,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Iron Heart of Khaine`,
-        desc: `Morathi, High Oracle of Khaine cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are negated and have no effect.`,
+        desc: `Morathi, High Oracle of Khaine cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
         when: [DURING_GAME],
       },
       {
@@ -84,7 +84,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Iron Heart of Khaine`,
-        desc: `Morathi, the Shadow Queen cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are negated and have no effect.`,
+        desc: `Morathi, the Shadow Queen cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
         when: [DURING_GAME],
       },
       {
