@@ -59,6 +59,7 @@ const warscrollTypoMap: TNameMap = {
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',

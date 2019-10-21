@@ -28,6 +28,7 @@ import CoS3 from '../fixtures/azyr/json/CoS3.json'
 import CoS4 from '../fixtures/azyr/json/CoS4.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
+import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
@@ -46,6 +47,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Khorne2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles FEC3', () => {
+    const pages = handleAzyrPages(FEC3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.errors).toEqual([])
   })
 
