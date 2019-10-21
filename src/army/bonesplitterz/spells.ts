@@ -30,7 +30,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Brutal Beast Spirits`,
-        desc: `Casting Value 6. Pick a Bonesplitterz unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If casting roll was a double you can effect 2 units instead.`,
+        desc: `Casting Value 6. Pick a Bonesplitterz unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can select 2 different friendly Bonesplitterz units wholly within 24" of the caster to be affected by this spell instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
