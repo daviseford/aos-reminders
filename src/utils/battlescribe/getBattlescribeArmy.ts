@@ -120,9 +120,14 @@ const parseAllegiance = (obj: ParentNode) => {
 
       return pMerged.reduce(
         (a, b) => {
-          let [key, ...values] = b.split(':').map(x => x.trim())
-          if (key === 'Selections') key = 'Allegiance'
-          a[key] = values
+          if (b.startsWith('Selections')) {
+            a['Allegiance'] = b.split(':').map(x => x.trim())[1]
+          } else if (b.includes('Command Abilities:')) {
+            a['Command Abilities'] = b.split('Command Abilities:').map(x => x.trim())[1]
+          } else {
+            let [key, values] = b.split(':').map(x => x.trim())
+            a[key] = values
+          }
           return a
         },
         {} as { [key: string]: string }
