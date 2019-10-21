@@ -68,7 +68,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'application/pdf',
+    accept: 'application/pdf, text/html',
     multiple: false,
   })
 
@@ -76,8 +76,8 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
     if (isProcessing) return ``
     if (isError) return errorTxt || `Unable to process this file`
     if (isDone) return `${parser} file processed!`
-    if (isMobile) return `Tap to select your Azyr/Warscroll Builder PDF`
-    return `Drag your Azyr or Warscroll Builder PDF here, or click to select`
+    if (isMobile) return `Tap to select your Azyr/Warscroll Builder PDF or Battlescribe HTML`
+    return `Drag your Azyr/Warscroll Builder PDF or Battlescribe HTML here, or click to select`
   }
 
   return (

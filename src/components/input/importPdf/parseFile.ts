@@ -7,6 +7,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
 import { IImportedArmy, TImportParsers } from 'types/import'
+import { getBattleScribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 interface IUseParseArgs {
   handleDone: () => void
@@ -54,6 +55,11 @@ export const handleParseFile: TUseParse = ({
       reader.onload = async () => {
         const typedArray = new Uint8Array(reader.result as any)
 
+        if (file.type === 'text/html') {
+          getBattleScribeArmy(reader.result as string)
+          return
+        }
+
         const { pdfPages, parser } = await checkFileInformation(typedArray)
 
         setParser(parser)
@@ -63,9 +69,9 @@ export const handleParseFile: TUseParse = ({
           return stopProcessing() && handleError(`Unable to process AoS Reminder PDFs`)
         }
 
-        if (parser === 'Battlescribe') {
+        if (parser === 'Battlescribe' && file.type === 'application/pdf') {
           logEvent(`Import${parser}`)
-          return stopProcessing() && handleError(`We don't support Battlescribe... yet!`)
+          return stopProcessing() && handleError(`We don't support Battlescribe PDFs... yet!`)
         }
 
         if (parser === 'Unknown') {
@@ -110,6 +116,8 @@ export const handleParseFile: TUseParse = ({
       // Read the file
       if (file && file.type === 'application/pdf') {
         reader.readAsArrayBuffer(file)
+      } else if (file && file.type === 'text/html') {
+        reader.readAsText(file)
       } else {
         const fileType = file ? file.type : 'Unknown'
         if (isOnline) logEvent(`Import${fileType}`)
