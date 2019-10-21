@@ -83,9 +83,54 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
 
 const parseAllegiance = (obj: ParentNode) => {
   try {
-    const { childNodes = [] } = stripParentNode(obj) as ParentNode
-    const strippedChildNodes = childNodes.filter(x => isParentNode(x))
-    const nameObj = strippedChildNodes.find(x => {
+    const strippedObj = stripParentNode(obj) as ParentNode
+    strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
+
+    if (partialSearchDoc(obj, 'Allegiance:')) {
+      // We need to do some dumb shit now
+      debugger
+
+      const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
+      if (!ulNode) return
+      const liNode = ulNode.childNodes.find(x => x.nodeName === 'li')
+      if (!liNode) return
+
+      const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p')
+
+      const pMerged = pChildren.reduce(
+        (a, b, i) => {
+          if (!a[i]) a[i] = ''
+
+          b.childNodes.forEach(x => {
+            if (isChildNode(x)) {
+              a[i] = `${a[i]} ${x.value || ''}`
+            } else {
+              x.childNodes.forEach(y => {
+                a[i] = `${a[i]} ${y.value || ''}`
+              })
+            }
+          })
+
+          a[i] = cleanText(a[i])
+
+          return a
+        },
+        [] as string[]
+      )
+
+      return pMerged.reduce(
+        (a, b) => {
+          let [key, ...values] = b.split(':').map(x => x.trim())
+          if (key === 'Selections') key = 'Allegiance'
+          a[key] = values
+          return a
+        },
+        {} as { [key: string]: string }
+      )
+    }
+
+    const { childNodes = [] } = strippedObj
+    const nameObj = childNodes.find(x => {
       if (
         isParentNode(x) &&
         x.nodeName === 'p' &&
