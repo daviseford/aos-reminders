@@ -17,6 +17,9 @@ export const getBattleScribeArmy = (html_string: string) => {
  * Helps us get the JSON string (removes circular references)
  */
 const stripParentNode = (docObj: ParentNode | ChildNode) => {
+  if (isChildNode(docObj) && docObj.value) {
+    docObj.value = cleanText(docObj.value)
+  }
   //@ts-ignore
   delete docObj.parentNode // Get rid of circular references
   if (!isParentNode(docObj)) return docObj
@@ -32,7 +35,7 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
       })
       .filter(x => {
         if (isChildNode(x)) {
-          const trimmedVal = x.value.trim()
+          const trimmedVal = cleanText(x.value)
           if (trimmedVal === '') return false
           if (trimmedVal === '\n') return false
           if (trimmedVal === '\n\n') return false
@@ -55,7 +58,7 @@ const isFactionObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
 const cleanText = (txt: string) => {
   return txt
     .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
-    .replace(/\r|\n|↵/g, ' ')
+    .replace(/\r|\n|\v|\f|↵/g, ' ')
     .replace(/ {2,}/g, ' ')
     .trim()
 }
@@ -75,6 +78,13 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
     console.log('There was an error detecting the faction name')
     console.error(err)
     return { alliance: null, faction: null }
+  }
+}
+
+const parseAllegiance = (obj: ParentNode) => {
+  try {
+  } catch (err) {
+    return null
   }
 }
 
@@ -139,6 +149,7 @@ const isRootSelection = (obj: ParentNode | ChildNode): obj is ParentNode => {
 
 const traverseDoc = (docObj: ParentNode | ChildNode) => {
   let results = {
+    allegiance: null as any,
     faction: null as null | IFaction,
     rootSelections: [] as ParentNode[],
   }
@@ -154,6 +165,10 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
       results.faction = parseFaction(obj)
     }
 
+    if (!results.allegiance && isAllegianceObj(obj)) {
+      results.allegiance = obj
+    }
+
     if (obj.childNodes.length > 0) {
       obj.childNodes.forEach(traverse)
     }
@@ -162,6 +177,16 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
   traverse(docObj)
 
   return results
+}
+
+const isAllegianceObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
+  if (isChildNode(obj)) return false
+  if (!isRootSelection(obj)) return false
+  if (!obj.childNodes.length) return false
+  const subObj = obj.childNodes.find(x => {
+    return x.nodeName === 'h4' && x.childNodes[0].value === 'Allegiance'
+  })
+  return !!subObj
 }
 
 interface Attrs {
