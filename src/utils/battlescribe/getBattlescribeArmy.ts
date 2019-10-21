@@ -1,23 +1,15 @@
 //@ts-nocheck
 import parse5 from 'parse5'
-import { find } from 'lodash'
 
 export const getBattleScribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
 
-  const nonCircular = stripParentNode(document)
+  const strippedDoc = stripParentNode(document)
 
-  // @ts-ignore
-  const body = nonCircular.childNodes[2]
-  const faction = getFaction(nonCircular)
-  const selections = getRootSelections(nonCircular)
-  console.log(nonCircular)
+  const selections = traverseDoc(strippedDoc)
+  console.log(strippedDoc)
   console.log(selections)
-  //   console.log(traverseDoc(nonCircular).flat())
 }
-
-// Remove empty entries
-const cleanHtml = (a: { [key: string]: any }) => {}
 
 /**
  * Helps us get the JSON string (removes circular references)
@@ -43,23 +35,32 @@ const stripParentNode = (docObj: Object) => {
   return docObj
 }
 
-const getFaction = (document: Object) => {
-  const found = find(document, obj => {
-    return obj.tagName === 'li'
-    //  && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
-  })
-  return found
+const isFactionObj = obj => {
+  return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
 }
 
-const getRootSelections = (docObj: Object) => {
-  let results: any[] = []
+const isRootSelection = obj => {
+  return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection'
+}
+
+const traverseDoc = (docObj: Object) => {
+  let results = {
+    faction: null as any,
+    rootSelections: [] as any[],
+  }
 
   const traverse = (obj: Object) => {
     if (!obj.childNodes) return
 
     // @ts-ignore
-    if (obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection') {
-      results.push(obj)
+    if (isRootSelection(obj)) {
+      results.rootSelections.push(obj)
+      return
+    }
+
+    // @ts-ignore
+    if (!results.faction && isFactionObj(obj)) {
+      results.faction = obj
       return
     }
 

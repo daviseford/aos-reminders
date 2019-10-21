@@ -97,7 +97,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
       </div>
 
-      <div hidden={!isShowingImport}>
+      {/* <div hidden={!isShowingImport}> */}
+      <div hidden={false}>
         <Suspense fallback={<></>}>
           <ImportContainer />
         </Suspense>
