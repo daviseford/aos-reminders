@@ -39,6 +39,23 @@ const isFactionObj = obj => {
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
 }
 
+/**
+ *
+ * @param obj
+ */
+const parseFaction = obj => {
+  try {
+    const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
+    const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
+    const [alliance, faction] = factionValue.split(' - ').map(x => x.trim())
+    return { alliance, faction }
+  } catch (err) {
+    console.log('There was an error detecting the faction name')
+    console.error(err)
+    return { alliance: null, faction: null }
+  }
+}
+
 const isRootSelection = obj => {
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection'
 }
@@ -55,13 +72,11 @@ const traverseDoc = (docObj: Object) => {
     // @ts-ignore
     if (isRootSelection(obj)) {
       results.rootSelections.push(obj)
-      return
     }
 
     // @ts-ignore
     if (!results.faction && isFactionObj(obj)) {
-      results.faction = obj
-      return
+      results.faction = parseFaction(obj)
     }
 
     if (obj.childNodes.length > 0) {
