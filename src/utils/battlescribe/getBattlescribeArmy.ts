@@ -16,7 +16,7 @@ export const getBattleScribeArmy = (html_string: string) => {
  */
 const stripParentNode = (docObj: ParentNode | ChildNode) => {
   //@ts-ignore
-  delete docObj.parentNode
+  delete docObj.parentNode // Get rid of circular references
   if (!docObj.childNodes) return docObj
 
   if (docObj.childNodes.length > 0) {
@@ -43,7 +43,7 @@ const isFactionObj = (obj: ParentNode) => {
  *
  * @param obj
  */
-const parseFaction = (obj: ParentNode | ChildNode) => {
+const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
   try {
     const factionNode = (obj.childNodes as ChildNode[]).find(x => x.nodeName === 'h2')
     if (!factionNode) throw new Error('Could not find factionNode')
@@ -63,7 +63,7 @@ const isRootSelection = (obj: ParentNode) => {
 
 const traverseDoc = (docObj: ParentNode | ChildNode) => {
   let results = {
-    faction: null as any,
+    faction: null as null | IFaction,
     rootSelections: [] as any[],
   }
 
@@ -106,4 +106,9 @@ interface ParentNode {
   attrs: Attrs[]
   namespaceURI: string
   childNodes: Array<ChildNode | ParentNode>
+}
+
+interface IFaction {
+  alliance: string | null
+  faction: string | null
 }
