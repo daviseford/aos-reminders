@@ -4,7 +4,7 @@ import parse5 from 'parse5'
 export const getBattleScribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
 
-  const strippedDoc = stripParentNode(document)
+  const strippedDoc = stripParentNode(document as ParentNode)
 
   const selections = traverseDoc(strippedDoc)
   console.log(strippedDoc)
@@ -14,7 +14,7 @@ export const getBattleScribeArmy = (html_string: string) => {
 /**
  * Helps us get the JSON string (removes circular references)
  */
-const stripParentNode = (docObj: Object) => {
+const stripParentNode = (docObj: ParentNode | ChildNode) => {
   //@ts-ignore
   delete docObj.parentNode
   if (!docObj.childNodes) return docObj
@@ -35,7 +35,7 @@ const stripParentNode = (docObj: Object) => {
   return docObj
 }
 
-const isFactionObj = obj => {
+const isFactionObj = (obj: ParentNode) => {
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
 }
 
@@ -43,9 +43,10 @@ const isFactionObj = obj => {
  *
  * @param obj
  */
-const parseFaction = obj => {
+const parseFaction = (obj: ParentNode | ChildNode) => {
   try {
-    const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
+    const factionNode = (obj.childNodes as ChildNode[]).find(x => x.nodeName === 'h2')
+    if (!factionNode) throw new Error('Could not find factionNode')
     const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
     const [alliance, faction] = factionValue.split(' - ').map(x => x.trim())
     return { alliance, faction }
@@ -56,17 +57,17 @@ const parseFaction = obj => {
   }
 }
 
-const isRootSelection = obj => {
+const isRootSelection = (obj: ParentNode) => {
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection'
 }
 
-const traverseDoc = (docObj: Object) => {
+const traverseDoc = (docObj: ParentNode | ChildNode) => {
   let results = {
     faction: null as any,
     rootSelections: [] as any[],
   }
 
-  const traverse = (obj: Object) => {
+  const traverse = (obj: ParentNode | ChildNode) => {
     if (!obj.childNodes) return
 
     // @ts-ignore
@@ -87,4 +88,22 @@ const traverseDoc = (docObj: Object) => {
   traverse(docObj)
 
   return results
+}
+
+interface Attrs {
+  name: string
+  value: string
+}
+
+interface ChildNode {
+  nodeName: string
+  value: string
+}
+
+interface ParentNode {
+  nodeName: string
+  tagName: string
+  attrs: Attrs[]
+  namespaceURI: string
+  childNodes: Array<ChildNode | ParentNode>
 }
