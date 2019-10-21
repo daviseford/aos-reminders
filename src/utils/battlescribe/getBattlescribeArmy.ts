@@ -86,6 +86,7 @@ const parseAllegiance = (obj: ParentNode) => {
     const { childNodes = [] } = obj
     const nameObj = childNodes.find(x => {
       if (
+        isParentNode(x) &&
         x.nodeName === 'p' &&
         x.childNodes.length &&
         x.childNodes.some(
@@ -98,7 +99,23 @@ const parseAllegiance = (obj: ParentNode) => {
       }
     })
 
-    return nameObj
+    debugger
+    if (!nameObj || !isParentNode(nameObj)) return null
+
+    const selectionIdx = nameObj.childNodes.findIndex(
+      y => y.nodeName === 'span' && y.childNodes.length && y.childNodes[0].value === 'Selections:'
+    )
+
+    const objs = nameObj.childNodes.slice(selectionIdx + 1)
+    debugger
+
+    return objs
+      .reduce((a, b) => {
+        if (isParentNode(b)) return a
+        a = `${a} ${b.value}`
+        return a
+      }, '')
+      .trim()
   } catch (err) {
     return null
   }
