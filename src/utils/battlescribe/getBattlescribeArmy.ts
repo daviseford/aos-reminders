@@ -1,5 +1,6 @@
 //@ts-nocheck
 import parse5 from 'parse5'
+import { find } from 'lodash'
 
 export const getBattleScribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
@@ -8,7 +9,11 @@ export const getBattleScribeArmy = (html_string: string) => {
 
   // @ts-ignore
   const body = nonCircular.childNodes[2]
+  const faction = getFaction(nonCircular)
+  const selections = getRootSelections(nonCircular)
   console.log(nonCircular)
+  console.log(selections)
+  //   console.log(traverseDoc(nonCircular).flat())
 }
 
 // Remove empty entries
@@ -38,4 +43,32 @@ const stripParentNode = (docObj: Object) => {
   return docObj
 }
 
-const getFaction = (document: parse5.Document) => {}
+const getFaction = (document: Object) => {
+  const found = find(document, obj => {
+    return obj.tagName === 'li'
+    //  && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
+  })
+  return found
+}
+
+const getRootSelections = (docObj: Object) => {
+  let results: any[] = []
+
+  const traverse = (obj: Object) => {
+    if (!obj.childNodes) return
+
+    // @ts-ignore
+    if (obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'rootselection') {
+      results.push(obj)
+      return
+    }
+
+    if (obj.childNodes.length > 0) {
+      obj.childNodes.forEach(traverse)
+    }
+  }
+
+  traverse(docObj)
+
+  return results
+}
