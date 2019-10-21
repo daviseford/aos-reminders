@@ -83,8 +83,9 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
 
 const parseAllegiance = (obj: ParentNode) => {
   try {
-    const { childNodes = [] } = obj
-    const nameObj = childNodes.find(x => {
+    const { childNodes = [] } = stripParentNode(obj) as ParentNode
+    const strippedChildNodes = childNodes.filter(x => isParentNode(x))
+    const nameObj = strippedChildNodes.find(x => {
       if (
         isParentNode(x) &&
         x.nodeName === 'p' &&
@@ -109,15 +110,17 @@ const parseAllegiance = (obj: ParentNode) => {
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
     debugger
 
-    return objs
+    let faction = objs
       .reduce((a, b) => {
         if (isParentNode(b)) return a
         a = `${a} ${b.value}`
         return a
       }, '')
       .trim()
+
+    return { faction }
   } catch (err) {
-    return null
+    return { faction: null }
   }
 }
 
@@ -210,6 +213,27 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
   traverse(docObj)
 
   return results
+}
+
+const partialSearchDoc = (docObj: ParentNode, searchString: string) => {
+  let result: string = ''
+
+  const traverse = (obj: ParentNode | ChildNode) => {
+    if (result) return
+    if (isChildNode(obj) && obj.value.startsWith(searchString)) {
+      result = obj.value
+      return
+    }
+    if (!obj.childNodes) return
+
+    if (obj.childNodes.length > 0) {
+      obj.childNodes.forEach(traverse)
+    }
+  }
+
+  traverse(docObj)
+
+  return result
 }
 
 const isAllegianceObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
