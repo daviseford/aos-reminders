@@ -19,19 +19,26 @@ export const getBattleScribeArmy = (html_string: string) => {
 const stripParentNode = (docObj: ParentNode | ChildNode) => {
   //@ts-ignore
   delete docObj.parentNode // Get rid of circular references
-  if (!docObj.childNodes) return docObj
+  if (!isParentNode(docObj)) return docObj
 
   if (docObj.childNodes.length > 0) {
-    docObj.childNodes = docObj.childNodes.map(stripParentNode).filter(x => {
-      if (isChildNode(x)) {
-        const trimmedVal = x.value.trim()
-        if (trimmedVal === '') return false
-        if (trimmedVal === '\n') return false
-        if (trimmedVal === '\n\n') return false
-      }
-
-      return true
-    })
+    docObj.childNodes = docObj.childNodes
+      .map(stripParentNode)
+      .map(x => {
+        if (isChildNode(x)) {
+          x.value = x.value.replace(/(.+)\\n {1,}(.+)/g, `$1 $2`).trim()
+        }
+        return x
+      })
+      .filter(x => {
+        if (isChildNode(x)) {
+          const trimmedVal = x.value.trim()
+          if (trimmedVal === '') return false
+          if (trimmedVal === '\n') return false
+          if (trimmedVal === '\n\n') return false
+        }
+        return true
+      })
   }
 
   return docObj

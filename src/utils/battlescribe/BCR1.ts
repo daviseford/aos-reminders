@@ -39,7 +39,7 @@ export const BCR1 = {
                 {
                   nodeName: '#text',
                   value:
-                    '\n        body.battlescribe {\n            margin: 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe {\n            margin-top: 0px;\n            margin-bottom: 0px;\n            margin-left: auto;\n            margin-right: auto;\n            padding: 8px;\n            border-width: 0px;\n\n            font-family: sans-serif;\n            font-size: 12px;\n            color: #444444;\n            text-align: left;\n        }\n\n        div.battlescribe h1,\n        div.battlescribe h2,\n        div.battlescribe h3,\n        div.battlescribe h4 {\n            margin: 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe h1 {\n            margin: 8px 0px 0px 0px;\n\n            font-size: 16px;\n        }\n\n        div.battlescribe h2 {\n            font-size: 15px;\n        }\n\n        div.battlescribe h3 {\n            font-size: 14px;\n        }\n\n        div.battlescribe h4 {\n            font-size: 13px;\n        }\n\n        div.battlescribe div.summary {\n            margin: 16px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe ul {\n            margin: 0px 0px 0px 16px;\n            padding: 0px;\n            border-width: 0px;\n\n            list-style-image: none;\n            list-style-position: outside;\n            list-style-type: none;\n        }\n\n        div.battlescribe li {\n            margin: 8px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.force {\n            margin: 24px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.category {\n            margin: 16px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.rootselection {\n            margin: 16px 0px 0px 0px;\n            padding: 8px;\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            page-break-inside: avoid;\n        }\n\n        div.battlescribe p {\n            margin: 4px 0px 0px 16px;\n            padding: 0px;\n            border-width: 0px;\n\n            font-size: 12px;\n        }\n\n        div.battlescribe p.category-names {}\n\n        div.battlescribe p.rule-names {}\n\n        div.battlescribe p.profile-names {}\n\n        div.battlescribe table {\n            margin: 8px 0px 0px 16px;\n            padding: 0px;\n            border-collapse: collapse;\n\n            font-size: 12px;\n            color: #444444;\n\n            page-break-inside: avoid;\n        }\n\n        div.battlescribe tr {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n        }\n\n        div.battlescribe th {\n            padding: 4px;\n            margin: 0px;\n            border-width: 0px;\n\n            font-weight: bold;\n            text-align: left;\n        }\n\n        div.battlescribe td {\n            padding: 4px;\n            margin: 0px;\n            border-width: 0px;\n\n            text-align: left;\n        }\n\n        div.battlescribe td.profile-name {\n            font-weight: bold;\n        }\n\n        div.battlescribe td.statistic-name {\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics {}\n\n        div.battlescribe table.statistics tr.subtotal {\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics tr.total {\n            font-size: 13px;\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics th {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            font-size: 13px;\n            text-align: right;\n        }\n\n        div.battlescribe table.statistics th.center {\n            text-align: center;\n        }\n\n        div.battlescribe table.statistics td {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            text-align: right;\n        }\n\n        div.battlescribe span.bold {\n            font-weight: bold;\n        }\n\n        div.battlescribe span.italic {\n            font-style: italic;\n        }\n\n        div.battlescribe span.caps {\n            font-variant: small-caps;\n        }\n    ',
+                    'body.battlescribe {\n            margin: 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe {\n            margin-top: 0px;\n            margin-bottom: 0px;\n            margin-left: auto;\n            margin-right: auto;\n            padding: 8px;\n            border-width: 0px;\n\n            font-family: sans-serif;\n            font-size: 12px;\n            color: #444444;\n            text-align: left;\n        }\n\n        div.battlescribe h1,\n        div.battlescribe h2,\n        div.battlescribe h3,\n        div.battlescribe h4 {\n            margin: 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe h1 {\n            margin: 8px 0px 0px 0px;\n\n            font-size: 16px;\n        }\n\n        div.battlescribe h2 {\n            font-size: 15px;\n        }\n\n        div.battlescribe h3 {\n            font-size: 14px;\n        }\n\n        div.battlescribe h4 {\n            font-size: 13px;\n        }\n\n        div.battlescribe div.summary {\n            margin: 16px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe ul {\n            margin: 0px 0px 0px 16px;\n            padding: 0px;\n            border-width: 0px;\n\n            list-style-image: none;\n            list-style-position: outside;\n            list-style-type: none;\n        }\n\n        div.battlescribe li {\n            margin: 8px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.force {\n            margin: 24px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.category {\n            margin: 16px 0px 0px 0px;\n            padding: 0px;\n            border-width: 0px;\n        }\n\n        div.battlescribe li.rootselection {\n            margin: 16px 0px 0px 0px;\n            padding: 8px;\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            page-break-inside: avoid;\n        }\n\n        div.battlescribe p {\n            margin: 4px 0px 0px 16px;\n            padding: 0px;\n            border-width: 0px;\n\n            font-size: 12px;\n        }\n\n        div.battlescribe p.category-names {}\n\n        div.battlescribe p.rule-names {}\n\n        div.battlescribe p.profile-names {}\n\n        div.battlescribe table {\n            margin: 8px 0px 0px 16px;\n            padding: 0px;\n            border-collapse: collapse;\n\n            font-size: 12px;\n            color: #444444;\n\n            page-break-inside: avoid;\n        }\n\n        div.battlescribe tr {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n        }\n\n        div.battlescribe th {\n            padding: 4px;\n            margin: 0px;\n            border-width: 0px;\n\n            font-weight: bold;\n            text-align: left;\n        }\n\n        div.battlescribe td {\n            padding: 4px;\n            margin: 0px;\n            border-width: 0px;\n\n            text-align: left;\n        }\n\n        div.battlescribe td.profile-name {\n            font-weight: bold;\n        }\n\n        div.battlescribe td.statistic-name {\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics {}\n\n        div.battlescribe table.statistics tr.subtotal {\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics tr.total {\n            font-size: 13px;\n            font-weight: bold;\n        }\n\n        div.battlescribe table.statistics th {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            font-size: 13px;\n            text-align: right;\n        }\n\n        div.battlescribe table.statistics th.center {\n            text-align: center;\n        }\n\n        div.battlescribe table.statistics td {\n            border-width: 1px;\n            border-style: solid;\n            border-color: #BBBBBB;\n\n            text-align: right;\n        }\n\n        div.battlescribe span.bold {\n            font-weight: bold;\n        }\n\n        div.battlescribe span.italic {\n            font-style: italic;\n        }\n\n        div.battlescribe span.caps {\n            font-variant: small-caps;\n        }',
                 },
               ],
             },
@@ -310,7 +310,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -349,7 +349,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -388,7 +388,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -426,7 +426,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -1285,7 +1285,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds. ',
+                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -1343,7 +1343,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -2005,7 +2005,7 @@ export const BCR1 = {
                                             {
                                               nodeName: '#text',
                                               value:
-                                                ' 1. Nothing Left Standing, 2. Battered\n                                    Talisman, 2. Gleaming Blade, 4. Lightshard, 5. Tokens of Everwinter, Chaintrap,\n                                    General\n                                ',
+                                                '1. Nothing Left Standing, 2. Battered\n                                    Talisman, 2. Gleaming Blade, 4. Lightshard, 5. Tokens of Everwinter, Chaintrap,\n                                    General',
                                             },
                                           ],
                                         },
@@ -2105,7 +2105,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -2144,7 +2144,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -2183,7 +2183,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -2221,7 +2221,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ',\n                                    ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -2260,7 +2260,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -2411,8 +2411,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value:
-                                                            "\n                                            General's Handbook 2017\n                                        ",
+                                                          value: "General's Handbook 2017",
                                                         },
                                                       ],
                                                     },
@@ -2540,7 +2539,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Once during the battle, in any hero phase, the bearer can swallow the Tokens\n                                            of Everywinter. If he does, until the start of the next hero phase you can\n                                            re-roll all hit rolls, wound rolls and save rolls made for him. ',
+                                                            'Once during the battle, in any hero phase, the bearer can swallow the Tokens\n                                            of Everywinter. If he does, until the start of the next hero phase you can\n                                            re-roll all hit rolls, wound rolls and save rolls made for him.',
                                                         },
                                                       ],
                                                     },
@@ -2662,8 +2661,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value:
-                                                            "\n                                            General's Handbook 2017 p156\n                                        ",
+                                                          value: "General's Handbook 2017 p156",
                                                         },
                                                       ],
                                                     },
@@ -3376,7 +3374,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If a Huskard on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds. ',
+                                                            'If a Huskard on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -3421,7 +3419,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'After a Huskard on a Stonehorn attacks in the combat phase, you can pick a\n                                            MOURNFANG PACK within 10". That unit immediately pile in and attack if it is\n                                            within 3" of the enemy and has not already attacked this phase. ',
+                                                            'After a Huskard on a Stonehorn attacks in the combat phase, you can pick a\n                                            MOURNFANG PACK within 10". That unit immediately pile in and attack if it is\n                                            within 3" of the enemy and has not already attacked this phase.',
                                                         },
                                                       ],
                                                     },
@@ -3479,7 +3477,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -4141,7 +4139,7 @@ export const BCR1 = {
                                             {
                                               nodeName: '#text',
                                               value:
-                                                " 3. Luminary Rod, 3. The Pelt of Charngar, 4.\n                                    Bellowing Blade, 5. Guardian's Coronet, Chaintrap, Huskard's Punches and Kicks,\n                                    Thundertusk's Crushing Blows\n                                ",
+                                                "3. Luminary Rod, 3. The Pelt of Charngar, 4.\n                                    Bellowing Blade, 5. Guardian's Coronet, Chaintrap, Huskard's Punches and Kicks,\n                                    Thundertusk's Crushing Blows",
                                             },
                                           ],
                                         },
@@ -4241,7 +4239,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -4280,7 +4278,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -4318,7 +4316,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -4356,7 +4354,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ',\n                                    ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -4395,7 +4393,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -4546,8 +4544,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value:
-                                                            "\n                                            General's Handbook 2017\n                                        ",
+                                                          value: "General's Handbook 2017",
                                                         },
                                                       ],
                                                     },
@@ -4585,7 +4582,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Once per battle, at the start of your hero phase, the bearer can call upon\n                                            the guardian spirits. If they do so, until your next hero phase, roll a dice\n                                            each time you allocate a wound to the bearer. On a 4+ the wound is negated.\n                                        ',
+                                                            'Once per battle, at the start of your hero phase, the bearer can call upon\n                                            the guardian spirits. If they do so, until your next hero phase, roll a dice\n                                            each time you allocate a wound to the bearer. On a 4+ the wound is negated.',
                                                         },
                                                       ],
                                                     },
@@ -4630,7 +4627,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Once per battle, pick a point on the battlefield within 9" of the bearer\n                                            that is visible to them and draw an imaginary straight line 1mm wide between\n                                            that point and the closest part of the bearer. Each unit other than the\n                                            bearer that has models passed across by this line suffers D3 mortal wounds.\n                                        ',
+                                                            'Once per battle, pick a point on the battlefield within 9" of the bearer\n                                            that is visible to them and draw an imaginary straight line 1mm wide between\n                                            that point and the closest part of the bearer. Each unit other than the\n                                            bearer that has models passed across by this line suffers D3 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -4675,7 +4672,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Roll a dice at the start oif each of your hero phases. On a 1, 2 or 3 the\n                                            bearer of the Pelt of Chargnar heals 1 wound, but on a 4, 5 or 6 he heals\n                                            D3. ',
+                                                            'Roll a dice at the start oif each of your hero phases. On a 1, 2 or 3 the\n                                            bearer of the Pelt of Chargnar heals 1 wound, but on a 4, 5 or 6 he heals\n                                            D3.',
                                                         },
                                                       ],
                                                     },
@@ -5563,7 +5560,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -5646,7 +5643,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Your opponent must subtract 1 from any hit rolls that target this model in\n                                            the combat phase. ',
+                                                            'Your opponent must subtract 1 from any hit rolls that target this model in\n                                            the combat phase.',
                                                         },
                                                       ],
                                                     },
@@ -6199,7 +6196,7 @@ export const BCR1 = {
                                             {
                                               nodeName: '#text',
                                               value:
-                                                " 3. Luminary Rod, 4. Bellowing Blade, 5.\n                                    Guardian's Coronet\n                                ",
+                                                "3. Luminary Rod, 4. Bellowing Blade, 5.\n                                    Guardian's Coronet",
                                             },
                                           ],
                                         },
@@ -6299,7 +6296,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -6337,7 +6334,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -6375,7 +6372,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -6526,8 +6523,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value:
-                                                            "\n                                            General's Handbook 2017\n                                        ",
+                                                          value: "General's Handbook 2017",
                                                         },
                                                       ],
                                                     },
@@ -6565,7 +6561,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Once per battle, at the start of your hero phase, the bearer can call upon\n                                            the guardian spirits. If they do so, until your next hero phase, roll a dice\n                                            each time you allocate a wound to the bearer. On a 4+ the wound is negated.\n                                        ',
+                                                            'Once per battle, at the start of your hero phase, the bearer can call upon\n                                            the guardian spirits. If they do so, until your next hero phase, roll a dice\n                                            each time you allocate a wound to the bearer. On a 4+ the wound is negated.',
                                                         },
                                                       ],
                                                     },
@@ -6610,7 +6606,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Once per battle, pick a point on the battlefield within 9" of the bearer\n                                            that is visible to them and draw an imaginary straight line 1mm wide between\n                                            that point and the closest part of the bearer. Each unit other than the\n                                            bearer that has models passed across by this line suffers D3 mortal wounds.\n                                        ',
+                                                            'Once per battle, pick a point on the battlefield within 9" of the bearer\n                                            that is visible to them and draw an imaginary straight line 1mm wide between\n                                            that point and the closest part of the bearer. Each unit other than the\n                                            bearer that has models passed across by this line suffers D3 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -6901,7 +6897,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Instead of attacking with his missile weapons in your shooting phase, an\n                                            Icebrow Hunter can unleash his icy breath. If he does so, pick a visible\n                                            unit within 6" of the Icebrow Hunter and roll a dice; on a 4 or more that\n                                            unit suffers D3 mortal wounds as its warriors are frozen solid. ',
+                                                            'Instead of attacking with his missile weapons in your shooting phase, an\n                                            Icebrow Hunter can unleash his icy breath. If he does so, pick a visible\n                                            unit within 6" of the Icebrow Hunter and roll a dice; on a 4 or more that\n                                            unit suffers D3 mortal wounds as its warriors are frozen solid.',
                                                         },
                                                       ],
                                                     },
@@ -6946,7 +6942,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Instead of setting up this model on the battlefield, you can place him to\n                                            one side and say that he is set up in ambush. In any of your hero phases,\n                                            you can set him up on the battlefield more than 9" from any enemy models.\n                                            This is his move for the following movement phase. ',
+                                                            'Instead of setting up this model on the battlefield, you can place him to\n                                            one side and say that he is set up in ambush. In any of your hero phases,\n                                            you can set him up on the battlefield more than 9" from any enemy models.\n                                            This is his move for the following movement phase.',
                                                         },
                                                       ],
                                                     },
@@ -7577,7 +7573,7 @@ export const BCR1 = {
                                             {
                                               nodeName: '#text',
                                               value:
-                                                ' 2 Mournfang Pack [140pts], Gargant Hacker,\n                                    Ironlock Pistol (Skalg Only)\n                                ',
+                                                '2 Mournfang Pack [140pts], Gargant Hacker,\n                                    Ironlock Pistol (Skalg Only)',
                                             },
                                           ],
                                         },
@@ -7676,7 +7672,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -7715,7 +7711,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -8035,7 +8031,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit. ',
+                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit.',
                                                         },
                                                       ],
                                                     },
@@ -8080,7 +8076,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers. ',
+                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers.',
                                                         },
                                                       ],
                                                     },
@@ -8125,7 +8121,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made\n                                        ',
+                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made',
                                                         },
                                                       ],
                                                     },
@@ -8170,7 +8166,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound. ',
+                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound.',
                                                         },
                                                       ],
                                                     },
@@ -8722,7 +8718,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ' Chaintrap\n                                ',
+                                              value: 'Chaintrap',
                                             },
                                           ],
                                         },
@@ -8822,7 +8818,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -8860,7 +8856,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -8900,7 +8896,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -9662,7 +9658,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -9700,7 +9696,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Your opponent must subtract 1 from any hit rolls that target this model in\n                                            the combat phase. ',
+                                                            'Your opponent must subtract 1 from any hit rolls that target this model in\n                                            the combat phase.',
                                                         },
                                                       ],
                                                     },
@@ -10401,8 +10397,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value:
-                                                ' 2 Frost Sabres [40pts]\n                                ',
+                                              value: '2 Frost Sabres [40pts]',
                                             },
                                           ],
                                         },
@@ -10495,13 +10490,13 @@ export const BCR1 = {
                                               childNodes: [
                                                 {
                                                   nodeName: '#text',
-                                                  value: 'Frost Sabres ',
+                                                  value: 'Frost Sabres',
                                                 },
                                               ],
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -10540,7 +10535,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -10702,7 +10697,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value: 'Frost Sabres ',
+                                                          value: 'Frost Sabres',
                                                         },
                                                       ],
                                                     },
@@ -10860,7 +10855,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If this unit is within 16" of a friendly ICEBROW HUNTER at the start of the\n                                            charge phase, you can add 3 to any charge rolls made for it in that phase.\n                                            In addition, whilst the Frost Sabres are within 16" of a friendly ICEBROW\n                                            HUNTER they have a Bravery of 7 rather than 5. ',
+                                                            'If this unit is within 16" of a friendly ICEBROW HUNTER at the start of the\n                                            charge phase, you can add 3 to any charge rolls made for it in that phase.\n                                            In addition, whilst the Frost Sabres are within 16" of a friendly ICEBROW\n                                            HUNTER they have a Bravery of 7 rather than 5.',
                                                         },
                                                       ],
                                                     },
@@ -11180,8 +11175,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value:
-                                                ' 3 Icefall Yhetees [110pts]\n                                ',
+                                              value: '3 Icefall Yhetees [110pts]',
                                             },
                                           ],
                                         },
@@ -11280,7 +11274,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -11319,7 +11313,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -11638,7 +11632,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Your opponent must subtract 1 from any hit rolls that target an Icefall\n                                            Yhetee in the combat phase. ',
+                                                            'Your opponent must subtract 1 from any hit rolls that target an Icefall\n                                            Yhetee in the combat phase.',
                                                         },
                                                       ],
                                                     },
@@ -11683,7 +11677,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Icefall Yhetees can be chosen to pile in and attack in the combat phase if\n                                            they are within 6" of an enemy and can move up to 6" when they pile in.\n                                        ',
+                                                            'Icefall Yhetees can be chosen to pile in and attack in the combat phase if\n                                            they are within 6" of an enemy and can move up to 6" when they pile in.',
                                                         },
                                                       ],
                                                     },
@@ -11728,7 +11722,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'You can run and charge with Icefall Yhetees in the same turn if they are\n                                            within 16" of any friendly THUNDERTUSKS when they charge. ',
+                                                            'You can run and charge with Icefall Yhetees in the same turn if they are\n                                            within 16" of any friendly THUNDERTUSKS when they charge.',
                                                         },
                                                       ],
                                                     },
@@ -12048,8 +12042,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value:
-                                                ' 3 Icefall Yhetees [110pts]\n                                ',
+                                              value: '3 Icefall Yhetees [110pts]',
                                             },
                                           ],
                                         },
@@ -12148,7 +12141,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -12187,7 +12180,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -12506,7 +12499,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Your opponent must subtract 1 from any hit rolls that target an Icefall\n                                            Yhetee in the combat phase. ',
+                                                            'Your opponent must subtract 1 from any hit rolls that target an Icefall\n                                            Yhetee in the combat phase.',
                                                         },
                                                       ],
                                                     },
@@ -12551,7 +12544,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Icefall Yhetees can be chosen to pile in and attack in the combat phase if\n                                            they are within 6" of an enemy and can move up to 6" when they pile in.\n                                        ',
+                                                            'Icefall Yhetees can be chosen to pile in and attack in the combat phase if\n                                            they are within 6" of an enemy and can move up to 6" when they pile in.',
                                                         },
                                                       ],
                                                     },
@@ -12596,7 +12589,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'You can run and charge with Icefall Yhetees in the same turn if they are\n                                            within 16" of any friendly THUNDERTUSKS when they charge. ',
+                                                            'You can run and charge with Icefall Yhetees in the same turn if they are\n                                            within 16" of any friendly THUNDERTUSKS when they charge.',
                                                         },
                                                       ],
                                                     },
@@ -13139,7 +13132,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13178,7 +13171,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13216,7 +13209,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13256,7 +13249,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13340,8 +13333,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ' 2 Mournfang Pack [140pts]\n                                        ',
+                                                      value: '2 Mournfang Pack [140pts]',
                                                     },
                                                   ],
                                                 },
@@ -13440,8 +13432,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ',\n                                            ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13480,7 +13471,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13563,8 +13554,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ' 2 Mournfang Pack [140pts]\n                                        ',
+                                                      value: '2 Mournfang Pack [140pts]',
                                                     },
                                                   ],
                                                 },
@@ -13663,8 +13653,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ',\n                                            ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13703,7 +13692,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13786,8 +13775,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ' 3 Gore-Gruntas [140pts]\n                                        ',
+                                                      value: '3 Gore-Gruntas [140pts]',
                                                     },
                                                   ],
                                                 },
@@ -13887,7 +13875,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -13925,7 +13913,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -14009,8 +13997,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value:
-                                                        ' 3 Gore-Gruntas [140pts]\n                                        ',
+                                                      value: '3 Gore-Gruntas [140pts]',
                                                     },
                                                   ],
                                                 },
@@ -14110,7 +14097,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -14148,7 +14135,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -15272,8 +15259,7 @@ export const BCR1 = {
                                                       childNodes: [
                                                         {
                                                           nodeName: '#text',
-                                                          value:
-                                                            '\n                                            Destruction Battletomb: Ironjawz p116\n                                        ',
+                                                          value: 'Destruction Battletomb: Ironjawz p116',
                                                         },
                                                       ],
                                                     },
@@ -15376,7 +15362,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit. ',
+                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit.',
                                                         },
                                                       ],
                                                     },
@@ -15421,7 +15407,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds. ',
+                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -15511,7 +15497,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers. ',
+                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers.',
                                                         },
                                                       ],
                                                     },
@@ -15556,7 +15542,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made\n                                        ',
+                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made',
                                                         },
                                                       ],
                                                     },
@@ -15601,7 +15587,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound. ',
+                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound.',
                                                         },
                                                       ],
                                                     },
@@ -15659,7 +15645,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -16814,7 +16800,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -16852,7 +16838,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -16891,7 +16877,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -16975,8 +16961,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value:
-                                                                ' 2 Mournfang Pack [140pts]\n                                                ',
+                                                              value: '2 Mournfang Pack [140pts]',
                                                             },
                                                           ],
                                                         },
@@ -17076,7 +17061,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17115,7 +17100,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17198,8 +17183,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value:
-                                                                ' 2 Mournfang Pack [140pts]\n                                                ',
+                                                              value: '2 Mournfang Pack [140pts]',
                                                             },
                                                           ],
                                                         },
@@ -17299,7 +17283,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17338,7 +17322,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17492,7 +17476,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17530,7 +17514,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17569,8 +17553,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value:
-                                                                ',\n                                                    ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17725,7 +17708,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17763,7 +17746,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17802,8 +17785,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value:
-                                                                ',\n                                                    ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17958,7 +17940,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -17996,7 +17978,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value: ', ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -18035,8 +18017,7 @@ export const BCR1 = {
                                                             },
                                                             {
                                                               nodeName: '#text',
-                                                              value:
-                                                                ',\n                                                    ',
+                                                              value: ',',
                                                             },
                                                             {
                                                               nodeName: 'span',
@@ -18195,7 +18176,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -18234,7 +18215,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -18272,7 +18253,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -18312,7 +18293,7 @@ export const BCR1 = {
                                                     },
                                                     {
                                                       nodeName: '#text',
-                                                      value: ', ',
+                                                      value: ',',
                                                     },
                                                     {
                                                       nodeName: 'span',
@@ -19955,7 +19936,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit. ',
+                                                            'Models from this unit may carry Raiding Banners adorned with the skull of a\n                                            great beast. You can re-roll dice rolls of 6 when taking battleshock test\n                                            for a unit that includes any Raiding Banners. Furthermore, roll a dice\n                                            whenever an enemy model flees whilst its unit is within 6" of any Raiding\n                                            Banner from your army. On a 6, another model immediately flees form that\n                                            unit.',
                                                         },
                                                       ],
                                                     },
@@ -20000,7 +19981,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds. ',
+                                                            'If a Frostlord on a Stonehorn is within 12" of any enemy models at the start\n                                            of your charge phase, it must attempty to charge, even if it ran in the\n                                            movement phase. After this model completes its charge move, pick an enemy\n                                            unit within 1"; that unit suffers D6 mortal wounds.',
                                                         },
                                                       ],
                                                     },
@@ -20045,7 +20026,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers. ',
+                                                            'Models in this unit may be Horn Blowers.You can roll three dice and pick the\n                                            two highest results when determining the charge distance for a unit if it\n                                            includes any Horn Blowers.',
                                                         },
                                                       ],
                                                     },
@@ -20090,7 +20071,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made\n                                        ',
+                                                            'Each time you make a successful save roll of 6 or more for a Mournfang Pack\n                                            armed with Iron Fists, and the attacking unit is within 1", the attacking\n                                            unit suffers 1 mortal wound after all of its attacks have been made',
                                                         },
                                                       ],
                                                     },
@@ -20135,7 +20116,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'After a Huskard on a Stonehorn attacks in the combat phase, you can pick a\n                                            MOURNFANG PACK within 10". That unit immediately pile in and attack if it is\n                                            within 3" of the enemy and has not already attacked this phase. ',
+                                                            'After a Huskard on a Stonehorn attacks in the combat phase, you can pick a\n                                            MOURNFANG PACK within 10". That unit immediately pile in and attack if it is\n                                            within 3" of the enemy and has not already attacked this phase.',
                                                         },
                                                       ],
                                                     },
@@ -20180,7 +20161,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound. ',
+                                                            'Each time a Mournfang Pack model completes a charge move, select an enemy\n                                            model within !". On a roll of a 4 or more, that model suffers a mortal\n                                            wound.',
                                                         },
                                                       ],
                                                     },
@@ -20238,7 +20219,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            Battletome: Beastclaw Raiders Official Errata, July 2018 p1\n                                        ',
+                                                            'Battletome: Beastclaw Raiders Official Errata, July 2018 p1',
                                                         },
                                                       ],
                                                     },
@@ -21396,7 +21377,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ' Beastclaw Raiders\n                                ',
+                                              value: 'Beastclaw Raiders',
                                             },
                                           ],
                                         },
@@ -21495,7 +21476,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -21633,7 +21614,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'On a turn in which they charge into combat, you can re-roll all wound rolls\n                                            of 1 made for BEASTCLAW RAIDER models in the combat phase. ',
+                                                            'On a turn in which they charge into combat, you can re-roll all wound rolls\n                                            of 1 made for BEASTCLAW RAIDER models in the combat phase.',
                                                         },
                                                       ],
                                                     },
@@ -21678,7 +21659,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            "Roll a dice at the start of each of your hero phases to determine the\n                                            effects of Everwinter's Blessing on the battle (reference table for result)\n                                        ",
+                                                            "Roll a dice at the start of each of your hero phases to determine the\n                                            effects of Everwinter's Blessing on the battle (reference table for result)",
                                                         },
                                                       ],
                                                     },
@@ -22083,8 +22064,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value:
-                                                ' 2000 Points - Battlehost\n                                ',
+                                              value: '2000 Points - Battlehost',
                                             },
                                           ],
                                         },
@@ -22219,7 +22199,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ' Origin: Hysh\n                                ',
+                                              value: 'Origin: Hysh',
                                             },
                                           ],
                                         },
@@ -22424,7 +22404,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -22587,7 +22567,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If successfully cast, set up an Emerald Lifeswarm model wholly within 15" of\n                                            the caster. ',
+                                                            'If successfully cast, set up an Emerald Lifeswarm model wholly within 15" of\n                                            the caster.',
                                                         },
                                                       ],
                                                     },
@@ -22697,7 +22677,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'After this model is set up or after it has moved, pick 1 unit within 1" of\n                                            it. You can either heal D3 wounds that have been allocated to that unit or,\n                                            if no wounds are currently allocated to the unit, you may return a number of\n                                            slain models to it that have a combined Wounds characteristic equal to or\n                                            less than the roll of a D3. ',
+                                                            'After this model is set up or after it has moved, pick 1 unit within 1" of\n                                            it. You can either heal D3 wounds that have been allocated to that unit or,\n                                            if no wounds are currently allocated to the unit, you may return a number of\n                                            slain models to it that have a combined Wounds characteristic equal to or\n                                            less than the roll of a D3.',
                                                         },
                                                       ],
                                                     },
@@ -22742,7 +22722,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            'If your battle is taking place in the Realm of Life, roll a D6 to determine\n                                            the number of wounds healed or wounds worth of slain models returned by the\n                                            Emerald Lifeswarm’s Bounteous Healing ability. ',
+                                                            'If your battle is taking place in the Realm of Life, roll a D6 to determine\n                                            the number of wounds healed or wounds worth of slain models returned by the\n                                            Emerald Lifeswarm’s Bounteous Healing ability.',
                                                         },
                                                       ],
                                                     },
@@ -22969,7 +22949,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value: ', ',
+                                              value: ',',
                                             },
                                             {
                                               nodeName: 'span',
@@ -23432,8 +23412,7 @@ export const BCR1 = {
                                             },
                                             {
                                               nodeName: '#text',
-                                              value:
-                                                ' 10x 1 Command Point [500pts]\n                                ',
+                                              value: '10x 1 Command Point [500pts]',
                                             },
                                           ],
                                         },
@@ -23802,7 +23781,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            1-3: Orrey of Obfuscation: Re-roll save rolls of 1 for attacks that target\n                                            units wholly within 12" of any Penumbral terrain features. ',
+                                                            '1-3: Orrey of Obfuscation: Re-roll save rolls of 1 for attacks that target\n                                            units wholly within 12" of any Penumbral terrain features.',
                                                         },
                                                         {
                                                           nodeName: 'br',
@@ -23821,7 +23800,7 @@ export const BCR1 = {
                                                         {
                                                           nodeName: '#text',
                                                           value:
-                                                            '\n                                            4-6: Orrey of Illumination: At the start of your hero phase, you receive 1\n                                            extra command point if any friendly HEROES are within 12" of any PENUMBRAL\n                                            terrain features.',
+                                                            '4-6: Orrey of Illumination: At the start of your hero phase, you receive 1\n                                            extra command point if any friendly HEROES are within 12" of any PENUMBRAL\n                                            terrain features.',
                                                         },
                                                         {
                                                           nodeName: 'br',
@@ -23906,7 +23885,7 @@ export const BCR1 = {
                         {
                           nodeName: '#text',
                           value:
-                            '\n                You can use this command ability after you make a run roll for a friendly unit that is within 6" of a\n                friendly HERO, or 12" of a friendly HERO that is a general. If you do so, the run roll is treated as\n                being a 6.\n                (Core Rules p3)\n            ',
+                            'You can use this command ability after you make a run roll for a friendly unit that is within 6" of a\n                friendly HERO, or 12" of a friendly HERO that is a general. If you do so, the run roll is treated as\n                being a 6.\n                (Core Rules p3)',
                         },
                       ],
                     },
@@ -23936,7 +23915,7 @@ export const BCR1 = {
                         {
                           nodeName: '#text',
                           value:
-                            '\n                You can use this command ability after you make a charge roll for a friendly unit that is within 6" of a\n                friendly HERO, or 12" of a friendly HERO that is a general. If you do so, re-roll the charge roll.\n                (Core Rules p3)\n            ',
+                            'You can use this command ability after you make a charge roll for a friendly unit that is within 6" of a\n                friendly HERO, or 12" of a friendly HERO that is a general. If you do so, re-roll the charge roll.\n                (Core Rules p3)',
                         },
                       ],
                     },
@@ -23966,7 +23945,7 @@ export const BCR1 = {
                         {
                           nodeName: '#text',
                           value:
-                            '\n                You can use this command ability at the start of the battleshock phase. If you do so, pick a friendly\n                unit that is within 6" of friendly HERO, or 12" of a friendly HERO that is a general. That unit does not\n                have to take battleshock tests in that phase.\n                (Core Rules p3)\n            ',
+                            'You can use this command ability at the start of the battleshock phase. If you do so, pick a friendly\n                unit that is within 6" of friendly HERO, or 12" of a friendly HERO that is a general. That unit does not\n                have to take battleshock tests in that phase.\n                (Core Rules p3)',
                         },
                       ],
                     },
@@ -24021,7 +24000,7 @@ export const BCR1 = {
                         {
                           nodeName: '#text',
                           value:
-                            '\n                The leader of each unit is a Gore-grunta Boss. They make 4 attacks rather than 3.\n                ()\n            ',
+                            'The leader of each unit is a Gore-grunta Boss. They make 4 attacks rather than 3.\n                ()',
                         },
                       ],
                     },
@@ -24051,7 +24030,7 @@ export const BCR1 = {
                         {
                           nodeName: '#text',
                           value:
-                            '\n                A unit of Orruk Gore-Gruntas has 3 or more models. The riders of some units of Gore-Gruntas are armed\n                with Pig-iron Choppas, while others carry Jagged Gore-hackas. Their mounts tear at the enemy with their\n                Fanged Maws and Hooves.\n                ()\n            ',
+                            'A unit of Orruk Gore-Gruntas has 3 or more models. The riders of some units of Gore-Gruntas are armed\n                with Pig-iron Choppas, while others carry Jagged Gore-hackas. Their mounts tear at the enemy with their\n                Fanged Maws and Hooves.\n                ()',
                         },
                       ],
                     },
@@ -24072,7 +24051,7 @@ export const BCR1 = {
                   childNodes: [
                     {
                       nodeName: '#text',
-                      value: 'Created with ',
+                      value: 'Created with',
                     },
                     {
                       nodeName: 'a',
