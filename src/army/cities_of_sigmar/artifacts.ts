@@ -43,12 +43,12 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Aqshy Aspect`,
-        desc: `If you choose this aspect, add 1 to hit rolls for attacks made with melee weapons by friendly HAMMERHAL units wholly within 12" of the bearer.`,
+        desc: `Until the start of your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly Hammerhal units while they are wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Ghyran Aspect`,
-        desc: `If you choose this aspect, roll 1 dice for each friendly HAMMERHAL unit wholly within 12" of the bearer. On a 4+, you can heal up to D3 wounds allocated to that unit.`,
+        desc: `Roll 1 dice for each friendly HAMMERHAL unit wholly within 12" of the bearer. On a 4+, you can heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
     ],
