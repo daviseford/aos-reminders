@@ -83,6 +83,22 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
 
 const parseAllegiance = (obj: ParentNode) => {
   try {
+    const { childNodes = [] } = obj
+    const nameObj = childNodes.find(x => {
+      if (
+        x.nodeName === 'p' &&
+        x.childNodes.length &&
+        x.childNodes.some(
+          y => y.nodeName === 'span' && y.childNodes.length && y.childNodes[0].value === 'Selections:'
+        )
+      ) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    return nameObj
   } catch (err) {
     return null
   }
@@ -166,7 +182,7 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
     }
 
     if (!results.allegiance && isAllegianceObj(obj)) {
-      results.allegiance = obj
+      results.allegiance = parseAllegiance(obj)
     }
 
     if (obj.childNodes.length > 0) {
