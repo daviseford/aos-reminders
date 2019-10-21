@@ -56,6 +56,7 @@ const cleanText = (txt: string) => {
   return txt
     .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
     .replace(/\r|\n|↵/g, ' ')
+    .replace(/ {2,}/g, ' ')
     .trim()
 }
 
@@ -92,20 +93,36 @@ const parseRootSelection = (obj: ParentNode) => {
       return false
     }) as ParentNode[]
 
+    let className = ''
+    let key = ''
     const paragraphs = pTags.map(x => {
-      return x.childNodes
-        .reduce(
-          (a, b) => {
-            if (!b.childNodes || !b.childNodes.length) return a
-            const val = cleanText(b.childNodes[0].value)
-            a.push(val)
-            return a
-          },
-          [] as string[]
-        )
-        .join(' ')
-        .trim()
-        .replace(/ {2,}/g, ' ')
+      return x.childNodes.reduce(
+        (a, b) => {
+          if (!b.childNodes || !b.childNodes.length) return a
+          if (isParentNode(b)) {
+            if (b.attrs.length > 0) {
+              if (b.attrs[0].value === 'bold' && className !== 'bold') {
+                className = 'bold'
+                key = ''
+              } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
+                a[key] = ''
+                className = 'italic'
+              }
+            }
+          }
+
+          const val = cleanText(b.childNodes[0].value)
+
+          if (className === 'bold') {
+            key = cleanText(`${key} ${val}`).replace(/:$/g, '')
+          } else {
+            a[key] = cleanText(`${a[key]} ${val}`)
+          }
+
+          return a
+        },
+        {} as { [key: string]: string }
+      )
     })
 
     return { name, paragraphs }
