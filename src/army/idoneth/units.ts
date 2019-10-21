@@ -1,5 +1,6 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -13,7 +14,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
-  BATTLESHOCK_PHASE,
 } from 'types/phases'
 
 // Unit Names
