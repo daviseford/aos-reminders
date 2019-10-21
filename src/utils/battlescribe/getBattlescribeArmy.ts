@@ -26,7 +26,7 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
       .map(stripParentNode)
       .map(x => {
         if (isChildNode(x)) {
-          x.value = x.value.replace(/(.+)\\n {1,}(.+)/g, `$1 $2`).trim()
+          x.value = cleanText(x.value)
         }
         return x
       })
@@ -52,6 +52,13 @@ const isFactionObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
   return obj.nodeName === 'li' && obj.attrs && obj.attrs[0] && obj.attrs[0].value === 'force'
 }
 
+const cleanText = (txt: string) => {
+  return txt
+    .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
+    .replace(/\r|\n|↵/g, ' ')
+    .trim()
+}
+
 /**
  *
  * @param obj
@@ -72,11 +79,36 @@ const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
 
 const parseRootSelection = (obj: ParentNode) => {
   try {
-    const nameObj = obj.childNodes.find(x => x.nodeName === 'h4')
+    const { childNodes = [] } = obj
+    const nameObj = childNodes.find(x => x.nodeName === 'h4')
     if (!nameObj || !nameObj.childNodes.length) throw new Error('Could not find the item name')
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
-    return { name }
+    const pTags = childNodes.filter(x => {
+      if (!isParentNode(x)) return false
+      if (x.nodeName === 'p' && x.attrs.length && x.attrs[0].value === 'profile-names') {
+        return true
+      }
+      return false
+    }) as ParentNode[]
+
+    const paragraphs = pTags.map(x => {
+      return x.childNodes
+        .reduce(
+          (a, b) => {
+            if (!b.childNodes || !b.childNodes.length) return a
+            const val = cleanText(b.childNodes[0].value)
+            a.push(val)
+            return a
+          },
+          [] as string[]
+        )
+        .join(' ')
+        .trim()
+        .replace(/ {2,}/g, ' ')
+    })
+
+    return { name, paragraphs }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
