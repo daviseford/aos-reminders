@@ -1,4 +1,3 @@
-// @ts-nocheck
 import parse5 from 'parse5'
 import { uniq } from 'lodash'
 
@@ -288,14 +287,15 @@ const parseRootSelection = (obj: ParentNode) => {
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     const tableTags = childNodes.filter(x => {
-      if (!isParentNode(x)) return false
-      return x.nodeName === 'table'
+      return isParentNode(x) && x.nodeName === 'table'
     }) as ParentNode[]
 
     const entries: { [key: string]: string[] } = {}
 
     tableTags.forEach(table => {
+      // @ts-ignore
       const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+      // @ts-ignore
       const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
       const names = tds.map(x => x.childNodes[0].value).flat()
       entries[tableName] = names
