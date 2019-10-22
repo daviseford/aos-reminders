@@ -1,5 +1,6 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -28,7 +29,7 @@ export const Units: TUnits = [
       {
         name: `Drench with Hate`,
         desc: `Re-roll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
-        when: [DURING_GAME],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Pulled Into the Depths`,
@@ -48,7 +49,7 @@ export const Units: TUnits = [
       {
         name: `Tranquility of the Abyss`,
         desc: `Add 3 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
-        when: [DURING_GAME],
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
       {
         name: `Cloying Seas Mists`,
@@ -75,7 +76,7 @@ export const Units: TUnits = [
       {
         name: `The Crest of the High Kings`,
         desc: `Add 1 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 18" of this model.`,
-        when: [DURING_GAME],
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
       {
         name: `Cealith, the High King's Shield`,
@@ -85,7 +86,7 @@ export const Units: TUnits = [
       {
         name: `First Among Akhelians`,
         desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 18" of this model.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Deepmare Horn`,
@@ -105,7 +106,7 @@ export const Units: TUnits = [
       {
         name: `Akhelian Paragon`,
         desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 12" of this model.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Storm of Blows`,
@@ -191,8 +192,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Catalogue of Souls`,
-        desc: `Add 1 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this model. In addition, re-roll hit rolls of 1 for friendly NAMARTI units while they are wholly within 12" of this model.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 12" of this model.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Catalogue of Souls`,
+        desc: `Re-roll hit rolls of 1 for friendly NAMARTI units while they are wholly within 12" of this model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Writhing Tentacles`,
@@ -212,7 +218,7 @@ export const Units: TUnits = [
       {
         name: `Void Drum`,
         desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -237,7 +243,7 @@ export const Units: TUnits = [
       {
         name: `Biovoltaic Barrier`,
         desc: `Ignore the Rend characteristic of attacks against this unit when making save rolls for this unit. In addition, this unit has a Save characteristic of 3+ instead of 4+ if it made a charge move in the same turn.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -286,8 +292,18 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can re-roll one hit, wound, save, run, or charge roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
-        when: [DURING_GAME],
+        desc: `Once per phase, you can re-roll one run roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Pulsing Rhythm of the Drums`,
+        desc: `Once per phase, you can re-roll one charge roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Pulsing Rhythm of the Drums`,
+        desc: `Once per phase, you can re-roll one hit, wound, or save roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
