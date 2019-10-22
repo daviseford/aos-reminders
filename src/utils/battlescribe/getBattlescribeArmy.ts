@@ -22,6 +22,11 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
   }
   //@ts-ignore
   delete docObj.parentNode // Get rid of circular references
+  //@ts-ignore
+  delete docObj.namespaceURI // Unnecessary key
+  //@ts-ignore
+  delete docObj.tagName // Unnecessary key
+
   if (!isParentNode(docObj)) return docObj
 
   if (docObj.childNodes.length > 0) {
@@ -226,7 +231,7 @@ const parseRootSelection = (obj: ParentNode) => {
 
     let className = ''
     let key = ''
-    const paragraphs = pTags.map(x => {
+    const entries = pTags.map(x => {
       return x.childNodes.reduce(
         (a, b) => {
           if (!isParentNode(b) || !b.childNodes.length) return a
@@ -255,7 +260,7 @@ const parseRootSelection = (obj: ParentNode) => {
       )
     })
 
-    return { name, paragraphs }
+    return { name, entries }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
@@ -347,9 +352,7 @@ interface ChildNode {
 
 interface ParentNode {
   nodeName: string
-  tagName: string
   attrs: Attrs[]
-  namespaceURI: string
   childNodes: Array<ChildNode | ParentNode>
 }
 
