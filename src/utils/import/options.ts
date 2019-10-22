@@ -87,7 +87,10 @@ const azyrTypoMap: TNameMap = {
 }
 
 // Battlescribe on the left - AoS Reminders on the right
-// const battlescribeTypoMap: TNameMap = {}
+const battlescribeTypoMap: TNameMap = {
+  "Dracothian's Tail": "Dracothion's Tail",
+  'Light of Dracothian': 'Light of Dracothion',
+}
 
 // Azyr helper
 export const factionToAllegianceMap = {
@@ -220,7 +223,7 @@ export const parserOptions: TParserOptions = {
   Battlescribe: {
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
-    typoMap: {},
+    typoMap: battlescribeTypoMap,
   },
   Unknown: {
     checkPoorSpacing: false,

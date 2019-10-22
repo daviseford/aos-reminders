@@ -7,7 +7,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
 import { IImportedArmy, TImportParsers } from 'types/import'
-import { getBattleScribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
+import { getInitialBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 interface IUseParseArgs {
   handleDone: () => void
@@ -56,7 +56,7 @@ export const handleParseFile: TUseParse = ({
         const typedArray = new Uint8Array(reader.result as any)
 
         if (file.type === 'text/html') {
-          getBattleScribeArmy(reader.result as string)
+          getInitialBattlescribeArmy(reader.result as string)
           return
         }
 
