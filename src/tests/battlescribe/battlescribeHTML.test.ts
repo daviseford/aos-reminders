@@ -12,8 +12,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('BoC1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
     expect(res).toEqual({
       allyFactionNames: [],
@@ -92,10 +90,20 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('FEC1')
     const res = getBattlescribeArmy(parsedText)
 
+    console.log(res)
+
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.realmscape).toEqual('Chamon')
     expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
-    // expect(res.errors).toEqual([])
+    expect(res.selections.artifacts).toEqual([
+      'The Grim Garland (Royal Treasury)',
+      'The Dermal Robe (Royal Treasury)',
+      'Carrion Wand (Noble Heirlooms)',
+      'Blood-river Chalice (Royal Treasury)',
+      'Ghurish Mawshard',
+    ])
+    // As with Herdstone, this is "Uncategorized"
+    expect(res.errors).toEqual([{ text: 'Charnel Throne', severity: 'warn' }])
   })
 
   xit('should work with Fyreslayers', () => {
