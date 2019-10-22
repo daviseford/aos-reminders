@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 import path from 'path'
-import { SERAPHON } from 'meta/factions'
+import { SERAPHON, FLESH_EATER_COURTS, BEASTS_OF_CHAOS, FYRESLAYERS } from 'meta/factions'
 import { getBattleScribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 const getFile = (filename: string) => {
@@ -8,6 +8,27 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattleScribeArmy', () => {
+  it('should work with FEC', () => {
+    const parsedText = getFile('FEC1')
+    const res = getBattleScribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
+  })
+
+  it('should work with BoC', () => {
+    const parsedText = getFile('BoC1')
+    const res = getBattleScribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+  })
+
+  it('should work with Fyreslayers', () => {
+    const parsedText = getFile('Fyreslayers1')
+    const res = getBattleScribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+  })
+
   it('should work with Seraphon', () => {
     const parsedText = getFile('Seraphon2')
     const res = getBattleScribeArmy(parsedText)
