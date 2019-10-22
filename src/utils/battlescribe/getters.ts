@@ -3,7 +3,7 @@ import { IParentNode, IFactionInfo, IChildNode, IParsedRoot } from './getBattles
 import { isParentNode, isChildNode } from './checks'
 import { importFactionNameMap } from 'utils/import/options'
 import { stripParentNode, partialSearchDoc } from './parseHTML'
-import { cleanText, fixKeys } from './battlescribeUtils'
+import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
 
 /**
  *
@@ -204,16 +204,16 @@ export const sortParsedRoots = (roots: IParsedRoot[]) => {
     Commands: 'commands',
     'Endless Spell': 'endless_spells',
     Battalion: 'battalions',
+    Scenery: 'scenery',
     Spells: 'spells',
     'Super Battalion': 'battalions',
   }
 
-  const removeVals = ['Allegiance', 'Game Type', 'Realm of Battle', 'Damage Table']
-
   roots.forEach(r => {
     // Handle name first
-    if (removeVals.includes(r.name)) return
-    let has_matched = false
+    if (ignoredValues.includes(r.name)) return
+
+    let [has_matched, process_entries] = [false, true]
     Object.keys(lookup).forEach(key => {
       if (!has_matched && r.name.startsWith(`${key}:`)) {
         const vals = r.name
@@ -222,6 +222,7 @@ export const sortParsedRoots = (roots: IParsedRoot[]) => {
           .map(cleanText)
         Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         has_matched = true
+        if (key === 'Endless Spell') process_entries = false
       }
     })
 
@@ -231,13 +232,15 @@ export const sortParsedRoots = (roots: IParsedRoot[]) => {
       Collection.units = uniq(Collection.units.concat(vals))
     }
 
-    // Now need to handle entries
-    Object.keys(r.entries).forEach(key => {
-      if (lookup[key]) {
-        const vals = r.entries[key]
-        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
-      }
-    })
+    if (process_entries) {
+      // Now need to handle entries
+      Object.keys(r.entries).forEach(key => {
+        if (lookup[key]) {
+          const vals = r.entries[key]
+          Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        }
+      })
+    }
   })
 
   return Collection

@@ -5,6 +5,15 @@ export const cleanText = (txt: string) => {
     .replace(/ {2,}/g, ' ')
     .trim()
 }
+export const ignoredValues = [
+  'Allegiance',
+  'Game Type',
+  'Realm of Battle',
+  'Damage Table',
+  'Realm of Origin',
+  'Points Variation',
+  'Purchased Command Points',
+]
 
 export const fixKeys = (obj: { [key: string]: string[] }) => {
   const lookup = {
@@ -14,11 +23,9 @@ export const fixKeys = (obj: { [key: string]: string[] }) => {
     Weapon: 'Weapons',
   }
 
-  const removeVals = ['Allegiance', 'Game Type', 'Realm of Battle', 'Damage Table']
-
   return Object.keys(obj).reduce(
     (a, key) => {
-      if (removeVals.includes(key)) return a
+      if (ignoredValues.includes(key)) return a
 
       if (lookup[key]) {
         a[lookup[key]] = obj[key]

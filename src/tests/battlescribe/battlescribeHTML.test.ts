@@ -15,7 +15,71 @@ describe('getBattlescribeArmy', () => {
     console.log(res)
 
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-    expect(res.errors).toEqual([])
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [
+        {
+          text: 'Tzaangor Enlightened on Discs of Tzeentch',
+          severity: 'warn',
+        },
+      ],
+      realmscape_feature: null,
+      realmscape: null,
+      unknownSelections: [],
+      factionName: 'BEASTS_OF_CHAOS',
+      selections: {
+        allegiances: [],
+        artifacts: [
+          'Bleating Gnarlstaff (Brayherds)',
+          "Ignax's Scales (Aqshy)",
+          'Ruby Ring (Aqshy)',
+          'Crown of Flames (Aqshy)',
+          'Glyph-etched Talisman (Warherds)',
+          'Magmaforged Blade (Aqshy)',
+          'Onyx Blade (Aqshy)',
+          'Smouldering Helm (Aqshy)',
+          'Thunderstrike Lodestone (Thunderscorn)',
+          'Volcanic Axe (Brayherds)',
+        ],
+        battalions: ['Depraved Drove', 'Marauding Brayherd'],
+        commands: ['Grisly Trophy', "Slaughterer's Call"],
+        endless_spells: [
+          'Balewind Vortex',
+          'Lauchon the Soulseeker',
+          "Ravenak's Gnashing Jaws",
+          'Soulscream Bridge',
+        ],
+        scenery: ['Herdstone', 'Penumbral Engine'],
+        spells: [
+          'Arcane Bolt',
+          'Mystic Shield',
+          'Summon Lightning',
+          'Thunderwave (Thunderscorn Wizard)',
+          'Devolve',
+          'Vicious Stranglethorns (Brayherd Wizard)',
+          'Boon of Mutation',
+        ],
+        traits: [],
+        triumphs: [],
+        units: [
+          'Beastlord',
+          'Doombull',
+          'Dragon Ogor Shaggoth',
+          'Great Bray-Shaman',
+          'Tzaangor Shaman',
+          'Chaos Gargant',
+          'Cygor',
+          'Gors',
+          'Ungors',
+          'Centigors',
+          'Dragon Ogors',
+          'Razorgors',
+          'Tzaangors',
+        ],
+      },
+    })
   })
 
   xit('should work with FEC', () => {
