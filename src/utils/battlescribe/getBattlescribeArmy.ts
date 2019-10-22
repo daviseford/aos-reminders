@@ -89,68 +89,7 @@ const parseAllegiance = (obj: ParentNode) => {
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
 
     if (partialSearchDoc(obj, 'Allegiance:')) {
-      // We need to do some dumb shit now
-
-      const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
-      if (!ulNode) return
-      const liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as ParentNode
-      if (!liNode) return
-
-      const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as ParentNode[]
-
-      // Need to split on bold like we do in other places
-      let className = ''
-      let key = ''
-      const entries = pChildren.reduce(
-        (accum, x) => {
-          x.childNodes.forEach(cNode => {
-            let val = ''
-
-            if (isParentNode(cNode)) {
-              if (cNode.attrs.length > 0) {
-                if (cNode.attrs[0].value === 'bold' && className !== 'bold') {
-                  className = 'bold'
-                  key = ''
-                } else if (cNode.attrs[0].value !== 'bold' && className !== 'not_bold') {
-                  accum[key] = ''
-                  className = 'not_bold'
-                }
-              }
-              val = cleanText((cNode.childNodes[0] as ChildNode).value)
-            } else if (isChildNode(cNode)) {
-              if (!accum[key]) accum[key] = ''
-              className = 'not_bold'
-              val = cleanText(cNode.value)
-            }
-
-            if (className === 'bold') {
-              key = cleanText(`${key} ${val}`).replace(/:$/g, '')
-            } else {
-              accum[key] = cleanText(`${accum[key]} ${val}`)
-            }
-          })
-
-          return accum
-        },
-        {} as { [key: string]: string }
-      )
-
-      console.log('asdasd', entries)
-
-      // Rename any keys here
-      return Object.keys(entries).reduce(
-        (a, key) => {
-          if (key === 'Selections') {
-            a['Allegiance'] = entries[key]
-          } else if (key === 'Categories') {
-            a['Faction'] = entries[key]
-          } else {
-            a[key] = entries[key]
-          }
-          return a
-        },
-        {} as { [key: string]: string }
-      )
+      return getAllegianceMetadata(obj)
     }
 
     const { childNodes = [] } = strippedObj
@@ -201,6 +140,68 @@ const parseAllegiance = (obj: ParentNode) => {
   } catch (err) {
     return { faction: null }
   }
+}
+
+const getAllegianceMetadata = (obj: ParentNode) => {
+  // We need to do some dumb shit now because of Battlescribe
+  const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
+  if (!ulNode) return
+  const liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as ParentNode
+  if (!liNode) return
+
+  const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as ParentNode[]
+
+  // Need to split on bold like we do in other places
+  let className = ''
+  let key = ''
+  const entries = pChildren.reduce(
+    (accum, x) => {
+      x.childNodes.forEach(cNode => {
+        let val = ''
+
+        if (isParentNode(cNode)) {
+          if (cNode.attrs.length > 0) {
+            if (cNode.attrs[0].value === 'bold' && className !== 'bold') {
+              className = 'bold'
+              key = ''
+            } else if (cNode.attrs[0].value !== 'bold' && className !== 'not_bold') {
+              accum[key] = ''
+              className = 'not_bold'
+            }
+          }
+          val = cleanText((cNode.childNodes[0] as ChildNode).value)
+        } else if (isChildNode(cNode)) {
+          if (!accum[key]) accum[key] = ''
+          className = 'not_bold'
+          val = cleanText(cNode.value)
+        }
+
+        if (className === 'bold') {
+          key = cleanText(`${key} ${val}`).replace(/:$/g, '')
+        } else {
+          accum[key] = cleanText(`${accum[key]} ${val}`)
+        }
+      })
+
+      return accum
+    },
+    {} as { [key: string]: string }
+  )
+
+  // Rename any keys here
+  return Object.keys(entries).reduce(
+    (a, key) => {
+      if (key === 'Selections') {
+        a['Allegiance'] = entries[key]
+      } else if (key === 'Categories') {
+        a['Faction'] = entries[key]
+      } else {
+        a[key] = entries[key]
+      }
+      return a
+    },
+    {} as { [key: string]: string }
+  )
 }
 
 const parseRootSelection = (obj: ParentNode) => {
