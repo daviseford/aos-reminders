@@ -229,6 +229,7 @@ const parseAllegiance = (obj: ParentNode) => {
 }
 
 const getAllegianceMetadata = (obj: ParentNode) => {
+  debugger
   // We need to do some dumb shit now because of Battlescribe
   const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
   if (!ulNode) return
@@ -274,20 +275,50 @@ const getAllegianceMetadata = (obj: ParentNode) => {
   )
 
   // Rename any keys here
-  return Object.keys(entries).reduce(
+  const liEntries = Object.keys(entries).reduce(
     (a, key) => {
       const val = entries[key].replace(/ {1,},$/g, '') // remove trailing comma
-      if (key === 'Selections') {
-        a['Allegiance'] = val
-      } else if (key === 'Categories') {
-        a['Faction'] = val
-      } else {
-        a[key] = val
-      }
+      a[key] = val
       return a
     },
     {} as { [key: string]: string }
   )
+
+  const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as ParentNode[]
+
+  const tableTraits: { [key: string]: string[] } = {}
+
+  tableTags.forEach(table => {
+    // @ts-ignore
+    const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+    // @ts-ignore
+    const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
+    const names = tds.map(x => x.childNodes[0].value).flat()
+    tableTraits[tableName] = names
+  })
+
+  const mergedTraits = fixKeys(
+    Object.keys(liEntries).reduce((a, key) => {
+      if (tableTraits[key]) {
+        a[key] = tableTraits[key]
+      } else {
+        a[key] = liEntries[key]
+      }
+      return a
+    }, {})
+  )
+
+  return Object.keys(mergedTraits).reduce((a, key) => {
+    const val = mergedTraits[key]
+    if (key === 'Selections') {
+      a['Allegiance'] = val
+    } else if (key === 'Categories') {
+      a['Faction'] = val
+    } else {
+      a[key] = val
+    }
+    return a
+  }, {})
 }
 
 const parseRootSelection = (obj: ParentNode) => {
