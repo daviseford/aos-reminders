@@ -1,4 +1,4 @@
-import { DURING_GAME, START_OF_HERO_PHASE } from 'types/phases'
+import { DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -6,7 +6,7 @@ const Abilities: TAbilities = [
   {
     name: `Forgotten Nightmares`,
     desc: `Missile weapons can only be used to target an IDONETH DEEPKIN unit with this battle trait if it is the closest visible enemy unit.`,
-    when: [DURING_GAME],
+    when: [SHOOTING_PHASE],
   },
   {
     name: `Isharann Rituals`,
