@@ -97,6 +97,7 @@ const parseAllegiance = (obj: ParentNode) => {
 
       const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p')
 
+      // Need to split on bold like we do in other places
       const pMerged = pChildren.reduce(
         (a, b, i) => {
           if (!a[i]) a[i] = ''
