@@ -28,7 +28,7 @@ describe('getBattlescribeArmy', () => {
         },
       ],
       realmscape_feature: null,
-      realmscape: null,
+      realmscape: 'Ghyran',
       unknownSelections: [],
       factionName: 'BEASTS_OF_CHAOS',
       selections: {
@@ -88,13 +88,14 @@ describe('getBattlescribeArmy', () => {
     })
   })
 
-  xit('should work with FEC', () => {
+  it('should work with FEC', () => {
     const parsedText = getFile('FEC1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(res.realmscape).toEqual('Chamon')
     expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
-    expect(res.errors).toEqual([])
+    // expect(res.errors).toEqual([])
   })
 
   xit('should work with Fyreslayers', () => {

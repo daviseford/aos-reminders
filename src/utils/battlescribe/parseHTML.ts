@@ -1,10 +1,19 @@
 import { IParentNode, IChildNode, IFactionInfo } from './getBattlescribeArmy'
-import { isChildNode, isParentNode, isRootSelection, isFactionObj, isAllegianceObj } from './checks'
+import {
+  isChildNode,
+  isParentNode,
+  isRootSelection,
+  isFactionObj,
+  isAllegianceObj,
+  isRealmObj,
+} from './checks'
 import { cleanText, fixKeys } from './battlescribeUtils'
-import { parseFaction, parseAllegiance } from './getters'
+import { parseFaction, parseAllegiance, parseRealmObj } from './getters'
+import { TRealms } from 'types/realmscapes'
 
 export const traverseDoc = (docObj: IParentNode | IChildNode) => {
-  let results = {
+  const results = {
+    realmInfo: null as null | TRealms,
     allegianceInfo: null as any,
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     rootSelections: [] as IParentNode[],
@@ -15,6 +24,10 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
 
     if (isRootSelection(obj)) {
       results.rootSelections.push(obj)
+    }
+
+    if (!results.realmInfo && isRealmObj(obj)) {
+      results.realmInfo = parseRealmObj(obj)
     }
 
     if (!results.factionInfo.factionName && isFactionObj(obj)) {

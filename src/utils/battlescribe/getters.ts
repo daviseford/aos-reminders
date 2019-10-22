@@ -4,6 +4,17 @@ import { isParentNode, isChildNode } from './checks'
 import { importFactionNameMap } from 'utils/import/options'
 import { stripParentNode, partialSearchDoc } from './parseHTML'
 import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
+import { TRealms } from 'types/realmscapes'
+
+export const parseRealmObj = (obj: IParentNode): TRealms | null => {
+  try {
+    //@ts-ignore
+    const text = obj.childNodes[1].childNodes[1].value
+    return text.split(': ')[1].trim() as TRealms
+  } catch (err) {
+    return null
+  }
+}
 
 /**
  *
