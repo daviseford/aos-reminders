@@ -144,7 +144,12 @@ const parseAllegiance = (obj: ParentNode) => {
         x.nodeName === 'p' &&
         x.childNodes.length &&
         x.childNodes.some(
-          y => y.nodeName === 'span' && y.childNodes.length && y.childNodes[0].value === 'Selections:'
+          y =>
+            isParentNode(y) &&
+            y.nodeName === 'span' &&
+            y.childNodes.length &&
+            isChildNode(y.childNodes[0]) &&
+            y.childNodes[0].value === 'Selections:'
         )
       ) {
         return true
@@ -153,15 +158,20 @@ const parseAllegiance = (obj: ParentNode) => {
       }
     })
 
-    debugger
+    // debugger
     if (!nameObj || !isParentNode(nameObj)) return null
 
     const selectionIdx = nameObj.childNodes.findIndex(
-      y => y.nodeName === 'span' && y.childNodes.length && y.childNodes[0].value === 'Selections:'
+      y =>
+        isParentNode(y) &&
+        y.nodeName === 'span' &&
+        y.childNodes.length &&
+        isChildNode(y.childNodes[0]) &&
+        y.childNodes[0].value === 'Selections:'
     )
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
-    debugger
+    // debugger
 
     let faction = objs
       .reduce((a, b) => {
@@ -181,7 +191,7 @@ const parseRootSelection = (obj: ParentNode) => {
   try {
     const { childNodes = [] } = obj
     const nameObj = childNodes.find(x => x.nodeName === 'h4')
-    if (!nameObj || !nameObj.childNodes.length) throw new Error('Could not find the item name')
+    if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     const pTags = childNodes.filter(x => {
@@ -197,20 +207,19 @@ const parseRootSelection = (obj: ParentNode) => {
     const paragraphs = pTags.map(x => {
       return x.childNodes.reduce(
         (a, b) => {
-          if (!b.childNodes || !b.childNodes.length) return a
-          if (isParentNode(b)) {
-            if (b.attrs.length > 0) {
-              if (b.attrs[0].value === 'bold' && className !== 'bold') {
-                className = 'bold'
-                key = ''
-              } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
-                a[key] = ''
-                className = 'italic'
-              }
+          if (!isParentNode(b) || !b.childNodes.length) return a
+
+          if (b.attrs.length > 0) {
+            if (b.attrs[0].value === 'bold' && className !== 'bold') {
+              className = 'bold'
+              key = ''
+            } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
+              a[key] = ''
+              className = 'italic'
             }
           }
 
-          const val = cleanText(b.childNodes[0].value)
+          const val = cleanText((b.childNodes[0] as ChildNode).value)
 
           if (className === 'bold') {
             key = cleanText(`${key} ${val}`).replace(/:$/g, '')
