@@ -19,8 +19,8 @@ export const getBattleScribeArmy = (html_string: string) => {
 interface IParsedRoot {
   name: string
   entries: {
-    [key: string]: string
-  }[]
+    [key: string]: string[]
+  }
 }
 
 const sortParsedRoots = (roots: IParsedRoot[]) => {
@@ -71,14 +71,11 @@ const sortParsedRoots = (roots: IParsedRoot[]) => {
 
     // Now need to handle entries
 
-    r.entries.forEach(entry => {
-      debugger
-      Object.keys(entry).forEach(key => {
-        if (lookup[key]) {
-          const vals = entry[key]
-          Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
-        }
-      })
+    Object.keys(r.entries).forEach(key => {
+      if (lookup[key]) {
+        const vals = r.entries[key]
+        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+      }
     })
   })
 
@@ -290,56 +287,29 @@ const parseRootSelection = (obj: ParentNode) => {
     if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
-    const pTags = childNodes.filter(x => {
+    const tableTags = childNodes.filter(x => {
       if (!isParentNode(x)) return false
-      if (x.nodeName === 'p' && x.attrs.length && x.attrs[0].value === 'profile-names') {
-        return true
-      }
-      return false
+      return x.nodeName === 'table'
     }) as ParentNode[]
 
-    let className = ''
-    let key = ''
-    const entries = pTags
-      .map(x => {
-        return x.childNodes.reduce(
-          (a, b) => {
-            if (!isParentNode(b) || !b.childNodes.length) return a
+    const entries: { [key: string]: string[] } = {}
 
-            if (b.attrs.length > 0) {
-              if (b.attrs[0].value === 'bold' && className !== 'bold') {
-                className = 'bold'
-                key = ''
-              } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
-                a[key] = ''
-                className = 'italic'
-              }
-            }
+    tableTags.forEach(table => {
+      const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+      const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
+      const names = tds.map(x => x.childNodes[0].value).flat()
+      entries[tableName] = names
+    })
 
-            const val = cleanText((b.childNodes[0] as ChildNode).value)
-
-            if (className === 'bold') {
-              key = cleanText(`${key} ${val}`).replace(/:$/g, '')
-            } else {
-              a[key] = cleanText(`${a[key]} ${val}`)
-            }
-
-            return a
-          },
-          {} as { [key: string]: string }
-        )
-      })
-      .map(fixKeys)
-
-    return { name, entries }
+    return { name, entries: fixKeys(entries) }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
-    return { name: '', entries: [] }
+    return { name: '', entries: {} }
   }
 }
 
-const fixKeys = (obj: { [key: string]: string }) => {
+const fixKeys = (obj: { [key: string]: string[] }) => {
   const lookup = {
     Artefact: 'Artifacts',
     'Command Abilities': 'Commands',
@@ -360,7 +330,7 @@ const fixKeys = (obj: { [key: string]: string }) => {
       }
       return a
     },
-    {} as { [key: string]: string }
+    {} as { [key: string]: string[] }
   )
 }
 
