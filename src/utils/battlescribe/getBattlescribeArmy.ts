@@ -194,7 +194,6 @@ const parseAllegiance = (obj: ParentNode) => {
       }
     })
 
-    // debugger
     if (!nameObj || !isParentNode(nameObj)) return null
 
     const selectionIdx = nameObj.childNodes.findIndex(
@@ -207,7 +206,6 @@ const parseAllegiance = (obj: ParentNode) => {
     )
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
-    // debugger
 
     let faction = objs
       .reduce((a, b) => {
@@ -291,8 +289,6 @@ const parseRootSelection = (obj: ParentNode) => {
     const nameObj = childNodes.find(x => x.nodeName === 'h4')
     if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
-
-    if (name === 'Engine of the Gods') debugger
 
     const pTags = childNodes.filter(x => {
       if (!isParentNode(x)) return false
