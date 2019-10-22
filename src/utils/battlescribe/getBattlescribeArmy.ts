@@ -253,7 +253,7 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
   }
 
   const traverse = (obj: ParentNode | ChildNode) => {
-    if (!obj.childNodes) return
+    if (!isParentNode(obj)) return
 
     if (isRootSelection(obj)) {
       results.rootSelections.push(obj)
@@ -286,7 +286,7 @@ const partialSearchDoc = (docObj: ParentNode, searchString: string) => {
       result = obj.value
       return
     }
-    if (!obj.childNodes) return
+    if (!isParentNode(obj)) return
 
     if (obj.childNodes.length > 0) {
       obj.childNodes.forEach(traverse)
@@ -303,7 +303,12 @@ const isAllegianceObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
   if (!isRootSelection(obj)) return false
   if (!obj.childNodes.length) return false
   const subObj = obj.childNodes.find(x => {
-    return x.nodeName === 'h4' && x.childNodes[0].value === 'Allegiance'
+    return (
+      isParentNode(x) &&
+      x.nodeName === 'h4' &&
+      isChildNode(x.childNodes[0]) &&
+      x.childNodes[0].value === 'Allegiance'
+    )
   })
   return !!subObj
 }
