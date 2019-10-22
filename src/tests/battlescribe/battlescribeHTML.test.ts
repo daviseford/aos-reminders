@@ -90,8 +90,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('FEC1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.realmscape).toEqual('Chamon')
     expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
@@ -106,13 +104,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Charnel Throne', severity: 'warn' }])
   })
 
-  xit('should work with Fyreslayers', () => {
+  it('should work with Fyreslayers', () => {
     const parsedText = getFile('Fyreslayers1')
     const res = getBattlescribeArmy(parsedText)
 
+    console.log(res)
+
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
-    expect(res.errors).toEqual([])
+    // As with Herdstone, this is "Uncategorized"
+    expect(res.errors).toEqual([{ text: 'Magmic Battleforge', severity: 'warn' }])
   })
 
   it('should work with Seraphon', () => {

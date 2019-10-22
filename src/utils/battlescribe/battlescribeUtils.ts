@@ -1,9 +1,13 @@
 export const cleanText = (txt: string) => {
-  return txt
-    .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
-    .replace(/\r|\n|\v|\f|↵/g, ' ')
-    .replace(/ {2,}/g, ' ')
-    .trim()
+  return (
+    txt
+      .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
+      .replace(/\r|\n|\v|\f|↵/g, ' ')
+      .replace(/ {2,}/g, ' ')
+      // eslint-disable-next-line no-control-regex
+      .replace(/[^\x00-\x7F]/g, '') // Remove all other non-ASCII characters
+      .trim()
+  )
 }
 export const ignoredValues = [
   'Allegiance',

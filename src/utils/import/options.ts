@@ -92,6 +92,7 @@ const battlescribeTypoMap: TNameMap = {
   "Dracothian's Tail": "Dracothion's Tail",
   'Light of Dracothian': 'Light of Dracothion',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
+  'Vulkite Bezerkers': 'Vulkite Berzerkers',
 }
 
 // Azyr helper
