@@ -1,12 +1,18 @@
 import { readFileSync } from 'fs'
 import path from 'path'
 import {
-  SERAPHON,
-  FLESH_EATER_COURTS,
   BEASTS_OF_CHAOS,
-  FYRESLAYERS,
-  STORMCAST_ETERNALS,
+  BONESPLITTERZ,
   DAUGHTERS_OF_KHAINE,
+  FLESH_EATER_COURTS,
+  FYRESLAYERS,
+  GLOOMSPITE_GITZ,
+  IDONETH_DEEPKIN,
+  KHARADRON_OVERLORDS,
+  KHORNE,
+  LEGION_OF_BLOOD,
+  SERAPHON,
+  STORMCAST_ETERNALS,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
@@ -15,6 +21,16 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  xit('should work with LoB1', () => {
+    const parsedText = getFile('LoB1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(LEGION_OF_BLOOD)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with BoC', () => {
     const parsedText = getFile('BoC1')
     const res = getBattlescribeArmy(parsedText)
@@ -177,6 +193,123 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
     // As with Herdstone, this is "Uncategorized"
     expect(res.errors).toEqual([{ text: 'Magmic Battleforge', severity: 'warn' }])
+  })
+
+  it('should work with BoC2', () => {
+    const parsedText = getFile('BoC2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.errors).toEqual([{ text: 'Herdstone', severity: 'warn' }])
+  })
+
+  it('should work with Bonesplitterz1', () => {
+    const parsedText = getFile('Bonesplitterz1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BONESPLITTERZ)
+    // This is characterized as a Super Battalion by Battlescribe
+    expect(res.errors).toEqual([{ text: 'Icebone Warclan', severity: 'warn' }])
+  })
+
+  it('should work with Gloomspite1', () => {
+    const parsedText = getFile('Gloomspite1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.errors).toEqual([
+      { text: 'Spider Rider Skitterswarm', severity: 'warn' },
+      { text: 'Night Shroud', severity: 'warn' },
+      { text: 'Speed of the Spider God', severity: 'warn' },
+      { text: 'Venom of the Spider God', severity: 'warn' },
+    ])
+  })
+
+  it('should work with IDK1', () => {
+    const parsedText = getFile('IDK1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.errors).toEqual([
+      { text: 'Awakening the Wood', severity: 'warn' },
+      { text: 'Unleash Spites', severity: 'warn' },
+      { text: 'Verdant Blessing', severity: 'warn' },
+    ])
+  })
+
+  it('should work with Khorne1', () => {
+    const parsedText = getFile('Khorne1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(KHORNE)
+    // TODO: Fix once https://github.com/daviseford/aos-reminders/issues/640 is merged
+    expect(res.errors).toEqual([
+      // Skull altar is uncategorized
+      { text: 'Skull Altar', severity: 'warn' },
+      { text: 'Vorgaroth the Scarred & Skalok the Skull Host of Khorne', severity: 'warn' },
+      { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
+      { text: 'Mazrall the Butcher', severity: 'warn' },
+      { text: 'Furies (of Khorne)', severity: 'warn' },
+    ])
+  })
+
+  it('should work with KO2', () => {
+    const parsedText = getFile('KO2')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.selections.allegiances).toEqual(['Barak-Nar, City of the First Sunrise (Skyport)'])
+    expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
+    expect(res.selections.scenery).toEqual(['Penumbral Engine'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with KO1', () => {
+    const parsedText = getFile('KO1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
+    expect(res.selections.commands).toEqual(['Invoke the Code', 'First Rule of Grungsson'])
+    expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
+    expect(res.selections.units).toEqual([
+      'Aether-Khemist',
+      'Aetheric Navigator',
+      'Arkanaut Admiral',
+      'Bjorgen Thundrik',
+      'Brokk Grungsson, Lord-Magnate of Barak-Nar',
+      'Endrinmaster',
+      'Arkanaut Frigate',
+      'Arkanaut Ironclad',
+      'Grundstok Gunhauler',
+      'Arkanaut Company',
+      'Endrinriggers',
+      'Grundstok Thunderers',
+      'Skywardens',
+      "Thundrik's Profiteers",
+    ])
+    expect(res.selections.battalions).toEqual([
+      'Aetherstrike Force',
+      'Grand Armada',
+      'Grundstok Escort Wing',
+      'Iron Sky Command',
+      'Iron Sky Squadron',
+    ])
+    expect(res.selections.artifacts).toEqual([
+      'Aethersight Loupe (SKY-PORT TREASURE)',
+      "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+      'Ghyrropian Gauntlets (Ghyran)',
+      'The Sunderblade (Ghyran)',
+      'Jade Diadem (Ghyran)',
+      'Greenglade Flask (Ghyran)',
+      'Staff of Ocular Optimisation (AETHERMATIC WEAPON)',
+      'Malefic Skymines (GREAT ENDRINWORK)',
+      'The Last Word (GREAT ENDRINWORK)',
+      'Prudency Chutes (GREAT ENDRINWORK)',
+    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Seraphon', () => {

@@ -89,10 +89,17 @@ const azyrTypoMap: TNameMap = {
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: TNameMap = {
   'Blood River Chalice': 'Blood-river Chalice',
-  "Dracothian's Tail": "Dracothion's Tail",
+  'Chronomatic Cogs': 'Chronomantic Cogs',
+  'Cloying Sea Mists': 'Cloying Seas Mists',
   'Light of Dracothian': 'Light of Dracothion',
+  'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
+  'Sneaky Shufflers': 'Sneaky Snufflers',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
+  "Dracothian's Tail": "Dracothion's Tail",
+  "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+  'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',
+  'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
 }
 
 // Azyr helper
