@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import parse5 from 'parse5'
 
 export const getBattleScribeArmy = (html_string: string) => {
@@ -47,8 +47,9 @@ const stripParentNode = (docObj: ParentNode | ChildNode) => {
   return docObj
 }
 
-const isParentNode = (val: ParentNode | ChildNode): val is ParentNode => 'attrs' in val
-const isChildNode = (val: ParentNode | ChildNode): val is ChildNode => 'value' in val
+const isParentNode = (node: ParentNode | ChildNode | undefined): node is ParentNode =>
+  !!node && 'childNodes' in node
+const isChildNode = (node: ParentNode | ChildNode | undefined): node is ChildNode => !!node && 'value' in node
 
 const isFactionObj = (obj: ParentNode | ChildNode): obj is ParentNode => {
   if (isChildNode(obj)) return false
@@ -67,10 +68,11 @@ const cleanText = (txt: string) => {
  *
  * @param obj
  */
-const parseFaction = (obj: ParentNode | ChildNode): IFaction => {
+const parseFaction = (obj: ParentNode): IFaction => {
   try {
-    const factionNode = (obj.childNodes as ChildNode[]).find(x => x.nodeName === 'h2')
-    if (!factionNode) throw new Error('Could not find factionNode')
+    const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
+    if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
+    if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
     const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
     const [alliance, faction] = factionValue.split(' - ').map(x => x.trim())
     return { alliance, faction }
@@ -92,10 +94,10 @@ const parseAllegiance = (obj: ParentNode) => {
 
       const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
       if (!ulNode) return
-      const liNode = ulNode.childNodes.find(x => x.nodeName === 'li')
+      const liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as ParentNode
       if (!liNode) return
 
-      const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p')
+      const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as ParentNode[]
 
       // Need to split on bold like we do in other places
       const pMerged = pChildren.reduce(
@@ -105,9 +107,9 @@ const parseAllegiance = (obj: ParentNode) => {
           b.childNodes.forEach(x => {
             if (isChildNode(x)) {
               a[i] = `${a[i]} ${x.value || ''}`
-            } else {
+            } else if (isParentNode(x)) {
               x.childNodes.forEach(y => {
-                a[i] = `${a[i]} ${y.value || ''}`
+                a[i] = `${a[i]} ${isChildNode(y) ? y.value : ''}`
               })
             }
           })
