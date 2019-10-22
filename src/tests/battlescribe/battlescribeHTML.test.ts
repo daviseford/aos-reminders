@@ -8,27 +8,32 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
-  it('should work with FEC', () => {
+  it('should work with BoC', () => {
+    const parsedText = getFile('BoC1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.errors).toEqual([])
+  })
+
+  xit('should work with FEC', () => {
     const parsedText = getFile('FEC1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
+    expect(res.errors).toEqual([])
   })
 
-  it('should work with BoC', () => {
-    const parsedText = getFile('BoC1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-  })
-
-  it('should work with Fyreslayers', () => {
+  xit('should work with Fyreslayers', () => {
     const parsedText = getFile('Fyreslayers1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Seraphon', () => {
