@@ -160,7 +160,6 @@ const getAllegianceMetadata = (obj: ParentNode) => {
 
   const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as ParentNode[]
 
-  // Need to split on bold like we do in other places
   let className = ''
   let key = ''
   const entries = pChildren.reduce(
@@ -231,40 +230,63 @@ const parseRootSelection = (obj: ParentNode) => {
 
     let className = ''
     let key = ''
-    const entries = pTags.map(x => {
-      return x.childNodes.reduce(
-        (a, b) => {
-          if (!isParentNode(b) || !b.childNodes.length) return a
+    const entries = pTags
+      .map(x => {
+        return x.childNodes.reduce(
+          (a, b) => {
+            if (!isParentNode(b) || !b.childNodes.length) return a
 
-          if (b.attrs.length > 0) {
-            if (b.attrs[0].value === 'bold' && className !== 'bold') {
-              className = 'bold'
-              key = ''
-            } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
-              a[key] = ''
-              className = 'italic'
+            if (b.attrs.length > 0) {
+              if (b.attrs[0].value === 'bold' && className !== 'bold') {
+                className = 'bold'
+                key = ''
+              } else if (b.attrs[0].value === 'italic' && className !== 'italic') {
+                a[key] = ''
+                className = 'italic'
+              }
             }
-          }
 
-          const val = cleanText((b.childNodes[0] as ChildNode).value)
+            const val = cleanText((b.childNodes[0] as ChildNode).value)
 
-          if (className === 'bold') {
-            key = cleanText(`${key} ${val}`).replace(/:$/g, '')
-          } else {
-            a[key] = cleanText(`${a[key]} ${val}`)
-          }
+            if (className === 'bold') {
+              key = cleanText(`${key} ${val}`).replace(/:$/g, '')
+            } else {
+              a[key] = cleanText(`${a[key]} ${val}`)
+            }
 
-          return a
-        },
-        {} as { [key: string]: string }
-      )
-    })
+            return a
+          },
+          {} as { [key: string]: string }
+        )
+      })
+      .map(fixKeys)
 
     return { name, entries }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
   }
+}
+
+const fixKeys = (obj: { [key: string]: string }) => {
+  const lookup = {
+    Artefact: 'Artifacts',
+    'Command Abilities': 'Commands',
+    Spell: 'Spells',
+    Weapon: 'Weapons',
+  }
+
+  return Object.keys(obj).reduce(
+    (a, key) => {
+      if (lookup[key]) {
+        a[lookup[key]] = obj[key]
+      } else {
+        a[key] = obj[key]
+      }
+      return a
+    },
+    {} as { [key: string]: string }
+  )
 }
 
 const isRootSelection = (obj: ParentNode | ChildNode): obj is ParentNode => {
