@@ -13,6 +13,7 @@ describe('getBattleScribeArmy', () => {
     const res = getBattleScribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(res.selections.allegiances).toEqual(['Gristlegore'])
   })
 
   it('should work with BoC', () => {

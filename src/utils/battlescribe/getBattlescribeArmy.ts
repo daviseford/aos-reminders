@@ -21,7 +21,10 @@ export const getBattleScribeArmy = (html_string: string) => {
 
   return {
     factionName: factionInfo.factionName,
-    selections,
+    selections: {
+      ...selections,
+      allegiances: allegianceInfo && allegianceInfo.Allegiance ? [allegianceInfo.Allegiance] : [],
+    },
   }
 }
 
@@ -153,11 +156,17 @@ const cleanText = (txt: string) => {
 const parseFaction = (obj: ParentNode): IFaction => {
   try {
     const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
+
     if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
     if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
+
     const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
-    let [grandAlliance, factionName] = factionValue.split(' - ').map(x => x.trim())
+
+    const sep = factionValue.includes(': ') ? ': ' : ' - '
+    let [grandAlliance, factionName] = factionValue.split(sep).map(x => x.trim())
+
     factionName = importFactionNameMap[factionName] || 'Unknown'
+
     return { grandAlliance, factionName }
   } catch (err) {
     console.log('There was an error detecting the faction name')
@@ -229,7 +238,6 @@ const parseAllegiance = (obj: ParentNode) => {
 }
 
 const getAllegianceMetadata = (obj: ParentNode) => {
-  debugger
   // We need to do some dumb shit now because of Battlescribe
   const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
   if (!ulNode) return
