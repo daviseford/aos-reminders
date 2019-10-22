@@ -1,6 +1,13 @@
 import { readFileSync } from 'fs'
 import path from 'path'
-import { SERAPHON, FLESH_EATER_COURTS, BEASTS_OF_CHAOS, FYRESLAYERS, STORMCAST_ETERNALS } from 'meta/factions'
+import {
+  SERAPHON,
+  FLESH_EATER_COURTS,
+  BEASTS_OF_CHAOS,
+  FYRESLAYERS,
+  STORMCAST_ETERNALS,
+  DAUGHTERS_OF_KHAINE,
+} from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 const getFile = (filename: string) => {
@@ -104,11 +111,67 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Charnel Throne', severity: 'warn' }])
   })
 
-  it('should work with Fyreslayers', () => {
-    const parsedText = getFile('Fyreslayers1')
+  it('should work with Dok', () => {
+    const parsedText = getFile('Dok1')
     const res = getBattlescribeArmy(parsedText)
 
     console.log(res)
+
+    expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
+    expect(res.selections).toEqual({
+      allegiances: ['Hagg Nar (Temple)'],
+      artifacts: [
+        "Ignax's Scales (Aqshy)",
+        'Ruby Ring (Aqshy)',
+        'Rune of Ulgu (Wizard)',
+        'Thousand and One Dark Blessings',
+        'Cursed Blade',
+        'Purefire Brazier (Aqshy)',
+        'The Mirror Glaive (Wizard)',
+        'Thermalrider Cloak (Aqshy)',
+        'Crone Blade',
+        'Smouldering Helm (Aqshy)',
+        'Khainite Pendant (Priest)',
+        'Magmadroth Blood Vials (Aqshy)',
+      ],
+      battalions: ['Cauldron Guard', 'Shadowhammer Compact', 'Temple Nest'],
+      commands: [],
+      endless_spells: ['Emerald Lifeswarm', 'Quicksilver Swords', 'Soulsnare Shackles'],
+      scenery: [],
+      spells: [
+        'Arcane Bolt',
+        'Enfeebling Foe',
+        'Mystic Shield',
+        'The Withering (Wizard)',
+        "Arnzipal's Black Horror",
+        'Doomfire',
+      ],
+      traits: [],
+      triumphs: [],
+      units: [
+        'Bloodwrack Medusa',
+        'Bloodwrack Shrine',
+        'Hag Queen',
+        'Hag Queen on Cauldron of Blood',
+        'Morathi, High Oracle of Khaine',
+        'Slaughter Queen',
+        'Slaughter Queen on Cauldron of Blood',
+        'Avatar of Khaine',
+        'Sisters of Slaughter',
+        'Witch Aelves',
+        'Blood Sisters',
+        'Blood Stalkers',
+        'Doomfire Warlocks',
+        'Khinerai Heartrenders',
+        'Khinerai Lifetakers',
+      ],
+    })
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers', () => {
+    const parsedText = getFile('Fyreslayers1')
+    const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
