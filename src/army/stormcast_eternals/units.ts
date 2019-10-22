@@ -265,7 +265,7 @@ export const Units: TUnits = [
       {
         name: `Astral Compass`,
         desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [MOVEMENT_PHASE],
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Tireless Hunters`,
@@ -461,7 +461,7 @@ export const Units: TUnits = [
       {
         name: `Astral Compass`,
         desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [MOVEMENT_PHASE],
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Aethereal Strike`,
@@ -609,7 +609,7 @@ export const Units: TUnits = [
       {
         name: `Warning Cry`,
         desc: `If a reserve enemy unit is set up on the battlefield for the first time within 10" of this unit, friendly STORMCAST ETERNAL units wholly within 9" of this unit can attack that reserve unit with all of the missile weapons they are armed with. A unit that uses this ability to attack a reserve unit cannot use this ability to attack another reserve unit in the same phase.`,
-        when: [DURING_SETUP],
+        when: [DURING_GAME],
       },
       {
         name: `Darting Attacks`,
@@ -1241,7 +1241,7 @@ export const Units: TUnits = [
       {
         name: `Astral Compass`,
         desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [MOVEMENT_PHASE],
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Tireless Hunters`,
