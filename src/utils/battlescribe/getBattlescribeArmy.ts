@@ -90,7 +90,6 @@ const parseAllegiance = (obj: ParentNode) => {
 
     if (partialSearchDoc(obj, 'Allegiance:')) {
       // We need to do some dumb shit now
-      debugger
 
       const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as ParentNode
       if (!ulNode) return
@@ -100,36 +99,53 @@ const parseAllegiance = (obj: ParentNode) => {
       const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as ParentNode[]
 
       // Need to split on bold like we do in other places
-      const pMerged = pChildren.reduce(
-        (a, b, i) => {
-          if (!a[i]) a[i] = ''
+      let className = ''
+      let key = ''
+      const entries = pChildren.reduce(
+        (accum, x) => {
+          x.childNodes.forEach(cNode => {
+            let val = ''
 
-          b.childNodes.forEach(x => {
-            if (isChildNode(x)) {
-              a[i] = `${a[i]} ${x.value || ''}`
-            } else if (isParentNode(x)) {
-              x.childNodes.forEach(y => {
-                a[i] = `${a[i]} ${isChildNode(y) ? y.value : ''}`
-              })
+            if (isParentNode(cNode)) {
+              if (cNode.attrs.length > 0) {
+                if (cNode.attrs[0].value === 'bold' && className !== 'bold') {
+                  className = 'bold'
+                  key = ''
+                } else if (cNode.attrs[0].value !== 'bold' && className !== 'not_bold') {
+                  accum[key] = ''
+                  className = 'not_bold'
+                }
+              }
+              val = cleanText((cNode.childNodes[0] as ChildNode).value)
+            } else if (isChildNode(cNode)) {
+              if (!accum[key]) accum[key] = ''
+              className = 'not_bold'
+              val = cleanText(cNode.value)
+            }
+
+            if (className === 'bold') {
+              key = cleanText(`${key} ${val}`).replace(/:$/g, '')
+            } else {
+              accum[key] = cleanText(`${accum[key]} ${val}`)
             }
           })
 
-          a[i] = cleanText(a[i])
-
-          return a
+          return accum
         },
-        [] as string[]
+        {} as { [key: string]: string }
       )
 
-      return pMerged.reduce(
-        (a, b) => {
-          if (b.startsWith('Selections')) {
-            a['Allegiance'] = b.split(':').map(x => x.trim())[1]
-          } else if (b.includes('Command Abilities:')) {
-            a['Command Abilities'] = b.split('Command Abilities:').map(x => x.trim())[1]
+      console.log('asdasd', entries)
+
+      // Rename any keys here
+      return Object.keys(entries).reduce(
+        (a, key) => {
+          if (key === 'Selections') {
+            a['Allegiance'] = entries[key]
+          } else if (key === 'Categories') {
+            a['Faction'] = entries[key]
           } else {
-            let [key, values] = b.split(':').map(x => x.trim())
-            a[key] = values
+            a[key] = entries[key]
           }
           return a
         },
