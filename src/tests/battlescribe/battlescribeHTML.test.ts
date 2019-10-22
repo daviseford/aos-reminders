@@ -19,9 +19,11 @@ describe('getBattlescribeArmy', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
+      // Herdstone is "Uncategorized"
+      // TODO: Figure that out :)
       errors: [
         {
-          text: 'Tzaangor Enlightened on Discs of Tzeentch',
+          text: 'Herdstone',
           severity: 'warn',
         },
       ],
@@ -51,7 +53,10 @@ describe('getBattlescribeArmy', () => {
           "Ravenak's Gnashing Jaws",
           'Soulscream Bridge',
         ],
-        scenery: ['Herdstone', 'Penumbral Engine'],
+        scenery: [
+          // 'Herdstone',
+          'Penumbral Engine',
+        ],
         spells: [
           'Arcane Bolt',
           'Mystic Shield',
@@ -76,6 +81,7 @@ describe('getBattlescribeArmy', () => {
           'Centigors',
           'Dragon Ogors',
           'Razorgors',
+          'Tzaangor Enlightened',
           'Tzaangors',
         ],
       },
