@@ -88,10 +88,14 @@ const parseAllegiance = (obj: ParentNode) => {
     const strippedObj = stripParentNode(obj) as ParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
 
+    // If there is a node with the value of `Allegiance:`
+    // There is some advanced Battlescribe bullshittery going on
+    // And we need to parse it in a special manner
     if (partialSearchDoc(obj, 'Allegiance:')) {
       return getAllegianceMetadata(obj)
     }
 
+    // Otherwise we can do a semi-normal lookup
     const { childNodes = [] } = strippedObj
     const nameObj = childNodes.find(x => {
       if (
@@ -191,12 +195,13 @@ const getAllegianceMetadata = (obj: ParentNode) => {
   // Rename any keys here
   return Object.keys(entries).reduce(
     (a, key) => {
+      const val = entries[key].replace(/ {1,},$/g, '') // remove trailing comma
       if (key === 'Selections') {
-        a['Allegiance'] = entries[key]
+        a['Allegiance'] = val
       } else if (key === 'Categories') {
-        a['Faction'] = entries[key]
+        a['Faction'] = val
       } else {
-        a[key] = entries[key]
+        a[key] = val
       }
       return a
     },
