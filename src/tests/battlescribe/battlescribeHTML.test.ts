@@ -8,11 +8,9 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattleScribeArmy', () => {
-  it('should work with allied endless spells', () => {
+  it('should work with Seraphon', () => {
     const parsedText = getFile('Seraphon2')
     const res = getBattleScribeArmy(parsedText)
-
-    console.log(res)
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections).toEqual({
@@ -49,6 +47,5 @@ describe('getBattleScribeArmy', () => {
         'Vanguard-Raptors with Hurricane Crossbows',
       ],
     })
-    // expect(res.errors).toEqual([])
   })
 })
