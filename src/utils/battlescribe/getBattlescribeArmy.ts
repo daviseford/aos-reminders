@@ -1,5 +1,6 @@
 // @ts-nocheck
 import parse5 from 'parse5'
+import { uniq } from 'lodash'
 
 export const getBattleScribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
@@ -7,10 +8,62 @@ export const getBattleScribeArmy = (html_string: string) => {
   const strippedDoc = stripParentNode(document as ParentNode)
 
   const selections = traverseDoc(strippedDoc)
-  const parsedRoots = selections.rootSelections.map(parseRootSelection)
+  const parsedRoots: IParsedRoot[] = selections.rootSelections.map(parseRootSelection)
+  const Collection = sortParsedRoots(parsedRoots)
   console.log(strippedDoc)
   console.log(selections)
   console.log(parsedRoots)
+  console.log(Collection)
+}
+
+interface IParsedRoot {
+  name: string
+  entries: {
+    [key: string]: string
+  }[]
+}
+
+const sortParsedRoots = (roots: IParsedRoot[]) => {
+  const Collection = {
+    allegiances: [] as string[],
+    artifacts: [] as string[],
+    battalions: [] as string[],
+    commands: [] as string[],
+    endless_spells: [] as string[],
+    scenery: [] as string[],
+    spells: [] as string[],
+    traits: [] as string[],
+    triumphs: [] as string[],
+    units: [] as string[],
+  }
+
+  const lookup = {
+    'Endless Spell': 'endless_spells',
+    Battalion: 'battalions',
+    'Super Battalion': 'battalions',
+  }
+
+  roots.forEach(r => {
+    let has_matched = false
+    Object.keys(lookup).forEach(key => {
+      if (!has_matched && r.name.startsWith(`${key}:`)) {
+        const vals = r.name
+          .split(`${key}:`)[1]
+          .split(',')
+          .map(cleanText)
+        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        has_matched = true
+      }
+    })
+
+    // Put everything else in units
+    if (!has_matched) {
+      const vals = r.name.split(',').map(cleanText)
+      Collection.units = uniq(Collection.units.concat(vals))
+    }
+  })
+
+  return Collection
 }
 
 /**
@@ -265,6 +318,7 @@ const parseRootSelection = (obj: ParentNode) => {
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
+    return { name: '', entries: [] }
   }
 }
 
