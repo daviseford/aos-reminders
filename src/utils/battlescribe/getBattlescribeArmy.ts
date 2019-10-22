@@ -38,14 +38,18 @@ const sortParsedRoots = (roots: IParsedRoot[]) => {
   }
 
   const lookup = {
+    Artifacts: 'artifacts',
+    Commands: 'commands',
     'Endless Spell': 'endless_spells',
     Battalion: 'battalions',
+    Spells: 'spells',
     'Super Battalion': 'battalions',
   }
 
   const removeVals = ['Allegiance', 'Game Type', 'Realm of Battle', 'Damage Table']
 
   roots.forEach(r => {
+    // Handle name first
     if (removeVals.includes(r.name)) return
     let has_matched = false
     Object.keys(lookup).forEach(key => {
@@ -64,6 +68,18 @@ const sortParsedRoots = (roots: IParsedRoot[]) => {
       const vals = r.name.split(',').map(cleanText)
       Collection.units = uniq(Collection.units.concat(vals))
     }
+
+    // Now need to handle entries
+
+    r.entries.forEach(entry => {
+      debugger
+      Object.keys(entry).forEach(key => {
+        if (lookup[key]) {
+          const vals = entry[key]
+          Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        }
+      })
+    })
   })
 
   return Collection
@@ -275,6 +291,8 @@ const parseRootSelection = (obj: ParentNode) => {
     const nameObj = childNodes.find(x => x.nodeName === 'h4')
     if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
     const name = (nameObj.childNodes[0] as ChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
+
+    if (name === 'Engine of the Gods') debugger
 
     const pTags = childNodes.filter(x => {
       if (!isParentNode(x)) return false
