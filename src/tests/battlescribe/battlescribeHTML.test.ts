@@ -13,6 +13,9 @@ import {
   LEGION_OF_BLOOD,
   SERAPHON,
   STORMCAST_ETERNALS,
+  LEGION_OF_NIGHT,
+  LEGION_OF_SACRAMENT,
+  NIGHTHAUNT,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
@@ -21,6 +24,35 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with Nighthaunt1', () => {
+    const parsedText = getFile('Nighthaunt1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+  it('should work with LoS1', () => {
+    const parsedText = getFile('LoS1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with LoN1', () => {
+    const parsedText = getFile('LoN1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(LEGION_OF_NIGHT)
+    expect(res.errors).toEqual([])
+  })
+
   xit('should work with LoB1', () => {
     const parsedText = getFile('LoB1')
     const res = getBattlescribeArmy(parsedText)

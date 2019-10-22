@@ -35,6 +35,7 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
     }
 
     if (!results.allegianceInfo && isAllegianceObj(obj)) {
+      debugger
       results.allegianceInfo = parseAllegiance(obj)
     }
 
