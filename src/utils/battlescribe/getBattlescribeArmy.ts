@@ -1,21 +1,28 @@
 import parse5 from 'parse5'
 import { uniq } from 'lodash'
+import { isTest } from 'utils/env'
+import { importFactionNameMap } from 'utils/import/options'
 
 export const getBattleScribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
 
   const strippedDoc = stripParentNode(document as ParentNode)
 
-  const { allegiance, faction, rootSelections } = traverseDoc(strippedDoc)
+  const { allegianceInfo, factionInfo, rootSelections } = traverseDoc(strippedDoc)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
-  const Collection = sortParsedRoots(parsedRoots)
+  const selections = sortParsedRoots(parsedRoots)
 
-  console.log(strippedDoc)
-  console.log(allegiance, faction, rootSelections)
-  console.log(parsedRoots)
-  console.log(Collection)
+  if (!isTest) {
+    console.log(strippedDoc)
+    console.log(allegianceInfo, factionInfo, rootSelections)
+    // console.log(parsedRoots)
+    console.log(selections)
+  }
 
-  return Collection
+  return {
+    factionName: factionInfo.factionName,
+    selections,
+  }
 }
 
 interface IParsedRoot {
@@ -149,12 +156,13 @@ const parseFaction = (obj: ParentNode): IFaction => {
     if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
     if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
     const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
-    const [alliance, faction] = factionValue.split(' - ').map(x => x.trim())
-    return { alliance, faction }
+    let [grandAlliance, factionName] = factionValue.split(' - ').map(x => x.trim())
+    factionName = importFactionNameMap[factionName] || 'Unknown'
+    return { grandAlliance, factionName }
   } catch (err) {
     console.log('There was an error detecting the faction name')
     console.error(err)
-    return { alliance: null, faction: null }
+    return { grandAlliance: null, factionName: null }
   }
 }
 
@@ -344,8 +352,8 @@ const isRootSelection = (obj: ParentNode | ChildNode): obj is ParentNode => {
 
 const traverseDoc = (docObj: ParentNode | ChildNode) => {
   let results = {
-    allegiance: null as any,
-    faction: null as null | IFaction,
+    allegianceInfo: null as any,
+    factionInfo: { factionName: null, grandAlliance: null } as IFaction,
     rootSelections: [] as ParentNode[],
   }
 
@@ -356,12 +364,12 @@ const traverseDoc = (docObj: ParentNode | ChildNode) => {
       results.rootSelections.push(obj)
     }
 
-    if (!results.faction && isFactionObj(obj)) {
-      results.faction = parseFaction(obj)
+    if (!results.factionInfo.factionName && isFactionObj(obj)) {
+      results.factionInfo = parseFaction(obj)
     }
 
-    if (!results.allegiance && isAllegianceObj(obj)) {
-      results.allegiance = parseAllegiance(obj)
+    if (!results.allegianceInfo && isAllegianceObj(obj)) {
+      results.allegianceInfo = parseAllegiance(obj)
     }
 
     if (obj.childNodes.length > 0) {
@@ -427,6 +435,6 @@ interface ParentNode {
 }
 
 interface IFaction {
-  alliance: string | null
-  faction: string | null
+  grandAlliance: string | null
+  factionName: string | null
 }
