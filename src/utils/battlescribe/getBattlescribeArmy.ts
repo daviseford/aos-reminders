@@ -6,13 +6,16 @@ export const getBattleScribeArmy = (html_string: string) => {
 
   const strippedDoc = stripParentNode(document as ParentNode)
 
-  const selections = traverseDoc(strippedDoc)
-  const parsedRoots: IParsedRoot[] = selections.rootSelections.map(parseRootSelection)
+  const { allegiance, faction, rootSelections } = traverseDoc(strippedDoc)
+  const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const Collection = sortParsedRoots(parsedRoots)
+
   console.log(strippedDoc)
-  console.log(selections)
+  console.log(allegiance, faction, rootSelections)
   console.log(parsedRoots)
   console.log(Collection)
+
+  return Collection
 }
 
 interface IParsedRoot {
@@ -69,7 +72,6 @@ const sortParsedRoots = (roots: IParsedRoot[]) => {
     }
 
     // Now need to handle entries
-
     Object.keys(r.entries).forEach(key => {
       if (lookup[key]) {
         const vals = r.entries[key]
@@ -168,6 +170,7 @@ const parseAllegiance = (obj: ParentNode) => {
       return getAllegianceMetadata(obj)
     }
 
+    // TODO: Switch to Table lookup
     // Otherwise we can do a semi-normal lookup
     const { childNodes = [] } = strippedObj
     const nameObj = childNodes.find(x => {
