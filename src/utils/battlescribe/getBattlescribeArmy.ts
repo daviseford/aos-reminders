@@ -9,6 +9,7 @@ export const getBattlescribeArmy = (html_string: string) => {
   const army = getInitialBattlescribeArmy(html_string)
   const errorChecked = importErrorChecker(army, 'Battlescribe')
 
+  if (!isTest) console.log('finally', errorChecked)
   return errorChecked
 }
 
@@ -17,14 +18,14 @@ const getInitialBattlescribeArmy = (html_string: string) => {
 
   const strippedDoc = stripParentNode(document as IParentNode)
 
-  const { allegianceInfo, factionInfo, rootSelections } = traverseDoc(strippedDoc)
+  const { allegianceInfo, factionInfo, realmInfo, rootSelections } = traverseDoc(strippedDoc)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots)
 
   if (!isTest) {
     console.log(strippedDoc)
     console.log(allegianceInfo, factionInfo, rootSelections)
-    // console.log(parsedRoots)
+    console.log(parsedRoots)
     console.log(selections)
   }
 
@@ -34,7 +35,7 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     allyUnits: [],
     errors: [],
     realmscape_feature: null,
-    realmscape: null,
+    realmscape: realmInfo,
     unknownSelections: [],
     factionName: factionInfo.factionName as TSupportedFaction,
     selections: {
