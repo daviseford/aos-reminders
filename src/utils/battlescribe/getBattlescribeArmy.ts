@@ -43,7 +43,10 @@ const sortParsedRoots = (roots: IParsedRoot[]) => {
     'Super Battalion': 'battalions',
   }
 
+  const removeVals = ['Allegiance', 'Game Type', 'Realm of Battle', 'Damage Table']
+
   roots.forEach(r => {
+    if (removeVals.includes(r.name)) return
     let has_matched = false
     Object.keys(lookup).forEach(key => {
       if (!has_matched && r.name.startsWith(`${key}:`)) {
@@ -330,8 +333,12 @@ const fixKeys = (obj: { [key: string]: string }) => {
     Weapon: 'Weapons',
   }
 
+  const removeVals = ['Allegiance', 'Game Type', 'Realm of Battle', 'Damage Table']
+
   return Object.keys(obj).reduce(
     (a, key) => {
+      if (removeVals.includes(key)) return a
+
       if (lookup[key]) {
         a[lookup[key]] = obj[key]
       } else {
