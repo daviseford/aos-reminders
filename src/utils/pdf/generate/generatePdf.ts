@@ -232,7 +232,6 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
       const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-
       y = y + currentPhaseInfo.yHeight
       pages[pageIdx] = pages[pageIdx].concat(objs)
       textPhaseIdx = nextPhaseIdx
@@ -254,7 +253,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
 
     // Handle first action
     let nextTitleIdx = findIndex(objs, x => x.type === 'title', 2)
-    let firstAction = slice(objs, 0, nextTitleIdx)
+    let firstAction = slice(objs, 0, nextTitleIdx === -1 ? undefined : nextTitleIdx)
     let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
 
     let titleSpace: IText = {
