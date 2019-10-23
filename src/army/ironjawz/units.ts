@@ -120,7 +120,7 @@ export const Units: TUnits = [
     name: `Orruk Weirdnob Shaman`,
     effects: [
       {
-        name: `Brutal POwer`,
+        name: `Brutal Power`,
         desc: `If this model is wholly within 18" of a friendly IRONJAWZ unit with 10 or more models at the end of its hero phase, it can attempt to cast the Green Puke Spell in addition to any other spells it can cast, even if Green Puke was already attempted earlier in the phase.`,
         when: [END_OF_HERO_PHASE],
       },
