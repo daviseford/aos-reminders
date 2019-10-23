@@ -283,6 +283,7 @@ const commonTypos = {
   'Amar anthine': 'Amaranthine',
   'Ar tiller y': 'Artillery',
   'Balefir e': 'Balefire',
+  'Bat tle': 'Battle',
   'Bear er': 'Bearer',
   'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',

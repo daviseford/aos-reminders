@@ -12,6 +12,7 @@ import {
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_GRIEF,
   MERCENARY_COMPANIES,
   SERAPHON,
   SKAVEN,
@@ -35,6 +36,7 @@ import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
+import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -47,6 +49,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Khorne2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles LoG2', () => {
+    const pages = handleAzyrPages(LoG2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.errors).toEqual([])
   })
 
