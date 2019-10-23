@@ -16,6 +16,7 @@ import {
   LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
+  GRAND_HOST_OF_NAGASH,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
@@ -28,16 +29,12 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Nighthaunt1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.errors).toEqual([])
   })
   it('should work with LoS1', () => {
     const parsedText = getFile('LoS1')
     const res = getBattlescribeArmy(parsedText)
-
-    console.log(res)
 
     expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
     expect(res.errors).toEqual([
@@ -48,14 +45,27 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should work with LoN1', () => {
-    const parsedText = getFile('LoN1')
+  it('should work with GHoN1', () => {
+    const parsedText = getFile('GHoN1')
     const res = getBattlescribeArmy(parsedText)
 
     console.log(res)
 
-    expect(res.factionName).toEqual(LEGION_OF_NIGHT)
-    expect(res.errors).toEqual([])
+    expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: '*COURT OF NULAHMIA',
+      },
+      {
+        severity: 'warn',
+        text: 'Shrieker Host',
+      },
+      {
+        severity: 'warn',
+        text: 'Guardian of Souls with Mortality Glass',
+      },
+    ])
   })
 
   xit('should work with LoB1', () => {
@@ -165,8 +175,6 @@ describe('getBattlescribeArmy', () => {
   it('should work with Dok', () => {
     const parsedText = getFile('Dok1')
     const res = getBattlescribeArmy(parsedText)
-
-    console.log(res)
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections).toEqual({
