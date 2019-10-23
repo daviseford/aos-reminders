@@ -17,6 +17,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
+  DURING_SETUP,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_KHORNE } from 'meta/alliances'
@@ -923,6 +924,48 @@ export const Units: TUnits = [
         name: `The Butcher's Due`,
         desc: `You can use this command ability at the start of your hero phase if this model is on the battlefield. If you do so, pick 1 friendly Khorne unit wholly within 18" of this model. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vorgaroth the Scarred & Skalok the Skull Host of Khorne`,
+    effects: [
+      {
+        name: `Monstrous Trophies`,
+        desc: `You can re-roll failed wound rolls for attacks made with this model's Skull Cleaver Axe of Khorne that target a Monster.
+               If the unmodified wound roll for an attack made with the Skull Cleaver Axe of Khorne is a 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Crushing Bulk`,
+        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 3+ that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Eternal Hunt`,
+        desc: `You can set up this model in reserve.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Eternal Hunt`,
+        desc: `If this model is in reserve, at the end of your second movement phase you can set up this unit more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+
+      {
+        name: `Fettered Servitude`,
+        desc: `Before battleshock testing friendly Khorne units wholly within 12" of this model, you can instead slay 1 model from that unit and skip its battleshock test. If you chose not to do this and fail the subsequent battleshock test, add D3 to the models that flee.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Fuelled by Death`,
+        desc: `You can pick 1 friendly model within 3" of this unit and roll a dice. If the roll is equal to or greater than the models wound's characteristic, the model is slain. This unit heals a number of of wounds up to the value of the slain model's wounds characteristic.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wings of Fury`,
+        desc: `Subract 3 from the casting and unbinding rolls for enemy wizards within 18" of this model.`,
+        when: [HERO_PHASE],
       },
     ],
   },
