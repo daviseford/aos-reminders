@@ -231,7 +231,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
     if (y + currentPhaseInfo.yHeight < pageBottom) {
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
-      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
+      const objs = slice(allText, textPhaseIdx, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
       y = y + currentPhaseInfo.yHeight
       pages[pageIdx] = pages[pageIdx].concat(objs)
       textPhaseIdx = nextPhaseIdx
