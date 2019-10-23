@@ -2,37 +2,15 @@ import parse5 from 'parse5'
 import { isTest } from 'utils/env'
 import { importErrorChecker } from 'utils/import'
 import { stripParentNode, traverseDoc, parseRootSelection } from './parseHTML'
-import { sortParsedRoots } from './getters'
+import { sortParsedRoots, getFactionAndAllegiance } from './getters'
 import { TSupportedFaction } from 'meta/factions'
-import { isValidFactionName } from 'utils/armyUtils'
-import { importFactionNameMap } from 'utils/import/options'
 
 export const getBattlescribeArmy = (html_string: string) => {
   const army = getInitialBattlescribeArmy(html_string)
   const errorChecked = importErrorChecker(army, 'Battlescribe')
 
-  if (!isTest) console.log('finally', errorChecked)
+  if (!isTest) console.log('errorChecked', errorChecked)
   return errorChecked
-}
-
-const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo, factionInfo: IFactionInfo) => {
-  const res = { factionName: null, allegiances: [] }
-
-  const mappedAllegiance = importFactionNameMap[allegianceInfo.allegiance || '']
-  const mappedFaction = importFactionNameMap[allegianceInfo.faction || '']
-
-  if (isValidFactionName(mappedAllegiance)) {
-    return { ...res, factionName: mappedAllegiance }
-  } else if (isValidFactionName(mappedFaction)) {
-    return { ...res, factionName: mappedFaction }
-  }
-
-  debugger
-
-  return {
-    factionName: factionInfo.factionName,
-    allegiances: allegianceInfo.allegiance ? [allegianceInfo.allegiance] : [],
-  }
 }
 
 const getInitialBattlescribeArmy = (html_string: string) => {

@@ -6,6 +6,27 @@ import { stripParentNode, partialSearchDoc } from './parseHTML'
 import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
 import { TRealms } from 'types/realmscapes'
 import { isString } from 'util'
+import { isValidFactionName } from 'utils/armyUtils'
+
+export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo, factionInfo: IFactionInfo) => {
+  const res = { factionName: null, allegiances: [] }
+
+  const mappedAllegiance = importFactionNameMap[allegianceInfo.allegiance || '']
+  const mappedFaction = importFactionNameMap[allegianceInfo.faction || '']
+
+  if (isValidFactionName(mappedAllegiance)) {
+    return { ...res, factionName: mappedAllegiance }
+  } else if (isValidFactionName(mappedFaction)) {
+    return { ...res, factionName: mappedFaction }
+  }
+
+  debugger
+
+  return {
+    factionName: factionInfo.factionName,
+    allegiances: allegianceInfo.allegiance ? [allegianceInfo.allegiance] : [],
+  }
+}
 
 export const parseRealmObj = (obj: IParentNode): TRealms | null => {
   try {
