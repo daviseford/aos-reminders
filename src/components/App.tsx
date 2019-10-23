@@ -1,11 +1,12 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-import { Loading } from './helpers/suspenseFallbacks'
+import { LoadingBody } from './helpers/suspenseFallbacks'
 
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
+import { ROUTES } from 'utils/env'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
@@ -21,11 +22,11 @@ const App = () => {
   return (
     <div className="d-block">
       <BrowserRouter>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingBody />}>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/subscribe" component={Subscribe} />
+            <Route path={ROUTES.HOME} exact component={Home} />
+            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
+            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
           </Switch>
         </Suspense>
       </BrowserRouter>

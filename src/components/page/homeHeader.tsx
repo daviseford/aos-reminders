@@ -7,17 +7,18 @@ import { SelectOne } from 'components/input/select'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { EmptyHeader } from 'components/helpers/suspenseFallbacks'
+import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
-import { hasStoredArmy } from 'utils/localStore'
+import { LocalStoredArmy } from 'utils/localStore'
+import { useAppStatus } from 'context/useAppStatus'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
   return (
     <div className="ThemeDarkBg">
-      <Suspense fallback={<EmptyHeader />}>
+      <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
       <Jumbotron />
@@ -45,6 +46,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections,
     setFactionName,
   } = props
+  const { isOnline } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
 
   // Get our user's favorite faction from localStorage/API
@@ -54,17 +56,19 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !hasStoredArmy() && !hasSelections) {
+    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections) {
       setFactionName(favoriteFaction)
     }
-  }, [favoriteFaction, setFactionName, hasSelections])
+    // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
+    // eslint-disable-next-line
+  }, [favoriteFaction, setFactionName])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
     resetSelections()
     resetRealmscapeStore()
     resetAllySelections()
-    logFactionSwitch(value)
+    if (isOnline) logFactionSwitch(value)
     setFactionName(value)
   })
 
@@ -78,7 +82,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         <h1 className="display-5">Age of Sigmar Reminders</h1>
         <p className="mt-3 mb-1 d-none d-sm-block">
           By Davis E. Ford -{' '}
-          <LinkNewTab className="text-white" href="//daviseford.com">
+          <LinkNewTab className="text-white" href="//daviseford.com" label={'Davis E. Ford website'}>
             daviseford.com
           </LinkNewTab>
         </p>

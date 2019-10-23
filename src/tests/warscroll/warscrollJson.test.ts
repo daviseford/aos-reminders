@@ -5,9 +5,14 @@ import {
   BIG_WAAAGH,
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
+  DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
+  IRONJAWZ,
+  SERAPHON,
   SKAVEN,
+  SYLVANETH,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -15,6 +20,91 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with allied endless spells', () => {
+    const parsedText = getFile('1571327027143-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.selections.endless_spells).toContain('Everblaze Comet')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Horn of the Consort', () => {
+    const parsedText = getFile('1571520651334-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SYLVANETH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual(['Horn of the Consort'])
+  })
+
+  it('should work with Ironjawz allied with Gloomspite Gitz', () => {
+    const parsedText = getFile('1571425644480-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw", 'Thermalrider Cloak (Aqshy)'])
+    expect(warscrollTxt.allyFactionNames).toEqual([BONESPLITTERZ, GLOOMSPITE_GITZ])
+    expect(warscrollTxt.allySelections).toEqual({
+      BONESPLITTERZ: { units: ['Wurrgog Prophet'] },
+      GLOOMSPITE_GITZ: { units: ['Fungoid Cave-Shaman'] },
+    })
+    expect(warscrollTxt.selections.units).toEqual([
+      'Megaboss on Maw-Krusha',
+      'Orruk Megaboss',
+      'Orruk Warchanter',
+      'Orruk Ardboys',
+      'Orruk Brutes',
+      'Orruk Gore-gruntas',
+    ])
+    expect(warscrollTxt.selections.endless_spells).toContain('Scuttletide')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Bonesplitterz', () => {
+    const parsedText = getFile('1571329765256-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BONESPLITTERZ)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Grundstock Thunderers', () => {
+    const parsedText = getFile('1571347470427-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.units).toContain('Grundstok Thunderers')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Horribly Resilient typo', () => {
+    const parsedText = getFile('1571263525536-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Anointed on Frostheart Phoenix', () => {
+    const parsedText = getFile('1571285206236-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.units).toContain('Anointed on Frostheart Phoenix')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  // Uncomment when https://github.com/daviseford/aos-reminders/issues/598 is complete
+  xit('should work with Firebelly', () => {
+    const parsedText = getFile('1571287948786-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.units).toContain('Firebelly')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it("should work with Bonesplitterz Burnin' Tattooz", () => {
     const parsedText = getFile('1571240331862-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -25,32 +115,24 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Cities of Sigmar', () => {
+  it('should work with Cities of Sigmar and allies', () => {
     const parsedText = getFile('1571220408099-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
     expect(warscrollTxt.selections.traits).toContain('Secretive Warlock (Anvilgard)')
-
-    // TODO: This should be empty once we add ally detection
-    expect(warscrollTxt.errors).toEqual([
-      { text: 'Knight-Azyros', severity: 'warn' },
-      { text: 'Prosecutors with Celestial Hammers', severity: 'warn' },
-    ])
+    expect(warscrollTxt.selections.units).toContain('Knight-Azyros')
+    expect(warscrollTxt.selections.units).toContain('Prosecutors with Celestial Hammers')
+    expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Cities of Sigmar', () => {
+  it('should work with Cities of Sigmar and allies', () => {
     const parsedText = getFile('1571233444845-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-
-    // TODO: This should be empty once we add ally detection
-    expect(warscrollTxt.errors).toEqual([
-      { text: 'Knight-Azyros', severity: 'warn' },
-      { text: 'Desolators', severity: 'warn' },
-    ])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should work with FEC Command Traits', () => {
@@ -88,19 +170,21 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Warboss')
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -113,12 +197,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      // We should consider adding some logic that would look up Liberators
-      // (by searching all armies in the same Grand Alliance)
-      // Find out they are in SCE and add SCE as an ally + Liberators as an allyUnit
-      // For now, this is an acceptable error
-      // This is mainly a mockup of what a WSB JSON test should look like
-      errors: [{ text: 'Liberators', severity: 'warn' }],
+      errors: [],
       factionName: 'CITIES_OF_SIGMAR',
       realmscape_feature: null,
       realmscape: null,
@@ -137,6 +216,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Irondrakes',
           'Gyrobombers',
           'Battlemage',
+          'Liberators',
           'Cogsmith',
           'Freeguild Guard',
           'Helblaster Volley Gun',

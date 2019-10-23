@@ -2,9 +2,10 @@ import React, { useState, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
-import { FallbackBtn } from 'components/helpers/suspenseFallbacks'
+import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -36,6 +37,7 @@ interface IToolbarProps {
 
 const ToolbarComponent = (props: IToolbarProps) => {
   const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
+  const { isOnline } = useAppStatus()
   const { isSubscribed, isActive } = useSubscription()
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
@@ -58,22 +60,22 @@ const ToolbarComponent = (props: IToolbarProps) => {
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <AddAllyButton setAllyClick={handleAllyClick} />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <DownloadPDFButton />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <SaveArmyBtn showSavedArmies={showSavedArmies} />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>
-          <Suspense fallback={<FallbackBtn />}>
+          <Suspense fallback={<LoadingBtn />}>
             <ImportArmyButton
               show={showImportArmy}
               hide={hideImportArmy}
@@ -84,7 +86,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </Suspense>
         </div>
-        <div className={showSavedWrapperClass} hidden={!isSubscribed || !isActive}>
+        <div className={showSavedWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}

@@ -74,8 +74,8 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Rip-toof First`,
-        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        name: `Rip-toof Fist`,
+        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -84,8 +84,8 @@ export const Units: TUnits = [
     name: `Orruk Megaboss`,
     effects: [
       {
-        name: `Rip-toof First`,
-        desc: `If the unmodified save roll for an attack that targets a model with a Rip-toof Fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        name: `Rip-toof Fist`,
+        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -110,7 +110,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Frenzy of Violence`,
+        name: `Violent Fury`,
         desc: `Pick one IRONJAWZ unit that is wholly within 15" of the Warchanter in your hero phase. Add 1 to the damage inflicted by attacks made with melee weapons by that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
@@ -120,7 +120,7 @@ export const Units: TUnits = [
     name: `Orruk Weirdnob Shaman`,
     effects: [
       {
-        name: `Brutal POwer`,
+        name: `Brutal Power`,
         desc: `If this model is wholly within 18" of a friendly IRONJAWZ unit with 10 or more models at the end of its hero phase, it can attempt to cast the Green Puke Spell in addition to any other spells it can cast, even if Green Puke was already attempted earlier in the phase.`,
         when: [END_OF_HERO_PHASE],
       },
@@ -250,7 +250,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Up and At'Em`,
-        desc: `In your hero phase, if this battalion's Big Boss is on the battlefield, the Big Boss may use the Mighty Destroyers command ability as if they were a Megaboss and without spending a command point.`,
+        desc: `Once in each of your hero phases, the Big Boss from this battalion can use the Mighty Destroyers command ability (pg 55) without spending 1 command point.`,
         when: [HERO_PHASE],
       },
     ],

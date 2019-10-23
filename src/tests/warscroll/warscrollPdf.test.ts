@@ -5,6 +5,7 @@ import path from 'path'
 import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
+  DAUGHTERS_OF_KHAINE,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
@@ -12,6 +13,7 @@ import {
   SERAPHON,
   SLAANESH,
   STORMCAST_ETERNALS,
+  SYLVANETH,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -78,14 +80,14 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [
         "Strike of Eagles (Tempest's Eye)",
-        'Warding Brand (Hallowheart)',
         'Choking Fumes (Greywater Fastness)',
-        'Ignite Weapons (Hallowheart)',
         'Crystal Aegis (Hallowheart)',
         'Twin-Tailed Comet (Hammerhal)',
-        'Elemental Cyclone (Hallowheart)',
         'Sap Strength (Anvilgard)',
         'Sear Wounds (Hallowheart)',
+        'Warding Brand (Hallowheart)',
+        'Ignite Weapons (Hallowheart)',
+        'Elemental Cyclone (Hallowheart)',
         'Shield of Thorns (Ghyran)',
       ],
       traits: [
@@ -405,20 +407,21 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    // Sisters of Slaughter is not correctly marked as an ally, so it raises an error
-    expect(warscrollTxt.errors).toEqual([
-      {
-        text: 'Sisters of Slaughter',
-        severity: 'warn',
-      },
-    ])
-
+    expect(warscrollTxt.errors).toEqual([])
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.allySelections).toEqual({
+      DAUGHTERS_OF_KHAINE: {
+        units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
+      },
+      KHARADRON_OVERLORDS: { units: ['Grundstok Gunhauler'] },
+      STORMCAST_ETERNALS: { units: ['Knight-Incantor', 'Concussors'] },
+      SYLVANETH: { units: ['Kurnoth Hunters'] },
+    })
     expect(warscrollTxt.allyFactionNames).toEqual([
-      'DAUGHTERS_OF_KHAINE',
-      'KHARADRON_OVERLORDS',
-      'STORMCAST_ETERNALS',
-      'SYLVANETH',
+      DAUGHTERS_OF_KHAINE,
+      KHARADRON_OVERLORDS,
+      STORMCAST_ETERNALS,
+      SYLVANETH,
     ])
     expect(warscrollTxt.allyUnits).toEqual([
       'Knight-Incantor',
@@ -452,7 +455,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -490,7 +493,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -528,7 +531,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -561,7 +564,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt).toEqual({
-      allyFactionNames: ['STORMCAST_ETERNALS'],
+      allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
         STORMCAST_ETERNALS: {
           units: [
@@ -586,7 +589,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Dread Saurian',
       ],
       errors: [],
-      factionName: 'SERAPHON',
+      factionName: SERAPHON,
       realmscape_feature: null,
       realmscape: null,
       selections: {

@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import { findIndex, slice, sum, range } from 'lodash'
+import { findIndex, slice, sum, range, last } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { IAllySelections } from 'types/selections'
@@ -206,8 +206,13 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
 
   allText.forEach((textObj, i) => {
     if (i === allText.length - 1 && textObj.type !== 'phase') {
-      return pages[pageIdx].push(textObj)
+      const lastEntry = last(pages[pageIdx])
+      // Avoid duplicate additions (fixes issue #643)
+      if (lastEntry && textObj.text !== lastEntry.text) {
+        return pages[pageIdx].push(textObj)
+      }
     }
+
     if (textObj.type !== 'phase') return
 
     if (textObj.text !== currentPhaseInfo.phase) {
@@ -226,8 +231,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
     if (y + currentPhaseInfo.yHeight < pageBottom) {
       // Add all elements up to the next phase to the page, and increment Y
       const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
-      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-
+      const objs = slice(allText, textPhaseIdx, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
       y = y + currentPhaseInfo.yHeight
       pages[pageIdx] = pages[pageIdx].concat(objs)
       textPhaseIdx = nextPhaseIdx
@@ -249,7 +253,7 @@ const splitTextToPages = (allText: IText[], phaseInfo: IPhaseText[], armyText: I
 
     // Handle first action
     let nextTitleIdx = findIndex(objs, x => x.type === 'title', 2)
-    let firstAction = slice(objs, 0, nextTitleIdx)
+    let firstAction = slice(objs, 0, nextTitleIdx === -1 ? undefined : nextTitleIdx)
     let firstActionYHeight = Styles.phase.spacing + sum(firstAction.map(x => Styles[x.type].spacing))
 
     let titleSpace: IText = {

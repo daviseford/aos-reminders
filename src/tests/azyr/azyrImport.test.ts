@@ -21,6 +21,7 @@ import DoK1 from '../fixtures/azyr/json/DoK1.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC1 from '../fixtures/azyr/json/FEC1.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
+import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers1 from '../fixtures/azyr/json/Fyreslayers1.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import GHoN1 from '../fixtures/azyr/json/GHoN1.json'
@@ -37,6 +38,7 @@ import KO5 from '../fixtures/azyr/json/KO5.json'
 import Lethisian1 from '../fixtures/azyr/json/Lethisian1.json'
 import LoB1 from '../fixtures/azyr/json/LoB1.json'
 import LoG1 from '../fixtures/azyr/json/LoG1.json'
+import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import LoN1 from '../fixtures/azyr/json/LoN1.json'
 import LoS2 from '../fixtures/azyr/json/LoS2.json'
 import Nighthaunt1 from '../fixtures/azyr/json/Nighthaunt1.json'
@@ -101,6 +103,43 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles LoG2', () => {
+    const res = handleAzyrPages(LoG2)
+    expect(res).toEqual([
+      'FACTION: Legion of Grief',
+      'REALMSCAPE: HYSH',
+      'UNIT: Guardian of Souls',
+      'UNIT: Spirit Torment',
+      'UNIT: Lady Olynder',
+      'SPELL: Wail of Doom',
+      'UNIT: Necromancer',
+      'ARTEFACT: Aether quartz Brooch',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'SPELL: Dread Withering',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Bladegheist Revenants',
+      'UNIT: Chainghasts',
+      'UNIT: Grimghast Reapers',
+    ])
+  })
+
+  it('handles FEC3', () => {
+    const res = handleAzyrPages(FEC3)
+    expect(res).toEqual([
+      'FACTION: Flesh-eater Courts',
+      'UNIT: Abhorrant Archregent',
+      'ARTEFACT: The Dermal Robe',
+      'COMMAND TRAIT: Dark Wizardry',
+      'SPELL: Deranged Transformation',
+      'COMMAND TRAIT: The Feast Day',
+      'UNIT: Abhorrant Ghoul King',
+      'SPELL: Miasmal Shroud',
+      'MOUNT TRAIT: Gruesome Bite',
+      'UNIT: Crypt Ghouls',
+      'ENDLESS SPELL: Chalice of Ushoran',
+    ])
   })
 
   it('handles Bonesplitterz2', () => {

@@ -13,6 +13,9 @@ import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
+import { useAppStatus } from 'context/useAppStatus'
+import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
+import { ROUTES } from 'utils/env'
 
 interface ISaveArmyProps {
   showSavedArmies: () => void
@@ -20,6 +23,7 @@ interface ISaveArmyProps {
 }
 
 const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
+  const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
   const { handleLogin } = useSavedArmies()
@@ -30,6 +34,8 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
+
+  if (isOffline) return <OfflineBtn text="Save Army" />
 
   return (
     <>
@@ -66,7 +72,7 @@ const SaveArmyBtn = connect(
 export default SaveArmyBtn
 
 const SubscribeBtn = () => (
-  <Link to="/subscribe" className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
+  <Link to={ROUTES.SUBSCRIBE} className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
     <div className={btnContentWrapper}>
       <FaSave className="mr-2" /> Save Army
     </div>

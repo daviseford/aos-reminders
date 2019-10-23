@@ -9,6 +9,7 @@ import { IArmy } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -31,12 +32,13 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateSelections,
   } = props
 
+  const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
 
   const handleLoadClick = async e => {
     e.preventDefault()
 
-    logEvent(`LoadArmy-${army.factionName}`)
+    if (isOnline) logEvent(`LoadArmy-${army.factionName}`)
 
     setLoadedArmy({ id: army.id, armyName: army.armyName })
     setFactionName(army.factionName)

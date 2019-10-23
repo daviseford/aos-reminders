@@ -4,18 +4,20 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
-  KHORNE,
+  BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
+  KHORNE,
+  LEGIONS_OF_GRIEF,
   MERCENARY_COMPANIES,
   SERAPHON,
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
-  BONESPLITTERZ,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -27,12 +29,14 @@ import CoS3 from '../fixtures/azyr/json/CoS3.json'
 import CoS4 from '../fixtures/azyr/json/CoS4.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
+import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
+import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -45,6 +49,20 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Khorne2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles LoG2', () => {
+    const pages = handleAzyrPages(LoG2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles FEC3', () => {
+    const pages = handleAzyrPages(FEC3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.errors).toEqual([])
   })
 
@@ -160,12 +178,14 @@ describe('getAzyrArmyFromPdf', () => {
       units: [
         'Freeguild General',
         'Freeguild General on Griffon',
+        'Knight-Azyros',
         'Luminark of Hysh with White Battlemage',
         'Sorceress on Black Dragon',
         'Steam Tank with Commander',
         'Freeguild Handgunners',
         'Ironbreakers',
         'War Hydra',
+        'Celestar Ballista',
         'Helblaster Volley Gun',
         'Helstorm Rocket Battery',
       ],
@@ -222,6 +242,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(KO2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.allyFactionNames).toEqual([CITIES_OF_SIGMAR, DISPOSSESSED, STORMCAST_ETERNALS])
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
@@ -229,11 +250,22 @@ describe('getAzyrArmyFromPdf', () => {
       'Champion of Progress',
     ])
 
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Prosecutors',
+    expect(res.allySelections).toEqual({
+      CITIES_OF_SIGMAR: { units: ['Gyrobombers', 'Gyrocopters'] },
+      DISPOSSESSED: { units: ['Quarrellers', 'Thunderers'] },
+      STORMCAST_ETERNALS: {
+        units: [
+          'Prosecutors with Stormcall Javelins',
+          'Lord-Arcanum',
+          'Knight-Incantor',
+          'Lord-Exorcist',
+          'Evocators',
+          "Steelheart's Champions",
+        ],
       },
+    })
+
+    expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
         text:

@@ -46,6 +46,8 @@ import { TImportParsers } from 'types/import'
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: TNameMap = {
+  'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
+  'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
@@ -57,6 +59,8 @@ const warscrollTypoMap: TNameMap = {
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Horn of Consort': 'Horn of the Consort',
+  'Horrible Resilient': 'Horribly Resilient',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
   'Lunestone Talisman': 'Loonstone Talisman',

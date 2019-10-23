@@ -13,7 +13,7 @@ import { TImportError, IImportedArmy } from 'types/import'
 import { hasFatalError } from 'utils/import/warnings'
 import { logClick } from 'utils/analytics'
 import { LinkNewTab } from 'components/helpers/link'
-import { GITHUB_URL } from 'utils/env'
+import { GITHUB_URL, ROUTES } from 'utils/env'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
@@ -136,7 +136,11 @@ const ErrorAlert = (props: TImportError) => {
           <br />
           <small>
             Unexpected {prefix.toLowerCase()}? Create an issue on{' '}
-            <LinkNewTab href={`${GITHUB_URL}/issues`} onClick={e => logClick(`failedImport-GithubClick`)}>
+            <LinkNewTab
+              href={`${GITHUB_URL}/issues`}
+              onClick={e => logClick(`failedImport-GithubClick`)}
+              label={'Github'}
+            >
               Github
             </LinkNewTab>{' '}
             and be sure to attach this file.
@@ -157,7 +161,7 @@ const InfoAlert = () => (
     <div className={'col-12 col-lg-6 col-xl-6'}>
       <div className={`alert alert-info text-center`} role="alert">
         <small>
-          Heads up! This will eventually be a <Link to="/subscribe">subscriber-only</Link> feature.
+          Heads up! This will eventually be a <Link to={ROUTES.SUBSCRIBE}>subscriber-only</Link> feature.
         </small>
       </div>
     </div>

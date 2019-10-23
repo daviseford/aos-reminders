@@ -15,6 +15,13 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
+import Stormcast from 'army/stormcast_eternals'
+import KharadronOverlords from 'army/kharadron_overlords'
+import Sylvaneth from 'army/sylvaneth'
+
+const getStormcastUnits = () => Stormcast.Units
+const getKharadronUnits = () => KharadronOverlords.Units
+const getSylvanethUnits = () => Sylvaneth.Units
 
 const DrummerEffect = {
   name: `Drummer`,
@@ -782,7 +789,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Steam Gun`,
-        desc: `Before attacking with a Steam Gun, pick 1 enemy unit within 8" of the attacking model. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within 8" of the attacking model. All attacks made with that Steam Gun must target that enemy unit.`,
+        desc: `Before attacking with a Steam Gun, pick 1 enemy unit that is within range of the attacking model's Steam Gun. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within range of the attacking model's Steam Gun. All attacks made with that Steam Gun must target that enemy unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -926,7 +933,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: ``,
+    name: `Executioners`,
     effects: [
       {
         name: `Draich Master`,
@@ -1267,7 +1274,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `High Beastmaster`,
-        desc: `1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
+        desc: `If this unit has 3 or more models, 1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1421,7 +1428,7 @@ export const Units: TUnits = [
 
 // Allied units (usually this will involve writing a function to grab units from another army)
 // Check out Nurgle or Khorne for good examples
-export const AlliedUnits: TUnits = []
+export const AlliedUnits: TUnits = [...getStormcastUnits(), ...getKharadronUnits(), ...getSylvanethUnits()]
 
 // Battalions
 export const Battalions: TBattalions = [

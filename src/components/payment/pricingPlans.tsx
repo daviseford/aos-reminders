@@ -6,9 +6,9 @@ import AsyncStripeProvider from './asyncStripeProvider'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { SupportPlans, ISupportPlan } from './plans'
+import SupportPlans, { ISupportPlan } from './plans'
 import { IUser } from 'types/user'
-import { storeArmy } from 'utils/localStore'
+import { LocalStoredArmy } from 'utils/localStore'
 
 interface ICheckoutProps {
   stripe?: any
@@ -20,6 +20,8 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
   return (
     <div className="container">
+      <PlansHeader />
+
       <div className="card-deck text-center">
         {SupportPlans.map((plan, i) => (
           <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
@@ -29,13 +31,28 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
         <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
           <small>
             <em>
-              Subscriptions are handled by Stripe and can be canceled at any time. You will have access to all
-              subscription features until the end of your subscription, even if you cancel the recurring
-              payments.
+              Subscriptions are handled by Stripe and can be canceled at any time. I do not store your credit
+              card information.
+              <br />
+              You will have access to all subscription features until the end of your subscription, even if
+              you cancel the recurring payments.
             </em>
           </small>
         </div>
       </div>
+    </div>
+  )
+}
+
+const PlansHeader = () => {
+  const hasSale = SupportPlans.some(x => x.sale)
+
+  return (
+    <div className="col-12 bg-light text-center mb-3">
+      <h2>
+        Subscription Plans
+        {hasSale && <span className="ml-2 badge badge-danger">Sale!</span>}
+      </h2>
     </div>
   )
 }
@@ -57,7 +74,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     logClick(supportPlan.title)
 
-    storeArmy() // Store our current army in local storage so we don't lose it
+    LocalStoredArmy.set() // Store our current army in local storage so we don't lose it
 
     const plan = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
@@ -100,17 +117,26 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       </div>
       <div className="card-body">
         <h1 className="card-title pricing-card-title">
-          ${supportPlan.monthly_cost} <small className="text-muted">/ mo</small>
+          ${supportPlan.monthly_cost}
+          <small className="text-muted">/ month</small>
         </h1>
         <ul className="list-unstyled mt-3 mb-4">
-          <li>Total: ${supportPlan.cost}</li>
+          <li>
+            {!!supportPlan.discount_pct && (
+              <>
+                <span className="badge badge-pill badge-danger mb-2">{supportPlan.discount_pct}% off!</span>
+                <br />
+              </>
+            )}
+            Total: ${supportPlan.cost}
+          </li>
         </ul>
         <button
           type="button"
-          className="btn btn btn-block btn-outline-primary"
+          className="btn btn btn-block btn-primary"
           onClick={isAuthenticated ? handleCheckout : handleLogin}
         >
-          Buy Now
+          Subscribe for {supportPlan.title}
         </button>
       </div>
     </div>
