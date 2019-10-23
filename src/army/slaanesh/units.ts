@@ -13,6 +13,7 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  END_OF_CHARGE_PHASE,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_SLAANESH } from 'meta/alliances'
@@ -668,6 +669,57 @@ export const SlaaneshBattalions: TBattalions = [
         name: `Drawn to Battle`,
         desc: `A model from this battalion is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3". It can also move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Vengeful Alliance`,
+    effects: [
+      {
+        name: `Brutal Tyranny`,
+        desc: `All mortal units in this battalion count as having a bravery characteristic of 10 as long as Syll'Esske is part of your army and on the battlefield.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Brutal Tyranny`,
+        desc: `You receive 1 command point if Syll'Esske is part of your army and on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Devout Supplicants`,
+    effects: [
+      {
+        name: `Favoured of Slaanesh`,
+        desc: `When you use the Favour of the Ruinous Powers ability for a Warshrine from this battalion, the prayer is answered on a 2+ instead of a 3+.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vengeful Throng`,
+    effects: [
+      {
+        name: `Headlong Charge`,
+        desc: `Once per battle this battalion can make a Headlong Charge. You can attempt a Headlong Charge with a unit from this battalion from within 18" of the enemy instead of 12" and roll 3D6 instead of 2D6. After completing each Headlong Charge move, pick 1 enemy unit within 1" of the charging unit. On a 5+ that enemy unit suffers D3 mortal wounds at the end of the charge phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Headlong Charge`,
+        desc: `Inflict D3 mortal wounds from any successful 5+ rolls against enemy units during the Headlong Charge.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Daemonsteel Contingent`,
+    effects: [
+      {
+        name: `The Debt`,
+        desc: `Add 1 to the hit rolls for attacks made by Soul Grinders in this battalion.
+               Add 1 to the save rolls made by Soul Grinders in this battalion.`,
+        when: [DURING_GAME],
       },
     ],
   },
