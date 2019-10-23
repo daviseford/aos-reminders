@@ -62,8 +62,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('LoB1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(LEGION_OF_BLOOD)
     expect(res.errors).toEqual([])
   })
@@ -303,7 +301,7 @@ describe('getBattlescribeArmy', () => {
     console.log(res)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow'])
+    expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow (Skyport)'])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
     expect(res.selections.traits).toEqual([
       'Prosecute Wars With All Haste',
