@@ -6,6 +6,7 @@ import {
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
+  DURING_GAME,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -70,6 +71,26 @@ const Allegiances: TAllegiances = [
       {
         name: `Godseekers Hedonite Host`,
         desc: `A Hedonite Host in a Godseekers Host army must contain 0-2 Epicurean Revellers battalions and 2-4 Seeker Cavalcade battalions.`,
+        when: [START_OF_GAME],
+      },
+    ],
+  },
+  {
+    name: `Syll'Esskan (Host)`,
+    effects: [
+      {
+        name: `Common Purpose`,
+        desc: `If the number of mortal units is exactly equal to the number of daemon units in your army, you receive D3 extra command points. If this condition is true and the army contains more that 12 units, you receive D6 command points instead of D3. Syll'Esske counts as 2 units towards this condition (1 mortal, 1 daemon).`,
+        when: [START_OF_GAME],
+      },
+      {
+        name: `Deadly Symbiosis`,
+        desc: `When you receive depravity points due to a friendly Slaanesh hero inflicting or suffering wounds/mortal wounds, you receive 2 depravity points instead of 1 if the hero unit is within 12" of Syll'Esske.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Syll'Esskan Host`,
+        desc: `A Syll'Esskan host can include only include the following battalions: The Vengeful Alliance, Epicurean Revellers, Seeker Cavalcade, Devout Supplicants, Vengeful Throng, and Daemonsteel Contingent. The Syll'Esskan specific battalions can only be used by an army that is a Syll'Esskan Host.`,
         when: [START_OF_GAME],
       },
     ],
