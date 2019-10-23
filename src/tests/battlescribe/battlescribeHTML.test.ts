@@ -312,9 +312,8 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow (Skyport)'])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
     expect(res.selections.traits).toEqual([
-      'Prosecute Wars With All Haste',
-      'Seek New Prospects',
-      'Who Strikes First, Strikes Hardest',
+      'AMENDMENT: Prosecute Wars With All Haste',
+      'ARTYCLE: Seek New Prospects',
     ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
     expect(res.errors).toEqual([])

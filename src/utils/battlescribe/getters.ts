@@ -237,7 +237,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   )
 }
 
-export const sortParsedRoots = (roots: IParsedRoot[]) => {
+export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo) => {
   const Collection = {
     allegiances: [] as string[],
     artifacts: [] as string[],
@@ -258,6 +258,7 @@ export const sortParsedRoots = (roots: IParsedRoot[]) => {
     Battalion: 'battalions',
     Scenery: 'scenery',
     Spells: 'spells',
+    Traits: 'traits',
     'Super Battalion': 'battalions',
   }
 
@@ -292,6 +293,13 @@ export const sortParsedRoots = (roots: IParsedRoot[]) => {
           Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         }
       })
+    }
+  })
+
+  Object.keys(allegianceInfo).forEach(key => {
+    if (lookup[key]) {
+      const vals = allegianceInfo[key]
+      Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
     }
   })
 

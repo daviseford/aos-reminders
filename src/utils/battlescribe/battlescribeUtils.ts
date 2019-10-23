@@ -25,6 +25,7 @@ export const fixKeys = (obj: { [key: string]: string[] }) => {
     Artefact: 'Artifacts',
     'Command Abilities': 'Commands',
     Spell: 'Spells',
+    'The Kharadron Code': 'Traits',
     Weapon: 'Weapons',
   }
 
