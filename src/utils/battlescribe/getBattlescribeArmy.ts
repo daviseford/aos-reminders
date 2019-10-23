@@ -4,6 +4,8 @@ import { importErrorChecker } from 'utils/import'
 import { stripParentNode, traverseDoc, parseRootSelection } from './parseHTML'
 import { sortParsedRoots } from './getters'
 import { TSupportedFaction } from 'meta/factions'
+import { isValidFactionName } from 'utils/armyUtils'
+import { importFactionNameMap } from 'utils/import/options'
 
 export const getBattlescribeArmy = (html_string: string) => {
   const army = getInitialBattlescribeArmy(html_string)
@@ -13,18 +15,40 @@ export const getBattlescribeArmy = (html_string: string) => {
   return errorChecked
 }
 
+const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo, factionInfo: IFactionInfo) => {
+  const res = { factionName: null, allegiances: [] }
+
+  const mappedAllegiance = importFactionNameMap[allegianceInfo.allegiance || '']
+  const mappedFaction = importFactionNameMap[allegianceInfo.faction || '']
+
+  if (isValidFactionName(mappedAllegiance)) {
+    return { ...res, factionName: mappedAllegiance }
+  } else if (isValidFactionName(mappedFaction)) {
+    return { ...res, factionName: mappedFaction }
+  }
+
+  debugger
+
+  return {
+    factionName: factionInfo.factionName,
+    allegiances: allegianceInfo.allegiance ? [allegianceInfo.allegiance] : [],
+  }
+}
+
 const getInitialBattlescribeArmy = (html_string: string) => {
   const document = parse5.parse(html_string)
 
   const strippedDoc = stripParentNode(document as IParentNode)
 
   const { allegianceInfo, factionInfo, realmInfo, rootSelections } = traverseDoc(strippedDoc)
+  const { factionName, allegiances } = getFactionAndAllegiance(allegianceInfo, factionInfo)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots)
 
   if (!isTest) {
     console.log(strippedDoc)
     console.log(allegianceInfo, factionInfo, rootSelections)
+    console.log({ factionName, allegiances })
     console.log(parsedRoots)
     console.log(selections)
   }
@@ -37,10 +61,10 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     realmscape_feature: null,
     realmscape: realmInfo,
     unknownSelections: [],
-    factionName: factionInfo.factionName as TSupportedFaction,
+    factionName: factionName as TSupportedFaction,
     selections: {
       ...selections,
-      allegiances: allegianceInfo && allegianceInfo.Allegiance ? [allegianceInfo.Allegiance as string] : [],
+      allegiances,
     },
   }
 }
@@ -71,4 +95,10 @@ export interface IParentNode {
 export interface IFactionInfo {
   grandAlliance: string | null
   factionName: string | null
+}
+
+export interface IAllegianceInfo {
+  faction: string | null
+  allegiance: string | null
+  [key: string]: string | string[] | null
 }

@@ -40,7 +40,12 @@ describe('getBattlescribeArmy', () => {
     console.log(res)
 
     expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Shroudguard',
+      },
+    ])
   })
 
   it('should work with LoN1', () => {
@@ -227,12 +232,19 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Magmic Battleforge', severity: 'warn' }])
   })
 
-  it('should work with BoC2', () => {
-    const parsedText = getFile('BoC2')
+  it('should work with Khorne2', () => {
+    const parsedText = getFile('Khorne2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-    expect(res.errors).toEqual([{ text: 'Herdstone', severity: 'warn' }])
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([
+      { text: 'Herdstone', severity: 'warn' },
+      {
+        text:
+          'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',
+        severity: 'ally-warn',
+      },
+    ])
   })
 
   it('should work with Bonesplitterz1', () => {
@@ -278,7 +290,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       // Skull altar is uncategorized
       { text: 'Skull Altar', severity: 'warn' },
-      { text: 'Vorgaroth the Scarred & Skalok the Skull Host of Khorne', severity: 'warn' },
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
       { text: 'Mazrall the Butcher', severity: 'warn' },
       { text: 'Furies (of Khorne)', severity: 'warn' },
@@ -292,8 +303,13 @@ describe('getBattlescribeArmy', () => {
     console.log(res)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.allegiances).toEqual(['Barak-Nar, City of the First Sunrise (Skyport)'])
+    expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow'])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
+    expect(res.selections.traits).toEqual([
+      'Prosecute Wars With All Haste',
+      'Seek New Prospects',
+      'Who Strikes First, Strikes Hardest',
+    ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
     expect(res.errors).toEqual([])
   })

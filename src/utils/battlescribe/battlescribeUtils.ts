@@ -11,6 +11,7 @@ export const cleanText = (txt: string) => {
 }
 export const ignoredValues = [
   'Allegiance',
+  'Alliegiance', // lol
   'Game Type',
   'Realm of Battle',
   'Damage Table',

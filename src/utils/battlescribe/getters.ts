@@ -1,10 +1,11 @@
 import { uniq } from 'lodash'
-import { IParentNode, IFactionInfo, IChildNode, IParsedRoot } from './getBattlescribeArmy'
+import { IParentNode, IFactionInfo, IChildNode, IParsedRoot, IAllegianceInfo } from './getBattlescribeArmy'
 import { isParentNode, isChildNode } from './checks'
 import { importFactionNameMap } from 'utils/import/options'
 import { stripParentNode, partialSearchDoc } from './parseHTML'
 import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
 import { TRealms } from 'types/realmscapes'
+import { isString } from 'util'
 
 export const parseRealmObj = (obj: IParentNode): TRealms | null => {
   try {
@@ -42,7 +43,8 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
   }
 }
 
-export const parseAllegiance = (obj: IParentNode) => {
+export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
+  const allegianceInfo = { faction: null, allegiance: null }
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -77,7 +79,7 @@ export const parseAllegiance = (obj: IParentNode) => {
       }
     })
 
-    if (!nameObj || !isParentNode(nameObj)) return null
+    if (!nameObj || !isParentNode(nameObj)) return allegianceInfo
 
     const selectionIdx = nameObj.childNodes.findIndex(
       y =>
@@ -98,18 +100,24 @@ export const parseAllegiance = (obj: IParentNode) => {
       }, '')
       .trim()
 
-    return { faction }
+    return { ...allegianceInfo, faction }
   } catch (err) {
-    return { faction: null }
+    return allegianceInfo
   }
 }
 
-export const getAllegianceMetadata = (obj: IParentNode) => {
+export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
+  const allegianceInfo = { faction: null, allegiance: null }
+  let liNode: IParentNode = obj
+
+  // if (obj.nodeName !== 'li') {
   // We need to do some dumb shit now because of Battlescribe
   const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as IParentNode
-  if (!ulNode) return
-  const liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as IParentNode
-  if (!liNode) return
+  if (ulNode) {
+    liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as IParentNode
+    // if (!liNode) return allegianceInfo
+  }
+  // }
 
   const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as IParentNode[]
 
@@ -149,10 +157,12 @@ export const getAllegianceMetadata = (obj: IParentNode) => {
     {} as { [key: string]: string }
   )
 
-  // Rename any keys here
   const liEntries = Object.keys(entries).reduce(
     (a, key) => {
-      const val = entries[key].replace(/ {1,},$/g, '') // remove trailing comma
+      const val = entries[key]
+        .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
+        .replace(/ {1,},$/g, '') // remove trailing comma
+        .trim()
       a[key] = val
       return a
     },
@@ -161,20 +171,27 @@ export const getAllegianceMetadata = (obj: IParentNode) => {
 
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
-  const tableTraits: { [key: string]: string[] } = {}
+  // const tableTraits: { [key: string]: string[] } = {}
 
-  tableTags.forEach(table => {
-    // @ts-ignore
-    const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-    // @ts-ignore
-    const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
-    const names = tds.map(x => x.childNodes[0].value).flat()
-    tableTraits[tableName] = names
-  })
+  const tableTraits = tableTags.reduce(
+    (a, table) => {
+      // @ts-ignore
+      const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+      // @ts-ignore
+      const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
+      const names = tds.map(x => x.childNodes[0].value).flat()
+      a[tableName] = names
+      return a
+    },
+    {} as { [key: string]: string[] | string }
+  )
+
+  debugger
 
   const mergedTraits = fixKeys(
     Object.keys(liEntries).reduce((a, key) => {
       if (tableTraits[key]) {
+        // Prefer table traits to li traits
         a[key] = tableTraits[key]
       } else {
         a[key] = liEntries[key]
@@ -183,17 +200,20 @@ export const getAllegianceMetadata = (obj: IParentNode) => {
     }, {})
   )
 
-  return Object.keys(mergedTraits).reduce((a, key) => {
-    const val = mergedTraits[key]
-    if (key === 'Selections') {
-      a['Allegiance'] = val
-    } else if (key === 'Categories') {
-      a['Faction'] = val
-    } else {
-      a[key] = val
-    }
-    return a
-  }, {})
+  return Object.keys(mergedTraits).reduce(
+    (a, key) => {
+      const val = mergedTraits[key]
+      if (key === 'Selections' && isString(val)) {
+        a.allegiance = val
+      } else if (key === 'Categories' && isString(val)) {
+        a.faction = val
+      } else {
+        a[key] = val
+      }
+      return a
+    },
+    allegianceInfo as IAllegianceInfo
+  )
 }
 
 export const sortParsedRoots = (roots: IParsedRoot[]) => {

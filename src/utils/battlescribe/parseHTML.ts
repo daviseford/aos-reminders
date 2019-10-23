@@ -1,4 +1,4 @@
-import { IParentNode, IChildNode, IFactionInfo } from './getBattlescribeArmy'
+import { IParentNode, IChildNode, IFactionInfo, IAllegianceInfo } from './getBattlescribeArmy'
 import {
   isChildNode,
   isParentNode,
@@ -14,7 +14,7 @@ import { TRealms } from 'types/realmscapes'
 export const traverseDoc = (docObj: IParentNode | IChildNode) => {
   const results = {
     realmInfo: null as null | TRealms,
-    allegianceInfo: null as any,
+    allegianceInfo: { faction: null, allegiance: null } as IAllegianceInfo,
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     rootSelections: [] as IParentNode[],
   }
@@ -34,8 +34,7 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
       results.factionInfo = parseFaction(obj)
     }
 
-    if (!results.allegianceInfo && isAllegianceObj(obj)) {
-      debugger
+    if (!results.allegianceInfo.faction && isAllegianceObj(obj)) {
       results.allegianceInfo = parseAllegiance(obj)
     }
 
