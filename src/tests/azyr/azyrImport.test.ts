@@ -38,6 +38,7 @@ import KO5 from '../fixtures/azyr/json/KO5.json'
 import Lethisian1 from '../fixtures/azyr/json/Lethisian1.json'
 import LoB1 from '../fixtures/azyr/json/LoB1.json'
 import LoG1 from '../fixtures/azyr/json/LoG1.json'
+import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import LoN1 from '../fixtures/azyr/json/LoN1.json'
 import LoS2 from '../fixtures/azyr/json/LoS2.json'
 import Nighthaunt1 from '../fixtures/azyr/json/Nighthaunt1.json'
@@ -102,6 +103,26 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles LoG2', () => {
+    const res = handleAzyrPages(LoG2)
+    expect(res).toEqual([
+      'FACTION: Legion of Grief',
+      'REALMSCAPE: HYSH',
+      'UNIT: Guardian of Souls',
+      'UNIT: Spirit Torment',
+      'UNIT: Lady Olynder',
+      'SPELL: Wail of Doom',
+      'UNIT: Necromancer',
+      'ARTEFACT: Aether quartz Brooch',
+      'UNIT: Arkhan the Black, Mortarch of Sacrament',
+      'SPELL: Dread Withering',
+      'UNIT: Chainrasp Horde',
+      'UNIT: Bladegheist Revenants',
+      'UNIT: Chainghasts',
+      'UNIT: Grimghast Reapers',
+    ])
   })
 
   it('handles FEC3', () => {
