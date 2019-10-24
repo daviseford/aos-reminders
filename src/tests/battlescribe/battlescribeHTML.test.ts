@@ -42,6 +42,14 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Seraphon1', () => {
+    const parsedText = getFile('Seraphon1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Wanderers1', () => {
     const parsedText = getFile('Wanderers1')
     const res = getBattlescribeArmy(parsedText)
@@ -411,7 +419,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Seraphon', () => {
+  it('should work with Seraphon2', () => {
     const parsedText = getFile('Seraphon2')
     const res = getBattlescribeArmy(parsedText)
 

@@ -93,17 +93,17 @@ const battlescribeTypoMap: TNameMap = {
   'Cloying Sea Mists': 'Cloying Seas Mists',
   'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',
   'Guardian of Souls with Mortality Glass': 'Guardian of Souls w/ Mortality Glass',
+  'Incandescent Rectices': 'Incandescent Rectrices',
   'Light of Dracothian': 'Light of Dracothion',
-  Mirrorshield: 'Mirror Shield',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Sneaky Shufflers': 'Sneaky Snufflers',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
-  'The Magister of Hammerhal': 'Magister of Hammerhal',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Who Strikes First, Strikes Hardest': 'FOOTNOTE: Who Strikes First, Strikes Hardest',
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+  Mirrorshield: 'Mirror Shield',
 }
 
 // Azyr helper
