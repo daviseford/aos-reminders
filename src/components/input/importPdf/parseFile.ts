@@ -56,9 +56,22 @@ export const handleParseFile: TUseParse = ({
         const typedArray = new Uint8Array(reader.result as any)
 
         if (file.type === 'text/html') {
-          const parsedArmy = getBattlescribeArmy(reader.result as string)
+          const fileTxt = reader.result as string
+          const parsedArmy = getBattlescribeArmy(fileTxt)
+
+          // Send a copy of our file to S3
+          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
+            const payload = {
+              fileTxt,
+              parser: 'Battlescribe' as TImportParsers,
+              fileType: file.type,
+            }
+            Promise.resolve(PreferenceApi.createErrorFile(payload))
+          }
+
           handleDrop(parsedArmy)
           stopProcessing() && handleDone()
+
           if (isOnline && isValidFactionName(parsedArmy.factionName)) {
             logEvent(`ImportBattlescribe-${parsedArmy.factionName}`)
           }
