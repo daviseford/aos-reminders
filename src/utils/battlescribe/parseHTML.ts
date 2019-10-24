@@ -48,8 +48,14 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
   return results
 }
 
-const nodeIsScenery = (obj: IParentNode) => {
+const isUncategorizedScenery = (obj: IParentNode, name: string) => {
+  // Some Scenery is not even given the Scenery tag...
+  // So we have to keep a manual list here
+  const knownScenery = ['Skull Altar']
+
   try {
+    if (name.startsWith(`Scenery: `)) return false // It's categorized properly already
+    if (knownScenery.includes(name)) return true
     //@ts-ignore
     if (obj.childNodes[1].childNodes[1].childNodes[0].value.includes('SCENERY')) {
       return true
@@ -69,7 +75,7 @@ export const parseRootSelection = (obj: IParentNode) => {
     let name = (nameObj.childNodes[0] as IChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     // Add Scenery tag to uncategorised entries
-    if (!name.startsWith(`Scenery: `) && nodeIsScenery(obj)) {
+    if (isUncategorizedScenery(obj, name)) {
       name = `Scenery: ${name}`
     }
 

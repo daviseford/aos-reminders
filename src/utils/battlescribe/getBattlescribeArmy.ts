@@ -22,6 +22,8 @@ const getInitialBattlescribeArmy = (html_string: string) => {
   const { factionName, allegiances } = getFactionAndAllegiance(allegianceInfo, factionInfo)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
+  // TODO: Need to parse Battalion blocks
+  // See Sylvaneth1 for example
 
   if (!isTest) {
     console.log(strippedDoc)

@@ -18,6 +18,7 @@ import {
   SLAVES_TO_DARKNESS,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
+  SYLVANETH,
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
@@ -82,6 +83,32 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Sylvaneth1', () => {
+    const parsedText = getFile('Sylvaneth1')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.artifacts).toEqual([
+      'Briar Sheath',
+      'Greenwood Gladius',
+      'Lifewreath',
+      'The Vesperal Gem',
+      "Autumn's Ire",
+      'Crown of Fell Bowers',
+      'Glamourweave',
+      'Lashvines',
+      'Wychwood Glaive',
+    ])
+    expect(res.selections.scenery).toEqual(['Awakened Wyldwood', 'Penumbral Engine'])
+    expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song'])
+    expect(res.selections.endless_spells).toEqual(['Horrorghast', "Ravenak's Gnashing Jaws"])
+    expect(res.errors).toEqual([])
+    // TODO: Need to parse Battalion blocks
+    expect(res.selections.units).toContain('Treelord')
+    expect(res.selections.units).toContain('Treelord Ancient')
+  })
+
   it('should work with Nighthaunt1', () => {
     const parsedText = getFile('Nighthaunt1')
     const res = getBattlescribeArmy(parsedText)
@@ -133,6 +160,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.errors).toEqual([])
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -334,10 +362,9 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.scenery).toContain('Skull Altar')
     // TODO: Fix once https://github.com/daviseford/aos-reminders/issues/640 is merged
     expect(res.errors).toEqual([
-      // Skull altar is uncategorized
-      { text: 'Skull Altar', severity: 'warn' },
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
       { text: 'Mazrall the Butcher', severity: 'warn' },
       { text: 'Furies (of Khorne)', severity: 'warn' },
