@@ -7,16 +7,19 @@ import {
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
+  GRAND_HOST_OF_NAGASH,
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_BLOOD,
-  SERAPHON,
-  STORMCAST_ETERNALS,
-  LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
-  GRAND_HOST_OF_NAGASH,
+  SERAPHON,
+  SLAVES_TO_DARKNESS,
+  SOULBLIGHT,
+  STORMCAST_ETERNALS,
+  TZEENTCH,
+  WANDERERS,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
@@ -25,6 +28,52 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with Stormcast1', () => {
+    const parsedText = getFile('Stormcast1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.errors).toEqual([
+      { text: "Blacktalon's Shadowhammers", severity: 'warn' },
+      { text: 'Warrior Brotherhood', severity: 'warn' },
+      { text: 'Magister of Hammerhal', severity: 'warn' },
+      { text: 'Hammer of Sigmar', severity: 'warn' },
+      { text: 'Errant-Questor', severity: 'warn' },
+    ])
+  })
+
+  it('should work with Wanderers1', () => {
+    const parsedText = getFile('Wanderers1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(WANDERERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Tzeentch1', () => {
+    const parsedText = getFile('Tzeentch1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with StD1', () => {
+    const parsedText = getFile('StD1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Soulblight1', () => {
+    const parsedText = getFile('Soulblight1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SOULBLIGHT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Nighthaunt1', () => {
     const parsedText = getFile('Nighthaunt1')
     const res = getBattlescribeArmy(parsedText)
@@ -32,6 +81,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.errors).toEqual([])
   })
+
   it('should work with LoS1', () => {
     const parsedText = getFile('LoS1')
     const res = getBattlescribeArmy(parsedText)
@@ -49,8 +99,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('GHoN1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
     expect(res.errors).toEqual([
       {
@@ -61,19 +109,15 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Shrieker Host',
       },
-      {
-        severity: 'warn',
-        text: 'Guardian of Souls with Mortality Glass',
-      },
     ])
   })
 
-  xit('should work with LoB1', () => {
+  it('should work with LoB1', () => {
     const parsedText = getFile('LoB1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_BLOOD)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Nighthaunt Procession' }])
   })
 
   it('should work with BoC', () => {
@@ -328,7 +372,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
-      // "Where There's War, There's Gold",
     ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',
