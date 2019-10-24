@@ -69,7 +69,7 @@ export const parseRootSelection = (obj: IParentNode) => {
     let name = (nameObj.childNodes[0] as IChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     // Add Scenery tag to uncategorised entries
-    if (nodeIsScenery(obj) && !name.startsWith(`Scenery: `)) {
+    if (!name.startsWith(`Scenery: `) && nodeIsScenery(obj)) {
       name = `Scenery: ${name}`
     }
 
