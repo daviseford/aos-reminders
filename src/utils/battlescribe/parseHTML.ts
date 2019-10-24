@@ -48,12 +48,30 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
   return results
 }
 
+const nodeIsScenery = (obj: IParentNode) => {
+  try {
+    //@ts-ignore
+    if (obj.childNodes[1].childNodes[1].childNodes[0].value.includes('SCENERY')) {
+      return true
+    }
+    return false
+  } catch (err) {
+    return false
+  }
+}
+
 export const parseRootSelection = (obj: IParentNode) => {
   try {
     const { childNodes = [] } = obj
     const nameObj = childNodes.find(x => x.nodeName === 'h4')
     if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
-    const name = (nameObj.childNodes[0] as IChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
+
+    let name = (nameObj.childNodes[0] as IChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
+
+    // Add Scenery tag to uncategorised entries
+    if (nodeIsScenery(obj) && !name.startsWith(`Scenery: `)) {
+      name = `Scenery: ${name}`
+    }
 
     const tableTags = childNodes.filter(x => {
       return isParentNode(x) && x.nodeName === 'table'

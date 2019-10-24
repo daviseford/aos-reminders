@@ -137,14 +137,7 @@ describe('getBattlescribeArmy', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      // Herdstone is "Uncategorized"
-      // TODO: Figure that out :)
-      errors: [
-        {
-          text: 'Herdstone',
-          severity: 'warn',
-        },
-      ],
+      errors: [],
       realmscape_feature: null,
       realmscape: 'Ghyran',
       unknownSelections: [],
@@ -171,10 +164,7 @@ describe('getBattlescribeArmy', () => {
           "Ravenak's Gnashing Jaws",
           'Soulscream Bridge',
         ],
-        scenery: [
-          // 'Herdstone',
-          'Penumbral Engine',
-        ],
+        scenery: ['Herdstone', 'Penumbral Engine'],
         spells: [
           'Arcane Bolt',
           'Mystic Shield',
@@ -212,6 +202,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.realmscape).toEqual('Chamon')
+    expect(res.selections.scenery).toEqual(['Charnel Throne', 'Penumbral Engine'])
     expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
     expect(res.selections.artifacts).toEqual([
       'The Grim Garland (Royal Treasury)',
@@ -220,8 +211,7 @@ describe('getBattlescribeArmy', () => {
       'Blood-river Chalice (Royal Treasury)',
       'Ghurish Mawshard',
     ])
-    // As with Herdstone, this is "Uncategorized"
-    expect(res.errors).toEqual([{ text: 'Charnel Throne', severity: 'warn' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Dok', () => {
@@ -286,8 +276,8 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
-    // As with Herdstone, this is "Uncategorized"
-    expect(res.errors).toEqual([{ text: 'Magmic Battleforge', severity: 'warn' }])
+    expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Khorne2', () => {
@@ -295,8 +285,8 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.scenery).toEqual(['Herdstone'])
     expect(res.errors).toEqual([
-      { text: 'Herdstone', severity: 'warn' },
       {
         text:
           'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',
