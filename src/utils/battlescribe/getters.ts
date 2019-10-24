@@ -20,8 +20,6 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo, faction
     return { ...res, factionName: mappedFaction }
   }
 
-  debugger
-
   return {
     factionName: factionInfo.factionName,
     allegiances: allegianceInfo.allegiance ? [allegianceInfo.allegiance] : [],
@@ -207,8 +205,6 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     {} as { [key: string]: string[] | string }
   )
 
-  debugger
-
   const mergedTraits = fixKeys(
     Object.keys(liEntries).reduce((a, key) => {
       if (tableTraits[key]) {
@@ -253,6 +249,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 
   const lookup = {
     Artifacts: 'artifacts',
+    'Battle Traits': 'traits',
     Commands: 'commands',
     'Endless Spell': 'endless_spells',
     Battalion: 'battalions',

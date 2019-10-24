@@ -98,7 +98,6 @@ const battlescribeTypoMap: TNameMap = {
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
-  'Where Theres War, Theres Gold': "Where There's War, There's Gold",
   'Who Strikes First, Strikes Hardest': 'FOOTNOTE: Who Strikes First, Strikes Hardest',
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",

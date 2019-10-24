@@ -4,6 +4,10 @@ export const cleanText = (txt: string) => {
       .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
       .replace(/\r|\n|\v|\f|↵/g, ' ')
       .replace(/ {2,}/g, ' ')
+      .replace(/[‘’]/g, `'`) // Replace special apostrophes
+      .replace(/[“”]/g, `"`) // Replace special quotes
+      .replace(/[‑–—]/g, `-`) // Replace special dashes
+      .replace(/ /g, ` `) // Remove non ASCII-spaces
       // eslint-disable-next-line no-control-regex
       .replace(/[^\x00-\x7F]/g, '') // Remove all other non-ASCII characters
       .trim()

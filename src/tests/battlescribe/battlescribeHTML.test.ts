@@ -306,8 +306,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('KO2')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow (Skyport)'])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
@@ -327,6 +325,11 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
     expect(res.selections.commands).toEqual(['Invoke the Code', 'First Rule of Grungsson'])
     expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
+    expect(res.selections.traits).toEqual([
+      'AMENDMENT: Always Take What You Are Owed',
+      'ARTYCLE: Seek New Prospects',
+      // "Where There's War, There's Gold",
+    ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',
       'Aetheric Navigator',
