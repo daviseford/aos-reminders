@@ -88,21 +88,33 @@ const azyrTypoMap: TNameMap = {
 
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: TNameMap = {
+  'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Blood River Chalice': 'Blood-river Chalice',
+  'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chronomatic Cogs': 'Chronomantic Cogs',
   'Cloying Sea Mists': 'Cloying Seas Mists',
   'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',
   'Guardian of Souls with Mortality Glass': 'Guardian of Souls w/ Mortality Glass',
   'Incandescent Rectices': 'Incandescent Rectrices',
   'Light of Dracothian': 'Light of Dracothion',
+  'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
+  'Mazrall the Butcher': 'Mazarall the Butcher',
+  'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
+  Protector: 'Protectors',
+  'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Sneaky Shufflers': 'Sneaky Snufflers',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
+  'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
+  'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
+  'Warrgog Prophet': 'Wurrgog Prophet',
   'Who Strikes First, Strikes Hardest': 'FOOTNOTE: Who Strikes First, Strikes Hardest',
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+  'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   Mirrorshield: 'Mirror Shield',
 }
 

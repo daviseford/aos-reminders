@@ -283,6 +283,7 @@ describe('getBattlescribeArmy', () => {
         'Hag Queen',
         'Hag Queen on Cauldron of Blood',
         'Morathi, High Oracle of Khaine',
+        'Morathi, the Shadow Queen',
         'Slaughter Queen',
         'Slaughter Queen on Cauldron of Blood',
         'Avatar of Khaine',
@@ -366,8 +367,8 @@ describe('getBattlescribeArmy', () => {
     // TODO: Fix once https://github.com/daviseford/aos-reminders/issues/640 is merged
     expect(res.errors).toEqual([
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
-      { text: 'Mazrall the Butcher', severity: 'warn' },
       { text: 'Furies (of Khorne)', severity: 'warn' },
+      { severity: 'warn', text: 'Furies' },
     ])
   })
 
@@ -442,6 +443,11 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allyFactionNames).toEqual([STORMCAST_ETERNALS])
+    expect(res.errors).toEqual([
+      { text: "Klaq-Tor's Talons", severity: 'warn' },
+      { text: 'Lightning Echelon', severity: 'warn' },
+      { text: 'Skyborne Slayers', severity: 'warn' },
+    ])
     expect(res.allySelections).toEqual({
       STORMCAST_ETERNALS: {
         units: [
@@ -453,11 +459,6 @@ describe('getBattlescribeArmy', () => {
         ],
       },
     })
-    expect(res.errors).toEqual([
-      { text: "Klaq-Tor's Talons", severity: 'warn' },
-      { text: 'Lightning Echelon', severity: 'warn' },
-      { text: 'Skyborne Slayers', severity: 'warn' },
-    ])
     expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Blade of Realities', 'Light of Dracothion', 'Coronal Shield'],

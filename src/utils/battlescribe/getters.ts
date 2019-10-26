@@ -127,16 +127,12 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
 
 export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null, allegiance: null }
-  let liNode: IParentNode = obj
+  let liNode = obj
 
-  // if (obj.nodeName !== 'li') {
-  // We need to do some dumb shit now because of Battlescribe
   const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as IParentNode
   if (ulNode) {
     liNode = ulNode.childNodes.find(x => x.nodeName === 'li') as IParentNode
-    // if (!liNode) return allegianceInfo
   }
-  // }
 
   const pChildren = liNode.childNodes.filter(x => x.nodeName === 'p') as IParentNode[]
 

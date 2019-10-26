@@ -1,16 +1,15 @@
 import { IParentNode, IChildNode, IFactionInfo, IAllegianceInfo } from './getBattlescribeArmy'
 import {
-  isChildNode,
-  isParentNode,
-  isRootSelection,
-  isFactionObj,
   isAllegianceObj,
+  isChildNode,
+  isFactionObj,
+  isParentNode,
   isRealmObj,
+  isRootSelection,
 } from './checks'
 import { cleanText, fixKeys } from './battlescribeUtils'
 import { parseFaction, parseAllegiance, parseRealmObj } from './getters'
 import { TRealms } from 'types/realmscapes'
-import { uniqBy } from 'lodash'
 
 export const traverseDoc = (docObj: IParentNode | IChildNode) => {
   const results = {
@@ -77,26 +76,25 @@ interface IParsedRootSelection {
 export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
   try {
     const { childNodes = [] } = obj
-    const nameObj = childNodes.find(x => x.nodeName === 'h4')
-    if (!isParentNode(nameObj) || !nameObj.childNodes.length || !isChildNode(nameObj.childNodes[0])) {
+    const h4Node = childNodes.find(x => x.nodeName === 'h4')
+
+    if (!isParentNode(h4Node) || !h4Node.childNodes.length || !isChildNode(h4Node.childNodes[0])) {
       throw new Error('Could not find the item name')
     }
 
-    let name = nameObj.childNodes[0].value.replace(/(.+)\[.+\]/g, '$1').trim()
+    let name = h4Node.childNodes[0].value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     // Add Scenery tag to uncategorised entries
     if (isUncategorizedScenery(obj, name)) {
       name = `Scenery: ${name}`
     }
 
-    const tableTags = childNodes.filter(x => {
-      return isParentNode(x) && x.nodeName === 'table'
-    }) as IParentNode[]
-
-    const tableEntries = tableTags.reduce(
-      (a, table) => {
-        const { tableName, names } = getNamesFromTableTags(table)
-        if (tableName) a[tableName] = names
+    const tableEntries = childNodes.reduce(
+      (a, x) => {
+        if (isParentNode(x) && x.nodeName === 'table') {
+          const { tableName, names } = getNamesFromTableTags(x)
+          if (tableName) a[tableName] = names
+        }
         return a
       },
       {} as { [key: string]: string[] }
@@ -135,7 +133,7 @@ export const stripParentNode = (docObj: IParentNode | IChildNode) => {
   //@ts-ignore
   delete docObj.namespaceURI // Unnecessary key
   //@ts-ignore
-  delete docObj.tagName // Unnecessary key
+  delete docObj.tagName // Unnecessary key (duplicates nodeName)
 
   if (!isParentNode(docObj)) return docObj
 
