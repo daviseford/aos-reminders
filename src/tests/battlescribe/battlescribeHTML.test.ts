@@ -43,6 +43,23 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Gloomspite2', () => {
+    const parsedText = getFile('Gloomspite2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections.commands).toEqual(['Instinctive Leader', "I'm Da Boss, Now Stab 'Em Good!"])
+    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'The Great Green Spite'])
+    expect(res.selections.units).toEqual([
+      'Dankhold Troggboss',
+      'Fungoid Cave-Shaman',
+      'Fellwater Troggoths',
+      'Rockgut Troggoths',
+      'Stabbas',
+    ])
+    expect(res.errors).toEqual([{ text: 'Spore Maws', severity: 'warn' }])
+  })
+
   it('should work with Seraphon1', () => {
     const parsedText = getFile('Seraphon1')
     const res = getBattlescribeArmy(parsedText)
