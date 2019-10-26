@@ -10,19 +10,13 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 
-const AddAllyButton = lazy(() => import(/* webpackChunkName: 'add_ally_btn' */ './add_ally_btn'))
-const DownloadPDFButton = lazy(() => import(/* webpackChunkName: 'pdfButton' */ 'components/print/pdfButton'))
-const ImportArmyButton = lazy(() => import(/* webpackChunkName: 'import_army_btn' */ './import_army_btn'))
-const ImportContainer = lazy(() =>
-  import(/* webpackChunkName: 'drop_container' */ '../importPdf/drop_container')
-)
-const SaveArmyBtn = lazy(() => import(/* webpackChunkName: 'save_army_btn' */ '../savedArmies/save_army_btn'))
-const ShowSavedArmies = lazy(() =>
-  import(/* webpackChunkName: 'saved_armies' */ '../savedArmies/saved_armies')
-)
-const ShowSavedArmiesBtn = lazy(() =>
-  import(/* webpackChunkName: 'show_saved_armies_btn' */ '../savedArmies/show_saved_armies_btn')
-)
+const AddAllyButton = lazy(() => import('./add_ally_btn'))
+const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
+const ImportArmyButton = lazy(() => import('./import_army_btn'))
+const ImportContainer = lazy(() => import('../importPdf/drop_container'))
+const SaveArmyBtn = lazy(() => import('../savedArmies/save_army_btn'))
+const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
+const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 const showSavedWrapperClass = `col-8 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
@@ -97,8 +91,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </div>
       </div>
 
-      {/* <div hidden={!isShowingImport}> */}
-      <div hidden={false}>
+      <div hidden={!isShowingImport}>
         <Suspense fallback={<></>}>
           <ImportContainer />
         </Suspense>
