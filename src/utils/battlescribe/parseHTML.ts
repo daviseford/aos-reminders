@@ -10,6 +10,7 @@ import {
 import { cleanText, fixKeys } from './battlescribeUtils'
 import { parseFaction, parseAllegiance, parseRealmObj } from './getters'
 import { TRealms } from 'types/realmscapes'
+import { uniqBy } from 'lodash'
 
 export const traverseDoc = (docObj: IParentNode | IChildNode) => {
   const results = {
@@ -66,13 +67,22 @@ const isUncategorizedScenery = (obj: IParentNode, name: string) => {
   }
 }
 
-export const parseRootSelection = (obj: IParentNode) => {
+interface IParsedRootSelection {
+  name: string
+  entries: {
+    [key: string]: string[]
+  }
+}
+
+export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
   try {
     const { childNodes = [] } = obj
     const nameObj = childNodes.find(x => x.nodeName === 'h4')
-    if (!isParentNode(nameObj) || !nameObj.childNodes.length) throw new Error('Could not find the item name')
+    if (!isParentNode(nameObj) || !nameObj.childNodes.length || !isChildNode(nameObj.childNodes[0])) {
+      throw new Error('Could not find the item name')
+    }
 
-    let name = (nameObj.childNodes[0] as IChildNode).value.replace(/(.+)\[.+\]/g, '$1').trim()
+    let name = nameObj.childNodes[0].value.replace(/(.+)\[.+\]/g, '$1').trim()
 
     // Add Scenery tag to uncategorised entries
     if (isUncategorizedScenery(obj, name)) {
@@ -83,22 +93,33 @@ export const parseRootSelection = (obj: IParentNode) => {
       return isParentNode(x) && x.nodeName === 'table'
     }) as IParentNode[]
 
-    const entries: { [key: string]: string[] } = {}
+    const tableEntries = tableTags.reduce(
+      (a, table) => {
+        const { tableName, names } = getNamesFromTableTags(table)
+        if (tableName) a[tableName] = names
+        return a
+      },
+      {} as { [key: string]: string[] }
+    )
 
-    tableTags.forEach(table => {
-      // @ts-ignore
-      const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-      // @ts-ignore
-      const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
-      const names = tds.map(x => x.childNodes[0].value).flat()
-      entries[tableName] = names
-    })
-
-    return { name, entries: fixKeys(entries) }
+    return { name, entries: fixKeys(tableEntries) }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)
     return { name: '', entries: {} }
+  }
+}
+
+const getNamesFromTableTags = (table: IParentNode): { tableName: string; names: string[] } => {
+  try {
+    // @ts-ignore
+    const tableName: string = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+    // @ts-ignore
+    const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0]) as IParentNode[]
+    const names: string[] = tds.map(x => (x.childNodes[0] as IChildNode).value).flat()
+    return { tableName, names }
+  } catch (err) {
+    return { tableName: '', names: [] }
   }
 }
 

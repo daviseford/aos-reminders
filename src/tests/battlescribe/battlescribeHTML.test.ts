@@ -87,7 +87,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Sylvaneth1')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
     expect(res.factionName).toEqual(SYLVANETH)
     expect(res.selections.artifacts).toEqual([
       'Briar Sheath',
@@ -101,10 +100,11 @@ describe('getBattlescribeArmy', () => {
       'Wychwood Glaive',
     ])
     expect(res.selections.scenery).toEqual(['Awakened Wyldwood', 'Penumbral Engine'])
+    expect(res.selections.battalions).toEqual(['Lords of the Clan'])
     expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song'])
     expect(res.selections.endless_spells).toEqual(['Horrorghast', "Ravenak's Gnashing Jaws"])
     expect(res.errors).toEqual([])
-    // TODO: Need to parse Battalion blocks
+    // The two below values come from the Battalion
     expect(res.selections.units).toContain('Treelord')
     expect(res.selections.units).toContain('Treelord Ancient')
   })

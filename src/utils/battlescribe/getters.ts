@@ -248,15 +248,16 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
   }
 
   const lookup = {
-    Artifacts: 'artifacts',
     'Battle Traits': 'traits',
-    Commands: 'commands',
     'Endless Spell': 'endless_spells',
+    'Super Battalion': 'battalions',
+    Artifacts: 'artifacts',
     Battalion: 'battalions',
+    Commands: 'commands',
     Scenery: 'scenery',
     Spells: 'spells',
     Traits: 'traits',
-    'Super Battalion': 'battalions',
+    Unit: 'units',
   }
 
   roots.forEach(r => {
