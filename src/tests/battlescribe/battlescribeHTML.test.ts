@@ -486,6 +486,8 @@ describe('getBattlescribeArmy', () => {
         'Ripperdactyl Riders',
         'Skink Handlers',
         'Terradon Riders',
+        'Saurus Oldblood on Carnosaur',
+        'Saurus Scar-Veteran on Carnosaur',
       ],
     })
   })
