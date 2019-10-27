@@ -49,12 +49,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Staff of Power`,
-        desc: `Add Alakanash's modifier (listed in the damage table) to casting and unbinding rolls for Nagash.`,
+        desc: `Add Alakanash's modifier (listed in the damage table) to casting, dispelling, and unbinding rolls for Nagash. In addition, Nagash can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same Hero Phase, even if another Wizard has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Frightful Touch`,
-        desc: `Each time you make a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
+        desc: `Each time you make an unmodified hit roll of 6 for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -68,19 +68,9 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 5 different friendly SUMMONABLE units on the battlefield. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+        name: `Invocation of Nagash`,
+        desc: `At the start of your hero phase, pick up to 5 different friendly SUMMONABLE units or friendly Ossiarch Bonereapers units on the battlefield in any combination. You can heal 3 wounds that have been allocated to each unit you picked. If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than 3.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Death Magic Incarnate`,
-        desc: `You can re-roll any of the D3 rolls when using Nagash's Deathly Invocation ability.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `Nagash is a WIZARD. He can attempt to cast three spells in your hero phase, and attempt to unbind three spells in the enemy hero phase. In addition, he can attempt to cast or unbind extra spells with the Nine Books of Nagash. He knows the Arcane Bolt, Mystic Shield, Hand of Dust and Soul Stealer spells, as well as any spells known by other DEATH WIZARDS on the battlefield.`,
-        when: [HERO_PHASE],
       },
       {
         name: `Hand of Dust`,
@@ -90,7 +80,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soul Stealer`,
-        desc: `Casting value of 6. Pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target, heal 1 wound that has been allocated to the caster.`,
+        desc: `Casting value of 6. Pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target and not negated, heal 1 wound that has been allocated to the caster.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -112,38 +102,28 @@ export const Units: TUnits = [
       },
       {
         name: `The Staff of Spirits`,
-        desc: `Add Khenash-an's modifier to casting and unbinding rolls for Arkhan.`,
+        desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, he can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same Hero Phase, even if another Wizard has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Arkhan. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
         name: `Mortarch of Sacrament`,
-        desc: `You can re-roll any of the D3 rolls when using Arkhan's Deathly Invocation ability.`,
+        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units or friendly Ossiarch Bonereapers units wholly within 24" of Arkhan. You can heal 3 wounds that have been allocated to each unit you picked. If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than 3.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Frightful Touch`,
-        desc: `Each time you roll a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the.`,
+        desc: `Each time you roll an unmodified hit roll of 6 for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `Arkhan the Black is a WIZARD. He can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Curse of Years spells. Arkhan also knows the spells of any DEATH WIZARD that is within 18" of him.`,
-        when: [HERO_PHASE],
-      },
-      {
         name: `Curse of Years`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed.`,
+        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed. A roll of 1 always fails to inflict a mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `First of the Mortarchs`,
-        desc: `If Arkhan the Black uses this ability, then until the end of the hero phase all friendly DEATH WIZARDS within 18" of him can increase the range of their spells by 6".`,
+        desc: `If Arkhan the Black uses this ability, then until the end of the hero phase all friendly DEATH WIZARDS within 18" of him can increase the range of their spells by 6". You cannot use this command ability multiple times.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
