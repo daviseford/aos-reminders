@@ -1,7 +1,15 @@
 import { TBattalions, TUnits } from 'types/army'
+import { filterUnits } from 'utils/filterUtils'
+import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
+
+const getLegionsOfNagahsUnits = () => {
+  const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]
+  return filterUnits(LegionsOfNagashUnits, listOfUnits)
+}
 
 // Unit Names
 export const Units: TUnits = [
+  ...getLegionsOfNagahsUnits(),
   {
     name: `Gothizzar Harvester`,
     effects: [
