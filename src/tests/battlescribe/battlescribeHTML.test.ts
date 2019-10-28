@@ -30,6 +30,22 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with Slaanesh2', () => {
+    const parsedText = getFile('Slaanesh2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Khorne3', () => {
+    const parsedText = getFile('Khorne3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Stormcast1', () => {
     const parsedText = getFile('Stormcast1')
     const res = getBattlescribeArmy(parsedText)
