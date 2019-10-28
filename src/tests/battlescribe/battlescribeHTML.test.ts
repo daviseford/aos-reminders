@@ -355,6 +355,16 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with IDK3', () => {
+    const parsedText = getFile('IDK3')
+    const res = getBattlescribeArmy(parsedText)
+
+    console.log(res)
+
+    expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Bonesplitterz1', () => {
     const parsedText = getFile('Bonesplitterz1')
     const res = getBattlescribeArmy(parsedText)
