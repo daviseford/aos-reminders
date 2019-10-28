@@ -101,7 +101,7 @@ const battlescribeTypoMap: TNameMap = {
   'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
   'Mazrall the Butcher': 'Mazarall the Butcher',
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
-  Protector: 'Protectors',
+  'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Sneaky Shufflers': 'Sneaky Snufflers',
@@ -111,11 +111,10 @@ const battlescribeTypoMap: TNameMap = {
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Warrgog Prophet': 'Wurrgog Prophet',
-  'Who Strikes First, Strikes Hardest': 'FOOTNOTE: Who Strikes First, Strikes Hardest',
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
-  'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   Mirrorshield: 'Mirror Shield',
+  Protector: 'Protectors',
 }
 
 // Azyr helper

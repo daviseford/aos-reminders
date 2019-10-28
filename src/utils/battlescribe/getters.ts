@@ -7,22 +7,29 @@ import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
 import { TRealms } from 'types/realmscapes'
 import { isString } from 'util'
 import { isValidFactionName } from 'utils/armyUtils'
+import { TSupportedFaction } from 'meta/factions'
 
-export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo, factionInfo: IFactionInfo) => {
-  const res = { factionName: null, allegiances: [] }
+export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
+  const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
 
-  const mappedAllegiance = importFactionNameMap[allegianceInfo.allegiance || '']
-  const mappedFaction = importFactionNameMap[allegianceInfo.faction || '']
+  allegianceInfo.forEach(info => {
+    const mappedAllegiance = importFactionNameMap[info.allegiance || '']
+    const mappedFaction = importFactionNameMap[info.faction || '']
 
-  if (isValidFactionName(mappedAllegiance)) {
-    return { ...res, factionName: mappedAllegiance }
-  } else if (isValidFactionName(mappedFaction)) {
-    return { ...res, factionName: mappedFaction }
-  }
+    if (isValidFactionName(mappedAllegiance)) {
+      if (!store.factionName) store.factionName = mappedAllegiance
+      return
+    } else if (isValidFactionName(mappedFaction) && !store.factionName) {
+      store.factionName = mappedFaction
+      return
+    }
+
+    if (info.allegiance) store.allegiances.push(info.allegiance)
+  })
 
   return {
-    factionName: factionInfo.factionName,
-    allegiances: allegianceInfo.allegiance ? [allegianceInfo.allegiance] : [],
+    factionName: store.factionName || (factionInfo.factionName as TSupportedFaction),
+    allegiances: uniq(store.allegiances) as string[],
   }
 }
 
@@ -229,7 +236,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   )
 }
 
-export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo) => {
+export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {
   const Collection = {
     allegiances: [] as string[],
     artifacts: [] as string[],
@@ -290,11 +297,13 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     }
   })
 
-  Object.keys(allegianceInfo).forEach(key => {
-    if (lookup[key]) {
-      const vals = allegianceInfo[key]
-      Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
-    }
+  allegianceInfo.forEach(info => {
+    Object.keys(info).forEach(key => {
+      if (lookup[key]) {
+        const vals = info[key]
+        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+      }
+    })
   })
 
   return Collection

@@ -34,6 +34,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections.allegiances).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
     expect(res.errors).toEqual([
       { text: "Blacktalon's Shadowhammers", severity: 'warn' },
       { text: 'Warrior Brotherhood', severity: 'warn' },
@@ -381,7 +382,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.scenery).toContain('Skull Altar')
-    // TODO: Fix once https://github.com/daviseford/aos-reminders/issues/640 is merged
     expect(res.errors).toEqual([
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
       { text: 'Furies (of Khorne)', severity: 'warn' },
@@ -394,11 +394,19 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.allegiances).toEqual(['Barak-Mhornar, City of Shadow (Skyport)'])
+    expect(res.selections.allegiances).toEqual([
+      'Barak-Nar, City of the First Sunrise (Skyport)',
+      'Endless Skies (Custom Skyport)',
+      'Barak-Mhornar, City of Shadow (Skyport)',
+    ])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
     expect(res.selections.traits).toEqual([
+      'ARTYCLE: Respect Your Commanders',
+      'FOOTNOTE: Through Knowledge, Power',
+      'AMENDMENT: Trust Aethermatics, Not Superstition',
       'AMENDMENT: Prosecute Wars With All Haste',
       'ARTYCLE: Seek New Prospects',
+      'FOOTNOTE: Who Strikes First, Strikes Hardest',
     ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
     expect(res.errors).toEqual([])
@@ -415,6 +423,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
+      "FOOTNOTE: Where There's War, There's Gold",
     ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',

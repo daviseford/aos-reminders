@@ -11,10 +11,19 @@ import { cleanText, fixKeys } from './battlescribeUtils'
 import { parseFaction, parseAllegiance, parseRealmObj } from './getters'
 import { TRealms } from 'types/realmscapes'
 
-export const traverseDoc = (docObj: IParentNode | IChildNode) => {
+type TTraverseDoc = (
+  docObj: IParentNode | IChildNode
+) => {
+  realmInfo: null | TRealms
+  allegianceInfo: IAllegianceInfo[]
+  factionInfo: IFactionInfo
+  rootSelections: IParentNode[]
+}
+
+export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
     realmInfo: null as null | TRealms,
-    allegianceInfo: { faction: null, allegiance: null } as IAllegianceInfo,
+    allegianceInfo: [] as IAllegianceInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     rootSelections: [] as IParentNode[],
   }
@@ -34,8 +43,8 @@ export const traverseDoc = (docObj: IParentNode | IChildNode) => {
       results.factionInfo = parseFaction(obj)
     }
 
-    if (!results.allegianceInfo.faction && isAllegianceObj(obj)) {
-      results.allegianceInfo = parseAllegiance(obj)
+    if (isAllegianceObj(obj)) {
+      results.allegianceInfo.push(parseAllegiance(obj))
     }
 
     if (obj.childNodes.length > 0) {
