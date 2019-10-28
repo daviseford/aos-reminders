@@ -282,8 +282,8 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 
     // Put everything else in units
     if (!has_matched) {
-      const vals = r.name.split(',').map(cleanText)
-      Collection.units = uniq(Collection.units.concat(vals))
+      const val = cleanText(r.name)
+      Collection.units = uniq(Collection.units.concat(val))
     }
 
     if (process_entries) {

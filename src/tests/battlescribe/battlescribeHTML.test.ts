@@ -23,6 +23,7 @@ import {
   WANDERERS,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
+import { HYSH } from 'types/realmscapes'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -38,9 +39,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       { text: "Blacktalon's Shadowhammers", severity: 'warn' },
       { text: 'Warrior Brotherhood', severity: 'warn' },
-      { text: 'Magister of Hammerhal', severity: 'warn' },
-      { text: 'Hammer of Sigmar', severity: 'warn' },
-      { text: 'Errant-Questor', severity: 'warn' },
     ])
   })
 
@@ -163,6 +161,21 @@ describe('getBattlescribeArmy', () => {
         text: 'Shrieker Host',
       },
     ])
+  })
+
+  it('should work with Stormcast2', () => {
+    const parsedText = getFile('Stormcast2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.realmscape).toEqual(HYSH)
+    expect(res.selections.allegiances).toEqual([
+      'Hammers of Sigmar (Stormhost)',
+      'Astral Templars (Stormhost)',
+      'Celestial Vindicators (Stormhost)',
+      'Tempest Lords (Stormhost)',
+    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with LoB1', () => {
