@@ -85,19 +85,23 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     // TODO: Switch to Table lookup
     // Otherwise we can do a semi-normal lookup
     const { childNodes = [] } = strippedObj
+
+    const isSelectionNode = (node: IParentNode | IChildNode) => {
+      return (
+        isParentNode(node) &&
+        node.nodeName === 'span' &&
+        node.childNodes.length &&
+        isChildNode(node.childNodes[0]) &&
+        node.childNodes[0].value === 'Selections:'
+      )
+    }
+
     const nameObj = childNodes.find(x => {
       if (
         isParentNode(x) &&
         x.nodeName === 'p' &&
         x.childNodes.length &&
-        x.childNodes.some(
-          y =>
-            isParentNode(y) &&
-            y.nodeName === 'span' &&
-            y.childNodes.length &&
-            isChildNode(y.childNodes[0]) &&
-            y.childNodes[0].value === 'Selections:'
-        )
+        x.childNodes.some(isSelectionNode)
       ) {
         return true
       } else {
@@ -105,16 +109,14 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
       }
     })
 
-    if (!nameObj || !isParentNode(nameObj)) return allegianceInfo
+    if (!nameObj || !isParentNode(nameObj)) {
+      const allegiance = specialAllegianceLookup(childNodes)
+      if (allegiance) return { ...allegianceInfo, allegiance }
 
-    const selectionIdx = nameObj.childNodes.findIndex(
-      y =>
-        isParentNode(y) &&
-        y.nodeName === 'span' &&
-        y.childNodes.length &&
-        isChildNode(y.childNodes[0]) &&
-        y.childNodes[0].value === 'Selections:'
-    )
+      return allegianceInfo
+    }
+
+    const selectionIdx = nameObj.childNodes.findIndex(isSelectionNode)
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
 
@@ -129,6 +131,31 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     return { ...allegianceInfo, faction }
   } catch (err) {
     return allegianceInfo
+  }
+}
+
+/**
+ * Handles weird formatting issues with armies like Idoneth Deepkin
+ * @param childNodes
+ */
+const specialAllegianceLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+  try {
+    //@ts-ignore
+    if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:')
+      return null
+
+    //@ts-ignore
+    const value = childNodes[2].childNodes[0].childNodes[2].childNodes[1].childNodes[0].value
+    const possibleAllegiances: string[] = value.split(', ').map(cleanText)
+    const faction = cleanText(possibleAllegiances.shift() || '')
+      .split(' ')
+      .join('_')
+
+    if (isValidFactionName(faction) && possibleAllegiances.length > 0) {
+      return possibleAllegiances[0]
+    }
+  } catch (err) {
+    return null
   }
 }
 

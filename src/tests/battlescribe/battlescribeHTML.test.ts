@@ -359,9 +359,14 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('IDK3')
     const res = getBattlescribeArmy(parsedText)
 
-    console.log(res)
-
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.selections.allegiances).toEqual([
+      'Dhom Hain (Enclave)',
+      'Nautilar (Enclave)',
+      "Mor'phann (Enclave)",
+      'Fuethan (Enclave)',
+      'Briomdar (Enclave)',
+    ])
     expect(res.errors).toEqual([])
   })
 
