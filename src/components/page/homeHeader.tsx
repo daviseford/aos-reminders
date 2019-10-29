@@ -86,7 +86,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
             daviseford.com
           </LinkNewTab>
         </p>
-        <span>This tool offers gameplay reminders for:</span>
+        <span>Select your army to get started:</span>
         <div className={`d-flex pt-3 pb-2 justify-content-center`}>
           <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
             <SelectOne
