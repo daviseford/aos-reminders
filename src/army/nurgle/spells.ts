@@ -4,16 +4,6 @@ import { TSpells } from 'types/army'
 // Spell Lores of Nurgle
 const Spells: TSpells = [
   {
-    name: `Foul Regenesis`,
-    effects: [
-      {
-        name: `Blades of Putrefaction (Rotbringer)`,
-        desc: `Casting value of 7. Pick a result from the Stage of Corruption - the Cycle of Corruption is immediately reset to the stage you picked.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
     name: `Blades of Putrefaction (Rotbringer)`,
     effects: [
       {
