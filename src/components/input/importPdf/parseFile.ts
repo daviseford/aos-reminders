@@ -6,7 +6,7 @@ import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
-import { IImportedArmy, TImportParsers } from 'types/import'
+import { IImportedArmy, TImportParsers, TImportFileTypes } from 'types/import'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 interface IUseParseArgs {
@@ -30,15 +30,9 @@ const checkFileInformation = async typedArray => {
   return { pdfPages, parser }
 }
 
-export const handleParseFile: TUseParse = ({
-  handleDrop,
-  handleError,
-  handleDone,
-  isOnline,
-  setParser,
-  startProcessing,
-  stopProcessing,
-}) => {
+export const handleParseFile: TUseParse = handlers => {
+  const { handleError, isOnline, setParser, startProcessing, stopProcessing } = handlers
+
   return acceptedFiles => {
     try {
       const file = acceptedFiles[0]
@@ -56,27 +50,8 @@ export const handleParseFile: TUseParse = ({
         const typedArray = new Uint8Array(reader.result as any)
 
         if (file.type === 'text/html') {
-          const fileTxt = reader.result as string
-          const parsedArmy = getBattlescribeArmy(fileTxt)
-
-          // Send a copy of our file to S3
-          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
-            const payload = {
-              fileTxt,
-              parser: 'Battlescribe' as TImportParsers,
-              fileType: file.type,
-            }
-            Promise.resolve(PreferenceApi.createErrorFile(payload))
-          }
-
-          handleDrop(parsedArmy)
-          stopProcessing() && handleDone()
-
-          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-            logEvent(`ImportBattlescribe-${parsedArmy.factionName}`)
-          }
-
-          return
+          setParser('Battlescribe')
+          return handleBattlescribeHTML(reader.result as string, isOnline, handlers)
         }
 
         const { pdfPages, parser } = await checkFileInformation(typedArray)
@@ -100,33 +75,9 @@ export const handleParseFile: TUseParse = ({
 
         if (parser === 'Warscroll Builder') {
           const fileTxt = arrayBufferToString(reader.result)
-          const { parsedFile, parsedArmy } = handleWarscroll(fileTxt)
-
-          // Send a copy of our file to S3
-          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
-            const payload = { fileTxt: parsedFile, parser, fileType: file.type }
-            Promise.resolve(PreferenceApi.createErrorFile(payload))
-          }
-
-          handleDrop(parsedArmy)
-          stopProcessing() && handleDone()
-          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-            logEvent(`Import${parser}-${parsedArmy.factionName}`)
-          }
+          return handleWarscrollBuilderPDF(fileTxt, isOnline, handlers)
         } else {
-          const parsedPages = handleAzyrPages(pdfPages)
-          const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
-
-          if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
-            const payload = { fileTxt: pdfPages, parser, fileType: file.type }
-            Promise.resolve(PreferenceApi.createErrorFile(payload))
-          }
-
-          handleDrop(parsedArmy)
-          stopProcessing() && handleDone()
-          if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-            logEvent(`Import${parser}-${parsedArmy.factionName}`)
-          }
+          return handleAzyrPDF(pdfPages, isOnline, handlers)
         }
       }
 
@@ -141,7 +92,7 @@ export const handleParseFile: TUseParse = ({
         const fileType = file ? file.type : 'Unknown'
         if (isOnline) logEvent(`Import${fileType}`)
         console.error(`Error: File type not supported - ${fileType}`)
-        return stopProcessing() && handleError(`Only feed me PDF files, please`)
+        return stopProcessing() && handleError(`Only feed me PDF and HTML files, please`)
       }
     } catch (err) {
       console.error(err)
@@ -150,8 +101,85 @@ export const handleParseFile: TUseParse = ({
   }
 }
 
-const handleWarscroll = (fileText: string) => {
+const parseWarscroll = (fileText: string) => {
   const parsedFile = parsePdf(fileText)
   const parsedArmy = getWarscrollArmyFromPdf(parsedFile)
   return { parsedFile, parsedArmy }
+}
+
+const handleWarscrollBuilderPDF = (fileTxt: string, isOnline: boolean, handlers: IUseParseArgs) => {
+  try {
+    const { parsedFile, parsedArmy } = parseWarscroll(fileTxt)
+
+    // Send a copy of our file to S3
+    if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
+      const payload = {
+        fileTxt: parsedFile,
+        parser: 'Warscroll Builder' as TImportParsers,
+        fileType: 'application/pdf' as TImportFileTypes,
+      }
+      Promise.resolve(PreferenceApi.createErrorFile(payload))
+    }
+
+    handlers.handleDrop(parsedArmy)
+    handlers.stopProcessing() && handlers.handleDone()
+    if (isOnline && isValidFactionName(parsedArmy.factionName)) {
+      logEvent(`ImportWarscroll Builder-${parsedArmy.factionName}`)
+    }
+  } catch (err) {
+    console.error(err)
+    handlers.handleError(err.toString())
+  }
+}
+
+const handleAzyrPDF = (fileTxt: string[], isOnline: boolean, handlers: IUseParseArgs) => {
+  try {
+    const parsedPages = handleAzyrPages(fileTxt)
+    const parsedArmy: IImportedArmy = getAzyrArmyFromPdf(parsedPages)
+
+    if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
+      const payload = {
+        fileTxt,
+        parser: 'Azyr' as TImportParsers,
+        fileType: 'application/pdf' as TImportFileTypes,
+      }
+      Promise.resolve(PreferenceApi.createErrorFile(payload))
+    }
+
+    handlers.handleDrop(parsedArmy)
+    handlers.stopProcessing() && handlers.handleDone()
+
+    if (isOnline && isValidFactionName(parsedArmy.factionName)) {
+      logEvent(`ImportAzyr-${parsedArmy.factionName}`)
+    }
+  } catch (err) {
+    console.error(err)
+    handlers.handleError(err.toString())
+  }
+}
+
+const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IUseParseArgs) => {
+  try {
+    const parsedArmy = getBattlescribeArmy(fileTxt)
+
+    // Send a copy of our file to S3
+    if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
+      const payload = {
+        fileTxt,
+        parser: 'Battlescribe' as TImportParsers,
+        fileType: 'text/html' as TImportFileTypes,
+      }
+      Promise.resolve(PreferenceApi.createErrorFile(payload))
+    }
+
+    handlers.handleDrop(parsedArmy)
+    handlers.stopProcessing() && handlers.handleDone()
+
+    if (isOnline && isValidFactionName(parsedArmy.factionName)) {
+      logEvent(`ImportBattlescribe-${parsedArmy.factionName}`)
+    }
+  } catch (err) {
+    console.error(err)
+    handlers.handleError(err.toString())
+  }
 }
