@@ -115,13 +115,6 @@ const ActionText = (props: IActionTextProps) => {
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
-  useEffect(() => {
-    return () => {
-      showEntry() // Remove this from the hidden array on unload
-    }
-    // eslint-disable-next-line
-  }, [])
-
   return (
     <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
       <div className="d-flex mb-1">
