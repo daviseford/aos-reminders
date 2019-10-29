@@ -65,7 +65,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
         />
         <div className={bodyClass}>
           {actions.map((action, i) => {
-            const name = `${when}_${action.name}_${i}`
+            const name = `${when}_${action.condition}_${action.name}`.split(' ').join('_')
             const showEntry = () => showReminder(name)
             const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)
