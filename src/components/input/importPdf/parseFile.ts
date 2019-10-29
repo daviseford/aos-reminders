@@ -6,7 +6,16 @@ import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
-import { IImportedArmy, TImportParsers, TImportFileTypes } from 'types/import'
+import {
+  IImportedArmy,
+  TImportParsers,
+  WARSCROLL_BUILDER,
+  BATTLESCRIBE,
+  PDF_FILE,
+  UNKNOWN,
+  HTML_FILE,
+  AZYR,
+} from 'types/import'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 interface IUseParseArgs {
@@ -49,8 +58,8 @@ export const handleParseFile: TUseParse = handlers => {
       reader.onload = async () => {
         const typedArray = new Uint8Array(reader.result as any)
 
-        if (file.type === 'text/html') {
-          setParser('Battlescribe')
+        if (file.type === HTML_FILE) {
+          setParser(BATTLESCRIBE)
           return handleBattlescribeHTML(reader.result as string, isOnline, handlers)
         }
 
@@ -63,17 +72,17 @@ export const handleParseFile: TUseParse = handlers => {
           return stopProcessing() && handleError(`Unable to process AoS Reminder PDFs`)
         }
 
-        if (parser === 'Battlescribe' && file.type === 'application/pdf') {
+        if (parser === BATTLESCRIBE) {
           logEvent(`Import${parser}`)
-          return stopProcessing() && handleError(`We don't support Battlescribe PDFs... yet!`)
+          return stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs... yet!`)
         }
 
-        if (parser === 'Unknown') {
+        if (parser === UNKNOWN) {
           logEvent(`Import${parser}`)
           return stopProcessing() && handleError()
         }
 
-        if (parser === 'Warscroll Builder') {
+        if (parser === WARSCROLL_BUILDER) {
           const fileTxt = arrayBufferToString(reader.result)
           return handleWarscrollBuilderPDF(fileTxt, isOnline, handlers)
         } else {
@@ -84,12 +93,12 @@ export const handleParseFile: TUseParse = handlers => {
       startProcessing() // Start processing spinner
 
       // Read the file
-      if (file && file.type === 'application/pdf') {
+      if (file && file.type === PDF_FILE) {
         reader.readAsArrayBuffer(file)
-      } else if (file && file.type === 'text/html') {
+      } else if (file && file.type === HTML_FILE) {
         reader.readAsText(file)
       } else {
-        const fileType = file ? file.type : 'Unknown'
+        const fileType = file ? file.type : UNKNOWN
         if (isOnline) logEvent(`Import${fileType}`)
         console.error(`Error: File type not supported - ${fileType}`)
         return stopProcessing() && handleError(`Only feed me PDF and HTML files, please`)
@@ -115,8 +124,8 @@ const handleWarscrollBuilderPDF = (fileTxt: string, isOnline: boolean, handlers:
     if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
       const payload = {
         fileTxt: parsedFile,
-        parser: 'Warscroll Builder' as TImportParsers,
-        fileType: 'application/pdf' as TImportFileTypes,
+        parser: WARSCROLL_BUILDER,
+        fileType: PDF_FILE,
       }
       Promise.resolve(PreferenceApi.createErrorFile(payload))
     }
@@ -124,7 +133,7 @@ const handleWarscrollBuilderPDF = (fileTxt: string, isOnline: boolean, handlers:
     handlers.handleDrop(parsedArmy)
     handlers.stopProcessing() && handlers.handleDone()
     if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-      logEvent(`ImportWarscroll Builder-${parsedArmy.factionName}`)
+      logEvent(`Import${WARSCROLL_BUILDER}-${parsedArmy.factionName}`)
     }
   } catch (err) {
     console.error(err)
@@ -140,8 +149,8 @@ const handleAzyrPDF = (fileTxt: string[], isOnline: boolean, handlers: IUseParse
     if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
       const payload = {
         fileTxt,
-        parser: 'Azyr' as TImportParsers,
-        fileType: 'application/pdf' as TImportFileTypes,
+        parser: AZYR,
+        fileType: PDF_FILE,
       }
       Promise.resolve(PreferenceApi.createErrorFile(payload))
     }
@@ -150,7 +159,7 @@ const handleAzyrPDF = (fileTxt: string[], isOnline: boolean, handlers: IUseParse
     handlers.stopProcessing() && handlers.handleDone()
 
     if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-      logEvent(`ImportAzyr-${parsedArmy.factionName}`)
+      logEvent(`Import${AZYR}-${parsedArmy.factionName}`)
     }
   } catch (err) {
     console.error(err)
@@ -166,8 +175,8 @@ const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IU
     if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
       const payload = {
         fileTxt,
-        parser: 'Battlescribe' as TImportParsers,
-        fileType: 'text/html' as TImportFileTypes,
+        parser: BATTLESCRIBE,
+        fileType: HTML_FILE,
       }
       Promise.resolve(PreferenceApi.createErrorFile(payload))
     }
@@ -176,7 +185,7 @@ const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IU
     handlers.stopProcessing() && handlers.handleDone()
 
     if (isOnline && isValidFactionName(parsedArmy.factionName)) {
-      logEvent(`ImportBattlescribe-${parsedArmy.factionName}`)
+      logEvent(`Import${BATTLESCRIBE}-${parsedArmy.factionName}`)
     }
   } catch (err) {
     console.error(err)

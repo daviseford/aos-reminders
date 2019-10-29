@@ -70,6 +70,7 @@
     "@types/lodash": "4.14.144",
     "@types/luxon": "1.15.2",
     "@types/node": "12.11.7",
+    "@types/parse5": "^5.0.2",
     "@types/pdfjs-dist": "2.1.2",
     "@types/qs": "6.5.3",
     "@types/react": "16.9.11",

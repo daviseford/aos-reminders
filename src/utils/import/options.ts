@@ -41,7 +41,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { TImportParsers } from 'types/import'
+import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
 
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
@@ -242,22 +242,22 @@ type TParserOptions = {
 }
 
 export const parserOptions: TParserOptions = {
-  'Warscroll Builder': {
+  [WARSCROLL_BUILDER]: {
     checkPoorSpacing: false,
-    fileReadError: `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`,
+    fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
-  Azyr: {
+  [AZYR]: {
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
-  Battlescribe: {
+  [BATTLESCRIBE]: {
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
     typoMap: battlescribeTypoMap,
   },
-  Unknown: {
+  [UNKNOWN]: {
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},

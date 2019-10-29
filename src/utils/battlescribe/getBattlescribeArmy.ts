@@ -1,15 +1,14 @@
 import parse5 from 'parse5'
-import { isTest } from 'utils/env'
 import { importErrorChecker } from 'utils/import'
 import { stripParentNode, traverseDoc, parseRootSelection } from './parseHTML'
 import { sortParsedRoots, getFactionAndAllegiance } from './getters'
 import { TSupportedFaction } from 'meta/factions'
+import { BATTLESCRIBE } from 'types/import'
 
 export const getBattlescribeArmy = (html_string: string) => {
   const army = getInitialBattlescribeArmy(html_string)
-  const errorChecked = importErrorChecker(army, 'Battlescribe')
+  const errorChecked = importErrorChecker(army, BATTLESCRIBE)
 
-  if (!isTest) console.log('errorChecked', errorChecked)
   return errorChecked
 }
 
