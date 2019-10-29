@@ -1,7 +1,7 @@
 import { TArtifacts } from 'types/army'
 import {
+  COMBAT_PHASE,
   DURING_GAME,
-  START_OF_GAME,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -34,7 +34,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Blade of Realities`,
         desc: `Pick one of the bearer's melee weapons. Improve the Rend characteristic of that weapon by 1.`,
-        when: [START_OF_GAME],
+        when: [COMBAT_PHASE],
       },
     ],
   },

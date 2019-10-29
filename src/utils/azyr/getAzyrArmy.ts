@@ -3,14 +3,14 @@ import { titleCase } from 'utils/textUtils'
 import { importErrorChecker } from 'utils/import'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
-import { IImportedArmy } from 'types/import'
+import { IImportedArmy, AZYR } from 'types/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import KOArmy from 'army/kharadron_overlords'
 import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
-  const errorChecked = importErrorChecker(army, 'Azyr')
+  const errorChecked = importErrorChecker(army, AZYR)
 
   return errorChecked
 }

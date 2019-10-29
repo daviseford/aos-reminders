@@ -8,7 +8,15 @@ import { btnContentWrapper } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { IImportedArmy, TImportParsers } from 'types/import'
+import {
+  IImportedArmy,
+  TImportParsers,
+  WARSCROLL_BUILDER,
+  AZYR,
+  BATTLESCRIBE,
+  PDF_FILE,
+  HTML_FILE,
+} from 'types/import'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
@@ -24,7 +32,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   const [isError, setIsError] = useState(false)
   const [errorTxt, setErrorText] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [parser, setParser] = useState<TImportParsers>('Warscroll Builder')
+  const [parser, setParser] = useState<TImportParsers>(WARSCROLL_BUILDER)
 
   const handleDone = () => {
     setIsDone(true)
@@ -68,7 +76,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'application/pdf',
+    accept: `${PDF_FILE}, ${HTML_FILE}`,
     multiple: false,
   })
 
@@ -76,14 +84,14 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
     if (isProcessing) return ``
     if (isError) return errorTxt || `Unable to process this file`
     if (isDone) return `${parser} file processed!`
-    if (isMobile) return `Tap to select your Azyr/Warscroll Builder PDF`
-    return `Drag your Azyr or Warscroll Builder PDF here, or click to select`
+    if (isMobile) return `Tap to select your ${AZYR}/${WARSCROLL_BUILDER} PDF or ${BATTLESCRIBE} HTML`
+    return `Drag your ${AZYR}/${WARSCROLL_BUILDER} PDF or ${BATTLESCRIBE} HTML here, or click to select`
   }
 
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      <div className={`${btnContentWrapper} py-3`}>
+      <div className={`${btnContentWrapper} text-center py-3`}>
         {isProcessing && <Spinner />}
         {getText()}
         {isDone && <FaRegCheckCircle className="text-success ml-2" />}

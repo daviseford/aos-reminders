@@ -111,12 +111,12 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Access your saved armies <strong>offline</strong>!
+        <strong>NEW:</strong> Import army lists from <strong>Battlescribe</strong>!
       </li>
       <li>Choose your favorite faction</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
-        device
+        device - even <strong>offline!</strong>
       </li>
       <li>
         Import your army lists <strong>instantly</strong> from Warscroll Builder and Azyr
@@ -132,13 +132,10 @@ const ComingSoon = () => (
     </p>
     <ul className="lead">
       <li>
-        <i>Importing army lists from Battlescribe</i>
-      </li>
-      <li>
         <i>Share army lists with your friends</i>
       </li>
       <li>
-        <i>Adding custom reminders</i>
+        <i>Add custom reminders</i>
       </li>
       <li>
         <i>Drag and drop sorting of rules</i>
