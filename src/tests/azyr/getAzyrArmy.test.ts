@@ -32,6 +32,7 @@ import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
+import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
@@ -45,6 +46,14 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Khorne3', () => {
+    const pages = handleAzyrPages(Khorne3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.artifacts).toContain('Brazen Rune')
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Khorne2', () => {
     const pages = handleAzyrPages(Khorne2)
     const res = getAzyrArmyFromPdf(pages)
@@ -224,6 +233,7 @@ describe('getAzyrArmyFromPdf', () => {
       'ARTYCLE: Seek New Prospects',
       'AMENDMENT: Prosecute Wars With All Haste',
       "FOOTNOTE: There's no Trading With Some People",
+      'FOOTNOTE: Who Strikes First, Strikes Hardest',
     ])
   })
 
@@ -235,6 +245,7 @@ describe('getAzyrArmyFromPdf', () => {
       'ARTYCLE: Master the Skies',
       "AMENDMENT: Don't Argue With the Wind",
       'FOOTNOTE: Without Our Ships, We Are Naught',
+      "FOOTNOTE: There's Always a Breeze if You Look for it",
     ])
   })
 
@@ -246,6 +257,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
+      'FOOTNOTE: Through Knowledge, Power',
       'FOOTNOTE: Without Our Ships, We Are Naught',
       'Champion of Progress',
     ])
@@ -396,6 +408,7 @@ describe('getAzyrArmyFromPdf', () => {
         traits: [
           'ARTYCLE: Settle the Grudges',
           'AMENDMENT: Trust to Your Guns',
+          'FOOTNOTE: Honour the Gods, Just in Case',
           'FOOTNOTE: These Are Just Guidelines',
         ],
         triumphs: [],

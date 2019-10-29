@@ -8,6 +8,7 @@ import {
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -772,6 +773,32 @@ export const Units: TUnits = [
         name: `Thunderblast`,
         desc: `Pick a terrain feature wholly within 18" of this model. Each enemy unit within 3" of that terrain feature suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Errant-Questor`,
+    effects: [
+      {
+        name: `Implacable Determination`,
+        desc: `When you make save rolls for this model, ignore the enemy's Rend characteristic.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Oathsworn`,
+        desc: `After setup, you must declare an oath for each Errant-Questor in your army to fulfil:
+        
+        Sworn Protector: Pick a HERO in your army for the Errant-Questor to protect. Whilst this model is within 3" of the HERO you picked, you can choose to allocate any unsanved or mortal wound inflicted upon that model to the Errant-Questor instead.
+
+        Blood Feud: Pick a HERO in the enemy army. You can re-roll all failed hit and wound rolls when attacking that HERO with this model. If you have more than one Errant-Questor in your army that chooses this oath, you must pick a different enemy HERO to be the target of each blood feud.
+
+        Fueled by Vengeance: Keep track of how many unsaved wounds this model inflicts upon enemy models in battle. Add 1 to the Attacks characteristic of this model's Rune-etched Greatblade for every 10 wounds he inflicts during the battle.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Relentless Purpose`,
+        desc: `You can re-roll failed charge rolls for an Errant-Questor.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },

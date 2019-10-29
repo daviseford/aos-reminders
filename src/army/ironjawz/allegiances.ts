@@ -18,7 +18,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Ironsunz Kunnin'`,
         desc: `-1 to be hit for enemy attacks in the first battle round.`,
-        when: [HERO_PHASE],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Alright - Get 'Em`,

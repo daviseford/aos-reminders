@@ -188,7 +188,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Lotan, Warden of the Soul Ledgers`,
+    name: `Lotann, Warden of the Soul Ledgers`,
     effects: [
       {
         name: `Catalogue of Souls`,

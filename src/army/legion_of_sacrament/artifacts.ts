@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Wristbands of Black Gold`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the shooting phase. On a 4+ the wound is negated.`,
-        when: [COMBAT_PHASE],
+        when: [SHOOTING_PHASE],
       },
     ],
   },

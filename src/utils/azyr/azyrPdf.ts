@@ -3,7 +3,7 @@ import { uniq, sortBy } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
-import { TImportParsers } from 'types/import'
+import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
 
 const sep = ', '
 const commaAlt = `&&`
@@ -58,19 +58,19 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
     const isAzyr = isBattlescribe ? false : checkIfAzyr(pdfPages)
     const isWarscroll = isAzyr || isBattlescribe ? false : checkIfWarscroll(pdfPages)
     const parser: TImportParsers = isWarscroll
-      ? 'Warscroll Builder'
+      ? WARSCROLL_BUILDER
       : isAzyr
-      ? 'Azyr'
+      ? AZYR
       : isBattlescribe
-      ? 'Battlescribe'
-      : 'Unknown'
+      ? BATTLESCRIBE
+      : UNKNOWN
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
 
     return { pdfPages, parser }
   } catch (err) {
     console.error(err)
-    return { pdfPages: [], parser: 'Unknown' }
+    return { pdfPages: [], parser: UNKNOWN }
   }
 }
 
@@ -88,7 +88,7 @@ const checkIfBattlescribe = (pdfPages: string[]): boolean => {
 }
 
 const checkIfWarscroll = (pdfPages: string[]): boolean => {
-  return pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
+  return pdfPages.some(x => x.includes(WARSCROLL_BUILDER) || x.includes('Allegiance:'))
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {
