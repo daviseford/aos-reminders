@@ -1,6 +1,6 @@
 {
   "name": "aos-reminders",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -10,7 +10,7 @@
     "core-js": "3.3.5",
     "jspdf": "1.5.3",
     "lodash": "4.17.15",
-    "luxon": "1.19.3",
+    "luxon": "1.20.0",
     "node-sass": "4.13.0",
     "parse5": "^5.1.0",
     "pdfjs-dist": "2.2.228",
