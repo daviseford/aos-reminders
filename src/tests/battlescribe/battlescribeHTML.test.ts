@@ -22,6 +22,8 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
+  CITIES_OF_SIGMAR,
+  BIG_WAAAGH,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -31,6 +33,90 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with CoS1', () => {
+    const parsedText = getFile('CoS1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections.allegiances).toEqual([
+      'Greywater Fastness',
+      'Anvilgard',
+      'Hallowheart',
+      'Hammerhal',
+      'The Living City',
+      'The Phoenicium',
+      "Tempest's Eye",
+    ])
+    expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+  })
+
+  it('should work with BigWaaagh1', () => {
+    const parsedText = getFile('BigWaaagh1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections.allegiances).toEqual([])
+    // Bonesplitterz Drakkfoot spell
+    expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
+  })
+
+  it('should work with DoK2', () => {
+    const parsedText = getFile('DoK2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
+    expect(res.selections.spells).toEqual(['Arcane Bolt', "Arnzipal's Black Horror", 'Mystic Shield'])
+    expect(res.selections.allegiances).toEqual([
+      'Hagg Nar (Temple)',
+      'Draichi Ganeth (Temple)',
+      'The Kraith (Temple)',
+      'Khailebron (Temple)',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers2', () => {
+    const parsedText = getFile('Fyreslayers2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.selections.allegiances).toEqual([
+      'Greyfyrd (Lodge)',
+      'Lofnir (Lodge)',
+      'Vostarg (Lodge)',
+      'Hermdar (Lodge)',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Stormcast4', () => {
+    const parsedText = getFile('Stormcast4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections.commands).toEqual([
+      'Heroes of Another Age',
+      'Cut off the Head',
+      'Righteous Hatred',
+      'Astral Conjunction',
+      'Holy Crusaders',
+      'Soul of the Stormhost',
+      'No Mercy',
+      'Rousing Oratory',
+    ])
+    expect(res.selections.allegiances).toEqual([
+      'Anvils of the Heldenhammer (Stormhost)',
+      'Astral Templars (Stormhost)',
+      'Celestial Vindicators (Stormhost)',
+      'Celestial Warbringers (Stormhost)',
+      'Hallowed Knights (Stormhost)',
+      'Hammers of Sigmar (Stormhost)',
+      'Knights Excelsior (Stormhost)',
+      'Tempest Lords (Stormhost)',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Slaanesh2', () => {
     const parsedText = getFile('Slaanesh2')
     const res = getBattlescribeArmy(parsedText)
