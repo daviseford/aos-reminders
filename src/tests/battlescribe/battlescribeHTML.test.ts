@@ -15,6 +15,7 @@ import {
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
   SERAPHON,
+  SLAANESH,
   SLAVES_TO_DARKNESS,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
@@ -34,7 +35,8 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Slaanesh2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.selections.allegiances).toEqual(['Invaders (Host)', 'Godseekers (Host)', 'Pretenders (Host)'])
     expect(res.errors).toEqual([])
   })
 
@@ -42,7 +44,13 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Khorne3')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.allegiances).toEqual([
+      'The Bloodlords',
+      'Reapers of Vengeance',
+      'The Skullfiend Tribe',
+      'The Goretide',
+    ])
     expect(res.errors).toEqual([])
   })
 
@@ -363,6 +371,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.scenery).toEqual(['Herdstone'])
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Allherd', // BoC allegiance
+      },
       {
         text:
           'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',

@@ -21,7 +21,6 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
       return
     } else if (isValidFactionName(mappedFaction) && !store.factionName) {
       store.factionName = mappedFaction
-      return
     }
 
     if (info.allegiance) store.allegiances.push(info.allegiance)
@@ -71,6 +70,7 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 
 export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null, allegiance: null }
+
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -110,7 +110,10 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     })
 
     if (!nameObj || !isParentNode(nameObj)) {
-      const allegiance = specialAllegianceLookup(childNodes)
+      let allegiance = allegianceCategoryLookup(childNodes)
+      if (allegiance) return { ...allegianceInfo, allegiance }
+
+      allegiance = allegianceSelectionLookup(childNodes)
       if (allegiance) return { ...allegianceInfo, allegiance }
 
       return allegianceInfo
@@ -134,11 +137,36 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
   }
 }
 
+const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+  try {
+    // Don't run if we have categories
+    // @ts-ignore
+    if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value === 'Categories:') {
+      return null
+    }
+
+    // @ts-ignore
+    const mainNode = childNodes[2].childNodes[0].childNodes[1]
+    const spanNode = mainNode.childNodes[0]
+    // @ts-ignore
+    const valNode = childNodes[2].childNodes[0].childNodes[1].childNodes[1]
+
+    if (mainNode.nodeName !== 'p') return null
+    if (spanNode.nodeName !== 'span') return null
+    if (spanNode.childNodes[0].value !== 'Selections:') return null
+    if (!isChildNode(valNode) || valNode.nodeName !== '#text') return null
+
+    return cleanText(valNode.value)
+  } catch (err) {
+    return null
+  }
+}
+
 /**
  * Handles weird formatting issues with armies like Idoneth Deepkin
  * @param childNodes
  */
-const specialAllegianceLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>) => {
   try {
     //@ts-ignore
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:')
@@ -220,8 +248,6 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
 
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
-  // const tableTraits: { [key: string]: string[] } = {}
-
   const tableTraits = tableTags.reduce(
     (a, table) => {
       // @ts-ignore
@@ -247,7 +273,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     }, {})
   )
 
-  return Object.keys(mergedTraits).reduce(
+  const fixedKeys = Object.keys(mergedTraits).reduce(
     (a, key) => {
       const val = mergedTraits[key]
       if (key === 'Selections' && isString(val)) {
@@ -261,6 +287,8 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     },
     allegianceInfo as IAllegianceInfo
   )
+
+  return fixedKeys
 }
 
 export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {

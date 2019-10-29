@@ -23,15 +23,6 @@ const getInitialBattlescribeArmy = (html_string: string) => {
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
 
-  if (!isTest) {
-    console.log(strippedDoc)
-    console.log(allegianceInfo, factionInfo, rootSelections)
-    console.log({ factionName, allegiances })
-    console.log('rootSelections', rootSelections)
-    console.log(parsedRoots)
-    console.log(selections)
-  }
-
   return {
     allyFactionNames: [],
     allySelections: {},
