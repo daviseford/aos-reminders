@@ -57,6 +57,7 @@ const warscrollTypoMap: TNameMap = {
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
+  'Hammers of Aurgury': 'Hammers of Augury',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Horn of Consort': 'Horn of the Consort',
@@ -69,10 +70,12 @@ const warscrollTypoMap: TNameMap = {
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
+  'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
+  'Windshief Charm': 'Windthief Charm',
   "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
 }
@@ -84,6 +87,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
   'Madcap Shamans': 'Madcap Shaman',
+  'The Brazen Rune': 'Brazen Rune',
 }
 
 // Battlescribe on the left - AoS Reminders on the right

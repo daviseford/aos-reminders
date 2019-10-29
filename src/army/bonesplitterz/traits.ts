@@ -94,7 +94,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Fuelled by the Spirits`,
-        desc: `Pick 1 extra spell from the Lore of the Savage Beast table. This general may also cast 1 addtional spell.`,
+        desc: `Pick 1 extra spell from the Lore of the Savage Beast table. This general may also cast 1 additional spell.`,
         when: [HERO_PHASE],
       },
     ],

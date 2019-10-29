@@ -489,7 +489,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BONESPLITTERZ)
-    // This is characterized as a Super Battalion by Battlescribe
+    // This is characterized as a Super Battalion by Battlescribe (old version, pre Big Waaagh)
     expect(res.errors).toEqual([{ text: 'Icebone Warclan', severity: 'warn' }])
   })
 
@@ -499,7 +499,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.errors).toEqual([
-      { text: 'Spider Rider Skitterswarm', severity: 'warn' },
       { text: 'Night Shroud', severity: 'warn' },
       { text: 'Speed of the Spider God', severity: 'warn' },
       { text: 'Venom of the Spider God', severity: 'warn' },

@@ -54,8 +54,18 @@ const CommandTraits: TTraits = [
     name: `Iron Will of the Guardian`,
     effects: [
       {
-        name: `Destroyer of foes`,
-        desc: `+1 Damage for this general's melee weapons.`,
+        name: `Iron Will of the Guardian`,
+        desc: `Add 1 to save rolls for attacks that target this general.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Destroyer of Foes`,
+    effects: [
+      {
+        name: `Destroyer of Foes`,
+        desc: `Add 1 to the Damage characteristic of this general's melee weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
