@@ -23,9 +23,17 @@ const HeraldsOfTheAccursedOneEffect = {
   when: [BATTLESHOCK_PHASE],
 }
 
+const EndlessDutyEffect = {
+  name: `Endless Duty`,
+  desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly OSSIARCH BONEREAPERS unit that is wholly within 12" of a model with this command ability. Add 1 to the Attacks characteristic of weapons used by that unit in that phase. You cannot pick the same unit to benefit from this command ability more than once per phase.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  command_ability: true,
+}
+
+export const AlliedUnits: TUnits = [...getLegionsOfNagashUnits()]
+
 // Unit Names
 export const Units: TUnits = [
-  ...getLegionsOfNagashUnits(),
   {
     name: `Gothizzar Harvester`,
     effects: [
@@ -53,11 +61,42 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Arch-Kavalos Zandtos`,
+    effects: [
+      {
+        name: `The Dark Lance`,
+        desc: `The Dark Lance has a Damage characteristic of 3 instead of 2 if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hatred of the Living`,
+        desc: `Re-roll wound rolls of 1 for attacks made by this model that target ORDER and DESTRUCTION units. You can re-roll any wound rolls for attacks made by this model that target CHAOS units.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Unstoppable Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Unstoppable Charge`,
+        desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      EndlessDutyEffect,
+      {
+        name: `Still Their Breath!`,
+        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Re-roll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units. You can re-roll any wound rolls for attacks made by that unit that target CHAOS units.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
     name: `Immortis Guard`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -66,8 +105,8 @@ export const Units: TUnits = [
     name: `Mortek Guard`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -76,8 +115,8 @@ export const Units: TUnits = [
     name: `Kavalos Deathriders`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -86,8 +125,8 @@ export const Units: TUnits = [
     name: `Mortisian Priest`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -96,8 +135,8 @@ export const Units: TUnits = [
     name: `Necropolis Stalkers`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -106,8 +145,8 @@ export const Units: TUnits = [
     name: `Mortek Crawler`,
     effects: [
       //      {
-      //       name: `TBD`,
-      //        desc: `TBD.`,
+      //       name: ``,
+      //        desc: ``,
       //        when: [HERO_PHASE],
       //      },
     ],
@@ -130,12 +169,7 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a Nadirite weapon is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Endless Duty`,
-        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly OSSIARCH BONEREAPERS unit that is wholly within 12" of a model with this command ability. Add 1 to the Attacks characteristic of weapons used by that unit in that phase. You cannot pick the same unit to benefit from this command ability more than once per phase.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-        command_ability: true,
-      },
+      EndlessDutyEffect,
       {
         name: `Supreme Lord of the Bonereaper Legions`,
         desc: `You can use this command ability in your hero phase if Katakros is your general. If you do so, until your next hero phase, add 1 to hit rolls for attacks made by friendly OSSIARCH BONEREAPERS units while they are wholly within 18" of this model, and add 1 to save rolls for attacks that target friendly Mortis Praetorian units while they are wholly within 18" of this model. You can only use this command ability once per hero phase.`,
