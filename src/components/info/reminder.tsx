@@ -76,7 +76,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={!isHidden}
                 hideEntry={hideEntry}
                 showEntry={showEntry}
-                key={`${name}_${i}`}
+                key={name}
               />
             )
           })}
