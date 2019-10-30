@@ -7,14 +7,14 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
 import {
-  IImportedArmy,
-  TImportParsers,
-  WARSCROLL_BUILDER,
-  BATTLESCRIBE,
-  PDF_FILE,
-  UNKNOWN,
-  HTML_FILE,
   AZYR,
+  BATTLESCRIBE,
+  HTML_FILE,
+  IImportedArmy,
+  PDF_FILE,
+  TImportParsers,
+  UNKNOWN,
+  WARSCROLL_BUILDER,
 } from 'types/import'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
