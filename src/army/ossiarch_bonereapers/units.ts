@@ -88,17 +88,29 @@ export const Units: TUnits = [
         name: `Still Their Breath!`,
         desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Re-roll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units. You can re-roll any wound rolls for attacks made by that unit that target CHAOS units.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_ability: true,
       },
     ],
   },
   {
     name: `Immortis Guard`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      {
+        name: `Deadly Combination`,
+        desc: `If the unmodified hit roll for an attack made with a Nadirite Battle- shield is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulbound Protectors`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Crushing Assault`,
+        desc: `You can use this command ability in your combat phase after a friendly IMMORTIS GUARD unit has fought in that phase for the first time. If you do so, if that unit is within 3" of an enemy unit, it can make a pile-in move and then attack with its Nadirite Battle-shields for a second time.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
+      },
     ],
   },
   {
