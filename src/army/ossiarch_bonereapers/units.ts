@@ -10,6 +10,7 @@ import {
   SHOOTING_PHASE,
   HERO_PHASE,
   DURING_TURN,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 
 const getLegionsOfNagashUnits = () => {
@@ -126,11 +127,35 @@ export const Units: TUnits = [
   {
     name: `Kavalos Deathriders`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      {
+        name: `Necrophoros`,
+        desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Mortek Hekatos`,
+        desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's Nadirite Blade or Nadirite Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Nadirite Weapons`,
+        desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deathrider Wedge`,
+        desc: `You can use this command ability when a friendly Kavalos Deathriders unit that includes a Mortek Hekatos finishes a charge move. You can pick 1 enemy unit within 1" of that Kavalos Deathriders unit and roll a number of dice equal to the number of models in that Kavalos Deathriders unit. For each 5+, the enemy unit suffers 1 mortal wound. 
+             
+             In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in.`,
+        when: [CHARGE_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Deathrider Wedge`,
+        desc: `If this ability is active, this Kavalos Deathriders unit can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
+      },
     ],
   },
   {
