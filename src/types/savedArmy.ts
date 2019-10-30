@@ -3,8 +3,7 @@ import { IVisibilityStore } from './store'
 
 export interface ISavedArmy extends ICurrentArmy {
   armyName: string
-  reminders?: IVisibilityStore['reminders']
-  when?: IVisibilityStore['when']
+  hiddenReminders?: IVisibilityStore['reminders']
 }
 
 export interface ISavedArmyFromApi extends ISavedArmy {

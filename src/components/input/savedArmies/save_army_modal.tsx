@@ -17,14 +17,13 @@ interface IModalComponentProps {
   closeModal: () => void
   showSavedArmies: () => void
   army: ISavedArmy
-  visibility: IVisibilityStore
+  hiddenReminders: IVisibilityStore['reminders']
 }
 
 Modal.setAppElement('#root')
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, visibility, showSavedArmies } = props
-  const { reminders, when } = visibility
+  const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
   const { isSubscribed } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const [armyName, setArmyName] = useState('')
@@ -48,7 +47,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     if (isSubscribed) {
       setProcessing(true)
       const payload = prepareArmy({ ...army, armyName }, 'save')
-      await saveArmy({ ...payload, reminders, when } as ISavedArmy)
+      await saveArmy({ ...payload, hiddenReminders } as ISavedArmy)
       setProcessing(false)
       setArmyName('')
       closeModal()

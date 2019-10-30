@@ -20,10 +20,14 @@ import { ROUTES } from 'utils/env'
 interface ISaveArmyProps {
   currentArmy: ISavedArmy
   showSavedArmies: () => void
-  visibility: IVisibilityStore
+  hiddenReminders: IVisibilityStore['reminders']
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies, visibility }) => {
+const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
+  currentArmy,
+  showSavedArmies,
+  hiddenReminders,
+}) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
@@ -54,7 +58,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
           army={currentArmy}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
-          visibility={visibility}
+          hiddenReminders={hiddenReminders}
         />
       )}
     </>
@@ -64,7 +68,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   currentArmy: selectors.getCurrentArmy(state),
-  visibility: selectors.getVisibility(state),
+  hiddenReminders: selectors.getReminders(state),
 })
 
 const SaveArmyBtn = connect(

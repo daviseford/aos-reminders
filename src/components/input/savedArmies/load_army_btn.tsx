@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { factionNames, selections, realmscape, army } from 'ducks'
+import { factionNames, selections, realmscape, army, visibility } from 'ducks'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logEvent } from 'utils/analytics'
 import { TSupportedFaction } from 'meta/factions'
@@ -13,6 +13,7 @@ import { useAppStatus } from 'context/useAppStatus'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
+  addReminders: (values: string[]) => void
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -23,6 +24,7 @@ interface ILoadButtonProps {
 
 const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   const {
+    addReminders,
     army,
     setFactionName,
     setRealmscape,
@@ -56,6 +58,9 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     updateAllySelections(army.allySelections)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
+
+    // Hide any reminders necessary
+    if (army.hiddenReminders) addReminders(army.hiddenReminders)
   }
 
   return (
@@ -68,6 +73,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 export const LoadArmyBtn = connect(
   null,
   {
+    addReminders: visibility.actions.addReminders,
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
