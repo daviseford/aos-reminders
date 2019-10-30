@@ -467,6 +467,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
 
+  it('should work with GHoN2', () => {
+    const parsedText = getFile('GHoN2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Beacon of Nagashizzar' }])
+  })
+
   it('should work with Fyreslayers', () => {
     const parsedText = getFile('Fyreslayers1')
     const res = getBattlescribeArmy(parsedText)

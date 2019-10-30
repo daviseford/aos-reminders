@@ -102,6 +102,7 @@ const battlescribeTypoMap: TNameMap = {
   'DHOM-HAIN': 'Dhom Hain (Enclave)',
   'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',
   'Guardian of Souls with Mortality Glass': 'Guardian of Souls w/ Mortality Glass',
+  'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Helblaster Volly Gun': 'Helblaster Volley Gun',
   'Hellflayers of Slaanesh': 'Hellflayer',
   'Incandescent Rectices': 'Incandescent Rectrices',

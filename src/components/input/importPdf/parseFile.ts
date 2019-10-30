@@ -177,7 +177,7 @@ const handleUnknownPDF = (fileTxt: string[], isOnline: boolean, handlers: IUsePa
 
   handlers.stopProcessing() && handlers.handleError()
 
-  if (isOnline) logEvent(`Import${UNKNOWN}`)
+  if (isOnline) logEvent(`Import${UNKNOWN}PDF`)
 }
 
 const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IUseParseArgs) => {

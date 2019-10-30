@@ -590,7 +590,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Vanhel's Dance Macabre`,
+        name: `Vanhel's Danse Macabre`,
         desc: `Casting value of 6. Pick a friendly SUMMONABLE unit within 18" of the caster. That unit can be chosen to pile in and attack twice in your next combat phase.`,
         when: [HERO_PHASE],
         spell: true,
