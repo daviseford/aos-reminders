@@ -20,10 +20,11 @@ export const armyHasEntries = (army: ISavedArmy) => {
  */
 export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: string[] = []) => {
   const {
-    armyName,
     allyFactionNames,
     allySelections,
+    armyName,
     factionName,
+    hiddenReminders = [],
     realmscape = null,
     realmscape_feature = null,
     selections,
@@ -34,6 +35,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     allyFactionNames,
     allySelections,
     factionName,
+    hiddenReminders,
     realmscape_feature,
     realmscape,
     selections,

@@ -46,8 +46,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     e.preventDefault()
     if (isSubscribed) {
       setProcessing(true)
-      const payload = prepareArmy({ ...army, armyName }, 'save')
-      await saveArmy({ ...payload, hiddenReminders } as ISavedArmy)
+      const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
+      await saveArmy(payload as ISavedArmy)
       setProcessing(false)
       setArmyName('')
       closeModal()

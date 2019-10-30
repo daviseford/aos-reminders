@@ -14,6 +14,7 @@ import { useAppStatus } from 'context/useAppStatus'
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
   addReminders: (values: string[]) => void
+  clearReminder: () => void
   setFactionName: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
@@ -26,6 +27,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   const {
     addReminders,
     army,
+    clearReminder,
     setFactionName,
     setRealmscape,
     setRealmscapeFeature,
@@ -60,7 +62,10 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     setRealmscapeFeature(army.realmscape_feature)
 
     // Hide any reminders necessary
-    if (army.hiddenReminders) addReminders(army.hiddenReminders)
+    if (army.hiddenReminders) {
+      clearReminder()
+      addReminders(army.hiddenReminders)
+    }
   }
 
   return (
@@ -74,6 +79,7 @@ export const LoadArmyBtn = connect(
   null,
   {
     addReminders: visibility.actions.addReminders,
+    clearReminder: visibility.actions.clearReminder,
     setFactionName: factionNames.actions.setFactionName,
     setRealmscape: realmscape.actions.setRealmscape,
     setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,

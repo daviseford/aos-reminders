@@ -25,6 +25,7 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
     const payload = prepareArmy(currentArmy, 'update', changedKeys)
     updateArmy(id, payload)
     logEvent(`UpdateArmy-${currentArmy.factionName}`)
+    setIsSaving(false)
   }
 
   if (!canUpdate) return null
