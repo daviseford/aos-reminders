@@ -16,7 +16,7 @@ export const getRealmscapeFeature = (state: IStore) => state.realmscape.realmsca
 
 // Selections
 export const getAllyFactionNames = (state: IStore) =>
-  Object.keys(state.selections.allySelections) as TSupportedFaction[]
+  Object.keys(getAllySelections(state)) as TSupportedFaction[]
 export const getAllySelections = (state: IStore) => state.selections.allySelections
 export const getSelections = (state: IStore) => state.selections.selections
 
@@ -24,6 +24,7 @@ export const getSelections = (state: IStore) => state.selections.selections
 export const getAllies = (state: IStore) => state.visibility.allies
 export const getReminders = (state: IStore) => state.visibility.reminders
 export const getSelectors = (state: IStore) => state.visibility.selectors
+export const getVisibility = (state: IStore) => state.visibility
 export const getWhen = (state: IStore) => state.visibility.when
 
 // Utils

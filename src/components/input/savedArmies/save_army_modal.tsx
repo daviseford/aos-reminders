@@ -10,18 +10,20 @@ import { ModalStyle } from 'theme/modalStyle'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 import { ISavedArmy } from 'types/savedArmy'
 import Spinner from 'components/helpers/spinner'
+import { IVisibilityStore } from 'types/store'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
   showSavedArmies: () => void
   army: ISavedArmy
+  hiddenReminders: IVisibilityStore['reminders']
 }
 
 Modal.setAppElement('#root')
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, showSavedArmies } = props
+  const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
   const { isSubscribed } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const [armyName, setArmyName] = useState('')
@@ -44,7 +46,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     e.preventDefault()
     if (isSubscribed) {
       setProcessing(true)
-      const payload = prepareArmy({ ...army, armyName }, 'save')
+      const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
       await saveArmy(payload as ISavedArmy)
       setProcessing(false)
       setArmyName('')

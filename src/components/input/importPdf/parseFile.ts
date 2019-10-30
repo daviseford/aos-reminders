@@ -77,10 +77,7 @@ export const handleParseFile: TUseParse = handlers => {
           return stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs... yet!`)
         }
 
-        if (parser === UNKNOWN) {
-          logEvent(`Import${parser}`)
-          return stopProcessing() && handleError()
-        }
+        if (parser === UNKNOWN) return handleUnknownPDF(pdfPages, isOnline, handlers)
 
         if (parser === WARSCROLL_BUILDER) {
           const fileTxt = arrayBufferToString(reader.result)
@@ -137,7 +134,7 @@ const handleWarscrollBuilderPDF = (fileTxt: string, isOnline: boolean, handlers:
     }
   } catch (err) {
     console.error(err)
-    handlers.handleError(err.toString())
+    handlers.stopProcessing() && handlers.handleError(err.toString())
   }
 }
 
@@ -163,8 +160,24 @@ const handleAzyrPDF = (fileTxt: string[], isOnline: boolean, handlers: IUseParse
     }
   } catch (err) {
     console.error(err)
-    handlers.handleError(err.toString())
+    handlers.stopProcessing() && handlers.handleError(err.toString())
   }
+}
+
+const handleUnknownPDF = (fileTxt: string[], isOnline: boolean, handlers: IUseParseArgs) => {
+  // Send a copy of our file to S3
+  if (isOnline) {
+    const payload = {
+      fileTxt,
+      parser: UNKNOWN,
+      fileType: PDF_FILE,
+    }
+    Promise.resolve(PreferenceApi.createErrorFile(payload))
+  }
+
+  handlers.stopProcessing() && handlers.handleError()
+
+  if (isOnline) logEvent(`Import${UNKNOWN}`)
 }
 
 const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IUseParseArgs) => {
@@ -189,6 +202,6 @@ const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IU
     }
   } catch (err) {
     console.error(err)
-    handlers.handleError(err.toString())
+    handlers.stopProcessing() && handlers.handleError(err.toString())
   }
 }

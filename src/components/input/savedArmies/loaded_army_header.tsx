@@ -46,6 +46,7 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   ...selectors.getCurrentArmy(state),
+  hiddenReminders: selectors.getReminders(state),
 })
 
 const LoadedArmyHeader = connect(
