@@ -1,16 +1,16 @@
 import { TEndlessSpells } from 'types/army'
 import {
-  START_OF_ROUND,
-  HERO_PHASE,
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  SHOOTING_PHASE,
+  END_OF_BATTLESHOCK_PHASE,
+  END_OF_CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
-  END_OF_CHARGE_PHASE,
-  END_OF_COMBAT_PHASE,
-  END_OF_BATTLESHOCK_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 
 const SoulLinkedEffect = {
@@ -21,7 +21,6 @@ const SoulLinkedEffect = {
   when: [START_OF_ROUND],
 }
 
-// Endless spells go here
 const EndlessSpells: TEndlessSpells = [
   {
     name: `Bone-tithe Shrieker`,
