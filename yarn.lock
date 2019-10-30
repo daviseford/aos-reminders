@@ -2,11 +2,12 @@
 # yarn lockfile v1
 
 
-"@auth0/auth0-spa-js@1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.3.2.tgz#a6c839285dea73dde04372b17ab6838cdbd2fc38"
-  integrity sha512-+jAiN5yEjRiZxj6zkXYYJKXIcakhVmbyM/QOcsnW33Wxmhn3Vw+duCq7Z2W9TTAyV4sPokXMTDZF5JI/AEonmQ==
+"@auth0/auth0-spa-js@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.4.0.tgz#9e6e1e59239f135b8853e1562167e5d59511ef15"
+  integrity sha512-fN0DPRrGs++wqepbWu0/60OVEQezUuyizQjOvXm+y6wMdBTEii7RfYiqR7P3oA6IEW4JlTz6kigegM534QocJg==
   dependencies:
+    browser-tabs-lock "^1.1.9"
     core-js "^3.2.1"
     es-cookie "^1.2.0"
     fast-text-encoding "^1.0.0"
@@ -1483,10 +1484,10 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
-"@types/react-router-dom@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.0.tgz#8baa84a7fa8c8e7797fb3650ca51f93038cb4caf"
-  integrity sha512-YCh8r71pL5p8qDwQf59IU13hFy/41fDQG/GeOI3y+xmD4o0w3vEPxE8uBe+dvOgMoDl0W1WUZsWH0pxc1mcZyQ==
+"@types/react-router-dom@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.1.tgz#77a2dae8ba6ff1df51d27517f7646127a51a1a3e"
+  integrity sha512-yXqWGaehta/cdmjvEQfCbHFX6l1c7QHuE5n2OfhcJ33ufbt55xhAKqQ0BmT24YM3s7OKwrrUUgY3FaSzO7be3Q==
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
@@ -2501,6 +2502,11 @@ browser-resolve@^1.11.3:
   integrity sha512-exDi1BYWB/6raKHmDTCicQfTkqwN5fioMFV4j8BsfMU4R2DK/QfZfK7kOVkmWCNANf0snkBzqGqAJBao9gZMdQ==
   dependencies:
     resolve "1.1.7"
+
+browser-tabs-lock@^1.1.9:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/browser-tabs-lock/-/browser-tabs-lock-1.1.11.tgz#e25f2a05f2fead3107de095e192f4339d87c043b"
+  integrity sha512-EYcK3sfSa3maa3GE3+9+TQkohV6XvzAyBpbl7yD1JRBAzvWJ6W8wApQe75UtQuL2T3HcRSwiNoksvKyo+uIVjw==
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
@@ -6825,10 +6831,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-luxon@1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.20.0.tgz#5ea35420b16baa94f255883865bf43381c828c34"
-  integrity sha512-2CT/4Du/PS64ayCpZOt2VWeiw0Hk77f3SvrAHt1AE2MB1aSHh/6J1QcW+lDFxdpx0hoHZJ+fEKJUybrsK96vUQ==
+luxon@1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.21.0.tgz#290b5ced5379c130a31f52d1ebc0da483dc91b38"
+  integrity sha512-GkS6D9prDlacKi062DW/OxVI7i+CKgfBc2uDqI//UH1VwPPlgYiMwfoP5uHK3UfzdjXgbwmEwZHWIGgLcg/APg==
 
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
