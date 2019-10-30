@@ -2,6 +2,7 @@ import { TEndlessSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
@@ -91,13 +92,18 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Soul Thief`,
         desc: `At the end of each phase, roll a D6 if any CHAOS, DESTRUCTION, or ORDER models were slain within 6" of this model during that phase. On a 1-2, heal 1 wound allocated to the caster soul-linked to this model. On a 3-4, inflict 1 mortal wound on each CHAOS, DESTRUCTION, or ORDER unit within 6" of this model. On a 5-6, do both of these things.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Soul Thief`,
+        desc: `See "Soul Thief - During Game"`,
         when: [
+          END_OF_BATTLESHOCK_PHASE,
+          END_OF_CHARGE_PHASE,
+          END_OF_COMBAT_PHASE,
           END_OF_HERO_PHASE,
           END_OF_MOVEMENT_PHASE,
           END_OF_SHOOTING_PHASE,
-          END_OF_CHARGE_PHASE,
-          END_OF_COMBAT_PHASE,
-          END_OF_BATTLESHOCK_PHASE,
         ],
       },
       {
