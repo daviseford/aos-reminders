@@ -1,6 +1,6 @@
 import { store } from 'index'
 import { logEvent } from './analytics'
-import { factionNames, army, selections, realmscape } from 'ducks'
+import { factionNames, army, selections, realmscape, visibility } from 'ducks'
 import { getArmy } from './getArmy/getArmy'
 import { LocalStoredArmy } from './localStore'
 import { isDev } from './env'
@@ -28,6 +28,12 @@ export const loadArmyFromLocalStore = () => {
   store.dispatch(selections.actions.updateAllySelections(storedArmy.allySelections))
   store.dispatch(realmscape.actions.setRealmscape(storedArmy.realmscape))
   store.dispatch(realmscape.actions.setRealmscapeFeature(storedArmy.realmscape_feature))
+
+  // Hide any reminders necessary
+  if (storedArmy.hiddenReminders) {
+    store.dispatch(visibility.actions.clearReminder())
+    store.dispatch(visibility.actions.addReminders(storedArmy.hiddenReminders))
+  }
 
   LocalStoredArmy.clear()
 
