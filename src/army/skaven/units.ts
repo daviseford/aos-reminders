@@ -20,6 +20,37 @@ import {
   TURN_THREE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
+const ThrowingStarsEffect = {
+  name: `Throwing Stars`,
+  desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [SHOOTING_PHASE],
+}
+
+const RunningDeathEffect = {
+  name: `Running Death`,
+  desc: `This unit can run and still shoot later in the same turn.`,
+  when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+}
+
+const GnashGnawOnTheirBonesEffect = {
+  name: `Gnash-gnaw on their Bones!`,
+  desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
+  when: [START_OF_COMBAT_PHASE],
+  command_ability: true,
+}
+
+const ClanshieldEffect = {
+  name: `Clanshields`,
+  desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
+  when: [COMBAT_PHASE, SHOOTING_PHASE],
+}
+
+const RegeneratingMonstrosityEffect = {
+  name: `Regenerating Monstrosity`,
+  desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+  when: [HERO_PHASE],
+}
+
 const PushedIntoBattleEffects = [
   {
     name: `Pushed into Battle`,
@@ -304,32 +335,16 @@ export const Units: TUnits = [
   },
   {
     name: `Clanrats`,
-    effects: [
-      {
-        name: `Clanshields`,
-        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
+    effects: [ClanshieldEffect],
   },
   {
     name: `Brood Horror`,
-    effects: [
-      {
-        name: `Renegerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [RegeneratingMonstrosityEffect],
   },
   {
     name: `Skaven Clawlord on Brood Horror`,
     effects: [
-      {
-        name: `Renegerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
+      RegeneratingMonstrosityEffect,
       {
         name: `Mighty Warlord`,
         desc: `Add 1 to the Bravery characteristic of friendly Clans Verminus units while they are wholly within 13" of any friendly models with this ability.`,
@@ -379,13 +394,7 @@ export const Units: TUnits = [
   },
   {
     name: `Stormvermin`,
-    effects: [
-      {
-        name: `Clanshields`,
-        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
+    effects: [ClanshieldEffect],
   },
   {
     name: `Spiteclaw's Swarm`,
@@ -433,12 +442,7 @@ export const Units: TUnits = [
         desc: `Add the number of wounds allocated to this model to the Attacks characteristic of this model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Gnash-gnaw on their Bones!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      GnashGnawOnTheirBonesEffect,
     ],
   },
   {
@@ -449,12 +453,7 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, if this model is within 13" of a friendly SPITECLAW'S SWARM , you can return D3 slain models to that unit (you cannot return Krrk the Almost-trusted). Set up the returning models one at a time within 1" of a model from that unit (this can be a model you returned to the unit earlier in the same phase). Returning models can only be set up within 3" of an enemy unit if one or more models from the same unit are already within 3" of that enemy unit.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Gnash-gnaw on their Bones!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      GnashGnawOnTheirBonesEffect,
     ],
   },
   {
@@ -656,11 +655,7 @@ export const Units: TUnits = [
         desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Regenerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
+      RegeneratingMonstrosityEffect,
       TerrifyingEffect,
       {
         name: `Warpstone Spikes`,
@@ -772,29 +767,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hidden Killer`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1. If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
-        when: [START_OF_SETUP, START_OF_COMBAT_PHASE, TURN_FOUR_START_OF_ROUND],
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1.`,
+        when: [START_OF_SETUP, START_OF_COMBAT_PHASE],
       },
       {
-        name: `Running Death`,
-        desc: `This model can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+        name: `Hidden Killer`,
+        desc: `If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
+        when: [TURN_FOUR_START_OF_ROUND],
       },
-      {
-        name: `Throwing Stars`,
-        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE],
-      },
+      RunningDeathEffect,
+      ThrowingStarsEffect,
     ],
   },
   {
     name: `Night Runners`,
     effects: [
-      {
-        name: `Running Death`,
-        desc: `This unit can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
+      RunningDeathEffect,
       {
         name: `Throwing Weapons`,
         desc: `If the unmodified hit roll for an attack made with Eshin Throwing Weapons is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -810,16 +798,8 @@ export const Units: TUnits = [
   {
     name: `Gutter Runners`,
     effects: [
-      {
-        name: `Throwing Stars`,
-        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Running Death`,
-        desc: `This unit can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
+      ThrowingStarsEffect,
+      RunningDeathEffect,
       {
         name: `Sneaky Infiltrators`,
         desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating in reserve. If you do so, at the end of your first movement phase, you must set up this unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
