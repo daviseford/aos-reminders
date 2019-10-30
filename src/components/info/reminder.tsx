@@ -65,7 +65,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
         />
         <div className={bodyClass}>
           {actions.map((action, i) => {
-            const name = `${when}_${action.name}_${i}`
+            const name = `${when}_${action.condition}_${action.name}`.split(' ').join('_')
             const showEntry = () => showReminder(name)
             const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)
@@ -76,7 +76,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={!isHidden}
                 hideEntry={hideEntry}
                 showEntry={showEntry}
-                key={`${name}_${i}`}
+                key={name}
               />
             )
           })}
@@ -114,13 +114,6 @@ const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, showEntry, hideEntry } = props
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
-
-  useEffect(() => {
-    return () => {
-      showEntry() // Remove this from the hidden array on unload
-    }
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
