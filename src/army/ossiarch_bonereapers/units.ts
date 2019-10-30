@@ -240,7 +240,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soul-guide`,
-        desc: `Casting value of 6. Pick 1 friendly Ossiarch Bonereapers unit wholly within 24" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit wholly within 24" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
