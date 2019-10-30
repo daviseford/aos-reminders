@@ -11,11 +11,24 @@ import {
   HERO_PHASE,
   DURING_TURN,
   MOVEMENT_PHASE,
+  START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 const getLegionsOfNagashUnits = () => {
   const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]
   return filterUnits(LegionsOfNagashUnits, listOfUnits)
+}
+
+const NecrophorosEffect = {
+  name: `Necrophoros`,
+  desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+
+const NadariteWeaponsEffect = {
+  name: `Nadirite Weapons`,
+  desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
 }
 
 const HeraldsOfTheAccursedOneEffect = {
@@ -115,38 +128,54 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Liege-Kavalos`,
+    effects: [
+      {
+        name: `Unstoppable Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Unstoppable Charge`,
+        desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      EndlessDutyEffect,
+    ],
+  },
+  {
     name: `Mortek Guard`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      NecrophorosEffect,
+      {
+        name: `Mortek Hekatos`,
+        desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      NadariteWeaponsEffect,
+      {
+        name: `Shieldwall`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MORTEK GUARD unit that includes a Mortek Hekatos. You can re-roll save rolls for attacks that target that unit until the end of that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
     ],
   },
   {
     name: `Kavalos Deathriders`,
     effects: [
-      {
-        name: `Necrophoros`,
-        desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      NecrophorosEffect,
       {
         name: `Mortek Hekatos`,
         desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's Nadirite Blade or Nadirite Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Nadirite Weapons`,
-        desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      NadariteWeaponsEffect,
       {
         name: `Deathrider Wedge`,
         desc: `You can use this command ability when a friendly Kavalos Deathriders unit that includes a Mortek Hekatos finishes a charge move. You can pick 1 enemy unit within 1" of that Kavalos Deathriders unit and roll a number of dice equal to the number of models in that Kavalos Deathriders unit. For each 5+, the enemy unit suffers 1 mortal wound. 
              
-             In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in.`,
+        In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in.`,
         when: [CHARGE_PHASE],
         command_ability: true,
       },
@@ -181,11 +210,21 @@ export const Units: TUnits = [
   {
     name: `Mortek Crawler`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      {
+        name: `Dread Catapult`,
+        desc: `Before shooting with a Dread Catapult, choose either the Necrotic Skulls, Cauldron of Torment or Cursed Stele weapon characteristics for that attack. Each Dread Catapult can only make 1 Cauldron of Torment and 1 Cursed Stele attack per battle.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Cauldron of Torment`,
+        desc: `Do not use the attack sequence for an attack made with a Cauldron of Torment. Instead, pick 1 enemy unit that is in range of the attack and roll 1 dice for each model in the target unit. Add the modifier for Cauldron of Torment shown on the damage table on the warscroll to each roll. If the result is equal to or greater than the unmodified Bravery characteristic of the target unit, 1 model from that unit is slain.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Cursed Stele`,
+        desc: `Do not use the attack sequence for an attack made with a Cursed Stele. Instead, pick 1 enemy model that is in range of the attack and roll 2D6. Add the modifier for Cursed Stele shown on the damage table above to the roll. If the result is equal to or greater than the Wounds characteristic of the target, it is slain.`,
+        when: [SHOOTING_PHASE],
+      },
     ],
   },
   {
