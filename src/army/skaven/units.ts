@@ -202,6 +202,12 @@ export const Units: TUnits = [
         desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 8" of this model and visible to them, and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
+      {
+        name: `Warp Lightning Storm`,
+        desc: `Casting value of 7. Pick up to D3 enemy units within 13" of the caster and visible to them. Those units each suffer D3 mortal wounds. Before making the casting roll, you can say that this model will use its warp-power accumulator to augment the spell. If you do so and the casting attempt is successful and not unbound, the spell inflicts D6 mortal wounds on each of those units instead of D3. However, if you do so and the casting attempt fails or is unbound, this model suffers D3xD6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -643,6 +649,12 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, roll 2D6 for this model and look up the result on the warscroll.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Cracks Call`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between its Move characteristic and the roll. This spell has no effect on units that can fly.`,
+        when: [START_OF_HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -757,6 +769,12 @@ export const Units: TUnits = [
         desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll wound rolls for friendly CLANS ESHIN units while they are wholly within 13" of that model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Dreaded Skitterleap`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that Hero from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

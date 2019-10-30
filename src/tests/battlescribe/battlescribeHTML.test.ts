@@ -2,7 +2,9 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import {
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
@@ -15,6 +17,7 @@ import {
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
   SERAPHON,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SOULBLIGHT,
@@ -22,8 +25,6 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
-  CITIES_OF_SIGMAR,
-  BIG_WAAAGH,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -437,6 +438,14 @@ describe('getBattlescribeArmy', () => {
         'Khinerai Lifetakers',
       ],
     })
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Skaven2', () => {
+    const parsedText = getFile('Skaven2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.errors).toEqual([])
   })
 
