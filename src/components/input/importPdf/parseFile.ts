@@ -7,14 +7,14 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { PreferenceApi } from 'api/preferenceApi'
 import {
-  IImportedArmy,
-  TImportParsers,
-  WARSCROLL_BUILDER,
-  BATTLESCRIBE,
-  PDF_FILE,
-  UNKNOWN,
-  HTML_FILE,
   AZYR,
+  BATTLESCRIBE,
+  HTML_FILE,
+  IImportedArmy,
+  PDF_FILE,
+  TImportParsers,
+  UNKNOWN,
+  WARSCROLL_BUILDER,
 } from 'types/import'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
@@ -73,8 +73,10 @@ export const handleParseFile: TUseParse = handlers => {
         }
 
         if (parser === BATTLESCRIBE) {
-          logEvent(`Import${parser}`)
-          return stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs... yet!`)
+          logEvent(`Import${parser}PDF`)
+          return (
+            stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs yet. Try an HTML file!`)
+          )
         }
 
         if (parser === UNKNOWN) return handleUnknownPDF(pdfPages, isOnline, handlers)
@@ -177,7 +179,7 @@ const handleUnknownPDF = (fileTxt: string[], isOnline: boolean, handlers: IUsePa
 
   handlers.stopProcessing() && handlers.handleError()
 
-  if (isOnline) logEvent(`Import${UNKNOWN}`)
+  if (isOnline) logEvent(`Import${UNKNOWN}PDF`)
 }
 
 const handleBattlescribeHTML = (fileTxt: string, isOnline: boolean, handlers: IUseParseArgs) => {

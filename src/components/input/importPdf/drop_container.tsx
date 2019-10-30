@@ -126,7 +126,7 @@ const ErrorAlert = (props: TImportError) => {
   const info =
     severity === 'error' || severity === 'ally-warn'
       ? text
-      : `We couldn't find '${text}'. It may be a typo or an unmarked ally. Make sure to add it manually.`
+      : `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`
 
   return (
     <div className="mb-2">
