@@ -83,7 +83,7 @@ const checkIfAzyr = (pdfPages: string[]): boolean => {
 }
 
 const checkIfBattlescribe = (pdfPages: string[]): boolean => {
-  const regex = /Created {1,3}with {1,3}BattleScribe/gi
+  const regex = /Created {1,3}with.{1,5}BattleScribe/gi
   return regex.test(pdfPages[0])
 }
 
