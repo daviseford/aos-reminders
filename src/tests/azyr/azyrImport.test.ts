@@ -56,6 +56,7 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from '../fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from '../fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from '../fixtures/azyr/json/Stormcast3.json'
+import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Sylvaneth1 from '../fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from '../fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from '../fixtures/azyr/json/Tzeentch2.json'
@@ -542,6 +543,11 @@ describe('handleAzyrPages', () => {
       'ENDLESS SPELL: Chronomantic Cogs',
       'ENDLESS SPELL: Dais Arcanum',
     ])
+  })
+
+  it('handles Stormcast5, which has a vague unit name', () => {
+    const res = handleAzyrPages(Stormcast5)
+    expect(res).toEqual(['FACTION: Stormcast Eternals', 'UNIT: Lord-Arcanum on Celestial Dracoline'])
   })
 
   it('handles KO3', () => {
