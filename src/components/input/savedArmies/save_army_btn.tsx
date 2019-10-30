@@ -11,18 +11,19 @@ import { logClick } from 'utils/analytics'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
-import { IStore } from 'types/store'
+import { IStore, IVisibilityStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import { ROUTES } from 'utils/env'
 
 interface ISaveArmyProps {
-  showSavedArmies: () => void
   currentArmy: ISavedArmy
+  showSavedArmies: () => void
+  visibility: IVisibilityStore
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
+const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies, visibility }) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
@@ -53,6 +54,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
           army={currentArmy}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
+          visibility={visibility}
         />
       )}
     </>
@@ -62,6 +64,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   currentArmy: selectors.getCurrentArmy(state),
+  visibility: selectors.getVisibility(state),
 })
 
 const SaveArmyBtn = connect(
