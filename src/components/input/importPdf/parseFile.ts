@@ -73,8 +73,10 @@ export const handleParseFile: TUseParse = handlers => {
         }
 
         if (parser === BATTLESCRIBE) {
-          logEvent(`Import${parser}`)
-          return stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs... yet!`)
+          logEvent(`Import${parser}PDF`)
+          return (
+            stopProcessing() && handleError(`We don't support ${BATTLESCRIBE} PDFs yet. Try an HTML file!`)
+          )
         }
 
         if (parser === UNKNOWN) return handleUnknownPDF(pdfPages, isOnline, handlers)
