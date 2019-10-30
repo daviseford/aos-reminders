@@ -56,7 +56,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
     expect(res.selections.allegiances).toEqual([])
-    // Bonesplitterz Drakkfoot spell
+    // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
 
@@ -438,6 +438,24 @@ describe('getBattlescribeArmy', () => {
       ],
     })
     expect(res.errors).toEqual([])
+  })
+
+  it('should work with Khorne4', () => {
+    const parsedText = getFile('Khorne4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Wrath-Axe' }])
+  })
+
+  it('should work with BigWaaagh2', () => {
+    const parsedText = getFile('BigWaaagh2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections.spells).toContain("Mighty 'Eadbutt (Ironjawz)")
+    // Bonesplitterz Drakkfoot allegiance spell
+    expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
 
   it('should work with Fyreslayers', () => {

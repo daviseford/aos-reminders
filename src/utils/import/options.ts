@@ -108,6 +108,7 @@ const battlescribeTypoMap: TNameMap = {
   'Light of Dracothian': 'Light of Dracothion',
   'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
   'Mazrall the Butcher': 'Mazarall the Butcher',
+  "Might 'Eadbutt": "Mighty 'Eadbutt",
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
   'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',

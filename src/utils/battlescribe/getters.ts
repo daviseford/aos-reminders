@@ -312,6 +312,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     Artifacts: 'artifacts',
     Battalion: 'battalions',
     Commands: 'commands',
+    Judgement: 'endless_spells',
     Scenery: 'scenery',
     Spells: 'spells',
     Traits: 'traits',
