@@ -4,14 +4,15 @@ import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  DURING_GAME,
   COMBAT_PHASE,
-  START_OF_HERO_PHASE,
-  SHOOTING_PHASE,
-  HERO_PHASE,
+  DURING_GAME,
   DURING_TURN,
+  END_OF_HERO_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const getLegionsOfNagashUnits = () => {
@@ -144,6 +145,32 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Vokmortian`,
+    effects: [
+      {
+        name: `Contract of Nagash`,
+        desc: `At the start of the combat phase, roll a dice. On a 5+, you can pick 1 enemy model within 3" of Vokmortian. That enemy model cannot attack Vokmortian in that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Grim Warnings`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from the Bravery of enemy units within 12" of this model instead of 1.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Grim Warnings`,
+        desc: `Subtract 1 from unbinding rolls for Wizards attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for Wizards attempting to unbind a spell cast by this model instead of 1.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mortal Touch`,
+        desc: `Casting value of 8. Pick 1 enemy model within 1" of the caster that is visible to them and roll a dice. On a 5+, that model is slain. The range of this spell cannot be modified.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
     name: `Mortek Guard`,
     effects: [
       NecrophorosEffect,
@@ -188,23 +215,80 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Mortisian Priest`,
+    name: `Mortisan Boneshaper`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      {
+        name: `Boneshaper`,
+        desc: `In your hero phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. You can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Shard-storm`,
+        desc: `Casting value of 5. Pick 1 enemy unit and roll 1 dice for each model from that unit that is within 18" of the caster and visible to them. For each 6, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Mortisan Soulmason`,
+    effects: [
+      {
+        name: `Mortek Throne`,
+        desc: `At the end of your hero phase, roll a dice for this model. On a 1, nothing happens. On a 2-5, this model can attempt to cast Soul- guide even if a casting attempt has already been made for that spell in the same phase. On a 6, this model can attempt to cast Soul-guide D3 more times even if a casting attempt has already been made for that spell in the same phase.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Soul-guide`,
+        desc: `Casting value of 6. Pick 1 friendly Ossiarch Bonereapers unit wholly within 24" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Mortisan Soulreaper`,
+    effects: [
+      {
+        name: `Deathly Touch`,
+        desc: `If the unmodified hit roll for an attack made with a Soulreaper Scythe is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulreaper`,
+        desc: `You can re-roll hit rolls for attacks made with a Soulreaper Scythe if the target unit has 5 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soul-blast`,
+        desc: `Casting value of 7. You can either roll 1 dice for each enemy unit within 3" of the caster or roll 1 dice for 1 enemy unit within 18" of the caster that is visible to them. On a 1, nothing happens. On a 2-3, that unit suffers 1 mortal wound. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
     name: `Necropolis Stalkers`,
     effects: [
-      //      {
-      //       name: ``,
-      //        desc: ``,
-      //        when: [HERO_PHASE],
-      //      },
+      {
+        name: `Quadrarch Aspects`,
+        desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
+             
+        Blade-strike Aspect: You can re-roll hit rolls for attacks made by this unit.
+
+        Blade-parry Aspect: You can re-roll save rolls for attacks that target this unit.
+
+        Destroyer Aspect: You can re-roll wound rolls for attacks made by this unit.
+        
+        Precision Aspect: Improve the Rend and Damage characteristics of this unit's melee weapons by 1.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Hunt and Kill`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly NECROPOLIS STALKERS unit. You can re-roll run and charge rolls for that unit until your next hero phase. In addition, until your next hero phase, when that unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
     ],
   },
   {
