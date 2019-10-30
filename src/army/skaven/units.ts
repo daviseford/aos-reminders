@@ -20,6 +20,12 @@ import {
   TURN_THREE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
+const AltarOfTheHornedRatEffect = {
+  name: `Altar of the Horned Rat`,
+  desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
+  when: [BATTLESHOCK_PHASE],
+}
+
 const ThrowingStarsEffect = {
   name: `Throwing Stars`,
   desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -583,11 +589,7 @@ export const Units: TUnits = [
   {
     name: `Plague Priest on Plague Furnace`,
     effects: [
-      {
-        name: `Altar of the Horned Rat`,
-        desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      AltarOfTheHornedRatEffect,
       {
         name: `Great Plague Censer`,
         desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a D6. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
@@ -634,11 +636,7 @@ export const Units: TUnits = [
     name: `Grey Seer on Screaming Bell`,
     effects: [
       ProtectionOfTheHornedRatEffect,
-      {
-        name: `Altar of the Horned Rat`,
-        desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      AltarOfTheHornedRatEffect,
       ...PushedIntoBattleEffects,
       {
         name: `Peal of Doom`,
