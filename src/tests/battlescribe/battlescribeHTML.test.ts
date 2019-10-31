@@ -51,6 +51,15 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
   })
 
+  it('should work with Sylvaneth2', () => {
+    const parsedText = getFile('Sylvaneth2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.allegiances).toContain('Winterleaf (Grove)')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with BigWaaagh1', () => {
     const parsedText = getFile('BigWaaagh1')
     const res = getBattlescribeArmy(parsedText)
