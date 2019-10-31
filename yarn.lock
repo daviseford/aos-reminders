@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@auth0/auth0-spa-js@1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.4.2.tgz#8ec287a44fce2e634c99ea5e945a0cccaca5f38f"
-  integrity sha512-CvzVnK28gNRJ3tdX4Spiseu/UdFuyrKwxWvYPUDTbL7whFxwhvmrzm80DXv1ingRSQRMB4J0+94xpTOBInwJYQ==
+"@auth0/auth0-spa-js@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.5.0.tgz#430ee07920b2d0a162b492054830a4a94ac065f3"
+  integrity sha512-8yBQY+C+A+cr7zXKAHXYcm3gioJdUuP0Qb/RFShzh4Q2RGmBfdVkiOxt7oR2MJua3T1v5H53vZhQvTADvIcAIw==
   dependencies:
     browser-tabs-lock "^1.1.9"
     core-js "^3.2.1"
