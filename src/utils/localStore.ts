@@ -3,6 +3,7 @@ import { selectors } from 'ducks'
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import { IVisibilityStore } from 'types/store'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 const LOCAL_SAVED_ARMIES_KEY = 'savedArmies'
@@ -23,16 +24,18 @@ export const LocalStoredArmy = {
   get: () => {
     const storedArmy = localStorage.getItem(LOCAL_STORED_ARMY_KEY)
     if (!storedArmy) return null
-    return JSON.parse(storedArmy) as ICurrentArmy
+    return JSON.parse(storedArmy) as ICurrentArmy & { hiddenReminders: IVisibilityStore['reminders'] }
   },
   exists: () => {
     const storedArmy = LocalStoredArmy.get()
     return !!(storedArmy && Object.values(storedArmy.selections).some(x => x.length > 0))
   },
   set: () => {
-    const currentArmy = selectors.getCurrentArmy(store.getState())
+    const state = store.getState()
+    const currentArmy = selectors.getCurrentArmy(state)
+    const hiddenReminders = selectors.getReminders(state)
     if (currentArmy) {
-      localStorage.setItem(LOCAL_STORED_ARMY_KEY, JSON.stringify(currentArmy))
+      localStorage.setItem(LOCAL_STORED_ARMY_KEY, JSON.stringify({ ...currentArmy, hiddenReminders }))
     }
   },
 }

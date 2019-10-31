@@ -11,18 +11,23 @@ import { logClick } from 'utils/analytics'
 import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
-import { IStore } from 'types/store'
+import { IStore, IVisibilityStore } from 'types/store'
 import { SaveArmyModal } from './save_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import { ROUTES } from 'utils/env'
 
 interface ISaveArmyProps {
-  showSavedArmies: () => void
   currentArmy: ISavedArmy
+  showSavedArmies: () => void
+  hiddenReminders: IVisibilityStore['reminders']
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSavedArmies }) => {
+const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
+  currentArmy,
+  showSavedArmies,
+  hiddenReminders,
+}) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed, isActive } = useSubscription()
@@ -53,6 +58,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
           army={currentArmy}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
+          hiddenReminders={hiddenReminders}
         />
       )}
     </>
@@ -62,6 +68,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({ currentArmy, showSaved
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   currentArmy: selectors.getCurrentArmy(state),
+  hiddenReminders: selectors.getReminders(state),
 })
 
 const SaveArmyBtn = connect(

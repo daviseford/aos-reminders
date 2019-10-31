@@ -2,7 +2,9 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import {
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
@@ -15,6 +17,7 @@ import {
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
   SERAPHON,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SOULBLIGHT,
@@ -22,8 +25,6 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
-  CITIES_OF_SIGMAR,
-  BIG_WAAAGH,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -56,7 +57,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
     expect(res.selections.allegiances).toEqual([])
-    // Bonesplitterz Drakkfoot spell
+    // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
 
@@ -438,6 +439,40 @@ describe('getBattlescribeArmy', () => {
       ],
     })
     expect(res.errors).toEqual([])
+  })
+
+  it('should work with Skaven2', () => {
+    const parsedText = getFile('Skaven2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Khorne4', () => {
+    const parsedText = getFile('Khorne4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Wrath-Axe' }])
+  })
+
+  it('should work with BigWaaagh2', () => {
+    const parsedText = getFile('BigWaaagh2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections.spells).toContain("Mighty 'Eadbutt (Ironjawz)")
+    // Bonesplitterz Drakkfoot allegiance spell
+    expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
+  })
+
+  it('should work with GHoN2', () => {
+    const parsedText = getFile('GHoN2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Beacon of Nagashizzar' }])
   })
 
   it('should work with Fyreslayers', () => {
