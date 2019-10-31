@@ -1,0 +1,9 @@
+import { ITheme } from 'types/theme'
+
+const LightTheme: ITheme = {
+  bgColor: 'bg-white',
+  text: 'text-dark',
+  textSecondary: 'text-secondary',
+}
+
+export default LightTheme
