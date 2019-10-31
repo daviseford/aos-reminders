@@ -56,7 +56,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.selections.allegiances).toContain('Winterleaf (Grove)')
+    expect(res.selections.allegiances).toEqual(['Winterleaf (Glade)'])
     expect(res.errors).toEqual([])
   })
 

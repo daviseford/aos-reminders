@@ -144,7 +144,6 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value === 'Categories:') {
       return null
     }
-
     // @ts-ignore
     const mainNode = childNodes[2].childNodes[0].childNodes[1]
     const spanNode = mainNode.childNodes[0]
@@ -238,6 +237,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     (a, key) => {
       const val = entries[key]
         .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
+        .replace(/^Awakened Wyldwood,/g, '') // Remove random Sylvaneth Wyldwood entry
         .replace(/ {1,},$/g, '') // remove trailing comma
         .trim()
       a[key] = val
