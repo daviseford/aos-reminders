@@ -31,6 +31,7 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -76,6 +77,7 @@ import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
+import OgorMawtribes from 'army/ogor_mawtribes'
 import OrderGrandAlliance from 'army/grand_alliances/order'
 import OssiarchBonereapers from 'army/ossiarch_bonereapers'
 import Seraphon from 'army/seraphon'
@@ -210,6 +212,10 @@ const ArmyList: TArmyList = {
   [NURGLE]: {
     Army: { ...Nurgle },
     GrandAlliance: CHAOS,
+  },
+  [OGOR_MAWTRIBES]: {
+    Army: { ...OgorMawtribes },
+    GrandAlliance: DESTRUCTION,
   },
   [ORDER_GRAND_ALLIANCE]: {
     Army: { ...OrderGrandAlliance },

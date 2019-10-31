@@ -22,6 +22,7 @@ export type TGrandAllianceFactions =
   | 'DEATH_GRAND_ALLIANCE'
   | 'DESTRUCTION_GRAND_ALLIANCE'
   | 'ORDER_GRAND_ALLIANCE'
+
 export const GRAND_ALLIANCE_FACTIONS: TGrandAllianceFactions[] = [
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
