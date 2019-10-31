@@ -6,6 +6,8 @@ import { ITheme } from 'types/theme'
 interface IThemeProvider {
   setDarkTheme: () => void
   setLightTheme: () => void
+  isDark: boolean
+  isLight: boolean
   theme: ITheme
 }
 
@@ -13,12 +15,21 @@ const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState(DarkTheme)
+  const [isDark, setIsDark] = useState(true)
 
-  const setLightTheme = () => setTheme(LightTheme)
-  const setDarkTheme = () => setTheme(DarkTheme)
+  const setLightTheme = () => {
+    setTheme(LightTheme)
+    setIsDark(false)
+  }
+  const setDarkTheme = () => {
+    setTheme(DarkTheme)
+    setIsDark(true)
+  }
 
   return (
-    <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme }}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme, isDark, isLight: !isDark }}>
+      {children}
+    </ThemeContext.Provider>
   )
 }
 

@@ -16,6 +16,7 @@ import { withSelectOne } from 'utils/withSelect'
 import { SelectOne } from 'components/input/select'
 import { titleCase } from 'utils/textUtils'
 import { ROUTES } from 'utils/env'
+import { useTheme } from 'context/useTheme'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
@@ -24,6 +25,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/pa
 const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription } = useSubscription()
+  const { theme } = useTheme()
 
   useEffect(() => {
     logPageView()
@@ -45,7 +47,7 @@ const Profile: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="container px-0">
+      <div className={`container ${theme.bgColor} px-0`}>
         <div className="row d-flex justify-content-center">
           <div className={userCardWrapperClass}>
             <UserCard />

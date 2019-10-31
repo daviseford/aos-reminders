@@ -23,7 +23,7 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   if (!loadedArmy) return null
 
   return (
-    <div className={`row ${theme.bgColor} d-flex text-center justify-content-center mt-3 mb-1`}>
+    <div className={`row d-flex text-center justify-content-center mt-3 mb-1`}>
       <div className="flex-row d-flex">
         <div className="flex-grow-1 ml-3">
           <h4 className={theme.textSecondary}>{loadedArmy.armyName}</h4>

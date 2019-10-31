@@ -7,6 +7,7 @@ import { ContactComponent } from 'components/page/contact'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
+import { useTheme } from 'context/useTheme'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
 
@@ -15,6 +16,7 @@ const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
+  const { theme } = useTheme()
 
   useEffect(() => {
     logPageView()
@@ -38,7 +40,7 @@ const Subscribe: React.FC = () => {
 
       <Intro />
 
-      <div className="container">
+      <div className={`container ${theme.bgColor}`}>
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
           <ComingSoon />

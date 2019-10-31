@@ -5,6 +5,7 @@ import Spinner from 'components/helpers/spinner'
 import NavbarWrapper from 'components/page/navbar_wrapper'
 import { FiWifiOff } from 'react-icons/fi'
 import { ROUTES } from 'utils/env'
+import { useTheme } from 'context/useTheme'
 
 export const LoadingBtn = () => {
   return (
@@ -59,14 +60,19 @@ export const OfflineHeader: React.FC = () => {
   )
 }
 
-export const LoadingBody = () => (
-  <div className="container d-flex flex-column align-items-center justify-content-center LoadingContainer">
-    <div className="col text-center">
-      <h3 className="pulsate-fwd">AoS Reminders</h3>
-      <p className="lead text-muted fade-out">Loading...</p>
+export const LoadingBody = () => {
+  const { theme } = useTheme()
+  const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
+
+  return (
+    <div className={containerClass}>
+      <div className="col text-center">
+        <h3 className="pulsate-fwd">AoS Reminders</h3>
+        <p className={`lead ${theme.textMuted} fade-out`}>Loading...</p>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export const LargeSpinner = () => (
   <div className="d-flex flex-row justify-content-center mt-5">
