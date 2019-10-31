@@ -227,66 +227,6 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
 ]
 
 export default Artifacts

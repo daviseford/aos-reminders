@@ -8,6 +8,10 @@ import {
   CHARGE_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
+  DURING_ROUND,
+  MOVEMENT_PHASE,
+  DURING_SETUP,
+  START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -132,132 +136,182 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: ``,
+    name: `Nomadic Raider`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Nomadic Raider`,
+        desc: `You can re-roll wound rolls for attacks made with melee weapons by this general (including their mount) while this general is wholly within enemy territory.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Voice of the Avalanche`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Voice of the Avalanche`,
+        desc: `Once per battle round, this general can use a command ability on their warscroll without spending 1 command point.`,
+        when: [DURING_ROUND],
       },
     ],
   },
   {
-    name: ``,
+    name: `Frostfell Aura`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Frostfell Aura`,
+        desc: `Enemy units cannot retreat while they are within 3" of this general.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Master of the Mournfangs`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Master of the Mournfangs`,
+        desc: `Friendly MOURNFANG PACK units do not take battleshock tests while they are wholly within 18" of this general.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Skilled Rider`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Skilled Rider`,
+        desc: `Halve the number of wounds suffered by this general (rounding up) when determining which row on its damage table to use.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Touched by the Everwinter`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Touched by the Everwinter`,
+        desc: `This general is a PRIEST. If this general is already a PRIEST, they know 1 additional Everwinter prayer.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Winter Ranger`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Winter Ranger`,
+        desc: `At the start of each of your hero phases, if this general is in ambush, you gain D3 additional command points.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Eye of the Blizzard`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Eye of the Blizzard`,
+        desc: `Subtract 1 from hit rolls for attacks that target this general.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Blood Vulture's Gaze`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Blood Vulture's Gaze`,
+        desc: `Add 1 to hit and wound rolls for attacks made with missile weapons by this general.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Frost Maw`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Frost Maw`,
+        desc: `When you use this general's Icy Breath ability, you can pick D3 enemy units within 6" of this general instead of 1.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Raised by Yhetees`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Raised by Yhetees`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by friendly units of ICEFALL YHETEES while they are wholly within 12" of this general.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Skal Packmaster`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Skal Packmaster`,
+        desc: `When you use this general's Masters Of Ambush ability, up to 2 units of FROST SABRES can join this general in ambush instead of 1.`,
+        when: [DURING_SETUP],
       },
     ],
   },
   {
-    name: ``,
+    name: `Fleet of Hoof (Mount)`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Fleet of Hoof`,
+        desc: `You can re-roll one or both of the dice when making charge rolls for this model.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fleshgreed (Mount)`,
+    effects: [
+      {
+        name: `Fleshgreed`,
+        desc: `At the start of each hero phase, if this model is eating, you can heal 1 wound allocated to this model.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Rimefrost Hide (Mount)`,
+    effects: [
+      {
+        name: `Rimefrost Hide`,
+        desc: `Worsen the Rend characteristic of melee weapons that target this model by 1 (to a minimum of '-').`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gvarnak (Mount)`,
+    effects: [
+      {
+        name: `Gvarnak`,
+        desc: `Add 1 to this model's Wounds characteristic.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Matriarch (Mount)`,
+    effects: [
+      {
+        name: `Matriarch`,
+        desc: `Add 1 to charge rolls for friendly THUNDERTUSKS while they are wholly within 12" of this model.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Alvagr Ancient (Mount)`,
+    effects: [
+      {
+        name: `Alvagr Ancient`,
+        desc: `If this model has not made a charge move in the same turn, enemy units that are within 3" of this model at the start of the combat phase fight at the end of that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
