@@ -2,9 +2,11 @@ import React from 'react'
 import { useAppStatus } from 'context/useAppStatus'
 import { LocalUserName } from 'utils/localStore'
 import { FiWifiOff } from 'react-icons/fi'
+import { useTheme } from 'context/useTheme'
 
 const OfflineComponent = () => {
   const { isOnline } = useAppStatus()
+  const { theme } = useTheme()
 
   if (isOnline) return null
 
@@ -13,13 +15,15 @@ const OfflineComponent = () => {
   return (
     <div className="container pt-4">
       <div className="row justify-content-center">
-        <div className="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-6 col-xxl-4 card py-3 text-center">
+        <div
+          className={`col-12 col-sm-8 col-md-6 col-lg-6 col-xl-6 col-xxl-4 card ${theme.bgColor} py-3 text-center`}
+        >
           <p className="text-danger">
             <FiWifiOff className="mr-2" />
             You are in <strong>Offline</strong> mode.
             <FiWifiOff className="ml-2" />
           </p>
-          <p>Your capabilites are limited in this mode.</p>
+          <p className={theme.text}>Your capabilites are limited in this mode.</p>
           You cannot save an army.
           {!!userName && (
             <>
