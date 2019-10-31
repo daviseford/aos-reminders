@@ -48,6 +48,7 @@ import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from '
 const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
+  'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
