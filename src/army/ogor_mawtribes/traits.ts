@@ -1,5 +1,4 @@
 import { TTraits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
 
 const CommandTraits: TTraits = [
   // {
