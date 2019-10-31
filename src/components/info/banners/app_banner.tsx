@@ -3,7 +3,7 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { logDisplay } from 'utils/analytics'
 
 const AppBanner = () => {
-  const name = 'Battlescribe_Release_Notification'
+  const name = 'OBR_and_Mawtribes_WIP'
 
   useEffect(() => {
     logDisplay(name)
@@ -11,7 +11,7 @@ const AppBanner = () => {
 
   return (
     <NotificationBanner name={name} persistClose={true} variant={'info'}>
-      Great news! You can now import Battlescribe HTML files!
+      We're adding Ossiarch Bonereapers and Ogor Mawtribes rules as fast as we can! Stay tuned :)
     </NotificationBanner>
   )
 }
