@@ -7,6 +7,7 @@ import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'c
 import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
+import { useTheme } from 'context/useTheme'
 
 interface ICardProps {
   title: string
@@ -16,10 +17,12 @@ interface ICardProps {
 
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
-  const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
+  const { theme } = useTheme()
+
+  const bodyClass = `card-body ${theme.bgColor} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
   const colMobile = isMobile && !isVisible ? `col w-50 px-1` : `col-12 px-1`
   const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${!isMobile ? `mb-2` : ``}`
-  const colClass = `${colMobile} ${colDesktop} mx-auto mt-1`
+  const colClass = `${colMobile} ${colDesktop} ${theme.bgColor} mx-auto mt-1`
 
   return (
     <div className={colClass}>
