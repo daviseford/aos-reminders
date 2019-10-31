@@ -7,6 +7,8 @@ import {
   START_OF_HERO_PHASE,
   HERO_PHASE,
   CHARGE_PHASE,
+  START_OF_SHOOTING_PHASE,
+  TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -131,92 +133,97 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: ``,
+    name: `The Rime Shroud`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Rime Shroud`,
+        desc: `Re-roll unmodified hit rolls of 6 for attacks made with missile weapons that target the bearer.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Blade of All-Frost`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Blade of All-Frost`,
+        desc: `Pick 1 of the bearer's melee weapons. If any wounds inflicted by this weapon are allocated to an enemy HERO or MONSTER model and that model is not slain, subtract 1 from hit and wound rolls for attacks made with melee weapons by that model for the rest of the battle.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Carvalox Flank`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Carvalox Flank`,
+        desc: `Friendly ICEFALL YHETEE units that are wholly within 12" of the bearer at the start of the movement phase can move an extra 2" when they make a normal move during that phase.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Alvagr Rune-tokens`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Alvagr Rune-tokens`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, until the start of your next hero phase, you can re-roll hit and wound rolls for attacks made by the bearer and re-roll save rolls for attacks that target the bearer.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Skullshards of Dragaar`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Skullshards of Dragaar`,
+        desc: `Once per battle, the bearer can attempt to unbind 1 spell in the enemy hero phase as if they were a WIZARD. If they do so, that spell is automatically unbound (do not roll 2D6).`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Elixir of Frostwyrm`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Elixir of Frostwyrm`,
+        desc: `Once per battle, at the start of your shooting phase, the bearer can use this artefact. If they do so, pick 1 enemy unit within 9" of the bearer that is visible to them. That unit suffers D6 mortal wounds. The bearer then suffers D3 mortal wounds.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `The Pelt of Charngar`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Pelt of Charngar`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to the bearer.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Kattanak Browplate`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Kattanak Browplate`,
+        desc: `Add 1 to save rolls for attacks that target the bearer.`,
+        when: [SHOOTING_PHASE, DURING_GAME],
+      },
+      {
+        name: `Kattanak Browplate`,
+        desc: `At the start of your first hero phase, you receive 1 additional command point.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: ``,
+    name: `Frost-talon Shardbolts`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Frost-talon Shardbolts`,
+        desc: `If the unmodified hit roll for an attack made with the bearer's Hunter's Crossbow is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
