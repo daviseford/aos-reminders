@@ -42,6 +42,15 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
+  it('should work with Dark Wizardry', () => {
+    const parsedText = getFile('1572497009675-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.selections.traits).toContain('Dark Wizardry (Royalty)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Blade of Endless Bloodshed', () => {
     const parsedText = getFile('1571896391287-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

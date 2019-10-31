@@ -639,6 +639,35 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Sylvaneth2', () => {
+    const parsedText = getFile('Sylvaneth2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.allegiances).toEqual(['Winterleaf (Glade)'])
+    expect(res.selections.artifacts).toEqual(['Frozen Kernel', 'Spiritsong Stave'])
+    expect(res.selections.battalions).toEqual(['Outcasts'])
+    expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song', 'Branch Blizzard'])
+    expect(res.selections.scenery).toEqual(['Awakened Wyldwood'])
+    expect(res.selections.spells).toEqual([
+      'Arcane Bolt',
+      'Mystic Shield',
+      'Roused to Wrath',
+      'Verdant Blessing',
+      'Primal Terror',
+      'Awakening the Wood',
+    ])
+    expect(res.selections.units).toEqual([
+      'Arch-Revenant',
+      'Branchwraith',
+      'Drycha Hamadreth',
+      'Treelord Ancient',
+      'Kurnoth Hunters',
+      'Spite-Revenants',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Seraphon2', () => {
     const parsedText = getFile('Seraphon2')
     const res = getBattlescribeArmy(parsedText)
