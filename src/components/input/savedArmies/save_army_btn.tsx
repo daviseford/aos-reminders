@@ -16,6 +16,7 @@ import { SaveArmyModal } from './save_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import { ROUTES } from 'utils/env'
+import { useTheme } from 'context/useTheme'
 
 interface ISaveArmyProps {
   currentArmy: ISavedArmy
@@ -78,13 +79,20 @@ const SaveArmyBtn = connect(
 
 export default SaveArmyBtn
 
-const SubscribeBtn = () => (
-  <Link to={ROUTES.SUBSCRIBE} className={btnDarkBlock} onClick={() => logClick('SaveArmy-Subscribe')}>
-    <div className={btnContentWrapper}>
-      <FaSave className="mr-2" /> Save Army
-    </div>
-  </Link>
-)
+const SubscribeBtn = () => {
+  const { theme } = useTheme()
+  return (
+    <Link
+      to={ROUTES.SUBSCRIBE}
+      className={theme.genericButton}
+      onClick={() => logClick('SaveArmy-Subscribe')}
+    >
+      <div className={btnContentWrapper}>
+        <FaSave className="mr-2" /> Save Army
+      </div>
+    </Link>
+  )
+}
 
 interface ISaveButtonProps {
   handleClick?: () => void
@@ -92,6 +100,7 @@ interface ISaveButtonProps {
 }
 
 const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
+  const { theme } = useTheme()
   const tipProps = {
     'data-for': 'cantSaveButton',
     'data-multiline': true,
@@ -101,7 +110,7 @@ const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButt
 
   return (
     <>
-      <button className={btnDarkBlock} onClick={handleClick} {...tipProps}>
+      <button className={theme.genericButton} onClick={handleClick} {...tipProps}>
         <div className={btnContentWrapper}>
           <FaSave className="mr-2" /> Save Army
         </div>

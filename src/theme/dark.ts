@@ -5,6 +5,8 @@ const DarkTheme: ITheme = {
   text: 'text-white',
   textSecondary: 'text-light',
   textMuted: 'text-white-50',
+  genericButton: `btn btn-outline-light btn-block`,
+  secondaryButton: `btn btn-sm btn-outline-secondary`,
 }
 
 export default DarkTheme

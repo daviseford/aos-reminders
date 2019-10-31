@@ -40,7 +40,7 @@ const Profile: React.FC = () => {
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
-    <div className="d-block">
+    <div className={`d-block ${theme.bgColor}`}>
       <div className="ThemeDarkBg py-2">
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />

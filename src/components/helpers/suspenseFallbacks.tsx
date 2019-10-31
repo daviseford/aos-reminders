@@ -20,8 +20,10 @@ export const LoadingBtn = () => {
 
 export const OfflineBtn = (props: { text?: string }) => {
   const { text = 'Offline' } = props
+  const { theme } = useTheme()
+
   return (
-    <button className={btnDarkBlock} disabled type="button">
+    <button className={theme.genericButton} disabled type="button">
       <div className={btnContentWrapper}>
         <FiWifiOff className="mr-2 text-danger" /> {text}
       </div>

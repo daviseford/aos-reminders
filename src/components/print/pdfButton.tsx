@@ -11,6 +11,7 @@ import { logDownloadEvent } from 'utils/analytics'
 import { DownloadPDFModal } from './pdfModal'
 import { TAllyArmies, IArmy, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { useTheme } from 'context/useTheme'
 
 interface IDownloadPDFProps extends ICurrentArmy {
   allyArmies: TAllyArmies
@@ -21,6 +22,7 @@ interface IDownloadPDFProps extends ICurrentArmy {
 
 const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
+  const { theme } = useTheme()
 
   const [pdf, setPdf] = useState<jsPDF | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -55,7 +57,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
   return (
     <>
-      <button className={btnDarkBlock} onClick={handleDownload}>
+      <button className={theme.genericButton} onClick={handleDownload}>
         <div className={btnContentWrapper}>
           <MdFileDownload className="mr-2" /> {text}
         </div>
