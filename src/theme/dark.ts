@@ -18,7 +18,8 @@ const selectTheme = {
    * option/color(selected)
    */
   // neutral0: 'black',
-  neutral0: '#1C7595',
+  neutral0: '#23283B', // $themeDarkBlueSecondary in theme.scss
+  // neutral0: '#073647', // $themeDarkBlueTertiary in theme.scss
 
   /*
    * control/backgroundColor(disabled)
@@ -107,7 +108,7 @@ const DarkTheme: ITheme = {
   genericButton: `btn btn-outline-light btn-block`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
   reminderHeader: `bg-themeDarkBluePrimary`,
-  cardBorder: `border border-secondary`,
+  cardBorder: `border border-dark`,
   selectTheme,
 }
 
