@@ -8,7 +8,7 @@ const OfflineComponent = () => {
   const { isOnline } = useAppStatus()
   const { theme } = useTheme()
 
-  // if (isOnline) return null
+  if (isOnline) return null
 
   const userName = LocalUserName.get()
 
