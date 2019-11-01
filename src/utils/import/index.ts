@@ -8,6 +8,7 @@ import { parserOptions } from 'utils/import/options'
 import { createFatalError, getAllWarnings, hasFatalError, getAllyWarnings } from 'utils/import/warnings'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
+import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
@@ -61,6 +62,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
+
+  // Check if any of the selections have names that map one-to-many from source to us
+  addAmbiguousSelectionErrors(errors, errorFreeSelections.units, opts.ambiguousNames)
 
   // Remove errors where we have found the missing item
   errors = removeFoundErrors(errors, errorFreeSelections, allyData)

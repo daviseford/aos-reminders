@@ -547,7 +547,14 @@ describe('handleAzyrPages', () => {
 
   it('handles Stormcast5, which has a vague unit name', () => {
     const res = handleAzyrPages(Stormcast5)
-    expect(res).toEqual(['FACTION: Stormcast Eternals', 'UNIT: Lord-Arcanum on Celestial Dracoline'])
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'UNIT: Lord-Arcanum',
+      'UNIT: Lord-Celestant',
+      'UNIT: Evocators',
+      'UNIT: Prosecutors',
+      'UNIT: Vanguard-Raptors',
+    ])
   })
 
   it('handles KO3', () => {

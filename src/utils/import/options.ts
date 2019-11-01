@@ -240,8 +240,19 @@ export const importFactionNameMap = {
 
 export type TNameMap = { [key: string]: string }
 
+// A list of unit names that Azyr uses for multiple warscrolls
+// (eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum')
+export const azyrAmbiguousNames = [
+  'Lord-Arcanum',
+  'Lord-Celestant',
+  'Evocators',
+  'Prosecutors with Stormcall Javelins',
+  'Vanguard-Raptors with Hurricane Crossbows',
+]
+
 type TParserOptions = {
   [key in TImportParsers]: {
+    ambiguousNames: Array<string>
     checkPoorSpacing: boolean
     fileReadError: string
     typoMap: TNameMap
@@ -250,21 +261,25 @@ type TParserOptions = {
 
 export const parserOptions: TParserOptions = {
   [WARSCROLL_BUILDER]: {
+    ambiguousNames: [],
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
   [AZYR]: {
+    ambiguousNames: azyrAmbiguousNames,
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
   [BATTLESCRIBE]: {
+    ambiguousNames: [],
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
     typoMap: battlescribeTypoMap,
   },
   [UNKNOWN]: {
+    ambiguousNames: [],
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},

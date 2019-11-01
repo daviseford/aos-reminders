@@ -44,6 +44,7 @@ import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
 import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
 import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
+import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles Khorne3', () => {
@@ -588,6 +589,45 @@ describe('getAzyrArmyFromPdf', () => {
       },
       unknownSelections: [],
     })
+  })
+
+  it('warns about ambiguous selections', () => {
+    const pages = handleAzyrPages(Stormcast5)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections.units).toEqual([
+      'Lord-Arcanum',
+      'Lord-Celestant',
+      'Evocators',
+      'Prosecutors with Stormcall Javelins',
+      'Vanguard-Raptors with Hurricane Crossbows',
+    ])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Celestant'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text: "Azyr lists more than one unit as 'Evocators'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Prosecutors with Stormcall Javelins'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Vanguard-Raptors with Hurricane Crossbows'. Please check it has imported the correct one.",
+      },
+    ])
   })
 })
 
