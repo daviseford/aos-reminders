@@ -31,7 +31,7 @@ const selectTheme = {
    * multiValue/backgroundColor
    * indicators(separator)/backgroundColor(disabled)
    */
-  neutral10: 'grey',
+  neutral10: 'slategrey',
 
   /*
    * control/borderColor
@@ -40,7 +40,7 @@ const selectTheme = {
    * indicators(separator)/backgroundColor
    * indicators(loading)/color
    */
-  neutral20: 'grey',
+  neutral20: 'slategrey',
 
   /*
    * control/borderColor(focused)
@@ -89,12 +89,12 @@ const selectTheme = {
   /*
    * option/backgroundColor(focused)
    */
-  primary25: 'grey',
+  primary25: 'slategrey',
 
   /*
    * option/backgroundColor:active
    */
-  // primary50: 'var(--primary-50)',
+  primary50: 'darkseagreen',
   // primary75: 'var(--primary-75)',
 }
 
