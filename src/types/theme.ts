@@ -6,6 +6,7 @@ export interface ITheme {
   dropzone: string
   genericButton: string
   headerColor: string
+  profileCardHeader: string
   reminderHeader: string
   secondaryButton: string
   selectTheme: { [key: string]: string }

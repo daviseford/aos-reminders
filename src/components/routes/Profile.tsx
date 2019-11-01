@@ -18,8 +18,6 @@ import { centerContentClass } from 'theme/helperClasses'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { IUser } from 'types/user'
 
-const cardHeaderClass = `card-header mb-0 pb-1`
-
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Profile: React.FC = () => {
@@ -96,7 +94,7 @@ const FavoriteArmySelect = () => {
 
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={`${cardHeaderClass} ${theme.bgColor}`}>
+      <div className={theme.profileCardHeader}>
         <h4>
           <div className={centerContentClass}>Favorite Faction</div>
         </h4>
@@ -139,6 +137,7 @@ interface ICancelBtnProps {
 
 const CancelBtn: React.FC<ICancelBtnProps> = () => {
   const { isActive, isCanceled } = useSubscription()
+  const { isLight } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -147,9 +146,11 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
 
   if (!isActive || isCanceled) return null
 
+  const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
+
   return (
     <>
-      <button className="btn btn-sm btn-outline-danger" onClick={openModal}>
+      <button className={btnClass} onClick={openModal}>
         Cancel Subscription
       </button>
       {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
@@ -161,7 +162,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={cardHeaderClass}>
+      <div className={theme.profileCardHeader}>
         <h4>
           <div className={centerContentClass}>
             Subscription Status:{' '}
@@ -203,7 +204,7 @@ const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={cardHeaderClass}>
+      <div className={theme.profileCardHeader}>
         <h4>
           <div className={centerContentClass}>
             Recurring Payment:{' '}
@@ -228,7 +229,7 @@ const EmailVerified = ({ email_verified, email }) => {
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={cardHeaderClass}>
+      <div className={theme.profileCardHeader}>
         <h4>
           <div className={centerContentClass}>
             Email Verified:{' '}
@@ -251,7 +252,7 @@ const Help = () => {
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={cardHeaderClass}>
+      <div className={theme.profileCardHeader}>
         <h4>Need help?</h4>
       </div>
       <div className={theme.cardBody}>
