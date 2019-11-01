@@ -17,6 +17,7 @@ import {
   PDF_FILE,
   HTML_FILE,
 } from 'types/import'
+import { useTheme } from 'context/useTheme'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
@@ -27,6 +28,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   const { handleDrop, isMobile } = props
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
+  const { theme } = useTheme()
 
   const [isDone, setIsDone] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -89,7 +91,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   }
 
   return (
-    <div {...getRootProps({ className: 'dropzone' })}>
+    <div {...getRootProps({ className: theme.dropzone })}>
       <input {...getInputProps()} />
       <div className={`${centerContentClass} text-center py-3`}>
         {isProcessing && <Spinner />}

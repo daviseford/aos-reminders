@@ -102,7 +102,7 @@ const DarkTheme: ITheme = {
   bgColor: `bg-themeDarkBlueSecondary`,
   headerColor: `bg-themeDarkBlueSecondary`,
   text: `text-white`,
-  textMuted: `text-white-50`,
+  textMuted: `text-white-75`,
   textOpposite: `text-dark`,
   textSecondary: `text-light`,
   genericButton: `btn btn-outline-light btn-block`,
@@ -110,6 +110,7 @@ const DarkTheme: ITheme = {
   reminderHeader: `bg-themeLightBlue`,
   selectorHeader: `bg-themeLightBlue`,
   cardBorder: `border border-dark`,
+  dropzone: `dropzone-dark`,
   selectTheme,
 }
 

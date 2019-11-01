@@ -12,6 +12,7 @@ export interface ITheme {
   headerColor: string
   reminderHeader: string
   selectorHeader: string
+  dropzone: string
 
   cardBorder: string
 

@@ -12,6 +12,7 @@ const LightTheme: ITheme = {
   reminderHeader: `bg-themeDarkBluePrimary`,
   selectorHeader: `bg-themeLightBlue`,
   cardBorder: ``,
+  dropzone: `dropzone`,
   selectTheme: {},
 }
 
