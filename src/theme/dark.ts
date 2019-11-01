@@ -17,9 +17,7 @@ const selectTheme = {
    * menu/backgroundColor
    * option/color(selected)
    */
-  // neutral0: 'black',
-  neutral0: '#23283B', // $themeDarkBlueSecondary in theme.scss
-  // neutral0: '#073647', // $themeDarkBlueTertiary in theme.scss
+  neutral0: '#182633', // $themeDarkBlueSecondary in theme.scss
 
   /*
    * control/backgroundColor(disabled)

@@ -13,7 +13,7 @@ const FooterComponent = () => {
       <DonateComponent />
       <OfflineComponent />
       <DisclaimerComponent />
-      <div className="row text-center mt-1 mb-3">
+      <div className="row text-center pt-2 pb-3">
         <div className="col">
           <ContactComponent size="small" />
         </div>
