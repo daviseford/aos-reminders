@@ -105,6 +105,7 @@ const DarkTheme: ITheme = {
   genericButton: `btn btn-outline-light btn-block`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
   reminderHeader: `ReminderHeader-Dark`,
+  cardBorder: `border border-secondary`,
   selectTheme,
 }
 

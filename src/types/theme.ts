@@ -11,6 +11,8 @@ export interface ITheme {
 
   reminderHeader: string
 
+  cardBorder: string
+
   selectTheme: {
     [key: string]: string
   }

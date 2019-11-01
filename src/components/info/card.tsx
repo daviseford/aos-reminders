@@ -26,7 +26,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 
   return (
     <div className={colClass}>
-      <div className="card">
+      <div className={`card ${theme.cardBorder}`}>
         <CardHeader
           isMobile={isMobile}
           isVisible={isVisible}

@@ -9,6 +9,7 @@ const LightTheme: ITheme = {
   genericButton: `btn btn-outline-dark btn-block`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
   reminderHeader: `ReminderHeader`,
+  cardBorder: ``,
   selectTheme: {},
 }
 
