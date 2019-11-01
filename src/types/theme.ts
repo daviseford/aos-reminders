@@ -9,6 +9,8 @@ export interface ITheme {
   genericButton: string
   secondaryButton: string
 
+  reminderHeader: string
+
   selectTheme: {
     [key: string]: string
   }

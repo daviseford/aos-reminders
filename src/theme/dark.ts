@@ -97,13 +97,14 @@ const selectTheme = {
 }
 
 const DarkTheme: ITheme = {
-  bgColor: 'bg-themeDarkBluePrimary',
-  text: 'text-white',
-  textMuted: 'text-white-50',
-  textOpposite: 'text-dark',
-  textSecondary: 'text-light',
+  bgColor: `bg-themeDarkBluePrimary`,
+  text: `text-white`,
+  textMuted: `text-white-50`,
+  textOpposite: `text-dark`,
+  textSecondary: `text-light`,
   genericButton: `btn btn-outline-light btn-block`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
+  reminderHeader: `ReminderHeader-Dark`,
   selectTheme,
 }
 

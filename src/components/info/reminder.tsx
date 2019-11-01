@@ -62,7 +62,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
           showCard={handleShowWhen}
           hideCard={hideWhen}
           isVisible={isVisible}
-          headerClassName={`ReminderHeader`}
+          headerClassName={theme.reminderHeader}
           iconSize={1.2}
           isMobile={isMobile}
         />

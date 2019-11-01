@@ -50,6 +50,11 @@ small {
     color: white;
 }
 
+.ReminderHeader-Dark {
+    background-color: $themeLightBlue;
+    color: white;
+}
+
 .SelectArmy {
     margin-block-start: 2rem;
     margin-inline-end: 5%;
@@ -120,6 +125,10 @@ small {
 
 @media print {
 
+    .text-white, .text-light, .text-white-50 {
+        color: black !important;
+    }
+
     header>h1 {
         font-size: 1.5rem;
     }
@@ -130,7 +139,6 @@ small {
 
     .CardHeaderTitle {
         font-size: 1.1rem;
-        color: black;
     }
 
     .card-header {
@@ -157,9 +165,9 @@ small {
         font-size: 0.9rem;
     }
 
-    .ReminderHeader {
-        background-color: white;
-        color: black;
+    .ReminderHeader, .ReminderHeader-Dark  {
+        background-color: white !important;
+        color: black !important;
     }
 
 }
