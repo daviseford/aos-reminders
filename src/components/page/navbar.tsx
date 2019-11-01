@@ -1,26 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { useSubscription } from 'context/useSubscription'
-import { BASE_URL, ROUTES } from 'utils/env'
+import { max } from 'lodash'
 import config from 'auth_config.json'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { BASE_URL, ROUTES } from 'utils/env'
 import { logClick } from 'utils/analytics'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useAppStatus } from 'context/useAppStatus'
-import NavbarWrapper from './navbar_wrapper'
 import SupportPlans from 'components/payment/plans'
-import { max } from 'lodash'
-import { useTheme } from 'context/useTheme'
+import NavbarWrapper from './navbar_wrapper'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { handleLogin } = useSavedArmies()
-  const { toggleTheme } = useTheme()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
@@ -45,9 +43,6 @@ const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <button className={navbarStyles.btn} onClick={toggleTheme}>
-        Toggle Theme
-      </button>
       {pathname !== ROUTES.HOME && (
         <Link to={ROUTES.HOME} className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
           Home
