@@ -36,6 +36,9 @@ small {
 .bg-themeDarkBlueSecondary {
     background-color: $themeDarkBlueSecondary;
 }
+.bg-themeLightBlue {
+    background-color: $themeLightBlue;
+}
 
 .text-light-gray {
     color: $themeLightGray !important;
@@ -60,10 +63,6 @@ small {
     margin-block-start: 2px;
 }
 
-.SelectorHeader {
-    background-color: $themeLightBlue;
-    color: white;
-}
 
 /* Dropzone */
 .dropzone {
@@ -157,6 +156,5 @@ small {
     .ReminderEntry {
         font-size: 0.9rem;
     }
-
 
 }

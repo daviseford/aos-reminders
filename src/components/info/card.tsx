@@ -31,7 +31,7 @@ const CardComponent: React.FC<ICardProps> = props => {
           isMobile={isMobile}
           isVisible={isVisible}
           title={title}
-          headerClassName={'SelectorHeader'}
+          headerClassName={`${theme.selectorHeader} text-white`}
         />
         <div className={bodyClass}>{children}</div>
       </div>

@@ -11,6 +11,7 @@ export interface ITheme {
 
   headerColor: string
   reminderHeader: string
+  selectorHeader: string
 
   cardBorder: string
 
