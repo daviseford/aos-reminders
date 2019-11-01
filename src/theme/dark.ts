@@ -97,7 +97,8 @@ const selectTheme = {
 }
 
 const DarkTheme: ITheme = {
-  bgColor: `bg-themeDarkBluePrimary`,
+  bgColor: `bg-themeDarkBlueSecondary`,
+  headerColor: `bg-themeDarkBlueSecondary`,
   text: `text-white`,
   textMuted: `text-white-50`,
   textOpposite: `text-dark`,

@@ -9,6 +9,7 @@ export interface ITheme {
   genericButton: string
   secondaryButton: string
 
+  headerColor: string
   reminderHeader: string
 
   cardBorder: string

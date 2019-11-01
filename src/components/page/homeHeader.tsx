@@ -12,12 +12,14 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
 import { LocalStoredArmy } from 'utils/localStore'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
+  const { theme } = useTheme()
   return (
-    <div className="bg-themeDarkBluePrimary">
+    <div className={theme.headerColor}>
       <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
@@ -48,6 +50,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   } = props
   const { isOnline } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+  const { theme } = useTheme()
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
@@ -72,7 +75,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     setFactionName(value)
   })
 
-  const jumboClass = `jumbotron jumbotron-fluid text-center bg-themeDarkBluePrimary d-print-none mb-0 pt-4 ${
+  const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? `pb-2` : `pb-3`
   }`
 

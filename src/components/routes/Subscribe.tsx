@@ -32,7 +32,7 @@ const Subscribe: React.FC = () => {
 
   return (
     <div className="d-block">
-      <div className="bg-themeDarkBluePrimary py-2">
+      <div className={`${theme.headerColor} py-2`}>
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
@@ -156,9 +156,10 @@ const ComingSoon = () => (
 )
 
 const AlreadySubscribed = () => {
+  const { theme } = useTheme()
   return (
     <div className="d-block">
-      <div className="bg-themeDarkBluePrimary py-2">
+      <div className={`${theme.headerColor} py-2`}>
         <Navbar />
       </div>
       <div className="row d-flex justify-content-center align-items-center">

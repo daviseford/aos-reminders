@@ -33,6 +33,9 @@ small {
 .bg-themeDarkBluePrimary {
     background-color: $themeDarkBluePrimary;
 }
+.bg-themeDarkBlueSecondary {
+    background-color: $themeDarkBlueSecondary;
+}
 
 .text-light-gray {
     color: $themeLightGray !important;
@@ -51,7 +54,7 @@ small {
 }
 
 .ReminderHeader-Dark {
-    background-color: $themeLightBlue;
+    background-color: $themeDarkBlueSecondary;
     color: white;
 }
 

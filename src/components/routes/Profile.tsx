@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
-      <div className="bg-themeDarkBluePrimary py-2">
+      <div className={`${theme.headerColor} py-2`}>
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
