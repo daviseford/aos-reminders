@@ -1,26 +1,26 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
-import { logPageView, logClick } from 'utils/analytics'
-import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
-import { IUser } from 'types/user'
-import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
-import { centerContentClass } from 'theme/helperClasses'
-import { ContactComponent } from 'components/page/contact'
-import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
-import { Link } from 'react-router-dom'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
-import { withSelectOne } from 'utils/withSelect'
-import { SelectOne } from 'components/input/select'
+import { useTheme } from 'context/useTheme'
+import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
+import { logPageView, logClick } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 import { ROUTES } from 'utils/env'
-import { useTheme } from 'context/useTheme'
+import { withSelectOne } from 'utils/withSelect'
+import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
+import { ContactComponent } from 'components/page/contact'
+import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
+import { SelectOne } from 'components/input/select'
+import { centerContentClass } from 'theme/helperClasses'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { IUser } from 'types/user'
 
 const cardHeaderClass = `card-header mb-0 pb-1`
 
-const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
+const Navbar = lazy(() => import('components/page/navbar'))
 
 const Profile: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
@@ -40,7 +40,7 @@ const Profile: React.FC = () => {
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
   return (
-    <div className={`d-block ${theme.bgColor}`}>
+    <div className={`d-block`}>
       <div className={`${theme.headerColor} py-2`}>
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />
@@ -63,9 +63,10 @@ export default Profile
 const UserCard: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
   const { isActive, isSubscribed, isCanceled, subscription } = useSubscription()
+  const { theme } = useTheme()
 
   return (
-    <div className="col py-4 text-center">
+    <div className={`col py-4 ${theme.text} text-center`}>
       <h1 className="text-center">Your Profile</h1>
       <FavoriteArmySelect />
       <SubscriptionInfo
@@ -84,23 +85,24 @@ const UserCard: React.FC = () => {
 const FavoriteArmySelect = () => {
   const { isActive } = useSubscription()
   const { favoriteFaction, updateFavoriteFaction, getFavoriteFaction } = useSavedArmies()
+  const { theme } = useTheme()
 
   useEffect(() => {
     if (!isActive) return
     getFavoriteFaction()
   }, [getFavoriteFaction, isActive])
 
-  const colClass = `col-12${isActive ? ` col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-dark text-left` : ``}`
+  const colClass = `col-12${isActive ? ` col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-left` : ``}`
 
   return (
-    <div className="card mt-2">
-      <div className={cardHeaderClass}>
+    <div className={`${theme.card} mt-2`}>
+      <div className={`${cardHeaderClass} ${theme.bgColor}`}>
         <h4>
           <div className={centerContentClass}>Favorite Faction</div>
         </h4>
       </div>
 
-      <div className="card-body">
+      <div className={theme.cardBody}>
         <div className={`d-flex justify-content-center`}>
           <div className={colClass}>
             {isActive ? (
@@ -156,8 +158,9 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
 }
 
 const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) => {
+  const { theme } = useTheme()
   return (
-    <div className="card mt-2">
+    <div className={`${theme.card} mt-2`}>
       <div className={cardHeaderClass}>
         <h4>
           <div className={centerContentClass}>
@@ -172,7 +175,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
       </div>
 
       {isActive && (
-        <div className="card-body">
+        <div className={theme.cardBody}>
           <h5 className="lead">
             Subscription Start:{' '}
             {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
@@ -188,7 +191,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         </div>
       )}
       {isSubscribed && !isActive && (
-        <div className="card-body">
+        <div className={theme.cardBody}>
           <SubscriptionExpired />
         </div>
       )}
@@ -197,8 +200,9 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
 }
 
 const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
+  const { theme } = useTheme()
   return (
-    <div className="card mt-2">
+    <div className={`${theme.card} mt-2`}>
       <div className={cardHeaderClass}>
         <h4>
           <div className={centerContentClass}>
@@ -212,7 +216,7 @@ const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
         </h4>
       </div>
       {isActive && !isCanceled && (
-        <div className="card-body">
+        <div className={theme.cardBody}>
           <CancelBtn />
         </div>
       )}
@@ -221,8 +225,9 @@ const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
 }
 
 const EmailVerified = ({ email_verified, email }) => {
+  const { theme } = useTheme()
   return (
-    <div className="card mt-2">
+    <div className={`${theme.card} mt-2`}>
       <div className={cardHeaderClass}>
         <h4>
           <div className={centerContentClass}>
@@ -235,7 +240,7 @@ const EmailVerified = ({ email_verified, email }) => {
           </div>
         </h4>
       </div>
-      <div className="card-body">
+      <div className={theme.cardBody}>
         <h5 className="lead">{email}</h5>
       </div>
     </div>
@@ -243,12 +248,13 @@ const EmailVerified = ({ email_verified, email }) => {
 }
 
 const Help = () => {
+  const { theme } = useTheme()
   return (
-    <div className="card mt-2">
+    <div className={`${theme.card} mt-2`}>
       <div className={cardHeaderClass}>
         <h4>Need help?</h4>
       </div>
-      <div className="card-body">
+      <div className={theme.cardBody}>
         <ContactComponent size="normal" />
       </div>
     </div>

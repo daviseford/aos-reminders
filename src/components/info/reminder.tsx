@@ -52,7 +52,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     showWhen(title)
   }, [title, showWhen])
 
-  const bodyClass = `card-body ${theme.bgColor} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
+  const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
   return (
     <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>

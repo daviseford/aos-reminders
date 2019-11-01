@@ -28,6 +28,7 @@ export const OfflineBtn = (props: { text?: string }) => {
 
 export const LoadingHeader = () => {
   const { theme } = useTheme()
+
   return (
     <div className={`${theme.headerColor} py-2`}>
       <NavbarWrapper>

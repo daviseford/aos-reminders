@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LightTheme from 'theme/light'
 import DarkTheme from 'theme/dark'
 import { ITheme } from 'types/theme'
@@ -28,9 +28,22 @@ const ThemeProvider: React.FC = ({ children }) => {
   }
   const toggleTheme = () => (isDark ? setLightTheme() : setDarkTheme())
 
+  useEffect(() => {
+    // Assign our theme's bgColor to the root element
+    const element = document.getElementById('root')
+    if (element) element.className = theme.bgColor
+  }, [theme.bgColor])
+
   return (
     <ThemeContext.Provider
-      value={{ theme, setLightTheme, setDarkTheme, isDark, isLight: !isDark, toggleTheme }}
+      value={{
+        isDark,
+        isLight: !isDark,
+        setDarkTheme,
+        setLightTheme,
+        theme,
+        toggleTheme,
+      }}
     >
       {children}
     </ThemeContext.Provider>

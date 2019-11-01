@@ -47,7 +47,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   return (
     <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
       <div className={`card ${border}`}>
-        <div className={`card-body ${theme.bgColor}`}>
+        <div className={theme.cardBody}>
           <CardTitle
             id={army.id}
             armyName={army.armyName}

@@ -1,5 +1,11 @@
 @import "./theme.scss";
 
+/* Make sure our document fills the page - important for dark theme! */
+html, body, #root {
+    margin: 0;
+    height: 100%;
+}
+
 /* Elements */
 body {
     margin: 0;

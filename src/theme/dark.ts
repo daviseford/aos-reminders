@@ -96,15 +96,18 @@ const selectTheme = {
   // primary75: 'var(--primary-75)',
 }
 
+const bgColor = `bg-themeDarkBlueSecondary`
+
 const DarkTheme: ITheme = {
-  bgColor: `bg-themeDarkBlueSecondary`,
-  cardBorder: `border border-dark`,
+  bgColor,
+  card: `card border border-dark`,
+  cardBody: `card-body ${bgColor}`,
+  cardHeader: `bg-themeLightBlue text-white`,
   dropzone: `dropzone-dark`,
   genericButton: `btn btn-outline-light btn-block`,
-  headerColor: `bg-themeDarkBlueSecondary`,
+  headerColor: bgColor,
   reminderHeader: `bg-themeLightBlue`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
-  selectorHeader: `bg-themeLightBlue`,
   selectTheme,
   text: `text-white`,
   textMuted: `text-white-75`,

@@ -1,14 +1,17 @@
 import { ITheme } from 'types/theme'
 
+const bgColor = `bg-white`
+
 const LightTheme: ITheme = {
-  bgColor: `bg-white`,
-  cardBorder: ``,
+  bgColor,
+  card: `card`,
+  cardBody: `card-body ${bgColor}`,
+  cardHeader: `bg-themeLightBlue text-white`,
   dropzone: `dropzone`,
   genericButton: `btn btn-outline-dark btn-block`,
   headerColor: `bg-themeDarkBluePrimary`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
-  selectorHeader: `bg-themeLightBlue`,
   selectTheme: {},
   text: `text-dark`,
   textMuted: `text-muted`,

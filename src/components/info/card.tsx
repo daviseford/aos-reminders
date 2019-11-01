@@ -19,19 +19,19 @@ const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
   const { theme } = useTheme()
 
-  const bodyClass = `card-body ${theme.bgColor} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
+  const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
   const colMobile = isMobile && !isVisible ? `col w-50 px-1` : `col-12 px-1`
   const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${!isMobile ? `mb-2` : ``}`
   const colClass = `${colMobile} ${colDesktop} ${theme.bgColor} mx-auto mt-1`
 
   return (
     <div className={colClass}>
-      <div className={`card ${theme.cardBorder}`}>
+      <div className={theme.card}>
         <CardHeader
           isMobile={isMobile}
           isVisible={isVisible}
           title={title}
-          headerClassName={`${theme.selectorHeader} text-white`}
+          headerClassName={theme.cardHeader}
         />
         <div className={bodyClass}>{children}</div>
       </div>

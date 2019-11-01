@@ -55,9 +55,9 @@ const Tr = ({ title, items, theme }: ITrProps) => (
       <strong>{titleCase(title)}</strong>
     </td>
     <td>
-      {items.map((item, ii) => {
+      {items.map((item, i) => {
         return (
-          <span key={`${item}_${ii}`} className={`badge badge-secondary text-wrap mx-1`}>
+          <span key={`${item}_${i}`} className={`badge badge-secondary text-wrap mx-1`}>
             {item}
           </span>
         )

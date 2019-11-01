@@ -1,12 +1,13 @@
 export interface ITheme {
   bgColor: string
-  cardBorder: string
+  card: string
+  cardBody: string
+  cardHeader: string
   dropzone: string
   genericButton: string
   headerColor: string
   reminderHeader: string
   secondaryButton: string
-  selectorHeader: string
   selectTheme: { [key: string]: string }
   text: string
   textMuted: string

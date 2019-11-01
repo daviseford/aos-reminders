@@ -172,7 +172,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
   const headerClass = `card-header bg-secondary pt-1 pb-2`
 
   return (
-    <div className={`card ${theme.cardBorder}`}>
+    <div className={theme.card}>
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-2">
@@ -201,7 +201,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           </div>
         </div>
       </div>
-      <div className={`card-body ${theme.bgColor} py-3 ${isVisible ? `` : `d-none`}`}>
+      <div className={`${theme.cardBody} py-3 ${isVisible ? `` : `d-none`}`}>
         <h4 className={`text-center ${theme.text}`}>Allied {type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>

@@ -7,23 +7,20 @@ import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout } from 'utils/handleCheckout'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 import { ROUTES } from 'utils/env'
-import { useTheme } from 'context/useTheme'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
-const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
-const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
+const Home = lazy(() => import('components/routes/Home'))
+const Profile = lazy(() => import('components/routes/Profile'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
-  const { theme } = useTheme()
-
   useEffect(() => {
     handleCheckout() // Post-checkout handling
     loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
   }, [])
 
   return (
-    <div className={`d-block ${theme.bgColor}`}>
+    <div className={`d-block`}>
       <BrowserRouter>
         <Suspense fallback={<LoadingBody />}>
           <Switch>
