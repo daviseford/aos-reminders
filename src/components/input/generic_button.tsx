@@ -1,5 +1,5 @@
 import React from 'react'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import { useTheme } from 'context/useTheme'
 
 type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
@@ -9,7 +9,7 @@ const GenericButton: React.FC<ButtonProps> = ({ children, ...props }) => {
 
   return (
     <button className={theme.genericButton} {...props}>
-      <div className={btnContentWrapper}>{children}</div>
+      <div className={centerContentClass}>{children}</div>
     </button>
   )
 }

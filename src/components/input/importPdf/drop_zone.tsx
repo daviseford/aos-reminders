@@ -4,7 +4,7 @@ import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -91,7 +91,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   return (
     <div {...getRootProps({ className: 'dropzone' })}>
       <input {...getInputProps()} />
-      <div className={`${btnContentWrapper} text-center py-3`}>
+      <div className={`${centerContentClass} text-center py-3`}>
         {isProcessing && <Spinner />}
         {getText()}
         {isDone && <FaRegCheckCircle className="text-success ml-2" />}

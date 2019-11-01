@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { logClick } from 'utils/analytics'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import { FaFileImport } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
 import { useTheme } from 'context/useTheme'
+import GenericButton from '../generic_button'
 
 interface IImportArmyButtonProps {
   isSubscribed: boolean
@@ -25,14 +26,12 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
   const btnTxt = isShowing ? `Hide Import` : `Import List`
 
   return isSubscribed ? (
-    <button className={theme.genericButton} onClick={handleClick}>
-      <div className={btnContentWrapper}>
-        <FaFileImport className="mr-2" /> {btnTxt}
-      </div>
-    </button>
+    <GenericButton onClick={handleClick}>
+      <FaFileImport className="mr-2" /> {btnTxt}
+    </GenericButton>
   ) : (
     <Link to={ROUTES.SUBSCRIBE} className={theme.genericButton} onClick={() => logClick('Import-Subscribe')}>
-      <div className={btnContentWrapper}>
+      <div className={centerContentClass}>
         <FaFileImport className="mr-2" /> Import List
       </div>
     </Link>

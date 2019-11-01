@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import jsPDF from 'jspdf'
 import { selectors } from 'ducks'
 import { MdFileDownload } from 'react-icons/md'
-import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { processReminders } from 'utils/processReminders'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -11,7 +10,7 @@ import { logDownloadEvent } from 'utils/analytics'
 import { DownloadPDFModal } from './pdfModal'
 import { TAllyArmies, IArmy, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { useTheme } from 'context/useTheme'
+import GenericButton from 'components/input/generic_button'
 
 interface IDownloadPDFProps extends ICurrentArmy {
   allyArmies: TAllyArmies
@@ -22,7 +21,6 @@ interface IDownloadPDFProps extends ICurrentArmy {
 
 const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
-  const { theme } = useTheme()
 
   const [pdf, setPdf] = useState<jsPDF | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -57,11 +55,9 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
   return (
     <>
-      <button className={theme.genericButton} onClick={handleDownload}>
-        <div className={btnContentWrapper}>
-          <MdFileDownload className="mr-2" /> {text}
-        </div>
-      </button>
+      <GenericButton onClick={handleDownload}>
+        <MdFileDownload className="mr-2" /> {text}
+      </GenericButton>
       {modalIsOpen && (
         <DownloadPDFModal
           factionName={currentArmy.factionName}

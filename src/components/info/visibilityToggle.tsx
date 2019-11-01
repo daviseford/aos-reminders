@@ -9,7 +9,6 @@ import {
   MdVisibilityOff,
 } from 'react-icons/md'
 import { useTheme } from 'context/useTheme'
-import { classNames } from 'react-select/src/utils'
 
 export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 

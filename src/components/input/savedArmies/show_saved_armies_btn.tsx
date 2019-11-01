@@ -2,10 +2,9 @@ import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { MdStorage } from 'react-icons/md'
-import { btnDarkBlock, btnContentWrapper } from 'theme/helperClasses'
 import { useAppStatus } from 'context/useAppStatus'
 import { LocalSavedArmies } from 'utils/localStore'
-import { useTheme } from 'context/useTheme'
+import GenericButton from '../generic_button'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
@@ -21,7 +20,6 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   const { isOnline, isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
-  const { theme } = useTheme()
 
   if (isOnline && (!isAuthenticated || !isSubscribed)) return null
   if (isOffline && LocalSavedArmies.get().length === 0) return null
@@ -34,13 +32,9 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   }
 
   return (
-    <>
-      <button className={theme.genericButton} onClick={handleClick}>
-        <div className={btnContentWrapper}>
-          <MdStorage className="mr-2" /> {btnText}
-        </div>
-      </button>
-    </>
+    <GenericButton onClick={handleClick}>
+      <MdStorage className="mr-2" /> {btnText}
+    </GenericButton>
   )
 }
 

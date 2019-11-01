@@ -6,7 +6,7 @@ import { logPageView, logClick } from 'utils/analytics'
 import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
 import { IUser } from 'types/user'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import { ContactComponent } from 'components/page/contact'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import { Link } from 'react-router-dom'
@@ -96,7 +96,7 @@ const FavoriteArmySelect = () => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          <div className={btnContentWrapper}>Favorite Faction</div>
+          <div className={centerContentClass}>Favorite Faction</div>
         </h4>
       </div>
 
@@ -160,7 +160,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          <div className={btnContentWrapper}>
+          <div className={centerContentClass}>
             Subscription Status:{' '}
             {isActive ? (
               <MdCheckCircle className="text-success ml-2" />
@@ -201,7 +201,7 @@ const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          <div className={btnContentWrapper}>
+          <div className={centerContentClass}>
             Recurring Payment:{' '}
             {isActive && !isCanceled ? (
               <MdCheckCircle className="text-success ml-2" />
@@ -225,7 +225,7 @@ const EmailVerified = ({ email_verified, email }) => {
     <div className="card mt-2">
       <div className={cardHeaderClass}>
         <h4>
-          <div className={btnContentWrapper}>
+          <div className={centerContentClass}>
             Email Verified:{' '}
             {email_verified ? (
               <MdVerifiedUser className="text-success ml-2" />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { btnDarkBlock, btnContentWrapper, navbarStyles } from 'theme/helperClasses'
+import { navbarStyles } from 'theme/helperClasses'
+import GenericButton from 'components/input/generic_button'
 import Spinner from 'components/helpers/spinner'
 import NavbarWrapper from 'components/page/navbar_wrapper'
 import { FiWifiOff } from 'react-icons/fi'
@@ -9,25 +10,19 @@ import { useTheme } from 'context/useTheme'
 
 export const LoadingBtn = () => {
   return (
-    <button className={btnDarkBlock} disabled type="button">
-      <div className={btnContentWrapper}>
-        <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>{' '}
-        Loading
-      </div>
-    </button>
+    <GenericButton disabled type="button">
+      <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> Loading
+    </GenericButton>
   )
 }
 
 export const OfflineBtn = (props: { text?: string }) => {
   const { text = 'Offline' } = props
-  const { theme } = useTheme()
 
   return (
-    <button className={theme.genericButton} disabled type="button">
-      <div className={btnContentWrapper}>
-        <FiWifiOff className="mr-2 text-danger" /> {text}
-      </div>
-    </button>
+    <GenericButton disabled type="button">
+      <FiWifiOff className="mr-2 text-danger" /> {text}
+    </GenericButton>
   )
 }
 
@@ -53,11 +48,9 @@ export const OfflineHeader: React.FC = () => {
           Home
         </Link>
       )}
-      <button className={navbarStyles.btn} disabled type="button">
-        <div className={btnContentWrapper}>
-          <FiWifiOff className="mr-2" /> Offline
-        </div>
-      </button>
+      <GenericButton className={navbarStyles.btn} disabled type="button">
+        <FiWifiOff className="mr-2" /> Offline
+      </GenericButton>
     </NavbarWrapper>
   )
 }
