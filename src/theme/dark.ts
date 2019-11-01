@@ -17,7 +17,8 @@ const selectTheme = {
    * menu/backgroundColor
    * option/color(selected)
    */
-  neutral0: 'black',
+  // neutral0: 'black',
+  neutral0: '#1C7595',
 
   /*
    * control/backgroundColor(disabled)
