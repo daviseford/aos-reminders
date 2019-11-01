@@ -32,7 +32,7 @@ const Subscribe: React.FC = () => {
 
   return (
     <div className="d-block">
-      <div className="ThemeDarkBg py-2">
+      <div className="bg-themeDarkBluePrimary py-2">
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
@@ -158,7 +158,7 @@ const ComingSoon = () => (
 const AlreadySubscribed = () => {
   return (
     <div className="d-block">
-      <div className="ThemeDarkBg py-2">
+      <div className="bg-themeDarkBluePrimary py-2">
         <Navbar />
       </div>
       <div className="row d-flex justify-content-center align-items-center">

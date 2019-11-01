@@ -17,7 +17,7 @@ const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
   return (
-    <div className="ThemeDarkBg">
+    <div className="bg-themeDarkBluePrimary">
       <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
@@ -72,7 +72,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     setFactionName(value)
   })
 
-  const jumboClass = `jumbotron jumbotron-fluid text-center ThemeDarkBg d-print-none mb-0 pt-4 ${
+  const jumboClass = `jumbotron jumbotron-fluid text-center bg-themeDarkBluePrimary d-print-none mb-0 pt-4 ${
     isMobile ? `pb-2` : `pb-3`
   }`
 

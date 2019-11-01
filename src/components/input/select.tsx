@@ -49,8 +49,8 @@ export const SelectOne = (props: ISelectOneProps) => {
     <>
       <Select
         {...selectProps}
-        // Apply styling
-        className={theme.textOpposite}
+        // Apply styling via theme context
+        className={theme.text}
         theme={defaultTheme => ({
           ...defaultTheme,
           colors: {
@@ -92,7 +92,8 @@ export const SelectMulti = (props: ISelectMultiProps) => {
         isSearchable={true}
         onChange={setValues as TSelectOneSetValueFn}
         options={options}
-        className={theme.textOpposite}
+        // Apply styling via theme context
+        className={theme.text}
         theme={defaultTheme => ({
           ...defaultTheme,
           colors: {

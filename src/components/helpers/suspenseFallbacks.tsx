@@ -28,7 +28,7 @@ export const OfflineBtn = (props: { text?: string }) => {
 
 export const LoadingHeader = () => {
   return (
-    <div className="ThemeDarkBg py-2">
+    <div className="bg-themeDarkBluePrimary py-2">
       <NavbarWrapper>
         <div className={`py-1 mr-3 mr-sm-5 align-items-center`}>
           <Spinner variant="light" size="small" />

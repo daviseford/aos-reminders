@@ -112,7 +112,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
   return (
     <div className="card mb-4 shadow-sm">
-      <div className="card-header ThemeDarkBg text-light">
+      <div className="card-header bg-themeDarkBluePrimary text-light">
         <h4 className="my-0 font-weight-normal">{supportPlan.title}</h4>
       </div>
       <div className="card-body">
