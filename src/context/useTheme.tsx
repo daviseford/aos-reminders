@@ -6,6 +6,7 @@ import { ITheme } from 'types/theme'
 interface IThemeProvider {
   setDarkTheme: () => void
   setLightTheme: () => void
+  toggleTheme: () => void
   isDark: boolean
   isLight: boolean
   theme: ITheme
@@ -25,9 +26,12 @@ const ThemeProvider: React.FC = ({ children }) => {
     setTheme(DarkTheme)
     setIsDark(true)
   }
+  const toggleTheme = () => (isDark ? setLightTheme() : setDarkTheme())
 
   return (
-    <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme, isDark, isLight: !isDark }}>
+    <ThemeContext.Provider
+      value={{ theme, setLightTheme, setDarkTheme, isDark, isLight: !isDark, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   )

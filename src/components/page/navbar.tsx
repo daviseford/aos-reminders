@@ -13,12 +13,14 @@ import { useAppStatus } from 'context/useAppStatus'
 import NavbarWrapper from './navbar_wrapper'
 import SupportPlans from 'components/payment/plans'
 import { max } from 'lodash'
+import { useTheme } from 'context/useTheme'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { handleLogin } = useSavedArmies()
+  const { toggleTheme } = useTheme()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
@@ -43,6 +45,9 @@ const Navbar: React.FC = () => {
 
   return (
     <NavbarWrapper>
+      <button className={navbarStyles.btn} onClick={toggleTheme}>
+        Toggle Theme
+      </button>
       {pathname !== ROUTES.HOME && (
         <Link to={ROUTES.HOME} className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
           Home

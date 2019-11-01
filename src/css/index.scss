@@ -48,16 +48,6 @@ small {
     margin-block-end: 0px;
 }
 
-.ReminderHeader {
-    background-color: $themeDarkBluePrimary;
-    color: white;
-}
-
-.ReminderHeader-Dark {
-    background-color: $themeDarkBlueSecondary;
-    color: white;
-}
-
 .SelectArmy {
     margin-block-start: 2rem;
     margin-inline-end: 5%;
@@ -168,9 +158,5 @@ small {
         font-size: 0.9rem;
     }
 
-    .ReminderHeader, .ReminderHeader-Dark  {
-        background-color: white !important;
-        color: black !important;
-    }
 
 }
