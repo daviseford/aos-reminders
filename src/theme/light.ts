@@ -3,10 +3,12 @@ import { ITheme } from 'types/theme'
 const LightTheme: ITheme = {
   bgColor: 'bg-white',
   text: 'text-dark',
-  textSecondary: 'text-secondary',
   textMuted: 'text-muted',
+  textOpposite: 'text-white',
+  textSecondary: 'text-secondary',
   genericButton: `btn btn-outline-dark btn-block`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
+  selectTheme: {},
 }
 
 export default LightTheme
