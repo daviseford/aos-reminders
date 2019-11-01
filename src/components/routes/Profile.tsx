@@ -269,26 +269,27 @@ const ToggleTheme = () => {
 
   return (
     <div className={`${theme.card} mt-2`}>
-      <div className={theme.profileCardHeader}>Visual Theme</div>
-      <div className={theme.cardBody}>
-        <label className={centerContentClass}>
+      <div className={theme.profileCardHeader}>
+        <h4>Visual Theme</h4>
+      </div>
+      <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
+        <label htmlFor="visual-theme-switch">
           <Switch
             onChange={toggleTheme}
             checked={isDark}
             onColor="#1C7595"
             onHandleColor="#E9ECEF"
-            handleDiameter={30}
+            handleDiameter={36}
             uncheckedIcon={false}
             checkedIcon={false}
             boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
             activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-            height={20}
-            width={48}
+            height={26}
+            width={80}
             className="react-switch"
-            id="material-switch"
+            id="visual-theme-switch"
           />
         </label>
-        <p>{isDark ? `Dark` : `Light`} mode is currently enabled</p>
       </div>
     </div>
   )
