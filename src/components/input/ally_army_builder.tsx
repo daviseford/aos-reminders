@@ -176,7 +176,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-2">
-            <IconContext.Provider value={{ size: '1.25em', className: theme.text }}>
+            <IconContext.Provider value={{ size: '1.25em', className: `text-white` }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
@@ -195,7 +195,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
             <VisibilityToggle
               isVisible={isVisible}
               setVisibility={setVisibility}
-              className={theme.text}
+              className={`text-white`}
               type={'minus'}
             />
           </div>

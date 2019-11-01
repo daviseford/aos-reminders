@@ -8,6 +8,7 @@ import { ISavedArmyFromApi } from 'types/savedArmy'
 import UpdateNameButton from './update_name_btn'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -16,6 +17,7 @@ interface ISavedArmyCardProps {
 export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
   const { isOffline } = useAppStatus()
+  const { theme } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [border, setBorder] = useState('')
@@ -45,7 +47,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   return (
     <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
       <div className={`card ${border}`}>
-        <div className="card-body">
+        <div className={`card-body ${theme.bgColor}`}>
           <CardTitle
             id={army.id}
             armyName={army.armyName}
@@ -85,6 +87,8 @@ interface ICardTitleProps {
 
 const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) => {
   const { isOffline } = useAppStatus()
+  const { theme } = useTheme()
+
   const faction = titleCase(factionName)
   const created = DateTime.fromMillis(createdAt).toLocaleString({
     year: 'numeric',
@@ -96,7 +100,7 @@ const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) =>
 
   return (
     <>
-      <div className="d-flex mb-1 justify-content-start align-items-center">
+      <div className={`d-flex ${theme.text} mb-1 justify-content-start align-items-center`}>
         <div hidden={isOffline}>
           <UpdateNameButton size="0.75rem" className="mr-3" armyName={armyName} id={id} />
         </div>
@@ -106,8 +110,8 @@ const CardTitle = ({ armyName, factionName, createdAt, id }: ICardTitleProps) =>
       </div>
 
       <div className="d-flex justify-content-around">
-        <small className="flex-fill text-muted">{faction}</small>
-        <small className="flex-fill text-muted text-right mr-2">Created: {created}</small>
+        <small className={`flex-fill ${theme.textMuted}`}>{faction}</small>
+        <small className={`flex-fill ${theme.textMuted} text-right mr-2`}>Created: {created}</small>
       </div>
     </>
   )
