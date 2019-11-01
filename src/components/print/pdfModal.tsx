@@ -4,13 +4,13 @@ import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
 import { logDownloadEvent } from 'utils/analytics'
 import { titleCase, stripPunctuation } from 'utils/textUtils'
-import { TSupportedFaction } from 'meta/factions'
-import { ModalStyle } from 'theme/modalStyle'
+import { isValidFactionName } from 'utils/armyUtils'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
-import { isValidFactionName } from 'utils/armyUtils'
-import { useAppStatus } from 'context/useAppStatus'
+import { ModalStyle } from 'theme/modalStyle'
+import { TSupportedFaction } from 'meta/factions'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

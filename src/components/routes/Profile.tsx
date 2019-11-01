@@ -1,6 +1,7 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
+import Switch from 'react-switch'
 import { DateTime } from 'luxon'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -67,6 +68,7 @@ const UserCard: React.FC = () => {
     <div className={`col py-4 ${theme.text} text-center`}>
       <h1 className="text-center">Your Profile</h1>
       <FavoriteArmySelect />
+      <ToggleTheme />
       <SubscriptionInfo
         subscription={subscription}
         isCanceled={isCanceled}
@@ -257,6 +259,36 @@ const Help = () => {
       </div>
       <div className={theme.cardBody}>
         <ContactComponent size="normal" />
+      </div>
+    </div>
+  )
+}
+
+const ToggleTheme = () => {
+  const { theme, isDark, toggleTheme } = useTheme()
+
+  return (
+    <div className={`${theme.card} mt-2`}>
+      <div className={theme.profileCardHeader}>Visual Theme</div>
+      <div className={theme.cardBody}>
+        <label className={centerContentClass}>
+          <Switch
+            onChange={toggleTheme}
+            checked={isDark}
+            onColor="#1C7595"
+            onHandleColor="#E9ECEF"
+            handleDiameter={30}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={20}
+            width={48}
+            className="react-switch"
+            id="material-switch"
+          />
+        </label>
+        <p>{isDark ? `Dark` : `Light`} mode is currently enabled</p>
       </div>
     </div>
   )
