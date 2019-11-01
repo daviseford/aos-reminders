@@ -64,7 +64,7 @@ export const LoadingBody = () => {
   return (
     <div className={containerClass}>
       <div className="col text-center">
-        <h3 className="pulsate-fwd">AoS Reminders</h3>
+        <h3 className={`pulsate-fwd ${theme.text}`}>AoS Reminders</h3>
         <p className={`lead ${theme.textMuted} fade-out`}>Loading...</p>
       </div>
     </div>
