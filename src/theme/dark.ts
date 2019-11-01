@@ -102,7 +102,7 @@ const DarkTheme: ITheme = {
   bgColor,
   card: `card border border-dark`,
   cardBody: `card-body ${bgColor}`,
-  cardHeader: `bg-themeLightBlue text-white`,
+  cardHeader: `card-header bg-themeLightBlue text-white`,
   dropzone: `dropzone-dark`,
   genericButton: `btn btn-outline-light btn-block`,
   headerColor: bgColor,

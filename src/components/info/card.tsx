@@ -27,12 +27,7 @@ const CardComponent: React.FC<ICardProps> = props => {
   return (
     <div className={colClass}>
       <div className={theme.card}>
-        <CardHeader
-          isMobile={isMobile}
-          isVisible={isVisible}
-          title={title}
-          headerClassName={theme.cardHeader}
-        />
+        <CardHeader isMobile={isMobile} isVisible={isVisible} title={title} />
         <div className={bodyClass}>{children}</div>
       </div>
     </div>
@@ -93,16 +88,9 @@ interface ICardHeaderProps {
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const {
-    title,
-    isMobile,
-    isVisible,
-    hideCard,
-    showCard,
-    type = 'minus',
-    headerClassName = '',
-    iconSize = 1,
-  } = props
+  const { title, isMobile, isVisible, hideCard, showCard, type = 'minus', iconSize = 1 } = props
+
+  const { theme } = useTheme()
 
   const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
 
@@ -110,14 +98,12 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     if (isMobile && title !== 'Units') hideCard(title)
   }, [hideCard, isMobile, title])
 
-  const styles = useMemo(() => {
-    return {
-      cardHeader: `card-header ${headerClassName} py-${isMobile ? 3 : 2}`,
-      flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
-      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
-      vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
-    }
-  }, [isMobile, headerClassName])
+  const styles = {
+    cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2}`,
+    flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
+    flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
+    vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+  }
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>

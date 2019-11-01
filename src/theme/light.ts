@@ -6,7 +6,7 @@ const LightTheme: ITheme = {
   bgColor,
   card: `card`,
   cardBody: `card-body ${bgColor}`,
-  cardHeader: `bg-themeLightBlue text-white`,
+  cardHeader: `card-header bg-themeLightBlue text-white`,
   dropzone: `dropzone`,
   genericButton: `btn btn-outline-dark btn-block`,
   headerColor: `bg-themeDarkBluePrimary`,
