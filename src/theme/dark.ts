@@ -100,18 +100,18 @@ const selectTheme = {
 
 const DarkTheme: ITheme = {
   bgColor: `bg-themeDarkBlueSecondary`,
+  cardBorder: `border border-dark`,
+  dropzone: `dropzone-dark`,
+  genericButton: `btn btn-outline-light btn-block`,
   headerColor: `bg-themeDarkBlueSecondary`,
+  reminderHeader: `bg-themeLightBlue`,
+  secondaryButton: `btn btn-sm btn-outline-secondary`,
+  selectorHeader: `bg-themeLightBlue`,
+  selectTheme,
   text: `text-white`,
   textMuted: `text-white-75`,
   textOpposite: `text-dark`,
   textSecondary: `text-light`,
-  genericButton: `btn btn-outline-light btn-block`,
-  secondaryButton: `btn btn-sm btn-outline-secondary`,
-  reminderHeader: `bg-themeLightBlue`,
-  selectorHeader: `bg-themeLightBlue`,
-  cardBorder: `border border-dark`,
-  dropzone: `dropzone-dark`,
-  selectTheme,
 }
 
 export default DarkTheme
