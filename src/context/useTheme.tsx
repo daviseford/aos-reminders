@@ -5,7 +5,6 @@ import { ITheme, TThemeType } from 'types/theme'
 import { LocalTheme } from 'utils/localStore'
 import { useSubscription } from './useSubscription'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { useAppStatus } from './useAppStatus'
 
 interface IThemeProvider {
   setDarkTheme: () => void
