@@ -15,3 +15,8 @@ export interface ITheme {
   textOpposite: string
   textSecondary: string
 }
+
+type TLightTheme = 'light'
+type TDarkTheme = 'dark'
+
+export type TThemeType = TLightTheme | TDarkTheme
