@@ -149,10 +149,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       if (isActive) {
         // Grab it from the subscriptiom to check for changes that may have been made from other browsers
         // Don't update state if it's the same as our localStorage value
-        const apiFavorite = subscription.favoriteFaction || null
-        if (apiFavorite && apiFavorite !== favoriteFaction && apiFavorite !== localFavorite) {
-          LocalFavoriteFaction.set(apiFavorite)
-          setFavoriteFaction(apiFavorite)
+        const apiVal = subscription.favoriteFaction
+        if (apiVal && apiVal !== favoriteFaction && apiVal !== localFavorite) {
+          LocalFavoriteFaction.set(apiVal)
+          setFavoriteFaction(apiVal)
         }
       }
     } catch (err) {

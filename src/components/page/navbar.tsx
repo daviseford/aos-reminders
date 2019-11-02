@@ -8,7 +8,13 @@ import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { BASE_URL, ROUTES } from 'utils/env'
 import { logClick } from 'utils/analytics'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import {
+  LocalFavoriteFaction,
+  LocalSavedArmies,
+  LocalStoredArmy,
+  LocalTheme,
+  LocalUserName,
+} from 'utils/localStore'
 import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import SupportPlans from 'components/payment/plans'
@@ -29,6 +35,7 @@ const Navbar: React.FC = () => {
       LocalUserName.clear() // Get rid of stored user info
       LocalStoredArmy.clear() // Remove stored army (saved for post-login redirect) if it exists
       LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
+      LocalTheme.clear() // Revert back to default theme settings
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')
