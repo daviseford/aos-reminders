@@ -2,7 +2,7 @@ import { TImportError } from 'types/import'
 import { createAmbiguityWarning } from 'utils/import/warnings'
 
 /**
- * Mutates the errors array if it finds a suitable match in the allegiance abilities
+ * Adds an error for each selection we've identified could be wrong based on ambiguous naming in the source
  * @param errors
  * @param selections
  * @param ambiguousNames
