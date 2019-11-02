@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { logDisplay } from 'utils/analytics'
+import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
+  const { isDark } = useTheme()
   const name = 'OBR_and_Mawtribes_WIP'
 
   useEffect(() => {
@@ -10,7 +12,7 @@ const AppBanner = () => {
   }, [])
 
   return (
-    <NotificationBanner name={name} persistClose={true} variant={'info'}>
+    <NotificationBanner name={name} persistClose={true} variant={isDark ? 'secondary' : 'primary'}>
       We're adding Ossiarch Bonereapers and Ogor Mawtribes rules as fast as we can! Stay tuned :)
     </NotificationBanner>
   )

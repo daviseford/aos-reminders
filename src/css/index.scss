@@ -1,5 +1,11 @@
 @import "./theme.scss";
 
+/* Make sure our document fills the page - important for dark theme! */
+html, body, #root {
+    margin: 0;
+    height: 100%;
+}
+
 /* Elements */
 body {
     margin: 0;
@@ -19,7 +25,7 @@ small {
 /* Custom Classes */
 
 .LoadingContainer {
-    margin-top: 40vh;
+    padding-top: 40vh;
 }
 
 .CardHeaderTitle {
@@ -30,8 +36,24 @@ small {
   font-size: 11px;
 }
 
-.ThemeDarkBg {
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.bg-themeDarkBluePrimary {
     background-color: $themeDarkBluePrimary;
+}
+.bg-themeDarkBlueSecondary {
+    background-color: $themeDarkBlueSecondary;
+}
+.bg-themeLightBlue {
+    background-color: $themeLightBlue;
+}
+.bg-profileHeader {
+    background-color: rgba(28,117,149, .15); // $themeLightBlue
+}
+.bg-themeLightGray {
+    background-color: $themeLightGray;
 }
 
 .text-light-gray {
@@ -43,11 +65,6 @@ small {
     padding-top: 0.5rem;
     padding-bottom: 0px;
     margin-block-end: 0px;
-}
-
-.ReminderHeader {
-    background-color: $themeDarkBluePrimary;
-    color: white;
 }
 
 .SelectArmy {
@@ -62,10 +79,6 @@ small {
     margin-block-start: 2px;
 }
 
-.SelectorHeader {
-    background-color: $themeLightBlue;
-    color: white;
-}
 
 /* Dropzone */
 .dropzone {
@@ -92,6 +105,30 @@ small {
     opacity: 0.6;
   }
 
+  /* Dropzone Dark Mode */
+.dropzone-dark {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color:black;
+    color: whitesmoke;
+    outline: none;
+    transition: border .24s ease-in-out;
+  }
+  
+  .dropzone-dark:focus {
+    border-color: #2196f3;
+  }
+  
+  .dropzone-dark.disabled {
+    opacity: 0.6;
+  }
 
 @media (max-width: 575.98px) {
     .ReminderCardBody {
@@ -120,6 +157,10 @@ small {
 
 @media print {
 
+    .text-white, .text-light, .text-white-50, .text-white-75 {
+        color: black !important;
+    }
+
     header>h1 {
         font-size: 1.5rem;
     }
@@ -130,7 +171,6 @@ small {
 
     .CardHeaderTitle {
         font-size: 1.1rem;
-        color: black;
     }
 
     .card-header {
@@ -155,11 +195,6 @@ small {
 
     .ReminderEntry {
         font-size: 0.9rem;
-    }
-
-    .ReminderHeader {
-        background-color: white;
-        color: black;
     }
 
 }

@@ -4,9 +4,11 @@ import { IconContext } from 'react-icons'
 import { FaCcPaypal, FaEthereum, FaRegCopy, FaBtc } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 
 export const DonateComponent = () => {
   const { isOffline } = useAppStatus()
+  const { theme } = useTheme()
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
 
@@ -28,9 +30,11 @@ export const DonateComponent = () => {
 
   return (
     <>
-      <div className="container pt-4">
+      <div className={`container ${theme.bgColor} pt-4`}>
         <div className="row justify-content-center">
-          <div className="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4 card py-3">
+          <div
+            className={`col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4 card ${theme.bgColor} ${theme.text} py-3`}
+          >
             <div className="row justify-content-center d-print-none">
               <div className="col mx-2">
                 <DisplayWallet ethActive={ethClicked} btcActive={btcClicked} />

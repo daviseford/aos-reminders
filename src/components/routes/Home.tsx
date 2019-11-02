@@ -3,6 +3,7 @@ import { logPageView } from 'utils/analytics'
 import { useSubscription } from 'context/useSubscription'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import { useTheme } from 'context/useTheme'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
 const AppBanner = lazy(() => import('components/info/banners/app_banner'))
@@ -17,6 +18,7 @@ const UpdateBanner = lazy(() => import('components/info/banners/update_banner'))
 
 const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
+  const { theme } = useTheme()
 
   useEffect(() => {
     logPageView()
@@ -27,7 +29,7 @@ const Home: React.FC = () => {
   }, [getSubscription])
 
   return (
-    <>
+    <div className={theme.bgColor}>
       <Header />
 
       <Suspense fallback={<></>}>
@@ -63,7 +65,7 @@ const Home: React.FC = () => {
 
         <FooterComponent />
       </Suspense>
-    </>
+    </div>
   )
 }
 

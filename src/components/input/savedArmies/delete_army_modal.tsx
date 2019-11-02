@@ -3,11 +3,11 @@ import Modal from 'react-modal'
 import { FaCheck } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 import { ModalStyle } from 'theme/modalStyle'
-import { btnContentWrapper } from 'theme/helperClasses'
 import { logEvent } from 'utils/analytics'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
 import { TSupportedFaction } from 'meta/factions'
+import GenericButton from '../generic_button'
 
 interface IModalComponentProps {
   armyName: string
@@ -53,15 +53,13 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
 
         <div className="row" hidden={processing}>
           <div className="col">
-            <button className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
-              <div className={btnContentWrapper}>
-                <FaCheck className="mr-2" /> Delete
-              </div>
-            </button>
+            <GenericButton className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
+              <FaCheck className="mr-2" /> Delete
+            </GenericButton>
 
-            <button className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
-              <div className={btnContentWrapper}>Never mind</div>
-            </button>
+            <GenericButton className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
+              Never mind
+            </GenericButton>
           </div>
         </div>
       </div>

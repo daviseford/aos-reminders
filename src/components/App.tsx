@@ -9,9 +9,9 @@ import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 import { ROUTES } from 'utils/env'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
-const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
-const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
+const Home = lazy(() => import('components/routes/Home'))
+const Profile = lazy(() => import('components/routes/Profile'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +20,7 @@ const App = () => {
   }, [])
 
   return (
-    <div className="d-block">
+    <div className={`d-block`}>
       <BrowserRouter>
         <Suspense fallback={<LoadingBody />}>
           <Switch>

@@ -1,18 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { useSubscription } from 'context/useSubscription'
-import { BASE_URL, ROUTES } from 'utils/env'
+import { max } from 'lodash'
 import config from 'auth_config.json'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { BASE_URL, ROUTES } from 'utils/env'
 import { logClick } from 'utils/analytics'
+import {
+  LocalFavoriteFaction,
+  LocalSavedArmies,
+  LocalStoredArmy,
+  LocalTheme,
+  LocalUserName,
+} from 'utils/localStore'
 import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useAppStatus } from 'context/useAppStatus'
-import NavbarWrapper from './navbar_wrapper'
 import SupportPlans from 'components/payment/plans'
-import { max } from 'lodash'
+import NavbarWrapper from './navbar_wrapper'
 
 const Navbar: React.FC = () => {
   const { isOffline } = useAppStatus()
@@ -29,6 +35,7 @@ const Navbar: React.FC = () => {
       LocalUserName.clear() // Get rid of stored user info
       LocalStoredArmy.clear() // Remove stored army (saved for post-login redirect) if it exists
       LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
+      LocalTheme.clear() // Revert back to default theme settings
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')

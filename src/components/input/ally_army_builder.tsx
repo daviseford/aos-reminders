@@ -16,6 +16,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 import { IStore, TAllySelectionStore } from 'types/store'
+import { useTheme } from 'context/useTheme'
 
 interface IAllyArmyBuilderProps {
   allyFactionName: TSupportedFaction // parent
@@ -164,16 +165,18 @@ const AllyCardComponent = (props: IAllyCardProps) => {
     type,
     values,
   } = props
+  const { theme } = useTheme()
+
   const selectItems = items.map(({ name }) => name)
-  const selectClass = `flex-grow-1 ${!isVisible ? `text-center text-white` : ``}`
+  const selectClass = `flex-grow-1 ${!isVisible ? `text-center` : ``}`
   const headerClass = `card-header bg-secondary pt-1 pb-2`
 
   return (
-    <div className="card">
+    <div className={theme.card}>
       <div className={headerClass}>
         <div className="row d-flex justify-content-center align-items-center pt-2 px-2">
           <div className="pr-2">
-            <IconContext.Provider value={{ size: '1.25em', className: 'text-light' }}>
+            <IconContext.Provider value={{ size: '1.25em', className: `text-white` }}>
               <FaTrashAlt onClick={handleClose} />
             </IconContext.Provider>
           </div>
@@ -185,21 +188,21 @@ const AllyCardComponent = (props: IAllyCardProps) => {
                 setAllyFactionName={setAllyFactionName}
               />
             ) : (
-              <h5 className="CardHeaderTitle">Ally: {titleCase(allyFactionName)}</h5>
+              <h5 className={`CardHeaderTitle text-white`}>Ally: {titleCase(allyFactionName)}</h5>
             )}
           </div>
           <div className="pl-3">
             <VisibilityToggle
               isVisible={isVisible}
               setVisibility={setVisibility}
-              className={`text-light`}
+              className={`text-white`}
               type={'minus'}
             />
           </div>
         </div>
       </div>
-      <div className={`card-body py-3 ${isVisible ? `` : `d-none`}`}>
-        <h4 className="text-center">Allied {type}</h4>
+      <div className={`${theme.cardBody} py-3 ${isVisible ? `` : `d-none`}`}>
+        <h4 className={`text-center ${theme.text}`}>Allied {type}</h4>
         <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
       </div>
     </div>
