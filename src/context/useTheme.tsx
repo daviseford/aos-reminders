@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useSubscription } from './useSubscription'
 import LightTheme from 'theme/light'
 import DarkTheme from 'theme/dark'
-import { ITheme, TThemeType } from 'types/theme'
-import { LocalTheme } from 'utils/localStore'
-import { useSubscription } from './useSubscription'
 import { SubscriptionApi } from 'api/subscriptionApi'
+import { logEvent } from 'utils/analytics'
+import { LocalTheme } from 'utils/localStore'
+import { ITheme, TThemeType } from 'types/theme'
 
 interface IThemeProvider {
-  setDarkTheme: () => void
-  setLightTheme: () => void
-  toggleTheme: () => void
   isDark: boolean
   isLight: boolean
+  setDarkTheme: () => void
+  setLightTheme: () => void
   theme: ITheme
+  toggleTheme: () => void
 }
 
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
@@ -29,6 +30,7 @@ const ThemeProvider: React.FC = ({ children }) => {
       const { id, userName } = subscription
       Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
     }
+    logEvent(`SetTheme-${theme}`)
     return isDark ? setLightTheme() : setDarkTheme()
   }, [subscription, isDark, isActive])
 
