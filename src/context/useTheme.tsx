@@ -5,9 +5,9 @@ import { ITheme, TThemeType } from 'types/theme'
 import { LocalTheme } from 'utils/localStore'
 import { useSubscription } from './useSubscription'
 import { SubscriptionApi } from 'api/subscriptionApi'
+import { useAppStatus } from './useAppStatus'
 
 interface IThemeProvider {
-  saveTheme: (theme: TThemeType) => void
   setDarkTheme: () => void
   setLightTheme: () => void
   toggleTheme: () => void
@@ -19,19 +19,19 @@ interface IThemeProvider {
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const { subscription } = useSubscription()
+  const { subscription, isActive } = useSubscription()
   const [theme, setTheme] = useState(DarkTheme)
-  const [isDark, setIsDark] = useState(true)
+  const [isDark, setIsDark] = useState(false)
 
-  const saveTheme = useCallback(
-    (theme: TThemeType) => {
-      LocalTheme.set(theme)
-      if (!subscription) return
+  const toggleTheme = useCallback(() => {
+    const theme = isDark ? 'light' : 'dark'
+    LocalTheme.set(theme)
+    if (isActive) {
       const { id, userName } = subscription
-      SubscriptionApi.updateTheme({ id, userName, theme })
-    },
-    [subscription]
-  )
+      Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
+    }
+    return isDark ? setLightTheme() : setDarkTheme()
+  }, [subscription, isDark, isActive])
 
   const setLightTheme = () => {
     setTheme(LightTheme)
@@ -41,12 +41,11 @@ const ThemeProvider: React.FC = ({ children }) => {
     setTheme(DarkTheme)
     setIsDark(true)
   }
-  const toggleTheme = () => (isDark ? setLightTheme() : setDarkTheme())
 
   // Fetch our theme from the local store and the subscription API
   useEffect(() => {
-    const setThemeHelper = (name: TThemeType | null) => {
-      return !name || name === 'light' ? setLightTheme() : setDarkTheme()
+    const setThemeHelper = (x: TThemeType | null) => {
+      return !x || x === 'light' ? setLightTheme() : setDarkTheme()
     }
     setThemeHelper(LocalTheme.get()) // Use local value first
 
@@ -67,7 +66,6 @@ const ThemeProvider: React.FC = ({ children }) => {
       value={{
         isDark,
         isLight: !isDark,
-        saveTheme,
         setDarkTheme,
         setLightTheme,
         theme,
