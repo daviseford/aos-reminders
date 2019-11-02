@@ -74,7 +74,6 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
-    debugger
 
     // If there is a node with the value of `Allegiance:`
     // There is some advanced Battlescribe bullshittery going on
