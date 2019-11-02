@@ -28,12 +28,14 @@ interface IUpdateTheme {
 const withAuth = (data: { [key: string]: any }) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
 
 const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send(withAuth(data))
+const getFavoriteFaction = (userName: string) => request.get(`${api}/favorite/${userName}`)
 const getSubscription = (userName: string) => request.get(`${api}/user/${userName}`)
 const updateFavoriteFaction = (data: IUpdateFavorite) => request.post(`${api}/favorite`).send(withAuth(data))
 const updateTheme = (data: IUpdateTheme) => request.post(`${api}/theme`).send(withAuth(data))
 
 export const SubscriptionApi = {
   cancelSubscription,
+  getFavoriteFaction,
   getSubscription,
   updateFavoriteFaction,
   updateTheme,
