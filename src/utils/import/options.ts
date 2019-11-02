@@ -250,7 +250,7 @@ export type TNameMap = { [key: string]: string }
 export const azyrAmbiguousNamesMap = {
   'Lord-Arcanum': 'Lord-Arcanum',
   'Lord-Celestant': 'Lord-Celestant',
-  Evocators: 'Evocators',
+  'Evocators': 'Evocators',
   'Prosecutors with Stormcall Javelins': 'Prosecutors',
   'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
 }
