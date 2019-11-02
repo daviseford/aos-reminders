@@ -138,6 +138,7 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
 }
 
 const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+  const ignoredValues = ['Cycle of Corruption, Summon Daemons of Nurgle']
   try {
     // Don't run if we have categories
     // @ts-ignore
@@ -155,7 +156,8 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
     if (spanNode.childNodes[0].value !== 'Selections:') return null
     if (!isChildNode(valNode) || valNode.nodeName !== '#text') return null
 
-    return cleanText(valNode.value)
+    const value = cleanText(valNode.value)
+    return ignoredValues.includes(value) ? null : value
   } catch (err) {
     return null
   }

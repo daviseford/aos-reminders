@@ -25,6 +25,7 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
+  NURGLE,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -49,6 +50,14 @@ describe('getBattlescribeArmy', () => {
       "Tempest's Eye",
     ])
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+  })
+
+  it('should work with Nurgle2', () => {
+    const parsedText = getFile('Nurgle2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BigWaaagh1', () => {
