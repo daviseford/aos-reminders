@@ -212,15 +212,15 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Erapturing Cirlet (Godseekers Host)`,
+    name: `Enrapturing Circlet (Godseekers Host)`,
     effects: [
       {
-        name: `Erapturing Cirlet (Godseekers Host)`,
+        name: `Enrapturing Circlet (Godseekers Host)`,
         desc: `Enemy units within 3" of the bearer cannot retreat.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Erapturing Cirlet (Godseekers Host)`,
+        name: `Enrapturing Circlet (Godseekers Host)`,
         desc: `Roll a D6 for each enemy unit within 3" of the bearer. On a 2+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },

@@ -17,6 +17,7 @@ import {
   TZEENTCH,
   STORMCAST_ETERNALS,
   ORDER_GRAND_ALLIANCE,
+  SLAANESH,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -24,6 +25,33 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Enrapturing Circlet', () => {
+    const parsedText = getFile('1572660547365-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SLAANESH)
+    expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers Host)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Flaypelt Cloak', () => {
+    const parsedText = getFile('1572694928061-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SKAVEN)
+    expect(warscrollTxt.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Flaypelt Cloak (part 2)', () => {
+    const parsedText = getFile('1572695046339-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SKAVEN)
+    expect(warscrollTxt.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Warpcog Convocation', () => {
     const parsedText = getFile('1571895994578-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
