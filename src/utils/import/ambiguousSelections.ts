@@ -17,16 +17,21 @@ export const addAmbiguousSelectionErrors = (
   allyData: { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore },
   ambiguousNamesMap: TNameMap
 ) => {
-  for (let key in selections) {
-    selections[key].forEach(selection => {
-      const match = ambiguousNamesMap[selection]
-      if (match) {
-        errors.push(
-          createAmbiguityWarning(
-            `Azyr lists more than one unit as '${match}'. Please check it has imported the correct one.`
-          )
+  const flatAllySelections = Object.values(allyData.allySelections)
+    .map(x => (x ? x.units : []))
+    .flat()
+
+  const flatSelections = Object.values(selections)
+    .concat(flatAllySelections)
+    .flat()
+  flatSelections.forEach(selection => {
+    const match = ambiguousNamesMap[selection]
+    if (match) {
+      errors.push(
+        createAmbiguityWarning(
+          `Azyr lists more than one unit as '${match}'. Please check it has imported the correct one.`
         )
-      }
-    })
-  }
+      )
+    }
+  })
 }

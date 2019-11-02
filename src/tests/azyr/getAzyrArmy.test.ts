@@ -295,6 +295,19 @@ describe('getAzyrArmyFromPdf', () => {
         text:
           'Allied Irondrakes can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
       },
+      {
+        severity: 'ambiguity-warn',
+        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check it has imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text: "Azyr lists more than one unit as 'Evocators'. Please check it has imported the correct one.",
+      },
     ])
   })
 
@@ -630,7 +643,7 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  xit('warns about ambiguous selections in allies', () => {
+  it('warns about ambiguous selections in allies', () => {
     const pages = handleAzyrPages(Fyreslayers3)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FYRESLAYERS)
@@ -652,8 +665,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Prosecutors with Stormcall Javelins'. Please check it has imported the correct one.",
+        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
       },
     ])
   })
