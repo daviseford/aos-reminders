@@ -64,7 +64,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
 
   // Check if any of the selections have names that map one-to-many from source to us
-  addAmbiguousSelectionErrors(errors, errorFreeSelections.units, opts.ambiguousNames)
+  addAmbiguousSelectionErrors(errors, errorFreeSelections.units, opts.ambiguousNamesMap)
 
   // Remove errors where we have found the missing item
   errors = removeFoundErrors(errors, errorFreeSelections, allyData)

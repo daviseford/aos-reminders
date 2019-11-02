@@ -1,22 +1,24 @@
 import { TImportError } from 'types/import'
+import { TNameMap } from 'utils/import/options'
 import { createAmbiguityWarning } from 'utils/import/warnings'
 
 /**
  * Adds an error for each selection we've identified could be wrong based on ambiguous naming in the source
  * @param errors
  * @param selections
- * @param ambiguousNames
+ * @param ambiguousNamesMap
  */
 export const addAmbiguousSelectionErrors = (
   errors: TImportError[],
   selections: string[],
-  ambiguousNames: string[]
+  ambiguousNamesMap: TNameMap
 ) => {
   selections.forEach(selection => {
-    if (ambiguousNames.find(name => name.toUpperCase() === selection.toUpperCase())) {
+    const match = ambiguousNamesMap[selection]
+    if (match) {
       errors.push(
         createAmbiguityWarning(
-          `Azyr lists more than one unit as '${selection}'. Please check it has imported the correct one.`
+          `Azyr lists more than one unit as '${match}'. Please check it has imported the correct one.`
         )
       )
     }

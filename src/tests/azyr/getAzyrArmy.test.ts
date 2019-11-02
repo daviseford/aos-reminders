@@ -620,13 +620,12 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Prosecutors with Stormcall Javelins'. Please check it has imported the correct one.",
+        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Vanguard-Raptors with Hurricane Crossbows'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check it has imported the correct one.",
       },
     ])
   })

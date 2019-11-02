@@ -240,19 +240,24 @@ export const importFactionNameMap = {
 
 export type TNameMap = { [key: string]: string }
 
-// A list of unit names that Azyr uses for multiple warscrolls
-// (eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum')
-export const azyrAmbiguousNames = [
-  'Lord-Arcanum',
-  'Lord-Celestant',
-  'Evocators',
-  'Prosecutors with Stormcall Javelins',
-  'Vanguard-Raptors with Hurricane Crossbows',
-]
+// A map to help the user when Azyr uses the same name for multiple warscrolls
+// eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum'
+// AoS Reminders on the left - Azyr on the right
+// Note that the AoS Reminders version is what it *does* import as. This can be the same as
+// the Azyr string, which just means there is a unit exactly called what Azyr lists multiple
+// units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
+// by a partial match.
+export const azyrAmbiguousNamesMap = {
+  'Lord-Arcanum': 'Lord-Arcanum',
+  'Lord-Celestant': 'Lord-Celestant',
+  Evocators: 'Evocators',
+  'Prosecutors with Stormcall Javelins': 'Prosecutors',
+  'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
+}
 
 type TParserOptions = {
   [key in TImportParsers]: {
-    ambiguousNames: Array<string>
+    ambiguousNamesMap: TNameMap
     checkPoorSpacing: boolean
     fileReadError: string
     typoMap: TNameMap
@@ -261,25 +266,25 @@ type TParserOptions = {
 
 export const parserOptions: TParserOptions = {
   [WARSCROLL_BUILDER]: {
-    ambiguousNames: [],
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
   [AZYR]: {
-    ambiguousNames: azyrAmbiguousNames,
+    ambiguousNamesMap: azyrAmbiguousNamesMap,
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
   [BATTLESCRIBE]: {
-    ambiguousNames: [],
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
     typoMap: battlescribeTypoMap,
   },
   [UNKNOWN]: {
-    ambiguousNames: [],
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},
