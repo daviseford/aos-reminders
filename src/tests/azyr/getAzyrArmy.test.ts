@@ -64,7 +64,7 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Bloodthirster'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -84,7 +84,7 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -129,7 +129,7 @@ describe('getAzyrArmyFromPdf', () => {
         {
           severity: 'ambiguity-warn',
           text:
-            "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check it has imported the correct one.",
+            "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
         },
       ],
       factionName: 'FLESH_EATER_COURTS',
@@ -315,16 +315,18 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
+        text:
+          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Evocators'. Please check it has imported the correct one.",
+        text:
+          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -476,7 +478,8 @@ describe('getAzyrArmyFromPdf', () => {
       errors: [
         {
           severity: 'ambiguity-warn',
-          text: "Azyr lists more than one unit as 'Grey Seer'. Please check it has imported the correct one.",
+          text:
+            "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
         },
       ],
       factionName: SKAVEN,
@@ -528,12 +531,12 @@ describe('getAzyrArmyFromPdf', () => {
         {
           severity: 'ambiguity-warn',
           text:
-            "Azyr lists more than one unit as 'Auric Runesmiter'. Please check it has imported the correct one.",
+            "Azyr lists more than one unit as 'Auric Runesmiter'. Please check that we have imported the correct one.",
         },
         {
           severity: 'ambiguity-warn',
           text:
-            "Azyr lists more than one unit as 'Auric Runeson'. Please check it has imported the correct one.",
+            "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
         },
       ],
       factionName: FYRESLAYERS,
@@ -654,25 +657,27 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Lord-Celestant'. Please check it has imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Evocators'. Please check it has imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -691,20 +696,22 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Auric Runeson'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
         text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check it has imported the correct one.",
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Evocators'. Please check it has imported the correct one.",
+        text:
+          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Prosecutors'. Please check it has imported the correct one.",
+        text:
+          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
       },
     ])
   })

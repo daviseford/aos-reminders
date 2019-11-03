@@ -29,7 +29,7 @@ export const addAmbiguousSelectionErrors = (
     if (match) {
       errors.push(
         createAmbiguityWarning(
-          `Azyr lists more than one unit as '${match}'. Please check it has imported the correct one.`
+          `Azyr lists more than one unit as '${match}'. Please check that we have imported the correct one.`
         )
       )
     }
