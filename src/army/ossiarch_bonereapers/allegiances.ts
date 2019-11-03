@@ -1,13 +1,13 @@
 import { TAllegiances } from 'types/army'
 import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
-  START_OF_HERO_PHASE,
-  COMBAT_PHASE,
-  MOVEMENT_PHASE,
-  CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
