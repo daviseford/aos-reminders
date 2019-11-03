@@ -96,7 +96,7 @@ small {
 .Modal-Dark {
     @extend .Modal-Light;
     border:1px solid $themeLightGray;
-    background-color: $themeDarkBlueTertiary;
+    background-color: $themeDarkBlueSecondary;
 }
 
 .Modal-Transparent {
