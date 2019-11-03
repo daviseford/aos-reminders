@@ -244,8 +244,39 @@ export const importFactionNameMap = {
 
 export type TNameMap = { [key: string]: string }
 
+// A map to help the user when Azyr uses the same name for multiple warscrolls
+// eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum'
+// AoS Reminders on the left - Azyr on the right
+// Note that the AoS Reminders version is what it *does* import as. This can be the same as
+// the Azyr string, which just means there is a unit exactly called what Azyr lists multiple
+// units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
+// by a partial match.
+export const azyrAmbiguousNamesMap = {
+  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
+  'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
+  'Auric Runefather': 'Auric Runefather',
+  'Auric Runesmiter': 'Auric Runesmiter',
+  'Auric Runeson': 'Auric Runeson',
+  'Bladebringer, Herald on Exalted Chariot': 'Bladebringer',
+  'Bloodthirster of Insensate Rage': 'Bloodthirster',
+  'Corpse Cart w/ Balefire Brazier': 'Corpse Cart',
+  'Eidolon of Mathlann, Aspect of the Sea': 'Eidolon of Mathlann',
+  Evocators: 'Evocators',
+  'Grey Seer': 'Grey Seer',
+  'Herald of Tzeentch': 'Herald of Tzeentch',
+  'Knight of Shrouds': 'Knight of Shrouds',
+  'Lord-Arcanum': 'Lord-Arcanum',
+  'Lord-Celestant': 'Lord-Celestant',
+  Loonboss: 'Loonboss',
+  'Plague Priest': 'Plague Priest',
+  'Prosecutors with Stormcall Javelins': 'Prosecutors',
+  'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
+  'Wight King with Baleful Tomb Blade': 'Wight King',
+}
+
 type TParserOptions = {
   [key in TImportParsers]: {
+    ambiguousNamesMap: TNameMap
     checkPoorSpacing: boolean
     fileReadError: string
     typoMap: TNameMap
@@ -254,21 +285,25 @@ type TParserOptions = {
 
 export const parserOptions: TParserOptions = {
   [WARSCROLL_BUILDER]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
   [AZYR]: {
+    ambiguousNamesMap: azyrAmbiguousNamesMap,
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
   [BATTLESCRIBE]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
     typoMap: battlescribeTypoMap,
   },
   [UNKNOWN]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},

@@ -15,7 +15,7 @@ export interface IImportedArmy {
   unknownSelections: string[]
 }
 
-export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }
+export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' }
 
 type THtmlFile = 'text/html'
 type TPdfFile = 'application/pdf'
