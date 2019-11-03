@@ -14,11 +14,13 @@ import {
   KHORNE,
   LEGIONS_OF_GRIEF,
   MERCENARY_COMPANIES,
+  NIGHTHAUNT,
+  OGOR_MAWTRIBES,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
-  OSSIARCH_BONEREAPERS,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -35,12 +37,17 @@ import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
+import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
+import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
+import OBR2 from '../fixtures/azyr/json/OBR2.json'
+import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
+import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -48,14 +55,79 @@ import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
 import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
+import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
-  // Need the OBR book to be added before uncommenting
-  xit('handles OBR1', () => {
+  xit('handles OgorMawtribes1', () => {
+    const pages = handleAzyrPages(OgorMawtribes1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
+  xit('handles OgorMawtribes2', () => {
+    const pages = handleAzyrPages(OgorMawtribes2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OBR1', () => {
     const pages = handleAzyrPages(OBR1)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
+  })
+
+  it('handles OBR2', () => {
+    const pages = handleAzyrPages(OBR2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Stormcast6', () => {
+    const pages = handleAzyrPages(Stormcast6)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Nighthaunt2', () => {
+    const pages = handleAzyrPages(Nighthaunt2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Khorne4', () => {
+    const pages = handleAzyrPages(Khorne4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles Khorne3', () => {

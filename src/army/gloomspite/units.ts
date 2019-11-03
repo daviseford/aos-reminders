@@ -131,6 +131,12 @@ export const Units: TUnits = [
         desc: `Once per battle, in your hero phase, you can attempt to cast one additional spell with a Madcap Shaman. If you do so, and the casting roll is a double, this model suffers D3 mortal wounds after the effects of the spell (if any) have been resolved.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Night Shroud`,
+        desc: `Casting value of 5. Pick 1 friendly unit wholly within 12" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made with missile weapons that target that unit.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -150,6 +156,12 @@ export const Units: TUnits = [
         name: `Spore Squig`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Spore Maws`,
+        desc: `Casting value of 7. Each enemy unit within D6" of this model suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -516,6 +528,12 @@ export const Units: TUnits = [
         desc: `If the Webspinner Shaman on Arachnarok Spider is the general of your army, you can add 2 to the Bravery characteristic of friendly SPIDERFANG units wholly within 24" of this model.`,
         when: [BATTLESHOCK_PHASE],
       },
+      {
+        name: `Venom of the Spider God`,
+        desc: `Casting value of 6. Pick 1 friendly Spiderfang unit wholly within 16" of the caster and visible to them. Until your next hero phase, double the number of mortal wounds inflicted by that unit's Spider Venom ability. If the casting roll is 10 or more, pick up to D3 different friendly Spiderfang units instead of 1.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -541,6 +559,12 @@ export const Units: TUnits = [
         name: `Touched by the Spider God`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Speed of the Spider God`,
+        desc: `Casting value of 4. Pick 1 friendly Spiderfang unit wholly within 24" of the caster and visible to them. Until your next hero phase, that unit can run and still shoot later in the same turn. If the casting roll is 8 or more, pick up to D3 friendly Spiderfang units instead of 1.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

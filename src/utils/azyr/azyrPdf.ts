@@ -271,6 +271,7 @@ const allegianceTypes = [
   'Host',
   'Legion',
   'Lodge',
+  'Mawtribe',
   'Skyport',
   'Slaughterhost',
   'Stormhost',

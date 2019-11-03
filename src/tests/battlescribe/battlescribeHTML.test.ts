@@ -16,6 +16,7 @@ import {
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -25,7 +26,6 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
-  NURGLE,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -50,6 +50,14 @@ describe('getBattlescribeArmy', () => {
       "Tempest's Eye",
     ])
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+  })
+
+  it('should work with Gloomspite3', () => {
+    const parsedText = getFile('Gloomspite3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Nurgle2', () => {
@@ -168,7 +176,12 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.commands).toEqual(['Instinctive Leader', "I'm Da Boss, Now Stab 'Em Good!"])
-    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'The Great Green Spite'])
+    expect(res.selections.spells).toEqual([
+      'Arcane Bolt',
+      'Mystic Shield',
+      'Spore Maws',
+      'The Great Green Spite',
+    ])
     expect(res.selections.units).toEqual([
       'Dankhold Troggboss',
       'Fungoid Cave-Shaman',
@@ -176,7 +189,7 @@ describe('getBattlescribeArmy', () => {
       'Rockgut Troggoths',
       'Stabbas',
     ])
-    expect(res.errors).toEqual([{ text: 'Spore Maws', severity: 'warn' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Seraphon1', () => {
@@ -542,11 +555,10 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.errors).toEqual([
-      { text: 'Night Shroud', severity: 'warn' },
-      { text: 'Speed of the Spider God', severity: 'warn' },
-      { text: 'Venom of the Spider God', severity: 'warn' },
-    ])
+    expect(res.selections.spells).toContain('Speed of the Spider God')
+    expect(res.selections.spells).toContain('Venom of the Spider God')
+    expect(res.selections.spells).toContain('Night Shroud')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with IDK1', () => {

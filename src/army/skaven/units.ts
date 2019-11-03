@@ -772,7 +772,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dreaded Skitterleap`,
-        desc: `Casting value of 6. If successfully cast, pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that Hero from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
+        desc: `Casting value of 6. Pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that Hero from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
         when: [HERO_PHASE],
         spell: true,
       },

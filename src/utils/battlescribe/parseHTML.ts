@@ -93,6 +93,11 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
 
     let name = h4Node.childNodes[0].value.replace(/(.+)\[.+\]/g, '$1').trim()
 
+    // Handle custom character names like Funggar Longfinger - Fungoid Cave-Shaman
+    if (name.includes(' - ')) {
+      name = name.split(' - ')[1]
+    }
+
     // Add Scenery tag to uncategorised entries
     if (isUncategorizedScenery(obj, name)) {
       name = `Scenery: ${name}`
