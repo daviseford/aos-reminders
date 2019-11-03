@@ -79,6 +79,44 @@ small {
     margin-block-start: 2px;
 }
 
+/* Modal */
+
+.Modal-Light {
+    padding: 1.5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.Modal-Dark {
+    @extend .Modal-Light;
+    border:1px solid $themeLightGray;
+    background-color: $themeDarkBlueSecondary;
+}
+
+.Modal-Transparent {
+    @extend .Modal-Light;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.Overlay-Light {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.Overlay-Dark {
+    @extend .Overlay-Light;
+    background-color: rgba(0, 0, 0, 0.7);
+}
 
 /* Dropzone */
 .dropzone {
@@ -107,19 +145,9 @@ small {
 
   /* Dropzone Dark Mode */
 .dropzone-dark {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-width: 2px;
-    border-radius: 2px;
-    border-color: #eeeeee;
-    border-style: dashed;
+    @extend .dropzone;
     background-color:black;
     color: whitesmoke;
-    outline: none;
-    transition: border .24s ease-in-out;
   }
   
   .dropzone-dark:focus {

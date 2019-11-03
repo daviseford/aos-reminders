@@ -44,7 +44,7 @@ const Home: React.FC = () => {
         <LoadedArmyHeader />
       </Suspense>
 
-      <Suspense fallback={<LargeSpinner />}>
+      <Suspense fallback={<LargeSpinner className="mt-5" />}>
         <ArmyBuilder />
       </Suspense>
 

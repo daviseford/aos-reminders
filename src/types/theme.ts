@@ -6,6 +6,8 @@ export interface ITheme {
   dropzone: string
   genericButton: string
   headerColor: string
+  modalConfirmClass: string
+  modalDangerClass: string
   profileCardHeader: string
   reminderHeader: string
   secondaryButton: string

@@ -71,8 +71,8 @@ export const LoadingBody = () => {
   )
 }
 
-export const LargeSpinner = () => (
-  <div className="d-flex flex-row justify-content-center mt-5">
+export const LargeSpinner = ({ className = '' }) => (
+  <div className={`d-flex flex-row justify-content-center ${className}`}>
     <Spinner variant="light-gray" size="large" />
   </div>
 )
