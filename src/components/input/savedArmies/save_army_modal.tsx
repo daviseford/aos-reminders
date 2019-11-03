@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
+import GenericModal from 'components/page/genericModal'
+import GenericButton from '../generic_button'
 import { SavedArmyTable } from './saved_army_table'
-import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
-import GenericModal from 'components/page/genericModal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -22,6 +23,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
   const { isSubscribed } = useSubscription()
   const { saveArmy } = useSavedArmies()
+  const { theme } = useTheme()
   const [armyName, setArmyName] = useState('')
   const [processing, setProcessing] = useState(false)
 
@@ -64,7 +66,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
           <form>
             <div className="form-group">
               <label htmlFor="nameInput">
-                <strong>Army Name</strong>
+                <strong className={theme.text}>Army Name</strong>
               </label>
               <input
                 className="form-control form-control-sm"
@@ -76,7 +78,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
                 tabIndex={0}
                 autoFocus
               />
-              <small id="nameHelp" className="form-text text-muted">
+              <small id="nameHelp" className={`form-text ${theme.textMuted}`}>
                 Hint: Use a descriptive name.
               </small>
             </div>
@@ -86,15 +88,13 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
       <div className="row">
         <div className="col pl-0">
-          <button className={modalConfirmClass} onClick={handleSaveClick}>
-            <div className="d-flex align-items-center">
-              <FaSave className="mr-2" /> Save
-            </div>
-          </button>
+          <GenericButton className={theme.modalConfirmClass} onClick={handleSaveClick}>
+            <FaSave className="mr-2" /> Save
+          </GenericButton>
 
-          <button className={modalDenyClass} onClick={closeModal}>
-            <div className="d-flex align-items-center">Cancel</div>
-          </button>
+          <GenericButton className={theme.modalDenyClass} onClick={closeModal}>
+            Cancel
+          </GenericButton>
         </div>
       </div>
 
