@@ -52,6 +52,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
   })
 
+  it('should work with Nurgle3', () => {
+    const parsedText = getFile('Nurgle3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Gloomspite3', () => {
     const parsedText = getFile('Gloomspite3')
     const res = getBattlescribeArmy(parsedText)

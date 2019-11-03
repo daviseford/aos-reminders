@@ -138,7 +138,7 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
 }
 
 const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
-  const ignoredValues = ['Cycle of Corruption, Summon Daemons of Nurgle']
+  const ignoredValues = ['Cycle of Corruption, Summon Daemons of Nurgle', 'Cycle of Corruption']
   try {
     // Don't run if we have categories
     // @ts-ignore
