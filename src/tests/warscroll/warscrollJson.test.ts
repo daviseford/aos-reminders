@@ -10,14 +10,14 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IRONJAWZ,
+  KHORNE,
+  ORDER_GRAND_ALLIANCE,
   SERAPHON,
   SKAVEN,
-  SYLVANETH,
-  KHORNE,
-  TZEENTCH,
-  STORMCAST_ETERNALS,
-  ORDER_GRAND_ALLIANCE,
   SLAANESH,
+  STORMCAST_ETERNALS,
+  SYLVANETH,
+  TZEENTCH,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {

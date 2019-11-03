@@ -16,6 +16,7 @@ import {
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -25,7 +26,6 @@ import {
   SYLVANETH,
   TZEENTCH,
   WANDERERS,
-  NURGLE,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
