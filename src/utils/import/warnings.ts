@@ -28,9 +28,9 @@ export const getFatalErrors = (errors: TImportError[]) => errors.filter(e => e.s
 export const getWarnings = (errors: TImportError[]) => errors.filter(e => e.severity === 'warn')
 export const hasFatalError = (errors: TImportError[]) => errors.some(e => e.severity === 'error')
 /**
- * Ignores ally warnings
+ * Ignores ally warnings and ambiguity warnings
  * @param errors
  */
 export const hasErrorOrWarning = (errors: TImportError[]) => {
-  return errors.filter(e => e.severity !== 'ally-warn').length > 0
+  return errors.filter(e => e.severity !== 'ally-warn' && e.severity !== 'ambiguity-warn').length > 0
 }

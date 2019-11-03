@@ -97,6 +97,7 @@ const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
+  'Boingrot Bounders': 'Boingrot Bounderz',
   'Blood River Chalice': 'Blood-river Chalice',
   'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chronomatic Cogs': 'Chronomantic Cogs',

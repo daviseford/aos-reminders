@@ -25,6 +25,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with FEC', () => {
+    const parsedText = getFile('1572735282204-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Enrapturing Circlet', () => {
     const parsedText = getFile('1572660547365-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

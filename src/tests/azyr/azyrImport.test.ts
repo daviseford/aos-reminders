@@ -59,6 +59,7 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from '../fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from '../fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from '../fixtures/azyr/json/Stormcast3.json'
+import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 import Sylvaneth1 from '../fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from '../fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from '../fixtures/azyr/json/Tzeentch2.json'
@@ -107,6 +108,25 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Stormcast6', () => {
+    const res = handleAzyrPages(Stormcast6)
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'REALMSCAPE: CHAMON',
+      'UNIT: Lord-Arcanum',
+      'ARTEFACT: Hydroxskin Cloak',
+      'SPELL: Thundershock',
+      'MOUNT TRAIT: Bounding Leap',
+      'UNIT: Lord-Aquilor',
+      'UNIT: Knight-Zephyros',
+      'UNIT: Lord-Celestant',
+      'COMMAND TRAIT: Staunch Defender',
+      'UNIT: Knight-Azyros',
+      'UNIT: Knight-Heraldor',
+      'ENDLESS SPELL: Everblaze Comet',
+    ])
   })
 
   it('handles OgorMawtribes1', () => {

@@ -20,6 +20,7 @@ import {
   STORMCAST_ETERNALS,
   OSSIARCH_BONEREAPERS,
   OGOR_MAWTRIBES,
+  NIGHTHAUNT,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -36,11 +37,13 @@ import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
+import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
+import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import OBR2 from '../fixtures/azyr/json/OBR2.json'
 import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
@@ -51,6 +54,7 @@ import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
 import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
+import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
   xit('handles OgorMawtribes1', () => {
@@ -72,6 +76,50 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
+  })
+
+  it('handles Stormcast6', () => {
+    const pages = handleAzyrPages(Stormcast6)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Nighthaunt2', () => {
+    const pages = handleAzyrPages(Nighthaunt2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Khorne4', () => {
+    const pages = handleAzyrPages(Khorne4)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles Khorne3', () => {
