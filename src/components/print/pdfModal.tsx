@@ -9,8 +9,8 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import Spinner from 'components/helpers/spinner'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
-import { ModalStyle } from 'theme/modalStyle'
 import { TSupportedFaction } from 'meta/factions'
+import { useTheme } from 'context/useTheme'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -33,6 +33,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
   const { isOnline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()
+  const { theme } = useTheme()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
   const [processing, setProcessing] = useState(false)
@@ -65,7 +66,12 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   }
 
   return (
-    <Modal style={ModalStyle} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Save Army Modal">
+    <Modal
+      className={theme.modal}
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="Save Army Modal"
+    >
       <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
         {processing && <Spinner />}
         <div className="row" hidden={processing}>

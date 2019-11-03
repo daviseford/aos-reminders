@@ -106,6 +106,7 @@ const DarkTheme: ITheme = {
   dropzone: `dropzone-dark`,
   genericButton: `btn btn-outline-light btn-block`,
   headerColor: bgColor,
+  modal: 'Modal-Dark',
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeLightBlue`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,

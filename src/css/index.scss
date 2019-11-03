@@ -79,6 +79,30 @@ small {
     margin-block-start: 2px;
 }
 
+/* Modal */
+
+.Modal-Light {
+    padding: 3.5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.Modal-Dark {
+    padding: 3.5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color: $themeDarkBluePrimary;
+}
 
 /* Dropzone */
 .dropzone {
