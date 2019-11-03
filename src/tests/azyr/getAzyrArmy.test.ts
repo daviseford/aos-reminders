@@ -425,7 +425,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Stormcast4)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.traits).toEqual(['Keen-clawed (Mount)', 'Lithe-Limbed (Mount)'])
+    expect(res.selections.traits).toEqual(['Keen-clawed', 'Lithe-Limbed'])
   })
 
   it('handles Slaanesh1', () => {
@@ -640,7 +640,7 @@ describe('getAzyrArmyFromPdf', () => {
         endless_spells: ['Runic Fyrewall'],
         scenery: [],
         spells: ['Prayer of Ash'],
-        traits: ['Warrior Indominate', 'Fire-claw Adult (Mount)'],
+        traits: ['Warrior Indominate', 'Fire-claw Adult'],
         triumphs: [],
         units: [
           'Fjul-Grimnir',
