@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { useTheme } from 'context/useTheme'
-import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import Spinner from 'components/helpers/spinner'
 
 interface IGenericModalProps {
   isProcessing?: boolean
@@ -29,7 +29,7 @@ const GenericModal: React.FC<IGenericModalProps> = props => {
       overlayClassName={overlayClassName}
     >
       <div className={`container ${isProcessing ? `` : `mr-3 pl-0`}`}>
-        {isProcessing && <LargeSpinner />}
+        {isProcessing && <ModalSpinner />}
         <div hidden={isProcessing}>{children}</div>
       </div>
     </Modal>
@@ -37,3 +37,12 @@ const GenericModal: React.FC<IGenericModalProps> = props => {
 }
 
 export default GenericModal
+
+const ModalSpinner = ({ isDark = false }) => {
+  const variant = isDark ? 'light-gray' : 'dark'
+  return (
+    <div className={`d-flex flex-row justify-content-center`}>
+      <Spinner variant={variant} size="large" />
+    </div>
+  )
+}
