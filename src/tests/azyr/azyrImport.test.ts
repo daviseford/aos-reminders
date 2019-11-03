@@ -50,6 +50,7 @@ import Nurgle3 from '../fixtures/azyr/json/Nurgle3.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import OBR2 from '../fixtures/azyr/json/OBR2.json'
 import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
+import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import Order1 from '../fixtures/azyr/json/Order1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
@@ -108,6 +109,29 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles OgorMawtribes2', () => {
+    const res = handleAzyrPages(OgorMawtribes2)
+    expect(res).toEqual([
+      'FACTION: Ogor Mawtribes',
+      'ALLEGIANCE: Bloodgullet',
+      'REALMSCAPE: GHYRAN',
+      'UNIT: Butcher',
+      'ARTEFACT: Splatter-cleaver',
+      'SPELL: Blood Feast',
+      'SPELL: Greasy Deluge',
+      'WEAPON: Tenderiser',
+      'SPELL: Ribcracker',
+      'WEAPON: Cleaver',
+      'UNIT: Icebrow Hunter',
+      "COMMAND TRAIT: 'Nice Drop of the Red Stuff!'",
+      'UNIT: Ogors Gluttons',
+      'UPGRADE: Bellower',
+      'UPGRADE: Crusher',
+      'UNIT: Frost Sabres',
+      'UNIT: Maneaters',
+    ])
   })
 
   it('handles Stormcast6', () => {

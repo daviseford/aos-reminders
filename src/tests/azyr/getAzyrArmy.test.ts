@@ -47,6 +47,7 @@ import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import OBR2 from '../fixtures/azyr/json/OBR2.json'
 import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
+import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -59,6 +60,13 @@ import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 describe('getAzyrArmyFromPdf', () => {
   xit('handles OgorMawtribes1', () => {
     const pages = handleAzyrPages(OgorMawtribes1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
+  xit('handles OgorMawtribes2', () => {
+    const pages = handleAzyrPages(OgorMawtribes2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
