@@ -47,6 +47,7 @@ import NoRealm from '../fixtures/azyr/json/NoRealmscape1.json'
 import Nurgle1 from '../fixtures/azyr/json/Nurgle1.json'
 import Nurgle2 from '../fixtures/azyr/json/Nurgle2.json'
 import Nurgle3 from '../fixtures/azyr/json/Nurgle3.json'
+import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import Order1 from '../fixtures/azyr/json/Order1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
@@ -104,6 +105,26 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles OBR1', () => {
+    const res = handleAzyrPages(OBR1)
+    console.log(res)
+    expect(res).toEqual([
+      'FACTION: Ossiarch Bonereapers',
+      'ALLEGIANCE: Petrifex Elite',
+      'UNIT: Katakros',
+      'UNIT: Mortisan Boneshaper',
+      'ARTEFACT: Godbone Armour',
+      'UNIT: Mortisan Soulmason',
+      'UNIT: Mortek Guard',
+      'UPGRADE: Mortek Hekatos',
+      'UPGRADE: Necrophoros',
+      'WEAPON: Nadirite Blade',
+      'UNIT: Mortek Crawler',
+      'BATTALION: Mortek Ballistari',
+      'ENDLESS SPELL: Bone-tithe Shrieker',
+    ])
   })
 
   it('handles LoG2', () => {

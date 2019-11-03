@@ -267,6 +267,7 @@ const allegianceTypes = [
   'Grand Court',
   'Greatfray',
   'Host',
+  'Legion',
   'Lodge',
   'Skyport',
   'Slaughterhost',
