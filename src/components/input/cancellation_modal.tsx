@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { FaCheck, FaRegSadCry } from 'react-icons/fa'
+import { FaRegSadCry } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
 import { logClick } from 'utils/analytics'
 import GenericModal from 'components/page/genericModal'
+import { useTheme } from 'context/useTheme'
+import GenericButton from './generic_button'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -13,6 +15,7 @@ interface IModalComponentProps {
 export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen } = props
   const { cancelSubscription } = useSubscription()
+  const { theme } = useTheme()
   const [processing, setProcessing] = useState(false)
 
   const handleClick = async e => {
@@ -32,7 +35,7 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
     >
       <div className="row">
         <IconContext.Provider value={{ size: '1.7em' }}>
-          <div className="col">
+          <div className={`col ${theme.text}`}>
             <h4 className="mb-3">Cancel Subscription?</h4>
             <p>
               I'll be sad to see you go <FaRegSadCry />
@@ -45,16 +48,14 @@ export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => 
       </div>
 
       <div className="row text-center">
-        <div className="col">
-          <button className={`btn btn-outline-danger mx-2`} onClick={handleClick}>
-            <div className="d-flex align-items-center">
-              <FaCheck className="mr-2" /> Cancel Subscription
-            </div>
-          </button>
+        <div className="col px-0">
+          <GenericButton className={theme.modalDangerClass} onClick={handleClick}>
+            Cancel Subscription
+          </GenericButton>
 
-          <button className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
-            <div className="d-flex align-items-center">Never mind</div>
-          </button>
+          <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
+            Back
+          </GenericButton>
         </div>
       </div>
     </GenericModal>

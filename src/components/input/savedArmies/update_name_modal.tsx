@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { logEvent } from 'utils/analytics'
-import { modalDenyClass, modalConfirmClass } from 'theme/helperClasses'
+import { useTheme } from 'context/useTheme'
 import GenericModal from 'components/page/genericModal'
+import GenericButton from '../generic_button'
+import { logEvent } from 'utils/analytics'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -15,6 +16,7 @@ interface IModalComponentProps {
 const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, currentArmyName, id } = props
   const { updateArmyName } = useSavedArmies()
+  const { theme } = useTheme()
   const [armyName, setArmyName] = useState(currentArmyName)
   const [processing, setProcessing] = useState(false)
 
@@ -57,7 +59,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
           <form>
             <div className="form-group">
               <label htmlFor="nameInput">
-                <strong>Rename Army</strong>
+                <strong className={theme.text}>Rename Army</strong>
               </label>
               <input
                 className="form-control form-control-sm"
@@ -68,7 +70,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
                 tabIndex={0}
                 autoFocus
               />
-              <small id="nameHelp" className="form-text text-muted">
+              <small id="nameHelp" className={`form-text ${theme.textMuted}`}>
                 Hint: Use a descriptive name.
               </small>
             </div>
@@ -78,15 +80,13 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
 
       <div className="row">
         <div className="col px-0">
-          <button className={modalConfirmClass} onClick={handleUpdateClick}>
-            <div className="d-flex align-items-center">
-              <FaSave className="mr-2" /> Update
-            </div>
-          </button>
+          <GenericButton className={theme.modalConfirmClass} onClick={handleUpdateClick}>
+            <FaSave className="mr-2" /> Update
+          </GenericButton>
 
-          <button className={modalDenyClass} onClick={closeModal}>
-            <div className="d-flex align-items-center">Cancel</div>
-          </button>
+          <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
+            Cancel
+          </GenericButton>
         </div>
       </div>
     </GenericModal>

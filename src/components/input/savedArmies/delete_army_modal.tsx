@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa'
-import { IconContext } from 'react-icons'
 import { logEvent } from 'utils/analytics'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { TSupportedFaction } from 'meta/factions'
 import GenericButton from '../generic_button'
 import GenericModal from 'components/page/genericModal'
+import { useTheme } from 'context/useTheme'
 
 interface IModalComponentProps {
   armyName: string
@@ -18,6 +18,7 @@ interface IModalComponentProps {
 export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, armyName, factionName, id } = props
   const { deleteSavedArmy } = useSavedArmies()
+  const { theme } = useTheme()
   const [processing, setProcessing] = useState(false)
 
   const handleDelete = async e => {
@@ -37,21 +38,19 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
       isProcessing={processing}
     >
       <div className="row">
-        <IconContext.Provider value={{ size: '1.7em' }}>
-          <div className="col">
-            <h4 className="mb-3">Delete {armyName}?</h4>
-            <p>This action cannot be undone.</p>
-          </div>
-        </IconContext.Provider>
+        <div className={`col ${theme.text}`}>
+          <h4 className="mb-3">Delete {armyName}?</h4>
+          <p>This action cannot be undone.</p>
+        </div>
       </div>
 
       <div className="row">
-        <div className="col">
-          <GenericButton className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
+        <div className="col px-0">
+          <GenericButton className={theme.modalDangerClass} onClick={handleDelete}>
             <FaCheck className="mr-2" /> Delete
           </GenericButton>
 
-          <GenericButton className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
+          <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
             Never mind
           </GenericButton>
         </div>

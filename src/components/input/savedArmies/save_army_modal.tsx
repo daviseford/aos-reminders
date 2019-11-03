@@ -92,7 +92,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
             <FaSave className="mr-2" /> Save
           </GenericButton>
 
-          <GenericButton className={theme.modalDenyClass} onClick={closeModal}>
+          <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
             Cancel
           </GenericButton>
         </div>

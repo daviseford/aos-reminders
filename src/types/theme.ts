@@ -7,7 +7,7 @@ export interface ITheme {
   genericButton: string
   headerColor: string
   modalConfirmClass: string
-  modalDenyClass: string
+  modalDangerClass: string
   profileCardHeader: string
   reminderHeader: string
   secondaryButton: string

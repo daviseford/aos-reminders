@@ -107,7 +107,7 @@ const DarkTheme: ITheme = {
   genericButton: `btn btn-outline-light btn-block`,
   headerColor: bgColor,
   modalConfirmClass: `btn btn-outline-light ml-3 mr-5`,
-  modalDenyClass: `btn btn-danger ml-3`,
+  modalDangerClass: `btn btn-danger ml-3`,
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeLightBlue`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,

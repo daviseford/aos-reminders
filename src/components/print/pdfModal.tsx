@@ -96,7 +96,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
             <MdFileDownload className="mr-2" /> Download
           </GenericButton>
 
-          <GenericButton className={theme.modalDenyClass} onClick={closeModal}>
+          <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
             Cancel
           </GenericButton>
         </div>
