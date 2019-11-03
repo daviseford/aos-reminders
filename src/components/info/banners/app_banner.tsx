@@ -1,30 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { logDisplay } from 'utils/analytics'
 import { useTheme } from 'context/useTheme'
-import { useSubscription } from 'context/useSubscription'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'utils/env'
+import { FaRegSmileBeam } from 'react-icons/fa'
 
 const AppBanner = () => {
-  const { isActive } = useSubscription()
   const { isDark } = useTheme()
-  const name = 'Try_Dark_Mode'
-
-  useEffect(() => {
-    logDisplay(name)
-  }, [])
-
-  if (isDark || !isActive) return <></>
+  const name = 'OBR_and_Mawtribes_Complete'
 
   return (
     <NotificationBanner
+      displayOnce={true}
+      enableLog={true}
       name={name}
       persistClose={true}
-      displayOnce={true}
       variant={isDark ? 'secondary' : 'primary'}
     >
-      Check out our new dark theme! Enable it on your <Link to={ROUTES.PROFILE}>Profile</Link>.
+      Ossiarch Bonereapers and Ogor Mawtribes are now fully updated!
+      <FaRegSmileBeam className="ml-2" />
     </NotificationBanner>
   )
 }

@@ -1,17 +1,17 @@
 import { TTraits } from 'types/army'
 import {
-  START_OF_HERO_PHASE,
   BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
-  START_OF_SETUP,
-  DURING_GAME,
   CHARGE_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
   DURING_ROUND,
-  MOVEMENT_PHASE,
   DURING_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -259,7 +259,7 @@ const CommandTraits: TTraits = [
     name: `Fleet of Hoof (Mount)`,
     effects: [
       {
-        name: `Fleet of Hoof`,
+        name: `Fleet of Hoof (Mount)`,
         desc: `You can re-roll one or both of the dice when making charge rolls for this model.`,
         when: [CHARGE_PHASE],
       },
@@ -269,7 +269,7 @@ const CommandTraits: TTraits = [
     name: `Fleshgreed (Mount)`,
     effects: [
       {
-        name: `Fleshgreed`,
+        name: `Fleshgreed (Mount)`,
         desc: `At the start of each hero phase, if this model is eating, you can heal 1 wound allocated to this model.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -279,7 +279,7 @@ const CommandTraits: TTraits = [
     name: `Rimefrost Hide (Mount)`,
     effects: [
       {
-        name: `Rimefrost Hide`,
+        name: `Rimefrost Hide (Mount)`,
         desc: `Worsen the Rend characteristic of melee weapons that target this model by 1 (to a minimum of '-').`,
         when: [COMBAT_PHASE],
       },
@@ -289,7 +289,7 @@ const CommandTraits: TTraits = [
     name: `Gvarnak (Mount)`,
     effects: [
       {
-        name: `Gvarnak`,
+        name: `Gvarnak (Mount)`,
         desc: `Add 1 to this model's Wounds characteristic.`,
         when: [DURING_GAME],
       },
@@ -299,7 +299,7 @@ const CommandTraits: TTraits = [
     name: `Matriarch (Mount)`,
     effects: [
       {
-        name: `Matriarch`,
+        name: `Matriarch (Mount)`,
         desc: `Add 1 to charge rolls for friendly THUNDERTUSKS while they are wholly within 12" of this model.`,
         when: [CHARGE_PHASE],
       },
@@ -309,9 +309,69 @@ const CommandTraits: TTraits = [
     name: `Alvagr Ancient (Mount)`,
     effects: [
       {
-        name: `Alvagr Ancient`,
+        name: `Alvagr Ancient (Mount)`,
         desc: `If this model has not made a charge move in the same turn, enemy units that are within 3" of this model at the start of the combat phase fight at the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Black Clatterhorn (Mount)`,
+    effects: [
+      {
+        name: `Black Clatterhorn (Mount)`,
+        desc: `Add 1 to hit rolls for attacks made with this model's Rock-hard Horns.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Metalcruncher (Mount)`,
+    effects: [
+      {
+        name: `Metalcruncher (Mount)`,
+        desc: `At the start of the combat phase, pick 1 enemy WAR MACHINE, or 1 enemy unit with a Save characteristic of 4+, 3+ or 2+, that is within 3" of this model. That enemy unit immediately suffers D6 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Belligerent Charger (Mount)`,
+    effects: [
+      {
+        name: `Belligerent Charger (Mount)`,
+        desc: `When determining the number of dice to roll for the Trampling Charge battle trait, treat charge rolls made for this model of less than 7 as 7.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Frosthoof Bull (Mount)`,
+    effects: [
+      {
+        name: `Frosthoof Bull (Mount)`,
+        desc: `Improve the Rend characteristic of this model's Crushing Hooves by 1.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Rockmane Elder (Mount)`,
+    effects: [
+      {
+        name: `Rockmane Elder (Mount)`,
+        desc: `Add 1 to this model's Wounds characteristic.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Old Granitetooth (Mount)`,
+    effects: [
+      {
+        name: `Old Granitetooth (Mount)`,
+        desc: `Add 1 to charge rolls for friendly STONEHORNS and MOURNFANG PACK units while they are wholly within 12" of this model.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
