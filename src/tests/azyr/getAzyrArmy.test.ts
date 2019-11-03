@@ -21,6 +21,7 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  OSSIARCH_BONEREAPERS,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
