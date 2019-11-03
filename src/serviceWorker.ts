@@ -21,6 +21,7 @@ const isLocalhost = Boolean(
 type Config = {
   onSuccess?: (registration: ServiceWorkerRegistration) => void
   onUpdate?: (registration: ServiceWorkerRegistration) => void
+  immediate: boolean
 }
 
 export function register(config?: Config) {
@@ -37,7 +38,8 @@ export function register(config?: Config) {
       return
     }
 
-    window.addEventListener('load', () => {
+    // PULL OUT THIS FUNCTION SO IT CAN BE REUSED
+    const doRegister = () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
 
       if (isLocalhost) {
@@ -56,11 +58,25 @@ export function register(config?: Config) {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config)
       }
-    })
+    }
+
+    // EITHER CALL REGISTER IMMEDIATELY, OR WAIT FOR WINDOW LOAD (CURRENT BEHAVIOR)
+    if (config && config.immediate) {
+      doRegister()
+    } else {
+      window.addEventListener('load', doRegister)
+    }
   }
 }
 
 function registerValidSW(swUrl: string, config?: Config) {
+  if (config && config.immediate) {
+    // TO MY SURPRISE, THESE TWO LINES RE-TRIGGERED ALL OF THE APPROPRIATE BEHAVIOR
+    navigator.serviceWorker.getRegistration(swUrl).then(registration => {
+      registration && registration.update()
+    })
+    return
+  }
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
