@@ -82,7 +82,7 @@ small {
 /* Modal */
 
 .Modal-Light {
-    padding: 3.5%;
+    padding: 1%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -94,8 +94,9 @@ small {
 }
 
 .Modal-Dark {
-   @extend .Modal-Light;
-    background-color: $themeDarkBluePrimary;
+    @extend .Modal-Light;
+    border:1px solid $themeLightGray;
+    background-color: $themeDarkBlueTertiary;
 }
 
 .Modal-Transparent {
