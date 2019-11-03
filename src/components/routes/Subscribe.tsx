@@ -31,7 +31,7 @@ const Subscribe: React.FC = () => {
   if (isSubscribed && isActive) return <AlreadySubscribed />
 
   return (
-    <div className="d-block">
+    <div className={`d-block ${theme.bgColor}`}>
       <div className={`${theme.headerColor} py-2`}>
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />

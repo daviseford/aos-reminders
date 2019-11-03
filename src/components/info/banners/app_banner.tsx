@@ -2,18 +2,24 @@ import React, { useEffect } from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { logDisplay } from 'utils/analytics'
 import { useTheme } from 'context/useTheme'
+import { useSubscription } from 'context/useSubscription'
+import { Link } from 'react-router-dom'
+import { ROUTES } from 'utils/env'
 
 const AppBanner = () => {
+  const { isActive } = useSubscription()
   const { isDark } = useTheme()
-  const name = 'OBR_and_Mawtribes_WIP'
+  const name = 'Try_Dark_Mode'
 
   useEffect(() => {
     logDisplay(name)
   }, [])
 
+  if (isDark || !isActive) return <></>
+
   return (
     <NotificationBanner name={name} persistClose={true} variant={isDark ? 'secondary' : 'primary'}>
-      We're adding Ossiarch Bonereapers and Ogor Mawtribes rules as fast as we can! Stay tuned :)
+      Check out our new dark theme! Enable it on your <Link to={ROUTES.PROFILE}>Profile</Link>.
     </NotificationBanner>
   )
 }
