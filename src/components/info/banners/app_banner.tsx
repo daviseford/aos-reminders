@@ -2,8 +2,9 @@ import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useTheme } from 'context/useTheme'
 import { FaRegSmileBeam } from 'react-icons/fa'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
-const AppBanner = () => {
+const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
   const name = 'OBR_and_Mawtribes_Complete'
 
@@ -16,10 +17,10 @@ const AppBanner = () => {
       variant={isDark ? 'secondary' : 'primary'}
     >
       Ossiarch Bonereapers and Ogor Mawtribes are now fully updated!
-      <FaRegSmileBeam className="ml-2" />
+      {!isMobile && <FaRegSmileBeam className="ml-2" />}
     </NotificationBanner>
   )
-}
+})
 
 export default AppBanner
 
