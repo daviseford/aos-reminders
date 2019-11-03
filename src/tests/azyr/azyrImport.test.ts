@@ -48,6 +48,8 @@ import Nurgle1 from '../fixtures/azyr/json/Nurgle1.json'
 import Nurgle2 from '../fixtures/azyr/json/Nurgle2.json'
 import Nurgle3 from '../fixtures/azyr/json/Nurgle3.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
+import OBR2 from '../fixtures/azyr/json/OBR2.json'
+import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
 import Order1 from '../fixtures/azyr/json/Order1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
@@ -107,6 +109,62 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles OgorMawtribes1', () => {
+    const res = handleAzyrPages(OgorMawtribes1)
+    expect(res).toEqual([
+      'FACTION: Ogor Mawtribes',
+      'ALLEGIANCE: Bloodgullet',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Butcher',
+      'ARTEFACT: Grease-smeared Tusks',
+      "COMMAND TRAIT: 'Nice Drop of the Red Stuff!'",
+      'SPELL: Blood Feast',
+      'WEAPON: Tenderiser',
+      'UNIT: Firebelly',
+      'ARTEFACT: Splatter-cleaver',
+      'SPELL: Billowing Ash',
+      'UNIT: Frostlord on Stonehorn',
+      'ARTEFACT: Alvagr Rune-tokens',
+      'MOUNT TRAIT: Rockmane Elder',
+      'UNIT: Frostlord on Thundertusk',
+      'MOUNT TRAIT: Rimefrost Hide',
+      'UNIT: Huskard on Stonehorn',
+      'ARTEFACT: Blade of All-Frost',
+      'MOUNT TRAIT: Black Clatterhorn',
+      'WEAPON: Chaintrap',
+      'UNIT: Huskard on Thundertusk',
+      'ARTEFACT: Skullshards of Dragaar',
+      'SPELL: Call of the Blizzard',
+      'MOUNT TRAIT: Matriarch',
+      'UNIT: Icebrow Hunter',
+      'ARTEFACT: Kattanak Browplate',
+      'UNIT: Slaughtermaster',
+      'ARTEFACT: Wizardflesh Apron',
+      'SPELL: Fleshcrave Curse',
+      'UNIT: Tyrant',
+      'ARTEFACT: Headmasher',
+      'UNIT: Ogors Gluttons',
+      'UPGRADE: Bellower',
+      'UPGRADE: Crusher',
+      'UNIT: Stonehorn Beastriders',
+      'UNIT: Thundertusk Beastriders',
+      'UNIT: Gnoblar Scraplauncher',
+      'UNIT: Ironblaster',
+      'UNIT: Leadbelchers',
+      'BATTALION: Alfrostun',
+      "BATTALION: Butcher's Band",
+      'BATTALION: Eurlbad',
+      'BATTALION: Goremand',
+      'BATTALION: Gutbuster Warglutt',
+      'BATTALION: Jorlbad',
+      'BATTALION: Junkmob',
+      'BATTALION: Skal',
+      'BATTALION: Torrbad',
+      "BATTALION: Tyrant's Gutguard",
+      'ENDLESS SPELL: Emerald Lifeswarm',
+    ])
+  })
+
   it('handles OBR1', () => {
     const res = handleAzyrPages(OBR1)
     expect(res).toEqual([
@@ -123,6 +181,50 @@ describe('handleAzyrPages', () => {
       'UNIT: Mortek Crawler',
       'BATTALION: Mortek Ballistari',
       'ENDLESS SPELL: Bone-tithe Shrieker',
+    ])
+  })
+
+  it('handles OBR2', () => {
+    const res = handleAzyrPages(OBR2)
+    expect(res).toEqual([
+      'FACTION: Ossiarch Bonereapers',
+      'ALLEGIANCE: Mortis Praetorians',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Arch-Kavalos Zandtos',
+      'UNIT: Katakros',
+      'UNIT: Liege-Kavalos',
+      'ARTEFACT: Grave-sand Boneplate',
+      "COMMAND TRAIT: Katakros' Chosen",
+      'UNIT: Mortisan Boneshaper',
+      'ARTEFACT: The Crafter-gems',
+      'SPELL: Reinforce Battle-shields',
+      'UNIT: Mortisan Soulmason',
+      'ARTEFACT: Soul Reservoir',
+      'SPELL: Protection of Nagash',
+      'UNIT: Mortisan Soulreaper',
+      'ARTEFACT: Guardian Reavesoul',
+      'SPELL: Mortal Contract',
+      'UNIT: Vokmortian',
+      'UNIT: Kavalos Deathriders',
+      'UPGRADE: Mortek Hekatos',
+      'UPGRADE: Necrophoros',
+      'UNIT: Mortek Guard',
+      'WEAPON: Nadirite Blade',
+      'UNIT: Mortek Crawler',
+      'UNIT: Immortis Guard',
+      'UNIT: Morghast Archai',
+      'UNIT: Morghast Harbingers',
+      'UNIT: Necropolis Stalkers',
+      'BATTALION: Aegis Immortal',
+      'BATTALION: Katakrosian Deathglaive',
+      'BATTALION: Kavalos Lance',
+      'BATTALION: Mortek Ballistari',
+      'BATTALION: Mortek Shield-corps',
+      'BATTALION: Mortisan Trident',
+      'BATTALION: Ossiarch Cohort',
+      'ENDLESS SPELL: Balewind Vortex',
+      'ENDLESS SPELL: Bone-tithe Shrieker',
+      'ENDLESS SPELL: Soulstealer Carrion',
     ])
   })
 

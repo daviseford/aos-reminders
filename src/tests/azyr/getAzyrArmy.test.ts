@@ -19,6 +19,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   OSSIARCH_BONEREAPERS,
+  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -41,6 +42,8 @@ import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
+import OBR2 from '../fixtures/azyr/json/OBR2.json'
+import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -50,9 +53,22 @@ import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 
 describe('getAzyrArmyFromPdf', () => {
-  // Need the OBR book to be added before uncommenting
-  xit('handles OBR1', () => {
+  xit('handles OgorMawtribes1', () => {
+    const pages = handleAzyrPages(OgorMawtribes1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OBR1', () => {
     const pages = handleAzyrPages(OBR1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OBR2', () => {
+    const pages = handleAzyrPages(OBR2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
