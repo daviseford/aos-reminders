@@ -1,8 +1,8 @@
 import { TArtifacts } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  BATTLESHOCK_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
