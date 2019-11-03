@@ -17,7 +17,13 @@ const GenericModal: React.FC<IGenericModalProps> = props => {
   const { theme } = useTheme()
 
   return (
-    <Modal className={theme.modal} isOpen={isOpen} onRequestClose={closeModal} contentLabel={label}>
+    <Modal
+      className={theme.modal}
+      contentLabel={label}
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      overlayClassName={theme.modalOverlay}
+    >
       <div className={`container ${isProcessing ? `` : `mr-3 pl-0`}`}>
         {isProcessing && <Spinner />}
         <div hidden={isProcessing}>{children}</div>

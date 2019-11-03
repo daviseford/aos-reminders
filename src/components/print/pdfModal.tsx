@@ -3,11 +3,12 @@ import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import { logDownloadEvent } from 'utils/analytics'
 import { titleCase, stripPunctuation } from 'utils/textUtils'
 import { isValidFactionName } from 'utils/armyUtils'
 import GenericModal from 'components/page/genericModal'
-import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
+import GenericButton from 'components/input/generic_button'
 import { TSupportedFaction } from 'meta/factions'
 
 interface IModalComponentProps {
@@ -29,6 +30,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
   const { isOnline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()
+  const { theme } = useTheme()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
   const [processing, setProcessing] = useState(false)
@@ -72,8 +74,8 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
           <form>
             <div className="form-group">
               <label htmlFor="nameInput">
-                <strong>Filename</strong>
-                <span className="text-muted">.pdf</span>
+                <strong className={theme.text}>Filename</strong>
+                <span className={theme.textMuted}>.pdf</span>
               </label>
               <input
                 className="form-control form-control-sm"
@@ -90,15 +92,13 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
 
       <div className="row">
         <div className="col px-0">
-          <button className={modalConfirmClass} onClick={handleSaveClick}>
-            <div className="d-flex align-items-center">
-              <MdFileDownload className="mr-2" /> Download
-            </div>
-          </button>
+          <GenericButton className={theme.modalConfirmClass} onClick={handleSaveClick}>
+            <MdFileDownload className="mr-2" /> Download
+          </GenericButton>
 
-          <button className={modalDenyClass} onClick={closeModal}>
-            <div className="d-flex align-items-center">Cancel</div>
-          </button>
+          <GenericButton className={theme.modalDenyClass} onClick={closeModal}>
+            Cancel
+          </GenericButton>
         </div>
       </div>
     </GenericModal>
