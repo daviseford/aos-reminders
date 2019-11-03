@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import Modal from 'react-modal'
 import { FaCheck } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
-import { ModalStyle } from 'theme/modalStyle'
 import { logEvent } from 'utils/analytics'
 import { useSavedArmies } from 'context/useSavedArmies'
-import Spinner from 'components/helpers/spinner'
 import { TSupportedFaction } from 'meta/factions'
 import GenericButton from '../generic_button'
+import GenericModal from 'components/page/genericModal'
 
 interface IModalComponentProps {
   armyName: string
@@ -16,8 +14,6 @@ interface IModalComponentProps {
   id: string
   modalIsOpen: boolean
 }
-
-Modal.setAppElement('#root')
 
 export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, armyName, factionName, id } = props
@@ -34,35 +30,32 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
   }
 
   return (
-    <Modal
-      style={ModalStyle}
+    <GenericModal
       isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="Delete Army Modal"
+      closeModal={closeModal}
+      label="Delete Army Modal"
+      isProcessing={processing}
     >
-      <div className={`container`}>
-        {processing && <Spinner />}
-        <div className="row" hidden={processing}>
-          <IconContext.Provider value={{ size: '1.7em' }}>
-            <div className="col">
-              <h4 className="mb-3">Delete {armyName}?</h4>
-              <p>This action cannot be undone.</p>
-            </div>
-          </IconContext.Provider>
-        </div>
-
-        <div className="row" hidden={processing}>
+      <div className="row">
+        <IconContext.Provider value={{ size: '1.7em' }}>
           <div className="col">
-            <GenericButton className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
-              <FaCheck className="mr-2" /> Delete
-            </GenericButton>
-
-            <GenericButton className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
-              Never mind
-            </GenericButton>
+            <h4 className="mb-3">Delete {armyName}?</h4>
+            <p>This action cannot be undone.</p>
           </div>
+        </IconContext.Provider>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <GenericButton className={`btn btn-outline-danger mx-2`} onClick={handleDelete}>
+            <FaCheck className="mr-2" /> Delete
+          </GenericButton>
+
+          <GenericButton className={`btn btn-outline-dark mx-2`} onClick={closeModal}>
+            Never mind
+          </GenericButton>
         </div>
       </div>
-    </Modal>
+    </GenericModal>
   )
 }

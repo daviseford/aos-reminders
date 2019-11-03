@@ -5,7 +5,7 @@ import Spinner from 'components/helpers/spinner'
 
 interface IGenericModalProps {
   isProcessing?: boolean
-  modalIsOpen: boolean
+  isOpen: boolean
   closeModal: () => void
   label: string
 }
@@ -13,11 +13,11 @@ interface IGenericModalProps {
 Modal.setAppElement('#root')
 
 const GenericModal: React.FC<IGenericModalProps> = props => {
-  const { children, closeModal, modalIsOpen, label, isProcessing = false } = props
+  const { children, closeModal, isOpen, label, isProcessing = false } = props
   const { theme } = useTheme()
 
   return (
-    <Modal className={theme.modal} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel={label}>
+    <Modal className={theme.modal} isOpen={isOpen} onRequestClose={closeModal} contentLabel={label}>
       <div className={`container ${isProcessing ? `` : `mr-3 pl-0`}`}>
         {isProcessing && <Spinner />}
         <div hidden={isProcessing}>{children}</div>

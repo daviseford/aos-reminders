@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import Modal from 'react-modal'
 import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { logDownloadEvent } from 'utils/analytics'
 import { titleCase, stripPunctuation } from 'utils/textUtils'
 import { isValidFactionName } from 'utils/armyUtils'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSavedArmies } from 'context/useSavedArmies'
-import Spinner from 'components/helpers/spinner'
+import GenericModal from 'components/page/genericModal'
 import { modalConfirmClass, modalDenyClass } from 'theme/helperClasses'
 import { TSupportedFaction } from 'meta/factions'
-import { useTheme } from 'context/useTheme'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -18,8 +16,6 @@ interface IModalComponentProps {
   factionName: TSupportedFaction
   pdf: jsPDF
 }
-
-Modal.setAppElement('#root')
 
 const getDefaultName = (name: string) => {
   name = isValidFactionName(name) ? titleCase(name) : stripPunctuation(name)
@@ -33,7 +29,6 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
   const { isOnline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()
-  const { theme } = useTheme()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
   const [processing, setProcessing] = useState(false)
@@ -66,49 +61,46 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   }
 
   return (
-    <Modal
-      className={theme.modal}
+    <GenericModal
+      isProcessing={processing}
       isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="Save Army Modal"
+      closeModal={closeModal}
+      label="Save Army Modal"
     >
-      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
-        {processing && <Spinner />}
-        <div className="row" hidden={processing}>
-          <div className="col">
-            <form>
-              <div className="form-group">
-                <label htmlFor="nameInput">
-                  <strong>Filename</strong>
-                  <span className="text-muted">.pdf</span>
-                </label>
-                <input
-                  className="form-control form-control-sm"
-                  aria-describedby="nameHelp"
-                  placeholder="Enter file name"
-                  defaultValue={defaultName}
-                  onKeyDown={handleKeyDown}
-                  onChange={handleUpdateName}
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div className="row" hidden={processing}>
-          <div className="col px-0">
-            <button className={modalConfirmClass} onClick={handleSaveClick}>
-              <div className="d-flex align-items-center">
-                <MdFileDownload className="mr-2" /> Download
-              </div>
-            </button>
-
-            <button className={modalDenyClass} onClick={closeModal}>
-              <div className="d-flex align-items-center">Cancel</div>
-            </button>
-          </div>
+      <div className="row">
+        <div className="col">
+          <form>
+            <div className="form-group">
+              <label htmlFor="nameInput">
+                <strong>Filename</strong>
+                <span className="text-muted">.pdf</span>
+              </label>
+              <input
+                className="form-control form-control-sm"
+                aria-describedby="nameHelp"
+                placeholder="Enter file name"
+                defaultValue={defaultName}
+                onKeyDown={handleKeyDown}
+                onChange={handleUpdateName}
+              />
+            </div>
+          </form>
         </div>
       </div>
-    </Modal>
+
+      <div className="row">
+        <div className="col px-0">
+          <button className={modalConfirmClass} onClick={handleSaveClick}>
+            <div className="d-flex align-items-center">
+              <MdFileDownload className="mr-2" /> Download
+            </div>
+          </button>
+
+          <button className={modalDenyClass} onClick={closeModal}>
+            <div className="d-flex align-items-center">Cancel</div>
+          </button>
+        </div>
+      </div>
+    </GenericModal>
   )
 }

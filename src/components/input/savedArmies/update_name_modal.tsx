@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import Modal from 'react-modal'
 import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
-import { ModalStyle } from 'theme/modalStyle'
-import Spinner from 'components/helpers/spinner'
 import { modalDenyClass, modalConfirmClass } from 'theme/helperClasses'
+import GenericModal from 'components/page/genericModal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -13,8 +11,6 @@ interface IModalComponentProps {
   currentArmyName: string
   id: string
 }
-
-Modal.setAppElement('#root')
 
 const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, currentArmyName, id } = props
@@ -50,53 +46,50 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   }
 
   return (
-    <Modal
-      style={ModalStyle}
+    <GenericModal
       isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="Update Army Name Modal"
+      closeModal={closeModal}
+      label="Update Army Name Modal"
+      isProcessing={processing}
     >
-      <div className={`container ${processing ? `` : `mr-3 pl-0`}`}>
-        {processing && <Spinner />}
-        <div className="row" hidden={processing}>
-          <div className="col">
-            <form>
-              <div className="form-group">
-                <label htmlFor="nameInput">
-                  <strong>Rename Army</strong>
-                </label>
-                <input
-                  className="form-control form-control-sm"
-                  aria-describedby="nameHelp"
-                  value={armyName}
-                  onKeyDown={handleKeyDown}
-                  onChange={handleUpdateName}
-                  tabIndex={0}
-                  autoFocus
-                />
-                <small id="nameHelp" className="form-text text-muted">
-                  Hint: Use a descriptive name.
-                </small>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div className="row" hidden={processing}>
-          <div className="col px-0">
-            <button className={modalConfirmClass} onClick={handleUpdateClick}>
-              <div className="d-flex align-items-center">
-                <FaSave className="mr-2" /> Update
-              </div>
-            </button>
-
-            <button className={modalDenyClass} onClick={closeModal}>
-              <div className="d-flex align-items-center">Cancel</div>
-            </button>
-          </div>
+      <div className="row">
+        <div className="col">
+          <form>
+            <div className="form-group">
+              <label htmlFor="nameInput">
+                <strong>Rename Army</strong>
+              </label>
+              <input
+                className="form-control form-control-sm"
+                aria-describedby="nameHelp"
+                value={armyName}
+                onKeyDown={handleKeyDown}
+                onChange={handleUpdateName}
+                tabIndex={0}
+                autoFocus
+              />
+              <small id="nameHelp" className="form-text text-muted">
+                Hint: Use a descriptive name.
+              </small>
+            </div>
+          </form>
         </div>
       </div>
-    </Modal>
+
+      <div className="row">
+        <div className="col px-0">
+          <button className={modalConfirmClass} onClick={handleUpdateClick}>
+            <div className="d-flex align-items-center">
+              <FaSave className="mr-2" /> Update
+            </div>
+          </button>
+
+          <button className={modalDenyClass} onClick={closeModal}>
+            <div className="d-flex align-items-center">Cancel</div>
+          </button>
+        </div>
+      </div>
+    </GenericModal>
   )
 }
 
