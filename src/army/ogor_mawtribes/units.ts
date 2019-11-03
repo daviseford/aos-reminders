@@ -1,20 +1,22 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  CHARGE_PHASE,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  START_OF_CHARGE_PHASE,
   DURING_SETUP,
-  TURN_ONE_END_OF_MOVEMENT_PHASE,
-  START_OF_SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
-  TURN_FOUR_START_OF_ROUND,
-  MOVEMENT_PHASE,
   END_OF_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SHOOTING_PHASE,
+  TURN_FOUR_START_OF_ROUND,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
+  TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const ThundertuskEffects = [
@@ -512,14 +514,104 @@ export const AlliedUnits: TUnits = []
 
 // Battalions
 export const Battalions: TBattalions = [
-  // {
-  //   name: ``,
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  {
+    name: `Gutbuster Warglutt`,
+    effects: [
+      {
+        name: `The Mawpath`,
+        desc: `At the start of your hero phase in the first battle round, each friendly unit from this battalion can make a move of D6". Roll separately for each unit.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tyrant's Gutguard`,
+    effects: [
+      {
+        name: `Wall of Fat`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly TYRANT from this battalion while it is within 3" of a friendly IRONGUTS unit from this battalion. On a 4+, that wound or mortal wound is negated. That unit of IRONGUTS then suffers 1 mortal wound.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Goremand`,
+    effects: [
+      {
+        name: `The Tyrant's Butcher`,
+        desc: `The SLAUGHTERMASTER from this battalion can use its Great Cauldron ability twice in each of your hero phases instead of once.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Butcher's Band`,
+    effects: [
+      {
+        name: `Well-fed Warriors`,
+        desc: `At the start of your hero phase, you can heal 1 wound allocated to each friendly unit from this battalion that is wholly within 12" of the BUTCHER from this battalion.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Junkmob`,
+    effects: [
+      {
+        name: `Don't Eat Me, Boss!`,
+        desc: `Add 1 to the Attacks characteristic of Piles of Old Scrap used by any GNOBLAR SCRAPLAUNCHERS from this battalion while they are within 3" of any GNOBLAR units from this battalion that have 20 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Alfrostun`,
+    effects: [
+      {
+        name: `Alfrostun Avalanche`,
+        desc: `When using the Grasp of the Everwinter battle trait and rolling a dice for each enemy unit within 3" of a unit from this battalion, subtract 1 from the roll.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Jorlbad`,
+    effects: [
+      {
+        name: `Tip of the Hunting Spear`,
+        desc: `At the start of your hero phase in the first battle round, each friendly unit from this battalion can make a move of D6". Roll separately for each unit.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Eurlbad`,
+    effects: [
+      {
+        name: `Crush, Mangle, Tenderise`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon used by a model from this battalion is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Torrbad`,
+    effects: [
+      {
+        name: `Heat-numbing Chill`,
+        desc: `At the start of your hero phase, roll 1 dice for each enemy unit within 3" of any units from this battalion. On a 2+, that unit suffers 1 mortal wound.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skal`,
+    effects: [
+      {
+        name: `Hunting Pack`,
+        desc: `Add 1 to charge rolls for units from this battalion while they are wholly within 12" of another unit from this battalion.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
 ]
