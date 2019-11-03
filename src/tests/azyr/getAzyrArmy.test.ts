@@ -46,6 +46,7 @@ import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import OBR2 from '../fixtures/azyr/json/OBR2.json'
+import OBR3 from '../fixtures/azyr/json/OBR3.json'
 import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
 import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
@@ -81,6 +82,13 @@ describe('getAzyrArmyFromPdf', () => {
 
   it('handles OBR2', () => {
     const pages = handleAzyrPages(OBR2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OBR3', () => {
+    const pages = handleAzyrPages(OBR3)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])

@@ -316,6 +316,7 @@ const commonTypos = {
   'Master y': 'Mastery',
   'Mercenar y Company': 'Mercenary Company',
   'mor e': 'more',
+  'Ossiar ch Boner eapers': 'Ossiarch Bonereapers',
   'Ov erlords': 'Overlords',
   'Pist ol': 'Pistol',
   'Pr ogr ess': 'Progress',
