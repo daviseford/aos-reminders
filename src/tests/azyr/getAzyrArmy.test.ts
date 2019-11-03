@@ -18,6 +18,7 @@ import {
   SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
+  OSSIARCH_BONEREAPERS,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -39,6 +40,7 @@ import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
+import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -48,6 +50,14 @@ import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
 import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  // Need the OBR book to be added before uncommenting
+  xit('handles OBR1', () => {
+    const pages = handleAzyrPages(OBR1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Khorne3', () => {
     const pages = handleAzyrPages(Khorne3)
     const res = getAzyrArmyFromPdf(pages)
