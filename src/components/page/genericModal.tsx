@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { useTheme } from 'context/useTheme'
-import Spinner from 'components/helpers/spinner'
+import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 
 interface IGenericModalProps {
   isProcessing?: boolean
@@ -14,18 +14,22 @@ Modal.setAppElement('#root')
 
 const GenericModal: React.FC<IGenericModalProps> = props => {
   const { children, closeModal, isOpen, label, isProcessing = false } = props
-  const { theme } = useTheme()
+  const { isDark } = useTheme()
+
+  const themeType = isDark ? 'Dark' : 'Light'
+  const modalClassName = `Modal-${isProcessing ? `Transparent` : themeType}`
+  const overlayClassName = `Overlay-${themeType}`
 
   return (
     <Modal
-      className={theme.modal}
+      className={modalClassName}
       contentLabel={label}
       isOpen={isOpen}
       onRequestClose={closeModal}
-      overlayClassName={theme.modalOverlay}
+      overlayClassName={overlayClassName}
     >
       <div className={`container ${isProcessing ? `` : `mr-3 pl-0`}`}>
-        {isProcessing && <Spinner />}
+        {isProcessing && <LargeSpinner />}
         <div hidden={isProcessing}>{children}</div>
       </div>
     </Modal>
