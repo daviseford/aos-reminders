@@ -18,7 +18,12 @@ const AppBanner = () => {
   if (isDark || !isActive) return <></>
 
   return (
-    <NotificationBanner name={name} persistClose={true} variant={isDark ? 'secondary' : 'primary'}>
+    <NotificationBanner
+      name={name}
+      persistClose={true}
+      displayOnce={true}
+      variant={isDark ? 'secondary' : 'primary'}
+    >
       Check out our new dark theme! Enable it on your <Link to={ROUTES.PROFILE}>Profile</Link>.
     </NotificationBanner>
   )

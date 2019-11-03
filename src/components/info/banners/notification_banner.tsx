@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { hideNotificationBanner, getNotificationBanner } from 'utils/localStore'
 
 interface IBannerProps {
   name: string
   variant?: TAlertTypes
   persistClose?: boolean
+  displayOnce?: boolean
 }
 
 /**
@@ -13,16 +14,22 @@ interface IBannerProps {
  * @param props
  */
 export const NotificationBanner: React.FC<IBannerProps> = props => {
-  const { name, variant = 'primary', persistClose = true, children } = props
-  const isHidden = persistClose ? getNotificationBanner(name) === 'hidden' : false
+  const { name, variant = 'primary', persistClose = true, displayOnce = false, children } = props
+  const isHidden = persistClose || displayOnce ? getNotificationBanner(name) === 'hidden' : false
   const [isOn, setIsOn] = useState(!isHidden)
-
-  if (!isOn) return null
 
   const handleClose = () => {
     setIsOn(false)
     persistClose && hideNotificationBanner(name)
   }
+
+  useEffect(() => {
+    return () => {
+      if (displayOnce) hideNotificationBanner(name)
+    }
+  })
+
+  if (!isOn) return null
 
   return (
     <div className="mb-2">
