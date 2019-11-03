@@ -8,6 +8,7 @@ import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks
 import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
 import { useTheme } from 'context/useTheme'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -65,6 +66,7 @@ export default Subscribe
 const ExamplesRow = () => {
   return (
     <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
+      <MobileDarkModeDemo />
       <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/import_demo.mp4'}
@@ -84,6 +86,20 @@ const ExamplesRow = () => {
     </div>
   )
 }
+
+const MobileDarkModeDemo = componentWithSize(props => {
+  if (!props.isMobile) return null
+  return (
+    <div className={'col-12'}>
+      <WebmWithFallback
+        webmUrl={'/img/dark_mode1.mp4'}
+        gifUrl={'/img/dark_mode1.gif'}
+        description={'Dark Mode'}
+        label={'Demo-DarkMode'}
+      />
+    </div>
+  )
+})
 
 const Intro = () => {
   const { theme } = useTheme()
