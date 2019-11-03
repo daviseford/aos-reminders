@@ -109,7 +109,6 @@ describe('handleAzyrPages', () => {
 
   it('handles OBR1', () => {
     const res = handleAzyrPages(OBR1)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Ossiarch Bonereapers',
       'ALLEGIANCE: Petrifex Elite',

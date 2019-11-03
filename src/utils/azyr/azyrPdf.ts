@@ -104,6 +104,7 @@ const handlePages = (text: string): string[] => {
   const preppedText = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
+    .replace(/Role: {1,}(Behemoth)( {1,})?, {1,}Artillery /g, 'Role: Leader  ')
     .replace(/( )?[‘’]/g, `'`) // Replace special quotes
     .replace(/[“”]/g, `"`) // Replace special quotes
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
@@ -128,6 +129,7 @@ const handleItem = (text: string): string[] => {
     .replace(/HEADER/g, ' ')
     .replace(/.+See the .+? of this unit/gi, '')
     .replace(/.+This unit is also a Leader.+ the Leader section./gi, '')
+    .replace(/.+This unit is also a Behemoth.+ the Behemoth section./gi, '')
     .replace(/Army deemed .+valid/gi, ' ')
     .replace(/by Azyr Roster Builder/gi, ' ')
     .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
