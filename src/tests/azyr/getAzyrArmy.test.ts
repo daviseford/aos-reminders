@@ -60,7 +60,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(Khorne2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check it has imported the correct one.",
+      },
+    ])
   })
 
   it('handles LoG2', () => {
@@ -74,7 +80,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(FEC3)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check it has imported the correct one.",
+      },
+    ])
   })
 
   it('handles Bonesplitterz2', () => {
@@ -113,7 +125,13 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'ambiguity-warn',
+          text:
+            "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check it has imported the correct one.",
+        },
+      ],
       factionName: 'FLESH_EATER_COURTS',
       realmscape_feature: null,
       realmscape: null,
@@ -455,7 +473,12 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'ambiguity-warn',
+          text: "Azyr lists more than one unit as 'Grey Seer'. Please check it has imported the correct one.",
+        },
+      ],
       factionName: SKAVEN,
       realmscape_feature: null,
       realmscape: null,
@@ -501,7 +524,18 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'ambiguity-warn',
+          text:
+            "Azyr lists more than one unit as 'Auric Runesmiter'. Please check it has imported the correct one.",
+        },
+        {
+          severity: 'ambiguity-warn',
+          text:
+            "Azyr lists more than one unit as 'Auric Runeson'. Please check it has imported the correct one.",
+        },
+      ],
       factionName: FYRESLAYERS,
       realmscape_feature: null,
       realmscape: AQSHY,
@@ -654,6 +688,11 @@ describe('getAzyrArmyFromPdf', () => {
       'Prosecutors with Stormcall Javelins',
     ])
     expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Auric Runeson'. Please check it has imported the correct one.",
+      },
       {
         severity: 'ambiguity-warn',
         text:

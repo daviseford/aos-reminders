@@ -248,11 +248,26 @@ export type TNameMap = { [key: string]: string }
 // units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
 // by a partial match.
 export const azyrAmbiguousNamesMap = {
+  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
+  'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
+  'Auric Runefather': 'Auric Runefather',
+  'Auric Runesmiter': 'Auric Runesmiter',
+  'Auric Runeson': 'Auric Runeson',
+  'Bladebringer, Herald on Exalted Chariot': 'Bladebringer',
+  'Bloodthirster of Insensate Rage': 'Bloodthirster',
+  'Corpse Cart w/ Balefire Brazier': 'Corpse Cart',
+  'Eidolon of Mathlann, Aspect of the Sea': 'Eidolon of Mathlann',
+  Evocators: 'Evocators',
+  'Grey Seer': 'Grey Seer',
+  'Herald of Tzeentch': 'Herald of Tzeentch',
+  'Knight of Shrouds': 'Knight of Shrouds',
   'Lord-Arcanum': 'Lord-Arcanum',
   'Lord-Celestant': 'Lord-Celestant',
-  'Evocators': 'Evocators',
+  Loonboss: 'Loonboss',
+  'Plague Priest': 'Plague Priest',
   'Prosecutors with Stormcall Javelins': 'Prosecutors',
   'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
+  'Wight King with Baleful Tomb Blade': 'Wight King',
 }
 
 type TParserOptions = {
