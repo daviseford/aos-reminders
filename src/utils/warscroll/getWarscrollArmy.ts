@@ -2,13 +2,13 @@ import { uniq, last } from 'lodash'
 import { cleanWarscrollText } from './warscrollUtils'
 import { importUnitOptionMap, importFactionNameMap } from '../import/options'
 import { TSupportedFaction } from 'meta/factions'
-import { IImportedArmy } from 'types/import'
+import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { importErrorChecker } from 'utils/import'
 import GenericScenery from 'army/generic/scenery'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
-  const errorChecked = importErrorChecker(army, 'Warscroll Builder')
+  const errorChecked = importErrorChecker(army, WARSCROLL_BUILDER)
 
   return errorChecked
 }
@@ -258,6 +258,7 @@ const getCity = (txt: string) => {
 const traitToSpellMapper = [
   'Blood Sigil -',
   'Dark Acolyte -',
+  'Fuelled by the Spirits -',
   'Midnight Tome -',
   'Rune of Ulgu -',
   'Secretive Warlock -',

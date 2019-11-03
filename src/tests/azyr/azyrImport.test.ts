@@ -30,6 +30,7 @@ import Gloomspite1 from '../fixtures/azyr/json/Gloomspite1.json'
 import IDK1 from '../fixtures/azyr/json/IDK1.json'
 import Ironjawz1 from '../fixtures/azyr/json/Ironjawz1.json'
 import Khorne1 from '../fixtures/azyr/json/Khorne1.json'
+import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO3 from '../fixtures/azyr/json/KO3.json'
@@ -46,6 +47,7 @@ import NoRealm from '../fixtures/azyr/json/NoRealmscape1.json'
 import Nurgle1 from '../fixtures/azyr/json/Nurgle1.json'
 import Nurgle2 from '../fixtures/azyr/json/Nurgle2.json'
 import Nurgle3 from '../fixtures/azyr/json/Nurgle3.json'
+import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import Order1 from '../fixtures/azyr/json/Order1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
@@ -105,6 +107,25 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual(['FACTION: Death'])
   })
 
+  it('handles OBR1', () => {
+    const res = handleAzyrPages(OBR1)
+    expect(res).toEqual([
+      'FACTION: Ossiarch Bonereapers',
+      'ALLEGIANCE: Petrifex Elite',
+      'UNIT: Katakros',
+      'UNIT: Mortisan Boneshaper',
+      'ARTEFACT: Godbone Armour',
+      'UNIT: Mortisan Soulmason',
+      'UNIT: Mortek Guard',
+      'UPGRADE: Mortek Hekatos',
+      'UPGRADE: Necrophoros',
+      'WEAPON: Nadirite Blade',
+      'UNIT: Mortek Crawler',
+      'BATTALION: Mortek Ballistari',
+      'ENDLESS SPELL: Bone-tithe Shrieker',
+    ])
+  })
+
   it('handles LoG2', () => {
     const res = handleAzyrPages(LoG2)
     expect(res).toEqual([
@@ -122,6 +143,41 @@ describe('handleAzyrPages', () => {
       'UNIT: Bladegheist Revenants',
       'UNIT: Chainghasts',
       'UNIT: Grimghast Reapers',
+    ])
+  })
+
+  it('handles Khorne3', () => {
+    const res = handleAzyrPages(Khorne3)
+    expect(res).toEqual([
+      'FACTION: Khorne',
+      'REALMSCAPE: AQSHY',
+      'UNIT: Bloodsecrator',
+      "ARTEFACT: Ignax's Scales",
+      'UNIT: Mighty Lord of Khorne',
+      'ARTEFACT: The Brazen Rune',
+      'COMMAND TRAIT: Slaughterborn',
+      'UNIT: Skullgrinder',
+      'ARTEFACT: Talisman of Burning Blood',
+      'UNIT: Slaughterpriest',
+      'SPELL: Bronzed Flesh',
+      'WEAPON: Bloodbathed Axe',
+      'SPELL: Brazen Fury',
+      'SPELL: Killing Frenzy',
+      'UNIT: Blood Warriors',
+      'UPGRADE: Chaos Champion',
+      'UPGRADE: Icon Bearer',
+      'WEAPON: Goreglaive',
+      'UNIT: Bloodreavers',
+      'UPGRADE: Chieftain',
+      'UPGRADE: Hornblower',
+      'UNIT: Khorgoraths',
+      'UNIT: Wrathmongers',
+      'UPGRADE: Wrathmaster',
+      'BATTALION: Bloodforged',
+      'BATTALION: Gore Pilgrims',
+      'ENDLESS SPELL: Bleeding Icon',
+      'ENDLESS SPELL: Hexgorger Skulls',
+      'ENDLESS SPELL: Wrath-Axe',
     ])
   })
 

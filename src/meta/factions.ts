@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash'
-
 // Supported Faction Types
 export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
@@ -31,6 +29,7 @@ export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
+export type TOgorMawtribes = 'OGOR_MAWTRIBES'
 export type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export type TSeraphon = 'SERAPHON'
@@ -75,6 +74,7 @@ export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
+export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
@@ -120,6 +120,7 @@ export type TSupportedFaction =
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
+  | TOgorMawtribes
   | TOrderGrandAlliance
   | TOssiarchBonereapers
   | TSeraphon
@@ -133,7 +134,7 @@ export type TSupportedFaction =
   | TTzeentch
   | TWanderers
 
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -164,6 +165,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -176,4 +178,4 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   TAMURKHANS_HORDE,
   TZEENTCH,
   WANDERERS,
-])
+]

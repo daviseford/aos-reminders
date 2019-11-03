@@ -144,7 +144,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Brutal Beast Spirits (Bonesplitterz)',
         'Bone Krusha (Bonesplitterz)',
       ],
-      traits: ["Fast 'Un (Ironjawz)", "Dead Kunnin' (Bonesplitterz)", "Weird 'Un (Ironjawz)"],
+      traits: ["Fast 'Un (Mount) (Ironjawz)", "Dead Kunnin' (Bonesplitterz)", "Weird 'Un (Mount) (Ironjawz)"],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -309,7 +309,7 @@ describe('getWarscrollArmyFromPdf', () => {
       endless_spells: [],
       scenery: [],
       spells: [],
-      traits: ['Checked Out', "Fast 'Un"],
+      traits: ['Checked Out', "Fast 'Un (Mount)"],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',

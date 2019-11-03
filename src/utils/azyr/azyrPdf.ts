@@ -3,7 +3,7 @@ import { uniq, sortBy } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
-import { TImportParsers } from 'types/import'
+import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
 
 const sep = ', '
 const commaAlt = `&&`
@@ -58,19 +58,19 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
     const isAzyr = isBattlescribe ? false : checkIfAzyr(pdfPages)
     const isWarscroll = isAzyr || isBattlescribe ? false : checkIfWarscroll(pdfPages)
     const parser: TImportParsers = isWarscroll
-      ? 'Warscroll Builder'
+      ? WARSCROLL_BUILDER
       : isAzyr
-      ? 'Azyr'
+      ? AZYR
       : isBattlescribe
-      ? 'Battlescribe'
-      : 'Unknown'
+      ? BATTLESCRIBE
+      : UNKNOWN
 
     if (isDev) console.log('PDF Import string, copy me to JSON to debug: ', pdfPages)
 
     return { pdfPages, parser }
   } catch (err) {
     console.error(err)
-    return { pdfPages: [], parser: 'Unknown' }
+    return { pdfPages: [], parser: UNKNOWN }
   }
 }
 
@@ -83,12 +83,12 @@ const checkIfAzyr = (pdfPages: string[]): boolean => {
 }
 
 const checkIfBattlescribe = (pdfPages: string[]): boolean => {
-  const regex = /Created {1,3}with {1,3}BattleScribe/gi
+  const regex = /Created.{1,5}with.{1,5}BattleScribe/gi
   return regex.test(pdfPages[0])
 }
 
 const checkIfWarscroll = (pdfPages: string[]): boolean => {
-  return pdfPages.some(x => x.includes('Warscroll Builder') || x.includes('Allegiance:'))
+  return pdfPages.some(x => x.includes(WARSCROLL_BUILDER) || x.includes('Allegiance:'))
 }
 
 export const handleAzyrPages = (pages: string[]): string[] => {
@@ -104,6 +104,7 @@ const handlePages = (text: string): string[] => {
   const preppedText = text
     .replace(/([A-Z]) ([a-z])/g, `$1$2`)
     .replace(/Role: {1,}(Leader|Battleline|Other)( {1,})?, {1,}Behemoth /g, 'Role: Leader  ')
+    .replace(/Role: {1,}(Behemoth)( {1,})?, {1,}Artillery /g, 'Role: Leader  ')
     .replace(/( )?[‘’]/g, `'`) // Replace special quotes
     .replace(/[“”]/g, `"`) // Replace special quotes
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
@@ -128,6 +129,7 @@ const handleItem = (text: string): string[] => {
     .replace(/HEADER/g, ' ')
     .replace(/.+See the .+? of this unit/gi, '')
     .replace(/.+This unit is also a Leader.+ the Leader section./gi, '')
+    .replace(/.+This unit is also a Behemoth.+ the Behemoth section./gi, '')
     .replace(/Army deemed .+valid/gi, ' ')
     .replace(/by Azyr Roster Builder/gi, ' ')
     .replace(/[0-9]{1,4}pts[/][0-9]{1,4}pts Allies/gi, ' ')
@@ -267,6 +269,7 @@ const allegianceTypes = [
   'Grand Court',
   'Greatfray',
   'Host',
+  'Legion',
   'Lodge',
   'Skyport',
   'Slaughterhost',

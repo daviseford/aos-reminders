@@ -18,6 +18,7 @@ import { SubscriptionProvider } from 'context/useSubscription'
 import 'animate.css'
 import 'css/animations.scss'
 import 'css/index.scss'
+import { ThemeProvider } from 'context/useTheme'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -53,7 +54,9 @@ render(
       <AppStatusProvider>
         <SubscriptionProvider>
           <SavedArmiesProvider>
-            <App />
+            <ThemeProvider>
+              <App />
+            </ThemeProvider>
           </SavedArmiesProvider>
         </SubscriptionProvider>
       </AppStatusProvider>

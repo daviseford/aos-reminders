@@ -28,6 +28,7 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -41,13 +42,14 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { TImportParsers } from 'types/import'
+import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
 
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
+  'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
@@ -57,6 +59,7 @@ const warscrollTypoMap: TNameMap = {
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
+  'Hammers of Aurgury': 'Hammers of Augury',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Horn of Consort': 'Horn of the Consort',
@@ -69,10 +72,12 @@ const warscrollTypoMap: TNameMap = {
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
+  'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
+  'Windshief Charm': 'Windthief Charm',
   "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
 }
@@ -84,10 +89,50 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed (Mount)',
   'Madcap Shamans': 'Madcap Shaman',
+  'The Brazen Rune': 'Brazen Rune',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
-// const battlescribeTypoMap: TNameMap = {}
+const battlescribeTypoMap: TNameMap = {
+  'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
+  'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
+  'Blood River Chalice': 'Blood-river Chalice',
+  'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
+  'Chronomatic Cogs': 'Chronomantic Cogs',
+  'Cloying Sea Mists': 'Cloying Seas Mists',
+  'DHOM-HAIN': 'Dhom Hain (Enclave)',
+  'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',
+  'Guardian of Souls with Mortality Glass': 'Guardian of Souls w/ Mortality Glass',
+  'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
+  'Helblaster Volly Gun': 'Helblaster Volley Gun',
+  'Hellflayers of Slaanesh': 'Hellflayer',
+  'Incandescent Rectices': 'Incandescent Rectrices',
+  'Light of Dracothian': 'Light of Dracothion',
+  'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
+  'Mazrall the Butcher': 'Mazarall the Butcher',
+  'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
+  'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
+  'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
+  'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
+  'Shasdow Warrior': 'Shadow Warriors',
+  'Sneaky Shufflers': 'Sneaky Snufflers',
+  'Spider Rider Skitterswarm': 'Spider Rider Skittermob',
+  'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
+  'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
+  'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
+  'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
+  'Vulkite Bezerkers': 'Vulkite Berzerkers',
+  'Warp Lighting Storm': 'Warp Lightning Storm',
+  'Warrgog Prophet': 'Wurrgog Prophet',
+  "Dracothian's Tail": "Dracothion's Tail",
+  "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+  "Ironskull'z Boyz": "Ironskull's Boyz",
+  "Might 'Eadbutt": "Mighty 'Eadbutt",
+  BRIOMIDAR: 'Briomdar (Enclave)',
+  Mirrorshield: 'Mirror Shield',
+  Protector: 'Protectors',
+}
 
 // Azyr helper
 export const factionToAllegianceMap = {
@@ -155,6 +200,7 @@ export const importFactionNameMap = {
   'Mercenaries: The Blacksmoke Battery': MERCENARY_COMPANIES,
   'Mercenaries: The Gutstuffers': MERCENARY_COMPANIES,
   'Moonclan Grots': GLOOMSPITE_GITZ,
+  'Ogor Mawtribes': OGOR_MAWTRIBES,
   'Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
   'Ossiarch Bonereapers': OSSIARCH_BONEREAPERS,
   'Slaves to Darkness': SLAVES_TO_DARKNESS,
@@ -198,8 +244,39 @@ export const importFactionNameMap = {
 
 export type TNameMap = { [key: string]: string }
 
+// A map to help the user when Azyr uses the same name for multiple warscrolls
+// eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum'
+// AoS Reminders on the left - Azyr on the right
+// Note that the AoS Reminders version is what it *does* import as. This can be the same as
+// the Azyr string, which just means there is a unit exactly called what Azyr lists multiple
+// units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
+// by a partial match.
+export const azyrAmbiguousNamesMap = {
+  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
+  'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
+  'Auric Runefather': 'Auric Runefather',
+  'Auric Runesmiter': 'Auric Runesmiter',
+  'Auric Runeson': 'Auric Runeson',
+  'Bladebringer, Herald on Exalted Chariot': 'Bladebringer',
+  'Bloodthirster of Insensate Rage': 'Bloodthirster',
+  'Corpse Cart w/ Balefire Brazier': 'Corpse Cart',
+  'Eidolon of Mathlann, Aspect of the Sea': 'Eidolon of Mathlann',
+  Evocators: 'Evocators',
+  'Grey Seer': 'Grey Seer',
+  'Herald of Tzeentch': 'Herald of Tzeentch',
+  'Knight of Shrouds': 'Knight of Shrouds',
+  'Lord-Arcanum': 'Lord-Arcanum',
+  'Lord-Celestant': 'Lord-Celestant',
+  Loonboss: 'Loonboss',
+  'Plague Priest': 'Plague Priest',
+  'Prosecutors with Stormcall Javelins': 'Prosecutors',
+  'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
+  'Wight King with Baleful Tomb Blade': 'Wight King',
+}
+
 type TParserOptions = {
   [key in TImportParsers]: {
+    ambiguousNamesMap: TNameMap
     checkPoorSpacing: boolean
     fileReadError: string
     typoMap: TNameMap
@@ -207,22 +284,26 @@ type TParserOptions = {
 }
 
 export const parserOptions: TParserOptions = {
-  'Warscroll Builder': {
+  [WARSCROLL_BUILDER]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
-    fileReadError: `There was a problem reading this file. Please try re-downloading it from Warscroll Builder.`,
+    fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
-  Azyr: {
+  [AZYR]: {
+    ambiguousNamesMap: azyrAmbiguousNamesMap,
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
-  Battlescribe: {
+  [BATTLESCRIBE]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
-    typoMap: {},
+    typoMap: battlescribeTypoMap,
   },
-  Unknown: {
+  [UNKNOWN]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},

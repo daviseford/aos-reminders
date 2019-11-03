@@ -20,16 +20,86 @@ import {
   TURN_THREE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
+const AltarOfTheHornedRatEffect = {
+  name: `Altar of the Horned Rat`,
+  desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
+  when: [BATTLESHOCK_PHASE],
+}
+
+const ThrowingStarsEffect = {
+  name: `Throwing Stars`,
+  desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [SHOOTING_PHASE],
+}
+
+const RunningDeathEffect = {
+  name: `Running Death`,
+  desc: `This unit can run and still shoot later in the same turn.`,
+  when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+}
+
+const GnashGnawOnTheirBonesEffect = {
+  name: `Gnash-gnaw on their Bones!`,
+  desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
+  when: [START_OF_COMBAT_PHASE],
+  command_ability: true,
+}
+
+const ClanshieldEffect = {
+  name: `Clanshields`,
+  desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
+  when: [COMBAT_PHASE, SHOOTING_PHASE],
+}
+
+const RegeneratingMonstrosityEffect = {
+  name: `Regenerating Monstrosity`,
+  desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+  when: [HERO_PHASE],
+}
+
+const PushedIntoBattleEffects = [
+  {
+    name: `Pushed into Battle`,
+    desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Pushed into Battle`,
+    desc: `This model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
+    when: [COMBAT_PHASE],
+  },
+]
+
+const TerrifyingEffect = {
+  name: `Terrifying`,
+  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
+  when: [BATTLESHOCK_PHASE],
+}
+
+const ProtectionOfTheHornedRatEffect = {
+  name: `Protection of the Horned Rat`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
+  when: [DURING_GAME],
+}
+
+const PoisonousFumesEffect = {
+  name: `Poisonous Fumes`,
+  desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
+  when: [END_OF_COMBAT_PHASE],
+}
+
+const FrenziedAssaultEffect = {
+  name: `Frenzied Assault`,
+  desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Thanquol on Boneripper`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      ProtectionOfTheHornedRatEffect,
       {
         name: `Staff of the Horned Rat`,
         desc: `Add the Staff of the Horned Rat modifier shown on the damage table above to casting rolls for this model.`,
@@ -66,16 +136,8 @@ export const Units: TUnits = [
   {
     name: `Lord Skreech Verminking`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      TerrifyingEffect,
       {
         name: `The Thirteen-headed One`,
         desc: `At the start of your hero phase, pick 1 of the areas of knowledge for this model to draw upon. The rule for that area of knowledge applies to this model until your next hero phase. You cannot pick the same area of knowledge more than once per battle.`,
@@ -92,16 +154,8 @@ export const Units: TUnits = [
   {
     name: `Verminlord Warpseer`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      TerrifyingEffect,
       {
         name: `The Great Manipulators`,
         desc: `If this model is on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point. On a 6 you receive D3 extra command points instead of 1.`,
@@ -147,6 +201,12 @@ export const Units: TUnits = [
         name: `Warpfire Gauntlet`,
         desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 8" of this model and visible to them, and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Warp Lightning Storm`,
+        desc: `Casting value of 7. Pick up to D3 enemy units within 13" of the caster and visible to them. Those units each suffer D3 mortal wounds. Before making the casting roll, you can say that this model will use its warp-power accumulator to augment the spell. If you do so and the casting attempt is successful and not unbound, the spell inflicts D6 mortal wounds on each of those units instead of D3. However, if you do so and the casting attempt fails or is unbound, this model suffers D3xD6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -287,32 +347,16 @@ export const Units: TUnits = [
   },
   {
     name: `Clanrats`,
-    effects: [
-      {
-        name: `Clanshields`,
-        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
+    effects: [ClanshieldEffect],
   },
   {
     name: `Brood Horror`,
-    effects: [
-      {
-        name: `Renegerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [RegeneratingMonstrosityEffect],
   },
   {
     name: `Skaven Clawlord on Brood Horror`,
     effects: [
-      {
-        name: `Renegerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
+      RegeneratingMonstrosityEffect,
       {
         name: `Mighty Warlord`,
         desc: `Add 1 to the Bravery characteristic of friendly Clans Verminus units while they are wholly within 13" of any friendly models with this ability.`,
@@ -344,11 +388,7 @@ export const Units: TUnits = [
   {
     name: `Warpgnaw Verminlord`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      ProtectionOfTheHornedRatEffect,
       {
         name: `Realm Guide`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
@@ -361,22 +401,12 @@ export const Units: TUnits = [
         desc: `If this unit is placed in reserve, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      TerrifyingEffect,
     ],
   },
   {
     name: `Stormvermin`,
-    effects: [
-      {
-        name: `Clanshields`,
-        desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
+    effects: [ClanshieldEffect],
   },
   {
     name: `Spiteclaw's Swarm`,
@@ -396,16 +426,8 @@ export const Units: TUnits = [
   {
     name: `Verminlord Warbringer`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      TerrifyingEffect,
       {
         name: `Amidst the Seething Tide`,
         desc: `You can re-roll wound rolls for attacks made by this model while it is within 13" of 13 or more friendly SKAVEN models.`,
@@ -432,12 +454,7 @@ export const Units: TUnits = [
         desc: `Add the number of wounds allocated to this model to the Attacks characteristic of this model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Gnash-gnaw on their Bones!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      GnashGnawOnTheirBonesEffect,
     ],
   },
   {
@@ -448,12 +465,7 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, if this model is within 13" of a friendly SPITECLAW'S SWARM , you can return D3 slain models to that unit (you cannot return Krrk the Almost-trusted). Set up the returning models one at a time within 1" of a model from that unit (this can be a model you returned to the unit earlier in the same phase). Returning models can only be set up within 3" of an enemy unit if one or more models from the same unit are already within 3" of that enemy unit.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Gnash-gnaw on their Bones!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      GnashGnawOnTheirBonesEffect,
     ],
   },
   {
@@ -539,11 +551,7 @@ export const Units: TUnits = [
         desc: `You can re-roll hit rolls for attacks made with a pair of Foetid Blades.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      FrenziedAssaultEffect,
       {
         name: `Book of Woes`,
         desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a D6. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
@@ -554,11 +562,7 @@ export const Units: TUnits = [
   {
     name: `Plague Censer Bearers`,
     effects: [
-      {
-        name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      FrenziedAssaultEffect,
       {
         name: `Plague Disciples`,
         desc: `You can re-roll hit rolls for attacks made by this ABILITIES unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
@@ -569,11 +573,7 @@ export const Units: TUnits = [
         desc: `You can re-roll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Poisonous Fumes`,
-        desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      PoisonousFumesEffect,
     ],
   },
   {
@@ -588,26 +588,14 @@ export const Units: TUnits = [
         Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a D6 for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Frenzied Assault`,
-        desc: `Add 1 to the Attacks characteristic of this model's melee weapons if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Poisonous Fumes`,
-        desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      FrenziedAssaultEffect,
+      PoisonousFumesEffect,
     ],
   },
   {
     name: `Plague Priest on Plague Furnace`,
     effects: [
-      {
-        name: `Altar of the Horned Rat`,
-        desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      AltarOfTheHornedRatEffect,
       {
         name: `Great Plague Censer`,
         desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a D6. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
@@ -622,36 +610,16 @@ export const Units: TUnits = [
         Rabid-rabid!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase. You cannot pick the same unit to be affected by this prayer more than once per hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Poisonous Fumes`,
-        desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Pushed into Battle`,
-        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
-        when: [MOVEMENT_PHASE, COMBAT_PHASE],
-      },
+      PoisonousFumesEffect,
+      ProtectionOfTheHornedRatEffect,
+      ...PushedIntoBattleEffects,
     ],
   },
   {
     name: `Verminlord Corruptor`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      TerrifyingEffect,
       {
         name: `Plaguereapers`,
         desc: `If the unmodified hit roll for an attack made with this model's Plaguereapers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
@@ -673,25 +641,19 @@ export const Units: TUnits = [
   {
     name: `Grey Seer on Screaming Bell`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Altar of the Horned Rat`,
-        desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Pushed into Battle`,
-        desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models. In addition, this model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      AltarOfTheHornedRatEffect,
+      ...PushedIntoBattleEffects,
       {
         name: `Peal of Doom`,
         desc: `At the start of your hero phase, roll 2D6 for this model and look up the result on the warscroll.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Cracks Call`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between its Move characteristic and the roll. This spell has no effect on units that can fly.`,
+        when: [START_OF_HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -703,16 +665,8 @@ export const Units: TUnits = [
         desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Regenerating Monstrosity`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      RegeneratingMonstrosityEffect,
+      TerrifyingEffect,
       {
         name: `Warpstone Spikes`,
         desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+ ignore the effects of that spell on this model.`,
@@ -798,16 +752,8 @@ export const Units: TUnits = [
   {
     name: `Verminlord Deceiver`,
     effects: [
-      {
-        name: `Protection of the Horned Rat`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Terrifying`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ProtectionOfTheHornedRatEffect,
+      TerrifyingEffect,
       {
         name: `Doomstar`,
         desc: `A Doomstar has a Damage characteristic of D6 instead of D3 if the target unit has 10 or more models.`,
@@ -824,6 +770,12 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
+      {
+        name: `Dreaded Skitterleap`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that Hero from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -831,29 +783,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hidden Killer`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1. If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
-        when: [START_OF_SETUP, START_OF_COMBAT_PHASE, TURN_FOUR_START_OF_ROUND],
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1.`,
+        when: [START_OF_SETUP, START_OF_COMBAT_PHASE],
       },
       {
-        name: `Running Death`,
-        desc: `This model can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+        name: `Hidden Killer`,
+        desc: `If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
+        when: [TURN_FOUR_START_OF_ROUND],
       },
-      {
-        name: `Throwing Stars`,
-        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE],
-      },
+      RunningDeathEffect,
+      ThrowingStarsEffect,
     ],
   },
   {
     name: `Night Runners`,
     effects: [
-      {
-        name: `Running Death`,
-        desc: `This unit can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
+      RunningDeathEffect,
       {
         name: `Throwing Weapons`,
         desc: `If the unmodified hit roll for an attack made with Eshin Throwing Weapons is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -869,16 +814,8 @@ export const Units: TUnits = [
   {
     name: `Gutter Runners`,
     effects: [
-      {
-        name: `Throwing Stars`,
-        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Running Death`,
-        desc: `This unit can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
+      ThrowingStarsEffect,
+      RunningDeathEffect,
       {
         name: `Sneaky Infiltrators`,
         desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating in reserve. If you do so, at the end of your first movement phase, you must set up this unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,

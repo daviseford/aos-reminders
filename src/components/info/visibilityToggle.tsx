@@ -8,6 +8,7 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from 'react-icons/md'
+import { useTheme } from 'context/useTheme'
 
 export type TVisibilityIconType = 'eye' | 'fold' | 'minus'
 
@@ -36,6 +37,8 @@ const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconTy
 
 export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const { isVisible, setVisibility, size = 1.4, type = 'eye', className = '' } = props
+  const { theme } = useTheme()
+
   const icon = icons[type]
   const VisibilityComponent = isVisible ? icon.visible : icon.hidden
   const handleSetVisibility = useCallback(
@@ -48,7 +51,7 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
 
   return (
     <>
-      <IconContext.Provider value={{ size: `${size}em`, className }}>
+      <IconContext.Provider value={{ size: `${size}em`, className: className || theme.text }}>
         <VisibilityComponent onClick={handleSetVisibility} />
       </IconContext.Provider>
     </>

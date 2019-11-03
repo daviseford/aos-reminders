@@ -5,9 +5,10 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/import/allyData'
 import { parserOptions } from 'utils/import/options'
-import { createFatalError, getAllWarnings, hasFatalError } from 'utils/import/warnings'
+import { createFatalError, getAllWarnings, hasFatalError, getAllyWarnings } from 'utils/import/warnings'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
+import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
@@ -62,6 +63,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
 
+  // Check if any of the selections have names that map one-to-many from source to us
+  addAmbiguousSelectionErrors(errors, errorFreeSelections, allyData, opts.ambiguousNamesMap)
+
   // Remove errors where we have found the missing item
   errors = removeFoundErrors(errors, errorFreeSelections, allyData)
 
@@ -90,10 +94,26 @@ const removeFoundErrors: TRemoveFoundErrors = (errors, selections, allyData) => 
   const foundAllies = Object.values(allyData.allySelections)
     .map(x => (x ? x.units : []))
     .flat()
+
   const found = Object.values(selections)
     .concat(foundAllies)
     .flat()
-  return errors
+
+  const filteredErrors = errors
     .filter(e => !found.some(f => f === e.text))
     .filter(e => !found.some(f => f.startsWith(e.text)))
+
+  const allyErrors = getAllyWarnings(errors)
+
+  // Filter out duplicative ally/normal warnings
+  return filteredErrors.reduce(
+    (a, error) => {
+      if (error.severity === 'warn' && allyErrors.some(a => a.text.startsWith(`Allied ${error.text} `))) {
+        return a
+      }
+      a.push(error)
+      return a
+    },
+    [] as TImportError[]
+  )
 }

@@ -15,8 +15,24 @@ export interface IImportedArmy {
   unknownSelections: string[]
 }
 
-export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' }
+export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' }
 
-export type TImportFileTypes = 'application/pdf'
+type THtmlFile = 'text/html'
+type TPdfFile = 'application/pdf'
 
-export type TImportParsers = 'Warscroll Builder' | 'Azyr' | 'Battlescribe' | 'Unknown'
+export type TImportFileTypes = TPdfFile | THtmlFile
+
+type TAzyr = 'Azyr'
+type TBattlescribe = 'Battlescribe'
+type TUnknown = 'Unknown'
+type TWarscrollBuilder = 'Warscroll Builder'
+
+export type TImportParsers = TWarscrollBuilder | TAzyr | TBattlescribe | TUnknown
+
+export const AZYR: TAzyr = 'Azyr'
+export const BATTLESCRIBE: TBattlescribe = 'Battlescribe'
+export const UNKNOWN: TUnknown = 'Unknown'
+export const WARSCROLL_BUILDER: TWarscrollBuilder = 'Warscroll Builder'
+
+export const HTML_FILE: THtmlFile = 'text/html'
+export const PDF_FILE: TPdfFile = 'application/pdf'

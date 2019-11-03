@@ -20,9 +20,11 @@ export const getAllyData = (
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
 } => {
-  const mergedAllyUnits = getWarnings(errors)
-    .map(x => x.text)
-    .concat(allyUnits)
+  const mergedAllyUnits = uniq(
+    getWarnings(errors)
+      .map(x => x.text)
+      .concat(allyUnits)
+  )
 
   if (mergedAllyUnits.length === 0) {
     return {

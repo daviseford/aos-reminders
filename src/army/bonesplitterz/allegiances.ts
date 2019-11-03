@@ -85,9 +85,9 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Fireball!`,
-        desc: `All wizards in the clan know the Fireball spell instead of Arcane bolt and can cast it. Casting Value 5. Pick 1 enemy unit withi 18". It suffers 1 mortal wound if it has 1 model, D3 mortal wounds instead if it has 2-9 models, or D6 mortal wounds instead if it has 10+ models.`,
+        desc: `All wizards in the clan know the Fireball spell instead of Arcane bolt and can cast it. Casting Value 5. Pick 1 enemy unit within 18". It suffers 1 mortal wound if it has 1 model, D3 mortal wounds instead if it has 2-9 models, or D6 mortal wounds instead if it has 10+ models.`,
         when: [HERO_PHASE],
-        command_trait: true,
+        spell: true,
       },
       {
         name: `Burnin' Tattooz`,

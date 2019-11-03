@@ -103,7 +103,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Big 'Un`,
+    name: `Big 'Un (Mount)`,
     effects: [
       {
         name: `Big 'Un`,
@@ -113,7 +113,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Fast 'Un`,
+    name: `Fast 'Un (Mount)`,
     effects: [
       {
         name: `Fast 'Un`,
@@ -123,7 +123,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Mean 'Un`,
+    name: `Mean 'Un (Mount)`,
     effects: [
       {
         name: `Mean 'Un`,
@@ -133,7 +133,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Heavy 'Un`,
+    name: `Heavy 'Un (Mount)`,
     effects: [
       {
         name: `Heavy 'Un`,
@@ -143,7 +143,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Loud 'Un`,
+    name: `Loud 'Un (Mount)`,
     effects: [
       {
         name: `Loud 'Un`,
@@ -153,7 +153,7 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Weird 'Un`,
+    name: `Weird 'Un (Mount)`,
     effects: [
       {
         name: `Weird 'Un`,

@@ -7,14 +7,16 @@ import { ContactComponent } from 'components/page/contact'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
+import { useTheme } from 'context/useTheme'
 
-const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ 'components/page/navbar'))
+const Navbar = lazy(() => import('components/page/navbar'))
 
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 
 const Subscribe: React.FC = () => {
   const { loading }: { loading: boolean } = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
+  const { theme } = useTheme()
 
   useEffect(() => {
     logPageView()
@@ -29,8 +31,8 @@ const Subscribe: React.FC = () => {
   if (isSubscribed && isActive) return <AlreadySubscribed />
 
   return (
-    <div className="d-block">
-      <div className="ThemeDarkBg py-2">
+    <div className={`d-block ${theme.bgColor}`}>
+      <div className={`${theme.headerColor} py-2`}>
         <Suspense fallback={<LoadingHeader />}>
           <Navbar />
         </Suspense>
@@ -38,7 +40,7 @@ const Subscribe: React.FC = () => {
 
       <Intro />
 
-      <div className="container">
+      <div className={`container ${theme.bgColor} ${theme.text}`}>
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
           <ComingSoon />
@@ -51,7 +53,7 @@ const Subscribe: React.FC = () => {
 
       <ExamplesRow />
 
-      <div className="container text-center mt-5 mb-4">
+      <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
         <ContactComponent size={'small'} />
       </div>
     </div>
@@ -83,24 +85,28 @@ const ExamplesRow = () => {
   )
 }
 
-const Intro = () => (
-  <div className={headerClass}>
-    <img
-      className="d-block mx-auto mb-4 img-fluid"
-      src="/img/logo_noURL.png"
-      width="100px"
-      alt="Subscribe to support AoS Reminders"
-    />
-    <h2>Support AoS Reminders</h2>
-    <p className="lead">
-      <strong>
-        It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
-        <i>always</i> be free, I do offer this subscription service to those who wish to support AoS
-        Reminders.
-      </strong>
-    </p>
-  </div>
-)
+const Intro = () => {
+  const { theme } = useTheme()
+
+  return (
+    <div className={`${headerClass} ${theme.text}`}>
+      <img
+        className={`d-block mx-auto mb-4 img-fluid rounded-circle bg-white`}
+        src="/img/logo_medium_padding.png"
+        width="120px"
+        alt="Subscribe to support AoS Reminders"
+      />
+      <h2>Support AoS Reminders</h2>
+      <p className="lead">
+        <strong>
+          It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
+          <i>always</i> be free, I do offer this subscription service to those who wish to support AoS
+          Reminders.
+        </strong>
+      </p>
+    </div>
+  )
+}
 
 const featuresColClass = `col-12 col-lg-5 col-xl-5 col-xxl-5 mt-2`
 
@@ -111,15 +117,15 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Access your saved armies <strong>offline</strong>!
+        <strong>NEW:</strong> Dark mode!
       </li>
       <li>Choose your favorite faction</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
-        device
+        device - even <strong>offline!</strong>
       </li>
       <li>
-        Import your army lists <strong>instantly</strong> from Warscroll Builder and Azyr
+        Import your army lists <strong>instantly</strong> from Azyr, Warscroll Builder, and Battlescribe
       </li>
     </ul>
   </div>
@@ -132,13 +138,10 @@ const ComingSoon = () => (
     </p>
     <ul className="lead">
       <li>
-        <i>Importing army lists from Battlescribe</i>
-      </li>
-      <li>
         <i>Share army lists with your friends</i>
       </li>
       <li>
-        <i>Adding custom reminders</i>
+        <i>Add custom reminders</i>
       </li>
       <li>
         <i>Drag and drop sorting of rules</i>
@@ -157,14 +160,15 @@ const ComingSoon = () => (
 )
 
 const AlreadySubscribed = () => {
+  const { theme } = useTheme()
   return (
-    <div className="d-block">
-      <div className="ThemeDarkBg py-2">
+    <div className={`d-block ${theme.headerColor} ${theme.text}`}>
+      <div className={`py-2`}>
         <Navbar />
       </div>
       <div className="row d-flex justify-content-center align-items-center">
         <div className="col mx-5 my-5 py-5 px-5">
-          <p className="lead text-center">You are already a supporter :) Thanks!</p>
+          <p className="lead text-center">You are already a subscriber :) Thanks!</p>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'c
 import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
+import { useTheme } from 'context/useTheme'
 
 interface ICardProps {
   title: string
@@ -16,20 +17,17 @@ interface ICardProps {
 
 const CardComponent: React.FC<ICardProps> = props => {
   const { title, isVisible, isMobile, children } = props
-  const bodyClass = `card-body ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
+  const { theme } = useTheme()
+
+  const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
   const colMobile = isMobile && !isVisible ? `col w-50 px-1` : `col-12 px-1`
   const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${!isMobile ? `mb-2` : ``}`
-  const colClass = `${colMobile} ${colDesktop} mx-auto mt-1`
+  const colClass = `${colMobile} ${colDesktop} ${theme.bgColor} mx-auto mt-1`
 
   return (
     <div className={colClass}>
-      <div className="card">
-        <CardHeader
-          isMobile={isMobile}
-          isVisible={isVisible}
-          title={title}
-          headerClassName={'SelectorHeader'}
-        />
+      <div className={theme.card}>
+        <CardHeader isMobile={isMobile} isVisible={isVisible} title={title} />
         <div className={bodyClass}>{children}</div>
       </div>
     </div>
@@ -90,16 +88,9 @@ interface ICardHeaderProps {
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const {
-    title,
-    isMobile,
-    isVisible,
-    hideCard,
-    showCard,
-    type = 'minus',
-    headerClassName = '',
-    iconSize = 1,
-  } = props
+  const { title, isMobile, isVisible, hideCard, showCard, type = 'minus', iconSize = 1 } = props
+
+  const { theme } = useTheme()
 
   const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
 
@@ -107,14 +98,12 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     if (isMobile && title !== 'Units') hideCard(title)
   }, [hideCard, isMobile, title])
 
-  const styles = useMemo(() => {
-    return {
-      cardHeader: `card-header ${headerClassName} py-${isMobile ? 3 : 2}`,
-      flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
-      flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
-      vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
-    }
-  }, [isMobile, headerClassName])
+  const styles = {
+    cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2}`,
+    flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
+    flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
+    vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+  }
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>

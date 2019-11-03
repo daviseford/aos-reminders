@@ -8,7 +8,8 @@ export interface ISupportPlan {
   discount_pct?: number
 }
 
-// Half off sale (started 10/18/19)
+// Battlescribe sale
+// Started 10/29/19
 const SupportPlans: ISupportPlan[] = [
   {
     cost: '0.99',
@@ -20,24 +21,56 @@ const SupportPlans: ISupportPlan[] = [
     title: '1 Month',
   },
   {
-    cost: '2.25',
-    dev: 'plan_G0yZ65ptRDRCq8',
-    discount_pct: 50,
-    monthly_cost: '0.75',
-    prod: 'plan_G0ydXormf4dUIG',
+    cost: '2.67',
+    dev: 'plan_G54g0QyqqpjK6T',
+    discount_pct: 40,
+    monthly_cost: '0.89',
+    prod: 'plan_G54fNFZ0Oi7WXa',
     sale: true,
     title: '3 Months',
   },
   {
-    cost: '5.99',
-    dev: 'plan_G0yb7jFjMhn2p1',
-    discount_pct: 50,
-    monthly_cost: '0.49',
-    prod: 'plan_G0ydQlnA9O63Pf',
+    cost: '9.49',
+    dev: 'plan_G54heoB7FQLELi',
+    discount_pct: 20,
+    monthly_cost: '0.79',
+    prod: 'plan_G54gM8AIgJDIEK',
     sale: true,
     title: '1 Year',
   },
 ]
+
+// Half off sale
+// Started 10/18/19 - Ended 10/29/19
+// const SupportPlans: ISupportPlan[] = [
+//   {
+//     cost: '0.99',
+//     dev: 'plan_G0yVJPZbI0cf06',
+//     discount_pct: 50,
+//     monthly_cost: '0.99',
+//     prod: 'plan_G0ycrWfS8rZzAE',
+//     sale: true,
+//     title: '1 Month',
+//   },
+//   {
+//     cost: '2.25',
+//     dev: 'plan_G0yZ65ptRDRCq8',
+//     discount_pct: 50,
+//     monthly_cost: '0.75',
+//     prod: 'plan_G0ydXormf4dUIG',
+//     sale: true,
+//     title: '3 Months',
+//   },
+//   {
+//     cost: '5.99',
+//     dev: 'plan_G0yb7jFjMhn2p1',
+//     discount_pct: 50,
+//     monthly_cost: '0.49',
+//     prod: 'plan_G0ydQlnA9O63Pf',
+//     sale: true,
+//     title: '1 Year',
+//   },
+// ]
 
 // const SupportPlans: ISupportPlan[] = [
 //   {

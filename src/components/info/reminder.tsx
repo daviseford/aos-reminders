@@ -7,6 +7,7 @@ import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
 import { CardHeaderComponent } from './card'
+import { useTheme } from 'context/useTheme'
 
 interface IReminderProps {
   actions: TTurnAction[]
@@ -33,6 +34,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     when,
   } = props
 
+  const { theme } = useTheme()
+
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
   }, [hiddenReminders, when])
@@ -49,7 +52,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     showWhen(title)
   }, [title, showWhen])
 
-  const bodyClass = `card-body ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
+  const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
   return (
     <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
@@ -59,13 +62,13 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
           showCard={handleShowWhen}
           hideCard={hideWhen}
           isVisible={isVisible}
-          headerClassName={`ReminderHeader`}
+          headerClassName={`${theme.reminderHeader} text-white`}
           iconSize={1.2}
           isMobile={isMobile}
         />
         <div className={bodyClass}>
           {actions.map((action, i) => {
-            const name = `${when}_${action.name}_${i}`
+            const name = `${when}_${action.condition}_${action.name}`.split(' ').join('_')
             const showEntry = () => showReminder(name)
             const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)
@@ -76,7 +79,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={!isHidden}
                 hideEntry={hideEntry}
                 showEntry={showEntry}
-                key={`${name}_${i}`}
+                key={name}
               />
             )
           })}
@@ -115,13 +118,6 @@ const ActionText = (props: IActionTextProps) => {
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
-  useEffect(() => {
-    return () => {
-      showEntry() // Remove this from the hidden array on unload
-    }
-    // eslint-disable-next-line
-  }, [])
-
   return (
     <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
       <div className="d-flex mb-1">
@@ -138,17 +134,23 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const ActionTitle = (props: IActionTextProps) => (
-  <>
-    <span className="text-muted font-weight-bold">{getActionTitle(props)} - </span>
-    <b>
-      {props.name && `${props.name}`}
-      {props.tag && ` (${props.tag})`}
-    </b>
-  </>
-)
+const ActionTitle = (props: IActionTextProps) => {
+  const { theme } = useTheme()
+
+  return (
+    <>
+      <span className={`${theme.textMuted} font-weight-bold`}>{getActionTitle(props)} - </span>
+      <strong className={theme.text}>
+        {props.name && `${props.name}`}
+        {props.tag && ` (${props.tag})`}
+      </strong>
+    </>
+  )
+}
 
 const ActionDescription = (props: { text: string }) => {
+  const { theme } = useTheme()
+
   const splitText = props.text
     .split('\n')
     .map(t => t.trim())
@@ -157,7 +159,7 @@ const ActionDescription = (props: { text: string }) => {
   return (
     <>
       {splitText.map((text, i) => (
-        <p className="EntryText" key={i}>
+        <p className={`EntryText ${theme.text}`} key={i}>
           {text}
         </p>
       ))}

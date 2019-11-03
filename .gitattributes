@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore fixture files when detecting languages for Github
+src/tests/fixtures/* linguist-vendored

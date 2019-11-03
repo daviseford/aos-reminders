@@ -24,6 +24,9 @@ const deleteAlly = (state: IHiddenStore, action: { payload: string }) => {
 const addReminder = (state: IHiddenStore, action: { payload: string }) => {
   state.reminders = uniq([...state.reminders, action.payload])
 }
+const addReminders = (state: IHiddenStore, action: { payload: string[] }) => {
+  state.reminders = uniq([...state.reminders, ...action.payload])
+}
 const deleteReminder = (state: IHiddenStore, action: { payload: string }) => {
   state.reminders = without(state.reminders, action.payload)
 }
@@ -52,6 +55,7 @@ export const visibility = createSlice({
   reducers: {
     addAlly,
     addReminder,
+    addReminders,
     addSelector,
     addWhen,
     addWhens,

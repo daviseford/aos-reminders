@@ -1,6 +1,6 @@
 import React from 'react'
-import { btnContentWrapper } from 'theme/helperClasses'
 import { FaPlus } from 'react-icons/fa'
+import GenericButton from '../generic_button'
 
 interface IAddAllyButton {
   setAllyClick: (e: any) => void
@@ -8,14 +8,11 @@ interface IAddAllyButton {
 
 const AddAllyButton: React.FC<IAddAllyButton> = props => {
   const { setAllyClick } = props
+
   return (
-    <>
-      <button className={`btn btn-block btn-outline-dark`} onClick={setAllyClick}>
-        <div className={btnContentWrapper}>
-          <FaPlus className="mr-2" /> Add Ally
-        </div>
-      </button>
-    </>
+    <GenericButton onClick={setAllyClick}>
+      <FaPlus className="mr-2" /> Add Ally
+    </GenericButton>
   )
 }
 
