@@ -34,6 +34,12 @@ const AppStatusProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
+    let updateChannel: BroadcastChannel | null = null
+    // Broadcastchannel is not supported in IE, Edge, or Safari
+    if (typeof BroadcastChannel !== 'undefined') {
+      updateChannel = new BroadcastChannel('app-update')
+      updateChannel.addEventListener('message', setContent)
+    }
     window.addEventListener('isOffline', setOffline)
     window.addEventListener('hasNewContent', setContent)
 
@@ -57,6 +63,7 @@ const AppStatusProvider: React.FC = ({ children }) => {
     return () => {
       window.removeEventListener('isOffline', setOffline)
       window.removeEventListener('hasNewContent', setContent)
+      if (updateChannel) updateChannel.removeEventListener('message', setContent)
     }
   })
 
