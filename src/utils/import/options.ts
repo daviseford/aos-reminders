@@ -75,6 +75,7 @@ const warscrollTypoMap: TNameMap = {
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
+  'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',

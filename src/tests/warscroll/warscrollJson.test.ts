@@ -18,6 +18,8 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  OSSIARCH_BONEREAPERS,
+  OGOR_MAWTRIBES,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -25,7 +27,39 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should work with FEC', () => {
+  it('should work with Vokmortian', () => {
+    const parsedText = getFile('1572873152220-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with CoS', () => {
+    const parsedText = getFile('1572871747455-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with', () => {
+    const parsedText = getFile('1572868206060-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with', () => {
+    const parsedText = getFile('1572858808157-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with FEC', () => {
     const parsedText = getFile('1572735282204-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
