@@ -64,22 +64,19 @@ render(
   document.getElementById('root')
 )
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
 serviceWorker.register({
   onUpdate: async registration => {
-    const waitingServiceWorker = registration.waiting
+    // We prefer using the BroadcastChannel as it can reach across tabs
     if (typeof BroadcastChannel !== 'undefined') {
       const bc = new BroadcastChannel('app-update')
       bc.postMessage('App has updated.')
     }
 
-    // We prefer using the BroadcastChannel but it won't always work
-    // due to browser limitations. So we call this here.
+    // But it won't always work due to browser limitations.
+    // So we always dispatch an event to the window just in case.
     window.dispatchEvent(new Event('hasNewContent'))
   },
 })
