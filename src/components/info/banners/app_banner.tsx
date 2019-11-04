@@ -1,23 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useTheme } from 'context/useTheme'
 import { FaRegSmileBeam } from 'react-icons/fa'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import GenericButton from 'components/input/generic_button'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
+  const [open, setOpen] = useState(false)
   const name = 'OBR_and_Mawtribes_Complete'
+
+  const handleAccept = async () => {
+    try {
+      if (navigator && navigator.serviceWorker) {
+        const waitingServiceWorker = await navigator.serviceWorker.ready
+
+        if (waitingServiceWorker.waiting) {
+          waitingServiceWorker.waiting.postMessage({ type: 'SKIP_WAITING' })
+          window.location.reload()
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  useEffect(() => {
+    if (typeof BroadcastChannel !== 'undefined') {
+      const updateChannel = new BroadcastChannel('app-update')
+      updateChannel.addEventListener('message', event => {
+        setOpen(true)
+      })
+    }
+  }, [])
 
   return (
     <NotificationBanner
-      displayOnce={true}
+      displayOnce={false}
       enableLog={true}
       name={name}
-      persistClose={true}
+      persistClose={false}
       variant={isDark ? 'secondary' : 'primary'}
     >
-      Ossiarch Bonereapers and Ogor Mawtribes are now fully updated!
-      {!isMobile && <FaRegSmileBeam className="ml-2" />}
+      <GenericButton hidden={!open} onClick={handleAccept}>
+        update it ?
+      </GenericButton>
+      Some sample text
     </NotificationBanner>
   )
 })

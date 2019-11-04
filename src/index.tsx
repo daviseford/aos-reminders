@@ -70,4 +70,10 @@ render(
 
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
-serviceWorker.register()
+serviceWorker.register({
+  onUpdate: async function(registration) {
+    const waitingServiceWorker = registration.waiting
+    const bc = new BroadcastChannel('app-update')
+    bc.postMessage('App has updated.')
+  },
+})
