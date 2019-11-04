@@ -256,62 +256,68 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Fleet of Hoof (Mount)`,
+    name: `Fleet of Hoof`,
     effects: [
       {
         name: `Fleet of Hoof (Mount)`,
         desc: `You can re-roll one or both of the dice when making charge rolls for this model.`,
         when: [CHARGE_PHASE],
+        mount_trait: true,
       },
     ],
   },
   {
-    name: `Fleshgreed (Mount)`,
+    name: `Fleshgreed`,
     effects: [
       {
         name: `Fleshgreed (Mount)`,
         desc: `At the start of each hero phase, if this model is eating, you can heal 1 wound allocated to this model.`,
         when: [START_OF_HERO_PHASE],
+        mount_trait: true,
       },
     ],
   },
   {
-    name: `Rimefrost Hide (Mount)`,
+    name: `Rimefrost Hide`,
     effects: [
       {
         name: `Rimefrost Hide (Mount)`,
         desc: `Worsen the Rend characteristic of melee weapons that target this model by 1 (to a minimum of '-').`,
         when: [COMBAT_PHASE],
+        mount_trait: true,
       },
     ],
   },
   {
-    name: `Gvarnak (Mount)`,
+    name: `Gvarnak`,
     effects: [
       {
         name: `Gvarnak (Mount)`,
         desc: `Add 1 to this model's Wounds characteristic.`,
         when: [DURING_GAME],
+        mount_trait: true,
       },
     ],
   },
   {
-    name: `Matriarch (Mount)`,
+    name: `Matriarch`,
     effects: [
       {
         name: `Matriarch (Mount)`,
         desc: `Add 1 to charge rolls for friendly THUNDERTUSKS while they are wholly within 12" of this model.`,
         when: [CHARGE_PHASE],
+        mount_trait: true,
       },
     ],
   },
   {
-    name: `Alvagr Ancient (Mount)`,
+    name: `Alvagr Ancient`,
     effects: [
       {
         name: `Alvagr Ancient (Mount)`,
         desc: `If this model has not made a charge move in the same turn, enemy units that are within 3" of this model at the start of the combat phase fight at the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
+        mount_trait: true,
       },
     ],
   },
