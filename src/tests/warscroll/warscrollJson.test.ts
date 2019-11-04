@@ -27,6 +27,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with OBR', () => {
+    const parsedText = getFile('1572884424770-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Vokmortian', () => {
     const parsedText = getFile('1572873152220-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -61,7 +69,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with ', () => {
+  it('should work with FEC', () => {
     const parsedText = getFile('1572735282204-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
