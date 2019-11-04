@@ -15,7 +15,6 @@ import config from './auth_config.json'
 import { SubscriptionProvider } from 'context/useSubscription'
 
 // CSS
-import 'animate.css'
 import 'css/animations.scss'
 import 'css/index.scss'
 import { ThemeProvider } from 'context/useTheme'

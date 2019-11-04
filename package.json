@@ -1,11 +1,10 @@
 {
   "name": "aos-reminders",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "private": true,
   "homepage": "./",
   "dependencies": {
     "@auth0/auth0-spa-js": "1.5.0",
-    "animate.css": "3.7.2",
     "bootstrap": "4.3.1",
     "core-js": "3.3.6",
     "jspdf": "1.5.3",
@@ -30,7 +29,6 @@
     "react-stripe-elements": "5.1.0",
     "react-switch": "^5.0.1",
     "react-tooltip": "3.11.1",
-    "react-transition-group": "4.3.0",
     "redux": "4.0.4",
     "redux-starter-kit": "1.0.1",
     "string.prototype.matchall": "4.0.0",
