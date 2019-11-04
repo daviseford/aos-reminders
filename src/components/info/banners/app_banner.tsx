@@ -42,7 +42,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={false}
       variant={isDark ? 'secondary' : 'primary'}
     >
-      Some sample text to make my day :Dkkkkaaa
+      Some sample text to make my dayddd
     </NotificationBanner>
   )
 })

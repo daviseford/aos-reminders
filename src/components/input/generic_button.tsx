@@ -8,7 +8,7 @@ const GenericButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   const { theme } = useTheme()
 
   return (
-    <button className={theme.genericButton} {...props}>
+    <button type="button" className={theme.genericButton} {...props}>
       <div className={centerContentClass}>{children}</div>
     </button>
   )
