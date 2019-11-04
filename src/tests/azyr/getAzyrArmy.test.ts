@@ -77,11 +77,18 @@ describe('getAzyrArmyFromPdf', () => {
   it('handles OgorMawtribes3', () => {
     const pages = handleAzyrPages(OgorMawtribes3)
     const res = getAzyrArmyFromPdf(pages)
-    console.log(res)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.allegiances).toEqual(['Boulderhead (Mawtribe)'])
     expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
     expect(res.selections.spells).toEqual(['Pulverising Hailstorm'])
+    expect(res.selections.traits).toEqual(['Lord of Beasts', 'Belligerent Charger', 'Fleshgreed'])
+    expect(res.selections.units).toEqual([
+      'Frostlord on Stonehorn',
+      'Huskard on Thundertusk',
+      'Stonehorn Beastriders',
+      'Thundertusk Beastriders',
+      'Mournfang Pack',
+    ])
     expect(res.errors).toEqual([])
   })
 
