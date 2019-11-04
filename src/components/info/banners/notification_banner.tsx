@@ -44,14 +44,12 @@ export const NotificationBanner: React.FC<IBannerProps> = props => {
   if (!isOn) return null
 
   return (
-    <div className="mb-2">
-      <div className={`alert alert-${variant} text-center fade show d-flex`} role="alert">
-        <div className={`flex-grow-1 ${centerContentClass}`}>{children}</div>
-        <div className={`align-self-start ml-2`}>
-          <button type="button" className="close" aria-label="Close" onClick={handleClose}>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+    <div className={`alert alert-${variant} text-center fade show d-flex my-0`} role="alert">
+      <div className={`flex-grow-1 ${centerContentClass}`}>{children}</div>
+      <div className={`align-self-start ml-2`}>
+        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     </div>
   )
