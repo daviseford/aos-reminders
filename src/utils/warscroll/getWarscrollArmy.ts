@@ -258,6 +258,7 @@ const getCity = (txt: string) => {
 const traitToSpellMapper = [
   'Blood Sigil -',
   'Dark Acolyte -',
+  'Druid of the Everspring -',
   'Fuelled by the Spirits -',
   'Midnight Tome -',
   'Rune of Ulgu -',

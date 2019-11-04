@@ -49,6 +49,7 @@ import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from '
 const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
+  'Blade of the All-Frost': 'Blade of All-Frost',
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
@@ -64,6 +65,7 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
+  'Katakros, Mortarch of the Necropolis': 'Katakros',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
   'Lunestone Talisman': 'Loonstone Talisman',
@@ -75,6 +77,7 @@ const warscrollTypoMap: TNameMap = {
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
+  'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',
@@ -89,6 +92,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
+  'Ogors Gluttons': 'Ogor Gluttons',
   'The Brazen Rune': 'Brazen Rune',
 }
 

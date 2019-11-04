@@ -9,7 +9,9 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SLAANESH,
   STORMCAST_ETERNALS,
@@ -21,6 +23,26 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('reads Ossiarch Bonereapers full pdf', () => {
+    const pdfText = getFile('OBR1.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    // Feast of Bones Exclusive - Need to get these rules
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+  })
+
+  it('reads Ogor Mawtribes full pdf', () => {
+    const pdfText = getFile('OgorMawtribes1.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    // Feast of Bones Exclusive - Need to get these rules
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Kin-eater's Bully Boys" }])
+  })
+
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = getFile('SeraphonNoMetadata.pdf')
     const parsedText = parsePdf(pdfText)

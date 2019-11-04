@@ -393,7 +393,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Ogors Gluttons`,
+    name: `Ogor Gluttons`,
     effects: [
       {
         name: `Crusher`,

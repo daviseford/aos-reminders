@@ -11,7 +11,9 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHORNE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -25,7 +27,41 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should work with FEC', () => {
+  it('should work with Vokmortian', () => {
+    const parsedText = getFile('1572873152220-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Druid of the Everspring', () => {
+    const parsedText = getFile('1572871747455-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ogor Gluttons', () => {
+    const parsedText = getFile('1572868206060-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.selections.units).toContain('Ogor Gluttons')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with CoS', () => {
+    const parsedText = getFile('1572858808157-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
     const parsedText = getFile('1572735282204-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -227,8 +263,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  // Uncomment when https://github.com/daviseford/aos-reminders/issues/598 is complete
-  xit('should work with Firebelly', () => {
+  it('should work with Firebelly', () => {
     const parsedText = getFile('1571287948786-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
