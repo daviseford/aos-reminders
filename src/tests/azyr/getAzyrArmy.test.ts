@@ -49,6 +49,7 @@ import OBR2 from '../fixtures/azyr/json/OBR2.json'
 import OBR3 from '../fixtures/azyr/json/OBR3.json'
 import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
 import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
+import OgorMawtribes3 from '../fixtures/azyr/json/OgorMawtribes3.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
@@ -59,17 +60,28 @@ import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
-  xit('handles OgorMawtribes1', () => {
+  it('handles OgorMawtribes1', () => {
     const pages = handleAzyrPages(OgorMawtribes1)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
   })
 
-  xit('handles OgorMawtribes2', () => {
+  it('handles OgorMawtribes2', () => {
     const pages = handleAzyrPages(OgorMawtribes2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OgorMawtribes3', () => {
+    const pages = handleAzyrPages(OgorMawtribes3)
+    const res = getAzyrArmyFromPdf(pages)
+    console.log(res)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.allegiances).toEqual(['Boulderhead (Mawtribe)'])
+    expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
+    expect(res.selections.spells).toEqual(['Pulverising Hailstorm'])
     expect(res.errors).toEqual([])
   })
 
