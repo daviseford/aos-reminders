@@ -29,7 +29,9 @@ const UpdateBanner = () => {
   return (
     <NotificationBanner name={name} persistClose={false} variant={'warning'} enableLog={true}>
       Updates are available!
-      <GenericButton onClick={handleAccept}>Reload</GenericButton>
+      <GenericButton onClick={handleAccept} className={'btn btn-outline-primary'}>
+        Reload
+      </GenericButton>
     </NotificationBanner>
   )
 }
