@@ -35,11 +35,12 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with CoS', () => {
+  it('should work with Druid of the Everspring', () => {
     const parsedText = getFile('1572871747455-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('Druid of the Everspring (Living City)')
     expect(warscrollTxt.errors).toEqual([])
   })
 
