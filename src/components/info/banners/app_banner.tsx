@@ -14,7 +14,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       enableLog={true}
       name={name}
       persistClose={true}
-      variant={isDark ? 'secondary' : 'primary'}
+      variant={isDark ? `dark` : `secondary`}
     >
       Ossiarch Bonereapers and Ogor Mawtribes are now fully updated!
       {!isMobile && <FaRegSmileBeam className="ml-2" />}
