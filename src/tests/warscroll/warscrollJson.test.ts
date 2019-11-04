@@ -27,6 +27,15 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Mirrorshield', () => {
+    const parsedText = getFile('1572905242205-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections.artifacts).toContain('Mirrorshield')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with OBR', () => {
     const parsedText = getFile('1572884424770-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

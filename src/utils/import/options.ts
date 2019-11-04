@@ -135,7 +135,6 @@ const battlescribeTypoMap: TNameMap = {
   "Ironskull'z Boyz": "Ironskull's Boyz",
   "Might 'Eadbutt": "Mighty 'Eadbutt",
   BRIOMIDAR: 'Briomdar (Enclave)',
-  Mirrorshield: 'Mirror Shield',
   Protector: 'Protectors',
 }
 
