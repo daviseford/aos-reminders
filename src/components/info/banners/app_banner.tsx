@@ -42,10 +42,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={false}
       variant={isDark ? 'secondary' : 'primary'}
     >
-      <GenericButton hidden={!open} onClick={handleAccept}>
-        update it ?
-      </GenericButton>
-      Some sample text
+      Some sample text to make my day :Dkkkkaaa
     </NotificationBanner>
   )
 })

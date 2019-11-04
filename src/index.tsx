@@ -71,9 +71,15 @@ render(
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
 serviceWorker.register({
-  onUpdate: async function(registration) {
+  onUpdate: async registration => {
     const waitingServiceWorker = registration.waiting
-    const bc = new BroadcastChannel('app-update')
-    bc.postMessage('App has updated.')
+    if (typeof BroadcastChannel !== 'undefined') {
+      const bc = new BroadcastChannel('app-update')
+      bc.postMessage('App has updated.')
+    }
+
+    // We prefer using the BroadcastChannel but it won't always work
+    // due to browser limitations. So we call this here.
+    window.dispatchEvent(new Event('hasNewContent'))
   },
 })

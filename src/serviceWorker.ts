@@ -75,7 +75,6 @@ function registerValidSW(swUrl: string, config?: Config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              window.dispatchEvent(new Event('hasNewContent'))
 
               // Execute callback
               if (config && config.onUpdate) {
@@ -99,20 +98,6 @@ function registerValidSW(swUrl: string, config?: Config) {
     .catch(error => {
       console.error('Error during service worker registration:', error)
     })
-
-  let refreshing = false
-
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    window.dispatchEvent(new Event('hasNewContent'))
-
-    if (refreshing) {
-      return
-    }
-
-    refreshing = true
-    console.log('controller change')
-    // window.location.reload();
-  })
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {

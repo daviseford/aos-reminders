@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { useAppStatus } from 'context/useAppStatus'
 import GenericButton from 'components/input/generic_button'
 import { LocalStoredArmy } from 'utils/localStore'
+import { useAppStatus } from 'context/useAppStatus'
 
 const UpdateBanner = () => {
   const { hasNewContent } = useAppStatus()
-  const [open, setOpen] = useState(false)
   const name = 'Content_Update_Notification'
 
   const handleAccept = async () => {
@@ -25,26 +24,12 @@ const UpdateBanner = () => {
     }
   }
 
-  useEffect(() => {
-    if (typeof BroadcastChannel !== 'undefined') {
-      const updateChannel = new BroadcastChannel('app-update')
-      const listener = event => setOpen(true)
-      updateChannel.addEventListener('message', listener)
-
-      return () => {
-        updateChannel.removeEventListener('message', listener)
-      }
-    }
-  }, [])
-
   if (!hasNewContent) return <></>
 
   return (
     <NotificationBanner name={name} persistClose={false} variant={'warning'} enableLog={true}>
       Updates are available!
-      <GenericButton hidden={!open} onClick={handleAccept}>
-        Reload
-      </GenericButton>
+      <GenericButton onClick={handleAccept}>Reload</GenericButton>
     </NotificationBanner>
   )
 }
