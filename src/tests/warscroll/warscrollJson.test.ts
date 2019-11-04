@@ -44,15 +44,16 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with', () => {
+  it('should work with Ogor Gluttons', () => {
     const parsedText = getFile('1572868206060-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.selections.units).toContain('Ogor Gluttons')
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with', () => {
+  it('should work with', () => {
     const parsedText = getFile('1572858808157-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 

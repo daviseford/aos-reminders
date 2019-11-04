@@ -14,6 +14,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  OGOR_MAWTRIBES,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -21,6 +22,16 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('reads Ogor Mawtribes full pdf', () => {
+    const pdfText = getFile('OgorMawtribes1.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    // No idea where this unit is
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Kin-eater's Bully Boys" }])
+  })
+
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = getFile('SeraphonNoMetadata.pdf')
     const parsedText = parsePdf(pdfText)

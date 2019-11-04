@@ -49,6 +49,7 @@ import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from '
 const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
+  'Blade of the All-Frost': 'Blade of All-Frost',
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
@@ -90,6 +91,7 @@ const azyrTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
+  'Ogors Gluttons': 'Ogor Gluttons',
   'The Brazen Rune': 'Brazen Rune',
 }
 
