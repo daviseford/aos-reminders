@@ -53,8 +53,8 @@ const ThemeProvider: React.FC = ({ children }) => {
     }
   }, [subscription])
 
+  // Assign our theme's bgColor to the root element
   useEffect(() => {
-    // Assign our theme's bgColor to the root element
     const element = document.getElementById('root')
     if (element) element.className = theme.bgColor
   }, [theme.bgColor])
