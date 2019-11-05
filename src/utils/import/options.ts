@@ -1,5 +1,4 @@
 import {
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -14,7 +13,6 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -166,7 +164,6 @@ export const importUnitOptionMap = {
 }
 
 export const importFactionNameMap = {
-  'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
@@ -227,7 +224,6 @@ export const importFactionNameMap = {
   Dispossessed: DISPOSSESSED,
   Everchosen: EVERCHOSEN,
   Fyreslayers: FYRESLAYERS,
-  Gutbusters: GUTBUSTERS,
   Ironjawz: IRONJAWZ,
   Khorne: KHORNE,
   Lethisian: LETHISIAN_DEFENDERS,

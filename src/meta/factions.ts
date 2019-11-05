@@ -1,5 +1,4 @@
 // Supported Faction Types
-export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export type TBigWaaagh = 'BIG_WAAAGH'
 export type TBonesplitterz = 'BONESPLITTERZ'
@@ -15,7 +14,6 @@ export type TFyreslayers = 'FYRESLAYERS'
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export type TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export type TGreenskinz = 'GREENSKINZ'
-export type TGutbusters = 'GUTBUSTERS'
 export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
@@ -44,7 +42,6 @@ export type TTzeentch = 'TZEENTCH'
 export type TWanderers = 'WANDERERS'
 
 // Exported Faction Names
-export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
 export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
@@ -60,7 +57,6 @@ export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
-export const GUTBUSTERS: TGutbusters = 'GUTBUSTERS'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
@@ -90,7 +86,6 @@ export const WANDERERS: TWanderers = 'WANDERERS'
 
 // Supported Factions
 export type TSupportedFaction =
-  | TBeastclawRaiders
   | TBeastsOfChaos
   | TBigWaaagh
   | TBonesplitterz
@@ -106,7 +101,6 @@ export type TSupportedFaction =
   | TGloomspiteGitz
   | TGrandHostOfNagash
   | TGreenskinz
-  | TGutbusters
   | TIdonethDeepkin
   | TIronjawz
   | TKharadronOverlords
@@ -135,7 +129,6 @@ export type TSupportedFaction =
   | TWanderers
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -151,7 +144,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
