@@ -20,8 +20,8 @@ const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider: React.FC = ({ children }) => {
   const { subscription, isActive } = useSubscription()
-  const [theme, setTheme] = useState(DarkTheme)
-  const [isDark, setIsDark] = useState(false)
+  const [theme, setTheme] = useState(LocalTheme.get() === 'dark' ? DarkTheme : LightTheme)
+  const [isDark, setIsDark] = useState(LocalTheme.get() === 'dark')
 
   const toggleTheme = useCallback(() => {
     const theme = isDark ? 'light' : 'dark'
@@ -42,17 +42,14 @@ const ThemeProvider: React.FC = ({ children }) => {
     setTheme(DarkTheme)
     setIsDark(true)
   }
+  const setThemeFromValue = useCallback((val: TThemeType | null) => {
+    return val === 'dark' ? setDarkTheme() : setLightTheme()
+  }, [])
 
-  // Fetch our theme from the local store and the subscription API
+  // Fetch our theme from the subscription API
   useEffect(() => {
-    const setThemeHelper = (x: TThemeType | null) => {
-      return !x || x === 'light' ? setLightTheme() : setDarkTheme()
-    }
-    setThemeHelper(LocalTheme.get()) // Use local value first
-
     if (subscription && subscription.theme) {
       LocalTheme.set(subscription.theme) // Update local vaue
-      setThemeHelper(subscription.theme) // Set the theme to subscription value
     }
   }, [subscription])
 
@@ -61,6 +58,11 @@ const ThemeProvider: React.FC = ({ children }) => {
     const element = document.getElementById('root')
     if (element) element.className = theme.bgColor
   }, [theme.bgColor])
+
+  // Fetch our theme from the local store
+  useEffect(() => {
+    setThemeFromValue(LocalTheme.get())
+  })
 
   return (
     <ThemeContext.Provider
