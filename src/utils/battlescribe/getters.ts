@@ -155,8 +155,7 @@ const factionAllegianceh4Lookup = (childNodes: Array<IParentNode | IChildNode>):
 
     const val = importFactionNameMap[cleanText(valNode.value)] || null
 
-    const res = isValidFactionName(val) ? val : null
-    return res
+    return isValidFactionName(val) ? val : null
   } catch (err) {
     return null
   }
