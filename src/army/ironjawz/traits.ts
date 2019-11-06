@@ -57,7 +57,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mighty Waaagh!`,
-        desc: `Your Ironjawz Waagh! ability increases range from 18" to 24".`,
+        desc: `Your Ironjawz Waaagh! ability increases range from 18" to 24".`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
