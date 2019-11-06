@@ -67,7 +67,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Grief Stricken`,
+        name: `Grief-Stricken`,
         desc: `Casting value of 7. Pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
         when: [HERO_PHASE],
         spell: true,

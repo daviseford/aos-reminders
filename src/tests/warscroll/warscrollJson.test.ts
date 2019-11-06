@@ -27,6 +27,40 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it("should work with Burstin' with Power", () => {
+    const parsedText = getFile('1573012088615-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it("should work with Burstin' with Power", () => {
+    const parsedText = getFile('1573018890027-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ogor Mawtribes', () => {
+    const parsedText = getFile('1573020637936-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ogor Mawtribes', () => {
+    const parsedText = getFile('1573045302823-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Mirrorshield', () => {
     const parsedText = getFile('1572905242205-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

@@ -11,6 +11,7 @@ import {
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   IDONETH_DEEPKIN,
+  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_BLOOD,
@@ -50,6 +51,54 @@ describe('getBattlescribeArmy', () => {
       "Tempest's Eye",
     ])
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+  })
+
+  it('should work with Nighthaunt3', () => {
+    const parsedText = getFile('Nighthaunt3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Beguile' },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+
+  it('should work with Nighthaunt2', () => {
+    const parsedText = getFile('Nighthaunt2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz1', () => {
+    const parsedText = getFile('Ironjawz1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz2', () => {
+    const parsedText = getFile('Ironjawz2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers3', () => {
+    const parsedText = getFile('Fyreslayers3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Nurgle3', () => {

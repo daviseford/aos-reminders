@@ -30,6 +30,7 @@ import CoS1 from '../fixtures/azyr/json/CoS1.json'
 import CoS2 from '../fixtures/azyr/json/CoS2.json'
 import CoS3 from '../fixtures/azyr/json/CoS3.json'
 import CoS4 from '../fixtures/azyr/json/CoS4.json'
+import CoS5 from '../fixtures/azyr/json/CoS5.json'
 import DoK2 from '../fixtures/azyr/json/DoK2.json'
 import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import FEC3 from '../fixtures/azyr/json/FEC3.json'
@@ -60,6 +61,14 @@ import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles CoS5', () => {
+    const pages = handleAzyrPages(CoS5)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(res.errors).toEqual([])
+  })
+
   it('handles OgorMawtribes1', () => {
     const pages = handleAzyrPages(OgorMawtribes1)
     const res = getAzyrArmyFromPdf(pages)
