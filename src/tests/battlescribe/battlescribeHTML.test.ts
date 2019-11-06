@@ -93,8 +93,8 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with FyreSlayers3', () => {
-    const parsedText = getFile('FyreSlayers3')
+  it('should work with Fyreslayers3', () => {
+    const parsedText = getFile('Fyreslayers3')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
