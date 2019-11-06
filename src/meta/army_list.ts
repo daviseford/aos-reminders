@@ -1,7 +1,6 @@
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
 import { IInitialArmy } from 'types/army'
 import {
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -17,7 +16,6 @@ import {
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -47,7 +45,6 @@ import {
   WANDERERS,
 } from './factions'
 
-import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
 import BigWaaagh from 'army/big_waaagh'
 import Bonesplitterz from 'army/bonesplitterz'
@@ -63,7 +60,6 @@ import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
 import GrandHostOfNagash from 'army/grand_host_of_nagash'
 import Greenskinz from 'army/greenskinz'
-import Gutbusters from 'army/gutbusters'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
@@ -92,10 +88,6 @@ import Tzeentch from 'army/tzeentch'
 import Wanderers from 'army/wanderers'
 
 const ArmyList: TArmyList = {
-  [BEASTCLAW_RAIDERS]: {
-    Army: { ...BeastclawRaiders },
-    GrandAlliance: DESTRUCTION,
-  },
   [BEASTS_OF_CHAOS]: {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
@@ -154,10 +146,6 @@ const ArmyList: TArmyList = {
   },
   [GREENSKINZ]: {
     Army: { ...Greenskinz },
-    GrandAlliance: DESTRUCTION,
-  },
-  [GUTBUSTERS]: {
-    Army: { ...Gutbusters },
     GrandAlliance: DESTRUCTION,
   },
   [IDONETH_DEEPKIN]: {

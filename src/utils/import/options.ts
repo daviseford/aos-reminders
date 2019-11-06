@@ -1,5 +1,4 @@
 import {
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -14,7 +13,6 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -59,6 +57,7 @@ const warscrollTypoMap: TNameMap = {
   'Great Bray Shaman': 'Great Bray-Shaman',
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
+  'Grot Scraplauncher': 'Gnoblar Scraplauncher',
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Hammers of Aurgury': 'Hammers of Augury',
   'Hellstriders with Claw-spears': 'Hellstriders',
@@ -72,6 +71,7 @@ const warscrollTypoMap: TNameMap = {
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
+  Ogors: 'Ogor Gluttons',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
@@ -166,7 +166,6 @@ export const importUnitOptionMap = {
 }
 
 export const importFactionNameMap = {
-  'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
@@ -227,7 +226,6 @@ export const importFactionNameMap = {
   Dispossessed: DISPOSSESSED,
   Everchosen: EVERCHOSEN,
   Fyreslayers: FYRESLAYERS,
-  Gutbusters: GUTBUSTERS,
   Ironjawz: IRONJAWZ,
   Khorne: KHORNE,
   Lethisian: LETHISIAN_DEFENDERS,
