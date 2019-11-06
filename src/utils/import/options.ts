@@ -71,7 +71,6 @@ const warscrollTypoMap: TNameMap = {
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
-  Ogors: 'Ogor Gluttons',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
@@ -81,8 +80,9 @@ const warscrollTypoMap: TNameMap = {
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',
-  "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
+  'Bursting with Power': "Burstin' with Power",
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
+  Ogors: 'Ogor Gluttons',
 }
 
 // Azyr on the left - AoS Reminders on the right
