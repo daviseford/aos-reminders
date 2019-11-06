@@ -205,6 +205,7 @@ export const importFactionNameMap = {
   'Moonclan Grots': GLOOMSPITE_GITZ,
   'Ogor Mawtribes': OGOR_MAWTRIBES,
   'Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
+  'Orruk Warclans': BIG_WAAAGH,
   'Ossiarch Bonereapers': OSSIARCH_BONEREAPERS,
   'Slaves to Darkness': SLAVES_TO_DARKNESS,
   'Sons of the Lichemaster': MERCENARY_COMPANIES,

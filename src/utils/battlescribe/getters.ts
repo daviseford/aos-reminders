@@ -13,8 +13,12 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
   const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
 
   allegianceInfo.forEach(info => {
-    const mappedAllegiance = importFactionNameMap[info.allegiance || '']
-    const mappedFaction = importFactionNameMap[info.faction || '']
+    const mappedAllegiance = isValidFactionName(info.allegiance)
+      ? info.allegiance
+      : importFactionNameMap[info.allegiance || '']
+    const mappedFaction = isValidFactionName(info.faction)
+      ? info.faction
+      : importFactionNameMap[info.faction || '']
 
     if (isValidFactionName(mappedAllegiance)) {
       if (!store.factionName) store.factionName = mappedAllegiance
@@ -69,12 +73,11 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 }
 
 export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
-  const allegianceInfo = { faction: null, allegiance: null }
+  const allegianceInfo = { faction: null as string | null, allegiance: null as string | null }
 
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
-
     // If there is a node with the value of `Allegiance:`
     // There is some advanced Battlescribe bullshittery going on
     // And we need to parse it in a special manner
@@ -111,10 +114,14 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
 
     if (!nameObj || !isParentNode(nameObj)) {
       let allegiance = allegianceCategoryLookup(childNodes)
-      if (allegiance) return { ...allegianceInfo, allegiance }
+      allegianceInfo.allegiance = allegiance
 
-      allegiance = allegianceSelectionLookup(childNodes)
-      if (allegiance) return { ...allegianceInfo, allegiance }
+      if (!allegiance) {
+        allegiance = allegianceSelectionLookup(childNodes)
+        allegianceInfo.allegiance = allegiance
+      }
+
+      allegianceInfo.faction = factionAllegianceh4Lookup(childNodes)
 
       return allegianceInfo
     }
@@ -134,6 +141,24 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     return { ...allegianceInfo, faction }
   } catch (err) {
     return allegianceInfo
+  }
+}
+
+const factionAllegianceh4Lookup = (childNodes: Array<IParentNode | IChildNode>): TSupportedFaction | null => {
+  try {
+    // @ts-ignore
+    const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
+
+    // @ts-ignore
+    if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return null
+    if (valNode.nodeName !== '#text') return null
+
+    const val = importFactionNameMap[cleanText(valNode.value)] || null
+
+    const res = isValidFactionName(val) ? val : null
+    return res
+  } catch (err) {
+    return null
   }
 }
 
@@ -167,7 +192,7 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
  * Handles weird formatting issues with armies like Idoneth Deepkin
  * @param childNodes
  */
-const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): string | null => {
   try {
     //@ts-ignore
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:')
@@ -182,6 +207,8 @@ const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>) =
 
     if (isValidFactionName(faction) && possibleAllegiances.length > 0) {
       return possibleAllegiances[0]
+    } else {
+      return null
     }
   } catch (err) {
     return null
