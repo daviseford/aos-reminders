@@ -60,7 +60,7 @@ export const traverseDoc: TTraverseDoc = docObj => {
 const isUncategorizedScenery = (obj: IParentNode, name: string) => {
   // Some Scenery is not even given the Scenery tag...
   // So we have to keep a manual list here
-  const knownScenery = ['Skull Altar']
+  const knownScenery = ['Skull Altar', 'Bad Moon Loonshrine']
 
   try {
     if (name.startsWith(`Scenery: `)) return false // It's categorized properly already

@@ -68,6 +68,15 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Gloomspite4', () => {
+    const parsedText = getFile('Gloomspite4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections.scenery).toEqual(['Bad Moon Loonshrine'])
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Nighthaunt2', () => {
     const parsedText = getFile('Nighthaunt2')
     const res = getBattlescribeArmy(parsedText)
