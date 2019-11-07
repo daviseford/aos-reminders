@@ -5,11 +5,11 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
+import Spinner from 'components/helpers/spinner'
 import GenericModal from 'components/page/genericModal'
 import GenericButton from '../generic_button'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
-import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -22,8 +22,9 @@ interface IModalComponentProps {
 export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, hiddenReminders } = props
   const { saveLink } = useSavedArmies()
-  const { theme } = useTheme()
+  const { theme, isDark } = useTheme()
   const [link, setLink] = useState<string | null>(null)
+  const [processing, setProcessing] = useState(true)
   const [copied, setCopied] = useState(false)
 
   const handleLinkGeneration = async () => {
@@ -31,6 +32,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
     const url = await saveLink(payload as ISavedArmy)
     setLink(url)
     logEvent(`GeneratedLink-${army.factionName}`)
+    setProcessing(false)
   }
 
   useEffect(() => {
@@ -43,26 +45,24 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
     <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Share Link Modal">
       <div className="row">
         <div className="col">
-          <form>
-            <div className="form-group">
-              <strong className={theme.text}>Share Link</strong>
+          <h5>
+            <strong className={theme.text}>{processing ? `Generating` : `Share`} Link</strong>
+          </h5>
 
-              {link && (
-                <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
-                  <p className={`${theme.text} mt-2 mb-0`}>{link}</p>
-                </CopyToClipboard>
-              )}
+          {processing && <Spinner className={`my-5 mx-5`} variant={isDark ? `light-gray` : `dark`} />}
 
-              {copied && <small className={theme.textMuted}>Copied to clipboard!</small>}
-            </div>
-          </form>
+          {link && (
+            <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
+              <p className={`${theme.text} mb-0`}>{link}</p>
+            </CopyToClipboard>
+          )}
+
+          {copied && <small className={`${theme.textMuted} mb-0`}>Copied to clipboard!</small>}
         </div>
       </div>
 
-      <div className="row">
+      <div className="row mt-3">
         <div className="col pl-0">
-          {!link && <LoadingBtn text={'Generating'} />}
-
           {link && (
             <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
               <GenericButton className={theme.modalConfirmClass}>
