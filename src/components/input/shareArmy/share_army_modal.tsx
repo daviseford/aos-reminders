@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaSave } from 'react-icons/fa'
+import { FaLink } from 'react-icons/fa'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
@@ -7,7 +7,6 @@ import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
 import GenericModal from 'components/page/genericModal'
 import GenericButton from '../generic_button'
-import { SavedArmyTable } from './saved_army_table'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
 
@@ -19,9 +18,9 @@ interface IModalComponentProps {
   hiddenReminders: IVisibilityStore['reminders']
 }
 
-export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
+export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
-  const { isActive } = useSubscription()
+  const { isSubscribed } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const { theme } = useTheme()
   const [armyName, setArmyName] = useState('')
@@ -42,7 +41,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
   const handleSaveClick = async e => {
     e.preventDefault()
-    if (isActive) {
+    if (isSubscribed) {
       setProcessing(true)
       const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
       await saveArmy(payload as ISavedArmy)
@@ -66,9 +65,10 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
           <form>
             <div className="form-group">
               <label htmlFor="nameInput">
-                <strong className={theme.text}>Army Name</strong>
+                <strong className={theme.text}>Share Link</strong>
               </label>
-              <input
+
+              {/* <input
                 className="form-control form-control-sm"
                 aria-describedby="nameHelp"
                 placeholder="Enter army name"
@@ -77,10 +77,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
                 onChange={handleUpdateName}
                 tabIndex={0}
                 autoFocus
-              />
-              <small id="nameHelp" className={`form-text ${theme.textMuted}`}>
-                Hint: Use a descriptive name.
-              </small>
+              /> */}
             </div>
           </form>
         </div>
@@ -89,18 +86,12 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
       <div className="row">
         <div className="col pl-0">
           <GenericButton className={theme.modalConfirmClass} onClick={handleSaveClick}>
-            <FaSave className="mr-2" /> Save
+            <FaLink className="mr-2" /> Copy
           </GenericButton>
 
           <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
             Cancel
           </GenericButton>
-        </div>
-      </div>
-
-      <div className="row mt-3">
-        <div className="col">
-          <SavedArmyTable army={army} />
         </div>
       </div>
     </GenericModal>

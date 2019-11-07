@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { FaSave } from 'react-icons/fa'
+import { FaLink } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -13,19 +13,19 @@ import { centerContentClass } from 'theme/helperClasses'
 import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
-import { SaveArmyModal } from './save_army_modal'
+import { ShareArmyModal } from './share_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import { ROUTES } from 'utils/env'
 import GenericButton from '../generic_button'
 
-interface ISaveArmyProps {
+interface IShareArmyProps {
   currentArmy: ISavedArmy
   showSavedArmies: () => void
   hiddenReminders: IVisibilityStore['reminders']
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
+const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   currentArmy,
   showSavedArmies,
   hiddenReminders,
@@ -46,16 +46,16 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
 
   return (
     <>
-      {!isAuthenticated && <SaveButton handleClick={handleLogin} />}
+      {!isAuthenticated && <ShareButton handleClick={handleLogin} />}
 
       {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
 
-      {isActive && !canSave && <SaveButton showTooltip={true} />}
+      {isAuthenticated && isSubscribed && isActive && !canSave && <ShareButton showTooltip={true} />}
 
-      {isActive && canSave && <SaveButton handleClick={openModal} />}
+      {isAuthenticated && isSubscribed && isActive && canSave && <ShareButton handleClick={openModal} />}
 
       {modalIsOpen && (
-        <SaveArmyModal
+        <ShareArmyModal
           showSavedArmies={showSavedArmies}
           army={currentArmy}
           modalIsOpen={modalIsOpen}
@@ -73,12 +73,12 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const SaveArmyBtn = connect(
+const ShareArmyBtn = connect(
   mapStateToProps,
   null
-)(SaveArmyBtnComponent)
+)(ShareArmyBtnComponent)
 
-export default SaveArmyBtn
+export default ShareArmyBtn
 
 const SubscribeBtn = () => {
   const { theme } = useTheme()
@@ -86,23 +86,23 @@ const SubscribeBtn = () => {
     <Link
       to={ROUTES.SUBSCRIBE}
       className={theme.genericButton}
-      onClick={() => logClick('SaveArmy-Subscribe')}
+      onClick={() => logClick('ShareArmy-Subscribe')}
     >
       <div className={centerContentClass}>
-        <FaSave className="mr-2" /> Save Army
+        <FaLink className="mr-2" /> Share
       </div>
     </Link>
   )
 }
 
-interface ISaveButtonProps {
+interface IShareButtonProps {
   handleClick?: () => void
   showTooltip?: boolean
 }
 
-const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
+const ShareButton = ({ handleClick = () => null, showTooltip = false }: IShareButtonProps) => {
   const tipProps = {
-    'data-for': 'cantSaveButton',
+    'data-for': 'cantShareButton',
     'data-multiline': true,
     'data-tip': `Add some stuff to your army before saving!`,
     'data-type': 'warning',
@@ -111,7 +111,7 @@ const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButt
   return (
     <>
       <GenericButton onClick={handleClick} {...tipProps}>
-        <FaSave className="mr-2" /> Save Army
+        <FaLink className="mr-2" /> Save Army
       </GenericButton>
       <ReactTooltip id={`cantSaveButton`} disable={!showTooltip} />
     </>
