@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Glowin' Tattooz`,
-        desc: `The warpaint for this hero triggers on a 4+ instead of a 6+.`,
+        desc: `The Warpaint for this hero triggers on a 4+ instead of a 6+.`,
         when: [DURING_GAME],
       },
     ],

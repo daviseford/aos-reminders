@@ -239,6 +239,16 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   {
+    name: `Big Rukk`,
+    effects: [
+      {
+        name: `Big Rukk Warpaint`,
+        desc: `When you use the Warpaint battle trait for a unit from this battalion, you can re-roll the dice that determines if a wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
     name: `Kop Rukk`,
     effects: [
       {

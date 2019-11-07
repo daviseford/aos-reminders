@@ -27,6 +27,23 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Big Rukk', () => {
+    const parsedText = getFile('1573144291799-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BONESPLITTERZ)
+    expect(warscrollTxt.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with SCE', () => {
+    const parsedText = getFile('1573142427791-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it("should work with Burstin' with Power", () => {
     const parsedText = getFile('1573012088615-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
