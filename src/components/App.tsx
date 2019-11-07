@@ -4,7 +4,7 @@ import { LoadingBody } from './helpers/suspenseFallbacks'
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
-import { handleCheckout } from 'utils/handleCheckout'
+import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 import { ROUTES } from 'utils/env'
 
@@ -16,7 +16,8 @@ const Subscribe = lazy(() => import('components/routes/Subscribe'))
 const App = () => {
   useEffect(() => {
     handleCheckout() // Post-checkout handling
-    loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
+    const loadedLink = handleArmyLink() // Load army from link
+    if (!loadedLink) loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
   }, [])
 
   return (
