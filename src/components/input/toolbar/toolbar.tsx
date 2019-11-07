@@ -22,7 +22,6 @@ const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
 const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
-const showSavedWrapperClass = `col-8 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
@@ -94,7 +93,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             <ShareArmyBtn />
           </Suspense>
         </div>
-        <div className={showSavedWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
+        <div className={btnWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}

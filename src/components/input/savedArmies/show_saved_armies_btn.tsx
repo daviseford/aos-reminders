@@ -5,17 +5,20 @@ import { MdStorage } from 'react-icons/md'
 import { useAppStatus } from 'context/useAppStatus'
 import { LocalSavedArmies } from 'utils/localStore'
 import GenericButton from '../generic_button'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void
   hideSavedArmies: () => void
   isShowingSavedArmies: boolean
+  isMobile: boolean
 }
 
 const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   isShowingSavedArmies,
   showSavedArmies,
   hideSavedArmies,
+  isMobile,
 }) => {
   const { isOnline, isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
@@ -24,7 +27,7 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   if (isOnline && (!isAuthenticated || !isSubscribed)) return null
   if (isOffline && LocalSavedArmies.get().length === 0) return null
 
-  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved Armies`
+  const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved ${isMobile ? `` : `Armies`}`
 
   const handleClick = e => {
     e.preventDefault()
@@ -38,4 +41,4 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   )
 }
 
-export default ShowSavedArmiesBtn
+export default componentWithSize(ShowSavedArmiesBtn)
