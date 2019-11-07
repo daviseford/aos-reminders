@@ -1,13 +1,11 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
-import ReactTooltip from 'react-tooltip'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import { armyHasEntries } from 'utils/armyUtils'
 import { logClick } from 'utils/analytics'
 import { centerContentClass } from 'theme/helperClasses'
 import { selectors } from 'ducks'
@@ -35,8 +33,6 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
   const { isSubscribed, isActive } = useSubscription()
   const { handleLogin } = useSavedArmies()
 
-  const canSave = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
-
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
@@ -50,9 +46,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
 
       {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
 
-      {isActive && !canSave && <SaveButton showTooltip={true} />}
-
-      {isActive && canSave && <SaveButton handleClick={openModal} />}
+      {isActive && <SaveButton handleClick={openModal} />}
 
       {modalIsOpen && (
         <SaveArmyModal
@@ -97,24 +91,12 @@ const SubscribeBtn = () => {
 
 interface ISaveButtonProps {
   handleClick?: () => void
-  showTooltip?: boolean
 }
 
-const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
-  const { theme } = useTheme()
-  const tipProps = {
-    'data-for': 'cantSaveButton',
-    'data-multiline': true,
-    'data-tip': `Add some stuff to your army before saving!`,
-    'data-type': theme.tooltip,
-  }
-
+const SaveButton = ({ handleClick = () => null }: ISaveButtonProps) => {
   return (
-    <>
-      <GenericButton onClick={handleClick} {...tipProps}>
-        <FaSave className="mr-2" /> Save Army
-      </GenericButton>
-      <ReactTooltip id={`cantSaveButton`} disable={!showTooltip} />
-    </>
+    <GenericButton onClick={handleClick}>
+      <FaSave className="mr-2" /> Save Army
+    </GenericButton>
   )
 }

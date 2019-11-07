@@ -1,15 +1,12 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { FaLink } from 'react-icons/fa'
-import ReactTooltip from 'react-tooltip'
-import { armyHasEntries } from 'utils/armyUtils'
 import { selectors } from 'ducks'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { ShareArmyModal } from './share_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import GenericButton from '../generic_button'
-import { useTheme } from 'context/useTheme'
 
 interface IShareArmyProps {
   currentArmy: ISavedArmy
@@ -24,8 +21,6 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
 }) => {
   const { isOffline } = useAppStatus()
 
-  const canSave = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
-
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
@@ -35,9 +30,7 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
 
   return (
     <>
-      {!canSave && <ShareButton showTooltip={true} />}
-
-      {canSave && <ShareButton handleClick={openModal} />}
+      <ShareButton handleClick={openModal} />
 
       {modalIsOpen && (
         <ShareArmyModal
@@ -67,24 +60,12 @@ export default ShareArmyBtn
 
 interface IShareButtonProps {
   handleClick?: () => void
-  showTooltip?: boolean
 }
 
-const ShareButton = ({ handleClick = () => null, showTooltip = false }: IShareButtonProps) => {
-  const { theme } = useTheme()
-  const tipProps = {
-    'data-for': 'cantShareButton',
-    'data-multiline': true,
-    'data-tip': `Add some stuff to your army before sharing!`,
-    'data-type': theme.tooltip,
-  }
-
+const ShareButton = ({ handleClick = () => null }: IShareButtonProps) => {
   return (
-    <>
-      <GenericButton onClick={handleClick} {...tipProps}>
-        <FaLink className="mr-2" /> Share
-      </GenericButton>
-      <ReactTooltip id={`cantShareButton`} disable={!showTooltip} />
-    </>
+    <GenericButton onClick={handleClick}>
+      <FaLink className="mr-2" /> Share
+    </GenericButton>
   )
 }

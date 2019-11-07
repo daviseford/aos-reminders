@@ -43,13 +43,13 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
 
   return (
     <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Share Link Modal">
-      <div className="row">
-        <div className="col">
+      <div className="row mx-2">
+        <div className="col py-2">
           <h5>
             <strong className={theme.text}>{processing ? `Generating` : `Share`} Link</strong>
           </h5>
 
-          {processing && <Spinner className={`my-5 mx-5`} variant={isDark ? `light-gray` : `dark`} />}
+          {processing && <Spinner className={`my-3 mx-5 px-3`} variant={isDark ? `light-gray` : `dark`} />}
 
           {link && (
             <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
@@ -61,7 +61,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
         </div>
       </div>
 
-      <div className="row mt-3">
+      <div className="row mt-3 d-flex text-center">
         <div className="col pl-0">
           {link && (
             <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
