@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaLink } from 'react-icons/fa'
-import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
@@ -19,47 +18,25 @@ interface IModalComponentProps {
 }
 
 export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
-  const { isSubscribed } = useSubscription()
-  const { saveArmy } = useSavedArmies()
+  const { closeModal, modalIsOpen, army, hiddenReminders } = props
+  const { saveLink } = useSavedArmies()
   const { theme } = useTheme()
-  const [armyName, setArmyName] = useState('')
-  const [processing, setProcessing] = useState(false)
+  const [link, setLink] = useState<string | null>(null)
 
-  const handleUpdateName = (e: any) => {
-    e.preventDefault()
-    setArmyName(e.target.value)
+  const handleLinkGeneration = async () => {
+    const payload = prepareArmy({ ...army, hiddenReminders }, 'save')
+    const url = await saveLink(payload as ISavedArmy)
+    setLink(url)
+    logEvent(`GeneratedLink-${army.factionName}`)
   }
 
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      e.stopPropagation()
-      e.preventDefault()
-      handleSaveClick(e)
-    }
-  }
-
-  const handleSaveClick = async e => {
-    e.preventDefault()
-    if (isSubscribed) {
-      setProcessing(true)
-      const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
-      await saveArmy(payload as ISavedArmy)
-      setProcessing(false)
-      setArmyName('')
-      closeModal()
-      showSavedArmies()
-      logEvent(`SaveArmy-${army.factionName}`)
-    }
-  }
+  useEffect(() => {
+    handleLinkGeneration()
+    return () => setLink(null)
+  }, [])
 
   return (
-    <GenericModal
-      isProcessing={processing}
-      isOpen={modalIsOpen}
-      closeModal={closeModal}
-      label="Save Army Modal"
-    >
+    <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Share Link Modal">
       <div className="row">
         <div className="col">
           <form>
@@ -68,16 +45,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
                 <strong className={theme.text}>Share Link</strong>
               </label>
 
-              {/* <input
-                className="form-control form-control-sm"
-                aria-describedby="nameHelp"
-                placeholder="Enter army name"
-                value={armyName}
-                onKeyDown={handleKeyDown}
-                onChange={handleUpdateName}
-                tabIndex={0}
-                autoFocus
-              /> */}
+              {link}
             </div>
           </form>
         </div>
@@ -85,7 +53,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
 
       <div className="row">
         <div className="col pl-0">
-          <GenericButton className={theme.modalConfirmClass} onClick={handleSaveClick}>
+          <GenericButton className={theme.modalConfirmClass} onClick={() => console.log('todo')}>
             <FaLink className="mr-2" /> Copy
           </GenericButton>
 
