@@ -49,9 +49,10 @@ const ThemeProvider: React.FC = ({ children }) => {
   // Fetch our theme from the subscription API
   useEffect(() => {
     if (subscription && subscription.theme) {
-      LocalTheme.set(subscription.theme) // Update local vaue
+      LocalTheme.set(subscription.theme) // Update local value
+      setThemeFromValue(subscription.theme)
     }
-  }, [subscription])
+  }, [subscription, setThemeFromValue])
 
   // Assign our theme's bgColor to the root element
   useEffect(() => {
