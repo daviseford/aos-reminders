@@ -20,6 +20,7 @@ const LightTheme: ITheme = {
   textMuted: `text-muted`,
   textOpposite: `text-white`,
   textSecondary: `text-secondary`,
+  tooltip: 'error',
 }
 
 export default LightTheme

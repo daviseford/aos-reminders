@@ -9,6 +9,7 @@ import { IStore, IVisibilityStore } from 'types/store'
 import { ShareArmyModal } from './share_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import GenericButton from '../generic_button'
+import { useTheme } from 'context/useTheme'
 
 interface IShareArmyProps {
   currentArmy: ISavedArmy
@@ -70,11 +71,12 @@ interface IShareButtonProps {
 }
 
 const ShareButton = ({ handleClick = () => null, showTooltip = false }: IShareButtonProps) => {
+  const { theme } = useTheme()
   const tipProps = {
     'data-for': 'cantShareButton',
     'data-multiline': true,
     'data-tip': `Add some stuff to your army before sharing!`,
-    'data-type': 'warning',
+    'data-type': theme.tooltip,
   }
 
   return (

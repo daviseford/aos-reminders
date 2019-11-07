@@ -15,6 +15,7 @@ const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
 const ImportArmyButton = lazy(() => import('./import_army_btn'))
 const ImportContainer = lazy(() => import('../importPdf/drop_container'))
 const SaveArmyBtn = lazy(() => import('../savedArmies/save_army_btn'))
+const ShareArmyBtn = lazy(() => import('../shareArmy/share_army_btn'))
 const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
 const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
 
@@ -78,6 +79,11 @@ const ToolbarComponent = (props: IToolbarProps) => {
               // isSubscribed={isSubscribed}
               isSubscribed={true}
             />
+          </Suspense>
+        </div>
+        <div className={btnWrapperClass}>
+          <Suspense fallback={<LoadingBtn />}>
+            <ShareArmyBtn />
           </Suspense>
         </div>
         <div className={showSavedWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>

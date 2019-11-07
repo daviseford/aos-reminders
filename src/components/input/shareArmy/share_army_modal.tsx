@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FaLink } from 'react-icons/fa'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
@@ -8,6 +9,7 @@ import GenericModal from 'components/page/genericModal'
 import GenericButton from '../generic_button'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
+import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -22,6 +24,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
   const { saveLink } = useSavedArmies()
   const { theme } = useTheme()
   const [link, setLink] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const handleLinkGeneration = async () => {
     const payload = prepareArmy({ ...army, hiddenReminders }, 'save')
@@ -33,6 +36,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
   useEffect(() => {
     handleLinkGeneration()
     return () => setLink(null)
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -41,11 +45,15 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
         <div className="col">
           <form>
             <div className="form-group">
-              <label htmlFor="nameInput">
-                <strong className={theme.text}>Share Link</strong>
-              </label>
+              <strong className={theme.text}>Share Link</strong>
 
-              {link}
+              {link && (
+                <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
+                  <p className={`${theme.text} mt-2 mb-0`}>{link}</p>
+                </CopyToClipboard>
+              )}
+
+              {copied && <small className={theme.textMuted}>Copied to clipboard!</small>}
             </div>
           </form>
         </div>
@@ -53,12 +61,18 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
 
       <div className="row">
         <div className="col pl-0">
-          <GenericButton className={theme.modalConfirmClass} onClick={() => console.log('todo')}>
-            <FaLink className="mr-2" /> Copy
-          </GenericButton>
+          {!link && <LoadingBtn text={'Generating'} />}
+
+          {link && (
+            <CopyToClipboard onCopy={() => setCopied(true)} text={link}>
+              <GenericButton className={theme.modalConfirmClass}>
+                <FaLink className="mr-2" /> Copy
+              </GenericButton>
+            </CopyToClipboard>
+          )}
 
           <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
-            Cancel
+            Close
           </GenericButton>
         </div>
       </div>

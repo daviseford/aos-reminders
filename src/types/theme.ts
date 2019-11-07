@@ -16,6 +16,7 @@ export interface ITheme {
   textMuted: string
   textOpposite: string
   textSecondary: string
+  tooltip: string
 }
 
 type TLightTheme = 'light'

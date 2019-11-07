@@ -8,13 +8,11 @@ import { FiWifiOff } from 'react-icons/fi'
 import { ROUTES } from 'utils/env'
 import { useTheme } from 'context/useTheme'
 
-export const LoadingBtn = () => {
-  return (
-    <GenericButton disabled type="button">
-      <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> Loading
-    </GenericButton>
-  )
-}
+export const LoadingBtn = ({ text = 'Loading' }) => (
+  <GenericButton disabled type="button">
+    <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> {text}
+  </GenericButton>
+)
 
 export const OfflineBtn = (props: { text?: string }) => {
   const { text = 'Offline' } = props

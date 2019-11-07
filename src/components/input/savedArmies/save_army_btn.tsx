@@ -101,11 +101,12 @@ interface ISaveButtonProps {
 }
 
 const SaveButton = ({ handleClick = () => null, showTooltip = false }: ISaveButtonProps) => {
+  const { theme } = useTheme()
   const tipProps = {
     'data-for': 'cantSaveButton',
     'data-multiline': true,
     'data-tip': `Add some stuff to your army before saving!`,
-    'data-type': 'warning',
+    'data-type': theme.tooltip,
   }
 
   return (
