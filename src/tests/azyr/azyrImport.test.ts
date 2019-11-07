@@ -114,7 +114,6 @@ describe('handleAzyrPages', () => {
 
   it('handles IDK2', () => {
     const res = handleAzyrPages(IDK2)
-    console.log(res)
     expect(res).toEqual([
       'FACTION: Idoneth Deepkin',
       'ALLEGIANCE: FUETHAN',

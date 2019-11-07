@@ -8,6 +8,7 @@ import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
 import { CardHeaderComponent } from './card'
 import { useTheme } from 'context/useTheme'
+import { getReminderKey } from 'utils/reminderUtils'
 
 interface IReminderProps {
   actions: TTurnAction[]
@@ -68,7 +69,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
         />
         <div className={bodyClass}>
           {actions.map((action, i) => {
-            const name = `${when}_${action.condition}_${action.name}`.split(' ').join('_')
+            const name = getReminderKey(when, action)
             const showEntry = () => showReminder(name)
             const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)
