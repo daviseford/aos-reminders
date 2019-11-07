@@ -27,6 +27,15 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Arch-Sorcerer', () => {
+    const parsedText = getFile('1573145524404-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.selections.traits).toEqual(['Arch-sorcerer'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Big Rukk', () => {
     const parsedText = getFile('1573144291799-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
