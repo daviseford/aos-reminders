@@ -10,6 +10,7 @@ import {
   DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
+  IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
@@ -36,6 +37,7 @@ import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
+import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
@@ -66,6 +68,24 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles IDK2', () => {
+    const pages = handleAzyrPages(IDK2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
+    expect(res.realmscape).toEqual('Ghur')
+    expect(res.selections.artifacts).toEqual(['Gryph-feather Charm (Ghur)'])
+    expect(res.selections.traits).toEqual(['Born From Agony'])
+    expect(res.selections.units).toEqual([
+      'Volturnos, High King of the Deep',
+      'Akhelian King',
+      'Akhelian Morrsarr Guard',
+      'Akhelian Ishlaen Guard',
+      'Akhelian Allopexes',
+    ])
     expect(res.errors).toEqual([])
   })
 
