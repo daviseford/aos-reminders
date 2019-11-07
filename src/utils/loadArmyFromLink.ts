@@ -34,6 +34,6 @@ export const loadArmyFromLink = async (id: string) => {
     store.dispatch(visibility.actions.addReminders(linkedArmy.hiddenReminders))
   }
 
-  logEvent(`LoadArmyLink-${army}`)
+  logEvent(`LoadArmyLink-${id}`)
   logEvent(`LoadArmyFromLink-${linkedArmy.factionName}`)
 }
