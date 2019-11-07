@@ -46,6 +46,7 @@ import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
+import LoG3 from '../fixtures/azyr/json/LoG3.json'
 import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
 import OBR1 from '../fixtures/azyr/json/OBR1.json'
 import OBR2 from '../fixtures/azyr/json/OBR2.json'
@@ -63,6 +64,14 @@ import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles LoG3', () => {
+    const pages = handleAzyrPages(LoG3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.selections.traits).toContain('Amethyst Glow')
+    expect(res.errors).toEqual([])
+  })
+
   it('handles CoS5', () => {
     const pages = handleAzyrPages(CoS5)
     const res = getAzyrArmyFromPdf(pages)
