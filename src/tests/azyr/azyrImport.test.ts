@@ -28,6 +28,7 @@ import GHoN1 from '../fixtures/azyr/json/GHoN1.json'
 import GHoN2 from '../fixtures/azyr/json/GHoN2.json'
 import Gloomspite1 from '../fixtures/azyr/json/Gloomspite1.json'
 import IDK1 from '../fixtures/azyr/json/IDK1.json'
+import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import Ironjawz1 from '../fixtures/azyr/json/Ironjawz1.json'
 import Khorne1 from '../fixtures/azyr/json/Khorne1.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
@@ -109,6 +110,22 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles IDK2', () => {
+    const res = handleAzyrPages(IDK2)
+    expect(res).toEqual([
+      'FACTION: Idoneth Deepkin',
+      'ALLEGIANCE: FUETHAN',
+      'REALMSCAPE: GHUR',
+      'UNIT: Volturnos',
+      'UNIT: Akhelian King',
+      'COMMAND TRAIT: Born From Agony',
+      'ARTEFACT: Gryph-f eather Charm',
+      'UNIT: Akhelian Morrsarr Guard',
+      'UNIT: Akhelian Ishlaen Guard',
+      'UNIT: Akhelian Allopexes',
+    ])
   })
 
   it('handles OgorMawtribes2', () => {

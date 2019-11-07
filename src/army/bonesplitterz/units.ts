@@ -53,7 +53,7 @@ export const Units: TUnits = [
       {
         name: `Bone Spirit`,
         desc: `Casting value 7. Pick 1 friendly Bonesplitterz unit wholly within 12" of the caster and visible. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
+        when: [HERO_PHASE],
         spell: true,
       },
     ],
@@ -79,7 +79,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ritual Dance`,
-        desc: ` Roll a dice, on a 3+ pick one of the following effects.
+        desc: `Roll a dice, on a 3+ pick one of the following effects.
 
           Grimdokk Dance: Pick a Bonesplitterz model wholly within 12". That model heals D3 wounds.
           Glyphdokk Dance: Pick a Bonesplitterz unit wholly within 12". Add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.

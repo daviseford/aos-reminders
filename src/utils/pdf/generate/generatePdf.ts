@@ -1,10 +1,11 @@
 import jsPDF from 'jspdf'
 import { findIndex, slice, sum, range, last } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
-import { IReminder, TTurnAction } from 'types/data'
-import { IAllySelections } from 'types/selections'
+import { getVisibleReminders } from './getVisibleReminders'
 import { TStyleType, Styles } from './styles'
 import { Logo } from './logo'
+import { IReminder, TTurnAction } from 'types/data'
+import { IAllySelections } from 'types/selections'
 import { ICurrentArmy } from 'types/army'
 
 const xMargin = 0.5
@@ -363,20 +364,6 @@ const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
 
 const getTitle = (action: TTurnAction) => {
   return `${getActionTitle(action)} - ${action.name}${action.tag ? ` (${action.tag})` : ``}`
-}
-
-const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): IReminder => {
-  return Object.keys(reminders).reduce(
-    (a, key) => {
-      const actions = reminders[key].filter(action => {
-        const name = `${key}_${action.name}_`
-        return !hiddenReminders.some(hr => hr.includes(name))
-      })
-      if (actions.length > 0) a[key] = actions
-      return a
-    },
-    {} as IReminder
-  )
 }
 
 const getReminderText = (doc: jsPDF, reminders: IReminder): IText[] => {
