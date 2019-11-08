@@ -27,6 +27,8 @@ const ThemeProvider: React.FC = ({ children }) => {
     async (theme: TThemeType) => {
       try {
         setSubscription(s => ({ ...s, theme }))
+        LocalTheme.set(theme) // Update local value
+        console.log(`Updated theme to ${theme}`)
         const { id, userName } = subscription
         await SubscriptionApi.updateTheme({ id, userName, theme })
       } catch (err) {
