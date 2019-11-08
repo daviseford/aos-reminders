@@ -56,7 +56,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Get Da Realmgate`,
-        desc: `Add 2 to the dice result when you use the IRONJAWZ Waagh! ability if there's a baleful realmgate on the table.`,
+        desc: `Add 2 to the dice result when you use the IRONJAWZ Waaagh! ability if there's a baleful realmgate on the table.`,
         when: [START_OF_COMBAT_PHASE],
         command_trait: true,
       },
@@ -90,7 +90,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Megaskull Staff`,
-        desc: `The bearer gains the Megaboss keyword for the purposes of using the IRONJAWZ Waagh! ability.`,
+        desc: `The bearer gains the Megaboss keyword for the purposes of using the IRONJAWZ Waaagh! ability.`,
         when: [START_OF_COMBAT_PHASE],
         artifact: true,
       },

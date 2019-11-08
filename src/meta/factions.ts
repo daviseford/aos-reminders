@@ -1,7 +1,4 @@
-import { sortBy } from 'lodash'
-
 // Supported Faction Types
-export type TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export type TBigWaaagh = 'BIG_WAAAGH'
 export type TBonesplitterz = 'BONESPLITTERZ'
@@ -17,7 +14,6 @@ export type TFyreslayers = 'FYRESLAYERS'
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export type TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export type TGreenskinz = 'GREENSKINZ'
-export type TGutbusters = 'GUTBUSTERS'
 export type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
@@ -31,6 +27,7 @@ export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
+export type TOgorMawtribes = 'OGOR_MAWTRIBES'
 export type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export type TSeraphon = 'SERAPHON'
@@ -45,7 +42,6 @@ export type TTzeentch = 'TZEENTCH'
 export type TWanderers = 'WANDERERS'
 
 // Exported Faction Names
-export const BEASTCLAW_RAIDERS: TBeastclawRaiders = 'BEASTCLAW_RAIDERS'
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
 export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
@@ -61,7 +57,6 @@ export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
-export const GUTBUSTERS: TGutbusters = 'GUTBUSTERS'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
@@ -75,6 +70,7 @@ export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
+export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
@@ -90,7 +86,6 @@ export const WANDERERS: TWanderers = 'WANDERERS'
 
 // Supported Factions
 export type TSupportedFaction =
-  | TBeastclawRaiders
   | TBeastsOfChaos
   | TBigWaaagh
   | TBonesplitterz
@@ -106,7 +101,6 @@ export type TSupportedFaction =
   | TGloomspiteGitz
   | TGrandHostOfNagash
   | TGreenskinz
-  | TGutbusters
   | TIdonethDeepkin
   | TIronjawz
   | TKharadronOverlords
@@ -120,6 +114,7 @@ export type TSupportedFaction =
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
+  | TOgorMawtribes
   | TOrderGrandAlliance
   | TOssiarchBonereapers
   | TSeraphon
@@ -133,8 +128,7 @@ export type TSupportedFaction =
   | TTzeentch
   | TWanderers
 
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
-  BEASTCLAW_RAIDERS,
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -150,7 +144,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -164,6 +157,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -176,4 +170,4 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   TAMURKHANS_HORDE,
   TZEENTCH,
   WANDERERS,
-])
+]

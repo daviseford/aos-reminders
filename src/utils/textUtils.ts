@@ -22,6 +22,7 @@ export const getActionTitle = ({
   command_trait,
   condition,
   endless_spell,
+  mount_trait,
   name,
   scenery,
   spell,
@@ -34,6 +35,7 @@ export const getActionTitle = ({
   if (command_ability) return `Command Ability${suffix}`
   if (command_trait) return `Command Trait${suffix}`
   if (endless_spell) return `Endless Spell${suffix}`
+  if (mount_trait) return `Mount Trait${suffix}`
   if (scenery) return `Scenery${suffix}`
   if (spell) return `Spell${suffix}`
   if (triumph) return `Triumph${suffix}`

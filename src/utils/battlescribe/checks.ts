@@ -37,7 +37,7 @@ export const isAllegianceObj = (obj: IParentNode | IChildNode): obj is IParentNo
   const subObj = obj.childNodes.find(x => {
     return (
       isParentNode(x) &&
-      x.nodeName === 'h4' &&
+      (x.nodeName === 'h4' || x.nodeName === 'li') &&
       isChildNode(x.childNodes[0]) &&
       (x.childNodes[0].value === 'Allegiance' || x.childNodes[0].value === 'Alliegiance')
     )

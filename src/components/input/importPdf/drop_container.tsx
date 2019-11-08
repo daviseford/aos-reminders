@@ -117,6 +117,7 @@ const ErrorAlert = (props: TImportError) => {
 
   const alertType = {
     'ally-warn': 'alert-warning',
+    'ambiguity-warn': 'alert-warning',
     warn: 'alert-warning',
     error: 'alert-danger',
   }[severity]
@@ -124,7 +125,7 @@ const ErrorAlert = (props: TImportError) => {
   const prefix = severity === 'error' ? `Error` : `Warning`
 
   const info =
-    severity === 'error' || severity === 'ally-warn'
+    severity === 'error' || severity === 'ally-warn' || severity === 'ambiguity-warn'
       ? text
       : `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`
 

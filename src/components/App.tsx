@@ -4,23 +4,24 @@ import { LoadingBody } from './helpers/suspenseFallbacks'
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
-import { handleCheckout } from 'utils/handleCheckout'
+import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 import { ROUTES } from 'utils/env'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'components/routes/Home'))
-const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ 'components/routes/Profile'))
-const Subscribe = lazy(() => import(/* webpackChunkName: 'Subscribe' */ 'components/routes/Subscribe'))
+const Home = lazy(() => import('components/routes/Home'))
+const Profile = lazy(() => import('components/routes/Profile'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
     handleCheckout() // Post-checkout handling
-    loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
+    const loadedLink = handleArmyLink() // Load army from link
+    if (!loadedLink) loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
   }, [])
 
   return (
-    <div className="d-block">
+    <div className={`d-block`}>
       <BrowserRouter>
         <Suspense fallback={<LoadingBody />}>
           <Switch>

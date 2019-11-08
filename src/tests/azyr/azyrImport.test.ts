@@ -28,6 +28,7 @@ import GHoN1 from '../fixtures/azyr/json/GHoN1.json'
 import GHoN2 from '../fixtures/azyr/json/GHoN2.json'
 import Gloomspite1 from '../fixtures/azyr/json/Gloomspite1.json'
 import IDK1 from '../fixtures/azyr/json/IDK1.json'
+import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import Ironjawz1 from '../fixtures/azyr/json/Ironjawz1.json'
 import Khorne1 from '../fixtures/azyr/json/Khorne1.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
@@ -47,6 +48,10 @@ import NoRealm from '../fixtures/azyr/json/NoRealmscape1.json'
 import Nurgle1 from '../fixtures/azyr/json/Nurgle1.json'
 import Nurgle2 from '../fixtures/azyr/json/Nurgle2.json'
 import Nurgle3 from '../fixtures/azyr/json/Nurgle3.json'
+import OBR1 from '../fixtures/azyr/json/OBR1.json'
+import OBR2 from '../fixtures/azyr/json/OBR2.json'
+import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
+import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import Order1 from '../fixtures/azyr/json/Order1.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
@@ -56,6 +61,7 @@ import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
 import Stormcast1 from '../fixtures/azyr/json/Stormcast1.json'
 import Stormcast2 from '../fixtures/azyr/json/Stormcast2.json'
 import Stormcast3 from '../fixtures/azyr/json/Stormcast3.json'
+import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 import Sylvaneth1 from '../fixtures/azyr/json/Sylvaneth1.json'
 import Tzeentch1 from '../fixtures/azyr/json/Tzeentch1.json'
 import Tzeentch2 from '../fixtures/azyr/json/Tzeentch2.json'
@@ -104,6 +110,183 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles IDK2', () => {
+    const res = handleAzyrPages(IDK2)
+    expect(res).toEqual([
+      'FACTION: Idoneth Deepkin',
+      'ALLEGIANCE: FUETHAN',
+      'REALMSCAPE: GHUR',
+      'UNIT: Volturnos',
+      'UNIT: Akhelian King',
+      'COMMAND TRAIT: Born From Agony',
+      'ARTEFACT: Gryph-f eather Charm',
+      'UNIT: Akhelian Morrsarr Guard',
+      'UNIT: Akhelian Ishlaen Guard',
+      'UNIT: Akhelian Allopexes',
+    ])
+  })
+
+  it('handles OgorMawtribes2', () => {
+    const res = handleAzyrPages(OgorMawtribes2)
+    expect(res).toEqual([
+      'FACTION: Ogor Mawtribes',
+      'ALLEGIANCE: Bloodgullet',
+      'REALMSCAPE: GHYRAN',
+      'UNIT: Butcher',
+      'ARTEFACT: Splatter-cleaver',
+      'SPELL: Blood Feast',
+      'SPELL: Greasy Deluge',
+      'WEAPON: Tenderiser',
+      'SPELL: Ribcracker',
+      'WEAPON: Cleaver',
+      'UNIT: Icebrow Hunter',
+      "COMMAND TRAIT: 'Nice Drop of the Red Stuff!'",
+      'UNIT: Ogors Gluttons',
+      'UPGRADE: Bellower',
+      'UPGRADE: Crusher',
+      'UNIT: Frost Sabres',
+      'UNIT: Maneaters',
+    ])
+  })
+
+  it('handles Stormcast6', () => {
+    const res = handleAzyrPages(Stormcast6)
+    expect(res).toEqual([
+      'FACTION: Stormcast Eternals',
+      'REALMSCAPE: CHAMON',
+      'UNIT: Lord-Arcanum',
+      'ARTEFACT: Hydroxskin Cloak',
+      'SPELL: Thundershock',
+      'MOUNT TRAIT: Bounding Leap',
+      'UNIT: Lord-Aquilor',
+      'UNIT: Knight-Zephyros',
+      'UNIT: Lord-Celestant',
+      'COMMAND TRAIT: Staunch Defender',
+      'UNIT: Knight-Azyros',
+      'UNIT: Knight-Heraldor',
+      'ENDLESS SPELL: Everblaze Comet',
+    ])
+  })
+
+  it('handles OgorMawtribes1', () => {
+    const res = handleAzyrPages(OgorMawtribes1)
+    expect(res).toEqual([
+      'FACTION: Ogor Mawtribes',
+      'ALLEGIANCE: Bloodgullet',
+      'MERCENARY COMPANY: The Sons of the Lichemaster',
+      'UNIT: Butcher',
+      'ARTEFACT: Grease-smeared Tusks',
+      "COMMAND TRAIT: 'Nice Drop of the Red Stuff!'",
+      'SPELL: Blood Feast',
+      'WEAPON: Tenderiser',
+      'UNIT: Firebelly',
+      'ARTEFACT: Splatter-cleaver',
+      'SPELL: Billowing Ash',
+      'UNIT: Frostlord on Stonehorn',
+      'ARTEFACT: Alvagr Rune-tokens',
+      'MOUNT TRAIT: Rockmane Elder',
+      'UNIT: Frostlord on Thundertusk',
+      'MOUNT TRAIT: Rimefrost Hide',
+      'UNIT: Huskard on Stonehorn',
+      'ARTEFACT: Blade of All-Frost',
+      'MOUNT TRAIT: Black Clatterhorn',
+      'WEAPON: Chaintrap',
+      'UNIT: Huskard on Thundertusk',
+      'ARTEFACT: Skullshards of Dragaar',
+      'SPELL: Call of the Blizzard',
+      'MOUNT TRAIT: Matriarch',
+      'UNIT: Icebrow Hunter',
+      'ARTEFACT: Kattanak Browplate',
+      'UNIT: Slaughtermaster',
+      'ARTEFACT: Wizardflesh Apron',
+      'SPELL: Fleshcrave Curse',
+      'UNIT: Tyrant',
+      'ARTEFACT: Headmasher',
+      'UNIT: Ogors Gluttons',
+      'UPGRADE: Bellower',
+      'UPGRADE: Crusher',
+      'UNIT: Stonehorn Beastriders',
+      'UNIT: Thundertusk Beastriders',
+      'UNIT: Gnoblar Scraplauncher',
+      'UNIT: Ironblaster',
+      'UNIT: Leadbelchers',
+      'BATTALION: Alfrostun',
+      "BATTALION: Butcher's Band",
+      'BATTALION: Eurlbad',
+      'BATTALION: Goremand',
+      'BATTALION: Gutbuster Warglutt',
+      'BATTALION: Jorlbad',
+      'BATTALION: Junkmob',
+      'BATTALION: Skal',
+      'BATTALION: Torrbad',
+      "BATTALION: Tyrant's Gutguard",
+      'ENDLESS SPELL: Emerald Lifeswarm',
+    ])
+  })
+
+  it('handles OBR1', () => {
+    const res = handleAzyrPages(OBR1)
+    expect(res).toEqual([
+      'FACTION: Ossiarch Bonereapers',
+      'ALLEGIANCE: Petrifex Elite',
+      'UNIT: Katakros',
+      'UNIT: Mortisan Boneshaper',
+      'ARTEFACT: Godbone Armour',
+      'UNIT: Mortisan Soulmason',
+      'UNIT: Mortek Guard',
+      'UPGRADE: Mortek Hekatos',
+      'UPGRADE: Necrophoros',
+      'WEAPON: Nadirite Blade',
+      'UNIT: Mortek Crawler',
+      'BATTALION: Mortek Ballistari',
+      'ENDLESS SPELL: Bone-tithe Shrieker',
+    ])
+  })
+
+  it('handles OBR2', () => {
+    const res = handleAzyrPages(OBR2)
+    expect(res).toEqual([
+      'FACTION: Ossiarch Bonereapers',
+      'ALLEGIANCE: Mortis Praetorians',
+      'REALMSCAPE: SHYISH',
+      'UNIT: Arch-Kavalos Zandtos',
+      'UNIT: Katakros',
+      'UNIT: Liege-Kavalos',
+      'ARTEFACT: Grave-sand Boneplate',
+      "COMMAND TRAIT: Katakros' Chosen",
+      'UNIT: Mortisan Boneshaper',
+      'ARTEFACT: The Crafter-gems',
+      'SPELL: Reinforce Battle-shields',
+      'UNIT: Mortisan Soulmason',
+      'ARTEFACT: Soul Reservoir',
+      'SPELL: Protection of Nagash',
+      'UNIT: Mortisan Soulreaper',
+      'ARTEFACT: Guardian Reavesoul',
+      'SPELL: Mortal Contract',
+      'UNIT: Vokmortian',
+      'UNIT: Kavalos Deathriders',
+      'UPGRADE: Mortek Hekatos',
+      'UPGRADE: Necrophoros',
+      'UNIT: Mortek Guard',
+      'WEAPON: Nadirite Blade',
+      'UNIT: Mortek Crawler',
+      'UNIT: Immortis Guard',
+      'UNIT: Morghast Archai',
+      'UNIT: Morghast Harbingers',
+      'UNIT: Necropolis Stalkers',
+      'BATTALION: Aegis Immortal',
+      'BATTALION: Katakrosian Deathglaive',
+      'BATTALION: Kavalos Lance',
+      'BATTALION: Mortek Ballistari',
+      'BATTALION: Mortek Shield-corps',
+      'BATTALION: Mortisan Trident',
+      'BATTALION: Ossiarch Cohort',
+      'ENDLESS SPELL: Balewind Vortex',
+      'ENDLESS SPELL: Bone-tithe Shrieker',
+      'ENDLESS SPELL: Soulstealer Carrion',
+    ])
   })
 
   it('handles LoG2', () => {

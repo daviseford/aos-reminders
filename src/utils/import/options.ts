@@ -1,5 +1,4 @@
 import {
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -14,7 +13,6 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -28,6 +26,7 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -48,6 +47,10 @@ import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from '
 const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
+  'Arch Sorcerer': 'Arch-Sorcerer',
+  'Blade of the All-Frost': 'Blade of All-Frost',
+  'Bursting with Power': "Burstin' with Power",
+  'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
@@ -56,12 +59,14 @@ const warscrollTypoMap: TNameMap = {
   'Great Bray Shaman': 'Great Bray-Shaman',
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
+  'Grot Scraplauncher': 'Gnoblar Scraplauncher',
   'Guardian of Souls with Nightmare Lantern': 'Guardian of Souls',
   'Hammers of Aurgury': 'Hammers of Augury',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
+  'Katakros, Mortarch of the Necropolis': 'Katakros',
   'Khorghos Khul': 'Korghos Khul',
   'Lighntning Blast': 'Lightning Blast',
   'Lunestone Talisman': 'Loonstone Talisman',
@@ -73,20 +78,23 @@ const warscrollTypoMap: TNameMap = {
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
+  'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',
-  "Blood Sigil - Martyr's Sacrifice": 'Blood Sigil',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
+  Ogors: 'Ogor Gluttons',
 }
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
+  'Druid of the Everspring Circle': 'Druid of the Everspring (Living City)',
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
-  'Keen Clawed': 'Keen-clawed (Mount)',
+  'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
+  'Ogors Gluttons': 'Ogor Gluttons',
   'The Brazen Rune': 'Brazen Rune',
 }
 
@@ -95,6 +103,7 @@ const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
+  'Boingrot Bounders': 'Boingrot Bounderz',
   'Blood River Chalice': 'Blood-river Chalice',
   'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chronomatic Cogs': 'Chronomantic Cogs',
@@ -128,7 +137,6 @@ const battlescribeTypoMap: TNameMap = {
   "Ironskull'z Boyz": "Ironskull's Boyz",
   "Might 'Eadbutt": "Mighty 'Eadbutt",
   BRIOMIDAR: 'Briomdar (Enclave)',
-  Mirrorshield: 'Mirror Shield',
   Protector: 'Protectors',
 }
 
@@ -160,7 +168,6 @@ export const importUnitOptionMap = {
 }
 
 export const importFactionNameMap = {
-  'Beastclaw Raiders': BEASTCLAW_RAIDERS,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
@@ -198,7 +205,9 @@ export const importFactionNameMap = {
   'Mercenaries: The Blacksmoke Battery': MERCENARY_COMPANIES,
   'Mercenaries: The Gutstuffers': MERCENARY_COMPANIES,
   'Moonclan Grots': GLOOMSPITE_GITZ,
+  'Ogor Mawtribes': OGOR_MAWTRIBES,
   'Order of the Blood-Drenched Rose': MERCENARY_COMPANIES,
+  'Orruk Warclans': BIG_WAAAGH,
   'Ossiarch Bonereapers': OSSIARCH_BONEREAPERS,
   'Slaves to Darkness': SLAVES_TO_DARKNESS,
   'Sons of the Lichemaster': MERCENARY_COMPANIES,
@@ -220,7 +229,6 @@ export const importFactionNameMap = {
   Dispossessed: DISPOSSESSED,
   Everchosen: EVERCHOSEN,
   Fyreslayers: FYRESLAYERS,
-  Gutbusters: GUTBUSTERS,
   Ironjawz: IRONJAWZ,
   Khorne: KHORNE,
   Lethisian: LETHISIAN_DEFENDERS,
@@ -241,8 +249,39 @@ export const importFactionNameMap = {
 
 export type TNameMap = { [key: string]: string }
 
+// A map to help the user when Azyr uses the same name for multiple warscrolls
+// eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum'
+// AoS Reminders on the left - Azyr on the right
+// Note that the AoS Reminders version is what it *does* import as. This can be the same as
+// the Azyr string, which just means there is a unit exactly called what Azyr lists multiple
+// units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
+// by a partial match.
+export const azyrAmbiguousNamesMap = {
+  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
+  'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
+  'Auric Runefather': 'Auric Runefather',
+  'Auric Runesmiter': 'Auric Runesmiter',
+  'Auric Runeson': 'Auric Runeson',
+  'Bladebringer, Herald on Exalted Chariot': 'Bladebringer',
+  'Bloodthirster of Insensate Rage': 'Bloodthirster',
+  'Corpse Cart w/ Balefire Brazier': 'Corpse Cart',
+  'Eidolon of Mathlann, Aspect of the Sea': 'Eidolon of Mathlann',
+  Evocators: 'Evocators',
+  'Grey Seer': 'Grey Seer',
+  'Herald of Tzeentch': 'Herald of Tzeentch',
+  'Knight of Shrouds': 'Knight of Shrouds',
+  'Lord-Arcanum': 'Lord-Arcanum',
+  'Lord-Celestant': 'Lord-Celestant',
+  Loonboss: 'Loonboss',
+  'Plague Priest': 'Plague Priest',
+  'Prosecutors with Stormcall Javelins': 'Prosecutors',
+  'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
+  'Wight King with Baleful Tomb Blade': 'Wight King',
+}
+
 type TParserOptions = {
   [key in TImportParsers]: {
+    ambiguousNamesMap: TNameMap
     checkPoorSpacing: boolean
     fileReadError: string
     typoMap: TNameMap
@@ -251,21 +290,25 @@ type TParserOptions = {
 
 export const parserOptions: TParserOptions = {
   [WARSCROLL_BUILDER]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
   },
   [AZYR]: {
+    ambiguousNamesMap: azyrAmbiguousNamesMap,
     checkPoorSpacing: true,
     fileReadError: `There was a problem reading this file.`,
     typoMap: azyrTypoMap,
   },
   [BATTLESCRIBE]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file.`,
     typoMap: battlescribeTypoMap,
   },
   [UNKNOWN]: {
+    ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `This file format is not recognized.`,
     typoMap: {},

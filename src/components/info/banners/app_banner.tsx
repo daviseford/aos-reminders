@@ -1,20 +1,24 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { logDisplay } from 'utils/analytics'
+import { useTheme } from 'context/useTheme'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
-const AppBanner = () => {
-  const name = 'Battlescribe_Release_Notification'
-
-  useEffect(() => {
-    logDisplay(name)
-  }, [])
+const AppBanner = componentWithSize(({ isMobile = false }) => {
+  const { isDark } = useTheme()
+  const name = 'Share_Button_Launch'
 
   return (
-    <NotificationBanner name={name} persistClose={true} variant={'info'}>
-      Great news! You can now import Battlescribe HTML files!
+    <NotificationBanner
+      displayOnce={true}
+      enableLog={true}
+      name={name}
+      persistClose={true}
+      variant={isDark ? `dark` : `secondary`}
+    >
+      You can now share your list with others! Just click the Share button!
     </NotificationBanner>
   )
-}
+})
 
 export default AppBanner
 

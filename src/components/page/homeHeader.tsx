@@ -12,12 +12,14 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { LinkNewTab } from 'components/helpers/link'
 import { LocalStoredArmy } from 'utils/localStore'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
 export const Header = () => {
+  const { theme } = useTheme()
   return (
-    <div className="ThemeDarkBg">
+    <div className={theme.headerColor}>
       <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
@@ -48,6 +50,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   } = props
   const { isOnline } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+  const { theme } = useTheme()
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
@@ -72,23 +75,23 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     setFactionName(value)
   })
 
-  const jumboClass = `jumbotron jumbotron-fluid text-center ThemeDarkBg text-white d-print-none mb-0 pt-4 ${
+  const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? `pb-2` : `pb-3`
   }`
 
   return (
     <div className={jumboClass}>
       <div className="container">
-        <h1 className="display-5">Age of Sigmar Reminders</h1>
-        <p className="mt-3 mb-1 d-none d-sm-block">
+        <h1 className="display-5 text-white">Age of Sigmar Reminders</h1>
+        <p className="mt-3 mb-1 d-none d-sm-block text-white">
           By Davis E. Ford -{' '}
           <LinkNewTab className="text-white" href="//daviseford.com" label={'Davis E. Ford website'}>
             daviseford.com
           </LinkNewTab>
         </p>
-        <span>Select your army to get started:</span>
+        <span className="text-white">Select your army to get started:</span>
         <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-dark text-left">
+          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
             <SelectOne
               value={titleCase(factionName)}
               items={SUPPORTED_FACTIONS}

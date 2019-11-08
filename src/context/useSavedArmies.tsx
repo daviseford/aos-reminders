@@ -1,17 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { isEqual, sortBy } from 'lodash'
+import { useAppStatus } from './useAppStatus'
+import { useSubscription } from './useSubscription'
 import { PreferenceApi } from 'api/preferenceApi'
+import { SubscriptionApi } from 'api/subscriptionApi'
+import { logEvent } from 'utils/analytics'
+import { isValidFactionName } from 'utils/armyUtils'
+import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import { unTitleCase } from 'utils/textUtils'
+import { TSupportedFaction } from 'meta/factions'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
-import { isEqual, sortBy } from 'lodash'
-import { useSubscription } from './useSubscription'
-import { isValidFactionName } from 'utils/armyUtils'
-import { SubscriptionApi } from 'api/subscriptionApi'
-import { TSupportedFaction } from 'meta/factions'
-import { unTitleCase } from 'utils/textUtils'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
-import { logEvent } from 'utils/analytics'
-import { useAppStatus } from './useAppStatus'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -25,6 +25,7 @@ interface ISavedArmiesContext {
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
+  saveLink: (army: ISavedArmy) => Promise<string | null>
   savedArmies: ISavedArmyFromApi[]
   setLoadedArmy: (army: TLoadedArmy) => void
   updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
@@ -97,6 +98,17 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [user, loadSavedArmies]
   )
 
+  const saveLink = useCallback(async (savedArmy: ISavedArmy) => {
+    try {
+      const { body } = await PreferenceApi.createLink(savedArmy)
+      console.log(body)
+      return body.url
+    } catch (err) {
+      console.error(err)
+      return null
+    }
+  }, [])
+
   const deleteSavedArmy = useCallback(
     async (id: string) => {
       try {
@@ -159,7 +171,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     } catch (err) {
       console.error(err)
     }
-  }, [favoriteFaction, subscription.userName, waitingForApi, isActive])
+  }, [favoriteFaction, subscription, waitingForApi, isActive])
 
   const updateFavoriteFaction = useCallback(
     async (faction: string | null) => {
@@ -209,6 +221,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         loadSavedArmies,
         saveArmy,
         savedArmies,
+        saveLink,
         setLoadedArmy,
         updateArmy,
         updateArmyName,

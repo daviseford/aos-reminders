@@ -103,10 +103,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Mirror Shield`,
+    name: `Mirrorshield`,
     effects: [
       {
-        name: `Mirror Shield`,
+        name: `Mirrorshield`,
         desc: `Subtract 2 from hit rolls for missile attacks that target the bearer.`,
         when: [SHOOTING_PHASE],
       },

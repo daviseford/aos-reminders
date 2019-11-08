@@ -1,7 +1,6 @@
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
 import { IInitialArmy } from 'types/army'
 import {
-  BEASTCLAW_RAIDERS,
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -17,7 +16,6 @@ import {
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
-  GUTBUSTERS,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -31,6 +29,7 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
@@ -46,7 +45,6 @@ import {
   WANDERERS,
 } from './factions'
 
-import BeastclawRaiders from 'army/beastclaw_raiders'
 import BeastsOfChaos from 'army/beasts_of_chaos'
 import BigWaaagh from 'army/big_waaagh'
 import Bonesplitterz from 'army/bonesplitterz'
@@ -62,7 +60,6 @@ import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
 import GrandHostOfNagash from 'army/grand_host_of_nagash'
 import Greenskinz from 'army/greenskinz'
-import Gutbusters from 'army/gutbusters'
 import IdonethDeepkin from 'army/idoneth'
 import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
@@ -76,6 +73,7 @@ import LethisianArmy from 'army/lethisian_army'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
+import OgorMawtribes from 'army/ogor_mawtribes'
 import OrderGrandAlliance from 'army/grand_alliances/order'
 import OssiarchBonereapers from 'army/ossiarch_bonereapers'
 import Seraphon from 'army/seraphon'
@@ -90,10 +88,6 @@ import Tzeentch from 'army/tzeentch'
 import Wanderers from 'army/wanderers'
 
 const ArmyList: TArmyList = {
-  [BEASTCLAW_RAIDERS]: {
-    Army: { ...BeastclawRaiders },
-    GrandAlliance: DESTRUCTION,
-  },
   [BEASTS_OF_CHAOS]: {
     Army: { ...BeastsOfChaos },
     GrandAlliance: CHAOS,
@@ -154,10 +148,6 @@ const ArmyList: TArmyList = {
     Army: { ...Greenskinz },
     GrandAlliance: DESTRUCTION,
   },
-  [GUTBUSTERS]: {
-    Army: { ...Gutbusters },
-    GrandAlliance: DESTRUCTION,
-  },
   [IDONETH_DEEPKIN]: {
     Army: { ...IdonethDeepkin },
     GrandAlliance: ORDER,
@@ -210,6 +200,10 @@ const ArmyList: TArmyList = {
   [NURGLE]: {
     Army: { ...Nurgle },
     GrandAlliance: CHAOS,
+  },
+  [OGOR_MAWTRIBES]: {
+    Army: { ...OgorMawtribes },
+    GrandAlliance: DESTRUCTION,
   },
   [ORDER_GRAND_ALLIANCE]: {
     Army: { ...OrderGrandAlliance },

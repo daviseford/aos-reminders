@@ -16,39 +16,15 @@ import {
 } from 'army/generic'
 
 // Meta
-import {
-  BEASTCLAW_RAIDERS,
-  DISPOSSESSED,
-  EVERCHOSEN,
-  IRONJAWZ,
-  SERAPHON,
-  STORMCAST_ETERNALS,
-  SYLVANETH,
-} from 'meta/factions'
+import { DISPOSSESSED, EVERCHOSEN, IRONJAWZ, SERAPHON, STORMCAST_ETERNALS, SYLVANETH } from 'meta/factions'
 
 // Types
-import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE } from 'types/phases'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
 
 describe('processReminders', () => {
-  it('should work with no selections', () => {
-    const army = getArmy(BEASTCLAW_RAIDERS) as IArmy
-    const selections = selectionsFactory({})
-    const reminders = processReminders(army, BEASTCLAW_RAIDERS, selections, null, [], {}, {})
-
-    const heroPhaseEntry = reminders[START_OF_HERO_PHASE][0]
-    expect(heroPhaseEntry.name).toEqual(`The Everwinter's Blessing`)
-    expect(heroPhaseEntry.condition).toEqual(`Beastclaw Raiders Allegiance`)
-    expect(heroPhaseEntry.allegiance_ability).toEqual(true)
-
-    const combatPhaseEntry = reminders[COMBAT_PHASE][0]
-    expect(combatPhaseEntry.name).toEqual(`Beastclaw Stampede`)
-    expect(combatPhaseEntry.condition).toEqual(`Beastclaw Raiders Allegiance`)
-    expect(combatPhaseEntry.allegiance_ability).toEqual(true)
-  })
-
   it('should merge similar abilities (issue #183)', () => {
     const army = getArmy(STORMCAST_ETERNALS) as IArmy
     const selections = selectionsFactory({ units: ['Drakesworn Templar', 'Lord-Celestant on Stardrake'] })

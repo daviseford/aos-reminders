@@ -5,9 +5,10 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/import/allyData'
 import { parserOptions } from 'utils/import/options'
-import { createFatalError, getAllWarnings, hasFatalError, getAllyWarnings } from 'utils/import/warnings'
+import { createFatalError, hasFatalError, getAllyWarnings, getWarnings } from 'utils/import/warnings'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
+import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
@@ -62,11 +63,14 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
 
+  // Check if any of the selections have names that map one-to-many from source to us
+  addAmbiguousSelectionErrors(errors, errorFreeSelections, allyData, opts.ambiguousNamesMap)
+
   // Remove errors where we have found the missing item
   errors = removeFoundErrors(errors, errorFreeSelections, allyData)
 
   // Fire off any warnings to Google Analytics
-  getAllWarnings(errors).forEach(e => logFailedImport(e.text, parser))
+  getWarnings(errors).forEach(e => logFailedImport(e.text, parser))
 
   return {
     ...army,

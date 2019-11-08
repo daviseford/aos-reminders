@@ -4,7 +4,7 @@ import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from './parseFile'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -17,6 +17,7 @@ import {
   PDF_FILE,
   HTML_FILE,
 } from 'types/import'
+import { useTheme } from 'context/useTheme'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
@@ -27,6 +28,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   const { handleDrop, isMobile } = props
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
+  const { theme } = useTheme()
 
   const [isDone, setIsDone] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -89,9 +91,9 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
   }
 
   return (
-    <div {...getRootProps({ className: 'dropzone' })}>
+    <div {...getRootProps({ className: theme.dropzone })}>
       <input {...getInputProps()} />
-      <div className={`${btnContentWrapper} text-center py-3`}>
+      <div className={`${centerContentClass} text-center py-3`}>
         {isProcessing && <Spinner />}
         {getText()}
         {isDone && <FaRegCheckCircle className="text-success ml-2" />}

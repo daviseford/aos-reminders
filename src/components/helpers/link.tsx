@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconType } from 'react-icons'
 import { logClick } from 'utils/analytics'
-import { btnContentWrapper } from 'theme/helperClasses'
+import { centerContentClass } from 'theme/helperClasses'
 import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface ILinkProps {
@@ -35,7 +35,7 @@ const LinkBtnComponent: React.FC<ILinkBtnProps> = props => {
       onClick={e => logClick(`Contact-${text}`)}
       label={text}
     >
-      <div className={btnContentWrapper}>
+      <div className={centerContentClass}>
         <Icon className={isMobile ? `mx-2 my-1` : `mr-2`} />
         {isMobile ? `` : ` ${text}`}
       </div>

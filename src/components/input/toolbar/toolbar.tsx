@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react'
+import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -9,20 +9,23 @@ import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { ISavedArmy } from 'types/savedArmy'
+import { armyHasEntries } from 'utils/armyUtils'
 
 const AddAllyButton = lazy(() => import('./add_ally_btn'))
 const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
 const ImportArmyButton = lazy(() => import('./import_army_btn'))
 const ImportContainer = lazy(() => import('../importPdf/drop_container'))
 const SaveArmyBtn = lazy(() => import('../savedArmies/save_army_btn'))
+const ShareArmyBtn = lazy(() => import('../shareArmy/share_army_btn'))
 const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
 const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
-const showSavedWrapperClass = `col-8 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
 interface IToolbarProps {
   allyFactionNames: TSupportedFaction[]
+  currentArmy: ISavedArmy
   factionName: TSupportedFaction
   resetAllySelection: (factionName: TSupportedFaction) => void
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
@@ -30,9 +33,11 @@ interface IToolbarProps {
 }
 
 const ToolbarComponent = (props: IToolbarProps) => {
-  const { factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
+  const { currentArmy, factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
   const { isOnline } = useAppStatus()
   const { isSubscribed, isActive } = useSubscription()
+
+  const hasEntries = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
   const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
@@ -43,12 +48,15 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const showImportArmy = () => setIsShowingWarscrollImport(true)
   const hideImportArmy = () => setIsShowingWarscrollImport(false)
 
-  const handleAllyClick = e => {
-    e.preventDefault()
-    const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
-    resetAllySelection(newAllyFaction)
-    updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
-  }
+  const handleAllyClick = useCallback(
+    e => {
+      e.preventDefault()
+      const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
+      resetAllySelection(newAllyFaction)
+      updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
+    },
+    [factionName, allyFactionNames, resetAllySelection, updateAllyArmy]
+  )
 
   return (
     <div className="container d-print-none">
@@ -63,7 +71,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
             <DownloadPDFButton />
           </Suspense>
         </div>
-        <div className={btnWrapperClass}>
+        <div className={btnWrapperClass} hidden={!hasEntries}>
           <Suspense fallback={<LoadingBtn />}>
             <SaveArmyBtn showSavedArmies={showSavedArmies} />
           </Suspense>
@@ -80,7 +88,12 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </Suspense>
         </div>
-        <div className={showSavedWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
+        <div className={btnWrapperClass} hidden={!hasEntries}>
+          <Suspense fallback={<LoadingBtn />}>
+            <ShareArmyBtn />
+          </Suspense>
+        </div>
+        <div className={btnWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
               isShowingSavedArmies={isShowingSavedArmies}
@@ -108,8 +121,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  factionName: selectors.getFactionName(state),
   allyFactionNames: selectors.getAllyFactionNames(state),
+  currentArmy: selectors.getCurrentArmy(state),
+  factionName: selectors.getFactionName(state),
 })
 
 const mapDispatchToProps = {

@@ -11,11 +11,13 @@ import {
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   IDONETH_DEEPKIN,
+  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
+  NURGLE,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -49,6 +51,87 @@ describe('getBattlescribeArmy', () => {
       "Tempest's Eye",
     ])
     expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+  })
+
+  it('should work with Nighthaunt3', () => {
+    const parsedText = getFile('Nighthaunt3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Beguile' },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+
+  it('should work with Gloomspite4', () => {
+    const parsedText = getFile('Gloomspite4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections.scenery).toEqual(['Bad Moon Loonshrine'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Nighthaunt2', () => {
+    const parsedText = getFile('Nighthaunt2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz1', () => {
+    const parsedText = getFile('Ironjawz1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz2', () => {
+    const parsedText = getFile('Ironjawz2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers3', () => {
+    const parsedText = getFile('Fyreslayers3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Nurgle3', () => {
+    const parsedText = getFile('Nurgle3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Gloomspite3', () => {
+    const parsedText = getFile('Gloomspite3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Nurgle2', () => {
+    const parsedText = getFile('Nurgle2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BigWaaagh1', () => {
@@ -159,7 +242,12 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.commands).toEqual(['Instinctive Leader', "I'm Da Boss, Now Stab 'Em Good!"])
-    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'The Great Green Spite'])
+    expect(res.selections.spells).toEqual([
+      'Arcane Bolt',
+      'Mystic Shield',
+      'Spore Maws',
+      'The Great Green Spite',
+    ])
     expect(res.selections.units).toEqual([
       'Dankhold Troggboss',
       'Fungoid Cave-Shaman',
@@ -167,7 +255,7 @@ describe('getBattlescribeArmy', () => {
       'Rockgut Troggoths',
       'Stabbas',
     ])
-    expect(res.errors).toEqual([{ text: 'Spore Maws', severity: 'warn' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Seraphon1', () => {
@@ -533,11 +621,10 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.errors).toEqual([
-      { text: 'Night Shroud', severity: 'warn' },
-      { text: 'Speed of the Spider God', severity: 'warn' },
-      { text: 'Venom of the Spider God', severity: 'warn' },
-    ])
+    expect(res.selections.spells).toContain('Speed of the Spider God')
+    expect(res.selections.spells).toContain('Venom of the Spider God')
+    expect(res.selections.spells).toContain('Night Shroud')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with IDK1', () => {
@@ -635,6 +722,35 @@ describe('getBattlescribeArmy', () => {
       'Malefic Skymines (GREAT ENDRINWORK)',
       'The Last Word (GREAT ENDRINWORK)',
       'Prudency Chutes (GREAT ENDRINWORK)',
+    ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Sylvaneth2', () => {
+    const parsedText = getFile('Sylvaneth2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.allegiances).toEqual(['Winterleaf (Glade)'])
+    expect(res.selections.artifacts).toEqual(['Frozen Kernel', 'Spiritsong Stave'])
+    expect(res.selections.battalions).toEqual(['Outcasts'])
+    expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song', 'Branch Blizzard'])
+    expect(res.selections.scenery).toEqual(['Awakened Wyldwood'])
+    expect(res.selections.spells).toEqual([
+      'Arcane Bolt',
+      'Mystic Shield',
+      'Roused to Wrath',
+      'Verdant Blessing',
+      'Primal Terror',
+      'Awakening the Wood',
+    ])
+    expect(res.selections.units).toEqual([
+      'Arch-Revenant',
+      'Branchwraith',
+      'Drycha Hamadreth',
+      'Treelord Ancient',
+      'Kurnoth Hunters',
+      'Spite-Revenants',
     ])
     expect(res.errors).toEqual([])
   })

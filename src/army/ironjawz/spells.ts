@@ -43,7 +43,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Da Great Big Green Hand of Gork`,
-        desc: `Casting value of 7. If successfully cast, pick 1 friendly IRONJAWZ unit wholly within 24" of the caster, visible to them and more than 3" from any enemy units. Remove that unit from the battlefeld and then set it up on the battlefeld anywhere more than 9" from any enemy units. That unit cannot move in the following movement phase.`,
+        desc: `Casting value of 7. Pick 1 friendly IRONJAWZ unit wholly within 24" of the caster, visible to them and more than 3" from any enemy units. Remove that unit from the battlefeld and then set it up on the battlefeld anywhere more than 9" from any enemy units. That unit cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],

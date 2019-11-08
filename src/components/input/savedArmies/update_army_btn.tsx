@@ -3,8 +3,9 @@ import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
-import { btnContentWrapper, btnSecondarySmall } from 'theme/helperClasses'
+import { btnSecondarySmall } from 'theme/helperClasses'
 import { ISavedArmy } from 'types/savedArmy'
+import GenericButton from '../generic_button'
 
 interface IUpdateArmyProps {
   id: string
@@ -31,20 +32,18 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   if (!canUpdate) return null
 
   return (
-    <button className={btnSecondarySmall} onClick={handleClick}>
-      <div className={`${btnContentWrapper}`}>
-        {isSaving ? (
-          <span
-            className="spinner-border spinner-border-sm mr-2 text-dark"
-            role="status"
-            aria-hidden="true"
-          ></span>
-        ) : (
-          <FaSave className="mr-2" />
-        )}{' '}
-        {isSaving ? `Saving` : `Save Changes`}
-      </div>
-    </button>
+    <GenericButton className={btnSecondarySmall} onClick={handleClick}>
+      {isSaving ? (
+        <span
+          className="spinner-border spinner-border-sm mr-2 text-dark"
+          role="status"
+          aria-hidden="true"
+        ></span>
+      ) : (
+        <FaSave className="mr-2" />
+      )}{' '}
+      {isSaving ? `Saving` : `Save Changes`}
+    </GenericButton>
   )
 }
 

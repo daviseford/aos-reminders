@@ -243,10 +243,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Flaypelt (Verminus)`,
+    name: `Flaypelt Cloak (Verminus)`,
     effects: [
       {
-        name: `Flaypelt (Verminus)`,
+        name: `Flaypelt Cloak (Verminus)`,
         desc: `You can re-roll hit and wound rolls of 1 for attacks made with melee weapons by the bearer.`,
         when: [COMBAT_PHASE],
       },
