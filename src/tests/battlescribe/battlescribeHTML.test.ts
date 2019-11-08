@@ -102,6 +102,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Fyreslayers4', () => {
+    const parsedText = getFile('Fyreslayers4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Runic Fyrewall' }])
+  })
+
   it('should work with Fyreslayers3', () => {
     const parsedText = getFile('Fyreslayers3')
     const res = getBattlescribeArmy(parsedText)
@@ -531,6 +539,14 @@ describe('getBattlescribeArmy', () => {
 
   it('should work with Skaven2', () => {
     const parsedText = getFile('Skaven2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Skaven3', () => {
+    const parsedText = getFile('Skaven3')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SKAVEN)

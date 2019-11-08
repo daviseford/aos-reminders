@@ -336,6 +336,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
   const lookup = {
     'Battle Traits': 'traits',
     'Endless Spell': 'endless_spells',
+    'Magmic Invocation': 'endless_spells',
     'Super Battalion': 'battalions',
     Artifacts: 'artifacts',
     Battalion: 'battalions',
