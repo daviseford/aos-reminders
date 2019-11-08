@@ -27,6 +27,22 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Vosaxe', () => {
+    const parsedText = getFile('1573252116567-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.selections.artifacts).toContain('Vosaxe')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Lore of the Phoenix', () => {
+    const parsedText = getFile('1573254186379-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
   it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1573208101434-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

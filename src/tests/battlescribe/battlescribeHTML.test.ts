@@ -115,6 +115,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.selections.artifacts).toContain('Vosaxe')
     expect(res.errors).toEqual([])
   })
 

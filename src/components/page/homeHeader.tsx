@@ -13,6 +13,7 @@ import { LinkNewTab } from 'components/helpers/link'
 import { LocalStoredArmy } from 'utils/localStore'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import { getArmyLink } from 'utils/handleQueryParams'
 
 const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
 
@@ -59,7 +60,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections) {
+    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections && getArmyLink() === null) {
       setFactionName(favoriteFaction)
     }
     // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
