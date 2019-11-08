@@ -1,6 +1,7 @@
 import { TScenery } from 'types/army'
 import { TSceneryEffects } from 'types/terrain'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
   DURING_SETUP,
@@ -12,7 +13,6 @@ import {
   START_OF_ROUND,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
-  BATTLESHOCK_PHASE,
 } from 'types/phases'
 import {
   ARCANE,
@@ -213,35 +213,31 @@ const SceneryEffectLookup = DefaultScenery.reduce(
 )
 
 // Penumbral is now a scenery type.
-// Use this funciton to fetch Penumbral Engine rules.
-const SceneryPenumbral = () => {
-  const TEffects = [
-    {
-      name: `Repercussions of the Necroquake`,
-      desc: `After determining who has the first turn, roll a D6 to determine the function of all Penumbral terrain features for the duration of the battle:
+const PenumbralEffects: TEffects[] = [
+  {
+    name: `Repercussions of the Necroquake`,
+    desc: `After determining who has the first turn, roll a D6 to determine the function of all Penumbral terrain features for the duration of the battle:
              
       1-3: Orrery of Obfuscation.
       4-6: Orrery of Illumination`,
-      when: [TURN_ONE_START_OF_ROUND],
-    },
-    {
-      name: `Orrery of Obfuscation`,
-      desc: `Re-roll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
-      when: [DURING_GAME],
-    },
-    {
-      name: `Orrery of Illumination`,
-      desc: `At the start of your hero phase, you receive 1 extra command point if any friendly Heroes are within 12" of any Penumbral terrain features.`,
-      when: [START_OF_HERO_PHASE],
-    },
-    {
-      name: `Deteriorating State`,
-      desc: `Applies from start of Round 2 onwards. Roll a D6. On a 5-6, the currently active Orrey function on all Penumbral terrain features switches to the other option.`,
-      when: [START_OF_ROUND],
-    },
-  ]
-  return TEffects
-}
+    when: [TURN_ONE_START_OF_ROUND],
+  },
+  {
+    name: `Orrery of Obfuscation`,
+    desc: `Re-roll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Orrery of Illumination`,
+    desc: `At the start of your hero phase, you receive 1 extra command point if any friendly Heroes are within 12" of any Penumbral terrain features.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Deteriorating State`,
+    desc: `Applies from start of Round 2 onwards. Roll a D6. On a 5-6, the currently active Orrey function on all Penumbral terrain features switches to the other option.`,
+    when: [START_OF_ROUND],
+  },
+]
 
 // Faction scenery available to all armies and all other official models potentially a part of each battle.
 const OfficialScenery: TScenery = [
@@ -253,7 +249,7 @@ const OfficialScenery: TScenery = [
         desc: `After territories have been chosen, but before armies have been set up, you can set up this model wholly within your territory. It must be more than 12" from enemy territory, at least 3" away from other terrain features, and at least 1" away from any objectives. If both players can place a terrain features at this time, roll off to see who places first.`,
         when: [START_OF_SETUP],
       },
-      ...SceneryPenumbral(),
+      ...PenumbralEffects,
     ],
   },
   {
@@ -348,7 +344,7 @@ const OfficialScenery: TScenery = [
   {
     name: `Penumbral Stormvault`,
     effects: [
-      ...SceneryPenumbral(),
+      ...PenumbralEffects,
       {
         name: `Grand Dais of Sigmar`,
         desc: `Order units wholly within 6" of this terrain feature do not take battleshock tests.`,
