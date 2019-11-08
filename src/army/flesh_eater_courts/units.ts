@@ -224,6 +224,36 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Duke Crakmarrow`,
+    effects: [
+      {
+        name: `Muster the Grymwatch`,
+        desc: `Pick 1 friendly Grymwatch unit within 3" of this model and roll 6 dice. For each 2+ you can return 1 slain model to that unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Gallant Champion`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by this model that targets a monster.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Grymwatch`,
+    effects: [
+      {
+        name: `Royal Retinue`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocate to this unit instead.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Quest to Slay the Monster`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by this unit that targets a monster.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
     name: `Royal Terrorgheist`,
     effects: [
       {
