@@ -6,7 +6,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
-  const name = 'OBR_and_Mawtribes_Complete'
+  const name = 'Share_Button_Launch'
 
   return (
     <NotificationBanner
@@ -16,7 +16,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      Ossiarch Bonereapers and Ogor Mawtribes are now fully updated!
+      You can now share your list with others! Just click the <strong>Share</strong> button!
       {!isMobile && <FaRegSmileBeam className="ml-2" />}
     </NotificationBanner>
   )
