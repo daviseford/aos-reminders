@@ -94,6 +94,13 @@ const FrenziedAssaultEffect = {
   when: [COMBAT_PHASE],
 }
 
+const WarpLightningEffect = {
+  name: `Warp Lightning`,
+  desc: `Casting value of 5. Pick 1 enemy unit within 13" of the caster and visible to them. That unit suffers D3 mortal wounds. Before making the casting roll, you can say that this model will use its warp-power accumulator to augment the spell. If you do so and the casting attempt is successful and not unbound, the spell inflicts D6 mortal wounds instead of D3. However, if you do so and the casting attempt fails or is unbound, this model suffers D6 mortal wounds.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -126,6 +133,12 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
+        name: `Madness`,
+        desc: `Casting value of 8. Pick 1 enemy Hero within 3" of the caster and visible to them, and roll a number of dice equal to the combined value of the Attacks characteristics of all melee weapons that Hero is armed with. For each 5+ you can inflict 1 mortal wound on 1 enemy unit within 3" of that Hero (you can choose different units to suffer the mortal wounds if you wish).`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
         name: `Power Behind the Throne`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, until your next hero phase, one friendly SKAVEN HERO other than this model can use the At the Double command ability without a command point being spent; another friendly SKAVEN HERO other than this model can use the Forward to Victory command ability without a command point being spent; and a third friendly SKAVEN HERO other than this model can use the Inspiring Presence command ability without a command point being spent.`,
         when: [START_OF_HERO_PHASE],
@@ -142,6 +155,12 @@ export const Units: TUnits = [
         name: `The Thirteen-headed One`,
         desc: `At the start of your hero phase, pick 1 of the areas of knowledge for this model to draw upon. The rule for that area of knowledge applies to this model until your next hero phase. You cannot pick the same area of knowledge more than once per battle.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Dreaded Thirteenth Spell`,
+        desc: `Casting value of 8. Pick 1 enemy unit within 13" of the caster and visible to them, and roll 13 dice. For each 4+ that unit suffers 1 mortal wound. You can then summon 1 unit of CLANRATS to the battlefield, and add it to your army. The summoned unit can have up to 1 model for each mortal wound that was inflicted by this spell. The summoned unit must be set up wholly within 13" of the caster and more than 9" from any enemy units. The summoned unit cannot move in the following movement phase.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `The Rat King`,
@@ -172,6 +191,12 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       {
+        name: `Dreaded Warpgale`,
+        desc: `Casting value of 8. Pick 1 enemy unit within 26" of the caster and visible to them. That unit suffers D6 mortal wounds, and run and charge rolls for that unit are halved until your next hero phase. If that unit can fly, it cannot fly until your next hero phase (in addition to having its run and charge rolls halved).`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
         name: `Forth-forth, Children of the Horned Rat!`,
         desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick 1 friendly model with this command ability. Do not take battleshock tests for friendly SKAVEN units while they are wholly within 26" of that model in that phase.`,
         when: [START_OF_BATTLESHOCK_PHASE],
@@ -186,6 +211,12 @@ export const Units: TUnits = [
         name: `Warpstone Tokens`,
         desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be re-rolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model is slain. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Wither`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 13" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Wounds characteristic, that unit suffers D3 mortal wounds. In addition, if the roll is greater than that unit's Wounds characteristic, subtract 1 from hit rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -218,6 +249,7 @@ export const Units: TUnits = [
         desc: `Before you make a hit roll for an attack with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, the Damage characteristic for that attack is D6 instead of D3. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers D6 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
+      WarpLightningEffect,
     ],
   },
   {
@@ -228,6 +260,7 @@ export const Units: TUnits = [
         desc: `Before you make a hit roll for an attack with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, the Damage characteristic for that attack is 2D6 instead of D6. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers 2D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
+      WarpLightningEffect,
     ],
   },
   {
@@ -439,6 +472,12 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
+        name: `Dreaded Death Frenzy`,
+        desc: `Casting value of 7. Pick up to D3 friendly SKAVENTIDE units wholly within 13" of the caster and visible to them. Until your next hero phase, when a model from any of those units is slain, before it is removed from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
         name: `Tyrant of Battle`,
         desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re- roll hit and wound rolls of 1 for friendly CLANS VERMINUS units while they are wholly within 13" of that model.`,
         when: [COMBAT_PHASE],
@@ -629,6 +668,12 @@ export const Units: TUnits = [
         name: `Plaguemaster`,
         desc: `At the end of the combat phase, roll 1 dice for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Dreaded Plague`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 13" of the caster and roll 1 dice for each model in that unit. For each 4+ that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Lord of Pestilence`,
