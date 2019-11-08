@@ -133,8 +133,9 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Dark mode!
+        <strong>NEW:</strong> Share army lists with your friends!
       </li>
+      <li>Spare your eyes! Turn on dark mode!</li>
       <li>Choose your favorite faction</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
@@ -153,9 +154,6 @@ const ComingSoon = () => (
       <strong>Coming soon: </strong>
     </p>
     <ul className="lead">
-      <li>
-        <i>Share army lists with your friends</i>
-      </li>
       <li>
         <i>Add custom reminders</i>
       </li>
