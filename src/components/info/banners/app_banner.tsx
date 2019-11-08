@@ -1,7 +1,6 @@
 import React from 'react'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useTheme } from 'context/useTheme'
-import { FaRegSmileBeam } from 'react-icons/fa'
 import { componentWithSize } from 'utils/mapSizesToProps'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
@@ -16,8 +15,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      You can now share your list with others! Just click the <strong>Share</strong> button!
-      {!isMobile && <FaRegSmileBeam className="ml-2" />}
+      You can now share your list with others! Just click the Share button!
     </NotificationBanner>
   )
 })
