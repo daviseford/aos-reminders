@@ -19,20 +19,33 @@ interface IThemeProvider {
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const { subscription, isActive } = useSubscription()
+  const { subscription, setSubscription } = useSubscription()
   const [theme, setTheme] = useState(LocalTheme.get() === 'dark' ? DarkTheme : LightTheme)
   const [isDark, setIsDark] = useState(LocalTheme.get() === 'dark')
 
+  const updateTheme = useCallback(
+    async (theme: TThemeType) => {
+      try {
+        setSubscription(s => ({ ...s, theme }))
+        LocalTheme.set(theme) // Update local value
+        const { id, userName } = subscription
+        await SubscriptionApi.updateTheme({ id, userName, theme })
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    [subscription, setSubscription]
+  )
+
+  const setThemeFromValue = useCallback((val: TThemeType | null) => {
+    return val === 'dark' ? setDarkTheme() : setLightTheme()
+  }, [])
+
   const toggleTheme = useCallback(() => {
     const theme = isDark ? 'light' : 'dark'
-    LocalTheme.set(theme)
-    if (isActive) {
-      const { id, userName } = subscription
-      Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
-    }
+    updateTheme(theme)
     logEvent(`SetTheme-${theme}`)
-    return isDark ? setLightTheme() : setDarkTheme()
-  }, [subscription, isDark, isActive])
+  }, [isDark, updateTheme])
 
   const setLightTheme = () => {
     setTheme(LightTheme)
@@ -42,9 +55,6 @@ const ThemeProvider: React.FC = ({ children }) => {
     setTheme(DarkTheme)
     setIsDark(true)
   }
-  const setThemeFromValue = useCallback((val: TThemeType | null) => {
-    return val === 'dark' ? setDarkTheme() : setLightTheme()
-  }, [])
 
   // Fetch our theme from the subscription API
   useEffect(() => {
@@ -64,7 +74,7 @@ const ThemeProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const theme = LocalTheme.get()
     setThemeFromValue(theme)
-  }, [setThemeFromValue])
+  })
 
   return (
     <ThemeContext.Provider
