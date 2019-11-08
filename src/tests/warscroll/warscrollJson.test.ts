@@ -27,6 +27,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Ogor Mawtribes', () => {
+    const parsedText = getFile('1573208101434-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Arch-Sorcerer', () => {
     const parsedText = getFile('1573145524404-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -42,6 +50,42 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(BONESPLITTERZ)
     expect(warscrollTxt.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Armour of Silvered Sigmarite (pt 2)', () => {
+    const parsedText = getFile('1573174872898-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections.artifacts).toContain('Armour of Silvered Sigmarite')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Armour of Silvered Sigmarite (pt 1)', () => {
+    const parsedText = getFile('1573172812429-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.selections.artifacts).toEqual(['Strife-ender', 'Armour of Silvered Sigmarite'])
+    expect(warscrollTxt.selections.battalions).toEqual(['Cleansing Phalanx'])
+    expect(warscrollTxt.selections.traits).toEqual(['Staunch Defender', 'Lithe-Limbed'])
+    expect(warscrollTxt.selections.spells).toEqual([
+      'Azyrite Halo',
+      'Translocation',
+      'Celestial Blades',
+      'Terrifying Aspect',
+    ])
+    expect(warscrollTxt.selections.units).toEqual([
+      'Lord-Celestant',
+      'Lord-Relictor',
+      'Lord-Arcanum on Gryph-Charger',
+      'Judicators',
+      'Sequitors',
+      'Evocators',
+      'Evocators on Celestial Dracolines',
+      'Prosecutors with Celestial Hammers',
+    ])
     expect(warscrollTxt.errors).toEqual([])
   })
 

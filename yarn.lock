@@ -8995,7 +8995,12 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@6.9.0, qs@^6.7.0:
+qs@6.9.1:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
+  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
+
+qs@^6.7.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
   integrity sha512-27RP4UotQORTpmNQDX8BHPukOnBP3p1uUJY5UnDhaJB+rMt9iMsok724XL+UHU23bEFOHRMQ2ZhI99qOWUMGFA==
@@ -9094,10 +9099,10 @@ react-app-rewired@2.1.5:
   dependencies:
     semver "^5.6.0"
 
-react-copy-to-clipboard@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.1.tgz#8eae107bb400be73132ed3b6a7b4fb156090208e"
-  integrity sha512-ELKq31/E3zjFs5rDWNCfFL4NvNFQvGRoJdAKReD/rUPA+xxiLPQmZBZBvy2vgH7V0GE9isIQpT9WXbwIVErYdA==
+react-copy-to-clipboard@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.2.tgz#d82a437e081e68dfca3761fbd57dbf2abdda1316"
+  integrity sha512-/2t5mLMMPuN5GmdXo6TebFa8IoFxZ+KTDDqYhcDm0PhkgEzSxVvIX26G20s1EB02A4h2UZgwtfymZ3lGJm0OLg==
   dependencies:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
