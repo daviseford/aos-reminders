@@ -28,7 +28,7 @@ const Allegiances: TAllegiances = [
         allegiance_ability: true,
       },
       {
-        name: `Voxaxe`,
+        name: `Vosaxe`,
         desc: `Pick a melee weapon at the start of the battle. Improve its rend by 1. In addition, unmodified hits of 6 gain an additional 1 damage.`,
         when: [COMBAT_PHASE],
         artifact: true,

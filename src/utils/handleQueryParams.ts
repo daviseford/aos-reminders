@@ -19,13 +19,24 @@ export const handleCheckout = () => {
 }
 
 /**
+ * Returns an army link e.g.
+ * aosreminders.com/?army=abc123 === abc123
+ *
+ * Returns null if no link is found
+ */
+export const getArmyLink = (): string | null => {
+  const { army = null } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  })
+  return army
+}
+
+/**
  * Returns true if we are loading an army from a link embedded in the query params
  */
 export const handleArmyLink = (): boolean => {
-  const { army = '' } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  })
-  if (!army) return false
-  loadArmyFromLink(army)
+  const link = getArmyLink()
+  if (!link) return false
+  loadArmyFromLink(link)
   return true
 }
