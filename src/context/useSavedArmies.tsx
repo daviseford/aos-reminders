@@ -25,6 +25,7 @@ interface ISavedArmiesContext {
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
+  saveLink: (army: ISavedArmy) => Promise<string | null>
   savedArmies: ISavedArmyFromApi[]
   setLoadedArmy: (army: TLoadedArmy) => void
   updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
@@ -96,6 +97,17 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     },
     [user, loadSavedArmies]
   )
+
+  const saveLink = useCallback(async (savedArmy: ISavedArmy) => {
+    try {
+      const { body } = await PreferenceApi.createLink(savedArmy)
+      console.log(body)
+      return body.url
+    } catch (err) {
+      console.error(err)
+      return null
+    }
+  }, [])
 
   const deleteSavedArmy = useCallback(
     async (id: string) => {
@@ -209,6 +221,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         loadSavedArmies,
         saveArmy,
         savedArmies,
+        saveLink,
         setLoadedArmy,
         updateArmy,
         updateArmyName,

@@ -21,7 +21,7 @@ interface IModalComponentProps {
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
-  const { isSubscribed } = useSubscription()
+  const { isActive } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const { theme } = useTheme()
   const [armyName, setArmyName] = useState('')
@@ -42,7 +42,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
 
   const handleSaveClick = async e => {
     e.preventDefault()
-    if (isSubscribed) {
+    if (isActive) {
       setProcessing(true)
       const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
       await saveArmy(payload as ISavedArmy)

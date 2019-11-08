@@ -116,6 +116,7 @@ const DarkTheme: ITheme = {
   textMuted: `text-white-75`,
   textOpposite: `text-dark`,
   textSecondary: `text-light`,
+  tooltip: 'light',
 }
 
 export default DarkTheme

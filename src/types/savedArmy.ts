@@ -18,3 +18,16 @@ export interface ISavedArmyFromApi extends ISavedArmy {
    */
   updatedAt: number
 }
+
+export interface ILinkedArmy extends ISavedArmy {
+  id: string
+  /**
+   * Unix time (milliseconds)
+   */
+  createdAt: number
+  /**
+   * Unix time (milliseconds)
+   */
+  updatedAt: number
+  hiddenReminders: IVisibilityStore['reminders']
+}
