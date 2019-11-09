@@ -25,6 +25,7 @@ import {
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
@@ -66,6 +67,14 @@ describe('getBattlescribeArmy', () => {
           'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
       },
     ])
+  })
+
+  it('should work with TombKings1', () => {
+    const parsedText = getFile('TombKings1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(TOMB_KINGS)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Screaming Skull Catapult Crew' }])
   })
 
   it('should work with Gloomspite4', () => {
