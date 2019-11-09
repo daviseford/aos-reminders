@@ -57,7 +57,9 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
     if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
     if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
 
-    const factionValue = factionNode.childNodes[0].value.replace(/.+\((.+)\).+/g, '$1')
+    const value = factionNode.childNodes[0].value
+
+    const factionValue = value.replace('(Warscroll Compendium)', '').replace(/.+\((.+)\).+/g, '$1')
 
     const sep = factionValue.includes(': ') ? ': ' : ' - '
     let [grandAlliance, factionName] = factionValue.split(sep).map(x => x.trim())

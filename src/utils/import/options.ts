@@ -221,6 +221,7 @@ export const importFactionNameMap = {
   'The Blacksmoke Battery': MERCENARY_COMPANIES,
   'The Gutstuffers': MERCENARY_COMPANIES,
   'Tomb Kings': TOMB_KINGS,
+  'Tomb Kings (Compendium)': TOMB_KINGS,
   "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
   "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   "Nimyard's Rough-Riders": MERCENARY_COMPANIES,
