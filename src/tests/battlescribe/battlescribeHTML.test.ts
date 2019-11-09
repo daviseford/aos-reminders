@@ -182,6 +182,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Stormcast5', () => {
+    const parsedText = getFile('Stormcast5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Stormcast4', () => {
     const parsedText = getFile('Stormcast4')
     const res = getBattlescribeArmy(parsedText)
