@@ -38,6 +38,7 @@ export type TSoulblight = 'SOULBLIGHT'
 export type TStormcastEternals = 'STORMCAST_ETERNALS'
 export type TSylvaneth = 'SYLVANETH'
 export type TTamurkhansHorde = 'TAMURKHANS_HORDE'
+export type TTombKings = 'TOMB_KINGS'
 export type TTzeentch = 'TZEENTCH'
 export type TWanderers = 'WANDERERS'
 
@@ -81,6 +82,7 @@ export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
+export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
 
@@ -125,6 +127,7 @@ export type TSupportedFaction =
   | TStormcastEternals
   | TSylvaneth
   | TTamurkhansHorde
+  | TTombKings
   | TTzeentch
   | TWanderers
 
@@ -168,6 +171,7 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
+  TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
 ]

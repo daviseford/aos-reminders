@@ -130,6 +130,7 @@ const battlescribeTypoMap: TNameMap = {
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
+  Voxaxe: 'Vosaxe',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Warp Lighting Storm': 'Warp Lightning Storm',
   'Warrgog Prophet': 'Wurrgog Prophet',
