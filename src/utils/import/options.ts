@@ -37,6 +37,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
+  TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
@@ -218,6 +219,7 @@ export const importFactionNameMap = {
   'Tenebrous Court': MERCENARY_COMPANIES,
   'The Blacksmoke Battery': MERCENARY_COMPANIES,
   'The Gutstuffers': MERCENARY_COMPANIES,
+  'Tomb Kings': TOMB_KINGS,
   "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
   "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   "Nimyard's Rough-Riders": MERCENARY_COMPANIES,
