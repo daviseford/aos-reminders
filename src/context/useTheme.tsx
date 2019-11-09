@@ -19,20 +19,18 @@ interface IThemeProvider {
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const { subscription, isActive } = useSubscription()
+  const { subscription } = useSubscription()
   const [theme, setTheme] = useState(LocalTheme.get() === 'dark' ? DarkTheme : LightTheme)
   const [isDark, setIsDark] = useState(LocalTheme.get() === 'dark')
 
   const toggleTheme = useCallback(() => {
     const theme = isDark ? 'light' : 'dark'
     LocalTheme.set(theme)
-    if (isActive) {
-      const { id, userName } = subscription
-      Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
-    }
+    const { id, userName } = subscription
+    Promise.resolve(SubscriptionApi.updateTheme({ id, userName, theme }))
     logEvent(`SetTheme-${theme}`)
     return isDark ? setLightTheme() : setDarkTheme()
-  }, [subscription, isDark, isActive])
+  }, [subscription, isDark])
 
   const setLightTheme = () => {
     setTheme(LightTheme)
