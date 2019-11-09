@@ -40,6 +40,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
+  TOMB_KINGS,
   TSupportedFaction,
   TZEENTCH,
   WANDERERS,
@@ -84,6 +85,7 @@ import Soulblight from 'army/soulblight'
 import StormcastEternals from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 import TamurkhansHorde from 'army/tamurkhans_horde'
+import TombKings from 'army/tomb_kings'
 import Tzeentch from 'army/tzeentch'
 import Wanderers from 'army/wanderers'
 
@@ -244,6 +246,10 @@ const ArmyList: TArmyList = {
   [TAMURKHANS_HORDE]: {
     Army: { ...TamurkhansHorde },
     GrandAlliance: CHAOS,
+  },
+  [TOMB_KINGS]: {
+    Army: { ...TombKings },
+    GrandAlliance: DEATH,
   },
   [TZEENTCH]: {
     Army: { ...Tzeentch },
