@@ -62,7 +62,7 @@ const ThemeProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const theme = LocalTheme.get()
     setThemeFromValue(theme)
-  }, [setThemeFromValue])
+  })
 
   return (
     <ThemeContext.Provider
