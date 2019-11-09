@@ -265,7 +265,10 @@ const Help = () => {
 }
 
 const ToggleTheme = () => {
+  const { isActive } = useSubscription()
   const { theme, isDark, toggleTheme } = useTheme()
+
+  if (!isActive) return <></>
 
   return (
     <div className={`${theme.card} mt-2`}>
