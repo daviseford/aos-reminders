@@ -152,6 +152,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with BigWaaagh3', () => {
+    const parsedText = getFile('BigWaaagh3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections.allegiances).toEqual([])
+    // Bonesplitterz Drakkfoot allegiance spell
+    expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
+  })
+
   it('should work with BigWaaagh1', () => {
     const parsedText = getFile('BigWaaagh1')
     const res = getBattlescribeArmy(parsedText)
