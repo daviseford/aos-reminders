@@ -3,7 +3,7 @@ import { isDev, SUBSCRIPTION_AUTH_KEY } from 'utils/env'
 import { TSupportedFaction } from 'meta/factions'
 import { TThemeType } from 'types/theme'
 
-const devEndpoint = `https://jzbt3cf6mj.execute-api.us-east-1.amazonaws.com/dev`
+const devEndpoint = `https://p6fqnhddoe.execute-api.us-east-1.amazonaws.com/dev`
 const prodEndpoint = `https://f2hu69yu3a.execute-api.us-east-1.amazonaws.com/prod`
 
 const api = isDev ? devEndpoint : prodEndpoint
