@@ -11,7 +11,7 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Morgaunt (Grand Court)`,
     effects: [
@@ -126,4 +126,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Grand Courts'

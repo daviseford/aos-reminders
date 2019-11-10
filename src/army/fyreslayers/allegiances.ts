@@ -11,7 +11,7 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Vostarg (Lodge)`,
     effects: [
@@ -136,4 +136,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Lodges'

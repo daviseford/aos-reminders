@@ -11,7 +11,7 @@ import {
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Ironsunz`,
     effects: [
@@ -98,4 +98,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Warclans'

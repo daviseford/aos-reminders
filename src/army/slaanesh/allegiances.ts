@@ -9,7 +9,7 @@ import {
   DURING_GAME,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Invaders (Host)`,
     effects: [
@@ -97,4 +97,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Hosts'

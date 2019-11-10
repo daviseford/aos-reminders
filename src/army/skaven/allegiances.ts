@@ -11,7 +11,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Skilled Manipulators (Masterclan)`,
     effects: [
@@ -119,4 +119,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Clans'

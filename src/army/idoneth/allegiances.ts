@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Ionrach (Enclave)`,
     effects: [
@@ -91,4 +91,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Enclaves'

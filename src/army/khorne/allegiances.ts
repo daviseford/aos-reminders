@@ -10,7 +10,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Reapers of Vengeance`,
     effects: [
@@ -135,4 +135,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Slaughterhosts'

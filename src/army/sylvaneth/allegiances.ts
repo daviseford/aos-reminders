@@ -11,7 +11,7 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Oakenbrow (Glade)`,
     effects: [
@@ -217,4 +217,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Glades'

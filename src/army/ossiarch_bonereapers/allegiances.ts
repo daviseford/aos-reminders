@@ -12,7 +12,7 @@ import {
 
 // This is where we store sub-allegiances such as
 // Grand Courts, Hosts, Clans, Glades, Lodges, etc
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Mortis Praetorians`,
     effects: [
@@ -189,4 +189,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Legions'

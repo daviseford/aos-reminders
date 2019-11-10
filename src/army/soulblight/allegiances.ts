@@ -1,7 +1,7 @@
 import { TAllegiances } from 'types/army'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `The Bloodlines: Dragon Warriors`,
     effects: [
@@ -44,4 +44,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Bloodlines'

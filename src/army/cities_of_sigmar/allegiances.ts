@@ -18,7 +18,7 @@ import {
   TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Hammerhal`,
     effects: [
@@ -202,4 +202,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Cities'

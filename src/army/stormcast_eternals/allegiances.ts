@@ -14,7 +14,7 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+export const Allegiances: TAllegiances = [
   {
     name: `Hammers of Sigmar (Stormhost)`,
     effects: [
@@ -249,4 +249,4 @@ const Allegiances: TAllegiances = [
   },
 ]
 
-export default Allegiances
+export const AllegianceType = 'Stormhosts'
