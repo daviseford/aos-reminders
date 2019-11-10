@@ -39,6 +39,9 @@ export type TBattleshockPhaseStart = 'START_OF_BATTLESHOCK_PHASE'
 export type TBattleshockPhase = 'DURING_BATTLESHOCK_PHASE'
 export type TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
 
+// Global Wound Allocation
+export type TWoundAllocation = 'WOUND_ALLOCATION'
+
 export type TPhases =
   | THeroPhase
   | TMovementPhase
@@ -67,6 +70,7 @@ export const END_OF_COMBAT_PHASE: TCombatPhaseEnd = 'END_OF_COMBAT_PHASE'
 export const START_OF_BATTLESHOCK_PHASE: TBattleshockPhaseStart = 'START_OF_BATTLESHOCK_PHASE'
 export const BATTLESHOCK_PHASE: TBattleshockPhase = 'DURING_BATTLESHOCK_PHASE'
 export const END_OF_BATTLESHOCK_PHASE: TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
+export const WOUND_ALLOCATION: TWoundAllocation = 'WOUND_ALLOCATION'
 
 // Turn Types
 export type TSetupStart = 'START_OF_SETUP'
@@ -525,3 +529,4 @@ export type TTurnWhen =
   | TTurnFive_END_OF_ROUND
   | TTurnDuring
   | TRoundDuring
+  | TWoundAllocation

@@ -20,6 +20,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
@@ -83,7 +84,7 @@ export const Units: TUnits = [
       {
         name: `Blubber and Bile`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to Rotigus. On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Corpulent Mass`,
@@ -119,7 +120,7 @@ export const Units: TUnits = [
       {
         name: `Blubber and Bile`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Corpulent Mass`,
@@ -166,7 +167,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `In Death There is Life`,
@@ -192,7 +193,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Nurgle's Tallyman`,
@@ -207,7 +208,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Keep Counting, I'm Watching You`,
@@ -227,7 +228,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Disease of Mirth`,
@@ -247,7 +248,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Acidic Slime Trail`,
@@ -297,7 +298,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Cloud of Flies`,
@@ -332,7 +333,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Locus of Contagion`,
@@ -347,7 +348,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Acidic Slime Trail`,
@@ -522,7 +523,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Rotten Regeneration`,
@@ -584,7 +585,7 @@ export const Units: TUnits = [
       {
         name: `Soulbound Shield`,
         desc: `Roll a D6 each time you allocate a wound to this model as a result of a spell. On a 4+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Rotsword`,
@@ -593,9 +594,14 @@ export const Units: TUnits = [
       },
       {
         name: `Morbid Vigour`,
-        desc: `Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model. On a 5+ the wound is negated. The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `You may activate this command ability to affect mortal units within 7" of this model until your next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Morbid Vigour`,
+        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model. On a 5+ the wound is negated. The same unit cannot benefit from this ability more than once in the same phase.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -742,7 +748,7 @@ export const Units: TUnits = [
       {
         name: `Disgustingly Resilient`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Virulent Discharge`,
@@ -762,7 +768,7 @@ export const Units: TUnits = [
       {
         name: `Blubber and Bile`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Corpulent Mass`,
