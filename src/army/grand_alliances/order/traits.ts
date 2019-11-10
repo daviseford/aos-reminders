@@ -1,5 +1,11 @@
 import { TTraits } from 'types/army'
-import { TURN_ONE_START_OF_ROUND, BATTLESHOCK_PHASE, DURING_GAME, COMBAT_PHASE } from 'types/phases'
+import {
+  TURN_ONE_START_OF_ROUND,
+  BATTLESHOCK_PHASE,
+  DURING_GAME,
+  COMBAT_PHASE,
+  WOUND_ALLOCATION,
+} from 'types/phases'
 import { ORDER } from 'meta/alliances'
 
 const CommandTraits: TTraits = [
@@ -59,7 +65,7 @@ const CommandTraits: TTraits = [
       {
         name: `Master of Defence (${ORDER})`,
         desc: `Each time you allocate a wound or mortal wound to this general, roll a D6. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

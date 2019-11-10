@@ -14,6 +14,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Ethereal = [
@@ -574,7 +575,7 @@ export const Battalions: TBattalions = [
       {
         name: `Nighthaunt Procession`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from this battalion within 12" of your general or a friendly NIGHTHAUNT HERO from the battalion. On a 6+ the wound is negated. If this battalion is part of a Nighthaunt army, this ability replaces the Deathless Spirits battle trait for all units in this battalion.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -584,7 +585,7 @@ export const Battalions: TBattalions = [
       {
         name: `Shroudguard`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a BLADEGHEIST REVENANT model from a unit in this battalion wholly within 12" of a KNIGHT OF SHROUDS or REIKENOR THE GRIMHAILER from the same battalion. On a 5+, that wound or mortal wound is negated. If you use this ability, you cannot also use the Deathless Spirits battle trait to try to negate the same wound or mortal wound.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -14,6 +14,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -203,7 +204,7 @@ export const Units: TUnits = [
       {
         name: `Writhing Tentacles`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

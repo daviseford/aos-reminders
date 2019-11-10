@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 export const MonstrousArcanumDestruction: TUnits = [
@@ -184,7 +185,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Da Big' Un`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Livin' Idol`,

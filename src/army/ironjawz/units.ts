@@ -9,6 +9,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
@@ -184,8 +185,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dead 'Ard`,
-        desc: `Roll a 1D6 each time you allocate a wound or mortal wound to this unit. On a 6+ the wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6+.`,
-        when: [DURING_GAME],
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 6+ the wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6+.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Paired Choppas`,

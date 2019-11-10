@@ -14,6 +14,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   END_OF_CHARGE_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_SLAANESH } from 'meta/alliances'
@@ -111,7 +112,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -202,7 +203,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `The Killing Stroke`,
@@ -299,7 +300,7 @@ export const Units: TUnits = [
       {
         name: `Inhuman Reflexes`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -309,7 +310,7 @@ export const Units: TUnits = [
       {
         name: `Lightning Reflexes`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Lithe and Swift`,

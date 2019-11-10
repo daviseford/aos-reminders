@@ -19,6 +19,7 @@ import {
   START_OF_SHOOTING_PHASE,
   TURN_ONE_DURING_TURN,
   TURN_TWO_DURING_TURN,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -155,7 +156,7 @@ export const Units: TUnits = [
       {
         name: `Spore Squig`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Spore Maws`,
@@ -558,7 +559,7 @@ export const Units: TUnits = [
       {
         name: `Touched by the Spider God`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Speed of the Spider God`,
@@ -760,7 +761,7 @@ export const Units: TUnits = [
       {
         name: `Stony Skin`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Throwin' Boulders`,

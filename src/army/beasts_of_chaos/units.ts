@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -503,7 +504,7 @@ export const Units: TUnits = [
       {
         name: `Arcanite Shield`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Paired Savage Blades`,

@@ -12,6 +12,7 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
@@ -251,7 +252,7 @@ export const Units: TUnits = [
       {
         name: `Infernal Runeshield`,
         desc: `Each time you allocate a wound or mortal wound to this model, roll a D6. On a 6+ the wound is negated at the attacking model suffers 1 mortal wound after all its attacks have been made.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Will of the Gods`,

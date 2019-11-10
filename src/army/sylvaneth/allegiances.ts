@@ -8,6 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -35,7 +36,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Dawnflask`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
         artifact: true,
       },
     ],

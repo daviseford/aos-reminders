@@ -17,6 +17,7 @@ import {
   TURN_FOUR_START_OF_ROUND,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const ThundertuskEffects = [
@@ -46,7 +47,7 @@ const StonehornEffects = [
   {
     name: `Stone Skeleton`,
     desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-    when: [DURING_GAME],
+    when: [WOUND_ALLOCATION],
   },
 ]
 
@@ -530,7 +531,7 @@ export const Battalions: TBattalions = [
       {
         name: `Wall of Fat`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly TYRANT from this battalion while it is within 3" of a friendly IRONGUTS unit from this battalion. On a 4+, that wound or mortal wound is negated. That unit of IRONGUTS then suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -1,10 +1,10 @@
 import {
-  COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -13,7 +13,7 @@ const Abilities: TAbilities = [
   {
     name: `Deathless Minions`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,
-    when: [COMBAT_PHASE],
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `The Unquiet Dead`,
