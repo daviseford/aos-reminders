@@ -15,7 +15,7 @@ export const MonstrousArcanumOrder: TUnits = [
       {
         name: `Deathly Dark Scales`,
         desc: `Roll a dice each time you allocate a mortal wound to this unit. On a 5+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Soul-sheering Blast`,

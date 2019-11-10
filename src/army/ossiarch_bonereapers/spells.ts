@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 // Spells, Prayers, etc. go here
 
@@ -41,6 +41,11 @@ const Spells: TSpells = [
         name: `Reinforce Battle-shields`,
         desc: `Reinforce Battle-shields has a casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit armed wit Shields or Nadirite Battle-shields that is wholly within 24" of the caster and visible to them. Until the start of your next hero phase, roll a dice each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Reinforce Battle-shields`,
+        desc: `If active, roll a dice each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

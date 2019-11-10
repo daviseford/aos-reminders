@@ -47,7 +47,7 @@ export const Units: TUnits = [
       {
         name: `Corrupted Flesh`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Noxious Blades`,
@@ -68,7 +68,7 @@ export const Units: TUnits = [
       {
         name: `Bloated Flesh`,
         desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Rot-eaters`,
@@ -83,7 +83,7 @@ export const Units: TUnits = [
       {
         name: `Bloated Flesh`,
         desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Cloud of Flies`,

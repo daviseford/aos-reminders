@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Loonstone Talisman`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

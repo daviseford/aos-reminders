@@ -39,7 +39,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Impenetrable Hide`,
         desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+ that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Yawning Maw`,
@@ -63,8 +63,13 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Shrouding Mists`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model. In addition, roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Shrouding Mists`,
+        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Unnatural Flesh`,
@@ -89,8 +94,13 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Shrouding Mists`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model. In addition, roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Shrouding Mists`,
+        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Unnatural Flesh`,

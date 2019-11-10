@@ -215,7 +215,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Arcane Pearl`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
