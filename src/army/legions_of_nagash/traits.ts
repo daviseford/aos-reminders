@@ -8,6 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { appendTag } from 'utils/armyUtils'
 import GHoNTraits from 'army/grand_host_of_nagash/traits'
@@ -154,7 +155,7 @@ const CommandTraits: TTraits = [
       {
         name: `Deathless Thralls (Soulblight)`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SOULBLIGHT unit within 6" of your general or another SOULBLIGHT HERO from your army. On a 6+ the wound is negated.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
