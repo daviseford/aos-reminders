@@ -348,7 +348,7 @@ export const Units: TUnits = [
       {
         name: `Spurting Bile Blood`,
         desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [WOUND_ALLOCATION],
+        when: [COMBAT_PHASE],
       },
     ],
   },
