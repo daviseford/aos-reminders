@@ -21,6 +21,16 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const SigmariteThundershield = {
+  name: `Sigmarite Thundershield`,
+  desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+const CometTrailEffect = {
+  name: `Comet Trail`,
+  desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for friendly STORMCAST ETERNAL units' missile attacks that target that unit in the same turn.`,
+  when: [END_OF_MOVEMENT_PHASE],
+}
 const PrimeElectridsEffect = {
   name: `Prime Electrids`,
   desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
@@ -41,6 +51,11 @@ const AetherealStrikeEffect = {
   desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
   when: [COMBAT_PHASE],
 }
+const StormBlastEffect = {
+  name: `Storm Blast`,
+  desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+  when: [SHOOTING_PHASE],
+}
 const AstralCompassEffect = {
   name: `Astral Compass`,
   desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
@@ -55,6 +70,11 @@ const CycleOfTheStormEffect = {
   name: `Cycle of the Storm`,
   desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
   when: [WOUND_ALLOCATION],
+}
+const SigmariteShieldsEffect = {
+  name: `Sigmarite Shields`,
+  desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 const CelestialLightningArcEffects = [
   {
@@ -114,11 +134,7 @@ export const Units: TUnits = [
   {
     name: `Aventis Firestrike`,
     effects: [
-      {
-        name: `Comet Trail`,
-        desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for friendly STORMCAST ETERNAL units' missile attacks that target that unit in the same turn.`,
-        when: [END_OF_MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
+      CometTrailEffect,
       CycleOfTheStormEffect,
       {
         name: `Meteoric Strike`,
@@ -248,11 +264,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Starbound Blade if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Thundershield`,
-        desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteThundershield,
       {
         name: `Once More, For Sigmar, Charge!`,
         desc: `Until the end of the phase add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of this model when the charge roll is made.`,
@@ -320,11 +332,7 @@ export const Units: TUnits = [
   {
     name: `Lord-Arcanum on Tauralon`,
     effects: [
-      {
-        name: `Comet Trail`,
-        desc: `Pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for attacks made with missile weapons used by friendly STORMCAST ETERNAL units that target that unit in the same turn.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
+      CometTrailEffect,
       CycleOfTheStormEffect,
       {
         name: `Meteoric Strike`,
@@ -434,11 +442,7 @@ export const Units: TUnits = [
         desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Sigmarite Thundershield`,
-        desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteThundershield,
       {
         name: `Intolerable Damage`,
         desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
@@ -485,11 +489,7 @@ export const Units: TUnits = [
         desc: `Add D3 to the Attacks of this model's Celestine Hammer or Stormbound Blade if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Thundershield`,
-        desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteThundershield,
       {
         name: `Lord of the Heavens`,
         desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
@@ -886,16 +886,8 @@ export const Units: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Storm Blast`,
-        desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      SigmariteShieldsEffect,
+      StormBlastEffect,
       {
         name: `Blast to Ashes`,
         desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 1 mortal wound on the target in addition to its normal damage. If a unit suffers any mortal wounds in this way, it cannot pile in later that phase.`,
@@ -911,16 +903,8 @@ export const Units: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Storm Blast`,
-        desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      SigmariteShieldsEffect,
+      StormBlastEffect,
       {
         name: `Impaling Strikes`,
         desc: `Add 2 to the Damage of this unit's Stormstrike Glaives if the unit made a charge move in the same turn.`,
@@ -941,16 +925,8 @@ export const Units: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Storm Blast`,
-        desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      SigmariteShieldsEffect,
+      StormBlastEffect,
       {
         name: `Fury of the Storm`,
         desc: `While this unit has 4 or more models, add 1 to the Attacks of this unit's Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks instead.`,
@@ -966,16 +942,8 @@ export const Units: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Storm Blast`,
-        desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      SigmariteShieldsEffect,
+      StormBlastEffect,
       {
         name: `Disruptive Fire`,
         desc: `Subtract 1 from hit rolls for missile attacks used by enemy units while they are within 12" of one or more friendly TEMPESTORS.`,
@@ -1041,11 +1009,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteShieldsEffect,
       {
         name: `Paired Weapons`,
         desc: `Each unmodified hit roll of 6 made for a model armed with either a pair of warhammers or a pair of warblades inflicts 2 hits on the target unit instead of 1. Make a wound and save roll for each hit.`,
@@ -1091,11 +1055,7 @@ export const Units: TUnits = [
         desc: `+1 to Stormcall Javelin damage if target is more than 9" from the attacking model.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteShieldsEffect,
       {
         name: `Heralds of Righteousness`,
         desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
@@ -1121,11 +1081,7 @@ export const Units: TUnits = [
         desc: `Re-roll hits of 1.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      SigmariteShieldsEffect,
       {
         name: `Heralds of Righteousness`,
         desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
