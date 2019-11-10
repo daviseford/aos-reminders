@@ -75,20 +75,7 @@ export const MonstrousArcanumDestruction: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Baleglyph Maul is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
-<<<<<<< HEAD
-      {
-        name: `Shrouding Mists`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
-        when: [SHOOTING_PHASE],
-      },
-=======
       ...ShroudingMistEffects,
->>>>>>> Some rules cleanup
-      {
-        name: `Shrouding Mists`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
       {
         name: `Unnatural Flesh`,
         desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
@@ -110,20 +97,7 @@ export const MonstrousArcanumDestruction: TUnits = [
         desc: `If the unmodified wound roll for an attack made with a Baleglyph Maul is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
-<<<<<<< HEAD
-      {
-        name: `Shrouding Mists`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
-        when: [SHOOTING_PHASE],
-      },
-=======
       ...ShroudingMistEffects,
->>>>>>> Some rules cleanup
-      {
-        name: `Shrouding Mists`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
       {
         name: `Unnatural Flesh`,
         desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
