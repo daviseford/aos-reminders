@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { AppStatusProvider } from 'context/useAppStatus'
 import * as serviceWorker from './serviceWorker'
-import { army, factionNames, realmscape, selections, visibility } from 'ducks'
+import { army, factionNames, realmscape, selections, visibility, factionOrigins } from 'ducks'
 import App from 'components/App'
 
 // Auth
@@ -33,6 +33,7 @@ export const store = createStore(
   combineReducers({
     army: army.reducer,
     factionNames: factionNames.reducer,
+    factionOrigins: factionOrigins.reducer,
     realmscape: realmscape.reducer,
     selections: selections.reducer,
     visibility: visibility.reducer,

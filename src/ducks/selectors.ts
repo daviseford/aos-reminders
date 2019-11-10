@@ -10,6 +10,9 @@ export const getAllyArmies = (state: IStore) => state.army.allyArmies
 // Faction Name
 export const getFactionName = (state: IStore) => state.factionNames.factionName
 
+// Faction Origin
+export const getFactionOrigin = (state: IStore) => state.factionOrigins.factionOrigin
+
 // Realmscape
 export const getRealmscape = (state: IStore) => state.realmscape.realmscape as TRealms | null
 export const getRealmscapeFeature = (state: IStore) => state.realmscape.realmscape_feature
@@ -33,6 +36,7 @@ export const getCurrentArmy = (state: IStore): ICurrentArmy => {
     allyFactionNames: getAllyFactionNames(state),
     allySelections: getAllySelections(state),
     factionName: getFactionName(state),
+    factionOrigin: getFactionOrigin(state),
     realmscape_feature: getRealmscapeFeature(state),
     realmscape: getRealmscape(state),
     selections: getSelections(state),

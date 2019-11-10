@@ -2,7 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
 import { TEffects, TEntry } from './data'
 import { IAllySelections, ISelections } from './selections'
-import { TRealms } from './realmscapes'
+import { TRealms, TOrigins } from './realmscapes'
 import { TAllySelectionStore } from './store'
 
 export type TAllyArmies = { [key: string]: IArmy }
@@ -65,6 +65,7 @@ export interface ICurrentArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   factionName: TSupportedFaction
+  factionOrigin: TOrigins
   realmscape_feature: string | null
   realmscape: TRealms | null
   selections: ISelections

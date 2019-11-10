@@ -3,7 +3,7 @@ import { processGame } from '../processGame'
 import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
-import { TRealms } from 'types/realmscapes'
+import { TRealms, TOrigins } from 'types/realmscapes'
 import { getAllianceItems } from './getAllianceItems'
 import { getCollection } from './getCollection'
 import { modify } from './modify'
@@ -12,6 +12,7 @@ import { getArmyFromList } from 'meta/army_list'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
+  factionOrigin: TOrigins | null = null,
   realmscape: TRealms | null = null
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
@@ -20,7 +21,13 @@ export const getArmy = (
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army as IArmy, { realmscape, GrandAlliance, Collection, factionName })
+  const army = modifyArmy(Army as IArmy, {
+    realmscape,
+    GrandAlliance,
+    Collection,
+    factionName,
+    factionOrigin,
+  })
 
   return army
 }
@@ -30,6 +37,7 @@ interface IModifyArmyMeta {
   GrandAlliance: TGrandAlliances
   realmscape: TRealms | null
   factionName: TSupportedFaction
+  factionOrigin: TOrigins | null
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
@@ -44,7 +52,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Traits = [],
     Units = [],
   } = Army as IInitialArmy
-  const { realmscape, GrandAlliance, Collection, factionName } = meta
+  const { realmscape, GrandAlliance, Collection, factionName, factionOrigin } = meta
 
   const GrandAllianceEndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
 
@@ -58,7 +66,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   }
 
   Army.Allegiances = modify.Allegiances(Allegiances)
-  Army.Artifacts = modify.Artifacts(Artifacts, GrandAlliance, Collection)
+  Army.Artifacts = modify.Artifacts(Artifacts, factionOrigin, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
   Army.Commands = modify.Commands(realmscape, Collection)
   Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)

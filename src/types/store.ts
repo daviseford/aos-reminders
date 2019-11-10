@@ -3,6 +3,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from './selections'
 import { ISavedArmyFromApi } from './savedArmy'
 import { TSideEffectTypes } from 'utils/withSelect'
+import { TOrigins } from 'types/realmscapes'
 
 export interface IArmyStore {
   army: IArmy
@@ -11,6 +12,10 @@ export interface IArmyStore {
 
 export interface IFactionNameStore {
   factionName: TSupportedFaction
+}
+
+export interface IFactionOriginStore {
+  factionOrigin: TOrigins
 }
 
 export interface IRealmscapeStore {
@@ -43,6 +48,7 @@ export interface IVisibilityStore {
 export interface IStore {
   army: IArmyStore
   factionNames: IFactionNameStore
+  factionOrigins: IFactionOriginStore
   realmscape: IRealmscapeStore
   selections: ISelectionStore
   visibility: IVisibilityStore
