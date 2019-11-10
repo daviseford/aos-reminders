@@ -87,7 +87,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mystic Waaagh! Paint`,
-        desc: `At the start of your hero phase roll a dice on the spell lore table, this wizard can attempt to cast it for free, if it already knows the spell rolled it gets 1 additional spell cast for the turn.`,
+        desc: `At the start of your hero phase roll a D6 on the spell lore table, this wizard can attempt to cast it for free, if it already knows the spell rolled it gets 1 additional spell cast for the turn.`,
         when: [HERO_PHASE],
       },
     ],

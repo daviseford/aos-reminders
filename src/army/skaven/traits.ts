@@ -12,6 +12,17 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const getVerminousValour = (clan: string) => ({
+  name: `Verminous Valour (${clan})`,
+  effects: [
+    {
+      name: `Verminous Valour (${clan})`,
+      desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+      when: [WOUND_ALLOCATION],
+    },
+  ],
+})
+
 const CommandTraits: TTraits = [
   {
     name: `Malevolent (Masterclan)`,
@@ -23,16 +34,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Masterclan)`,
-    effects: [
-      {
-        name: `Verminous Valour (Masterclan)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Masterclan'),
   {
     name: `Savage Overlord (Masterclan)`,
     effects: [
@@ -83,16 +85,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Skryre)`,
-    effects: [
-      {
-        name: `Verminous Valour (Skryre)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Skryre'),
   {
     name: `Savage Overlord (Skryre)`,
     effects: [
@@ -143,16 +136,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Pestilens)`,
-    effects: [
-      {
-        name: `Verminous Valour (Pestilens)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Pestilens'),
   {
     name: `Savage Overlord (Pestilens)`,
     effects: [
@@ -203,16 +187,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Verminus)`,
-    effects: [
-      {
-        name: `Verminous Valour (Verminus)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Verminus'),
   {
     name: `Savage Overlord (Verminus)`,
     effects: [
@@ -263,16 +238,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Moulder)`,
-    effects: [
-      {
-        name: `Verminous Valour (Moulder)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Moulder'),
   {
     name: `Savage Overlord (Moulder)`,
     effects: [
@@ -323,16 +289,7 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-  {
-    name: `Verminous Valour (Eshin)`,
-    effects: [
-      {
-        name: `Verminous Valour (Eshin)`,
-        desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
+  getVerminousValour('Eshin'),
   {
     name: `Savage Overlord (Eshin)`,
     effects: [

@@ -24,7 +24,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Waaagh!-monger`,
-        desc: `If your general is alive, roll a dice at the start of the hero phase, on a 4+ you get 1 CP.`,
+        desc: `If your general is alive, roll a D6 at the start of the hero phase, on a 4+ you get 1 CP.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

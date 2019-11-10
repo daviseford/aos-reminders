@@ -24,9 +24,27 @@ const getStormcastUnits = () => Stormcast.Units
 const getKharadronUnits = () => KharadronOverlords.Units
 const getSylvanethUnits = () => Sylvaneth.Units
 
+const LuminarkEffects = [
+  {
+    name: `Aura of Protection`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
+    when: [WOUND_ALLOCATION],
+  },
+  {
+    name: `Locus of Hysh`,
+    desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Searing Beam of Light`,
+    desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a D6 for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
+    when: [SHOOTING_PHASE],
+  },
+]
+
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
-  desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION],
 }
 
@@ -70,7 +88,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a dice for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -133,7 +151,7 @@ export const Units: TUnits = [
       },
       {
         name: `Amber Spear`,
-        desc: `Casting value 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a dice for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -170,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a dice for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -205,21 +223,7 @@ export const Units: TUnits = [
   {
     name: `Luminark of Hysh with White Battlemage`,
     effects: [
-      {
-        name: `Aura of Protection`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Locus of Hysh`,
-        desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Beam of Light`,
-        desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a dice for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      ...LuminarkEffects,
       {
         name: `White Battlemage`,
         desc: `Add 1 to casting rolls for this model if the battle is taking place in Hysh.`,
@@ -241,23 +245,7 @@ export const Units: TUnits = [
   },
   {
     name: `Luminark of Hysh`,
-    effects: [
-      {
-        name: `Aura of Protection`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Locus of Hysh`,
-        desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Beam of Light`,
-        desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a dice for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...LuminarkEffects],
   },
   {
     name: `Flagellants`,
@@ -279,7 +267,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wreckless Abandon`,
-        desc: `Each time a model from this unit flees, you can pick 1 enemy unit within 6" of this unit and roll a dice. On a 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Each time a model from this unit flees, you can pick 1 enemy unit within 6" of this unit and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -535,7 +523,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore: Ancestral Shield`,
-        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -604,7 +592,7 @@ export const Units: TUnits = [
       DrummerEffect,
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -635,7 +623,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -707,7 +695,7 @@ export const Units: TUnits = [
       },
       {
         name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -747,7 +735,7 @@ export const Units: TUnits = [
       },
       {
         name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -989,12 +977,12 @@ export const Units: TUnits = [
       },
       {
         name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
         when: [MOVEMENT_PHASE],
       },
       WitnessToDestinyEffect,
@@ -1038,12 +1026,12 @@ export const Units: TUnits = [
       },
       {
         name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -1142,7 +1130,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Scythed Runners`,
-        desc: `Each time a model from this unit finishes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.`,
+        desc: `Each time a model from this unit finishes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.`,
         when: [CHARGE_PHASE],
       },
     ],

@@ -7,6 +7,7 @@ import {
   MOVEMENT_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -26,12 +27,12 @@ export const Units: TUnits = [
       },
       {
         name: `Incantation of the Desert Wind`,
-        desc: `In your hero phase this model can invoke the Incantation of the Desert Wind. If he does so, pick a Desert Legions unit within 18" and roll a dice; on a roll of 1 this model suffers a mortal wound. On a roll of 2+ the incantation is successfully carried out - the chosen unit's Move characteristic is doubled and it can fly for the duration of your next movement phase.`,
+        desc: `In your hero phase this model can invoke the Incantation of the Desert Wind. If he does so, pick a Desert Legions unit within 18" and roll a D6; on a roll of 1 this model suffers a mortal wound. On a roll of 2+ the incantation is successfully carried out - the chosen unit's Move characteristic is doubled and it can fly for the duration of your next movement phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Scarab Amulet`,
-        desc: `Roll a dice each time this model suffers a wound or a mortal wound. On a roll of 5+ the wound is negated.`,
+        desc: `Roll a D6 each time this model suffers a wound or a mortal wound. On a roll of 5+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -138,8 +139,8 @@ export const Units: TUnits = [
       },
       {
         name: `Sworn Bodyguard`,
-        desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a dice for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
-        when: [COMBAT_PHASE],
+        desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a D6 for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Standard of the Undying Legion`,
@@ -194,7 +195,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unleashed Souls`,
-        desc: `In your hero phase you can declare that the Keeper of the Casket will unleash the tortured souls of the damned. If you do so, pick a visible enemy unit within 20" and roll a dice. On a 3+ that unit suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead). Then roll a dice for each other enemy unit within 6" of the first unit. On a 5+ that unit is also attacked by the vengeful souls, and suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead).`,
+        desc: `In your hero phase you can declare that the Keeper of the Casket will unleash the tortured souls of the damned. If you do so, pick a visible enemy unit within 20" and roll a D6. On a 3+ that unit suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead). Then roll a D6 for each other enemy unit within 6" of the first unit. On a 5+ that unit is also attacked by the vengeful souls, and suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead).`,
         when: [HERO_PHASE],
       },
     ],
@@ -424,7 +425,7 @@ export const Units: TUnits = [
       },
       {
         name: `Liche Priest's Sarcophagi`,
-        desc: `Roll a dice each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
+        desc: `Roll a D6 each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
         when: [HERO_PHASE],
       },
     ],
@@ -449,7 +450,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Thundercrush Attack`,
-        desc: `After this model makes a charge move, pick one enemy unit that is within 1" of it and roll a dice. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -464,7 +465,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Thundercrush Attack`,
-        desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a dice. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
+        desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -511,7 +512,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Transmogrifying Gaze`,
-        desc: `When this unit makes a Transmogrifying Gaze attack, choose an enemy unit within 10". Roll a dice for each model in the attacking unit; for each roll of 1, a Sepulchral Stalker has caught a glimpse of its own reflection and the attacking unit suffers 1 mortal wound. On a 2 or 3 the target unit keeps its eyes shut and nothing happens. On a 4 or 5 the target unit suffers 1 mortal wound as it briefly meets the Stalker's gaze, but on a 6 it suffers D3 mortal wounds as it foolishly stares into the Stalker's eyes and crumbles to sand.`,
+        desc: `When this unit makes a Transmogrifying Gaze attack, choose an enemy unit within 10". Roll a D6 for each model in the attacking unit; for each roll of 1, a Sepulchral Stalker has caught a glimpse of its own reflection and the attacking unit suffers 1 mortal wound. On a 2 or 3 the target unit keeps its eyes shut and nothing happens. On a 4 or 5 the target unit suffers 1 mortal wound as it briefly meets the Stalker's gaze, but on a 6 it suffers D3 mortal wounds as it foolishly stares into the Stalker's eyes and crumbles to sand.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -531,7 +532,7 @@ export const Units: TUnits = [
       },
       {
         name: `Colossus of War`,
-        desc: `After this unit has attacked for the first time in the combat phase, roll a dice. Add 1 to the result if a friendly Necrotect is within 18". On a 5+ this unit can immediately pile in and attack for a second time this turn.`,
+        desc: `After this unit has attacked for the first time in the combat phase, roll a D6. Add 1 to the result if a friendly Necrotect is within 18". On a 5+ this unit can immediately pile in and attack for a second time this turn.`,
         when: [COMBAT_PHASE],
       },
     ],

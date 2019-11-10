@@ -13,6 +13,7 @@ import {
   START_OF_ROUND,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import {
   ARCANE,
@@ -85,7 +86,7 @@ export const DefaultScenery: TScenery = [
       {
         name: MYSTICAL,
         desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -204,13 +205,10 @@ export const DefaultScenery: TScenery = [
   },
 ]
 
-const SceneryEffectLookup = DefaultScenery.reduce(
-  (accum, entry: TEntry) => {
-    accum[entry.name] = entry.effects
-    return accum
-  },
-  {} as { [key in TSceneryEffects]: TEffects[] }
-)
+const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {
+  accum[entry.name] = entry.effects
+  return accum
+}, {} as { [key in TSceneryEffects]: TEffects[] })
 
 // Penumbral is now a scenery type.
 const PenumbralEffects: TEffects[] = [
@@ -296,7 +294,7 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Rune-locked Vault`,
-        desc: `1 friendly hero within 1" of this terrain feature can roll a dice. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
+        desc: `1 friendly hero within 1" of this terrain feature can roll a D6. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
               
                1 - Add 1 to the damage characteristic of one of the hero's melee weapons for the remainder of the battle.
                2 - Hero can attempt to cast 1 arcane bolt spell as if it were a wizard. This counts as 1 extra spell on wizards.
@@ -316,12 +314,12 @@ const OfficialScenery: TScenery = [
       },
       {
         name: `Consecrated Ground`,
-        desc: `Roll a dice for each endless spell within 6" of this terrain feature. On a 6 the endless spell is immediately dispelled.`,
+        desc: `Roll a D6 for each endless spell within 6" of this terrain feature. On a 6 the endless spell is immediately dispelled.`,
         when: [START_OF_ROUND],
       },
       {
         name: `Consecrated Ground`,
-        desc: `Roll a dice each time a unit wholly within this terrain feature is affected by a spell or endless spell. On a 6+ ignore the effects of that spell on the unit.`,
+        desc: `Roll a D6 each time a unit wholly within this terrain feature is affected by a spell or endless spell. On a 6+ ignore the effects of that spell on the unit.`,
         when: [DURING_GAME],
       },
       ...SceneryEffectLookup[OBSTACLE],

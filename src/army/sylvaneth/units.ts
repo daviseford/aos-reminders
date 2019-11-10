@@ -17,6 +17,25 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const MartialMemoriesEffects = [
+  {
+    name: `Martial Memories`,
+    desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+  },
+  {
+    name: `Martial Memories`,
+    desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+]
+
+const BlessingsOfTheForestEffect = {
+  name: `Blessings of the Forest`,
+  desc: `Subtract 1 from hit rolls for attacks that target this unit if it is wholly within 6" of any friendly AWAKENED WYLDWOODS.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -45,13 +64,14 @@ export const Units: TUnits = [
       {
         name: `Soul Amphorae`,
         desc: `Once per battle, at the end of your movement phase, you can summon 1 of the following units to the battlefield:
- 20 Dryads
- 10 Tree-Revenants
- 10 Spite-Revenants
- 3 Kurnoth Hunters
- 1 Branchwych
- 1 Treelord
-The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
+        20 Dryads
+        10 Tree-Revenants
+        10 Spite-Revenants
+        3 Kurnoth Hunters
+        1 Branchwych
+        1 Treelord
+        
+        The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
@@ -255,11 +275,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
   {
     name: `Branchwraith`,
     effects: [
-      {
-        name: `Blessings of the Forest`,
-        desc: `Subtract 1 from hit rolls for attacks that target this model while it is wholly within 6" of any friendly AWAKENED WYLDWOODS.`,
-        when: [DURING_GAME],
-      },
+      BlessingsOfTheForestEffect,
       {
         name: `Magic`,
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Roused to Wrath spells.`,
@@ -297,16 +313,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
   {
     name: `Ylthari's Guardians`,
     effects: [
-      {
-        name: `Martial Memories`,
-        desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Martial Memories`,
-        desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...MartialMemoriesEffects,
       {
         name: `Vigour and Wrath`,
         desc: `You can re-roll wound rolls of 1 for attacks made by this unit.`,
@@ -332,16 +339,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
         desc: `At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Martial Memories`,
-        desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Martial Memories`,
-        desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...MartialMemoriesEffects,
     ],
   },
   {
@@ -397,11 +395,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
         desc: `1 model in this unit can be a Branch Nymph. Add 1 to the Attacks characteristic of that model's Wracking Talons.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Blessings of the Forest`,
-        desc: `Subtract 1 from hit rolls for attacks that target this unit if it is wholly within 6" of any friendly AWAKENED WYLDWOODS.`,
-        when: [DURING_GAME],
-      },
+      BlessingsOfTheForestEffect,
       {
         name: `Enrapturing Song`,
         desc: `At the start of your combat phase, pick 1 enemy unit within 3" of this unit. Add 1 to hit rolls for attacks made by this unit that target that enemy unit in that phase.`,

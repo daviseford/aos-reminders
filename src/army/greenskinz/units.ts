@@ -8,7 +8,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Agonising Venom`,
-        desc: `If an enemy model suffers a wound from a Wyvern's Barbed, Venemous tail, but is not slain, roll a dice at the end of the turn. On a 4+, that model suffers a mortal wound.`,
+        desc: `If an enemy model suffers a wound from a Wyvern's Barbed, Venemous tail, but is not slain, roll a D6 at the end of the turn. On a 4+, that model suffers a mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
       {

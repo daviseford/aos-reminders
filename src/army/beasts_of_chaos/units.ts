@@ -549,7 +549,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grashrak's Savage Herd`,
-        desc: `Roll a dice for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
+        desc: `Roll a D6 for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
         when: [DURING_GAME],
       },
     ],

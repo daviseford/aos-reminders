@@ -78,7 +78,7 @@ export const AlliedUnits: TUnits = [
 
 const BlubberAndBileEffect = {
   name: `Blubber and Bile`,
-  desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
   when: [WOUND_ALLOCATION],
 }
 

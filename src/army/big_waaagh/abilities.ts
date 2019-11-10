@@ -5,6 +5,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -31,8 +32,8 @@ const Abilities: TAbilities = [
   },
   {
     name: `Laugh at 'Em - 12+ points`,
-    desc: `Roll a dice when you take a wound or mortal wound, on a 6+ it is ignored.`,
-    when: [DURING_GAME],
+    desc: `Roll a D6 when you take a wound or mortal wound, on a 6+ it is ignored.`,
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Smash 'Em - 16+ points`,
@@ -47,7 +48,7 @@ const Abilities: TAbilities = [
   {
     name: `Da Big Waaagh!!! - 24+ points`,
     desc: `The general can use Da Big Waaagh ability at start of combat phase Add 1 to the attack characteristics to all ORRUK units in the Waaagh army. 
-    After the combat phase roll a dice, on 1 you lose all your Waaagh points, on a 2-5 you halve your Waaagh points, on a 6 you keep everything.`,
+    After the combat phase roll a D6, on 1 you lose all your Waaagh points, on a 2-5 you halve your Waaagh points, on a 6 you keep everything.`,
     when: [START_OF_COMBAT_PHASE],
     command_ability: true,
   },

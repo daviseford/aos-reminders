@@ -8,6 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
@@ -26,7 +27,7 @@ export const Units: TUnits = [
       },
       {
         name: `Prophet of da Waaagh!`,
-        desc: `Roll a dice. On a 4+, you receive 1 Command Point.`,
+        desc: `Roll a D6. On a 4+, you receive 1 Command Point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -79,7 +80,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ritual Dance`,
-        desc: `Roll a dice, on a 3+ pick one of the following effects.
+        desc: `Roll a D6, on a 3+ pick one of the following effects.
 
           Grimdokk Dance: Pick a Bonesplitterz model wholly within 12". That model heals D3 wounds.
           Glyphdokk Dance: Pick a Bonesplitterz unit wholly within 12". Add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.
@@ -148,7 +149,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a D6. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -244,7 +245,7 @@ export const Battalions: TBattalions = [
       {
         name: `Big Rukk Warpaint`,
         desc: `When you use the Warpaint battle trait for a unit from this battalion, you can re-roll the dice that determines if a wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

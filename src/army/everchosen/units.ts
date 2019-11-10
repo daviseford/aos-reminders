@@ -9,6 +9,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Export Chaos god aligned Everchosen units.
@@ -228,7 +229,7 @@ export const Battalions: TBattalions = [
       {
         name: `Scions of Change`,
         desc: `If the number of models in a unit from this battalion is a multiple of 9 when first set up, roll a D6 each time it suffers a wound or mortal wound. On a 6 the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Conduits of Arcane Power`,

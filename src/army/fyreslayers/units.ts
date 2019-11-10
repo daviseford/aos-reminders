@@ -171,7 +171,7 @@ export const Units: TUnits = [
       {
         name: `Grimnir's Blessing`,
         desc: `5+ to negate an allocated a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Stare Down`,
@@ -289,7 +289,7 @@ export const Units: TUnits = [
       {
         name: `Unstoppable Berzerker`,
         desc: `6+ to negate a wound or mortal wound allocated to this model. Add 1 to the roll if there are any enemy units within 3" of this model.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Battlefury`,
@@ -379,7 +379,7 @@ export const Units: TUnits = [
       {
         name: `Duty Unto Death`,
         desc: `6+ to negate a wound or mortal wound allocated to this unit. Add 2 to the roll if there are any friendly FYRESLAYERS HEROES within 10" of this unit.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Smouldering Braziers`,

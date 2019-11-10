@@ -24,7 +24,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Banners Held High`,
-        desc: `At the start of your hero phase, roll a dice for each friendly HAMMERHAL unit that includes any Standard Bearers. For each 6, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, roll a D6 for each friendly HAMMERHAL unit that includes any Standard Bearers. For each 6, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
         allegiance_ability: true,
       },
@@ -156,7 +156,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Eldritch Attunement`,
-        desc: `Each time a friendly HALLOWHEART unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
+        desc: `Each time a friendly HALLOWHEART unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
       },
@@ -168,7 +168,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Arcane Channelling`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a dice. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add that roll to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a D6. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add that roll to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },

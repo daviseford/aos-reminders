@@ -153,8 +153,8 @@ export const Units: TUnits = [
       },
       {
         name: `Orruk-forged Shields!`,
-        desc: `Roll a dice before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
-        when: [COMBAT_PHASE],
+        desc: `Roll a D6 before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -173,7 +173,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of a model from this unit after the model has finished a charge move. On a 4+, that enemy unit suffers 1 Mortal Wound. Allocate the Mortal Wounds after all models have completed their charge.
+        desc: `Roll a D6 for each enemy unit that is within 1" of a model from this unit after the model has finished a charge move. On a 4+, that enemy unit suffers 1 Mortal Wound. Allocate the Mortal Wounds after all models have completed their charge.
 
           In addition, add 1 to hit rolls and wound rolls for attacks made with this unit's Jagged Gore-hackas and tucks and hooves if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE],
@@ -205,7 +205,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `The Warchanter of the battalion knows this Command ability. Use this command ability when a unit from this battalion is destroyed. Roll a dice, on a 4+ a new Orruk Ardboyz unit with 10 models appears wholly within 6" of the table edge and more than 9" from enemy units.`,
+        desc: `The Warchanter of the battalion knows this Command ability. Use this command ability when a unit from this battalion is destroyed. Roll a D6, on a 4+ a new Orruk Ardboyz unit with 10 models appears wholly within 6" of the table edge and more than 9" from enemy units.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -221,7 +221,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Green-skinned Battering Ram`,
-        desc: `After a model from this battalion makes a charge move, pick 1 enemy unit within 1" of each model and roll a dice. On a 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After a model from this battalion makes a charge move, pick 1 enemy unit within 1" of each model and roll a D6. On a 4+ that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],

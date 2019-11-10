@@ -8,10 +8,17 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 export const getTamurkhansUnits = () => Units
 export const getTamurkhansBattalions = () => Battalions
+
+const BloatedFleshEffect = {
+  name: `Bloated Flesh`,
+  desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
+  when: [WOUND_ALLOCATION],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -65,11 +72,7 @@ export const Units: TUnits = [
   {
     name: `Daemon Plague Toads of Nurgle`,
     effects: [
-      {
-        name: `Bloated Flesh`,
-        desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      BloatedFleshEffect,
       {
         name: `Rot-eaters`,
         desc: `If the unmodified hit roll for an attack made with this unit's Yawning Maw is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -80,11 +83,7 @@ export const Units: TUnits = [
   {
     name: `Daemon Pox Riders of Nurgle`,
     effects: [
-      {
-        name: `Bloated Flesh`,
-        desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      BloatedFleshEffect,
       {
         name: `Cloud of Flies`,
         desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this unit.`,
@@ -108,7 +107,7 @@ export const Units: TUnits = [
       {
         name: `Damned Flesh`,
         desc: `If a model from this unit is slain after a wound or mortal wound is allocated to it, roll a D6 before the slain model is removed from play. On a 5+, that wound or mortal wound is negated and the model is not slain.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Insatiably Famished`,

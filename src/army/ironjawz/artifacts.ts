@@ -2,10 +2,10 @@ import { TArtifacts } from 'types/army'
 import {
   COMBAT_PHASE,
   BATTLESHOCK_PHASE,
-  DURING_GAME,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -35,7 +35,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Daubing of Mork`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to the bearer. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -74,7 +74,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Great Green Visions`,
-        desc: `Roll a dice at the start of your hero phase, on a 4+ get 1 CP .`,
+        desc: `Roll a D6 at the start of your hero phase, on a 4+ get 1 CP .`,
         when: [START_OF_HERO_PHASE],
       },
     ],

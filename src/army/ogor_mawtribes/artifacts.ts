@@ -48,7 +48,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Flask of Stonehorn Blood`,
-        desc: `Once per battle, at the start of any phase, the bearer can use this artefact. If they do so, until the end of that turn, roll a dice each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
+        desc: `Once per battle, at the start of any phase, the bearer can use this artefact. If they do so, until the end of that turn, roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
       {
@@ -93,7 +93,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Shrunken Priest Head`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
