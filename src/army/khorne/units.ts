@@ -18,6 +18,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
   DURING_SETUP,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_KHORNE } from 'meta/alliances'
@@ -110,7 +111,7 @@ export const Units: TUnits = [
       {
         name: `Undying Hate`,
         desc: `If this model is slain, before removing the model from play, roll a D6 for each enemy model within 3" of this model. On a 4+, that model's unit suffers 1 mortal wound. This model is then removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
 
       {

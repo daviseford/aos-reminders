@@ -701,7 +701,7 @@ export const Units: TUnits = [
       {
         name: `Crushing Fall`,
         desc: `If this model is slain, before this model is removed from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D6 mortal wounds. This model is then removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Earth-shaking charge`,

@@ -111,7 +111,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Savage Frenzy`,
         desc: `If this model is slain, before removing the model from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with. This model is then removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Incarnate of Ghur`,
@@ -186,7 +186,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Avalanche!`,
         desc: `If this model is slain, before removing the model from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Da Big' Un`,
@@ -216,7 +216,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Deadly Demise`,
         desc: `If this model is slain, before this model is removed from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Warpfire`,
