@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -20,7 +21,7 @@ const Allegiances: TAllegiances = [
       {
         name: `We Cannot Fail`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly HAMMERS OF SIGMAR unit wholly within 9" of this general. On a 6+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
         command_trait: true,
       },
       {

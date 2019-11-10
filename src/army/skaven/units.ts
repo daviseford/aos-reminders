@@ -18,6 +18,7 @@ import {
   TURN_FOUR_START_OF_ROUND,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   TURN_THREE_END_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const AltarOfTheHornedRatEffect = {
@@ -79,7 +80,7 @@ const TerrifyingEffect = {
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-  when: [DURING_GAME],
+  when: [WOUND_ALLOCATION],
 }
 
 const PoisonousFumesEffect = {
@@ -948,7 +949,7 @@ export const Battalions: TBattalions = [
       {
         name: `Plague Altar`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

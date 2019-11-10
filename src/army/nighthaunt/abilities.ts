@@ -1,9 +1,9 @@
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  COMBAT_PHASE,
   DURING_SETUP,
   START_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -17,7 +17,7 @@ const Abilities: TAbilities = [
   {
     name: `Deathless Spirit`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from a unit wholly within 12" of your general or a friendly NIGHTHAUNT HERO. On a 6+, that wound or mortal wound is negated.`,
-    when: [COMBAT_PHASE],
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `From the Underworlds They Come`,

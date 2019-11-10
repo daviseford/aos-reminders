@@ -1,5 +1,12 @@
 import { TUnits } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, SHOOTING_PHASE, START_OF_GAME } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_GAME,
+  WOUND_ALLOCATION,
+} from 'types/phases'
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -52,7 +59,7 @@ export const OrderUnits: TUnits = [
       {
         name: `Shoulder Plate of Edassa`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is ignored.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -7,6 +7,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -66,7 +67,7 @@ const CommandTraits: TTraits = [
       {
         name: `Resilient (Rotbringer)`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to your general. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

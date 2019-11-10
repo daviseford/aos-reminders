@@ -9,6 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -18,7 +19,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sanguine Pearl`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was caused by a melee weapon. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -88,7 +89,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Black Pearl`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -148,7 +149,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Steelshell Pearl`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was caused by a missile weapon. On a 5+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE],
       },
     ],
   },

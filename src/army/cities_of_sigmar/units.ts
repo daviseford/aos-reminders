@@ -14,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import Stormcast from 'army/stormcast_eternals'
 import KharadronOverlords from 'army/kharadron_overlords'
@@ -22,6 +23,12 @@ import Sylvaneth from 'army/sylvaneth'
 const getStormcastUnits = () => Stormcast.Units
 const getKharadronUnits = () => KharadronOverlords.Units
 const getSylvanethUnits = () => Sylvaneth.Units
+
+const WitnessToDestinyEffect = {
+  name: `Witness to Destiny`,
+  desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+  when: [WOUND_ALLOCATION],
+}
 
 const DrummerEffect = {
   name: `Drummer`,
@@ -201,7 +208,7 @@ export const Units: TUnits = [
       {
         name: `Aura of Protection`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Locus of Hysh`,
@@ -238,7 +245,7 @@ export const Units: TUnits = [
       {
         name: `Aura of Protection`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Locus of Hysh`,
@@ -957,11 +964,7 @@ export const Units: TUnits = [
         desc: `This model can attempt to dispel 1 endless spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Witness to Destiny`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
         desc: `Pick 1 friendly HERO with this command ability. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
@@ -988,11 +991,7 @@ export const Units: TUnits = [
         desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
         when: [MOVEMENT_PHASE],
       },
-      {
-        name: `Witness to Destiny`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
         desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
@@ -1014,11 +1013,7 @@ export const Units: TUnits = [
         desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Witness to Destiny`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
         desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
@@ -1081,11 +1076,7 @@ export const Units: TUnits = [
         desc: `Do not take battleshock tests for this unit while it is wholly within 12" of a friendly PHOENIX TEMPLE HERO.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Witness to Destiny`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
-      },
+      WitnessToDestinyEffect,
     ],
   },
   {
