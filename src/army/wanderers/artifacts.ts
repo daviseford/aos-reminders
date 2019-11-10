@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Falcon of Holthaven`,
-        desc: `Roll a dice each time an enemy unit ends a normal move within 12" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time an enemy unit ends a normal move within 12" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Starcaster Longbow`,
-        desc: `In your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a dice. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a D6. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],

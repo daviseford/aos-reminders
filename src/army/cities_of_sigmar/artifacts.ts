@@ -160,7 +160,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Drakescale Cloak (Anvilgard)`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -200,7 +200,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Pauldrons of Living Flame (Hallowheart)`,
-        desc: `At the end of your combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `At the end of your combat phase, roll a D6 for each enemy unit within 3" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -230,7 +230,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seerstone Amulet (Tempest's Eye)`,
-        desc: `At the start of your hero phase, if the bearer is on the battlefield,roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, if the bearer is on the battlefield,roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

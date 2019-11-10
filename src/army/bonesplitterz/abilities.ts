@@ -1,9 +1,9 @@
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -11,8 +11,8 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Warpaint`,
-    desc: `When a model in this army is allocated a wound or mortal wound roll a dice. on a 6+, that wound or mortal wound is negated.`,
-    when: [DURING_GAME],
+    desc: `When a model in this army is allocated a wound or mortal wound roll a D6. on a 6+, that wound or mortal wound is negated.`,
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Monster Hunters`,
@@ -35,7 +35,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Bonesplitterz Waaagh!`,
-    desc: `You can use this command ability once per battle at the start of your combat phase if your general is still alive. Roll a dice and add the number of friendly Bonesplitterz units wholly within 18" of your general to the roll. On an 11 or lower all friendly Bonesplitterz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
+    desc: `You can use this command ability once per battle at the start of your combat phase if your general is still alive. Roll a D6 and add the number of friendly Bonesplitterz units wholly within 18" of your general to the roll. On an 11 or lower all friendly Bonesplitterz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
     when: [START_OF_COMBAT_PHASE],
     command_ability: true,
   },

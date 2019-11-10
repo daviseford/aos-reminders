@@ -15,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
 import { filterUnits } from 'utils/filterUtils'
@@ -296,7 +297,7 @@ export const Units: TUnits = [
       {
         name: `Ebon-wrought Armour`,
         desc: `Each time you allocate a mortal wound to this unit, roll a D6. On a 5+ the mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -577,7 +578,7 @@ export const Units: TUnits = [
       {
         name: `Undead Minions`,
         desc: `Before you allocate a wound or mortal wound to this model, you can pick a friendly Summonable unit within 3" of this model and roll a D6. On a 4+ the wound or mortal wound is allocated to that unit instead.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Deathly Invocation`,
@@ -944,7 +945,7 @@ export const Battalions: TBattalions = [
       {
         name: `Ceaseless Vigil`,
         desc: `Before you allocate a wound or mortal wound to Nagash, you can pick a friendly Morghast unit from this battalion within 3" of Nagash and roll a D6. On a 3+ the wound or mortal wound is allocated to that unit instead.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Eternal Servitude`,

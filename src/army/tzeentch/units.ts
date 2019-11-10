@@ -12,6 +12,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import EverChosen from 'army/everchosen'
 import { MARK_TZEENTCH } from 'meta/alliances'
@@ -56,16 +57,49 @@ const getBoCBattalion = () => {
 
 export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
+const ArcaneTomeEffect = {
+  name: `Arcane Tome`,
+  desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
+  when: [HERO_PHASE],
+}
+
+const BeaconOfSorceryEffect = {
+  name: `Beacon of Sorcery`,
+  desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
+  when: [HERO_PHASE],
+  command_ability: true,
+}
+
+const CapriciousWarpflameEffect = {
+  name: `Capricious Warpflame`,
+  desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from a Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
+  when: [END_OF_SHOOTING_PHASE],
+}
+
+const MasteryOfMagicEffect = {
+  name: `Mastery of Magic`,
+  desc: `When you make a casting or unbinding roll for this model, change the result of the lowest dice so that it matches the highest.`,
+  when: [HERO_PHASE],
+}
+
+const SkySharksEffect = {
+  name: `Sky-sharks`,
+  desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+  when: [COMBAT_PHASE],
+}
+
+const SpellThiefEffect = {
+  name: `Spell-thief`,
+  desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
+  when: [HERO_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for Kairos Fateweaver, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
+      MasteryOfMagicEffect,
       {
         name: `Oracle of Eternity`,
         desc: `Once per battle, you can change the result of a single dice roll to the result of your choosing. However, this ability may not be used to affect the roll to see who takes the first turn in a battle round.`,
@@ -82,22 +116,9 @@ export const Units: TUnits = [
   {
     name: `Lord of Change`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Spell-thief`,
-        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Beacon of Sorcery`,
-        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      MasteryOfMagicEffect,
+      SpellThiefEffect,
+      BeaconOfSorceryEffect,
       {
         name: `Infernal Gateway`,
         desc: `Casting value 7. Pick a visible enemy within 18" of the caster and roll 9 dice. For each roll that equals or beats the number shown on the damage table, the unit suffers a mortal wound.`,
@@ -129,11 +150,7 @@ export const Units: TUnits = [
   {
     name: `Herald of Tzeentch`,
     effects: [
-      {
-        name: `Arcane Tome`,
-        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
-        when: [HERO_PHASE],
-      },
+      ArcaneTomeEffect,
       {
         name: `Fortune and Fate`,
         desc: `If you roll a 9+ for a Herald of Tzeentch's casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
@@ -150,11 +167,7 @@ export const Units: TUnits = [
   {
     name: `Herald of Tzeentch on Disc`,
     effects: [
-      {
-        name: `Arcane Tome`,
-        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
-        when: [HERO_PHASE],
-      },
+      ArcaneTomeEffect,
       {
         name: `Blue Fire of Tzeentch`,
         desc: `Casting value 4. Pick a visible enemy unit within 18". You roll 9 dice and your opponent rolls 1 dice. The target suffers 1 mortal wound for each one of your dice matches the dice rolled by your opponent.`,
@@ -166,16 +179,8 @@ export const Units: TUnits = [
   {
     name: `Herald of Tzeentch on Burning Chariot`,
     effects: [
-      {
-        name: `Arcane Tome`,
-        desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Sky-sharks`,
-        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
+      ArcaneTomeEffect,
+      SkySharksEffect,
       {
         name: `Wake of Fire`,
         desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
@@ -183,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 9. Roll a dice for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 9. Roll a D6 for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -257,22 +262,12 @@ export const Units: TUnits = [
   },
   {
     name: `Exalted Flamers of Tzeentch`,
-    effects: [
-      {
-        name: `Capricious Warpflame`,
-        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
-        when: [END_OF_SHOOTING_PHASE],
-      },
-    ],
+    effects: [CapriciousWarpflameEffect],
   },
   {
     name: `Flamers of Tzeentch`,
     effects: [
-      {
-        name: `Capricious Warpflame`,
-        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from a Flamer's Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
-        when: [END_OF_SHOOTING_PHASE],
-      },
+      CapriciousWarpflameEffect,
       {
         name: `Locus of Transmogrification`,
         desc: `Roll a D6 each time a model in this unit is slain within 9" of a Tzeentch Daemon Hero from your army; on a 6, add two Flamer models to this unit.`,
@@ -283,11 +278,7 @@ export const Units: TUnits = [
   {
     name: `Screamers of Tzeentch`,
     effects: [
-      {
-        name: `Sky-sharks`,
-        desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
+      SkySharksEffect,
       {
         name: `Slashing Fins`,
         desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6 for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
@@ -303,16 +294,8 @@ export const Units: TUnits = [
   {
     name: `Burning Chariots of Tzeentch`,
     effects: [
-      {
-        name: `Sky-sharks`,
-        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Capricious Warpflame`,
-        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
-        when: [END_OF_SHOOTING_PHASE],
-      },
+      SkySharksEffect,
+      CapriciousWarpflameEffect,
       {
         name: `Wake of Fire`,
         desc: `After a Burning Chariot moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
@@ -426,7 +409,7 @@ export const Units: TUnits = [
       {
         name: `Arcanite Shield`,
         desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Gestalt Sorcery`,
@@ -490,22 +473,9 @@ export const Units: TUnits = [
   {
     name: `Exalted Greater Demon of Tzeentch`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Spell-thief`,
-        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Beacon of Sorcery`,
-        desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      MasteryOfMagicEffect,
+      SpellThiefEffect,
+      BeaconOfSorceryEffect,
       {
         name: `Magic`,
         desc: `This model is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Infernal Gateway spells.`,

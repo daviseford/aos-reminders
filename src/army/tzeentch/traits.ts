@@ -2,11 +2,11 @@ import { TTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -106,7 +106,7 @@ const CommandTraits: TTraits = [
       {
         name: `Blessing of Tzeentch`,
         desc: `Each time your general suffers a wound or mortal wound, roll a D6; on a roll of 6, the wound is ignored.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

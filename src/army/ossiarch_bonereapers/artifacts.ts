@@ -45,7 +45,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Grave-sand Boneplate`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of the bearer. On a 4+, that unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy unit within 3" of the bearer. On a 4+, that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -55,7 +55,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Marrowpact`,
-        desc: `Once per battle, in your hero phase, pick 1 enemy unit within 6" of the bearer that is visible to them, and roll a dice. On a 3+, that unit suffers D3 mortal wounds and you can heal 1 wound allocated to the bearer for each mortal wound that is inflicted and not negated.`,
+        desc: `Once per battle, in your hero phase, pick 1 enemy unit within 6" of the bearer that is visible to them, and roll a D6. On a 3+, that unit suffers D3 mortal wounds and you can heal 1 wound allocated to the bearer for each mortal wound that is inflicted and not negated.`,
         when: [HERO_PHASE],
       },
     ],
@@ -75,7 +75,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Artisan's Key`,
-        desc: `Before you use the bearer's Boneshaper ability, roll a dice. On a 4+, you can either pick 2 units within 6" of the bearer to be affected by the Boneshaper ability instead of 1, or you can pick 1 unit within 6" of the bearer to be affected by the Boneshaper ability twice.`,
+        desc: `Before you use the bearer's Boneshaper ability, roll a D6. On a 4+, you can either pick 2 units within 6" of the bearer to be affected by the Boneshaper ability instead of 1, or you can pick 1 unit within 6" of the bearer to be affected by the Boneshaper ability twice.`,
         when: [HERO_PHASE],
       },
     ],
@@ -85,7 +85,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lode of Saturation`,
-        desc: `At the start of your hero phase, pick 1 friendly OSSIARCH BONEREAPERSunit other than the bearer that is within 1" of them. Until your next hero phase, the Deathless Warriors battle trait negates a wound or mortal wound allocated to that unit on a roll of a 5+ instead of 6.`,
+        desc: `At the start of your hero phase, pick 1 friendly OSSIARCH BONEREAPERS unit other than the bearer that is within 1" of them. Until your next hero phase, the Deathless Warriors battle trait negates a wound or mortal wound allocated to that unit on a roll of a 5+ instead of 6.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -155,7 +155,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Vial of Binding`,
-        desc: `Once per battle, in your hero phase, pick 1 enemy model within 12" of the bearer that is visible to them and roll a dice. If the roll is equal to or greater than that model's Wounds characteristic that enemy model is slain.`,
+        desc: `Once per battle, in your hero phase, pick 1 enemy model within 12" of the bearer that is visible to them and roll a D6. If the roll is equal to or greater than that model's Wounds characteristic that enemy model is slain.`,
         when: [HERO_PHASE],
       },
     ],

@@ -77,6 +77,27 @@ const KeeperOfSecretsBaseEffects = [
     command_ability: true,
   },
 ]
+const LitheAndSwiftEffect = {
+  name: `Lithe and Swift`,
+  desc: `This unit can run and still charge later in the same turn.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const BannerBearerEffect = {
+  name: `Banner Bearer`,
+  desc: `You can re-roll charge rolls for this unit while it includes any Banner Bearers.`,
+  when: [CHARGE_PHASE],
+}
+const HornBlowerEffect = {
+  name: `Hornblower`,
+  desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be re-rolled.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const AcquiescenceEffect = {
+  name: `Acquiescence`,
+  desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
 
 // Combine lists together to make army unit entry.
 export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
@@ -147,11 +168,7 @@ export const Units: TUnits = [
         desc: `Pile in and attack with either its Axe of Dominion or Scourging Whip (the weapon that was NOT selected in the combat phase).`,
         when: [END_OF_COMBAT_PHASE],
       },
-      {
-        name: `Lithe and Swift`,
-        desc: `This unit can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      LitheAndSwiftEffect,
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Subvert.`,
@@ -234,7 +251,7 @@ export const Units: TUnits = [
       {
         name: `Swallow Energy`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Horrible Fascination`,
@@ -292,11 +309,7 @@ export const Units: TUnits = [
         desc: `This model is eligible to fight if it is within 6" of an enemy unit instead of 3", and can fly and move an extra 3" when it piles in. In addition, you can re-roll hit rolls for attacks made by this model that target an enemy unit with a Move characteristic of 10" or less, and you can re-roll wound rolls for attacks made by this model that target an enemy unit with a Move characteristic of 5" or less.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Lithe and Swift`,
-        desc: `This unit can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      LitheAndSwiftEffect,
       {
         name: `Inhuman Reflexes`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
@@ -312,22 +325,13 @@ export const Units: TUnits = [
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
-      {
-        name: `Lithe and Swift`,
-        desc: `This unit can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      LitheAndSwiftEffect,
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Acquiescence`,
-        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      AcquiescenceEffect,
     ],
   },
   {
@@ -348,12 +352,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Acquiescence`,
-        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      AcquiescenceEffect,
     ],
   },
   {
@@ -379,12 +378,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Acquiescence`,
-        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      AcquiescenceEffect,
     ],
   },
   {
@@ -445,12 +439,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Acquiescence`,
-        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      AcquiescenceEffect,
     ],
   },
   {
@@ -511,26 +500,14 @@ export const Units: TUnits = [
         desc: `Add 1 to the attacks characteric of an Allurer's Piercing Claws.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Banner Bearer`,
-        desc: `You can re-roll charge rolls for this unit while it inlcudes any Banner Bearers.`,
-        when: [CHARGE_PHASE],
-      },
+      BannerBearerEffect,
       {
         name: `Icon Bearer`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add D6 models to this unit and no models from this unit flee.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `If an unmodified battleshock test roll for an enemy unit that is within 6" of this unit is a 1, the battleshock test must be re-rolled.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Lithe and Swift`,
-        desc: `This unit can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      HornBlowerEffect,
+      LitheAndSwiftEffect,
     ],
   },
   {
@@ -541,21 +518,13 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of a Heartseeker's Piercing Claws.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Banner Bearer`,
-        desc: `You can re-roll charge rolls for this unit while it includes any Banner Bearers.`,
-        when: [CHARGE_PHASE],
-      },
+      BannerBearerEffect,
       {
         name: `Icon Bearer`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add D3 models to this unit, and no models from this unit will flee in that phase.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be re-rolled.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HornBlowerEffect,
       {
         name: `Quicksilver Speed`,
         desc: `You can roll 2D6 instead of D6 when you make a run roll for this unit. In addition, this unit can run and charge later in the same turn.`,
@@ -571,21 +540,13 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of a Hellreaver's Hellscourge.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Banner Bearer`,
-        desc: `You can re-roll charge rolls for this unit while it includes any Banner Bearers.`,
-        when: [CHARGE_PHASE],
-      },
+      BannerBearerEffect,
       {
         name: `Icon Bearer`,
         desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblower`,
-        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be re-rolled.`,
         when: [BATTLESHOCK_PHASE],
       },
+      HornBlowerEffect,
       {
         name: `Soul Hunters`,
         desc: `If any enemy models were slain by wounds inflicted by this unit's attacks in this phase, add 1 to the Attacks characteristic of this unit's melee weapons in the next combat phase.`,
@@ -639,7 +600,7 @@ export const SlaaneshBattalions: TBattalions = [
       {
         name: `Transcendental Warriors`,
         desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

@@ -5,6 +5,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -24,7 +25,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Incandescent Rectrices`,
         desc: `Roll a D6 the first time a wound is allocated to the bearer that would slay them. On a 1-2 the bearer is slain. On a 3+ heal D6 wounds allocated to the bearer instead.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

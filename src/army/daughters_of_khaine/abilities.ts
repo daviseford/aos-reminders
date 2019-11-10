@@ -2,10 +2,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -14,7 +14,7 @@ const Abilities: TAbilities = [
   {
     name: `Fanatical Faith`,
     desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model. On a 6+ the wound is negated.`,
-    when: [DURING_GAME],
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Blood Rites`,

@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, HERO_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
 import { DESTRUCTION } from 'meta/alliances'
 
 const DestructionArtifacts: TArtifacts = [
@@ -19,7 +19,7 @@ const DestructionArtifacts: TArtifacts = [
       {
         name: `Battered Talisman (${DESTRUCTION})`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, the mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

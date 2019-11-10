@@ -6,6 +6,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TSpells } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
@@ -554,6 +555,11 @@ const Spells: TSpells = [
         name: `Phantasmal Guardian (${ULGU})`,
         desc: `Casting value of 6. Roll a D6 each time you allocate a wound or mortal wound to the caster until your next hero phase. On a 5+ the wound is negated.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Phantasmal Guardian (${ULGU})`,
+        desc: `If active, roll a D6 each time you allocate a wound or mortal wound. On a 5+ the wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

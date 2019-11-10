@@ -157,7 +157,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Roaming Wildfire (Hallowheart)`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Then roll a dice for each other enemy unit within 6" of that unit. On a 4+, that other unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Then roll a D6 for each other enemy unit within 6" of that unit. On a 4+, that other unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -187,7 +187,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Warding Brand (Hallowheart)`,
-        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, roll a dice each time a wound inflicted by a melee weapon is allocated to a model from that unit and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, roll a D6 each time a wound inflicted by a melee weapon is allocated to a model from that unit and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

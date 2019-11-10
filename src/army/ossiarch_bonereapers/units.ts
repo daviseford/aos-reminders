@@ -14,6 +14,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const getLegionsOfNagashUnits = () => {
@@ -55,7 +56,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a dice each time a model is slain within 3" of this model. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+        desc: `Roll a D6 each time a model is slain within 3" of this model. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
              
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
@@ -118,8 +119,8 @@ export const Units: TUnits = [
       },
       {
         name: `Soulbound Protectors`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
-        when: [DURING_GAME],
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Crushing Assault`,
@@ -150,7 +151,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Contract of Nagash`,
-        desc: `At the start of the combat phase, roll a dice. On a 5+, you can pick 1 enemy model within 3" of Vokmortian. That enemy model cannot attack Vokmortian in that combat phase.`,
+        desc: `At the start of the combat phase, roll a D6. On a 5+, you can pick 1 enemy model within 3" of Vokmortian. That enemy model cannot attack Vokmortian in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -165,7 +166,7 @@ export const Units: TUnits = [
       },
       {
         name: `Mortal Touch`,
-        desc: `Casting value of 8. Pick 1 enemy model within 1" of the caster that is visible to them and roll a dice. On a 5+, that model is slain. The range of this spell cannot be modified.`,
+        desc: `Casting value of 8. Pick 1 enemy model within 1" of the caster that is visible to them and roll a D6. On a 5+, that model is slain. The range of this spell cannot be modified.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -236,7 +237,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Mortek Throne`,
-        desc: `At the end of your hero phase, roll a dice for this model. On a 1, nothing happens. On a 2-5, this model can attempt to cast Soul- guide even if a casting attempt has already been made for that spell in the same phase. On a 6, this model can attempt to cast Soul-guide D3 more times even if a casting attempt has already been made for that spell in the same phase.`,
+        desc: `At the end of your hero phase, roll a D6 for this model. On a 1, nothing happens. On a 2-5, this model can attempt to cast Soul- guide even if a casting attempt has already been made for that spell in the same phase. On a 6, this model can attempt to cast Soul-guide D3 more times even if a casting attempt has already been made for that spell in the same phase.`,
         when: [END_OF_HERO_PHASE],
       },
       {
@@ -339,7 +340,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aviarch Spymaster`,
-        desc: `Once per turn you can roll a dice when your opponent receives a command point. If you do so, on a 4+ that command point is lost.`,
+        desc: `Once per turn you can roll a D6 when your opponent receives a command point. If you do so, on a 4+ that command point is lost.`,
         when: [DURING_TURN],
         command_trait: true,
       },
@@ -363,8 +364,8 @@ export const Units: TUnits = [
       HeraldsOfTheAccursedOneEffect,
       {
         name: `Ebon-wrought Armour`,
-        desc: `Each time you allocate a mortal wound to this unit, roll a dice. On a 5+, that mortal wound is ignored.`,
-        when: [DURING_GAME],
+        desc: `Each time you allocate a mortal wound to this unit, roll a D6. On a 5+, that mortal wound is ignored.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -448,8 +449,8 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Vital Assets`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
-        when: [DURING_GAME],
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

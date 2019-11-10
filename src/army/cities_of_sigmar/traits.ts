@@ -78,7 +78,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Seat on the Council (Greywater Fastness)`,
-        desc: `At the start of your hero phase, if this general is on the battlefield,roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, if this general is on the battlefield,roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -198,7 +198,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Acidic Blood (Drakeblood Curse)`,
-        desc: `Roll a dice each time you allocate a wound to this model that was inflicted by a melee weapon and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound to this model that was inflicted by a melee weapon and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -208,7 +208,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Jutting Bones (Drakeblood Curse)`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -238,7 +238,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Warden of the Flame (Hallowheart)`,
-        desc: `At the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

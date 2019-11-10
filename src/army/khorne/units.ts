@@ -938,7 +938,7 @@ export const Units: TUnits = [
       },
       {
         name: `Crushing Bulk`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 3+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 3+ that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -959,7 +959,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fuelled by Death`,
-        desc: `You can pick 1 friendly model within 3" of this unit and roll a dice. If the roll is equal to or greater than the models wound's characteristic, the model is slain. This unit heals a number of of wounds up to the value of the slain model's wounds characteristic.`,
+        desc: `You can pick 1 friendly model within 3" of this unit and roll a D6. If the roll is equal to or greater than the models wound's characteristic, the model is slain. This unit heals a number of of wounds up to the value of the slain model's wounds characteristic.`,
         when: [HERO_PHASE],
       },
       {

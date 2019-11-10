@@ -117,7 +117,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Scrimshawed Savage`,
-        desc: `In each of your hero phases, roll a dice for this general. On a 5+, add 1 to the Attacks characteristic of melee weapons used by this general for the rest of the battle.`,
+        desc: `In each of your hero phases, roll a D6 for this general. On a 5+, add 1 to the Attacks characteristic of melee weapons used by this general for the rest of the battle.`,
         when: [HERO_PHASE],
         command_trait: true,
       },
@@ -134,7 +134,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Eldritch Nulls`,
-        desc: `Each time a friendly NULL MYRIAD unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
+        desc: `Each time a friendly NULL MYRIAD unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
       },
@@ -163,7 +163,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Immolation`,
-        desc: `Roll a dice each time a friendly CREMATORIANS model is slain by an attack made with a melee weapon, before the slain model is removed from play. Add 1 to the roll if the slain model is a HERO or MONSTER. On a 5+, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a friendly CREMATORIANS model is slain by an attack made with a melee weapon, before the slain model is removed from play. Add 1 to the roll if the slain model is a HERO or MONSTER. On a 5+, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },

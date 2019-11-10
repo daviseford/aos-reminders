@@ -194,7 +194,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Frostfang`,
-        desc: `Pick 1 of the bearer's melee weapons. At the start of each battle round, roll a dice. On a 5+, add 1 to the damage inflicted by attacks made with that weapon for the rest of the battle. This effect is cumulative.`,
+        desc: `Pick 1 of the bearer's melee weapons. At the start of each battle round, roll a D6. On a 5+, add 1 to the damage inflicted by attacks made with that weapon for the rest of the battle. This effect is cumulative.`,
         when: [START_OF_ROUND],
         artifact: true,
       },
