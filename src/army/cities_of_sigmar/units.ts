@@ -24,6 +24,24 @@ const getStormcastUnits = () => Stormcast.Units
 const getKharadronUnits = () => KharadronOverlords.Units
 const getSylvanethUnits = () => Sylvaneth.Units
 
+const LuminarkEffects = [
+  {
+    name: `Aura of Protection`,
+    desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
+    when: [WOUND_ALLOCATION],
+  },
+  {
+    name: `Locus of Hysh`,
+    desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Searing Beam of Light`,
+    desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a dice for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
+    when: [SHOOTING_PHASE],
+  },
+]
+
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
@@ -205,21 +223,7 @@ export const Units: TUnits = [
   {
     name: `Luminark of Hysh with White Battlemage`,
     effects: [
-      {
-        name: `Aura of Protection`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Locus of Hysh`,
-        desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Beam of Light`,
-        desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a dice for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      ...LuminarkEffects,
       {
         name: `White Battlemage`,
         desc: `Add 1 to casting rolls for this model if the battle is taking place in Hysh.`,
@@ -241,23 +245,7 @@ export const Units: TUnits = [
   },
   {
     name: `Luminark of Hysh`,
-    effects: [
-      {
-        name: `Aura of Protection`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Locus of Hysh`,
-        desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Beam of Light`,
-        desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a dice for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...LuminarkEffects],
   },
   {
     name: `Flagellants`,

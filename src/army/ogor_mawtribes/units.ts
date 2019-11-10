@@ -414,7 +414,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lookout Gnoblar`,
-        desc: `Any Tribal Banner Bearers in this unit can have a Lookout Gnoblar. Roll a dice each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
+        desc: `Roll a dice each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
         when: [SHOOTING_PHASE],
       },
       {
