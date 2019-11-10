@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import {
+  BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
@@ -27,6 +28,22 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Great-Bray Shaman', () => {
+    const parsedText = getFile('1573340651447-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Beastclaw Raiders (legacy, recognize as Ogor Mawtribes)', () => {
+    const parsedText = getFile('1573387764362-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Massive Bulk' }])
+  })
+
   it('should work with Vosaxe', () => {
     const parsedText = getFile('1573252116567-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
