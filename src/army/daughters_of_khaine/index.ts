@@ -5,9 +5,12 @@ import Artifacts from './artifacts'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Temples'
+
 export default {
   Abilities,
   Allegiances,
+  AllegianceType,
   Artifacts,
   Battalions,
   Spells,
