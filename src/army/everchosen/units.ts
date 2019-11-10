@@ -199,7 +199,7 @@ export const Battalions: TBattalions = [
       {
         name: `Raised to Greatness`,
         desc: `If a hero from this battalion is slain, pick another model in the warband that is not a hero. That model adds 1 to the attacks characteristic of all of its melee weapons and becomes a separate hero unit for the rest of the battle.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -88,7 +88,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Legacy of Valour`,
         desc: `If this general is slain, you can pick 1 enemy unit within 1" of this general before they are removed from play and roll a D6. On a 2-5 that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
         command_trait: true,
       },
       {

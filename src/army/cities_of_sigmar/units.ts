@@ -175,7 +175,7 @@ const FlamespyrePhoenixEffects = [
   {
     name: `Phoenix Reborn`,
     desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
-    when: [DURING_GAME],
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Wake of Fire`,

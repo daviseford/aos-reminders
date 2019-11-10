@@ -721,7 +721,7 @@ export const Units: TUnits = [
       {
         name: `Too Horrible to Die`,
         desc: `The first time this model is slain, before removing it from the battlefield, roll a D6 and look up the roll on warscroll.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

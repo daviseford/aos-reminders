@@ -8,6 +8,7 @@ import {
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
@@ -176,7 +177,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Wrathful Avenger`,
         desc: `If this general is slain, add 2 to the Immolation dice roll instead of 1, and if the roll is successful inflict D3 mortal wounds on the enemy unit instead of 1.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
         command_trait: true,
       },
       {

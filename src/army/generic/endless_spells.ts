@@ -502,12 +502,12 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Soul Price`,
         desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
-        when: [DURING_GAME],
+        when: [START_OF_ROUND],
       },
       {
         name: `Empowered by Shyish (${SHYISH})`,
         desc: `If the battle is taking place in the realm of Shyish, this model can move up to 18" instead of up to 12".`,
-        when: [DURING_GAME],
+        when: [START_OF_ROUND],
       },
     ],
   },

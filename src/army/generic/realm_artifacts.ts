@@ -599,7 +599,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Amethyst Blindmask (${SHYISH})`,
         desc: `If the bearer is slain, before removing the model, roll a D6 for each enemy unit within 6" of the bearer. On a 3+ that unit suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -839,7 +839,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Lightshard (${HYSH})`,
         desc: `If the bearer is slain, before removing the model, roll a D6 for each enemy unit within 6" of them. On a 3+ that unit suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

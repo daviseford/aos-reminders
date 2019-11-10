@@ -649,7 +649,7 @@ export const Units: TUnits = [
       {
         name: `Stuff Em In Me Bag`,
         desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
-        when: [CHARGE_PHASE],
+        when: [COMBAT_PHASE],
       },
       ...GenericEffects.Gargant,
     ],
