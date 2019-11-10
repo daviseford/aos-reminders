@@ -25,6 +25,7 @@ import {
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
@@ -66,6 +67,14 @@ describe('getBattlescribeArmy', () => {
           'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
       },
     ])
+  })
+
+  it('should work with TombKings1', () => {
+    const parsedText = getFile('TombKings1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(TOMB_KINGS)
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Screaming Skull Catapult Crew' }])
   })
 
   it('should work with Gloomspite4', () => {
@@ -143,6 +152,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with BigWaaagh3', () => {
+    const parsedText = getFile('BigWaaagh3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections.allegiances).toEqual([])
+    // Bonesplitterz Drakkfoot allegiance spell
+    expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
+  })
+
   it('should work with BigWaaagh1', () => {
     const parsedText = getFile('BigWaaagh1')
     const res = getBattlescribeArmy(parsedText)
@@ -179,6 +198,14 @@ describe('getBattlescribeArmy', () => {
       'Vostarg (Lodge)',
       'Hermdar (Lodge)',
     ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Stormcast5', () => {
+    const parsedText = getFile('Stormcast5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([])
   })
 

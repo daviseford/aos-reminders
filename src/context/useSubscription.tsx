@@ -37,7 +37,6 @@ interface ISubscriptionContext {
    * This DOES NOT mean they have an active subscription
    */
   isSubscribed: boolean
-  setSubscription: React.Dispatch<React.SetStateAction<ISubscription>>
   subscription: ISubscription
   subscriptionLoading: boolean
 }
@@ -101,7 +100,6 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         isCanceled,
         isNotSubscribed,
         isSubscribed,
-        setSubscription,
         subscription,
         subscriptionLoading,
       }}

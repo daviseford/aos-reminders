@@ -265,6 +265,7 @@ const Help = () => {
 }
 
 const ToggleTheme = () => {
+  const { isActive } = useSubscription()
   const { theme, isDark, toggleTheme } = useTheme()
 
   return (
@@ -273,23 +274,33 @@ const ToggleTheme = () => {
         <h4>Visual Theme</h4>
       </div>
       <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
-        <label htmlFor="visual-theme-switch">
-          <Switch
-            onChange={toggleTheme}
-            checked={isDark}
-            onColor="#1C7595"
-            onHandleColor="#E9ECEF"
-            handleDiameter={36}
-            uncheckedIcon={false}
-            checkedIcon={false}
-            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-            height={26}
-            width={80}
-            className="react-switch"
-            id="visual-theme-switch"
-          />
-        </label>
+        {isActive && (
+          <label htmlFor="visual-theme-switch">
+            <Switch
+              onChange={toggleTheme}
+              checked={isDark}
+              onColor="#1C7595"
+              onHandleColor="#E9ECEF"
+              handleDiameter={36}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={26}
+              width={80}
+              className="react-switch"
+              id="visual-theme-switch"
+            />
+          </label>
+        )}
+        {!isActive && (
+          <div className="alert alert-info text-center mt-3" role="alert">
+            <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeDarkTheme')}>
+              Subscribe now
+            </Link>{' '}
+            to use dark theme!
+          </div>
+        )}
       </div>
     </div>
   )

@@ -37,6 +37,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TAMURKHANS_HORDE,
+  TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
@@ -45,10 +46,10 @@ import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from '
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: TNameMap = {
-  'Armor of Silvered Sigmarite': 'Armour of Silvered Sigmarite',
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
+  'Armor of Silvered Sigmarite': 'Armour of Silvered Sigmarite',
   'Blade of the All-Frost': 'Blade of All-Frost',
   'Bursting with Power': "Burstin' with Power",
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
@@ -102,10 +103,11 @@ const azyrTypoMap: TNameMap = {
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Atherquartz Brooch': 'Aetherquartz Brooch',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
-  'Boingrot Bounders': 'Boingrot Bounderz',
   'Blood River Chalice': 'Blood-river Chalice',
+  'Boingrot Bounders': 'Boingrot Bounderz',
   'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chronomatic Cogs': 'Chronomantic Cogs',
   'Cloying Sea Mists': 'Cloying Seas Mists',
@@ -130,7 +132,6 @@ const battlescribeTypoMap: TNameMap = {
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
-  Voxaxe: 'Vosaxe',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Warp Lighting Storm': 'Warp Lightning Storm',
   'Warrgog Prophet': 'Wurrgog Prophet',
@@ -140,6 +141,7 @@ const battlescribeTypoMap: TNameMap = {
   "Might 'Eadbutt": "Mighty 'Eadbutt",
   BRIOMIDAR: 'Briomdar (Enclave)',
   Protector: 'Protectors',
+  Voxaxe: 'Vosaxe',
 }
 
 // Azyr helper
@@ -218,6 +220,8 @@ export const importFactionNameMap = {
   'Tenebrous Court': MERCENARY_COMPANIES,
   'The Blacksmoke Battery': MERCENARY_COMPANIES,
   'The Gutstuffers': MERCENARY_COMPANIES,
+  'Tomb Kings': TOMB_KINGS,
+  'Tomb Kings (Compendium)': TOMB_KINGS,
   "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
   "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   "Nimyard's Rough-Riders": MERCENARY_COMPANIES,
