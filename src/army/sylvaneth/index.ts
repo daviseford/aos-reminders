@@ -7,6 +7,8 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Glades'
+
 export default {
   Abilities,
   Allegiances,

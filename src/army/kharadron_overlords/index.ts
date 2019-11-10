@@ -4,6 +4,8 @@ import { Allegiances, AllegianceType } from './allegiances'
 import Artifacts from './artifacts'
 import Traits from './traits'
 
+const AllegianceType = 'Skyports'
+
 export default {
   Abilities,
   Allegiances,

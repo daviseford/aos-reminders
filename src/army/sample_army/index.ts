@@ -7,6 +7,8 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Allegiances'
+
 // Copy paste this directory to kickstart a new army
 // Remember to add your army to:
 //      - meta/factions.ts

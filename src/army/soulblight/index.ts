@@ -5,6 +5,8 @@ import Artifacts from './artifacts'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Bloodlines'
+
 export default {
   Abilities,
   Allegiances,

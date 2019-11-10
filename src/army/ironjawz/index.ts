@@ -5,6 +5,8 @@ import { Allegiances, AllegianceType } from './allegiances'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Warclans'
+
 export default {
   Abilities,
   Allegiances,
