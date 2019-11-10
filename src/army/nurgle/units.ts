@@ -76,26 +76,38 @@ export const AlliedUnits: TUnits = [
   ...getSkavenUnits(),
 ]
 
+const BlubberAndBileEffect = {
+  name: `Blubber and Bile`,
+  desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
+  when: [WOUND_ALLOCATION],
+}
+
+const CorpulentMassEffect = {
+  name: `Corpulent Mass`,
+  desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+  when: [HERO_PHASE],
+}
+
+const DisgustinglyResilientEffect = {
+  name: `Disgustingly Resilient`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
+  when: [WOUND_ALLOCATION],
+}
+
+const MountainOfLoathsomeFleshEffect = {
+  name: `Mountain of Loathsome Flesh`,
+  desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Rotigus`,
     effects: [
-      {
-        name: `Blubber and Bile`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to Rotigus. On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Corpulent Mass`,
-        desc: `In your hero phase you can heal D3 wounds that have been allocated to Rotigus.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a D6 for each enemy unit within 1" of Rotigus after he completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      BlubberAndBileEffect,
+      CorpulentMassEffect,
+      MountainOfLoathsomeFleshEffect,
       {
         name: `Streams of Brackish Filth`,
         desc: `In your hero phase roll a D6 for each enemy unit that is within 6" of Rotigus. On a 4+ the enemy unit suffers D3 mortal wounds. Enemy units that can fly suffer D3 mortal wounds on a 6+ instead.`,
@@ -117,21 +129,9 @@ export const Units: TUnits = [
   {
     name: `Great Unclean One`,
     effects: [
-      {
-        name: `Blubber and Bile`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ the wound is negated, on a 6+ in the combat phase the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Corpulent Mass`,
-        desc: `In your hero phase you can heal D3 wounds that have been allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      BlubberAndBileEffect,
+      CorpulentMassEffect,
+      MountainOfLoathsomeFleshEffect,
       {
         name: `Putrid Offering`,
         desc: `If this model has a Bileblade and attempts to cast or unbind a spell, this model can suffer 1 mortal wound (cannot be negated) to add 1 to the cast or unbind.`,
@@ -164,11 +164,7 @@ export const Units: TUnits = [
   {
     name: `Poxbringer, Herald of Nurgle`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `In Death There is Life`,
         desc: `At the start of your hero phase, if any models (friend or foe) were slain in the last turn, you can heal 1 wound allocated to a friendly Nurgle Daemon unit within 7" of this model.`,
@@ -190,11 +186,7 @@ export const Units: TUnits = [
   {
     name: `Epidemius, Tallyman of Nurgle`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Nurgle's Tallyman`,
         desc: `Keep a tally of the number of enemy models that have been slain by friendly Nurgle units during the battle. At the start of your hero phase, consult the table to check benefits to Nurgle units.`,
@@ -205,11 +197,7 @@ export const Units: TUnits = [
   {
     name: `Spoilpox Scrivener, Herald of Nurgle`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Keep Counting, I'm Watching You`,
         desc: `Re-roll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model. In addition, re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
@@ -225,11 +213,7 @@ export const Units: TUnits = [
   {
     name: `Sloppity Bilepiper, Herald of Nurgle`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Disease of Mirth`,
         desc: `Add 1 to the bravery characteristic of friendly Nurgle Daemon units while they are within 7" of any Sloppity Bilepipers. In addition, subract 1 from the bravery characteristic of enemy units while they are within 7" of any Sloppity Bilepipers.`,
@@ -245,11 +229,7 @@ export const Units: TUnits = [
   {
     name: `Horticulous Slimux`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Acidic Slime Trail`,
         desc: `Roll a D6 for each enemy unit within 3" of this model immediately before this model makes a retreat move. On a 4+ that enemy unit suffers D3 mortal wounds.`,
@@ -295,11 +275,7 @@ export const Units: TUnits = [
         desc: `Models in this unit can be Pipers. Re-roll battleshock tests of 1 for enemy units while they are within 6" of any Pipers.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Cloud of Flies`,
         desc: `Subtract 1 from hit rolls targeting this unit in the shooting phase. If the unit contains 20 or more models subtract 2 from hit rolls in the shooting phase and 1 from hit rolls in the combat phase.`,
@@ -330,11 +306,7 @@ export const Units: TUnits = [
         desc: `Models in this unit can be Bell Tollers. Re-roll battleshock tests of 1 for enemy units while they are within 6" of any Bell Tollers.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Locus of Contagion`,
         desc: `Add 1 to the attacks characteristic of this unit's weapons while it is within 7" of a friendly Nurgle Daemon hero.`,
@@ -345,11 +317,7 @@ export const Units: TUnits = [
   {
     name: `Beasts of Nurgle`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Acidic Slime Trail`,
         desc: `Roll a D6 for each enemy unit within 3" of this model immediately before this model makes a retreat move. On a 4+ that enemy unit suffers D3 mortal wounds.`,
@@ -395,11 +363,7 @@ export const Units: TUnits = [
   {
     name: `The Glottkin`,
     effects: [
-      {
-        name: `Mountain of Loathsome Flesh`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds. You cannot use this command ability more than once per hero phase.`,
-        when: [CHARGE_PHASE],
-      },
+      MountainOfLoathsomeFleshEffect,
       {
         name: `Blessings of Nurgle`,
         desc: `You can heal D3 wounds that have been allocated to this model.`,
@@ -520,11 +484,7 @@ export const Units: TUnits = [
   {
     name: `Lord of Afflictions`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Rotten Regeneration`,
         desc: `You can heal 1 wound that has been allocated to this model.`,
@@ -745,11 +705,7 @@ export const Units: TUnits = [
   {
     name: `Pusgoyle Blightlords`,
     effects: [
-      {
-        name: `Disgustingly Resilient`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
+      DisgustinglyResilientEffect,
       {
         name: `Virulent Discharge`,
         desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability. On a 6+ that unit suffers D3 mortal wounds. If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
@@ -765,21 +721,9 @@ export const Units: TUnits = [
   {
     name: `Exalted Greater Daemon Of Nurgle`,
     effects: [
-      {
-        name: `Blubber and Bile`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Corpulent Mass`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mountain of Loathsome Flesh`,
-        desc: `Roll 1 dice for each enemy unit that is within 1" of this model after this model completes a charge move. On a 4+, that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      BlubberAndBileEffect,
+      CorpulentMassEffect,
+      MountainOfLoathsomeFleshEffect,
       {
         name: `Magic`,
         desc: `An Exalted Greater Daemon of Nurgle is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Plague Wind spells.`,
