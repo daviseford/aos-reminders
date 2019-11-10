@@ -6,6 +6,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -25,7 +26,7 @@ const CommandTraits: TTraits = [
       {
         name: `Immortal Ruler`,
         desc: `The Deathless Warriors battle trait negates a wound or mortal wound allocated to this general on a roll of a 5+ instead of 6.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -123,7 +123,7 @@ export const Units: TUnits = [
       {
         name: `Damned Flesh`,
         desc: `If a model from this unit is slain after a wound or mortal wound is allocated to it, roll a D6 before the slain model is removed from play. On a 5+, that wound or mortal wound is negated and the model is not slain.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Insatiably Famished`,

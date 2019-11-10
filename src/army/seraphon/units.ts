@@ -19,6 +19,7 @@ import {
   TURN_ONE_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const StegadonBaseEffects = [
@@ -191,7 +192,7 @@ export const Units: TUnits = [
       {
         name: `Selfless Protector`,
         desc: `Each time this model is within 2" of a Slann that suffers a wound or mortal wound, it can attempt to intervene. If it does so, roll a D6. If the result is 2 or higher, the Slann ignores that wound or mortal wound but this model suffers a mortal wound in its place.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Alpha Warden`,

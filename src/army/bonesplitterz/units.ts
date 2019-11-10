@@ -8,6 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
@@ -244,7 +245,7 @@ export const Battalions: TBattalions = [
       {
         name: `Big Rukk Warpaint`,
         desc: `When you use the Warpaint battle trait for a unit from this battalion, you can re-roll the dice that determines if a wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

@@ -85,7 +85,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lode of Saturation`,
-        desc: `At the start of your hero phase, pick 1 friendly OSSIARCH BONEREAPERSunit other than the bearer that is within 1" of them. Until your next hero phase, the Deathless Warriors battle trait negates a wound or mortal wound allocated to that unit on a roll of a 5+ instead of 6.`,
+        desc: `At the start of your hero phase, pick 1 friendly OSSIARCH BONEREAPERS unit other than the bearer that is within 1" of them. Until your next hero phase, the Deathless Warriors battle trait negates a wound or mortal wound allocated to that unit on a roll of a 5+ instead of 6.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -12,6 +12,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import EverChosen from 'army/everchosen'
 import { MARK_TZEENTCH } from 'meta/alliances'
@@ -56,16 +57,30 @@ const getBoCBattalion = () => {
 
 export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
+const MasteryOfMagicEffect = {
+  name: `Mastery of Magic`,
+  desc: `When you make a casting or unbinding roll for this model, change the result of the lowest dice so that it matches the highest.`,
+  when: [HERO_PHASE],
+}
+
+const SkySharksEffect = {
+  name: `Sky-sharks`,
+  desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+  when: [COMBAT_PHASE],
+}
+
+const SpellThiefEffect = {
+  name: `Spell-thief`,
+  desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
+  when: [HERO_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Kairos Fateweaver`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for Kairos Fateweaver, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
+      MasteryOfMagicEffect,
       {
         name: `Oracle of Eternity`,
         desc: `Once per battle, you can change the result of a single dice roll to the result of your choosing. However, this ability may not be used to affect the roll to see who takes the first turn in a battle round.`,
@@ -82,16 +97,8 @@ export const Units: TUnits = [
   {
     name: `Lord of Change`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Spell-thief`,
-        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
-        when: [HERO_PHASE],
-      },
+      MasteryOfMagicEffect,
+      SpellThiefEffect,
       {
         name: `Beacon of Sorcery`,
         desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
@@ -171,11 +178,7 @@ export const Units: TUnits = [
         desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Sky-sharks`,
-        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
+      SkySharksEffect,
       {
         name: `Wake of Fire`,
         desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
@@ -283,11 +286,7 @@ export const Units: TUnits = [
   {
     name: `Screamers of Tzeentch`,
     effects: [
-      {
-        name: `Sky-sharks`,
-        desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
+      SkySharksEffect,
       {
         name: `Slashing Fins`,
         desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6 for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
@@ -303,11 +302,7 @@ export const Units: TUnits = [
   {
     name: `Burning Chariots of Tzeentch`,
     effects: [
-      {
-        name: `Sky-sharks`,
-        desc: `The Screamers' Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
+      SkySharksEffect,
       {
         name: `Capricious Warpflame`,
         desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from this model's Billowing Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
@@ -426,7 +421,7 @@ export const Units: TUnits = [
       {
         name: `Arcanite Shield`,
         desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Gestalt Sorcery`,
@@ -490,16 +485,8 @@ export const Units: TUnits = [
   {
     name: `Exalted Greater Demon of Tzeentch`,
     effects: [
-      {
-        name: `Mastery of Magic`,
-        desc: `When you make a casting or unbinding roll for a Lord of Change, change the result of the lowest dice so that it matches the highest.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Spell-thief`,
-        desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
-        when: [HERO_PHASE],
-      },
+      MasteryOfMagicEffect,
+      SpellThiefEffect,
       {
         name: `Beacon of Sorcery`,
         desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,

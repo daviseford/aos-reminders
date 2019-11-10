@@ -39,8 +39,13 @@ export const Units: TUnits = [
       },
       {
         name: `Loonking's Crown`,
-        desc: `Add 1 to casting and unbinding rolls for Skragrott. In addition, roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to casting and unbinding rolls for Skragrott.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Loonking's Crown`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `The Loonking's Entreaty`,
@@ -716,7 +721,7 @@ export const Units: TUnits = [
       {
         name: `Minion Abilities: Loyal to the End`,
         desc: `Each time a wound or mortal wound is allocated to this model and not negated, you can choose to remove 1 minion. If you do so, the wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -746,7 +751,7 @@ export const Units: TUnits = [
       {
         name: `Too Dumb to Die`,
         desc: `Roll a D6 each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

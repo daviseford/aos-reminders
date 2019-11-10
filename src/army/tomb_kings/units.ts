@@ -7,6 +7,7 @@ import {
   MOVEMENT_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -139,7 +140,7 @@ export const Units: TUnits = [
       {
         name: `Sworn Bodyguard`,
         desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a D6 for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Standard of the Undying Legion`,

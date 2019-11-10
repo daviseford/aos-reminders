@@ -1,9 +1,9 @@
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'
 
@@ -12,7 +12,7 @@ const Abilities: TAbilities = [
   {
     name: `Warpaint`,
     desc: `When a model in this army is allocated a wound or mortal wound roll a dice. on a 6+, that wound or mortal wound is negated.`,
-    when: [DURING_GAME],
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Monster Hunters`,

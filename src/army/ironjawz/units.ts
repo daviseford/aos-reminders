@@ -154,7 +154,7 @@ export const Units: TUnits = [
       {
         name: `Orruk-forged Shields!`,
         desc: `Roll a D6 before allocating a wound to a model with an Orruk-forged Shield. On a roll of 6 the wound is ignored.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
