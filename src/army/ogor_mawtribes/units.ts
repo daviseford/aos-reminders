@@ -46,7 +46,7 @@ const StonehornEffects = [
   },
   {
     name: `Stone Skeleton`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
     when: [WOUND_ALLOCATION],
   },
 ]
@@ -84,7 +84,7 @@ const BellowingVoiceEffect = {
 
 const BloodgruelEffect = {
   name: `Bloodgruel`,
-  desc: `Roll a dice each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,
+  desc: `Roll a D6 each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,
   when: [HERO_PHASE],
 }
 
@@ -414,7 +414,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lookout Gnoblar`,
-        desc: `Roll a dice each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -439,7 +439,7 @@ export const Units: TUnits = [
         
         3-4: Spinemarrow: Pick a friendly Ogor unit wholly within 12" of this model. Add 1 to hit rolls for attacks made with melee weapons by that unit until the start of your next hero phase.
         
-        5-6: Bonecrusher: Roll a dice for each enemy unit within 6" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
+        5-6: Bonecrusher: Roll a D6 for each enemy unit within 6" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -530,7 +530,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Wall of Fat`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly TYRANT from this battalion while it is within 3" of a friendly IRONGUTS unit from this battalion. On a 4+, that wound or mortal wound is negated. That unit of IRONGUTS then suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly TYRANT from this battalion while it is within 3" of a friendly IRONGUTS unit from this battalion. On a 4+, that wound or mortal wound is negated. That unit of IRONGUTS then suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
       },
     ],

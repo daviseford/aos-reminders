@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Falcon of Holthaven`,
-        desc: `Roll a dice each time an enemy unit ends a normal move within 12" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time an enemy unit ends a normal move within 12" of the bearer. On a 4+ that unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],

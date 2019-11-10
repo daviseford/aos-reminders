@@ -21,7 +21,7 @@ const ShroudingMistEffects: TEffects[] = [
   },
   {
     name: `Shrouding Mists`,
-    desc: `Roll a dice each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
+    desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
     when: [WOUND_ALLOCATION],
   },
 ]
@@ -52,7 +52,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Impenetrable Hide`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+ that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -181,7 +181,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Burning Blood`,
-        desc: `Roll a dice each time a wound or mortal wound that was inflicted by a melee weapon is allocated to this model. On a 4+, the attacking unit suffers 1 mortal wound. On a 6, the attacking unit suffers D3 mortal wounds instead.`,
+        desc: `Roll a D6 each time a wound or mortal wound that was inflicted by a melee weapon is allocated to this model. On a 4+, the attacking unit suffers 1 mortal wound. On a 6, the attacking unit suffers D3 mortal wounds instead.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -216,7 +216,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Da Big' Un`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {

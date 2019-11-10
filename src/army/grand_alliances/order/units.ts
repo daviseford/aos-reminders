@@ -14,7 +14,7 @@ export const MonstrousArcanumOrder: TUnits = [
     effects: [
       {
         name: `Deathly Dark Scales`,
-        desc: `Roll a dice each time you allocate a mortal wound to this unit. On a 5+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this unit. On a 5+, that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -58,7 +58,7 @@ export const OrderUnits: TUnits = [
       },
       {
         name: `Shoulder Plate of Edassa`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is ignored.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is ignored.`,
         when: [WOUND_ALLOCATION],
       },
     ],

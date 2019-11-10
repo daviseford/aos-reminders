@@ -244,7 +244,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Royal Retinue`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocated to this unit instead.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocate to this unit instead.`,
         when: [WOUND_ALLOCATION],
       },
       {

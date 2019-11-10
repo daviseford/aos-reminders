@@ -74,7 +74,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Great Green Visions`,
-        desc: `Roll a dice at the start of your hero phase, on a 4+ get 1 CP .`,
+        desc: `Roll a D6 at the start of your hero phase, on a 4+ get 1 CP .`,
         when: [START_OF_HERO_PHASE],
       },
     ],

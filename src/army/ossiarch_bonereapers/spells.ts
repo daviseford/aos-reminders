@@ -29,7 +29,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Protection of Nagash`,
-        desc: `Casting value of 6. Roll a dice each time a wound or mortal wounds is allocated to the caster. On a 5+, that wound or mortal wound is negated. If any wounds or mortal wounds are allocated to the caster and not negated, and the caster is not slain, remove them from the battlefield after all wounds or mortal wounds have been allocated. Then, set them up anywhere on the battlefield more than 9" from any enemy units. After setting up this model, this spell is unbound.`,
+        desc: `Casting value of 6. Roll a D6 each time a wound or mortal wounds is allocated to the caster. On a 5+, that wound or mortal wound is negated. If any wounds or mortal wounds are allocated to the caster and not negated, and the caster is not slain, remove them from the battlefield after all wounds or mortal wounds have been allocated. Then, set them up anywhere on the battlefield more than 9" from any enemy units. After setting up this model, this spell is unbound.`,
         when: [HERO_PHASE],
       },
     ],

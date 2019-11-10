@@ -204,13 +204,10 @@ export const DefaultScenery: TScenery = [
   },
 ]
 
-const SceneryEffectLookup = DefaultScenery.reduce(
-  (accum, entry: TEntry) => {
-    accum[entry.name] = entry.effects
-    return accum
-  },
-  {} as { [key in TSceneryEffects]: TEffects[] }
-)
+const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {
+  accum[entry.name] = entry.effects
+  return accum
+}, {} as { [key in TSceneryEffects]: TEffects[] })
 
 // Penumbral is now a scenery type.
 const PenumbralEffects: TEffects[] = [
@@ -316,12 +313,12 @@ const OfficialScenery: TScenery = [
       },
       {
         name: `Consecrated Ground`,
-        desc: `Roll a dice for each endless spell within 6" of this terrain feature. On a 6 the endless spell is immediately dispelled.`,
+        desc: `Roll a D6 for each endless spell within 6" of this terrain feature. On a 6 the endless spell is immediately dispelled.`,
         when: [START_OF_ROUND],
       },
       {
         name: `Consecrated Ground`,
-        desc: `Roll a dice each time a unit wholly within this terrain feature is affected by a spell or endless spell. On a 6+ ignore the effects of that spell on the unit.`,
+        desc: `Roll a D6 each time a unit wholly within this terrain feature is affected by a spell or endless spell. On a 6+ ignore the effects of that spell on the unit.`,
         when: [DURING_GAME],
       },
       ...SceneryEffectLookup[OBSTACLE],

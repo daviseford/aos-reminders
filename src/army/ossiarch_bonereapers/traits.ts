@@ -94,7 +94,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Oathbreaker Curse`,
-        desc: `Roll a dice each time your opponent receives a command point while this general is on the battlefield. On a 6, that command point is lost.`,
+        desc: `Roll a D6 each time your opponent receives a command point while this general is on the battlefield. On a 6, that command point is lost.`,
         when: [DURING_GAME],
       },
     ],

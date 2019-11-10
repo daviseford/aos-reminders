@@ -31,7 +31,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Laugh at 'Em - 12+ points`,
-    desc: `Roll a dice when you take a wound or mortal wound, on a 6+ it is ignored.`,
+    desc: `Roll a D6 when you take a wound or mortal wound, on a 6+ it is ignored.`,
     when: [DURING_GAME],
   },
   {

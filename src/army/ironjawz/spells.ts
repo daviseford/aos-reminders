@@ -73,7 +73,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Get 'Em Beat`,
-        desc: `Roll a dice, on a 4+ pick 1 friendly Ironjawz unit wholly within 12" of this Warchanter. You can attempt a charge for 18" out and roll 3D6 instead of 2D6 for your charge roll.`,
+        desc: `Roll a D6, on a 4+ pick 1 friendly Ironjawz unit wholly within 12" of this Warchanter. You can attempt a charge for 18" out and roll 3D6 instead of 2D6 for your charge roll.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -83,7 +83,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Fixin' Beat`,
-        desc: `Roll a dice, on a 4+ pick 1 friendly Ironjawz model within 12" and heal D3 wounds.`,
+        desc: `Roll a D6, on a 4+ pick 1 friendly Ironjawz model within 12" and heal D3 wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -93,7 +93,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Killa Beat`,
-        desc: `Roll a dice, on a 4+ pick 1 enemy unit within 12". Attacks directed at that unit add 1 to the hit rolls.`,
+        desc: `Roll a D6, on a 4+ pick 1 enemy unit within 12". Attacks directed at that unit add 1 to the hit rolls.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

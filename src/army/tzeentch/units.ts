@@ -183,7 +183,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 9. Roll a dice for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 9. Roll a D6 for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },

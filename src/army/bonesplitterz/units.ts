@@ -26,7 +26,7 @@ export const Units: TUnits = [
       },
       {
         name: `Prophet of da Waaagh!`,
-        desc: `Roll a dice. On a 4+, you receive 1 Command Point.`,
+        desc: `Roll a D6. On a 4+, you receive 1 Command Point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -79,7 +79,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ritual Dance`,
-        desc: `Roll a dice, on a 3+ pick one of the following effects.
+        desc: `Roll a D6, on a 3+ pick one of the following effects.
 
           Grimdokk Dance: Pick a Bonesplitterz model wholly within 12". That model heals D3 wounds.
           Glyphdokk Dance: Pick a Bonesplitterz unit wholly within 12". Add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.

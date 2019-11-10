@@ -31,7 +31,7 @@ export const Units: TUnits = [
       },
       {
         name: `Scarab Amulet`,
-        desc: `Roll a dice each time this model suffers a wound or a mortal wound. On a roll of 5+ the wound is negated.`,
+        desc: `Roll a D6 each time this model suffers a wound or a mortal wound. On a roll of 5+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -138,7 +138,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sworn Bodyguard`,
-        desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a dice for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
+        desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a D6 for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -424,7 +424,7 @@ export const Units: TUnits = [
       },
       {
         name: `Liche Priest's Sarcophagi`,
-        desc: `Roll a dice each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
+        desc: `Roll a D6 each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
         when: [HERO_PHASE],
       },
     ],
@@ -511,7 +511,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Transmogrifying Gaze`,
-        desc: `When this unit makes a Transmogrifying Gaze attack, choose an enemy unit within 10". Roll a dice for each model in the attacking unit; for each roll of 1, a Sepulchral Stalker has caught a glimpse of its own reflection and the attacking unit suffers 1 mortal wound. On a 2 or 3 the target unit keeps its eyes shut and nothing happens. On a 4 or 5 the target unit suffers 1 mortal wound as it briefly meets the Stalker's gaze, but on a 6 it suffers D3 mortal wounds as it foolishly stares into the Stalker's eyes and crumbles to sand.`,
+        desc: `When this unit makes a Transmogrifying Gaze attack, choose an enemy unit within 10". Roll a D6 for each model in the attacking unit; for each roll of 1, a Sepulchral Stalker has caught a glimpse of its own reflection and the attacking unit suffers 1 mortal wound. On a 2 or 3 the target unit keeps its eyes shut and nothing happens. On a 4 or 5 the target unit suffers 1 mortal wound as it briefly meets the Stalker's gaze, but on a 6 it suffers D3 mortal wounds as it foolishly stares into the Stalker's eyes and crumbles to sand.`,
         when: [COMBAT_PHASE],
       },
       {

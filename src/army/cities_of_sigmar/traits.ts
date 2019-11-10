@@ -198,7 +198,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Acidic Blood (Drakeblood Curse)`,
-        desc: `Roll a dice each time you allocate a wound to this model that was inflicted by a melee weapon and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound to this model that was inflicted by a melee weapon and not negated. On a 4+, the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
     ],

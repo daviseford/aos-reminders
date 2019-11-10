@@ -56,7 +56,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a dice each time a model is slain within 3" of this model. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+        desc: `Roll a D6 each time a model is slain within 3" of this model. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
              
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
@@ -119,7 +119,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulbound Protectors`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -449,7 +449,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Vital Assets`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
         when: [WOUND_ALLOCATION],
       },
     ],
