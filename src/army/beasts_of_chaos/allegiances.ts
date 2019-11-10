@@ -10,6 +10,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_TWO_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -48,7 +49,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Gift of Morghur`,
         desc: `If a friendly GAVESPAWN HERO is slain, roll a D6 before removing the model. On a 2+ one CHAOS SPAWN is added to your army. Set up the CHAOS SPAWN anywhere on the battlefield within 6" of the slain HERO. If the HERO had the KHORNE, NURGLE, SLAANESH or TZEENTCH keyword, the same keyword must be chosen for the CHAOS SPAWN . If they did not, you cannot use the Cursed of the Dark Gods ability to choose a keyword for that CHAOS SPAWN .`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
         allegiance_ability: true,
       },
       {
