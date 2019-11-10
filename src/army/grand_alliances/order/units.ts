@@ -19,12 +19,12 @@ export const MonstrousArcanumOrder: TUnits = [
       },
       {
         name: `Soul-sheering Blast`,
-        desc: `Do not use the attack sequence for an attack made with a Soul-sheering Blast. Instead roll a dice. On a 5+, the target unit suffers D6 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with a Soul-sheering Blast. Instead roll a D6. On a 5+, the target unit suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Spell Devourer`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell on this model.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell on this model.`,
         when: [DURING_GAME],
       },
     ],

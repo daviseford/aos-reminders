@@ -37,7 +37,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Malignant Gaze`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 12" of this model that is visible to it, and roll a dice. On a 1, nothing happens. On a 2-3, that unit suffers D3 mortal wounds. On a 4+, that unit suffers D3+1 mortal wounds.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 12" of this model that is visible to it, and roll a D6. On a 1, nothing happens. On a 2-3, that unit suffers D3 mortal wounds. On a 4+, that unit suffers D3+1 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -161,7 +161,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Gift of Elemental Fire`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy unit within 3" of this model. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -176,7 +176,7 @@ export const MonstrousArcanumDestruction: TUnits = [
     effects: [
       {
         name: `Brimstone Dragonfire`,
-        desc: `Do not use the attack sequence for an attack made with this model's Brimstone Dragonfire. Instead, roll a dice. On a 2+, the target unit suffers D6 mortal wounds. If the target unit has 10 or more models, it suffers 2D6 mortal wounds instead of D6.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Brimstone Dragonfire. Instead, roll a D6. On a 2+, the target unit suffers D6 mortal wounds. If the target unit has 10 or more models, it suffers 2D6 mortal wounds instead of D6.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -211,7 +211,7 @@ export const MonstrousArcanumDestruction: TUnits = [
     effects: [
       {
         name: `Avalanche!`,
-        desc: `If this model is slain, before removing the model from play, roll a dice for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
+        desc: `If this model is slain, before removing the model from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
         when: [DURING_GAME],
       },
       {
@@ -226,7 +226,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Rubble and Ruin`,
-        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this model. On a 4+, that unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, roll a D6 for each enemy unit within 3" of this model. On a 4+, that unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -241,12 +241,12 @@ export const MonstrousArcanumDestruction: TUnits = [
     effects: [
       {
         name: `Deadly Demise`,
-        desc: `If this model is slain, before this model is removed from play, roll a dice for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
+        desc: `If this model is slain, before this model is removed from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
         when: [DURING_GAME],
       },
       {
         name: `Warpfire`,
-        desc: `Do not use the attack sequence for an attack made with this model's Warpfire. Instead roll a dice. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6, the target unit suffers D6 mortal wounds.`,
+        desc: `Do not use the attack sequence for an attack made with this model's Warpfire. Instead roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6, the target unit suffers D6 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],

@@ -27,7 +27,7 @@ export const Units: TUnits = [
       },
       {
         name: `Incantation of the Desert Wind`,
-        desc: `In your hero phase this model can invoke the Incantation of the Desert Wind. If he does so, pick a Desert Legions unit within 18" and roll a dice; on a roll of 1 this model suffers a mortal wound. On a roll of 2+ the incantation is successfully carried out - the chosen unit's Move characteristic is doubled and it can fly for the duration of your next movement phase.`,
+        desc: `In your hero phase this model can invoke the Incantation of the Desert Wind. If he does so, pick a Desert Legions unit within 18" and roll a D6; on a roll of 1 this model suffers a mortal wound. On a roll of 2+ the incantation is successfully carried out - the chosen unit's Move characteristic is doubled and it can fly for the duration of your next movement phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -195,7 +195,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unleashed Souls`,
-        desc: `In your hero phase you can declare that the Keeper of the Casket will unleash the tortured souls of the damned. If you do so, pick a visible enemy unit within 20" and roll a dice. On a 3+ that unit suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead). Then roll a dice for each other enemy unit within 6" of the first unit. On a 5+ that unit is also attacked by the vengeful souls, and suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead).`,
+        desc: `In your hero phase you can declare that the Keeper of the Casket will unleash the tortured souls of the damned. If you do so, pick a visible enemy unit within 20" and roll a D6. On a 3+ that unit suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead). Then roll a D6 for each other enemy unit within 6" of the first unit. On a 5+ that unit is also attacked by the vengeful souls, and suffers D3 mortal wounds (if its Bravery is 4 or less it suffers D6 mortal wounds instead).`,
         when: [HERO_PHASE],
       },
     ],
@@ -450,7 +450,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Thundercrush Attack`,
-        desc: `After this model makes a charge move, pick one enemy unit that is within 1" of it and roll a dice. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -465,7 +465,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Thundercrush Attack`,
-        desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a dice. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
+        desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -532,7 +532,7 @@ export const Units: TUnits = [
       },
       {
         name: `Colossus of War`,
-        desc: `After this unit has attacked for the first time in the combat phase, roll a dice. Add 1 to the result if a friendly Necrotect is within 18". On a 5+ this unit can immediately pile in and attack for a second time this turn.`,
+        desc: `After this unit has attacked for the first time in the combat phase, roll a D6. Add 1 to the result if a friendly Necrotect is within 18". On a 5+ this unit can immediately pile in and attack for a second time this turn.`,
         when: [COMBAT_PHASE],
       },
     ],

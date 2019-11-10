@@ -730,7 +730,7 @@ export const Units: TUnits = [
       },
       {
         name: `Two-headed Horror`,
-        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 2 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 2 or less and that is within 3" of this model, and roll a D6. On a 6, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

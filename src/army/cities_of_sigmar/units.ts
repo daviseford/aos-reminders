@@ -88,7 +88,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a dice for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -188,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a dice for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -267,7 +267,7 @@ export const Units: TUnits = [
       },
       {
         name: `Wreckless Abandon`,
-        desc: `Each time a model from this unit flees, you can pick 1 enemy unit within 6" of this unit and roll a dice. On a 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Each time a model from this unit flees, you can pick 1 enemy unit within 6" of this unit and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -523,7 +523,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore: Ancestral Shield`,
-        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
@@ -592,7 +592,7 @@ export const Units: TUnits = [
       DrummerEffect,
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -623,7 +623,7 @@ export const Units: TUnits = [
       },
       {
         name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -695,7 +695,7 @@ export const Units: TUnits = [
       },
       {
         name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -735,7 +735,7 @@ export const Units: TUnits = [
       },
       {
         name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -977,12 +977,12 @@ export const Units: TUnits = [
       },
       {
         name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
         when: [MOVEMENT_PHASE],
       },
       WitnessToDestinyEffect,
@@ -1026,12 +1026,12 @@ export const Units: TUnits = [
       },
       {
         name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a dice. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
         when: [DURING_GAME],
       },
       {
         name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -1130,7 +1130,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Scythed Runners`,
-        desc: `Each time a model from this unit finishes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.`,
+        desc: `Each time a model from this unit finishes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.`,
         when: [CHARGE_PHASE],
       },
     ],

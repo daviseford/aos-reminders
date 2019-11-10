@@ -600,7 +600,7 @@ export const SlaaneshBattalions: TBattalions = [
       {
         name: `Transcendental Warriors`,
         desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

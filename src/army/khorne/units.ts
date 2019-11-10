@@ -959,7 +959,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fuelled by Death`,
-        desc: `You can pick 1 friendly model within 3" of this unit and roll a dice. If the roll is equal to or greater than the models wound's characteristic, the model is slain. This unit heals a number of of wounds up to the value of the slain model's wounds characteristic.`,
+        desc: `You can pick 1 friendly model within 3" of this unit and roll a D6. If the roll is equal to or greater than the models wound's characteristic, the model is slain. This unit heals a number of of wounds up to the value of the slain model's wounds characteristic.`,
         when: [HERO_PHASE],
       },
       {

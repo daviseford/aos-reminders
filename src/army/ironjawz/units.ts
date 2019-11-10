@@ -221,7 +221,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Green-skinned Battering Ram`,
-        desc: `After a model from this battalion makes a charge move, pick 1 enemy unit within 1" of each model and roll a dice. On a 4+ that enemy unit suffers 1 mortal wound.`,
+        desc: `After a model from this battalion makes a charge move, pick 1 enemy unit within 1" of each model and roll a D6. On a 4+ that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],

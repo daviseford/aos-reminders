@@ -48,7 +48,7 @@ const Abilities: TAbilities = [
   {
     name: `Da Big Waaagh!!! - 24+ points`,
     desc: `The general can use Da Big Waaagh ability at start of combat phase Add 1 to the attack characteristics to all ORRUK units in the Waaagh army. 
-    After the combat phase roll a dice, on 1 you lose all your Waaagh points, on a 2-5 you halve your Waaagh points, on a 6 you keep everything.`,
+    After the combat phase roll a D6, on 1 you lose all your Waaagh points, on a 2-5 you halve your Waaagh points, on a 6 you keep everything.`,
     when: [START_OF_COMBAT_PHASE],
     command_ability: true,
   },

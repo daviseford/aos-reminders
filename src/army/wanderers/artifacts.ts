@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Starcaster Longbow`,
-        desc: `In your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a dice. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick an enemy unit within 20" of the bearer and roll a D6. On a 2-5 that unit suffers 1 mortal wound; on a 6+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],

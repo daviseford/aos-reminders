@@ -11,7 +11,7 @@ import { TAbilities } from 'types/army'
 const Abilities: TAbilities = [
   {
     name: `Warpaint`,
-    desc: `When a model in this army is allocated a wound or mortal wound roll a dice. on a 6+, that wound or mortal wound is negated.`,
+    desc: `When a model in this army is allocated a wound or mortal wound roll a D6. on a 6+, that wound or mortal wound is negated.`,
     when: [WOUND_ALLOCATION],
   },
   {

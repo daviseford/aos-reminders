@@ -10,12 +10,12 @@ const Abilities: TAbilities = [
   },
   {
     name: `Loyal Shields`,
-    desc: `If your general is within 3" of their retinue, roll a dice before allocating a wound or mw to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
+    desc: `If your general is within 3" of their retinue, roll a D6 before allocating a wound or mw to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
     when: [WOUND_ALLOCATION],
   },
   {
     name: `Wise Council`,
-    desc: `If your general is within 3" of their adjutant, roll a dice. On a 4+ receive 1 extra command point.`,
+    desc: `If your general is within 3" of their adjutant, roll a D6. On a 4+ receive 1 extra command point.`,
     when: [START_OF_HERO_PHASE],
   },
 ]

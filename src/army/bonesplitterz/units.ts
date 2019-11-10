@@ -149,7 +149,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a dice. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a D6. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {

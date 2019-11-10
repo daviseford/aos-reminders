@@ -294,7 +294,7 @@ const OfficialScenery: TScenery = [
     effects: [
       {
         name: `Rune-locked Vault`,
-        desc: `1 friendly hero within 1" of this terrain feature can roll a dice. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
+        desc: `1 friendly hero within 1" of this terrain feature can roll a D6. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
               
                1 - Add 1 to the damage characteristic of one of the hero's melee weapons for the remainder of the battle.
                2 - Hero can attempt to cast 1 arcane bolt spell as if it were a wizard. This counts as 1 extra spell on wizards.

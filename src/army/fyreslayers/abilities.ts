@@ -64,7 +64,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Magmic Invocations`,
-    desc: `At the end of every round roll a dice for each Invocation on the table. The Invocation is removed unless the roll is a 4+. Add 1 to this roll if there is a Fyreslayers priest within 6" of the Invocation at the time of the roll.`,
+    desc: `At the end of every round roll a D6 for each Invocation on the table. The Invocation is removed unless the roll is a 4+. Add 1 to this roll if there is a Fyreslayers priest within 6" of the Invocation at the time of the roll.`,
     when: [END_OF_ROUND],
   },
 ]

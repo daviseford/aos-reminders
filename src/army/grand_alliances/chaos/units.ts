@@ -24,7 +24,7 @@ export const MonstersOfChaos: TUnits = [
       },
       {
         name: `The Dark Master`,
-        desc: `Secretly note down an enemy unit for manipulation. When activated, for one battle round your opponent must roll a dice each time the target attempts to cast a spell, move, charge, or attack. On a 4+, the action can be performed normally otherwise it cannot be completed.`,
+        desc: `Secretly note down an enemy unit for manipulation. When activated, for one battle round your opponent must roll a D6 each time the target attempts to cast a spell, move, charge, or attack. On a 4+, the action can be performed normally otherwise it cannot be completed.`,
         when: [END_OF_SETUP],
       },
       {
@@ -91,7 +91,7 @@ export const MonstersOfChaos: TUnits = [
       },
       {
         name: `Beast Unbound`,
-        desc: `If a Slaughterbrute does not have a master on the battlefield in the charge phase, roll a dice. If the result is 3 or less it lashes out at the nearest model, friend or foe, within 3". That model's unit immediately suffers D3 mortal wounds.`,
+        desc: `If a Slaughterbrute does not have a master on the battlefield in the charge phase, roll a D6. If the result is 3 or less it lashes out at the nearest model, friend or foe, within 3". That model's unit immediately suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -148,7 +148,7 @@ export const MonstrousArcanumChaos: TUnits = [
       },
       {
         name: `Plaything of the Dark Gods`,
-        desc: `At the start of your hero phase, roll a dice. On a 1, this model suffers D3 mortal wounds. On a 2+, you can heal up to D3 wounds allocated to this model. If you roll a 2+ and no wounds are allocated to this model, add D3 to its Wounds characteristic for the rest of the battle instead of healing D3 wounds.`,
+        desc: `At the start of your hero phase, roll a D6. On a 1, this model suffers D3 mortal wounds. On a 2+, you can heal up to D3 wounds allocated to this model. If you roll a 2+ and no wounds are allocated to this model, add D3 to its Wounds characteristic for the rest of the battle instead of healing D3 wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -173,7 +173,7 @@ export const MonstrousArcanumChaos: TUnits = [
       },
       {
         name: `Goring Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {

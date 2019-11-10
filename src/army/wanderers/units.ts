@@ -112,7 +112,7 @@ export const Units: TUnits = [
       },
       {
         name: `Heartseeker Arrow`,
-        desc: `After set-up is complete, roll a dice if the enemy general is visible to at least one Waystrider from your army; on a 5 or more that general suffers a mortal wound.`,
+        desc: `After set-up is complete, roll a D6 if the enemy general is visible to at least one Waystrider from your army; on a 5 or more that general suffers a mortal wound.`,
         when: [END_OF_SETUP],
       },
     ],
