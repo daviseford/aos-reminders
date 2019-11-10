@@ -684,7 +684,7 @@ export const Units: TUnits = [
       {
         name: `Infested`,
         desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

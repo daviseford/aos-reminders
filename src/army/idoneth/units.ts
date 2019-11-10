@@ -17,6 +17,12 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const DeepmareHornEffect = {
+  name: `Deepmare Horn`,
+  desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -89,21 +95,13 @@ export const Units: TUnits = [
         desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 18" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Deepmare Horn`,
-        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      DeepmareHornEffect,
     ],
   },
   {
     name: `Akhelian King`,
     effects: [
-      {
-        name: `Deepmare Horn`,
-        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      DeepmareHornEffect,
       {
         name: `Akhelian Paragon`,
         desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 12" of this model.`,

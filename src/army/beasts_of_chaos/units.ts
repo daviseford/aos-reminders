@@ -14,6 +14,7 @@ import {
   START_OF_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import GenericEffects from 'army/generic/effects'
 
 const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,
@@ -351,11 +352,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Gargant`,
     effects: [
-      {
-        name: `Timber!`,
-        desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
-      },
+      ...GenericEffects.Gargant,
       {
         name: `Stuff 'Em In Me Bag`,
         desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,

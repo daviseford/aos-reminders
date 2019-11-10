@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
+import GenericEffects from 'army/generic/effects'
 
 export const MonstersOfChaos: TUnits = [
   {
@@ -131,11 +132,7 @@ export const MonstrousArcanumChaos: TUnits = [
         desc: `You can re-roll save rolls for attacks made with ranged weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Timber!`,
-        desc: `If this model is slain, before removing the model from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [DURING_GAME],
-      },
+      ...GenericEffects.Gargant,
     ],
   },
   {

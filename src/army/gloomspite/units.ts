@@ -21,6 +21,7 @@ import {
   TURN_TWO_DURING_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import GenericEffects from 'army/generic/effects'
 
 const LoonbossEffects = [
   {
@@ -140,11 +141,6 @@ const SquigglyBeastFollowersEffect = {
   name: `Squiggly-beast Followers`,
   desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
   when: [START_OF_COMBAT_PHASE],
-}
-const TimberEffect = {
-  name: `Timber!`,
-  desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-  when: [WOUND_ALLOCATION],
 }
 
 // Unit Names
@@ -419,7 +415,7 @@ export const Units: TUnits = [
       {
         name: `Fungoid Squig Explosion`,
         desc: `If this model is slain, before removing the model from the battlefield, roll a D6 for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Puff Spores`,
@@ -655,7 +651,7 @@ export const Units: TUnits = [
         desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
         when: [CHARGE_PHASE],
       },
-      TimberEffect,
+      ...GenericEffects.Gargant,
     ],
   },
   {
@@ -676,7 +672,7 @@ export const Units: TUnits = [
         desc: `This model is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
       },
-      TimberEffect,
+      ...GenericEffects.Gargant,
     ],
   },
 ]

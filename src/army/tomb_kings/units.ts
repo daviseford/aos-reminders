@@ -119,8 +119,13 @@ export const Units: TUnits = [
       },
       {
         name: `Scarab Prince`,
-        desc: `This model heals one wound in each of your hero phases. If this model is slain, before it is removed it can immediately make a Tide of Scuttling Scarabs attack as if it were the shooting phase.`,
+        desc: `This model heals one wound in each of your hero phases.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Scarab Prince`,
+        desc: `If this model is slain, before it is removed it can immediately make a Tide of Scuttling Scarabs attack as if it were the shooting phase.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Desert Revenant`,
