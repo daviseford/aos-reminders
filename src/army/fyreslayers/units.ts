@@ -15,36 +15,69 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const AuricRunesonEffects = [
+  {
+    name: `Vying for Glory`,
+    desc: `You can re-roll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `Wyrmslayer Javelin`,
+    desc: `Add 2 to the Damage characteristic for attacks made with this model's Wyrmslayer Javelin that target a MONSTER.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+]
+const MagmadrothEffects = [
+  {
+    name: `Roaring Fyrestream`,
+    desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
+    when: [SHOOTING_PHASE],
+  },
+  {
+    name: `Lashing Tail`,
+    desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
+    when: [END_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Volcanic Blood`,
+    desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
+    when: [COMBAT_PHASE],
+  },
+]
+const StareDownEffect = {
+  name: `Stare Down`,
+  desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
+  when: [HERO_PHASE],
+}
+const WeaponBreakerEffect = {
+  name: `Weapon Breaker`,
+  desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
+  when: [END_OF_COMBAT_PHASE],
+}
+const BerserkFuryEffect = {
+  name: `Berserk Fury`,
+  desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
+  when: [START_OF_COMBAT_PHASE],
+}
+const FyresteelHandaxesEffect = {
+  name: `Fyresteel Handaxes`,
+  desc: `You can re-roll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
+  when: [COMBAT_PHASE],
+}
+const RunicEmpowermentEffect = {
+  name: `Runic Empowerment`,
+  desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
+  when: [START_OF_HERO_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Auric Runefather on Magmadroth`,
     effects: [
-      {
-        name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Lashing Tail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Volcanic Blood`,
-        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Stare Down`,
-        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      ...MagmadrothEffects,
+      StareDownEffect,
+      WeaponBreakerEffect,
       {
         name: `Steadfast Advance`,
         desc: `Pick a friendly model with this command ability. Until the start of your next hero phase, do not take battleshock tests for friendly FYRESLAYERS units while they are wholly within 18" of that model.`,
@@ -61,31 +94,13 @@ export const Units: TUnits = [
         desc: `6+ to negate an allocated wound or mortal wound to this model.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
-        when: [SHOOTING_PHASE],
-      },
+      ...MagmadrothEffects,
       {
         name: `Flamespitter's Fury`,
         desc: `Add 6" to the range of this model's Roaring Fyrestream ability if this model did not move in teh movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Lashing Tail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Volcanic Blood`,
-        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Stare Down`,
-        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
+      StareDownEffect,
       {
         name: `Hrathling`,
         desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 5+, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
@@ -102,31 +117,8 @@ export const Units: TUnits = [
   {
     name: `Auric Runeson on Magmadroth`,
     effects: [
-      {
-        name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Lashing Tail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Volcanic Blood`,
-        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Vying for Glory`,
-        desc: `You can re-roll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Wyrmslayer Javelin`,
-        desc: `Add 2 to the Damage characteristic for attacks made with this model's Wyrmslayer Javelin that target a MONSTER.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
+      ...MagmadrothEffects,
+      ...AuricRunesonEffects,
       {
         name: `Molten Battering Ram`,
         desc: `Pick 1 friendly MAGMADROTH that is within 12" of a friendly model with this command ability. After that unit makes a charge move in that charge phase, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers D6 mortal wounds. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
@@ -138,31 +130,13 @@ export const Units: TUnits = [
   {
     name: `Auric Runesmiter on Magmadroth`,
     effects: [
-      {
-        name: `Roaring Fyrestream`,
-        desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Lashing Tail`,
-        desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Volcanic Blood`,
-        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      ...MagmadrothEffects,
       {
         name: `Grand Ritual of Awakening`,
         desc: `Once per battle, you can say this model has consumed a nugget of ur-gold. If you do so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Runic Empowerment`,
-        desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      RunicEmpowermentEffect,
     ],
   },
   {
@@ -173,16 +147,8 @@ export const Units: TUnits = [
         desc: `5+ to negate an allocated a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit.`,
         when: [WOUND_ALLOCATION],
       },
-      {
-        name: `Stare Down`,
-        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      StareDownEffect,
+      WeaponBreakerEffect,
       {
         name: `Honour Our Oaths`,
         desc: `Pick a friendly model with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly VOSTARG units while they are wholly within 12" of that model. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
@@ -199,31 +165,15 @@ export const Units: TUnits = [
         desc: `Add 1 to wound rolls for attacks made by this unit while FJUL-GRIMNIR is within 3" of this unit. Do not take battleshock tests for this unit while it is within 3" of FJUL-GRIMNIR.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE, BATTLESHOCK_PHASE],
       },
-      {
-        name: `Berserk Fury`,
-        desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Fyresteel Handaxes`,
-        desc: `You can re-roll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
-        when: [COMBAT_PHASE],
-      },
+      BerserkFuryEffect,
+      FyresteelHandaxesEffect,
     ],
   },
   {
     name: `Auric Runefather`,
     effects: [
-      {
-        name: `Stare Down`,
-        desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Weapon Breaker`,
-        desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      StareDownEffect,
+      WeaponBreakerEffect,
       {
         name: `Lodge Leader`,
         desc: `Pick a friendly model with this command ability. Add 1 charge rolls for friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
@@ -235,16 +185,7 @@ export const Units: TUnits = [
   {
     name: `Auric Runeson`,
     effects: [
-      {
-        name: `Vying for Glory`,
-        desc: `You can re-roll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Wyrmslayer Javelin`,
-        desc: `Add 2 to the Damage characteristic for attacks made with this model's Wyrmslayer Javelin that target a MONSTER.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
+      ...AuricRunesonEffects,
       {
         name: `Dauntless Assault`,
         desc: `Pick a friendly model with this command ability. Add 1 to wound rolls for attacks made by friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
@@ -326,11 +267,7 @@ export const Units: TUnits = [
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is set up underground as a reserve unit. If you do so, when you would set up another friendly FYRESLAYERS unit, instead of setting up that unit on the battlefield, you can say that it is joining this model underground as a reserve unit. 1 unit can join this model in this way. At the end of your movement phase, you can set up this model anywhere on the battlefield, more than 9" from any enemy units; then set up any unit that joined this model wholly within 12" of this model and more than 9" from any enemy units. Any reserve units underground that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Runic Empowerment`,
-        desc: `Make a prayer roll by rolling a dice. On a 1-2, the prayer is not answered. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      RunicEmpowermentEffect,
     ],
   },
   {
@@ -341,16 +278,8 @@ export const Units: TUnits = [
         desc: `Add 1 to charge rolls for units that include any Horns of Grimnir.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Berserk Fury`,
-        desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Fyresteel Handaxes`,
-        desc: `You can re-roll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
-        when: [COMBAT_PHASE],
-      },
+      BerserkFuryEffect,
+      FyresteelHandaxesEffect,
       {
         name: `Bladed Slingshield`,
         desc: `After a unit armed with Bladed Slingshields makes a charge move, pick 1 enemy unit and roll a D6 for each model from the charging unit within 8" of that enemy unit. For each 6, the enemy unit suffers 1 mortal wound. In addition, add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
