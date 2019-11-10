@@ -18,7 +18,56 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
+
+const PrimeElectridsEffect = {
+  name: `Prime Electrids`,
+  desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
+  when: [HERO_PHASE],
+}
+const SupernaturalRoarEffect = {
+  name: `Supernatural Roar`,
+  desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const SpiritFlaskEffect = {
+  name: `Spirit Flask`,
+  desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
+  when: [START_OF_COMBAT_PHASE],
+}
+const AetherealStrikeEffect = {
+  name: `Aethereal Strike`,
+  desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
+  when: [COMBAT_PHASE],
+}
+const AstralCompassEffect = {
+  name: `Astral Compass`,
+  desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
+  when: [END_OF_MOVEMENT_PHASE],
+}
+const RideTheWindsAethericEffect = {
+  name: `Ride the Winds Aetheric`,
+  desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+  when: [MOVEMENT_PHASE],
+}
+const CycleOfTheStormEffect = {
+  name: `Cycle of the Storm`,
+  desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
+  when: [WOUND_ALLOCATION],
+}
+const CelestialLightningArcEffects = [
+  {
+    name: `Celestial Lightning Arc`,
+    desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Celestial Lightning Arc`,
+    desc: `You can re-roll save rolls of 1 for missile attacks that target this unit.`,
+    when: [SHOOTING_PHASE],
+  },
+]
 
 // Unit Names
 export const Units: TUnits = [
@@ -70,11 +119,7 @@ export const Units: TUnits = [
         desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for friendly STORMCAST ETERNAL units' missile attacks that target that unit in the same turn.`,
         when: [END_OF_MOVEMENT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
+      CycleOfTheStormEffect,
       {
         name: `Meteoric Strike`,
         desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
@@ -85,22 +130,14 @@ export const Units: TUnits = [
         desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a D6. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      SpiritFlaskEffect,
       {
         name: `Fiery Orator`,
         desc: `Pick a friendly HAMMERS OF SIGMAR unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      PrimeElectridsEffect,
       {
         name: `Pyroelectric Blast`,
         desc: `Casting value of 6. Pick a point on the battlefield within 9" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Each unit, apart from the caster, that has any models beneath this line suffers D3 mortal wounds.`,
@@ -112,31 +149,15 @@ export const Units: TUnits = [
   {
     name: `Astreia Solbright`,
     effects: [
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Supernatural Roar`,
-        desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      CycleOfTheStormEffect,
+      SpiritFlaskEffect,
+      SupernaturalRoarEffect,
       {
         name: `Thunderous Pounce`,
         desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      PrimeElectridsEffect,
       {
         name: `Soul Energy of the First Host`,
         desc: `Pick a friendly unit of HAMMERS OF SIGMAR CASTIGATORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
@@ -263,11 +284,7 @@ export const Units: TUnits = [
   {
     name: `The Farstriders`,
     effects: [
-      {
-        name: `Astral Compass`,
-        desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
+      AstralCompassEffect,
       {
         name: `Tireless Hunters`,
         desc: `This unit can run and still shoot in the same turn.`,
@@ -283,21 +300,9 @@ export const Units: TUnits = [
   {
     name: `Lord-Arcanum`,
     effects: [
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      CycleOfTheStormEffect,
+      SpiritFlaskEffect,
+      PrimeElectridsEffect,
       {
         name: `Aetheric Manipulation`,
         desc: `You can use this command ability before an endless spell is moved. If you do so, pick a predatory Endless Spell model within 12" of a friendly model with this command ability. Add D6" to the distance that endless spell can move until the end of the battle round.`,
@@ -320,32 +325,20 @@ export const Units: TUnits = [
         desc: `Pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for attacks made with missile weapons used by friendly STORMCAST ETERNAL units that target that unit in the same turn.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
+      CycleOfTheStormEffect,
       {
         name: `Meteoric Strike`,
         desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      SpiritFlaskEffect,
       {
         name: `Swift of Wing`,
         desc: `Pick a friendly model with this command ability. Add 2 to run rolls for friendly SACROSANCT units that were wholly within 18" of that model at the start of that phase.`,
         when: [START_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      PrimeElectridsEffect,
       {
         name: `Lightning Orb`,
         desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
@@ -363,31 +356,15 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      CycleOfTheStormEffect,
+      SpiritFlaskEffect,
+      PrimeElectridsEffect,
       {
         name: `Thunderous Pounce`,
         desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Supernatural Roar`,
-        desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      SupernaturalRoarEffect,
       {
         name: `Storm Lance`,
         desc: `Casting value of 5. Pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a D6 for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
@@ -399,11 +376,7 @@ export const Units: TUnits = [
   {
     name: `Lord-Arcanum on Gryph-Charger`,
     effects: [
-      {
-        name: `Aethereal Strike`,
-        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      AetherealStrikeEffect,
       {
         name: `Soul Energy of the First Host`,
         desc: `Pick a friendly unit of HAMMERS OF SIGMAR CASTIGATORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
@@ -422,26 +395,10 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      RideTheWindsAethericEffect,
+      CycleOfTheStormEffect,
+      SpiritFlaskEffect,
+      PrimeElectridsEffect,
       {
         name: `Healing Light`,
         desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL model within 18" of the caster. Heal D3 wounds that have been allocated to that model. If the casting roll was 8+, heal D6 wounds that have been allocated to that model instead.`,
@@ -459,21 +416,9 @@ export const Units: TUnits = [
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Astral Compass`,
-        desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Aethereal Strike`,
-        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
-        when: [MOVEMENT_PHASE],
-      },
+      AstralCompassEffect,
+      AetherealStrikeEffect,
+      RideTheWindsAethericEffect,
     ],
   },
   {
@@ -748,11 +693,7 @@ export const Units: TUnits = [
         desc: `Once per battle, you can declare an enemy spell is automatically unbound (do not roll the dice).`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      SpiritFlaskEffect,
       {
         name: `Spirit Storm`,
         desc: `Casting value of 7. Each enemy unit within 18" of the caster suffers a mortal wound. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
@@ -1265,11 +1206,7 @@ export const Units: TUnits = [
   {
     name: `Vanguard-Hunters`,
     effects: [
-      {
-        name: `Astral Compass`,
-        desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
+      AstralCompassEffect,
       {
         name: `Tireless Hunters`,
         desc: `This unit can run and still shoot in the same turn.`,
@@ -1290,16 +1227,8 @@ export const Units: TUnits = [
         desc: `Each time a model armed with a Lunar Blade attacks, after all of that model's attacks have been resolved, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ the unit you picked suffers 1 mortal wound.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Aethereal Strike`,
-        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws, that attack inflicts 1 mortal wound instead of the normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
-        when: [MOVEMENT_PHASE],
-      },
+      AetherealStrikeEffect,
+      RideTheWindsAethericEffect,
     ],
   },
   {
@@ -1385,20 +1314,11 @@ export const Units: TUnits = [
   {
     name: `Evocators`,
     effects: [
-      {
-        name: `Celestial Lightning Arc`,
-        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      ...CelestialLightningArcEffects,
       {
         name: `Evocator-Prime`,
         desc: `+1 Attack.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Celestial Lightning Arc`,
-        desc: `You can re-roll save rolls of 1 for missile attacks that target this unit.`,
-        when: [SHOOTING_PHASE],
       },
       {
         name: `Magic`,
@@ -1417,30 +1337,17 @@ export const Units: TUnits = [
     name: `Evocators on Celestial Dracolines`,
     effects: [
       {
-        name: `Celestial Lightning Arc`,
-        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Evocator-Prime`,
         desc: `+1 Attack.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Celestial Lightning Arc`,
-        desc: `You can re-roll save rolls of 1 for missile attacks that target this unit.`,
-        when: [SHOOTING_PHASE],
-      },
+      ...CelestialLightningArcEffects,
       {
         name: `Magic`,
         desc: `This unit is a WIZARD while it has 2 or more models.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Supernatural Roar`,
-        desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      SupernaturalRoarEffect,
       {
         name: `Thunderous Pounce`,
         desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
@@ -1457,32 +1364,16 @@ export const Units: TUnits = [
   {
     name: `Lynus Ghalmorian on Gryph Charger`,
     effects: [
-      {
-        name: `Aethereal Strike`,
-        desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      AetherealStrikeEffect,
       {
         name: `Sombre Exemplar`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase add 1 to hit rolls for attacks made by friendly ANVILS OF THE HELDENHAMMER units while they are wholly within 12" of this model.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Ride the Winds Aetheric`,
-        desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Cycle of the Storm`,
-        desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, this model can shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each flask that was shattered. Allocate the mortal wounds to this model last of all.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      RideTheWindsAethericEffect,
+      CycleOfTheStormEffect,
+      SpiritFlaskEffect,
       {
         name: `Shield of the Pale Knight`,
         desc: `You can re-roll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
@@ -1494,21 +1385,13 @@ export const Units: TUnits = [
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
         spell: true,
       },
-      {
-        name: `Prime Electrids`,
-        desc: `If this model successfully casts Arcane Bolt and it is not unbound, then that spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if this casting roll was 10+.`,
-        when: [HERO_PHASE],
-      },
+      PrimeElectridsEffect,
     ],
   },
   {
     name: `Averon Stormsire`,
     effects: [
-      {
-        name: `Spirit Flask`,
-        desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      SpiritFlaskEffect,
       {
         name: `Voidstorm Scroll`,
         desc: `Once per battle, when this model attempts to unbind a spell, instead of making an unbinding roll you can say this model is using its Voidstorm Scroll. If you do so, the spell is automatically unbound (do not roll the dice).`,
@@ -1530,16 +1413,7 @@ export const Units: TUnits = [
         desc: `You can re-roll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Celestial Lightning Arc`,
-        desc: `You can re-roll save rolls of 1 for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Celestial Lightning Arc`,
-        desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      ...CelestialLightningArcEffects,
       {
         name: `Empower`,
         desc: `Casting value of 6. Pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
