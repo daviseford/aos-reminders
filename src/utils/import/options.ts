@@ -51,6 +51,7 @@ const warscrollTypoMap: TNameMap = {
   'Arch Sorcerer': 'Arch-Sorcerer',
   'Armor of Silvered Sigmarite': 'Armour of Silvered Sigmarite',
   'Blade of the All-Frost': 'Blade of All-Frost',
+  'Blade of All Frost': 'Blade of All-Frost',
   'Bursting with Power': "Burstin' with Power",
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
@@ -59,6 +60,7 @@ const warscrollTypoMap: TNameMap = {
   'Explosize Charge': 'Explosive Charge',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
+  'Great-Bray Shaman': 'Great Bray-Shaman',
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',
   'Gristlegore Royal Zombie Dragon': 'Royal Zombie Dragon',
   'Grot Scraplauncher': 'Gnoblar Scraplauncher',
@@ -172,6 +174,7 @@ export const importUnitOptionMap = {
 }
 
 export const importFactionNameMap = {
+  'Beastclaw Raiders': OGOR_MAWTRIBES,
   'Beasts of Chaos': BEASTS_OF_CHAOS,
   'Big Waaagh!': BIG_WAAAGH,
   'Blades of Khorne': KHORNE,
@@ -190,6 +193,7 @@ export const importFactionNameMap = {
   'Grand Host of Nagash': GRAND_HOST_OF_NAGASH,
   'Greyfyrd Lodge': MERCENARY_COMPANIES,
   'Grugg Brothers': MERCENARY_COMPANIES,
+  Gutbusters: OGOR_MAWTRIBES,
   'Hedonites of Slaanesh': SLAANESH,
   'Idoneth Deepkin': IDONETH_DEEPKIN,
   'Kharadron Overlords': KHARADRON_OVERLORDS,
@@ -220,8 +224,8 @@ export const importFactionNameMap = {
   'Tenebrous Court': MERCENARY_COMPANIES,
   'The Blacksmoke Battery': MERCENARY_COMPANIES,
   'The Gutstuffers': MERCENARY_COMPANIES,
-  'Tomb Kings': TOMB_KINGS,
   'Tomb Kings (Compendium)': TOMB_KINGS,
+  'Tomb Kings': TOMB_KINGS,
   "Mercenaries: Nimyard's Rough-Riders": MERCENARY_COMPANIES,
   "Mercenaries: Skroug's Menagerie": MERCENARY_COMPANIES,
   "Nimyard's Rough-Riders": MERCENARY_COMPANIES,
@@ -263,8 +267,8 @@ export type TNameMap = { [key: string]: string }
 // units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
 // by a partial match.
 export const azyrAmbiguousNamesMap = {
-  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
   'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
+  'Arachnarok Spider with Flinger': 'Arachnarok Spider',
   'Auric Runefather': 'Auric Runefather',
   'Auric Runesmiter': 'Auric Runesmiter',
   'Auric Runeson': 'Auric Runeson',
@@ -272,17 +276,17 @@ export const azyrAmbiguousNamesMap = {
   'Bloodthirster of Insensate Rage': 'Bloodthirster',
   'Corpse Cart w/ Balefire Brazier': 'Corpse Cart',
   'Eidolon of Mathlann, Aspect of the Sea': 'Eidolon of Mathlann',
-  Evocators: 'Evocators',
   'Grey Seer': 'Grey Seer',
   'Herald of Tzeentch': 'Herald of Tzeentch',
   'Knight of Shrouds': 'Knight of Shrouds',
   'Lord-Arcanum': 'Lord-Arcanum',
   'Lord-Celestant': 'Lord-Celestant',
-  Loonboss: 'Loonboss',
   'Plague Priest': 'Plague Priest',
   'Prosecutors with Stormcall Javelins': 'Prosecutors',
   'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
   'Wight King with Baleful Tomb Blade': 'Wight King',
+  Evocators: 'Evocators',
+  Loonboss: 'Loonboss',
 }
 
 type TParserOptions = {

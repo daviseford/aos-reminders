@@ -6,7 +6,7 @@ const Scenery: TScenery = [
     name: `Herdstone`,
     effects: [
       {
-        name: `Herdstone`,
+        name: `Set up Herdstone`,
         desc: `After territories have been chosen but before players begin to set up their armies, you can set up one HERDSTONE wholly within your territory, more than 12" from enemy territory and more than 1" from any other terrain features. If both players can set up a terrain feature in this manner, each player rolls a dice, rolling again in the case of a tie, and whoever rolls higher can choose the order in which the terrain features are set up.`,
         when: [START_OF_SETUP],
       },
