@@ -12,11 +12,155 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
+const HagQueenEffects = [
+  {
+    name: `Priestess of Khaine`,
+    desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Rune of Khaine`,
+    desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Touch of Death`,
+    desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
+    when: [HERO_PHASE],
+  },
+]
+const BloodwrackEffects = [
+  {
+    name: `Bloodwrack Stare`,
+    desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
+    when: [SHOOTING_PHASE],
+  },
+  {
+    name: `Magic`,
+    desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Enfeebling Foe`,
+    desc: `Casting value of 5. Pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
+    when: [HERO_PHASE],
+    spell: true,
+  },
+  {
+    name: `Enfeebling Foe`,
+    desc: `If active, subtract 1 from wound rolls for debuffed unit in the combat phase.`,
+    when: [COMBAT_PHASE],
+  },
+]
+const WitchbrewEffects = [
+  {
+    name: `Witchbrew`,
+    desc: `You can pick a friendly Daughters of Khaine unit within 3" of this model to drink Witchbrew.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Witchbrew`,
+    desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Witchbrew`,
+    desc: `If active, you do not need to take battleshock tests for the unit.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+]
+const SlaughterQueenEffects = [
+  {
+    name: `Pact of Blood`,
+    desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Orgy of Slaughter`,
+    desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model. If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase.`,
+    when: [HERO_PHASE],
+    command_ability: true,
+  },
+]
+const AvatarOfKhaineEffects = [
+  {
+    name: `Wrath of Khaine`,
+    desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Wrath of Khaine`,
+    desc: `If active, pick a friendly Avatar of Khaine on the battlefield. Until your next hero phase it is now Animated.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Animated`,
+    desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Idol of Worship`,
+    desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
+    when: [DURING_GAME],
+  },
+]
+const MorathiEffects = [
+  {
+    name: `The Iron Heart of Khaine`,
+    desc: `Morathi cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Arnzipal's Black Horror`,
+    desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
+    when: [HERO_PHASE],
+    spell: true,
+  },
+]
+const StandardBearerAndHornblowerEffects = [
+  {
+    name: `Standard Bearer`,
+    desc: `Roll two dice instead of one and discard the highest result if this unit contains any standard bearers.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Hornblower`,
+    desc: `A unit that includes any hornblowers can run and charge.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+]
+const HeartpiercerShieldEffect = {
+  name: `Heartpiercer Shield`,
+  desc: `This unit has a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+  when: [COMBAT_PHASE],
+}
+const DescendToBattleEffect = {
+  name: `Descend to Battle`,
+  desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
+  when: [DURING_SETUP],
+}
+const BladedBucklersEffect = {
+  name: `Bladed Bucklers`,
+  desc: `Units with bladed bucklers have a save characteristic of 5+ in this phase. In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
+  when: [COMBAT_PHASE],
+}
+const BloodshieldEffect = {
+  name: `Bloodshield`,
+  desc: `Add 1 to the save rolls for friendly Daughters of Khaine units that are wholly within range of this model.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+const BladedImpactEffect = {
+  name: `Bladed Impact`,
+  desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Morathi, High Oracle of Khaine`,
     effects: [
+      ...MorathiEffects,
       {
         name: `Monstrous Transformation`,
         desc: `Morathi can transform into her monstrous aspect.`,
@@ -26,11 +170,6 @@ export const Units: TUnits = [
         name: `The Truth Revealed.`,
         desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `The Iron Heart of Khaine`,
-        desc: `Morathi, High Oracle of Khaine cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
-        when: [DURING_GAME],
       },
       {
         name: `Sorceress Supreme`,
@@ -48,12 +187,6 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
         name: `Worship Through Bloodshed`,
         desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ). Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
@@ -64,6 +197,7 @@ export const Units: TUnits = [
   {
     name: `Morathi, the Shadow Queen`,
     effects: [
+      ...MorathiEffects,
       {
         name: `Monstrous Revelation`,
         desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
@@ -83,182 +217,40 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       {
-        name: `The Iron Heart of Khaine`,
-        desc: `Morathi, the Shadow Queen cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
-        when: [DURING_GAME],
-      },
-      {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
       },
     ],
   },
   {
     name: `Hag Queen`,
-    effects: [
-      {
-        name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rune of Khaine`,
-        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Touch of Death`,
-        desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `You can pick a friendly Daughters of Khaine unit within 3" of this model to drink witchbrew.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `If active, you do not need to take battleshock tests for the unit.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
+    effects: [...HagQueenEffects, ...WitchbrewEffects],
   },
   {
     name: `Slaughter Queen`,
     effects: [
-      {
-        name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rune of Khaine`,
-        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Touch of Death`,
-        desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
+      ...HagQueenEffects,
       {
         name: `Dance of Doom`,
         desc: `If active, until your next hero phase, this model can be chosen to pile in and attack twice in the combat phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Pact of Blood`,
-        desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Orgy of Slaughter`,
-        desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model. If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      ...SlaughterQueenEffects,
     ],
   },
   {
     name: `Avatar of Khaine`,
-    effects: [
-      {
-        name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wrath of Khaine`,
-        desc: `If active, pick a friendly Avatar of Khaine on the battlefield. Until your next hero phase it is now Animated.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Animated`,
-        desc: `The Avatar of Khaine cannot move, cannot shoot, and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite). Even if the model has not been Animated, it is still treated as a model in your army with the exception that enemy units starting their movement phase within 3" of it can move normally without a retreat.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Idol of Worship`,
-        desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [DURING_GAME],
-      },
-    ],
+    effects: [...AvatarOfKhaineEffects],
   },
   {
     name: `Hag Queen on Cauldron of Blood`,
     effects: [
-      {
-        name: `Bladed Impact`,
-        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bloodshield`,
-        desc: `Add 1 to the save rolls for friendly Daughters of Khaine units that are wholly within range of this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `You can pick a friendly Daughters of Khaine unit within 3" of this model to drink witchbrew.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Witchbrew`,
-        desc: `If active, you do not need to take battleshock tests for the unit.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rune of Khaine`,
-        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Touch of Death`,
-        desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wrath of Khaine`,
-        desc: `If active, pick a friendly Avatar of Khaine on the battlefield. Until your next hero phase it is now Animated.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Animated`,
-        desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Idol of Worship`,
-        desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [DURING_GAME],
-      },
+      BladedImpactEffect,
+      BloodshieldEffect,
+      ...WitchbrewEffects,
+      ...HagQueenEffects,
+      ...AvatarOfKhaineEffects,
     ],
   },
   {
@@ -269,19 +261,10 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Hag.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Roll two dice instead of one and discard the highest result if this unit contains any standard bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `A unit that includes any hornblowers can run and charge.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ...StandardBearerAndHornblowerEffects,
       {
         name: `Paired Sacrificial Knives`,
-        desc: `Add 1 to the attacks characteristic of a Witch Aelf's Sacrificial Knife if it is armed with paried Sacrificial Knives.`,
+        desc: `Add 1 to the attacks characteristic of a Witch Aelf's Sacrificial Knife if it is armed with paired Sacrificial Knives.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -289,11 +272,7 @@ export const Units: TUnits = [
         desc: `If this unit is within any friendly Daughters of Khaine heroes in this phase, add 1 to the attacks characteristic of its Sacrificial Knives until the end of the phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Bladed Bucklers`,
-        desc: `Witch Aelves with bladed bucklers have a save characteristic of 5+ in this phase. In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      BladedBucklersEffect,
     ],
   },
   {
@@ -304,123 +283,35 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Handmaiden.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Roll two dice instead of one and discard the highest result if this unit contains any standard bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `A unit that includes any hornblowers can run and charge.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ...StandardBearerAndHornblowerEffects,
       {
         name: `Dance of Death`,
         desc: `Sisters of Slaughter can be chosen to pile in and attack in the combat phase if they are within 6" of an enemy, and can move up to 6" when they pile in.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Bladed Bucklers`,
-        desc: `Sisters of Slaughter with bladed bucklers have a save characteristic of 5+ in this phase. In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      BladedBucklersEffect,
     ],
   },
   {
     name: `Slaughter Queen on Cauldron of Blood`,
     effects: [
-      {
-        name: `Bladed Impact`,
-        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bloodshield`,
-        desc: `Add 1 to the save rolls for friendly Daughters of Khaine units that are wholly within range of this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Pact of Blood`,
-        desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Priestess of Khaine`,
-        desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine, Touch of Death, and Dance of Doom prayers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rune of Khaine`,
-        desc: `If active, the Hag Queen's Blade of Khaine has a Damage characteristic of D3 instead of 1 until your next hero phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Touch of Death`,
-        desc: `If active, pick a unit within 3" of this model and then hide a dice in one of your hands. Your opponent must pick a hand; if that hand is holding the dice, the unit you picked suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wrath of Khaine`,
-        desc: `If your army includes any Avatars of Khaine, friendly Daughters of Khaine priests know the Wrath of Khaine prayer in addition to any other prayers they know.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wrath of Khaine`,
-        desc: `If active, pick a friendly Avatar of Khaine on the battlefield. Until your next hero phase it is now Animated.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Animated`,
-        desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Idol of Worship`,
-        desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Orgy of Slaughter`,
-        desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model. If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      BladedImpactEffect,
+      BloodshieldEffect,
+      ...HagQueenEffects,
+      ...AvatarOfKhaineEffects,
+      ...SlaughterQueenEffects,
     ],
   },
   {
     name: `Bloodwrack Shrine`,
     effects: [
-      {
-        name: `Bladed Impact`,
-        desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bloodwrack Stare`,
-        desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
+      BladedImpactEffect,
       {
         name: `Aura of Agony`,
         desc: `Roll a D6 for each enemy unit within 7" of any friendly Bloodwrack Shrines. If the dice roll is greater than or equal to the score listed in the damage table, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Enfeebling Foe`,
-        desc: `Casting value of 5. Pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Enfeebling Foe`,
-        desc: `If active, subtract 1 from wound rolls for debuffed unit in the combat phase.`,
-        when: [COMBAT_PHASE],
-      },
+      ...BloodwrackEffects,
     ],
   },
   {
@@ -455,29 +346,7 @@ export const Units: TUnits = [
   },
   {
     name: `Bloodwrack Medusa`,
-    effects: [
-      {
-        name: `Bloodwrack Stare`,
-        desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Enfeebling Foe`,
-        desc: `Casting value of 5. Pick a unit within 18" and visible to the caster. Until your next hero phase, subtract 1 from wound rolls for that unit in the combat phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Enfeebling Foe`,
-        desc: `If active, subtract 1 from wound rolls for debuffed unit in the combat phase.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...BloodwrackEffects],
   },
   {
     name: `Doomfire Warlocks`,
@@ -518,11 +387,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Shryke.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Descend to Battle`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
-        when: [DURING_SETUP],
-      },
+      DescendToBattleEffect,
       {
         name: `Fire and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
@@ -533,11 +398,7 @@ export const Units: TUnits = [
         desc: `This unit can shoot even it ran in the same turn. In addition, change the Rend characteristic of this unit's Barbed Javelins to -2 if it was set up on the battlefield in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Heartpiercer Shield`,
-        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield - the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      HeartpiercerShieldEffect,
     ],
   },
   {
@@ -548,11 +409,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Harridynn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Descend to Battle`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
-        when: [DURING_SETUP],
-      },
+      DescendToBattleEffect,
       {
         name: `Fight and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
@@ -563,11 +420,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the damage characteristic of this unit's Barbed Sickles if it made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Heartpiercer Shield`,
-        desc: `Khinerai Heartrenders have a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6 for such a unit, a Khinerai Heartrender pierces her assailant's heart with her shield - the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      HeartpiercerShieldEffect,
     ],
   },
 ]
