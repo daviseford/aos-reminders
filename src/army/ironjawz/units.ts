@@ -16,6 +16,25 @@ import { DestructionUnits } from 'army/grand_alliances'
 
 const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 
+const MegabossEffects = [
+  {
+    name: `Rip-toof Fist`,
+    desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Strength from Victory`,
+    desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add +1 attack to the Megaboss's weapon and add +1 to the models Wounds characteristic.`,
+    when: [END_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Go on Ladz, Get Stuck In!`,
+    desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of the phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
+    when: [START_OF_COMBAT_PHASE],
+    command_ability: true,
+  },
+]
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -42,7 +61,7 @@ export const Units: TUnits = [
       },
       {
         name: `Strength from Victory`,
-        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in the combat phase, add 1 to this model's Wounds characteristic and add 1 to the attacks of Smasha and Kunnin'.`,
+        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristic and add 1 to the Attacks characteristic of Smasha and Kunnin'.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -56,17 +75,7 @@ export const Units: TUnits = [
   {
     name: `Megaboss on Maw-Krusha`,
     effects: [
-      {
-        name: `Strength from Victory`,
-        desc: `If any enemy models were slain in this combat phase, add +1 attack to the Megaboss's weapon (not Mount) and add +1 to the models Wounds characteristic.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Go on Ladz, Get Stuck In!`,
-        desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of the phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      ...MegabossEffects,
       {
         name: `Destructive Bulk`,
         desc: `After a Maw-krusha completes a charge move, pick an enemy unit within 1" and roll the number of dice shown for the Maw-krusha's Destructive Bulk on the damage table above; the enemy unit suffers 1 mortal wound for each roll of 5+.
@@ -74,33 +83,11 @@ export const Units: TUnits = [
         If the wounds inflicted by a Maw-krusha's Destructive Bulk attack mean that there are no enemy models left within 3" of it, then it can immediately make another charge move (and can make another Destructive Bulk attack after the move if the charge is successfully carried out). A Maw-krusha can make any number of charge moves like this in a single turn, so long as each one results in all enemy models within 3" being slain.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Rip-toof Fist`,
-        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   {
     name: `Orruk Megaboss`,
-    effects: [
-      {
-        name: `Rip-toof Fist`,
-        desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Strength from Victory`,
-        desc: `If any enemy models were slain in this combat phase, add +1 attack to the Megaboss's weapon (not Mount) and add +1 to the models Wounds characteristic.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Go on Ladz, Get Stuck In!`,
-        desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of the phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...MegabossEffects],
   },
   {
     name: `Orruk Warchanter`,

@@ -21,6 +21,127 @@ import {
   TURN_TWO_DURING_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import GenericEffects from 'army/generic/effects'
+
+const LoonbossEffects = [
+  {
+    name: `Dead Tricksy`,
+    desc: `Subtract 1 from hit rolls for attacks that target this model.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `I'm Da Boss, Now Stab 'Em Good!`,
+    desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.'The same unit cannot be picked to be affected by this command ability more than once per phase.`,
+    when: [START_OF_COMBAT_PHASE],
+    command_ability: true,
+  },
+]
+const GrotBaseEffects = [
+  {
+    name: `Gong Basher`,
+    desc: `Add 2 to run rolls for a unit that includes any Gong Bashers.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Moonclan Flag Bearers`,
+    desc: `Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Bad Moon Icon Bearers`,
+    desc: `Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.`,
+    when: [SHOOTING_PHASE],
+  },
+  {
+    name: `Backstabbing Mob`,
+    desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Netters`,
+    desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+  },
+]
+const FanaticsBaseEffects = [
+  {
+    name: `Whirling Death`,
+    desc: `This unit fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. This unit cannot fight again in the combat phase unless an ability or spell allows it to fight more than once.`,
+    when: [START_OF_CHARGE_PHASE],
+  },
+  {
+    name: `Splat!`,
+    desc: `If the charge roll for this unit is a double, after the charge move (or after the charge fails), this unit suffers 1 mortal wound and each other unit within 1" of this unit suffers D3 mortal wounds.`,
+    when: [CHARGE_PHASE],
+  },
+]
+const HallucinogenicFungusBrewsEffects = [
+  {
+    name: `Hallucinogenic Fungus Brews`,
+    desc: `Add 2 to save rolls for attacks that target this model.`,
+    when: [TURN_ONE_DURING_TURN],
+  },
+  {
+    name: `Hallucinogenic Fungus Brews`,
+    desc: `Add 1 to save rolls for attacks that target this model.`,
+    when: [TURN_TWO_DURING_TURN],
+  },
+]
+const RedcapMushroomsEffect = {
+  name: `Redcap Mushrooms`,
+  desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can re-roll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
+  when: [HERO_PHASE],
+}
+const WatchOutEffect = {
+  name: `Watch Out!`,
+  desc: `If a Mangler Squig is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
+  when: [WOUND_ALLOCATION],
+}
+const KersplatEffect = {
+  name: `Ker-splat!`,
+  desc: `Add 1 to hit rolls for attacks made with Mangler Squigs Balls and Chains if this model made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+const SquigsGoWildEffect = {
+  name: `Squigs Go Wild`,
+  desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const SlipperyGitEffect = {
+  name: `Slippery Git`,
+  desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
+  when: [SHOOTING_PHASE],
+}
+const SpiderVenomEffect = {
+  name: `Spider Venom`,
+  desc: `If the unmodified hit roll for an attack made with this model's Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+}
+const TerribleStenchEffect = {
+  name: `Terrible Stench`,
+  desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,
+  when: [COMBAT_PHASE],
+}
+const RegenerationEffect = {
+  name: `Regeneration`,
+  desc: `In your hero phase, you can roll a D6 for this unit. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
+  when: [HERO_PHASE],
+}
+const MagicalResistanceEffect = {
+  name: `Magical Resistance`,
+  desc: `Each time this unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
+  when: [HERO_PHASE],
+}
+const ReassuringPresenceEffect = {
+  name: `Reassuring Presence`,
+  desc: `Add 1 to the Bravery characteristic of friendly GLOOMSPITE GITZ units that are wholly within 18" of any friendly models with this ability.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const SquigglyBeastFollowersEffect = {
+  name: `Squiggly-beast Followers`,
+  desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
+  when: [START_OF_COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -57,54 +178,26 @@ export const Units: TUnits = [
   },
   {
     name: `Loonboss`,
-    effects: [
-      {
-        name: `Dead Tricksy`,
-        desc: `Subtract 1 from hit rolls for attacks that target a Loonboss.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `I'm Da Boss, Now Stab 'Em Good!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.'The same unit cannot be picked to be affected by this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...LoonbossEffects],
   },
   {
     name: `Loonboss on Mangler Squigs`,
     effects: [
-      {
-        name: `Redcaps Mushrooms`,
-        desc: `Once per battle, in your hero phase, you can say that this Loonboss on Mangler Squigs is eating a redcap mushroom. If you do so, until your next hero phase, you can re-roll hit and wound rolls for this model (but not for the model's mount or crew).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Watch out!`,
-        desc: `If a Loonboss on Mangler Squigs is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [DURING_GAME],
-      },
+      RedcapMushroomsEffect,
+      WatchOutEffect,
       {
         name: `Bite Da Moon!`,
         desc: `You can use this command ability at the start of a combat phase. If you do so, pick 1 friendly model with this command ability. In that combat phase you can add 1 to wound rolls for friendly SQUIG units while they are wholly within 18" of that model.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Ker-splat!`,
-        desc: `Add 1 to hit rolls for attacks made with Loonboss on Mangler Squigs Balls and Chains if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      KersplatEffect,
     ],
   },
   {
     name: `Loonboss on Giant Cave Squig`,
     effects: [
-      {
-        name: `Redcap Mushrooms`,
-        desc: `Once per battle, in your hero phase, you can say that this Loonboss on Giant Cave Squig is eating a redcap mushroom. If you do so, you can re-roll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
+      RedcapMushroomsEffect,
       {
         name: `Let's Get Bouncing!`,
         desc: `You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly model with this command ability. All friendly SQUIG units wholly within 12" of that model at the start of that phase can move an extra 3" if they make a move in that phase. A unit cannot benefit from this command ability more than once per movement phase.`,
@@ -115,19 +208,7 @@ export const Units: TUnits = [
   },
   {
     name: `Loonboss with Giant Cave Squig`,
-    effects: [
-      {
-        name: `Dead Tricksy`,
-        desc: `Subtract 1 from hit rolls for attacks that target a Loonboss with Giant Cave Squig.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `I'm Da Boss, Now Stab 'Em Good!`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general.'The same unit cannot be picked to be affected by this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...LoonbossEffects],
   },
   {
     name: `Madcap Shaman`,
@@ -184,34 +265,10 @@ export const Units: TUnits = [
   {
     name: `Stabbas`,
     effects: [
-      {
-        name: `Gong Basher`,
-        desc: `Add 2 to run rolls for a unit that includes any Gong Bashers.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Backstabbing Mob`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
-        when: [COMBAT_PHASE],
-      },
+      ...GrotBaseEffects,
       {
         name: `Moon Shields`,
         desc: `Add 1 to save rolls for attacks that target this unit while it has at least 10 models with Moon Shields.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Netters`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -219,35 +276,11 @@ export const Units: TUnits = [
   {
     name: `Shootas`,
     effects: [
-      {
-        name: `Gong Basher`,
-        desc: `Add 2 to run rolls for a unit that includes any Gong Bashers.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Backstabbing Mob`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
-        when: [COMBAT_PHASE],
-      },
+      ...GrotBaseEffects,
       {
         name: `Moon Bows`,
         desc: `Add 1 to hit rolls for attacks made with missile weapons by this unit while it has at least 15 models.`,
         when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Netters`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -259,16 +292,7 @@ export const Units: TUnits = [
         desc: `At the start of a charge phase, you can release this unit. If you do so, set up this unit wholly within 3" of the unit it was with, and more than 3" from any enemy units. If this unit was released in your charge phase, it can attempt to make a charge move in that phase unless the unit it was with has any restrictions that would stop it from attempting to charge (if it ran, for example); if it was released in the enemy charge phase, it cannot attempt to make a charge move. This unit is destroyed if the unit it is with is destroyed before this unit is released.`,
         when: [START_OF_CHARGE_PHASE],
       },
-      {
-        name: `Whirling Death`,
-        desc: `This unit fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. This unit cannot fight again in the combat phase unless an ability or spell allows it to fight more than once.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Splat!`,
-        desc: `If the charge roll for this unit is a double, after the charge move (or after the charge fails), this unit suffers 1 mortal wound and each other unit within 1" of this unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      ...FanaticsBaseEffects,
     ],
   },
   {
@@ -279,16 +303,7 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, friendly MOONCLAN GROTS units wholly within 12" of any friendly units with this ability become frenzied until your next hero phase. Add 1 to the Attacks characteristic of melee weapons used by frenzied units.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Whirling Death`,
-        desc: `This unit fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. This unit cannot fight again in the combat phase unless an ability or spell allows it to fight more than once.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Splat!`,
-        desc: `If the charge roll for this unit is a double, after the charge move (or after the charge fails), this unit suffers 1 mortal wound and each other unit within 1" of this unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      ...FanaticsBaseEffects,
     ],
   },
   {
@@ -318,128 +333,51 @@ export const Units: TUnits = [
   },
   {
     name: `Zarbag's Gitz`,
-    effects: [
-      {
-        name: `Squigs Go Wild`,
-        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
+    effects: [SquigsGoWildEffect],
   },
   {
     name: `Scaremonger`,
     effects: [
-      {
-        name: `Hallucinogenic Fungus Brews (Scaremonger)`,
-        desc: `Add 2 to save rolls for attacks that target this model.`,
-        when: [TURN_ONE_DURING_TURN],
-      },
-      {
-        name: `Hallucinogenic Fungus Brews (Scaremonger)`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
-        when: [TURN_TWO_DURING_TURN],
-      },
+      ...HallucinogenicFungusBrewsEffects,
+      SlipperyGitEffect,
       {
         name: `Bogeyman`,
         desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll charge rolls and run rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Slippery Git (Scaremonger)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
     name: `Brewgit`,
     effects: [
-      {
-        name: `Hallucinogenic Fungus Brews (Brewgit)`,
-        desc: `Add 2 to save rolls for attacks that target this model.`,
-        when: [TURN_ONE_DURING_TURN],
-      },
-      {
-        name: `Hallucinogenic Fungus Brews (Brewgit)`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
-        when: [TURN_TWO_DURING_TURN],
-      },
+      ...HallucinogenicFungusBrewsEffects,
+      SlipperyGitEffect,
       {
         name: `Loonshine Potion`,
         desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can re-roll hit rolls for that HERO until your next hero phase.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Slippery Git (Brewgit)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
   {
     name: `Spiker`,
     effects: [
-      {
-        name: `Hallucinogenic Fungus Brews (Spiker)`,
-        desc: `Add 2 to save rolls for attacks that target this model.`,
-        when: [TURN_ONE_DURING_TURN],
-      },
-      {
-        name: `Hallucinogenic Fungus Brews (Spiker)`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
-        when: [TURN_TWO_DURING_TURN],
-      },
+      ...HallucinogenicFungusBrewsEffects,
+      SlipperyGitEffect,
       {
         name: `Poison Brewer`,
         desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll wound rolls of 1 for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Slippery Git (Spiker)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
-        when: [SHOOTING_PHASE],
-      },
     ],
   },
   {
     name: `Boggleye`,
-    effects: [
-      {
-        name: `Hallucinogenic Fungus Brews (Boggleye)`,
-        desc: `Add 2 to save rolls for attacks that target this model.`,
-        when: [TURN_ONE_DURING_TURN],
-      },
-      {
-        name: `Hallucinogenic Fungus Brews (Boggleye)`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
-        when: [TURN_TWO_DURING_TURN],
-      },
-      {
-        name: `Slippery Git (Boggleye)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...HallucinogenicFungusBrewsEffects, SlipperyGitEffect],
   },
   {
     name: `Shroomancer`,
-    effects: [
-      {
-        name: `Hallucinogenic Fungus Brews (Shroomancer)`,
-        desc: `Add 2 to save rolls for attacks that target this model.`,
-        when: [TURN_ONE_DURING_TURN],
-      },
-      {
-        name: `Hallucinogenic Fungus Brews (Shroomancer)`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
-        when: [TURN_TWO_DURING_TURN],
-      },
-      {
-        name: `Slippery Git (Shroomancer)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...HallucinogenicFungusBrewsEffects, SlipperyGitEffect],
   },
   {
     name: `Sneaky Snufflers`,
@@ -459,27 +397,12 @@ export const Units: TUnits = [
         desc: `You can re-roll run and charge rolls for this unit while it includes any Squig Herders.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Squigs Go Wild`,
-        desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      SquigsGoWildEffect,
     ],
   },
   {
     name: `Mangler Squigs`,
-    effects: [
-      {
-        name: `Ker-splat!`,
-        desc: `Add 1 to hit rolls for attacks made with Mangler Squigs Balls and Chains if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Watch Out!`,
-        desc: `If a Mangler Squigs model is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [DURING_GAME],
-      },
-    ],
+    effects: [KersplatEffect, WatchOutEffect],
   },
   {
     name: `Colossal Squig`,
@@ -492,7 +415,7 @@ export const Units: TUnits = [
       {
         name: `Fungoid Squig Explosion`,
         desc: `If this model is slain, before removing the model from the battlefield, roll a D6 for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Puff Spores`,
@@ -519,11 +442,7 @@ export const Units: TUnits = [
   {
     name: `Webspinner Shaman on Arachnarok Spider`,
     effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made with this model's Monstrous Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      SpiderVenomEffect,
       {
         name: `Catchweb Spidershrine`,
         desc: `Add 1 to casting and unbinding rolls for friendly SPIDERFANG WIZARDS while they are within 12" of any friendly models with this ability.`,
@@ -545,11 +464,7 @@ export const Units: TUnits = [
   {
     name: `Scuttleboss on Gigantic Spider`,
     effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      SpiderVenomEffect,
       {
         name: `Ride Em All Down`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly Spiderfang Grot unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
@@ -576,32 +491,16 @@ export const Units: TUnits = [
   },
   {
     name: `Spider Riders`,
-    effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made by this model's Giant Spider's Fangs is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [SpiderVenomEffect],
   },
   {
     name: `Arachnarok Spider with Flinger`,
-    effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made with this model's Monstrous Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [SpiderVenomEffect],
   },
   {
     name: `Arachnarok Spider with Spiderfang Warparty`,
     effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made with this model's Monstrous Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      SpiderVenomEffect,
       {
         name: `Voracious Predator`,
         desc: `You can re-roll run and charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
@@ -612,11 +511,7 @@ export const Units: TUnits = [
   {
     name: `Skitterstrand Arachnarok`,
     effects: [
-      {
-        name: `Spider Venom`,
-        desc: `If the unmodified hit roll for an attack made with this model's Monstrous Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      SpiderVenomEffect,
       {
         name: `Ambush From Beyond`,
         desc: `Instead of setting up the Skitterstrand Arachnarok on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit.`,
@@ -642,36 +537,16 @@ export const Units: TUnits = [
         desc: `Each time this model successfully unbinds a spell, you can roll a D6; on a 4+ the Wizard that cast that spell suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Terrible Stench`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
-        when: [COMBAT_PHASE],
-      },
+      TerribleStenchEffect,
     ],
   },
   {
     name: `Dankhold Troggboss`,
     effects: [
-      {
-        name: `Reassuring Presence`,
-        desc: `Add 1 to the Bravery characteristic of friendly GLOOMSPITE GITZ units that are wholly within 18" of any friendly models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Regeneration`,
-        desc: `In your hero phase, you can roll a D6 for a Dankhold Troggboss. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Squiggly-beast Followers`,
-        desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magical Resistance`,
-        desc: `Each time a Dankhold Troggboss is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
-        when: [HERO_PHASE],
-      },
+      ReassuringPresenceEffect,
+      RegenerationEffect,
+      SquigglyBeastFollowersEffect,
+      MagicalResistanceEffect,
       {
         name: `Instinctive Leader`,
         desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
@@ -688,21 +563,9 @@ export const Units: TUnits = [
         desc: `If any wounds inflicted by a Jabbertoad are allocated to an enemy model and not negated, subtract 1 from hit rolls for attacks made by that model for the rest of that battle round (even if the wounds inflicted by the Jabbertoad are subsequently healed).`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Magical Resistance`,
-        desc: `Each time a Mollog is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Reassuring Presence`,
-        desc: `Add 1 to the Bravery characteristic of friendly GLOOMSPITE GITZ units that are wholly within 18" of any friendly models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Regeneration`,
-        desc: `In your hero phase, you can roll a D6 for a Mollog. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
-        when: [HERO_PHASE],
-      },
+      MagicalResistanceEffect,
+      ReassuringPresenceEffect,
+      RegenerationEffect,
       {
         name: `Minion Abilities: Batsquig`,
         desc: `At the start of your shooting phase, you can pick 1 enemy unit within 18" of this Mollog and roll a D6. On a 5+ that enemy unit suffers 1 mortal wound. This ability cannot be used if the Bat Squig minion has been removed.`,
@@ -727,22 +590,12 @@ export const Units: TUnits = [
   },
   {
     name: `Fellwater Troggoths`,
-    effects: [
-      {
-        name: `Regeneration`,
-        desc: `In your hero phase, you can roll a D6 for Fellwater Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Terrible Stench`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target Fellwater Troggoths.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [RegenerationEffect, TerribleStenchEffect],
   },
   {
     name: `Sourbreath Troggoths`,
     effects: [
+      // This Regeneration rule is not like the others, since it's a per-model basis
       {
         name: `Regeneration`,
         desc: `Roll a D6 for each Sourbreath Troggoth in each of your hero phases. On a 2+ that model heals D3 wounds.`,
@@ -758,11 +611,7 @@ export const Units: TUnits = [
   {
     name: `Rockgut Troggoths`,
     effects: [
-      {
-        name: `Regeneration`,
-        desc: `In your hero phase, you can roll a D6 for Rockgut Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
-        when: [HERO_PHASE],
-      },
+      RegenerationEffect,
       {
         name: `Stony Skin`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
@@ -778,26 +627,15 @@ export const Units: TUnits = [
   {
     name: `Dankhold Troggoths`,
     effects: [
+      // Differs from ReassuringPresenceEffect because it's only 12"
       {
         name: `Reassuring Presence`,
         desc: `Add 1 to the Bravery characteristic of friendly GLOOMSPITE GITZ units that are wholly within 12" of any friendly models with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Regeneration`,
-        desc: `In your hero phase, you can roll a D6 for Dankhold Troggoths. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Squiggly-beast Followers`,
-        desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magical Resistance`,
-        desc: `Each time a unit of Dankhold Troggoths is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
-        when: [HERO_PHASE],
-      },
+      RegenerationEffect,
+      SquigglyBeastFollowersEffect,
+      MagicalResistanceEffect,
     ],
   },
   {
@@ -813,11 +651,7 @@ export const Units: TUnits = [
         desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Timber!`,
-        desc: `If an Aleguzzler Gargant is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
-      },
+      ...GenericEffects.Gargant,
     ],
   },
   {
@@ -838,11 +672,7 @@ export const Units: TUnits = [
         desc: `This model is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Timber!`,
-        desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
-      },
+      ...GenericEffects.Gargant,
     ],
   },
 ]

@@ -46,7 +46,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
     {
       items: army.Allegiances,
       setValues: props.updateAllegiances,
-      title: 'Allegiances',
+      title: army.AllegianceType || 'Allegiances',
       values: selections.allegiances,
       type: 'multi',
       sideEffects: getSideEffects(army.Allegiances),

@@ -1,12 +1,73 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+
+const ThrongMusiciansAndStandardBearerEffects = [
+  {
+    name: `Throng Musician`,
+    desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Standard Bearer`,
+    desc: `If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
+    when: [BATTLESHOCK_PHASE],
+  },
+]
+const RunicIconAndClanBannerEffects = [
+  {
+    name: `Runic Icon`,
+    desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Clan Banner`,
+    desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
+    when: [BATTLESHOCK_PHASE],
+  },
+]
+const GromrilShieldsEffect = {
+  name: `Gromril Shields`,
+  desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const HornblowersEffect = {
+  name: `Hornblowers`,
+  desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
+  when: [MOVEMENT_PHASE],
+}
+const DrummersEffect = {
+  name: `Drummers`,
+  desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
+  when: [MOVEMENT_PHASE],
+}
+const DuardinBucklersEffect = {
+  name: `Duardin Bucklers`,
+  desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+  when: [MOVEMENT_PHASE],
+}
+const IconBearerEffect = {
+  name: `Icon Bearer`,
+  desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
+  when: [HERO_PHASE],
+}
+const ForgeProvenGromrilArmorEffect = {
+  name: `Forge-proven Gromril Armour`,
+  desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+const CinderblastBombEffect = {
+  name: `Cinderblast Bomb`,
+  desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a D6; on a 2 or more, that unit suffers D3 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -78,16 +139,7 @@ export const Units: TUnits = [
   {
     name: `Hammerers`,
     effects: [
-      {
-        name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...ThrongMusiciansAndStandardBearerEffects,
       {
         name: `Kingsguard`,
         desc: `You do not need to take battleshock tests for this unit if it is within 16" of a DISPOSSESSED HERO from your army in the battleshock phase.`,
@@ -98,61 +150,25 @@ export const Units: TUnits = [
   {
     name: `Ironbreakers`,
     effects: [
-      {
-        name: `Icon Bearer`,
-        desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Cinderblast Bomb`,
-        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a D6; on a 2 or more, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Gromril Shields`,
-        desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Forge-proven Gromril Armour`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      IconBearerEffect,
+      DrummersEffect,
+      CinderblastBombEffect,
+      GromrilShieldsEffect,
+      ForgeProvenGromrilArmorEffect,
     ],
   },
   {
     name: `Irondrakes`,
     effects: [
-      {
-        name: `Icon Bearer`,
-        desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Forge-proven Gromril Armour`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      IconBearerEffect,
+      HornblowersEffect,
+      ForgeProvenGromrilArmorEffect,
       {
         name: `Grudgehammer Torpedo`,
         desc: `A Grudgehammer Torpedo inflicts D6 Damage instead of D3 if the target has the MONSTER keyword.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Cinderblast Bomb`,
-        desc: `Once per battle, a model with a Cinderblast Bomb can throw it in your shooting phase. To do so pick a unit within 6" and roll a D6; on a 2 or more, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      CinderblastBombEffect,
       {
         name: `Blaze Away`,
         desc: `You can add 1 to the Attacks characteristic of this unit's missile weapons if it has at least 10 models and is more than 3" from of any enemy units.`,
@@ -163,21 +179,8 @@ export const Units: TUnits = [
   {
     name: `Longbeards`,
     effects: [
-      {
-        name: `Throng Musician`,
-        desc: `When a unit containing any Hornblowers or Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If you fail a battleshock test for a unit that has any Standard Bearers, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Gromril Shields`,
-        desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
+      ...ThrongMusiciansAndStandardBearerEffects,
+      GromrilShieldsEffect,
       {
         name: `Old Grumblers`,
         desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
@@ -194,91 +197,40 @@ export const Units: TUnits = [
   {
     name: `Quarrellers`,
     effects: [
-      {
-        name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Runic Icon`,
-        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Clan Banner`,
-        desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      DrummersEffect,
+      ...RunicIconAndClanBannerEffects,
       {
         name: `Volley Fire`,
         desc: `You can add 1 to the Attacks characteristic of this unit's missile weapons if it has at least 20 models and is more than 3" from any enemy units.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Duardin Bucklers`,
-        desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
+      DuardinBucklersEffect,
     ],
   },
   {
     name: `Thunderers`,
     effects: [
-      {
-        name: `Drummers`,
-        desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Runic Icon`,
-        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Clan Banner`,
-        desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      DrummersEffect,
+      ...RunicIconAndClanBannerEffects,
       {
         name: `Precision Fire`,
         desc: `You can add 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within 3".`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Duardin Bucklers`,
-        desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
+      DuardinBucklersEffect,
     ],
   },
   {
     name: `Warriors`,
     effects: [
-      {
-        name: `Hornblowers`,
-        desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Runic Icon`,
-        desc: `Roll a D6 if an enemy spell affects a unit with any Runic Icons. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Clan Banner`,
-        desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HornblowersEffect,
+      ...RunicIconAndClanBannerEffects,
       {
         name: `Resolute in Defence`,
         desc: `You can re-roll failed wound rolls of 1 when attacking with a Warrior in your opponent's combat phase. You can instead re-roll all failed wound rolls for a Warrior if its unit has 20 or more models when it attacks in your opponent's combat phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Duardin Bucklers`,
-        desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
+      DuardinBucklersEffect,
     ],
   },
 ]

@@ -41,6 +41,7 @@ export interface IInitialArmy {
 export interface IArmy {
   Abilities: TAbilities
   Allegiances: TAllegiances
+  AllegianceType?: string
   Artifacts: TArtifacts
   Battalions: TBattalions
   Commands: TCommands

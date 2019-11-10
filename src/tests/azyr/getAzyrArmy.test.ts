@@ -25,6 +25,8 @@ import {
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
+import BCR1 from '../fixtures/azyr/json/BCR1.json'
+import BCR2 from '../fixtures/azyr/json/BCR2.json'
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
 import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
 import CoS1 from '../fixtures/azyr/json/CoS1.json'
@@ -71,6 +73,23 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.selections.traits).toContain('Amethyst Glow')
     expect(res.errors).toEqual([])
+  })
+
+  it('handles BCR2 (legacy, recognize as Ogor Mawtribes)', () => {
+    const pages = handleAzyrPages(BCR2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles BCR1 (legacy, recognize as Ogor Mawtribes)', () => {
+    const pages = handleAzyrPages(BCR1)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: "Braggoth's Beast Hammer" },
+      { severity: 'warn', text: 'Svard Alfrostun' },
+    ])
   })
 
   it('handles CoS5', () => {

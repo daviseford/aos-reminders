@@ -2,18 +2,49 @@ import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION,
+  BATTLESHOCK_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
 
 const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
+
+const TuskerChargeEffect = {
+  name: `Tusker Charge`,
+  desc: `Add 1 to hit rolls and would rolls for attacks made with this unit's Tusks and Hooves if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+const SkullThumperEffect = {
+  name: `Skull Thumper`,
+  desc: `Add 2 to the charge rolls of a unit with a Skull Thumper.`,
+  when: [CHARGE_PHASE],
+}
+const BoarThumperEffect = {
+  name: `Boar Thumper`,
+  desc: `Add 2 to the charge rolls of a unit with a Boar Thumper.`,
+  when: [CHARGE_PHASE],
+}
+const BoneTotemBearerEffect = {
+  name: `Bone Totem Bearer`,
+  desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const SpiritOfGorkamorkaEffect = {
+  name: `Spirit of Gorkamorka`,
+  desc: `Add 1 to the Attacks characteristic of melee weapons used by this unit while it has 15 or more models.`,
+  when: [COMBAT_PHASE],
+}
+const BoneShieldEffect = {
+  name: `Bone Shield`,
+  desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
+  when: [COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -41,11 +72,7 @@ export const Units: TUnits = [
   {
     name: `Maniak Weirdnob`,
     effects: [
-      {
-        name: `Tusker Charge`,
-        desc: `Add 1 to hit rolls and would rolls for attacks made with this unit's Tusks and Hooves if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      TuskerChargeEffect,
       {
         name: `Weird Squig`,
         desc: `Once per turn, a Maniak Weirdnob can choose to reroll a casting, dispelling, or unbinding roll.`,
@@ -91,52 +118,19 @@ export const Units: TUnits = [
   },
   {
     name: `Savage Orruks`,
-    effects: [
-      {
-        name: `Skull Thumper`,
-        desc: `Add 2 to the charge rolls of a unit with a Skull Thumper.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bone Totem Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Spirit of Gorkamorka`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by this unit while it has 15 or more models.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Bone Shield`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [SkullThumperEffect, BoneTotemBearerEffect, SpiritOfGorkamorkaEffect, BoneShieldEffect],
   },
   {
     name: `Savage Boarboys`,
     effects: [
-      {
-        name: `Boar Thumper`,
-        desc: `Add 2 to the charge rolls of a unit with a Boar Thumper.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bone Totem Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
-        when: [DURING_GAME],
-      },
+      BoarThumperEffect,
+      BoneTotemBearerEffect,
       {
         name: `Boarboy Charge`,
         desc: `Add 1 to hit rolls and would rolls for attacks made with this unit's Savage Stikkas and Tusks and Hooves if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Bone Shield`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [COMBAT_PHASE],
-      },
+      BoneShieldEffect,
     ],
   },
   {
@@ -162,66 +156,34 @@ export const Units: TUnits = [
   {
     name: `Savage Orruk Morboys`,
     effects: [
-      {
-        name: `Skull Thumper`,
-        desc: `Add 2 to the charge rolls of a unit with a Skull Thumper.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bone Totem Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
-        when: [DURING_GAME],
-      },
+      SkullThumperEffect,
+      BoneTotemBearerEffect,
       {
         name: `Power of the Beast Spirit`,
         desc: `Add 1 to the hit rolls for attacks made with melee weaspon by this unit if any enemy Monsters have been slain.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Spirit of Gorkamorka`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by this unit while it has 15 or more models.`,
-        when: [COMBAT_PHASE],
-      },
+      SpiritOfGorkamorkaEffect,
     ],
   },
   {
     name: `Savage Boarboy Maniaks`,
     effects: [
-      {
-        name: `Boar Thumper`,
-        desc: `Add 2 to the charge rolls of a unit with a Boar Thumper.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bone Totem Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
-        when: [DURING_GAME],
-      },
+      BoarThumperEffect,
+      BoneTotemBearerEffect,
       {
         name: `Maniak Fury`,
         desc: `Add 1 to the Attacks characteristic of this unit's Pairs of Chompas while it has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tusker Charge`,
-        desc: `Add 1 to hit rolls and would rolls for attacks made with this unit's Tusks and Hooves if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      TuskerChargeEffect,
     ],
   },
   {
     name: `Savage Orruk Arrowboys`,
     effects: [
-      {
-        name: `Skull Thumper`,
-        desc: `Add 2 to the charge rolls of a unit with a Skull Thumper.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Bone Totem Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
-        when: [DURING_GAME],
-      },
+      SkullThumperEffect,
+      BoneTotemBearerEffect,
       {
         name: `Aim Fer Its Eyes`,
         desc: `Stinga Bows have a Rend of -1 against Monsters.`,

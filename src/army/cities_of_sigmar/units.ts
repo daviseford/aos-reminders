@@ -24,6 +24,24 @@ const getStormcastUnits = () => Stormcast.Units
 const getKharadronUnits = () => KharadronOverlords.Units
 const getSylvanethUnits = () => Sylvaneth.Units
 
+const CelestialHurricanumEffects = [
+  {
+    name: `Locus of Azyr`,
+    desc: `Add 1 to casting rolls made for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly CELESTIAL HURRICANUMS.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Portents of Battle`,
+    desc: `Add 1 to hit rolls for attacks made by friendly CITIES OF SIGMAR models within range of the Portents of Battle ability of any friendly CELESTIAL HURRICANUMS. Range is on damage table.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Storm of Shemtek`,
+    desc: `Roll a number of dice equal to the Storm of Shemtek value shown on this model's damage table. For each 2+, the target suffers D3 mortal wounds.`,
+    when: [SHOOTING_PHASE],
+  },
+]
+
 const LuminarkEffects = [
   {
     name: `Aura of Protection`,
@@ -41,30 +59,130 @@ const LuminarkEffects = [
     when: [SHOOTING_PHASE],
   },
 ]
-
+const SteamTankEffects = [
+  {
+    name: `Bouncing Cannon Balls`,
+    desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
+    when: [SHOOTING_PHASE],
+  },
+  {
+    name: `More Pressure!`,
+    desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Steel Behemoth`,
+    desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+    when: [CHARGE_PHASE],
+  },
+]
+const SorceressEffects = [
+  {
+    name: `Blood Sacrifice`,
+    desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Command Underlings`,
+    desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
+    when: [HERO_PHASE],
+    command_ability: true,
+  },
+]
+const NoxiousBreathEffect = {
+  name: `Noxious Breath`,
+  desc: `Do not use the attack sequence for an attack made with Noxious Breath. Instead, roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
+  when: [SHOOTING_PHASE],
+}
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION],
 }
-
+const AttunedToMagicEffect = {
+  name: `Attuned to Magic`,
+  desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+  when: [HERO_PHASE],
+}
+const LordlingAndRanksOfColdSteelEffects = [
+  {
+    name: `Lordling`,
+    desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Ranks of Cold Steel`,
+    desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
+    when: [COMBAT_PHASE],
+  },
+]
+const CaptainOfThePhoenixGuardEffect = {
+  name: `Captain of the Phoenix Guard`,
+  desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
+  when: [START_OF_COMBAT_PHASE],
+  command_ability: true,
+}
 const DrummerEffect = {
   name: `Drummer`,
   desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
-
+const TrumpeterEffect = {
+  name: `Trumpeter`,
+  desc: `Add 1 to charge rolls for units that include any Trumpeters.`,
+  when: [CHARGE_PHASE],
+}
+const MusicianEffect = {
+  name: `Musician`,
+  desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const SeaDragonCloakEffect = {
+  name: `Sea Dragon Cloak`,
+  desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
+  when: [SHOOTING_PHASE],
+}
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
 }
-
+const DecapitatingSwingEffect = {
+  name: `Decapitating Swing`,
+  desc: `If the unmodified hit roll for an attack made with a Zweihander is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+  when: [COMBAT_PHASE],
+}
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
+const QuickWithTheLashEffect = {
+  name: `Quick with the Lash`,
+  desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
+  when: [CHARGE_PHASE],
+}
+const FrostheartPhoenixEffects = [
+  AttunedToMagicEffect,
+  {
+    name: `Blizzard Aura`,
+    desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
+    when: [COMBAT_PHASE],
+  },
+]
+const FlamespyrePhoenixEffects = [
+  AttunedToMagicEffect,
+  {
+    name: `Phoenix Reborn`,
+    desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Wake of Fire`,
+    desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
+    when: [MOVEMENT_PHASE],
+  },
+]
 
 // Unit Names
 export const Units: TUnits = [
@@ -171,21 +289,7 @@ export const Units: TUnits = [
         desc: `Add 1 to casting rolls for this model if the battle is taking place in Azyr.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Locus of Azyr`,
-        desc: `Add 1 to casting rolls made for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly CELESTIAL HURRICANUMS.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Portents of Battle`,
-        desc: `Add 1 to hit rolls for attacks made by friendly CITIES OF SIGMAR models within range of the Portents of Battle ability of any friendly CELESTIAL HURRICANUMS. Range is on damage table.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Storm of Shemtek`,
-        desc: `Roll a number of dice equal to the Storm of Shemtek value shown on this model's damage table. For each 2+, the target suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      ...CelestialHurricanumEffects,
       {
         name: `Chain Lightning (Azyr)`,
         desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
@@ -202,23 +306,7 @@ export const Units: TUnits = [
   },
   {
     name: `Celestial Hurricanum`,
-    effects: [
-      {
-        name: `Locus of Azyr`,
-        desc: `Add 1 to casting rolls made for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly CELESTIAL HURRICANUMS.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Portents of Battle`,
-        desc: `Add 1 to hit rolls for attacks made by friendly CITIES OF SIGMAR models within range of the Portents of Battle ability of any friendly CELESTIAL HURRICANUMS. Range is on damage table.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Storm of Shemtek`,
-        desc: `Roll a number of dice equal to the Storm of Shemtek value shown on this model's damage table. For each 2+, the target suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...CelestialHurricanumEffects],
   },
   {
     name: `Luminark of Hysh with White Battlemage`,
@@ -275,11 +363,7 @@ export const Units: TUnits = [
   {
     name: `Freeguild General`,
     effects: [
-      {
-        name: `Decapitating Swing`,
-        desc: `If the unmodified hit roll for an attack made with a Zweihander is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      DecapitatingSwingEffect,
       {
         name: `Inspiring Leader`,
         desc: `Add 1 to the Bravery characteristic of friendly FREEGUILD units while they are wholly within 18" of this model.`,
@@ -413,11 +497,7 @@ export const Units: TUnits = [
       },
       HornblowerEffect,
       StandardBearerEffect,
-      {
-        name: `Decapitating Swing`,
-        desc: `If the unmodified hit roll for an attack made with a Zweihander is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      DecapitatingSwingEffect,
       {
         name: `Oathsworn Honour Guard`,
         desc: `Add 1 to hit rolls for attacks made with melee weapons by this unit if it is wholly within 18" of any friendly FREEGUILD HEROES.`,
@@ -455,11 +535,7 @@ export const Units: TUnits = [
         desc: `+1 Attacks for that model's Freeguild Cavalry Sabre. In addition, a Sharpshooter can replace their Repeater Handgun with: Grenade-launching Blunderbuss; or Brace of Pistols.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Trumpeter`,
-        desc: `Add 1 to run and charge rolls for units that include any Trumpeters.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      TrumpeterEffect,
       {
         name: `Expert Gunners`,
         desc: `Add 1 to the Attacks characteristic of this unit's Repeater Handguns if this unit is not within 3" of any enemy units.`,
@@ -480,11 +556,7 @@ export const Units: TUnits = [
         desc: `+1 Attacks for that model's Sabre and Pistol Butt. In addition, a Sharpshooter can replace their Brace of Pistols with a Repeater Handgun.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Trumpeter`,
-        desc: `Add 1 to charge rolls for units that include any Trumpeters.`,
-        when: [CHARGE_PHASE],
-      },
+      TrumpeterEffect,
       {
         name: `Hail of Bullets`,
         desc: `After this unit makes a charge move, it can shoot with any Braces of Pistols it is armed with.`,
@@ -548,11 +620,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      {
-        name: `Musician`,
-        desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      MusicianEffect,
       {
         name: `Gromril Shieldwall`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Gromril Shields.`,
@@ -564,7 +632,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `'I thought duardin were made of sterner stuff !'`,
+        name: `'I thought duardin were made of sterner stuff!'`,
         desc: `Add 1 to the Bravery characteristic of friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
@@ -586,7 +654,7 @@ export const Units: TUnits = [
       {
         name: `Ironbeard`,
         desc: `+1 melee attacks. Can carry Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
       DrummerEffect,
@@ -608,14 +676,10 @@ export const Units: TUnits = [
       {
         name: `Ironwarden`,
         desc: `+1 Melee attack. Can carry Grudgehammer Torpedo; Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to run and charge rolls for units that include any Hornblower.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      HornblowerEffect,
       {
         name: `Blaze Away`,
         desc: `Add 1 to the Attacks characteristic of this unit's missile weapons if there are no enemy units within 3" of this unit and this unit has not made a move in the same turn.`,
@@ -652,11 +716,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      {
-        name: `Musician`,
-        desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      MusicianEffect,
       {
         name: `Kingsguard`,
         desc: `Do not take battleshock tests for this unit while it is wholly within 12" of a friendly DISPOSSESSED HERO.`,
@@ -673,11 +733,6 @@ export const Units: TUnits = [
     name: `Steam Tank with Commander`,
     effects: [
       {
-        name: `Bouncing Cannon Balls`,
-        desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
         name: `Target Sighted`,
         desc: `Pick 1 friendly IRONWELD ARSENEL HERO with this command ability and 1 enemy unit. Until the end of that phase, add 1 to hit rolls for attacks that target that enemy unit made by friendly STEAM TANKS while they are within 6" of that friendly IRONWELD ARSENEL HERO. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_SHOOTING_PHASE],
@@ -688,16 +743,7 @@ export const Units: TUnits = [
         desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if it includes a Commander and has not used the More Pressure! ability.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `More Pressure!`,
-        desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      ...SteamTankEffects,
     ],
   },
   {
@@ -722,23 +768,7 @@ export const Units: TUnits = [
   },
   {
     name: `Steamtank`,
-    effects: [
-      {
-        name: `Bouncing Cannon Balls`,
-        desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `More Pressure!`,
-        desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Steel Behemoth`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
+    effects: [...SteamTankEffects],
   },
   {
     name: `Helstorm Rocket Battery`,
@@ -803,44 +833,20 @@ export const Units: TUnits = [
   {
     name: `Sorceress`,
     effects: [
-      {
-        name: `Blood Sacrifice`,
-        desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      ...SorceressEffects,
       {
         name: `Word of Pain`,
         desc: `Cast on 7+. Pick 1 visible enemy unit within 18". That unit suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
-      {
-        name: `Command Underlings`,
-        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   {
     name: `Sorceress on Black Dragon`,
     effects: [
-      {
-        name: `Noxious Breath`,
-        desc: `Roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Blood Sacrifice`,
-        desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Command Underlings`,
-        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      ...SorceressEffects,
+      NoxiousBreathEffect,
       {
         name: `Bladewind`,
         desc: `Cast on 6+. Pick 1 visible enemy unit within 18" and roll 9 dice. For each roll that is lower than that unit's Save characteristic, that unit suffers 1 mortal wound.`,
@@ -858,11 +864,6 @@ export const Units: TUnits = [
   {
     name: `Dreadspears`,
     effects: [
-      {
-        name: `Lordling`,
-        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
-        when: [COMBAT_PHASE],
-      },
       StandardBearerEffect,
       HornblowerEffect,
       {
@@ -870,21 +871,12 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a Darkling Spear is 6, that weapon has a Rend characteristic of -1 for that attack.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Ranks of Cold Steel`,
-        desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
-        when: [COMBAT_PHASE],
-      },
+      ...LordlingAndRanksOfColdSteelEffects,
     ],
   },
   {
     name: `Bleakswords`,
     effects: [
-      {
-        name: `Lordling`,
-        desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
-        when: [COMBAT_PHASE],
-      },
       StandardBearerEffect,
       HornblowerEffect,
       {
@@ -892,11 +884,7 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a Darkling Sword is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Ranks of Cold Steel`,
-        desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
-        when: [COMBAT_PHASE],
-      },
+      ...LordlingAndRanksOfColdSteelEffects,
     ],
   },
   {
@@ -959,97 +947,24 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `Pick 1 friendly HERO with this command ability. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      CaptainOfThePhoenixGuardEffect,
     ],
   },
   {
     name: `Anointed on Flamespyre Phoenix`,
-    effects: [
-      {
-        name: `Attuned to Magic`,
-        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
-        when: [MOVEMENT_PHASE],
-      },
-      WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...FlamespyrePhoenixEffects, WitnessToDestinyEffect, CaptainOfThePhoenixGuardEffect],
   },
   {
     name: `Anointed on Frostheart Phoenix`,
-    effects: [
-      {
-        name: `Attuned to Magic`,
-        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Blizzard Aura`,
-        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
-        when: [COMBAT_PHASE],
-      },
-      WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...FrostheartPhoenixEffects, WitnessToDestinyEffect, CaptainOfThePhoenixGuardEffect],
   },
   {
     name: `Flamespyre Phoenix`,
-    effects: [
-      {
-        name: `Attuned to Magic`,
-        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Phoenix Reborn`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Wake of Fire`,
-        desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
+    effects: [...FlamespyrePhoenixEffects],
   },
   {
     name: `Frostheart Phoenix`,
-    effects: [
-      {
-        name: `Attuned to Magic`,
-        desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Blizzard Aura`,
-        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...FrostheartPhoenixEffects],
   },
   {
     name: `Phoenix Guard`,
@@ -1081,11 +996,7 @@ export const Units: TUnits = [
         desc: `This model's Lance of Spite has a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Noxious Breath`,
-        desc: `Do not use the attack sequence for an attack made with a Black Dragon's Noxious Breath. Instead, roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
+      NoxiousBreathEffect,
       {
         name: `Paired Exile Blades`,
         desc: `You can re-roll hit rolls for attacks made with a pair of Exile Blades.`,
@@ -1138,11 +1049,7 @@ export const Units: TUnits = [
   {
     name: `War Hydra`,
     effects: [
-      {
-        name: `Quick with the Lash`,
-        desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
-        when: [CHARGE_PHASE],
-      },
+      QuickWithTheLashEffect,
       {
         name: `Sever One Head, Another Takes Its Place`,
         desc: `Heal up to D3 wounds allocated to this model.`,
@@ -1219,11 +1126,7 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a Black Ark Cutlass is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sea Dragon Cloak`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
-        when: [SHOOTING_PHASE],
-      },
+      SeaDragonCloakEffect,
       {
         name: `At Them, You Curs!`,
         desc: `Pick 1 friendly Scourge Privateers unit wholly within 12" of a friendly Hero with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
@@ -1247,11 +1150,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for attacks made by this unit if it has 15 or more models.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Sea Dragon Cloak`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
-      },
+      SeaDragonCloakEffect,
     ],
   },
   {
@@ -1283,11 +1182,7 @@ export const Units: TUnits = [
         when: [END_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Quick with the Lash`,
-        desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
-        when: [CHARGE_PHASE],
-      },
+      QuickWithTheLashEffect,
     ],
   },
   {
@@ -1406,13 +1301,13 @@ export const Units: TUnits = [
         name: `Armour of Thorns`,
         desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
 ]
 
-// Allied units (usually this will involve writing a function to grab units from another army)
-// Check out Nurgle or Khorne for good examples
+// Allied units
 export const AlliedUnits: TUnits = [...getStormcastUnits(), ...getKharadronUnits(), ...getSylvanethUnits()]
 
 // Battalions

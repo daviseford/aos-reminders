@@ -1274,7 +1274,7 @@ export const Units: TUnits = [
       {
         name: `Evocator-Prime`,
         desc: `+1 Attack.`,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Magic`,
@@ -1295,7 +1295,7 @@ export const Units: TUnits = [
       {
         name: `Evocator-Prime`,
         desc: `+1 Attack.`,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE],
       },
       ...CelestialLightningArcEffects,
       {

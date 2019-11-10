@@ -7,9 +7,12 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 
+const AllegianceType = 'Slaughterhosts'
+
 export default {
   Abilities,
   Allegiances,
+  AllegianceType,
   AlliedUnits,
   Artifacts,
   Battalions,

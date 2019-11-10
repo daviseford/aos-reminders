@@ -14,6 +14,33 @@ import {
   START_OF_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import GenericEffects from 'army/generic/effects'
+
+const InfuseWithBestialVigorEffect = {
+  name: `Infuse with Bestial Vigour`,
+  desc: `At the start of your movement phase, add 3" to the Move characteristic of models in friendly BRAYHERD units wholly within 12" of any friendly GREAT BRAY-SHAMANS until the end of that phase.`,
+  when: [START_OF_MOVEMENT_PHASE],
+}
+const BloodgreedEffect = {
+  name: `Bloodgreed`,
+  desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
+  when: [COMBAT_PHASE],
+}
+const BannerBearerEffect = {
+  name: `Banner Bearer`,
+  desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
+  when: [COMBAT_PHASE, MOVEMENT_PHASE],
+}
+const BrayhornEffect = {
+  name: `Brayhorn`,
+  desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const DespoilersEffect = {
+  name: `Despoilers`,
+  desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
+  when: [COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -41,11 +68,7 @@ export const Units: TUnits = [
   {
     name: `Great Bray-Shaman`,
     effects: [
-      {
-        name: `Infuse with Bestial Vigour`,
-        desc: `At the start of your movement phase, add 3" to the Move characteristic of models in friendly BRAYHERD units wholly within 12" of any friendly GREAT BRAY-SHAMANS until the end of that phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      InfuseWithBestialVigorEffect,
       {
         name: `Magic`,
         desc: `Great Bray-Shaman is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Devolve spells.`,
@@ -62,16 +85,8 @@ export const Units: TUnits = [
   {
     name: `Gors`,
     effects: [
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Banner Bearer`,
-        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      BrayhornEffect,
+      BannerBearerEffect,
       {
         name: `Rend and Tear`,
         desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Gor Blades.`,
@@ -92,16 +107,8 @@ export const Units: TUnits = [
   {
     name: `Ungors`,
     effects: [
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Banner Bearer`,
-        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      BrayhornEffect,
+      BannerBearerEffect,
       {
         name: `Baying Hatred`,
         desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
@@ -118,16 +125,8 @@ export const Units: TUnits = [
   {
     name: `Ungor Raiders`,
     effects: [
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still shoot later in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Banner Bearer`,
-        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      BrayhornEffect,
+      BannerBearerEffect,
       {
         name: `Vile Invaders`,
         desc: `After armies are set up, but before the first battle round begins, this unit can move up to 6".`,
@@ -143,21 +142,9 @@ export const Units: TUnits = [
   {
     name: `Bestigors`,
     effects: [
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Banner Bearer`,
-        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Despoilers`,
-        desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
-        when: [COMBAT_PHASE],
-      },
+      BrayhornEffect,
+      BannerBearerEffect,
+      DespoilersEffect,
       {
         name: `Bestial Charge`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
@@ -173,21 +160,13 @@ export const Units: TUnits = [
         desc: `You can re-roll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Despoilers`,
-        desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
-        when: [COMBAT_PHASE],
-      },
+      DespoilersEffect,
     ],
   },
   {
     name: `Doombull`,
     effects: [
-      {
-        name: `Bloodgreed`,
-        desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      BloodgreedEffect,
       {
         name: `Slaughterer's Call`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly WARHERD unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
@@ -239,11 +218,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Bloodgreed`,
-        desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      BloodgreedEffect,
       {
         name: `Dual Axes`,
         desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Bullgor Axes.`,
@@ -259,16 +234,8 @@ export const Units: TUnits = [
   {
     name: `Centigors`,
     effects: [
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [CHARGE_PHASE, MOVEMENT_PHASE],
-      },
-      {
-        name: `Banner Bearer`,
-        desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-        when: [CHARGE_PHASE, MOVEMENT_PHASE],
-      },
+      BrayhornEffect,
+      BannerBearerEffect,
       {
         name: `Beastbucklers`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastbucklers.`,
@@ -385,11 +352,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Gargant`,
     effects: [
-      {
-        name: `Timber!`,
-        desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-        when: [DURING_GAME],
-      },
+      ...GenericEffects.Gargant,
       {
         name: `Stuff 'Em In Me Bag`,
         desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
@@ -491,11 +454,7 @@ export const Units: TUnits = [
         desc: `While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Brayhorn`,
-        desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      BrayhornEffect,
       {
         name: `Destined Mayhem`,
         desc: `Add 1 to wound rolls for attacks made by this unit with melee weapons while this unit is wholly within 12" of any friendly ARCANITE HEROES.`,
@@ -526,11 +485,7 @@ export const Units: TUnits = [
   {
     name: `Grashrak Fellhoof`,
     effects: [
-      {
-        name: `Infuse with Bestial Vigour`,
-        desc: `Add 3" to the move characteristic of models in friendly Brayherd units wholly within 12" of any Great Bray-Shamans until the end of that phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      InfuseWithBestialVigorEffect,
       {
         name: `Savage Bolt`,
         desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Units that attack the target unit in the next combat phase get +1 to their hit rolls.`,

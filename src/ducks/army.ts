@@ -9,6 +9,7 @@ const initialState: IArmyStore = {
   army: {
     Abilities: [],
     Allegiances: [],
+    AllegianceType: '',
     Artifacts: [],
     Battalions: [],
     Commands: [],

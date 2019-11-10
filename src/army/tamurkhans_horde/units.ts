@@ -28,7 +28,7 @@ export const Units: TUnits = [
       {
         name: `Feast of the Maggot Lord`,
         desc: `If this model is slain, before this model is removed from play, you can pick 1 enemy Hero within 3" of this model. That Hero suffers D3 mortal wounds. If that Hero is slain by these mortal wounds, this model is not slain, D6 wounds allocated to this model are healed, and any that remain to be allocated to it are negated. If that Hero is not slain by these mortal wounds, this model is removed from play.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Killer of Kings`,
