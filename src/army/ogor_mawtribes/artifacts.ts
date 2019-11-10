@@ -51,6 +51,11 @@ const Artifacts: TArtifacts = [
         desc: `Once per battle, at the start of any phase, the bearer can use this artefact. If they do so, until the end of that turn, roll a dice each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
         when: [DURING_GAME],
       },
+      {
+        name: `Flask of Stonehorn Blood`,
+        desc: `If active, roll a dice each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
     ],
   },
   {

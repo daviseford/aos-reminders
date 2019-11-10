@@ -14,6 +14,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const getLegionsOfNagashUnits = () => {
@@ -119,7 +120,7 @@ export const Units: TUnits = [
       {
         name: `Soulbound Protectors`,
         desc: `Roll a dice before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Crushing Assault`,
@@ -364,7 +365,7 @@ export const Units: TUnits = [
       {
         name: `Ebon-wrought Armour`,
         desc: `Each time you allocate a mortal wound to this unit, roll a dice. On a 5+, that mortal wound is ignored.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -449,7 +450,7 @@ export const Battalions: TBattalions = [
       {
         name: `Vital Assets`,
         desc: `Roll a dice before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

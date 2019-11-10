@@ -13,6 +13,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { GHYRAN, GHUR, CHAMON, AQSHY, SHYISH, ULGU, HYSH } from 'types/realmscapes'
 
@@ -358,7 +359,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Godwrought Helm (${CHAMON})`,
         desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -478,7 +479,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Ignax's Scales (${AQSHY})`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -588,7 +589,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Sepulchral Plate (${SHYISH})`,
         desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -708,7 +709,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Wristbands of Illusion (${ULGU})`,
         desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -828,7 +829,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Mirrored Cuirass (${HYSH})`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ the wound is negated. On a 6+ you can also pick an enemy unit within 6" of the bearer. That unit suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -849,6 +850,11 @@ const RealmArtifacts: TArtifacts = [
         name: `Guardan's Coronet (${HYSH})`,
         desc: `Once per battle, at the start of your hero phase, the bearer can call upon the guardian spirits. If they do so, until your next hero phase, roll a D6 each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Guardan's Coronet (${HYSH})`,
+        desc: `If active, roll a D6 each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

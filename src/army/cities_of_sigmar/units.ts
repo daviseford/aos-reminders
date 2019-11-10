@@ -539,6 +539,12 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
+        name: `Rune Lore: Ancestral Shield`,
+        desc: `If active, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+
+      {
         name: `Rune Lore: Forge Fire`,
         desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, improve the Rend characteristic of that unit's weapons by 1.`,
         when: [HERO_PHASE],

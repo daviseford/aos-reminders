@@ -14,6 +14,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -215,7 +216,7 @@ Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attac
       {
         name: `Ultimate Sacrifice`,
         desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Call to Battle`,

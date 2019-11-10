@@ -10,6 +10,7 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Unit Names
@@ -243,8 +244,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Royal Retinue`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocate to this unit instead.`,
-        when: [DURING_GAME],
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocated to this unit instead.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Quest to Slay the Monster`,

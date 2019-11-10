@@ -285,7 +285,7 @@ export const Units: TUnits = [
       {
         name: `Disembodied Skulls`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, the wound is negated.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

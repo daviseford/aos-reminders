@@ -344,7 +344,7 @@ export const Units: TUnits = [
       {
         name: `'Nightmaw, my pet, protect me!'`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Schalkain's Teeth`,
@@ -380,7 +380,7 @@ export const Units: TUnits = [
       {
         name: `Shadow-kin`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Writhing Tentacles`,
