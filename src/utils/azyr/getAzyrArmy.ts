@@ -151,15 +151,12 @@ const handleKOTraits = (name: string): string[] => {
     const footnotesUpper = footnotes[0].toUpperCase()
     const regEx = new RegExp(`(${possiblePrefix.join('|')}): `, 'gi')
     const trimmedTraits = traits.map(x => x.replace(regEx, '').toUpperCase())
-    return trimmedTraits.reduce(
-      (a, trait, i) => {
-        if (footnotesUpper.includes(trait)) {
-          a.push(traits[i])
-        }
-        return a
-      },
-      [] as string[]
-    )
+    return trimmedTraits.reduce((a, trait, i) => {
+      if (footnotesUpper.includes(trait)) {
+        a.push(traits[i])
+      }
+      return a
+    }, [] as string[])
   }
 
   return footnotes.map(note => {

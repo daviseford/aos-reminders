@@ -1,4 +1,4 @@
-import { flatten, sortBy, split, join } from 'lodash'
+import { flatten, sortBy, sortedUniq } from 'lodash'
 import produce from 'immer'
 import { titleCase } from './textUtils'
 import { RealmscapeFeatures } from 'army/generic'
@@ -8,8 +8,6 @@ import { IArmy, TAllyArmies } from 'types/army'
 import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-
-const SEP = `&& `
 
 type TProcessReminders = (
   army: IArmy,
@@ -53,7 +51,7 @@ export const processReminders: TProcessReminders = (
       const t: TTurnAction = {
         name: a.name,
         desc: a.desc,
-        condition: `${titleCase(factionName)} Allegiance`,
+        condition: [`${titleCase(factionName)} Allegiance`],
         tag: a.tag || false,
         allegiance_ability: !command_ability,
         command_ability,
@@ -70,7 +68,7 @@ export const processReminders: TProcessReminders = (
     const t: TTurnAction = {
       name: r.name,
       desc: r.desc,
-      condition: `Realmscape Feature`,
+      condition: [`Realmscape Feature`],
     }
     r.when.forEach(when => {
       reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -93,13 +91,13 @@ const processConditions = (
   selections: ISelections | IAllySelections,
   startVal = {}
 ) => {
-  const conditions = flatten(Object.values(selections))
+  const conditions: string[] = flatten(Object.values(selections))
 
   const reminders = Object.keys(game).reduce((accum: { [key: string]: TTurnAction[] }, when) => {
     if (!game[when].length) return accum
 
     game[when].forEach((action: TTurnAction) => {
-      if (conditions.includes(action.condition)) {
+      if (conditions.includes(action.condition[0])) {
         accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
       }
     })
@@ -107,16 +105,7 @@ const processConditions = (
     return accum
   }, startVal)
 
-  const replaceSep = new RegExp(SEP, 'g')
-
-  // Replace SEP with a comma and space
-  return Object.keys(reminders).reduce((accum, when) => {
-    accum[when] = reminders[when].map(action => ({
-      ...action,
-      condition: action.condition.replace(replaceSep, ', '),
-    }))
-    return accum
-  }, reminders)
+  return reminders
 }
 
 /**
@@ -137,18 +126,6 @@ const processCondition = produce((phase: TTurnAction[], action: TTurnAction) => 
   }
 
   // If there is a matching action, merge the entries!
-  // Split the string in order to sort alphabetically in case of multiple matches :)
-  phase[idx].condition = addToString(phase[idx].condition, action.condition)
+  phase[idx].condition = sortedUniq(sortBy(phase[idx].condition.concat(action.condition)))
   return phase
 })
-
-/**
- * Given a string, adds a new entry by
- * splitting on a seperator and alphabetizing the result
- * @param existingString
- * @param newString
- * @param sep
- */
-export const addToString = (existingString: string, newString: string) => {
-  return join(sortBy(split(existingString, SEP).concat(newString)), SEP)
-}

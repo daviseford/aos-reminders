@@ -33,17 +33,14 @@ export const fixKeys = (obj: { [key: string]: string[] }) => {
     Weapon: 'Weapons',
   }
 
-  return Object.keys(obj).reduce(
-    (a, key) => {
-      if (ignoredValues.includes(key)) return a
+  return Object.keys(obj).reduce((a, key) => {
+    if (ignoredValues.includes(key)) return a
 
-      if (lookup[key]) {
-        a[lookup[key]] = obj[key]
-      } else {
-        a[key] = obj[key]
-      }
-      return a
-    },
-    {} as { [key: string]: string[] }
-  )
+    if (lookup[key]) {
+      a[lookup[key]] = obj[key]
+    } else {
+      a[key] = obj[key]
+    }
+    return a
+  }, {} as { [key: string]: string[] })
 }

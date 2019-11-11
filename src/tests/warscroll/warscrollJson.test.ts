@@ -28,6 +28,22 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Fyreslayers', () => {
+    const parsedText = getFile('1573446762118-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers', () => {
+    const parsedText = getFile('1573484994551-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Great-Bray Shaman', () => {
     const parsedText = getFile('1573340651447-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

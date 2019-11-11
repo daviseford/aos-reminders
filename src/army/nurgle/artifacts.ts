@@ -67,7 +67,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Fecund Flask (Rotbringers)`,
-        desc: `Once per battle roll a D6. On a 2+ any wounds suffered by the are healed. On a 1 the bearer is slain. If the bearer is slain by the flask, you can add 1 Beast of Nurgle within 1" of the bearer.`,
+        desc: `Once per battle roll a D6. On a 2+ any wounds suffered are healed. On a 1 the bearer is slain. If the bearer is slain by the flask, you can add 1 Beast of Nurgle within 1" of the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -178,7 +179,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sigmarite Pendant`,
         desc: `If the bearer is slain by wounds or mortal wounds inflicted by an enemy unit, roll a D6. On a 4+ that enemy unit suffers D6 mortal wounds.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

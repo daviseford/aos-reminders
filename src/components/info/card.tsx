@@ -133,17 +133,8 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenSelectors: selectors.getSelectors(state),
 })
 
-const CardHeader = connect(
-  null,
-  mapDispatchToProps
-)(CardHeaderComponent)
+const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
 
-export const CardMultiSelect = connect(
-  mapStateToProps,
-  null
-)(componentWithSize(CardMultiComponent))
+export const CardMultiSelect = connect(mapStateToProps, null)(componentWithSize(CardMultiComponent))
 
-export const CardSingleSelect = connect(
-  mapStateToProps,
-  null
-)(componentWithSize(CardSingleSelectComponent))
+export const CardSingleSelect = connect(mapStateToProps, null)(componentWithSize(CardSingleSelectComponent))

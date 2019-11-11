@@ -205,7 +205,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Glory or Damnation`,
-        desc: `If a this model slays the opposing army general, you can choose to replace him with a Daemon Prince model. If this model is slain, replace him with a Chaos Spawn model.`,
+        desc: `If this model slays the opposing army general, you can choose to replace him with a Daemon Prince model. If this model is slain, replace him with a Chaos Spawn model.`,
         when: [DURING_GAME],
       },
       {

@@ -33,7 +33,10 @@ const modifyBattalions = (battalions: TBattalions): TBattalions =>
 
 const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
   const { Units } = GrandAllianceConfig[alliance]
-  return uniqBy(units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true })), 'name')
+  return uniqBy(
+    units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true })),
+    'name'
+  )
 }
 
 const modifyArtifacts = (

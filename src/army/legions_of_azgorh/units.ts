@@ -15,6 +15,56 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
+const InfernalGuardBaseEffects = [
+  {
+    name: `Fireglaive Deathmask`,
+    desc: `The leader of this unit is a Fireglaive Deathmask. A Fireglaive Deathmask is armed with an Ashsteel Hand Weapon and Pyrelock Pistol instead of a Pyrelock Fireglaive and a Pyrelock Fireglaive's Bayonet-cleaver.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `Icon of Dominion Bearers`,
+    desc: `1 model in this unit can be Icon of Dominion Bearer. Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Drummer`,
+    desc: `1 model in this unit can be a Drummer. Add 1 to run rolls for a unit that includes a Drummer.`,
+    when: [MOVEMENT_PHASE],
+  },
+]
+const TrampleAndGoreEffect = {
+  name: `Trample and Gore`,
+  desc: `Add 1 to charge rolls for this unit. In addition, this unit's Crushing Hooves have a Damage characteristic of D3 instead of 1 if this unit made a charge move in the same turn.`,
+  when: [CHARGE_PHASE, COMBAT_PHASE],
+}
+const PyrelockPistolEffect = {
+  name: `Pyrelock Pistol`,
+  desc: `If the unmodified hit roll for an attack made with a Pyrelock Pistol is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+  when: [SHOOTING_PHASE],
+}
+const SpiteshieldEffect = {
+  name: `Spiteshield`,
+  desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
+  when: [COMBAT_PHASE],
+}
+const CarriageHaulerEffect = {
+  name: `Carriage Hauler`,
+  desc: `At the start of your movement phase, you can pick 1 friendly Deathshrieker Rocket Launcher, Magma Cannon, or Dreadquake Mortar unit within 1" of this model. If you do so, that unit can use this model's Move characteristic during that movement phase, as long as it is within 1" of this model at the end of that movement phase.`,
+  when: [START_OF_MOVEMENT_PHASE],
+}
+const SiegeArtilleryEffects = [
+  {
+    name: `Siege Artillery`,
+    desc: `This unit cannot run or make charge moves.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Siege Artillery`,
+    desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
+    when: [SHOOTING_PHASE],
+  },
+]
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -87,11 +137,7 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, you can pick 1 enemy unit within 8" of this model and roll a D6. On a 1 or 2 nothing happens. On a 3-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Trample and Gore`,
-        desc: `Add 1 to charge rolls for this unit. In addition, this unit's Crushing Hooves have a Damage characteristic of D3 instead of 1 if this unit made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      TrampleAndGoreEffect,
       {
         name: `Lord of the Ba'hal`,
         desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can re-roll charge rolls for friendly Ba'hal units while they are wholly within 24" of this model in that charge phase. In addition, you can re-roll hit rolls of 1 for attacks made with Crushing Hooves by friendly Ba'hal units while they are wholly within 24" of this model in the subsequent combat phase.`,
@@ -103,11 +149,7 @@ export const Units: TUnits = [
   {
     name: `Bull Centaur Taur'Ruk`,
     effects: [
-      {
-        name: `Trample and Gore`,
-        desc: `Add 1 to charge rolls for this unit. In addition, this unit's Crushing Hooves have a Damage characteristic of D3 instead of 1 if this unit made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      TrampleAndGoreEffect,
       {
         name: `Favour of the Burning God`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Add 1 to hit rolls for attacks made with melee weapons by friendly Ba'hal units while they are wholly within 12" of that model until the end of that phase.`,
@@ -118,27 +160,12 @@ export const Units: TUnits = [
   },
   {
     name: `Bull Centaur Renders`,
-    effects: [
-      {
-        name: `Spiteshield`,
-        desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Trample and Gore`,
-        desc: `Add 1 to charge rolls for this unit. In addition, this unit's Crushing Hooves have a Damage characteristic of D3 instead of 1 if this unit made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
+    effects: [SpiteshieldEffect, TrampleAndGoreEffect],
   },
   {
     name: `Infernal Guard Castellan`,
     effects: [
-      {
-        name: `Pyrelock Pistol`,
-        desc: `If the unmodified hit roll for an attack made with a Pyrelock Pistol is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [SHOOTING_PHASE],
-      },
+      PyrelockPistolEffect,
       {
         name: `Martial Contempt`,
         desc: `You can use this command ability in your hero phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability. Until the start of your next hero phase, add 1 to wound rolls for attacks made by friendly Legion of Azgorh units that target that unit. The same enemy unit cannot be picked as the target of this command ability more than once per hero phase.`,
@@ -159,53 +186,11 @@ export const Units: TUnits = [
   },
   {
     name: `Infernal Guard Fireglaives`,
-    effects: [
-      {
-        name: `Fireglaive Deathmask`,
-        desc: `The leader of this unit is a Fireglaive Deathmask. A Fireglaive Deathmask is armed with an Ashsteel Hand Weapon and Pyrelock Pistol instead of a Pyrelock Fireglaive and a Pyrelock Fireglaive's Bayonet-cleaver.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Icon of Dominion Bearers`,
-        desc: `1 model in this unit can be Icon of Dominion Bearer. Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Drummer`,
-        desc: `1 model in this unit can be a Drummer. Add 1 to run rolls for a unit that includes a Drummer.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
+    effects: [...InfernalGuardBaseEffects],
   },
   {
     name: `Infernal Guard Ironsworn`,
-    effects: [
-      {
-        name: `Fireglaive Deathmask`,
-        desc: `The leader of this unit is a Fireglaive Deathmask. A Fireglaive Deathmask is armed with an Ashsteel Hand Weapon and Pyrelock Pistol instead of a Pyrelock Fireglaive and a Pyrelock Fireglaive's Bayonet-cleaver.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Icon of Dominion Bearers`,
-        desc: `1 model in this unit can be Icon of Dominion Bearer. Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Drummer`,
-        desc: `1 model in this unit can be a Drummer. Add 1 to run rolls for a unit that includes a Drummer.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Pyrelock Pistol`,
-        desc: `If the unmodified hit roll for an attack made with a Pyrelock Pistol is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Spiteshield`,
-        desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...InfernalGuardBaseEffects, PyrelockPistolEffect, SpiteshieldEffect],
   },
   {
     name: `K'Daai Fireborn`,
@@ -235,21 +220,13 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of this model's Deathshrieker Rockets while this model is within 3" of a friendly Daemonsmith.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Siege Artillery`,
-        desc: `This unit cannot run or make charge moves. In addition, add 1 to save rolls for attacks made with missile weapons that target this model.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, SHOOTING_PHASE],
-      },
+      ...SiegeArtilleryEffects,
     ],
   },
   {
     name: `Iron Daemon War Engine`,
     effects: [
-      {
-        name: `Carriage Hauler`,
-        desc: `At the start of your movement phase, you can pick 1 friendly Deathshrieker Rocket Launcher, Magma Cannon, or Dreadquake Mortar unit within 1" of this model. If you do so, that unit can use this model's Move characteristic during that movement phase, as long as it is within 1" of this model at the end of that movement phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      CarriageHaulerEffect,
       {
         name: `More Power!`,
         desc: `In your shooting phase, you can change the Attacks characteristic of this model's Steam Cannonade from 2D6 to either 3D6 or 4D6. However, if you do so and the roll is 12+, this model suffers D3 mortal wounds after all of its attacks have been resolved.`,
@@ -270,11 +247,7 @@ export const Units: TUnits = [
         desc: `Do not use the attack sequence for an attack made with a Magma Blast. Instead, roll a D6.Add 1 to the roll if the target unit has 10 or more models. On a 3+, the target unit suffers a number of mortal wounds equal to the roll.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Siege Artillery`,
-        desc: `This unit cannot run or make charge moves. In addition, add 1 to save rolls for attacks made with missile weapons that target this model.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, SHOOTING_PHASE],
-      },
+      ...SiegeArtilleryEffects,
     ],
   },
   {
@@ -295,11 +268,7 @@ export const Units: TUnits = [
         desc: `This model's Dreadquake Bomb can target enemy units that are not visible to the attacking model. In addition, you can re-roll the dice that determines the Damage characteristic of this model's Dreadquake Bomb if the target unit has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Siege Artillery`,
-        desc: `This unit cannot run or make charge moves. In addition, add 1 to save rolls for attacks made with missile weapons that target this model.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, SHOOTING_PHASE],
-      },
+      ...SiegeArtilleryEffects,
     ],
   },
   {
@@ -310,11 +279,7 @@ export const Units: TUnits = [
         desc: `You can re-roll wound rolls for attacks made with this model's Hammer and Picks that target a War Machine.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Carriage Hauler`,
-        desc: `At the start of your movement phase, you can pick 1 friendly Deathshrieker Rocket Launcher, Magma Cannon, or Dreadquake Mortar unit within 1" of this model. If you do so, that unit can use this model's Move characteristic during that movement phase, as long as it is within 1" of this model at the end of that movement phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      CarriageHaulerEffect,
       {
         name: `More Power!`,
         desc: `In your combat phase, you can change the Attacks characteristic of this model's Hammers and Picks from 2D6 to either 3D6 or 4D6. However, if you do so and the roll is 12+, this model suffers D3 mortal wounds after all of its attacks have been resolved.`,

@@ -50,6 +50,12 @@ const getBoCBattalion = () => {
 
 export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
 
+const MurderousChargeEffect = {
+  name: `Murderous Charge`,
+  desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
+  when: [CHARGE_PHASE],
+}
+
 // Khorne specific units. Export for use in Grand Alliance.
 export const Units: TUnits = [
   {
@@ -175,11 +181,7 @@ export const Units: TUnits = [
         desc: `Add 2 to the Bravery characteristic of this unit while it includes any Standard Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Murderous Charge`,
-        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
-        when: [CHARGE_PHASE],
-      },
+      MurderousChargeEffect,
     ],
   },
   {
@@ -318,7 +320,7 @@ export const Units: TUnits = [
       {
         name: `Bloodfury`,
         desc: `If a model in this unit is slain, before it is removed from play roll a D6 for each enemy unit within 1" of that model. Add 1 to the dice roll if 2 or more models from that enemy unit are within 1" of the slain model. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound after all of its attacks have been resolved. On a 6+ that enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Crimson Haze`,
@@ -856,11 +858,7 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a Hellblade is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Murderous Charge`,
-        desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
-        when: [CHARGE_PHASE],
-      },
+      MurderousChargeEffect,
     ],
   },
   {

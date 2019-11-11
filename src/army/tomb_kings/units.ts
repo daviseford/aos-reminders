@@ -1,12 +1,11 @@
 import { TUnits } from 'types/army'
 import {
-  HERO_PHASE,
-  COMBAT_PHASE,
-  SHOOTING_PHASE,
-  DURING_SETUP,
-  MOVEMENT_PHASE,
   CHARGE_PHASE,
-  DURING_GAME,
+  COMBAT_PHASE,
+  DURING_SETUP,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 
@@ -38,7 +37,7 @@ export const Units: TUnits = [
       {
         name: `Ancient Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon him suffers D6 mortal wounds after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
         command_ability: true,
       },
       {
@@ -55,7 +54,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb Queen's Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Supernatural Speed`,
@@ -77,7 +76,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Royal Tomb Shield`,
@@ -99,7 +98,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King in Royal Chariot is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Royal Chariot`,
@@ -476,7 +475,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Royal Warsphinx is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Sacred War Statue`,
