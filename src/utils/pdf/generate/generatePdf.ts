@@ -330,40 +330,39 @@ interface IPhaseText {
  * @param allText
  */
 const getPhaseInfo = (allText: IText[]): IPhaseText[] => {
-  return allText.reduce(
-    (a, textObj) => {
-      const currentPhaseIdx = a.length - 1
+  return allText.reduce((a, textObj) => {
+    const currentPhaseIdx = a.length - 1
 
-      if (textObj.type === 'phase') {
-        // We add a spacer after a phase, so represent that here
-        if (currentPhaseIdx > 0) {
-          a[currentPhaseIdx] = {
-            ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + Styles.spacer.spacing,
-          }
-        }
-        // And then push the new phase onto the accumulator
-        a.push({
-          canFitOnPage: true,
-          yHeight: getInitialXY()[1],
-          phase: textObj.text,
-        })
-      } else {
-        const yHeight = a[currentPhaseIdx].yHeight + Styles[textObj.type].spacing
+    if (textObj.type === 'phase') {
+      // We add a spacer after a phase, so represent that here
+      if (currentPhaseIdx > 0) {
         a[currentPhaseIdx] = {
           ...a[currentPhaseIdx],
-          yHeight,
-          canFitOnPage: yHeight < pageBottom,
+          yHeight: a[currentPhaseIdx].yHeight + Styles.spacer.spacing,
         }
       }
-      return a
-    },
-    [] as IPhaseText[]
-  )
+      // And then push the new phase onto the accumulator
+      a.push({
+        canFitOnPage: true,
+        yHeight: getInitialXY()[1],
+        phase: textObj.text,
+      })
+    } else {
+      const yHeight = a[currentPhaseIdx].yHeight + Styles[textObj.type].spacing
+      a[currentPhaseIdx] = {
+        ...a[currentPhaseIdx],
+        yHeight,
+        canFitOnPage: yHeight < pageBottom,
+      }
+    }
+    return a
+  }, [] as IPhaseText[])
 }
 
 const getTitle = (action: TTurnAction) => {
-  return `${getActionTitle(action)} - ${action.name}${action.tag ? ` (${action.tag})` : ``}`
+  const title = getActionTitle(action)
+  const titleStr = title ? `${title} - ` : ``
+  return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
 }
 
 const getReminderText = (doc: jsPDF, reminders: IReminder): IText[] => {
