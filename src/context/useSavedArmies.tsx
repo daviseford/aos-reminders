@@ -58,13 +58,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
       const changedKeys = !hasChanges
         ? []
-        : Object.keys(currentArmy).reduce(
-            (a, key) => {
-              if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
-              return a
-            },
-            [] as string[]
-          )
+        : Object.keys(currentArmy).reduce((a, key) => {
+            if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
+            return a
+          }, [] as string[])
 
       return { hasChanges, changedKeys }
     },

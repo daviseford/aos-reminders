@@ -58,20 +58,17 @@ export const getAllyData = (
   )
 
   // Check for unit name collisions and mark them as errors
-  const collisions = Object.keys(allyData.allySelections).reduce(
-    (a, allyName) => {
-      const units: string[] = allyData.allySelections[allyName].units
-      units.forEach(unit => {
-        if (a[unit]) {
-          a[unit] = a[unit].concat(allyName as TSupportedFaction)
-        } else {
-          a[unit] = [allyName as TSupportedFaction]
-        }
-      })
-      return a
-    },
-    {} as { [key: string]: TSupportedFaction[] }
-  )
+  const collisions = Object.keys(allyData.allySelections).reduce((a, allyName) => {
+    const units: string[] = allyData.allySelections[allyName].units
+    units.forEach(unit => {
+      if (a[unit]) {
+        a[unit] = a[unit].concat(allyName as TSupportedFaction)
+      } else {
+        a[unit] = [allyName as TSupportedFaction]
+      }
+    })
+    return a
+  }, {} as { [key: string]: TSupportedFaction[] })
 
   Object.keys(collisions).forEach(unit => {
     if (collisions[unit].length > 1) {

@@ -57,10 +57,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   ...selectors.getCurrentArmy(state),
 })
 
-const PrintArmy = connect(
-  mapStateToProps,
-  null
-)(PrintArmyComponent)
+const PrintArmy = connect(mapStateToProps, null)(PrintArmyComponent)
 
 export default PrintArmy
 
