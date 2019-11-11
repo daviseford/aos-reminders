@@ -134,10 +134,7 @@ const mapDispatchToProps = {
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
-export const AllyArmyBuilder = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AllyArmyBuilderComponent)
+export const AllyArmyBuilder = connect(mapStateToProps, mapDispatchToProps)(AllyArmyBuilderComponent)
 
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
