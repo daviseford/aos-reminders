@@ -9,10 +9,9 @@ import sylvaneth from 'army/sylvaneth'
 import { GenericCommands, GenericTriumphs, RealmscapeFeatures, RealmscapeCommands } from 'army/generic'
 
 // Meta
-import { DISPOSSESSED, IRONJAWZ, SERAPHON, STORMCAST_ETERNALS, SYLVANETH } from 'meta/factions'
+import { DISPOSSESSED, IRONJAWZ, SERAPHON, SYLVANETH } from 'meta/factions'
 
 // Types
-import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE } from 'types/phases'
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
