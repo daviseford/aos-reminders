@@ -1,22 +1,15 @@
-import { flatten } from 'lodash'
 import { selectionsFactory, allySelectionsFactory } from './__mock'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { processReminders, addToString } from 'utils/processReminders'
+import { processReminders } from 'utils/processReminders'
 
 // Army Imports
 import ironjawz from 'army/ironjawz'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
-import {
-  GenericCommands,
-  GenericEndlessSpells,
-  GenericTriumphs,
-  RealmscapeFeatures,
-  RealmscapeCommands,
-} from 'army/generic'
+import { GenericCommands, GenericTriumphs, RealmscapeFeatures, RealmscapeCommands } from 'army/generic'
 
 // Meta
-import { DISPOSSESSED, EVERCHOSEN, IRONJAWZ, SERAPHON, STORMCAST_ETERNALS, SYLVANETH } from 'meta/factions'
+import { DISPOSSESSED, IRONJAWZ, SERAPHON, STORMCAST_ETERNALS, SYLVANETH } from 'meta/factions'
 
 // Types
 import { HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE } from 'types/phases'
@@ -25,46 +18,6 @@ import { TTurnAction } from 'types/data'
 import { getRealmscape } from 'utils/realmUtils'
 
 describe('processReminders', () => {
-  it('should merge similar abilities (issue #183)', () => {
-    const army = getArmy(STORMCAST_ETERNALS) as IArmy
-    const selections = selectionsFactory({ units: ['Drakesworn Templar', 'Lord-Celestant on Stardrake'] })
-    const reminders = processReminders(army, STORMCAST_ETERNALS, selections, null, [], {}, {})
-
-    // The test case defined for me in issue #183
-    const mergedHeroAbility = reminders[HERO_PHASE].find(
-      ({ condition }) => condition === 'Drakesworn Templar, Lord-Celestant on Stardrake'
-    )
-    expect(mergedHeroAbility).toBeDefined()
-
-    // Two more expected merged abilities
-    const mergedCombatAbilities = reminders[COMBAT_PHASE].filter(
-      ({ condition }) => condition === 'Drakesworn Templar, Lord-Celestant on Stardrake'
-    )
-    expect(mergedCombatAbilities.length).toEqual(2)
-
-    // Test case because this was an indicator of breaking before
-    const skyboltBow = reminders[SHOOTING_PHASE].find(({ name }) => name === 'Skybolt Bow')
-    expect(skyboltBow).toBeDefined()
-    expect(skyboltBow && skyboltBow.condition).toEqual('Drakesworn Templar')
-  })
-
-  it('should not merge abilities with the same name but different descriptions (issue #186)', () => {
-    const endless_spells = GenericEndlessSpells.filter(x => x.effects.some(y => y.name === 'Predatory'))
-      .map(x => x.name)
-      .slice(0, 3)
-    const army = getArmy(EVERCHOSEN) as IArmy
-    const selections = selectionsFactory({ endless_spells })
-    const reminders = processReminders(army, EVERCHOSEN, selections, null, [], {}, {})
-    const flattenedGame = flatten(Object.values(reminders))
-
-    expect(flattenedGame.filter(x => x.name === 'Predatory').length).toEqual(3)
-
-    const mergedAbility = reminders[HERO_PHASE].find(
-      ({ condition }) => condition === addToString(``, endless_spells.join(`, `))
-    )
-    expect(mergedAbility).toBeUndefined()
-  })
-
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
     const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
@@ -134,7 +87,7 @@ describe('processReminders', () => {
       unit,
     ]
     testEntries.forEach(entry => {
-      const effect = reminders[entry.effects[0].when[0]].find(({ condition }) => condition === entry.name)
+      const effect = reminders[entry.effects[0].when[0]].find(({ condition }) => condition[0] === entry.name)
       expect(effect).toBeDefined()
     })
 
@@ -144,13 +97,13 @@ describe('processReminders', () => {
       return name === ability.name
     })
     expect(abilityEffect).toBeDefined()
-    expect((abilityEffect as TTurnAction).condition).toEqual(`Sylvaneth Allegiance`)
+    expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Sylvaneth Allegiance`)
 
     // Check for Realmscape info
     const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
       ({ name }) => name === realmscape_feature.name
     )
     expect(realmscapeEffect).toBeDefined()
-    expect((realmscapeEffect as TTurnAction).condition).toEqual('Realmscape Feature')
+    expect((realmscapeEffect as TTurnAction).condition[0]).toEqual('Realmscape Feature')
   })
 })
