@@ -51,6 +51,9 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const LoadedArmyHeader = connect(mapStateToProps, {})(LoadedArmyHeaderComponent)
+const LoadedArmyHeader = connect(
+  mapStateToProps,
+  {}
+)(LoadedArmyHeaderComponent)
 
 export default LoadedArmyHeader

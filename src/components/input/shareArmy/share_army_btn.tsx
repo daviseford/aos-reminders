@@ -51,7 +51,10 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const ShareArmyBtn = connect(mapStateToProps, null)(ShareArmyBtnComponent)
+const ShareArmyBtn = connect(
+  mapStateToProps,
+  null
+)(ShareArmyBtnComponent)
 
 export default ShareArmyBtn
 

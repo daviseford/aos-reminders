@@ -122,4 +122,7 @@ const mapDispatchToProps = {
   setFactionName: factionNames.actions.setFactionName,
 }
 
-const Jumbotron = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(JumbotronComponent))
+const Jumbotron = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(componentWithSize(JumbotronComponent))

@@ -78,6 +78,9 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const DownloadPDFButton = connect(mapStateToProps, null)(componentWithSize(DownloadPDFComponent))
+const DownloadPDFButton = connect(
+  mapStateToProps,
+  null
+)(componentWithSize(DownloadPDFComponent))
 
 export default DownloadPDFButton

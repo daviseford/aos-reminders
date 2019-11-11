@@ -106,11 +106,14 @@ const removeFoundErrors: TRemoveFoundErrors = (errors, selections, allyData) => 
   const allyErrors = getAllyWarnings(errors)
 
   // Filter out duplicative ally/normal warnings
-  return filteredErrors.reduce((a, error) => {
-    if (error.severity === 'warn' && allyErrors.some(a => a.text.startsWith(`Allied ${error.text} `))) {
+  return filteredErrors.reduce(
+    (a, error) => {
+      if (error.severity === 'warn' && allyErrors.some(a => a.text.startsWith(`Allied ${error.text} `))) {
+        return a
+      }
+      a.push(error)
       return a
-    }
-    a.push(error)
-    return a
-  }, [] as TImportError[])
+    },
+    [] as TImportError[]
+  )
 }

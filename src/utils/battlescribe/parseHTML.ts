@@ -103,13 +103,16 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
       name = `Scenery: ${name}`
     }
 
-    const tableEntries = childNodes.reduce((a, x) => {
-      if (isParentNode(x) && x.nodeName === 'table') {
-        const { tableName, names } = getNamesFromTableTags(x)
-        if (tableName) a[tableName] = names
-      }
-      return a
-    }, {} as { [key: string]: string[] })
+    const tableEntries = childNodes.reduce(
+      (a, x) => {
+        if (isParentNode(x) && x.nodeName === 'table') {
+          const { tableName, names } = getNamesFromTableTags(x)
+          if (tableName) a[tableName] = names
+        }
+        return a
+      },
+      {} as { [key: string]: string[] }
+    )
 
     return { name, entries: fixKeys(tableEntries) }
   } catch (err) {

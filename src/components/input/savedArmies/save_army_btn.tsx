@@ -67,7 +67,10 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const SaveArmyBtn = connect(mapStateToProps, null)(SaveArmyBtnComponent)
+const SaveArmyBtn = connect(
+  mapStateToProps,
+  null
+)(SaveArmyBtnComponent)
 
 export default SaveArmyBtn
 

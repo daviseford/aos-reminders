@@ -132,6 +132,9 @@ const mapDispatchToProps = {
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
-const Toolbar = connect(mapStateToProps, mapDispatchToProps)(ToolbarComponent)
+const Toolbar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ToolbarComponent)
 
 export default Toolbar

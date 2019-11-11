@@ -36,6 +36,9 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   allyFactionNames: selectors.getAllyFactionNames(state),
 })
 
-const AlliedArmies = connect(mapStateToProps, null)(AlliedArmiesComponent)
+const AlliedArmies = connect(
+  mapStateToProps,
+  null
+)(AlliedArmiesComponent)
 
 export default AlliedArmies

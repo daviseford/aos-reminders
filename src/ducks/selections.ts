@@ -130,10 +130,13 @@ const handleSideEffects = (state: IStore['selections'], payload: string[], type:
   const sideEffectNames = Object.keys(state.sideEffects)
 
   const removedSideEffects = state.selections[type]
-    .reduce((a, v) => {
-      if (sideEffectNames.includes(v)) a.push(v)
-      return a
-    }, [] as string[])
+    .reduce(
+      (a, v) => {
+        if (sideEffectNames.includes(v)) a.push(v)
+        return a
+      },
+      [] as string[]
+    )
     .filter(e => !payload.includes(e))
 
   removedSideEffects.forEach(r => {
