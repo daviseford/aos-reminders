@@ -28,6 +28,15 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Fyreslayers Lodge Vostarg', () => {
+    const parsedText = getFile('Fyreslayers1.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.selections.battalions).toEqual(['Lords of the Lodge'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Fyreslayers', () => {
     const parsedText = getFile('1573446762118-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
