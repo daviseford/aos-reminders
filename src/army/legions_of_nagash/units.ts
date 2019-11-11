@@ -19,6 +19,7 @@ import {
 } from 'types/phases'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
 import { filterUnits } from 'utils/filterUtils'
+import GenericEffects from 'army/generic/effects'
 
 /**
  * Allied Nighthaunt units per LoN FAQ
@@ -40,6 +41,65 @@ const getNighthauntUnits = () => {
     `Tomb Banshee`,
   ]
   return filterUnits(NighthauntUnits, listOfUnits)
+}
+
+const getDeathlyInvocation = (numUnits: number) => ({
+  name: `Deathly Invocation`,
+  desc: `At the start of your hero phase, pick up to ${numUnits} different friendly SUMMONABLE units within ${
+    numUnits === 4 ? 18 : numUnits === 3 ? 12 : 6
+  }" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
+  when: [START_OF_HERO_PHASE],
+})
+const ChaliceOfBloodEffect = {
+  name: `Chalice of Blood`,
+  desc: `If this model has a Chalice of Blood, then once per battle in your hero phase, you can heal D6 wounds that have been allocated to it.`,
+  when: [HERO_PHASE],
+}
+const TheHungerEffect = {
+  name: `The Hunger`,
+  desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to this model.`,
+  when: [END_OF_COMBAT_PHASE],
+}
+const FeasterOfSoulsEffect = {
+  name: `Feaster of Souls`,
+  desc: `At the end of any combat phase in which this unit slew any models, you can heal 2 wounds that have been allocated to him.`,
+  when: [END_OF_COMBAT_PHASE],
+}
+const HeraldsOfTheAccursedOneEffect = {
+  name: `Heralds of the Accursed One`,
+  desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units that are within 6" of any DEATH Standard Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const LordOfBonesEffect = {
+  name: `Lord of Bones`,
+  desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
+  when: [HERO_PHASE],
+  command_ability: true,
+}
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
+  when: [CHARGE_PHASE],
+}
+const WailOfTheDamnedEffect = {
+  name: `Wail of the Damned`,
+  desc: `When making a Wail of the Damned attack, roll two dice for each enemy unit within the range shown on the damage table. If the total is higher than that unit's Bravery, it suffers D3 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+}
+const CryptSwordEffect = {
+  name: `Crypt Sword`,
+  desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
+  when: [COMBAT_PHASE],
+}
+const CryptShieldsEffect = {
+  name: `Crypt Shields`,
+  desc: `Add 1 to save rolls for a unit carrying Crypt Shields against attacks that have a Rend characteristic of '-'.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 
 // Units
@@ -96,11 +156,7 @@ export const Units: TUnits = [
   {
     name: `Arkhan the Black, Mortarch of Sacrament`,
     effects: [
-      {
-        name: `Feaster of Souls`,
-        desc: `At the end of any combat phase in which Arkhan slew any models, you can heal 2 wounds that have been allocated to him.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      FeasterOfSoulsEffect,
       {
         name: `The Staff of Spirits`,
         desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, he can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same Hero Phase, even if another Wizard has already attempted to cast the spell in that phase.`,
@@ -133,11 +189,7 @@ export const Units: TUnits = [
   {
     name: `Mannfred, Mortarch of Night`,
     effects: [
-      {
-        name: `Feaster of Souls`,
-        desc: `At the end of any combat phase in which Mannfred slew any models, you can heal 2 wounds that have been allocated to him.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      FeasterOfSoulsEffect,
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to Mannfred each turn is negated.`,
@@ -158,11 +210,7 @@ export const Units: TUnits = [
         desc: `Each time you roll a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Mannfred. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      getDeathlyInvocation(4),
       {
         name: `Magic`,
         desc: `Mannfred is a WIZARD. He can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wind of Death spells.`,
@@ -200,11 +248,7 @@ export const Units: TUnits = [
         desc: `Each time you make a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units within 18" of Neferata. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      getDeathlyInvocation(4),
       {
         name: `Magic`,
         desc: `Neferata is a WIZARD. She can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Dark Mist spells.`,
@@ -227,11 +271,8 @@ export const Units: TUnits = [
   {
     name: `Prince Vhordrai`,
     effects: [
-      {
-        name: `The Hunger`,
-        desc: `At the end of any combat phase in which Prince Vhordrai slew any enemy models, you can heal 1 wound that has been allocated to him.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      TheHungerEffect,
+      // Does not use generic ChaliceOfBlood
       {
         name: `Chalice of Blood`,
         desc: `Once per battle, in your hero phase, you can heal D6 wounds that have been allocated to Prince Vhordrai.`,
@@ -247,11 +288,7 @@ export const Units: TUnits = [
         desc: `At the start of your shooting phase, pick an enemy unit within 8" of this model that is visible to it. Then roll a D6, adding 1 to the result if this model slew any enemy models in the previous combat phase. On a 3+ that unit suffers a number of mortal wounds as shown on the damage table above.`,
         when: [START_OF_SHOOTING_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 3 different friendly SUMMONABLE units within 12" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      getDeathlyInvocation(3),
       {
         name: `Magic`,
         desc: `Prince Vhordrai is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Quickblood spells.`,
@@ -274,11 +311,7 @@ export const Units: TUnits = [
   {
     name: `Morghast Harbingers`,
     effects: [
-      {
-        name: `Heralds of the Accursed One`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HeraldsOfTheAccursedOneEffect,
       {
         name: `Harbingers of Death`,
         desc: `When making a charge roll for this unit, you may roll 3 dice instead of 2. In addition, you can declare a charge for this unit if it is within 18" of the enemy rather than 12".`,
@@ -289,11 +322,7 @@ export const Units: TUnits = [
   {
     name: `Morghast Archai`,
     effects: [
-      {
-        name: `Heralds of the Accursed One`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      HeraldsOfTheAccursedOneEffect,
       {
         name: `Ebon-wrought Armour`,
         desc: `Each time you allocate a mortal wound to this unit, roll a D6. On a 5+ the mortal wound is negated.`,
@@ -304,16 +333,8 @@ export const Units: TUnits = [
   {
     name: `Vampire Lord on Zombie Dragon`,
     effects: [
-      {
-        name: `Pestilential Breath`,
-        desc: `Roll a D6 when you attack with the Zombie Dragon's Pestilential Breath. If the result is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `The Hunger`,
-        desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to this model.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      ...GenericEffects.ZombieDragon,
+      TheHungerEffect,
       {
         name: `Deathlance Charge`,
         desc: `If this model completed a charge this turn, increase the Damage characteristic of its Deathlance to 3.`,
@@ -324,16 +345,8 @@ export const Units: TUnits = [
         desc: `A model with an Ancient Shield has a Save characteristic of 3+.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Chalice of Blood`,
-        desc: `If this model has a Chalice of Blood, then once per battle in your hero phase, you can heal D6 wounds that have been allocated to it.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 3 different friendly SUMMONABLE units within 12" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      ChaliceOfBloodEffect,
+      getDeathlyInvocation(3),
       {
         name: `Magic`,
         desc: `A Vampire Lord on Zombie Dragon is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Blood Boil spells.`,
@@ -361,21 +374,9 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any DEATH Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `The Hunger`,
-        desc: `At the end of any combat phase in which this unit slew any models, you can heal 1 wound that has been allocated to it.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
+      TheHungerEffect,
       {
         name: `Martial Fury`,
         desc: `If this unit completed a charge this turn, increase the Damage characteristic of its Templar Lances or Blades to D3.`,
@@ -441,21 +442,9 @@ export const Units: TUnits = [
         desc: `Some Vampire Lords have membranous wings; these have a Move of 10" and can fly.`,
         when: [MOVEMENT_PHASE],
       },
-      {
-        name: `The Hunger`,
-        desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to it.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Chalice of Blood`,
-        desc: `If this model has a Chalice of Blood, then once per battle in your hero phase, you can heal D6 wounds that have been allocated to it.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 3 different friendly SUMMONABLE units within 12" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      TheHungerEffect,
+      ChaliceOfBloodEffect,
+      getDeathlyInvocation(3),
       {
         name: `Magic`,
         desc: `A Vampire Lord is a WIZARD. They can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. They know the Arcane Bolt and Mystic Shield spells.`,
@@ -473,7 +462,7 @@ export const Units: TUnits = [
     name: `Bloodseeker Palanquin`,
     effects: [
       {
-        name: `Fightful Touch`,
+        name: `Frightful Touch`,
         desc: `Each time you make a hit roll of 6+ for the Spectral Host's Ethereal Weapons, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
@@ -482,16 +471,8 @@ export const Units: TUnits = [
         desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of any melee weapons used by friendly SOULBLIGHT units within 12" of this model until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Wail of the Damned`,
-        desc: `When making a Wail of the Damned attack, roll two dice for each enemy unit within the range shown on the damage table. If the total is higher than that unit's Bravery, it suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 2 different friendly SUMMONABLE units within 6" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      WailOfTheDamnedEffect,
+      getDeathlyInvocation(2),
       {
         name: `Magic`,
         desc: `The Sanguinarch on a Bloodseeker Palanquin is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Blood Siphon spells.`,
@@ -518,16 +499,13 @@ export const Units: TUnits = [
         desc: `Once per game, you can re-roll a single dice roll of your choice for this model.`,
         when: [DURING_GAME],
       },
+      // Does not fit with generic TheHungerEffect because of the HERO specification
       {
         name: `The Hunger`,
         desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to it. If this model slew any enemy HERO models this turn, you may heal 1 additional wound allocated to it.`,
         when: [END_OF_COMBAT_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 3 different friendly SUMMONABLE units within 12" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      getDeathlyInvocation(3),
       {
         name: `Magic`,
         desc: `The Vampire Queen on a Coven Throne is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Beguile spells.`,
@@ -550,11 +528,7 @@ export const Units: TUnits = [
   {
     name: `Mortis Engine`,
     effects: [
-      {
-        name: `Wail of the Damned`,
-        desc: `When making a Wail of the Damned attack, roll two dice for each enemy unit within the range shown on the damage table. If the total is higher than that unit's Bravery, it suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      WailOfTheDamnedEffect,
       {
         name: `Frightful Touch`,
         desc: `Each time you make a hit roll of 6+ for the Spectral Host's Ethereal Weapons, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
@@ -580,11 +554,7 @@ export const Units: TUnits = [
         desc: `Before you allocate a wound or mortal wound to this model, you can pick a friendly Summonable unit within 3" of this model and roll a D6. On a 4+ the wound or mortal wound is allocated to that unit instead.`,
         when: [WOUND_ALLOCATION],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 2 different friendly SUMMONABLE units within 6" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      getDeathlyInvocation(2),
       {
         name: `Magic`,
         desc: `A Necromancer is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Vanhel's Danse Macabre spells.`,
@@ -601,11 +571,7 @@ export const Units: TUnits = [
   {
     name: `Zombies`,
     effects: [
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any DEATH Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Noise Maker`,
         desc: `Models in this unit may be Noise Makers. A unit that includes any Noise Makers can always move up to 6" when it charges, unless its charge roll is higher.`,
@@ -641,11 +607,7 @@ export const Units: TUnits = [
         desc: `Whilst it is within 6" of this model, you can re-roll the dice to determine how many wounds are healed on a friendly DEATH unit picked as a target of a Deathly Invocation ability.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Crypt Sword`,
-        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      CryptSwordEffect,
     ],
   },
   {
@@ -661,42 +623,16 @@ export const Units: TUnits = [
         desc: `At the start of your hero phase, roll a D6 for each enemy WIZARD within 6" any Corpse Carts with a Balefire Brazier. On a 4+ that unit suffers a mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Crypt Sword`,
-        desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      CryptSwordEffect,
     ],
   },
   {
     name: `Terrorgheist`,
-    effects: [
-      {
-        name: `Death Shriek`,
-        desc: `Do not use the attack sequence for an attack made with this model's Death Shriek. Instead roll a D6 and add the Death Shriek value shown on this model's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Gaping Maw`,
-        desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll)`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Infested`,
-        desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
+    effects: [...GenericEffects.Terrorgheist],
   },
   {
     name: `Zombie Dragon`,
-    effects: [
-      {
-        name: `Pestilential Breath`,
-        desc: `Roll a D6 when you attack with the Zombie Dragon's Pestilential Breath. If the roll is equal to or less than the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [...GenericEffects.ZombieDragon],
   },
   {
     name: `Wight King with Baleful Tomb Blade`,
@@ -711,17 +647,8 @@ export const Units: TUnits = [
         desc: `If the wound roll for an attack made with a Baleful Tomb Blade is 6+, that attack has a Damage characteristic of D3.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 2 different friendly SUMMONABLE units within 6" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Lord of Bones`,
-        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      getDeathlyInvocation(2),
+      LordOfBonesEffect,
     ],
   },
   {
@@ -737,17 +664,8 @@ export const Units: TUnits = [
         desc: `Halve the number of wounds allocated to this model from each attack, rounding up (the remainder are negated).`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Deathly Invocation`,
-        desc: `At the start of your hero phase, pick up to 2 different friendly SUMMONABLE units within 6" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Lord of Bones`,
-        desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      getDeathlyInvocation(2),
+      LordOfBonesEffect,
     ],
   },
   {
@@ -758,56 +676,32 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Hell Knight. Add 1 to the Attacks characteristic of a Hell Knight's Barrow Lance.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units that are within 6" of any DEATH Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Deathly Charge`,
         desc: `If this unit completed a charge this turn, add 1 to its wound rolls and add 1 to the Damage characteristic of its Barrow Lances.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Crypt Shields`,
-        desc: `You can add 1 to save rolls for this unit against attacks that have a Rend of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      CryptShieldsEffect,
     ],
   },
   {
     name: `Grave Guard`,
     effects: [
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any DEATH Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Seneschal`,
         desc: `The leader of this unit is a Seneschal. Add 1 to the Attacks characteristic of a Seneschal's Wight Blade or Great Wight Blade.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      HornblowerEffect,
       {
         name: `Cursed Weapons`,
         desc: `If the wound roll for an attack made with a Wight Blade or Great Wight Blade is 6+, double the Damage characteristic of that attack.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Crypt Shields`,
-        desc: `Add 1 to save rolls for a unit carrying Crypt Shields against attacks that have a Rend characteristic of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      CryptShieldsEffect,
     ],
   },
   {
@@ -818,16 +712,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Skeleton Champion. Add 1 to the Attacks characteristic of a Skeleton Champion's Ancient Blade or Ancient Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any DEATH Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      StandardBearerEffect,
+      HornblowerEffect,
       {
         name: `Serve in Death`,
         desc: `Add 1 to hit rolls for Skeleton Warriors units that are within 18" of any friendly DEATH HEROES.`,
@@ -838,11 +724,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has 20 or more models. Add 2 instead if it has 30 or more models.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Crypt Shields`,
-        desc: `Add 1 to save rolls for a unit carrying Crypt Shields against attacks that have a Rend characteristic of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      CryptShieldsEffect,
     ],
   },
   {
@@ -853,11 +735,7 @@ export const Units: TUnits = [
         desc: `You can return D3 slain models to this unit if the Sepulchral Warden is on the battlefield.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Crypt Shields`,
-        desc: `If any models in this unit are carrying Crypt Shields, add 1 to save rolls against attacks with a rend characteristic of '-'.`,
-        when: [DURING_GAME],
-      },
+      CryptShieldsEffect,
       {
         name: `Serve in Death`,
         desc: `You can add 1 to hit rolls for this unit if it is wholly within 18" of any friendly Death heroes.`,
