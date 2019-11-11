@@ -6,6 +6,7 @@ import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  FYRESLAYERS,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
@@ -31,6 +32,17 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
     // Feast of Bones Exclusive - Need to get these rules
     expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+  })
+
+  it('reads Fyreslayers battalions properly', () => {
+    const pdfText = getFile('3droth2k.pdf')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.selections.allegiances).toEqual(['Vostarg (Lodge)'])
+    expect(warscrollTxt.selections.battalions).toEqual(['Lords of the Lodge'])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('reads Ogor Mawtribes full pdf', () => {

@@ -22,21 +22,99 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
-const StegadonBaseEffects = [
+const UnstoppableStampedeEffect = {
+  name: `Unstoppable Stampede`,
+  desc: `When this model attacks with its Crushing Stomps, add 1 to any wound rolls if it charged in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+const SteadfastMajestyEffect = {
+  name: `Steadfast Majesty`,
+  desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const CarnosaurBaseEffects = [
   {
-    name: `Steadfast Majesty`,
-    desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
+    name: `Bloodroar`,
+    desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
     when: [BATTLESHOCK_PHASE],
   },
+  {
+    name: `Pinned Down`,
+    desc: `If an enemy MONSTER is hit twice with the Carnosaur's Clawed Forelimbs, you can add 2 to the result when rolling to hit that target with the Carnosaur's Massive Jaws in the same turn.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Blood Frenzy`,
+    desc: `Once this model has slain an enemy with its Massive Jaws, it can run and charge in the same turn for the rest of the battle.`,
+    when: [DURING_GAME],
+  },
+]
+const SlannBaseEffects = [
+  {
+    name: `Celestial Conjuration`,
+    desc: `Summon units with this model. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.`,
+    when: [END_OF_MOVEMENT_PHASE],
+  },
+  {
+    name: `Celestial Conjuration`,
+    desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
+    when: [END_OF_HERO_PHASE],
+  },
+  {
+    name: `Masters of Order`,
+    desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Contemplations of the Ancient Ones`,
+    desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
+    when: [END_OF_HERO_PHASE],
+  },
+]
+const StegadonBaseEffects = [
+  SteadfastMajestyEffect,
+  UnstoppableStampedeEffect,
   {
     name: `Skink Alpha`,
     desc: `If a Stegadon is ridden by a Skink Alpha, then in your hero phase the Alpha can give orders to a SKINK unit within 8". If that unit is not within 3" of an enemy unit, you can immediately roll a D6 and move each of its models up to that many inches. In addition, until your next hero phase, you can re-roll hit rolls of 1 for that unit.`,
     when: [HERO_PHASE],
   },
+]
+const StardrakeShieldsEffect = {
+  name: `Stardrake Shields`,
+  desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
+  when: [COMBAT_PHASE, SHOOTING_PHASE],
+}
+const CelestialRitesEffect = {
+  name: `Celestial Rites`,
+  desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+}
+const StardrakeIconEffect = {
+  name: `Stardrake Icon`,
+  desc: `If a battleshock test is made for an enemy unit within 5" of any Stardrake Icons, add 1 to the result.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const WardrumEffect = {
+  name: `Wardrum`,
+  desc: `A unit that includes any wardrums can march in its movement phase. When it does so, it doubles its Move characteristic but cannot run or charge in the same turn.`,
+  when: [MOVEMENT_PHASE],
+}
+const StarbucklersEffect = {
+  name: `Star-bucklers`,
+  desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
+  when: [DURING_GAME],
+}
+const ImperviousDefenceEffects = [
   {
-    name: `Unstoppable Stampede`,
-    desc: `When a Stegadon attacks with its Crushing Stomps, add 1 to any wound rolls if it charged in the same turn.`,
-    when: [COMBAT_PHASE],
+    name: `Impervious Defence`,
+    desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `Impervious Defence`,
+    desc: `Roll a D6 whenever this model suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
+    when: [WOUND_ALLOCATION],
   },
 ]
 
@@ -45,16 +123,7 @@ export const Units: TUnits = [
   {
     name: `Lord Kroak`,
     effects: [
-      {
-        name: `Celestial Conjuration`,
-        desc: `Summon units with Lord Kroak. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
-        when: [END_OF_HERO_PHASE],
-      },
+      ...SlannBaseEffects,
       {
         name: `Dead for Innumerable Ages`,
         desc: `In the battleshock phase of each turn, roll a D6 and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is 'slain'. Otherwise, any wounds he has suffered are immediately healed.`,
@@ -66,21 +135,12 @@ export const Units: TUnits = [
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
-      {
-        name: `Masters of Order`,
-        desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Contemplations of the Ancient Ones`,
-        desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
-        when: [END_OF_HERO_PHASE],
-      },
     ],
   },
   {
     name: `Slann Starmaster`,
     effects: [
+      ...SlannBaseEffects,
       {
         name: `Celestial Configuration`,
         desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
@@ -89,16 +149,6 @@ export const Units: TUnits = [
         3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells.
         5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army.`,
         when: [END_OF_SETUP],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `Summon units with Slann. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
-        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Celestial Configuration`,
@@ -111,41 +161,17 @@ export const Units: TUnits = [
         when: [MOVEMENT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Masters of Order`,
-        desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Contemplations of the Ancient Ones`,
-        desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
-        when: [END_OF_HERO_PHASE],
-      },
     ],
   },
   {
     name: `Saurus Oldblood on Carnosaur`,
     effects: [
-      {
-        name: `Bloodroar`,
-        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...CarnosaurBaseEffects,
       {
         name: `Ancient Warlord`,
         desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a Saurus Hero from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
-      },
-      {
-        name: `Pinned Down`,
-        desc: `If an enemy MONSTER is hit twice with the Carnosaur's Clawed Forelimbs, you can add 2 to the result when rolling to hit that target with the Carnosaur's Massive Jaws in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Blood Frenzy`,
-        desc: `Once this model has slain an enemy with its Massive Jaws, it can run and charge in the same turn for the rest of the battle.`,
-        when: [DURING_GAME],
       },
     ],
   },
@@ -179,11 +205,7 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Stardrake Shields`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      StardrakeShieldsEffect,
     ],
   },
   {
@@ -220,31 +242,13 @@ export const Units: TUnits = [
   {
     name: `Saurus Scar-Veteran on Carnosaur`,
     effects: [
-      {
-        name: `Stardrake Shields`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Bloodroar`,
-        desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...CarnosaurBaseEffects,
+      StardrakeShieldsEffect,
       {
         name: `Saurian Savage`,
         desc: `If the Saurus Scar-Veteran on Carnosaur uses this ability, pick a Saurus unit within 15". Until your next hero phase, whenever you roll a hit roll of 6 or more for a model in that unit, that model can immediately make one additional attack using the same weapon.`,
         when: [COMBAT_PHASE],
         command_ability: true,
-      },
-      {
-        name: `Pinned Down`,
-        desc: `If an enemy MONSTER is hit twice with the Carnosaur's Clawed Forelimbs, you can add 2 to the result when rolling to hit that target with the Carnosaur's Massive Jaws in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Blood Frenzy`,
-        desc: `Once this model has slain an enemy with its Massive Jaws, it can run and charge in the same turn for the rest of the battle.`,
-        when: [DURING_GAME],
       },
     ],
   },
@@ -271,11 +275,7 @@ export const Units: TUnits = [
   {
     name: `Skink Priest w/ Cloak of Feathers`,
     effects: [
-      {
-        name: `Celestial Rites`,
-        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
+      CelestialRitesEffect,
       {
         name: `Cloak of Feathers`,
         desc: `A Skink Priest wearing a Cloak of Feathers has a Save of 4+ rather than 5+, a Move of 14" rather than 8", and can fly.`,
@@ -286,14 +286,10 @@ export const Units: TUnits = [
   {
     name: `Skink Priest w/ Priestly Trappings`,
     effects: [
-      {
-        name: `Celestial Rites`,
-        desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
+      CelestialRitesEffect,
       {
         name: `Priestly Trappings`,
-        desc: `A Skink Priest wearing Priestly Trappings affects all SERAPHON units from your army within 8" when it performs a celestial rite, rather than a single unit.`,
+        desc: `A Skink Priest wearing Priestly Trappings affects all SERAPHON units from your army within 8" when it performs a Celestial Rite, rather than a single unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -332,60 +328,32 @@ export const Units: TUnits = [
         desc: `Roll for Engine of the Gods effect.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Steadfast Majesty`,
-        desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Unstoppable Stampede`,
-        desc: `When a EoTG attacks with its Crushing Stomps, add 1 to any wound rolls if it charged in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      SteadfastMajestyEffect,
+      UnstoppableStampedeEffect,
     ],
   },
   {
     name: `Saurus Warriors`,
     effects: [
-      {
-        name: `Stardrake Icon`,
-        desc: `If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Stardrake Shields`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      StardrakeIconEffect,
+      StardrakeShieldsEffect,
       {
         name: `Ordered Cohort`,
         desc: `Add 1 to this unit's hit rolls if it has at least 20 models, and 1 to the number of attacks each model makes with its Celestite weapon if it has at least 30 models.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Wardrum`,
-        desc: `A unit that includes any wardrums can march in its movement phase. When it does so, it doubles its Move characteristic but cannot run or charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      WardrumEffect,
     ],
   },
   {
     name: `Saurus Guard`,
     effects: [
-      {
-        name: `Stardrake Icon`,
-        desc: `If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Stardrake Shields`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      StardrakeIconEffect,
+      StardrakeShieldsEffect,
       {
         name: `Sworn Guardians`,
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 1 to the result of any save rolls for it.`,
-        when: [DURING_GAME],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Sworn Guardians`,
@@ -397,26 +365,14 @@ export const Units: TUnits = [
   {
     name: `Saurus Knights`,
     effects: [
-      {
-        name: `Stardrake Icon`,
-        desc: `If a battleshock test is made for an enemy unit within 5" of any stardrake icons, add 1 to the result.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StardrakeIconEffect,
       {
         name: `Blazing Lances`,
         desc: `If the wound roll for a Celestite Lance is 6 or higher and the model charged in the same turn, the attack inflicts an additional mortal wound.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Stardrake Shields`,
-        desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Wardrum`,
-        desc: `A unit that includes any wardrums can march in its movement phase. When it does so, it doubles its Move characteristic but cannot run or charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      StardrakeShieldsEffect,
+      WardrumEffect,
     ],
   },
   {
@@ -432,11 +388,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for Skinks in the shooting phase if it has at least 20 models, or add 2 if it has at least 30 models.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Star-bucklers`,
-        desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
-      },
+      StarbucklersEffect,
     ],
   },
   {
@@ -504,14 +456,15 @@ export const Units: TUnits = [
       },
       {
         name: `Swooping Dive`,
-        desc: `Remember to declare that your Ripperdactyls are swooping. In the following combat phase you can re-roll failed hit and wound rolls for this unit.`,
+        desc: `Remember to declare that your Ripperdactyls are swooping. In your following combat phase you can re-roll failed hit and wound rolls for this unit.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Star-bucklers`,
-        desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-        when: [DURING_GAME],
+        name: `Swooping Dive`,
+        desc: `You can re-roll failed hit and wound rolls for this unit in your combat phase.`,
+        when: [COMBAT_PHASE],
       },
+      StarbucklersEffect,
       {
         name: `Voracious Appetite`,
         desc: `If the hit roll for an attack made with a Ripperdactyl's Vicious Beak scores a hit, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -602,11 +555,7 @@ export const Units: TUnits = [
   {
     name: `Bastiladon w/ Ark of Sotek`,
     effects: [
-      {
-        name: `Impervious Defence`,
-        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a D6 whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
-        when: [DURING_GAME],
-      },
+      ...ImperviousDefenceEffects,
       {
         name: `Tide of Snakes`,
         desc: `At the start of each combat phase, a Bastiladon carrying an Ark of Sotek can unleash a tide of venomous serpents. Pick up to six enemy units within 8" and mark each one with a dice showing a different number. Then roll twelve dice to see where the snakes go. Each enemy unit suffers one mortal wound for each roll that matches the number on its dice. Any dice that do not roll a matching number have no effect as the snakes slither away.`,
@@ -617,11 +566,7 @@ export const Units: TUnits = [
   {
     name: `Bastiladon w/ Solar Engine`,
     effects: [
-      {
-        name: `Impervious Defence`,
-        desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic. In addition, roll a D6 whenever it suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
-        when: [DURING_GAME],
-      },
+      ...ImperviousDefenceEffects,
       {
         name: `Light of the Heavens`,
         desc: `If this model's Searing Beam targets a unit of CHAOS DAEMONS, its Damage characteristic is 3 rather than 2.`,

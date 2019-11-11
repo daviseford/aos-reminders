@@ -37,7 +37,6 @@ const ThundertuskEffects = [
     when: [COMBAT_PHASE],
   },
 ]
-
 const StonehornEffects = [
   {
     name: `Earth-shattering Charge`,
@@ -50,38 +49,32 @@ const StonehornEffects = [
     when: [WOUND_ALLOCATION],
   },
 ]
-
 const IronfistEffect = {
   name: `Ironfist`,
   desc: `If the unmodified save roll for an attack made with a melee weapon that targets a unit armed with Ironfists is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
   when: [COMBAT_PHASE],
 }
-
 const BellowerEffect = {
   name: `Bellower`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any Bellowers.`,
   when: [BATTLESHOCK_PHASE],
 }
-
 const RhinoxChargeEffect = {
   name: `Rhinox Charge`,
   desc: `Add 1 to the damage inflicted by attacks made with this model's Rhinox's Sharp Horns if this model made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
 }
-
 const BloodVultureEffect = {
   name: `Blood Vulture`,
   desc: `If this model is armed with a Blood Vulture, at the start of your shooting phase, pick 1 enemy unit within 30" of this model that is visible to it and roll a D6. On a 2+, that unit suffers 1 mortal wound.`,
   when: [START_OF_SHOOTING_PHASE],
 }
-
 const BellowingVoiceEffect = {
   name: `Bellowing Voice`,
   desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly Beastclaw Raiders units that are wholly within 12" of that model when the charge roll is made.`,
   when: [START_OF_CHARGE_PHASE],
   command_ability: true,
 }
-
 const BloodgruelEffect = {
   name: `Bloodgruel`,
   desc: `Roll a D6 each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,

@@ -72,6 +72,14 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
 
+        if (txt.startsWith('- Lodge: ')) {
+          const allegiance = txt.replace('- Lodge: ', '').trim()
+          if (allegiance) {
+            accum.allegiances = accum.allegiances.concat(allegiance)
+            return accum
+          }
+        }
+
         if (txt.startsWith('- Grand Court: ')) {
           const allegiance = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x =>
             txt.includes(x)
