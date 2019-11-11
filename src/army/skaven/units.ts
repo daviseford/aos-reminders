@@ -26,38 +26,32 @@ const AltarOfTheHornedRatEffect = {
   desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
   when: [BATTLESHOCK_PHASE],
 }
-
 const ThrowingStarsEffect = {
   name: `Throwing Stars`,
   desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [SHOOTING_PHASE],
 }
-
 const RunningDeathEffect = {
   name: `Running Death`,
   desc: `This unit can run and still shoot later in the same turn.`,
   when: [MOVEMENT_PHASE, SHOOTING_PHASE],
 }
-
 const GnashGnawOnTheirBonesEffect = {
   name: `Gnash-gnaw on their Bones!`,
   desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly CLANS VERMINUS unit wholly within 13" of a friendly model with this command ability. Add 1 to the Attacks characteristic of melee weapons used by that unit in that phase. You cannot pick the same unit to benefit from this ability more than once per phase.`,
   when: [START_OF_COMBAT_PHASE],
   command_ability: true,
 }
-
 const ClanshieldEffect = {
   name: `Clanshields`,
   desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
-
 const RegeneratingMonstrosityEffect = {
   name: `Regenerating Monstrosity`,
   desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
   when: [HERO_PHASE],
 }
-
 const PushedIntoBattleEffects = [
   {
     name: `Pushed into Battle`,
@@ -70,31 +64,26 @@ const PushedIntoBattleEffects = [
     when: [COMBAT_PHASE],
   },
 ]
-
 const TerrifyingEffect = {
   name: `Terrifying`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
   when: [BATTLESHOCK_PHASE],
 }
-
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION],
 }
-
 const PoisonousFumesEffect = {
   name: `Poisonous Fumes`,
   desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
   when: [END_OF_COMBAT_PHASE],
 }
-
 const FrenziedAssaultEffect = {
   name: `Frenzied Assault`,
   desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
 }
-
 const WarpLightningEffect = {
   name: `Warp Lightning`,
   desc: `Casting value of 5. Pick 1 enemy unit within 13" of the caster and visible to them. That unit suffers D3 mortal wounds. Before making the casting roll, you can say that this model will use its warp-power accumulator to augment the spell. If you do so and the casting attempt is successful and not unbound, the spell inflicts D6 mortal wounds instead of D3. However, if you do so and the casting attempt fails or is unbound, this model suffers D6 mortal wounds.`,
