@@ -75,16 +75,13 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
   )
 }
 
-export const LoadArmyBtn = connect(
-  null,
-  {
-    addReminders: visibility.actions.addReminders,
-    clearReminder: visibility.actions.clearReminder,
-    setFactionName: factionNames.actions.setFactionName,
-    setRealmscape: realmscape.actions.setRealmscape,
-    setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-    updateAllyArmies: army.actions.updateAllyArmies,
-    updateAllySelections: selections.actions.updateAllySelections,
-    updateSelections: selections.actions.updateSelections,
-  }
-)(LoadButtonComponent)
+export const LoadArmyBtn = connect(null, {
+  addReminders: visibility.actions.addReminders,
+  clearReminder: visibility.actions.clearReminder,
+  setFactionName: factionNames.actions.setFactionName,
+  setRealmscape: realmscape.actions.setRealmscape,
+  setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
+  updateAllyArmies: army.actions.updateAllyArmies,
+  updateAllySelections: selections.actions.updateAllySelections,
+  updateSelections: selections.actions.updateSelections,
+})(LoadButtonComponent)

@@ -94,18 +94,15 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
   )
 }
 
-const ImportContainer = connect(
-  null,
-  {
-    setFactionName: factionNames.actions.setFactionName,
-    setRealmscape: realmscape.actions.setRealmscape,
-    setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-    updateAllyArmies: army.actions.updateAllyArmies,
-    updateAllySelections: selections.actions.updateAllySelections,
-    updateAllyUnits: selections.actions.updateAllyUnits,
-    updateSelections: selections.actions.updateSelections,
-  }
-)(ImportContainerComponent)
+const ImportContainer = connect(null, {
+  setFactionName: factionNames.actions.setFactionName,
+  setRealmscape: realmscape.actions.setRealmscape,
+  setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
+  updateAllyArmies: army.actions.updateAllyArmies,
+  updateAllySelections: selections.actions.updateAllySelections,
+  updateAllyUnits: selections.actions.updateAllyUnits,
+  updateSelections: selections.actions.updateSelections,
+})(ImportContainerComponent)
 
 export default ImportContainer
 
