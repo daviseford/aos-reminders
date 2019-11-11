@@ -103,10 +103,7 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.addWhen,
 }
 
-export const Reminder = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ReminderComponent)
+export const Reminder = connect(mapStateToProps, mapDispatchToProps)(ReminderComponent)
 
 interface IActionTextProps extends TTurnAction {
   hideEntry: () => void
@@ -137,10 +134,12 @@ const ActionText = (props: IActionTextProps) => {
 
 const ActionTitle = (props: IActionTextProps) => {
   const { theme } = useTheme()
+  const title = getActionTitle(props)
+  const titleStr = title ? `${title} - ` : ``
 
   return (
     <>
-      <span className={`${theme.textMuted} font-weight-bold`}>{getActionTitle(props)} - </span>
+      <span className={`${theme.textMuted} font-weight-bold`}>{titleStr}</span>
       <strong className={theme.text}>
         {props.name && `${props.name}`}
         {props.tag && ` (${props.tag})`}

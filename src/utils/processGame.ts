@@ -34,7 +34,7 @@ const addProps = (entry: TEntry) => {
 
   return (effect: TEffects): TTurnAction => {
     const action: TTurnAction = {
-      condition: entry.name,
+      condition: [entry.name],
       name: effect.name,
       desc: effect.desc,
       tag: effect.tag || false,
