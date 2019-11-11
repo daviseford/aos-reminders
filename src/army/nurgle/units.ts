@@ -81,19 +81,16 @@ const BlubberAndBileEffect = {
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
   when: [WOUND_ALLOCATION],
 }
-
 const CorpulentMassEffect = {
   name: `Corpulent Mass`,
   desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
   when: [HERO_PHASE],
 }
-
 const DisgustinglyResilientEffect = {
   name: `Disgustingly Resilient`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
   when: [WOUND_ALLOCATION],
 }
-
 const MountainOfLoathsomeFleshEffect = {
   name: `Mountain of Loathsome Flesh`,
   desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds.`,

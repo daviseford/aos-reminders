@@ -27,19 +27,16 @@ const NecrophorosEffect = {
   desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
-
 const NadariteWeaponsEffect = {
   name: `Nadirite Weapons`,
   desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
 }
-
 const HeraldsOfTheAccursedOneEffect = {
   name: `Heralds of the Accursed One`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly MORGHASTS.`,
   when: [BATTLESHOCK_PHASE],
 }
-
 const EndlessDutyEffect = {
   name: `Endless Duty`,
   desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly OSSIARCH BONEREAPERS unit that is wholly within 12" of a model with this command ability. Add 1 to the Attacks characteristic of weapons used by that unit in that phase. You cannot pick the same unit to benefit from this command ability more than once per phase.`,
