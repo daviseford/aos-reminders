@@ -40,6 +40,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
+    expect(warscrollTxt.selections.allegiances).toEqual(['Vostarg (Lodge)'])
     expect(warscrollTxt.selections.battalions).toEqual(['Lords of the Lodge'])
     expect(warscrollTxt.errors).toEqual([])
   })
