@@ -17,7 +17,7 @@ import {
 } from 'utils/localStore'
 import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
-import SupportPlans from 'components/payment/plans'
+import { SubscriptionPlans } from 'components/payment/plans'
 import NavbarWrapper from './navbar_wrapper'
 
 const Navbar: React.FC = () => {
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
   if (isOffline) return <OfflineHeader />
   if (loading || subscriptionLoading) return <LoadingHeader />
 
-  const discount = SupportPlans.some(x => x.sale) ? max(SupportPlans.map(x => x.discount_pct)) : 0
+  const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
 
   return (
     <NavbarWrapper>

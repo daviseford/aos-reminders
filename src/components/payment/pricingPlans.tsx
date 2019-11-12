@@ -6,7 +6,7 @@ import AsyncStripeProvider from './asyncStripeProvider'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import SupportPlans, { ISupportPlan } from './plans'
+import { SubscriptionPlans, ISubscriptionPlan } from './plans'
 import { IUser } from 'types/user'
 import { LocalStoredArmy } from 'utils/localStore'
 
@@ -23,7 +23,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
       <PlansHeader />
 
       <div className="card-deck text-center">
-        {SupportPlans.map((plan, i) => (
+        {SubscriptionPlans.map((plan, i) => (
           <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
         ))}
       </div>
@@ -45,7 +45,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 }
 
 const PlansHeader = () => {
-  const hasSale = SupportPlans.some(x => x.sale)
+  const hasSale = SubscriptionPlans.some(x => x.sale)
 
   return (
     <div className="col-12 bg-light text-center mb-3">
@@ -60,7 +60,7 @@ const PlansHeader = () => {
 interface IPlanProps {
   stripe: any
   user: IUser
-  supportPlan: ISupportPlan
+  supportPlan: ISubscriptionPlan
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {

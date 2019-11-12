@@ -3,7 +3,7 @@ import { isValidFactionName } from './armyUtils'
 import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
 import { generateUUID } from './textUtils'
-import SupportPlans from 'components/payment/plans'
+import { SubscriptionPlans } from 'components/payment/plans'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
@@ -117,7 +117,7 @@ export const logDisplay = (element: string) => {
 }
 
 export const logSubscription = (planTitle: string) => {
-  const plan = SupportPlans.find(x => x.title === planTitle)
+  const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
   try {
     const id = generateUUID()
