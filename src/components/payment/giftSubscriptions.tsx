@@ -11,6 +11,12 @@ import { IUser } from 'types/user'
 import { LocalStoredArmy } from 'utils/localStore'
 import { useSubscription } from 'context/useSubscription'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import { IGiftSubscription } from 'types/subscription'
+import { capitalize } from 'lodash'
+import CopyToClipboard from 'react-copy-to-clipboard'
+import { useTheme } from 'context/useTheme'
+import GenericButton from 'components/input/generic_button'
+import { FaLink, FaCheck } from 'react-icons/fa'
 
 const HAS_SALE = GiftedSubscriptionPlans.some(x => x.sale)
 
@@ -27,12 +33,51 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
 
   return (
     <div className="container">
+      <GiftTable />
       <PlansHeader />
-
       <PurchaseTable {...props} />
     </div>
   )
 })
+
+const GiftTable = () => {
+  const { subscription } = useSubscription()
+  const { giftSubscriptions = [] } = subscription
+
+  if (giftSubscriptions.length === 0) return null
+
+  return (
+    <table className={`table`}>
+      {giftSubscriptions.map((x, i) => (
+        <GiftRow {...x} key={i} />
+      ))}
+    </table>
+  )
+}
+
+const GiftRow = (props: IGiftSubscription) => {
+  const { theme } = useTheme()
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2500)
+  }
+
+  return (
+    <tr>
+      <td>{props.planIntervalCount}</td>
+      <td>{`${capitalize(props.planInterval)}${props.planIntervalCount > 1 ? `s` : ``}`}</td>
+      <td>
+        <CopyToClipboard onCopy={handleCopy} text={props.url}>
+          <GenericButton className={theme.modalConfirmClass}>
+            <FaLink className="mr-2" /> Copy Invite URL{copied && <FaCheck className={`text-success ml-2`} />}
+          </GenericButton>
+        </CopyToClipboard>
+      </td>
+    </tr>
+  )
+}
 
 interface IPurchaseTable {
   stripe: any

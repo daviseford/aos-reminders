@@ -3,8 +3,9 @@ import { TSupportedFaction } from 'meta/factions'
 
 export interface IGiftSubscription {
   id: string
-  planInterval?: string
-  planIntervalCount?: number
+  planInterval: string
+  planIntervalCount: number
+  url: string
 }
 
 export interface ISubscription {
