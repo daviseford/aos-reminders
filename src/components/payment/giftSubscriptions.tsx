@@ -95,10 +95,10 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     LocalStoredArmy.set() // Store our current army in local storage so we don't lose it
 
-    const plan = isDev ? supportPlan.dev : supportPlan.prod
+    const sku = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
-    const item = { plan, quantity }
+    const item = { sku, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
 
     stripe
       .redirectToCheckout({
@@ -112,11 +112,11 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
           gifted: true,
           quantity,
-          plan: supportPlan.title,
+          sku: supportPlan.title,
         })}`,
         cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
           canceled: true,
-          plan: supportPlan.title,
+          sku: supportPlan.title,
         })}`,
       })
       .then(function(result) {
