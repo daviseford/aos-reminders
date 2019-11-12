@@ -88,6 +88,11 @@ const CelestialLightningArcEffects = [
     when: [SHOOTING_PHASE],
   },
 ]
+const IntolerableDamageEffect = {
+  name: `Intolerable Damage`,
+  desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
+  when: [COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -208,11 +213,7 @@ export const Units: TUnits = [
         desc: `Add D3 to the Attacks of Heldensen if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       {
         name: `Storm Breath`,
         desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
@@ -443,11 +444,7 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       SigmariteThundershield,
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       {
         name: `Stormstrike Glaive`,
         desc: `Add 2 to the Damage of this model's Stormstrike Glaive if this model made a charge move in the same turn.`,
@@ -881,11 +878,7 @@ export const Units: TUnits = [
   {
     name: `Concussors`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -898,11 +891,7 @@ export const Units: TUnits = [
   {
     name: `Fulminators`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -920,11 +909,7 @@ export const Units: TUnits = [
   {
     name: `Desolators`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -937,11 +922,7 @@ export const Units: TUnits = [
   {
     name: `Tempestors`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
