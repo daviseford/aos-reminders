@@ -16,10 +16,11 @@ const HAS_SALE = GiftedSubscriptionPlans.some(x => x.sale)
 
 interface ICheckoutProps {
   stripe?: any
+  isMobile?: boolean
 }
 
-const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
-  const { stripe } = props
+const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(props => {
+  const { stripe, isMobile } = props
   const { user }: { user: IUser } = useAuth0()
   const { isActive } = useSubscription()
 
@@ -29,13 +30,13 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
     <div className="container">
       <PlansHeader />
 
-      <table className="table">
+      <table className={`table ${isMobile ? `table-sm` : ``}`}>
         <thead>
           <td>
             <strong>Plan</strong>
           </td>
           <td>
-            <strong>Quantity</strong>
+            <strong>{isMobile ? `#` : `Quantity`}</strong>
           </td>
           <td>
             <strong>Cost</strong>
@@ -43,7 +44,7 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
         </thead>
         <tbody>
           {GiftedSubscriptionPlans.map((plan, i) => (
-            <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
+            <PlanComponent {...props} user={user} supportPlan={plan} key={i} />
           ))}
         </tbody>
       </table>
@@ -62,7 +63,7 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
       </div>
     </div>
   )
-}
+})
 
 const PlansHeader = () => {
   return (
@@ -79,11 +80,10 @@ interface IPlanProps {
   stripe: any
   user: IUser
   supportPlan: IGiftedSubscriptionPlans
-  isMobile?: boolean
-  isTinyMobile?: boolean
+  isMobile: boolean
 }
 
-const PlanComponent: React.FC<IPlanProps> = componentWithSize(props => {
+const PlanComponent: React.FC<IPlanProps> = props => {
   const { stripe, user, supportPlan, isMobile } = props
   const { isAuthenticated } = useAuth0()
   const { handleLogin } = useSavedArmies()
@@ -142,8 +142,7 @@ const PlanComponent: React.FC<IPlanProps> = componentWithSize(props => {
   return (
     <tr>
       <td>
-        {' '}
-        <strong className="">{supportPlan.title}</strong>{' '}
+        <strong>{supportPlan.title}</strong>
       </td>
       <td>
         <input
@@ -166,15 +165,15 @@ const PlanComponent: React.FC<IPlanProps> = componentWithSize(props => {
       <td>
         <button
           type="button"
-          className="btn btn btn-block btn-primary"
+          className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
           onClick={isAuthenticated ? handleCheckout : handleLogin}
         >
-          Purchase
+          {isMobile ? `Buy` : `Purchase`}
         </button>
       </td>
     </tr>
   )
-})
+}
 
 const InjectedGiftSubscriptions = injectStripe(GiftSubscriptionsComponent)
 

@@ -55,13 +55,7 @@ const Profile: React.FC = () => {
         </div>
       </div>
 
-      <div className={`container ${theme.bgColor} px-0`}>
-        <div className="row d-flex justify-content-center">
-          <div className={userCardWrapperClass}>
-            <GiftSubscriptions />
-          </div>
-        </div>
-      </div>
+      <GiftSubscriptions />
     </div>
   )
 }
