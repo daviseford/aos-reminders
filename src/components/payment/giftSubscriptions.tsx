@@ -10,6 +10,7 @@ import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from './plans'
 import { IUser } from 'types/user'
 import { LocalStoredArmy } from 'utils/localStore'
 import { useSubscription } from 'context/useSubscription'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 const HAS_SALE = GiftedSubscriptionPlans.some(x => x.sale)
 
@@ -29,6 +30,17 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
       <PlansHeader />
 
       <table className="table">
+        <thead>
+          <td>
+            <strong>Plan</strong>
+          </td>
+          <td>
+            <strong>Quantity</strong>
+          </td>
+          <td>
+            <strong>Cost</strong>
+          </td>
+        </thead>
         <tbody>
           {GiftedSubscriptionPlans.map((plan, i) => (
             <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
@@ -54,7 +66,7 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = props => {
 
 const PlansHeader = () => {
   return (
-    <div className="col-12 bg-light text-center mb-3">
+    <div className="col-12 text-center mb-3">
       <h4>
         Gift a Subscription!
         {HAS_SALE && <span className="ml-2 badge badge-danger">Sale!</span>}
@@ -67,10 +79,12 @@ interface IPlanProps {
   stripe: any
   user: IUser
   supportPlan: IGiftedSubscriptionPlans
+  isMobile?: boolean
+  isTinyMobile?: boolean
 }
 
-const PlanComponent: React.FC<IPlanProps> = props => {
-  const { stripe, user, supportPlan } = props
+const PlanComponent: React.FC<IPlanProps> = componentWithSize(props => {
+  const { stripe, user, supportPlan, isMobile } = props
   const { isAuthenticated } = useAuth0()
   const { handleLogin } = useSavedArmies()
   const [quantity, setQuantity] = useState(1)
@@ -78,6 +92,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
     e.preventDefault()
+
+    if (quantity === 0) return // Can't do anything with zero quantity
 
     logClick(`${supportPlan.title}-GiftedSubscription`)
 
@@ -120,7 +136,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
   const handleChange = e => {
     const value = e.target.value
-    setQuantity(value || 1)
+    setQuantity(value)
   }
 
   return (
@@ -133,20 +149,20 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <input
           style={{ maxWidth: '50px' }}
           className="form-control"
-          type="text"
+          type="number"
           value={quantity}
           onChange={handleChange}
         />
       </td>
-      <td>${supportPlan.cost}</td>
 
-      {HAS_SALE && (
+      <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
+
+      {HAS_SALE && !isMobile && (
         <td>
           <span className="badge badge-pill badge-danger mb-2">{supportPlan.discount_pct}% off!</span>
         </td>
       )}
 
-      <td>{supportPlan.title}</td>
       <td>
         <button
           type="button"
@@ -158,7 +174,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       </td>
     </tr>
   )
-}
+})
 
 const InjectedGiftSubscriptions = injectStripe(GiftSubscriptionsComponent)
 
