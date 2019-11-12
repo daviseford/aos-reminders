@@ -109,7 +109,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
         // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+        successUrl: `${window.location.protocol}//${url}/profile/?${qs.stringify({
           gifted: true,
           quantity,
           sku: supportPlan.title,
