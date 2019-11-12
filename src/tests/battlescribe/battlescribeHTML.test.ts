@@ -144,6 +144,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Nighthaunt4', () => {
+    const parsedText = getFile('Nighthaunt4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Nurgle2', () => {
     const parsedText = getFile('Nurgle2')
     const res = getBattlescribeArmy(parsedText)

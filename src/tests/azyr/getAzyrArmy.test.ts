@@ -10,6 +10,7 @@ import {
   DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
@@ -39,6 +40,7 @@ import FEC2 from '../fixtures/azyr/json/FEC2.json'
 import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
+import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
 import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import IDK3 from '../fixtures/azyr/json/IDK3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
@@ -97,6 +99,14 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Gloomspite2', () => {
+    const pages = handleAzyrPages(Gloomspite2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections.battalions).toEqual(['Spider Rider Skitterswarm', 'Skitterstrand Nest'])
     expect(res.errors).toEqual([])
   })
 
