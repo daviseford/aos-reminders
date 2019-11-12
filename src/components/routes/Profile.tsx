@@ -18,6 +18,7 @@ import { SelectOne } from 'components/input/select'
 import { centerContentClass } from 'theme/helperClasses'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { IUser } from 'types/user'
+import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -50,6 +51,14 @@ const Profile: React.FC = () => {
         <div className="row d-flex justify-content-center">
           <div className={userCardWrapperClass}>
             <UserCard />
+          </div>
+        </div>
+      </div>
+
+      <div className={`container ${theme.bgColor} px-0`}>
+        <div className="row d-flex justify-content-center">
+          <div className={userCardWrapperClass}>
+            <GiftSubscriptions />
           </div>
         </div>
       </div>
