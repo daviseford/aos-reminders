@@ -93,6 +93,11 @@ const IntolerableDamageEffect = {
   desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
   when: [COMBAT_PHASE],
 }
+const StarsoulMacesEffect = {
+  name: `Starsoul Maces`,
+  desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+  when: [COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -935,11 +940,7 @@ export const Units: TUnits = [
   {
     name: `Protectors`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Deathstrike`,
         desc: `If the unmodified hit roll for an attack made with a Stormstrike Glaive that targets a MONSTER is 6, that attack has a Damage of D6 instead of 1.`,
@@ -960,11 +961,7 @@ export const Units: TUnits = [
   {
     name: `Decimators`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Cleaving Blow`,
         desc: `The Attacks of a Thunderaxe is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
@@ -1006,11 +1003,7 @@ export const Units: TUnits = [
   {
     name: `Retributors`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Blast to Ashes`,
         desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
