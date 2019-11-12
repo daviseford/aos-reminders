@@ -32,15 +32,11 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
 
       <table className={`table ${isMobile ? `table-sm` : ``}`}>
         <thead>
-          <td>
-            <strong>Plan</strong>
-          </td>
-          <td>
-            <strong>{isMobile ? `#` : `Quantity`}</strong>
-          </td>
-          <td>
-            <strong>Cost</strong>
-          </td>
+          <tr>
+            <th>Plan</th>
+            <th>{isMobile ? `#` : `Quantity`}</th>
+            <th>Cost</th>
+          </tr>
         </thead>
         <tbody>
           {GiftedSubscriptionPlans.map((plan, i) => (
