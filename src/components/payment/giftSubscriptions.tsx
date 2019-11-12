@@ -20,8 +20,7 @@ interface ICheckoutProps {
 }
 
 const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(props => {
-  const { stripe, isMobile } = props
-  const { user }: { user: IUser } = useAuth0()
+  const { stripe } = props
   const { isActive } = useSubscription()
 
   if (!stripe || !isActive) return <></>
@@ -30,6 +29,22 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
     <div className="container">
       <PlansHeader />
 
+      <PurchaseTable {...props} />
+    </div>
+  )
+})
+
+interface IPurchaseTable {
+  stripe: any
+  isMobile: boolean
+}
+
+const PurchaseTable = (props: IPurchaseTable) => {
+  const { isMobile } = props
+  const { user }: { user: IUser } = useAuth0()
+
+  return (
+    <>
       <table className={`table ${isMobile ? `table-sm` : ``}`}>
         <thead>
           <tr>
@@ -57,9 +72,9 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
           </small>
         </div>
       </div>
-    </div>
+    </>
   )
-})
+}
 
 const PlansHeader = () => {
   return (
