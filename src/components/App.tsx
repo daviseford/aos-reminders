@@ -4,7 +4,7 @@ import { LoadingBody } from './helpers/suspenseFallbacks'
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
-import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
+import { handleCheckout, handleArmyLink, handleGiftRedemption } from 'utils/handleQueryParams'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
 import { ROUTES } from 'utils/env'
 
@@ -12,10 +12,12 @@ import { ROUTES } from 'utils/env'
 const Home = lazy(() => import('components/routes/Home'))
 const Profile = lazy(() => import('components/routes/Profile'))
 const Subscribe = lazy(() => import('components/routes/Subscribe'))
+const Redeem = lazy(() => import('components/routes/Redeem'))
 
 const App = () => {
   useEffect(() => {
     handleCheckout() // Post-checkout handling
+    handleGiftRedemption()
     const loadedLink = handleArmyLink() // Load army from link
     if (!loadedLink) loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
   }, [])
@@ -28,6 +30,7 @@ const App = () => {
             <Route path={ROUTES.HOME} exact component={Home} />
             <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
             <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+            <Route path={ROUTES.REDEEM} component={Redeem} />
           </Switch>
         </Suspense>
       </BrowserRouter>
