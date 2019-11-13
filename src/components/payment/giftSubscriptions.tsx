@@ -51,9 +51,9 @@ const GiftTable = () => {
     <>
       <div className={`row text-center ${theme.text}`}>
         <div className={`col`}>
-          <h4 className={``}>Purchased Subscriptions</h4>
+          <h4>Purchased Subscriptions</h4>
           <small>
-            Click to copy one of these links and send it to your friend. When they click the link, they'll be
+            Click to copy one of these links and send it to your friend. When they visit the link, they'll be
             asked to create an account and your gifted subscription will then be redeemed.
           </small>
         </div>
@@ -87,7 +87,8 @@ const GiftButton = (props: IGiftSubscription) => {
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
       <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
-        <FaLink className="mr-2" /> <strong>{label}</strong> - Copy Invite URL
+        <FaLink className="mr-2" />
+        <strong className="mr-1">{label}</strong> Gift
         {copied && <FaCheck className={`text-success ml-2`} />}
       </GenericButton>
     </CopyToClipboard>
@@ -106,33 +107,37 @@ const PurchaseTable = (props: IPurchaseTable) => {
 
   return (
     <>
-      <table className={`table ${theme.text} ${isMobile ? `table-sm` : ``}`}>
-        <thead>
-          <tr>
-            <th>Plan</th>
-            <th>{isMobile ? `#` : `Quantity`}</th>
-            <th>Cost</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {GiftedSubscriptionPlans.map((plan, i) => (
-            <PlanComponent {...props} user={user} supportPlan={plan} key={i} />
-          ))}
-        </tbody>
-      </table>
-      <div className={`row text-center justify-content-center ${theme.text} pb-5`}>
-        <div className="col">
-          <small>
-            <em>
-              Gifted subscriptions are <strong>not</strong> recurring charges. You only pay for the initial
-              subscription period.
-              <br />
-              You will receive an activation link that you can send to anyone. They will set up their account
-              using that link.
-            </em>
-          </small>
+      <div className={`row d-flex justify-content-center`}>
+        <div className={`col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-8`}>
+          <table className={`table ${theme.text} ${isMobile ? `table-sm` : ``}`}>
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>{isMobile ? `#` : `Quantity`}</th>
+                <th>Cost</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {GiftedSubscriptionPlans.map((plan, i) => (
+                <PlanComponent {...props} user={user} supportPlan={plan} key={i} />
+              ))}
+            </tbody>
+          </table>
+          <div className={`row text-center justify-content-center ${theme.text} pb-5`}>
+            <div className="col">
+              <small>
+                <em>
+                  Gifted subscriptions are <strong>not</strong> recurring charges. You only pay for the
+                  initial subscription period.
+                  <br />
+                  You will receive an activation link that you can send to anyone. They will set up their
+                  account using that link.
+                </em>
+              </small>
+            </div>
+          </div>
         </div>
       </div>
     </>
