@@ -19,6 +19,7 @@ import { centerContentClass } from 'theme/helperClasses'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { IUser } from 'types/user'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
+import { FaGift } from 'react-icons/fa'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -64,7 +65,7 @@ export default Profile
 
 const UserCard: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
-  const { isActive, isSubscribed, isCanceled, subscription } = useSubscription()
+  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -78,7 +79,9 @@ const UserCard: React.FC = () => {
         isSubscribed={isSubscribed}
         isActive={isActive}
       />
-      {isSubscribed && <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} />}
+      {isSubscribed && (
+        <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
+      )}
       <EmailVerified email_verified={user.email_verified} email={user.email} />
       <Help />
     </div>
@@ -205,7 +208,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
   )
 }
 
-const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
+const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -224,6 +227,15 @@ const RecurringPaymentInfo = ({ isActive, isCanceled }) => {
       {isActive && !isCanceled && (
         <div className={theme.cardBody}>
           <CancelBtn />
+        </div>
+      )}
+      {isGifted && (
+        <div className={theme.cardBody}>
+          <FaGift className="mr-2" />
+          You were gifted this subscription!
+          <FaGift className="ml-2" />
+          <br />
+          You may purchase a recurring subscription at the end of this period.
         </div>
       )}
     </div>
