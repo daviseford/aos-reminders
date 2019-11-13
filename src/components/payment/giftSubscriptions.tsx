@@ -79,12 +79,13 @@ const GiftButton = (props: IGiftSubscription) => {
   const { theme } = useTheme()
   const [copied, setCopied] = useState(false)
 
+  const label = `${planIntervalCount} ${capitalize(planInterval)}${planIntervalCount > 1 ? `s` : ``}`
+
   const handleCopy = () => {
+    logClick(`Copy-Gift-URL-${label}`)
     setCopied(true)
     setTimeout(() => setCopied(false), 2500)
   }
-
-  const label = `${planIntervalCount} ${capitalize(planInterval)}${planIntervalCount > 1 ? `s` : ``}`
 
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>

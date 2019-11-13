@@ -6,7 +6,7 @@ import qs from 'qs'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { logPageView, logClick } from 'utils/analytics'
+import { logPageView, logClick, logEvent } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { LocalRedemptionKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
@@ -92,6 +92,7 @@ const RedeemSection = () => {
       if (body.error) return setError(body.error)
       if (body.success) {
         setSuccess(true)
+        logEvent(`Redeemed-Gift`)
         getSubscription()
       }
     } catch (err) {
@@ -183,7 +184,7 @@ const LoginSection = () => {
   const handleClick = e => {
     e.preventDefault()
     setLocalRedemptionKey()
-    logClick('Login-Redeem')
+    logClick('Login-Before-Redeem')
     return handleLogin({ redirect_uri: window.location.href })
   }
 
