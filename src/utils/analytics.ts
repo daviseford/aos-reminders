@@ -3,7 +3,7 @@ import { isValidFactionName } from './armyUtils'
 import { isTest, isProd } from './env'
 import { TImportParsers } from 'types/import'
 import { generateUUID } from './textUtils'
-import { SubscriptionPlans } from 'components/payment/plans'
+import { SubscriptionPlans, GiftedSubscriptionPlans } from 'components/payment/plans'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
@@ -130,6 +130,27 @@ export const logSubscription = (planTitle: string) => {
       quantity: '1',
     })
     ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue: plan.cost })
+    ReactGA.plugin.execute('ecommerce', 'send', 'ga')
+    ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
+  } catch (err) {}
+}
+
+export const logGiftedSubscription = (planTitle: string, quantity: string) => {
+  const plan = GiftedSubscriptionPlans.find(x => x.title === planTitle)
+  if (!isProd || !plan) return
+  try {
+    const id = generateUUID()
+    const revenue = (parseFloat(plan.cost) * parseInt(quantity)).toFixed(2)
+
+    ReactGA.plugin.execute('ecommerce', 'addItem', {
+      id,
+      name: plan.title,
+      sku: plan.prod,
+      price: plan.cost,
+      category: 'Gifted-Subscription',
+      quantity,
+    })
+    ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue })
     ReactGA.plugin.execute('ecommerce', 'send', 'ga')
     ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
   } catch (err) {}

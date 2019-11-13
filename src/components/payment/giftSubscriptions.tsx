@@ -194,11 +194,11 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         successUrl: `${window.location.protocol}//${url}/profile/?${qs.stringify({
           gifted: true,
           quantity,
-          sku: supportPlan.title,
+          plan: supportPlan.title,
         })}`,
         cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
           canceled: true,
-          sku: supportPlan.title,
+          plan: supportPlan.title,
         })}`,
       })
       .then(function(result) {
