@@ -98,6 +98,11 @@ const StarsoulMacesEffect = {
   desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
   when: [COMBAT_PHASE],
 }
+const ThunderousPounceEffect = {
+  name: `Thunderous Pounce`,
+  desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+  when: [CHARGE_PHASE, COMBAT_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -178,11 +183,7 @@ export const Units: TUnits = [
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       SupernaturalRoarEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       PrimeElectridsEffect,
       {
         name: `Soul Energy of the First Host`,
@@ -373,11 +374,7 @@ export const Units: TUnits = [
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       PrimeElectridsEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       SupernaturalRoarEffect,
       {
         name: `Storm Lance`,
@@ -1278,11 +1275,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       SupernaturalRoarEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       {
         name: `Empower`,
         desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
