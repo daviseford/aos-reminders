@@ -48,20 +48,32 @@ const GiftTable = () => {
   if (giftSubscriptions.length === 0) return null
 
   return (
-    <div className={`row d-flex justify-content-center`}>
-      <div className={`col-12 col-xl-6 text-center`}>
-        <h4 className={`${theme.text}`}>Purchased Subscriptions</h4>
-        <table className={`table ${theme.text} table-sm table-borderless`}>
-          {giftSubscriptions.map((x, i) => (
-            <GiftRow {...x} key={i} />
-          ))}
-        </table>
+    <>
+      <div className={`row text-center ${theme.text}`}>
+        <div className={`col`}>
+          <h4 className={``}>Purchased Subscriptions</h4>
+          <small>
+            Click to copy one of these links and send it to your friend. When they click the link, they'll be
+            asked to create an account and your gifted subscription will then be redeemed.
+          </small>
+        </div>
       </div>
-    </div>
+
+      <div className={`row d-flex justify-content-center`}>
+        <div className={`col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-8 text-center`}>
+          <div className={`${theme.text}`}>
+            {giftSubscriptions.map((x, i) => (
+              <GiftButton {...x} key={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
-const GiftRow = (props: IGiftSubscription) => {
+const GiftButton = (props: IGiftSubscription) => {
+  const { planInterval, planIntervalCount } = props
   const { theme } = useTheme()
   const [copied, setCopied] = useState(false)
 
@@ -70,18 +82,15 @@ const GiftRow = (props: IGiftSubscription) => {
     setTimeout(() => setCopied(false), 2500)
   }
 
+  const label = `${planIntervalCount} ${capitalize(planInterval)}${planIntervalCount > 1 ? `s` : ``}`
+
   return (
-    <tr>
-      <td>{props.planIntervalCount}</td>
-      <td>{`${capitalize(props.planInterval)}${props.planIntervalCount > 1 ? `s` : ``}`}</td>
-      <td>
-        <CopyToClipboard onCopy={handleCopy} text={props.url}>
-          <GenericButton className={theme.genericButton}>
-            <FaLink className="mr-2" /> Copy Invite URL{copied && <FaCheck className={`text-success ml-2`} />}
-          </GenericButton>
-        </CopyToClipboard>
-      </td>
-    </tr>
+    <CopyToClipboard onCopy={handleCopy} text={props.url}>
+      <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
+        <FaLink className="mr-2" /> <strong>{label}</strong> - Copy Invite URL
+        {copied && <FaCheck className={`text-success ml-2`} />}
+      </GenericButton>
+    </CopyToClipboard>
   )
 }
 
@@ -212,7 +221,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       </td>
       <td>
         <input
-          style={{ maxWidth: '50px' }}
+          style={{ maxWidth: '60px' }}
           className="form-control"
           type="number"
           value={quantity}
