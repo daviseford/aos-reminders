@@ -1,7 +1,7 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { FaRegFrown } from 'react-icons/fa'
+import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import qs from 'qs'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -11,7 +11,6 @@ import { ROUTES } from 'utils/env'
 import { LocalRedemptionKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { ContactComponent } from 'components/page/contact'
 import { IUser } from 'types/user'
 
@@ -19,13 +18,14 @@ const Navbar = lazy(() => import('components/page/navbar'))
 
 const Redeem: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { getSubscription, isActive } = useSubscription()
+  const { getSubscription } = useSubscription()
   const { theme } = useTheme()
 
   const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
 
   useEffect(() => {
     logPageView()
+    setLocalRedemptionKey()
   }, [])
 
   useEffect(() => {
@@ -33,7 +33,6 @@ const Redeem: React.FC = () => {
   }, [getSubscription])
 
   if (loading) return <LoadingBody />
-  if (isActive) return <AlreadySubscribed />
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
@@ -75,10 +74,13 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
   const redeemInfo = getRedemptionInfo()
+  const { getSubscription } = useSubscription()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  if (!redeemInfo) return null
+  if (!redeemInfo && success) return <Success />
+  if (!redeemInfo && error) return <Error error={error} />
+  if (!redeemInfo) return <NoKeyFound />
 
   const { giftId, userId } = redeemInfo
 
@@ -86,9 +88,12 @@ const RedeemSection = () => {
     try {
       e.preventDefault()
       const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
-      console.log(body)
-      if (body.success) setSuccess(true)
-      if (body.error) setError(body.error)
+      LocalRedemptionKey.clear()
+      if (body.error) return setError(body.error)
+      if (body.success) {
+        setSuccess(true)
+        getSubscription()
+      }
     } catch (err) {
       console.error(err)
       setError('An unknown error occurred.')
@@ -105,18 +110,21 @@ const RedeemSection = () => {
         </p>
       )}
 
-      {success && <Success />}
-
       {!error && !success && (
         <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClickRedeem}>
           Redeem
         </GenericButton>
       )}
 
+      {success && <Success />}
       {error && <Error error={error} />}
     </div>
   )
 }
+
+const NoKeyFound = () => (
+  <p>We couldn't locate a subscription id. You may have arrived here via a malformed link.</p>
+)
 
 const Success = () => {
   const handleClickSuccess = () => {
@@ -126,6 +134,10 @@ const Success = () => {
   return (
     <>
       <h5>Woohoo! You're all set!</h5>
+
+      <h2>
+        <FaRegSmileBeam />
+      </h2>
 
       <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>
         Take me to my Profile!
@@ -157,17 +169,21 @@ const Error = ({ error }: { error: string }) => {
   )
 }
 
+const setLocalRedemptionKey = () => {
+  const { redeem, referrer } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  })
+  if (redeem && referrer) {
+    LocalRedemptionKey.set(redeem, referrer)
+  }
+}
 const LoginSection = () => {
   const { handleLogin } = useSavedArmies()
 
   const handleClick = e => {
     e.preventDefault()
-    const { redeem, referrer } = qs.parse(window.location.search, {
-      ignoreQueryPrefix: true,
-    })
-    console.log('setting keys', redeem)
-    LocalRedemptionKey.set(redeem, referrer)
-    logClick('Redeem-CreateAccount')
+    setLocalRedemptionKey()
+    logClick('Login-Redeem')
     return handleLogin({ redirect_uri: window.location.href })
   }
 
