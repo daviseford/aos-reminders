@@ -8,6 +8,7 @@ import { IUser } from 'types/user'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { LocalRedemptionKey } from 'utils/localStore'
 import qs from 'qs'
+import GenericButton from 'components/input/generic_button'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -52,7 +53,7 @@ const Redeem: React.FC = () => {
 }
 
 const RedeemSection = () => {
-  const { subscription } = useSubscription()
+  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const redemptionId = LocalRedemptionKey.get()
 
   const handleClick = e => {
@@ -62,11 +63,13 @@ const RedeemSection = () => {
 
   return (
     <div>
-      You're currently logged in as {subscription.userName}. If you're ready to redeem this gifted
-      subscription, click the button below!
-      <button className={`btn btn-primary btn-lg`} onClick={handleClick}>
+      <p>
+        You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this gifted
+        subscription, click the button below!
+      </p>
+      <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClick}>
         Redeem
-      </button>
+      </GenericButton>
     </div>
   )
 }
@@ -90,9 +93,9 @@ const LoginSection = () => {
         First, you're going to need to create an account and log in. Once you've done that, we'll set your
         subscription up!
       </p>
-      <button className={`btn btn-primary btn-lg`} onClick={handleClick}>
+      <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClick}>
         Create An Account
-      </button>
+      </GenericButton>
     </div>
   )
 }
