@@ -13,12 +13,13 @@ import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks
 import GenericButton from 'components/input/generic_button'
 import { ContactComponent } from 'components/page/contact'
 import { IUser } from 'types/user'
+import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Redeem: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
-  const { getSubscription } = useSubscription()
+  const { getSubscription, isActive } = useSubscription()
   const { theme } = useTheme()
 
   const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
@@ -33,6 +34,7 @@ const Redeem: React.FC = () => {
   }, [getSubscription])
 
   if (loading) return <LoadingBody />
+  if (isActive) return <AlreadySubscribed />
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
@@ -74,7 +76,6 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
   const redeemInfo = getRedemptionInfo()
-  const { getSubscription } = useSubscription()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
@@ -93,7 +94,6 @@ const RedeemSection = () => {
       if (body.success) {
         setSuccess(true)
         logEvent(`Redeemed-Gift`)
-        getSubscription()
       }
     } catch (err) {
       console.error(err)

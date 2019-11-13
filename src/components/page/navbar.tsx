@@ -19,8 +19,9 @@ import { navbarStyles } from 'theme/helperClasses'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import { SubscriptionPlans } from 'components/payment/plans'
 import NavbarWrapper from './navbar_wrapper'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
@@ -67,7 +68,9 @@ const Navbar: React.FC = () => {
           onClick={() => logClick('Navbar-Subscribe')}
         >
           Subscribe
-          {!!discount && <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>}
+          {!!discount && !isTinyMobile && (
+            <span className="ml-1 badge badge-pill badge-danger">{discount}% off!</span>
+          )}
         </Link>
       )}
 
@@ -76,6 +79,6 @@ const Navbar: React.FC = () => {
       </button>
     </NavbarWrapper>
   )
-}
+})
 
 export default Navbar
