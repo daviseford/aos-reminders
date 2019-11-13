@@ -53,7 +53,7 @@ const Redeem: React.FC = () => {
 }
 
 const RedeemSection = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { user }: { user: IUser } = useAuth0()
   const redemptionId = LocalRedemptionKey.get()
 
   const handleClick = e => {
