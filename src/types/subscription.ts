@@ -6,6 +6,7 @@ export interface IGiftSubscription {
   planInterval: string
   planIntervalCount: number
   url: string
+  userName: string // The userName who gifted the subscription
 }
 
 export interface ISubscription {
