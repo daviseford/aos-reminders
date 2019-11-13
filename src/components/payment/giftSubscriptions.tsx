@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
+import { useAuth0 } from 'react-auth0-wrapper'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
-import { useAuth0 } from 'react-auth0-wrapper'
-import AsyncStripeProvider from './asyncStripeProvider'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { logClick } from 'utils/analytics'
-import { isDev, STRIPE_KEY } from 'utils/env'
-import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from './plans'
-import { IUser } from 'types/user'
-import { LocalStoredArmy } from 'utils/localStore'
-import { useSubscription } from 'context/useSubscription'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { IGiftSubscription } from 'types/subscription'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { useTheme } from 'context/useTheme'
-import GenericButton from 'components/input/generic_button'
 import { FaLink, FaCheck } from 'react-icons/fa'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import { logClick } from 'utils/analytics'
+import { isDev, STRIPE_KEY } from 'utils/env'
+import { LocalStoredArmy } from 'utils/localStore'
+import { componentWithSize } from 'utils/mapSizesToProps'
+import AsyncStripeProvider from './asyncStripeProvider'
+import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from './plans'
+import GenericButton from 'components/input/generic_button'
+import { IGiftSubscription } from 'types/subscription'
+import { IUser } from 'types/user'
 
 const HAS_SALE = GiftedSubscriptionPlans.some(x => x.sale)
 
@@ -33,25 +33,31 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
 
   return (
     <div className="container">
-      <GiftTable />
       <PlansHeader />
       <PurchaseTable {...props} />
+      <GiftTable />
     </div>
   )
 })
 
 const GiftTable = () => {
+  const { theme } = useTheme()
   const { subscription } = useSubscription()
   const { giftSubscriptions = [] } = subscription
 
   if (giftSubscriptions.length === 0) return null
 
   return (
-    <table className={`table`}>
-      {giftSubscriptions.map((x, i) => (
-        <GiftRow {...x} key={i} />
-      ))}
-    </table>
+    <div className={`row d-flex justify-content-center`}>
+      <div className={`col-12 col-xl-6 text-center`}>
+        <h4 className={`${theme.text}`}>Purchased Subscriptions</h4>
+        <table className={`table ${theme.text} table-sm table-borderless`}>
+          {giftSubscriptions.map((x, i) => (
+            <GiftRow {...x} key={i} />
+          ))}
+        </table>
+      </div>
+    </div>
   )
 }
 
@@ -70,7 +76,7 @@ const GiftRow = (props: IGiftSubscription) => {
       <td>{`${capitalize(props.planInterval)}${props.planIntervalCount > 1 ? `s` : ``}`}</td>
       <td>
         <CopyToClipboard onCopy={handleCopy} text={props.url}>
-          <GenericButton className={theme.modalConfirmClass}>
+          <GenericButton className={theme.genericButton}>
             <FaLink className="mr-2" /> Copy Invite URL{copied && <FaCheck className={`text-success ml-2`} />}
           </GenericButton>
         </CopyToClipboard>
@@ -86,16 +92,19 @@ interface IPurchaseTable {
 
 const PurchaseTable = (props: IPurchaseTable) => {
   const { isMobile } = props
+  const { theme } = useTheme()
   const { user }: { user: IUser } = useAuth0()
 
   return (
     <>
-      <table className={`table ${isMobile ? `table-sm` : ``}`}>
+      <table className={`table ${theme.text} ${isMobile ? `table-sm` : ``}`}>
         <thead>
           <tr>
             <th>Plan</th>
             <th>{isMobile ? `#` : `Quantity`}</th>
             <th>Cost</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -104,7 +113,7 @@ const PurchaseTable = (props: IPurchaseTable) => {
           ))}
         </tbody>
       </table>
-      <div className="row text-center justify-content-center">
+      <div className={`row text-center justify-content-center ${theme.text} pb-5`}>
         <div className="col">
           <small>
             <em>
@@ -122,8 +131,9 @@ const PurchaseTable = (props: IPurchaseTable) => {
 }
 
 const PlansHeader = () => {
+  const { theme } = useTheme()
   return (
-    <div className="col-12 text-center mb-3">
+    <div className={`col-12 text-center mb-3 ${theme.text}`}>
       <h4>
         Gift a Subscription!
         {HAS_SALE && <span className="ml-2 badge badge-danger">Sale!</span>}

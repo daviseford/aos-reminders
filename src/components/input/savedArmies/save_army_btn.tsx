@@ -76,7 +76,7 @@ const SubscribeBtn = () => {
   return (
     <Link
       to={ROUTES.SUBSCRIBE}
-      className={theme.genericButton}
+      className={theme.genericButtonBlock}
       onClick={() => logClick('SaveArmy-Subscribe')}
     >
       <div className={centerContentClass}>

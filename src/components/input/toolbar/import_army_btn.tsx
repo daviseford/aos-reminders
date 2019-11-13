@@ -30,7 +30,11 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
       <FaFileImport className="mr-2" /> {btnTxt}
     </GenericButton>
   ) : (
-    <Link to={ROUTES.SUBSCRIBE} className={theme.genericButton} onClick={() => logClick('Import-Subscribe')}>
+    <Link
+      to={ROUTES.SUBSCRIBE}
+      className={theme.genericButtonBlock}
+      onClick={() => logClick('Import-Subscribe')}
+    >
       <div className={centerContentClass}>
         <FaFileImport className="mr-2" /> Import List
       </div>
