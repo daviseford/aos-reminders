@@ -4,7 +4,7 @@ import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { FaLink, FaCheck } from 'react-icons/fa'
+import { FaGift, FaCheck } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -18,7 +18,7 @@ import GenericButton from 'components/input/generic_button'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
 
-const HAS_SALE = GiftedSubscriptionPlans.some(x => x.sale)
+const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
 interface ICheckoutProps {
   stripe?: any
@@ -49,18 +49,20 @@ const GiftTable = () => {
 
   return (
     <>
-      <div className={`row text-center ${theme.text}`}>
-        <div className={`col`}>
+      <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
+        <div className={COL_SIZE}>
           <h4>Purchased Subscriptions</h4>
           <small>
-            Click to copy one of these links and send it to your friend. When they visit the link, they'll be
-            asked to create an account and your gifted subscription will then be redeemed.
+            Click to copy one of these links and send it to your friend.
+            <br />
+            When they visit the link, they'll be asked to create an account and your gifted subscription will
+            be redeemed.
           </small>
         </div>
       </div>
 
-      <div className={`row d-flex justify-content-center`}>
-        <div className={`col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-8 text-center`}>
+      <div className={`row d-flex justify-content-center pb-5`}>
+        <div className={`${COL_SIZE} text-center`}>
           <div className={`${theme.text}`}>
             {giftSubscriptions.map((x, i) => (
               <GiftButton {...x} key={i} />
@@ -87,7 +89,7 @@ const GiftButton = (props: IGiftSubscription) => {
   return (
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
       <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
-        <FaLink className="mr-2" />
+        <FaGift className="mr-2" />
         <strong className="mr-1">{label}</strong> Gift
         {copied && <FaCheck className={`text-success ml-2`} />}
       </GenericButton>
@@ -108,14 +110,13 @@ const PurchaseTable = (props: IPurchaseTable) => {
   return (
     <>
       <div className={`row d-flex justify-content-center`}>
-        <div className={`col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-8`}>
+        <div className={`${COL_SIZE}`}>
           <table className={`table ${theme.text} ${isMobile ? `table-sm` : ``}`}>
             <thead>
               <tr>
                 <th>Plan</th>
                 <th>{isMobile ? `#` : `Quantity`}</th>
                 <th>Cost</th>
-                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -148,10 +149,7 @@ const PlansHeader = () => {
   const { theme } = useTheme()
   return (
     <div className={`col-12 text-center mb-3 ${theme.text}`}>
-      <h4>
-        Gift a Subscription!
-        {HAS_SALE && <span className="ml-2 badge badge-danger">Sale!</span>}
-      </h4>
+      <h4>Gift a Subscription!</h4>
     </div>
   )
 }
@@ -235,12 +233,6 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       </td>
 
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
-
-      {HAS_SALE && !isMobile && (
-        <td>
-          <span className="badge badge-pill badge-danger mb-2">{supportPlan.discount_pct}% off!</span>
-        </td>
-      )}
 
       <td>
         <button
