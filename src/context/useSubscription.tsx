@@ -2,12 +2,18 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { ISubscription } from 'types/subscription'
-import { isSubscriber, isActiveSubscriber, isCanceledSubscriber } from 'utils/subscriptionUtils'
+import {
+  isSubscriber,
+  isActiveSubscriber,
+  isCanceledSubscriber,
+  isGiftedSubscriber,
+} from 'utils/subscriptionUtils'
 import { LocalFavoriteFaction } from 'utils/localStore'
 
 const initialState = {
   isActive: false,
   isCanceled: false,
+  isGifted: false,
   isNotSubscribed: false,
   isSubscribed: false,
   subscription: { id: '', userName: '', subscribed: false },
@@ -27,6 +33,10 @@ interface ISubscriptionContext {
    * Has this user cancelled recurring payments?
    */
   isCanceled: boolean
+  /**
+   * Was this subscription given as a gift?
+   */
+  isGifted: boolean
   /**
    * This value is only set AFTER Auth0 and the Subscription API have been contacted
    * Don't rely on it for immediate correctness on pageload
@@ -50,8 +60,9 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)
 
   const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
-  const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
   const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
+  const isGifted = useMemo(() => isGiftedSubscriber(subscription), [subscription])
+  const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
 
   useEffect(() => {
     if (loading) return
@@ -98,6 +109,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         getSubscription,
         isActive,
         isCanceled,
+        isGifted,
         isNotSubscribed,
         isSubscribed,
         subscription,

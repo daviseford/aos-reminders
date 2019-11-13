@@ -21,7 +21,7 @@ interface ISavedArmiesContext {
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
   getFavoriteFaction: () => Promise<void>
-  handleLogin: () => void
+  handleLogin: (args?: { [key: string]: any }) => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -197,10 +197,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [subscription, isActive]
   )
 
-  const handleLogin = useCallback(() => {
-    LocalStoredArmy.set()
-    loginWithRedirect()
-  }, [loginWithRedirect])
+  const handleLogin = useCallback(
+    (args = {}) => {
+      LocalStoredArmy.set()
+      loginWithRedirect(args)
+    },
+    [loginWithRedirect]
+  )
 
   useEffect(() => {
     if (user && isActive) LocalUserName.set(user.email)
