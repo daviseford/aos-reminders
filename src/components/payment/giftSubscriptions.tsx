@@ -192,12 +192,12 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         clientReferenceId: user.email, // Included in the checkout.session.completed webhook
 
         // Redirect after checkout
-        successUrl: `${window.location.protocol}//${url}/profile/?${qs.stringify({
+        successUrl: `${window.location.protocol}//${url}/profile?${qs.stringify({
           gifted: true,
           quantity,
           plan: supportPlan.title,
         })}`,
-        cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+        cancelUrl: `${window.location.protocol}//${url}?${qs.stringify({
           canceled: true,
           plan: supportPlan.title,
         })}`,
