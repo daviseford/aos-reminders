@@ -1,18 +1,19 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
-import { useTheme } from 'context/useTheme'
-import { logPageView, logClick } from 'utils/analytics'
-import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
-import { IUser } from 'types/user'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { LocalRedemptionKey } from 'utils/localStore'
+import { FaRegFrown } from 'react-icons/fa'
 import qs from 'qs'
-import GenericButton from 'components/input/generic_button'
+import { useTheme } from 'context/useTheme'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { SubscriptionApi } from 'api/subscriptionApi'
+import { logPageView, logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import { LocalRedemptionKey } from 'utils/localStore'
+import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
+import GenericButton from 'components/input/generic_button'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { ContactComponent } from 'components/page/contact'
+import { IUser } from 'types/user'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -103,7 +104,7 @@ const RedeemSection = () => {
       </p>
       {success && (
         <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>
-          Done!
+          Done! Take me to my Profile!
         </GenericButton>
       )}
 
@@ -113,12 +114,17 @@ const RedeemSection = () => {
         </GenericButton>
       )}
 
-      {error && <GenericButton className={`btn btn-danger btn-lg`}>Error!</GenericButton>}
       {error && (
-        <p>
-          We're sorry. There was an error redeeming your subscription. if you continue to receive this error,
-          please get in contact with us using the links below.
-        </p>
+        <GenericButton className={`btn btn-danger btn-lg`}>
+          Error!
+          <FaRegFrown className="ml-2" />
+        </GenericButton>
+      )}
+      {error && (
+        <>
+          <p className="pt-3">We're sorry. There was an error redeeming your subscription.</p>
+          <p>If you continue to receive this error, please get in contact with us using the links below.</p>
+        </>
       )}
       {error && (
         <div className="row text-center pt-2 pb-3">
