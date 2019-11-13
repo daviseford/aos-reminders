@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react'
+import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -10,6 +10,9 @@ import { LocalRedemptionKey } from 'utils/localStore'
 import qs from 'qs'
 import GenericButton from 'components/input/generic_button'
 import { SubscriptionApi } from 'api/subscriptionApi'
+import { ROUTES } from 'utils/env'
+import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { ContactComponent } from 'components/page/contact'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -29,7 +32,7 @@ const Redeem: React.FC = () => {
   }, [getSubscription])
 
   if (loading) return <LoadingBody />
-  if (isActive) return <p>You are already subscribed!</p>
+  if (isActive) return <AlreadySubscribed />
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
@@ -52,20 +55,44 @@ const Redeem: React.FC = () => {
   )
 }
 
+const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
+  const localInfo = LocalRedemptionKey.get()
+  if (localInfo && localInfo.giftId) return localInfo
+
+  const { redeem, referrer } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  })
+
+  if (redeem && referrer) {
+    return { giftId: redeem, userId: referrer }
+  }
+
+  return null
+}
+
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
-  const redeemInfo = LocalRedemptionKey.get()
+  const redeemInfo = getRedemptionInfo()
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   if (!redeemInfo) return null
-  console.log(redeemInfo)
 
   const { giftId, userId } = redeemInfo
 
-  const handleClick = async e => {
-    e.preventDefault()
-    console.log('redeem')
-    const res = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
-    console.log(res)
+  const handleClickRedeem = async e => {
+    try {
+      e.preventDefault()
+      const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
+      if (body.success) setSuccess(true)
+    } catch (err) {
+      console.error(err)
+      setError(true)
+    }
+  }
+
+  const handleClickSuccess = () => {
+    window.location.replace(ROUTES.PROFILE)
   }
 
   return (
@@ -74,9 +101,32 @@ const RedeemSection = () => {
         You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this gifted
         subscription, click the button below!
       </p>
-      <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClick}>
-        Redeem
-      </GenericButton>
+      {success && (
+        <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>
+          Done!
+        </GenericButton>
+      )}
+
+      {!error && !success && (
+        <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClickRedeem}>
+          Redeem
+        </GenericButton>
+      )}
+
+      {error && <GenericButton className={`btn btn-danger btn-lg`}>Error!</GenericButton>}
+      {error && (
+        <p>
+          We're sorry. There was an error redeeming your subscription. if you continue to receive this error,
+          please get in contact with us using the links below.
+        </p>
+      )}
+      {error && (
+        <div className="row text-center pt-2 pb-3">
+          <div className="col">
+            <ContactComponent size="small" />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

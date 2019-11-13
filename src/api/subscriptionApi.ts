@@ -1,7 +1,6 @@
 import request from 'superagent'
 import { isDev, SUBSCRIPTION_AUTH_KEY } from 'utils/env'
 import { TSupportedFaction } from 'meta/factions'
-import { IGiftSubscription } from 'types/subscription'
 import { TThemeType } from 'types/theme'
 
 const devEndpoint = `https://pitljgzx18.execute-api.us-east-1.amazonaws.com/dev`
