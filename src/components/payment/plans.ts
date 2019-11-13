@@ -3,12 +3,12 @@ export interface IGiftedSubscriptionPlans {
   dev: string // plan ID in test mode
   prod: string // plan ID in prod
   title: string
-  sale?: boolean
-  discount_pct?: number
 }
 
 export interface ISubscriptionPlan extends IGiftedSubscriptionPlans {
   monthly_cost: string
+  sale?: boolean
+  discount_pct?: number
 }
 
 // Battlescribe sale
@@ -47,25 +47,19 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
   {
     cost: '0.99',
     dev: 'sku_GAMOo7HKhPgOrl',
-    discount_pct: 50,
-    prod: '',
-    sale: true,
+    prod: 'sku_GAqlskLWmrotl0',
     title: '1 Month',
   },
   {
     cost: '2.67',
     dev: 'sku_GAMOxUEnWQLslM',
-    discount_pct: 40,
-    prod: '',
-    sale: true,
+    prod: 'sku_GAqlfasGefolVt',
     title: '3 Months',
   },
   {
     cost: '9.49',
     dev: 'sku_GAMIdacq7uChaF',
-    discount_pct: 20,
-    prod: '',
-    sale: true,
+    prod: 'sku_GAqm4R7SuEJToJ',
     title: '1 Year',
   },
 ]
