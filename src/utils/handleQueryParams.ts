@@ -43,10 +43,10 @@ export const handleArmyLink = (): boolean => {
 }
 
 export const handleGiftRedemption = () => {
-  const { redeem = null } = qs.parse(window.location.search, {
+  const { redeem = null, referrer } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   })
   if (redeem && window.location.pathname !== ROUTES.REDEEM) {
-    return window.location.replace(`${ROUTES.REDEEM}?redeem=${redeem}`)
+    return window.location.replace(`${ROUTES.REDEEM}?redeem=${redeem}&referrer=${referrer}`)
   }
 }

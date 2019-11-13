@@ -28,7 +28,8 @@ interface IUpdateTheme {
 
 interface IRedeemGift {
   giftId: string
-  userId: string
+  userId: string // userId of the referrer
+  userName: string // userName receiving the gift
 }
 
 const withAuth = (data: { [key: string]: any }) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })

@@ -57,13 +57,15 @@ const RedeemSection = () => {
   const redeemInfo = LocalRedemptionKey.get()
 
   if (!redeemInfo) return null
+  console.log(redeemInfo)
 
   const { giftId, userId } = redeemInfo
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault()
     console.log('redeem')
-    SubscriptionApi.redeemGift({ giftId, userId })
+    const res = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
+    console.log(res)
   }
 
   return (
