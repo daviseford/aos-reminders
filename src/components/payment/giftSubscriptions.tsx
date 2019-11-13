@@ -52,12 +52,12 @@ const GiftTable = () => {
       <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
         <div className={COL_SIZE}>
           <h4>Purchased Subscriptions</h4>
-          <small>
-            Click to copy one of these links and send it to your friend.
+          <p>
+            Click to copy a one-time-use link and send it to your friend.
             <br />
             When they visit the link, they'll be asked to create an account and your gifted subscription will
             be redeemed.
-          </small>
+          </p>
         </div>
       </div>
 
