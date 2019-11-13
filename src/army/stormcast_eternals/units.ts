@@ -103,6 +103,21 @@ const ThunderousPounceEffect = {
   desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
 }
+const WindriderEffect = {
+  name: `Windrider`,
+  desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
+  when: [MOVEMENT_PHASE],
+}
+TirelessHunterEffect = {
+  name: `Tireless Hunter`,
+  desc: `This model can run and still shoot in the same turn.`,
+  when: [SHOOTING_PHASE],
+}
+TirelessHuntersEffect = {
+  name: `Tireless Hunters`,
+  desc: `This unit can run and still shoot in the same turn.`,
+  when: [SHOOTING_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -246,21 +261,13 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tireless Hunter`,
-        desc: `This model can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
+      TirelessHunterEffect,
       {
         name: `Nemesis`,
         desc: `Add 1 to the Damage of this model's weapons if the target is a HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      WindriderEffect,
     ],
   },
   {
@@ -304,11 +311,7 @@ export const Units: TUnits = [
     name: `The Farstriders`,
     effects: [
       AstralCompassEffect,
-      {
-        name: `Tireless Hunters`,
-        desc: `This unit can run and still shoot in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      TirelessHuntersEffect,
       {
         name: `Star Falcon`,
         desc: `Pick 1 enemy unit within 18" of Sanson Farstrider and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
@@ -820,16 +823,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tireless Hunter`,
-        desc: `This model can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      TirelessHunterEffect,
+      WindriderEffect,
     ],
   },
   {
@@ -1134,11 +1129,7 @@ export const Units: TUnits = [
     name: `Vanguard-Hunters`,
     effects: [
       AstralCompassEffect,
-      {
-        name: `Tireless Hunters`,
-        desc: `This unit can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
+      TirelessHuntersEffect,
       {
         name: `Hunter-Prime`,
         desc: `+1 attack.`,
