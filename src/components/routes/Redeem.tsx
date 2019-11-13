@@ -9,6 +9,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { LocalRedemptionKey } from 'utils/localStore'
 import qs from 'qs'
 import GenericButton from 'components/input/generic_button'
+import { SubscriptionApi } from 'api/subscriptionApi'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -53,11 +54,16 @@ const Redeem: React.FC = () => {
 
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
-  const redemptionId = LocalRedemptionKey.get()
+  const redeemInfo = LocalRedemptionKey.get()
+
+  if (!redeemInfo) return null
+
+  const { giftId, userId } = redeemInfo
 
   const handleClick = e => {
     e.preventDefault()
     console.log('redeem')
+    SubscriptionApi.redeemGift({ giftId, userId })
   }
 
   return (
@@ -78,10 +84,10 @@ const LoginSection = () => {
 
   const handleClick = e => {
     e.preventDefault()
-    const { redeem } = qs.parse(window.location.search, {
+    const { redeem, referrer } = qs.parse(window.location.search, {
       ignoreQueryPrefix: true,
     })
-    LocalRedemptionKey.set(redeem)
+    LocalRedemptionKey.set(redeem, referrer)
     logClick('Redeem-CreateAccount')
     return handleLogin({ redirect_uri: window.location.href })
   }

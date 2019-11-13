@@ -18,8 +18,15 @@ export const getNotificationBanner = (name: string) => localStorage.getItem(name
 
 export const LocalRedemptionKey = {
   clear: () => localStorage.removeItem(LOCAL_REDEMPTION_KEY),
-  get: () => localStorage.getItem(LOCAL_REDEMPTION_KEY),
-  set: (id: TSupportedFaction) => localStorage.setItem(LOCAL_REDEMPTION_KEY, id),
+  get: () => {
+    const obj = localStorage.getItem(LOCAL_REDEMPTION_KEY)
+    if (!obj) return null
+    return JSON.parse(obj) as { giftId: string; userId: string }
+  },
+  set: (giftId: string, userId: string) => {
+    const obj = JSON.stringify({ giftId, userId })
+    localStorage.setItem(LOCAL_REDEMPTION_KEY, obj)
+  },
 }
 
 export const LocalFavoriteFaction = {
