@@ -2,7 +2,6 @@ import qs from 'qs'
 import { logEvent, logSubscription } from './analytics'
 import { loadArmyFromLink } from './loadArmyFromLink'
 import { ROUTES } from './env'
-import { LocalRedemptionKey } from './localStore'
 
 export const handleCheckout = () => {
   const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
