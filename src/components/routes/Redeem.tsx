@@ -20,7 +20,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 const Redeem: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
-  const { theme } = useTheme()
+  const { theme, isDark, setLightTheme } = useTheme()
 
   const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
 
@@ -33,6 +33,7 @@ const Redeem: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
+  if (isDark) setLightTheme()
   if (loading) return <LoadingBody />
   if (isActive) return <AlreadySubscribed />
 
