@@ -2,6 +2,7 @@ import qs from 'qs'
 import { logEvent, logSubscription } from './analytics'
 import { loadArmyFromLink } from './loadArmyFromLink'
 import { ROUTES } from './env'
+import { LocalRedemptionKey } from './localStore'
 
 export const handleCheckout = () => {
   const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
@@ -43,11 +44,10 @@ export const handleArmyLink = (): boolean => {
 }
 
 export const handleGiftRedemption = () => {
-  const { pathname } = window.location
   const { redeem = null } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   })
-  if (redeem && pathname !== ROUTES.REDEEM) {
-    window.location.replace(`${ROUTES.REDEEM}?redeem=${redeem}`)
+  if (redeem && window.location.pathname !== ROUTES.REDEEM) {
+    return window.location.replace(`${ROUTES.REDEEM}?redeem=${redeem}`)
   }
 }

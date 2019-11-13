@@ -2,9 +2,12 @@ import React, { useEffect, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import { logPageView } from 'utils/analytics'
+import { logPageView, logClick } from 'utils/analytics'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import { IUser } from 'types/user'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { LocalRedemptionKey } from 'utils/localStore'
+import qs from 'qs'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -12,6 +15,10 @@ const Redeem: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription, subscription, isActive } = useSubscription()
   const { theme } = useTheme()
+
+  const redemptionId = LocalRedemptionKey.get()
+
+  const containerClass = `container ${theme.bgColor} d-flex flex-column align-items-center justify-content-center LoadingContainer`
 
   useEffect(() => {
     logPageView()
@@ -31,11 +38,61 @@ const Redeem: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className={`container ${theme.bgColor} px-0`}>
-        Congratulations! One of your friends has decided that you deserve a subscription to AoS Reminders!
+      <div className={containerClass}>
+        <div className="col text-center">
+          <p>
+            Congratulations! One of your friends has decided that you deserve a subscription to AoS Reminders!
+          </p>
+          {!user && <LoginSection />}
+          {user && <RedeemSection />}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const RedeemSection = () => {
+  const { subscription } = useSubscription()
+  const redemptionId = LocalRedemptionKey.get()
+
+  const handleClick = e => {
+    e.preventDefault()
+    console.log('redeem')
+  }
+
+  return (
+    <div>
+      You're currently logged in as {subscription.userName}. If you're ready to redeem this gifted
+      subscription, click the button below!
+      <button className={`btn btn-primary btn-lg`} onClick={handleClick}>
+        Redeem
+      </button>
+    </div>
+  )
+}
+
+const LoginSection = () => {
+  const { handleLogin } = useSavedArmies()
+
+  const handleClick = e => {
+    e.preventDefault()
+    const { redeem } = qs.parse(window.location.search, {
+      ignoreQueryPrefix: true,
+    })
+    LocalRedemptionKey.set(redeem)
+    logClick('Redeem-CreateAccount')
+    return handleLogin({ redirect_uri: window.location.href })
+  }
+
+  return (
+    <div>
+      <p>
         First, you're going to need to create an account and log in. Once you've done that, we'll set your
         subscription up!
-      </div>
+      </p>
+      <button className={`btn btn-primary btn-lg`} onClick={handleClick}>
+        Create An Account
+      </button>
     </div>
   )
 }

@@ -11,9 +11,16 @@ const LOCAL_SAVED_ARMIES_KEY = 'savedArmies'
 const LOCAL_STORED_ARMY_KEY = 'storedArmy'
 const LOCAL_THEME_KEY = 'theme'
 const LOCAL_USERNAME_KEY = 'userName'
+const LOCAL_REDEMPTION_KEY = 'redeem'
 
 export const hideNotificationBanner = (name: string) => localStorage.setItem(name, 'hidden')
 export const getNotificationBanner = (name: string) => localStorage.getItem(name)
+
+export const LocalRedemptionKey = {
+  clear: () => localStorage.removeItem(LOCAL_REDEMPTION_KEY),
+  get: () => localStorage.getItem(LOCAL_REDEMPTION_KEY),
+  set: (id: TSupportedFaction) => localStorage.setItem(LOCAL_REDEMPTION_KEY, id),
+}
 
 export const LocalFavoriteFaction = {
   clear: () => localStorage.removeItem(LOCAL_FAVORITE_KEY),
