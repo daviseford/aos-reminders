@@ -108,12 +108,7 @@ const WindriderEffect = {
   desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
   when: [MOVEMENT_PHASE],
 }
-TirelessHunterEffect = {
-  name: `Tireless Hunter`,
-  desc: `This model can run and still shoot in the same turn.`,
-  when: [SHOOTING_PHASE],
-}
-TirelessHuntersEffect = {
+const TirelessHuntersEffect = {
   name: `Tireless Hunters`,
   desc: `This unit can run and still shoot in the same turn.`,
   when: [SHOOTING_PHASE],
@@ -261,7 +256,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      TirelessHunterEffect,
+      TirelessHuntersEffect,
       {
         name: `Nemesis`,
         desc: `Add 1 to the Damage of this model's weapons if the target is a HERO.`,
@@ -823,7 +818,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      TirelessHunterEffect,
+      TirelessHuntersEffect,
       WindriderEffect,
     ],
   },
