@@ -152,6 +152,48 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Fyreslayers7', () => {
+    const parsedText = getFile('Fyreslayers7')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Summon Molten Infernoth' },
+      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
+    ])
+  })
+
+  it('should work with Fyreslayers6', () => {
+    const parsedText = getFile('Fyreslayers6')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Summon Molten Infernoth' },
+      { severity: 'warn', text: 'Summon Runic Fyrewall' },
+      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
+    ])
+  })
+
+  it('should work with Fyreslayers5', () => {
+    const parsedText = getFile('Fyreslayers5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Summon Runic Fyrewall' },
+      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
+    ])
+  })
+
+  it('should work with Slaanesh3', () => {
+    const parsedText = getFile('Slaanesh3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Nurgle2', () => {
     const parsedText = getFile('Nurgle2')
     const res = getBattlescribeArmy(parsedText)
