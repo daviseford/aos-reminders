@@ -197,7 +197,7 @@ const LoginSection = () => {
         subscription up!
       </p>
       <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClick}>
-        Create An Account
+        Log In / Sign Up
       </GenericButton>
     </div>
   )
