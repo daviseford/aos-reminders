@@ -740,11 +740,11 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Spider Rider Skittermob`,
+    name: `Spider Rider Skitterswarm`,
     effects: [
       {
         name: `Outriders of the Spider God`,
-        desc: `Add 2" to the Move characteristic of units from the Spider Rider Skittermob battalion.`,
+        desc: `Add 2" to the Move characteristic of units from this battalion.`,
         when: [MOVEMENT_PHASE],
       },
     ],

@@ -1,12 +1,21 @@
 import { TThemeType } from './theme'
 import { TSupportedFaction } from 'meta/factions'
 
+export interface IGiftSubscription {
+  id: string
+  planInterval: string
+  planIntervalCount: number
+  url: string
+  userName: string // The userName who gifted the subscription
+}
+
 export interface ISubscription {
   active?: boolean
   createdAt?: number
   customerId?: string
   expired?: boolean
   favoriteFaction?: TSupportedFaction
+  giftSubscriptions?: IGiftSubscription[]
   id: string
   planId?: string
   planInterval?: string

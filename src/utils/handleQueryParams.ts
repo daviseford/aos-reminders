@@ -1,19 +1,26 @@
 import qs from 'qs'
-import { logEvent, logSubscription } from './analytics'
+import { logEvent, logSubscription, logGiftedSubscription } from './analytics'
 import { loadArmyFromLink } from './loadArmyFromLink'
 
 export const handleCheckout = () => {
-  const { subscribed = false, canceled = false, plan = '' } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  })
+  const { subscribed = false, canceled = false, plan = '', gifted = false, quantity = '' } = qs.parse(
+    window.location.search,
+    {
+      ignoreQueryPrefix: true,
+    }
+  )
 
   if (subscribed) {
     logEvent(`Checkout-Subscribed-${plan}`)
     logSubscription(plan)
   }
+  if (gifted) {
+    logEvent(`Checkout-Gifted-Subscription-${plan}-x-${quantity}`)
+    logGiftedSubscription(plan, quantity)
+  }
   if (canceled) logEvent(`Checkout-Canceled-${plan}`)
 
-  if (subscribed || canceled) {
+  if (subscribed || canceled || gifted) {
     window.history.replaceState({}, document.title, window.location.pathname)
   }
 }

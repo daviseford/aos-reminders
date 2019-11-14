@@ -9,6 +9,7 @@ import { LinkNewTab } from 'components/helpers/link'
 import { GITHUB_URL } from 'utils/env'
 import { useTheme } from 'context/useTheme'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -172,22 +173,6 @@ const ComingSoon = () => (
     </ul>
   </div>
 )
-
-const AlreadySubscribed = () => {
-  const { theme } = useTheme()
-  return (
-    <div className={`d-block ${theme.headerColor} ${theme.text}`}>
-      <div className={`py-2`}>
-        <Navbar />
-      </div>
-      <div className="row d-flex justify-content-center align-items-center">
-        <div className="col mx-5 my-5 py-5 px-5">
-          <p className="lead text-center">You are already a subscriber :) Thanks!</p>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 type TWebmWithFallback = React.FC<{ webmUrl: string; gifUrl: string; description: string; label: string }>
 

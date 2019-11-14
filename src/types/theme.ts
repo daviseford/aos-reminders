@@ -5,6 +5,7 @@ export interface ITheme {
   cardHeader: string
   dropzone: string
   genericButton: string
+  genericButtonBlock: string
   headerColor: string
   modalConfirmClass: string
   modalDangerClass: string

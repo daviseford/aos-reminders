@@ -1,16 +1,19 @@
-export interface ISupportPlan {
+export interface IGiftedSubscriptionPlans {
   cost: string
   dev: string // plan ID in test mode
-  monthly_cost: string
   prod: string // plan ID in prod
   title: string
+}
+
+export interface ISubscriptionPlan extends IGiftedSubscriptionPlans {
+  monthly_cost: string
   sale?: boolean
   discount_pct?: number
 }
 
 // Battlescribe sale
 // Started 10/29/19
-const SupportPlans: ISupportPlan[] = [
+export const SubscriptionPlans: ISubscriptionPlan[] = [
   {
     cost: '0.99',
     dev: 'plan_G0yVJPZbI0cf06',
@@ -36,6 +39,27 @@ const SupportPlans: ISupportPlan[] = [
     monthly_cost: '0.79',
     prod: 'plan_G54gM8AIgJDIEK',
     sale: true,
+    title: '1 Year',
+  },
+]
+
+export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
+  {
+    cost: '0.99',
+    dev: 'sku_GAMOo7HKhPgOrl',
+    prod: 'sku_GAqlskLWmrotl0',
+    title: '1 Month',
+  },
+  {
+    cost: '2.67',
+    dev: 'sku_GAMOxUEnWQLslM',
+    prod: 'sku_GAqlfasGefolVt',
+    title: '3 Months',
+  },
+  {
+    cost: '9.49',
+    dev: 'sku_GAMIdacq7uChaF',
+    prod: 'sku_GAqm4R7SuEJToJ',
     title: '1 Year',
   },
 ]
@@ -95,5 +119,3 @@ const SupportPlans: ISupportPlan[] = [
 //     title: '1 Year',
 //   },
 // ]
-
-export default SupportPlans

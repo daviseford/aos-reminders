@@ -12,6 +12,7 @@ import { ROUTES } from 'utils/env'
 const Home = lazy(() => import('components/routes/Home'))
 const Profile = lazy(() => import('components/routes/Profile'))
 const Subscribe = lazy(() => import('components/routes/Subscribe'))
+const Redeem = lazy(() => import('components/routes/Redeem'))
 
 const App = () => {
   useEffect(() => {
@@ -28,6 +29,7 @@ const App = () => {
             <Route path={ROUTES.HOME} exact component={Home} />
             <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
             <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+            <Route path={ROUTES.REDEEM} component={Redeem} />
           </Switch>
         </Suspense>
       </BrowserRouter>

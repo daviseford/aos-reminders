@@ -24,6 +24,7 @@ export const GITHUB_URL = '//github.com/daviseford/aos-reminders'
 
 export const ROUTES = {
   HOME: '/',
-  SUBSCRIBE: '/subscribe',
   PROFILE: '/profile',
+  REDEEM: '/redeem',
+  SUBSCRIBE: '/subscribe',
 }

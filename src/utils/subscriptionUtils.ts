@@ -5,3 +5,5 @@ export const isActiveSubscriber = (subscription: ISubscription) =>
   isSubscriber(subscription) && !subscription.expired
 export const isCanceledSubscriber = (subscription: ISubscription) =>
   isSubscriber(subscription) && !subscription.active
+export const isGiftedSubscriber = (subscription: ISubscription) =>
+  isActiveSubscriber(subscription) && subscription.planId === 'gifted'

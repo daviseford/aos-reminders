@@ -129,7 +129,6 @@ const battlescribeTypoMap: TNameMap = {
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Shasdow Warrior': 'Shadow Warriors',
   'Sneaky Shufflers': 'Sneaky Snufflers',
-  'Spider Rider Skitterswarm': 'Spider Rider Skittermob',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',

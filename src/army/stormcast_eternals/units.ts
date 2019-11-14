@@ -88,6 +88,31 @@ const CelestialLightningArcEffects = [
     when: [SHOOTING_PHASE],
   },
 ]
+const IntolerableDamageEffect = {
+  name: `Intolerable Damage`,
+  desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
+  when: [COMBAT_PHASE],
+}
+const StarsoulMacesEffect = {
+  name: `Starsoul Maces`,
+  desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+  when: [COMBAT_PHASE],
+}
+const ThunderousPounceEffect = {
+  name: `Thunderous Pounce`,
+  desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+  when: [CHARGE_PHASE, COMBAT_PHASE],
+}
+const WindriderEffect = {
+  name: `Windrider`,
+  desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
+  when: [MOVEMENT_PHASE],
+}
+const TirelessHuntersEffect = {
+  name: `Tireless Hunters`,
+  desc: `This unit can run and still shoot in the same turn.`,
+  when: [SHOOTING_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -168,11 +193,7 @@ export const Units: TUnits = [
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       SupernaturalRoarEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       PrimeElectridsEffect,
       {
         name: `Soul Energy of the First Host`,
@@ -208,11 +229,7 @@ export const Units: TUnits = [
         desc: `Add D3 to the Attacks of Heldensen if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       {
         name: `Storm Breath`,
         desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
@@ -239,21 +256,13 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tireless Hunter`,
-        desc: `This model can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
+      TirelessHuntersEffect,
       {
         name: `Nemesis`,
         desc: `Add 1 to the Damage of this model's weapons if the target is a HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      WindriderEffect,
     ],
   },
   {
@@ -297,11 +306,7 @@ export const Units: TUnits = [
     name: `The Farstriders`,
     effects: [
       AstralCompassEffect,
-      {
-        name: `Tireless Hunters`,
-        desc: `This unit can run and still shoot in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      TirelessHuntersEffect,
       {
         name: `Star Falcon`,
         desc: `Pick 1 enemy unit within 18" of Sanson Farstrider and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
@@ -367,11 +372,7 @@ export const Units: TUnits = [
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       PrimeElectridsEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       SupernaturalRoarEffect,
       {
         name: `Storm Lance`,
@@ -443,11 +444,7 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       SigmariteThundershield,
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       {
         name: `Stormstrike Glaive`,
         desc: `Add 2 to the Damage of this model's Stormstrike Glaive if this model made a charge move in the same turn.`,
@@ -821,16 +818,8 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tireless Hunter`,
-        desc: `This model can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Windrider`,
-        desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      TirelessHuntersEffect,
+      WindriderEffect,
     ],
   },
   {
@@ -881,11 +870,7 @@ export const Units: TUnits = [
   {
     name: `Concussors`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -898,11 +883,7 @@ export const Units: TUnits = [
   {
     name: `Fulminators`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -920,11 +901,7 @@ export const Units: TUnits = [
   {
     name: `Desolators`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -937,11 +914,7 @@ export const Units: TUnits = [
   {
     name: `Tempestors`,
     effects: [
-      {
-        name: `Intolerable Damage`,
-        desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      IntolerableDamageEffect,
       SigmariteShieldsEffect,
       StormBlastEffect,
       {
@@ -954,11 +927,7 @@ export const Units: TUnits = [
   {
     name: `Protectors`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Deathstrike`,
         desc: `If the unmodified hit roll for an attack made with a Stormstrike Glaive that targets a MONSTER is 6, that attack has a Damage of D6 instead of 1.`,
@@ -979,11 +948,7 @@ export const Units: TUnits = [
   {
     name: `Decimators`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Cleaving Blow`,
         desc: `The Attacks of a Thunderaxe is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
@@ -1025,11 +990,7 @@ export const Units: TUnits = [
   {
     name: `Retributors`,
     effects: [
-      {
-        name: `Starsoul Maces`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMacesEffect,
       {
         name: `Blast to Ashes`,
         desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
@@ -1163,11 +1124,7 @@ export const Units: TUnits = [
     name: `Vanguard-Hunters`,
     effects: [
       AstralCompassEffect,
-      {
-        name: `Tireless Hunters`,
-        desc: `This unit can run and still shoot in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
+      TirelessHuntersEffect,
       {
         name: `Hunter-Prime`,
         desc: `+1 attack.`,
@@ -1304,11 +1261,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       SupernaturalRoarEffect,
-      {
-        name: `Thunderous Pounce`,
-        desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
+      ThunderousPounceEffect,
       {
         name: `Empower`,
         desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
