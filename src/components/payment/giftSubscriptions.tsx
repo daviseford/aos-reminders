@@ -33,9 +33,9 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
 
   return (
     <div className="container">
+      <GiftTable />
       <PlansHeader />
       <PurchaseTable {...props} />
-      <GiftTable />
     </div>
   )
 })
@@ -51,7 +51,7 @@ const GiftTable = () => {
     <>
       <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
         <div className={COL_SIZE}>
-          <h4>Purchased Subscriptions</h4>
+          <h4>Your Gift Subscriptions</h4>
           <p>
             Click to copy a one-time-use link and send it to your friend.
             <br />
