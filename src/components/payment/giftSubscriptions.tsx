@@ -4,7 +4,7 @@ import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { FaGift, FaCheck } from 'react-icons/fa'
+import { FaGift, FaCheck, FaRegSmileBeam } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -17,6 +17,7 @@ import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from './plans'
 import GenericButton from 'components/input/generic_button'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
+import { centerContentClass } from 'theme/helperClasses'
 
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
@@ -41,14 +42,19 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
 })
 
 const GiftTable = () => {
-  const { theme } = useTheme()
+  const { theme, isDark } = useTheme()
   const { subscription } = useSubscription()
   const { giftSubscriptions = [] } = subscription
 
+  const border = `border border-${isDark ? `dark` : `light-gray`} rounded`
+
   if (giftSubscriptions.length === 0) return null
 
+  const purchasedSubs = giftSubscriptions.filter(x => x.origin === 'stripe')
+  const adminCreatedSubs = giftSubscriptions.filter(x => x.origin !== 'stripe')
+
   return (
-    <>
+    <div className="pb-5">
       <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
         <div className={COL_SIZE}>
           <h4>Your Gift Subscriptions</h4>
@@ -61,16 +67,30 @@ const GiftTable = () => {
         </div>
       </div>
 
-      <div className={`row d-flex justify-content-center pb-5`}>
+      <div className={`row d-flex justify-content-center`}>
         <div className={`${COL_SIZE} text-center`}>
           <div className={`${theme.text}`}>
-            {giftSubscriptions.map((x, i) => (
+            {purchasedSubs.map((x, i) => (
               <GiftButton {...x} key={i} />
             ))}
           </div>
         </div>
       </div>
-    </>
+
+      <div className={`row d-flex justify-content-center`}>
+        <div className={`${COL_SIZE} py-3 ${border} text-center`}>
+          <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
+            These gifts were given to you by the AoS Reminders team. Spread them around!{' '}
+            <FaRegSmileBeam className="ml-2" />
+          </p>
+          <div className={`${theme.text}`}>
+            {adminCreatedSubs.map((x, i) => (
+              <GiftButton {...x} key={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
