@@ -41,7 +41,7 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
   )
 })
 
-const GiftTable = () => {
+const GiftTable = componentWithSize(({ isMobile = false }) => {
   const { theme, isDark } = useTheme()
   const { subscription } = useSubscription()
   const { giftSubscriptions = [] } = subscription
@@ -53,49 +53,60 @@ const GiftTable = () => {
   const purchasedSubs = giftSubscriptions.filter(x => x.origin === 'stripe')
   const adminCreatedSubs = giftSubscriptions.filter(x => x.origin !== 'stripe')
 
+  const rowClass = `row d-flex justify-content-center text-center ${theme.text} mx-1`
+
   return (
-    <div className="pb-5">
-      <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
-        <div className={COL_SIZE}>
-          <h4>Your Gift Subscriptions</h4>
-          <p>
-            Click to copy a one-time-use link and send it to your friend.
-            <br />
-            When they visit the link, they'll be asked to create an account and your gifted subscription will
-            be redeemed.
-          </p>
-        </div>
-      </div>
-
-      <div className={`row d-flex justify-content-center`}>
-        <div className={`${COL_SIZE} text-center`}>
-          <div className={`${theme.text}`}>
-            {purchasedSubs.map((x, i) => (
-              <GiftButton {...x} key={i} />
-            ))}
+    <>
+      <div className={`row d-flex justify-content-center pb-5 ${theme.text}`}>
+        <div className={`${COL_SIZE} ${border} py-3`}>
+          <div className={rowClass}>
+            <div className="col-12">
+              <h4>Your Gift Subscriptions</h4>
+            </div>
+            <div className="col-12">
+              <p>Click to copy a one-time-use link and send it to your friend.</p>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className={`row d-flex justify-content-center`}>
-        <div className={`${COL_SIZE} py-3 ${border} text-center`}>
-          <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
-            These gifts were given to you by the AoS Reminders team. Spread them around!{' '}
-            <FaRegSmileBeam className="ml-2" />
-          </p>
-          <div className={`${theme.text}`}>
-            {adminCreatedSubs.map((x, i) => (
-              <GiftButton {...x} key={i} />
-            ))}
-          </div>
+          {purchasedSubs.length > 0 && (
+            <div className={rowClass}>
+              <div className={`${theme.text}`}>
+                {purchasedSubs.map((x, i) => (
+                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {purchasedSubs.length > 0 && adminCreatedSubs.length > 0 && <hr />}
+
+          {adminCreatedSubs.length > 0 && (
+            <>
+              <div className={rowClass}>
+                <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
+                  These gifts were given to you by the AoS Reminders team. Spread them around!
+                  {isMobile ? `` : <FaRegSmileBeam className="ml-2" />}
+                </p>
+              </div>
+              <div className={rowClass}>
+                {adminCreatedSubs.map((x, i) => (
+                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
-    </div>
+    </>
   )
+})
+
+interface IGiftButtonProps extends IGiftSubscription {
+  isMobile: boolean
 }
 
-const GiftButton = (props: IGiftSubscription) => {
-  const { planInterval, planIntervalCount } = props
+const GiftButton = (props: IGiftButtonProps) => {
+  const { planInterval, planIntervalCount, isMobile } = props
   const { theme } = useTheme()
   const [copied, setCopied] = useState(false)
 
@@ -111,7 +122,8 @@ const GiftButton = (props: IGiftSubscription) => {
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
       <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
         <FaGift className="mr-2" />
-        <strong className="mr-1">{label}</strong> Gift
+        <strong className="mr-1">{label}</strong>
+        {isMobile ? `` : ` Gift`}
         {copied && <FaCheck className={`text-success ml-2`} />}
       </GenericButton>
     </CopyToClipboard>
