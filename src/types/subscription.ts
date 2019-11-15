@@ -3,6 +3,7 @@ import { TSupportedFaction } from 'meta/factions'
 
 export interface IGiftSubscription {
   id: string
+  origin: 'admin' | 'stripe' | undefined
   planInterval: string
   planIntervalCount: number
   url: string

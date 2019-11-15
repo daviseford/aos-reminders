@@ -4,7 +4,7 @@ import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { FaGift, FaCheck } from 'react-icons/fa'
+import { FaGift, FaCheck, FaRegSmileBeam } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -17,6 +17,7 @@ import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from './plans'
 import GenericButton from 'components/input/generic_button'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
+import { centerContentClass } from 'theme/helperClasses'
 
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
@@ -40,42 +41,72 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
   )
 })
 
-const GiftTable = () => {
-  const { theme } = useTheme()
+const GiftTable = componentWithSize(({ isMobile = false }) => {
+  const { theme, isDark } = useTheme()
   const { subscription } = useSubscription()
   const { giftSubscriptions = [] } = subscription
 
+  const border = `border border-${isDark ? `dark` : `light-gray`} rounded`
+
   if (giftSubscriptions.length === 0) return null
+
+  const purchasedSubs = giftSubscriptions.filter(x => x.origin === 'stripe')
+  const adminCreatedSubs = giftSubscriptions.filter(x => x.origin !== 'stripe')
+
+  const rowClass = `row d-flex justify-content-center text-center ${theme.text} mx-1`
 
   return (
     <>
-      <div className={`row d-flex justify-content-center text-center ${theme.text}`}>
-        <div className={COL_SIZE}>
-          <h4>Your Gift Subscriptions</h4>
-          <p>
-            Click to copy a one-time-use link and send it to your friend.
-            <br />
-            When they visit the link, they'll be asked to create an account and your gifted subscription will
-            be redeemed.
-          </p>
-        </div>
-      </div>
-
-      <div className={`row d-flex justify-content-center pb-5`}>
-        <div className={`${COL_SIZE} text-center`}>
-          <div className={`${theme.text}`}>
-            {giftSubscriptions.map((x, i) => (
-              <GiftButton {...x} key={i} />
-            ))}
+      <div className={`row d-flex justify-content-center pb-5 ${theme.text}`}>
+        <div className={`${COL_SIZE} ${border} py-3`}>
+          <div className={rowClass}>
+            <div className="col-12">
+              <h4>Your Gift Subscriptions</h4>
+            </div>
+            <div className="col-12">
+              <p>Click to copy a one-time-use link and send it to your friend.</p>
+            </div>
           </div>
+
+          {purchasedSubs.length > 0 && (
+            <div className={rowClass}>
+              <div className={`${theme.text}`}>
+                {purchasedSubs.map((x, i) => (
+                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {purchasedSubs.length > 0 && adminCreatedSubs.length > 0 && <hr />}
+
+          {adminCreatedSubs.length > 0 && (
+            <>
+              <div className={rowClass}>
+                <p className={`mb-1 ${theme.text} ${centerContentClass}`}>
+                  These gifts were given to you by the AoS Reminders team. Spread them around!
+                  {isMobile ? `` : <FaRegSmileBeam className="ml-2" />}
+                </p>
+              </div>
+              <div className={rowClass}>
+                {adminCreatedSubs.map((x, i) => (
+                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
   )
+})
+
+interface IGiftButtonProps extends IGiftSubscription {
+  isMobile: boolean
 }
 
-const GiftButton = (props: IGiftSubscription) => {
-  const { planInterval, planIntervalCount } = props
+const GiftButton = (props: IGiftButtonProps) => {
+  const { planInterval, planIntervalCount, isMobile } = props
   const { theme } = useTheme()
   const [copied, setCopied] = useState(false)
 
@@ -91,7 +122,8 @@ const GiftButton = (props: IGiftSubscription) => {
     <CopyToClipboard onCopy={handleCopy} text={props.url}>
       <GenericButton className={`${theme.genericButton} mx-2 my-2`}>
         <FaGift className="mr-2" />
-        <strong className="mr-1">{label}</strong> Gift
+        <strong className="mr-1">{label}</strong>
+        {isMobile ? `` : ` Gift`}
         {copied && <FaCheck className={`text-success ml-2`} />}
       </GenericButton>
     </CopyToClipboard>
