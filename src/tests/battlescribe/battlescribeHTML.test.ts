@@ -186,6 +186,15 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Slaanesh4', () => {
+    const parsedText = getFile('Slaanesh4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.selections).toContain('Beguiling Gem (Chaos)')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Slaanesh3', () => {
     const parsedText = getFile('Slaanesh3')
     const res = getBattlescribeArmy(parsedText)
