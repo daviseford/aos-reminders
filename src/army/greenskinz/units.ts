@@ -61,6 +61,22 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Orruk Great Shaman`,
+    effects: [
+      {
+        name: `Waaagh! Energy`,
+        desc: `Add 1 to casting rolls made by an Orruk Great Shaman that is within 8" of 20 or more Orruk models.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Gaze of Mork`,
+        desc: `Casting value of 6. Select up to 3 visible enemy units within 20". Roll a dice for each unit chosen; on a 2-5 it suffers 1 mortal wound, and on a 6 it suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
 ]
 
 // Allied units (usually this will involve writing a function to grab units from another army)

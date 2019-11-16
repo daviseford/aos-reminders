@@ -3,9 +3,9 @@ import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
-import { btnSecondarySmall } from 'theme/helperClasses'
 import { ISavedArmy } from 'types/savedArmy'
 import GenericButton from '../generic_button'
+import { useTheme } from 'context/useTheme'
 
 interface IUpdateArmyProps {
   id: string
@@ -18,6 +18,8 @@ type TUpdateArmyBtn = React.FC<IUpdateArmyProps>
 const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const [isSaving, setIsSaving] = useState(false)
   const { updateArmy } = useSavedArmies()
+  const { isDark } = useTheme()
+
   const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
   const handleClick = e => {
@@ -31,8 +33,10 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
 
   if (!canUpdate) return null
 
+  const btnClass = `btn btn-sm btn-outline-${isDark ? `light` : `secondary`}`
+
   return (
-    <GenericButton className={btnSecondarySmall} onClick={handleClick}>
+    <GenericButton className={btnClass} onClick={handleClick}>
       {isSaving ? (
         <span
           className="spinner-border spinner-border-sm mr-2 text-dark"

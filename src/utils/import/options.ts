@@ -132,6 +132,7 @@ const battlescribeTypoMap: TNameMap = {
   'Shasdow Warrior': 'Shadow Warriors',
   'Sneaky Shufflers': 'Sneaky Snufflers',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
+  'The Beguilling Gem': 'Beguiling Gem (Chaos)',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
