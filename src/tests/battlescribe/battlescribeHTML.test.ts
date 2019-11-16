@@ -191,7 +191,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
-    expect(res.selections).toContain('Beguiling Gem (Chaos)')
+    expect(res.selections.artifacts).toContain('Beguiling Gem (Chaos)')
     expect(res.errors).toEqual([])
   })
 

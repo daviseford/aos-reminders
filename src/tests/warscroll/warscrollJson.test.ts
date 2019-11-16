@@ -21,6 +21,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  DEATH_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -28,6 +29,41 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Vokmortians Retinue ', () => {
+    const parsedText = getFile('1573791319612-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    // TODO: Get from Feast of Bones
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+  })
+
+  it('should work with random Death artifacts/traits', () => {
+    const parsedText = getFile('1573865086310-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DEATH_GRAND_ALLIANCE)
+    // I am not sure what these are tbh
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Masque of Horror',
+      },
+      {
+        severity: 'warn',
+        text: 'Inspirational',
+      },
+    ])
+  })
+
+  it('should work with Orruk great shaman', () => {
+    const parsedText = getFile('1573836740544-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
+    expect(warscrollTxt.selections.units).toContain('Orruk Great Shaman')
+    expect(warscrollTxt.errors).toEqual([])
+  })
   it('should work with Fyreslayers', () => {
     const parsedText = getFile('1573446762118-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
