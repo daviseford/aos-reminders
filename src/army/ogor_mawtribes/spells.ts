@@ -58,7 +58,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Greasy Deluge`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18 of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until the start of your next hero phase.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
