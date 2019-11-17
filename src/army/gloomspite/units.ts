@@ -675,6 +675,21 @@ export const Units: TUnits = [
       ...GenericEffects.Gargant,
     ],
   },
+  {
+    name: `Rippa's Snarlfangs`,
+    effects: [
+      {
+        name: `Smell Weakness`,
+        desc: `Add 1 to the hits rolls for this unit's Snarlfang's Jaws that target a unit with 1 or more wounds allocated to it.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ferocious Pounce`,
+        desc: `This unit is eligible to fight in the combat phase if it is within 6" instead of 3" of an enemy unit. It can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
