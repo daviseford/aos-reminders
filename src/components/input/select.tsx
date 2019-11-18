@@ -38,7 +38,6 @@ export const SelectOne = (props: ISelectOneProps) => {
 
   const onChange = useCallback(
     (...args) => {
-      console.log(args)
       if (log.enable && log.trait && args[1].action === 'select-option' && args[0].value) {
         logIndividualSelection(log.trait, args[0].value)
       }
