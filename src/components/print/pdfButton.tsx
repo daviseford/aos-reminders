@@ -31,8 +31,6 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const handleDownload = e => {
     e.preventDefault()
 
-    logDownloadEvent(currentArmy.factionName)
-
     // Generate reminders
     const reminders = processReminders(
       army,
