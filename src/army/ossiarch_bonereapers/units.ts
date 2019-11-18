@@ -53,12 +53,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a D6 each time a model is slain within 3" of this model. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
-             
+        desc: `Roll a D6 each time a model is slain within 3" of any model with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
-        10 or more - you can heal up to D6 wounds allocated to that unit. 
-        
+        10 or more - you can heal up to D6 wounds allocated to that unit.
+
         If there are no wounds allocated to the unit you pick, you can return a number of slain models to that unit with a combined Wounds chacteristic that is equal to or less than the number of wounds you could have healed.`,
         when: [DURING_GAME],
       },
@@ -199,9 +199,9 @@ export const Units: TUnits = [
       NadariteWeaponsEffect,
       {
         name: `Deathrider Wedge`,
-        desc: `You can use this command ability when a friendly Kavalos Deathriders unit that includes a Mortek Hekatos finishes a charge move. You can pick 1 enemy unit within 1" of that Kavalos Deathriders unit and roll a number of dice equal to the number of models in that Kavalos Deathriders unit. For each 5+, the enemy unit suffers 1 mortal wound. 
-             
-        In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in.`,
+        desc: `You can use this command ability when a friendly Kavalos Deathriders unit that includes a Mortek Hekatos finishes a charge move. You can pick 1 enemy unit within 1" of that Kavalos Deathriders unit and roll a number of dice equal to the number of models in that Kavalos Deathriders unit. For each 5+, the enemy unit suffers 1 mortal wound.
+
+        In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in. The same unit cannot benefit from this command ability more than once per turn.`,
         when: [CHARGE_PHASE],
         command_ability: true,
       },
@@ -272,13 +272,13 @@ export const Units: TUnits = [
       {
         name: `Quadrarch Aspects`,
         desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
-             
+
         Blade-strike Aspect: You can re-roll hit rolls for attacks made by this unit.
 
         Blade-parry Aspect: You can re-roll save rolls for attacks that target this unit.
 
         Destroyer Aspect: You can re-roll wound rolls for attacks made by this unit.
-        
+
         Precision Aspect: Improve the Rend and Damage characteristics of this unit's melee weapons by 1.`,
         when: [START_OF_COMBAT_PHASE],
       },
