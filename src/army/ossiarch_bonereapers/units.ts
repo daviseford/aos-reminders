@@ -53,7 +53,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a D6 each time a model is slain within 3" any model with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+        desc: `Roll a D6 each time a model is slain within 3" of any model with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
 
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
