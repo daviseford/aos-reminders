@@ -182,72 +182,117 @@ const FlamespyrePhoenixEffects = [
     when: [MOVEMENT_PHASE],
   },
 ]
+const BattlemageEffects = [
+  {
+    name: `Magic of the Realms`,
+    desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
+    when: [START_OF_SETUP],
+  },
+  {
+    name: `Magic of the Realms`,
+    desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Magic`,
+    desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
+    when: [HERO_PHASE],
+  },
+]
 
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Battlemage`,
+    name: `Azyr Battlemage`,
     effects: [
-      {
-        name: `Magic of the Realms`,
-        desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Magic of the Realms`,
-        desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
-        when: [HERO_PHASE],
-      },
+      ...BattlemageEffects,
       {
         name: `Chain Lightning (Azyr)`,
         desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Aqshy Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Fireball (Aqshy)`,
         desc: `Casting value 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Ulgu Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Mystifying Miasma (Ulgu)`,
         desc: `Casting value 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Shyish Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Pall of Doom (Shyish)`,
         desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Hysh Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Pha's Protection (Hysh)`,
         desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
-      {
-        name: `Shield of Thorns (Ghyran)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+    ],
+  },
+  {
+    name: `Chamon Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Transmutation of Lead (Chamon)`,
         desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
+    ],
+  },
+  {
+    name: `Ghur Battlemage`,
+    effects: [
+      ...BattlemageEffects,
       {
         name: `Wildform (Ghur)`,
         desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Ghyran Battlemage`,
+    effects: [
+      ...BattlemageEffects,
+      {
+        name: `Shield of Thorns (Ghyran)`,
+        desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
