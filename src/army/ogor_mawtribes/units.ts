@@ -27,7 +27,7 @@ const ThundertuskEffects = [
 
     Add 1 to each roll if the target unit has 10 or more models.
     Add 2 to each roll instead if the target unit has 20 or more models.
-    
+
     For each 6+, that enemy unit suffers 1 mortal wound.`,
     when: [SHOOTING_PHASE],
   },
@@ -208,7 +208,7 @@ export const Units: TUnits = [
         desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. Add 1 to the roll for each other friendly Thundertusk within 18" of this model. On a 1-3, the prayer is not answered. On a 4+, the prayer is answered.
 
         Winter's Endurance: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. You can heal D3 wounds allocated to that unit.
-        
+
         Winter's Strength: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. Until the start of your next hero phase, add 1 to wound rolls for attacks made with melee weapons by that unit.`,
         when: [HERO_PHASE],
       },
@@ -239,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Mighty Throw`,
-        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this model's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and a Range characteristic of 18" instead of 12" if it ran in the same turn.`,
+        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this model's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and a Range characteristic of 18" instead of 9" if it ran in the same turn.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -333,13 +333,13 @@ export const Units: TUnits = [
       {
         name: `Been There, Done That`,
         desc: `After armies have been set up but before the first battle round begins, pick 1 ability to apply to this unit from the following list:
-        
+
         Brawlers: You can re-roll hit rolls of 1 for attacks made with melee weapons by this unit.
-        
+
         Crack Shots: You can re-roll hit rolls of 1 for attacks made with missile weapons by this unit.
-        
+
         Striders: This unit can run and still charge later in the same turn.
-        
+
         Stubborn: Do not take battleshock tests for this unit.`,
         when: [END_OF_SETUP],
       },
@@ -425,13 +425,13 @@ export const Units: TUnits = [
       {
         name: `Great Cauldron`,
         desc: `In your hero phase, you can say that this model will reach into its cauldron and feast on the contents. If you do so, roll a D6 and consult the table below.
-        
+
         1: Bad Meat: This model suffers D3 mortal wounds.
-        
+
         2: Troggoth Guts: You can heal D3 wounds allocated to this model. In addition, you can heal 1 wound allocated to each friendly Ogor unit wholly within 12" of this model.
-        
+
         3-4: Spinemarrow: Pick a friendly Ogor unit wholly within 12" of this model. Add 1 to hit rolls for attacks made with melee weapons by that unit until the start of your next hero phase.
-        
+
         5-6: Bonecrusher: Roll a D6 for each enemy unit within 6" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
