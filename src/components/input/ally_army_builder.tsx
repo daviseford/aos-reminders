@@ -200,7 +200,13 @@ const AllyCardComponent = (props: IAllyCardProps) => {
       </div>
       <div className={`${theme.cardBody} py-3 ${isVisible ? `` : `d-none`}`}>
         <h4 className={`text-center ${theme.text}`}>Allied {type}</h4>
-        <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
+        <SelectMulti
+          values={values}
+          items={selectItems}
+          setValues={setValues}
+          isClearable={true}
+          log={{ enable: true, trait: 'AlliedUnits' }}
+        />
       </div>
     </div>
   )
