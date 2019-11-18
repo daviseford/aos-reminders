@@ -6,12 +6,10 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 
-const AllegianceType = 'Mawtribes'
-
 export default {
   Abilities,
   Allegiances,
-  AllegianceType,
+  AllegianceType: 'Mawtribes',
   AlliedUnits,
   Artifacts,
   Battalions,
