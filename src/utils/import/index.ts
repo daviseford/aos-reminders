@@ -107,13 +107,13 @@ const logSelections: TLogSelections = (selections, allyData) => {
   try {
     Object.keys(selections).forEach(key => {
       const trait = titleCase(key)
-      selections[key].forEach(val => logIndividualSelection(trait, val))
+      selections[key].forEach(name => logIndividualSelection(trait, name))
     })
 
     Object.keys(allyData.allySelections).forEach(faction => {
       logAllyFaction(faction)
       const units: string[] = allyData.allySelections[faction].units || []
-      units.forEach(val => logIndividualSelection('AlliedUnits', val))
+      units.forEach(name => logIndividualSelection('AlliedUnits', name))
     })
   } catch (err) {}
 }
