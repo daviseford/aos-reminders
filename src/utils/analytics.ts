@@ -1,6 +1,6 @@
 import ReactGA from 'react-ga'
 import { isValidFactionName } from './armyUtils'
-import { isTest, isProd } from './env'
+import { isTest, isProd, isDev } from './env'
 import { TImportParsers } from 'types/import'
 import { generateUUID } from './textUtils'
 import { SubscriptionPlans, GiftedSubscriptionPlans } from 'components/payment/plans'
@@ -23,12 +23,24 @@ export const logPageView = () => {
 }
 
 /**
+ * Generic wrapper for logging events
+ * Will print to console in dev, will actually log in prod
+ */
+const logToGA = (event: { category: string; action: string; label: string }) => {
+  if (isDev) {
+    console.log(`GA Event: `, event)
+  } else if (isProd) {
+    ReactGA.event(event)
+  }
+}
+
+/**
  * Sends a Google Analytics event indicating a pdf download
  * @param factionName
  */
 export const logDownloadEvent = (factionName: string | null) => {
-  if (isProd && isValidFactionName(factionName)) {
-    ReactGA.event({
+  if (isValidFactionName(factionName)) {
+    logToGA({
       category: 'Button',
       action: `Download-${factionName}`,
       label: 'AoS Reminders',
@@ -41,8 +53,8 @@ export const logDownloadEvent = (factionName: string | null) => {
  * @param factionName
  */
 export const logFactionSwitch = (factionName: string | null) => {
-  if (isProd && isValidFactionName(factionName)) {
-    ReactGA.event({
+  if (isValidFactionName(factionName)) {
+    logToGA({
       category: 'Select',
       action: `Select-${factionName}`,
       label: 'AoS Reminders',
@@ -55,8 +67,8 @@ export const logFactionSwitch = (factionName: string | null) => {
  * @param factionName
  */
 export const logAllyFaction = (factionName: string | null) => {
-  if (isProd && isValidFactionName(factionName)) {
-    ReactGA.event({
+  if (isValidFactionName(factionName)) {
+    logToGA({
       category: 'Select',
       action: `Select-Ally-${factionName}`,
       label: 'AoS Reminders',
@@ -69,8 +81,8 @@ export const logAllyFaction = (factionName: string | null) => {
  * @param label
  */
 export const logClick = (label: string) => {
-  if (isProd && !!label) {
-    ReactGA.event({
+  if (label) {
+    logToGA({
       category: 'Click',
       action: `Click-${label}`,
       label: 'AoS Reminders',
@@ -83,11 +95,26 @@ export const logClick = (label: string) => {
  * @param event
  */
 export const logEvent = (event: string) => {
-  if (isProd && !!event) {
-    ReactGA.event({
+  if (event) {
+    logToGA({
       category: 'Event',
       action: `Event-${event}`,
       label: 'AoS Reminders',
+    })
+  }
+}
+
+/**
+ * Used for logging individual units, traits, abilities, etc
+ * @param trait
+ * @param name
+ */
+export const logIndividualSelection = (trait: string, name: string) => {
+  if (name && trait) {
+    logToGA({
+      category: `Individual-Selection`,
+      action: `${trait}-${name}`,
+      label: `${trait}`,
     })
   }
 }
@@ -97,8 +124,8 @@ export const logEvent = (event: string) => {
  * @param value
  */
 export const logFailedImport = (value: string, type: TImportParsers) => {
-  if (isProd && !!value) {
-    ReactGA.event({
+  if (value) {
+    logToGA({
       category: 'Event',
       action: `failedImport-${type}-${value}`,
       label: 'AoS Reminders',
@@ -107,8 +134,8 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
 }
 
 export const logDisplay = (element: string) => {
-  if (isProd && !!element) {
-    ReactGA.event({
+  if (element) {
+    logToGA({
       category: 'Display',
       action: `Display-${element}`,
       label: 'AoS Reminders',

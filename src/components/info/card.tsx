@@ -41,17 +41,19 @@ interface ICardMultiProps {
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   title: string
   values: string[]
+  enableLog?: boolean
 }
 
 const CardMultiComponent = (props: ICardMultiProps) => {
-  const { items, setValues, values, hiddenSelectors, title, isMobile } = props
+  const { items, setValues, values, hiddenSelectors, title, isMobile, enableLog = false } = props
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
+  const log = enableLog ? { enable: true, trait: title } : { enable: false }
 
   if (!items.length) return null
   return (
     <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
-      <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} />
+      <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} log={log} />
     </CardComponent>
   )
 }
@@ -63,15 +65,17 @@ interface ICardSingleSelectProps {
   setValue: TSelectOneSetValueFn
   title: string
   value?: string | null
+  enableLog?: boolean
 }
 
 const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const { setValue, items, title, value = null, hiddenSelectors, isMobile } = props
+  const { setValue, items, title, value = null, hiddenSelectors, isMobile, enableLog = false } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
+  const log = enableLog ? { enable: true, trait: title } : { enable: false }
 
   return (
     <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
-      <SelectOne setValue={setValue} items={items} value={value} isClearable={true} />
+      <SelectOne setValue={setValue} items={items} value={value} isClearable={true} log={log} />
     </CardComponent>
   )
 }

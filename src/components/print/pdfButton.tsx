@@ -6,7 +6,6 @@ import { MdFileDownload } from 'react-icons/md'
 import { processReminders } from 'utils/processReminders'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { logDownloadEvent } from 'utils/analytics'
 import { DownloadPDFModal } from './pdfModal'
 import { TAllyArmies, IArmy, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
@@ -30,8 +29,6 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
   const handleDownload = e => {
     e.preventDefault()
-
-    logDownloadEvent(currentArmy.factionName)
 
     // Generate reminders
     const reminders = processReminders(

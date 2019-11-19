@@ -370,7 +370,24 @@ export const Units: TUnits = [
   },
   {
     name: `Clanrats`,
-    effects: [ClanshieldEffect],
+    effects: [
+      ClanshieldEffect,
+      {
+        name: `Clawleader`,
+        desc: `Add 1 to the Attacks characteristic for the Clawleader's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `This unit can retreat and still charge later in the same turn while it includes any Clanrat Standard Bearers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Bell-ringer`,
+        desc: `Add 2 to run rolls for this unit while it includes any Clanrat Bell-ringers.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
   },
   {
     name: `Brood Horror`,

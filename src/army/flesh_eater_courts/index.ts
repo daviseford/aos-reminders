@@ -7,12 +7,10 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 
-const AllegianceType = 'Grand Courts'
-
 export default {
   Abilities,
   Allegiances,
-  AllegianceType,
+  AllegianceType: 'Grand Courts',
   Artifacts,
   Battalions,
   EndlessSpells,
