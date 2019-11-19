@@ -78,6 +78,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     ...errorFreeSelections,
   }
 
+  // Log our selections to Google Analytics
   logSelections(mergedSelections, allyData)
 
   return {
