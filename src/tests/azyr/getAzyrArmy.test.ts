@@ -228,13 +228,14 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(BigWaaagh2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Mercenary Orruks' }])
   })
 
   it('handles Seraphon2', () => {
     const pages = handleAzyrPages(Seraphon2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections.artifacts).toEqual(["Anraheirs's Claw (Ghur)", 'Gryph-feather Charm (Ghur)'])
     expect(res.errors).toEqual([])
   })
 

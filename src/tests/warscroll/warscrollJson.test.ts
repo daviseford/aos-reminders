@@ -29,12 +29,12 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should work with ', () => {
+  it('should work with Vokmortians Retinue', () => {
     const parsedText = getFile('1573791319612-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
   })
 
   it('should work with Vokmortians Retinue', () => {
