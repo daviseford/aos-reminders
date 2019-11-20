@@ -4,6 +4,7 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 import {
   BEASTS_OF_CHAOS,
+  BIG_WAAAGH,
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -28,6 +29,7 @@ import { AQSHY, ULGU } from 'types/realmscapes'
 
 import BCR1 from '../fixtures/azyr/json/BCR1.json'
 import BCR2 from '../fixtures/azyr/json/BCR2.json'
+import BigWaaagh2 from '../fixtures/azyr/json/BigWaaagh2.json'
 import BoC1 from '../fixtures/azyr/json/BoC1.json'
 import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
 import CoS1 from '../fixtures/azyr/json/CoS1.json'
@@ -46,6 +48,7 @@ import IDK3 from '../fixtures/azyr/json/IDK3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
+import Khorne5 from '../fixtures/azyr/json/Khorne5.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
@@ -60,6 +63,7 @@ import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
 import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
 import OgorMawtribes3 from '../fixtures/azyr/json/OgorMawtribes3.json'
 import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
+import Seraphon2 from '../fixtures/azyr/json/Seraphon2.json'
 import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
 import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
 import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
@@ -218,6 +222,27 @@ describe('getAzyrArmyFromPdf', () => {
           "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
       },
     ])
+  })
+
+  it('handles BigWaaagh2', () => {
+    const pages = handleAzyrPages(BigWaaagh2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Seraphon2', () => {
+    const pages = handleAzyrPages(Seraphon2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne5', () => {
+    const pages = handleAzyrPages(Khorne5)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.errors).toEqual([])
   })
 
   it('handles Khorne4', () => {
