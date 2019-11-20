@@ -149,10 +149,10 @@ const RealmArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Anraheir's Claw (${GHUR})`,
+    name: `Anraheirs's Claw (${GHUR})`,
     effects: [
       {
-        name: `Anraheir's Claw (${GHUR})`,
+        name: `Anraheirs's Claw (${GHUR})`,
         desc: `If the wound roll for that weapon is 6+ add 2 to the Damage characteristic of that weapon for that attack.`,
         when: [COMBAT_PHASE],
       },
