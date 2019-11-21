@@ -1,12 +1,13 @@
-//@ts-ignore
 import XLSX from 'xlsx'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { IArmy, IInitialArmy } from 'types/army'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { getArmyFromList } from 'meta/army_list'
-import { TSupportedFaction, SUPPORTED_FACTIONS, IDONETH_DEEPKIN } from 'meta/factions'
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 
+/**
+ * This utility file should not actually be used in production, LOL
+ * But it prints rules to a csv, requested by Rufio Symes of Honest Wargamer for an event
+ */
 export const generateHonestWargamerSheets = () => {
   const workbook = XLSX.utils.book_new()
 

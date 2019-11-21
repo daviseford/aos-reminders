@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
 import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
-import { generateHonestWargamerSheets } from 'utils/xlsx/exportToSheet'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))
@@ -17,7 +16,6 @@ const Redeem = lazy(() => import('components/routes/Redeem'))
 
 const App = () => {
   useEffect(() => {
-    generateHonestWargamerSheets()
     handleCheckout() // Post-checkout handling
     const loadedLink = handleArmyLink() // Load army from link
     if (!loadedLink) loadArmyFromLocalStore() // Load an army from the localStore (after redirect)
