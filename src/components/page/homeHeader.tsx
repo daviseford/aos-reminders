@@ -15,7 +15,7 @@ import { SelectOne } from 'components/input/select'
 import { LinkNewTab } from 'components/helpers/link'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 
-const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
+const Navbar = lazy(() => import('./navbar'))
 
 export const Header = () => {
   const { theme } = useTheme()
