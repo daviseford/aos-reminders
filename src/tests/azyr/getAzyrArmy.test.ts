@@ -53,6 +53,7 @@ import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
+import KO6 from '../fixtures/azyr/json/KO6.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import LoG3 from '../fixtures/azyr/json/LoG3.json'
 import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
@@ -456,6 +457,14 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
+  it('handles KO6', () => {
+    const pages = handleAzyrPages(KO6)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.errors).toEqual([])
+    expect(res.selections.artifacts).toContain('The Last Word (GREAT ENDRINWORK)')
+  })
+
   it('handles KO5', () => {
     const pages = handleAzyrPages(KO5)
     const res = getAzyrArmyFromPdf(pages)
@@ -466,6 +475,7 @@ describe('getAzyrArmyFromPdf', () => {
       "FOOTNOTE: There's no Trading With Some People",
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles KO4', () => {
@@ -478,6 +488,7 @@ describe('getAzyrArmyFromPdf', () => {
       'FOOTNOTE: Without Our Ships, We Are Naught',
       "FOOTNOTE: There's Always a Breeze if You Look for it",
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles KO2', () => {

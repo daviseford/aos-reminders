@@ -101,6 +101,7 @@ const azyrTypoMap: TNameMap = {
   'Ogors Gluttons': 'Ogor Gluttons',
   'The Blood-forged Armour': 'Blood-forged Armour',
   'The Brazen Rune': 'Brazen Rune',
+  'The Last Word': 'The Last Word (GREAT ENDRINWORK)',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
