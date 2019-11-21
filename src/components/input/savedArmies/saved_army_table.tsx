@@ -1,7 +1,7 @@
 import React from 'react'
 import { sortBy, flatten } from 'lodash'
-import { titleCase } from 'utils/textUtils'
 import { useTheme } from 'context/useTheme'
+import { titleCase } from 'utils/textUtils'
 import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
 import { ITheme } from 'types/theme'
 

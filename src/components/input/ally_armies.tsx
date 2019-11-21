@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { selectors } from 'ducks'
-import { AllyArmyBuilder } from './ally_army_builder'
+import { AllyArmyBuilder } from 'components/input/ally_army_builder'
 import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { IStore } from 'types/store'
 

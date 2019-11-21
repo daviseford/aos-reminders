@@ -1,4 +1,4 @@
-import { TNameMap } from './import/options'
+import { TNameMap } from 'utils/import/options'
 
 export const mapListToDict = (names: string[]) => {
   return names.reduce((a, b) => {

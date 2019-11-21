@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
-import { titleCase } from 'utils/textUtils'
-import { LoadArmyBtn } from './load_army_btn'
-import { SavedArmyTable } from './saved_army_table'
-import { DeleteArmyModal } from './delete_army_modal'
-import { ISavedArmyFromApi } from 'types/savedArmy'
-import UpdateNameButton from './update_name_btn'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import { titleCase } from 'utils/textUtils'
+import { LoadArmyBtn } from 'components/input/savedArmies/load_army_btn'
+import { SavedArmyTable } from 'components/input/savedArmies/saved_army_table'
+import { DeleteArmyModal } from 'components/input/savedArmies/delete_army_modal'
+import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
+import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi

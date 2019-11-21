@@ -1,8 +1,7 @@
 import React, { useMemo, Fragment } from 'react'
 import { connect } from 'react-redux'
-
-import { titleCase } from 'utils/textUtils'
 import { selectors } from 'ducks'
+import { titleCase } from 'utils/textUtils'
 import { IStore } from 'types/store'
 import { ICurrentArmy } from 'types/army'
 

@@ -6,6 +6,7 @@ import config from 'auth_config.json'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { navbarStyles } from 'theme/helperClasses'
 import { BASE_URL, ROUTES } from 'utils/env'
 import { logClick } from 'utils/analytics'
 import {
@@ -15,11 +16,10 @@ import {
   LocalTheme,
   LocalUserName,
 } from 'utils/localStore'
-import { navbarStyles } from 'theme/helperClasses'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import { SubscriptionPlans } from 'components/payment/plans'
-import NavbarWrapper from './navbar_wrapper'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import NavbarWrapper from 'components/page/navbar_wrapper'
 
 const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
   const { isOffline } = useAppStatus()

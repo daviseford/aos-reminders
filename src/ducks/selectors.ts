@@ -1,6 +1,6 @@
+import { TSupportedFaction } from 'meta/factions'
 import { IStore } from 'types/store'
 import { ICurrentArmy } from 'types/army'
-import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 
 // Army

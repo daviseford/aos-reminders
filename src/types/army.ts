@@ -1,9 +1,9 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
-import { TEffects, TEntry } from './data'
-import { IAllySelections, ISelections } from './selections'
-import { TRealms } from './realmscapes'
-import { TAllySelectionStore } from './store'
+import { TEffects, TEntry } from 'types/data'
+import { IAllySelections, ISelections } from 'types/selections'
+import { TRealms } from 'types/realmscapes'
+import { TAllySelectionStore } from 'types/store'
 
 export type TAllyArmies = { [key: string]: IArmy }
 

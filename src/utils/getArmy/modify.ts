@@ -1,28 +1,28 @@
-import {
-  TAllegiances,
-  TBattalions,
-  TUnits,
-  TArtifacts,
-  ICollection,
-  TTraits,
-  TCommands,
-  TTriumphs,
-  TSpells,
-  TScenery,
-  TEndlessSpells,
-} from 'types/army'
 import { sortBy, uniqBy, sortedUniqBy } from 'lodash'
-import { TGrandAlliances } from 'meta/alliances'
-import { GrandAllianceConfig } from './grandAllianceConfig'
 import {
+  ICollection,
+  TAllegiances,
+  TArtifacts,
+  TBattalions,
+  TCommands,
+  TEndlessSpells,
+  TScenery,
+  TSpells,
+  TTraits,
+  TTriumphs,
+  TUnits,
+} from 'types/army'
+import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
+import { TGrandAlliances } from 'meta/alliances'
+import {
+  GenericCommands,
+  GenericEndlessSpells,
+  GenericScenery,
+  GenericSpells,
+  GenericTriumphs,
   RealmArtifacts,
   RealmscapeCommands,
-  GenericCommands,
-  GenericTriumphs,
   RealmscapeSpells,
-  GenericSpells,
-  GenericScenery,
-  GenericEndlessSpells,
 } from 'army/generic'
 import { TRealms } from 'types/realmscapes'
 

@@ -18,6 +18,7 @@ import { SubscriptionProvider } from 'context/useSubscription'
 import 'css/animations.scss'
 import 'css/index.scss'
 import { ThemeProvider } from 'context/useTheme'
+import { installNewWorker } from 'utils/installNewWorker'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -70,6 +71,7 @@ render(
 serviceWorker.register({
   onUpdate: async registration => {
     // We prefer using the BroadcastChannel as it can reach across tabs
+    // We post a message letting the rest of the app know that we have updated content
     if (typeof BroadcastChannel !== 'undefined') {
       const bc = new BroadcastChannel('app-update')
       bc.postMessage('App has updated.')
@@ -78,5 +80,10 @@ serviceWorker.register({
     // But it won't always work due to browser limitations.
     // So we always dispatch an event to the window just in case.
     window.dispatchEvent(new Event('hasNewContent'))
+
+    // Go ahead and update to the latest cached worker
+    // The user will be given an option in the UI to reload and get the newest version
+    // But this ensures that they'll get the new worker next time they visit
+    installNewWorker(false)
   },
 })

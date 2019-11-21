@@ -1,13 +1,13 @@
 import React, { useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import { ValueType } from 'react-select/src/types'
+import { useTheme } from 'context/useTheme'
 import { visibility, selectors } from 'ducks'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
 import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
-import { ValueType } from 'react-select/src/types'
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
-import { useTheme } from 'context/useTheme'
 
 interface ICardProps {
   title: string

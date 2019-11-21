@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaPlus } from 'react-icons/fa'
-import GenericButton from '../generic_button'
+import GenericButton from 'components/input/generic_button'
 
 interface IAddAllyButton {
   setAllyClick: (e: any) => void

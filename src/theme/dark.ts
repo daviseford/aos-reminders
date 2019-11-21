@@ -2,27 +2,11 @@ import { ITheme } from 'types/theme'
 
 const selectTheme = {
   /*
-   * multiValue(remove)/color:hover
-   */
-  //  danger: 'var(--danger)',
-
-  /*
-   * multiValue(remove)/backgroundColor(focused)
-   * multiValue(remove)/backgroundColor:hover
-   */
-  //  dangerLight: 'var(--danger-light)',
-
-  /*
    * control/backgroundColor
    * menu/backgroundColor
    * option/color(selected)
    */
   neutral0: '#182633', // $themeDarkBlueSecondary in theme.scss
-
-  /*
-   * control/backgroundColor(disabled)
-   */
-  //  neutral5: 'var(--neutral-5)',
 
   /*
    * control/borderColor(disabled)
@@ -41,29 +25,9 @@ const selectTheme = {
   neutral20: 'slategrey',
 
   /*
-   * control/borderColor(focused)
-   * control/borderColor:hover
-   */
-  // neutral30: 'var(--neutral-30)',
-
-  /*
-   * menu(notice)/color
-   * singleValue/color(disabled)
-   * indicators/color:hover
-   */
-  // neutral40: 'var(--neutral-40)',
-
-  /*
    * placeholder/color
    */
   neutral50: 'white',
-
-  /*
-   * indicators/color(focused)
-   * indicators(loading)/color(focused)
-   */
-  // neutral60: 'var(--neutral-60)',
-  // neutral70: 'var(--neutral-70)',
 
   /*
    * input/color
@@ -93,7 +57,6 @@ const selectTheme = {
    * option/backgroundColor:active
    */
   primary50: '#93A9FA', // $themeYellow
-  // primary75: 'var(--primary-75)',
 }
 
 const bgColor = `bg-themeDarkBlueSecondary`

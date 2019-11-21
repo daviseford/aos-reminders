@@ -1,16 +1,16 @@
 import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
-import { getArmy } from 'utils/getArmy/getArmy'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { armyHasEntries } from 'utils/armyUtils'
 import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { ISavedArmy } from 'types/savedArmy'
-import { armyHasEntries } from 'utils/armyUtils'
 
 const AddAllyButton = lazy(() => import('./add_ally_btn'))
 const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))

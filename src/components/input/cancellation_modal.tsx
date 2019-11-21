@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { FaRegSadCry } from 'react-icons/fa'
-import { useSubscription } from 'context/useSubscription'
 import { IconContext } from 'react-icons'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
 import { logClick } from 'utils/analytics'
 import GenericModal from 'components/page/genericModal'
-import { useTheme } from 'context/useTheme'
-import GenericButton from './generic_button'
+import GenericButton from 'components/input/generic_button'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

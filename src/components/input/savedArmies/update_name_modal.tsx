@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import GenericModal from 'components/page/genericModal'
-import GenericButton from '../generic_button'
 import { logEvent } from 'utils/analytics'
+import GenericModal from 'components/page/genericModal'
+import GenericButton from 'components/input/generic_button'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
