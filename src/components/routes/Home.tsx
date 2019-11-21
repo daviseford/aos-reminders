@@ -1,9 +1,9 @@
 import React, { useEffect, Suspense, lazy } from 'react'
-import { logPageView } from 'utils/analytics'
+import { useTheme } from 'context/useTheme'
 import { useSubscription } from 'context/useSubscription'
+import { logPageView } from 'utils/analytics'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
-import { useTheme } from 'context/useTheme'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
 // const AppBanner = lazy(() => import('components/info/banners/app_banner'))

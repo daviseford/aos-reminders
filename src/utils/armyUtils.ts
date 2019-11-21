@@ -1,6 +1,6 @@
+import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { TEntry } from 'types/data'
 
 export const armyHasEntries = (army: ISavedArmy) => {

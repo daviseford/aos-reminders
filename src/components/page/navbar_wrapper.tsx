@@ -1,7 +1,7 @@
 import React from 'react'
+import { useTheme } from 'context/useTheme'
 import { navbarStyles } from 'theme/helperClasses'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { useTheme } from 'context/useTheme'
 
 const NavbarWrapperComponent: React.FC<{ isMobile: boolean }> = props => {
   const { isMobile, children } = props

@@ -1,62 +1,62 @@
-type TDamned = `Damned`
 type TArcane = `Arcane`
-type TInspiring = `Inspiring`
-type TDeadly = `Deadly`
-type TMystical = `Mystical`
-type TSinister = `Sinister`
-type TOvergrown = `Overgrown`
-type TEntangling = `Entangling`
-type TVolcanic = `Volcanic`
 type TCommanding = `Commanding`
+type TDamned = `Damned`
+type TDeadly = `Deadly`
+type TEntangling = `Entangling`
+type TGarrisons = `Garrisons`
 type THealing = `Healing`
+type TInspiring = `Inspiring`
+type TMystical = `Mystical`
 type TNullification = `Nullification`
 type TObstacle = `Obstacle`
-type TGarrisons = `Garrisons`
+type TOvergrown = `Overgrown`
+type TSinister = `Sinister`
+type TVolcanic = `Volcanic`
 
 export type TSceneryEffects =
-  | TDamned
   | TArcane
-  | TInspiring
-  | TDeadly
-  | TMystical
-  | TSinister
-  | TOvergrown
-  | TEntangling
-  | TVolcanic
   | TCommanding
+  | TDamned
+  | TDeadly
+  | TEntangling
+  | TGarrisons
   | THealing
+  | TInspiring
+  | TMystical
   | TNullification
   | TObstacle
-  | TGarrisons
+  | TOvergrown
+  | TSinister
+  | TVolcanic
 
-export const DAMNED: TDamned = `Damned`
 export const ARCANE: TArcane = `Arcane`
-export const INSPIRING: TInspiring = `Inspiring`
-export const DEADLY: TDeadly = `Deadly`
-export const MYSTICAL: TMystical = `Mystical`
-export const SINISTER: TSinister = `Sinister`
-export const OVERGROWN: TOvergrown = `Overgrown`
-export const ENTANGLING: TEntangling = `Entangling`
-export const VOLCANIC: TVolcanic = `Volcanic`
 export const COMMANDING: TCommanding = `Commanding`
+export const DAMNED: TDamned = `Damned`
+export const DEADLY: TDeadly = `Deadly`
+export const ENTANGLING: TEntangling = `Entangling`
+export const GARRISONS: TGarrisons = `Garrisons`
 export const HEALING: THealing = `Healing`
+export const INSPIRING: TInspiring = `Inspiring`
+export const MYSTICAL: TMystical = `Mystical`
 export const NULLIFICATION: TNullification = `Nullification`
 export const OBSTACLE: TObstacle = `Obstacle`
-export const GARRISONS: TGarrisons = `Garrisons`
+export const OVERGROWN: TOvergrown = `Overgrown`
+export const SINISTER: TSinister = `Sinister`
+export const VOLCANIC: TVolcanic = `Volcanic`
 
 export const SCENERY_EFFECTS: TSceneryEffects[] = [
-  DAMNED,
   ARCANE,
-  INSPIRING,
-  DEADLY,
-  MYSTICAL,
-  SINISTER,
-  OVERGROWN,
-  ENTANGLING,
-  VOLCANIC,
   COMMANDING,
+  DAMNED,
+  DEADLY,
+  ENTANGLING,
+  GARRISONS,
   HEALING,
+  INSPIRING,
+  MYSTICAL,
   NULLIFICATION,
   OBSTACLE,
-  GARRISONS,
+  OVERGROWN,
+  SINISTER,
+  VOLCANIC,
 ]

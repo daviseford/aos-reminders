@@ -1,5 +1,5 @@
+import { isProd } from 'utils/env'
 import { TUnits, TBattalions } from 'types/army'
-import { isProd } from './env'
 
 type TFilterUnits = (units: TUnits, unitNames: string[]) => TUnits
 type TFilterBattalions = (battalions: TBattalions, battalionNames: string[]) => TBattalions

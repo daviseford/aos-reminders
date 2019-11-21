@@ -1,8 +1,8 @@
 import ReactGA from 'react-ga'
-import { isValidFactionName } from './armyUtils'
-import { isTest, isProd, isDev } from './env'
+import { isValidFactionName } from 'utils/armyUtils'
+import { isTest, isProd, isDev } from 'utils/env'
 import { TImportParsers } from 'types/import'
-import { generateUUID } from './textUtils'
+import { generateUUID } from 'utils/textUtils'
 import { SubscriptionPlans, GiftedSubscriptionPlans } from 'components/payment/plans'
 
 if (!isTest) {

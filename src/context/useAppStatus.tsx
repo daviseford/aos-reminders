@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { installNewWorker } from 'utils/installNewWorker'
 
 interface IAppStatusProvider {
   isOffline: boolean
@@ -31,6 +32,7 @@ const AppStatusProvider: React.FC = ({ children }) => {
       'New content is available and will be used when all tabs for this page are closed. See https://create-react-app.dev/docs/making-a-progressive-web-app/#offline-first-considerations.'
     )
     setHasNewContent(true)
+    installNewWorker(false)
   }
 
   useEffect(() => {

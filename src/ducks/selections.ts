@@ -1,8 +1,8 @@
+import { uniq, without } from 'lodash'
 import { createSlice } from 'redux-starter-kit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits } from 'types/army'
 import { ISelectionStore, IStore } from 'types/store'
-import { uniq, without } from 'lodash'
 import { TSelectionTypes } from 'types/selections'
 
 const initialState: ISelectionStore = {

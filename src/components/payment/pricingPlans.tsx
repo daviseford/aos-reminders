@@ -2,13 +2,13 @@ import React from 'react'
 import { injectStripe, Elements } from 'react-stripe-elements'
 import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
-import AsyncStripeProvider from './asyncStripeProvider'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { SubscriptionPlans, ISubscriptionPlan } from './plans'
-import { IUser } from 'types/user'
 import { LocalStoredArmy } from 'utils/localStore'
+import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
+import { SubscriptionPlans, ISubscriptionPlan } from 'components/payment/plans'
+import { IUser } from 'types/user'
 
 interface ICheckoutProps {
   stripe?: any

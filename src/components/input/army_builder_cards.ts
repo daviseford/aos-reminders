@@ -1,9 +1,9 @@
-import { IArmyBuilderProps } from './army_builder'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
+import { IArmyBuilderProps } from 'components/input/army_builder'
+import { getSideEffects } from 'components/input/getSideEffects'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
-import { getSideEffects } from './getSideEffects'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 

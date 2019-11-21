@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import jsPDF from 'jspdf'
-import { selectors } from 'ducks'
 import { MdFileDownload } from 'react-icons/md'
+import { selectors } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import { DownloadPDFModal } from './pdfModal'
+import { DownloadPDFModal } from 'components/print/pdfModal'
+import GenericButton from 'components/input/generic_button'
 import { TAllyArmies, IArmy, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import GenericButton from 'components/input/generic_button'
 
 interface IDownloadPDFProps extends ICurrentArmy {
   allyArmies: TAllyArmies

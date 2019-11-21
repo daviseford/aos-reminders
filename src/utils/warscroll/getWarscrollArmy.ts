@@ -1,10 +1,10 @@
 import { uniq, last } from 'lodash'
-import { cleanWarscrollText } from './warscrollUtils'
-import { importUnitOptionMap, importFactionNameMap } from '../import/options'
-import { TSupportedFaction } from 'meta/factions'
-import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
+import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
+import { importUnitOptionMap, importFactionNameMap } from 'utils/import/options'
 import { importErrorChecker } from 'utils/import'
 import GenericScenery from 'army/generic/scenery'
+import { TSupportedFaction } from 'meta/factions'
+import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)

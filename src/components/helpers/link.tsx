@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconType } from 'react-icons'
-import { logClick } from 'utils/analytics'
 import { centerContentClass } from 'theme/helperClasses'
+import { logClick } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface ILinkProps {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useAppStatus } from 'context/useAppStatus'
 import { factionNames, selections, realmscape, army, visibility } from 'ducks'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { logEvent } from 'utils/analytics'
@@ -9,7 +10,6 @@ import { IArmy } from 'types/army'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { useAppStatus } from 'context/useAppStatus'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi

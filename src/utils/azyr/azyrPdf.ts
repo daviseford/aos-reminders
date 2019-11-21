@@ -1,8 +1,8 @@
 import pdfjsLib from 'pdfjs-dist'
 import { uniq, sortBy } from 'lodash'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { titleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
 
 const sep = ', '

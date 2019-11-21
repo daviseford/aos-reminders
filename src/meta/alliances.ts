@@ -3,7 +3,7 @@ import {
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   ORDER_GRAND_ALLIANCE,
-} from './factions'
+} from 'meta/factions'
 
 export type TChaos = 'Chaos'
 export type TDeath = 'Death'

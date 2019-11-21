@@ -1,15 +1,15 @@
 import React, { useEffect, lazy, Suspense } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
 import { logPageView, logClick } from 'utils/analytics'
+import { GITHUB_URL } from 'utils/env'
+import { componentWithSize } from 'utils/mapSizesToProps'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { LinkNewTab } from 'components/helpers/link'
-import { GITHUB_URL } from 'utils/env'
-import { useTheme } from 'context/useTheme'
-import { componentWithSize } from 'utils/mapSizesToProps'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { LinkNewTab } from 'components/helpers/link'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 

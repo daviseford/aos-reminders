@@ -1,8 +1,8 @@
 import React from 'react'
-import { useAppStatus } from 'context/useAppStatus'
-import { LocalUserName } from 'utils/localStore'
 import { FiWifiOff } from 'react-icons/fi'
+import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import { LocalUserName } from 'utils/localStore'
 
 const OfflineComponent = () => {
   const { isOnline } = useAppStatus()

@@ -2,9 +2,9 @@ import React, { useState, useCallback } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconContext } from 'react-icons'
 import { FaCcPaypal, FaEthereum, FaRegCopy, FaBtc } from 'react-icons/fa'
-import { logClick } from 'utils/analytics'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import { logClick } from 'utils/analytics'
 
 export const DonateComponent = () => {
   const { isOffline } = useAppStatus()

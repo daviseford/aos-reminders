@@ -1,5 +1,3 @@
-import { TGrandAlliances, CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
-import { TArtifacts, TTraits, TUnits } from 'types/army'
 import {
   ChaosArtifacts,
   ChaosTraits,
@@ -14,6 +12,8 @@ import {
   OrderTraits,
   OrderUnits,
 } from 'army/grand_alliances'
+import { TGrandAlliances, CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
+import { TArtifacts, TTraits, TUnits } from 'types/army'
 
 type IGrandAllianceConfig = {
   readonly [key in TGrandAlliances]: {

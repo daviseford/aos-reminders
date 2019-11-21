@@ -1,4 +1,4 @@
-import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from './alliances'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { IInitialArmy } from 'types/army'
 import {
   BEASTS_OF_CHAOS,
@@ -44,7 +44,7 @@ import {
   TSupportedFaction,
   TZEENTCH,
   WANDERERS,
-} from './factions'
+} from 'meta/factions'
 
 import BeastsOfChaos from 'army/beasts_of_chaos'
 import BigWaaagh from 'army/big_waaagh'

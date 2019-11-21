@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react'
 import Select from 'react-select'
-
-import { titleCase } from 'utils/textUtils'
 import { ActionMeta, ValueType } from 'react-select/src/types'
 import { useTheme } from 'context/useTheme'
 import { logIndividualSelection } from 'utils/analytics'
+import { titleCase } from 'utils/textUtils'
 
 export type TDropdownOption = { value: string; label: string }
 export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta) => void

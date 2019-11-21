@@ -1,8 +1,8 @@
 import React from 'react'
-import { DonateComponent } from 'components/info/donate'
-import { ContactComponent } from './contact'
-import OfflineComponent from 'components/info/offline'
 import { useTheme } from 'context/useTheme'
+import { DonateComponent } from 'components/info/donate'
+import { ContactComponent } from 'components/page/contact'
+import OfflineComponent from 'components/info/offline'
 
 /**
  * Hidden when printing

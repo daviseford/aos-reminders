@@ -1,3 +1,4 @@
+import { PreferenceApi } from 'api/preferenceApi'
 import { getPdfPages, handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
@@ -5,7 +6,7 @@ import { logEvent } from 'utils/analytics'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
-import { PreferenceApi } from 'api/preferenceApi'
+import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import {
   AZYR,
   BATTLESCRIBE,
@@ -16,7 +17,6 @@ import {
   UNKNOWN,
   WARSCROLL_BUILDER,
 } from 'types/import'
-import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 interface IUseParseArgs {
   handleDone: () => void
