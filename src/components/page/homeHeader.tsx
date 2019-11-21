@@ -1,21 +1,21 @@
 import React, { Suspense, lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { factionNames, selections, selectors, realmscape } from 'ducks'
+import { useTheme } from 'context/useTheme'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useAppStatus } from 'context/useAppStatus'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
-import { factionNames, selections, selectors, realmscape } from 'ducks'
-import { SelectOne } from 'components/input/select'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { LinkNewTab } from 'components/helpers/link'
 import { LocalStoredArmy } from 'utils/localStore'
-import { useAppStatus } from 'context/useAppStatus'
-import { useTheme } from 'context/useTheme'
 import { getArmyLink } from 'utils/handleQueryParams'
+import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
+import { SelectOne } from 'components/input/select'
+import { LinkNewTab } from 'components/helpers/link'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 
-const Navbar = lazy(() => import(/* webpackChunkName: 'Navbar' */ './navbar'))
+const Navbar = lazy(() => import('./navbar'))
 
 export const Header = () => {
   const { theme } = useTheme()

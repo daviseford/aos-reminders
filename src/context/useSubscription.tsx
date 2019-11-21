@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { ISubscription } from 'types/subscription'
 import {
-  isSubscriber,
   isActiveSubscriber,
   isCanceledSubscriber,
   isGiftedSubscriber,
+  isSubscriber,
 } from 'utils/subscriptionUtils'
 import { LocalFavoriteFaction } from 'utils/localStore'
+import { ISubscription } from 'types/subscription'
 
 const initialState = {
   isActive: false,

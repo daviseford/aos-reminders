@@ -7,7 +7,7 @@ import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
 import Spinner from 'components/helpers/spinner'
 import GenericModal from 'components/page/genericModal'
-import GenericButton from '../generic_button'
+import GenericButton from 'components/input/generic_button'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
 

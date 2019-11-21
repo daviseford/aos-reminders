@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
-import UpdateArmyBtn from './update_army_btn'
-import UpdateNameButton from './update_name_btn'
+import UpdateArmyBtn from 'components/input/savedArmies/update_army_btn'
+import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
 import { ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { useAppStatus } from 'context/useAppStatus'
-import { useTheme } from 'context/useTheme'
 
 const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
   const { ...currentArmy } = props

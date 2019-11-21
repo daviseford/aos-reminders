@@ -1,13 +1,18 @@
-import { uniq } from 'lodash'
-import { IParentNode, IFactionInfo, IChildNode, IParsedRoot, IAllegianceInfo } from './getBattlescribeArmy'
-import { isParentNode, isChildNode } from './checks'
+import { uniq, isString } from 'lodash'
+import {
+  IParentNode,
+  IFactionInfo,
+  IChildNode,
+  IParsedRoot,
+  IAllegianceInfo,
+} from 'utils/battlescribe/getBattlescribeArmy'
+import { isParentNode, isChildNode } from 'utils/battlescribe/checks'
 import { importFactionNameMap } from 'utils/import/options'
-import { stripParentNode, partialSearchDoc } from './parseHTML'
-import { cleanText, fixKeys, ignoredValues } from './battlescribeUtils'
-import { TRealms } from 'types/realmscapes'
-import { isString } from 'util'
+import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
+import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isValidFactionName } from 'utils/armyUtils'
 import { TSupportedFaction } from 'meta/factions'
+import { TRealms } from 'types/realmscapes'
 
 export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
   const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }

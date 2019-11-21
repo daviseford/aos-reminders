@@ -1,7 +1,7 @@
 import parse5 from 'parse5'
 import { importErrorChecker } from 'utils/import'
-import { stripParentNode, traverseDoc, parseRootSelection } from './parseHTML'
-import { sortParsedRoots, getFactionAndAllegiance } from './getters'
+import { stripParentNode, traverseDoc, parseRootSelection } from 'utils/battlescribe/parseHTML'
+import { sortParsedRoots, getFactionAndAllegiance } from 'utils/battlescribe/getters'
 import { TSupportedFaction } from 'meta/factions'
 import { BATTLESCRIBE } from 'types/import'
 

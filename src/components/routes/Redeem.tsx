@@ -1,19 +1,19 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { useSubscription } from 'context/useSubscription'
 import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import qs from 'qs'
+import { SubscriptionApi } from 'api/subscriptionApi'
+import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { SubscriptionApi } from 'api/subscriptionApi'
 import { logPageView, logClick, logEvent } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { LocalRedemptionKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { ContactComponent } from 'components/page/contact'
-import { IUser } from 'types/user'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { IUser } from 'types/user'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 

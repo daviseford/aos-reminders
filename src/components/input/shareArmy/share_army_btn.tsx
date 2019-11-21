@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { FaLink } from 'react-icons/fa'
+import { useAppStatus } from 'context/useAppStatus'
 import { selectors } from 'ducks'
+import GenericButton from 'components/input/generic_button'
+import { ShareArmyModal } from 'components/input/shareArmy/share_army_modal'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
-import { ShareArmyModal } from './share_army_modal'
-import { useAppStatus } from 'context/useAppStatus'
-import GenericButton from '../generic_button'
 
 interface IShareArmyProps {
   currentArmy: ISavedArmy

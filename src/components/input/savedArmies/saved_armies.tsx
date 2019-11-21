@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { useAuth0 } from 'react-auth0-wrapper'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useSavedArmies } from 'context/useSavedArmies'
-import { SavedArmyCard } from './saved_army_card'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { paginateSavedArmies } from 'utils/paginate'
-import { PaginateButtons } from './paginate_buttons'
-import { useAppStatus } from 'context/useAppStatus'
+import { SavedArmyCard } from 'components/input/savedArmies/saved_army_card'
+import { PaginateButtons } from 'components/input/savedArmies/paginate_buttons'
 
 const ShowSavedArmies: React.FC = () => {
   const { isOffline } = useAppStatus()

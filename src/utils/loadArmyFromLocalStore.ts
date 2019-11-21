@@ -1,9 +1,9 @@
 import { store } from 'index'
-import { logEvent } from './analytics'
 import { factionNames, army, selections, realmscape, visibility } from 'ducks'
-import { getArmy } from './getArmy/getArmy'
-import { LocalStoredArmy } from './localStore'
-import { isDev } from './env'
+import { logEvent } from 'utils/analytics'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { LocalStoredArmy } from 'utils/localStore'
+import { isDev } from 'utils/env'
 import { IArmy } from 'types/army'
 
 export const loadArmyFromLocalStore = () => {

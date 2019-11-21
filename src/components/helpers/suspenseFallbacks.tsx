@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FiWifiOff } from 'react-icons/fi'
+import { useTheme } from 'context/useTheme'
 import { navbarStyles } from 'theme/helperClasses'
+import { ROUTES } from 'utils/env'
 import GenericButton from 'components/input/generic_button'
 import Spinner from 'components/helpers/spinner'
 import NavbarWrapper from 'components/page/navbar_wrapper'
-import { FiWifiOff } from 'react-icons/fi'
-import { ROUTES } from 'utils/env'
-import { useTheme } from 'context/useTheme'
 
 export const LoadingBtn = ({ text = 'Loading' }) => (
   <GenericButton disabled type="button">

@@ -1,6 +1,6 @@
 import React from 'react'
-import { centerContentClass } from 'theme/helperClasses'
 import { useTheme } from 'context/useTheme'
+import { centerContentClass } from 'theme/helperClasses'
 
 type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 

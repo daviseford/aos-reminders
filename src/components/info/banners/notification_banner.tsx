@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { centerContentClass } from 'theme/helperClasses'
 import { hideNotificationBanner, getNotificationBanner } from 'utils/localStore'
 import { logDisplay, logClick } from 'utils/analytics'
-import { centerContentClass } from 'theme/helperClasses'
 
 interface IBannerProps {
   displayOnce?: boolean

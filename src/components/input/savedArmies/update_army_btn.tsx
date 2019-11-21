@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
+import GenericButton from 'components/input/generic_button'
 import { ISavedArmy } from 'types/savedArmy'
-import GenericButton from '../generic_button'
-import { useTheme } from 'context/useTheme'
 
 interface IUpdateArmyProps {
   id: string

@@ -1,12 +1,12 @@
 import { uniq } from 'lodash'
 import { titleCase } from 'utils/textUtils'
 import { importErrorChecker } from 'utils/import'
+import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
+import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
+import KOArmy from 'army/kharadron_overlords'
 import { TSupportedFaction } from 'meta/factions'
 import { TRealms } from 'types/realmscapes'
 import { IImportedArmy, AZYR } from 'types/import'
-import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
-import KOArmy from 'army/kharadron_overlords'
-import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)

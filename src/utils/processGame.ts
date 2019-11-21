@@ -1,6 +1,6 @@
 import { flatten } from 'lodash'
-import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { TGameStructure, Game } from 'meta/game_structure'
+import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'
 
 type TEntries = TAllegiances | TArtifacts | TBattalions | TEndlessSpells | TSpells | TTraits | TUnits

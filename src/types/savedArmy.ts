@@ -1,5 +1,5 @@
-import { ICurrentArmy } from './army'
-import { IVisibilityStore } from './store'
+import { ICurrentArmy } from 'types/army'
+import { IVisibilityStore } from 'types/store'
 
 export interface ISavedArmy extends ICurrentArmy {
   armyName: string

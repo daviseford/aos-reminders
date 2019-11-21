@@ -4,20 +4,20 @@ import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
-import Spinner from 'components/helpers/spinner'
-import { handleParseFile } from './parseFile'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import Spinner from 'components/helpers/spinner'
+import { handleParseFile } from 'components/input/importPdf/parseFile'
 import {
-  IImportedArmy,
-  TImportParsers,
-  WARSCROLL_BUILDER,
   AZYR,
   BATTLESCRIBE,
-  PDF_FILE,
   HTML_FILE,
+  IImportedArmy,
+  PDF_FILE,
+  TImportParsers,
+  WARSCROLL_BUILDER,
 } from 'types/import'
-import { useTheme } from 'context/useTheme'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void

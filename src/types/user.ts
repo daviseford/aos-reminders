@@ -1,6 +1,6 @@
 export interface IUser {
-  email: string
   email_verified: boolean
+  email: string
   name: string
   nickname: string
   picture: string

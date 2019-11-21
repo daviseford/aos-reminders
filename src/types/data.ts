@@ -1,4 +1,4 @@
-import { TTurnWhen } from './phases'
+import { TTurnWhen } from 'types/phases'
 
 export type TEntryProperties =
   | 'allegiance_ability'

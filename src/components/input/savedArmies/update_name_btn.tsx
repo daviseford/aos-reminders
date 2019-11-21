@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
-import UpdateArmyNameModal from './update_name_modal'
 import { IconContext } from 'react-icons'
+import UpdateArmyNameModal from 'components/input/savedArmies/update_name_modal'
 
 type TUpdateName = React.FC<{ id: string; armyName: string; className?: string; size?: string }>
 

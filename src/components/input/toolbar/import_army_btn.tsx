@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { logClick } from 'utils/analytics'
-import { centerContentClass } from 'theme/helperClasses'
 import { FaFileImport } from 'react-icons/fa'
-import { ROUTES } from 'utils/env'
 import { useTheme } from 'context/useTheme'
-import GenericButton from '../generic_button'
+import { centerContentClass } from 'theme/helperClasses'
+import { logClick } from 'utils/analytics'
+import { ROUTES } from 'utils/env'
+import GenericButton from 'components/input/generic_button'
 
 interface IImportArmyButtonProps {
   isSubscribed: boolean

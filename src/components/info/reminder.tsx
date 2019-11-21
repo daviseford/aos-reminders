@@ -1,14 +1,14 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility, selectors } from 'ducks'
+import { useTheme } from 'context/useTheme'
+import { getReminderKey } from 'utils/reminderUtils'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
-import { CardHeaderComponent } from './card'
-import { useTheme } from 'context/useTheme'
-import { getReminderKey } from 'utils/reminderUtils'
 
 interface IReminderProps {
   actions: TTurnAction[]
