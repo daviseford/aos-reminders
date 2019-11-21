@@ -38,6 +38,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
   })
 
+  it('should work with Vokmortians Retinue', () => {
+    const parsedText = getFile('1574249013027-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    // TODO: Get from Feast of Bones
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+  })
+
   it('should work with OBR', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
