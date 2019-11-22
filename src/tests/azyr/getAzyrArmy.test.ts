@@ -43,6 +43,7 @@ import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
 import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
+import Gloomspite3 from '../fixtures/azyr/json/Gloomspite3.json'
 import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import IDK3 from '../fixtures/azyr/json/IDK3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
@@ -431,6 +432,19 @@ describe('getAzyrArmyFromPdf', () => {
         'Helstorm Rocket Battery',
       ],
     })
+  })
+
+  it('handles Gloomspite3', () => {
+    const pages = handleAzyrPages(Gloomspite3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles CoS3', () => {
