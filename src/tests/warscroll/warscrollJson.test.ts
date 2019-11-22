@@ -47,6 +47,22 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
   })
 
+  it('should work with CoS', () => {
+    const parsedText = getFile('1574356951165-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz', () => {
+    const parsedText = getFile('1574391649028-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections.allegiances).toContain('Ironsunz')
+    expect(warscrollTxt.errors).toEqual([])
+  })
   it('should work with OBR', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
