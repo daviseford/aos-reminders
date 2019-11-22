@@ -30,8 +30,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    // Feast of Bones Exclusive - Need to get these rules
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('reads Fyreslayers battalions properly', () => {
@@ -51,8 +50,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
-    // Feast of Bones Exclusive - Need to get these rules
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Kin-eater's Bully Boys" }])
+    expect(warscrollTxt.selections.battalions).toContain("Kin-eater's Bully Boys")
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {

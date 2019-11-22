@@ -133,10 +133,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Nibblas 'Itty Ring`,
+    name: `Nibbla's 'Itty Ring`,
     effects: [
       {
-        name: `Nibblas 'Itty Ring`,
+        name: `Nibbla's 'Itty Ring`,
         desc: `Once per battle, at the start of a combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a D6. On a 1 there is no effect. On a 2-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffer D6 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },

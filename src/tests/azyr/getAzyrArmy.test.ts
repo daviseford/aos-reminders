@@ -43,6 +43,7 @@ import FEC3 from '../fixtures/azyr/json/FEC3.json'
 import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
 import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
 import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
+import Gloomspite3 from '../fixtures/azyr/json/Gloomspite3.json'
 import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import IDK3 from '../fixtures/azyr/json/IDK3.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
@@ -53,6 +54,7 @@ import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
+import KO6 from '../fixtures/azyr/json/KO6.json'
 import LoG2 from '../fixtures/azyr/json/LoG2.json'
 import LoG3 from '../fixtures/azyr/json/LoG3.json'
 import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
@@ -432,6 +434,19 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
+  it('handles Gloomspite3', () => {
+    const pages = handleAzyrPages(Gloomspite3)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
   it('handles CoS3', () => {
     const pages = handleAzyrPages(CoS3)
     const res = getAzyrArmyFromPdf(pages)
@@ -456,6 +471,15 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
+  it('handles KO6', () => {
+    const pages = handleAzyrPages(KO6)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    // Azyr incorrectly classifies The Last Word as a Mount Trait
+    // Even though it's an artifact :(
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'The Last Word' }])
+  })
+
   it('handles KO5', () => {
     const pages = handleAzyrPages(KO5)
     const res = getAzyrArmyFromPdf(pages)
@@ -466,6 +490,7 @@ describe('getAzyrArmyFromPdf', () => {
       "FOOTNOTE: There's no Trading With Some People",
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles KO4', () => {
@@ -478,6 +503,7 @@ describe('getAzyrArmyFromPdf', () => {
       'FOOTNOTE: Without Our Ships, We Are Naught',
       "FOOTNOTE: There's Always a Breeze if You Look for it",
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles KO2', () => {

@@ -608,4 +608,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Kin-eater's Bully Boys`,
+    effects: [
+      {
+        name: `Bully Boys`,
+        desc: `You can re-roll charge rolls for units from this battalion while they are wholly within 12" of the TYRANT from the same battalion.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
 ]

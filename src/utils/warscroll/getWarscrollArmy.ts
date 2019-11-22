@@ -270,6 +270,7 @@ const traitToSpellMapper = [
   'Druid of the Everspring -',
   'Fuelled by the Spirits -',
   'Midnight Tome -',
+  'One with Fire and Ice -',
   'Rune of Ulgu -',
   'Secretive Warlock -',
   'Whitefire Tome -',

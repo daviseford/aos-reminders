@@ -451,4 +451,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Vokmortian's Retinue`,
+    effects: [
+      {
+        name: `Eternal Duty`,
+        desc: `At the start of your hero phase, you can pick 1 unit from this battalion within 8" of the VOKMORTIAN from the same battalion. Return 1 slain model to that unit.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
 ]
