@@ -50,8 +50,8 @@ const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
   'Armor of Silvered Sigmarite': 'Armour of Silvered Sigmarite',
-  'Blade of the All-Frost': 'Blade of All-Frost',
   'Blade of All Frost': 'Blade of All-Frost',
+  'Blade of the All-Frost': 'Blade of All-Frost',
   'Bursting with Power': "Burstin' with Power",
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
@@ -86,6 +86,7 @@ const warscrollTypoMap: TNameMap = {
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',
+  "Anraheir's Claw": "Anraheirs's Claw",
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
   Ogors: 'Ogor Gluttons',
 }
@@ -101,7 +102,6 @@ const azyrTypoMap: TNameMap = {
   'Ogors Gluttons': 'Ogor Gluttons',
   'The Blood-forged Armour': 'Blood-forged Armour',
   'The Brazen Rune': 'Brazen Rune',
-  'The Last Word': 'The Last Word (GREAT ENDRINWORK)',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -142,6 +142,7 @@ const battlescribeTypoMap: TNameMap = {
   'Warp Lighting Storm': 'Warp Lightning Storm',
   'Warrgog Prophet': 'Wurrgog Prophet',
   'Zharrgron Flame Splitter': 'Zharrgron Flame-spitter',
+  "Anraheir's Claw": "Anraheirs's Claw",
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
   "Ironskull'z Boyz": "Ironskull's Boyz",

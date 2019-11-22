@@ -34,8 +34,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    // TODO: Get from Feast of Bones
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+    expect(warscrollTxt.selections.battalions).toContain("Vokmortian's Retinue")
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should work with Vokmortians Retinue', () => {
@@ -43,15 +43,17 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    // TODO: Get from Feast of Bones
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+    expect(warscrollTxt.selections.battalions).toContain("Vokmortian's Retinue")
+    expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with CoS', () => {
+  it('should work with One with Fire and Ice trait/spell', () => {
     const parsedText = getFile('1574356951165-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('One with Fire and Ice (The Phoenicium)')
+    expect(warscrollTxt.selections.spells).toContain('Golden Mist (The Phoenicium)')
     expect(warscrollTxt.errors).toEqual([])
   })
 

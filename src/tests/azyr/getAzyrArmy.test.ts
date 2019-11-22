@@ -461,8 +461,9 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(KO6)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.errors).toEqual([])
-    expect(res.selections.artifacts).toContain('The Last Word (GREAT ENDRINWORK)')
+    // Azyr incorrectly classifies The Last Word as a Mount Trait
+    // Even though it's an artifact :(
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'The Last Word' }])
   })
 
   it('handles KO5', () => {

@@ -37,6 +37,7 @@ import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO3 from '../fixtures/azyr/json/KO3.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
 import KO5 from '../fixtures/azyr/json/KO5.json'
+import KO6 from '../fixtures/azyr/json/KO6.json'
 import Lethisian1 from '../fixtures/azyr/json/Lethisian1.json'
 import LoB1 from '../fixtures/azyr/json/LoB1.json'
 import LoG1 from '../fixtures/azyr/json/LoG1.json'
@@ -110,6 +111,26 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles KO6', () => {
+    const res = handleAzyrPages(KO6)
+    expect(res).toEqual([
+      'FACTION: Kharadron Overlords',
+      'ALLEGIANCE: Barak-Mhornar, City of Shadow',
+      "Kharadron Code: Seek New Prospects, Prosecute Wars With All Haste, Who Strikes First, Strikes Hardest, There's No Trading With Some People",
+      'UNIT: Aether-Khemist',
+      'ARTEFACT: Aethershock Earbuster',
+      'COMMAND TRAIT: Opportunistic Privateers',
+      'UNIT: Arkanaut Company',
+      'UNIT: Arkanaut Frigate',
+      'UNIT: Arkanaut Ironclad',
+      'MOUNT TRAIT: The Last Word',
+      'UNIT: Grundstok Gunhauler',
+      'UNIT: Endrinriggers',
+      'UNIT: Grundstok Thunderers',
+      'UNIT: Skywardens',
+    ])
   })
 
   it('handles IDK2', () => {
