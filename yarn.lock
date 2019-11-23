@@ -11871,7 +11871,7 @@ ws@^6.1.2:
   dependencies:
     async-limiter "~1.0.0"
 
-xlsx@^0.15.2:
+xlsx@0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/xlsx/-/xlsx-0.15.2.tgz#1938e712e62813035b0ec9803a12ffaa400ce34f"
   integrity sha512-0YcFaYgoqSHh9JcWeQU5X/kR6hyXrs+boc6BomPnJAUVYGgo+Jna9blIwMztjQYfJ6WHs5tKtg5GBBGjkLFVhA==
