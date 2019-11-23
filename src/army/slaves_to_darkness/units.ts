@@ -587,6 +587,7 @@ export const Units: TUnits = [
         name: `Favour of the Ruinous Powers`,
         desc: `This model may pick a mortal unit within 16" and roll a D6. On a 3+ the prayer is answered based on the God alignment of the Warshrine.`,
         when: [HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Favor: ${MARK_UNDIVIDED}`,

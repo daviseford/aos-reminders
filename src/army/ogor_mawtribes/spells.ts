@@ -102,6 +102,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Keening Gale`,
@@ -112,6 +113,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Call of the Blizzard`,
@@ -122,6 +124,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
 ]
 

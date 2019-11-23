@@ -82,6 +82,7 @@ const Allegiances: TAllegiances = [
         Rune of Unfaltering Aim: If this prayer is answered, pick 1 friendly IRONWELD ARSENAL WAR MACHINE unit within 3" of this model. Until the start of your next hero phase, add 1 to hit rolls for attacks made with missile weapons by that unit.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
+        prayer: true,
       },
       {
         name: `Home of the Great Ironweld Guilds`,

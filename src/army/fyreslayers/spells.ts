@@ -12,6 +12,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Searing Heat`,
@@ -22,6 +23,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Prayer of Ash`,
@@ -32,6 +34,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Ember Storm`,
@@ -42,6 +45,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Prayer of Grimnir's Fury`,
@@ -52,6 +56,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Gilded Claws`,
@@ -62,6 +67,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE],
       },
     ],
+    prayer: true,
   },
 ]
 

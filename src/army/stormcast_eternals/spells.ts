@@ -109,6 +109,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Bless Weapons`,
@@ -119,6 +120,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Bolster Faith`,
@@ -129,6 +131,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Abjuration`,
@@ -139,6 +142,7 @@ const Spells: TSpells = [
         when: [START_OF_HERO_PHASE, HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `God King's Aspect`,
@@ -149,6 +153,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Translocation`,
@@ -159,6 +164,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
 ]
 

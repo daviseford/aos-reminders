@@ -7,6 +7,7 @@ export type TEntryProperties =
   | 'command_trait'
   | 'endless_spell'
   | 'mount_trait'
+  | 'prayer'
   | 'scenery'
   | 'spell'
   | 'triumph'
@@ -18,6 +19,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'command_trait',
   'endless_spell',
   'mount_trait',
+  'prayer',
   'scenery',
   'spell',
   'triumph',
