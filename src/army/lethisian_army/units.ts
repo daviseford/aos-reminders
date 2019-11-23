@@ -45,7 +45,6 @@ export const AlliedUnits: TUnits = [
 
 // Unit Names
 export const Units: TUnits = [
-  // Add warpriest manually until Cities of Sigmar is released.
   {
     name: `Excelsior Warpriest`,
     effects: [
@@ -53,6 +52,7 @@ export const Units: TUnits = [
         name: `Light of Sigmar`,
         desc: `Prayer is answered on a 3+. If successful, pick one unit within 10" of the priest. Selected friendly unit heal 1 wound (Order units heal D3 instead). Selected enemy unit suffers 1 mortal wound (Chaos units suffer D3 instead).`,
         when: [HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Divine Power`,

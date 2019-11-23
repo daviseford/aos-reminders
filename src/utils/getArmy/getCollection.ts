@@ -34,7 +34,7 @@ export const getCollection = (army: IInitialArmy): ICollection => {
   types.forEach(items =>
     items.forEach(item => {
       item.effects.forEach(effect => {
-        if (effect.spell) {
+        if (effect.spell || effect.prayer) {
           addToCollection(effect, Collection.Spells)
         } else if (effect.artifact) {
           addToCollection(effect, Collection.Artifacts)

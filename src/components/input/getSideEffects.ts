@@ -5,7 +5,7 @@ export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {
     accum[item.name] = {}
     item.effects.forEach(effect => {
-      if (effect.spell) {
+      if (effect.spell || effect.prayer) {
         addToAccum(accum, item.name, effect.name, 'spells')
       } else if (effect.artifact) {
         addToAccum(accum, item.name, effect.name, 'artifacts')
