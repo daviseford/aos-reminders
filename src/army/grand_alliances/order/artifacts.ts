@@ -54,10 +54,10 @@ const OrderArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Pheonix Stone (${ORDER})`,
+    name: `Phoenix Stone (${ORDER})`,
     effects: [
       {
-        name: `Pheonix Stone (${ORDER})`,
+        name: `Phoenix Stone (${ORDER})`,
         desc: `In each hero phase, you can heal 1 wound that has been allocated to the bearer.`,
         when: [HERO_PHASE],
       },
