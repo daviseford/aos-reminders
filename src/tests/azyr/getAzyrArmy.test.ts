@@ -809,7 +809,13 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: ['SLAVES_TO_DARKNESS'],
       allySelections: {
         SLAVES_TO_DARKNESS: {
-          units: ['Sayl the Faithless', 'Theddra Skull-Scryer', 'Darkoath Warqueen', 'Godsworn Hunt'],
+          units: [
+            'Sayl the Faithless',
+            'Theddra Skull-Scryer',
+            'Darkoath Warqueen',
+            'Untamed Beasts',
+            'Godsworn Hunt',
+          ],
         },
       },
       allyUnits: [

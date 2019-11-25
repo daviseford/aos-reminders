@@ -7,7 +7,7 @@ export const cleanWarscrollText = (pdfText: string[]) => {
           .replace(/\\\)/g, ')') // Fix parentheses i.e. "\(value\)"
           .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
           .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
-          .replace(/^[0-9]{1,2}D6"/gi, '') // Remove '2D6"' entries
+          .replace(/^[0-9]{1,2}[D|d]6"/g, '') // Remove '2D6"' entries
     )
     .filter(
       txt =>

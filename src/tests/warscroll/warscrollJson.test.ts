@@ -5,8 +5,11 @@ import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
+  CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
+  DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
@@ -18,12 +21,10 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  DEATH_GRAND_ALLIANCE,
-  CHAOS_GRAND_ALLIANCE,
-  EVERCHOSEN,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -40,19 +41,37 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Guardian of Souls' }])
   })
 
-  it('should work with ', () => {
+  it('should work with Chaos Hellcannon', () => {
     const parsedText = getFile('1574545285739-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.units).toEqual([
+      'Chaos Lord on Daemonic Mount',
+      'Gaunt Summoner of Tzeentch',
+      'Chaos Chosen',
+      'Chaos Warriors',
+      'Varanguard',
+      'Tuskgor Chariots',
+      'Hellcannon',
+    ])
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with ', () => {
+  it('should work with Warcry scrolls', () => {
     const parsedText = getFile('1574613461286-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
+      units: [
+        'Darkoath Warqueen',
+        'Chaos Sorcerer Lord on Manticore',
+        'Untamed Beasts',
+        'Cypher Lords',
+        'Iron Golems',
+      ],
+    })
     expect(warscrollTxt.errors).toEqual([])
   })
 
