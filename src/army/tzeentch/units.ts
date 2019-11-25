@@ -568,7 +568,7 @@ export const TzeentchBattalions: TBattalions = [
       },
       {
         name: `Cabal of Sorcerers`,
-        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other Wizards from the same battalion in your hero phase can attempt to cast one additional spell.`,
+        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other WIZARDS from the same battalion in your hero phase can attempt to cast one additional spell.`,
         when: [HERO_PHASE],
       },
     ],

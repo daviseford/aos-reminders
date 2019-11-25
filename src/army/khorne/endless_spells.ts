@@ -26,7 +26,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Hexgorgers`,
-        desc: `Subtract 2 from the casting rolls for Wizards while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
+        desc: `Subtract 2 from the casting rolls for WIZARDS while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

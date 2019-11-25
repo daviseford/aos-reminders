@@ -276,7 +276,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Discordant Disruption`,
-        desc: `Re-roll successful casting rolls for enemy Wizards that are within 24" of any friendly models with this ability. In addition, if the re-rolled casting roll is a double, that Wizard suffers D3 mortal wounds after the effects of the spell (if any) have been carried out.`,
+        desc: `Re-roll successful casting rolls for enemy WIZARDS that are within 24" of any friendly models with this ability. In addition, if the re-rolled casting roll is a double, that Wizard suffers D3 mortal wounds after the effects of the spell (if any) have been carried out.`,
         when: [HERO_PHASE],
       },
       {
@@ -482,7 +482,7 @@ export const Units: TUnits = [
       },
       {
         name: `Disruptive Song`,
-        desc: `Subtract 1 from casting rolls for enemy Wizards while they are within 12" of any models with this ability.`,
+        desc: `Subtract 1 from casting rolls for enemy WIZARDS while they are within 12" of any models with this ability.`,
         when: [HERO_PHASE],
       },
       {

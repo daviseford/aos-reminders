@@ -158,7 +158,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grim Warnings`,
-        desc: `Subtract 1 from unbinding rolls for Wizards attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for Wizards attempting to unbind a spell cast by this model instead of 1.`,
+        desc: `Subtract 1 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model instead of 1.`,
         when: [HERO_PHASE],
       },
       {

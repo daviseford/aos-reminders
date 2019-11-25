@@ -104,7 +104,7 @@ export const Units: TUnits = [
 
       {
         name: `Infernal Iron`,
-        desc: `Subtract 2 from casting rolls for enemy Wizards while they are within 12" of this model.`,
+        desc: `Subtract 2 from casting rolls for enemy WIZARDS while they are within 12" of this model.`,
         when: [HERO_PHASE],
       },
 

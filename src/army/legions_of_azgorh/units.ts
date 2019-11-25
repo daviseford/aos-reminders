@@ -108,7 +108,7 @@ export const Units: TUnits = [
       },
       {
         name: `Magic`,
-        desc: `Daemonsmiths are Wizards. They can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield, and Ash Storm spells.`,
+        desc: `Daemonsmiths are WIZARDS. They can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield, and Ash Storm spells.`,
         when: [HERO_PHASE],
       },
       {

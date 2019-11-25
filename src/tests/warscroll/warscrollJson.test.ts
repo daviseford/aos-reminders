@@ -22,6 +22,8 @@ import {
   SYLVANETH,
   TZEENTCH,
   DEATH_GRAND_ALLIANCE,
+  CHAOS_GRAND_ALLIANCE,
+  EVERCHOSEN,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -29,6 +31,55 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Guardian of Souls and Chaos allegiance', () => {
+    const parsedText = getFile('1574504452431-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    // Guardian of Souls is a DEATH unit...
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Guardian of Souls' }])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1574545285739-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with ', () => {
+    const parsedText = getFile('1574613461286-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with ', () => {
+    const parsedText = getFile('1574613528170-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with ', () => {
+    const parsedText = getFile('1574638101530-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  xit('should work with ', () => {
+    const parsedText = getFile('1574686232621-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Vokmortians Retinue', () => {
     const parsedText = getFile('1573791319612-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
