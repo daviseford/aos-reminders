@@ -103,6 +103,20 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with IDK4', () => {
+    const parsedText = getFile('IDK4')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
+    // These are Sylvaneth spells
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Awakening the Wood' },
+      { severity: 'warn', text: 'Unleash Spites' },
+      { severity: 'warn', text: 'Verdant Blessing' },
+    ])
+  })
+
   it('should work with Ironjawz2', () => {
     const parsedText = getFile('Ironjawz2')
     const res = getBattlescribeArmy(parsedText)

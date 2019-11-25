@@ -155,7 +155,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: NULLIFICATION,
-        desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell. Wizards get this unbind in addition to any others they have.`,
+        desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell. WIZARDS get this unbind in addition to any others they have.`,
         when: [HERO_PHASE],
       },
       {
@@ -227,7 +227,7 @@ const PenumbralEffects: TEffects[] = [
   },
   {
     name: `Orrery of Illumination`,
-    desc: `At the start of your hero phase, you receive 1 extra command point if any friendly Heroes are within 12" of any Penumbral terrain features.`,
+    desc: `At the start of your hero phase, you receive 1 extra command point if any friendly HEROES are within 12" of any Penumbral terrain features.`,
     when: [START_OF_HERO_PHASE],
   },
   {
@@ -438,7 +438,7 @@ const OfficialScenery: TScenery = [
       },
       {
         name: `Domed Arcanoscope`,
-        desc: `If any heroes from your army are garrisoning this terrain with a domed arcanoscope, one of them can attempt to unbind 1 spell. Wizards get this unbind in addition to any others they have.`,
+        desc: `If any heroes from your army are garrisoning this terrain with a domed arcanoscope, one of them can attempt to unbind 1 spell. WIZARDS get this unbind in addition to any others they have.`,
         when: [HERO_PHASE],
       },
       {

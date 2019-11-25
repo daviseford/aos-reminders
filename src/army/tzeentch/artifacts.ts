@@ -87,7 +87,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Changeblade`,
-        desc: `Pick one of the bearer's melee weapons to be a Changeblade. Whenever a Hero is slain by a wound inflicted by this weapon, before you remove the hero's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of the hero's model.`,
+        desc: `Pick one of the bearer's melee weapons to be a Changeblade. Whenever a HERO is slain by a wound inflicted by this weapon, before you remove the hero's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of the hero's model.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Nexus Staff`,
-        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a Hero is slain by a wound inflicted by this weapon, roll a D6 for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
+        desc: `Pick one of the bearer's weapons to be a Nexus Staff. Whenever a HERO is slain by a wound inflicted by this weapon, roll a D6 for each enemy unit that is within 9" of the slain model. On a roll of 4 or more the unit being rolled for suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],

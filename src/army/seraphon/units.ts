@@ -146,7 +146,7 @@ export const Units: TUnits = [
         desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
 
         1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
-        3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon Wizards in your army attempt to cast spells.
+        3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon WIZARDS in your army attempt to cast spells.
         5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army.`,
         when: [END_OF_SETUP],
       },
@@ -257,7 +257,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Conduit`,
-        desc: `Add 1 to casting rolls for friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon Wizards while they are within 12" of any Astrolith Bearer.`,
+        desc: `Add 1 to casting rolls for friendly Seraphon WIZARDS while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon WIZARDS while they are within 12" of any Astrolith Bearer.`,
         when: [HERO_PHASE],
       },
       {
@@ -609,7 +609,7 @@ export const Units: TUnits = [
       },
       {
         name: `Devourer of Beasts`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this model that target a Monster.`,
+        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this model that target a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {

@@ -13,6 +13,7 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
+  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
@@ -46,10 +47,12 @@ import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
 import Gloomspite3 from '../fixtures/azyr/json/Gloomspite3.json'
 import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import IDK3 from '../fixtures/azyr/json/IDK3.json'
+import Ironjawz2 from '../fixtures/azyr/json/Ironjawz2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
 import Khorne5 from '../fixtures/azyr/json/Khorne5.json'
+import Khorne6 from '../fixtures/azyr/json/Khorne6.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO4 from '../fixtures/azyr/json/KO4.json'
@@ -75,6 +78,28 @@ import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
 import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Khorne6', () => {
+    const pages = handleAzyrPages(Khorne6)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.traits).toEqual(['Berserker Lord (Mortal)'])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Ironjawz2', () => {
+    const pages = handleAzyrPages(Ironjawz2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections.spells).toContain('Brain-bursta')
+    expect(res.errors).toEqual([])
+  })
+
   it('handles LoG3', () => {
     const pages = handleAzyrPages(LoG3)
     const res = getAzyrArmyFromPdf(pages)
@@ -809,7 +834,13 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: ['SLAVES_TO_DARKNESS'],
       allySelections: {
         SLAVES_TO_DARKNESS: {
-          units: ['Sayl the Faithless', 'Theddra Skull-Scryer', 'Darkoath Warqueen', 'Godsworn Hunt'],
+          units: [
+            'Sayl the Faithless',
+            'Theddra Skull-Scryer',
+            'Darkoath Warqueen',
+            'Untamed Beasts',
+            'Godsworn Hunt',
+          ],
         },
       },
       allyUnits: [

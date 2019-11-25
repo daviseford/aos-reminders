@@ -21,7 +21,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Balewind Vortex`,
-        desc: `Casting value of 6. Wizards with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
+        desc: `Casting value of 6. WIZARDS with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
         when: [HERO_PHASE],
       },
       {

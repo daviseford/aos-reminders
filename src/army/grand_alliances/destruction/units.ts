@@ -195,7 +195,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Livin' Idol`,
-        desc: `Add 1 to casting rolls for friendly Orruk Wizards and friendly Grot Wizards while they are within 6" of any friendly models with this ability. In addition, add 1 to the Bravery characteristic of friendly Orruk and friendly Grot units while they are wholly within 18" of any friendly models with this ability.`,
+        desc: `Add 1 to casting rolls for friendly Orruk WIZARDS and friendly Grot WIZARDS while they are within 6" of any friendly models with this ability. In addition, add 1 to the Bravery characteristic of friendly Orruk and friendly Grot units while they are wholly within 18" of any friendly models with this ability.`,
         when: [HERO_PHASE],
       },
       {

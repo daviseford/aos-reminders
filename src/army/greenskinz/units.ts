@@ -73,7 +73,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gaze of Mork`,
-        desc: `Casting value of 6. Select up to 3 visible enemy units within 20". Roll a dice for each unit chosen; on a 2-5 it suffers 1 mortal wound, and on a 6 it suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Select up to 3 visible enemy units within 20". Roll a D6 for each unit chosen; on a 2-5 it suffers 1 mortal wound, and on a 6 it suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -89,7 +89,7 @@ export const Units: TUnits = [
       },
       {
         name: `Trophy Pole`,
-        desc: `Roll a dice whenever this model suffers a wound or a mortal wound; on a 4+ it is negated.`,
+        desc: `Roll a D6 whenever this model suffers a wound or a mortal wound; on a 4+ it is negated.`,
         when: [WOUND_ALLOCATION],
       },
       WaaaghDrummersEffect,
@@ -141,7 +141,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Scythed Wheels`,
-        desc: `Roll a dice after an Orruk Boar Chariot has successfully charged during its turn: on a 4 or more it inflicts D3 mortal wounds on an enemy unit within 1".`,
+        desc: `Roll a D6 after an Orruk Boar Chariot has successfully charged during its turn: on a 4 or more it inflicts D3 mortal wounds on an enemy unit within 1".`,
         when: [CHARGE_PHASE],
       },
       {

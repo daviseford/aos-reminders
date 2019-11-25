@@ -124,7 +124,7 @@ export const Units: TUnits = [
       },
       {
         name: `Madness`,
-        desc: `Casting value of 8. Pick 1 enemy Hero within 3" of the caster and visible to them, and roll a number of dice equal to the combined value of the Attacks characteristics of all melee weapons that Hero is armed with. For each 5+ you can inflict 1 mortal wound on 1 enemy unit within 3" of that Hero (you can choose different units to suffer the mortal wounds if you wish).`,
+        desc: `Casting value of 8. Pick 1 enemy HERO within 3" of the caster and visible to them, and roll a number of dice equal to the combined value of the Attacks characteristics of all melee weapons that HERO is armed with. For each 5+ you can inflict 1 mortal wound on 1 enemy unit within 3" of that HERO (you can choose different units to suffer the mortal wounds if you wish).`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -824,7 +824,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dreaded Skitterleap`,
-        desc: `Casting value of 6. Pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that Hero from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
+        desc: `Casting value of 6. Pick 1 friendly Skaventide Hero with a Wounds characteristic of 12 or less that is within 26" of the caster and visible to them. Remove that HERO from the battlefield and then set it up again anywhere on the battlefield more than 6" from any enemy units. That Hero may not move in the following movement phase.`,
         when: [HERO_PHASE],
         spell: true,
       },

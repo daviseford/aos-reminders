@@ -6,12 +6,13 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
@@ -21,6 +22,7 @@ export const getSlavesUnits = () => {
   const listOfUnits = [
     `Chaos Chariots`,
     `Chaos Chosen`,
+    `Chaos Gorebeast Chariots`,
     `Chaos Knights`,
     `Chaos Lord on Daemonic Mount`,
     `Chaos Lord on Manticore`,
@@ -31,11 +33,10 @@ export const getSlavesUnits = () => {
     `Chaos War Mammoth`,
     `Chaos Warriors`,
     `Chaos Warshrine`,
+    `Curs'd Ettin`,
     `Daemon Prince`,
     `Exalted Hero of Chaos`,
-    `Chaos Gorebeast Chariots`,
     `Lord of Chaos`,
-    `Curs'd Ettin`,
   ]
   return filterUnits(Units, listOfUnits)
 }
@@ -323,7 +324,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glory-hungry Axeman`,
-        desc: `Add 1 to the hit rolls for an Exalted Hero of Chaos if the target is a Hero or a Monster.`,
+        desc: `Add 1 to the hit rolls for an Exalted Hero of Chaos if the target is a HERO or a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -399,7 +400,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glory-seeking Axeman`,
-        desc: `Add 1 to hit rolls made for Slambo if the target is a Hero or Monster. If Slambo kills a Hero or Monster, he doubles the number of attacks he makes with his Chaos Axes in the next combat phase.`,
+        desc: `Add 1 to hit rolls made for Slambo if the target is a HERO or MONSTER. If Slambo kills a HERO or MONSTER, he doubles the number of attacks he makes with his Chaos Axes in the next combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -711,7 +712,7 @@ export const Units: TUnits = [
       },
       {
         name: `Goring Tusks`,
-        desc: `Roll a number of dice equal to the Goring Tusks value shown on the damage table. Add 1 to each roll if the target unit is a Monster. For each 4+, the target unit suffers D3 mortal wounds.`,
+        desc: `Roll a number of dice equal to the Goring Tusks value shown on the damage table. Add 1 to each roll if the target unit is a MONSTER. For each 4+, the target unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -733,6 +734,71 @@ export const Units: TUnits = [
         name: `Two-headed Horror`,
         desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 2 or less and that is within 3" of this model, and roll a D6. On a 6, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Cypher Lords`,
+    effects: [
+      {
+        name: `Luminate`,
+        desc: `Add 1 to charge rolls for this unit while it includes any Luminates.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Shattered Gloom Globe`,
+        desc: `While this unit includes any Thrallmasters, at the start of the combat phase you can pick 1 enemy unit within 3" of this unit and roll a dice. On a 4+, subtract 1 from hit rolls for that unit until your next hero phase. The same unit cannot be affected by this ability more than once per turn.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Iron Golems`,
+    effects: [
+      {
+        name: `Dominar`,
+        desc: `Add 1 to the Attacks characteristic of a Dominar's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Signifer`,
+        desc: `Add 2 to the Bravery characteristic of this unit while it includes any Signifers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Ogor Breacher`,
+        desc: `Ogor Breachers have a Wounds characteristic of 3.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Iron Resilience`,
+        desc: `You can re-roll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Untamed Beasts`,
+    effects: [
+      {
+        name: `Heart-eater`,
+        desc: `Add 1 to the Attacks characteristic of a Heart-eater's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Rocktusk Prowlers`,
+        desc: `Rocktusk Prowlers have a Wounds characteristic of 2.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Unleash the Beast`,
+        desc: `This unit can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Unleash the Beast`,
+        desc: `After armies are set up but before the first battle round begins, this unit can move up to 6".`,
+        when: [END_OF_SETUP],
       },
     ],
   },

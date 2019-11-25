@@ -18,7 +18,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Shout of Command`,
-    desc: `Pick 1 friendly Tamurkhan's Horde Hero. You can re-roll charge rolls for friendly Tamurkhan's Horde units while they are wholly within 14" of that Hero in that phase.`,
+    desc: `Pick 1 friendly Tamurkhan's Horde Hero. You can re-roll charge rolls for friendly Tamurkhan's Horde units while they are wholly within 14" of that HERO in that phase.`,
     when: [START_OF_CHARGE_PHASE],
     command_ability: true,
   },

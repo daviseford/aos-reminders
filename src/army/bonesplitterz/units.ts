@@ -1,14 +1,14 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
-  BATTLESHOCK_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
@@ -138,12 +138,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Bigger They Are...`,
-        desc: `The Damage characteristic of an attack made with a Gorktoof is D6 if the target is a Monster.`,
+        desc: `The Damage characteristic of an attack made with a Gorktoof is D6 if the target is a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Da Final Fling`,
-        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a D6. That unit suffers D3 Mortal Wounds on a 4+. Add 2 to this roll if the target is a Monster.`,
+        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a D6. That unit suffers D3 mortal wounds on a 4+. Add 2 to this roll if the target is a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -160,7 +160,7 @@ export const Units: TUnits = [
       BoneTotemBearerEffect,
       {
         name: `Power of the Beast Spirit`,
-        desc: `Add 1 to the hit rolls for attacks made with melee weaspon by this unit if any enemy Monsters have been slain.`,
+        desc: `Add 1 to the hit rolls for attacks made with melee weaspon by this unit if any enemy MONSTERS have been slain.`,
         when: [COMBAT_PHASE],
       },
       SpiritOfGorkamorkaEffect,

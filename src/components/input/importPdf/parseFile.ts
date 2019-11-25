@@ -122,7 +122,7 @@ const handleWarscrollBuilderPDF = (fileTxt: string, isOnline: boolean, handlers:
     // Send a copy of our file to S3
     if (isOnline && hasErrorOrWarning(parsedArmy.errors)) {
       const payload = {
-        fileTxt: parsedFile,
+        fileTxt: parsedFile.length > 0 ? parsedFile : [fileTxt],
         parser: WARSCROLL_BUILDER,
         fileType: PDF_FILE,
       }
