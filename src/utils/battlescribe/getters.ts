@@ -201,12 +201,18 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
 const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): string | null => {
   try {
     //@ts-ignore
-    if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:')
+    if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:') {
       return null
+    }
 
     //@ts-ignore
     const value = childNodes[2].childNodes[0].childNodes[2].childNodes[1].childNodes[0].value
-    const possibleAllegiances: string[] = value.split(', ').map(cleanText)
+    const possibleAllegiances: string[] = value
+      .split(', ')
+      .map(cleanText)
+      .filter((x: string) => {
+        return x !== 'SCENERY' && x !== 'GLOOMTIDE SHIPWRECK'
+      })
     const faction = cleanText(possibleAllegiances.shift() || '')
       .split(' ')
       .join('_')
