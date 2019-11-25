@@ -230,7 +230,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(BigWaaagh2)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Mercenary Orruks' }])
+    expect(res.errors).toEqual([])
   })
 
   it('handles Seraphon2', () => {
