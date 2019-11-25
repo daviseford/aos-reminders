@@ -19,8 +19,7 @@ import {
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
-    desc: `Pick a friendly SKYFARERS unit within 10" and then select one type of weapon carried by that unit. Until your next hero phase, add 1 to the attacks characteristic of that weapon. A weapon cannot be
-    augmented more than once per hero phase.`,
+    desc: `Pick a friendly SKYFARERS unit within 10" and then select one type of weapon carried by that unit. Until your next hero phase, add 1 to the attacks characteristic of that weapon. A weapon cannot be augmented more than once per hero phase.`,
     when: [HERO_PHASE],
   },
   {
@@ -31,7 +30,7 @@ const AetherKhemistEffects = [
 ]
 const GlorySeekersEffect = {
   name: `Glory Seekers`,
-  desc: `Add 1 to hit rolls on attacks targeting a Hero or Monster.`,
+  desc: `Add 1 to hit rolls on attacks targeting a HERO or MONSTER.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 const ExplodingDrillEffect = {
@@ -41,16 +40,14 @@ const ExplodingDrillEffect = {
 }
 const SkyhookEffect = {
   name: `Skyhook`,
-  desc: `After all attacks for this unit are completed, if any wounds inflicted by this unit’s Skyhook were allocated to an enemy unit and not negated, you can move this
-  unit D6", as long as it ends closer to one of the enemy units the wounds were allocated to.`,
+  desc: `After all attacks for this unit are completed, if any wounds inflicted by this unit's Skyhook were allocated to an enemy unit and not negated, you can move this unit D6", as long as it ends closer to one of the enemy units the wounds were allocated to.`,
   when: [SHOOTING_PHASE],
 }
 const EndinriggersBaseEffects = [
   ExplodingDrillEffect,
   {
     name: `Grapnel Launcher`,
-    desc: `If this unit is more than 3" from an enemy unit, choose a terrain feature or model with a wounds characteristic of 10+ within 24". Roll a die for each model armed with a grapnel launcher. If any die is 4+, immediately move any distance as long as each model in this unit is moved
-    directly and in a straight line towards the target and no model in this unit moves within 3" of any enemy models at any point in the move.`,
+    desc: `If this unit is more than 3" from an enemy unit, choose a terrain feature or model with a wounds characteristic of 10+ within 24". Roll a D6 for each model armed with a grapnel launcher. If any die is 4+, immediately move any distance as long as each model in this unit is moved directly and in a straight line towards the target and no model in this unit moves within 3" of any enemy models at any point in the move.`,
     when: [END_OF_SHOOTING_PHASE],
   },
   {
@@ -79,7 +76,7 @@ const ArkanautBaseEffects = [
   BombRacksEffect,
   {
     name: `Tireless Endrinrigger`,
-    desc: `Roll a die, on a 4+ heal 1 wound.`,
+    desc: `Roll a D6, on a 4+ heal 1 wound.`,
     when: [HERO_PHASE],
   },
   {
@@ -99,7 +96,7 @@ const ArkanautBaseEffects = [
   },
   {
     name: `Destroyed`,
-    desc: `When this SKYVESSEL is destroyed, all embarked units disembark before the vessel is removed. Roll a die for each model in the embarked unit. For each 1, slay a model of your choice in that unit.`,
+    desc: `When this SKYVESSEL is destroyed, all embarked units disembark before the vessel is removed. Roll a D6 for each model in the embarked unit. For each 1, slay a model of your choice in that unit.`,
     when: [WOUND_ALLOCATION],
   },
 ]
@@ -116,7 +113,7 @@ export const Units: TUnits = [
       },
       {
         name: `Supercharged Harness`,
-        desc: `Roll a die. On a 1, suffer a mortal wound. On a 3+, the damage characteristic of the Aethermight Hammer is 3 until the end of this phase.`,
+        desc: `Roll a D6. On a 1, suffer a mortal wound. On a 3+, the damage characteristic of the Aethermight Hammer is 3 until the end of this phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -150,7 +147,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aetherstorm`,
-        desc: `Roll a die. On a 3+, all enemy units that can fly halve their movement characteristic if they start within 18" of this model, until your next hero phase. The Aetheric Navigator cannot use Read the Winds the same turn Aetherstorm is used.`,
+        desc: `Roll a D6. On a 3+, all enemy units that can fly halve their movement characteristic if they start within 18" of this model, until your next hero phase. The Aetheric Navigator cannot use Read the Winds the same turn Aetherstorm is used.`,
         when: [HERO_PHASE],
       },
       {
@@ -243,12 +240,12 @@ export const Units: TUnits = [
       },
       {
         name: `Champion of Barak-Nar`,
-        desc: `Re-roll hit and wounds rolls of 1 when targeting a Hero or Monster.`,
+        desc: `Re-roll hit and wounds rolls of 1 when targeting a HERO or MONSTER.`,
         when: [HERO_PHASE],
       },
       {
         name: `Supercharged Harness`,
-        desc: `Roll a die; On a 1, suffer a mortal wound. On a 3+, the damage characteristic for Aethermatic Saw attacks is 3.`,
+        desc: `Roll a D6; On a 1, suffer a mortal wound. On a 3+, the damage characteristic for Aethermatic Saw attacks is 3.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -338,7 +335,7 @@ export const Units: TUnits = [
         name: `Flagship`,
         desc: `Until your next hero phase all visible SKYVESSELS gain 1 of the following effects:
         
-        Fire At Will:  Add 2 to the attacks characteristic of Aethershot Carbines.
+        Fire At Will: Add 2 to the attacks characteristic of Aethershot Carbines.
         
         Make Every Shot Count: Re-roll hit rolls of 1 during the shooting phase.
         
@@ -436,16 +433,6 @@ export const Battalions: TBattalions = [
       {
         name: `Lightning-fast Volleys`,
         desc: `Choose single unit (not Knight-Venator) within 6" of two battalion units; chosen unit can make shooting attacks.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: ``,
-    effects: [
-      {
-        name: ``,
-        desc: ``,
         when: [HERO_PHASE],
       },
     ],

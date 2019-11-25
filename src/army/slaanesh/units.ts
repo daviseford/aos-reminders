@@ -51,7 +51,7 @@ const getBoCBattalion = () => {
 const KeeperOfSecretsBaseEffects = [
   {
     name: `Dark Temptations`,
-    desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+    desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
     when: [START_OF_COMBAT_PHASE],
   },
   {
@@ -121,7 +121,7 @@ export const Units: TUnits = [
       ...KeeperOfSecretsBaseEffects,
       {
         name: `Living Whip`,
-        desc: `You can pick 1 enemy Monster model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
+        desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -143,7 +143,7 @@ export const Units: TUnits = [
       ...KeeperOfSecretsBaseEffects,
       {
         name: `Sinistrous Hand`,
-        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy Heroes were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
+        desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy HEROES were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -176,7 +176,7 @@ export const Units: TUnits = [
       },
       {
         name: `Subvert`,
-        desc: `Casting value of 7. You can pick 1 enemy Hero within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
+        desc: `Casting value of 7. You can pick 1 enemy HERO within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -199,7 +199,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cloak of Constriction`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons by enemy Heroes that target this model.`,
+        desc: `Add 1 to save rolls for attacks made with melee weapons by enemy HEROES that target this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -209,12 +209,12 @@ export const Units: TUnits = [
       },
       {
         name: `Irresistible Challenge`,
-        desc: `At the start of the enemy charge phase, you can pick 1 enemy Hero within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that Hero to accept Shalaxi Helbane's challenge. If they refuse, that Hero suffers D3 mortal wounds. If they accept, that Hero must attempt to charge, and must finish the charge move within 1/2" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that Hero makes in the following combat phase must target this model.`,
+        desc: `At the start of the enemy charge phase, you can pick 1 enemy HERO within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that HERO to accept Shalaxi Helbane's challenge. If they refuse, that HERO suffers D3 mortal wounds. If they accept, that HERO must attempt to charge, and must finish the charge move within 1/2" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that HERO makes in the following combat phase must target this model.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {
         name: `Living Whip`,
-        desc: `If this model is armed with a Living Whip, you can pick 1 enemy Monster model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy Monster model is armed with. Subtract 1 from hit rolls for attacks made with that melee weapon until the end of that combat phase.`,
+        desc: `If this model is armed with a Living Whip, you can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that melee weapon until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -224,7 +224,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Killing Stroke`,
-        desc: `You can pick 1 enemy Hero within 3" of this model. If you do so, all attacks made by this model in that combat phase must target that model, but the Damage characteristic for this model's Soulpiercer is 6 in that combat phase instead of D6.`,
+        desc: `You can pick 1 enemy HERO within 3" of this model. If you do so, all attacks made by this model in that combat phase must target that model, but the Damage characteristic for this model's Soulpiercer is 6 in that combat phase instead of D6.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -234,7 +234,7 @@ export const Units: TUnits = [
       },
       {
         name: `Refine Senses`,
-        desc: `Casting value of 4. Until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a Hero, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
+        desc: `Casting value of 4. Until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a HERO, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -559,7 +559,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dark Temptations`,
-        desc: `You can pick 1 enemy Hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that Hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that Hero no longer receives this modifier to their hit rolls. On 4-6, that Hero is slain.`,
+        desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -569,7 +569,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulfeaster Tendrils`,
-        desc: `At the start of the combat phase, you can pick 1 enemy Hero within 3" of this model and roll 3D6. If the roll is greater than that model's Bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that Hero until the end of that phase.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of this model and roll 3D6. If the roll is greater than that model's Bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that HERO until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {

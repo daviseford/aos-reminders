@@ -14,25 +14,26 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 
 ## Contributors
 
-+ [JohnSchramm](https://github.com/JohnSchramm)
-+ [thundergore](https://github.com/thundergore)
-+ [grzegorzmiazga](https://github.com/grzegorzmiazga)
-+ [PixelTom](https://github.com/PixelTom)
-+ [ctcodie](https://github.com/ctcodie)
-+ [Cpt Asgard](https://github.com/CptAsgard)
-+ [LiuSeeker](https://github.com/LiuSeeker)
-+ Lorax
-+ [NiklassMM](https://github.com/NiklasMM)
-+ [mmorrison](https://github.com/mmorrison)
-+ [wspencermiller](https://github.com/wspencermiller)
 + [Zirhark](https://github.com/Zirhark)
++ [JohnSchramm](https://github.com/JohnSchramm)
++ [exonian](https://github.com/exonian)
++ [thundergore](https://github.com/thundergore)
++ [wspencermiller](https://github.com/wspencermiller)
++ [grzegorzmiazga](https://github.com/grzegorzmiazga)
++ [ctcodie](https://github.com/ctcodie)
++ [CptAsgard](https://github.com/CptAsgard)
++ [PixelTom](https://github.com/PixelTom)
++ [LiuSeeker](https://github.com/LiuSeeker)
++ [NiklassMM](https://github.com/NiklasMM)
 + [T-Nightingale](https://github.com/T-Nightingale)
 + [mattbarkerdev](https://github.com/mattbarkerdev)
-+ [exonian](https://github.com/exonian)
++ [mmorrison](https://github.com/mmorrison)
 + [Sobakaa](https://github.com/Sobakaa)
 + [lucienLopez](https://github.com/lucienLopez)
 + [BenKidd](https://github.com/BenKidd)
 + [stures](https://github.com/stures)
++ [Redmongrel](https://github.com/Redmongrel)
++ Lorax
 
 ## Available Scripts
 

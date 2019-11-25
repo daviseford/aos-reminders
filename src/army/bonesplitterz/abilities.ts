@@ -16,7 +16,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Monster Hunters`,
-    desc: `If a Bonesplitterz unit is chosen to make its attacks and it is within 3" of an enemy Monster, you can choose one of the benefits below before piling in.
+    desc: `If a Bonesplitterz unit is chosen to make its attacks and it is within 3" of an enemy MONSTER, you can choose one of the benefits below before piling in.
 
       - Wild Abandon: The unit can pile in 6" this phase.
       - Stab! Stab! Stab!: Add 1 to hit rolls for attacks against a monster this phase.
@@ -25,7 +25,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Spirit of the Beast`,
-    desc: `Do not take Battleshock tests for a Bonesplitterz unit if any enemy Monsters were slain by that unit in the same turn.`,
+    desc: `Do not take Battleshock tests for a Bonesplitterz unit if any enemy MONSTERS were slain by that unit in the same turn.`,
     when: [BATTLESHOCK_PHASE],
   },
   {

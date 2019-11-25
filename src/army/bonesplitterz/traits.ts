@@ -64,7 +64,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Monster Killa`,
-        desc: `If the general has fought for the first time in the combat phase and is within 3" of an enemy Monster, it can immediately pile in and attack for a second time.`,
+        desc: `If the general has fought for the first time in the combat phase and is within 3" of an enemy MONSTER, it can immediately pile in and attack for a second time.`,
         when: [COMBAT_PHASE],
       },
     ],

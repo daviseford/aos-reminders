@@ -14,7 +14,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of Gork`,
-        desc: `If you roll an unmodified 6 for your save against a melee attack, deal 1 Mortal Wound to the attacking unit once all attacks have been resolved.`,
+        desc: `If you roll an unmodified 6 for your save against a melee attack, deal 1 mortal wound to the attacking unit once all attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],

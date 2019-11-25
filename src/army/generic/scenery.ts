@@ -227,7 +227,7 @@ const PenumbralEffects: TEffects[] = [
   },
   {
     name: `Orrery of Illumination`,
-    desc: `At the start of your hero phase, you receive 1 extra command point if any friendly Heroes are within 12" of any Penumbral terrain features.`,
+    desc: `At the start of your hero phase, you receive 1 extra command point if any friendly HEROES are within 12" of any Penumbral terrain features.`,
     when: [START_OF_HERO_PHASE],
   },
   {

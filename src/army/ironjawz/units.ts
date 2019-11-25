@@ -114,7 +114,7 @@ export const Units: TUnits = [
       },
       {
         name: `Green Puke`,
-        desc: `Casting value 6. Pick 1 point on the battlefield within 2d6" of the caster that is visible, draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 Mortal Wounds.`,
+        desc: `Casting value 6. Pick 1 point on the battlefield within 2d6" of the caster that is visible, draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -160,7 +160,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `Roll a D6 for each enemy unit that is within 1" of a model from this unit after the model has finished a charge move. On a 4+, that enemy unit suffers 1 Mortal Wound. Allocate the Mortal Wounds after all models have completed their charge.
+        desc: `Roll a D6 for each enemy unit that is within 1" of a model from this unit after the model has finished a charge move. On a 4+, that enemy unit suffers 1 mortal wound. Allocate the mortal wounds after all models have completed their charge.
 
           In addition, add 1 to hit rolls and wound rolls for attacks made with this unit's Jagged Gore-hackas and tucks and hooves if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE],

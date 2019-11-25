@@ -931,7 +931,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Monstrous Trophies`,
-        desc: `You can re-roll failed wound rolls for attacks made with this model's Skull Cleaver Axe of Khorne that target a Monster.
+        desc: `You can re-roll failed wound rolls for attacks made with this model's Skull Cleaver Axe of Khorne that target a MONSTER.
                If the unmodified wound roll for an attack made with the Skull Cleaver Axe of Khorne is a 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },

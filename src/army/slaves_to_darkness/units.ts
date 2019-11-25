@@ -323,7 +323,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glory-hungry Axeman`,
-        desc: `Add 1 to the hit rolls for an Exalted Hero of Chaos if the target is a Hero or a Monster.`,
+        desc: `Add 1 to the hit rolls for an Exalted Hero of Chaos if the target is a HERO or a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -399,7 +399,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glory-seeking Axeman`,
-        desc: `Add 1 to hit rolls made for Slambo if the target is a Hero or Monster. If Slambo kills a Hero or Monster, he doubles the number of attacks he makes with his Chaos Axes in the next combat phase.`,
+        desc: `Add 1 to hit rolls made for Slambo if the target is a HERO or MONSTER. If Slambo kills a HERO or MONSTER, he doubles the number of attacks he makes with his Chaos Axes in the next combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -711,7 +711,7 @@ export const Units: TUnits = [
       },
       {
         name: `Goring Tusks`,
-        desc: `Roll a number of dice equal to the Goring Tusks value shown on the damage table. Add 1 to each roll if the target unit is a Monster. For each 4+, the target unit suffers D3 mortal wounds.`,
+        desc: `Roll a number of dice equal to the Goring Tusks value shown on the damage table. Add 1 to each roll if the target unit is a MONSTER. For each 4+, the target unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],

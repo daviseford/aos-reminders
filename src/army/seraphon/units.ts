@@ -609,7 +609,7 @@ export const Units: TUnits = [
       },
       {
         name: `Devourer of Beasts`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this model that target a Monster.`,
+        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this model that target a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {

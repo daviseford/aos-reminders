@@ -456,7 +456,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Beastskewer Glaive`,
-        desc: `If the unmodified hit roll for an attack made with a Beastskewer Glaive that targets a Hero or Monster is 6, the Beastskewer Glaive has a Damage characteristic of D6 instead of D3 for that attack.`,
+        desc: `If the unmodified hit roll for an attack made with a Beastskewer Glaive that targets a HERO or MONSTER is 6, the Beastskewer Glaive has a Damage characteristic of D6 instead of D3 for that attack.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -481,7 +481,7 @@ export const Units: TUnits = [
       },
       {
         name: `Big Name: Giantbreaker`,
-        desc: `If selected, add 1 to the damage inflicted by this model's weapons when they are used for an attack that targets a Monster.`,
+        desc: `If selected, add 1 to the damage inflicted by this model's weapons when they are used for an attack that targets a MONSTER.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {

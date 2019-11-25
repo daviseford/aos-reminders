@@ -1131,7 +1131,7 @@ export const Units: TUnits = [
       SeaDragonCloakEffect,
       {
         name: `At Them, You Curs!`,
-        desc: `Pick 1 friendly Scourge Privateers unit wholly within 12" of a friendly Hero with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `Pick 1 friendly Scourge Privateers unit wholly within 12" of a friendly HERO with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -1192,7 +1192,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Harrying Bird of Prey`,
-        desc: `In your hero phase, you can pick 1 enemy Hero within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
+        desc: `In your hero phase, you can pick 1 enemy HERO within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
         when: [START_OF_HERO_PHASE],
       },
       {
