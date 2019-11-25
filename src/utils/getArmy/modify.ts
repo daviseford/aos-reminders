@@ -24,7 +24,7 @@ import {
   RealmscapeCommands,
   RealmscapeSpells,
 } from 'army/generic'
-import { TRealms, TOrigins } from 'types/realmscapes'
+import { TRealms, TOrigins as TOriginRealms } from 'types/realmscapes'
 
 const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
   sortedUniqBy(sortBy(allegiances, 'name'), 'name')
@@ -41,11 +41,13 @@ const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
 
 const modifyArtifacts = (
   artifacts: TArtifacts,
-  origin: TOrigins | null,
+  originRealm: TOriginRealms | null,
   alliance: TGrandAlliances,
   Collection: ICollection
 ): TArtifacts => {
-  const originArtifacts = origin ? RealmArtifacts.filter(c => c.name.includes(origin)) : RealmArtifacts
+  const originArtifacts = originRealm
+    ? RealmArtifacts.filter(c => c.name.includes(originRealm))
+    : RealmArtifacts
   const { Artifacts } = GrandAllianceConfig[alliance]
   return uniqBy(
     artifacts
