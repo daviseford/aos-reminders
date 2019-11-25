@@ -16,12 +16,12 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import Stormcast from 'army/stormcast_eternals'
 import KharadronOverlords from 'army/kharadron_overlords'
+import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
 
-const getStormcastUnits = () => Stormcast.Units
 const getKharadronUnits = () => KharadronOverlords.Units
+const getStormcastUnits = () => Stormcast.Units
 const getSylvanethUnits = () => Sylvaneth.Units
 
 const CelestialHurricanumEffects = [
@@ -41,7 +41,6 @@ const CelestialHurricanumEffects = [
     when: [SHOOTING_PHASE],
   },
 ]
-
 const LuminarkEffects = [
   {
     name: `Aura of Protection`,

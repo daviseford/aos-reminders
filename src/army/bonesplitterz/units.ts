@@ -1,14 +1,14 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
-  BATTLESHOCK_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 import { DestructionUnits } from 'army/grand_alliances'
