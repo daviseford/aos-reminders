@@ -20,7 +20,7 @@ const WarbossBaseEffects = [
   {
     name: `Boss Shield`,
     desc: `You can re-roll all failed save rolls for a model with a Boss Shield.`,
-    when: [DURING_GAME],
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
     name: `Waaagh!`,
