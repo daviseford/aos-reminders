@@ -13,6 +13,7 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
+  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
@@ -46,6 +47,7 @@ import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
 import Gloomspite3 from '../fixtures/azyr/json/Gloomspite3.json'
 import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import IDK3 from '../fixtures/azyr/json/IDK3.json'
+import Ironjawz2 from '../fixtures/azyr/json/Ironjawz2.json'
 import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
 import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
@@ -88,6 +90,14 @@ describe('getAzyrArmyFromPdf', () => {
           "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
+  })
+
+  it('handles Ironjawz2', () => {
+    const pages = handleAzyrPages(Ironjawz2)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections.spells).toContain('Brain-bursta')
+    expect(res.errors).toEqual([])
   })
 
   it('handles LoG3', () => {
