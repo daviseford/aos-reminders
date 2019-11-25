@@ -75,7 +75,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with ', () => {
+  it('should work with Warscry scrolls', () => {
     const parsedText = getFile('1574613528170-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -83,15 +83,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  xit('should work with ', () => {
+  it('should work with Hailstorm Battery (SCE battalion)', () => {
     const parsedText = getFile('1574638101530-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Hailstorm Battery' }])
   })
 
-  xit('should work with ', () => {
+  it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1574686232621-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
