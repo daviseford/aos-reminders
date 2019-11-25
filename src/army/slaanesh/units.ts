@@ -5,6 +5,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -13,7 +14,6 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  END_OF_CHARGE_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { getEverchosenUnits } from 'army/everchosen/units'

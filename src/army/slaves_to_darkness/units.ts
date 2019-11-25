@@ -6,14 +6,14 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
-  END_OF_SETUP,
 } from 'types/phases'
 import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
@@ -22,6 +22,7 @@ export const getSlavesUnits = () => {
   const listOfUnits = [
     `Chaos Chariots`,
     `Chaos Chosen`,
+    `Chaos Gorebeast Chariots`,
     `Chaos Knights`,
     `Chaos Lord on Daemonic Mount`,
     `Chaos Lord on Manticore`,
@@ -32,11 +33,10 @@ export const getSlavesUnits = () => {
     `Chaos War Mammoth`,
     `Chaos Warriors`,
     `Chaos Warshrine`,
+    `Curs'd Ettin`,
     `Daemon Prince`,
     `Exalted Hero of Chaos`,
-    `Chaos Gorebeast Chariots`,
     `Lord of Chaos`,
-    `Curs'd Ettin`,
   ]
   return filterUnits(Units, listOfUnits)
 }

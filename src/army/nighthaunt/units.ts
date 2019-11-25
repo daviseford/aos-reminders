@@ -7,6 +7,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -14,7 +15,6 @@ import {
   START_OF_SHOOTING_PHASE,
   START_OF_TURN,
   WOUND_ALLOCATION,
-  SHOOTING_PHASE,
 } from 'types/phases'
 
 const EtherealEffect = {
@@ -22,7 +22,6 @@ const EtherealEffect = {
   desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
-
 const StolenHoursEffect = {
   name: `Stolen Hours`,
   desc: `Each time a wound inflicted by this model's Sword of Stolen Hours slays an enemy HERO, heal 1 wound allocated to this model.`,

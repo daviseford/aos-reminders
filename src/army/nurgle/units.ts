@@ -33,11 +33,11 @@ const SlaveUnits = getChaosSlaves(MARK_NURGLE)
 
 const getSkavenUnits = () => {
   const listOfUnits = [
-    'Plagueclaw',
     'Plague Censer Bearers',
-    'Plague Priest',
-    'Plague Priest on Plague Furnace',
     'Plague Monks',
+    'Plague Priest on Plague Furnace',
+    'Plague Priest',
+    'Plagueclaw',
     'Verminlord Corruptor',
   ]
   return filterUnits(Skaven.Units, listOfUnits)
@@ -69,11 +69,11 @@ const getBoCBattalion = () => {
 }
 
 export const AlliedUnits: TUnits = [
-  ...getTamurkhansUnits(),
-  ...SlaveUnits,
   ...getBoCUnits(),
   ...getEverchosenUnits(),
   ...getSkavenUnits(),
+  ...getTamurkhansUnits(),
+  ...SlaveUnits,
 ]
 
 const BlubberAndBileEffect = {
