@@ -32,6 +32,7 @@ import IDK2 from '../fixtures/azyr/json/IDK2.json'
 import Ironjawz1 from '../fixtures/azyr/json/Ironjawz1.json'
 import Khorne1 from '../fixtures/azyr/json/Khorne1.json'
 import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
+import Khorne6 from '../fixtures/azyr/json/Khorne6.json'
 import KO1 from '../fixtures/azyr/json/KO1.json'
 import KO2 from '../fixtures/azyr/json/KO2.json'
 import KO3 from '../fixtures/azyr/json/KO3.json'
@@ -111,6 +112,21 @@ describe('handleAzyrPages', () => {
   it('handles NoRealm', () => {
     const res = handleAzyrPages(NoRealm)
     expect(res).toEqual(['FACTION: Death'])
+  })
+
+  it('handles Khorne6', () => {
+    const res = handleAzyrPages(Khorne6)
+    expect(res).toEqual([
+      'FACTION: Khorne',
+      'UNIT: Bloodthirster',
+      "ARTEFACT: A'rgath, the King of Blades",
+      'UNIT: Slaughterpriest',
+      'UNIT: Bloodsecrator',
+      'UNIT: Lord of Khorne',
+      'COMMAND TRAIT: Berserker Lord',
+      'UNIT: Mighty Skullcrushers',
+      'ENDLESS SPELL: Hexgorger Skulls',
+    ])
   })
 
   it('handles KO6', () => {
@@ -413,7 +429,7 @@ describe('handleAzyrPages', () => {
       'ALLEGIANCE: Gristlegore',
       'UNIT: Abhorrant Ghoul King',
       'COMMAND TRAIT: Savage Strik e',
-      'ARTEFACT: Ghurish Mawshar d',
+      'ARTEFACT: Ghurish Mawshard',
       'SPELL: Monstr ous Vigour',
       'COMMAND TRAIT: The Feast Da y',
       'ARTEFACT: The Grim Garland',

@@ -289,6 +289,7 @@ const commonTypos = {
   'Balefir e': 'Balefire',
   'Bat tle': 'Battle',
   'Bear er': 'Bearer',
+  'Berserk er Lor d': 'Berserker Lord',
   'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
   'Blood-for ged': 'Blood-forged',
@@ -305,8 +306,8 @@ const commonTypos = {
   'Dr ead': 'Dread',
   'Encla ve': 'Enclave',
   'Ether eal': 'Ethereal',
-  FUETHÁN: 'FUETHAN',
   'Gener al': 'General',
+  'Ghurish Mawshar d': 'Ghurish Mawshard',
   'Gr eatblade': 'Greatblade',
   'Gristlegor e': 'Gristlegore',
   'Honour ed Retinue': '',
@@ -335,6 +336,7 @@ const commonTypos = {
   'T ype': 'Type',
   'Warpfir e': 'Warpfire',
   'Wick ed': 'Wicked',
+  FUETHÁN: 'FUETHAN',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
