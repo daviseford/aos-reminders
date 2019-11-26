@@ -496,6 +496,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with GHoN3', () => {
+    const parsedText = getFile('GHoN3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    expect(res.selections.units).toContain('Corpse Cart w/ Unholy Lodestone')
+    expect(res.origin_realm).toEqual('Ghyran')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with LoB1', () => {
     const parsedText = getFile('LoB1')
     const res = getBattlescribeArmy(parsedText)

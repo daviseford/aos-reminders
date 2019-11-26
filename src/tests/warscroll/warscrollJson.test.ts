@@ -101,6 +101,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with OBR', () => {
+    const parsedText = getFile('1574746733739-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.origin_realm).toEqual(null)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Vokmortians Retinue', () => {
     const parsedText = getFile('1573791319612-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
