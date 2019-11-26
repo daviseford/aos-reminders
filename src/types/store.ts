@@ -14,6 +14,7 @@ export interface IFactionNameStore {
 }
 
 export interface IRealmscapeStore {
+  origin_realm: string | null
   realmscape: string | null
   realmscape_feature: string | null
 }

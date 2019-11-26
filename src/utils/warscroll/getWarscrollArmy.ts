@@ -30,9 +30,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const genericScenery = GenericScenery.map(x => x.name)
 
   let allyUnits: string[] = []
-  let unknownSelections: string[] = []
   let factionName = ''
+  let origin_realm: string | null = null
   let selector = ''
+  let unknownSelections: string[] = []
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
@@ -49,7 +50,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt.startsWith('- Mortal Realm: ')) return accum
+      if (txt.startsWith('- Mortal Realm: ')) {
+        origin_realm = txt.replace('- Mortal Realm: ', '').trim()
+        return accum
+      }
 
       if (unitIndicatorsPdf.includes(txt)) {
         selector = 'units'
@@ -207,6 +211,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
+    origin_realm,
     realmscape_feature: null,
     realmscape: null,
     selections,

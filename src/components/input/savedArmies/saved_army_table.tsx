@@ -10,7 +10,7 @@ interface ISavedArmyTable {
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const { selections, allySelections, realmscape, realmscape_feature } = army
+  const { selections, allySelections, origin_realm, realmscape, realmscape_feature } = army
   const { theme } = useTheme()
 
   const armySelectionKeys = sortBy(Object.keys(selections).filter(key => selections[key].length))
@@ -33,9 +33,8 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
             }
             return <Tr theme={theme} items={items} title={key} key={`${key}_${i}`} />
           })}
-
-          {realmscape && <Tr theme={theme} items={[realmscape]} title={'Realmscape'} />}
-
+          {origin_realm && <Tr theme={theme} items={[origin_realm]} title={'Realm of Origin'} />}
+          {realmscape && <Tr theme={theme} items={[realmscape]} title={'Realm of Battle'} />}
           {realmscape_feature && <Tr theme={theme} items={[realmscape_feature]} title={'Realm Feature'} />}
         </tbody>
       </table>

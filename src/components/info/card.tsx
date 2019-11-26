@@ -106,7 +106,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2}`,
     flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
     flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
-    vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+    vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-3`} d-print-none`,
   }
 
   return (

@@ -17,7 +17,7 @@ const getInitialBattlescribeArmy = (html_string: string) => {
 
   const strippedDoc = stripParentNode(document as IParentNode)
 
-  const { allegianceInfo, factionInfo, realmInfo, rootSelections } = traverseDoc(strippedDoc)
+  const { allegianceInfo, factionInfo, realmscape, origin_realm, rootSelections } = traverseDoc(strippedDoc)
   const { factionName, allegiances } = getFactionAndAllegiance(allegianceInfo, factionInfo)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
@@ -27,14 +27,15 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     allySelections: {},
     allyUnits: [],
     errors: [],
-    realmscape_feature: null,
-    realmscape: realmInfo,
-    unknownSelections: [],
     factionName: factionName as TSupportedFaction,
+    origin_realm,
+    realmscape_feature: null,
+    realmscape,
     selections: {
       ...selections,
       allegiances,
     },
+    unknownSelections: [],
   }
 }
 

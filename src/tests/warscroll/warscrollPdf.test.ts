@@ -489,6 +489,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -527,6 +528,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -565,6 +567,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -623,6 +626,7 @@ describe('getWarscrollArmyFromPdf', () => {
       ],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {

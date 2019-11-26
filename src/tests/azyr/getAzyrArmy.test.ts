@@ -371,6 +371,7 @@ describe('getAzyrArmyFromPdf', () => {
         },
       ],
       factionName: 'FLESH_EATER_COURTS',
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -659,6 +660,7 @@ describe('getAzyrArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -692,6 +694,7 @@ describe('getAzyrArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: KHARADRON_OVERLORDS,
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -745,6 +748,7 @@ describe('getAzyrArmyFromPdf', () => {
         },
       ],
       factionName: SKAVEN,
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -802,6 +806,7 @@ describe('getAzyrArmyFromPdf', () => {
         },
       ],
       factionName: FYRESLAYERS,
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: AQSHY,
       selections: {
@@ -853,6 +858,7 @@ describe('getAzyrArmyFromPdf', () => {
       ],
       errors: [],
       factionName: BEASTS_OF_CHAOS,
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {

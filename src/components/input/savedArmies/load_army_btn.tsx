@@ -16,6 +16,7 @@ interface ILoadButtonProps {
   addReminders: (values: string[]) => void
   clearReminder: () => void
   setFactionName: (value: string | null) => void
+  setOriginRealm: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
@@ -29,6 +30,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
     army,
     clearReminder,
     setFactionName,
+    setOriginRealm,
     setRealmscape,
     setRealmscapeFeature,
     updateAllyArmies,
@@ -58,6 +60,7 @@ const LoadButtonComponent: React.FC<ILoadButtonProps> = props => {
 
     updateSelections(army.selections)
     updateAllySelections(army.allySelections)
+    setOriginRealm(army.origin_realm || null)
     setRealmscape(army.realmscape)
     setRealmscapeFeature(army.realmscape_feature)
 
@@ -79,6 +82,7 @@ export const LoadArmyBtn = connect(null, {
   addReminders: visibility.actions.addReminders,
   clearReminder: visibility.actions.clearReminder,
   setFactionName: factionNames.actions.setFactionName,
+  setOriginRealm: realmscape.actions.setOriginRealm,
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateAllyArmies: army.actions.updateAllyArmies,

@@ -45,7 +45,7 @@ describe('processReminders', () => {
     const triumph = GenericTriumphs[0]
     const unit = sylvaneth.Units[0]
 
-    const army = getArmy(SYLVANETH, getRealmscape(command2.name)) as IArmy
+    const army = getArmy(SYLVANETH, null, getRealmscape(command2.name)) as IArmy
 
     const selections = selectionsFactory({
       allegiances: [allegiance.name],

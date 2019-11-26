@@ -12,6 +12,7 @@ import { unTitleCase } from 'utils/textUtils'
 import { TSupportedFaction } from 'meta/factions'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
+import { isDev } from 'utils/env'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -54,6 +55,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
       currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
 
+      // Since origin_realm was introduced later, sometimes it's undefined in saved armies
+      loaded.origin_realm = loaded.origin_realm || null
+
       const hasChanges = !isEqual(currentArmy, loaded)
 
       const changedKeys = !hasChanges
@@ -62,6 +66,8 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
             if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
             return a
           }, [] as string[])
+
+      if (changedKeys.length && isDev) console.log('Changed keys are: ', changedKeys)
 
       return { hasChanges, changedKeys }
     },

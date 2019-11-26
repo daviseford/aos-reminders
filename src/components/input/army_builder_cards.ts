@@ -3,7 +3,7 @@ import { IArmyBuilderProps } from 'components/input/army_builder'
 import { getSideEffects } from 'components/input/getSideEffects'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 
@@ -92,9 +92,16 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       sideEffects: {},
     },
     {
-      items: SUPPORTED_REALMSCAPES,
+      items: SUPPORTED_ORIGIN_REALMS,
+      setValue: props.setOriginRealm,
+      title: `Realm of Origin`,
+      value: props.origin_realm || null,
+      type: 'single',
+    },
+    {
+      items: SUPPORTED_BATTLE_REALMS,
       setValue: props.setRealmscape,
-      title: `Realmscape`,
+      title: `Realm of Battle`,
       value: props.realmscape || null,
       type: 'single',
     },
