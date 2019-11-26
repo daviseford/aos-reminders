@@ -26,6 +26,7 @@ export const loadArmyFromLink = async (id: string) => {
 
     store.dispatch(selections.actions.updateSelections(linkedArmy.selections))
     store.dispatch(selections.actions.updateAllySelections(linkedArmy.allySelections))
+    store.dispatch(realmscape.actions.setOriginRealm(linkedArmy.origin_realm || null))
     store.dispatch(realmscape.actions.setRealmscape(linkedArmy.realmscape))
     store.dispatch(realmscape.actions.setRealmscapeFeature(linkedArmy.realmscape_feature))
 

@@ -26,6 +26,7 @@ export const loadArmyFromLocalStore = () => {
 
   store.dispatch(selections.actions.updateSelections(storedArmy.selections))
   store.dispatch(selections.actions.updateAllySelections(storedArmy.allySelections))
+  store.dispatch(realmscape.actions.setOriginRealm(storedArmy.origin_realm || null))
   store.dispatch(realmscape.actions.setRealmscape(storedArmy.realmscape))
   store.dispatch(realmscape.actions.setRealmscapeFeature(storedArmy.realmscape_feature))
 

@@ -4,12 +4,12 @@ import { IAllySelections } from 'types/selections'
 import { TEntry } from 'types/data'
 
 export const armyHasEntries = (army: ISavedArmy) => {
-  const { allySelections, realmscape_feature, realmscape, selections } = army
+  const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
 
   if (Object.values(selections).some(x => x.length)) return true
   if (Object.values(allySelections).some(x => Object.values(x as IAllySelections).some(x => x.length)))
     return true
-  if (realmscape || realmscape_feature) return true
+  if (origin_realm || realmscape || realmscape_feature) return true
 
   return false
 }
@@ -25,17 +25,19 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName,
     factionName,
     hiddenReminders = [],
+    origin_realm = null,
     realmscape = null,
     realmscape_feature = null,
     selections,
   } = army
 
   const prepared = {
-    armyName: armyName || 'Untitled',
     allyFactionNames,
     allySelections,
+    armyName: armyName || 'Untitled',
     factionName,
     hiddenReminders,
+    origin_realm,
     realmscape_feature,
     realmscape,
     selections,

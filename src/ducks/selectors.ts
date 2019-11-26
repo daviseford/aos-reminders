@@ -34,6 +34,7 @@ export const getCurrentArmy = (state: IStore): ICurrentArmy => {
     allyFactionNames: getAllyFactionNames(state),
     allySelections: getAllySelections(state),
     factionName: getFactionName(state),
+    origin_realm: getOriginRealm(state),
     realmscape_feature: getRealmscapeFeature(state),
     realmscape: getRealmscape(state),
     selections: getSelections(state),
