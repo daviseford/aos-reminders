@@ -9,18 +9,19 @@ import { getArmyBuilderCards } from 'components/input/army_builder_cards'
 import { RealmscapeFeatures } from 'army/generic'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
-import { ISelections } from 'types/selections'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { ISelections } from 'types/selections'
 import { IStore } from 'types/store'
 
 export interface IArmyBuilderProps {
   factionName: TSupportedFaction
-  factionOrigin: TOriginRealms
+  isMobile: boolean
+  origin_realm: TOriginRealms
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
   selections: ISelections
-  isMobile: boolean
   addToSelections: (payload: { values: string[]; slice: string }) => void
+  setOriginRealm: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllegiances: (values: string[]) => void
@@ -37,11 +38,11 @@ export interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
-  const { factionName, factionOrigin, isMobile, updateArmy, realmscape } = props
+  const { factionName, origin_realm, isMobile, updateArmy, realmscape } = props
 
-  const army = useMemo(() => getArmy(factionName, factionOrigin, realmscape), [
+  const army = useMemo(() => getArmy(factionName, origin_realm, realmscape), [
     factionName,
-    factionOrigin,
+    origin_realm,
     realmscape,
   ]) as IArmy
 
@@ -96,14 +97,16 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  realmscape: selectors.getRealmscape(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  selections: selectors.getSelections(state),
   factionName: selectors.getFactionName(state),
+  origin_realm: selectors.getOriginRealm(state),
+  realmscape_feature: selectors.getRealmscapeFeature(state),
+  realmscape: selectors.getRealmscape(state),
+  selections: selectors.getSelections(state),
 })
 
 const mapDispatchToProps = {
   addToSelections: selections.actions.addToSelections,
+  setOriginRealm: realmscape.actions.setOriginRealm,
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateAllegiances: selections.actions.updateAllegiances,
