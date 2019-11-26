@@ -122,6 +122,7 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
+    origin_realm: null,
     realmscape_feature: null,
     realmscape,
     selections,

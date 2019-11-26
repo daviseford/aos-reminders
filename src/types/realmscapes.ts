@@ -7,8 +7,8 @@ type TShyish = `Shyish`
 type TStygxx = `Stygxx`
 type TUlgu = `Ulgu`
 
-export type TBattleRealms = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TStygxx | TUlgu
 export type TOriginRealms = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TUlgu
+export type TBattleRealms = TOriginRealms | TStygxx
 
 export const AQSHY: TAqshy = `Aqshy`
 export const CHAMON: TChamon = `Chamon`
