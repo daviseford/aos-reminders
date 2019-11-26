@@ -101,7 +101,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
     {
       items: SUPPORTED_BATTLE_REALMS,
       setValue: props.setRealmscape,
-      title: `Realmscape`,
+      title: `Realm of Battle`,
       value: props.realmscape || null,
       type: 'single',
     },
