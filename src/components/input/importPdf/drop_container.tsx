@@ -17,6 +17,7 @@ import { TImportError, IImportedArmy } from 'types/import'
 
 interface IImportContainerProps {
   setFactionName: (value: string | null) => void
+  setOriginRealm: (value: string | null) => void
   setRealmscape: (value: string | null) => void
   setRealmscapeFeature: (value: string | null) => void
   updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
@@ -28,6 +29,7 @@ interface IImportContainerProps {
 const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
   const {
     setFactionName,
+    setOriginRealm,
     setRealmscape,
     setRealmscapeFeature,
     updateAllyArmies,
@@ -58,11 +60,13 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
 
       updateSelections(army.selections)
       updateAllySelections(army.allySelections)
+      setOriginRealm(army.origin_realm)
       setRealmscape(army.realmscape)
       setRealmscapeFeature(army.realmscape_feature)
     },
     [
       setFactionName,
+      setOriginRealm,
       setRealmscape,
       setRealmscapeFeature,
       updateAllyArmies,
@@ -96,6 +100,7 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
 
 const ImportContainer = connect(null, {
   setFactionName: factionNames.actions.setFactionName,
+  setOriginRealm: realmscape.actions.setOriginRealm,
   setRealmscape: realmscape.actions.setRealmscape,
   setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
   updateAllyArmies: army.actions.updateAllyArmies,

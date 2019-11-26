@@ -9,27 +9,35 @@ import {
   isChildNode,
   isFactionObj,
   isParentNode,
-  isRealmObj,
+  isBattleRealmObj,
   isRootSelection,
+  isOriginRealmObj,
 } from 'utils/battlescribe/checks'
 import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
-import { parseFaction, parseAllegiance, parseRealmObj } from 'utils/battlescribe/getters'
-import { TBattleRealms } from 'types/realmscapes'
+import {
+  parseFaction,
+  parseAllegiance,
+  parseBattleRealmObj,
+  parseOriginRealmObj,
+} from 'utils/battlescribe/getters'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 type TTraverseDoc = (
   docObj: IParentNode | IChildNode
 ) => {
-  realmInfo: null | TBattleRealms
   allegianceInfo: IAllegianceInfo[]
   factionInfo: IFactionInfo
+  origin_realm: TOriginRealms | null
+  realmscape: TBattleRealms | null
   rootSelections: IParentNode[]
 }
 
 export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
-    realmInfo: null as null | TBattleRealms,
     allegianceInfo: [] as IAllegianceInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
+    origin_realm: null as TOriginRealms | null,
+    realmscape: null as TBattleRealms | null,
     rootSelections: [] as IParentNode[],
   }
 
@@ -40,8 +48,12 @@ export const traverseDoc: TTraverseDoc = docObj => {
       results.rootSelections.push(obj)
     }
 
-    if (!results.realmInfo && isRealmObj(obj)) {
-      results.realmInfo = parseRealmObj(obj)
+    if (!results.realmscape && isBattleRealmObj(obj)) {
+      results.realmscape = parseBattleRealmObj(obj)
+    }
+
+    if (!results.origin_realm && isOriginRealmObj(obj)) {
+      results.origin_realm = parseOriginRealmObj(obj)
     }
 
     if (!results.factionInfo.factionName && isFactionObj(obj)) {

@@ -117,6 +117,15 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Nurgle1', () => {
+    const parsedText = getFile('Nurgle1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.origin_realm).toEqual('Ulgu')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Ironjawz2', () => {
     const parsedText = getFile('Ironjawz2')
     const res = getBattlescribeArmy(parsedText)
@@ -214,6 +223,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
+    expect(res.origin_realm).toEqual('Ulgu')
     expect(res.errors).toEqual([])
   })
 
@@ -491,6 +501,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_BLOOD)
+    expect(res.origin_realm).toEqual(null)
     expect(res.errors).toEqual([{ severity: 'warn', text: 'Nighthaunt Procession' }])
   })
 
@@ -499,6 +510,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.origin_realm).toEqual('Aqshy')
     expect(res.errors).toEqual([])
     expect(res).toEqual({
       allyFactionNames: [],
@@ -509,6 +521,7 @@ describe('getBattlescribeArmy', () => {
       realmscape: 'Ghyran',
       unknownSelections: [],
       factionName: 'BEASTS_OF_CHAOS',
+      origin_realm: 'Aqshy',
       selections: {
         allegiances: [],
         artifacts: [
@@ -685,6 +698,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.origin_realm).toEqual(null)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
     expect(res.errors).toEqual([])
@@ -761,6 +775,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.origin_realm).toEqual('Ghur')
     expect(res.selections.scenery).toContain('Skull Altar')
     expect(res.errors).toEqual([
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },

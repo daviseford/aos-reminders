@@ -12,7 +12,7 @@ import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isValidFactionName } from 'utils/armyUtils'
 import { TSupportedFaction } from 'meta/factions'
-import { TBattleRealms } from 'types/realmscapes'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
   const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
@@ -41,11 +41,21 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
   }
 }
 
-export const parseRealmObj = (obj: IParentNode): TBattleRealms | null => {
+export const parseBattleRealmObj = (obj: IParentNode): TBattleRealms | null => {
   try {
     //@ts-ignore
     const text = obj.childNodes[1].childNodes[1].value
     return text.split(': ')[1].trim() as TBattleRealms
+  } catch (err) {
+    return null
+  }
+}
+
+export const parseOriginRealmObj = (obj: IParentNode): TOriginRealms | null => {
+  try {
+    //@ts-ignore
+    const text = obj.childNodes[1].childNodes[1].value
+    return text.split(': ')[1].trim() as TOriginRealms
   } catch (err) {
     return null
   }
