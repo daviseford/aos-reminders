@@ -14,12 +14,12 @@ import {
 } from 'utils/battlescribe/checks'
 import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
 import { parseFaction, parseAllegiance, parseRealmObj } from 'utils/battlescribe/getters'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms } from 'types/realmscapes'
 
 type TTraverseDoc = (
   docObj: IParentNode | IChildNode
 ) => {
-  realmInfo: null | TRealms
+  realmInfo: null | TBattleRealms
   allegianceInfo: IAllegianceInfo[]
   factionInfo: IFactionInfo
   rootSelections: IParentNode[]
@@ -27,7 +27,7 @@ type TTraverseDoc = (
 
 export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
-    realmInfo: null as null | TRealms,
+    realmInfo: null as null | TBattleRealms,
     allegianceInfo: [] as IAllegianceInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     rootSelections: [] as IParentNode[],

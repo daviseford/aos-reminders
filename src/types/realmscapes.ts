@@ -7,8 +7,8 @@ type TShyish = `Shyish`
 type TStygxx = `Stygxx`
 type TUlgu = `Ulgu`
 
-export type TRealms = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TStygxx | TUlgu
-export type TOrigins = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TUlgu
+export type TBattleRealms = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TStygxx | TUlgu
+export type TOriginRealms = TAqshy | TChamon | TGhur | TGhyran | THysh | TShyish | TUlgu
 
 export const AQSHY: TAqshy = `Aqshy`
 export const CHAMON: TChamon = `Chamon`
@@ -19,5 +19,14 @@ export const SHYISH: TShyish = `Shyish`
 export const STYGXX: TStygxx = `Stygxx`
 export const ULGU: TUlgu = `Ulgu`
 
-export const SUPPORTED_REALMSCAPES: TRealms[] = [AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU]
-export const SUPPORTED_FACTION_ORIGINS: TOrigins[] = [AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU]
+export const SUPPORTED_BATTLE_REALMS: TBattleRealms[] = [
+  AQSHY,
+  CHAMON,
+  GHUR,
+  GHYRAN,
+  HYSH,
+  SHYISH,
+  STYGXX,
+  ULGU,
+]
+export const SUPPORTED_ORIGIN_REALMS: TOriginRealms[] = [AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU]

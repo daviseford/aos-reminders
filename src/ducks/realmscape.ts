@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit'
-import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
 import { IRealmscapeStore, IStore } from 'types/store'
 
 const initialState: IRealmscapeStore = {
@@ -17,7 +17,7 @@ const setRealmscape = (state: IStore['realmscape'], action) => {
 }
 
 const getRealmscapeFromFeature = (feature: string): string | null => {
-  return SUPPORTED_REALMSCAPES.find(realm => feature.includes(realm)) || null
+  return SUPPORTED_BATTLE_REALMS.find(realm => feature.includes(realm)) || null
 }
 
 const setRealmscapeFeature = (state: IStore['realmscape'], action) => {

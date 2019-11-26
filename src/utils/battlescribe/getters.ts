@@ -1,10 +1,10 @@
 import { uniq, isString } from 'lodash'
 import {
-  IParentNode,
-  IFactionInfo,
-  IChildNode,
-  IParsedRoot,
   IAllegianceInfo,
+  IChildNode,
+  IFactionInfo,
+  IParentNode,
+  IParsedRoot,
 } from 'utils/battlescribe/getBattlescribeArmy'
 import { isParentNode, isChildNode } from 'utils/battlescribe/checks'
 import { importFactionNameMap } from 'utils/import/options'
@@ -12,7 +12,7 @@ import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isValidFactionName } from 'utils/armyUtils'
 import { TSupportedFaction } from 'meta/factions'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms } from 'types/realmscapes'
 
 export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
   const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
@@ -41,11 +41,11 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
   }
 }
 
-export const parseRealmObj = (obj: IParentNode): TRealms | null => {
+export const parseRealmObj = (obj: IParentNode): TBattleRealms | null => {
   try {
     //@ts-ignore
     const text = obj.childNodes[1].childNodes[1].value
-    return text.split(': ')[1].trim() as TRealms
+    return text.split(': ')[1].trim() as TBattleRealms
   } catch (err) {
     return null
   }

@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import { IStore } from 'types/store'
 import { ICurrentArmy } from 'types/army'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms } from 'types/realmscapes'
 
 // Army
 export const getArmy = (state: IStore) => state.army.army
@@ -11,7 +11,7 @@ export const getAllyArmies = (state: IStore) => state.army.allyArmies
 export const getFactionName = (state: IStore) => state.factionNames.factionName
 
 // Realmscape
-export const getRealmscape = (state: IStore) => state.realmscape.realmscape as TRealms | null
+export const getRealmscape = (state: IStore) => state.realmscape.realmscape as TBattleRealms | null
 export const getRealmscapeFeature = (state: IStore) => state.realmscape.realmscape_feature
 
 // Selections

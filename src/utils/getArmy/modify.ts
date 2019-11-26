@@ -24,7 +24,7 @@ import {
   RealmscapeCommands,
   RealmscapeSpells,
 } from 'army/generic'
-import { TRealms, TOrigins as TOriginRealms } from 'types/realmscapes'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
   sortedUniqBy(sortBy(allegiances, 'name'), 'name')
@@ -70,7 +70,7 @@ const modifyTraits = (traits: TTraits, alliance: TGrandAlliances, Collection: IC
   )
 }
 
-const modifyCommands = (realmscape: TRealms | null, Collection: ICollection): TCommands => {
+const modifyCommands = (realmscape: TBattleRealms | null, Collection: ICollection): TCommands => {
   const realmCommands = realmscape ? RealmscapeCommands.filter(c => c.name.includes(realmscape)) : []
   return uniqBy(
     Collection.Commands.concat(sortBy(GenericCommands, 'name'))
@@ -84,7 +84,11 @@ const getTriumphs = (): TTriumphs => {
   return sortBy(GenericTriumphs, 'name').map(t => ({ ...t, triumph: true }))
 }
 
-const modifySpells = (spells: TSpells, realmscape: TRealms | null, Collection: ICollection): TSpells => {
+const modifySpells = (
+  spells: TSpells,
+  realmscape: TBattleRealms | null,
+  Collection: ICollection
+): TSpells => {
   const realmSpells = realmscape ? RealmscapeSpells.filter(s => s.name.includes(realmscape)) : []
   return uniqBy(
     sortBy(spells, 'name')

@@ -10,13 +10,14 @@ import { RealmscapeFeatures } from 'army/generic'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { IStore } from 'types/store'
 
 export interface IArmyBuilderProps {
   factionName: TSupportedFaction
+  factionOrigin: TOriginRealms
   realmscape_feature: string | null
-  realmscape: TRealms | null
+  realmscape: TBattleRealms | null
   selections: ISelections
   isMobile: boolean
   addToSelections: (payload: { values: string[]; slice: string }) => void
@@ -36,9 +37,13 @@ export interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
-  const { factionName, isMobile, updateArmy, realmscape } = props
+  const { factionName, factionOrigin, isMobile, updateArmy, realmscape } = props
 
-  const army = useMemo(() => getArmy(factionName, realmscape), [factionName, realmscape]) as IArmy
+  const army = useMemo(() => getArmy(factionName, factionOrigin, realmscape), [
+    factionName,
+    factionOrigin,
+    realmscape,
+  ]) as IArmy
 
   useEffect(() => {
     updateArmy(army)

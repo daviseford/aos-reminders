@@ -1,6 +1,6 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TAllySelectionStore } from 'types/store'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms } from 'types/realmscapes'
 import { ISelections } from 'types/selections'
 
 export interface IImportedArmy {
@@ -10,7 +10,7 @@ export interface IImportedArmy {
   factionName: TSupportedFaction
   errors: TImportError[]
   realmscape_feature: string | null
-  realmscape: TRealms | null
+  realmscape: TBattleRealms | null
   selections: ISelections
   unknownSelections: string[]
 }

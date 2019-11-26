@@ -8,12 +8,12 @@ import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from
 import { getArmyFromList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
-import { TRealms, TOrigins } from 'types/realmscapes'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,
-  factionOrigin: TOrigins | null = null,
-  realmscape: TRealms | null = null
+  factionOrigin: TOriginRealms | null = null,
+  realmscape: TBattleRealms | null = null
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
 
@@ -35,9 +35,9 @@ export const getArmy = (
 interface IModifyArmyMeta {
   Collection: ICollection
   GrandAlliance: TGrandAlliances
-  realmscape: TRealms | null
+  realmscape: TBattleRealms | null
   factionName: TSupportedFaction
-  factionOrigin: TOrigins | null
+  factionOrigin: TOriginRealms | null
 }
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
