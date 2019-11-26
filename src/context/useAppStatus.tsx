@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { installNewWorker } from 'utils/installNewWorker'
 
 interface IAppStatusProvider {
   isOffline: boolean
