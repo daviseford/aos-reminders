@@ -22,7 +22,7 @@ const AppStatusProvider: React.FC = ({ children }) => {
   const [hasNewContent, setHasNewContent] = useState(false)
 
   const setOffline = () => {
-    console.log('No internet connection found. App is running in offline mode.')
+    console.log('App is running in offline mode.')
     setIsOffline(true)
   }
 
