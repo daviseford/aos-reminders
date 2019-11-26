@@ -1,6 +1,6 @@
 import qs from 'qs'
 import { logEvent, logSubscription, logGiftedSubscription } from 'utils/analytics'
-import { loadArmyFromLink } from 'utils/loadArmyFromLink'
+import { loadArmyFromLink } from 'utils/loadArmyHelpers'
 
 export const handleCheckout = () => {
   const { subscribed = false, canceled = false, plan = '', gifted = false, quantity = '' } = qs.parse(

@@ -9,6 +9,7 @@ export interface IImportedArmy {
   allyUnits: string[]
   errors: TImportError[]
   factionName: TSupportedFaction
+  hiddenReminders?: undefined
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
