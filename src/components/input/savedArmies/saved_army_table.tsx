@@ -33,11 +33,8 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
             }
             return <Tr theme={theme} items={items} title={key} key={`${key}_${i}`} />
           })}
-
           {origin_realm && <Tr theme={theme} items={[origin_realm]} title={'Realm of Origin'} />}
-
           {realmscape && <Tr theme={theme} items={[realmscape]} title={'Realm of Battle'} />}
-
           {realmscape_feature && <Tr theme={theme} items={[realmscape_feature]} title={'Realm Feature'} />}
         </tbody>
       </table>
