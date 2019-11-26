@@ -88,6 +88,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.origin_realm).toEqual(null)
     expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Hailstorm Battery' }])
   })
 
@@ -96,6 +97,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.origin_realm).toEqual('Ghur')
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -677,6 +679,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: 'CITIES_OF_SIGMAR',
+      origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
