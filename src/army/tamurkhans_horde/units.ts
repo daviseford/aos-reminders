@@ -27,12 +27,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Feast of the Maggot Lord`,
-        desc: `If this model is slain, before this model is removed from play, you can pick 1 enemy Hero within 3" of this model. That Hero suffers D3 mortal wounds. If that Hero is slain by these mortal wounds, this model is not slain, D6 wounds allocated to this model are healed, and any that remain to be allocated to it are negated. If that Hero is not slain by these mortal wounds, this model is removed from play.`,
+        desc: `If this model is slain, before this model is removed from play, you can pick 1 enemy HERO within 3" of this model. That Hero suffers D3 mortal wounds. If that HERO is slain by these mortal wounds, this model is not slain, D6 wounds allocated to this model are healed, and any that remain to be allocated to it are negated. If that HERO is not slain by these mortal wounds, this model is removed from play.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Killer of Kings`,
-        desc: `You can re-roll hit rolls for attacks made with this model's Black Cleaver that target a Hero.`,
+        desc: `You can re-roll hit rolls for attacks made with this model's Black Cleaver that target a HERO.`,
         when: [COMBAT_PHASE],
       },
       {

@@ -107,6 +107,7 @@ const Spells: TSpells = [
         when: [COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Blessing of Khaine (Priest)`,
@@ -122,6 +123,7 @@ const Spells: TSpells = [
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Martyr's Sacrifice (Priest)`,
@@ -137,6 +139,7 @@ const Spells: TSpells = [
         when: [COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Crimson Rejuvenation (Priest)`,
@@ -147,6 +150,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Covenant of the Iron Heart (Priest)`,
@@ -162,6 +166,7 @@ const Spells: TSpells = [
         when: [BATTLESHOCK_PHASE],
       },
     ],
+    prayer: true,
   },
 
   {
@@ -173,6 +178,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
 ]
 

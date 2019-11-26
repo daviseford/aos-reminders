@@ -13,8 +13,8 @@ const getLegionsOfNagashUnits = () => {
     `Mannfred, Mortarch of Night`,
     `Neferata, Mortarch of Blood`,
     `Prince Vhordrai`,
-    `Vampire Lord`,
     `Vampire Lord on Zombie Dragon`,
+    `Vampire Lord`,
     `Vargheists`,
   ]
   return filterUnits(LegionsOfNagash.Units, listOfUnits)

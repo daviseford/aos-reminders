@@ -12,6 +12,7 @@ const Spells: TSpells = [
         when: [HERO_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Raven Priest - Morrda's Eye`,
@@ -27,6 +28,7 @@ const Spells: TSpells = [
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
+    prayer: true,
   },
   {
     name: `Raven Priest - Morrda's Embrace`,
@@ -42,6 +44,7 @@ const Spells: TSpells = [
         when: [DURING_GAME],
       },
     ],
+    prayer: true,
   },
 ]
 

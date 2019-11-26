@@ -8,7 +8,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Squiggly Curse`,
-        desc: `Casting Value 6. Select a Hero within 3" and it suffers D3 mortal wounds. If you rolled a double to cast it then suffers D6 mortal wounds instead.
+        desc: `Casting Value 6. Select a HERO within 3" and it suffers D3 mortal wounds. If you rolled a double to cast it then suffers D6 mortal wounds instead.
 
         If a model is slain by Squiggly Curse, you can add 1 to any further casting attempts made by the caster during the battle.`,
         when: [HERO_PHASE],

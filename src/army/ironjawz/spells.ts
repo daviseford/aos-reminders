@@ -9,10 +9,10 @@ import { TSpells } from 'types/army'
 
 const Spells: TSpells = [
   {
-    name: `Brain Burst`,
+    name: `Brain-bursta`,
     effects: [
       {
-        name: `Brain Burst`,
+        name: `Brain-bursta`,
         desc: `Casting value of 5. Pick 1 enemy unit within 16" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Bravery characteristic, that unit suffers D6 mortal wounds; if not, that unit suffers D3 mortal wound.`,
         when: [HERO_PHASE],
       },

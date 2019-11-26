@@ -113,7 +113,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Soul Reaper`,
-        desc: `Add 1 to hit and wound rolls for this model's Cursed Dagger if the target is a Hero.`,
+        desc: `Add 1 to hit and wound rolls for this model's Cursed Dagger if the target is a HERO.`,
         when: [COMBAT_PHASE],
       },
       {

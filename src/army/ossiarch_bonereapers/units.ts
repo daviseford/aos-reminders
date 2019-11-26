@@ -158,7 +158,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grim Warnings`,
-        desc: `Subtract 1 from unbinding rolls for Wizards attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for Wizards attempting to unbind a spell cast by this model instead of 1.`,
+        desc: `Subtract 1 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model instead of 1.`,
         when: [HERO_PHASE],
       },
       {
@@ -448,6 +448,16 @@ export const Battalions: TBattalions = [
         name: `Vital Assets`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to a MORTEK CRAWLER from this battalion while it is within 3" of the MORTEK GUARD from the same battalion. Add 2 to the roll if the MORTEK CRAWLER is within 3" of the MORTISAN BONESHAPER from the same battalion. On a 4+, that wound or mortal wound is allocated to the MORTEK GUARD instead of the MORTEK CRAWLER.`,
         when: [WOUND_ALLOCATION],
+      },
+    ],
+  },
+  {
+    name: `Vokmortian's Retinue`,
+    effects: [
+      {
+        name: `Eternal Duty`,
+        desc: `At the start of your hero phase, you can pick 1 unit from this battalion within 8" of the VOKMORTIAN from the same battalion. Return 1 slain model to that unit.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

@@ -132,7 +132,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arch-deceiver`,
-        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army - they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy Hero at the end of any phase, it is revealed and this ability no longer has an effect.`,
+        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army - they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy HERO at the end of any phase, it is revealed and this ability no longer has an effect.`,
         when: [END_OF_SETUP],
       },
       {
@@ -350,7 +350,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Flames`,
-        desc: `Casting value 8. Pick a visible enemy unit and roll 1 dice for each model in the target unit that is within 18" of the caster; the unit suffers 1 mortal wound for each roll of a 4+. Roll 3 dice for each Monster or War Machine in the target unit.`,
+        desc: `Casting value 8. Pick a visible enemy unit and roll 1 dice for each model in the target unit that is within 18" of the caster; the unit suffers 1 mortal wound for each roll of a 4+. Roll 3 dice for each MONSTER or War Machine in the target unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -568,7 +568,7 @@ export const TzeentchBattalions: TBattalions = [
       },
       {
         name: `Cabal of Sorcerers`,
-        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other Wizards from the same battalion in your hero phase can attempt to cast one additional spell.`,
+        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other WIZARDS from the same battalion in your hero phase can attempt to cast one additional spell.`,
         when: [HERO_PHASE],
       },
     ],

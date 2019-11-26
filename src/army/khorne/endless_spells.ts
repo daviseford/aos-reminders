@@ -22,10 +22,11 @@ const EndlessSpells: TEndlessSpells = [
         name: `Summon`,
         desc: `Prayer value of 3+. Only friendly Khorne Priests can attempt this. If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other. You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
         when: [START_OF_HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Hexgorgers`,
-        desc: `Subtract 2 from the casting rolls for Wizards while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
+        desc: `Subtract 2 from the casting rolls for WIZARDS while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -42,6 +43,7 @@ const EndlessSpells: TEndlessSpells = [
         name: `Summon`,
         desc: `Prayer value of 4+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
         when: [HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Crushing Retribution`,
@@ -67,6 +69,7 @@ const EndlessSpells: TEndlessSpells = [
         name: `Summon`,
         desc: `Prayer value of 5+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
         when: [START_OF_HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Hatred's Edge`,

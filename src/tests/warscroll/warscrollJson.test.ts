@@ -5,8 +5,11 @@ import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
+  CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
+  DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
@@ -18,10 +21,10 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  DEATH_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string): string[] => {
@@ -29,15 +32,109 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Guardian of Souls and Chaos allegiance', () => {
+    const parsedText = getFile('1574504452431-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    // Guardian of Souls is a DEATH unit...
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Guardian of Souls' }])
+  })
+
+  it('should work with Chaos Hellcannon', () => {
+    const parsedText = getFile('1574545285739-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.units).toEqual([
+      'Chaos Lord on Daemonic Mount',
+      'Gaunt Summoner of Tzeentch',
+      'Chaos Chosen',
+      'Chaos Warriors',
+      'Varanguard',
+      'Tuskgor Chariots',
+      'Hellcannon',
+    ])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Warcry scrolls', () => {
+    const parsedText = getFile('1574613461286-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
+      units: [
+        'Darkoath Warqueen',
+        'Chaos Sorcerer Lord on Manticore',
+        'Untamed Beasts',
+        'Cypher Lords',
+        'Iron Golems',
+      ],
+    })
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Warscry scrolls', () => {
+    const parsedText = getFile('1574613528170-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Hailstorm Battery (SCE battalion)', () => {
+    const parsedText = getFile('1574638101530-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Hailstorm Battery' }])
+  })
+
+  it('should work with Ogor Mawtribes', () => {
+    const parsedText = getFile('1574686232621-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Vokmortians Retinue', () => {
     const parsedText = getFile('1573791319612-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    // TODO: Get from Feast of Bones
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: "Vokmortian's Retinue" }])
+    expect(warscrollTxt.selections.battalions).toContain("Vokmortian's Retinue")
+    expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with Vokmortians Retinue', () => {
+    const parsedText = getFile('1574249013027-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.selections.battalions).toContain("Vokmortian's Retinue")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with One with Fire and Ice trait/spell', () => {
+    const parsedText = getFile('1574356951165-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('One with Fire and Ice (The Phoenicium)')
+    expect(warscrollTxt.selections.spells).toContain('Golden Mist (The Phoenicium)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Ironjawz', () => {
+    const parsedText = getFile('1574391649028-Warscroll_Builder.json')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
+    expect(warscrollTxt.selections.allegiances).toContain('Ironsunz')
+    expect(warscrollTxt.errors).toEqual([])
+  })
   it('should work with OBR', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder.json')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
