@@ -55,6 +55,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
       currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
 
+      // Since origin_realm was introduced later, sometimes it's undefined in saved armies
+      loaded.origin_realm = loaded.origin_realm || null
+
       const hasChanges = !isEqual(currentArmy, loaded)
 
       const changedKeys = !hasChanges
