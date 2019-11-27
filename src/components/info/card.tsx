@@ -9,11 +9,14 @@ import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'c
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
 
-interface ICardProps {
-  title: string
-  mobileTitle?: string | null
-  isVisible: boolean
+interface IBaseCardProps {
   isMobile: boolean
+  mobileTitle?: string | null
+  title: string
+}
+
+interface ICardProps extends IBaseCardProps {
+  isVisible: boolean
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
@@ -35,13 +38,10 @@ const CardComponent: React.FC<ICardProps> = props => {
   )
 }
 
-interface ICardMultiProps {
+interface ICardMultiProps extends IBaseCardProps {
   hiddenSelectors: string[] // state2props
-  isMobile: boolean
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
-  title: string
-  mobileTitle?: string
   values: string[]
   enableLog?: boolean
 }
@@ -57,11 +57,13 @@ const CardMultiComponent = (props: ICardMultiProps) => {
     title,
     values,
   } = props
+
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
   const log = enableLog ? { enable: true, trait: title } : { enable: false }
 
   if (!items.length) return null
+
   return (
     <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
       <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} log={log} />
@@ -69,14 +71,11 @@ const CardMultiComponent = (props: ICardMultiProps) => {
   )
 }
 
-interface ICardSingleSelectProps {
+interface ICardSingleSelectProps extends IBaseCardProps {
   enableLog?: boolean
   hiddenSelectors: string[] // state2props
-  isMobile: boolean
   items: string[]
-  mobileTitle?: string
   setValue: TSelectOneSetValueFn
-  title: string
   value?: string | null
 }
 
@@ -101,15 +100,12 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
   )
 }
 
-interface ICardHeaderProps {
+interface ICardHeaderProps extends IBaseCardProps {
   headerClassName?: string
   hideCard: (value: string) => void
   iconSize?: number
-  isMobile: boolean
   isVisible: boolean
   showCard: (value: string) => void
-  title: string
-  mobileTitle?: string | null
   type?: TVisibilityIconType
 }
 
@@ -164,5 +160,4 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
 
 export const CardMultiSelect = connect(mapStateToProps, null)(componentWithSize(CardMultiComponent))
-
 export const CardSingleSelect = connect(mapStateToProps, null)(componentWithSize(CardSingleSelectComponent))
