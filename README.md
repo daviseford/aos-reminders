@@ -33,6 +33,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [BenKidd](https://github.com/BenKidd)
 + [stures](https://github.com/stures)
 + [Redmongrel](https://github.com/Redmongrel)
++ [bszonye](https://github.com/bszonye)
 + Lorax
 
 ## Available Scripts

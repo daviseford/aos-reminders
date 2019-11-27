@@ -860,7 +860,7 @@ export const Battalions: TBattalions = [
       {
         name: `March of the Dead`,
         desc: `At the start of your hero phase, each unit from this battalion wholly within 12" of the battalion's Wight King and more than 3" from any enemy units can move 4". The units cannot run, or move within 3" of an enemy unit, and the distance to the Wight King must be measured before any of the moves are made.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

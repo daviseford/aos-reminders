@@ -6,7 +6,7 @@
   "dependencies": {
     "@auth0/auth0-spa-js": "1.6.0",
     "bootstrap": "4.4.0",
-    "core-js": "3.4.3",
+    "core-js": "3.4.5",
     "jspdf": "1.5.3",
     "lodash": "4.17.15",
     "luxon": "1.21.2",
@@ -88,6 +88,6 @@
     "replace-in-file": "4.2.0",
     "source-map-explorer": "2.1.1",
     "typescript": "3.7.2",
-    "xlsx": "0.15.2"
+    "xlsx": "0.15.3"
   }
 }
