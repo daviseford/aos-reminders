@@ -95,6 +95,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       items: SUPPORTED_ORIGIN_REALMS,
       setValue: props.setOriginRealm,
       title: `Realm of Origin`,
+      mobileTitle: `Origin Realm`,
       value: props.origin_realm || null,
       type: 'single',
     },
@@ -102,6 +103,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       items: SUPPORTED_BATTLE_REALMS,
       setValue: props.setRealmscape,
       title: `Realm of Battle`,
+      mobileTitle: `Battle Realm`,
       value: props.realmscape || null,
       type: 'single',
     },
@@ -117,15 +119,17 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
 
 type TMulti = {
   items: TEntry[]
+  mobileTitle?: string
   setValues: (values: string[]) => void
+  sideEffects: IWithSelectMultipleWithSideEffectsPayload
   title: string
   type: 'multi'
   values: string[]
-  sideEffects: IWithSelectMultipleWithSideEffectsPayload
 }
 
 type TSingle = {
   items: string[]
+  mobileTitle?: string
   setValue: (value: string | null) => void
   title: string
   type: 'single'
