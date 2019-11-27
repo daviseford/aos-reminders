@@ -11,7 +11,7 @@ import { IStore } from 'types/store'
 
 interface ICardProps {
   title: string
-  mobileTitle?: string
+  mobileTitle?: string | null
   isVisible: boolean
   isMobile: boolean
 }
@@ -99,7 +99,7 @@ interface ICardHeaderProps {
   isVisible: boolean
   showCard: (value: string) => void
   title: string
-  mobileTitle?: string
+  mobileTitle?: string | null
   type?: TVisibilityIconType
 }
 
