@@ -119,16 +119,17 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
 
 type TMulti = {
   items: TEntry[]
-  setValues: (values: string[]) => void
-  title: string
   mobileTitle?: string
+  setValues: (values: string[]) => void
+  sideEffects: IWithSelectMultipleWithSideEffectsPayload
+  title: string
   type: 'multi'
   values: string[]
-  sideEffects: IWithSelectMultipleWithSideEffectsPayload
 }
 
 type TSingle = {
   items: string[]
+  mobileTitle?: string
   setValue: (value: string | null) => void
   title: string
   type: 'single'

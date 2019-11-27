@@ -48,14 +48,14 @@ interface ICardMultiProps {
 
 const CardMultiComponent = (props: ICardMultiProps) => {
   const {
-    items,
-    setValues,
-    values,
-    hiddenSelectors,
-    title,
-    isMobile,
-    mobileTitle = null,
     enableLog = false,
+    hiddenSelectors,
+    isMobile,
+    items,
+    mobileTitle = null,
+    setValues,
+    title,
+    values,
   } = props
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
@@ -70,22 +70,32 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 }
 
 interface ICardSingleSelectProps {
+  enableLog?: boolean
   hiddenSelectors: string[] // state2props
   isMobile: boolean
   items: string[]
+  mobileTitle?: string
   setValue: TSelectOneSetValueFn
   title: string
   value?: string | null
-  enableLog?: boolean
 }
 
 const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const { setValue, items, title, value = null, hiddenSelectors, isMobile, enableLog = false } = props
+  const {
+    enableLog = false,
+    hiddenSelectors,
+    isMobile,
+    items,
+    mobileTitle = null,
+    setValue,
+    title,
+    value = null,
+  } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
   const log = enableLog ? { enable: true, trait: title } : { enable: false }
 
   return (
-    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
       <SelectOne setValue={setValue} items={items} value={value} isClearable={true} log={log} />
     </CardComponent>
   )
