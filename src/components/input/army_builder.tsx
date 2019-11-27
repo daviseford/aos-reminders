@@ -77,6 +77,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               title={card.title}
               values={card.values}
               key={card.title}
+              mobileTitle={card.mobileTitle || null}
               enableLog={true}
             />
           ) : (
