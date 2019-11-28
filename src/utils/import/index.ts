@@ -1,6 +1,6 @@
 import { difference } from 'lodash'
 import { isValidFactionName } from 'utils/armyUtils'
-import { logFailedImport, logIndividualSelection, logAllyFaction } from 'utils/analytics'
+import { logFailedImport } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/import/allyData'
@@ -13,7 +13,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
-import { titleCase } from 'utils/textUtils'
+import { logLoadedArmy } from 'utils/loadArmy/logLoadedArmy'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -79,7 +79,11 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   }
 
   // Log our selections to Google Analytics
-  logSelections(mergedSelections, allyData)
+  logLoadedArmy({
+    ...army,
+    selections: mergedSelections,
+    allySelections: allyData.allySelections,
+  })
 
   return {
     ...army,
@@ -88,34 +92,6 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     selections: mergedSelections,
     ...allyData,
   }
-}
-
-type TLogSelections = (
-  selections: { [key: string]: string[] },
-  allyData: {
-    allyFactionNames: TSupportedFaction[]
-    allySelections: TAllySelectionStore
-  }
-) => void
-
-/**
- * Logs our individual selections to Google Analytics after import
- * @param selections
- * @param allyData
- */
-const logSelections: TLogSelections = (selections, allyData) => {
-  try {
-    Object.keys(selections).forEach(key => {
-      const trait = titleCase(key)
-      selections[key].forEach(name => logIndividualSelection(trait, name))
-    })
-
-    Object.keys(allyData.allySelections).forEach(faction => {
-      logAllyFaction(faction)
-      const units: string[] = allyData.allySelections[faction].units || []
-      units.forEach(name => logIndividualSelection('AlliedUnits', name))
-    })
-  } catch (err) {}
 }
 
 type TRemoveFoundErrors = (

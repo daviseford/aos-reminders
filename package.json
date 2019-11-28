@@ -5,11 +5,11 @@
   "homepage": "./",
   "dependencies": {
     "@auth0/auth0-spa-js": "1.6.0",
-    "bootstrap": "4.4.0",
+    "bootstrap": "4.4.1",
     "core-js": "3.4.5",
     "jspdf": "1.5.3",
     "lodash": "4.17.15",
-    "luxon": "1.21.2",
+    "luxon": "1.21.3",
     "node-sass": "4.13.0",
     "parse5": "5.1.1",
     "pdfjs-dist": "2.2.228",
