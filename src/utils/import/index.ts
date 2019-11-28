@@ -9,11 +9,11 @@ import { createFatalError, hasFatalError, getAllyWarnings, getWarnings } from 'u
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
 import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
-import { logLoadedArmy } from 'utils/loadArmyHelpers'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
+import { logLoadedArmy } from 'utils/loadArmy/logLoadedArmy'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]

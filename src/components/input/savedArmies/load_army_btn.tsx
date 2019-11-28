@@ -2,7 +2,7 @@ import React from 'react'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
 import { logEvent } from 'utils/analytics'
-import { addArmyToStore } from 'utils/loadArmyHelpers'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ILoadButtonProps {
