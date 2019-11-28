@@ -36,9 +36,9 @@ export const loadArmyFromLocalStore = () => {
   logEvent(`LoadArmyFromStore-${storedArmy.factionName}`)
 }
 
-export const addArmyToStore = (
-  linkedArmy: IImportedArmy | ILinkedArmy | (ICurrentArmy & { hiddenReminders: string[] })
-) => {
+type TLoadedArmy = IImportedArmy | ILinkedArmy | (ICurrentArmy & { hiddenReminders: string[] })
+
+export const addArmyToStore = (linkedArmy: TLoadedArmy) => {
   try {
     store.dispatch(factionNames.actions.setFactionName(linkedArmy.factionName))
 
@@ -66,3 +66,5 @@ export const addArmyToStore = (
     console.error(err)
   }
 }
+
+const logLoadedArmy = (army: TLoadedArmy) => {}
