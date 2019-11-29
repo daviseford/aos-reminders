@@ -477,12 +477,12 @@ export const Units: TUnits = [
       {
         name: `Steady Aim`,
         desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models, there are no enemy models within 3" of this unit, and this unit has not made a move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Crack Shot`,
         desc: `Enemy HEROES do not benefit from the Look Out, Sir! rule for attacks made with a Long Rifle.`,
-        when: [COMBAT_PHASE],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
