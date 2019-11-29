@@ -961,11 +961,9 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.units).toEqual(['Auric Runeson', 'Vulkite Berzerkers'])
-    expect(res.allySelections.STORMCAST_ETERNALS.units).toEqual([
-      'Lord-Arcanum',
-      'Evocators',
-      'Prosecutors with Stormcall Javelins',
-    ])
+    expect(res.allySelections[STORMCAST_ETERNALS]).toEqual({
+      units: ['Lord-Arcanum', 'Evocators', 'Prosecutors with Stormcall Javelins'],
+    })
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
