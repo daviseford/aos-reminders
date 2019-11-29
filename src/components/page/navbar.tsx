@@ -18,7 +18,7 @@ import {
 } from 'utils/localStore'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
-import { SubscriptionPlans } from 'components/payment/plans'
+import { SubscriptionPlans } from 'utils/plans'
 import NavbarWrapper from 'components/page/navbar_wrapper'
 
 const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {

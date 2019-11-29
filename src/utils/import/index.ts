@@ -13,7 +13,6 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
-import { logLoadedArmy } from 'utils/loadArmy/logLoadedArmy'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -77,13 +76,6 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     ...selections,
     ...errorFreeSelections,
   }
-
-  // Log our selections to Google Analytics
-  logLoadedArmy({
-    ...army,
-    selections: mergedSelections,
-    allySelections: allyData.allySelections,
-  })
 
   return {
     ...army,
