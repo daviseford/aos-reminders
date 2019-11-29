@@ -20,12 +20,12 @@ import {
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
-  return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}`), 'utf8')
+  return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}.pdf`), 'utf8')
 }
 
 describe('getWarscrollArmyFromPdf', () => {
   it('reads Ossiarch Bonereapers full pdf', () => {
-    const pdfText = getFile('OBR1.pdf')
+    const pdfText = getFile('OBR1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -34,7 +34,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Fyreslayers battalions properly', () => {
-    const pdfText = getFile('3droth2k.pdf')
+    const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -45,7 +45,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Ogor Mawtribes full pdf', () => {
-    const pdfText = getFile('OgorMawtribes1.pdf')
+    const pdfText = getFile('OgorMawtribes1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -55,7 +55,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = getFile('SeraphonNoMetadata.pdf')
+    const pdfText = getFile('SeraphonNoMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -83,7 +83,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a CoS warscroll pdf file correctly', () => {
-    const pdfText = getFile('CoS1.pdf')
+    const pdfText = getFile('CoS1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -155,7 +155,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a Big Waaagh warscroll pdf file correctly', () => {
-    const pdfText = getFile('BigWaaagh1.pdf')
+    const pdfText = getFile('BigWaaagh1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -200,7 +200,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a warscroll pdf file with metadata correctly', () => {
-    const pdfText = getFile('SeraphonWithMetadata.pdf')
+    const pdfText = getFile('SeraphonWithMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -228,7 +228,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a slaanesh warscroll pdf file correctly', () => {
-    const pdfText = getFile('SlaaneshList.pdf')
+    const pdfText = getFile('SlaaneshList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -269,7 +269,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
-    const pdfText = getFile('CommandTraitWithSpell.pdf')
+    const pdfText = getFile('CommandTraitWithSpell')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -284,7 +284,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a KO warscroll pdf file correctly', () => {
-    const pdfText = getFile('KOList.pdf')
+    const pdfText = getFile('KOList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -302,7 +302,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {
-    const pdfText = getFile('OrderMeetingEngagement.pdf')
+    const pdfText = getFile('OrderMeetingEngagement')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -329,7 +329,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads an Ironjawz warscroll pdf correctly', () => {
-    const pdfText = getFile('Ironjawz.pdf')
+    const pdfText = getFile('Ironjawz')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -356,7 +356,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   xit('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
-    const pdfText = getFile('Drakesworn.pdf')
+    const pdfText = getFile('Drakesworn')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -376,7 +376,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('correctly imports the Drakesworn Templar and LAoCD together', () => {
-    const pdfText = getFile('DrakeswornandLAoCD.pdf')
+    const pdfText = getFile('DrakeswornandLAoCD')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -396,7 +396,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   xit('correctly imports the LAoCD and its Storm Lance spell', () => {
-    const pdfText = getFile('LAoCD.pdf')
+    const pdfText = getFile('LAoCD')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -416,7 +416,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = getFile('NightHauntIssue.pdf')
+    const pdfText = getFile('NightHauntIssue')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -436,7 +436,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a complex warscroll pdf file with allies correctly', () => {
-    const pdfText = getFile('SeraphonMultipleAllies.pdf')
+    const pdfText = getFile('SeraphonMultipleAllies')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -478,7 +478,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats) correctly', () => {
-    const pdfText = getFile('NewFormatWithMetadata.pdf')
+    const pdfText = getFile('NewFormatWithMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -517,7 +517,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
-    const pdfText = getFile('NewFormatWithNames.pdf')
+    const pdfText = getFile('NewFormatWithNames')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -556,7 +556,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats and character names) correctly', () => {
-    const pdfText = getFile('NewFormatWithNamesAndMetadata.pdf')
+    const pdfText = getFile('NewFormatWithNamesAndMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -595,7 +595,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
-    const pdfText = getFile('SeraphonNewList.pdf')
+    const pdfText = getFile('SeraphonNewList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
