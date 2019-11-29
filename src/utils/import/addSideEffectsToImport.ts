@@ -1,6 +1,6 @@
 import { uniq } from 'lodash'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
-import { getSideEffects } from 'components/input/getSideEffects'
+import { getSideEffects } from 'utils/getSideEffects'
 import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
 
