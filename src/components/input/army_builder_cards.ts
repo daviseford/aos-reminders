@@ -1,6 +1,6 @@
+import { getSideEffects } from 'utils/getSideEffects'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { IArmyBuilderProps } from 'components/input/army_builder'
-import { getSideEffects } from 'components/input/getSideEffects'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'

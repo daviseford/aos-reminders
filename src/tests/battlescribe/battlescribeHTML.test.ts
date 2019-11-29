@@ -626,7 +626,7 @@ describe('getBattlescribeArmy', () => {
         'Magmadroth Blood Vials (Aqshy)',
       ],
       battalions: ['Cauldron Guard', 'Shadowhammer Compact', 'Temple Nest'],
-      commands: [],
+      commands: ['Worship Through Bloodshed', 'Orgy of Slaughter'],
       endless_spells: ['Emerald Lifeswarm', 'Quicksilver Swords', 'Soulsnare Shackles'],
       scenery: [],
       spells: [
@@ -637,7 +637,7 @@ describe('getBattlescribeArmy', () => {
         "Arnzipal's Black Horror",
         'Doomfire',
       ],
-      traits: [],
+      traits: ['Devoted Disciples'],
       triumphs: [],
       units: [
         'Bloodwrack Medusa',
@@ -812,6 +812,8 @@ describe('getBattlescribeArmy', () => {
       'AMENDMENT: Prosecute Wars With All Haste',
       'ARTYCLE: Seek New Prospects',
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
+      'Champion of Progress',
+      'Opportunistic Privateers',
     ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
     expect(res.errors).toEqual([])
@@ -823,7 +825,13 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
-    expect(res.selections.commands).toEqual(['Invoke the Code', 'First Rule of Grungsson'])
+    expect(res.selections.commands).toEqual([
+      'Invoke the Code',
+      'First Rule of Grungsson',
+      'Invoke the Code - Lead by Example',
+      'Invoke the Code - Look out for the Boss',
+      'Invoke the Code - Talk Softly, Carry a Big Hammer',
+    ])
     expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
     expect(res.selections.traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',

@@ -111,7 +111,6 @@ export const logEvent = (event: string) => {
  */
 export const logIndividualSelection = (trait: string, name: string) => {
   if (name && trait) {
-    debugger
     logToGA({
       category: `Individual-Selection`,
       action: `${trait}-${name}`,
