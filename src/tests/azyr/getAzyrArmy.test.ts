@@ -1,3 +1,5 @@
+import path from 'path'
+import { readFileSync } from 'fs'
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
@@ -28,58 +30,14 @@ import {
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
-import BCR1 from '../fixtures/azyr/json/BCR1.json'
-import BCR2 from '../fixtures/azyr/json/BCR2.json'
-import BigWaaagh2 from '../fixtures/azyr/json/BigWaaagh2.json'
-import BoC1 from '../fixtures/azyr/json/BoC1.json'
-import Bonesplitterz2 from '../fixtures/azyr/json/Bonesplitterz2.json'
-import CoS1 from '../fixtures/azyr/json/CoS1.json'
-import CoS2 from '../fixtures/azyr/json/CoS2.json'
-import CoS3 from '../fixtures/azyr/json/CoS3.json'
-import CoS4 from '../fixtures/azyr/json/CoS4.json'
-import CoS5 from '../fixtures/azyr/json/CoS5.json'
-import DoK2 from '../fixtures/azyr/json/DoK2.json'
-import FEC2 from '../fixtures/azyr/json/FEC2.json'
-import FEC3 from '../fixtures/azyr/json/FEC3.json'
-import Fyreslayers2 from '../fixtures/azyr/json/Fyreslayers2.json'
-import Fyreslayers3 from '../fixtures/azyr/json/Fyreslayers3.json'
-import Gloomspite2 from '../fixtures/azyr/json/Gloomspite2.json'
-import Gloomspite3 from '../fixtures/azyr/json/Gloomspite3.json'
-import IDK2 from '../fixtures/azyr/json/IDK2.json'
-import IDK3 from '../fixtures/azyr/json/IDK3.json'
-import Ironjawz2 from '../fixtures/azyr/json/Ironjawz2.json'
-import Khorne2 from '../fixtures/azyr/json/Khorne2.json'
-import Khorne3 from '../fixtures/azyr/json/Khorne3.json'
-import Khorne4 from '../fixtures/azyr/json/Khorne4.json'
-import Khorne5 from '../fixtures/azyr/json/Khorne5.json'
-import Khorne6 from '../fixtures/azyr/json/Khorne6.json'
-import KO1 from '../fixtures/azyr/json/KO1.json'
-import KO2 from '../fixtures/azyr/json/KO2.json'
-import KO4 from '../fixtures/azyr/json/KO4.json'
-import KO5 from '../fixtures/azyr/json/KO5.json'
-import KO6 from '../fixtures/azyr/json/KO6.json'
-import LoG2 from '../fixtures/azyr/json/LoG2.json'
-import LoG3 from '../fixtures/azyr/json/LoG3.json'
-import Nighthaunt2 from '../fixtures/azyr/json/Nighthaunt2.json'
-import OBR1 from '../fixtures/azyr/json/OBR1.json'
-import OBR2 from '../fixtures/azyr/json/OBR2.json'
-import OBR3 from '../fixtures/azyr/json/OBR3.json'
-import OgorMawtribes1 from '../fixtures/azyr/json/OgorMawtribes1.json'
-import OgorMawtribes2 from '../fixtures/azyr/json/OgorMawtribes2.json'
-import OgorMawtribes3 from '../fixtures/azyr/json/OgorMawtribes3.json'
-import Seraphon1 from '../fixtures/azyr/json/Seraphon1.json'
-import Seraphon2 from '../fixtures/azyr/json/Seraphon2.json'
-import Skaven1 from '../fixtures/azyr/json/Skaven1.json'
-import Skryre1 from '../fixtures/azyr/json/Skryre1.json'
-import Slaanesh1 from '../fixtures/azyr/json/Slaanesh1.json'
-import Slaanesh2 from '../fixtures/azyr/json/Slaanesh2.json'
-import Stormcast4 from '../fixtures/azyr/json/Stormcast4.json'
-import Stormcast5 from '../fixtures/azyr/json/Stormcast5.json'
-import Stormcast6 from '../fixtures/azyr/json/Stormcast6.json'
+const getFile = (filename: string): string[] => {
+  return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
+}
 
 describe('getAzyrArmyFromPdf', () => {
   it('handles Khorne6', () => {
-    const pages = handleAzyrPages(Khorne6)
+    const fileTxt = getFile('Khorne6')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.traits).toEqual(['Berserker Lord (Mortal)'])
@@ -93,7 +51,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Ironjawz2', () => {
-    const pages = handleAzyrPages(Ironjawz2)
+    const fileTxt = getFile('Ironjawz2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IRONJAWZ)
     expect(res.selections.spells).toContain('Brain-bursta')
@@ -101,7 +60,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles LoG3', () => {
-    const pages = handleAzyrPages(LoG3)
+    const fileTxt = getFile('LoG3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.selections.traits).toContain('Amethyst Glow')
@@ -109,14 +69,16 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles BCR2 (legacy, recognize as Ogor Mawtribes)', () => {
-    const pages = handleAzyrPages(BCR2)
+    const fileTxt = getFile('BCR2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
     expect(res.errors).toEqual([])
   })
 
   it('handles BCR1 (legacy, recognize as Ogor Mawtribes)', () => {
-    const pages = handleAzyrPages(BCR1)
+    const fileTxt = getFile('BCR1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
     expect(res.errors).toEqual([
@@ -126,7 +88,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles CoS5', () => {
-    const pages = handleAzyrPages(CoS5)
+    const fileTxt = getFile('CoS5')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
@@ -134,7 +97,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Gloomspite2', () => {
-    const pages = handleAzyrPages(Gloomspite2)
+    const fileTxt = getFile('Gloomspite2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.battalions).toEqual(['Spider Rider Skitterswarm', 'Skitterstrand Nest'])
@@ -142,7 +106,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles IDK3', () => {
-    const pages = handleAzyrPages(IDK3)
+    const fileTxt = getFile('IDK3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
@@ -150,7 +115,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles IDK2', () => {
-    const pages = handleAzyrPages(IDK2)
+    const fileTxt = getFile('IDK2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
@@ -168,21 +134,24 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles OgorMawtribes1', () => {
-    const pages = handleAzyrPages(OgorMawtribes1)
+    const fileTxt = getFile('OgorMawtribes1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
   })
 
   it('handles OgorMawtribes2', () => {
-    const pages = handleAzyrPages(OgorMawtribes2)
+    const fileTxt = getFile('OgorMawtribes2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
   })
 
   it('handles OgorMawtribes3', () => {
-    const pages = handleAzyrPages(OgorMawtribes3)
+    const fileTxt = getFile('OgorMawtribes3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.allegiances).toEqual(['Boulderhead (Mawtribe)'])
@@ -200,28 +169,32 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles OBR1', () => {
-    const pages = handleAzyrPages(OBR1)
+    const fileTxt = getFile('OBR1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
   })
 
   it('handles OBR2', () => {
-    const pages = handleAzyrPages(OBR2)
+    const fileTxt = getFile('OBR2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
   })
 
   it('handles OBR3', () => {
-    const pages = handleAzyrPages(OBR3)
+    const fileTxt = getFile('OBR3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.errors).toEqual([])
   })
 
   it('handles Stormcast6', () => {
-    const pages = handleAzyrPages(Stormcast6)
+    const fileTxt = getFile('Stormcast6')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([
@@ -239,7 +212,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Nighthaunt2', () => {
-    const pages = handleAzyrPages(Nighthaunt2)
+    const fileTxt = getFile('Nighthaunt2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.errors).toEqual([
@@ -252,14 +226,16 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles BigWaaagh2', () => {
-    const pages = handleAzyrPages(BigWaaagh2)
+    const fileTxt = getFile('BigWaaagh2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(BIG_WAAAGH)
     expect(res.errors).toEqual([])
   })
 
   it('handles Seraphon2', () => {
-    const pages = handleAzyrPages(Seraphon2)
+    const fileTxt = getFile('Seraphon2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.artifacts).toEqual(["Anraheirs's Claw (Ghur)", 'Gryph-feather Charm (Ghur)'])
@@ -267,14 +243,16 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Khorne5', () => {
-    const pages = handleAzyrPages(Khorne5)
+    const fileTxt = getFile('Khorne5')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.errors).toEqual([])
   })
 
   it('handles Khorne4', () => {
-    const pages = handleAzyrPages(Khorne4)
+    const fileTxt = getFile('Khorne4')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.errors).toEqual([
@@ -287,7 +265,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Khorne3', () => {
-    const pages = handleAzyrPages(Khorne3)
+    const fileTxt = getFile('Khorne3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain('Brazen Rune')
@@ -295,7 +274,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Khorne2', () => {
-    const pages = handleAzyrPages(Khorne2)
+    const fileTxt = getFile('Khorne2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.errors).toEqual([
@@ -308,14 +288,16 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles LoG2', () => {
-    const pages = handleAzyrPages(LoG2)
+    const fileTxt = getFile('LoG2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.errors).toEqual([])
   })
 
   it('handles FEC3', () => {
-    const pages = handleAzyrPages(FEC3)
+    const fileTxt = getFile('FEC3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.errors).toEqual([
@@ -328,7 +310,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Bonesplitterz2', () => {
-    const pages = handleAzyrPages(Bonesplitterz2)
+    const fileTxt = getFile('Bonesplitterz2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(BONESPLITTERZ)
     expect(res.errors).toEqual([])
@@ -338,7 +321,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles DoK2', () => {
-    const pages = handleAzyrPages(DoK2)
+    const fileTxt = getFile('DoK2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections).toEqual({
@@ -356,7 +340,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles FEC2', () => {
-    const pages = handleAzyrPages(FEC2)
+    const fileTxt = getFile('FEC2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res).toEqual({
@@ -391,7 +376,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles CoS1', () => {
-    const pages = handleAzyrPages(CoS1)
+    const fileTxt = getFile('CoS1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections).toEqual({
@@ -419,7 +405,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles CoS2', () => {
-    const pages = handleAzyrPages(CoS2)
+    const fileTxt = getFile('CoS2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections).toEqual({
@@ -461,7 +448,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Gloomspite3', () => {
-    const pages = handleAzyrPages(Gloomspite3)
+    const fileTxt = getFile('Gloomspite3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
     expect(res.errors).toEqual([
@@ -474,14 +462,16 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles CoS3', () => {
-    const pages = handleAzyrPages(CoS3)
+    const fileTxt = getFile('CoS3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
     expect(res.selections.traits).toEqual(['Aggressive General (Hammerhal)'])
   })
 
   it('handles CoS4', () => {
-    const pages = handleAzyrPages(CoS4)
+    const fileTxt = getFile('CoS4')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections).toEqual({
       allegiances: ['Anvilgard'],
@@ -498,7 +488,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles KO6', () => {
-    const pages = handleAzyrPages(KO6)
+    const fileTxt = getFile('KO6')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     // Azyr incorrectly classifies The Last Word as a Mount Trait
@@ -507,7 +498,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles KO5', () => {
-    const pages = handleAzyrPages(KO5)
+    const fileTxt = getFile('KO5')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
@@ -520,7 +512,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles KO4', () => {
-    const pages = handleAzyrPages(KO4)
+    const fileTxt = getFile('KO4')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
@@ -533,7 +526,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles KO2', () => {
-    const pages = handleAzyrPages(KO2)
+    const fileTxt = getFile('KO2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.allyFactionNames).toEqual([CITIES_OF_SIGMAR, DISPOSSESSED, STORMCAST_ETERNALS])
@@ -595,21 +589,24 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Stormcast4', () => {
-    const pages = handleAzyrPages(Stormcast4)
+    const fileTxt = getFile('Stormcast4')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.traits).toEqual(['Keen-clawed', 'Lithe-Limbed'])
   })
 
   it('handles Slaanesh1', () => {
-    const pages = handleAzyrPages(Slaanesh1)
+    const fileTxt = getFile('Slaanesh1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.allyFactionNames).toEqual([MERCENARY_COMPANIES])
   })
 
   it('handles Slaanesh2', () => {
-    const pages = handleAzyrPages(Slaanesh2)
+    const fileTxt = getFile('Slaanesh2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.selections).toEqual({
@@ -636,7 +633,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Skryre1', () => {
-    const pages = handleAzyrPages(Skryre1)
+    const fileTxt = getFile('Skryre1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVEN)
     expect(res.selections.allegiances).toContain('Warpstone Sparks (Skryre)')
@@ -652,7 +650,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Seraphon1', () => {
-    const pages = handleAzyrPages(Seraphon1)
+    const fileTxt = getFile('Seraphon1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
@@ -686,7 +685,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles KO1', () => {
-    const pages = handleAzyrPages(KO1)
+    const fileTxt = getFile('KO1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
@@ -734,7 +734,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Skaven1', () => {
-    const pages = handleAzyrPages(Skaven1)
+    const fileTxt = getFile('Skaven1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
@@ -787,7 +788,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles Fyreslayers2', () => {
-    const pages = handleAzyrPages(Fyreslayers2)
+    const fileTxt = getFile('Fyreslayers2')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: [],
@@ -833,7 +835,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('handles BoC1', () => {
-    const pages = handleAzyrPages(BoC1)
+    const fileTxt = getFile('BoC1')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res).toEqual({
       allyFactionNames: ['SLAVES_TO_DARKNESS'],
@@ -917,7 +920,8 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('warns about ambiguous selections', () => {
-    const pages = handleAzyrPages(Stormcast5)
+    const fileTxt = getFile('Stormcast5')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.units).toEqual([
@@ -957,15 +961,14 @@ describe('getAzyrArmyFromPdf', () => {
   })
 
   it('warns about ambiguous selections in allies', () => {
-    const pages = handleAzyrPages(Fyreslayers3)
+    const fileTxt = getFile('Fyreslayers3')
+    const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.units).toEqual(['Auric Runeson', 'Vulkite Berzerkers'])
-    expect(res.allySelections.STORMCAST_ETERNALS.units).toEqual([
-      'Lord-Arcanum',
-      'Evocators',
-      'Prosecutors with Stormcall Javelins',
-    ])
+    expect(res.allySelections[STORMCAST_ETERNALS]).toEqual({
+      units: ['Lord-Arcanum', 'Evocators', 'Prosecutors with Stormcall Javelins'],
+    })
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',

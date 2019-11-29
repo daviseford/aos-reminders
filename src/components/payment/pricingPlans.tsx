@@ -7,7 +7,7 @@ import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { LocalStoredArmy } from 'utils/localStore'
 import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
-import { SubscriptionPlans, ISubscriptionPlan } from 'components/payment/plans'
+import { SubscriptionPlans, ISubscriptionPlan } from 'utils/plans'
 import { IUser } from 'types/user'
 
 interface ICheckoutProps {
