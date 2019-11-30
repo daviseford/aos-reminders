@@ -9,13 +9,14 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
-const getIconBearerEffect = (strength: 1 | 3 | 6) => ({
-  name: `Icon Bearer`,
-  desc: `Models in this unit may be Icon Bearers. You can return ${
-    strength === 1 ? `1.` : `D${strength}`
-  } slain model${strength > 1 ? `s.` : ``} to this unit in your hero phase if it includes any Icon Bearers.`,
-  when: [HERO_PHASE],
-})
+const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
+  const plural = strength === `1` ? `` : `s`
+  return {
+    name: `Icon Bearer`,
+    desc: `Models in this unit may be Icon Bearers. You can return ${strength} slain model${plural} to this unit in your hero phase if it includes any Icon Bearers.`,
+    when: [HERO_PHASE],
+  }
+}
 
 const HornblowerEffect = {
   name: `Hornblower`,
@@ -243,7 +244,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Skeleton Champion. Add 1 to the Attacks characteristic of the Skeleton Champion's Ancient Blade or Ancient Spear.`,
         when: [COMBAT_PHASE],
       },
-      getIconBearerEffect(6),
+      getIconBearerEffect(`D6`),
       HornblowerEffect,
       {
         name: `Serve in Death`,
@@ -270,7 +271,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Arrows. Add 1 to hit rolls for a Master of Arrows' attacks in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
-      getIconBearerEffect(6),
+      getIconBearerEffect(`D6`),
       HornblowerEffect,
       {
         name: `Hail of Ancient Arrows`,
@@ -287,7 +288,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Horse. Add 1 to the Attacks characteristic of the Master of Horse's Bronze-tipped Cavalry Spear.`,
         when: [COMBAT_PHASE],
       },
-      getIconBearerEffect(3),
+      getIconBearerEffect(`D3`),
       HornblowerEffect,
       {
         name: `Deathly Charge`,
@@ -314,7 +315,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Scouts. Add 1 to hit rolls for a Master of Scouts' attacks in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
-      getIconBearerEffect(3),
+      getIconBearerEffect(`D3`),
       HornblowerEffect,
       {
         name: `Like the Angry Desert Wind`,
@@ -331,7 +332,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Chariots; Add 1 to the Attacks characteristic of the Master of Chariot's Charioteer's Spear.`,
         when: [COMBAT_PHASE],
       },
-      getIconBearerEffect(1),
+      getIconBearerEffect(`1`),
       HornblowerEffect,
       {
         name: `Crush them Beneath Our Wheels`,
@@ -348,7 +349,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Tomb Captain. Add 1 to the Attacks characteristic of the Tomb Captain's Tomb Blade or Bronze Halberd.`,
         when: [COMBAT_PHASE],
       },
-      getIconBearerEffect(3),
+      getIconBearerEffect(`D3`),
       HornblowerEffect,
       {
         name: `Cursed Weapons`,
@@ -380,7 +381,7 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Necropolis Captain. Add 1 to the Attacks characteristic of the Necropolis Captain's Knight's Heavy Spear.`,
         when: [COMBAT_PHASE],
       },
-      getIconBearerEffect(1),
+      getIconBearerEffect(`1`),
       HornblowerEffect,
       {
         name: `Necrovenom`,
