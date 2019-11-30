@@ -13,14 +13,14 @@ const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
   const plural = strength === `1` ? `` : `s`
   return {
     name: `Icon Bearer`,
-    desc: `Models in this unit may be Icon Bearers. You can return ${strength} slain model${plural} to this unit in your hero phase if it includes any Icon Bearers.`,
+    desc: `You can return ${strength} slain model${plural} to this unit in your hero phase if it includes any Icon Bearers.`,
     when: [HERO_PHASE],
   }
 }
 
 const HornblowerEffect = {
   name: `Hornblower`,
-  desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
+  desc: `A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
   when: [CHARGE_PHASE],
 }
 const WarsphinxBaseEffects = [
@@ -32,7 +32,7 @@ const WarsphinxBaseEffects = [
   {
     name: `Sacred War Statue`,
     desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
-    when: [COMBAT_PHASE],
+    when: [WOUND_ALLOCATION],
   },
 ]
 
