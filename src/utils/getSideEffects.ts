@@ -1,3 +1,4 @@
+import { uniq } from 'lodash'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { TEntry } from 'types/data'
 
@@ -29,5 +30,5 @@ const addToAccum = (
 ) => {
   const obj = accum[itemName][type] || {}
   const values = obj.values || []
-  accum[itemName][type] = { values: values.concat(effectName) }
+  accum[itemName][type] = { values: uniq(values.concat(effectName)) }
 }

@@ -11,6 +11,7 @@ import { IStore } from 'types/store'
 
 interface IBaseCardProps {
   isMobile: boolean
+  label?: string
   mobileTitle?: string | null
   title: string
 }
@@ -52,6 +53,7 @@ const CardMultiComponent = (props: ICardMultiProps) => {
     hiddenSelectors,
     isMobile,
     items,
+    label = null,
     mobileTitle = null,
     setValues,
     title,
@@ -60,7 +62,7 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
-  const log = enableLog ? { enable: true, trait: title } : { enable: false }
+  const log = enableLog ? { title, label: label || title } : null
 
   if (!items.length) return null
 
@@ -85,13 +87,14 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
     hiddenSelectors,
     isMobile,
     items,
+    label = null,
     mobileTitle = null,
     setValue,
     title,
     value = null,
   } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
-  const log = enableLog ? { enable: true, trait: title } : { enable: false }
+  const log = enableLog ? { title, label: label || title } : null
 
   return (
     <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>

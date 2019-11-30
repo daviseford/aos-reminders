@@ -22,12 +22,12 @@ interface ISelectOneProps {
 
 export const SelectOne = (props: ISelectOneProps) => {
   const {
-    items,
-    setValue,
     hasDefault = false,
     isClearable = false,
     isDisabled = false,
-    log = { enable: false },
+    items,
+    log = null,
+    setValue,
     toTitle = false,
     value = null,
   } = props
@@ -37,8 +37,8 @@ export const SelectOne = (props: ISelectOneProps) => {
 
   const onChange = useCallback(
     (...args) => {
-      if (log.enable && log.trait && args[1].action === 'select-option' && args[0].value) {
-        logIndividualSelection(log.trait, args[0].value)
+      if (log && args[1].action === 'select-option' && args[0].value) {
+        logIndividualSelection(log.title, args[0].value, log.label)
       }
       setValue(args[0], args[1])
     },
@@ -79,10 +79,7 @@ const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropd
   return items.map(i => ({ value: i, label: toTitle ? titleCase(i) : i }))
 }
 
-type TLogOpts = {
-  enable: boolean
-  trait?: string
-}
+type TLogOpts = { title: string; label: string } | null
 
 interface ISelectMultiProps {
   hasDefault?: boolean
@@ -96,11 +93,11 @@ interface ISelectMultiProps {
 
 export const SelectMulti = (props: ISelectMultiProps) => {
   const {
-    items,
-    log = { enable: false },
-    setValues,
-    isClearable = false,
     hasDefault = false,
+    isClearable = false,
+    items,
+    log = null,
+    setValues,
     toTitle = false,
     values,
   } = props
@@ -110,8 +107,8 @@ export const SelectMulti = (props: ISelectMultiProps) => {
 
   const handleChange = useCallback(
     (...args) => {
-      if (log.enable && log.trait && args[1].action === 'select-option' && args[1].option.value) {
-        logIndividualSelection(log.trait, args[1].option.value)
+      if (log && args[1].action === 'select-option' && args[1].option.value) {
+        logIndividualSelection(log.title, args[1].option.value, log.label)
       }
       setValues(args[0], args[1])
     },
