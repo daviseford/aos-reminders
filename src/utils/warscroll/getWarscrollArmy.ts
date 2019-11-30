@@ -145,6 +145,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           accum.spells = accum.spells.concat(spell)
           return accum
         }
+        if (txt.startsWith('- Mortal Realm : ') && last(accum.units) === 'Battlemage') {
+          const battlemage_realm = txt.replace('- Mortal Realm : ', '').trim()
+          accum.units.pop()
+          accum.units.push(`Battlemage (${battlemage_realm})`)
+          return accum
+        }
 
         // Add weapon options and other configuration
         if (selector === 'units' && accum[selector].length > 0) {

@@ -88,6 +88,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.origin_realm).toEqual(null)
     expect(warscrollTxt.errors).toEqual([])
     expect(warscrollTxt.unknownSelections).toEqual([
       'Witch Rod',
@@ -105,7 +106,6 @@ describe('getWarscrollArmyFromPdf', () => {
         "Saint's Blade (Hammerhal)",
         'Deepmire Cloak (The Living City)',
         "Patrician's Helm (Tempest's Eye)",
-        'Entangling Blade (Ghyran)',
       ],
       battalions: ['Greywater Artillery Company'],
       commands: [
@@ -130,18 +130,14 @@ describe('getWarscrollArmyFromPdf', () => {
         'Warding Brand (Hallowheart)',
         'Ignite Weapons (Hallowheart)',
         'Elemental Cyclone (Hallowheart)',
-        'Shield of Thorns (Ghyran)',
         'Chain Lightning (Azyr)',
         'Comet of Casandora',
         'Burning Gaze',
         "Pha's Protection (Hysh)",
         'Bladewind',
-        'Fireball (Aqshy)',
-        'Mystifying Miasma (Ulgu)',
-        'Pall of Doom (Shyish)',
-        'Transmutation of Lead (Chamon)',
-        'Wildform (Ghur)',
+        'Shield of Thorns (Ghyran)',
         'Amber Spear',
+        'Wildform (Ghur)',
       ],
       traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
@@ -161,7 +157,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Freeguild General',
         'Nomad Prince',
         'Cogsmith',
-        'Battlemage',
+        'Battlemage (Ghyran)',
         'Battlemage on Griffon',
         'Black Ark Corsairs',
         'Drakespawn Chariots',
