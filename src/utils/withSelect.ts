@@ -1,4 +1,6 @@
 import { ValueType } from 'react-select/src/types'
+import { logIndividualSelection } from 'utils/analytics'
+import { titleCase } from 'utils/textUtils'
 import { TDropdownOption } from 'components/input/select'
 
 type TWithSelectOne = (
@@ -64,13 +66,15 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
 type TWithSelectMultiWithSideEffects = (
   method: (payload: any) => void,
   payload: IWithSelectMultipleWithSideEffectsPayload,
-  updateFn: (payload: { value: string; values: string[]; slice: string }) => void
+  updateFn: (payload: { value: string; values: string[]; slice: string }) => void,
+  label: string
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
 export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
-  updateFn
+  updateFn,
+  label
 ) => selectValues => {
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
 
@@ -81,6 +85,12 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
 
         if (sideEffectVals) {
           updateFn({ value, values: sideEffectVals, slice })
+          const trait = titleCase(slice)
+
+          // Log each value to GA
+          sideEffectVals.forEach((val: string) => {
+            logIndividualSelection(trait, val, label)
+          })
         }
       })
     }

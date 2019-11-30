@@ -57,7 +57,7 @@ export const logFactionSwitch = (factionName: string | null) => {
     logToGA({
       category: 'Select',
       action: `Select-${factionName}`,
-      label: 'FactionSelection',
+      label: factionName,
     })
   }
 }
@@ -71,7 +71,7 @@ export const logAllyFaction = (factionName: string | null) => {
     logToGA({
       category: 'Select',
       action: `Select-Ally-${factionName}`,
-      label: 'AllyFactionSelection',
+      label: factionName,
     })
   }
 }
@@ -109,12 +109,12 @@ export const logEvent = (event: string) => {
  * @param trait
  * @param name
  */
-export const logIndividualSelection = (trait: string, name: string) => {
+export const logIndividualSelection = (trait: string, name: string, label: string) => {
   if (name && trait) {
     logToGA({
       category: `Individual-Selection`,
       action: `${trait}-${name}`,
-      label: `${trait}`,
+      label,
     })
   }
 }
@@ -195,29 +195,29 @@ export const logLoadedArmy = (army: TLoadedArmy) => {
       origin_realm = null,
       realmscape = null,
       realmscape_feature = null,
-      factionName = null,
+      factionName,
     } = army
 
     // Log the faction name
-    if (factionName) logFactionSwitch(factionName)
+    logFactionSwitch(factionName)
 
     // Log each selection
     Object.keys(selections).forEach(key => {
       const trait = titleCase(key)
-      selections[key].forEach((name: string) => logIndividualSelection(trait, name))
+      selections[key].forEach((name: string) => logIndividualSelection(trait, name, factionName))
     })
 
     // Log each allied faction + selection
     Object.keys(allySelections).forEach(allyFactionName => {
       logAllyFaction(allyFactionName)
       const units: string[] = allySelections[allyFactionName].units || []
-      units.forEach(name => logIndividualSelection('AlliedUnits', name))
+      units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
     })
 
     // Log Realm information
-    if (origin_realm) logIndividualSelection('Realm of Origin', origin_realm)
-    if (realmscape) logIndividualSelection('Realm of Battle', realmscape)
-    if (realmscape_feature) logIndividualSelection('Realm Feature', realmscape_feature)
+    if (origin_realm) logIndividualSelection('Realm of Origin', origin_realm, factionName)
+    if (realmscape) logIndividualSelection('Realm of Battle', realmscape, factionName)
+    if (realmscape_feature) logIndividualSelection('Realm Feature', realmscape_feature, factionName)
   } catch (err) {
     console.error(err)
   }

@@ -68,27 +68,30 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
         {cards.map(card =>
           card.type === 'multi' ? (
             <CardMultiSelect
+              enableLog={true}
               items={card.items}
+              key={card.title}
+              label={factionName}
+              mobileTitle={card.mobileTitle || null}
               setValues={withSelectMultiWithSideEffects(
                 card.setValues,
                 card.sideEffects,
-                props.addToSelections
+                props.addToSelections,
+                factionName
               )}
               title={card.title}
               values={card.values}
-              key={card.title}
-              mobileTitle={card.mobileTitle || null}
-              enableLog={true}
             />
           ) : (
             <CardSingleSelect
+              enableLog={true}
               items={card.items}
+              key={card.title}
+              label={factionName}
+              mobileTitle={card.mobileTitle || null}
               setValue={withSelectOne(card.setValue)}
               title={card.title}
               value={card.value}
-              key={card.title}
-              mobileTitle={card.mobileTitle || null}
-              enableLog={true}
             />
           )
         )}

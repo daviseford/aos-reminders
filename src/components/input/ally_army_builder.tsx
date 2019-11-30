@@ -205,7 +205,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           items={selectItems}
           setValues={setValues}
           isClearable={true}
-          log={{ enable: true, trait: 'AlliedUnits' }}
+          log={{ title: 'AlliedUnits', label: allyFactionName }}
         />
       </div>
     </div>
