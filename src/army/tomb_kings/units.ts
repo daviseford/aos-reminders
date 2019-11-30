@@ -189,12 +189,17 @@ export const Units: TUnits = [
       },
       {
         name: `Casket`,
-        desc: `This model cannot make charge moves. However, you can add 1 to all save rolls for this model in the shooting phase.`,
+        desc: `This model cannot make charge moves.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Casket`,
+        desc: `You can add 1 to all save rolls for this model in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Keeper's Scrolls`,
-        desc: `The Keeper can attempt to unbind one spell in the enemy hero phase as if he were a wizard.`,
+        desc: `The Keeper can attempt to unbind one spell in the enemy hero phase as if he were a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
