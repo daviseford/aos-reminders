@@ -184,23 +184,21 @@ const FlamespyrePhoenixEffects = [
     when: [MOVEMENT_PHASE],
   },
 ]
-const BattlemageEffects = [
-  {
-    name: `Magic of the Realms`,
-    desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
-    when: [START_OF_SETUP],
-  },
-  {
-    name: `Magic of the Realms`,
-    desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Magic`,
-    desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
-    when: [HERO_PHASE],
-  },
-]
+const MagicOfTheRealmsEffect = {
+  name: `Magic of the Realms`,
+  desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
+  when: [START_OF_SETUP],
+}
+const MagicOfTheRealmsCastingEffect = {
+  name: `Magic of the Realms`,
+  desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
+  when: [HERO_PHASE],
+}
+const BattlemageMagicEffect = {
+  name: `Magic`,
+  desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
+  when: [HERO_PHASE],
+}
 const WildformEffect = {
   name: `Wildform (${GHUR})`,
   desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
@@ -255,9 +253,11 @@ export const Units: TUnits = [
   {
     name: `Battlemage`,
     effects: [
-      ...BattlemageEffects,
+      BattlemageMagicEffect,
       ChainLightningEffect,
       FireballEffect,
+      MagicOfTheRealmsCastingEffect,
+      MagicOfTheRealmsEffect,
       MystifyingMiasmaEffect,
       PallOfDoomEffect,
       PhasProtectionEffect,
@@ -268,35 +268,35 @@ export const Units: TUnits = [
   },
   {
     name: `Battlemage (${AZYR})`,
-    effects: [...BattlemageEffects, ChainLightningEffect],
+    effects: [MagicOfTheRealmsCastingEffect, ChainLightningEffect],
   },
   {
     name: `Battlemage (${AQSHY})`,
-    effects: [...BattlemageEffects, FireballEffect],
+    effects: [MagicOfTheRealmsCastingEffect, FireballEffect],
   },
   {
     name: `Battlemage (${ULGU})`,
-    effects: [...BattlemageEffects, MystifyingMiasmaEffect],
+    effects: [MagicOfTheRealmsCastingEffect, MystifyingMiasmaEffect],
   },
   {
     name: `Battlemage (${SHYISH})`,
-    effects: [...BattlemageEffects, PallOfDoomEffect],
+    effects: [MagicOfTheRealmsCastingEffect, PallOfDoomEffect],
   },
   {
     name: `Battlemage (${HYSH})`,
-    effects: [...BattlemageEffects, PhasProtectionEffect],
+    effects: [MagicOfTheRealmsCastingEffect, PhasProtectionEffect],
   },
   {
     name: `Battlemage (${CHAMON})`,
-    effects: [...BattlemageEffects, TransmutationOfLeadEffect],
+    effects: [MagicOfTheRealmsCastingEffect, TransmutationOfLeadEffect],
   },
   {
     name: `Battlemage (${GHUR})`,
-    effects: [...BattlemageEffects, WildformEffect],
+    effects: [MagicOfTheRealmsCastingEffect, WildformEffect],
   },
   {
     name: `Battlemage (${GHYRAN})`,
-    effects: [...BattlemageEffects, ShieldOfThornsEffect],
+    effects: [MagicOfTheRealmsCastingEffect, ShieldOfThornsEffect],
   },
   {
     name: `Battlemage on Griffon`,
