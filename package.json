@@ -35,10 +35,14 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "lint": "eslint --max-warnings 0 --ext ts,tsx src",
+    "start": "react-app-rewired start",
     "test": "react-app-rewired test",
-    "lint": "eslint --max-warnings 0 --ext ts,tsx src"
+    "verify": "ts-node-dev --compilerOptions '{ \"module\": \"commonjs\"}' --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/verify.ts",
+    "verify-win": "ts-node-dev --compilerOptions \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/verify.ts",
+    "xlsx": "ts-node-dev --compilerOptions '{ \"module\": \"commonjs\"}' --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
+    "xlsx-win": "ts-node-dev --compilerOptions \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -87,6 +91,8 @@
     "react-app-rewired": "2.1.5",
     "replace-in-file": "4.2.0",
     "source-map-explorer": "2.1.1",
+    "ts-node-dev": "1.0.0-pre.44",
+    "tsconfig-paths": "3.9.0",
     "typescript": "3.7.2",
     "xlsx": "0.15.3"
   }

@@ -156,7 +156,7 @@ export const Units: TUnits = [
       },
       {
         name: `Seeker of Souls`,
-        desc: `At the start of your charge phase, you can pick one enemy unit within 24" of this model that is visible to them. If you do so, you must add 3 to charge rolls for friendly IDONETH DEEPKIN units that are within 12" of that unit. However, the first model to be moved from each unit that receives this modifier must finish their charge move within " of that unit or their charge will fail.`,
+        desc: `At the start of your charge phase, you can pick one enemy unit within 24" of this model that is visible to them. If you do so, you must add 3 to charge rolls for friendly IDONETH DEEPKIN units that are within 12" of that unit. However, the first model to be moved from each unit that receives this modifier must finish their charge move within 1/2" of that unit or their charge will fail.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],

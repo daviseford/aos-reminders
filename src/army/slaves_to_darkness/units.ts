@@ -41,6 +41,57 @@ export const getSlavesUnits = () => {
   return filterUnits(Units, listOfUnits)
 }
 
+const ChaosRuneshieldEffect = {
+  name: `Chaos Runeshield`,
+  desc: `Roll a D6 each time this model equipped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
+  when: [WOUND_ALLOCATION],
+}
+const HornblowersEffect = {
+  name: `Hornblowers`,
+  desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const StandardBearersEffect = {
+  name: `Standard Bearers`,
+  desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const TerritorialPredatorEffect = {
+  name: `Territorial Predator`,
+  desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster. If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
+  when: [COMBAT_PHASE],
+}
+const OracularVisionsEffect = {
+  name: `Oracular Visions`,
+  desc: `Pick a unit within 10" of this model. Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
+  when: [HERO_PHASE],
+}
+const PactOfSoulAndIronEffect = {
+  name: `Pact of Soul and Iron`,
+  desc: `You can re-roll hit rolls of 1 for attacks made by this model that target a Stormcast Eternal.`,
+  when: [COMBAT_PHASE],
+}
+const DamnedIconBearerEffect = {
+  name: `Damned Icon Bearer`,
+  desc: `You can re-roll hit rolls of 1 for a unit that contains any Damned Icons.`,
+  when: [COMBAT_PHASE],
+}
+const TribalBannerBearerEffect = {
+  name: `Tribal Banner Bearer`,
+  desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const DarkwoodShieldEffect = {
+  name: `Darkwood Shield`,
+  desc: `Units carrying Darkwood Shields have a Save of 5+ rather than 6+.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+const ExaltedCharioteerEffect = {
+  name: `Exalted Charioteer`,
+  desc: `This model's attacks with a Chaos Greatblade or Chaos War-flail hit on 3+ rather than 4+.`,
+  when: [COMBAT_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -96,11 +147,7 @@ export const Units: TUnits = [
         desc: `Enemy units must subtract 1 from their bravery characteristic if they are within 3" of this model in the battleshock phase.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Chaos Runeshield`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
-        when: [DURING_GAME],
-      },
+      ChaosRuneshieldEffect,
       {
         name: `Daggerfirst`,
         desc: `If this model is equipped with a Daggerfirst, each time you make a save roll of 6+, and the attacking unit is within 1", the attacking unit suffers a mortal wound after all of its attacks have been made.`,
@@ -111,11 +158,7 @@ export const Units: TUnits = [
         desc: `The Chaos Lance inflicts 3 damage rather than 2 and has a rend of -1 instead of '-' if this model charged in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Territorial Predator`,
-        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster. If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      TerritorialPredatorEffect,
       {
         name: `Iron-willed Overlord`,
         desc: `Select a Chaos Warriors unit within 15". Until your next hero phase you can re-roll charge rolls, wound rolls, and battleshock tests for that unit until you next hero phase.`,
@@ -127,16 +170,8 @@ export const Units: TUnits = [
   {
     name: `Chaos Sorcerer Lord on Manticore`,
     effects: [
-      {
-        name: `Oracular Visions`,
-        desc: `Pick a unit within 10" of this model. Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Territorial Predator`,
-        desc: `You can re-roll hit rolls of 1 for the Manitcore's Claws and Jaws attacks if the target is a monster. If the target is a unit within your army's territory you can re-rol any failed hit rolls for these attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      OracularVisionsEffect,
+      TerritorialPredatorEffect,
       {
         name: `Wizard`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Wind of Chaos.`,
@@ -178,11 +213,7 @@ export const Units: TUnits = [
         desc: `This model can run and charge in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Chaos Runeshield`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
-        when: [DURING_GAME],
-      },
+      ChaosRuneshieldEffect,
       {
         name: `The Knights of Chaos`,
         desc: `Select a friendly unit of Chaos Knights, Chaos Chariots, or Gorebeast Chariots within 15". Until your next hero phase you can re-roll charge rolls and add 1 to any hit rolls for that unit in the combat phase.`,
@@ -206,8 +237,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Glory or Damnation`,
-        desc: `If this model slays the opposing army general, you can choose to replace him with a Daemon Prince model. If this model is slain, replace him with a Chaos Spawn model.`,
+        desc: `If this model slays the opposing army general, you can choose to replace him with a Daemon Prince model.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Glory or Damnation`,
+        desc: `If this model is slain, replace him with a Chaos Spawn model.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Mark of Chaos: ${MARK_KHORNE}`,
@@ -273,7 +309,7 @@ export const Units: TUnits = [
       },
       {
         name: `Deathblow`,
-        desc: `If this model slays any enemy models in the combat phase, each enemy unit within 1" of him suffers 1 mortal wound.`,
+        desc: `If this model slays any enemy models in the combat phase, each enemy unit within 1" of him at the end of the combat phase suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -291,11 +327,7 @@ export const Units: TUnits = [
         desc: `Some Chaos sorcerer lords ride on Chaos Steeds. If this model has a steed, this model's move characteristic is 10" instead of 5" and it gains the Flailing Hooves attack.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Oracular Visions`,
-        desc: `Pick a unit within 10" of this model. Until you next hero phase, you can re-roll save rolls of 1 for that unit.`,
-        when: [HERO_PHASE],
-      },
+      OracularVisionsEffect,
       {
         name: `Wizard`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
@@ -408,11 +440,7 @@ export const Units: TUnits = [
   {
     name: `Theddra Skull-Scryer`,
     effects: [
-      {
-        name: `Pact of Soul and Iron`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this model that target a Stormcast Eternal.`,
-        when: [COMBAT_PHASE],
-      },
+      PactOfSoulAndIronEffect,
       {
         name: `Wizard`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
@@ -428,13 +456,7 @@ export const Units: TUnits = [
   },
   {
     name: `Godsworn Hunt`,
-    effects: [
-      {
-        name: `Pact of Soul and Iron`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this model that target a Stormcast Eternal.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [PactOfSoulAndIronEffect],
   },
   {
     name: `Chaos Marauders`,
@@ -444,41 +466,25 @@ export const Units: TUnits = [
         desc: `This model makes 2 attacks rather than 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Damned Icon Bearer`,
-        desc: `You can re-roll hit rolls of 1 for models in a unit that contains any Damned Icons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Tribal Banner Bearer`,
-        desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
-      },
+      DamnedIconBearerEffect,
+      TribalBannerBearerEffect,
       {
         name: `Drummer`,
         desc: `If the unit includes any Drummers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Barbarian Hordes`,
         desc: `Roll a D6 before a unit of Chaos Marauders piles in. Add 1 to the roll if the unit includes 20 or more models. If the result is 4 or more, add 1 to the result of any hit rolls for the unit's attacks until the end of the phase. If the result is 6 or more, add 1 to the result of any wound rolls as well.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Darkwood Shield`,
-        desc: `Units carrying Darkwood Shields have a Save of 5+ rather than 6+.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      DarkwoodShieldEffect,
     ],
   },
   {
     name: `Chaos Chariots`,
     effects: [
-      {
-        name: `Exalted Charioteer`,
-        desc: `This model's attacks with a Chaos Greatblade or Chaos War-flail hit on 3+ rather than 4+.`,
-        when: [COMBAT_PHASE],
-      },
+      ExaltedCharioteerEffect,
       {
         name: `Don't Spare the Lash`,
         desc: `Before this unit moves, roll a D6 and add that many inches to this unit's Move characteristic for the rest of the phase.`,
@@ -494,11 +500,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Gorebeast Chariots`,
     effects: [
-      {
-        name: `Exalted Charioteer`,
-        desc: `This model's attacks with a Chaos Greatblade or Chaos War-flail hit on 3+ rather than 4+.`,
-        when: [COMBAT_PHASE],
-      },
+      ExaltedCharioteerEffect,
       {
         name: `Explosive Brutality`,
         desc: `If this unit makes a charge move and the result of the charge was 8 or more, all Gorebeasts in the unit make 6 attacks with their Brutish Fists rather than 3 until the end of the turn.`,
@@ -522,12 +524,12 @@ export const Units: TUnits = [
       {
         name: `Icon Bearers`,
         desc: `If the unit includes any Icon Bearers, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Skull Drummers`,
         desc: `If the unit includes any Skull Drummers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Slaughter-leaders`,
@@ -549,21 +551,9 @@ export const Units: TUnits = [
         desc: `Add 1 to the result of any hit rolls for an Aspiring Champion.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearers`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Chaos Runeshields`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
-        when: [DURING_GAME],
-      },
+      StandardBearersEffect,
+      HornblowersEffect,
+      ChaosRuneshieldEffect,
       {
         name: `Berserk Fury`,
         desc: `You can re-roll hit rolls of 1 for Chaos Warriors wielding a pair of Chaos Hand Weapons.`,
@@ -625,21 +615,9 @@ export const Units: TUnits = [
         desc: `You can add 1 to the hit rolls for a Doom Knight.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearers`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Chaos Runeshields`,
-        desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
-        when: [DURING_GAME],
-      },
+      StandardBearersEffect,
+      HornblowersEffect,
+      ChaosRuneshieldEffect,
       {
         name: `Impaling Charge`,
         desc: `This unit's Chaos Glaives inflict 2 damage rather than 1 and have a Rend of -1 instead of '-', if it charged in the same turn.`,
@@ -660,26 +638,10 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Horsemaster.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Damned Icon Bearer`,
-        desc: `You can re-roll hit rolls of 1 for a unit that contains any Damned Icons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Tribal Banner Bearer`,
-        desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Darkwood Shield`,
-        desc: `Units carrying Darkwood Shields have a Save of 5+ rather than 6+.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      DamnedIconBearerEffect,
+      TribalBannerBearerEffect,
+      HornblowersEffect,
+      DarkwoodShieldEffect,
       {
         name: `Feigned Flight`,
         desc: `This unit can shoot and charge even if it retreated in the same turn.`,

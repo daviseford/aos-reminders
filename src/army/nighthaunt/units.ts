@@ -12,8 +12,8 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
-  START_OF_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
 
@@ -496,12 +496,17 @@ export const Units: TUnits = [
       {
         name: `Evocation of Death`,
         desc: `At the start of each battle round, roll 3 dice for each BLACK COACH on the battlefield. For each 4+ that BLACK COACH gains a level of power. Levels of power are cumulative and last for the rest of the battle.`,
-        when: [START_OF_TURN],
+        when: [START_OF_ROUND],
       },
       {
         name: `Evocation of Death - First Level - Nimbus of Power`,
-        desc: `In your hero phase, heal D3 wounds that have been allocated to this model. In addition, at the start of your hero phase, pick 1 friendly SUMMONABLE NIGHTHAUNT unit wholly within 12" of this model and return D3 slain models to that unit. The returning models must be set up within 12" of this model.`,
+        desc: `In your hero phase, heal D3 wounds that have been allocated to this model.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Evocation of Death - First Level - Nimbus of Power`,
+        desc: `At the start of your hero phase, pick 1 friendly SUMMONABLE NIGHTHAUNT unit wholly within 12" of this model and return D3 slain models to that unit. The returning models must be set up within 12" of this model.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Evocation of Death - Second Level - Unholy Vigour`,
