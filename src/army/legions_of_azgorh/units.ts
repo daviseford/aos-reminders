@@ -13,7 +13,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const InfernalGuardBaseEffects = [
