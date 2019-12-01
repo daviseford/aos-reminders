@@ -41,6 +41,12 @@ export const getSlavesUnits = () => {
   return filterUnits(Units, listOfUnits)
 }
 
+const HornblowersEffect = {
+  name: `Hornblowers`,
+  desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -457,7 +463,7 @@ export const Units: TUnits = [
       {
         name: `Drummer`,
         desc: `If the unit includes any Drummers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Barbarian Hordes`,
@@ -522,12 +528,12 @@ export const Units: TUnits = [
       {
         name: `Icon Bearers`,
         desc: `If the unit includes any Icon Bearers, add 1 to the Bravery of all its models.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Skull Drummers`,
         desc: `If the unit includes any Skull Drummers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Slaughter-leaders`,
@@ -554,11 +560,7 @@ export const Units: TUnits = [
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
-      },
+      HornblowersEffect,
       {
         name: `Chaos Runeshields`,
         desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
@@ -630,11 +632,7 @@ export const Units: TUnits = [
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of all its models.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [DURING_GAME],
-      },
+      HornblowersEffect,
       {
         name: `Chaos Runeshields`,
         desc: `Roll a D6 each time this model equiped with a Chaos Runeshield suffers a mortal wound. On a 5+ it is negated.`,
@@ -670,11 +668,7 @@ export const Units: TUnits = [
         desc: `If this unit includes any Tribal Banners, add 1 to the Bravery of all its models.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Hornblowers`,
-        desc: `If the unit includes any Hornblowers, add 1 to its run and charge rolls.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      HornblowersEffect,
       {
         name: `Darkwood Shield`,
         desc: `Units carrying Darkwood Shields have a Save of 5+ rather than 6+.`,

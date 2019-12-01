@@ -704,7 +704,7 @@ export const Units: TUnits = [
       {
         name: `Cracks Call`,
         desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 2D6. If the roll is greater than that unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between its Move characteristic and the roll. This spell has no effect on units that can fly.`,
-        when: [START_OF_HERO_PHASE],
+        when: [HERO_PHASE],
         spell: true,
       },
     ],

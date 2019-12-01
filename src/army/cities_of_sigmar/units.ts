@@ -421,8 +421,13 @@ export const Units: TUnits = [
       },
       {
         name: `Skilled Rider`,
-        desc: `Add 1 to run and charge rolls for this model if it does not carry a Freeguild Shield.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to run rolls for this model if it does not carry a Freeguild Shield.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Skilled Rider`,
+        desc: `Add 1 to charge rolls for this model if it does not carry a Freeguild Shield.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Piercing Bloodroar`,

@@ -61,14 +61,21 @@ const verify = () => {
     Army.Units?.forEach(unit => {
       const phaseStore = {}
       unit.effects.forEach(e => {
+        if (e.command_ability) return
         Object.keys(phaseMap).forEach(phrase => {
           const phase = phaseMap[phrase]
 
           if (e.when.includes(phase)) return
 
-          if (e.spell) {
-            if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
+          if (e.spell || unit.spell) {
+            if (!e.when.includes(HERO_PHASE)) {
+              return console.log(`${e.name} should be in ${HERO_PHASE}`)
+            }
             return
+          }
+
+          if (!e.spell && new RegExp('Casting value of', 'gi').test(e.desc)) {
+            return console.log(`${e.name} should be marked as a spell`)
           }
 
           const regex = new RegExp(phrase, 'gi')

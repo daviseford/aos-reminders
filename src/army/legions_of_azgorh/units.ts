@@ -23,12 +23,12 @@ const InfernalGuardBaseEffects = [
   },
   {
     name: `Icon of Dominion Bearers`,
-    desc: `1 model in this unit can be Icon of Dominion Bearer. Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
+    desc: `Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
     when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Drummer`,
-    desc: `1 model in this unit can be a Drummer. Add 1 to run rolls for a unit that includes a Drummer.`,
+    desc: `Add 1 to run rolls for a unit that includes a Drummer.`,
     when: [MOVEMENT_PHASE],
   },
 ]
