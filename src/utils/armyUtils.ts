@@ -2,6 +2,8 @@ import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 import { TEntry } from 'types/data'
+import { IImportedArmy } from 'types/import'
+import { ICurrentArmy } from 'types/army'
 
 export const armyHasEntries = (army: ISavedArmy) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
@@ -52,6 +54,32 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     if (include.includes(k)) a[k] = prepared[k] // If there is an include array, only include... included keys
     return a
   }, {})
+}
+
+/**
+ * Prepares an army to be uploaded to S3 for later analysis
+ * @param army
+ */
+export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy): ICurrentArmy => {
+  const {
+    allyFactionNames = [],
+    allySelections = {},
+    factionName,
+    origin_realm = null,
+    realmscape = null,
+    realmscape_feature = null,
+    selections,
+  } = army
+
+  return {
+    allyFactionNames,
+    allySelections,
+    factionName,
+    origin_realm,
+    realmscape_feature,
+    realmscape,
+    selections,
+  }
 }
 
 export const isValidFactionName = (val: any): val is TSupportedFaction => {

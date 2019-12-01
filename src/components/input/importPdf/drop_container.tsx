@@ -8,17 +8,23 @@ import { hasFatalError } from 'utils/import/warnings'
 import { LinkNewTab } from 'components/helpers/link'
 import ImportDropzone from 'components/input/importPdf/drop_zone'
 import { TImportError, IImportedArmy } from 'types/import'
+import { useSavedArmies } from 'context/useSavedArmies'
 
 const ImportContainer: React.FC = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
+  const { saveArmyToS3 } = useSavedArmies()
 
-  const handleDrop = useCallback((army: IImportedArmy) => {
-    setErrors(army.errors)
-    // Can't proceed if there's an error (usually an unsupported faction)
-    if (hasFatalError(army.errors)) return
-    addArmyToStore(army)
-  }, [])
+  const handleDrop = useCallback(
+    (army: IImportedArmy) => {
+      setErrors(army.errors)
+      // Can't proceed if there's an error (usually an unsupported faction)
+      if (hasFatalError(army.errors)) return
+      addArmyToStore(army)
+      saveArmyToS3(army)
+    },
+    [saveArmyToS3]
+  )
 
   return (
     <>
