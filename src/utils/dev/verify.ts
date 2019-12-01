@@ -91,6 +91,7 @@ const whitelist = [
   'Deathblow',
   'Dormant Energies',
   'Great Cauldron',
+  'Hellshard Amulet',
   'Horrific Opponent',
   'Lurelight',
   'None Shall Defile the Icon',
