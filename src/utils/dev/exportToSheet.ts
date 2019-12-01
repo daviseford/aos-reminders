@@ -1,21 +1,21 @@
 import XLSX from 'xlsx'
-import { getCollection } from 'utils/getArmy/getCollection'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getArmyFromList } from 'meta/army_list'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
 
 /**
- * This utility file should not actually be used in production, LOL
- * But it prints rules to a csv, requested by Rufio Symes of Honest Wargamer for an event
+ * Prints all rules to an xlsx file
+ * Requested by Rufio Symes of Honest Wargamer for an event
  */
-export const generateHonestWargamerSheets = () => {
+const generateHonestWargamerSheets = () => {
   const workbook = XLSX.utils.book_new()
 
   // Create a sheet for every faction
   SUPPORTED_FACTIONS.forEach(x => makeWorksheet(workbook, x))
   // makeWorksheet(workbook, IDONETH_DEEPKIN)
 
-  XLSX.writeFile(workbook, 'out.xlsx')
+  XLSX.writeFile(workbook, 'rules.xlsx')
 }
 
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
@@ -54,3 +54,7 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
   /* Add the worksheet to the workbook */
   XLSX.utils.book_append_sheet(workbook, ws, titleCase(factionName))
 }
+
+console.log('Generating .xlsx file...')
+generateHonestWargamerSheets()
+console.log('Done. Saved to rules.xlsx')

@@ -81,3 +81,6 @@ build/
 
 # .DS_Store
 .DS_Store
+
+# Generated xlsx files
+*.xlsx
