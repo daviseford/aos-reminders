@@ -46,6 +46,20 @@ const phaseMap = {
   'in your movement phase': MOVEMENT_PHASE,
   'in your shooting phase': SHOOTING_PHASE,
 
+  'in the enemy battleshock phase': BATTLESHOCK_PHASE,
+  'in the enemy charge phase': CHARGE_PHASE,
+  'in the enemy combat phase': COMBAT_PHASE,
+  'in the enemy hero phase': HERO_PHASE,
+  'in the enemy movement phase': MOVEMENT_PHASE,
+  'in the enemy shooting phase': SHOOTING_PHASE,
+
+  "in your opponent's battleshock phase": BATTLESHOCK_PHASE,
+  "in your opponent's charge phase": CHARGE_PHASE,
+  "in your opponent's combat phase": COMBAT_PHASE,
+  "in your opponent's hero phase": HERO_PHASE,
+  "in your opponent's movement phase": MOVEMENT_PHASE,
+  "in your opponent's shooting phase": SHOOTING_PHASE,
+
   'end of your battleshock phase': END_OF_BATTLESHOCK_PHASE,
   'end of your charge phase': END_OF_CHARGE_PHASE,
   'end of your combat phase': END_OF_COMBAT_PHASE,
@@ -55,7 +69,8 @@ const phaseMap = {
 
   'with missile weapons': SHOOTING_PHASE,
   'If this model is slain': WOUND_ALLOCATION,
-  'each time you allocate a wound': WOUND_ALLOCATION,
+  'you allocate a wound': WOUND_ALLOCATION,
+  'you allocate a mortal wound': WOUND_ALLOCATION,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored
