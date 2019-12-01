@@ -72,6 +72,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
+## `yarn verify`
+
+Runs a script that checks rules to see if they're misplaced.
+
 ## Pre-commit
 
 I have set this repository up to automatically take care of some chores when you push a commit.

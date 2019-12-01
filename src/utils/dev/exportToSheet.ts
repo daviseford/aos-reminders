@@ -4,6 +4,8 @@ import { getArmyFromList } from 'meta/army_list'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
 
+const FILENAME = 'rules_export.xlsx'
+
 /**
  * Prints all rules to an xlsx file
  * Requested by Rufio Symes of Honest Wargamer for an event
@@ -15,7 +17,7 @@ const generateHonestWargamerSheets = () => {
   SUPPORTED_FACTIONS.forEach(x => makeWorksheet(workbook, x))
   // makeWorksheet(workbook, IDONETH_DEEPKIN)
 
-  XLSX.writeFile(workbook, 'rules.xlsx')
+  XLSX.writeFile(workbook, FILENAME)
 }
 
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
@@ -57,4 +59,4 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
 
 console.log('Generating .xlsx file...')
 generateHonestWargamerSheets()
-console.log('Done. Saved to rules.xlsx')
+console.log(`Done. Saved to ${FILENAME}`)
