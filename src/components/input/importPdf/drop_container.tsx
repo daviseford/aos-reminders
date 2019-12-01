@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { logClick } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
@@ -12,13 +13,18 @@ import { TImportError, IImportedArmy } from 'types/import'
 const ImportContainer: React.FC = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
+  const { saveArmyToS3 } = useSavedArmies()
 
-  const handleDrop = useCallback((army: IImportedArmy) => {
-    setErrors(army.errors)
-    // Can't proceed if there's an error (usually an unsupported faction)
-    if (hasFatalError(army.errors)) return
-    addArmyToStore(army)
-  }, [])
+  const handleDrop = useCallback(
+    (army: IImportedArmy) => {
+      setErrors(army.errors)
+      // Can't proceed if there's an error (usually an unsupported faction)
+      if (hasFatalError(army.errors)) return
+      addArmyToStore(army)
+      saveArmyToS3(army)
+    },
+    [saveArmyToS3]
+  )
 
   return (
     <>

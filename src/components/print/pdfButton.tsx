@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import jsPDF from 'jspdf'
 import { MdFileDownload } from 'react-icons/md'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
 import { processReminders } from 'utils/processReminders'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
@@ -20,6 +21,7 @@ interface IDownloadPDFProps extends ICurrentArmy {
 
 const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
+  const { saveArmyToS3 } = useSavedArmies()
 
   const [pdf, setPdf] = useState<jsPDF | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -45,6 +47,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     const doc = savePdf({ ...currentArmy, hiddenReminders, reminders })
 
     setPdf(doc)
+    saveArmyToS3(currentArmy)
     openModal()
   }
 
