@@ -414,7 +414,7 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  xit('correctly imports the LAoCD and its Storm Lance spell', () => {
+  it('correctly imports the LAoCD and its Storm Lance spell', () => {
     const pdfText = getFile('LAoCD')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -424,7 +424,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: [],
       battalions: [],
-      commands: [],
+      commands: ['Pack Alpha'],
       endless_spells: [],
       scenery: [],
       spells: ['Storm Lance'],
