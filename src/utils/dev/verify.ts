@@ -1,36 +1,42 @@
 import { getArmyList } from 'meta/army_list'
 import {
-  START_OF_MOVEMENT_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  END_OF_SETUP,
-  SHOOTING_PHASE,
-  CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
-  START_OF_BATTLESHOCK_PHASE,
   BATTLESHOCK_PHASE,
-  MOVEMENT_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
   END_OF_SHOOTING_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
+  START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { TEntry } from 'types/data'
 
 const phaseMap = {
   'After armies are set up, but before': END_OF_SETUP,
-  'start of each battle round': START_OF_ROUND,
-  'charge rolls': CHARGE_PHASE,
-  'in the combat phase': COMBAT_PHASE,
 
+  'start of each battle round': START_OF_ROUND,
+
+  'charge rolls': CHARGE_PHASE,
+
+  'in the combat phase': COMBAT_PHASE,
   'made with melee weapons': COMBAT_PHASE,
+  'can pile-in': COMBAT_PHASE,
+  'can pile in': COMBAT_PHASE,
+
+  'with missile weapons': SHOOTING_PHASE,
 
   'start of your battleshock phase': START_OF_BATTLESHOCK_PHASE,
   'start of your charge phase': START_OF_CHARGE_PHASE,
@@ -67,12 +73,10 @@ const phaseMap = {
   'end of your movement phase': END_OF_MOVEMENT_PHASE,
   'end of your shooting phase': END_OF_SHOOTING_PHASE,
 
-  'with missile weapons': SHOOTING_PHASE,
   'If this model is slain': WOUND_ALLOCATION,
+  'If this unit is slain': WOUND_ALLOCATION,
   'you allocate a wound': WOUND_ALLOCATION,
   'you allocate a mortal wound': WOUND_ALLOCATION,
-  'can pile-in': COMBAT_PHASE,
-  'can pile in': COMBAT_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored
