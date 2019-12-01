@@ -35,7 +35,7 @@ export const importSelectionLookup = (
     units: 'Units',
   }
 
-  const Names: string[] = Army[lookup[type]].filter(x => !x.fromEffect).map(({ name }) => name)
+  const Names: string[] = Army[lookup[type]].map(({ name }) => name)
   const NameMap = mapListToDict(Names)
   const validators = Validators(Names)
   const checkVal = checkImportSelection(Names, NameMap, errors, true, checkPoorSpacing, typoMap)
