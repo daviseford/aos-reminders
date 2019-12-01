@@ -408,7 +408,7 @@ export const Units: TUnits = [
       {
         name: `Lookout Gnoblar`,
         desc: `Roll a D6 each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
-        when: [SHOOTING_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Paired Clubs or Blades`,

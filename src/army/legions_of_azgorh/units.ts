@@ -13,6 +13,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const InfernalGuardBaseEffects = [
@@ -83,7 +84,7 @@ export const Units: TUnits = [
       {
         name: `Hellshard Amulet`,
         desc: `Roll a D6 each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Prophet of Ash and Flame`,

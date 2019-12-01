@@ -212,8 +212,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Glory or Damnation`,
-        desc: `If this model slays the opposing army general, you can choose to replace him with a Daemon Prince model. If this model is slain, replace him with a Chaos Spawn model.`,
+        desc: `If this model slays the opposing army general, you can choose to replace him with a Daemon Prince model.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Glory or Damnation`,
+        desc: `If this model is slain, replace him with a Chaos Spawn model.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Mark of Chaos: ${MARK_KHORNE}`,
@@ -279,7 +284,7 @@ export const Units: TUnits = [
       },
       {
         name: `Deathblow`,
-        desc: `If this model slays any enemy models in the combat phase, each enemy unit within 1" of him suffers 1 mortal wound.`,
+        desc: `If this model slays any enemy models in the combat phase, each enemy unit within 1" of him at the end of the combat phase suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {

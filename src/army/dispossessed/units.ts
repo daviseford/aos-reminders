@@ -36,7 +36,7 @@ const RunicIconAndClanBannerEffects = [
 const GromrilShieldsEffect = {
   name: `Gromril Shields`,
   desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
 }
 const HornblowersEffect = {
   name: `Hornblowers`,
@@ -51,7 +51,7 @@ const DrummersEffect = {
 const DuardinBucklersEffect = {
   name: `Duardin Bucklers`,
   desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-  when: [MOVEMENT_PHASE],
+  when: [MOVEMENT_PHASE, COMBAT_PHASE],
 }
 const IconBearerEffect = {
   name: `Icon Bearer`,

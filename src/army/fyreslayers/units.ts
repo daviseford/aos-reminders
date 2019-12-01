@@ -282,8 +282,13 @@ export const Units: TUnits = [
       FyresteelHandaxesEffect,
       {
         name: `Bladed Slingshield`,
-        desc: `After a unit armed with Bladed Slingshields makes a charge move, pick 1 enemy unit and roll a D6 for each model from the charging unit within 8" of that enemy unit. For each 6, the enemy unit suffers 1 mortal wound. In addition, add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
+        desc: `After a unit armed with Bladed Slingshields makes a charge move, pick 1 enemy unit and roll a D6 for each model from the charging unit within 8" of that enemy unit. For each 6, the enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
+      },
+      {
+        name: `Bladed Slingshield`,
+        desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

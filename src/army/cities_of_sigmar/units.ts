@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -14,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import KharadronOverlords from 'army/kharadron_overlords'
@@ -667,17 +669,17 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `'I thought duardin were made of sterner stuff!'`,
+        name: `Grumble - 'I thought duardin were made of sterner stuff!'`,
         desc: `Add 1 to the Bravery characteristic of friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
       {
-        name: `'Put your back into it, beardling!'`,
+        name: `Grumble - 'Put your back into it, beardling!'`,
         desc: `You can re-roll wound rolls of 1 for attacks made by friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
       {
-        name: `'Too much damned magic flying about these days!'`,
+        name: `Grumble - 'Too much damned magic flying about these days!'`,
         desc: `A unit with this complaint can attempt to dispel 1 endless spell in your hero phase.`,
         when: [HERO_PHASE],
       },
@@ -1143,8 +1145,18 @@ export const Units: TUnits = [
       },
       {
         name: `One with the Shadows`,
-        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side and say that it is set up in the shadows as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from any enemy units. Any reserve units in the shadows that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side and say that it is set up in the shadows as a reserve unit.`,
         when: [DURING_SETUP],
+      },
+      {
+        name: `One with the Shadows`,
+        desc: `If you have set this unit up as a reserve unit, at the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `One with the Shadows`,
+        desc: `Any reserve units in the shadows that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        when: [TURN_FOUR_START_OF_ROUND],
       },
       {
         name: `Strike Unseen`,
@@ -1226,7 +1238,7 @@ export const Units: TUnits = [
       {
         name: `Harrying Bird of Prey`,
         desc: `In your hero phase, you can pick 1 enemy HERO within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
-        when: [START_OF_HERO_PHASE],
+        when: [HERO_PHASE],
       },
       {
         name: `Lord of the Deepwood Host`,

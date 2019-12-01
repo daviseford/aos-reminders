@@ -289,8 +289,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Release the Fanatics!`,
-        desc: `At the start of a charge phase, you can release this unit. If you do so, set up this unit wholly within 3" of the unit it was with, and more than 3" from any enemy units. If this unit was released in your charge phase, it can attempt to make a charge move in that phase unless the unit it was with has any restrictions that would stop it from attempting to charge (if it ran, for example); if it was released in the enemy charge phase, it cannot attempt to make a charge move. This unit is destroyed if the unit it is with is destroyed before this unit is released.`,
+        desc: `At the start of a charge phase, you can release this unit. If you do so, set up this unit wholly within 3" of the unit it was with, and more than 3" from any enemy units.`,
         when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Release the Fanatics!`,
+        desc: `If this unit was released in your charge phase, it can attempt to make a charge move in that phase unless the unit it was with has any restrictions that would stop it from attempting to charge (if it ran, for example); if it was released in the enemy charge phase, it cannot attempt to make a charge move. This unit is destroyed if the unit it is with is destroyed before this unit is released.`,
+        when: [CHARGE_PHASE],
       },
       ...FanaticsBaseEffects,
     ],
@@ -503,8 +508,13 @@ export const Units: TUnits = [
       SpiderVenomEffect,
       {
         name: `Voracious Predator`,
-        desc: `You can re-roll run and charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE, MOVEMENT_PHASE],
+        desc: `You can re-roll run rolls for this model.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Voracious Predator`,
+        desc: `You can re-roll charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [COMBAT_PHASE, CHARGE_PHASE],
       },
     ],
   },

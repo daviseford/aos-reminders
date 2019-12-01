@@ -19,11 +19,14 @@ import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
+  START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { TEntry } from 'types/data'
 
 const phaseMap = {
   'After armies are set up, but before': END_OF_SETUP,
+  'start of each battle round': START_OF_ROUND,
   'charge rolls': CHARGE_PHASE,
   'in the combat phase': COMBAT_PHASE,
 
@@ -51,7 +54,36 @@ const phaseMap = {
   'end of your shooting phase': END_OF_SHOOTING_PHASE,
 
   'with missile weapons': SHOOTING_PHASE,
+  'If this model is slain': WOUND_ALLOCATION,
+  'each time you allocate a wound': WOUND_ALLOCATION,
 }
+
+// Effect names that are flagged by the script, but have been verified and should be ignored
+const whitelist = [
+  'Acid Ichor',
+  'Ahead Full',
+  'Been There, Done That',
+  'Blizzard Speaker',
+  'Bloodthirsty Predators',
+  'Bogeyman',
+  'Brass-clad Shield',
+  'Celestial Configuration',
+  'Celestial Rites',
+  'Clutching Pseudopods',
+  'Deadly Symbiosis',
+  'Deathblow',
+  'Dormant Energies',
+  'Great Cauldron',
+  'Horrific Opponent',
+  'Lurelight',
+  'None Shall Defile the Icon',
+  'Old Grumblers',
+  'Rune Lore: Ancestral Shield',
+  'Runemarked Shield',
+  'Seeker of Souls',
+  'Violent Fury',
+  'Whirling Death',
+]
 
 const verify = () => {
   const armyList = getArmyList()
@@ -62,6 +94,7 @@ const verify = () => {
 
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
+        if (whitelist.includes(e.name)) return
         if (e.command_ability) return
 
         if (e.spell || unit.spell) {
@@ -82,7 +115,7 @@ const verify = () => {
 
           const regex = new RegExp(phrase, 'gi')
           if (regex.test(e.desc)) {
-            console.log(`${e.name} should probably be in ${phase}`)
+            return console.log(`${e.name} should probably be in ${phase}`)
           }
         })
       })
