@@ -1,5 +1,4 @@
 import { getArmyList } from 'meta/army_list'
-import { BEASTS_OF_CHAOS } from 'meta/factions'
 import {
   START_OF_MOVEMENT_PHASE,
   COMBAT_PHASE,
@@ -21,6 +20,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
 } from 'types/phases'
+import { TEntry } from 'types/data'
 
 const phaseMap = {
   'After armies are set up, but before': END_OF_SETUP,
@@ -58,25 +58,27 @@ const verify = () => {
   Object.keys(armyList).forEach(faction => {
     const { Army } = armyList[faction]
 
-    Army.Units?.forEach(unit => {
-      const phaseStore = {}
+    const { Units = [] } = Army
+
+    Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
         if (e.command_ability) return
+
+        if (e.spell || unit.spell) {
+          if (!e.when.includes(HERO_PHASE)) {
+            return console.log(`${e.name} should be in ${HERO_PHASE}`)
+          }
+          return
+        }
+
+        if (!e.spell && new RegExp('Casting value of', 'gi').test(e.desc)) {
+          return console.log(`${e.name} should be marked as a spell`)
+        }
+
         Object.keys(phaseMap).forEach(phrase => {
           const phase = phaseMap[phrase]
 
           if (e.when.includes(phase)) return
-
-          if (e.spell || unit.spell) {
-            if (!e.when.includes(HERO_PHASE)) {
-              return console.log(`${e.name} should be in ${HERO_PHASE}`)
-            }
-            return
-          }
-
-          if (!e.spell && new RegExp('Casting value of', 'gi').test(e.desc)) {
-            return console.log(`${e.name} should be marked as a spell`)
-          }
 
           const regex = new RegExp(phrase, 'gi')
           if (regex.test(e.desc)) {

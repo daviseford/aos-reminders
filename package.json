@@ -40,7 +40,9 @@
     "start": "react-app-rewired start",
     "test": "react-app-rewired test",
     "verify": "ts-node-dev --compilerOptions '{ \"module\": \"commonjs\"}' --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/verify.ts",
-    "xlsx": "ts-node-dev --compilerOptions '{ \"module\": \"commonjs\"}' --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
+    "verify-win": "ts-node-dev --compilerOptions \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/verify.ts",
+    "xlsx": "ts-node-dev --compilerOptions '{ \"module\": \"commonjs\"}' --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
+    "xlsx-win": "ts-node-dev --compilerOptions \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpileOnly -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
