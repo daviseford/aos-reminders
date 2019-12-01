@@ -55,25 +55,27 @@ const phaseMap = {
 
 const verify = () => {
   const armyList = getArmyList()
-  const { Army } = armyList[BEASTS_OF_CHAOS]
+  Object.keys(armyList).forEach(faction => {
+    const { Army } = armyList[faction]
 
-  Army.Units?.forEach(unit => {
-    const phaseStore = {}
-    unit.effects.forEach(e => {
-      Object.keys(phaseMap).forEach(phrase => {
-        const phase = phaseMap[phrase]
+    Army.Units?.forEach(unit => {
+      const phaseStore = {}
+      unit.effects.forEach(e => {
+        Object.keys(phaseMap).forEach(phrase => {
+          const phase = phaseMap[phrase]
 
-        if (e.when.includes(phase)) return
+          if (e.when.includes(phase)) return
 
-        if (e.spell) {
-          if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
-          return
-        }
+          if (e.spell) {
+            if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
+            return
+          }
 
-        const regex = new RegExp(phrase, 'gi')
-        if (regex.test(e.desc)) {
-          console.log(`${e.name} should probably be in ${phase}`)
-        }
+          const regex = new RegExp(phrase, 'gi')
+          if (regex.test(e.desc)) {
+            console.log(`${e.name} should probably be in ${phase}`)
+          }
+        })
       })
     })
   })
