@@ -71,6 +71,8 @@ const phaseMap = {
   'If this model is slain': WOUND_ALLOCATION,
   'you allocate a wound': WOUND_ALLOCATION,
   'you allocate a mortal wound': WOUND_ALLOCATION,
+  'can pile-in': COMBAT_PHASE,
+  'can pile in': COMBAT_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored
@@ -101,6 +103,7 @@ const whitelist = [
 ]
 
 const verify = () => {
+  console.log('Starting rules verification...')
   const armyList = getArmyList()
   Object.keys(armyList).forEach(faction => {
     const { Army } = armyList[faction]
@@ -136,6 +139,7 @@ const verify = () => {
       })
     })
   })
+  console.log('Done!')
 }
 
 verify()
