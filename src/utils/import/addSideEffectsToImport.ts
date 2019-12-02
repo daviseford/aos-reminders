@@ -13,6 +13,7 @@ export const addSideEffectsToImport = (selections: ISelections, Army: IArmy): IS
   const sideEffects = {
     allegiances: getSideEffects(Army.Allegiances),
     battalions: getSideEffects(Army.Battalions),
+    traits: getSideEffects(Army.Traits),
     units: getSideEffects(Army.Units),
   }
 

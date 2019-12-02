@@ -25,7 +25,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Traits',
       values: selections.traits,
       type: 'multi',
-      sideEffects: {},
+      sideEffects: getSideEffects(army.Traits),
     },
     {
       items: army.Artifacts,

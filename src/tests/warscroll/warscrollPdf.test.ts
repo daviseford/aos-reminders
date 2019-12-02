@@ -6,7 +6,9 @@ import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
@@ -361,7 +363,7 @@ describe('getWarscrollArmyFromPdf', () => {
       endless_spells: [],
       scenery: [],
       spells: [],
-      traits: ['Checked Out', "Fast 'Un"],
+      traits: ["Fast 'Un", 'Checked Out'],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -374,7 +376,7 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  xit('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
+  it('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
     const pdfText = getFile('Drakesworn')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -431,6 +433,46 @@ describe('getWarscrollArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
+  it('correctly imports the Loonboss and its command ability', () => {
+    const pdfText = getFile('Loonboss')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: [],
+      triumphs: [],
+      units: ['Loonboss'],
+    })
+  })
+
+  it('adds the command ability that the Boss Shaman trait gives you', () => {
+    const pdfText = getFile('BossShaman')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Spore Maws'],
+      traits: ['Boss Shaman'],
+      triumphs: [],
+      units: ['Fungoid Cave-Shaman'],
     })
   })
 

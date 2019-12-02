@@ -10,6 +10,7 @@ import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
 import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
 import { addSideEffectsToImport } from 'utils/import/addSideEffectsToImport'
+import { removeSideEffectsFromImport } from 'utils/import/removeSideEffectsFromImport'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
@@ -78,7 +79,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     ...errorFreeSelections,
   }
 
-  const selectionsWithSideEffects = addSideEffectsToImport(mergedSelections, Army)
+  // Remove explicitly-included selections that are actually side-effects, then add relevant side-effects
+  const selectionsWithoutSideEffects = removeSideEffectsFromImport(mergedSelections, Army, parser)
+  const selectionsWithSideEffects = addSideEffectsToImport(selectionsWithoutSideEffects, Army)
 
   return {
     ...army,
