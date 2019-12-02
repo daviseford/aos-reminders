@@ -3,7 +3,7 @@ import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
 
 /**
- * Remove side effects (such as spells, artifacts, etc) to our imported selections
+ * Remove side effects (such as spells, artifacts, etc) from our imported selections
  * @param selections
  * @param Army
  */
