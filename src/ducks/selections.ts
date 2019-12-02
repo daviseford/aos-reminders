@@ -90,6 +90,7 @@ const updateSpells = (state: IStore['selections'], action: TAction) => {
   state.selections.spells = action.payload
 }
 const updateTraits = (state: IStore['selections'], action: TAction) => {
+  handleSideEffects(state, action.payload, 'traits')
   state.selections.traits = action.payload
 }
 const updateTriumphs = (state: IStore['selections'], action: TAction) => {
