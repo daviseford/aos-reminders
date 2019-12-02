@@ -8,9 +8,6 @@ import { ISelections } from 'types/selections'
  * @param Army
  */
 export const removeSideEffectsFromImport = (selections: ISelections, Army: IArmy): ISelections => {
-  // console.log(selections)
-  // console.log(Army)
-
   const lookup = {
     allegiances: 'Allegiances',
     artifacts: 'Artifacts',
