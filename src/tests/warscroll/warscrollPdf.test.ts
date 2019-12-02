@@ -361,7 +361,7 @@ describe('getWarscrollArmyFromPdf', () => {
       endless_spells: [],
       scenery: [],
       spells: [],
-      traits: ['Checked Out', "Fast 'Un"],
+      traits: ["Fast 'Un", 'Checked Out'],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',

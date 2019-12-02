@@ -157,7 +157,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.allegiances).toEqual(['Boulderhead (Mawtribe)'])
     expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
     expect(res.selections.spells).toEqual(['Pulverising Hailstorm'])
-    expect(res.selections.traits).toEqual(['Lord of Beasts', 'Belligerent Charger', 'Fleshgreed'])
+    expect(res.selections.traits).toEqual(['Belligerent Charger', 'Fleshgreed', 'Lord of Beasts'])
     expect(res.selections.units).toEqual([
       'Frostlord on Stonehorn',
       'Huskard on Thundertusk',
@@ -361,13 +361,13 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       selections: {
         allegiances: ['Gristlegore (Grand Court)'],
-        artifacts: ['Ghurish Mawshard', 'The Grim Garland (Royal Treasury)'],
+        artifacts: ['The Grim Garland (Royal Treasury)', 'Ghurish Mawshard'],
         battalions: ['Royal Menagerie'],
         commands: ['Call to War', 'Summon Men-at-arms'],
         endless_spells: ['Cadaverous Barricade', 'Aethervoid Pendulum'],
         scenery: [],
         spells: ['Monstrous Vigour', 'Blood Feast'],
-        traits: ['Savage Strike', 'The Feast Day (Delusion)'],
+        traits: ['The Feast Day (Delusion)', 'Savage Strike'],
         triumphs: [],
         units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
       },
@@ -562,8 +562,8 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
-      'FOOTNOTE: Through Knowledge, Power',
       'FOOTNOTE: Without Our Ships, We Are Naught',
+      'FOOTNOTE: Through Knowledge, Power',
       'Champion of Progress',
     ])
 
@@ -747,8 +747,8 @@ describe('getAzyrArmyFromPdf', () => {
         traits: [
           'ARTYCLE: Settle the Grudges',
           'AMENDMENT: Trust to Your Guns',
-          'FOOTNOTE: Honour the Gods, Just in Case',
           'FOOTNOTE: These Are Just Guidelines',
+          'FOOTNOTE: Honour the Gods, Just in Case',
         ],
         triumphs: [],
         units: [
@@ -860,7 +860,7 @@ describe('getAzyrArmyFromPdf', () => {
         endless_spells: ['Runic Fyrewall'],
         scenery: [],
         spells: ['Prayer of Ash'],
-        traits: ['Warrior Indominate', 'Fire-claw Adult'],
+        traits: ['Fire-claw Adult', 'Warrior Indominate'],
         triumphs: [],
         units: [
           'Fjul-Grimnir',
