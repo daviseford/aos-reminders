@@ -121,13 +121,11 @@ const verify = () => {
         if (e.command_ability) return
 
         if (e.spell || unit.spell) {
-          if (!e.when.includes(HERO_PHASE)) {
-            return console.log(`${e.name} should be in ${HERO_PHASE}`)
-          }
+          if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
           return
         }
 
-        if (!e.spell && new RegExp('Casting value of', 'gi').test(e.desc)) {
+        if (!e.spell && new RegExp('Casting value ', 'gi').test(e.desc)) {
           return console.log(`${e.name} should be marked as a spell`)
         }
 
