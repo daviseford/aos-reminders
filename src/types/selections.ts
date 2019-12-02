@@ -25,4 +25,5 @@ export interface ISelections {
 
 export interface IAllySelections {
   units: string[]
+  battalions: string[]
 }

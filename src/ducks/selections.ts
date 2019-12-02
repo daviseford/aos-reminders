@@ -1,7 +1,7 @@
 import { uniq, without } from 'lodash'
 import { createSlice } from 'redux-starter-kit'
 import { TSupportedFaction } from 'meta/factions'
-import { TUnits } from 'types/army'
+import { TUnits, TBattalions } from 'types/army'
 import { ISelectionStore, IStore } from 'types/store'
 import { TSelectionTypes } from 'types/selections'
 
@@ -46,7 +46,14 @@ const resetSelections = (state, action) => {
 }
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
-  state.allySelections[factionName] = { units }
+  state.allySelections[factionName].units = units
+}
+const updateAllyBattalions = (
+  state,
+  action: { payload: { factionName: TSupportedFaction; battalions: TBattalions } }
+) => {
+  const { factionName, battalions } = action.payload
+  state.allySelections[factionName].battalions = battalions
 }
 const updateAllySelections = (state, action) => {
   state.allySelections = action.payload
@@ -112,6 +119,7 @@ export const selections = createSlice({
     resetAllySelections,
     resetSelections,
     updateAllegiances,
+    updateAllyBattalions,
     updateAllySelections,
     updateAllyUnits,
     updateArtifacts,
