@@ -364,8 +364,8 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',
       'Mystic Shield',
-      'Spore Maws',
       'The Great Green Spite',
+      'Spore Maws',
     ])
     expect(res.selections.units).toEqual([
       'Dankhold Troggboss',
