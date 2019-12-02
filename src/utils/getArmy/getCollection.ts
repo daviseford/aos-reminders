@@ -71,7 +71,7 @@ const effectToEntry = (effect: TEffects): TEntry => {
   return {
     name: effect.name,
     effects: [effect],
-    fromEffect: true,
+    isSideEffect: true,
   }
 }
 

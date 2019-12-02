@@ -3,6 +3,7 @@ import { IArmy } from 'types/army'
 import { TImportParsers } from 'types/import'
 import { ISelections } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
+import { TEntry } from 'types/data'
 
 /**
  * Remove side effects (such as spells, artifacts, etc) from our imported selections
@@ -28,12 +29,17 @@ export const removeSideEffectsFromImport = (
     units: 'Units',
   }
   Object.keys(selections).forEach(slice => {
-    const SideEffects: (boolean | undefined)[] = Army[lookup[slice]]
-      .filter(x => x.fromEffect)
-      .map(x => x.name)
-    const previous = selections[slice]
+    // Store the previous state of our selections
+    const previous: string[] = [...selections[slice]]
+
+    // Get an array of effect names that are side effects from the Army
+    const SideEffects = (Army[lookup[slice]] as TEntry[]).filter(x => x.isSideEffect).map(x => x.name)
+
+    // Update our slice of selections to NOT include any side effects
     selections[slice] = difference(previous, SideEffects)
-    const removed: string[] = difference(previous, selections[slice])
+
+    // And then get a list of ignored side effects and send them to GA
+    const removed = difference(previous, selections[slice])
     removed.forEach(s => logIgnoredImport(s, parser))
   })
 
