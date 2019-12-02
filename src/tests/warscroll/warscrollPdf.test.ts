@@ -8,6 +8,7 @@ import {
   DAUGHTERS_OF_KHAINE,
   DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
@@ -452,6 +453,26 @@ describe('getWarscrollArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Loonboss'],
+    })
+  })
+
+  it('adds the command ability that the Boss Shaman trait gives you', () => {
+    const pdfText = getFile('BossShaman')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Spore Maws'],
+      traits: ['Boss Shaman'],
+      triumphs: [],
+      units: ['Fungoid Cave-Shaman'],
     })
   })
 
