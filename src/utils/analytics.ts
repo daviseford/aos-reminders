@@ -133,6 +133,16 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
   }
 }
 
+export const logIgnoredImport = (value: string, type: TImportParsers) => {
+  if (value) {
+    logToGA({
+      category: 'Event',
+      action: `ignoredImport-${type}-${value}`,
+      label: 'IgnoredImport',
+    })
+  }
+}
+
 export const logDisplay = (element: string) => {
   if (element) {
     logToGA({

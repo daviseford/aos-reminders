@@ -79,7 +79,8 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     ...errorFreeSelections,
   }
 
-  const selectionsWithoutSideEffects = removeSideEffectsFromImport(mergedSelections, Army)
+  // Remove explicitly-included selections that are actually side-effects, then add relevant side-effects
+  const selectionsWithoutSideEffects = removeSideEffectsFromImport(mergedSelections, Army, parser)
   const selectionsWithSideEffects = addSideEffectsToImport(selectionsWithoutSideEffects, Army)
 
   return {
