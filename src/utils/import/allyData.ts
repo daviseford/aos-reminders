@@ -1,7 +1,7 @@
 import { uniq, without } from 'lodash'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { createAllyWarning, getWarnings } from 'utils/import/warnings'
-import { getAllyArmyUnits } from 'utils/getArmy/getAllyArmyUnits'
+import { getAllyArmyItems } from 'utils/getArmy/getAllyArmyUnits'
 import { IAllySelections } from 'types/selections'
 import { mapListToDict } from 'utils/mapListToDict'
 import { titleCase } from 'utils/textUtils'
@@ -10,45 +10,56 @@ import { TSupportedFaction } from 'meta/factions'
 import { TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
 
-export const getAllyData = (
+type TGetAllyData = (
   allyUnits: string[],
   factionName: TSupportedFaction,
   errors: TImportError[],
   checkPoorSpacing: boolean,
   typoMap: TNameMap
-): {
-  allyFactionNames: TSupportedFaction[]
-  allySelections: TAllySelectionStore
-} => {
-  const mergedAllyUnits = uniq(
+) => { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore }
+
+export const getAllyData: TGetAllyData = (allyUnits, factionName, errors, checkPoorSpacing, typoMap) => {
+  const mergedAllyItems = uniq(
     getWarnings(errors)
       .map(x => x.text)
       .concat(allyUnits)
   )
 
-  if (mergedAllyUnits.length === 0) {
+  if (mergedAllyItems.length === 0) {
     return {
       allyFactionNames: [],
       allySelections: {},
     }
   }
 
-  const allyArmyUnits = getAllyArmyUnits(factionName)
+  const allyArmyItems = getAllyArmyItems(factionName)
 
-  const allyData = Object.keys(allyArmyUnits).reduce(
+  const allyData = Object.keys(allyArmyItems).reduce(
     (a, allyName) => {
-      const units: string[] = allyArmyUnits[allyName]
+      const { units, battalions } = allyArmyItems[allyName] as { units: string[]; battalions: string[] }
+
       const unitsMap = mapListToDict(units)
+      const battalionsMap = mapListToDict(battalions)
 
-      const checkVal = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing, typoMap)
-      const errorFreeAllyUnits = mergedAllyUnits.map(checkVal).filter(x => !!x)
+      const battalionCheck = checkImportSelection(
+        battalions,
+        battalionsMap,
+        errors,
+        false,
+        checkPoorSpacing,
+        typoMap
+      )
+      const errorFreeAllyBattalions = mergedAllyItems.map(battalionCheck).filter(x => !!x)
 
-      if (errorFreeAllyUnits.length > 0) {
-        if (!a.allySelections[allyName]) {
-          a.allySelections[allyName] = { units: [] }
+      const unitCheck = checkImportSelection(units, unitsMap, errors, false, checkPoorSpacing, typoMap)
+      const errorFreeAllyUnits = mergedAllyItems.map(unitCheck).filter(x => !!x)
+
+      if (errorFreeAllyUnits.length + errorFreeAllyBattalions.length > 0) {
+        a.allySelections[allyName] = {
+          battalions: errorFreeAllyBattalions,
+          units: errorFreeAllyUnits,
         }
 
-        a.allySelections[allyName].units = errorFreeAllyUnits
         a.allyFactionNames = uniq(a.allyFactionNames.concat(allyName as TSupportedFaction))
       }
 

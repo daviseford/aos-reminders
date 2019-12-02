@@ -116,12 +116,17 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = getFile('1575286599238-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
+    console.log(warscrollTxt.allySelections)
     expect(warscrollTxt.factionName).toEqual(NURGLE)
+    expect(warscrollTxt.allySelections[SKAVEN]).toEqual({
+      units: [],
+      battalions: ['Congregation of Filth'],
+    })
     expect(warscrollTxt.origin_realm).toEqual(HYSH)
     expect(warscrollTxt.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Congregation of Filth',
+        text: 'c',
       },
     ])
   })

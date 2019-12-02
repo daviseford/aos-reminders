@@ -10,10 +10,10 @@ import {
 import { getArmyList } from 'meta/army_list'
 import { CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
 
-type TAllyArmies = { [key in TSupportedFaction]: string[] }
-type TGetAllyArmies = (factionName: string) => TAllyArmies
+type TAllyArmies = { [key in TSupportedFaction]: { units: string[]; battalions: string[] } }
+type TGetAllyArmyItems = (factionName: string) => TAllyArmies
 
-export const getAllyArmyUnits: TGetAllyArmies = factionName => {
+export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
   const ArmyList = getArmyList()
   const { GrandAlliance } = ArmyList[factionName]
 
@@ -37,11 +37,15 @@ export const getAllyArmyUnits: TGetAllyArmies = factionName => {
         ORDER_GRAND_ALLIANCE,
       ]
     ).concat(allianceName)
-  )
+  ) as TSupportedFaction[]
 
   const allyArmies = allyFactionNames.reduce((a, faction) => {
+    const battalions = ArmyList[faction].Army.Battalions || []
     const units = ArmyList[faction].Army.Units || []
-    a[faction] = units.map(({ name }) => name)
+    a[faction] = {
+      battalions: battalions.map(({ name }) => name),
+      units: units.map(({ name }) => name),
+    }
     return a
   }, {} as TAllyArmies)
 
