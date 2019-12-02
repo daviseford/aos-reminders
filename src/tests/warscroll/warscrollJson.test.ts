@@ -25,7 +25,9 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  NURGLE,
 } from 'meta/factions'
+import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
@@ -97,8 +99,31 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(warscrollTxt.origin_realm).toEqual('Ghur')
+    expect(warscrollTxt.origin_realm).toEqual(GHUR)
     expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with OBR', () => {
+    const parsedText = getFile('1575078564630-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.origin_realm).toEqual(AQSHY)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Nurgle', () => {
+    const parsedText = getFile('1575286599238-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NURGLE)
+    expect(warscrollTxt.origin_realm).toEqual(HYSH)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Congregation of Filth',
+      },
+    ])
   })
 
   it('should work with OBR', () => {
