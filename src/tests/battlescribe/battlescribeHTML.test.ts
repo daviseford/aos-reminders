@@ -360,7 +360,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections.commands).toEqual(['Instinctive Leader', "I'm Da Boss, Now Stab 'Em Good!"])
+    expect(res.selections.commands).toEqual(['Instinctive Leader'])
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',
       'Mystic Shield',
