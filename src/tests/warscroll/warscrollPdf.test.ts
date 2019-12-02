@@ -6,6 +6,7 @@ import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -431,6 +432,26 @@ describe('getWarscrollArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
+  it('correctly imports the Loonboss and its command ability', () => {
+    const pdfText = getFile('Loonboss')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: [],
+      triumphs: [],
+      units: ['Loonboss'],
     })
   })
 
