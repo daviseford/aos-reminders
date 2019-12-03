@@ -32,11 +32,11 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
             return <Tr theme={theme} items={sortBy(selections[key])} title={key} key={`${key}_${i}`} />
           })}
 
-          {allies.battalions.length > 0 && (
-            <Tr theme={theme} items={sortBy(allies.battalions)} title={'Allied Battalions'} />
-          )}
           {allies.units.length > 0 && (
             <Tr theme={theme} items={sortBy(allies.units)} title={'Allied Units'} />
+          )}
+          {allies.battalions.length > 0 && (
+            <Tr theme={theme} items={sortBy(allies.battalions)} title={'Allied Battalions'} />
           )}
 
           {origin_realm && <Tr theme={theme} items={[origin_realm]} title={'Realm of Origin'} />}
