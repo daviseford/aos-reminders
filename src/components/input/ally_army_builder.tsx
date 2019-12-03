@@ -14,7 +14,7 @@ import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 import { TDropdownOption, SelectMulti, SelectOne } from 'components/input/select'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { TSupportedFaction } from 'meta/factions'
-import { TUnits, IArmy } from 'types/army'
+import { TUnits, IArmy, TBattalions } from 'types/army'
 import { IAllySelections } from 'types/selections'
 import { IStore, TAllySelectionStore } from 'types/store'
 
@@ -29,6 +29,7 @@ interface IAllyArmyBuilderProps {
   showAlly: (value: string) => void // dispatch2Props
   switchAllyArmy: (payload: { next: TSupportedFaction; prev: TSupportedFaction }) => void // dispatch2Props
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void // dispatch2Props
+  updateAllyBattalions: (payload: { factionName: TSupportedFaction; battalions: TBattalions }) => void // dispatch2Props
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void // dispatch2Props
   visibleAllies: string[] // state2Props
 }
@@ -45,17 +46,22 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     showAlly,
     switchAllyArmy,
     updateAllyArmy,
+    updateAllyBattalions,
     updateAllyUnits,
     visibleAllies,
   } = props
 
   const { isOnline } = useAppStatus()
 
-  const { units = [] } = allySelections[allyFactionName] as IAllySelections
+  const { units = [], battalions = [] } = allySelections[allyFactionName] as IAllySelections
 
   const allyArmy = useMemo(() => getArmy(allyFactionName), [allyFactionName]) as IArmy
 
   const handleUnits = withSelectMultipleWithPayload(updateAllyUnits, 'units', {
+    factionName: allyFactionName,
+  })
+
+  const handleBattalions = withSelectMultipleWithPayload(updateAllyBattalions, 'battalions', {
     factionName: allyFactionName,
   })
 
@@ -103,14 +109,16 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
       <AllyCardComponent
         allyFactionName={allyFactionName}
         allySelectOptions={allySelectOptions}
+        battalionItems={sortBy(allyArmy.Battalions, 'name')}
+        battalionValues={battalions}
         handleClose={handleClose}
-        items={sortBy(allyArmy.Units, 'name')}
-        setAllyFactionName={handleSetAllyFactionName}
-        setValues={handleUnits}
-        type={`Units`}
-        values={units}
         isVisible={isVisible}
+        setAllyFactionName={handleSetAllyFactionName}
+        setBattalions={handleBattalions}
+        setUnits={handleUnits}
         setVisibility={setVisibility}
+        unitItems={sortBy(allyArmy.Units, 'name')}
+        unitValues={units}
       />
     </div>
   )
@@ -131,6 +139,7 @@ const mapDispatchToProps = {
   showAlly: visibility.actions.addAlly,
   switchAllyArmy: army.actions.switchAllyArmy,
   updateAllyArmy: army.actions.updateAllyArmy,
+  updateAllyBattalions: selections.actions.updateAllyBattalions,
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
 
@@ -139,32 +148,37 @@ export const AllyArmyBuilder = connect(mapStateToProps, mapDispatchToProps)(Ally
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
+  battalionItems: TBattalions
+  battalionValues: string[]
   handleClose: (e: any) => void
   isVisible: boolean
-  items: TUnits
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
-  setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void
+  setUnits: (selectValues: ValueType<TDropdownOption>[]) => void
   setVisibility: () => void
-  type: string
-  values: string[]
+  unitItems: TUnits
+  unitValues: string[]
 }
 
 const AllyCardComponent = (props: IAllyCardProps) => {
   const {
     allyFactionName,
     allySelectOptions,
+    battalionItems,
+    battalionValues,
     handleClose,
     isVisible,
-    items,
     setAllyFactionName,
-    setValues,
+    setBattalions,
+    setUnits,
     setVisibility,
-    type,
-    values,
+    unitItems,
+    unitValues,
   } = props
   const { theme } = useTheme()
 
-  const selectItems = items.map(({ name }) => name)
+  const selectBattalionItems = battalionItems.map(({ name }) => name)
+  const selectUnitItems = unitItems.map(({ name }) => name)
   const selectClass = `flex-grow-1 ${!isVisible ? `text-center` : ``}`
   const headerClass = `card-header bg-secondary pt-1 pb-2`
 
@@ -199,13 +213,21 @@ const AllyCardComponent = (props: IAllyCardProps) => {
         </div>
       </div>
       <div className={`${theme.cardBody} py-3 ${isVisible ? `` : `d-none`}`}>
-        <h4 className={`text-center ${theme.text}`}>Allied {type}</h4>
+        <h5 className={`text-center ${theme.text}`}>Allied Units</h5>
         <SelectMulti
-          values={values}
-          items={selectItems}
-          setValues={setValues}
+          values={unitValues}
+          items={selectUnitItems}
+          setValues={setUnits}
           isClearable={true}
           log={{ title: 'AlliedUnits', label: allyFactionName }}
+        />
+        <h5 className={`text-center ${theme.text} mt-2`}>Allied Battalions</h5>
+        <SelectMulti
+          values={battalionValues}
+          items={selectBattalionItems}
+          setValues={setBattalions}
+          isClearable={true}
+          log={{ title: 'AlliedBattalions', label: allyFactionName }}
         />
       </div>
     </div>

@@ -40,4 +40,7 @@ export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelectio
   }
 }
 
-export const allySelectionsFactory = (units: string[] = []): IAllySelections => ({ units })
+export const allySelectionsFactory = (units: string[] = [], battalions: string[] = []): IAllySelections => ({
+  units,
+  battalions,
+})

@@ -456,12 +456,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Shroudguard',
+    expect(res.allySelections).toEqual({
+      [NIGHTHAUNT]: {
+        battalions: ['Shroudguard'],
+        units: [],
       },
-    ])
+    })
+    expect(res.errors).toEqual([])
   })
 
   it('should work with GHoN1', () => {
@@ -469,14 +470,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    // @ts-ignore
+    expect(res.allySelections[NIGHTHAUNT].battalions).toEqual(['Shrieker Host'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: '*COURT OF NULAHMIA',
-      },
-      {
-        severity: 'warn',
-        text: 'Shrieker Host',
       },
     ])
   })
@@ -511,8 +510,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_BLOOD)
+    expect(res.allySelections[NIGHTHAUNT]).toEqual({
+      battalions: ['Nighthaunt Procession'],
+      units: [],
+    })
     expect(res.origin_realm).toEqual(null)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Nighthaunt Procession' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BoC', () => {
@@ -911,13 +914,10 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allyFactionNames).toEqual([STORMCAST_ETERNALS])
-    expect(res.errors).toEqual([
-      { text: "Klaq-Tor's Talons", severity: 'warn' },
-      { text: 'Lightning Echelon', severity: 'warn' },
-      { text: 'Skyborne Slayers', severity: 'warn' },
-    ])
+    expect(res.errors).toEqual([{ text: "Klaq-Tor's Talons", severity: 'warn' }])
     expect(res.allySelections).toEqual({
       STORMCAST_ETERNALS: {
+        battalions: ['Lightning Echelon', 'Skyborne Slayers'],
         units: [
           'Drakesworn Templar',
           'Knight-Zephyros',

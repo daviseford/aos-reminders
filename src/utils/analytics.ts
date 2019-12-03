@@ -1,9 +1,9 @@
 import ReactGA from 'react-ga'
 import { isValidFactionName } from 'utils/armyUtils'
 import { isTest, isProd, isDev } from 'utils/env'
-import { TImportParsers, TLoadedArmy } from 'types/import'
 import { SubscriptionPlans, GiftedSubscriptionPlans } from 'utils/plans'
 import { generateUUID, titleCase } from 'utils/textUtils'
+import { TImportParsers, TLoadedArmy } from 'types/import'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {

@@ -12,10 +12,12 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
+  NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
+  SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
@@ -53,6 +55,39 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.selections.battalions).toContain("Kin-eater's Bully Boys")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('reads a Nurgle PDF with a Skaven battalion', () => {
+    const pdfText = getFile('NurgleWithSkavenBattalion')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NURGLE)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: ['SKAVEN'],
+      allySelections: { [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] } },
+      allyUnits: [],
+      errors: [],
+      factionName: 'NURGLE',
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: [],
+        artifacts: [],
+        battalions: [],
+        commands: [],
+        endless_spells: [],
+        scenery: [],
+        spells: ['Miasma of Pestilence'],
+        traits: [],
+        triumphs: [],
+        units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
+      },
+      unknownSelections: ['Greatblades'],
+    })
+
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -505,11 +540,12 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
+        battalions: [],
         units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
       },
-      KHARADRON_OVERLORDS: { units: ['Grundstok Gunhauler'] },
-      STORMCAST_ETERNALS: { units: ['Knight-Incantor', 'Concussors'] },
-      SYLVANETH: { units: ['Kurnoth Hunters'] },
+      KHARADRON_OVERLORDS: { battalions: [], units: ['Grundstok Gunhauler'] },
+      STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
+      SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
     })
     expect(warscrollTxt.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
@@ -664,6 +700,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
         STORMCAST_ETERNALS: {
+          battalions: [],
           units: [
             'Celestant-Prime',
             'Knight-Vexillor',

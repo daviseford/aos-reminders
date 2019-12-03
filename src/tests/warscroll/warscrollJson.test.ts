@@ -66,6 +66,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
     expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
+      battalions: [],
       units: [
         'Darkoath Warqueen',
         'Chaos Sorcerer Lord on Manticore',
@@ -90,8 +91,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.allySelections).toEqual({
+      [STORMCAST_ETERNALS]: {
+        battalions: ['Hailstorm Battery'],
+        units: [],
+      },
+    })
     expect(warscrollTxt.origin_realm).toEqual(null)
-    expect(warscrollTxt.errors).toEqual([{ severity: 'warn', text: 'Hailstorm Battery' }])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should work with Ogor Mawtribes', () => {
@@ -112,18 +119,16 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Nurgle', () => {
+  it('should work with Nurgle and a Skaven battalion', () => {
     const parsedText = getFile('1575286599238-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(NURGLE)
+    expect(warscrollTxt.allySelections).toEqual({
+      [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] },
+    })
     expect(warscrollTxt.origin_realm).toEqual(HYSH)
-    expect(warscrollTxt.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Congregation of Filth',
-      },
-    ])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should work with OBR', () => {
@@ -563,8 +568,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw", 'Thermalrider Cloak (Aqshy)'])
     expect(warscrollTxt.allyFactionNames).toEqual([BONESPLITTERZ, GLOOMSPITE_GITZ])
     expect(warscrollTxt.allySelections).toEqual({
-      BONESPLITTERZ: { units: ['Wurrgog Prophet'] },
-      GLOOMSPITE_GITZ: { units: ['Fungoid Cave-Shaman'] },
+      BONESPLITTERZ: { battalions: [], units: ['Wurrgog Prophet'] },
+      GLOOMSPITE_GITZ: { battalions: [], units: ['Fungoid Cave-Shaman'] },
     })
     expect(warscrollTxt.selections.units).toEqual([
       'Megaboss on Maw-Krusha',

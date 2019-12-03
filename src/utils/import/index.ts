@@ -15,6 +15,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TImportParsers, IImportedArmy, TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
+import { IAllySelections } from 'types/selections'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -99,8 +100,8 @@ type TRemoveFoundErrors = (
 ) => TImportError[]
 
 const removeFoundErrors: TRemoveFoundErrors = (errors, selections, allyData) => {
-  const foundAllies = Object.values(allyData.allySelections)
-    .map(x => (x ? x.units : []))
+  const foundAllies = (Object.values(allyData.allySelections) as IAllySelections[])
+    .map(x => [...x.units, ...x.battalions])
     .flat()
 
   const found = Object.values(selections)

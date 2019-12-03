@@ -568,9 +568,10 @@ describe('getAzyrArmyFromPdf', () => {
     ])
 
     expect(res.allySelections).toEqual({
-      CITIES_OF_SIGMAR: { units: ['Gyrobombers', 'Gyrocopters'] },
-      DISPOSSESSED: { units: ['Quarrellers', 'Thunderers'] },
+      CITIES_OF_SIGMAR: { battalions: [], units: ['Gyrobombers', 'Gyrocopters'] },
+      DISPOSSESSED: { battalions: [], units: ['Quarrellers', 'Thunderers'] },
       STORMCAST_ETERNALS: {
+        battalions: [],
         units: [
           'Prosecutors with Stormcall Javelins',
           'Lord-Arcanum',
@@ -883,6 +884,7 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: ['SLAVES_TO_DARKNESS'],
       allySelections: {
         SLAVES_TO_DARKNESS: {
+          battalions: [],
           units: [
             'Sayl the Faithless',
             'Theddra Skull-Scryer',
@@ -1011,6 +1013,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.units).toEqual(['Auric Runeson', 'Vulkite Berzerkers'])
     expect(res.allySelections[STORMCAST_ETERNALS]).toEqual({
+      battalions: [],
       units: ['Lord-Arcanum', 'Evocators', 'Prosecutors with Stormcall Javelins'],
     })
     expect(res.errors).toEqual([
