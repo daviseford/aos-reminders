@@ -163,7 +163,7 @@ const getArmyText = (
     getText('Artifact', artifacts),
     getText('Battalion', battalions),
     ...allyFactionNames.map(n =>
-      getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions)
+      getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
     ),
     getText('Command Trait', traits),
     getText('Command Abilities', commands, false),

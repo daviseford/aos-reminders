@@ -42,7 +42,7 @@ const PrintArmyComponent = (props: ICurrentArmy) => {
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
             name={`Allied ${titleCase(name)} Battalion`}
-            items={allySelections[name].battalions}
+            items={allySelections[name].battalions || []}
             key={name}
           />
         ))}

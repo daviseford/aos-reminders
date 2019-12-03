@@ -36,7 +36,7 @@ const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
   delete state.allySelections[action.payload]
 }
 const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  state.allySelections[action.payload] = { units: [] }
+  state.allySelections[action.payload] = { units: [], battalions: [] }
 }
 const resetAllySelections = (state, action) => {
   state.allySelections = initialState.allySelections
