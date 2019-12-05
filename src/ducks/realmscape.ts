@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit'
+import { createSlice } from '@reduxjs/toolkit'
 import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
 import { IRealmscapeStore, IStore } from 'types/store'
 
