@@ -5,6 +5,7 @@
   "homepage": "./",
   "dependencies": {
     "@auth0/auth0-spa-js": "1.6.0",
+    "@reduxjs/toolkit": "1.1.0",
     "bootstrap": "4.4.1",
     "core-js": "3.4.7",
     "jspdf": "1.5.3",
@@ -29,7 +30,6 @@
     "react-stripe-elements": "6.0.1",
     "react-switch": "5.0.1",
     "redux": "4.0.4",
-    "@reduxjs/toolkit": "1.1.0",
     "string.prototype.matchall": "4.0.0",
     "superagent": "5.1.2"
   },
@@ -93,7 +93,7 @@
     "source-map-explorer": "2.1.2",
     "ts-node-dev": "1.0.0-pre.44",
     "tsconfig-paths": "3.9.0",
-    "typescript": "3.7.2",
+    "typescript": "3.7.3",
     "xlsx": "0.15.3"
   }
 }
