@@ -226,7 +226,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Gore-grunta Big Boss`,
-        desc: `Pick 1 Gore-grunta Boss from a unit in this battalion to be the battalion’s Big Boss. That model has a Wounds characteristic of 7 instead of 5.`,
+        desc: `Pick 1 Gore-grunta Boss from a unit in this battalion to be the battalion's Big Boss. That model has a Wounds characteristic of 7 instead of 5.`,
         when: [DURING_GAME],
       },
       {
@@ -241,7 +241,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ironfist Big Boss`,
-        desc: `Pick 1 Brute Boss or Gore-grunta Boss from a unit in this battalion to be the battalion’s Big Boss. Add 2 to that model’s Wounds characteristic.`,
+        desc: `Pick 1 Brute Boss or Gore-grunta Boss from a unit in this battalion to be the battalion's Big Boss. Add 2 to that model's Wounds characteristic.`,
         when: [DURING_GAME],
       },
       {
