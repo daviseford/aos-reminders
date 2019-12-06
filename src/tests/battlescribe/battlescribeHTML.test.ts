@@ -51,7 +51,7 @@ describe('getBattlescribeArmy', () => {
       'The Phoenicium',
       "Tempest's Eye",
     ])
-    expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Nighthaunt3', () => {
@@ -69,12 +69,19 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Khorne5', () => {
+    const parsedText = getFile('Khorne5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with TombKings1', () => {
     const parsedText = getFile('TombKings1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(TOMB_KINGS)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Screaming Skull Catapult Crew' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite4', () => {
@@ -139,7 +146,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Runic Fyrewall' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers3', () => {
@@ -180,10 +187,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Molten Infernoth' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers6', () => {
@@ -191,11 +195,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Molten Infernoth' },
-      { severity: 'warn', text: 'Summon Runic Fyrewall' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers5', () => {
@@ -203,10 +203,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Runic Fyrewall' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Slaanesh4', () => {
@@ -524,7 +521,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
     expect(res.origin_realm).toEqual('Aqshy')
-    expect(res.errors).toEqual([])
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -685,7 +681,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Wrath-Axe' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BigWaaagh2', () => {

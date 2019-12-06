@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit'
+import { createSlice } from '@reduxjs/toolkit'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
 import { IFactionNameStore } from 'types/store'
 

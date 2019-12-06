@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { createSlice } from 'redux-starter-kit'
+import { createSlice } from '@reduxjs/toolkit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, TBattalions } from 'types/army'
 import { ISelectionStore, IStore } from 'types/store'
