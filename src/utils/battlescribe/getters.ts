@@ -370,7 +370,6 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
           .split(`${key}:`)[1]
           .split(',')
           .map(cleanText)
-        if (vals.includes('Summon Bleeding Icon')) debugger
         Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         has_matched = true
         if (key === 'Endless Spell') process_entries = false
