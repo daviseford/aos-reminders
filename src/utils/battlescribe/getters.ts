@@ -1,4 +1,4 @@
-import { uniq, isString } from 'lodash'
+import { uniq, isString, without } from 'lodash'
 import {
   IAllegianceInfo,
   IChildNode,
@@ -370,6 +370,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
           .split(`${key}:`)[1]
           .split(',')
           .map(cleanText)
+        if (vals.includes('Summon Bleeding Icon')) debugger
         Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         has_matched = true
         if (key === 'Endless Spell') process_entries = false
@@ -386,7 +387,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
       // Now need to handle entries
       Object.keys(r.entries).forEach(key => {
         if (lookup[key]) {
-          const vals = r.entries[key]
+          const vals = without(r.entries[key], ...ignoredNames)
           Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         }
       })
@@ -404,3 +405,14 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 
   return Collection
 }
+
+const ignoredNames = [
+  'Crew',
+  'Screaming Skull Catapult Crew',
+  'Summon Bleeding Icon',
+  'Summon Hexgorger Skulls',
+  'Summon Molten Infernoth',
+  'Summon Runic Fyrewall',
+  'Summon Wrath-Axe',
+  'Summon Zharrgron Flame Splitter',
+]
