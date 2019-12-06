@@ -143,11 +143,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-<<<<<<< HEAD
-        desc: `If a model is slain by a melee attack, pick an enemy unit within 3" of the model before the model is removed and roll a D6. That unit suffers D3 mortal wounds on a 4+. Add 2 to this roll if the target is a MONSTER.`,
-=======
         desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a dice. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
->>>>>>> updating bonesplitterz units to match book/warscrolls
         when: [COMBAT_PHASE],
       },
       {
