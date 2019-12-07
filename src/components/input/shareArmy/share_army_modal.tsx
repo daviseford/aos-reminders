@@ -30,6 +30,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
   const handleLinkGeneration = async () => {
     const payload = prepareArmy({ ...army, hiddenReminders }, 'save')
     const url = await saveLink(payload as ISavedArmy)
+
     setLink(url)
     logEvent(`GeneratedLink-${army.factionName}`)
     setProcessing(false)

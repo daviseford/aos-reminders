@@ -6,26 +6,30 @@ import {
   BIG_WAAAGH,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
+  DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   NIGHTHAUNT,
+  NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
+  SKAVEN,
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
-  return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}`), 'utf8')
+  return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}.pdf`), 'utf8')
 }
 
 describe('getWarscrollArmyFromPdf', () => {
   it('reads Ossiarch Bonereapers full pdf', () => {
-    const pdfText = getFile('OBR1.pdf')
+    const pdfText = getFile('OBR1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -34,7 +38,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Fyreslayers battalions properly', () => {
-    const pdfText = getFile('3droth2k.pdf')
+    const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -45,7 +49,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Ogor Mawtribes full pdf', () => {
-    const pdfText = getFile('OgorMawtribes1.pdf')
+    const pdfText = getFile('OgorMawtribes1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -54,8 +58,41 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('reads a Nurgle PDF with a Skaven battalion', () => {
+    const pdfText = getFile('NurgleWithSkavenBattalion')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NURGLE)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: ['SKAVEN'],
+      allySelections: { [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] } },
+      allyUnits: [],
+      errors: [],
+      factionName: 'NURGLE',
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: [],
+        artifacts: [],
+        battalions: [],
+        commands: [],
+        endless_spells: [],
+        scenery: [],
+        spells: ['Miasma of Pestilence'],
+        traits: [],
+        triumphs: [],
+        units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
+      },
+      unknownSelections: ['Greatblades'],
+    })
+
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = getFile('SeraphonNoMetadata.pdf')
+    const pdfText = getFile('SeraphonNoMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -64,7 +101,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
-      commands: [],
+      commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
       spells: ['Meteoric Convocation', 'Claws of Glory'],
@@ -83,11 +120,12 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a CoS warscroll pdf file correctly', () => {
-    const pdfText = getFile('CoS1.pdf')
+    const pdfText = getFile('CoS1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.origin_realm).toEqual(null)
     expect(warscrollTxt.errors).toEqual([])
     expect(warscrollTxt.unknownSelections).toEqual([
       'Witch Rod',
@@ -105,10 +143,18 @@ describe('getWarscrollArmyFromPdf', () => {
         "Saint's Blade (Hammerhal)",
         'Deepmire Cloak (The Living City)',
         "Patrician's Helm (Tempest's Eye)",
-        'Entangling Blade (Ghyran)',
       ],
       battalions: ['Greywater Artillery Company'],
-      commands: [],
+      commands: [
+        'Make an Example of the Weak',
+        'Command Underlings',
+        'Inspire Hatred',
+        'Target Sighted',
+        'Rousing Battle Cry',
+        'Hold the Line',
+        'Lord of the Deepwood Host',
+        'Feast of Bones',
+      ],
       endless_spells: ['Quicksilver Swords'],
       scenery: [],
       spells: [
@@ -121,7 +167,14 @@ describe('getWarscrollArmyFromPdf', () => {
         'Warding Brand (Hallowheart)',
         'Ignite Weapons (Hallowheart)',
         'Elemental Cyclone (Hallowheart)',
+        'Chain Lightning (Azyr)',
+        'Comet of Casandora',
+        'Burning Gaze',
+        "Pha's Protection (Hysh)",
+        'Bladewind',
         'Shield of Thorns (Ghyran)',
+        'Amber Spear',
+        'Wildform (Ghur)',
       ],
       traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
@@ -141,7 +194,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Freeguild General',
         'Nomad Prince',
         'Cogsmith',
-        'Battlemage',
+        'Battlemage (Ghyran)',
         'Battlemage on Griffon',
         'Black Ark Corsairs',
         'Drakespawn Chariots',
@@ -155,7 +208,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a Big Waaagh warscroll pdf file correctly', () => {
-    const pdfText = getFile('BigWaaagh1.pdf')
+    const pdfText = getFile('BigWaaagh1')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -169,13 +222,16 @@ describe('getWarscrollArmyFromPdf', () => {
         'Mystic Waaagh! Paint (Bonesplitterz)',
       ],
       battalions: ["Kunnin' Rukk"],
-      commands: [],
+      commands: ['Voice of Gork', 'Savage Attack'],
       endless_spells: [],
       scenery: [],
       spells: [
         "Da Blazin' Eyes (Ironjawz)",
         'Brutal Beast Spirits (Bonesplitterz)',
         'Bone Krusha (Bonesplitterz)',
+        'Green Puke',
+        'Fists of Gork',
+        'Bone Spirit',
       ],
       traits: ["Fast 'Un (Ironjawz)", "Dead Kunnin' (Bonesplitterz)", "Weird 'Un (Ironjawz)"],
       triumphs: [],
@@ -200,7 +256,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a warscroll pdf file with metadata correctly', () => {
-    const pdfText = getFile('SeraphonWithMetadata.pdf')
+    const pdfText = getFile('SeraphonWithMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -209,7 +265,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
-      commands: [],
+      commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
       spells: ['Meteoric Convocation', 'Claws of Glory'],
@@ -228,7 +284,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a slaanesh warscroll pdf file correctly', () => {
-    const pdfText = getFile('SlaaneshList.pdf')
+    const pdfText = getFile('SlaaneshList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -244,10 +300,10 @@ describe('getWarscrollArmyFromPdf', () => {
         'Fallacious Gift (Invaders Host)',
       ],
       battalions: ['Hedonite Host'],
-      commands: [],
+      commands: ['Grisly Trophy', 'Excess of Violence', 'Aided by the Gods'],
       endless_spells: ['Chronomantic Cogs'],
       scenery: [],
-      spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)'],
+      spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)', 'Cacophonic Choir', 'Acquiescence'],
       traits: [
         'Delusions of Infallibility (Invaders Host)',
         'Inspirer (Pretenders Host)',
@@ -269,7 +325,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
-    const pdfText = getFile('CommandTraitWithSpell.pdf')
+    const pdfText = getFile('CommandTraitWithSpell')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -284,7 +340,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a KO warscroll pdf file correctly', () => {
-    const pdfText = getFile('KOList.pdf')
+    const pdfText = getFile('KOList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -302,7 +358,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {
-    const pdfText = getFile('OrderMeetingEngagement.pdf')
+    const pdfText = getFile('OrderMeetingEngagement')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -315,7 +371,7 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: [],
       endless_spells: ['Balewind Vortex'],
       scenery: [],
-      spells: [],
+      spells: ['Doomfire', 'Enfeebling Foe'],
       traits: ['Dauntless (Order)'],
       triumphs: [],
       units: [
@@ -329,20 +385,20 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads an Ironjawz warscroll pdf correctly', () => {
-    const pdfText = getFile('Ironjawz.pdf')
+    const pdfText = getFile('Ironjawz')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
     expect(warscrollTxt.selections).toEqual({
       allegiances: ['Da Choppas'],
-      artifacts: ['Destroyer'],
+      artifacts: ['Destroyer', 'Megaskull Staff'],
       battalions: [],
-      commands: [],
+      commands: ['Rabble Rouser', 'Voice of Gork', 'Go on Ladz, Get Stuck In!'],
       endless_spells: [],
       scenery: [],
       spells: [],
-      traits: ['Checked Out', "Fast 'Un"],
+      traits: ["Fast 'Un", 'Checked Out'],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -355,8 +411,8 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  xit('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
-    const pdfText = getFile('Drakesworn.pdf')
+  it('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
+    const pdfText = getFile('Drakesworn')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -376,7 +432,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('correctly imports the Drakesworn Templar and LAoCD together', () => {
-    const pdfText = getFile('DrakeswornandLAoCD.pdf')
+    const pdfText = getFile('DrakeswornandLAoCD')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -385,7 +441,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: [],
       battalions: [],
-      commands: [],
+      commands: ['Pack Alpha'],
       endless_spells: [],
       scenery: [],
       spells: ['Storm Lance'],
@@ -395,8 +451,8 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  xit('correctly imports the LAoCD and its Storm Lance spell', () => {
-    const pdfText = getFile('LAoCD.pdf')
+  it('correctly imports the LAoCD and its Storm Lance spell', () => {
+    const pdfText = getFile('LAoCD')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -405,7 +461,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: [],
       battalions: [],
-      commands: [],
+      commands: ['Pack Alpha'],
       endless_spells: [],
       scenery: [],
       spells: ['Storm Lance'],
@@ -415,8 +471,48 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
+  it('correctly imports the Loonboss and its command ability', () => {
+    const pdfText = getFile('Loonboss')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: [],
+      triumphs: [],
+      units: ['Loonboss'],
+    })
+  })
+
+  it('adds the command ability that the Boss Shaman trait gives you', () => {
+    const pdfText = getFile('BossShaman')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: ["I'm Da Boss, Now Stab 'Em Good!"],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Spore Maws'],
+      traits: ['Boss Shaman'],
+      triumphs: [],
+      units: ['Fungoid Cave-Shaman'],
+    })
+  })
+
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
-    const pdfText = getFile('NightHauntIssue.pdf')
+    const pdfText = getFile('NightHauntIssue')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -436,7 +532,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a complex warscroll pdf file with allies correctly', () => {
-    const pdfText = getFile('SeraphonMultipleAllies.pdf')
+    const pdfText = getFile('SeraphonMultipleAllies')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -444,11 +540,12 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
+        battalions: [],
         units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
       },
-      KHARADRON_OVERLORDS: { units: ['Grundstok Gunhauler'] },
-      STORMCAST_ETERNALS: { units: ['Knight-Incantor', 'Concussors'] },
-      SYLVANETH: { units: ['Kurnoth Hunters'] },
+      KHARADRON_OVERLORDS: { battalions: [], units: ['Grundstok Gunhauler'] },
+      STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
+      SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
     })
     expect(warscrollTxt.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
@@ -467,7 +564,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allegiances: [],
       artifacts: ['Zoetic Dial'],
       battalions: ['Eternal Starhost'],
-      commands: [],
+      commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex'],
       scenery: [],
       spells: ['Walk Between Realms'],
@@ -478,7 +575,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats) correctly', () => {
-    const pdfText = getFile('NewFormatWithMetadata.pdf')
+    const pdfText = getFile('NewFormatWithMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -489,13 +586,14 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: [],
+        commands: ['Impeccable Foresight', 'Ancient Warlord'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
         spells: ['Meteoric Convocation'],
@@ -516,7 +614,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
-    const pdfText = getFile('NewFormatWithNames.pdf')
+    const pdfText = getFile('NewFormatWithNames')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -527,13 +625,14 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: [],
+        commands: ['Impeccable Foresight', 'Ancient Warlord'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
         spells: ['Meteoric Convocation'],
@@ -554,7 +653,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with stats and character names) correctly', () => {
-    const pdfText = getFile('NewFormatWithNamesAndMetadata.pdf')
+    const pdfText = getFile('NewFormatWithNamesAndMetadata')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -565,13 +664,14 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: [],
+        commands: ['Impeccable Foresight', 'Ancient Warlord'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
         spells: ['Meteoric Convocation'],
@@ -592,7 +692,7 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
-    const pdfText = getFile('SeraphonNewList.pdf')
+    const pdfText = getFile('SeraphonNewList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
@@ -600,6 +700,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
         STORMCAST_ETERNALS: {
+          battalions: [],
           units: [
             'Celestant-Prime',
             'Knight-Vexillor',
@@ -623,6 +724,7 @@ describe('getWarscrollArmyFromPdf', () => {
       ],
       errors: [],
       factionName: SERAPHON,
+      origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {

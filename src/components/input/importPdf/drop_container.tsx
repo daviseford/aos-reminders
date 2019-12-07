@@ -1,74 +1,29 @@
 import React, { useCallback, useState } from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
-import { factionNames, selections, realmscape, army } from 'ducks'
 import { logClick } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
-import { getArmy } from 'utils/getArmy/getArmy'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { hasFatalError } from 'utils/import/warnings'
 import { LinkNewTab } from 'components/helpers/link'
 import ImportDropzone from 'components/input/importPdf/drop_zone'
-import { TSupportedFaction } from 'meta/factions'
-import { IArmy, TUnits } from 'types/army'
-import { ISelections } from 'types/selections'
-import { TAllySelectionStore } from 'types/store'
 import { TImportError, IImportedArmy } from 'types/import'
 
-interface IImportContainerProps {
-  setFactionName: (value: string | null) => void
-  setRealmscape: (value: string | null) => void
-  setRealmscapeFeature: (value: string | null) => void
-  updateAllyArmies: (payload: { factionName: TSupportedFaction; Army: IArmy }[]) => void
-  updateAllySelections: (payload: TAllySelectionStore) => void
-  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
-  updateSelections: (payload: ISelections) => void
-}
-
-const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
-  const {
-    setFactionName,
-    setRealmscape,
-    setRealmscapeFeature,
-    updateAllyArmies,
-    updateAllySelections,
-    updateSelections,
-  } = props
-
+const ImportContainer: React.FC = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
+  const { saveArmyToS3 } = useSavedArmies()
 
   const handleDrop = useCallback(
     (army: IImportedArmy) => {
       setErrors(army.errors)
-
       // Can't proceed if there's an error (usually an unsupported faction)
       if (hasFatalError(army.errors)) return
-
-      setFactionName(army.factionName)
-
-      // Add Ally Game data to the store
-      if (army.allyFactionNames.length) {
-        const armies = army.allyFactionNames.map(factionName => {
-          const Army = getArmy(factionName) as IArmy
-          return { factionName, Army }
-        })
-        updateAllyArmies(armies)
-      }
-
-      updateSelections(army.selections)
-      updateAllySelections(army.allySelections)
-      setRealmscape(army.realmscape)
-      setRealmscapeFeature(army.realmscape_feature)
+      addArmyToStore(army)
+      saveArmyToS3(army)
     },
-    [
-      setFactionName,
-      setRealmscape,
-      setRealmscapeFeature,
-      updateAllyArmies,
-      updateAllySelections,
-      updateSelections,
-    ]
+    [saveArmyToS3]
   )
 
   return (
@@ -93,16 +48,6 @@ const ImportContainerComponent: React.FC<IImportContainerProps> = props => {
     </>
   )
 }
-
-const ImportContainer = connect(null, {
-  setFactionName: factionNames.actions.setFactionName,
-  setRealmscape: realmscape.actions.setRealmscape,
-  setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-  updateAllyArmies: army.actions.updateAllyArmies,
-  updateAllySelections: selections.actions.updateAllySelections,
-  updateAllyUnits: selections.actions.updateAllyUnits,
-  updateSelections: selections.actions.updateSelections,
-})(ImportContainerComponent)
 
 export default ImportContainer
 

@@ -51,7 +51,7 @@ describe('getBattlescribeArmy', () => {
       'The Phoenicium',
       "Tempest's Eye",
     ])
-    expect(res.errors).toEqual([{ text: 'Crew', severity: 'warn' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Nighthaunt3', () => {
@@ -69,12 +69,19 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Khorne5', () => {
+    const parsedText = getFile('Khorne5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with TombKings1', () => {
     const parsedText = getFile('TombKings1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(TOMB_KINGS)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Screaming Skull Catapult Crew' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite4', () => {
@@ -117,6 +124,15 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Nurgle1', () => {
+    const parsedText = getFile('Nurgle1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.origin_realm).toEqual('Ulgu')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Ironjawz2', () => {
     const parsedText = getFile('Ironjawz2')
     const res = getBattlescribeArmy(parsedText)
@@ -130,7 +146,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Runic Fyrewall' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers3', () => {
@@ -171,10 +187,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Molten Infernoth' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers6', () => {
@@ -182,11 +195,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Molten Infernoth' },
-      { severity: 'warn', text: 'Summon Runic Fyrewall' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers5', () => {
@@ -194,10 +203,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Summon Runic Fyrewall' },
-      { severity: 'warn', text: 'Summon Zharrgron Flame Splitter' },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Slaanesh4', () => {
@@ -214,6 +220,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
+    expect(res.origin_realm).toEqual('Ulgu')
     expect(res.errors).toEqual([])
   })
 
@@ -250,7 +257,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
-    expect(res.selections.spells).toEqual(['Arcane Bolt', "Arnzipal's Black Horror", 'Mystic Shield'])
+    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', "Arnzipal's Black Horror"])
     expect(res.selections.allegiances).toEqual([
       'Hagg Nar (Temple)',
       'Draichi Ganeth (Temple)',
@@ -350,12 +357,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections.commands).toEqual(['Instinctive Leader', "I'm Da Boss, Now Stab 'Em Good!"])
+    expect(res.selections.commands).toEqual(['Instinctive Leader'])
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',
       'Mystic Shield',
-      'Spore Maws',
       'The Great Green Spite',
+      'Spore Maws',
     ])
     expect(res.selections.units).toEqual([
       'Dankhold Troggboss',
@@ -446,12 +453,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Shroudguard',
+    expect(res.allySelections).toEqual({
+      [NIGHTHAUNT]: {
+        battalions: ['Shroudguard'],
+        units: [],
       },
-    ])
+    })
+    expect(res.errors).toEqual([])
   })
 
   it('should work with GHoN1', () => {
@@ -459,14 +467,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    // @ts-ignore
+    expect(res.allySelections[NIGHTHAUNT].battalions).toEqual(['Shrieker Host'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: '*COURT OF NULAHMIA',
-      },
-      {
-        severity: 'warn',
-        text: 'Shrieker Host',
       },
     ])
   })
@@ -486,12 +492,27 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with GHoN3', () => {
+    const parsedText = getFile('GHoN3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
+    expect(res.selections.units).toContain('Corpse Cart w/ Unholy Lodestone')
+    expect(res.origin_realm).toEqual('Ghyran')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with LoB1', () => {
     const parsedText = getFile('LoB1')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(LEGION_OF_BLOOD)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Nighthaunt Procession' }])
+    expect(res.allySelections[NIGHTHAUNT]).toEqual({
+      battalions: ['Nighthaunt Procession'],
+      units: [],
+    })
+    expect(res.origin_realm).toEqual(null)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BoC', () => {
@@ -499,7 +520,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-    expect(res.errors).toEqual([])
+    expect(res.origin_realm).toEqual('Aqshy')
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
@@ -509,6 +530,7 @@ describe('getBattlescribeArmy', () => {
       realmscape: 'Ghyran',
       unknownSelections: [],
       factionName: 'BEASTS_OF_CHAOS',
+      origin_realm: 'Aqshy',
       selections: {
         allegiances: [],
         artifacts: [
@@ -535,10 +557,10 @@ describe('getBattlescribeArmy', () => {
         spells: [
           'Arcane Bolt',
           'Mystic Shield',
-          'Summon Lightning',
           'Thunderwave (Thunderscorn Wizard)',
-          'Devolve',
           'Vicious Stranglethorns (Brayherd Wizard)',
+          'Summon Lightning',
+          'Devolve',
           'Boon of Mutation',
         ],
         traits: [],
@@ -603,18 +625,18 @@ describe('getBattlescribeArmy', () => {
         'Magmadroth Blood Vials (Aqshy)',
       ],
       battalions: ['Cauldron Guard', 'Shadowhammer Compact', 'Temple Nest'],
-      commands: [],
+      commands: ['Worship Through Bloodshed', 'Orgy of Slaughter'],
       endless_spells: ['Emerald Lifeswarm', 'Quicksilver Swords', 'Soulsnare Shackles'],
       scenery: [],
       spells: [
         'Arcane Bolt',
-        'Enfeebling Foe',
         'Mystic Shield',
         'The Withering (Wizard)',
+        'Enfeebling Foe',
         "Arnzipal's Black Horror",
         'Doomfire',
       ],
-      traits: [],
+      traits: ['Devoted Disciples'],
       triumphs: [],
       units: [
         'Bloodwrack Medusa',
@@ -659,7 +681,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Summon Wrath-Axe' }])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with BigWaaagh2', () => {
@@ -685,6 +707,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.origin_realm).toEqual(null)
     expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
     expect(res.errors).toEqual([])
@@ -761,6 +784,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.origin_realm).toEqual('Ghur')
     expect(res.selections.scenery).toContain('Skull Altar')
     expect(res.errors).toEqual([
       { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
@@ -782,11 +806,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
-      'FOOTNOTE: Through Knowledge, Power',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
       'AMENDMENT: Prosecute Wars With All Haste',
       'ARTYCLE: Seek New Prospects',
+      'FOOTNOTE: Through Knowledge, Power',
+      'Champion of Progress',
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
+      'Opportunistic Privateers',
     ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
     expect(res.errors).toEqual([])
@@ -798,7 +824,13 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
-    expect(res.selections.commands).toEqual(['Invoke the Code', 'First Rule of Grungsson'])
+    expect(res.selections.commands).toEqual([
+      'Invoke the Code',
+      'Invoke the Code - Lead by Example',
+      'Invoke the Code - Look out for the Boss',
+      'Invoke the Code - Talk Softly, Carry a Big Hammer',
+      'First Rule of Grungsson',
+    ])
     expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
     expect(res.selections.traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',
@@ -849,15 +881,15 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SYLVANETH)
     expect(res.selections.allegiances).toEqual(['Winterleaf (Glade)'])
-    expect(res.selections.artifacts).toEqual(['Frozen Kernel', 'Spiritsong Stave'])
+    expect(res.selections.artifacts).toEqual(['Spiritsong Stave', 'Frozen Kernel'])
     expect(res.selections.battalions).toEqual(['Outcasts'])
-    expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song', 'Branch Blizzard'])
+    expect(res.selections.commands).toEqual(['Branch Blizzard', 'Call to Battle', 'Heed the Spirit-song'])
     expect(res.selections.scenery).toEqual(['Awakened Wyldwood'])
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',
       'Mystic Shield',
-      'Roused to Wrath',
       'Verdant Blessing',
+      'Roused to Wrath',
       'Primal Terror',
       'Awakening the Wood',
     ])
@@ -878,13 +910,10 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allyFactionNames).toEqual([STORMCAST_ETERNALS])
-    expect(res.errors).toEqual([
-      { text: "Klaq-Tor's Talons", severity: 'warn' },
-      { text: 'Lightning Echelon', severity: 'warn' },
-      { text: 'Skyborne Slayers', severity: 'warn' },
-    ])
+    expect(res.errors).toEqual([{ text: "Klaq-Tor's Talons", severity: 'warn' }])
     expect(res.allySelections).toEqual({
       STORMCAST_ETERNALS: {
+        battalions: ['Lightning Echelon', 'Skyborne Slayers'],
         units: [
           'Drakesworn Templar',
           'Knight-Zephyros',

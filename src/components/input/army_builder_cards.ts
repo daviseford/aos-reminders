@@ -1,9 +1,9 @@
+import { getSideEffects } from 'utils/getSideEffects'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { IArmyBuilderProps } from 'components/input/army_builder'
-import { getSideEffects } from 'components/input/getSideEffects'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
+import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'
 
 type TCardOrder = (army: IArmy, props: IArmyBuilderProps, realmFeatureItems: string[]) => (TMulti | TSingle)[]
 
@@ -25,7 +25,7 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       title: 'Traits',
       values: selections.traits,
       type: 'multi',
-      sideEffects: {},
+      sideEffects: getSideEffects(army.Traits),
     },
     {
       items: army.Artifacts,
@@ -92,9 +92,18 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
       sideEffects: {},
     },
     {
-      items: SUPPORTED_REALMSCAPES,
+      items: SUPPORTED_ORIGIN_REALMS,
+      setValue: props.setOriginRealm,
+      title: `Realm of Origin`,
+      mobileTitle: `Origin Realm`,
+      value: props.origin_realm || null,
+      type: 'single',
+    },
+    {
+      items: SUPPORTED_BATTLE_REALMS,
       setValue: props.setRealmscape,
-      title: `Realmscape`,
+      title: `Realm of Battle`,
+      mobileTitle: `Battle Realm`,
       value: props.realmscape || null,
       type: 'single',
     },
@@ -110,15 +119,17 @@ export const getArmyBuilderCards: TCardOrder = (army, props, realmFeatureItems) 
 
 type TMulti = {
   items: TEntry[]
+  mobileTitle?: string
   setValues: (values: string[]) => void
+  sideEffects: IWithSelectMultipleWithSideEffectsPayload
   title: string
   type: 'multi'
   values: string[]
-  sideEffects: IWithSelectMultipleWithSideEffectsPayload
 }
 
 type TSingle = {
   items: string[]
+  mobileTitle?: string
   setValue: (value: string | null) => void
   title: string
   type: 'single'

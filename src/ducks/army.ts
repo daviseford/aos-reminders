@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-starter-kit'
+import { createSlice } from '@reduxjs/toolkit'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { Game } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'

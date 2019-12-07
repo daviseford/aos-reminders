@@ -5,7 +5,7 @@ import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
 import KOArmy from 'army/kharadron_overlords'
 import { TSupportedFaction } from 'meta/factions'
-import { TRealms } from 'types/realmscapes'
+import { TBattleRealms } from 'types/realmscapes'
 import { IImportedArmy, AZYR } from 'types/import'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
@@ -40,7 +40,7 @@ const prefixTypes = [
 
 export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
-  let realmscape: TRealms | null = null
+  let realmscape: TBattleRealms | null = null
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
 
@@ -58,7 +58,7 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       }
 
       if (name.startsWith('REALMSCAPE:')) {
-        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as TRealms
+        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as TBattleRealms
         return accum
       }
 
@@ -122,6 +122,7 @@ export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
+    origin_realm: null,
     realmscape_feature: null,
     realmscape,
     selections,

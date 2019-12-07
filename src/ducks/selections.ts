@@ -1,7 +1,7 @@
 import { uniq, without } from 'lodash'
-import { createSlice } from 'redux-starter-kit'
+import { createSlice } from '@reduxjs/toolkit'
 import { TSupportedFaction } from 'meta/factions'
-import { TUnits } from 'types/army'
+import { TUnits, TBattalions } from 'types/army'
 import { ISelectionStore, IStore } from 'types/store'
 import { TSelectionTypes } from 'types/selections'
 
@@ -36,7 +36,7 @@ const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
   delete state.allySelections[action.payload]
 }
 const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  state.allySelections[action.payload] = { units: [] }
+  state.allySelections[action.payload] = { units: [], battalions: [] }
 }
 const resetAllySelections = (state, action) => {
   state.allySelections = initialState.allySelections
@@ -46,7 +46,14 @@ const resetSelections = (state, action) => {
 }
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
-  state.allySelections[factionName] = { units }
+  state.allySelections[factionName].units = units
+}
+const updateAllyBattalions = (
+  state,
+  action: { payload: { factionName: TSupportedFaction; battalions: TBattalions } }
+) => {
+  const { factionName, battalions } = action.payload
+  state.allySelections[factionName].battalions = battalions
 }
 const updateAllySelections = (state, action) => {
   state.allySelections = action.payload
@@ -90,6 +97,7 @@ const updateSpells = (state: IStore['selections'], action: TAction) => {
   state.selections.spells = action.payload
 }
 const updateTraits = (state: IStore['selections'], action: TAction) => {
+  handleSideEffects(state, action.payload, 'traits')
   state.selections.traits = action.payload
 }
 const updateTriumphs = (state: IStore['selections'], action: TAction) => {
@@ -111,6 +119,7 @@ export const selections = createSlice({
     resetAllySelections,
     resetSelections,
     updateAllegiances,
+    updateAllyBattalions,
     updateAllySelections,
     updateAllyUnits,
     updateArtifacts,

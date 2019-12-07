@@ -9,6 +9,33 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
+  const plural = strength === `1` ? `` : `s`
+  return {
+    name: `Icon Bearer`,
+    desc: `You can return ${strength} slain model${plural} to this unit in your hero phase if it includes any Icon Bearers.`,
+    when: [HERO_PHASE],
+  }
+}
+
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
+  when: [CHARGE_PHASE],
+}
+const WarsphinxBaseEffects = [
+  {
+    name: `Thundercrush Attack`,
+    desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Sacred War Statue`,
+    desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
+    when: [WOUND_ALLOCATION],
+  },
+]
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -173,7 +200,7 @@ export const Units: TUnits = [
       },
       {
         name: `Righteous Smiting`,
-        desc: `Casting value of 5. If successfully cast, pick a Desert Legions or Reanimant unit within 18". Until your next hero phase, all models in the unit are imbued with magical power; each time you roll a hit roll of 6+ for a model in this unit, make one additional hit roll for the same weapon at the same target.`,
+        desc: `Casting value of 5. Pick a Desert Legions or Reanimant unit within 18". Until your next hero phase, all models in the unit are imbued with magical power; each time you roll a hit roll of 6+ for a model in this unit, make one additional hit roll for the same weapon at the same target.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -189,12 +216,17 @@ export const Units: TUnits = [
       },
       {
         name: `Casket`,
-        desc: `This model cannot make charge moves. However, you can add 1 to all save rolls for this model in the shooting phase.`,
+        desc: `This model cannot make charge moves.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Casket`,
+        desc: `You can add 1 to all save rolls for this model in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Keeper's Scrolls`,
-        desc: `The Keeper can attempt to unbind one spell in the enemy hero phase as if he were a wizard.`,
+        desc: `The Keeper can attempt to unbind one spell in the enemy hero phase as if he were a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
@@ -212,16 +244,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Skeleton Champion. Add 1 to the Attacks characteristic of the Skeleton Champion's Ancient Blade or Ancient Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return D6 slain models to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`D6`),
+      HornblowerEffect,
       {
         name: `Serve in Death`,
         desc: `Add 1 to this unit's hit rolls while it is within 18" of any friendly Embalmed Hero.`,
@@ -247,16 +271,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Arrows. Add 1 to hit rolls for a Master of Arrows' attacks in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return D6 slain models to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher. In addition, a unit that includes any Hornblowers can shoot even if they ran in the same turn.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`D6`),
+      HornblowerEffect,
       {
         name: `Hail of Ancient Arrows`,
         desc: `Add 1 to the Attacks characteristic of this unit's Ancient Bows while it has 20 or more models and there are no enemy models within 3" of it.`,
@@ -272,16 +288,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Horse. Add 1 to the Attacks characteristic of the Master of Horse's Bronze-tipped Cavalry Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return D3 slain models to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`D3`),
+      HornblowerEffect,
       {
         name: `Deathly Charge`,
         desc: `Add 1 to wound rolls for attacks made with this unit's Bronzetipped Cavalry Spears if it charged in the same turn.`,
@@ -307,16 +315,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Scouts. Add 1 to hit rolls for a Master of Scouts' attacks in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return D3 slain models to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher. In addition, a unit that includes any Hornblowers can shoot even if it ran in the same turn.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`D3`),
+      HornblowerEffect,
       {
         name: `Like the Angry Desert Wind`,
         desc: `This unit can shoot instead of moving in the movement phase. If it does so, it can move in the shooting phase of the same turn, but cannot shoot. If it moves in the shooting phase, it can retreat.`,
@@ -332,16 +332,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Master of Chariots; Add 1 to the Attacks characteristic of the Master of Chariot's Charioteer's Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return 1 slain model to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher. In addition, a unit that includes any Hornblowers can shoot even if it ran in the same turn.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`1`),
+      HornblowerEffect,
       {
         name: `Crush them Beneath Our Wheels`,
         desc: `If this unit makes a charge move, then in the subsequent combat phase you may double the number of attacks it makes with its melee weapons.`,
@@ -357,16 +349,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Tomb Captain. Add 1 to the Attacks characteristic of the Tomb Captain's Tomb Blade or Bronze Halberd.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return D3 slain models to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`D3`),
+      HornblowerEffect,
       {
         name: `Cursed Weapons`,
         desc: `If the wound roll for an attack made by a model from this unit is 6+, add 1 to the Damage characteristic of their Tomb Blade or Bronze Halberd for that attack.`,
@@ -397,16 +381,8 @@ export const Units: TUnits = [
         desc: `The leader of this unit is a Necropolis Captain. Add 1 to the Attacks characteristic of the Necropolis Captain's Knight's Heavy Spear.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. You can return 1 slain model to this unit in your hero phase if it includes any Icon Bearers.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
-        when: [CHARGE_PHASE],
-      },
+      getIconBearerEffect(`1`),
+      HornblowerEffect,
       {
         name: `Necrovenom`,
         desc: `Each time you make a wound roll of 6+ for a Necroserpent's Poisoned Fangs, that attack inflicts 1 mortal wound in addition to its normal damage.`,
@@ -451,37 +427,16 @@ export const Units: TUnits = [
   },
   {
     name: `Warsphinx`,
-    effects: [
-      {
-        name: `Thundercrush Attack`,
-        desc: `After this model makes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Sacred War Statue`,
-        desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...WarsphinxBaseEffects],
   },
   {
     name: `Royal Warsphinx`,
     effects: [
-      {
-        name: `Thundercrush Attack`,
-        desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
+      ...WarsphinxBaseEffects,
       {
         name: `The Tomb King's Curse`,
         desc: `If a Royal Warsphinx is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
         when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Sacred War Statue`,
-        desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
       },
       {
         name: `Who Dares Disturb My Slumber?`,

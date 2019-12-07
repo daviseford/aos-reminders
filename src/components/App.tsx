@@ -6,7 +6,7 @@ import { ROUTES } from 'utils/env'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from 'components/page/privateRoute'
 import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
-import { loadArmyFromLocalStore } from 'utils/loadArmyFromLocalStore'
+import { loadArmyFromLocalStore } from 'utils/loadArmy/loadArmyHelpers'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))

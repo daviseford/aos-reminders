@@ -1,19 +1,29 @@
 import { TSupportedFaction } from 'meta/factions'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TAllySelectionStore } from 'types/store'
-import { TRealms } from 'types/realmscapes'
 import { ISelections } from 'types/selections'
+import { ISavedArmyFromApi, ILinkedArmy } from 'types/savedArmy'
+import { ICurrentArmy } from 'types/army'
 
 export interface IImportedArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   allyUnits: string[]
-  factionName: TSupportedFaction
   errors: TImportError[]
+  factionName: TSupportedFaction
+  hiddenReminders?: undefined
+  origin_realm: TOriginRealms | null
   realmscape_feature: string | null
-  realmscape: TRealms | null
+  realmscape: TBattleRealms | null
   selections: ISelections
   unknownSelections: string[]
 }
+
+export type TLoadedArmy =
+  | ISavedArmyFromApi
+  | IImportedArmy
+  | ILinkedArmy
+  | (ICurrentArmy & { hiddenReminders: string[] })
 
 export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' }
 

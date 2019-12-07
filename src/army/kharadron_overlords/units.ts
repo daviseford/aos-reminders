@@ -152,8 +152,8 @@ export const Units: TUnits = [
       },
       {
         name: `Read the Winds`,
-        desc: `If the Navigator does not move, re-roll run/charge rolls for all visible SKYVESSELS. Cannot use in same turn as Aetherstorm. IF the Aetheric Navigator is embarked, Read the winds only affects the SKYVESSEL they are embarked upon.`,
-        when: [MOVEMENT_PHASE],
+        desc: `If the Navigator does not move, re-roll run/charge rolls for all visible SKYVESSELS. Cannot use in same turn as Aetherstorm. If the Aetheric Navigator is embarked, Read the Winds only affects the SKYVESSEL they are embarked upon.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -295,7 +295,7 @@ export const Units: TUnits = [
       BombRacksEffect,
       {
         name: `Ahead Full`,
-        desc: `The Gunahuler can re-roll run and charge rolls this turn; but cannot attack in the shooting phase.`,
+        desc: `In each of your hero phases, the Captain of a Grundstok Gunhauler can give this order. If they do so, until your next hero phase you can re-roll run and charge rolls for the Grundstok Gunhauler, but it may not attack in the shooting phase.`,
         when: [HERO_PHASE],
       },
       {

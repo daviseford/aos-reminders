@@ -49,6 +49,7 @@ export const MonstersOfChaos: TUnits = [
         name: `Enfeeble Foe`,
         desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the wound rolls made by the target in the combat phase.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Enfeeble Foe`,
@@ -148,7 +149,7 @@ export const MonstrousArcanumChaos: TUnits = [
       {
         name: `Plaything of the Dark Gods`,
         desc: `At the start of your hero phase, roll a D6. On a 1, this model suffers D3 mortal wounds. On a 2+, you can heal up to D3 wounds allocated to this model. If you roll a 2+ and no wounds are allocated to this model, add D3 to its Wounds characteristic for the rest of the battle instead of healing D3 wounds.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Writhing Tentacles`,

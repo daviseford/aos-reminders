@@ -9,14 +9,19 @@ import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'c
 import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
 import { IStore } from 'types/store'
 
-interface ICardProps {
-  title: string
-  isVisible: boolean
+interface IBaseCardProps {
   isMobile: boolean
+  label?: string
+  mobileTitle?: string | null
+  title: string
+}
+
+interface ICardProps extends IBaseCardProps {
+  isVisible: boolean
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
-  const { title, isVisible, isMobile, children } = props
+  const { title, isVisible, isMobile, mobileTitle, children } = props
   const { theme } = useTheme()
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
@@ -27,72 +32,88 @@ const CardComponent: React.FC<ICardProps> = props => {
   return (
     <div className={colClass}>
       <div className={theme.card}>
-        <CardHeader isMobile={isMobile} isVisible={isVisible} title={title} />
+        <CardHeader isMobile={isMobile} isVisible={isVisible} title={title} mobileTitle={mobileTitle} />
         <div className={bodyClass}>{children}</div>
       </div>
     </div>
   )
 }
 
-interface ICardMultiProps {
+interface ICardMultiProps extends IBaseCardProps {
   hiddenSelectors: string[] // state2props
-  isMobile: boolean
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
-  title: string
   values: string[]
   enableLog?: boolean
 }
 
 const CardMultiComponent = (props: ICardMultiProps) => {
-  const { items, setValues, values, hiddenSelectors, title, isMobile, enableLog = false } = props
+  const {
+    enableLog = false,
+    hiddenSelectors,
+    isMobile,
+    items,
+    label = null,
+    mobileTitle = null,
+    setValues,
+    title,
+    values,
+  } = props
+
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
-  const log = enableLog ? { enable: true, trait: title } : { enable: false }
+  const log = enableLog ? { title, label: label || title } : null
 
   if (!items.length) return null
+
   return (
-    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
       <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} log={log} />
     </CardComponent>
   )
 }
 
-interface ICardSingleSelectProps {
+interface ICardSingleSelectProps extends IBaseCardProps {
+  enableLog?: boolean
   hiddenSelectors: string[] // state2props
-  isMobile: boolean
   items: string[]
   setValue: TSelectOneSetValueFn
-  title: string
   value?: string | null
-  enableLog?: boolean
 }
 
 const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const { setValue, items, title, value = null, hiddenSelectors, isMobile, enableLog = false } = props
+  const {
+    enableLog = false,
+    hiddenSelectors,
+    isMobile,
+    items,
+    label = null,
+    mobileTitle = null,
+    setValue,
+    title,
+    value = null,
+  } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
-  const log = enableLog ? { enable: true, trait: title } : { enable: false }
+  const log = enableLog ? { title, label: label || title } : null
 
   return (
-    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible}>
+    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
       <SelectOne setValue={setValue} items={items} value={value} isClearable={true} log={log} />
     </CardComponent>
   )
 }
 
-interface ICardHeaderProps {
+interface ICardHeaderProps extends IBaseCardProps {
   headerClassName?: string
   hideCard: (value: string) => void
   iconSize?: number
-  isMobile: boolean
   isVisible: boolean
   showCard: (value: string) => void
-  title: string
   type?: TVisibilityIconType
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isMobile, isVisible, hideCard, showCard, type = 'minus', iconSize = 1 } = props
+  const { title, isMobile, mobileTitle, isVisible, hideCard, showCard, type = 'minus', iconSize = 1 } = props
 
   const { theme } = useTheme()
 
@@ -106,17 +127,19 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2}`,
     flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
     flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
-    vizWrapper: `${isMobile ? `pl-2 pr-0` : `px-2`} d-print-none`,
+    vizWrapper: `${isMobile ? `pr-0` : `px-3`} d-print-none`,
   }
+
+  const titleText = isMobile && mobileTitle ? mobileTitle : title
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>
       <div className={styles.flexWrapperClass}>
         <div className={styles.flexClass}>
           {isMobile ? (
-            <h5 className="CardHeaderTitle text-nowrap">{title}</h5>
+            <h5 className="CardHeaderTitle text-nowrap">{titleText}</h5>
           ) : (
-            <h4 className="CardHeaderTitle text-nowrap">{title}</h4>
+            <h4 className="CardHeaderTitle text-nowrap">{titleText}</h4>
           )}
         </div>
         <div className={styles.vizWrapper}>
@@ -140,5 +163,4 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
 
 export const CardMultiSelect = connect(mapStateToProps, null)(componentWithSize(CardMultiComponent))
-
 export const CardSingleSelect = connect(mapStateToProps, null)(componentWithSize(CardSingleSelectComponent))

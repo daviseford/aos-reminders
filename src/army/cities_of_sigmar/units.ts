@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -14,11 +15,14 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
+import { GHYRAN, GHUR, CHAMON, HYSH, SHYISH, ULGU, AQSHY } from 'types/realmscapes'
+import { AZYR } from 'types/import'
 
 const getKharadronUnits = () => KharadronOverlords.Units
 const getStormcastUnits = () => Stormcast.Units
@@ -182,76 +186,119 @@ const FlamespyrePhoenixEffects = [
     when: [MOVEMENT_PHASE],
   },
 ]
+const MagicOfTheRealmsEffect = {
+  name: `Magic of the Realms`,
+  desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
+  when: [START_OF_SETUP],
+}
+const MagicOfTheRealmsCastingEffect = {
+  name: `Magic of the Realms`,
+  desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
+  when: [HERO_PHASE],
+}
+const BattlemageMagicEffect = {
+  name: `Magic`,
+  desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
+  when: [HERO_PHASE],
+}
+const WildformEffect = {
+  name: `Wildform (${GHUR})`,
+  desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const ChainLightningEffect = {
+  name: `Chain Lightning (${AZYR})`,
+  desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const FireballEffect = {
+  name: `Fireball (${AQSHY})`,
+  desc: `Casting value 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const MystifyingMiasmaEffect = {
+  name: `Mystifying Miasma (${ULGU})`,
+  desc: `Casting value 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const PallOfDoomEffect = {
+  name: `Pall of Doom (${SHYISH})`,
+  desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const PhasProtectionEffect = {
+  name: `Pha's Protection (${HYSH})`,
+  desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const TransmutationOfLeadEffect = {
+  name: `Transmutation of Lead (${CHAMON})`,
+  desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const ShieldOfThornsEffect = {
+  name: `Shield of Thorns (${GHYRAN})`,
+  desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
 
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Battlemage`,
     effects: [
-      {
-        name: `Magic of the Realms`,
-        desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Magic of the Realms`,
-        desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Fireball (Aqshy)`,
-        desc: `Casting value 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Mystifying Miasma (Ulgu)`,
-        desc: `Casting value 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Pall of Doom (Shyish)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Pha's Protection (Hysh)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Shield of Thorns (Ghyran)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Transmutation of Lead (Chamon)`,
-        desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Wildform (Ghur)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      BattlemageMagicEffect,
+      ChainLightningEffect,
+      FireballEffect,
+      MagicOfTheRealmsCastingEffect,
+      MagicOfTheRealmsEffect,
+      MystifyingMiasmaEffect,
+      PallOfDoomEffect,
+      PhasProtectionEffect,
+      ShieldOfThornsEffect,
+      TransmutationOfLeadEffect,
+      WildformEffect,
     ],
+  },
+  {
+    name: `Battlemage (${AZYR})`,
+    effects: [MagicOfTheRealmsCastingEffect, ChainLightningEffect],
+  },
+  {
+    name: `Battlemage (${AQSHY})`,
+    effects: [MagicOfTheRealmsCastingEffect, FireballEffect],
+  },
+  {
+    name: `Battlemage (${ULGU})`,
+    effects: [MagicOfTheRealmsCastingEffect, MystifyingMiasmaEffect],
+  },
+  {
+    name: `Battlemage (${SHYISH})`,
+    effects: [MagicOfTheRealmsCastingEffect, PallOfDoomEffect],
+  },
+  {
+    name: `Battlemage (${HYSH})`,
+    effects: [MagicOfTheRealmsCastingEffect, PhasProtectionEffect],
+  },
+  {
+    name: `Battlemage (${CHAMON})`,
+    effects: [MagicOfTheRealmsCastingEffect, TransmutationOfLeadEffect],
+  },
+  {
+    name: `Battlemage (${GHUR})`,
+    effects: [MagicOfTheRealmsCastingEffect, WildformEffect],
+  },
+  {
+    name: `Battlemage (${GHYRAN})`,
+    effects: [MagicOfTheRealmsCastingEffect, ShieldOfThornsEffect],
   },
   {
     name: `Battlemage on Griffon`,
@@ -272,12 +319,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
         spell: true,
       },
-      {
-        name: `Wildform (Ghur)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      WildformEffect,
     ],
   },
   {
@@ -289,12 +331,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       ...CelestialHurricanumEffects,
-      {
-        name: `Chain Lightning (Azyr)`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      ChainLightningEffect,
       {
         name: `Comet of Casandora`,
         desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster and roll 2D6. If the roll is less than or equal to that unit's Move characteristic, that unit suffers D3 mortal wounds. If the roll is greater than that unit's Move characteristic, that unit suffers D6 mortal wounds.`,
@@ -322,12 +359,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
         spell: true,
       },
-      {
-        name: `Pha's Protection (Hysh)`,
-        desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      PhasProtectionEffect,
     ],
   },
   {
@@ -391,8 +423,13 @@ export const Units: TUnits = [
       },
       {
         name: `Skilled Rider`,
-        desc: `Add 1 to run and charge rolls for this model if it does not carry a Freeguild Shield.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to run rolls for this model if it does not carry a Freeguild Shield.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Skilled Rider`,
+        desc: `Add 1 to charge rolls for this model if it does not carry a Freeguild Shield.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Piercing Bloodroar`,
@@ -477,12 +514,12 @@ export const Units: TUnits = [
       {
         name: `Steady Aim`,
         desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models, there are no enemy models within 3" of this unit, and this unit has not made a move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Crack Shot`,
         desc: `Enemy HEROES do not benefit from the Look Out, Sir! rule for attacks made with a Long Rifle.`,
-        when: [COMBAT_PHASE],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -603,7 +640,6 @@ export const Units: TUnits = [
         desc: `If active, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
-
       {
         name: `Rune Lore: Forge Fire`,
         desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, improve the Rend characteristic of that unit's weapons by 1.`,
@@ -633,17 +669,17 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `'I thought duardin were made of sterner stuff!'`,
+        name: `Grumble - 'I thought duardin were made of sterner stuff!'`,
         desc: `Add 1 to the Bravery characteristic of friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
       {
-        name: `'Put your back into it, beardling!'`,
+        name: `Grumble - 'Put your back into it, beardling!'`,
         desc: `You can re-roll wound rolls of 1 for attacks made by friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
       {
-        name: `'Too much damned magic flying about these days!'`,
+        name: `Grumble - 'Too much damned magic flying about these days!'`,
         desc: `A unit with this complaint can attempt to dispel 1 endless spell in your hero phase.`,
         when: [HERO_PHASE],
       },
@@ -1109,8 +1145,18 @@ export const Units: TUnits = [
       },
       {
         name: `One with the Shadows`,
-        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side and say that it is set up in the shadows as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from any enemy units. Any reserve units in the shadows that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side and say that it is set up in the shadows as a reserve unit.`,
         when: [DURING_SETUP],
+      },
+      {
+        name: `One with the Shadows`,
+        desc: `If you have set this unit up as a reserve unit, at the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `One with the Shadows`,
+        desc: `Any reserve units in the shadows that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        when: [TURN_FOUR_START_OF_ROUND],
       },
       {
         name: `Strike Unseen`,
@@ -1192,7 +1238,7 @@ export const Units: TUnits = [
       {
         name: `Harrying Bird of Prey`,
         desc: `In your hero phase, you can pick 1 enemy HERO within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
-        when: [START_OF_HERO_PHASE],
+        when: [HERO_PHASE],
       },
       {
         name: `Lord of the Deepwood Host`,

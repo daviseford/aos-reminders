@@ -115,6 +115,7 @@ const battlescribeTypoMap: TNameMap = {
   'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chronomatic Cogs': 'Chronomantic Cogs',
   'Cloying Sea Mists': 'Cloying Seas Mists',
+  'Corpse Cart with Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
   'DHOM-HAIN': 'Dhom Hain (Enclave)',
   'Epicurean Raiders': 'Epicurean Revellers',
   'Geminids of Uhl-Gyish': 'Geminids of Uhl-Gysh',

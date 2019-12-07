@@ -2,6 +2,7 @@ import request from 'superagent'
 import { ISavedArmy } from 'types/savedArmy'
 import { isDev } from 'utils/env'
 import { TImportFileTypes, TImportParsers } from 'types/import'
+import { ICurrentArmy } from 'types/army'
 
 const devEndpoint = `https://bgj1fpqcj6.execute-api.us-east-1.amazonaws.com/dev`
 const prodEndpoint = `https://mzrv8apqrd.execute-api.us-east-1.amazonaws.com/prod`
@@ -35,6 +36,7 @@ const deleteItem = (id: string, userName: string) => request.delete(`${api}/item
 const getItem = (id: string) => request.get(`${api}/items/${id}`)
 const getLinkedArmy = (id: string) => request.get(`${api}/links/${id}`)
 const getUserItems = (userName: string) => request.get(`${api}/user/${userName}`)
+const saveArmyToS3 = (data: ICurrentArmy) => request.post(`${api}/save`).send(data)
 const updateItem = (id: string, data: IUpdateItem) => request.post(`${api}/update/`).send({ ...data, id })
 
 export const PreferenceApi = {
@@ -46,5 +48,6 @@ export const PreferenceApi = {
   getItem,
   getLinkedArmy,
   getUserItems,
+  saveArmyToS3,
   updateItem,
 }

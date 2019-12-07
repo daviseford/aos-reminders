@@ -209,7 +209,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Tzeentch`,
-        desc: `Casting value 4. You can re-roll failed casting rolls made for Tzeentch wizards within 18" of the Blue Scribes.`,
+        desc: `Casting value 4. You can re-roll failed casting rolls made for TZEENTCH WIZARDS within 18" of the Blue Scribes.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -220,12 +220,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Flickering Flames`,
-        desc: `You can add 1 to hit rolls made for a Pink Horror's Magical Flames attack if its unit contains 20 or more models.`,
+        desc: `You can add 1 to hit rolls made for a PINK HORRORS Magical Flames attack if its unit contains 20 or more models.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Locus of Conjuration`,
-        desc: `You can add 1 to any casting rolls made for this unit if it is within 9" of any TZEENTCH DAEMON HEROESfrom your army.`,
+        desc: `You can add 1 to any casting rolls made for this unit if it is within 9" of any TZEENTCH DAEMON HEROES from your army.`,
         when: [HERO_PHASE],
       },
       {
@@ -245,7 +245,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Split`,
-        desc: `If a friendly Pink Horror model is slain, you can either take petty vengeance or receive 2 Blue Horror Points. If you take petty vengeance, pick an enemy unit within 9" of the slain Pink Horror and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Blue Horror Points you receive can be used instead of or as well as Fate Points when you summon a Blue Horrors unit to the battlefield.`,
+        desc: `If a friendly PINK HORROR model is slain, you can either take petty vengeance or receive 2 BLUE HORROR Points. If you take petty vengeance, pick an enemy unit within 9" of the slain PINK HORROR and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any BLUE HORROR Points you receive can be used instead of or as well as Fate Points when you summon a BLUE HORRORS unit to the battlefield.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -255,7 +255,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Split Again`,
-        desc: `If a friendly Blue Horror model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain Blue Horror and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a Brimstone Horrors unit to the battlefield.`,
+        desc: `If a friendly BLUE HORROR model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain BLUE HORROR and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a BRIMSTONE HORRORS unit to the battlefield.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -397,7 +397,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fireblast`,
-        desc: `Casting value 7. Pick a visible enemy unit within 18". The unit suffers D6 mortal wounds. You can set up 1 unit of Brimstone Horrors within 1" of the target. The number of models set up in the new unit is equal to the number of mortal wounds inflicted.`,
+        desc: `Casting value 7. Pick a visible enemy unit within 18". The unit suffers D6 mortal wounds. You can set up 1 unit of BRIMSTONE HORRORS within 1" of the target. The number of models set up in the new unit is equal to the number of mortal wounds inflicted.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -613,7 +613,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Horrors Without Number`,
-        desc: `In each of your hero phases, add D3 models to each unit of Pink Horrors and/or Blue Horrors, and add 1 model to each unit of Brimstone Horrors in this battalion.`,
+        desc: `In each of your hero phases, add D3 models to each unit of PINK HORRORSand/or BLUE HORRORS, and add 1 model to each unit of BRIMSTONE HORRORS in this battalion.`,
         when: [HERO_PHASE],
       },
     ],
@@ -623,7 +623,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Knowledge of Past, Present and Future`,
-        desc: `You can re-roll any hit, wound, save and run rolls of 1 - as well as any dice rolls of 1 in a charge roll -for models from this battalion.`,
+        desc: `You can re-roll any hit, wound, save and run rolls of 1 - as well as any dice rolls of 1 in a charge roll - for models from this battalion.`,
         when: [DURING_GAME],
       },
     ],

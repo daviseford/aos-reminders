@@ -1,4 +1,5 @@
 import { TTraits } from 'types/army'
+import { StabEmGoodEffect } from './shared'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -121,6 +122,7 @@ const CommandTraits: TTraits = [
         desc: `This general has the I'm Da Boss, Now Stab 'Em Good! command ability from the Loonboss warscroll.`,
         when: [START_OF_COMBAT_PHASE],
       },
+      StabEmGoodEffect,
     ],
   },
   {

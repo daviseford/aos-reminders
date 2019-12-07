@@ -218,8 +218,13 @@ export const Units: TUnits = [
       },
       {
         name: `Jolly Gutpiper`,
-        desc: `Re-roll failed charge rolls and hit rolls of 1 friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
-        when: [DURING_GAME],
+        desc: `Re-roll failed charge rolls for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Jolly Gutpiper`,
+        desc: `Re-roll failed hit rolls of 1 for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

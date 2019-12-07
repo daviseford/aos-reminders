@@ -136,6 +136,27 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Kayzk the Befouled`,
+    effects: [
+      {
+        name: `Corrupted Flesh`,
+        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Noxious Blades`,
+        desc: `If the unmodified hit roll for an attack with this model's Noxious Blades is 6, that attack has a Damage characteristic of 3 instead of D3.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Breath of the Plague Pit`,
+        desc: `You can use this command ability at the start of the battleshock phase if this model is on the battlefield. If you do so, do not take battleshock tests for friendly Nurgle units while they are wholly within 14" of this model in that battleshock phase.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
 ]
 
 // Battalions

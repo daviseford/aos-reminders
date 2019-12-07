@@ -84,6 +84,6 @@ serviceWorker.register({
     // Go ahead and update to the latest cached worker
     // The user will be given an option in the UI to reload and get the newest version
     // But this ensures that they'll get the new worker next time they visit
-    installNewWorker(false)
+    installNewWorker()
   },
 })

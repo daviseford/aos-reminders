@@ -7,7 +7,7 @@ import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { LocalStoredArmy } from 'utils/localStore'
 import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
-import { SubscriptionPlans, ISubscriptionPlan } from 'components/payment/plans'
+import { SubscriptionPlans, ISubscriptionPlan } from 'utils/plans'
 import { IUser } from 'types/user'
 
 interface ICheckoutProps {
@@ -134,7 +134,9 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <button
           type="button"
           className="btn btn btn-block btn-primary"
-          onClick={isAuthenticated ? handleCheckout : handleLogin}
+          onClick={
+            isAuthenticated ? handleCheckout : () => handleLogin({ redirect_uri: window.location.href })
+          }
         >
           Subscribe for {supportPlan.title}
         </button>

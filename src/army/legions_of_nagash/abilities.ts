@@ -1,8 +1,8 @@
 import {
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
-  START_OF_HERO_PHASE,
   HERO_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { TAbilities } from 'types/army'

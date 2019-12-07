@@ -33,6 +33,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [BenKidd](https://github.com/BenKidd)
 + [stures](https://github.com/stures)
 + [Redmongrel](https://github.com/Redmongrel)
++ [bszonye](https://github.com/bszonye)
 + Lorax
 
 ## Available Scripts
@@ -71,6 +72,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
+## `yarn verify` (Mac/Linux) and `yarn verify-win` (Windows)
+
+Runs a script that checks rules to see if they're misplaced. Be sure to run this after adding a new army since it can catch some common errors.
+
 ## Pre-commit
 
 I have set this repository up to automatically take care of some chores when you push a commit.
@@ -100,12 +105,12 @@ I like to use card # `4242 4242 4242 4242` since I can just spam my keyboard.
 
 Obviously, this does not work in production :)
 
-### Warscroll Builder/Azyr Import
+### Warscroll Builder/Azyr/Battlescribe Import
 
-Found a discrepancy between Warscroll Builder and AoS Reminders? You have two options:
+Found a discrepancy between Warscroll Builder/Azyr/Battlescribe and AoS Reminders? You have three options:
 
 1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
-2. Add to the typo list (`[warscroll|azyr]TypoMap`) in `src/utils/import/options.ts`
+2. Add to the typo list (`[warscroll|azyr|battlescribe]TypoMap`) in `src/utils/import/options.ts`
 3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
 
 
