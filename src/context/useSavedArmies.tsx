@@ -69,18 +69,14 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       // Since origin_realm was introduced later, sometimes it's undefined in saved armies
       loaded.origin_realm = loaded.origin_realm || null
 
-      const hasChanges = !isEqual(currentArmy, loaded)
-
-      const changedKeys = !hasChanges
-        ? []
-        : Object.keys(currentArmy).reduce((a, key) => {
-            if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
-            return a
-          }, [] as string[])
+      const changedKeys = Object.keys(currentArmy).reduce((a, key) => {
+        if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
+        return a
+      }, [] as string[])
 
       if (changedKeys.length && isDev) console.log('Changed keys are: ', changedKeys)
 
-      return { hasChanges, changedKeys }
+      return { hasChanges: changedKeys.length > 0, changedKeys }
     },
     [loadedArmy, savedArmies]
   )
