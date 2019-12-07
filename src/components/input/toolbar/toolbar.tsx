@@ -2,6 +2,7 @@ import React, { useState, Suspense, lazy, useMemo, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors } from 'ducks'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -20,6 +21,7 @@ const SaveArmyBtn = lazy(() => import('../savedArmies/save_army_btn'))
 const ShareArmyBtn = lazy(() => import('../shareArmy/share_army_btn'))
 const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
 const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
+const UpdateArmyBtn = lazy(() => import('../savedArmies/update_army_btn'))
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
@@ -35,7 +37,13 @@ interface IToolbarProps {
 const ToolbarComponent = (props: IToolbarProps) => {
   const { currentArmy, factionName, allyFactionNames, resetAllySelection, updateAllyArmy } = props
   const { isOnline } = useAppStatus()
+  const { loadedArmy, armyHasChanges } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
+
+  const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
+    currentArmy,
+    armyHasChanges,
+  ])
 
   const hasEntries = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
@@ -71,6 +79,15 @@ const ToolbarComponent = (props: IToolbarProps) => {
             <DownloadPDFButton />
           </Suspense>
         </div>
+        {isOnline && loadedArmy && hasChanges && (
+          <div className={btnWrapperClass}>
+            <UpdateArmyBtn
+              currentArmy={{ ...currentArmy, ...loadedArmy }}
+              changedKeys={changedKeys}
+              id={loadedArmy.id}
+            />
+          </div>
+        )}
         <div className={btnWrapperClass} hidden={!hasEntries}>
           <Suspense fallback={<LoadingBtn />}>
             <SaveArmyBtn showSavedArmies={showSavedArmies} />
