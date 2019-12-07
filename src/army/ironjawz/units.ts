@@ -24,7 +24,7 @@ const MegabossEffects = [
   },
   {
     name: `Strength from Victory`,
-    desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristicand add 1 to the Attacks characteristicof this model's Boss Choppa and Rip-toof Fist.`,
+    desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristic and add 1 to the Attacks characteristic of this model's Boss Choppa and Rip-toof Fist.`,
     when: [END_OF_COMBAT_PHASE],
   },
   {

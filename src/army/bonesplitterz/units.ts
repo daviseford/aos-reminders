@@ -186,7 +186,7 @@ export const Units: TUnits = [
       BoneTotemBearerEffect,
       {
         name: `Aim Fer Its Eyes`,
-        desc: `Improve the Rend characteristicof an attack made with a Stinga Bow by 1 if the target is a MONSTER.`,
+        desc: `Improve the Rend characteristic of an attack made with a Stinga Bow by 1 if the target is a MONSTER.`,
         when: [SHOOTING_PHASE],
       },
       {
