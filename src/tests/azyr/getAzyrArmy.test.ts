@@ -50,6 +50,15 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
+  it('handles Ironjawz3', () => {
+    const fileTxt = getFile('Ironjawz3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections.traits).toContain("Burstin' with Power")
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Ironjawz2', () => {
     const fileTxt = getFile('Ironjawz2')
     const pages = handleAzyrPages(fileTxt)

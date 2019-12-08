@@ -93,6 +93,7 @@ const warscrollTypoMap: TNameMap = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: TNameMap = {
+  'Bursting with Power': "Burstin' with Power",
   'Druid of the Everspring Circle': 'Druid of the Everspring (Living City)',
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',
