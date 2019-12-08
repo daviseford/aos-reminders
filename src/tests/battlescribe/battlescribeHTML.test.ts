@@ -28,6 +28,7 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
+  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -65,6 +66,27 @@ describe('getBattlescribeArmy', () => {
         severity: 'ally-warn',
         text:
           'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+
+  it('should work with Khorne6', () => {
+    const parsedText = getFile('Khorne6')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Furies (of Khorne)',
+      },
+      {
+        severity: 'warn',
+        text: 'Furies',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',
       },
     ])
   })
@@ -107,6 +129,59 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IRONJAWZ)
     expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Mawtribes1', () => {
+    const parsedText = getFile('Mawtribes1')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'OGOR_MAWTRIBES',
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Bloodgullet (Mawtribe)'],
+        artifacts: ['Wizardflesh Apron', 'Splatter-cleaver'],
+        battalions: ['Goremand'],
+        commands: ['Bloodbath', 'Bellowing Voice'],
+        endless_spells: [],
+        scenery: [],
+        spells: [
+          'Arcane Bolt',
+          'Fleshcrave Curse',
+          'Mystic Shield',
+          'Blood Feast',
+          'Voracious Maw',
+          'Rockchomper',
+        ],
+        traits: ["'Nice Drop of the Red Stuff!'"],
+        triumphs: [],
+        units: [
+          'Butcher',
+          'Frostlord on Stonehorn',
+          'Frost Sabres',
+          'Gnoblars',
+          'Leadbelchers',
+          'Ogor Gluttons',
+          'Slaughtermaster',
+        ],
+      },
+      unknownSelections: [],
+    })
+  })
+
+  it('should work with IDK5', () => {
+    const parsedText = getFile('IDK5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(IDONETH_DEEPKIN)
+    expect(res.selections.artifacts).toContain('Ankusha Spur')
     expect(res.errors).toEqual([])
   })
 

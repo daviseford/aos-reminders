@@ -34,10 +34,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Ankusha Spu`,
+    name: `Ankusha Spur`,
     effects: [
       {
-        name: `Ankusha Spu`,
+        name: `Ankusha Spur`,
         desc: `Add 3" to the bearer's Move characteristic. In addition, re-roll hit rolls of 1 for attacks made by the bearer's mount.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
