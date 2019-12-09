@@ -11,7 +11,7 @@ import {
 
 const EndlessSpells: TEndlessSpells = [
   {
-    name: `Ravening Direflock`,
+    name: `Ravening Direflock (Beasts)`,
     effects: [
       {
         name: `Summon Ravening Direflock`,
@@ -31,7 +31,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Doomblast Dirgehorn`,
+    name: `Doomblast Dirgehorn (Beasts)`,
     effects: [
       {
         name: `Summon Doomblast Dirgehorn`,
@@ -51,7 +51,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Wildfire Taurus`,
+    name: `Wildfire Taurus (Beasts)`,
     effects: [
       {
         name: `Summon Wildfire Taurus`,
