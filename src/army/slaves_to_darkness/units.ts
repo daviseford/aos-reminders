@@ -46,7 +46,7 @@ export const getSlavesUnits = () => {
 
 // Common effects used on multiple warscrolls.
 const ChaosRuneshieldEffect = {
-  name: `Chaos Runeshield/Rune-etched Plating/Dark Blessings`,
+  name: `Chaos Runeshield / Rune-etched Plating / Dark Blessings`,
   desc: `Roll a dice each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION],
 }
@@ -56,7 +56,7 @@ const OracularVisionsEffect = {
   when: [HERO_PHASE],
 }
 const DaemonforgedWeaponEffect = {
-  name: `Daemonbound/Soul Splitter`,
+  name: `Daemonbound / Soul Splitter`,
   desc: `If the unmodified hit roll for an attack made with the appropriate weapon is 6, that attack inflicts 1 mortal wound in addition to any normal damage.`,
   when: [COMBAT_PHASE],
 }
@@ -1049,6 +1049,82 @@ export const Units: TUnits = [
         name: `Beast Unbound`,
         desc: `If this model is within 6" of an enemy unit and more than 12" from its master you must roll a dice. On a 4+ the closest other unit within 6" of this model immediately suffers D3 mortal wounds.`,
         when: [START_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fomoroid Crusher`,
+    effects: [
+      {
+        name: `Rampage`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge move. For each 6, that unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Insurmountable Strength`,
+        desc: `In your hero phase, pick 1 terrain feature within 6" of this model and roll a dice for each other unit within 6" of that terrain feature. On a 3+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Mindstealer Sphiranx`,
+    effects: [
+      {
+        name: `Telepathic Dread`,
+        desc: `Subtract 2 from the bravery characteristic of enemy units while they are within 12" of any friendly models with this ability.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Dominate Mind`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 12" of this model and visible. You and your opponent secretly place a dice so that is shows any number, then reveal them. If the numbers equal this ability has no effect. Otherwise the enemy unit selected fights at the end of the combat phase until the next battle round. You cannot select the same unit as the target more than once in the same turn regardless of if the effect worked or not.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ogroid Myrmidon`,
+    effects: [
+      {
+        name: `Arcane Fury`,
+        desc: `If the unmodified hit roll for a melee attack by this model is a 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Berserk Rage`,
+        desc: `You can re-roll hit and wound rolls for melee attacks made by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Pit Marshal`,
+        desc: `Pick 1 friendly Cultists unit wholly within 12" of a friendly model with this command ability. Do not take battleshock tests for that unit until the start of your next hero phase.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Pit Marshal`,
+        desc: `If active, do not take battleshock tests for the buffed unit.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Spire Tyrants`,
+    effects: [
+      {
+        name: `Pit Champion / Bestigor Destroyer`,
+        desc: `Add 2 to the attacks characteristic of any Pit Champion's and Bestigor Destroyer's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Headclaimer`,
+        desc: `Add 1 to the damage characteristic of any Headclaimer's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Pit Fighters`,
+        desc: `You can add 1 to hit rolls for attacks made by this unit if it charged in the same turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
       },
     ],
   },
