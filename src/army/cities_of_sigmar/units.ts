@@ -119,12 +119,6 @@ const LordlingAndRanksOfColdSteelEffects = [
     when: [COMBAT_PHASE],
   },
 ]
-const CaptainOfThePhoenixGuardEffect = {
-  name: `Captain of the Phoenix Guard`,
-  desc: `Pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
-  when: [START_OF_COMBAT_PHASE],
-  command_ability: true,
-}
 const DrummerEffect = {
   name: `Drummer`,
   desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
@@ -984,16 +978,39 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       WitnessToDestinyEffect,
-      CaptainOfThePhoenixGuardEffect,
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly HERO with this command ability. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
     ],
   },
   {
     name: `Anointed on Flamespyre Phoenix`,
-    effects: [...FlamespyrePhoenixEffects, WitnessToDestinyEffect, CaptainOfThePhoenixGuardEffect],
+    effects: [
+      ...FlamespyrePhoenixEffects,
+      WitnessToDestinyEffect,
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
   },
   {
     name: `Anointed on Frostheart Phoenix`,
-    effects: [...FrostheartPhoenixEffects, WitnessToDestinyEffect, CaptainOfThePhoenixGuardEffect],
+    effects: [
+      ...FrostheartPhoenixEffects,
+      WitnessToDestinyEffect,
+      {
+        name: `Captain of the Phoenix Guard`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FROSTHEART PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FROSTHEART PHOENIX.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
   },
   {
     name: `Flamespyre Phoenix`,

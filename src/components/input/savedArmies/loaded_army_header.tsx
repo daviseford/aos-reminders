@@ -1,24 +1,13 @@
-import React, { useMemo } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import { selectors } from 'ducks'
-import UpdateArmyBtn from 'components/input/savedArmies/update_army_btn'
 import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
-import { ICurrentArmy } from 'types/army'
-import { IStore } from 'types/store'
 
-const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
-  const { ...currentArmy } = props
+const LoadedArmyHeader: React.FC = () => {
   const { isOffline } = useAppStatus()
-  const { loadedArmy, armyHasChanges } = useSavedArmies()
+  const { loadedArmy } = useSavedArmies()
   const { theme } = useTheme()
-
-  const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
-    currentArmy,
-    armyHasChanges,
-  ])
 
   if (!loadedArmy) return null
 
@@ -32,25 +21,8 @@ const LoadedArmyHeaderComponent: React.FC<ICurrentArmy> = props => {
           <UpdateNameButton size="0.85rem" className={theme.textSecondary} {...loadedArmy} />
         </div>
       </div>
-      <div className="col-12" hidden={isOffline}>
-        {hasChanges && (
-          <UpdateArmyBtn
-            currentArmy={{ ...currentArmy, ...loadedArmy }}
-            changedKeys={changedKeys}
-            id={loadedArmy.id}
-          />
-        )}
-      </div>
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  ...selectors.getCurrentArmy(state),
-  hiddenReminders: selectors.getReminders(state),
-})
-
-const LoadedArmyHeader = connect(mapStateToProps, {})(LoadedArmyHeaderComponent)
 
 export default LoadedArmyHeader
