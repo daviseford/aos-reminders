@@ -155,14 +155,14 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   }, [hideCard, isMobile, title])
 
   const styles = {
-    cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2}`,
+    cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2} ${isMobile ? `px-3` : ``}`,
     flexClass: `flex-grow-1 text-center ${!isMobile ? `pl-5` : ``}`,
     flexWrapperClass: `d-flex justify-content-${isMobile ? `end` : `center`} align-items-center`,
     vizWrapper: `${isMobile ? `pr-0` : `px-3`} d-print-none`,
   }
 
   const titleText = isMobile && mobileTitle ? mobileTitle : title
-  const selectionCountText = selectionCount && !isVisible ? `(${selectionCount})` : ''
+  const selectionCountText = selectionCount && !isVisible ? ` (${selectionCount})` : ''
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>
@@ -170,11 +170,13 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
         <div className={styles.flexClass}>
           {isMobile ? (
             <h5 className="CardHeaderTitle text-nowrap">
-              {titleText} {selectionCountText}
+              {titleText}
+              {selectionCountText}
             </h5>
           ) : (
             <h4 className="CardHeaderTitle text-nowrap">
-              {titleText} {selectionCountText}
+              {titleText}
+              {selectionCountText}
             </h4>
           )}
         </div>
