@@ -4,6 +4,9 @@ import { saveDefaultPdf } from 'utils/pdf/generate/layouts/default'
 import { TSavePdfType, IPrintPdf } from 'types/pdf'
 
 export const savePdf = (type: TSavePdfType, data: IPrintPdf): jsPDF => {
+  console.log(`Generating ${type} PDF`)
+
   if (type === 'compact') return saveCompactPdf(data)
+
   return saveDefaultPdf(data)
 }

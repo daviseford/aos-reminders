@@ -7,53 +7,53 @@ import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {
-    fontSize: 9,
+    fontSize: 6,
     spacing: 0.22,
     style: 'normal',
   },
   armyEnd: {
-    fontSize: 12,
+    fontSize: 8,
     spacing: 0.18,
     style: 'bold',
   },
   armyFooter: {
-    fontSize: 12,
+    fontSize: 8,
     spacing: 0.23,
     style: 'bold',
   },
   armyName: {
-    fontSize: 12,
+    fontSize: 8,
     spacing: 0.25,
     style: 'bold',
   },
   break: {
     fontSize: 0,
-    spacing: 0.11,
+    spacing: 0.1,
     style: 'normal',
   },
   desc: {
-    fontSize: 9,
-    spacing: 0.18,
+    fontSize: 7,
+    spacing: 0.15,
     style: 'normal',
   },
   phase: {
-    fontSize: 12,
-    spacing: 0.22,
+    fontSize: 10,
+    spacing: 0.18,
     style: 'bold',
   },
   spacer: {
     fontSize: 0,
-    spacing: 0.24,
+    spacing: 0.15,
     style: 'normal',
   },
   title: {
-    fontSize: 9,
-    spacing: 0.18,
+    fontSize: 7,
+    spacing: 0.15,
     style: 'bold',
   },
   titlespacer: {
     fontSize: 0,
-    spacing: 0.1,
+    spacing: 0.05,
     style: 'normal',
   },
 }
@@ -63,8 +63,8 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 10.4,
-  maxTitleLineWidth: 10.4 - 2, // maxLineWidth - 2,
+  maxLineWidth: 15.5,
+  maxTitleLineWidth: 15.5 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
@@ -112,11 +112,11 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
       if (isPhase) {
         doc
-          .setLineWidth(0.00055)
+          .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
           .roundedRect(
             x - 0.1,
-            y - style.spacing + 0.02,
+            y - style.spacing,
             pageWidth - PageOpts.xMargin * 2 + 0.1,
             style.spacing + 0.08,
             0.05,
@@ -126,14 +126,14 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       }
       if (t.type === 'armyName') {
         doc
-          .setLineWidth(0.00055)
+          .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
           .line(x - 0.1, y - style.spacing, pageWidth - PageOpts.xMargin + 0.1, y - style.spacing)
       }
 
       if (t.type === 'armyEnd') {
         doc
-          .setLineWidth(0.00055)
+          .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
           .line(x - 0.1, y + style.spacing, pageWidth - PageOpts.xMargin + 0.1, y + style.spacing)
       }
