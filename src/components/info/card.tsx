@@ -162,7 +162,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   }
 
   const titleText = isMobile && mobileTitle ? mobileTitle : title
-  const selectionCountText = selectionCount && !isVisible ? ` (${selectionCount})` : ''
+  const selectionCountText = selectionCount && !isVisible ? ` (${selectionCount})` : ``
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>
