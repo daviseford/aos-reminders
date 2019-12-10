@@ -63,8 +63,10 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 16,
-  maxTitleLineWidth: 16 - 2, // maxLineWidth - 2,
+  // maxLineWidth: 16,
+  // maxTitleLineWidth: 16 - 2, // maxLineWidth - 2,
+  maxLineWidth: 7.5,
+  maxTitleLineWidth: 7.5 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
@@ -91,24 +93,48 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const phaseInfo = Layout.getPhaseInfo(reminderText)
   const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
 
+  const col1X = 4
+  let colIdx: 0 | 1 = 0
+  let ruleCount = 0
+
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
     let [x, y] = Layout.getInitialXY()
+    let colY = y
+    ruleCount = 0
 
+    // debugger
     page.forEach((t, i) => {
       // Don't add spacers to the start or end of page
       if ((i === 0 || i === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
 
+      if (t.type === 'phase') {
+        colIdx = 0
+        ruleCount = 0
+      }
+
+      if (t.type === 'title' && colIdx === 0) colY = y
+
+      if (t.type === 'title') ruleCount++
+
+      if (t.type === 'titlespacer' && ruleCount > 0) {
+        colIdx = colIdx === 0 ? 1 : 0
+        // debugger
+      }
+
       const isPhase = t.type === 'phase'
       const isArmy = t.type.startsWith('army')
       const style = Styles[t.type]
-      const textX = isPhase || isArmy ? centerX : x
+      const textX = isPhase || isArmy ? centerX : colIdx === 0 ? x : col1X
       const textAlign = isPhase || isArmy ? 'center' : 'left'
+      const textY = colIdx === 0 ? y : colY
+
+      if (t.type === 'title' && colIdx === 1) debugger
 
       doc
         .setFontSize(style.fontSize)
         .setFontStyle(style.style)
-        .text(t.text, textX, y, null, null, textAlign)
+        .text(t.text, textX, textY, null, null, textAlign)
 
       if (isPhase) {
         doc
@@ -138,7 +164,8 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
           .line(x - 0.1, y + style.spacing, pageWidth - PageOpts.xMargin + 0.1, y + style.spacing)
       }
 
-      y = y + style.spacing
+      if (colIdx === 0) y = y + style.spacing
+      if (colIdx === 1) colY = colY + style.spacing
 
       // Add page numbers and watermark on the first pass of a page
       if (i === 0) {
