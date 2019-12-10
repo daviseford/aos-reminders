@@ -44,7 +44,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     )
 
     // Get the PDF ready to be saved
-    const doc = savePdf('default', { ...currentArmy, hiddenReminders, reminders })
+    const doc = savePdf('compact', { ...currentArmy, hiddenReminders, reminders })
 
     setPdf(doc)
     saveArmyToS3(currentArmy)
