@@ -28,7 +28,6 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
-  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
