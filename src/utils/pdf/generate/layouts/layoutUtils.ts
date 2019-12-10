@@ -26,7 +26,7 @@ export default class PdfLayout {
 
   getInitialXY = () => [this.__page.xMargin, this.__page.yMargin]
 
-  private pdf__getSelections = (doc: jsPDF) => (
+  private __getSelections = (doc: jsPDF) => (
     name: string,
     items: string[],
     pluralize: boolean = true
@@ -234,7 +234,7 @@ export default class PdfLayout {
       { text: titleCase(factionName), type: 'armyName' },
     ]
 
-    const getText = this.pdf__getSelections(doc)
+    const getText = this.__getSelections(doc)
 
     const selectionText = [
       getText('Unit', units),
