@@ -18,10 +18,11 @@ interface IBaseCardProps {
 
 interface ICardProps extends IBaseCardProps {
   isVisible: boolean
+  selectionCount?: number
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
-  const { title, isVisible, isMobile, mobileTitle, children } = props
+  const { title, isVisible, isMobile, mobileTitle, children, selectionCount } = props
   const { theme } = useTheme()
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
@@ -32,7 +33,13 @@ const CardComponent: React.FC<ICardProps> = props => {
   return (
     <div className={colClass}>
       <div className={theme.card}>
-        <CardHeader isMobile={isMobile} isVisible={isVisible} title={title} mobileTitle={mobileTitle} />
+        <CardHeader
+          isMobile={isMobile}
+          isVisible={isVisible}
+          title={title}
+          mobileTitle={mobileTitle}
+          selectionCount={selectionCount}
+        />
         <div className={bodyClass}>{children}</div>
       </div>
     </div>
@@ -42,6 +49,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 interface ICardMultiProps extends IBaseCardProps {
   hiddenSelectors: string[] // state2props
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
+  selectionCount: number
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   values: string[]
   enableLog?: boolean
@@ -67,7 +75,13 @@ const CardMultiComponent = (props: ICardMultiProps) => {
   if (!items.length) return null
 
   return (
-    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
+    <CardComponent
+      isMobile={isMobile}
+      title={title}
+      isVisible={isVisible}
+      mobileTitle={mobileTitle}
+      selectionCount={values.length}
+    >
       <SelectMulti values={values} items={selectItems} setValues={setValues} isClearable={true} log={log} />
     </CardComponent>
   )
@@ -77,6 +91,7 @@ interface ICardSingleSelectProps extends IBaseCardProps {
   enableLog?: boolean
   hiddenSelectors: string[] // state2props
   items: string[]
+  selectionCount: number
   setValue: TSelectOneSetValueFn
   value?: string | null
 }
@@ -97,7 +112,13 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
   const log = enableLog ? { title, label: label || title } : null
 
   return (
-    <CardComponent isMobile={isMobile} title={title} isVisible={isVisible} mobileTitle={mobileTitle}>
+    <CardComponent
+      isMobile={isMobile}
+      title={title}
+      isVisible={isVisible}
+      mobileTitle={mobileTitle}
+      selectionCount={value ? 1 : 0}
+    >
       <SelectOne setValue={setValue} items={items} value={value} isClearable={true} log={log} />
     </CardComponent>
   )
@@ -108,13 +129,23 @@ interface ICardHeaderProps extends IBaseCardProps {
   hideCard: (value: string) => void
   iconSize?: number
   isVisible: boolean
+  selectionCount?: number
   showCard: (value: string) => void
   type?: TVisibilityIconType
 }
 
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const { title, isMobile, mobileTitle, isVisible, hideCard, showCard, type = 'minus', iconSize = 1 } = props
-
+  const {
+    title,
+    isMobile,
+    mobileTitle,
+    isVisible,
+    hideCard,
+    showCard,
+    type = 'minus',
+    iconSize = 1,
+    selectionCount,
+  } = props
   const { theme } = useTheme()
 
   const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
@@ -131,15 +162,20 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
   }
 
   const titleText = isMobile && mobileTitle ? mobileTitle : title
+  const selectionCountText = selectionCount && !isVisible ? `(${selectionCount})` : ''
 
   return (
     <div className={styles.cardHeader} onClick={handleVisibility}>
       <div className={styles.flexWrapperClass}>
         <div className={styles.flexClass}>
           {isMobile ? (
-            <h5 className="CardHeaderTitle text-nowrap">{titleText}</h5>
+            <h5 className="CardHeaderTitle text-nowrap">
+              {titleText} {selectionCountText}
+            </h5>
           ) : (
-            <h4 className="CardHeaderTitle text-nowrap">{titleText}</h4>
+            <h4 className="CardHeaderTitle text-nowrap">
+              {titleText} {selectionCountText}
+            </h4>
           )}
         </div>
         <div className={styles.vizWrapper}>
