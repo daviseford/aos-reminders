@@ -8,52 +8,52 @@ import { TPdfStyles, IPrintPdf } from 'types/pdf'
 const Styles: TPdfStyles = {
   army: {
     fontSize: 6,
-    spacing: 0.22,
+    spacing: 0.14,
     style: 'normal',
   },
   armyEnd: {
     fontSize: 8,
-    spacing: 0.18,
+    spacing: 0.14,
     style: 'bold',
   },
   armyFooter: {
     fontSize: 8,
-    spacing: 0.23,
+    spacing: 0.14,
     style: 'bold',
   },
   armyName: {
     fontSize: 8,
-    spacing: 0.25,
+    spacing: 0.14,
     style: 'bold',
   },
   break: {
     fontSize: 0,
-    spacing: 0.1,
+    spacing: 0.03,
     style: 'normal',
   },
   desc: {
     fontSize: 7,
-    spacing: 0.15,
+    spacing: 0.14,
     style: 'normal',
   },
   phase: {
-    fontSize: 10,
-    spacing: 0.18,
+    fontSize: 8,
+    spacing: 0.14,
     style: 'bold',
   },
   spacer: {
     fontSize: 0,
-    spacing: 0.15,
+    spacing: 0.14,
     style: 'normal',
   },
   title: {
     fontSize: 7,
-    spacing: 0.15,
+    spacing: 0.14,
     style: 'bold',
   },
   titlespacer: {
     fontSize: 0,
-    spacing: 0.05,
+    spacing: 0.04,
     style: 'normal',
   },
 }
@@ -63,8 +63,8 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 15.5,
-  maxTitleLineWidth: 15.5 - 2, // maxLineWidth - 2,
+  maxLineWidth: 16,
+  maxTitleLineWidth: 16 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
@@ -116,9 +116,9 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
           .setDrawColor(28, 117, 149)
           .roundedRect(
             x - 0.1,
-            y - style.spacing,
+            y - style.spacing + 0.01,
             pageWidth - PageOpts.xMargin * 2 + 0.1,
-            style.spacing + 0.08,
+            style.spacing + 0.04,
             0.05,
             0.05,
             'S'
