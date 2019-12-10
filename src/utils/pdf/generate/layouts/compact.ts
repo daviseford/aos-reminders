@@ -115,12 +115,19 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
       if (t.type === 'title' && colIdx === 0) colY = y
 
+      if (t.type === 'spacer' && colIdx === 1) {
+        y = (colY > y ? colY : y) + Styles.spacer.spacing
+        colY = y
+      }
+
       if (t.type === 'title') ruleCount++
 
       if (t.type === 'titlespacer' && ruleCount > 0) {
         colIdx = colIdx === 0 ? 1 : 0
         // debugger
       }
+
+      if (t.type === 'titlespacer' && colIdx === 1) return
 
       const isPhase = t.type === 'phase'
       const isArmy = t.type.startsWith('army')
