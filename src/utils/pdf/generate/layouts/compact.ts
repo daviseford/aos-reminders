@@ -3,8 +3,7 @@ import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
 import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { titleCase } from 'utils/textUtils'
-import { TPdfStyles, IPrintPdf, IPdfTextObj } from 'types/pdf'
-import { slice, findIndex } from 'lodash'
+import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {
@@ -60,12 +59,12 @@ const Styles: TPdfStyles = {
 }
 
 const PageOpts = {
-  xMargin: 0.5,
+  xMargin: 0.25,
   yMargin: 0.75,
-  pageHeight: 13,
-  pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 7.5,
-  maxTitleLineWidth: 7.5 - 2, // maxLineWidth - 2,
+  pageHeight: 19.2,
+  pageBottom: 19.2 - 0.75, // pageHeight - yMargin,
+  maxLineWidth: 8.5,
+  maxTitleLineWidth: 8 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
@@ -92,14 +91,13 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const phaseInfo = Layout.getPhaseInfo(reminderText)
   const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
 
-  const col1X = 4
+  const col1X = 4.2
 
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
     let [x, y] = Layout.getInitialXY()
     let colY = y
     let colIdx: 0 | 1 = 0
-    let numRules = 1
     let ruleCount = 0
 
     // debugger
@@ -110,7 +108,6 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       if (t.type === 'phase') {
         colIdx = 0
         ruleCount = 0
-        numRules = getNumRulesInPhase(page, i)
       }
 
       if (t.type === 'title') {
@@ -118,8 +115,9 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
         if (colIdx === 0) colY = y
       }
 
-      if (t.type === 'spacer' && colIdx === 1) {
-        y = (colY > y ? colY : y) + Styles.spacer.spacing
+      if ((t.type === 'spacer' || t.type === 'titlespacer') && colIdx === 1) {
+        y = (colY > y ? colY : y) + Styles.break.spacing
+        debugger
         colY = y
       }
 
@@ -197,10 +195,4 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   })
 
   return doc
-}
-
-const getNumRulesInPhase = (page: IPdfTextObj[], phaseIdx: number): number => {
-  const nextPhaseIdx = findIndex(page, t => t.type === 'phase', phaseIdx + 2)
-  const phaseInfo = slice(page, 0, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
-  return phaseInfo.filter(x => x.type === 'title').length
 }
