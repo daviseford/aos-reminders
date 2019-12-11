@@ -59,10 +59,10 @@ const Styles: TPdfStyles = {
 }
 
 const PageOpts = {
-  xMargin: 0.25,
+  xMargin: 0.3,
   yMargin: 0.75,
-  pageHeight: 19.2,
-  pageBottom: 19.2 - 0.75, // pageHeight - yMargin,
+  pageHeight: 17,
+  pageBottom: 17 - 0.75, // pageHeight - yMargin,
   maxLineWidth: 8.5,
   maxTitleLineWidth: 8 - 2, // maxLineWidth - 2,
 }
@@ -88,7 +88,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const centerX = pageWidth / 2
   const reminderText = Layout.getReminderText(doc, visibleReminders)
   const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
-  const phaseInfo = Layout.getPhaseInfo(reminderText)
+  const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
   const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
 
   const col1X = 4.2

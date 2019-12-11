@@ -81,6 +81,50 @@ export default class PdfLayout {
     }, [] as IPdfPhaseText[])
   }
 
+  getPhaseInfoCompact = (allText: IPdfTextObj[]): IPdfPhaseText[] => {
+    let ruleCount = 0
+    let colIdx: 0 | 1 = 0
+
+    return allText.reduce((a, textObj) => {
+      const currentPhaseIdx = a.length - 1
+
+      if (textObj.type === 'phase') {
+        colIdx = 0
+        ruleCount = 0
+        // We add a spacer after a phase, so represent that here
+        if (currentPhaseIdx > 0) {
+          a[currentPhaseIdx] = {
+            ...a[currentPhaseIdx],
+            yHeight: a[currentPhaseIdx].yHeight + this.__styles.spacer.spacing,
+          }
+        }
+        // And then push the new phase onto the accumulator
+        a.push({
+          canFitOnPage: true,
+          yHeight: this.getInitialXY()[1],
+          phase: textObj.text,
+        })
+      } else {
+        if (textObj.type === 'title') {
+          ruleCount = ruleCount + 1
+        } else if (textObj.type === 'titlespacer' && ruleCount > 0) {
+          colIdx = colIdx === 0 ? 1 : 0
+        }
+
+        const yHeight =
+          colIdx === 0
+            ? a[currentPhaseIdx].yHeight + this.__styles[textObj.type].spacing
+            : a[currentPhaseIdx].yHeight
+        a[currentPhaseIdx] = {
+          ...a[currentPhaseIdx],
+          yHeight,
+          canFitOnPage: yHeight < this.__page.pageBottom,
+        }
+      }
+      return a
+    }, [] as IPdfPhaseText[])
+  }
+
   splitTextToPages = (allText: IPdfTextObj[], phaseInfo: IPdfPhaseText[], armyText: IPdfTextObj[]) => {
     let y = this.getInitialXY()[1]
     let pages: IPdfTextObj[][] = [[]]
