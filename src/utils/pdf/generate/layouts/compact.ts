@@ -89,7 +89,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const reminderText = Layout.getReminderText(doc, visibleReminders)
   const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
   const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
-  const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
+  const pages = Layout.splitTextToPagesCompact(reminderText, phaseInfo, armyText)
 
   const col1X = 4.2
 
