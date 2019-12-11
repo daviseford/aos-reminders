@@ -126,6 +126,7 @@ export default class PdfLayout {
   }
 
   splitTextToPagesCompact = (allText: IPdfTextObj[], phaseInfo: IPdfPhaseText[], armyText: IPdfTextObj[]) => {
+    const artificialBottom = 13
     let y = this.getInitialXY()[1]
     let pages: IPdfTextObj[][] = [[]]
     let pageIdx = 0
@@ -149,6 +150,8 @@ export default class PdfLayout {
       }
 
       if (textObj.type !== 'phase') return
+
+      if (textObj.text === 'During Charge Phase') debugger
 
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
@@ -222,7 +225,7 @@ export default class PdfLayout {
 
         if (colIdx === 0) col0Heights.push(itemsYHeight)
 
-        if (y + itemsYHeight + ySpacing >= this.__page.pageBottom) {
+        if (y + itemsYHeight + ySpacing >= artificialBottom) {
           // Go to next page, with the phase
           let phaseContinued: IPdfTextObj = {
             ...phase,
@@ -238,11 +241,11 @@ export default class PdfLayout {
           // Put on this page
           const nextHeight =
             colIdx === 0
-              ? y + itemsYHeight
-              : col0Heights[col0Heights.length - 1] > itemsYHeight
-              ? y
-              : y + (itemsYHeight - col0Heights[col0Heights.length - 1])
-          debugger
+              ? y + itemsYHeight // Adjust y to accomodate col0 entry
+              : col0Heights[col0Heights.length - 1] >= itemsYHeight // If we've already adjusted y for col0, and col0 is the same or greater height than the col1 entry
+              ? y // Then we don't need to modify y at all
+              : y + (itemsYHeight - col0Heights[col0Heights.length - 1]) // Otherwise, we need to add the difference to y so we have the proper spacing
+          // debugger
           y = nextHeight
           pages[pageIdx] = pages[pageIdx].concat(items)
           titleIdx = nextTitleIdx
