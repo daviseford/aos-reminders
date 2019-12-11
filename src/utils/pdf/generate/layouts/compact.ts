@@ -52,7 +52,7 @@ const Styles: TPdfStyles = {
     style: 'bold',
   },
   titlespacer: {
-    fontSize: 0,
+    fontSize: 0.04,
     spacing: 0.0,
     style: 'normal',
   },
