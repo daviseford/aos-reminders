@@ -230,6 +230,11 @@ export default class PdfLayout {
           nextTitleIdx = findIndex(objs, x => x.type === 'title', attachedTitleEnd + 1)
         }
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
+
+        if (items[0] && items[0].type === 'titlespacer') items.shift() // Remove titlespacers?
+
+        if (!items.length) return
+
         let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
 
         if (colIdx === 0) col0Heights.push(itemsYHeight)
