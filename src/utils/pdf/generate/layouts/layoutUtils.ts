@@ -126,7 +126,6 @@ export default class PdfLayout {
   }
 
   splitTextToPagesCompact = (allText: IPdfTextObj[], phaseInfo: IPdfPhaseText[], armyText: IPdfTextObj[]) => {
-    const artificialBottom = 13
     let y = this.getInitialXY()[1]
     let pages: IPdfTextObj[][] = [[]]
     let pageIdx = 0
@@ -220,12 +219,22 @@ export default class PdfLayout {
 
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
+        if (objs[titleIdx + 1].type === 'title') {
+          // Sometimes titles can stack up on eachother and throw off the true nextTitleIdx
+          // We need to avoid that
+          const attachedTitleEnd = findIndex(
+            objs,
+            (x, ii) => x.type === 'title' && objs[ii + 1].type === 'desc',
+            titleIdx
+          )
+          nextTitleIdx = findIndex(objs, x => x.type === 'title', attachedTitleEnd + 1)
+        }
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
         let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
 
         if (colIdx === 0) col0Heights.push(itemsYHeight)
 
-        if (y + itemsYHeight + ySpacing >= artificialBottom) {
+        if (y + itemsYHeight + ySpacing >= this.__page.pageHeight) {
           // Go to next page, with the phase
           let phaseContinued: IPdfTextObj = {
             ...phase,
@@ -245,7 +254,7 @@ export default class PdfLayout {
               : col0Heights[col0Heights.length - 1] >= itemsYHeight // If we've already adjusted y for col0, and col0 is the same or greater height than the col1 entry
               ? y // Then we don't need to modify y at all
               : y + (itemsYHeight - col0Heights[col0Heights.length - 1]) // Otherwise, we need to add the difference to y so we have the proper spacing
-          // debugger
+
           y = nextHeight
           pages[pageIdx] = pages[pageIdx].concat(items)
           titleIdx = nextTitleIdx
