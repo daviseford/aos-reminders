@@ -133,6 +133,9 @@ export default class PdfLayout {
     let phaseInfoIdx = 0
     let currentPhaseInfo = phaseInfo[phaseInfoIdx]
     let textPhaseIdx = 0
+    let colIdx: 0 | 1 = 0
+
+    let col0Heights: number[] = []
 
     const ySpacing = this.__styles.spacer.spacing * 4
 
@@ -172,6 +175,7 @@ export default class PdfLayout {
       }
 
       // Handle when a phase won't fit on the current page
+      colIdx = 0
       let titleIdx = 1
       let nextPhaseIdx: number | undefined = undefined
       if (!!phaseInfo[phaseInfoIdx + 1]) {
@@ -201,17 +205,22 @@ export default class PdfLayout {
         y = this.getInitialXY()[1] + firstActionYHeight
         pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
         titleIdx = nextTitleIdx
+        colIdx = 0
       } else {
         // Put on this page
         y = y + firstActionYHeight
         pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
         titleIdx = nextTitleIdx
+        colIdx = 1
+        col0Heights.push(firstActionYHeight)
       }
 
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
         let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
+
+        if (colIdx === 0) col0Heights.push(itemsYHeight)
 
         if (y + itemsYHeight + ySpacing >= this.__page.pageBottom) {
           // Go to next page, with the phase
@@ -224,11 +233,20 @@ export default class PdfLayout {
           y = this.getInitialXY()[1] + itemsYHeight + this.__styles.phase.spacing
           pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
           titleIdx = nextTitleIdx
+          colIdx = 0
         } else {
           // Put on this page
-          y = y + itemsYHeight
+          const nextHeight =
+            colIdx === 0
+              ? y + itemsYHeight
+              : col0Heights[col0Heights.length - 1] > itemsYHeight
+              ? y
+              : y + (itemsYHeight - col0Heights[col0Heights.length - 1])
+          debugger
+          y = nextHeight
           pages[pageIdx] = pages[pageIdx].concat(items)
           titleIdx = nextTitleIdx
+          colIdx = colIdx === 0 ? 1 : 0
         }
       })
       if (nextPhaseIdx) textPhaseIdx = nextPhaseIdx
