@@ -18,12 +18,12 @@ const Styles: TPdfStyles = {
   },
   armyFooter: {
     fontSize: 8,
-    spacing: 0.14,
+    spacing: 0.2,
     style: 'bold',
   },
   armyName: {
     fontSize: 8,
-    spacing: 0.14,
+    spacing: 0.3,
     style: 'bold',
   },
   break: {
@@ -117,7 +117,6 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
       if ((t.type === 'spacer' || t.type === 'titlespacer') && colIdx === 1) {
         y = (colY > y ? colY : y) + Styles.break.spacing
-        debugger
         colY = y
       }
 
@@ -133,6 +132,8 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       const textX = isPhase || isArmy ? centerX : colIdx === 0 ? x : col1X
       const textAlign = isPhase || isArmy ? 'center' : 'left'
       const textY = colIdx === 0 ? y : colY
+
+      if (isArmy) colIdx = 0
 
       doc
         .setFontSize(style.fontSize)
@@ -154,17 +155,19 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
           )
       }
       if (t.type === 'armyName') {
+        const lineY = y - style.spacing + 0.15
         doc
           .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
-          .line(x - 0.1, y - style.spacing, pageWidth - PageOpts.xMargin + 0.1, y - style.spacing)
+          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
       }
 
       if (t.type === 'armyEnd') {
+        const lineY = y + style.spacing - 0.09
         doc
           .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
-          .line(x - 0.1, y + style.spacing, pageWidth - PageOpts.xMargin + 0.1, y + style.spacing)
+          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
       }
 
       if (colIdx === 0) y = y + style.spacing
@@ -185,7 +188,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
       // If there's enough room on the last page, add the logo to it
       if (pageNum === pages.length - 1 && i === page.length - 1) {
-        const [logoW, logoH, logoSpacer] = [1.43, 1, 0.25]
+        const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
 
         if (y + logoH + logoSpacer <= PageOpts.pageBottom) {
           doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
