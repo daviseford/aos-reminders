@@ -3,7 +3,8 @@ import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
 import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { titleCase } from 'utils/textUtils'
-import { TPdfStyles, IPrintPdf } from 'types/pdf'
+import { TPdfStyles, IPrintPdf, IPdfTextObj } from 'types/pdf'
+import { slice, findIndex } from 'lodash'
 
 const Styles: TPdfStyles = {
   army: {
@@ -63,8 +64,6 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  // maxLineWidth: 16,
-  // maxTitleLineWidth: 16 - 2, // maxLineWidth - 2,
   maxLineWidth: 7.5,
   maxTitleLineWidth: 7.5 - 2, // maxLineWidth - 2,
 }
@@ -79,7 +78,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout(PageOpts, Styles)
+  const Layout = new PdfLayout('compact', PageOpts, Styles)
 
   doc
     .setFont('helvetica')
@@ -94,14 +93,14 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
 
   const col1X = 4
-  let colIdx: 0 | 1 = 0
-  let ruleCount = 0
 
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
     let [x, y] = Layout.getInitialXY()
     let colY = y
-    ruleCount = 0
+    let colIdx: 0 | 1 = 0
+    let numRules = 1
+    let ruleCount = 0
 
     // debugger
     page.forEach((t, i) => {
@@ -111,20 +110,21 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       if (t.type === 'phase') {
         colIdx = 0
         ruleCount = 0
+        numRules = getNumRulesInPhase(page, i)
       }
 
-      if (t.type === 'title' && colIdx === 0) colY = y
+      if (t.type === 'title') {
+        ruleCount = ruleCount + 1
+        if (colIdx === 0) colY = y
+      }
 
       if (t.type === 'spacer' && colIdx === 1) {
         y = (colY > y ? colY : y) + Styles.spacer.spacing
         colY = y
       }
 
-      if (t.type === 'title') ruleCount++
-
       if (t.type === 'titlespacer' && ruleCount > 0) {
         colIdx = colIdx === 0 ? 1 : 0
-        // debugger
       }
 
       if (t.type === 'titlespacer' && colIdx === 1) return
@@ -135,8 +135,6 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       const textX = isPhase || isArmy ? centerX : colIdx === 0 ? x : col1X
       const textAlign = isPhase || isArmy ? 'center' : 'left'
       const textY = colIdx === 0 ? y : colY
-
-      if (t.type === 'title' && colIdx === 1) debugger
 
       doc
         .setFontSize(style.fontSize)
@@ -199,4 +197,10 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   })
 
   return doc
+}
+
+const getNumRulesInPhase = (page: IPdfTextObj[], phaseIdx: number): number => {
+  const nextPhaseIdx = findIndex(page, t => t.type === 'phase', phaseIdx + 2)
+  const phaseInfo = slice(page, 0, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
+  return phaseInfo.filter(x => x.type === 'title').length
 }

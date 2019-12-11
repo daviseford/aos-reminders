@@ -2,7 +2,7 @@ import jsPDF from 'jspdf'
 import { findIndex, slice, sum, range, last } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
-import { IPdfTextObj, TPdfStyles, IPdfPhaseText } from 'types/pdf'
+import { IPdfTextObj, TPdfStyles, IPdfPhaseText, TSavePdfType } from 'types/pdf'
 import { ICurrentArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 
@@ -18,10 +18,12 @@ interface IPageOpts {
 export default class PdfLayout {
   readonly __page: IPageOpts
   readonly __styles: TPdfStyles
+  readonly __type: TSavePdfType
 
-  constructor(__page: IPageOpts, __styles: TPdfStyles) {
+  constructor(__type: TSavePdfType, __page: IPageOpts, __styles: TPdfStyles) {
     this.__page = __page
     this.__styles = __styles
+    this.__type = __type
   }
 
   getInitialXY = () => [this.__page.xMargin, this.__page.yMargin]
@@ -35,7 +37,9 @@ export default class PdfLayout {
     const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
     const str = `${title}: ${items.join(' | ')}`
 
-    const lines: string[] = doc.splitTextToSize(str, this.__page.maxLineWidth)
+    const lineWidth = this.__type === 'compact' ? this.__page.maxLineWidth * 2 : this.__page.maxLineWidth
+
+    const lines: string[] = doc.splitTextToSize(str, lineWidth)
 
     return lines.map(text => ({
       type: 'army',
@@ -275,7 +279,9 @@ export default class PdfLayout {
         text: titleCase(phase),
       })
 
-      reminders[phase].forEach(action => {
+      const numRulesInPhase = reminders[phase].length
+
+      reminders[phase].forEach((action, i) => {
         // Handle action title
 
         // Add a titlespacer
@@ -284,11 +290,24 @@ export default class PdfLayout {
           text: '',
         })
 
+        const isLastRuleAndOdd = i + 1 === numRulesInPhase && (i + 1) % 2 === 1
+
+        const titleWidth =
+          this.__type === 'default'
+            ? this.__page.maxTitleLineWidth
+            : this.__type === 'compact' && isLastRuleAndOdd
+            ? this.__page.maxTitleLineWidth * 2
+            : this.__page.maxTitleLineWidth
+
+        const lineWidth =
+          this.__type === 'default'
+            ? this.__page.maxLineWidth
+            : this.__type === 'compact' && isLastRuleAndOdd
+            ? this.__page.maxLineWidth * 2
+            : this.__page.maxLineWidth
+
         // Add the title itself
-        const titleLines: string[] = doc.splitTextToSize(
-          this.__getTitle(action),
-          this.__page.maxTitleLineWidth
-        )
+        const titleLines: string[] = doc.splitTextToSize(this.__getTitle(action), titleWidth)
         titleLines.forEach(text => {
           allText.push({
             type: 'title',
@@ -297,7 +316,7 @@ export default class PdfLayout {
         })
 
         // Handle description
-        const descLines: string[] = doc.splitTextToSize(action.desc, this.__page.maxLineWidth)
+        const descLines: string[] = doc.splitTextToSize(action.desc, lineWidth)
         descLines.forEach(text => {
           const trimmed = text.trim()
           const type = trimmed === '' ? 'break' : 'desc'

@@ -77,7 +77,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout(PageOpts, Styles)
+  const Layout = new PdfLayout('default', PageOpts, Styles)
 
   doc
     .setFont('helvetica')
