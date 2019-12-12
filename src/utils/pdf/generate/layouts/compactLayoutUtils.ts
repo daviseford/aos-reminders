@@ -41,6 +41,8 @@ export default class CompactPdfLayout {
     return this._pageY + val > this._opts.pageBottom
   }
 
+  private _yRemaining = (): number => this._opts.pageBottom - this._pageY
+
   splitTextToPagesCompact = (
     allText: ICompactPdfTextObj[],
     phaseInfo: IPdfPhaseText[],
