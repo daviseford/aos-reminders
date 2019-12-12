@@ -28,6 +28,7 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
+  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -128,6 +129,14 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IRONJAWZ)
     expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Mawtribes2', () => {
+    const parsedText = getFile('Mawtribes2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
   })
 
