@@ -89,115 +89,116 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const reminderText = Layout.getReminderText(doc, visibleReminders)
-  const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
-  const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
-  const pages = Layout.splitTextToPagesCompact(reminderText, phaseInfo, armyText)
+  debugger
+  // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
+  // const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
+  // const pages = Layout.splitTextToPagesCompact(reminderText, phaseInfo, armyText)
 
   const col1X = 4.2
 
-  pages.forEach((page, pageNum) => {
-    if (pageNum !== 0) doc.addPage()
-    let [x, y] = Layout.getInitialXY()
-    let colY = y
-    let colIdx: 0 | 1 = 0
-    let ruleCount = 0
+  // pages.forEach((page, pageNum) => {
+  //   if (pageNum !== 0) doc.addPage()
+  //   let [x, y] = Layout.getInitialXY()
+  //   let colY = y
+  //   let colIdx: 0 | 1 = 0
+  //   let ruleCount = 0
 
-    // debugger
-    page.forEach((t, i) => {
-      // Don't add spacers to the start or end of page
-      if ((i === 0 || i === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
+  //   // debugger
+  //   page.forEach((t, i) => {
+  //     // Don't add spacers to the start or end of page
+  //     if ((i === 0 || i === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
 
-      if (t.type === 'phase') {
-        colIdx = 0
-        ruleCount = 0
-      }
+  //     if (t.type === 'phase') {
+  //       colIdx = 0
+  //       ruleCount = 0
+  //     }
 
-      if (t.type === 'title') {
-        ruleCount = ruleCount + 1
-        if (colIdx === 0) colY = y
-      }
+  //     if (t.type === 'title') {
+  //       ruleCount = ruleCount + 1
+  //       if (colIdx === 0) colY = y
+  //     }
 
-      if ((t.type === 'spacer' || t.type === 'titlespacer') && colIdx === 1) {
-        y = (colY > y ? colY : y) + Styles.break.spacing
-        colY = y
-      }
+  //     if ((t.type === 'spacer' || t.type === 'titlespacer') && colIdx === 1) {
+  //       y = (colY > y ? colY : y) + Styles.break.spacing
+  //       colY = y
+  //     }
 
-      if (t.type === 'titlespacer' && ruleCount > 0) {
-        colIdx = colIdx === 0 ? 1 : 0
-      }
+  //     if (t.type === 'titlespacer' && ruleCount > 0) {
+  //       colIdx = colIdx === 0 ? 1 : 0
+  //     }
 
-      if (t.type === 'titlespacer' && colIdx === 1) return
+  //     if (t.type === 'titlespacer' && colIdx === 1) return
 
-      const isPhase = t.type === 'phase'
-      const isArmy = t.type.startsWith('army')
-      const style = Styles[t.type]
-      const textX = isPhase || isArmy ? centerX : colIdx === 0 ? x : col1X
-      const textAlign = isPhase || isArmy ? 'center' : 'left'
-      const textY = colIdx === 0 ? y : colY
+  //     const isPhase = t.type === 'phase'
+  //     const isArmy = t.type.startsWith('army')
+  //     const style = Styles[t.type]
+  //     const textX = isPhase || isArmy ? centerX : colIdx === 0 ? x : col1X
+  //     const textAlign = isPhase || isArmy ? 'center' : 'left'
+  //     const textY = colIdx === 0 ? y : colY
 
-      if (isArmy) colIdx = 0
+  //     if (isArmy) colIdx = 0
 
-      doc
-        .setFontSize(style.fontSize)
-        .setFontStyle(style.style)
-        .text(t.text, textX, textY, null, null, textAlign)
+  //     doc
+  //       .setFontSize(style.fontSize)
+  //       .setFontStyle(style.style)
+  //       .text(t.text, textX, textY, null, null, textAlign)
 
-      if (isPhase) {
-        doc
-          .setLineWidth(0.0001)
-          .setDrawColor(28, 117, 149)
-          .roundedRect(
-            x - 0.1,
-            y - style.spacing + 0.025,
-            pageWidth - PageOpts.xMargin * 2 + 0.1,
-            style.spacing + 0.015,
-            0.05,
-            0.05,
-            'S'
-          )
-      }
-      if (t.type === 'armyName') {
-        const lineY = y - style.spacing + 0.15
-        doc
-          .setLineWidth(0.0001)
-          .setDrawColor(28, 117, 149)
-          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
-      }
+  //     if (isPhase) {
+  //       doc
+  //         .setLineWidth(0.0001)
+  //         .setDrawColor(28, 117, 149)
+  //         .roundedRect(
+  //           x - 0.1,
+  //           y - style.spacing + 0.025,
+  //           pageWidth - PageOpts.xMargin * 2 + 0.1,
+  //           style.spacing + 0.015,
+  //           0.05,
+  //           0.05,
+  //           'S'
+  //         )
+  //     }
+  //     if (t.type === 'armyName') {
+  //       const lineY = y - style.spacing + 0.15
+  //       doc
+  //         .setLineWidth(0.0001)
+  //         .setDrawColor(28, 117, 149)
+  //         .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
+  //     }
 
-      if (t.type === 'armyEnd') {
-        const lineY = y + style.spacing - 0.09
-        doc
-          .setLineWidth(0.0001)
-          .setDrawColor(28, 117, 149)
-          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
-      }
+  //     if (t.type === 'armyEnd') {
+  //       const lineY = y + style.spacing - 0.09
+  //       doc
+  //         .setLineWidth(0.0001)
+  //         .setDrawColor(28, 117, 149)
+  //         .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
+  //     }
 
-      if (colIdx === 0) y = y + style.spacing
-      if (colIdx === 1) colY = colY + style.spacing
+  //     if (colIdx === 0) y = y + style.spacing
+  //     if (colIdx === 1) colY = colY + style.spacing
 
-      // Add page numbers and watermark on the first pass of a page
-      if (i === 0) {
-        const watermarkY = 0.33
-        doc
-          .setTextColor(128, 128, 128)
-          .setFontSize(Styles.desc.fontSize)
-          .setFontStyle(Styles.desc.style)
-          .text(`${pageNum + 1}`, pageWidth - PageOpts.xMargin - 0.11, watermarkY)
-          .setFontStyle(Styles.title.style)
-          .text(`aosreminders.com`, centerX, watermarkY, null, null, 'center')
-          .setTextColor(0, 0, 0) // Set color back to black
-      }
+  //     // Add page numbers and watermark on the first pass of a page
+  //     if (i === 0) {
+  //       const watermarkY = 0.33
+  //       doc
+  //         .setTextColor(128, 128, 128)
+  //         .setFontSize(Styles.desc.fontSize)
+  //         .setFontStyle(Styles.desc.style)
+  //         .text(`${pageNum + 1}`, pageWidth - PageOpts.xMargin - 0.11, watermarkY)
+  //         .setFontStyle(Styles.title.style)
+  //         .text(`aosreminders.com`, centerX, watermarkY, null, null, 'center')
+  //         .setTextColor(0, 0, 0) // Set color back to black
+  //     }
 
-      // If there's enough room on the last page, add the logo to it
-      if (pageNum === pages.length - 1 && i === page.length - 1) {
-        const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
+  //     // If there's enough room on the last page, add the logo to it
+  //     if (pageNum === pages.length - 1 && i === page.length - 1) {
+  //       const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
 
-        if (y + logoH + logoSpacer <= PageOpts.pageBottom) {
-          doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
-        }
-      }
-    })
-  })
+  //       if (y + logoH + logoSpacer <= PageOpts.pageBottom) {
+  //         doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
+  //       }
+  //     }
+  //   })
+  // })
 
   return doc
 }

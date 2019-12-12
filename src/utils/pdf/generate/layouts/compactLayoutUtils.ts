@@ -18,78 +18,27 @@ interface IPageOpts {
 }
 
 export default class CompactPdfLayout {
-  readonly __page: IPageOpts
-  readonly __styles: TPdfStyles
-  readonly __type: TSavePdfType
+  readonly _opts: IPageOpts
+  readonly _style: TPdfStyles
+  readonly _type: TSavePdfType = 'compact'
 
-  constructor(__page: IPageOpts, __styles: TPdfStyles) {
-    this.__page = __page
-    this.__styles = __styles
-    this.__type = 'compact'
+  // Keeping track of pages here
+  readonly _pages: ICompactPdfTextObj[][] = [[]]
+  readonly _pageIdx: number = 0
+  readonly _pageY: number
+
+  _phases: ICompactPdfTextObj[][] = [[]]
+
+  constructor(_opts: IPageOpts, _style: TPdfStyles) {
+    this._opts = _opts
+    this._style = _style
+    this._pageY = this._opts.yMargin
   }
 
-  getInitialXY = () => [this.__page.xMargin, this.__page.yMargin]
+  getInitialXY = () => [this._opts.xMargin, this._opts.yMargin]
 
-  private __getSelections = (doc: jsPDF) => (
-    name: string,
-    items: string[],
-    pluralize: boolean = true
-  ): ICompactPdfTextObj[] => {
-    if (items.length === 0) return []
-    const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
-    const str = `${title}: ${items.join(' | ')}`
-
-    const lines: string[] = doc.splitTextToSize(str, this.__page.maxLineWidth)
-
-    return lines.map(text => ({
-      type: 'army',
-      text: text.trim().replace(/\|$/g, ''), // remove trailing pipe from EOL
-      position: 'full',
-    }))
-  }
-
-  getPhaseInfoCompact = (allText: ICompactPdfTextObj[]): IPdfPhaseText[] => {
-    let ruleCount = 0
-    let colIdx: 0 | 1 = 0
-
-    return allText.reduce((a, textObj) => {
-      const currentPhaseIdx = a.length - 1
-
-      if (textObj.type === 'phase') {
-        colIdx = 0
-        ruleCount = 0
-        // We add a spacer after a phase, so represent that here
-        if (currentPhaseIdx > 0) {
-          a[currentPhaseIdx] = {
-            ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + this.__styles.spacer.spacing,
-          }
-        }
-        // And then push the new phase onto the accumulator
-        a.push({
-          canFitOnPage: true,
-          yHeight: this.getInitialXY()[1],
-          phase: textObj.text,
-        })
-      } else {
-        if (textObj.type === 'title') {
-          ruleCount = ruleCount + 1
-        } else if (textObj.type === 'titlespacer' && ruleCount > 0) {
-          colIdx = colIdx === 0 ? 1 : 0
-        }
-
-        const yHeight =
-          colIdx === 0
-            ? a[currentPhaseIdx].yHeight + this.__styles[textObj.type].spacing
-            : a[currentPhaseIdx].yHeight
-        a[currentPhaseIdx] = {
-          ...a[currentPhaseIdx],
-          yHeight,
-          canFitOnPage: yHeight < this.__page.pageBottom,
-        }
-      }
-      return a
-    }, [] as IPdfPhaseText[])
+  private _willOverrunY = (val: number): boolean => {
+    return this._pageY + val > this._opts.pageBottom
   }
 
   splitTextToPagesCompact = (
@@ -108,7 +57,7 @@ export default class CompactPdfLayout {
 
     let col0Heights: number[] = []
 
-    const ySpacing = this.__styles.spacer.spacing * 4
+    const ySpacing = this._style.spacer.spacing * 4
 
     allText.forEach((textObj, i) => {
       if (i === allText.length - 1 && textObj.type !== 'phase') {
@@ -130,7 +79,7 @@ export default class CompactPdfLayout {
           type: 'spacer',
           position: 'full',
         })
-        y = y + this.__styles.spacer.spacing
+        y = y + this._style.spacer.spacing
         if (!currentPhaseInfo) return console.log('Done processing phases')
       }
 
@@ -150,7 +99,7 @@ export default class CompactPdfLayout {
       let nextTitleIdx = findIndex(objs, x => x.type === 'title', 2)
       let firstAction = slice(objs, 0, nextTitleIdx === -1 ? undefined : nextTitleIdx)
       let firstActionYHeight =
-        this.__styles.phase.spacing + sum(firstAction.map(x => this.__styles[x.type].spacing))
+        this._style.phase.spacing + sum(firstAction.map(x => this._style[x.type].spacing))
 
       let titleSpace: ICompactPdfTextObj = {
         type: 'titlespacer',
@@ -158,7 +107,7 @@ export default class CompactPdfLayout {
         position: firstAction[0].position,
       }
 
-      if (y + firstActionYHeight + ySpacing >= this.__page.pageBottom) {
+      if (y + firstActionYHeight + ySpacing >= this._opts.pageBottom) {
         // Go to next page
         pageIdx = pageIdx + 1
         pages.push([])
@@ -193,11 +142,11 @@ export default class CompactPdfLayout {
 
         if (!items.length) return
 
-        let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
+        let itemsYHeight = sum(items.map(x => this._style[x.type].spacing))
 
         if (colIdx === 0) col0Heights.push(itemsYHeight)
 
-        if (y + itemsYHeight + ySpacing >= this.__page.pageHeight) {
+        if (y + itemsYHeight + ySpacing >= this._opts.pageHeight) {
           // Go to next page, with the phase
           let phaseContinued: ICompactPdfTextObj = {
             ...phase,
@@ -205,7 +154,7 @@ export default class CompactPdfLayout {
           }
           pageIdx++
           pages.push([])
-          y = this.getInitialXY()[1] + itemsYHeight + this.__styles.phase.spacing
+          y = this.getInitialXY()[1] + itemsYHeight + this._style.phase.spacing
           pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
           titleIdx = nextTitleIdx
           colIdx = 0
@@ -229,8 +178,8 @@ export default class CompactPdfLayout {
     })
 
     // Handle armyText
-    const armyTextYHeight = sum(armyText.map(x => this.__styles[x.type].spacing))
-    if (y + armyTextYHeight >= this.__page.pageBottom) {
+    const armyTextYHeight = sum(armyText.map(x => this._style[x.type].spacing))
+    if (y + armyTextYHeight >= this._opts.pageBottom) {
       // Place on next page
       pageIdx++
       pages.push([])
@@ -250,76 +199,21 @@ export default class CompactPdfLayout {
     return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
   }
 
-  getArmyText = (
-    doc: jsPDF,
-    { allyFactionNames, allySelections, factionName, realmscape_feature, selections }: ICurrentArmy
-  ): ICompactPdfTextObj[] => {
-    const {
-      allegiances,
-      artifacts,
-      battalions,
-      commands,
-      endless_spells,
-      scenery,
-      spells,
-      traits,
-      triumphs,
-      units,
-    } = selections
-
-    const realmFeature = realmscape_feature ? [realmscape_feature] : []
-
-    let text: ICompactPdfTextObj[] = [
-      { text: '', type: 'spacer', position: 'full' },
-      { text: '', type: 'spacer', position: 'full' },
-      { text: titleCase(factionName), type: 'armyName', position: 'full' },
-    ]
-
-    const getText = this.__getSelections(doc)
-
-    const selectionText = [
-      getText('Unit', units),
-      ...allyFactionNames.map(n =>
-        getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
-      ),
-      getText('Artifact', artifacts),
-      getText('Battalion', battalions),
-      ...allyFactionNames.map(n =>
-        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
-      ),
-      getText('Command Trait', traits),
-      getText('Command Abilities', commands, false),
-      getText('Allegiance', allegiances),
-      getText('Spell', spells),
-      getText('Endless Spell', endless_spells),
-      getText('Scenery', scenery, false),
-      getText('Realmscape Feature', realmFeature),
-      getText('Triumph', triumphs),
-    ].flat()
-
-    const endText: ICompactPdfTextObj[] = [
-      { text: '', type: 'spacer', position: 'full' },
-      { text: 'Generated by AoS Reminders', type: 'armyFooter', position: 'full' },
-      { text: 'aosreminders.com', type: 'armyEnd', position: 'full' },
-    ]
-
-    return text.concat(selectionText, endText)
-  }
-
-  getReminderText = (doc: jsPDF, reminders: IReminder): ICompactPdfTextObj[] => {
-    let allText: ICompactPdfTextObj[] = []
+  getReminderText = (doc: jsPDF, reminders: IReminder): ICompactPdfTextObj[][] => {
+    const Phases: ICompactPdfTextObj[][] = []
+    let phaseIdx = 0
 
     Object.keys(reminders).forEach(phase => {
       // Handle phase title (Start of Round)
-      allText.push({
-        type: 'phase',
-        text: titleCase(phase),
-        position: 'full',
-      })
+      Phases[phaseIdx] = [
+        {
+          type: 'phase',
+          text: titleCase(phase),
+          position: 'full',
+        },
+      ]
 
       const numRulesInPhase = reminders[phase].length
-
-      let colIdx: 0 | 1 = 0
 
       reminders[phase].forEach((action, i) => {
         // Handle action title
@@ -327,14 +221,14 @@ export default class CompactPdfLayout {
         // Display last rules in full since they won't have a matching partner
         const isLastRuleAndOdd = i + 1 === numRulesInPhase && (i + 1) % 2 === 1
 
-        const position = isLastRuleAndOdd ? 'full' : colIdx === 0 ? 'col0' : 'col1'
+        const position = isLastRuleAndOdd ? 'full' : 'col'
 
-        const titleWidth = isLastRuleAndOdd ? this.__page.maxTitleLineWidth : this.__page.colTitleLineWidth
+        const titleWidth = isLastRuleAndOdd ? this._opts.maxTitleLineWidth : this._opts.colTitleLineWidth
 
-        const lineWidth = isLastRuleAndOdd ? this.__page.maxLineWidth : this.__page.colLineWidth
+        const lineWidth = isLastRuleAndOdd ? this._opts.maxLineWidth : this._opts.colLineWidth
 
         // Add a titlespacer
-        allText.push({
+        Phases[phaseIdx].push({
           type: 'titlespacer',
           text: '',
           position,
@@ -343,7 +237,7 @@ export default class CompactPdfLayout {
         // Add the title itself
         const titleLines: string[] = doc.splitTextToSize(this.__getTitle(action), titleWidth)
         titleLines.forEach(text => {
-          allText.push({
+          Phases[phaseIdx].push({
             type: 'title',
             text: text.trim(),
             position,
@@ -355,19 +249,20 @@ export default class CompactPdfLayout {
         descLines.forEach(text => {
           const trimmed = text.trim()
           const type = trimmed === '' ? 'break' : 'desc'
-          allText.push({
+          Phases[phaseIdx].push({
             type,
             text: trimmed,
             position,
           })
         })
 
-        if (!isLastRuleAndOdd) {
-          colIdx = colIdx === 0 ? 1 : 0
-        }
+        phaseIdx++
       })
     })
 
-    return allText
+    // TODO eventually just remove the return and only assign
+    this._phases = Phases
+
+    return Phases
   }
 }
