@@ -206,13 +206,11 @@ export default class CompactPdfLayout {
     Object.keys(reminders).forEach(phase => {
       Phases.push([])
       // Handle phase title (Start of Round)
-      Phases[phaseIdx] = [
-        {
-          type: 'phase',
-          text: titleCase(phase),
-          position: 'full',
-        },
-      ]
+      Phases[phaseIdx].push({
+        type: 'phase',
+        text: titleCase(phase),
+        position: 'full',
+      })
 
       const numRulesInPhase = reminders[phase].length
 
