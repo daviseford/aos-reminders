@@ -48,40 +48,6 @@ export default class CompactPdfLayout {
     }))
   }
 
-  /**
-   * Do a loop of each phase and assign them a property: canFitOnPage, and yHeight
-   * @param allText
-   */
-  getPhaseInfo = (allText: ICompactPdfTextObj[]): IPdfPhaseText[] => {
-    return allText.reduce((a, textObj) => {
-      const currentPhaseIdx = a.length - 1
-
-      if (textObj.type === 'phase') {
-        // We add a spacer after a phase, so represent that here
-        if (currentPhaseIdx > 0) {
-          a[currentPhaseIdx] = {
-            ...a[currentPhaseIdx],
-            yHeight: a[currentPhaseIdx].yHeight + this.__styles.spacer.spacing,
-          }
-        }
-        // And then push the new phase onto the accumulator
-        a.push({
-          canFitOnPage: true,
-          yHeight: this.getInitialXY()[1],
-          phase: textObj.text,
-        })
-      } else {
-        const yHeight = a[currentPhaseIdx].yHeight + this.__styles[textObj.type].spacing
-        a[currentPhaseIdx] = {
-          ...a[currentPhaseIdx],
-          yHeight,
-          canFitOnPage: yHeight < this.__page.pageBottom,
-        }
-      }
-      return a
-    }, [] as IPdfPhaseText[])
-  }
-
   getPhaseInfoCompact = (allText: ICompactPdfTextObj[]): IPdfPhaseText[] => {
     let ruleCount = 0
     let colIdx: 0 | 1 = 0
@@ -162,6 +128,7 @@ export default class CompactPdfLayout {
         pages[pageIdx].push({
           text: '',
           type: 'spacer',
+          position: 'full',
         })
         y = y + this.__styles.spacer.spacing
         if (!currentPhaseInfo) return console.log('Done processing phases')
@@ -188,6 +155,7 @@ export default class CompactPdfLayout {
       let titleSpace: ICompactPdfTextObj = {
         type: 'titlespacer',
         text: '',
+        position: firstAction[0].position,
       }
 
       if (y + firstActionYHeight + ySpacing >= this.__page.pageBottom) {
@@ -276,136 +244,6 @@ export default class CompactPdfLayout {
     return pages
   }
 
-  splitTextToPages = (
-    allText: ICompactPdfTextObj[],
-    phaseInfo: IPdfPhaseText[],
-    armyText: ICompactPdfTextObj[]
-  ) => {
-    let y = this.getInitialXY()[1]
-    let pages: ICompactPdfTextObj[][] = [[]]
-    let pageIdx = 0
-
-    let phaseInfoIdx = 0
-    let currentPhaseInfo = phaseInfo[phaseInfoIdx]
-    let textPhaseIdx = 0
-
-    const ySpacing = this.__styles.spacer.spacing * 4
-
-    allText.forEach((textObj, i) => {
-      if (i === allText.length - 1 && textObj.type !== 'phase') {
-        const lastEntry = last(pages[pageIdx])
-        // Avoid duplicate additions (fixes issue #643)
-        if (lastEntry && textObj.text !== lastEntry.text) {
-          return pages[pageIdx].push(textObj)
-        }
-      }
-
-      if (textObj.type !== 'phase') return
-
-      if (textObj.text !== currentPhaseInfo.phase) {
-        // New phase, handle
-        currentPhaseInfo = phaseInfo[phaseInfoIdx]
-        // Insert spacer for new phases
-        pages[pageIdx].push({
-          text: '',
-          type: 'spacer',
-        })
-        y = y + this.__styles.spacer.spacing
-        if (!currentPhaseInfo) return console.log('Done processing phases')
-      }
-
-      // If the entire phase can fit on this page, do it
-      if (y + currentPhaseInfo.yHeight < this.__page.pageBottom) {
-        // Add all elements up to the next phase to the page, and increment Y
-        const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
-        const objs = slice(allText, textPhaseIdx, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
-        y = y + currentPhaseInfo.yHeight
-        pages[pageIdx] = pages[pageIdx].concat(objs)
-        textPhaseIdx = nextPhaseIdx
-        phaseInfoIdx++
-        return
-      }
-
-      // Handle when a phase won't fit on the current page
-      let titleIdx = 1
-      let nextPhaseIdx: number | undefined = undefined
-      if (!!phaseInfo[phaseInfoIdx + 1]) {
-        nextPhaseIdx = findIndex(allText, x => x.text === phaseInfo[phaseInfoIdx + 1].phase)
-      }
-
-      const objs = slice(allText, textPhaseIdx, nextPhaseIdx)
-      const phase = objs.shift() as ICompactPdfTextObj
-
-      const numTitles = objs.filter(x => x.type === 'title').length
-
-      // Handle first action
-      let nextTitleIdx = findIndex(objs, x => x.type === 'title', 2)
-      let firstAction = slice(objs, 0, nextTitleIdx === -1 ? undefined : nextTitleIdx)
-      let firstActionYHeight =
-        this.__styles.phase.spacing + sum(firstAction.map(x => this.__styles[x.type].spacing))
-
-      let titleSpace: ICompactPdfTextObj = {
-        type: 'titlespacer',
-        text: '',
-      }
-
-      if (y + firstActionYHeight + ySpacing >= this.__page.pageBottom) {
-        // Go to next page
-        pageIdx = pageIdx + 1
-        pages.push([])
-        y = this.getInitialXY()[1] + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
-        titleIdx = nextTitleIdx
-      } else {
-        // Put on this page
-        y = y + firstActionYHeight
-        pages[pageIdx] = pages[pageIdx].concat(phase, titleSpace, ...firstAction)
-        titleIdx = nextTitleIdx
-      }
-
-      range(0, numTitles - 1).forEach(i => {
-        nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
-        let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
-        let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
-
-        if (y + itemsYHeight + ySpacing >= this.__page.pageBottom) {
-          // Go to next page, with the phase
-          let phaseContinued: ICompactPdfTextObj = {
-            ...phase,
-            text: `${phase.text} (continued)`,
-          }
-          pageIdx++
-          pages.push([])
-          y = this.getInitialXY()[1] + itemsYHeight + this.__styles.phase.spacing
-          pages[pageIdx] = pages[pageIdx].concat(phaseContinued, titleSpace, ...items)
-          titleIdx = nextTitleIdx
-        } else {
-          // Put on this page
-          y = y + itemsYHeight
-          pages[pageIdx] = pages[pageIdx].concat(items)
-          titleIdx = nextTitleIdx
-        }
-      })
-      if (nextPhaseIdx) textPhaseIdx = nextPhaseIdx
-      phaseInfoIdx++
-    })
-
-    // Handle armyText
-    const armyTextYHeight = sum(armyText.map(x => this.__styles[x.type].spacing))
-    if (y + armyTextYHeight >= this.__page.pageBottom) {
-      // Place on next page
-      pageIdx++
-      pages.push([])
-      y = this.getInitialXY()[1] + armyTextYHeight
-    } else {
-      // Put on this page
-      y = y + armyTextYHeight
-    }
-    pages[pageIdx] = pages[pageIdx].concat(...armyText)
-
-    return pages
-  }
-
   private __getTitle = (action: TTurnAction) => {
     const title = getActionTitle(action)
     const titleStr = title ? `${title} - ` : ``
@@ -432,9 +270,9 @@ export default class CompactPdfLayout {
     const realmFeature = realmscape_feature ? [realmscape_feature] : []
 
     let text: ICompactPdfTextObj[] = [
-      { text: '', type: 'spacer' },
-      { text: '', type: 'spacer' },
-      { text: titleCase(factionName), type: 'armyName' },
+      { text: '', type: 'spacer', position: 'full' },
+      { text: '', type: 'spacer', position: 'full' },
+      { text: titleCase(factionName), type: 'armyName', position: 'full' },
     ]
 
     const getText = this.__getSelections(doc)
@@ -460,9 +298,9 @@ export default class CompactPdfLayout {
     ].flat()
 
     const endText: ICompactPdfTextObj[] = [
-      { text: '', type: 'spacer' },
-      { text: 'Generated by AoS Reminders', type: 'armyFooter' },
-      { text: 'aosreminders.com', type: 'armyEnd' },
+      { text: '', type: 'spacer', position: 'full' },
+      { text: 'Generated by AoS Reminders', type: 'armyFooter', position: 'full' },
+      { text: 'aosreminders.com', type: 'armyEnd', position: 'full' },
     ]
 
     return text.concat(selectionText, endText)
@@ -486,6 +324,7 @@ export default class CompactPdfLayout {
       reminders[phase].forEach((action, i) => {
         // Handle action title
 
+        // Display last rules in full since they won't have a matching partner
         const isLastRuleAndOdd = i + 1 === numRulesInPhase && (i + 1) % 2 === 1
 
         const position = isLastRuleAndOdd ? 'full' : colIdx === 0 ? 'col0' : 'col1'
