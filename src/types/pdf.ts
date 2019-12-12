@@ -33,7 +33,7 @@ export interface IPdfTextObj {
 export interface ICompactPdfTextObj {
   type: TPdfStylePdf
   text: string
-  position: 'col' | 'full'
+  position: 'col' | 'full' | 'col0' | 'col1'
 }
 
 export interface IPrintPdf extends ICurrentArmy {

@@ -2,7 +2,7 @@ import jsPDF from 'jspdf'
 import { findIndex, slice, sum, range, last, ceil, chunk } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
-import { ICompactPdfTextObj, TPdfStyles, IPdfPhaseText, TSavePdfType } from 'types/pdf'
+import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
 import { ICurrentArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
 
@@ -93,12 +93,10 @@ export default class CompactPdfLayout {
     }
 
     const halfHeight = this._getRulesHeight(rules) / 2
-    let [left, right] = [[], []]
+    const left = [] as ICompactPdfTextObj[]
     let currentH = 0
 
-    rules.forEach(r => {
-      const ruleHeight = this._getRuleHeight(r)
-    })
+    rules.forEach((r, ri) => {})
 
     // const pivot = ceil(rules.length / 2);
     // const [left, right] = chunk(rules, pivot)
