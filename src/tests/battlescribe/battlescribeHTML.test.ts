@@ -123,6 +123,15 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Nighthaunt5', () => {
+    const parsedText = getFile('Nighthaunt5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.selections.spells).toContain('Howling Vortex')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Nighthaunt2', () => {
     const parsedText = getFile('Nighthaunt2')
     const res = getBattlescribeArmy(parsedText)
