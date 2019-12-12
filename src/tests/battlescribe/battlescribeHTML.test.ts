@@ -106,6 +106,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Sylvaneth3', () => {
+    const parsedText = getFile('Sylvaneth3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Gloomspite4', () => {
     const parsedText = getFile('Gloomspite4')
     const res = getBattlescribeArmy(parsedText)
@@ -137,6 +145,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.scenery).toEqual(['Great Mawpot'])
     expect(res.errors).toEqual([])
   })
 
