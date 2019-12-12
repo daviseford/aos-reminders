@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import { findIndex, slice, sum, range, last } from 'lodash'
+import { findIndex, slice, sum, range, last, ceil, chunk } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { ICompactPdfTextObj, TPdfStyles, IPdfPhaseText, TSavePdfType } from 'types/pdf'
@@ -62,39 +62,59 @@ export default class CompactPdfLayout {
   }
   private _addToCurrentPage = (obj: ICompactPdfTextObj) => {
     this._currentPage.push(obj)
+    this._pageY = this._pageY + this._style[obj.type].spacing
   }
+  private _getPhaseHeight = () => this._style.phase.spacing
+  private _getRuleHeight = (rule: ICompactPdfTextObj[]) => sum(rule.map(y => this._style[y.type].spacing))
+  private _getRulesHeight = (rules: ICompactPdfTextObj[][]) =>
+    sum(rules.map(x => x.map(y => this._style[y.type].spacing)).flat())
 
-  private _splitRulesToColumns = (rules: ICompactPdfTextObj[][]): IRulesToColumns => {
-    let localY = this._pageY
+  private _addPhaseAndRuleObjToPages = ({ rules, phase }: IPhaseAndRuleObj) => {
     const Cols = {
       col0: [],
       col1: [],
       full: [],
     } as IRulesToColumns
 
-    const ruleHeights = rules.map(x => x.map(y => this._style[y.type].spacing)).flat()
-
-    const heightOfAllRules = sum(ruleHeights)
+    const heightOfAllRules = this._getRulesHeight(rules)
 
     // If there's an odd number of rules, add the last rule 'full'
     if (rules.length % 2 === 1) {
       Cols.full = rules.pop() as ICompactPdfTextObj[]
-      // If there was only one rule, we're done now
-      if (!rules.length) return Cols
+      // If there was only one rule and it'll fit with the phase, we're done now
+      if (!rules.length) {
+        if (this._willOverrunY(heightOfAllRules + this._getPhaseHeight())) {
+          this._goToNextPage() // If it won't fit on this page, go to the next one
+        }
+        this._addToCurrentPage(phase) // Add the phase and rules to the page
+        Cols.full.forEach(line => this._addToCurrentPage(line))
+      }
+      return
     }
+
+    const halfHeight = this._getRulesHeight(rules) / 2
+    let [left, right] = [[], []]
+    let currentH = 0
+
+    rules.forEach(r => {
+      const ruleHeight = this._getRuleHeight(r)
+    })
+
+    // const pivot = ceil(rules.length / 2);
+    // const [left, right] = chunk(rules, pivot)
 
     debugger
 
-    if (localY + heightOfAllRules > this._opts.pageBottom) {
-      console.log('Will overrun')
-    }
+    // if (this._willOverrunY(heightOfAllRules)) {
+    //   console.log('Will overrun')
+    // }
 
     return Cols
   }
 
   splitTextToPagesCompact = () => {
     this._phases.forEach(x => {
-      this._splitRulesToColumns(x.rules)
+      this._addPhaseAndRuleObjToPages(x)
     })
 
     return this._pages
