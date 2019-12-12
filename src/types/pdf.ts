@@ -30,6 +30,12 @@ export interface IPdfTextObj {
   text: string
 }
 
+export interface ICompactPdfTextObj {
+  type: TPdfStylePdf
+  text: string
+  position: 'col0' | 'col1' | 'full'
+}
+
 export interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder

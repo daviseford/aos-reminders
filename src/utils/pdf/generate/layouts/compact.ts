@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf'
 import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
-import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
+import CompactPDFLayout from 'utils/pdf/generate/layouts/compactLayoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { titleCase } from 'utils/textUtils'
 import { TPdfStyles, IPrintPdf } from 'types/pdf'
@@ -63,8 +63,10 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 8.5,
-  maxTitleLineWidth: 8 - 2, // maxLineWidth - 2,
+  colLineWidth: 8.5,
+  colTitleLineWidth: 8 - 2, // colLineWidth - 2,
+  maxLineWidth: 10.4,
+  maxTitleLineWidth: 10.4 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
@@ -77,7 +79,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout('compact', PageOpts, Styles)
+  const Layout = new CompactPDFLayout(PageOpts, Styles)
 
   doc
     .setFont('helvetica')
