@@ -57,7 +57,6 @@ const EndinriggersBaseEffects = [
   },
   SkyhookEffect,
 ]
-
 const BombRacksEffect = {
   name: `Bomb Racks`,
   desc: `If a non-flying enemy ends their charge within 1", select a bomb type and then roll a die. On a 4+ the enemy unit suffers the selected bomb effect.
@@ -72,7 +71,13 @@ const SkyminesEffect = {
   desc: `When a flying enemy unit ends a charge within 1", roll a die for each model in the charging unit. For each 6+ the enemy unit suffers a mortal wound.`,
   when: [CHARGE_PHASE],
 }
+const AethericNavigationEffect = {
+  name: `Aetheric Navigation`,
+  desc: `This model can move an extra D3" if a friendly Aetheric Navigator is visible to it.`,
+  when: [MOVEMENT_PHASE],
+}
 const ArkanautBaseEffects = [
+  AethericNavigationEffect,
   BombRacksEffect,
   {
     name: `Tireless Endrinrigger`,
@@ -308,11 +313,6 @@ export const Units: TUnits = [
   {
     name: `Arkanaut Frigate`,
     effects: [
-      {
-        name: `Aetheric Navigation`,
-        desc: `The Frigate can move an extra D3" if an Aetheric Navigator is visible.`,
-        when: [MOVEMENT_PHASE],
-      },
       {
         name: `All Hands to the Guns`,
         desc: `Until your next hero phase re-roll hits rolls of 1 in the shooting phase; the Frigate's movement is halved and it cannot run.`,
