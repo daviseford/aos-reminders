@@ -91,17 +91,17 @@ const ArkanautBaseEffects = [
   },
   {
     name: `Embark`,
-    desc: `If all models in a SKYFARER unit moves within 3" of this SKYVESSEL, they can embark. Remove the unit from the battlefield and place it to one side.`,
+    desc: `If all models in a SKYFARER unit can move to within 3" of a friendly SKYVESSEL in the movement phase, they can embark within it. Remove the unit from the battlefield and place it to one side - it is now embarked inside the vessel. Embarked units cannot normally do anything or be affected in any way whilst they are embarked. Unless specifically stated, abilities that affect other units within a certain range have no effect on a unit that is embarked or whilst the unit that has the ability is embarked, and you cannot measure from or to an embarked unit.`,
     when: [MOVEMENT_PHASE],
   },
   {
     name: `Disembark`,
-    desc: `Any friendly units embarked in this vessel may disembark. Units disembarking must be setup within 3" of this vessel and more than 3" from enemy units. Any disembarking model that cannot be setup in this way is slain.`,
+    desc: `Any unit that begins its hero phase embarked within a SKYVESSEL can disembark during the hero phase. When a unit disembarks, set it up so that all its models are within 3" of the vessel and none are within 3" of any enemy models - any disembarking model that cannot be set up in this way is slain. Units that disembark can then act normally, including using abilities that can be used in the hero phase, for the remainder of their turn. Note that a unit cannot both disembark and embark in the same turn.`,
     when: [START_OF_HERO_PHASE],
   },
   {
     name: `Destroyed`,
-    desc: `When this SKYVESSEL is destroyed, all embarked units disembark before the vessel is removed. Roll a D6 for each model in the embarked unit. For each 1, slay a model of your choice in that unit.`,
+    desc: `When this SKYVESSEL is destroyed, the passengers immediately bail out: roll a dice for each model embarked within it. For each roll of 1, a model from that model's unit (your choice) is slain. The embarked units must then disembark before the vessel is removed.`,
     when: [WOUND_ALLOCATION],
   },
 ]
