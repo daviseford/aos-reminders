@@ -150,8 +150,6 @@ export default class PdfLayout {
 
       if (textObj.type !== 'phase') return
 
-      if (textObj.text === 'During Charge Phase') debugger
-
       if (textObj.text !== currentPhaseInfo.phase) {
         // New phase, handle
         currentPhaseInfo = phaseInfo[phaseInfoIdx]
@@ -164,19 +162,6 @@ export default class PdfLayout {
         if (!currentPhaseInfo) return console.log('Done processing phases')
       }
 
-      // If the entire phase can fit on this page, do it
-      if (y + currentPhaseInfo.yHeight < this.__page.pageBottom) {
-        // Add all elements up to the next phase to the page, and increment Y
-        const nextPhaseIdx = findIndex(allText, x => x.type === 'phase', textPhaseIdx + 1)
-        const objs = slice(allText, textPhaseIdx, nextPhaseIdx === -1 ? undefined : nextPhaseIdx)
-        y = y + currentPhaseInfo.yHeight
-        pages[pageIdx] = pages[pageIdx].concat(objs)
-        textPhaseIdx = nextPhaseIdx
-        phaseInfoIdx++
-        return
-      }
-
-      // Handle when a phase won't fit on the current page
       colIdx = 0
       let titleIdx = 1
       let nextPhaseIdx: number | undefined = undefined
@@ -220,7 +205,7 @@ export default class PdfLayout {
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
         if (objs[titleIdx + 1].type === 'title') {
-          // Sometimes titles can stack up on eachother and throw off the true nextTitleIdx
+          // Sometimes titles can stack up on each other and throw off the true nextTitleIdx
           // We need to avoid that
           const attachedTitleEnd = findIndex(
             objs,
@@ -231,7 +216,7 @@ export default class PdfLayout {
         }
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
 
-        if (items[0] && items[0].type === 'titlespacer') items.shift() // Remove titlespacers?
+        if (items[0] && items[0].type === 'titlespacer') items.shift() // Remove leading titlespacers
 
         if (!items.length) return
 
