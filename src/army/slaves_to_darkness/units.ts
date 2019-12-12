@@ -764,6 +764,26 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Corvus Cabal`,
+    effects: [
+      {
+        name: `Shadow Piercer`,
+        desc: `1 in every 9 models in this unit must be a Shadow Piercer. Add 1 to the Attacks characteristic of a Shadow Piercer's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Shrike Talon`,
+        desc: `1 in every 9 models in this unit must be a Shrike Talon. You can re-roll 1s in charge rolls made for this unit while it includes any Shrike Talons.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Death From Above`,
+        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions

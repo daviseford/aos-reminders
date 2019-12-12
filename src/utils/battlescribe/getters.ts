@@ -284,7 +284,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const liEntries = Object.keys(entries).reduce((a, key) => {
     const val = entries[key]
       .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
-      .replace(/^Awakened Wyldwood,/g, '') // Remove random Sylvaneth Wyldwood entry
+      .replace(/^Awakened Wyldwood(,)?/g, '') // Remove random Sylvaneth Wyldwood entry
       .replace(/ {1,},$/g, '') // remove trailing comma
       .trim()
     a[key] = val

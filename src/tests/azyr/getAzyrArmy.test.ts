@@ -177,6 +177,14 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('handles OgorMawtribes4', () => {
+    const fileTxt = getFile('OgorMawtribes4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles OBR1', () => {
     const fileTxt = getFile('OBR1')
     const pages = handleAzyrPages(fileTxt)
