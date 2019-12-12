@@ -204,6 +204,7 @@ export default class CompactPdfLayout {
     let phaseIdx = 0
 
     Object.keys(reminders).forEach(phase => {
+      Phases.push([])
       // Handle phase title (Start of Round)
       Phases[phaseIdx] = [
         {
@@ -255,9 +256,9 @@ export default class CompactPdfLayout {
             position,
           })
         })
-
-        phaseIdx++
       })
+
+      phaseIdx++
     })
 
     // TODO eventually just remove the return and only assign
