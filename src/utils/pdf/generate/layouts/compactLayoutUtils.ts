@@ -11,6 +11,12 @@ interface IPhaseAndRuleObj {
   rules: ICompactPdfTextObj[][]
 }
 
+interface IRulesToColumns {
+  col0: ICompactPdfTextObj[][]
+  col1: ICompactPdfTextObj[][]
+  full: ICompactPdfTextObj[]
+}
+
 interface IPageOpts {
   colLineWidth: number
   colTitleLineWidth: number
@@ -30,6 +36,7 @@ export default class CompactPdfLayout {
   // Keeping track of pages here
   _pages: ICompactPdfTextObj[][] = [[]]
   _pageIdx: number = 0
+  _currentPage = this._pages[0]
   _pageY: number
 
   // Phase information
@@ -42,25 +49,55 @@ export default class CompactPdfLayout {
   }
 
   // Utilities
+  private _resetY = () => {
+    this._pageY = this._opts.yMargin
+  }
   private _willOverrunY = (val: number) => this._pageY + val > this._opts.pageBottom
   private _yRemaining = (): number => this._opts.pageBottom - this._pageY
   private _getInitialXY = () => [this._opts.xMargin, this._opts.yMargin]
+  private _goToNextPage = () => {
+    this._pages.push([])
+    this._pageIdx = this._pageIdx + 1
+    this._currentPage = this._pages[this._pageIdx]
+  }
+  private _addToCurrentPage = (obj: ICompactPdfTextObj) => {
+    this._currentPage.push(obj)
+  }
+
+  private _splitRulesToColumns = (rules: ICompactPdfTextObj[][]): IRulesToColumns => {
+    let localY = this._pageY
+    const Cols = {
+      col0: [],
+      col1: [],
+      full: [],
+    } as IRulesToColumns
+
+    const ruleHeights = rules.map(x => x.map(y => this._style[y.type].spacing)).flat()
+
+    const heightOfAllRules = sum(ruleHeights)
+
+    // If there's an odd number of rules, add the last rule 'full'
+    if (rules.length % 2 === 1) {
+      Cols.full = rules.pop() as ICompactPdfTextObj[]
+      // If there was only one rule, we're done now
+      if (!rules.length) return Cols
+    }
+
+    debugger
+
+    if (localY + heightOfAllRules > this._opts.pageBottom) {
+      console.log('Will overrun')
+    }
+
+    return Cols
+  }
 
   splitTextToPagesCompact = () => {
-    let y = this._getInitialXY()[1]
-    let pages: ICompactPdfTextObj[][] = [[]]
-    let pageIdx = 0
+    this._phases.forEach(x => {
+      this._splitRulesToColumns(x.rules)
+    })
 
-    let phaseInfoIdx = 0
-    // let currentPhaseInfo = phaseInfo[phaseInfoIdx]
-    let textPhaseIdx = 0
-    let colIdx: 0 | 1 = 0
-
-    let col0Heights: number[] = []
-
-    const ySpacing = this._style.spacer.spacing * 4
-
-    return pages
+    return this._pages
   }
 
   private __getTitle = (action: TTurnAction) => {

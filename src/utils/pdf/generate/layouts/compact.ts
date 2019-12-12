@@ -53,7 +53,7 @@ const Styles: TPdfStyles = {
   },
   titlespacer: {
     fontSize: 0.04,
-    spacing: 0.0,
+    spacing: 0.01,
     style: 'normal',
   },
 }
@@ -89,6 +89,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   const reminderText = Layout.getReminderText(doc, visibleReminders)
+  const pages = Layout.splitTextToPagesCompact()
   debugger
   // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
   // const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
