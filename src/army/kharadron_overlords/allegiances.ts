@@ -8,6 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -16,26 +17,26 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `ARTYCLE: Master the Skies`,
-        desc: `Re-roll hit and wounds of 1 vs flying units.`,
+        desc: `You can re-roll hit and wound rolls of 1 for your units if their target can fly.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_trait: true,
       },
       {
         name: `AMENDMENT: Don't Argue With the Wind`,
-        desc: `When you run with a SKYVESSEL, result is always 6.`,
+        desc: `When you run with a SKYVESSEL, you are always considered to have rolled a 6.`,
         when: [MOVEMENT_PHASE],
         command_trait: true,
       },
       {
         name: `FOOTNOTE: There's Always a Breeze if You Look for it`,
-        desc: `Once per battle, one SKYVESSEL may move in the hero phase. It cannot run, and cannot use same turn as Aetherspheric Endrins.`,
+        desc: `Once per battle, in your hero phase, one of your SKYVESSELS can immediately move as if it were the movement phase (though it cannot run, and it cannot do this in a turn in which it descended using Aetherspheric Endrins). It can act normally for the remainder of your turn, including allowing embarked units to disembark in the hero phase.`,
         when: [HERO_PHASE],
         command_trait: true,
       },
       {
         name: `Superlative Sailors`,
-        desc: `Ignore mortal wounds on SKYVESSEL on roll of 6.`,
-        when: [DURING_GAME],
+        desc: `Whenever a Barak-Zilfin SKYVESSEL suffers a mortal wound, roll a dice. On a roll of 6 that mortal wound is ignored.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
