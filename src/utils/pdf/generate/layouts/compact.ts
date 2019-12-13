@@ -168,7 +168,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
         doc.addImage(Logo, 'png', PageOpts.xMargin + 0.11, watermarkY - logoH / 2 - 0.05, logoW, logoH)
       }
 
-      // If there's enough room on the last page, add the logo to it
+      // If there's enough room on the last page, add the fullsize logo to it
       if (pageNum === pages.length - 1 && i === page.length - 1) {
         const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
 

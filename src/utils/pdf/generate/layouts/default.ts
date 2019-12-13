@@ -151,6 +151,9 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
           .setFontStyle(Styles.title.style)
           .text(`aosreminders.com`, centerX, watermarkY, null, null, 'center')
           .setTextColor(0, 0, 0) // Set color back to black
+
+        const [logoW, logoH] = [1.43 / 3.5, 1 / 3.5]
+        doc.addImage(Logo, 'png', PageOpts.xMargin + 0.11, watermarkY - logoH / 2 - 0.05, logoW, logoH)
       }
 
       // If there's enough room on the last page, add the logo to it
