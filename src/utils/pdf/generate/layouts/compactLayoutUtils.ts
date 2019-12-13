@@ -88,9 +88,8 @@ export default class CompactPdfLayout {
           this._goToNextPage() // If it won't fit on this page, go to the next one
         }
         this._addToCurrentPage(phase) // Add the phase and rules to the page
-        Cols.full.forEach(line => this._addToCurrentPage(line))
+        return Cols.full.forEach(line => this._addToCurrentPage(line))
       }
-      return
     }
 
     // See if we should start on this page, or the next one
@@ -169,6 +168,18 @@ export default class CompactPdfLayout {
       }
     })
 
+    // We have a remaining full width rule to add!
+    if (Cols.full.length > 0) {
+      const ruleHeight = this._getRuleHeight(Cols.full)
+      if (this._willOverrunY(ruleHeight)) {
+        // Go to next page before adding it
+        this._goToNextPage()
+        this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
+      }
+      // Drop it on this page, and we're done :D
+      return Cols.full.forEach(line => this._addToCurrentPage(line))
+    }
+
     return Cols
   }
 
@@ -186,7 +197,7 @@ export default class CompactPdfLayout {
     return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
   }
 
-  getReminderText = (doc: jsPDF, reminders: IReminder): IPhaseAndRuleObj[] => {
+  getReminderText = (doc: jsPDF, reminders: IReminder): void => {
     const Phases: IPhaseAndRuleObj[] = []
 
     Object.keys(reminders).forEach(phase => {
@@ -250,9 +261,6 @@ export default class CompactPdfLayout {
       Phases.push(phaseObj)
     })
 
-    // TODO eventually just remove the return and only assign
     this._phases = Phases
-
-    return Phases
   }
 }
