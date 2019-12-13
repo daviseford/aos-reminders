@@ -1,10 +1,8 @@
 import jsPDF from 'jspdf'
-import { findIndex, slice, sum, range, last, ceil, chunk } from 'lodash'
+import { sum } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
-import { ICurrentArmy } from 'types/army'
-import { IAllySelections } from 'types/selections'
 
 interface IPhaseAndRuleObj {
   phase: ICompactPdfTextObj
@@ -41,11 +39,13 @@ export default class CompactPdfLayout {
 
   // Phase information
   _phases: IPhaseAndRuleObj[] = []
+  _phaseHeight: number
 
   constructor(_opts: IPageOpts, _style: TPdfStyles) {
     this._opts = _opts
     this._style = _style
     this._pageY = this._opts.yMargin
+    this._phaseHeight = _style.phase.spacing
   }
 
   // Utilities
@@ -64,7 +64,6 @@ export default class CompactPdfLayout {
     this._currentPage.push(obj)
     this._pageY = this._pageY + this._style[obj.type].spacing
   }
-  private _getPhaseHeight = () => this._style.phase.spacing
   private _getRuleHeight = (rule: ICompactPdfTextObj[]) => sum(rule.map(y => this._style[y.type].spacing))
   private _getRulesHeight = (rules: ICompactPdfTextObj[][]) =>
     sum(rules.map(x => x.map(y => this._style[y.type].spacing)).flat())
@@ -83,7 +82,7 @@ export default class CompactPdfLayout {
       Cols.full = rules.pop() as ICompactPdfTextObj[]
       // If there was only one rule and it'll fit with the phase, we're done now
       if (!rules.length) {
-        if (this._willOverrunY(heightOfAllRules + this._getPhaseHeight())) {
+        if (this._willOverrunY(heightOfAllRules + this._phaseHeight)) {
           this._goToNextPage() // If it won't fit on this page, go to the next one
         }
         this._addToCurrentPage(phase) // Add the phase and rules to the page
@@ -92,19 +91,22 @@ export default class CompactPdfLayout {
       return
     }
 
+    // See if we should start on this page, or the next one
+    const rule1Height = this._getRuleHeight(rules[0])
+    const rule2Height = this._getRuleHeight(rules[1])
+    if (
+      this._willOverrunY(rule1Height + this._phaseHeight) ||
+      this._willOverrunY(rule2Height + this._phaseHeight)
+    ) {
+      // We need to go to the next page
+      this._goToNextPage()
+    }
+
+    // Okay, we know that at least the first two rules will fit
+
     const halfHeight = this._getRulesHeight(rules) / 2
     const left = [] as ICompactPdfTextObj[]
     let currentH = 0
-
-    let currentLeftH = 0
-    let desiredLeft = rules.reduce((a, b) => {
-      if (currentLeftH >= halfHeight) return a
-      currentLeftH = currentLeftH + this._getRuleHeight(b)
-      a.push(b)
-      return a
-    }, [] as ICompactPdfTextObj[][])
-
-    if (desiredLeft) rules.forEach((r, ri) => {})
 
     // const pivot = ceil(rules.length / 2);
     // const [left, right] = chunk(rules, pivot)
