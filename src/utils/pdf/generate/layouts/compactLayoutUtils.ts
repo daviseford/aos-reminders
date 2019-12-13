@@ -40,14 +40,14 @@ export default class CompactPdfLayout {
 
   // Phase information
   _phases: IPhaseAndRuleObj[] = []
-  _phaseHeight: number
+  readonly _phaseHeight: number
 
   constructor(_doc: jsPDF, _opts: IPageOpts, _style: TPdfStyles) {
     this._doc = _doc
     this._opts = _opts
     this._style = _style
     this._pageY = this._opts.yMargin
-    this._phaseHeight = _style.phase.spacing
+    this._phaseHeight = this._style.phase.spacing
   }
 
   // Utilities
@@ -55,8 +55,6 @@ export default class CompactPdfLayout {
     this._pageY = this._opts.yMargin
   }
   private _willOverrunY = (val: number) => this._pageY + val > this._opts.pageBottom
-  private _yRemaining = (): number => this._opts.pageBottom - this._pageY
-  private _getInitialXY = () => [this._opts.xMargin, this._opts.yMargin]
   private _goToNextPage = () => {
     this._resetY()
     this._pages.push([])
@@ -71,6 +69,29 @@ export default class CompactPdfLayout {
   private _getRuleHeight = (rule: ICompactPdfTextObj[]) => sum(rule.map(y => this._style[y.type].spacing))
   private _getRulesHeight = (rules: ICompactPdfTextObj[][]) =>
     sum(rules.map(x => x.map(y => this._style[y.type].spacing)).flat())
+  private _getTitle = (action: TTurnAction) => {
+    const title = getActionTitle(action)
+    const titleStr = title ? `${title} - ` : ``
+    return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
+  }
+
+  /**
+   * Converts a full-width rule to a column
+   */
+  private _fullToCol = (rule: ICompactPdfTextObj[], position: 'col0' | 'col1'): ICompactPdfTextObj[] => {
+    return rule
+      .map(r => {
+        if (r.type === 'titlespacer') return { ...r, position }
+        const lineW = r.type === 'title' ? this._opts.colTitleLineWidth : this._opts.colLineWidth
+        const lines: string[] = this._doc.splitTextToSize(r.text, lineW)
+        return lines.map(text => ({
+          type: r.type,
+          text: text.trim(),
+          position,
+        }))
+      })
+      .flat()
+  }
 
   private _addPhaseAndRuleObjToPages = ({ rules, phase }: IPhaseAndRuleObj) => {
     const Cols = {
@@ -172,7 +193,7 @@ export default class CompactPdfLayout {
 
     // We have a remaining full width rule to add!
     if (Cols.full.length > 0) {
-      const toCol = this.__fullToCol(Cols.full, 'col1')
+      const toCol = this._fullToCol(Cols.full, 'col1')
       const colRuleHeight = this._getRuleHeight(toCol)
       const fullRuleHeight = this._getRuleHeight(Cols.full)
 
@@ -198,35 +219,6 @@ export default class CompactPdfLayout {
     })
 
     return this._pages
-  }
-
-  private __getTitle = (action: TTurnAction) => {
-    const title = getActionTitle(action)
-    const titleStr = title ? `${title} - ` : ``
-    return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
-  }
-
-  /**
-   * Converts a full-width rule to a column
-   */
-  private __fullToCol = (rule: ICompactPdfTextObj[], position: 'col0' | 'col1'): ICompactPdfTextObj[] => {
-    const updated = rule
-      .map(r => {
-        if (r.type === 'titlespacer') return { ...r, position }
-
-        const lineW = r.type === 'title' ? this._opts.colTitleLineWidth : this._opts.colLineWidth
-
-        const lines: string[] = this._doc.splitTextToSize(r.text, lineW)
-        return lines.map(text => ({
-          type: r.type,
-          text: text.trim(),
-          position: position,
-        }))
-      })
-
-      .flat()
-
-    return updated
   }
 
   getReminderText = (reminders: IReminder): void => {
@@ -266,7 +258,7 @@ export default class CompactPdfLayout {
         })
 
         // Add the title itself
-        const titleLines: string[] = this._doc.splitTextToSize(this.__getTitle(action), titleWidth)
+        const titleLines: string[] = this._doc.splitTextToSize(this._getTitle(action), titleWidth)
         titleLines.forEach(text => {
           ruleObj.push({
             type: 'title',
