@@ -116,14 +116,13 @@ export default class CompactPdfLayout {
 
     rules.forEach((r, ri) => {
       const ruleHeight = this._getRuleHeight(r)
-      debugger
 
       if (col0H < halfHeight && !col0IsFull) {
         if (this._willOverrunY(ruleHeight)) {
           // We can't add this because it would go over the page
           // So we need to check if we can add it to column 1
           if (this._willOverrunY(col1H + rule1Height)) {
-            // We need to go to the next page
+            // We need to go to the next page and start fresh
             this._goToNextPage()
             this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
             col0IsFull = false
@@ -131,17 +130,23 @@ export default class CompactPdfLayout {
             col1H = 0
             return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
           } else {
-            // We can add it to column 2
+            // We can add it to column 1
             col0IsFull = true
             col1H = 0 + ruleHeight
             return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
           }
+        } else if (ri === rules.length - 1) {
+          // If it's the last rule and we still haven't switched columns, we need to force the switch
+          col0IsFull = true // Set this to true, and our col1 logic below will handle it
+          debugger
         } else {
           // Okay column 0 is not full yet and we can fit it on the page, add it to there
           col0H = col0H + ruleHeight // Update the column height
           return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
         }
-      } else {
+      }
+
+      if (col0IsFull || col0H >= halfHeight) {
         col0IsFull = true
         // Okay column 0 is full, let's see if we can add it to column 1
         if (this._willOverrunY(col1H + ruleHeight)) {
@@ -158,11 +163,6 @@ export default class CompactPdfLayout {
         }
       }
     })
-
-    // const pivot = ceil(rules.length / 2);
-    // const [left, right] = chunk(rules, pivot)
-
-    debugger
 
     return Cols
   }
