@@ -62,6 +62,7 @@ export default class CompactPdfLayout {
   }
   private _addToCurrentPage = (obj: ICompactPdfTextObj) => {
     this._currentPage.push(obj)
+    if (obj.position === 'col1') return // Don't adjust spacing for col1
     this._pageY = this._pageY + this._style[obj.type].spacing
   }
   private _getRuleHeight = (rule: ICompactPdfTextObj[]) => sum(rule.map(y => this._style[y.type].spacing))
@@ -103,19 +104,71 @@ export default class CompactPdfLayout {
     }
 
     // Okay, we know that at least the first two rules will fit
+    this._addToCurrentPage(phase) // Add the phase
 
     const halfHeight = this._getRulesHeight(rules) / 2
     const left = [] as ICompactPdfTextObj[]
     let currentH = 0
 
+    let col0H = 0
+    let col1H = 0
+    let col0IsFull = false
+
+    rules.forEach((r, ri) => {
+      const ruleHeight = this._getRuleHeight(r)
+
+      if (col0H < halfHeight) {
+        if (this._willOverrunY(ruleHeight)) {
+          // We can't add this because it would go over the page
+          // So we need to check if we can add it to column 1
+          if (this._willOverrunY(col1H + rule1Height)) {
+            // We need to go to the next page
+            this._goToNextPage()
+            this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
+            col0IsFull = false
+            col0H = 0 + ruleHeight // Update the column height
+            col1H = 0
+            r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
+            return rules.shift() // Remove this rule
+          } else {
+            // We can add it to column 2
+            col0IsFull = true
+            col1H = 0 + ruleHeight
+            r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
+            return rules.shift() // Remove this rule
+          }
+        } else {
+          // Okay column 0 is not full yet and we can fit it on the page, add it to there
+          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
+          col0H = col0H + ruleHeight // Update the column height
+          rules.shift() // Remove this rule
+        }
+      }
+
+      if (col0IsFull || col0H >= halfHeight) {
+        col0IsFull = true
+        // Okay column 0 is full, let's see if we can add it to column 1
+        if (this._willOverrunY(col1H + ruleHeight)) {
+          // Oh shit, it's gonna overrun, we need to go to the next page and start this whole cycle over
+          this._goToNextPage()
+          this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
+          col0IsFull = false
+          col0H = 0 + ruleHeight // Update the column height
+          col1H = 0
+          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
+          return rules.shift() // Remove this rule
+        } else {
+          col1H = col1H + ruleHeight
+          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
+          return rules.shift() // Remove this rule
+        }
+      }
+    })
+
     // const pivot = ceil(rules.length / 2);
     // const [left, right] = chunk(rules, pivot)
 
     debugger
-
-    // if (this._willOverrunY(heightOfAllRules)) {
-    //   console.log('Will overrun')
-    // }
 
     return Cols
   }
