@@ -116,8 +116,9 @@ export default class CompactPdfLayout {
 
     rules.forEach((r, ri) => {
       const ruleHeight = this._getRuleHeight(r)
+      debugger
 
-      if (col0H < halfHeight) {
+      if (col0H < halfHeight && !col0IsFull) {
         if (this._willOverrunY(ruleHeight)) {
           // We can't add this because it would go over the page
           // So we need to check if we can add it to column 1
@@ -128,24 +129,19 @@ export default class CompactPdfLayout {
             col0IsFull = false
             col0H = 0 + ruleHeight // Update the column height
             col1H = 0
-            r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
-            return rules.shift() // Remove this rule
+            return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
           } else {
             // We can add it to column 2
             col0IsFull = true
             col1H = 0 + ruleHeight
-            r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
-            return rules.shift() // Remove this rule
+            return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
           }
         } else {
           // Okay column 0 is not full yet and we can fit it on the page, add it to there
-          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
           col0H = col0H + ruleHeight // Update the column height
-          rules.shift() // Remove this rule
+          return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
         }
-      }
-
-      if (col0IsFull || col0H >= halfHeight) {
+      } else {
         col0IsFull = true
         // Okay column 0 is full, let's see if we can add it to column 1
         if (this._willOverrunY(col1H + ruleHeight)) {
@@ -155,12 +151,10 @@ export default class CompactPdfLayout {
           col0IsFull = false
           col0H = 0 + ruleHeight // Update the column height
           col1H = 0
-          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
-          return rules.shift() // Remove this rule
+          return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
         } else {
           col1H = col1H + ruleHeight
-          r.forEach(line => this._addToCurrentPage({ ...line, position: 'col0' }))
-          return rules.shift() // Remove this rule
+          return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
         }
       }
     })
