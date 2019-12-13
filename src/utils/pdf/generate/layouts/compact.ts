@@ -61,8 +61,8 @@ const Styles: TPdfStyles = {
 const PageOpts = {
   xMargin: 0.3,
   yMargin: 0.75,
-  pageHeight: 13,
-  pageBottom: 13 - 0.75, // pageHeight - yMargin,
+  pageHeight: 12,
+  pageBottom: 12 - 0.75, // pageHeight - yMargin,
   colLineWidth: 8.5,
   colTitleLineWidth: 8 - 2, // colLineWidth - 2,
   maxLineWidth: 17,

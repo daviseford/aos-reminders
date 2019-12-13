@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import { sum } from 'lodash'
+import { sum, slice } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
@@ -108,15 +108,16 @@ export default class CompactPdfLayout {
     this._addToCurrentPage(phase) // Add the phase
 
     const halfHeight = this._getRulesHeight(rules) / 2
-    const left = [] as ICompactPdfTextObj[]
-    let currentH = 0
 
     let col0H = 0
     let col1H = 0
     let col0IsFull = false
 
     rules.forEach((r, ri) => {
+      if (phase.text === 'During Combat Phase') debugger
       const ruleHeight = this._getRuleHeight(r)
+      const remainingRules = slice(rules, ri)
+      const remainingRulesHeight = this._getRulesHeight(remainingRules)
 
       if (col0H < halfHeight && !col0IsFull) {
         if (this._willOverrunY(ruleHeight)) {
@@ -136,10 +137,13 @@ export default class CompactPdfLayout {
             col1H = 0 + ruleHeight
             return r.forEach(line => this._addToCurrentPage({ ...line, position: 'col1' }))
           }
+        } else if (remainingRulesHeight <= col0H) {
+          // If the remaining height of all the rules we have left is less than col0
+          // Let's just assign them to col1 so we can a fairly even distribution
+          col0IsFull = true
         } else if (ri === rules.length - 1) {
           // If it's the last rule and we still haven't switched columns, we need to force the switch
           col0IsFull = true // Set this to true, and our col1 logic below will handle it
-          debugger
         } else {
           // Okay column 0 is not full yet and we can fit it on the page, add it to there
           col0H = col0H + ruleHeight // Update the column height
