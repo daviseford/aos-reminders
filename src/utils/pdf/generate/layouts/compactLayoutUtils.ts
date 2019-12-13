@@ -96,7 +96,15 @@ export default class CompactPdfLayout {
     const left = [] as ICompactPdfTextObj[]
     let currentH = 0
 
-    rules.forEach((r, ri) => {})
+    let currentLeftH = 0
+    let desiredLeft = rules.reduce((a, b) => {
+      if (currentLeftH >= halfHeight) return a
+      currentLeftH = currentLeftH + this._getRuleHeight(b)
+      a.push(b)
+      return a
+    }, [] as ICompactPdfTextObj[][])
+
+    if (desiredLeft) rules.forEach((r, ri) => {})
 
     // const pivot = ceil(rules.length / 2);
     // const [left, right] = chunk(rules, pivot)
