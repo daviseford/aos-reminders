@@ -114,7 +114,6 @@ export default class CompactPdfLayout {
     let col0IsFull = false
 
     rules.forEach((r, ri) => {
-      if (phase.text === 'During Combat Phase') debugger
       const ruleHeight = this._getRuleHeight(r)
       const remainingRules = slice(rules, ri)
       const remainingRulesHeight = this._getRulesHeight(remainingRules)

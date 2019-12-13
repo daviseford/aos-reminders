@@ -88,9 +88,8 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  const reminderText = Layout.getReminderText(doc, visibleReminders)
   const pages = Layout.splitTextToPagesCompact()
-  debugger
+
   // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
   // const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
   // const pages = Layout.splitTextToPagesCompact(reminderText, phaseInfo, armyText)
@@ -101,11 +100,10 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     if (pageNum !== 0) doc.addPage()
     let [x, y, colY] = [PageOpts.xMargin, PageOpts.yMargin, PageOpts.yMargin]
 
-    // debugger
     page.forEach((t, i) => {
       // Don't add spacers to the start or end of page
       if ((i === 0 || i === page.length - 1) && ['spacer', 'titlespacer', 'break'].includes(t.type)) return
-      if (t.position == 'col1') debugger
+
       const isPhase = t.type === 'phase'
       const isArmy = t.type.startsWith('army')
       const style = Styles[t.type]
