@@ -4,6 +4,7 @@ import { isTest, isProd, isDev } from 'utils/env'
 import { SubscriptionPlans, GiftedSubscriptionPlans } from 'utils/plans'
 import { generateUUID, titleCase } from 'utils/textUtils'
 import { TImportParsers, TLoadedArmy } from 'types/import'
+import { TSavePdfType } from 'types/pdf'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
@@ -38,12 +39,12 @@ const logToGA = (event: { category: string; action: string; label: string }) => 
  * Sends a Google Analytics event indicating a pdf download
  * @param factionName
  */
-export const logDownloadEvent = (factionName: string | null) => {
+export const logDownloadEvent = (factionName: string | null, layout: TSavePdfType) => {
   if (isValidFactionName(factionName)) {
     logToGA({
       category: 'Button',
       action: `Download-${factionName}`,
-      label: 'DownloadPDF',
+      label: `DownloadPDF-${layout}`,
     })
   }
 }
