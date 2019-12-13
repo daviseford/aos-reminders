@@ -56,6 +56,7 @@ export default class CompactPdfLayout {
   private _yRemaining = (): number => this._opts.pageBottom - this._pageY
   private _getInitialXY = () => [this._opts.xMargin, this._opts.yMargin]
   private _goToNextPage = () => {
+    this._resetY()
     this._pages.push([])
     this._pageIdx = this._pageIdx + 1
     this._currentPage = this._pages[this._pageIdx]
