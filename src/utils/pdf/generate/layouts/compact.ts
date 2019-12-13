@@ -88,11 +88,10 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  const pages = Layout.splitTextToPagesCompact()
+  Layout.getReminderText(doc, visibleReminders) // Get the reminders into the class
+  const pages = Layout.splitTextToPagesCompact() // And now extract the pages
 
   // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
-  // const phaseInfo = Layout.getPhaseInfoCompact(reminderText)
-  // const pages = Layout.splitTextToPagesCompact(reminderText, phaseInfo, armyText)
 
   const col1X = 4.2
 
