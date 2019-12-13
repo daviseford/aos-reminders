@@ -79,7 +79,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new CompactPDFLayout(doc, PageOpts, Styles)
+  const Layout = new CompactPDFLayout(doc, PageOpts, Styles, { factionName, ...currentArmy })
 
   doc
     .setFont('helvetica')
@@ -90,8 +90,6 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const centerX = pageWidth / 2
   Layout.getReminderText(visibleReminders) // Get the reminders into the class
   const pages = Layout.splitTextToPagesCompact() // And now extract the pages
-
-  // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
 
   const col1X = 4.2
 
@@ -129,21 +127,22 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
             'S'
           )
       }
-      // if (t.type === 'armyName') {
-      //   const lineY = y - style.spacing + 0.15
-      //   doc
-      //     .setLineWidth(0.0001)
-      //     .setDrawColor(28, 117, 149)
-      //     .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
-      // }
 
-      // if (t.type === 'armyEnd') {
-      //   const lineY = y + style.spacing - 0.09
-      //   doc
-      //     .setLineWidth(0.0001)
-      //     .setDrawColor(28, 117, 149)
-      //     .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
-      // }
+      if (t.type === 'armyName') {
+        const lineY = y - style.spacing + 0.15
+        doc
+          .setLineWidth(0.0001)
+          .setDrawColor(28, 117, 149)
+          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
+      }
+
+      if (t.type === 'armyEnd') {
+        const lineY = y + style.spacing - 0.09
+        doc
+          .setLineWidth(0.0001)
+          .setDrawColor(28, 117, 149)
+          .line(x - 0.1, lineY, pageWidth - PageOpts.xMargin + 0.1, lineY)
+      }
 
       if (t.position === 'col1') {
         colY = colY + style.spacing
@@ -167,13 +166,13 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       }
 
       // If there's enough room on the last page, add the logo to it
-      // if (pageNum === pages.length - 1 && i === page.length - 1) {
-      //   const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
+      if (pageNum === pages.length - 1 && i === page.length - 1) {
+        const [logoW, logoH, logoSpacer] = [1.43, 1, 0.4]
 
-      //   if (y + logoH + logoSpacer <= PageOpts.pageBottom) {
-      //     doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
-      //   }
-      // }
+        if (y + logoH + logoSpacer <= PageOpts.pageBottom) {
+          doc.addImage(Logo, 'png', centerX - logoW / 2 + 0.15, y + logoSpacer)
+        }
+      }
     })
   })
 
