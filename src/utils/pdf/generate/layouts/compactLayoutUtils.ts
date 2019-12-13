@@ -229,17 +229,20 @@ export default class CompactPdfLayout {
     }
   }
 
+  private _addArmyTextToPages = () => {
+    const armyText = this._getArmyText()
+    if (this._willOverrunY(this._getRuleHeight(armyText))) {
+      this._goToNextPage() // Place on next page
+    }
+    armyText.forEach(x => this._addToCurrentPage(x)) // Then add the armyText
+  }
+
   splitTextToPagesCompact = () => {
     this._phases.forEach(x => {
       this._addPhaseAndRuleObjToPages(x)
     })
 
-    const armyText = this._getArmyText()
-    if (this._willOverrunY(this._getRuleHeight(armyText))) {
-      this._goToNextPage() // Place on next page
-    } else {
-      armyText.forEach(x => this._addToCurrentPage(x)) // Put on this page
-    }
+    this._addArmyTextToPages()
 
     return this._pages
   }

@@ -23,7 +23,7 @@ const Styles: TPdfStyles = {
   },
   armyName: {
     fontSize: 8,
-    spacing: 0.3,
+    spacing: 0.2,
     style: 'bold',
   },
   break: {
@@ -129,7 +129,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       }
 
       if (t.type === 'armyName') {
-        const lineY = y - style.spacing + 0.15
+        const lineY = y - style.spacing
         doc
           .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
@@ -137,7 +137,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       }
 
       if (t.type === 'armyEnd') {
-        const lineY = y + style.spacing - 0.09
+        const lineY = y + style.spacing
         doc
           .setLineWidth(0.0001)
           .setDrawColor(28, 117, 149)
