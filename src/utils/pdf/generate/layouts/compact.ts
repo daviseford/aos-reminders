@@ -64,7 +64,7 @@ const PageOpts = {
   pageHeight: 12,
   pageBottom: 12 - 0.75, // pageHeight - yMargin,
   colLineWidth: 8.5,
-  colTitleLineWidth: 8 - 2, // colLineWidth - 2,
+  colTitleLineWidth: 8, // colLineWidth - 2,
   maxLineWidth: 17,
   maxTitleLineWidth: 17 - 2, // maxLineWidth - 2,
 }

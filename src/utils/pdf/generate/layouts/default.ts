@@ -63,8 +63,8 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
-  maxLineWidth: 10.4,
-  maxTitleLineWidth: 10.4 - 2, // maxLineWidth - 2,
+  maxLineWidth: 10.8,
+  maxTitleLineWidth: 10.8 - 2, // maxLineWidth - 2,
 }
 
 export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {

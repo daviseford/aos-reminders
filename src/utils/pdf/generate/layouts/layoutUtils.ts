@@ -151,6 +151,16 @@ export default class PdfLayout {
 
       range(0, numTitles - 1).forEach(i => {
         nextTitleIdx = findIndex(objs, x => x.type === 'title', titleIdx + 1)
+        if (objs[titleIdx + 1].type === 'title') {
+          // Sometimes titles can stack up on each other and throw off the true nextTitleIdx
+          // We need to avoid that
+          const attachedTitleEnd = findIndex(
+            objs,
+            (x, ii) => x.type === 'title' && objs[ii + 1].type === 'desc',
+            titleIdx
+          )
+          nextTitleIdx = findIndex(objs, x => x.type === 'title', attachedTitleEnd + 1)
+        }
         let items = slice(objs, titleIdx, nextTitleIdx === -1 ? undefined : nextTitleIdx)
         let itemsYHeight = sum(items.map(x => this.__styles[x.type].spacing))
 
