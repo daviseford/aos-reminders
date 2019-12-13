@@ -30,6 +30,7 @@ export default class CompactPdfLayout {
   readonly _opts: IPageOpts
   readonly _style: TPdfStyles
   readonly _type: TSavePdfType = 'compact'
+  readonly _doc: jsPDF
 
   // Keeping track of pages here
   _pages: ICompactPdfTextObj[][] = [[]]
@@ -41,7 +42,8 @@ export default class CompactPdfLayout {
   _phases: IPhaseAndRuleObj[] = []
   _phaseHeight: number
 
-  constructor(_opts: IPageOpts, _style: TPdfStyles) {
+  constructor(_doc: jsPDF, _opts: IPageOpts, _style: TPdfStyles) {
+    this._doc = _doc
     this._opts = _opts
     this._style = _style
     this._pageY = this._opts.yMargin
@@ -170,8 +172,15 @@ export default class CompactPdfLayout {
 
     // We have a remaining full width rule to add!
     if (Cols.full.length > 0) {
-      const ruleHeight = this._getRuleHeight(Cols.full)
-      if (this._willOverrunY(ruleHeight)) {
+      const toCol = this.__fullToCol(Cols.full, 'col1')
+      const colRuleHeight = this._getRuleHeight(toCol)
+      const fullRuleHeight = this._getRuleHeight(Cols.full)
+
+      // Can we shoehorn this into col1? If so, convert to a column layout and stick it in there
+      if (col1H + colRuleHeight <= col0H) {
+        col1H = col1H + colRuleHeight
+        return toCol.forEach(line => this._addToCurrentPage(line))
+      } else if (this._willOverrunY(fullRuleHeight)) {
         // Go to next page before adding it
         this._goToNextPage()
         this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
@@ -197,7 +206,30 @@ export default class CompactPdfLayout {
     return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
   }
 
-  getReminderText = (doc: jsPDF, reminders: IReminder): void => {
+  /**
+   * Converts a full-width rule to a column
+   */
+  private __fullToCol = (rule: ICompactPdfTextObj[], position: 'col0' | 'col1'): ICompactPdfTextObj[] => {
+    const updated = rule
+      .map(r => {
+        if (r.type === 'titlespacer') return { ...r, position }
+
+        const lineW = r.type === 'title' ? this._opts.colTitleLineWidth : this._opts.colLineWidth
+
+        const lines: string[] = this._doc.splitTextToSize(r.text, lineW)
+        return lines.map(text => ({
+          type: r.type,
+          text: text.trim(),
+          position: position,
+        }))
+      })
+
+      .flat()
+
+    return updated
+  }
+
+  getReminderText = (reminders: IReminder): void => {
     const Phases: IPhaseAndRuleObj[] = []
 
     Object.keys(reminders).forEach(phase => {
@@ -234,7 +266,7 @@ export default class CompactPdfLayout {
         })
 
         // Add the title itself
-        const titleLines: string[] = doc.splitTextToSize(this.__getTitle(action), titleWidth)
+        const titleLines: string[] = this._doc.splitTextToSize(this.__getTitle(action), titleWidth)
         titleLines.forEach(text => {
           ruleObj.push({
             type: 'title',
@@ -244,7 +276,7 @@ export default class CompactPdfLayout {
         })
 
         // Handle description
-        const descLines: string[] = doc.splitTextToSize(action.desc, lineWidth)
+        const descLines: string[] = this._doc.splitTextToSize(action.desc, lineWidth)
         descLines.forEach(text => {
           const trimmed = text.trim()
           const type = trimmed === '' ? 'break' : 'desc'

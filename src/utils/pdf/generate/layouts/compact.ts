@@ -79,7 +79,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new CompactPDFLayout(PageOpts, Styles)
+  const Layout = new CompactPDFLayout(doc, PageOpts, Styles)
 
   doc
     .setFont('helvetica')
@@ -88,7 +88,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  Layout.getReminderText(doc, visibleReminders) // Get the reminders into the class
+  Layout.getReminderText(visibleReminders) // Get the reminders into the class
   const pages = Layout.splitTextToPagesCompact() // And now extract the pages
 
   // const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
