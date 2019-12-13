@@ -18,6 +18,7 @@ import {
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -28,7 +29,6 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
-  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'

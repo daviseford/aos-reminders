@@ -30,7 +30,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
 }) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
-  const { isSubscribed, isActive } = useSubscription()
+  const { isActive } = useSubscription()
   const { handleLogin } = useSavedArmies()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -44,7 +44,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
     <>
       {!isAuthenticated && <SaveButton handleClick={handleLogin} />}
 
-      {isAuthenticated && (!isSubscribed || !isActive) && <SubscribeBtn />}
+      {isAuthenticated && !isActive && <SubscribeBtn />}
 
       {isActive && <SaveButton handleClick={openModal} />}
 

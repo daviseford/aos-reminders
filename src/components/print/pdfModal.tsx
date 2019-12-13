@@ -10,12 +10,13 @@ import { isValidFactionName } from 'utils/armyUtils'
 import GenericModal from 'components/page/genericModal'
 import GenericButton from 'components/input/generic_button'
 import { TSupportedFaction } from 'meta/factions'
+import { TSavePdfType } from 'types/pdf'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
   factionName: TSupportedFaction
-  pdf: jsPDF
+  pdf: { default: jsPDF; compact: jsPDF }
 }
 
 const getDefaultName = (name: string) => {
@@ -34,6 +35,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
   const [processing, setProcessing] = useState(false)
+  const [layout, setLayout] = useState<TSavePdfType>('default')
 
   useEffect(() => {
     setFileName(defaultName)
@@ -55,8 +57,8 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const handleSaveClick = e => {
     e.preventDefault()
     setProcessing(true)
-    pdf.save(`${fileName}.pdf`)
-    if (isOnline) logDownloadEvent(factionName)
+    pdf[layout].save(`${fileName}.pdf`)
+    if (isOnline) logDownloadEvent(factionName, layout)
     setProcessing(false)
     setFileName('')
     closeModal()
@@ -86,6 +88,37 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
               />
             </div>
           </form>
+        </div>
+      </div>
+
+      <div className={`row ${theme.text} justify-content-center text-center`}>
+        <div className="col px-0 pb-3 pt-0">
+          <div className="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="defaultLayout"
+              name="defaultLayout"
+              className="custom-control-input"
+              checked={layout === 'default'}
+              onChange={() => setLayout('default')}
+            />
+            <label className="custom-control-label" htmlFor="defaultLayout">
+              Default
+            </label>
+          </div>
+          <div className="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="compactLayout"
+              name="compactLayout"
+              className="custom-control-input"
+              checked={layout === 'compact'}
+              onChange={() => setLayout('compact')}
+            />
+            <label className="custom-control-label" htmlFor="compactLayout">
+              Compact
+            </label>
+          </div>
         </div>
       </div>
 
