@@ -74,6 +74,13 @@ export default class CompactPdfLayout {
     const titleStr = title ? `${title} - ` : ``
     return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
   }
+  private _addSpacerToPage = () => {
+    this._addToCurrentPage({
+      type: 'spacer',
+      text: '',
+      position: 'full',
+    })
+  }
 
   /**
    * Converts a full-width rule to a column
@@ -93,7 +100,7 @@ export default class CompactPdfLayout {
       .flat()
   }
 
-  private _addPhaseAndRuleObjToPages = ({ rules, phase }: IPhaseAndRuleObj) => {
+  private _addPhaseAndRuleObjToPages = ({ rules, phase }: IPhaseAndRuleObj): void => {
     const Cols = {
       col0: [],
       col1: [],
@@ -111,7 +118,8 @@ export default class CompactPdfLayout {
           this._goToNextPage() // If it won't fit on this page, go to the next one
         }
         this._addToCurrentPage(phase) // Add the phase and rules to the page
-        return Cols.full.forEach(line => this._addToCurrentPage(line))
+        Cols.full.forEach(line => this._addToCurrentPage(line))
+        return this._addSpacerToPage()
       }
     }
 
@@ -200,17 +208,21 @@ export default class CompactPdfLayout {
       // Can we shoehorn this into col1? If so, convert to a column layout and stick it in there
       if (col1H + colRuleHeight <= col0H) {
         col1H = col1H + colRuleHeight
-        return toCol.forEach(line => this._addToCurrentPage(line))
+        toCol.forEach(line => this._addToCurrentPage(line))
+        return this._addSpacerToPage()
       } else if (this._willOverrunY(fullRuleHeight)) {
         // Go to next page before adding it
         this._goToNextPage()
         this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
       }
       // Drop it on this page, and we're done :D
-      return Cols.full.forEach(line => this._addToCurrentPage(line))
+      Cols.full.forEach(line => this._addToCurrentPage(line))
+      return this._addSpacerToPage()
+    } else {
+      // Add a spacer to the end of each phase
+      this._addSpacerToPage()
+      // And we're all done now!
     }
-
-    return Cols
   }
 
   splitTextToPagesCompact = () => {

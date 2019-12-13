@@ -38,12 +38,12 @@ const Styles: TPdfStyles = {
   },
   phase: {
     fontSize: 8,
-    spacing: 0.14,
+    spacing: 0.2,
     style: 'bold',
   },
   spacer: {
     fontSize: 0,
-    spacing: 0.14,
+    spacing: 0.1,
     style: 'normal',
   },
   title: {
@@ -121,7 +121,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
           .setDrawColor(28, 117, 149)
           .roundedRect(
             x - 0.1,
-            y - style.spacing + 0.025,
+            y - style.spacing + 0.04,
             pageWidth - PageOpts.xMargin * 2 + 0.1,
             style.spacing + 0.015,
             0.05,
