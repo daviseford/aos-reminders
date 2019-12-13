@@ -123,7 +123,7 @@ export default class CompactPdfLayout {
         if (this._willOverrunY(ruleHeight)) {
           // We can't add this because it would go over the page
           // So we need to check if we can add it to column 1
-          if (this._willOverrunY(col1H + rule1Height)) {
+          if (this._willOverrunY(ruleHeight - col0H)) {
             // We need to go to the next page and start fresh
             this._goToNextPage()
             this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
@@ -154,7 +154,8 @@ export default class CompactPdfLayout {
       if (col0IsFull || col0H >= halfHeight) {
         col0IsFull = true
         // Okay column 0 is full, let's see if we can add it to column 1
-        if (this._willOverrunY(col1H + ruleHeight)) {
+        // Removing the height of col0 because it's already been added to the Y axis
+        if (this._willOverrunY(col1H - col0H + ruleHeight)) {
           // Oh shit, it's gonna overrun, we need to go to the next page and start this whole cycle over
           this._goToNextPage()
           this._addToCurrentPage({ ...phase, text: `${phase.text} (continued)` })
