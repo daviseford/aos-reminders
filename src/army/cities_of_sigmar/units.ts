@@ -610,7 +610,7 @@ export const Units: TUnits = [
       {
         name: `Ancestral Grudge`,
         desc: `Pick 1 enemy unit within 18" of a friendly HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of attacks made with melee weapons used by friendly DISPOSSESSED units that target that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [HERO_PHASE],
+        when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
     ],
