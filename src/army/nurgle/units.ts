@@ -22,14 +22,19 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_NURGLE } from 'meta/alliances'
+import SlavestoDarkness from 'army/slaves_to_darkness'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import Skaven from 'army/skaven'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 import { getTamurkhansUnits, getTamurkhansBattalions } from 'army/tamurkhans_horde/units'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
+
+const getSlavesBattalion = () => {
+  const listOfBattalions = ['Plaguetouched Warband']
+  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
+}
 
 const getSkavenUnits = () => {
   const listOfUnits = [
@@ -70,7 +75,6 @@ const getBoCBattalion = () => {
 
 export const AlliedUnits: TUnits = [
   ...getBoCUnits(),
-  ...getEverchosenUnits(),
   ...getSkavenUnits(),
   ...getTamurkhansUnits(),
   ...SlaveUnits,
@@ -879,6 +883,7 @@ export const NurgleBattalions: TBattalions = [
 // Combine lists together to make army battalion entry.
 export const Battalions: TBattalions = [
   ...NurgleBattalions,
+  ...getSlavesBattalion(),
   ...getBoCBattalion(),
   ...getTamurkhansBattalions(),
 ]

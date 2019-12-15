@@ -20,12 +20,17 @@ import {
   DURING_SETUP,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_KHORNE } from 'meta/alliances'
 import BeastsofChaos from 'army/beasts_of_chaos'
+import SlavestoDarkness from 'army/slaves_to_darkness'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_KHORNE)
+
+const getSlavesBattalion = () => {
+  const listOfBattalions = ['Bloodmarked Warband']
+  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
+}
 
 const getBoCUnits = () => {
   const listOfUnits = [
@@ -48,7 +53,7 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
 
 const MurderousChargeEffect = {
   name: `Murderous Charge`,
@@ -1180,4 +1185,4 @@ export const KhorneBattalions: TBattalions = [
 ]
 
 // Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [...KhorneBattalions, ...getBoCBattalion()]
+export const Battalions: TBattalions = [...KhorneBattalions, ...getSlavesBattalion(), ...getBoCBattalion()]
