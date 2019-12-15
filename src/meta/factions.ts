@@ -7,7 +7,6 @@ export type TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export type TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
 export type TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
-export type TEverchosen = 'EVERCHOSEN'
 export type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export type TFyreslayers = 'FYRESLAYERS'
 export type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
@@ -50,7 +49,6 @@ export const CITIES_OF_SIGMAR: TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
 export const DEATH_GRAND_ALLIANCE: TDeathGrandAlliance = 'DEATH_GRAND_ALLIANCE'
 export const DESTRUCTION_GRAND_ALLIANCE: TDestructionGrandAlliance = 'DESTRUCTION_GRAND_ALLIANCE'
-export const EVERCHOSEN: TEverchosen = 'EVERCHOSEN'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
@@ -94,7 +92,6 @@ export type TSupportedFaction =
   | TDaughtersOfKhaine
   | TDeathGrandAlliance
   | TDestructionGrandAlliance
-  | TEverchosen
   | TFleshEaterCourts
   | TFyreslayers
   | TGloomspiteGitz
@@ -137,7 +134,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
-  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,

@@ -15,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
   DURING_SETUP,
+  TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
 
@@ -22,24 +23,29 @@ import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH 
 export const getSlavesUnits = () => {
   const listOfUnits = [
     `Archaon the Everchosen`,
-    `Chaos Chariots`,
-    `Chaos Chosen`,
-    `Chaos Gorebeast Chariots`,
-    `Chaos Knights`,
-    `Chaos Lord`,
-    `Chaos Lord on Daemonic Mount`,
-    `Chaos Lord on Karkadrak`,
+    `Varanguard`,
+    `Gaunt Summoner on Disc of Tzeentch`,
     `Chaos Lord on Manticore`,
-    `Chaos Marauder Horsemen`,
-    `Chaos Marauders`,
+    `Chaos Lord on Karkadrak`,
+    `Chaos Lord on Daemonic Mount`,
+    `Chaos Lord`,
     `Chaos Sorcerer Lord on Manticore`,
     `Chaos Sorcerer Lord`,
-    `Chaos War Mammoth`,
-    `Chaos Warriors`,
-    `Chaos Warshrine`,
-    `Curs'd Ettin`,
-    `Daemon Prince`,
     `Exalted Hero of Chaos`,
+    `Daemon Prince`,
+    `Chaos Warshrine`,
+    `Chaos Chosen`,
+    `Chaos Spawn`,
+    `Chaos Chariots`,
+    `Gorebeast Chariots`,
+    `Chaos Knights`,
+    `Chaos Warriors`,
+    `Chaos Marauders`,
+    `Chaos Marauder Horsemen`,
+    `Soul Grinder`,
+    `Slaughterbrute`,
+    `Mutalith Vortex Beast`,
+    `Chaos War Mammoth`,
   ]
   return filterUnits(Units, listOfUnits)
 }
@@ -135,11 +141,43 @@ const ExaltedCharioteerEffect = {
   when: [COMBAT_PHASE],
 }
 
+// Chaos Mark Effects.
+const ChaosMarkAll = {
+  name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
+  desc: `This unit either has or must take any Mark of Chaos during list construction.`,
+  when: [DURING_SETUP],
+}
+
+const ChaosMarkGod = {
+  name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH})`,
+  desc: `This unit must take any one of the following Marks of Chaos during list construction: Khorne, Nurgle, Slaanesh, or Tzeentch.`,
+  when: [DURING_SETUP],
+}
+
+const ChaosMarkSorcerer = {
+  name: `Mark of Chaos (${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
+  desc: `This unit must take any one of the following Mark of Chaos during list construction: Nurgle, Slaanesh, Tzeentch, or Undivided.`,
+  when: [DURING_SETUP],
+}
+
+const ChaosMarkKhorne = {
+  name: `Mark of Chaos (${MARK_KHORNE})`,
+  desc: `This unit must take the Khorne Mark of Chaos during list construction.`,
+  when: [DURING_SETUP],
+}
+
+const ChaosMarkTzeentch = {
+  name: `Mark of Chaos (${MARK_TZEENTCH})`,
+  desc: `This unit must take the Tzeentch Mark of Chaos during list construction.`,
+  when: [DURING_SETUP],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Archaon the Everchosen`,
     effects: [
+      ChaosMarkAll,
       {
         name: `The Armour of Morkar`,
         desc: `Roll a dice each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
@@ -218,6 +256,7 @@ export const Units: TUnits = [
   {
     name: `Gaunt Summoner on Disc of Tzeentch`,
     effects: [
+      ChaosMarkTzeentch,
       {
         name: `Book of Profane Secrets`,
         desc: `Once per battle this model can use this ability. Summon 1 unit of the following to the battlefield: 10 Bloodletters, 10 Daemonettes, 10 Pink Horrors, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
@@ -249,6 +288,7 @@ export const Units: TUnits = [
   {
     name: `Varanguard`,
     effects: [
+      ChaosMarkAll,
       DaemonforgedWeaponEffect,
       {
         name: `Favoured of the Everchosen`,
@@ -275,6 +315,7 @@ export const Units: TUnits = [
   {
     name: `Daemon Prince`,
     effects: [
+      ChaosMarkGod,
       {
         name: `Bounding Charge`,
         desc: `Add 1 to the hit rolls for this model if it charged in the same turn.`,
@@ -329,6 +370,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Lord on Manticore`,
     effects: [
+      ChaosMarkAll,
       ChaosRuneshieldEffect,
       DaemonforgedWeaponEffect,
       TerritorialPredatorEffect,
@@ -363,6 +405,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Lord on Karkadrak`,
     effects: [
+      ChaosMarkAll,
       ChaosRuneshieldEffect,
       DaemonforgedWeaponEffect,
       FuelledByCarnageEffect,
@@ -377,6 +420,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Lord on Daemonic Mount`,
     effects: [
+      ChaosMarkAll,
       ChaosRuneshieldEffect,
       FuelledByCarnageEffect,
       ...KnigntsOfChaosEffect,
@@ -390,6 +434,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Lord`,
     effects: [
+      ChaosMarkAll,
       DaemonforgedWeaponEffect,
       {
         name: `Spurred by the Gods`,
@@ -402,6 +447,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Sorcerer Lord on Manticore`,
     effects: [
+      ChaosMarkSorcerer,
       OracularVisionsEffect,
       TerritorialPredatorEffect,
       {
@@ -420,6 +466,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Sorcerer Lord`,
     effects: [
+      ChaosMarkSorcerer,
       OracularVisionsEffect,
       {
         name: `Wizard`,
@@ -442,6 +489,7 @@ export const Units: TUnits = [
   {
     name: `Exalted Hero of Chaos`,
     effects: [
+      ChaosMarkAll,
       ChaosRuneshieldEffect,
       {
         name: `Glory-hungry Bladesman`,
@@ -597,6 +645,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Marauders`,
     effects: [
+      ChaosMarkAll,
       UnitLeaderEffect,
       IconBearersEffect,
       MusiciansEffect,
@@ -612,6 +661,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Marauder Horsemen`,
     effects: [
+      ChaosMarkAll,
       UnitLeaderEffect,
       IconBearersEffect,
       MusiciansEffect,
@@ -627,6 +677,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Chariots`,
     effects: [
+      ChaosMarkAll,
       ExaltedCharioteerEffect,
       {
         name: `Don't Spare the Lash`,
@@ -641,8 +692,9 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Chaos Gorebeast Chariots`,
+    name: `Gorebeast Chariots`,
     effects: [
+      ChaosMarkAll,
       ExaltedCharioteerEffect,
       {
         name: `Crashing Charge`,
@@ -659,6 +711,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Warriors`,
     effects: [
+      ChaosMarkAll,
       UnitLeaderEffect,
       StandardBearersEffect,
       MusiciansEffect,
@@ -678,6 +731,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Chosen`,
     effects: [
+      ChaosMarkAll,
       UnitLeaderEffect,
       IconBearersEffect,
       MusiciansEffect,
@@ -692,6 +746,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Knights`,
     effects: [
+      ChaosMarkAll,
       UnitLeaderEffect,
       StandardBearersEffect,
       MusiciansEffect,
@@ -711,6 +766,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Warshrine`,
     effects: [
+      ChaosMarkAll,
       {
         name: `Protection of the Dark Gods`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range. On a 6+ the allocated wound is negated.`,
@@ -752,6 +808,7 @@ export const Units: TUnits = [
   {
     name: `Chaos Spawn`,
     effects: [
+      ChaosMarkAll,
       {
         name: `Writhing Tentacles`,
         desc: `If you roll a double when determining the number of attacks made by a Chaos Spawn's Freakish Mutations, add 1 to hit and wound rolls for attacks made by that model until the end of the phase.`,
@@ -762,6 +819,7 @@ export const Units: TUnits = [
   {
     name: `Chaos War Mammoth`,
     effects: [
+      ChaosMarkGod,
       {
         name: `Crushing Fall`,
         desc: `If this model is slain, before this model is removed from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D6 mortal wounds. This model is then removed from play.`,
@@ -993,6 +1051,7 @@ export const Units: TUnits = [
   {
     name: `Soul Grinder`,
     effects: [
+      ChaosMarkAll,
       {
         name: `Hellforged Claw`,
         desc: `If the unmodified hit roll for an attack made with a Hellforged Claw is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends.`,
@@ -1008,6 +1067,7 @@ export const Units: TUnits = [
   {
     name: `Mutalith Vortex Beast`,
     effects: [
+      ChaosMarkTzeentch,
       {
         name: `Mutant Regeneration`,
         desc: `You can heal D3 wounds in each of your hero phases.`,
@@ -1035,6 +1095,7 @@ export const Units: TUnits = [
   {
     name: `Slaughterbrute`,
     effects: [
+      ChaosMarkKhorne,
       {
         name: `Sigils of Enslavement`,
         desc: `When you set up a Slaughterbrute, you can pick 1 friendly Slaves to Darkness Hero in your army to be its master (a hero cannot be the master of more than one Slaughterbrute).`,
@@ -1133,11 +1194,26 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   {
+    name: `Chaos Horde`,
+    effects: [
+      {
+        name: `Oncoming Onslaught`,
+        desc: `Once per turn you can use 1 command ability on the warscroll of a hero from this battalion without spending a command point.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Oncoming Onslaught`,
+        desc: `Add 2 to the move characteristic of units from this battalion.`,
+        when: [TURN_ONE_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
     name: `Godsworn Champions of Ruin`,
     effects: [
       {
-        name: `Unholy Challenge`,
-        desc: `One unit from this battalion that is within 3" of an enemy hero or monster can immediately pile in and attack as if it were the combat phase.`,
+        name: `Fury of the Damned`,
+        desc: `You can pick 1 hero from this battalion that is within 3" of an enemy unit. That hero can fight.`,
         when: [HERO_PHASE],
       },
     ],
@@ -1146,8 +1222,8 @@ export const Battalions: TBattalions = [
     name: `Godswrath Warband`,
     effects: [
       {
-        name: `Godswrath Warband`,
-        desc: `Roll a number of dice equal to the number of units from the formation within 24" of a Chaos Warshrine from this battalion. For every 6+ a selected unit within 18" and visible to the Warshrine takes D3 mortal wound. A unit may not be selected more than once for this ability. Should the number of bolts exceed the number of valid enemy targets, friendly units must be selected for the remainder or until no valid target can be selected.`,
+        name: `Searing Doombolts`,
+        desc: `You can pick 1 Chaos Warshrine from this battalion and roll a dice for each enemy unit within 24" and visible. For each 6, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -1156,9 +1232,70 @@ export const Battalions: TBattalions = [
     name: `Ruinbringer Warband`,
     effects: [
       {
-        name: `Ruinbringer Warband`,
-        desc: `Once per game, every unit in this formation can charge as though it were the charge phase. Each unit that completes the charge successfully deals D3 mortal wounds to enemy units within 1" after charge completion. This changes to D6 mortal wounds if 10+ models from the unit are in range.`,
+        name: `Dark Cavalry`,
+        desc: `Each time a unit from this battalion finishes a charge move, you can pick 1 enemy unit within 1" of the charging unit. Roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bloodmarked Warband`,
+    effects: [
+      {
+        name: `Blood Rage`,
+        desc: `If a hero from this battalion slays any enemy models in this phase, you can pick 1 unit from the same battalion wholly within 12" of that hero. Add 1 to the attacks characteristic of the unit's melee weapons until your next hero phase. The same unit cannot benefit from this ability more than once per battle round.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fatesworn Warband`,
+    effects: [
+      {
+        name: `Scions of Change`,
+        desc: `You can pick 1 unit from this battalion that has 9 or more models during the start of your hero phase. Until the end of the phase, that unit can attempt to cast 1 spell and attempt to dispel 1 endless spell. It knows the Stolen Sting spell.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Stolen Sting`,
+        desc: `Casting value of 7. Select an enemy unit within 18" of the caster and visible. Worsen the rend characteristic of the target's melee weapons by 1 until your next hero phase. A unit can only be affected by this spell once per turn.`,
         when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Plaguetouched Warband`,
+    effects: [
+      {
+        name: `Grandfather's Favour`,
+        desc: `If the unmodified melee wound roll of 6 is made against a unit in this battatlion, the attacking unit suffers 1 mortal wound after all of its attacks have resolved.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Grandfather's Favour`,
+        desc: `You can pick 1 unit from this battalion and 1 enemy unit within 1" of the selected unit. Roll a dice. On a 3+ that enemy unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Pleasurebound Warband`,
+    effects: [
+      {
+        name: `Perverse Yearnings`,
+        desc: `If a model from a unit in this battalion was slain in this phase, units from the same battalion can move an extra 3" when they pile in until your next hero phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Overlords of Chaos`,
+    effects: [
+      {
+        name: `The Circles Unleashed`,
+        desc: `Select one of The Eight Circles of the Varanguard keywords for each unit in this battalion.`,
+        when: [DURING_SETUP],
       },
     ],
   },

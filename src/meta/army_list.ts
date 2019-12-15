@@ -9,7 +9,6 @@ import {
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
-  EVERCHOSEN,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
@@ -53,7 +52,6 @@ import CitiesOfSigmar from 'army/cities_of_sigmar'
 import DaughtersOfKhaine from 'army/daughters_of_khaine'
 import DeathGrandAlliance from 'army/grand_alliances/death'
 import DestructionGrandAlliance from 'army/grand_alliances/destruction'
-import Everchosen from 'army/everchosen'
 import FleshEaterCourts from 'army/flesh_eater_courts'
 import Fyreslayers from 'army/fyreslayers'
 import GloomspiteGitz from 'army/gloomspite'
@@ -119,10 +117,6 @@ const ArmyList: TArmyList = {
   [DESTRUCTION_GRAND_ALLIANCE]: {
     Army: { ...DestructionGrandAlliance },
     GrandAlliance: DESTRUCTION,
-  },
-  [EVERCHOSEN]: {
-    Army: { ...Everchosen },
-    GrandAlliance: CHAOS,
   },
   [FLESH_EATER_COURTS]: {
     Army: { ...FleshEaterCourts },
