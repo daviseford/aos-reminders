@@ -9,6 +9,7 @@ import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))
+const GameMode = lazy(() => import('components/routes/GameMode'))
 const Profile = lazy(() => import('components/routes/Profile'))
 const Subscribe = lazy(() => import('components/routes/Subscribe'))
 const Redeem = lazy(() => import('components/routes/Redeem'))
@@ -25,6 +26,7 @@ const App = () => {
         <Suspense fallback={<LoadingBody />}>
           <Switch>
             <Route path={ROUTES.HOME} exact component={Home} />
+            <Route path={ROUTES.GAMEMODE} exact component={GameMode} />
             <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
             <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
             <Route path={ROUTES.REDEEM} component={Redeem} />
