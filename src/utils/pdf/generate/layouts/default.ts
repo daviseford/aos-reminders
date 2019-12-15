@@ -63,6 +63,8 @@ const PageOpts = {
   yMargin: 0.75,
   pageHeight: 13,
   pageBottom: 13 - 0.75, // pageHeight - yMargin,
+  colLineWidth: 0,
+  colTitleLineWidth: 0,
   maxLineWidth: 10.8,
   maxTitleLineWidth: 10.8 - 2, // maxLineWidth - 2,
 }
@@ -77,7 +79,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout('default', PageOpts, Styles)
+  const Layout = new PdfLayout('default', doc, PageOpts, Styles, { factionName, ...currentArmy })
 
   doc
     .setFont('helvetica')
@@ -86,14 +88,13 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  const reminderText = Layout.getReminderText(doc, visibleReminders)
-  const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
-  const phaseInfo = Layout.getPhaseInfo(reminderText)
-  const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
+
+  Layout.getReminderText(visibleReminders)
+  const pages = Layout.splitTextToPages()
 
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
-    let [x, y] = Layout.getInitialXY()
+    let [x, y] = [PageOpts.xMargin, PageOpts.yMargin]
 
     page.forEach((t, i) => {
       // Don't add spacers to the start or end of page

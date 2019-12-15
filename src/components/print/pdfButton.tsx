@@ -44,10 +44,9 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     )
 
     // Get the PDF ready to be saved
-    const standard = savePdf('default', { ...currentArmy, hiddenReminders, reminders })
-    const compact = savePdf('compact', { ...currentArmy, hiddenReminders, reminders })
+    const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })
 
-    setPdf({ default: standard, compact })
+    setPdf(pdfs)
     saveArmyToS3(currentArmy)
     openModal()
   }
