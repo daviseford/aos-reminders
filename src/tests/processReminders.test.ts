@@ -9,7 +9,7 @@ import sylvaneth from 'army/sylvaneth'
 import { GenericCommands, GenericTriumphs, RealmscapeFeatures, RealmscapeCommands } from 'army/generic'
 
 // Meta
-import { DISPOSSESSED, IRONJAWZ, SERAPHON, SYLVANETH } from 'meta/factions'
+import { IRONJAWZ, SERAPHON, SYLVANETH, SKAVEN } from 'meta/factions'
 
 // Types
 import { IArmy, TAllyArmies } from 'types/army'
@@ -19,15 +19,15 @@ import { getRealmscape } from 'utils/realmUtils'
 describe('processReminders', () => {
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
-    const allyFactionNames = [DISPOSSESSED, IRONJAWZ, SERAPHON]
+    const allyFactionNames = [SKAVEN, IRONJAWZ, SERAPHON]
     const allyArmies: TAllyArmies = {
-      [DISPOSSESSED]: getArmy(DISPOSSESSED) as IArmy,
+      [SKAVEN]: getArmy(SKAVEN) as IArmy,
       [IRONJAWZ]: getArmy(IRONJAWZ) as IArmy,
       [SERAPHON]: getArmy(SERAPHON) as IArmy,
     }
 
     const allySelections = {
-      [DISPOSSESSED]: allySelectionsFactory(),
+      [SKAVEN]: allySelectionsFactory(),
       [IRONJAWZ]: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
       [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
     }
