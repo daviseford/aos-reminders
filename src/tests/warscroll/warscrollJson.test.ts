@@ -86,6 +86,26 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with OBR', () => {
+    const parsedText = getFile('1576047037925-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Corvus Cabal', () => {
+    const parsedText = getFile('1576093463575-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
+      battalions: [],
+      units: ['Corvus Cabal'],
+    })
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Hailstorm Battery (SCE battalion)', () => {
     const parsedText = getFile('1574638101530-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

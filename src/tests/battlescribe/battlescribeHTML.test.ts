@@ -18,6 +18,7 @@ import {
   LEGION_OF_SACRAMENT,
   NIGHTHAUNT,
   NURGLE,
+  OGOR_MAWTRIBES,
   SERAPHON,
   SKAVEN,
   SLAANESH,
@@ -28,7 +29,6 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
-  OGOR_MAWTRIBES,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
@@ -106,12 +106,29 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Sylvaneth3', () => {
+    const parsedText = getFile('Sylvaneth3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Gloomspite4', () => {
     const parsedText = getFile('Gloomspite4')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.scenery).toEqual(['Bad Moon Loonshrine'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Nighthaunt5', () => {
+    const parsedText = getFile('Nighthaunt5')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.selections.spells).toContain('Howling Vortex')
     expect(res.errors).toEqual([])
   })
 
@@ -129,6 +146,15 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IRONJAWZ)
     expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Mawtribes2', () => {
+    const parsedText = getFile('Mawtribes2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.scenery).toEqual(['Great Mawpot'])
     expect(res.errors).toEqual([])
   })
 

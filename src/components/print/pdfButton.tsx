@@ -23,7 +23,7 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
   const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
   const { saveArmyToS3 } = useSavedArmies()
 
-  const [pdf, setPdf] = useState<jsPDF | null>(null)
+  const [pdf, setPdf] = useState<{ default: jsPDF; compact: jsPDF } | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
@@ -44,9 +44,9 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
     )
 
     // Get the PDF ready to be saved
-    const doc = savePdf({ ...currentArmy, hiddenReminders, reminders })
+    const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })
 
-    setPdf(doc)
+    setPdf(pdfs)
     saveArmyToS3(currentArmy)
     openModal()
   }
@@ -58,10 +58,10 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
       <GenericButton onClick={handleDownload}>
         <MdFileDownload className="mr-2" /> {text}
       </GenericButton>
-      {modalIsOpen && (
+      {modalIsOpen && pdf && (
         <DownloadPDFModal
           factionName={currentArmy.factionName}
-          pdf={pdf as jsPDF}
+          pdf={pdf}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
         />

@@ -50,6 +50,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
+      if (txt.startsWith('Skyport: ')) {
+        const skyport = txt.replace(/^Skyport: /g, '').trim()
+        accum.allegiances = accum.allegiances.concat(skyport)
+        return accum
+      }
+
       if (txt.startsWith('- Mortal Realm: ')) {
         origin_realm = txt.replace('- Mortal Realm: ', '').trim()
         return accum
@@ -80,6 +86,23 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           const allegiance = txt.replace('- Lodge: ', '').trim()
           if (allegiance) {
             accum.allegiances = accum.allegiances.concat(allegiance)
+            return accum
+          }
+        }
+
+        if (txt.startsWith('- Additional Footnote: ')) {
+          const trait = txt.replace('- Additional Footnote: ', '').trim()
+          if (trait) {
+            accum.traits = accum.traits.concat(trait)
+            return accum
+          }
+        }
+
+        if (txt.startsWith('- Great Endrinworks : ')) {
+          const name = txt.replace('- Great Endrinworks : ', '').trim()
+          const artifact = name.replace(/\(.+\)/g, '').trim()
+          if (artifact) {
+            accum.artifacts = accum.artifacts.concat(artifact)
             return accum
           }
         }

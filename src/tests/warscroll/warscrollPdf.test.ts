@@ -37,6 +37,58 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('reads KO pdf (issue #794)', () => {
+    const pdfText = getFile('skydorfs')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'KHARADRON_OVERLORDS',
+      origin_realm: 'Chamon',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Barak-Zilfin, The Windswept City (Skyport)'],
+        artifacts: ['Aethershock Earbuster (AETHERMATIC WEAPON)', 'Aetherspheric Endrins (GREAT ENDRINWORK)'],
+        battalions: [],
+        commands: [],
+        endless_spells: [],
+        scenery: [],
+        spells: [],
+        traits: [
+          "FOOTNOTE: There's no Trading With Some People",
+          'Fleetmaster',
+          'ARTYCLE: Master the Skies',
+          "AMENDMENT: Don't Argue With the Wind",
+          "FOOTNOTE: There's Always a Breeze if You Look for it",
+        ],
+        triumphs: [],
+        units: [
+          'Aether-Khemist',
+          'Aetheric Navigator',
+          'Arkanaut Company',
+          'Grundstok Thunderers',
+          'Endrinriggers',
+          'Skywardens',
+          'Arkanaut Frigate',
+          'Arkanaut Ironclad',
+        ],
+      },
+      unknownSelections: [
+        'Light Skyhooks',
+        'Aethermatic Volley Guns',
+        'Aethershot Rifles',
+        'Drill Cannons',
+        'Heavy Sky Cannon',
+        'Aethermatic Volley Cannon',
+      ],
+    })
+  })
+
   it('reads Fyreslayers battalions properly', () => {
     const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
@@ -347,8 +399,11 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(warscrollTxt.errors).toEqual([])
     expect(warscrollTxt.selections.traits).toEqual([
-      "FOOTNOTE: There's no Trading With Some People",
       "FOOTNOTE: There's no Reward Without Risk",
+      "FOOTNOTE: There's no Trading With Some People",
+      'ARTYCLE: Master the Skies',
+      "AMENDMENT: Don't Argue With the Wind",
+      "FOOTNOTE: There's Always a Breeze if You Look for it",
     ])
     expect(warscrollTxt.selections.units).toEqual([
       'Aether-Khemist',

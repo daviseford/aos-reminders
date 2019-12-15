@@ -10,7 +10,6 @@ import {
   BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
-  DISPOSSESSED,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
@@ -174,6 +173,14 @@ describe('getAzyrArmyFromPdf', () => {
       'Thundertusk Beastriders',
       'Mournfang Pack',
     ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles OgorMawtribes4', () => {
+    const fileTxt = getFile('OgorMawtribes4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([])
   })
 
@@ -560,70 +567,6 @@ describe('getAzyrArmyFromPdf', () => {
       "FOOTNOTE: There's Always a Breeze if You Look for it",
     ])
     expect(res.errors).toEqual([])
-  })
-
-  it('handles KO2', () => {
-    const fileTxt = getFile('KO2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.allyFactionNames).toEqual([CITIES_OF_SIGMAR, DISPOSSESSED, STORMCAST_ETERNALS])
-    expect(res.selections.traits).toEqual([
-      'ARTYCLE: Respect Your Commanders',
-      'AMENDMENT: Trust Aethermatics, Not Superstition',
-      'FOOTNOTE: Without Our Ships, We Are Naught',
-      'FOOTNOTE: Through Knowledge, Power',
-      'Champion of Progress',
-    ])
-
-    expect(res.allySelections).toEqual({
-      CITIES_OF_SIGMAR: { battalions: [], units: ['Gyrobombers', 'Gyrocopters'] },
-      DISPOSSESSED: { battalions: [], units: ['Quarrellers', 'Thunderers'] },
-      STORMCAST_ETERNALS: {
-        battalions: [],
-        units: [
-          'Prosecutors with Stormcall Javelins',
-          'Lord-Arcanum',
-          'Knight-Incantor',
-          'Lord-Exorcist',
-          'Evocators',
-          "Steelheart's Champions",
-        ],
-      },
-    })
-
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Hammerers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Irondrakes can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Stormcast4', () => {

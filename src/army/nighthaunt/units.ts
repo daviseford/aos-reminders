@@ -542,7 +542,15 @@ export const Units: TUnits = [
   },
   {
     name: `The Briar Queen`,
-    effects: [EtherealEffect],
+    effects: [
+      EtherealEffect,
+      {
+        name: `Howling Vortex`,
+        desc: `Casting value of 7. Pick a point on the battlefield within 18" of the caster that is visible to them, and roll 2D6 for each enemy unit within 6" of that point. If the roll is greater than the value of that unit's Move characteristic, or that roll is a double, that unit suffers 1 mortal wound and its Move characteristic is halved until the caster's next hero phase.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
   },
   {
     name: `Thorns of the Briar Queen`,
