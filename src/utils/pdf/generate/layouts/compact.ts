@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf'
 import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
-import CompactPDFLayout from 'utils/pdf/generate/layouts/compactLayoutUtils'
+import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { titleCase } from 'utils/textUtils'
 import { TPdfStyles, IPrintPdf } from 'types/pdf'
@@ -61,8 +61,8 @@ const Styles: TPdfStyles = {
 const PageOpts = {
   xMargin: 0.3,
   yMargin: 0.75,
-  pageHeight: 11.5,
-  pageBottom: 11.5 - 0.75, // pageHeight - yMargin,
+  pageHeight: 11.45,
+  pageBottom: 11.45 - 0.75, // pageHeight - yMargin,
   colLineWidth: 8.5,
   colTitleLineWidth: 8, // colLineWidth - 2,
   maxLineWidth: 17,
@@ -79,7 +79,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new CompactPDFLayout(doc, PageOpts, Styles, { factionName, ...currentArmy })
+  const Layout = new CompactPDFLayout('compact', doc, PageOpts, Styles, { factionName, ...currentArmy })
 
   doc
     .setFont('helvetica')
@@ -89,7 +89,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
   Layout.getReminderText(visibleReminders) // Get the reminders into the class
-  const pages = Layout.splitTextToPagesCompact() // And now extract the pages
+  const pages = Layout.splitTextToPages() // And now extract the pages
 
   const col1X = 4.2
 

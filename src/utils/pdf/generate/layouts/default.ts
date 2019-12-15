@@ -7,23 +7,23 @@ import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {
-    fontSize: 11.5,
+    fontSize: 11,
     spacing: 0.22,
     style: 'normal',
   },
   armyEnd: {
-    fontSize: 14,
+    fontSize: 12,
     spacing: 0.18,
     style: 'bold',
   },
   armyFooter: {
-    fontSize: 14,
-    spacing: 0.28,
+    fontSize: 12,
+    spacing: 0.24,
     style: 'bold',
   },
   armyName: {
-    fontSize: 15,
-    spacing: 0.3,
+    fontSize: 14,
+    spacing: 0.28,
     style: 'bold',
   },
   break: {
@@ -32,13 +32,13 @@ const Styles: TPdfStyles = {
     style: 'normal',
   },
   desc: {
-    fontSize: 11,
-    spacing: 0.22,
+    fontSize: 9.5,
+    spacing: 0.18,
     style: 'normal',
   },
   phase: {
-    fontSize: 14,
-    spacing: 0.28,
+    fontSize: 12,
+    spacing: 0.24,
     style: 'bold',
   },
   spacer: {
@@ -47,8 +47,8 @@ const Styles: TPdfStyles = {
     style: 'normal',
   },
   title: {
-    fontSize: 11.5,
-    spacing: 0.22,
+    fontSize: 10,
+    spacing: 0.2,
     style: 'bold',
   },
   titlespacer: {
@@ -61,8 +61,10 @@ const Styles: TPdfStyles = {
 const PageOpts = {
   xMargin: 0.5,
   yMargin: 0.75,
-  pageHeight: 13,
-  pageBottom: 13 - 0.75, // pageHeight - yMargin,
+  pageHeight: 12.4,
+  pageBottom: 12.4 - 0.75, // pageHeight - yMargin,
+  colLineWidth: 0,
+  colTitleLineWidth: 0,
   maxLineWidth: 10.8,
   maxTitleLineWidth: 10.8 - 2, // maxLineWidth - 2,
 }
@@ -77,7 +79,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout('default', PageOpts, Styles)
+  const Layout = new PdfLayout('default', doc, PageOpts, Styles, { factionName, ...currentArmy })
 
   doc
     .setFont('helvetica')
@@ -86,14 +88,13 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  const reminderText = Layout.getReminderText(doc, visibleReminders)
-  const armyText = Layout.getArmyText(doc, { factionName, ...currentArmy })
-  const phaseInfo = Layout.getPhaseInfo(reminderText)
-  const pages = Layout.splitTextToPages(reminderText, phaseInfo, armyText)
+
+  Layout.getReminderText(visibleReminders)
+  const pages = Layout.splitTextToPages()
 
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
-    let [x, y] = Layout.getInitialXY()
+    let [x, y] = [PageOpts.xMargin, PageOpts.yMargin]
 
     page.forEach((t, i) => {
       // Don't add spacers to the start or end of page

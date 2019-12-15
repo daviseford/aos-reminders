@@ -90,7 +90,7 @@
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
     "react-app-rewired": "2.1.5",
-    "replace-in-file": "4.2.0",
+    "replace-in-file": "5.0.2",
     "source-map-explorer": "2.1.2",
     "ts-node-dev": "1.0.0-pre.44",
     "tsconfig-paths": "3.9.0",

@@ -685,21 +685,6 @@ describe('handleAzyrPages', () => {
     ])
   })
 
-  it('handles Dispossessed1', () => {
-    const fileTxt = getFile('Dispossessed1')
-    const res = handleAzyrPages(fileTxt)
-    expect(res).toEqual([
-      'FACTION: Dispossessed',
-      'REALMSCAPE: SHYISH',
-      'UNIT: Warden King',
-      'UNIT: Ironbreakers',
-      'UNIT: Longbeards',
-      'UNIT: Hammerers',
-      'UNIT: Irondrakes',
-      'BATTALION: Grudgebound War Throng',
-    ])
-  })
-
   it('handles Destruction2', () => {
     const fileTxt = getFile('Destruction2')
     const res = handleAzyrPages(fileTxt)

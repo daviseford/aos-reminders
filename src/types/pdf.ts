@@ -25,11 +25,6 @@ export type TPdfStyles = {
 
 export type TSavePdfType = 'default' | 'compact' | 'title-only'
 
-export interface IPdfTextObj {
-  type: TPdfStylePdf
-  text: string
-}
-
 export interface ICompactPdfTextObj {
   type: TPdfStylePdf
   text: string

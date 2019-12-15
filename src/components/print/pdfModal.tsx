@@ -92,7 +92,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
       </div>
 
       <div className={`row ${theme.text} justify-content-center text-center`}>
-        <div className="col px-0 pb-3 pt-0">
+        <div className="col px-0">
           <div className="custom-control custom-radio custom-control-inline">
             <input
               type="radio"
@@ -119,6 +119,14 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
               Compact
             </label>
           </div>
+        </div>
+      </div>
+
+      <div className={`row ${theme.text} justify-content-center text-center`}>
+        <div className="col px-0 pb-3 pt-1">
+          <span className={`small ${theme.text}`}>
+            {layout === 'compact' ? 'Smaller font, two columns, fewer pages' : 'Larger font, more whitespace'}
+          </span>
         </div>
       </div>
 

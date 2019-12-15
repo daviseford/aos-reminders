@@ -10588,14 +10588,14 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-replace-in-file@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/replace-in-file/-/replace-in-file-4.2.0.tgz#be779f4f61a8ee1ab9f917998bd36441673680fe"
-  integrity sha512-9PGYDbU8iQF3W5a0Ariaf4KzYjsZSkonCYiZylwMiYOu0w5Bg9IuT4DqNnibA4zGNVxH//F7Hxh1P25TofAHGw==
+replace-in-file@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/replace-in-file/-/replace-in-file-5.0.2.tgz#bd26203b66dfb5b8112ae36a2d2cf928ea4cfe12"
+  integrity sha512-1Vc7Sbr/rTuHgU1PZuBb7tGsFx3D4NKdhV4BpEF2MuN/6+SoXcFtx+dZ1Zz+5Dq4k5x9js87Y+gXQYPTQ9ppkA==
   dependencies:
-    chalk "^2.4.2"
-    glob "^7.1.4"
-    yargs "^13.3.0"
+    chalk "^3.0.0"
+    glob "^7.1.6"
+    yargs "^15.0.2"
 
 request-promise-core@1.1.2:
   version "1.1.2"
