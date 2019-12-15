@@ -7,23 +7,23 @@ import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {
-    fontSize: 11.5,
+    fontSize: 11,
     spacing: 0.22,
     style: 'normal',
   },
   armyEnd: {
-    fontSize: 14,
+    fontSize: 12,
     spacing: 0.18,
     style: 'bold',
   },
   armyFooter: {
-    fontSize: 14,
-    spacing: 0.28,
+    fontSize: 12,
+    spacing: 0.24,
     style: 'bold',
   },
   armyName: {
-    fontSize: 15,
-    spacing: 0.3,
+    fontSize: 14,
+    spacing: 0.28,
     style: 'bold',
   },
   break: {
@@ -32,13 +32,13 @@ const Styles: TPdfStyles = {
     style: 'normal',
   },
   desc: {
-    fontSize: 11,
-    spacing: 0.22,
+    fontSize: 9.5,
+    spacing: 0.18,
     style: 'normal',
   },
   phase: {
-    fontSize: 14,
-    spacing: 0.28,
+    fontSize: 12,
+    spacing: 0.24,
     style: 'bold',
   },
   spacer: {
@@ -47,8 +47,8 @@ const Styles: TPdfStyles = {
     style: 'normal',
   },
   title: {
-    fontSize: 11.5,
-    spacing: 0.22,
+    fontSize: 10,
+    spacing: 0.2,
     style: 'bold',
   },
   titlespacer: {
@@ -61,8 +61,8 @@ const Styles: TPdfStyles = {
 const PageOpts = {
   xMargin: 0.5,
   yMargin: 0.75,
-  pageHeight: 13,
-  pageBottom: 13 - 0.75, // pageHeight - yMargin,
+  pageHeight: 12.4,
+  pageBottom: 12.4 - 0.75, // pageHeight - yMargin,
   colLineWidth: 0,
   colTitleLineWidth: 0,
   maxLineWidth: 10.8,
