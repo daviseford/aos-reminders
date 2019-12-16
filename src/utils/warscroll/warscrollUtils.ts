@@ -8,6 +8,7 @@ export const cleanWarscrollText = (pdfText: string[]) => {
           .replace(/^[0-9]{1,2}"$/g, '') // Remove '12"' entries
           .replace(/^[0-9]{1,2}"\*$/g, '') // Remove '10"*' entries
           .replace(/^[0-9]{1,2}[D|d]6"/g, '') // Remove '2D6"' entries
+          .replace(/^[0-9]{1,2}\*\+/g, '') // Remove '3*+' entries
     )
     .filter(
       txt =>
