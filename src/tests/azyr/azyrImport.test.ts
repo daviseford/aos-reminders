@@ -21,7 +21,7 @@ const getFile = (filename: string): string[] => {
  * Testing the Azyr import is a little wonky, because as of right now,
  * importing PDFs locally doesn't work in the local test environment
  *
- * The workaround is to `yarn start` and drop your in the dropzone
+ * The workaround is to `yarn start` and drop your PDF in the dropzone
  * Then copy the output that says "Copy me" into a JSON file
  *
  * Then test against that JSON below
