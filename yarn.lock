@@ -2103,10 +2103,10 @@
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-5.0.2.tgz#a877a4658f8238c8266faef300ae41c84d72ec8a"
   integrity sha512-BOl+6KDs4ItndUWUFchy3aEqGdHhw0BC4Uu+qoDonN/f0rbUnJbm71Ulj8Tt9jLFRaAxPLKvdS1bBLfx1qXR9g==
 
-"@types/pdfjs-dist@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.1.2.tgz#fd4013eaa8fb8ac2bc96c9df6a1b2346121dabc8"
-  integrity sha512-tUMIcX3z8M8EXA0SA4YIZcgZ6r/Rb2wbwvM9AKJhE/MPh5rEC90Sg8lMyVX6hzMaToR4jWEvN7IUA1bvoVpctA==
+"@types/pdfjs-dist@2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.1.3.tgz#68b6bbbe5ef0cdab7f8301f5a85a5a33b9c2080b"
+  integrity sha512-aGyFfB4Q8QjaSR3cBTiJfnFXBU6SXQaBVM7ADfBaZzq4L7EGbjuSoqXfHJofZmLFBfKzZ9b+9nXO2FfUIsw77w==
 
 "@types/prop-types@*":
   version "15.7.3"
