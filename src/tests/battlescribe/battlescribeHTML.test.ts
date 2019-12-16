@@ -136,6 +136,15 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Mawtribes3', () => {
+    const parsedText = getFile('Mawtribes3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.scenery).toEqual(['Great Mawpot'])
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Mawtribes2', () => {
     const parsedText = getFile('Mawtribes2')
     const res = getBattlescribeArmy(parsedText)
