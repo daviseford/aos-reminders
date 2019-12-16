@@ -14,6 +14,7 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHORNE,
+  NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
@@ -24,7 +25,6 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  NURGLE,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
 

@@ -143,6 +143,7 @@ const handleItem = (text: string): string[] => {
     .replace(sceneryRegExp, ', SCENERY: $1, ')
     .replace(/Battle Trait/g, 'Command Trait')
     .replace(markRegexp, ' ')
+    .replace(auraRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
       /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
@@ -178,6 +179,7 @@ const handleItem = (text: string): string[] => {
 const handleTitle = (text: string): string[] => {
   const firstTitlePass = text
     .replace(/HEADER( HEADER)+/g, HEADER)
+    .replace(circleRegexp, ' ')
     .replace(allegianceRegexp, 'ALLEGIANCE:')
     .replace(/Realm of Battle:/g, 'REALMSCAPE:')
     .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
@@ -296,6 +298,7 @@ const commonTypos = {
   'Bloodlor ds': 'Bloodlords',
   'Bloodr eaper': 'Bloodreaper',
   'Boltst orm': 'Boltstorm',
+  'Cir cle': 'Circle',
   'Cour t': 'Court',
   'Court s': 'Courts',
   'Decr epify': 'Decrepify',
@@ -334,13 +337,27 @@ const commonTypos = {
   'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
+  'Varanguar d': 'Varanguard',
   'Warpfir e': 'Warpfire',
   'Wick ed': 'Wicked',
   FUETHÁN: 'FUETHAN',
 }
 
 const typoRegexp = new RegExp(Object.keys(commonTypos).join('|'), 'g')
-const markRegexp = new RegExp(`Mark( of Chaos)?: {1,3}(${SUPPORTED_FACTIONS.map(titleCase).join('|')})`, 'gi')
+const markRegexp = new RegExp(
+  `Mark( of Chaos)?: {1,3}(${SUPPORTED_FACTIONS.map(titleCase)
+    .concat('Undivided')
+    .join('|')})`,
+  'gi'
+)
+const auraRegexp = new RegExp(
+  `Aura of Chaos: {1,3}Aura of (Nurgle|Slaanesh|Khorne|Tzeentch|Chaos Undivided)`,
+  'gi'
+)
+const circleRegexp = new RegExp(
+  `Circle of the Varanguard: {1,3}(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth) Circle`,
+  'gi'
+)
 
 const scenery = ['Penumbral Engine']
 const sceneryRegExp = new RegExp(`(${scenery.join('|')})`, 'g')

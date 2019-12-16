@@ -108,6 +108,8 @@ const azyrTypoMap: TNameMap = {
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
   'Ogors Gluttons': 'Ogor Gluttons',
+  'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
+  'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'The Blood-forged Armour': 'Blood-forged Armour',
   'The Brazen Rune': 'Brazen Rune',
 }
