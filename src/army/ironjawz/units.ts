@@ -192,7 +192,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `You can use this command ability if the ORRUK WARCHANTER from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a dice. On a 4+, a new ORRUK ARDBOYS unit with 10 models is added to this battalion. Set up the new unit wholly within 6" of the edge of the battlefieldand more than 9" from any enemy units.`,
+        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a dice. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
         command_ability: true,
       },
