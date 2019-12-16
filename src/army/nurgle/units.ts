@@ -100,6 +100,16 @@ const MountainOfLoathsomeFleshEffect = {
   desc: `Roll a D6 for each enemy unit within 1" of this model after it completes a charge move. On a 4+ the enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
 }
+const BlightedWeaponsEffect = {
+  name: `Blighted Weapons`,
+  desc: `If the unmodified hit roll for an attack made with this unit's Blighted Weapons is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [COMBAT_PHASE],
+}
+const VirulentDischargeEffect = {
+  name: `Virulent Discharge`,
+  desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability. On a 6+ that unit suffers D3 mortal wounds. If the unit has the NURGLE keyword, heal D3 wounds allocated instead.`,
+  when: [HERO_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -667,7 +677,7 @@ export const Units: TUnits = [
       },
       {
         name: `Plague-ridden Great Weapons`,
-        desc: `Each time you make a hit roll of 6+ for this model's Plague-ridden Great Blade, that hit roll inflicts D6 hits instead of 1.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -696,33 +706,13 @@ export const Units: TUnits = [
         desc: `Add 1 to this unit's run and charge rolls while it includes any models carrying a Sonorous Tocsin.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Virulent Discharge`,
-        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability. On a 6+ that unit suffers D3 mortal wounds. If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Blighted Weapons`,
-        desc: `Each time you make a hit roll of 6+ for this unit's Blighted Weapons, that hit roll inflicts D6 hits instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
+      VirulentDischargeEffect,
+      BlightedWeaponsEffect,
     ],
   },
   {
     name: `Pusgoyle Blightlords`,
-    effects: [
-      DisgustinglyResilientEffect,
-      {
-        name: `Virulent Discharge`,
-        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability. On a 6+ that unit suffers D3 mortal wounds. If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Blighted Weapons`,
-        desc: `Each time you make a hit roll of 6+ for this unit's Blighted Weapons, that hit roll inflicts D6 hits instead of 1.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [DisgustinglyResilientEffect, VirulentDischargeEffect, BlightedWeaponsEffect],
   },
   {
     name: `Exalted Greater Daemon Of Nurgle`,
