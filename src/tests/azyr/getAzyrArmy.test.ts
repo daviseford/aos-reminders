@@ -843,6 +843,7 @@ describe('getAzyrArmyFromPdf', () => {
             'Darkoath Warqueen',
             'Untamed Beasts',
             'Godsworn Hunt',
+            'Furies',
           ],
         },
       },

@@ -105,9 +105,9 @@ export const Units: TUnits = [
         name: `Mercurial Aspect`,
         desc: `At the start of the battle round, declare whether this model is Enraged or Embittered. The relevant ability below lasts until the end of that battle round:
 
-Enraged:While this model is Enraged, its Colony of Flitterfuries has an Attacks characteristic of 20 instead of 10.
+        Enraged: While this model is Enraged, its Colony of Flitterfuries has an Attacks characteristic of 20 instead of 10.
 
-Embittered:While this model is Embittered, its Swarm of Squirmlings has an Attacks characteristic of 20 instead of 10.`,
+        Embittered: While this model is Embittered, its Swarm of Squirmlings has an Attacks characteristic of 20 instead of 10.`,
         when: [START_OF_ROUND],
       },
       {

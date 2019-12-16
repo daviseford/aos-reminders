@@ -70,7 +70,7 @@ export const getAllyData: TGetAllyData = (allyUnits, factionName, errors, checkP
 
   // Check for unit name collisions and mark them as errors
   const collisions = Object.keys(allyData.allySelections).reduce((a, allyName) => {
-    const units: string[] = allyData.allySelections[allyName].units
+    const units: string[] = uniq(allyData.allySelections[allyName].units)
     units.forEach(unit => {
       if (a[unit]) {
         a[unit] = a[unit].concat(allyName as TSupportedFaction)

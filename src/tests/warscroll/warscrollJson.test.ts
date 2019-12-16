@@ -63,25 +63,25 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = getFile('1574613461286-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
-    expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
-      battalions: [],
-      units: [
-        'Darkoath Warqueen',
-        'Chaos Sorcerer Lord on Manticore',
-        'Untamed Beasts',
-        'Cypher Lords',
-        'Iron Golems',
-      ],
-    })
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.selections.units).toEqual([
+      'Archaon the Everchosen',
+      'Darkoath Warqueen',
+      'Chaos Sorcerer Lord on Manticore',
+      'Varanguard',
+      'Untamed Beasts',
+      'Cypher Lords',
+      'Iron Golems',
+      'Gaunt Summoner on Disc of Tzeentch',
+    ])
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Warscry scrolls', () => {
+  it('should work with Warcry scrolls', () => {
     const parsedText = getFile('1574613528170-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(warscrollTxt.errors).toEqual([])
   })
 
