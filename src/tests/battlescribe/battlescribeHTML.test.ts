@@ -74,21 +74,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Khorne6')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Furies (of Khorne)',
-      },
-      {
-        severity: 'warn',
-        text: 'Furies',
-      },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Khorne5', () => {
@@ -146,6 +132,15 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IRONJAWZ)
     expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Mawtribes3', () => {
+    const parsedText = getFile('Mawtribes3')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.scenery).toEqual(['Great Mawpot'])
     expect(res.errors).toEqual([])
   })
 
@@ -231,7 +226,12 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(NURGLE)
     expect(res.origin_realm).toEqual('Ulgu')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Wind of Chaos',
+      },
+    ])
   })
 
   it('should work with Ironjawz2', () => {
@@ -504,7 +504,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Wind of Chaos', // Pre-December 2019 battletome
+      },
+    ])
   })
 
   it('should work with Soulblight1', () => {
@@ -823,12 +828,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Allherd', // BoC allegiance
-      },
-      {
-        text:
-          'Allied Chaos Spawn can belong to Beasts Of Chaos or Slaves To Darkness. Please add this unit manually.',
-        severity: 'ally-warn',
+        text: 'Allherd', // BoC Allegiance
       },
     ])
   })
@@ -887,11 +887,31 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(KHORNE)
     expect(res.origin_realm).toEqual('Ghur')
     expect(res.selections.scenery).toContain('Skull Altar')
-    expect(res.errors).toEqual([
-      { text: 'Gigantic Chaos Spawn (of Khorne)', severity: 'warn' },
-      { text: 'Furies (of Khorne)', severity: 'warn' },
-      { severity: 'warn', text: 'Furies' },
+    expect(res.allySelections).toEqual({
+      SLAVES_TO_DARKNESS: { battalions: [], units: ['Furies'] },
+      CHAOS_GRAND_ALLIANCE: { battalions: [], units: ['Gigantic Chaos Spawn'] },
+    })
+    expect(res.selections.units).toEqual([
+      'Bloodmaster, Herald of Khorne',
+      'Bloodstoker',
+      'Bloodthirster of Insensate Rage',
+      'Exalted Greater Daemon of Khorne',
+      'Skaarac the Bloodborn',
+      'Skarr Bloodwrath',
+      'Vorgaroth the Scarred & Skalok the Skull Host of Khorne',
+      'Wrath of Khorne Bloodthirster',
+      'Mazarall the Butcher',
+      'Skull Cannons',
+      'Bloodletters',
+      'Gorebeast Chariots',
+      "Garrek's Reavers",
+      'Khorgoraths',
+      'Skullgrinder',
+      'Wrathmongers',
+      'Exalted Deathbringer',
+      'Skullreapers',
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with KO2', () => {

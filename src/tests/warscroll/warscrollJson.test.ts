@@ -14,6 +14,7 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHORNE,
+  NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
@@ -24,7 +25,6 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  NURGLE,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
 
@@ -63,25 +63,88 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = getFile('1574613461286-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
-    expect(warscrollTxt.allySelections[SLAVES_TO_DARKNESS]).toEqual({
-      battalions: [],
-      units: [
-        'Darkoath Warqueen',
-        'Chaos Sorcerer Lord on Manticore',
-        'Untamed Beasts',
-        'Cypher Lords',
-        'Iron Golems',
-      ],
-    })
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.selections.units).toEqual([
+      'Archaon the Everchosen',
+      'Darkoath Warqueen',
+      'Chaos Sorcerer Lord on Manticore',
+      'Varanguard',
+      'Untamed Beasts',
+      'Cypher Lords',
+      'Iron Golems',
+      'Gaunt Summoner on Disc of Tzeentch',
+    ])
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Warscry scrolls', () => {
+  it('should (not) work with The Wraith Fleet', () => {
+    const parsedText = getFile('1576230943609-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'error',
+        text: 'The Wraith Fleet are not supported.',
+      },
+    ])
+  })
+
+  it('should work with Master of Defense', () => {
+    const parsedText = getFile('1576328165962-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.traits).toContain('Master of Defence (Order)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Berzerker Lord', () => {
+    const parsedText = getFile('1576328837058-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.traits).toContain('Berserker Lord (Mortal)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with 3*+ formatting', () => {
+    const parsedText = getFile('1576364961328-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with The Gorechosen', () => {
+    const parsedText = getFile('1576418593609-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.battalions).toContain('Gorechosen')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Lord of Chaos', () => {
+    const parsedText = getFile('1576448761220-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Lord of Chaos', // Deprecated post-dec2019
+      },
+    ])
+  })
+
+  it('should work with Slaves to Darkness Chaos Spawn', () => {
+    const parsedText = getFile('1576493074441-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Chaos Spawn')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Slaves to Darkness Daemon Prince ', () => {
+    const parsedText = getFile('1576502239768-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Daemon Prince')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Warcry scrolls', () => {
     const parsedText = getFile('1574613528170-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(EVERCHOSEN)
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(warscrollTxt.errors).toEqual([])
   })
 
