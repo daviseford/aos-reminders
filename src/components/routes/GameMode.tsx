@@ -3,11 +3,9 @@ import { useTheme } from 'context/useTheme'
 import { useSubscription } from 'context/useSubscription'
 import { logPageView } from 'utils/analytics'
 import { Header } from 'components/page/homeHeader'
-import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 
 // const AppBanner = lazy(() => import('components/info/banners/app_banner'))
 const FooterComponent = lazy(() => import('components/page/footer'))
-const LoadedArmyHeader = lazy(() => import('components/input/savedArmies/loaded_army_header'))
 const PrintArmy = lazy(() => import('components/print/printArmy'))
 const PrintFooter = lazy(() => import('components/print/printFooter'))
 const Reminders = lazy(() => import('components/info/reminders'))
@@ -38,11 +36,7 @@ const GameMode: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={<></>}>
-        <LoadedArmyHeader />
-      </Suspense>
-
-      <Suspense fallback={<></>}>
-        <Reminders />
+        <Reminders isGameMode={true} />
 
         <PrintArmy />
 

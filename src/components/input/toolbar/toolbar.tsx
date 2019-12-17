@@ -15,7 +15,6 @@ import { TUnits, IArmy } from 'types/army'
 import { IStore } from 'types/store'
 import { ISavedArmy } from 'types/savedArmy'
 import { ROUTES } from 'utils/env'
-import { logClick } from 'utils/analytics'
 
 const AddAllyButton = lazy(() => import('./add_ally_btn'))
 const ClearArmyButton = lazy(() => import('./clear_army_btn'))
@@ -170,7 +169,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
       <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
         {pathname !== ROUTES.GAMEMODE && (
-          <Link to={ROUTES.GAMEMODE} className="page-link" onClick={() => logClick('Enter-game-mode')}>
+          <Link to={ROUTES.GAMEMODE} className="page-link" onClick={() => logClick('EnterGameMode')}>
             Switch to play mode
           </Link>
         )}

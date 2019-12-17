@@ -14,13 +14,14 @@ interface IRemindersProps extends ICurrentArmy {
   army: IArmy
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
+  isGameMode: boolean
   isMobile: boolean
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
+  const { allyArmies, army, hideWhens, isGameMode, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
   const reminders = useMemo(() => {
     return processReminders(
@@ -47,6 +48,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     // Remove orphaned phases
     // (phases where the rules have been removed via army_builder)
     const orphans = without(visibleWhens, ...titles)
+    console.log(titles)
     if (orphans.length) hideWhens(orphans)
 
     // If we're on mobile AND it's our first load of a new army AND

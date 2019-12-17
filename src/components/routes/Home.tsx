@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={<></>}>
-        <Reminders />
+        <Reminders isGameMode={false} />
 
         <PrintArmy />
 
