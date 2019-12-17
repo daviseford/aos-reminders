@@ -28,7 +28,7 @@ const Abilities: TAbilities = [
   {
     name: `Aura of ${MARK_TZEENTCH}`,
     desc: `You can re-roll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.
-           If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a dice. On a 5+ it has no effect on the unit.`,
+           If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a D6. On a 5+ it has no effect on the unit.`,
     when: [DURING_GAME],
   },
   {
@@ -58,7 +58,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aura of ${MARK_UNDIVIDED}`,
-    desc: `If this model is a general, roll a dice each time a friendly Slaves to Darkness Undivided unit wholly within 12" of this model allocates a wound or mortal wound. On a 6 it is negated.`,
+    desc: `If this model is a general, roll a D6 each time a friendly Slaves to Darkness Undivided unit wholly within 12" of this model allocates a wound or mortal wound. On a 6 it is negated.`,
     when: [WOUND_ALLOCATION],
   },
   {
@@ -98,7 +98,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Eye of the Gods: Flames of Chaos`,
-    desc: `Each time this hero is affected by a spell or endless spell you can roll a dice. On a 4+ ignore the effects on this hero.`,
+    desc: `Each time this hero is affected by a spell or endless spell you can roll a D6. On a 4+ ignore the effects on this hero.`,
     when: [DURING_GAME],
   },
   {
@@ -108,7 +108,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Eye of the Gods: Unholy Resilience`,
-    desc: `Roll a dice each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
+    desc: `Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
     when: [WOUND_ALLOCATION],
   },
   {

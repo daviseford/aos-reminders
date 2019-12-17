@@ -102,7 +102,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Caged Fury`,
-        desc: `If the Hellcannon is not within 3" of an enemy unit at the start of your movement phase, roll a dice and consult the War Machine Crew Table on the warscroll. If the dice roll is equal to or greater than the score shown, the crew have caged the Hellfire's fury this turn. Otherwise, the Hellcannon must move as far as it can towards the closest enemy unit that is visible to it.`,
+        desc: `If the Hellcannon is not within 3" of an enemy unit at the start of your movement phase, roll a D6 and consult the War Machine Crew Table on the warscroll. If the dice roll is equal to or greater than the score shown, the crew have caged the Hellfire's fury this turn. Otherwise, the Hellcannon must move as far as it can towards the closest enemy unit that is visible to it.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -122,7 +122,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this model is allocated a mortal wound. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time this model is allocated a mortal wound. On a 5+ that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -132,7 +132,7 @@ export const Units: TUnits = [
       },
       {
         name: `Battle Standard of the Dark Gods`,
-        desc: `In your hero phase, you can declare that this model will plant the Battle Standard of the Dark Gods. If you do, then until your next hero phase you may not move the model, but you may immediately roll a dice for each enemy unit within 10". On a 4+ that unit suffers a mortal wound.`,
+        desc: `In your hero phase, you can declare that this model will plant the Battle Standard of the Dark Gods. If you do, then until your next hero phase you may not move the model, but you may immediately roll a D6 for each enemy unit within 10". On a 4+ that unit suffers a mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -142,7 +142,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Freakish Mutations`,
-        desc: `Before this unit makes its attacks in the combat phase, roll a dice to see what mutation they have for the duration of that phase:
+        desc: `Before this unit makes its attacks in the combat phase, roll a D6 to see what mutation they have for the duration of that phase:
         
         1 - Writhing Tentacles: This unit's Freakish Mutations have a Range characteristic of 3" instead of 1".
         
@@ -164,7 +164,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Breath of Mutation`,
-        desc: `In the shooting phase, this model can pick one enemy unit in range. That unit suffers D3 mortal wounds. Roll a dice for each model that is slain; on a 4+ the unit suffers a further mortal wound as warriors are driven insane or twisted beyond recognition by the Breath of Mutation.`,
+        desc: `In the shooting phase, this model can pick one enemy unit in range. That unit suffers D3 mortal wounds. Roll a D6 for each model that is slain; on a 4+ the unit suffers a further mortal wound as warriors are driven insane or twisted beyond recognition by the Breath of Mutation.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -180,7 +180,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Fearsome Gluttony`,
-        desc: `Roll a dice each time this unit slays a model; on a 6 you can heal 1 wound that has been allocated to a model in this unit.`,
+        desc: `Roll a D6 each time this unit slays a model; on a 6 you can heal 1 wound that has been allocated to a model in this unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -211,7 +211,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `At the start of your hero phase, roll a dice. On a 2+ you can heal D3 wounds that have been allocated to models in this unit.`,
+        desc: `At the start of your hero phase, roll a D6. On a 2+ you can heal D3 wounds that have been allocated to models in this unit.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -236,7 +236,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blazing Body`,
-        desc: `In each hero phase, roll a dice for every unit (friend or foe) within 3" of any Great Taurus. On a 6+ that unit suffers a mortal wound. This ability has no effect on Great Taurus.`,
+        desc: `In each hero phase, roll a D6 for every unit (friend or foe) within 3" of any Great Taurus. On a 6+ that unit suffers a mortal wound. This ability has no effect on Great Taurus.`,
         when: [HERO_PHASE],
       },
       {

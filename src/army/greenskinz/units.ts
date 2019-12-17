@@ -111,7 +111,7 @@ export const Units: TUnits = [
       },
       {
         name: `Skull Icon`,
-        desc: `If a model flees from a unit that includes any Skull Icons, roll a dice; on a 6 the Icon Bearer thumps some courage back into the cowardly Orruk - it returns to the fight and doesn't flee.`,
+        desc: `If a model flees from a unit that includes any Skull Icons, roll a D6; on a 6 the Icon Bearer thumps some courage back into the cowardly Orruk - it returns to the fight and doesn't flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {

@@ -141,7 +141,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Corrupted Flesh`,
-        desc: `Roll a dice each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {

@@ -53,7 +53,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Flask of Stonehorn Blood`,
-        desc: `If active, roll a dice each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
+        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],

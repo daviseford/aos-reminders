@@ -44,7 +44,7 @@ const Spells: TSpells = [
       },
       {
         name: `Reinforce Battle-shields`,
-        desc: `If active, roll a dice each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
+        desc: `If active, roll a D6 each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],

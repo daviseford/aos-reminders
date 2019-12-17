@@ -140,7 +140,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Radiance of Dark Glory (Despoilers)`,
-        desc: `You can pick 1 friendly Despoilers unit wholly within 18" of this general and roll a dice. On a 3+, you can heal up to D3 wounds allocated to that unit.`,
+        desc: `You can pick 1 friendly Despoilers unit wholly within 18" of this general and roll a D6. On a 3+, you can heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
     ],

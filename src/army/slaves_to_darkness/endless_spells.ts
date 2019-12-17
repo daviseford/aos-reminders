@@ -25,7 +25,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Empowered by Atrocity`,
-        desc: `Roll a dice for each model that was tracked during the turn. On each 3+, the current turn's player must pick 1 Slaves to Darkness unit wholly within 18" of this model. The selected unit gets 1 additional attack to its melee weapons (excluding mounts). A unit cannot benefit from this more than once a turn.`,
+        desc: `Roll a D6 for each model that was tracked during the turn. On each 3+, the current turn's player must pick 1 Slaves to Darkness unit wholly within 18" of this model. The selected unit gets 1 additional attack to its melee weapons (excluding mounts). A unit cannot benefit from this more than once a turn.`,
         when: [END_OF_TURN],
       },
       {
