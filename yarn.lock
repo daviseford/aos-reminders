@@ -2083,10 +2083,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.7.tgz#57682a9771a3f7b09c2497f28129a0462966524a"
   integrity sha512-JNbGaHFCLwgHn/iCckiGSOZ1XYHsKFwREtzPwSGCVld1SGhOlmZw2D4ZI94HQCrBHbADzW9m4LER/8olJTRGHA==
 
-"@types/node@12.12.18":
-  version "12.12.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.18.tgz#8d16634797d63c2af5bc647ce879f8de20b56469"
-  integrity sha512-DBkZuIMFuAfjJHiunyRc+aNvmXYNwV1IPMgGKGlwCp6zh6MKrVtmvjSWK/axWcD25KJffkXgkfvFra8ndenXAw==
+"@types/node@12.12.19":
+  version "12.12.19"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.19.tgz#6133aa2a765accdec89ad7792b651a0830f7a34e"
+  integrity sha512-OXw80IpKyLeuZ5a8r2XCxVNnRAtS3lRDHBleSUQmbgu3C6eKqRsz7/5XNBU0EvK0RTVfotvYFgvRwwe2jeoiKw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -10453,6 +10453,11 @@ redux-immutable-state-invariant@^2.1.0:
   dependencies:
     invariant "^2.1.0"
     json-stringify-safe "^5.0.1"
+
+redux-persist@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
+  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 redux-thunk@^2.3.0:
   version "2.3.0"

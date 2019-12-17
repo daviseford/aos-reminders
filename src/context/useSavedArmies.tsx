@@ -7,7 +7,7 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName, prepareArmyForS3 } from 'utils/armyUtils'
-import { LocalUserName, LocalStoredArmy, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
 import { TSupportedFaction } from 'meta/factions'
@@ -23,7 +23,6 @@ interface ISavedArmiesContext {
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
   getFavoriteFaction: () => Promise<void>
-  handleLogin: (args?: { [key: string]: any }) => void
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -49,7 +48,7 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
-  const { user, loginWithRedirect } = useAuth0()
+  const { user } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
@@ -211,14 +210,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [subscription, isActive]
   )
 
-  const handleLogin = useCallback(
-    (args = {}) => {
-      LocalStoredArmy.set()
-      loginWithRedirect(args)
-    },
-    [loginWithRedirect]
-  )
-
   useEffect(() => {
     if (user && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
@@ -230,7 +221,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         deleteSavedArmy,
         favoriteFaction,
         getFavoriteFaction,
-        handleLogin,
         loadedArmy,
         loadSavedArmies,
         saveArmy,

@@ -3,6 +3,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { AppStatusProvider } from 'context/useAppStatus'
 import * as serviceWorker from './serviceWorker'
@@ -30,37 +33,50 @@ const onRedirectCallback = appState => {
   )
 }
 
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+}
+
+const rootReducer = combineReducers({
+  army: army.reducer,
+  factionNames: factionNames.reducer,
+  realmscape: realmscape.reducer,
+  selections: selections.reducer,
+  visibility: visibility.reducer,
+})
+
+const pReducer = persistReducer(persistConfig, rootReducer)
+
 export const store = createStore(
-  combineReducers({
-    army: army.reducer,
-    factionNames: factionNames.reducer,
-    realmscape: realmscape.reducer,
-    selections: selections.reducer,
-    visibility: visibility.reducer,
-  }),
+  pReducer,
   //@ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+const persistor = persistStore(store)
+
 render(
   <Provider store={store}>
-    <Auth0Provider
-      domain={config.domain}
-      client_id={config.clientId}
-      redirect_uri={window.location.origin}
-      // @ts-ignore
-      onRedirectCallback={onRedirectCallback}
-    >
-      <AppStatusProvider>
-        <SubscriptionProvider>
-          <SavedArmiesProvider>
-            <ThemeProvider>
-              <App />
-            </ThemeProvider>
-          </SavedArmiesProvider>
-        </SubscriptionProvider>
-      </AppStatusProvider>
-    </Auth0Provider>
+    <PersistGate loading={null} persistor={persistor}>
+      <Auth0Provider
+        domain={config.domain}
+        client_id={config.clientId}
+        redirect_uri={window.location.origin}
+        // @ts-ignore
+        onRedirectCallback={onRedirectCallback}
+      >
+        <AppStatusProvider>
+          <SubscriptionProvider>
+            <SavedArmiesProvider>
+              <ThemeProvider>
+                <App />
+              </ThemeProvider>
+            </SavedArmiesProvider>
+          </SubscriptionProvider>
+        </AppStatusProvider>
+      </Auth0Provider>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 )

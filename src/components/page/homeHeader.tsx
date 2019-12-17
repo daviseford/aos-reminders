@@ -8,7 +8,6 @@ import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
-import { LocalStoredArmy } from 'utils/localStore'
 import { getArmyLink } from 'utils/handleQueryParams'
 import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { SelectOne } from 'components/input/select'
@@ -60,7 +59,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
   // Set our favorite faction
   useEffect(() => {
-    if (favoriteFaction && !LocalStoredArmy.exists() && !hasSelections && getArmyLink() === null) {
+    if (favoriteFaction && !hasSelections && getArmyLink() === null) {
       setFactionName(favoriteFaction)
     }
     // Don't want to refresh this on hasSelections, so we need to ignore that piece of state

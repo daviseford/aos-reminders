@@ -5,19 +5,17 @@ import qs from 'qs'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaGift, FaCheck, FaRegSmileBeam } from 'react-icons/fa'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { LocalStoredArmy } from 'utils/localStore'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
 import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
+import { centerContentClass } from 'theme/helperClasses'
 import GenericButton from 'components/input/generic_button'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
-import { centerContentClass } from 'theme/helperClasses'
 
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
@@ -196,8 +194,7 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { stripe, user, supportPlan, isMobile } = props
-  const { isAuthenticated } = useAuth0()
-  const { handleLogin } = useSavedArmies()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const [quantity, setQuantity] = useState(1)
 
   // When the customer clicks on the button, redirect them to Checkout.
@@ -207,8 +204,6 @@ const PlanComponent: React.FC<IPlanProps> = props => {
     if (quantity === 0) return // Can't do anything with zero quantity
 
     logClick(`${supportPlan.title}-GiftedSubscription`)
-
-    LocalStoredArmy.set() // Store our current army in local storage so we don't lose it
 
     const sku = isDev ? supportPlan.dev : supportPlan.prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
@@ -271,7 +266,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <button
           type="button"
           className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
-          onClick={isAuthenticated ? handleCheckout : handleLogin}
+          onClick={isAuthenticated ? handleCheckout : loginWithRedirect}
         >
           {isMobile ? `Buy` : `Purchase`}
         </button>
