@@ -16,12 +16,17 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { getEverchosenUnits } from 'army/everchosen/units'
 import { MARK_SLAANESH } from 'meta/alliances'
+import SlavestoDarkness from 'army/slaves_to_darkness'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_SLAANESH)
+
+const getSlavesBattalion = () => {
+  const listOfBattalions = ['Pleasurebound Warband']
+  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
+}
 
 const getBoCUnits = () => {
   const listOfUnits = [
@@ -100,7 +105,7 @@ const AcquiescenceEffect = {
 }
 
 // Combine lists together to make army unit entry.
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
 
 // Unit Names
 export const Units: TUnits = [
@@ -688,4 +693,4 @@ export const SlaaneshBattalions: TBattalions = [
 ]
 
 // Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [...SlaaneshBattalions, ...getBoCBattalion()]
+export const Battalions: TBattalions = [...SlaaneshBattalions, ...getSlavesBattalion(), ...getBoCBattalion()]

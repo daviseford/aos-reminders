@@ -1,11 +1,10 @@
 import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
-import BoCEndlessSpells from 'army/beasts_of_chaos/endless_spells'
 
 // Endless spells.
 const EndlessSpells: TEndlessSpells = [
   {
-    name: `Wheels of Excruciation`,
+    name: `Wheels of Excruciation (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,
@@ -30,7 +29,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Mesmerising Mirror`,
+    name: `Mesmerising Mirror (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,
@@ -57,7 +56,7 @@ const EndlessSpells: TEndlessSpells = [
     ],
   },
   {
-    name: `Dreadful Visage`,
+    name: `Dreadful Visage (Slaanesh)`,
     effects: [
       {
         name: `Predatory`,
@@ -88,4 +87,4 @@ const EndlessSpells: TEndlessSpells = [
   },
 ]
 
-export default [...EndlessSpells, ...BoCEndlessSpells]
+export default [...EndlessSpells]

@@ -341,7 +341,12 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SLAANESH)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Lord of Chaos',
+      },
+    ])
     expect(warscrollTxt.allyFactionNames).toEqual([])
     expect(warscrollTxt.allyUnits).toEqual([])
     expect(warscrollTxt.selections).toEqual({
@@ -352,7 +357,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Fallacious Gift (Invaders Host)',
       ],
       battalions: ['Hedonite Host'],
-      commands: ['Grisly Trophy', 'Excess of Violence', 'Aided by the Gods'],
+      commands: ['Grisly Trophy', 'Revel in Agony: Slaanesh', 'Excess of Violence'],
       endless_spells: ['Chronomantic Cogs'],
       scenery: [],
       spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)', 'Cacophonic Choir', 'Acquiescence'],
@@ -368,7 +373,6 @@ describe('getWarscrollArmyFromPdf', () => {
         'Beastlord',
         'Daemon Prince',
         'Keeper of Secrets w/ Ritual Knife',
-        'Lord of Chaos',
         'Viceleader, Herald of Slaanesh',
         'Cygor',
         'Ghorgon',

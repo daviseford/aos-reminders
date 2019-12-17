@@ -3,7 +3,6 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { factionNames, army, selections, realmscape, visibility } from 'ducks'
 import { logEvent, logLoadedArmy } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { LocalStoredArmy } from 'utils/localStore'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
 import { ILinkedArmy } from 'types/savedArmy'
@@ -22,18 +21,6 @@ export const loadArmyFromLink = async (id: string) => {
   } catch (err) {
     console.error(err)
   }
-}
-
-export const loadArmyFromLocalStore = () => {
-  const storedArmy = LocalStoredArmy.get()
-
-  if (!storedArmy) return
-
-  addArmyToStore(storedArmy)
-
-  LocalStoredArmy.clear()
-
-  logEvent(`LoadArmyFromStore-${storedArmy.factionName}`)
 }
 
 export const addArmyToStore = (loadedArmy: TLoadedArmy) => {

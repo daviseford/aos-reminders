@@ -100,7 +100,7 @@ export const Units: TUnits = [
       EndlessDutyEffect,
       {
         name: `Still Their Breath!`,
-        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Re-roll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units. You can re-roll any wound rolls for attacks made by that unit that target CHAOS units.`,
+        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Re-roll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units until the end of that phase. You can re-roll any wound rolls for attacks made by that unit that target CHAOS units until the end of that phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },

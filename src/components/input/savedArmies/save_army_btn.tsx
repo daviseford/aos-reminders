@@ -5,7 +5,6 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
 import { selectors } from 'ducks'
@@ -29,9 +28,8 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
   hiddenReminders,
 }) => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isActive } = useSubscription()
-  const { handleLogin } = useSavedArmies()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -42,7 +40,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
 
   return (
     <>
-      {!isAuthenticated && <SaveButton handleClick={handleLogin} />}
+      {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 

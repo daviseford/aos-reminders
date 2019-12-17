@@ -27,7 +27,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Incredible Self-healing Hull (GREAT ENDRINWORK)`,
-        desc: `Roll a dice for this SKYVESSEL in each of your hero phases. On a roll of 4 or more it heals 1 wound. This is in addition to any other healing it receives.`,
+        desc: `Roll a D6 for this SKYVESSEL in each of your hero phases. On a roll of 4 or more it heals 1 wound. This is in addition to any other healing it receives.`,
         when: [HERO_PHASE],
       },
     ],
@@ -92,7 +92,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Breath of Morgrim (GREAT ENDRINWORK)`,
-        desc: `Immediately after you move the Ironclad that has this great endrinwork in the movement phase (though not if it runs), pick an enemy unit within 6" and roll a dice for each model in that unit. If you roll at least one 6, that unit suffers D3 mortal wounds.`,
+        desc: `Immediately after you move the Ironclad that has this great endrinwork in the movement phase (though not if it runs), pick an enemy unit within 6" and roll a D6 for each model in that unit. If you roll at least one 6, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -192,7 +192,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Balebreath Mask (SKY-PORT TREASURE)`,
-        desc: `At the beginning of each combat phase, roll a dice if there is an enemy unit within 3" of this HERO. On a roll of 4 or more that unit suffers a mortal wound.`,
+        desc: `At the beginning of each combat phase, roll a D6 if there is an enemy unit within 3" of this HERO. On a roll of 4 or more that unit suffers a mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

@@ -101,7 +101,7 @@ const ArkanautBaseEffects = [
   },
   {
     name: `Destroyed`,
-    desc: `When this SKYVESSEL is destroyed, the passengers immediately bail out: roll a dice for each model embarked within it. For each roll of 1, a model from that model's unit (your choice) is slain. The embarked units must then disembark before the vessel is removed.`,
+    desc: `When this SKYVESSEL is destroyed, the passengers immediately bail out: roll a D6 for each model embarked within it. For each roll of 1, a model from that model's unit (your choice) is slain. The embarked units must then disembark before the vessel is removed.`,
     when: [WOUND_ALLOCATION],
   },
 ]

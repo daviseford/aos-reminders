@@ -14,12 +14,17 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import EverChosen from 'army/everchosen'
 import { MARK_TZEENTCH } from 'meta/alliances'
+import SlavestoDarkness from 'army/slaves_to_darkness'
 import BeastsofChaos from 'army/beasts_of_chaos'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)
+
+const getSlavesBattalion = () => {
+  const listOfBattalions = ['Fatesworn Warband']
+  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
+}
 
 const getBoCUnits = () => {
   const listOfUnits = [
@@ -45,17 +50,12 @@ const getBoCUnits = () => {
   return filterUnits(BeastsofChaos.Units, listOfUnits)
 }
 
-const getEverchosenUnits = () => {
-  const listOfUnits = [`Archaon`, `Gaunt Summoner on Disc of Tzeentch`]
-  return filterUnits(EverChosen.Units, listOfUnits)
-}
-
 const getBoCBattalion = () => {
   const listOfBattalions = ['Phantasmagoria of Fate']
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits(), ...getEverchosenUnits()]
+export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
 
 const ArcaneTomeEffect = {
   name: `Arcane Tome`,
@@ -681,4 +681,4 @@ export const TzeentchBattalions: TBattalions = [
 ]
 
 // Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [...TzeentchBattalions, ...getBoCBattalion()]
+export const Battalions: TBattalions = [...TzeentchBattalions, ...getSlavesBattalion(), ...getBoCBattalion()]

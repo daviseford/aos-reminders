@@ -263,7 +263,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Shield of Thorns (${GHYRAN})`,
-        desc: `Casting value of 5. Pick a friendly unit within 18" and visible to the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of the target suffers D3 mortal wounds.`,
+        desc: `Casting value of 5. Pick a friendly unit within 18" and visible to the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of the target suffers D3 mortal wounds. The same friendly unit cannot be picked as the target of this spell more than once per turn.`,
         when: [HERO_PHASE],
       },
       {

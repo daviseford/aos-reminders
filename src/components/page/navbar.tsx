@@ -5,17 +5,10 @@ import { max } from 'lodash'
 import config from 'auth_config.json'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { navbarStyles } from 'theme/helperClasses'
 import { BASE_URL, ROUTES } from 'utils/env'
 import { logClick } from 'utils/analytics'
-import {
-  LocalFavoriteFaction,
-  LocalSavedArmies,
-  LocalStoredArmy,
-  LocalTheme,
-  LocalUserName,
-} from 'utils/localStore'
+import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import { SubscriptionPlans } from 'utils/plans'
@@ -23,9 +16,8 @@ import NavbarWrapper from 'components/page/navbar_wrapper'
 
 const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, loading } = useAuth0()
+  const { isAuthenticated, logout, loading, loginWithRedirect } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
-  const { handleLogin } = useSavedArmies()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
@@ -34,13 +26,12 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
       logClick('Navbar-Logout')
       LocalFavoriteFaction.clear() // Get rid of any existing local favoriteFaction value
       LocalUserName.clear() // Get rid of stored user info
-      LocalStoredArmy.clear() // Remove stored army (saved for post-login redirect) if it exists
       LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
       LocalTheme.clear() // Revert back to default theme settings
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')
-      return handleLogin()
+      return loginWithRedirect()
     }
   }
 

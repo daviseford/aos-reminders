@@ -25,6 +25,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
@@ -47,6 +48,136 @@ describe('getAzyrArmyFromPdf', () => {
           "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
+  })
+
+  it('handles StD1', () => {
+    const fileTxt = getFile('StD1')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.selections.spells).toContain('Binding Damnation (Slaves)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD2', () => {
+    const fileTxt = getFile('StD2')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD3', () => {
+    const fileTxt = getFile('StD3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.selections.allegiances).toEqual(['Host of the Everchosen'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD4', () => {
+    const fileTxt = getFile('StD4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD5', () => {
+    const fileTxt = getFile('StD5')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: SLAVES_TO_DARKNESS,
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Host of the Everchosen'],
+        artifacts: [],
+        battalions: [],
+        commands: ['Dark Prophecy', 'By My Will', 'All-seeing Dominion', 'Spurred by the Gods'],
+        endless_spells: [],
+        scenery: [],
+        spells: [],
+        traits: [],
+        triumphs: [],
+        units: [
+          'Archaon the Everchosen',
+          'Chaos Lord',
+          'Chaos Warriors',
+          'Chaos Knights',
+          'Varanguard',
+          'Furies',
+          'Untamed Beasts',
+        ],
+      },
+      unknownSelections: [
+        'Aspiring Champion',
+        'Hornblower',
+        'Standard Bearer',
+        'Chaos Hand',
+        'Doom Knight',
+        'Cursed Lance',
+        'Cursed Flail',
+        'Ensor celled',
+      ],
+    })
+  })
+
+  it('handles StD6', () => {
+    const fileTxt = getFile('StD6')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.selections.allegiances).toEqual(['Cabalists'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD7', () => {
+    const fileTxt = getFile('StD7')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: SLAVES_TO_DARKNESS,
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Host of the Everchosen'],
+        artifacts: [],
+        battalions: [],
+        commands: ['Dark Prophecy', 'By My Will', 'All-seeing Dominion'],
+        endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
+        scenery: [],
+        spells: ['Whispers of Chaos (Slaves)'],
+        traits: [],
+        triumphs: [],
+        units: ['Archaon the Everchosen', 'Varanguard'],
+      },
+      unknownSelections: ['Ensorcelled'],
+    })
+  })
+
+  it('handles KO7', () => {
+    const fileTxt = getFile('KO7')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    // Azyr incorrectly classifies The Last Word as a Mount Trait
+    // Even though it's an artifact :(
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'The Last Word' }])
   })
 
   it('handles Ironjawz3', () => {
@@ -843,6 +974,7 @@ describe('getAzyrArmyFromPdf', () => {
             'Darkoath Warqueen',
             'Untamed Beasts',
             'Godsworn Hunt',
+            'Furies',
           ],
         },
       },

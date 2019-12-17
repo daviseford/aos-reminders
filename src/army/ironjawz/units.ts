@@ -140,7 +140,7 @@ export const Units: TUnits = [
       },
       {
         name: `Orruk-forged Shields!`,
-        desc: `Roll a dice each time you allocate a wound to a model carrying an Orruk-forged Shield. On a 6, that wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound to a model carrying an Orruk-forged Shield. On a 6, that wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -160,7 +160,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of a model from this unit after the model from this unit finishesa charge move. On a 4+, that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.
+        desc: `Roll a D6 for each enemy unit that is within 1" of a model from this unit after the model from this unit finishesa charge move. On a 4+, that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.
         
         In addition, add 1 to hit rolls and wound rolls for attacks made with this unit's Jagged Gore-hackas and Tusks and Hooves if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE],
@@ -172,7 +172,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dead 'Ard`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 6, the wound or mortal wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 6, the wound or mortal wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -192,7 +192,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `You can use this command ability if the ORRUK WARCHANTER from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a dice. On a 4+, a new ORRUK ARDBOYS unit with 10 models is added to this battalion. Set up the new unit wholly within 6" of the edge of the battlefieldand more than 9" from any enemy units.`,
+        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a D6. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -208,7 +208,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Green-skinned Battering Ram`,
-        desc: `After a model from a unit in this battalion makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a dice. On a 4+, that enemy unit suffers 1 mortal wound. If that model's unit has more than 1 model, roll to determine if a mortal wound is inflicted each time a model from that unit completes its charge move, but do not allocate the mortal wounds until all of the models in that unit have moved.`,
+        desc: `After a model from a unit in this battalion makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound. If that model's unit has more than 1 model, roll to determine if a mortal wound is inflicted each time a model from that unit completes its charge move, but do not allocate the mortal wounds until all of the models in that unit have moved.`,
         when: [CHARGE_PHASE],
       },
     ],

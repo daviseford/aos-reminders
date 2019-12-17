@@ -5,7 +5,6 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -16,111 +15,6 @@ import {
 } from 'types/phases'
 import GenericEffects from 'army/generic/effects'
 
-export const MonstersOfChaos: TUnits = [
-  {
-    name: `Be'Lakor, Chaos Daemon Prince`,
-    effects: [
-      {
-        name: `Shadow Form`,
-        desc: `This model ignores rend when making save rolls.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `The Dark Master`,
-        desc: `Secretly note down an enemy unit for manipulation. When activated, for one battle round your opponent must roll a D6 each time the target attempts to cast a spell, move, charge, or attack. On a 4+, the action can be performed normally otherwise it cannot be completed.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `The Dark Master`,
-        desc: `You may reveal your unit choice. The target is affected by this ability for this battle round. Can only be used once per game.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Lord of Torment`,
-        desc: `If any models within 10" flee, this model heals D3 wounds.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Enfeeble Foe`,
-        desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the wound rolls made by the target in the combat phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Enfeeble Foe`,
-        desc: `If active, subtract 1 from the wound rolls made by the target in the combat phase.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Mutalith Vortex Beast`,
-    effects: [
-      {
-        name: `Aura of Mutation`,
-        desc: `In your hero phase, you can pick a unit within 15". Roll a D6 and consult the chart below:
-
-        1: Hideous Disfigurements - Reduce the Bravery of each model in the target unit by 1 for the rest of the battle.
-
-        2: Trollbrains - For the rest of the battle, the controlling player must roll a D6 at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
-
-        3: Gift of Mutations - Reduce the Move of each model in the target unit by 1 for the rest of the battle.
-
-        4: Tide of Transmogrification - The target unit sufers D3 mortal wounds.
-
-        5: Maelstrom of Change - The target unit suffers D6 mortal wounds.
-
-        6: Spawnchange - The target unit suffers D6 mortal wounds. For each model that is slain as a result, set up a Chaos Spawn within 3" of the target unit. All Chaos Spawn created as a result of Spawnchange are added to your army.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mutant Regeneration`,
-        desc: `Heal D3 wounds in each of your hero phases.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Slaughterbrute`,
-    effects: [
-      {
-        name: `Runes of Binding`,
-        desc: `When you set up a Slaughterbrute, you can pick a Slaves to Darkness Hero in your army to be its master (a model cannot be the master of more than one Slaughterbrute). As long as the Slaughterbrute's master is on the battlefield, the Slaughterbrute's melee weapons hit on rolls of 3+ rather than 4+.`,
-        when: [DURING_SETUP, COMBAT_PHASE],
-      },
-      {
-        name: `Beast Unbound`,
-        desc: `If a Slaughterbrute does not have a master on the battlefield in the charge phase, roll a D6. If the result is 3 or less it lashes out at the nearest model, friend or foe, within 3". That model's unit immediately suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soul Grinder`,
-    effects: [
-      {
-        name: `Daemon Engine of the Dark Gods`,
-        desc: `This unit can be marked with one of the following keywords for the duration of the battle: Khorne, Tzeentch, Nurgle, or Slaanesh.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Implacable Advance`,
-        desc: `A Soul Grinder can shoot even if it ran in the movement phase.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Caught by the Claw`,
-        desc: `Each time a Hellforged Claw attack hits a hero or monster both you and your opponent hide a selected dice face. Upon revealing the dice, if the values match, the target suffers 6 mortal wounds instead of normal weapon damage.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-]
 export const MonstrousArcanumChaos: TUnits = [
   {
     name: `Chaos Siege Gargant`,
@@ -202,14 +96,13 @@ export const MonstrousArcanumChaos: TUnits = [
 
 // Units available to this Grand Alliance allegiance
 export const Units: TUnits = [
-  ...MonstersOfChaos,
   ...MonstrousArcanumChaos,
   {
     name: `Hellcannon`,
     effects: [
       {
         name: `Caged Fury`,
-        desc: `If the Hellcannon is not within 3" of an enemy unit at the start of your movement phase, roll a dice and consult the War Machine Crew Table on the warscroll. If the dice roll is equal to or greater than the score shown, the crew have caged the Hellfire's fury this turn. Otherwise, the Hellcannon must move as far as it can towards the closest enemy unit that is visible to it.`,
+        desc: `If the Hellcannon is not within 3" of an enemy unit at the start of your movement phase, roll a D6 and consult the War Machine Crew Table on the warscroll. If the dice roll is equal to or greater than the score shown, the crew have caged the Hellfire's fury this turn. Otherwise, the Hellcannon must move as far as it can towards the closest enemy unit that is visible to it.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
@@ -229,7 +122,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Chaos Runeshield`,
-        desc: `Roll a dice each time this model is allocated a mortal wound. On a 5+ that mortal wound is negated.`,
+        desc: `Roll a D6 each time this model is allocated a mortal wound. On a 5+ that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -239,7 +132,7 @@ export const Units: TUnits = [
       },
       {
         name: `Battle Standard of the Dark Gods`,
-        desc: `In your hero phase, you can declare that this model will plant the Battle Standard of the Dark Gods. If you do, then until your next hero phase you may not move the model, but you may immediately roll a dice for each enemy unit within 10". On a 4+ that unit suffers a mortal wound.`,
+        desc: `In your hero phase, you can declare that this model will plant the Battle Standard of the Dark Gods. If you do, then until your next hero phase you may not move the model, but you may immediately roll a D6 for each enemy unit within 10". On a 4+ that unit suffers a mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -249,7 +142,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Freakish Mutations`,
-        desc: `Before this unit makes its attacks in the combat phase, roll a dice to see what mutation they have for the duration of that phase:
+        desc: `Before this unit makes its attacks in the combat phase, roll a D6 to see what mutation they have for the duration of that phase:
         
         1 - Writhing Tentacles: This unit's Freakish Mutations have a Range characteristic of 3" instead of 1".
         
@@ -271,7 +164,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Breath of Mutation`,
-        desc: `In the shooting phase, this model can pick one enemy unit in range. That unit suffers D3 mortal wounds. Roll a dice for each model that is slain; on a 4+ the unit suffers a further mortal wound as warriors are driven insane or twisted beyond recognition by the Breath of Mutation.`,
+        desc: `In the shooting phase, this model can pick one enemy unit in range. That unit suffers D3 mortal wounds. Roll a D6 for each model that is slain; on a 4+ the unit suffers a further mortal wound as warriors are driven insane or twisted beyond recognition by the Breath of Mutation.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -287,7 +180,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Fearsome Gluttony`,
-        desc: `Roll a dice each time this unit slays a model; on a 6 you can heal 1 wound that has been allocated to a model in this unit.`,
+        desc: `Roll a D6 each time this unit slays a model; on a 6 you can heal 1 wound that has been allocated to a model in this unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -318,7 +211,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Regeneration`,
-        desc: `At the start of your hero phase, roll a dice. On a 2+ you can heal D3 wounds that have been allocated to models in this unit.`,
+        desc: `At the start of your hero phase, roll a D6. On a 2+ you can heal D3 wounds that have been allocated to models in this unit.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -343,7 +236,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blazing Body`,
-        desc: `In each hero phase, roll a dice for every unit (friend or foe) within 3" of any Great Taurus. On a 6+ that unit suffers a mortal wound. This ability has no effect on Great Taurus.`,
+        desc: `In each hero phase, roll a D6 for every unit (friend or foe) within 3" of any Great Taurus. On a 6+ that unit suffers a mortal wound. This ability has no effect on Great Taurus.`,
         when: [HERO_PHASE],
       },
       {
