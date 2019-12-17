@@ -169,7 +169,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Arcane Channelling`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a D6. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add that roll to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
+        desc: `You can use this command ability once per turn at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a dice. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
