@@ -1,5 +1,5 @@
 import { TBattalions, TUnits } from 'types/army'
-import { StabEmGoodEffect } from './shared'
+import { StabEmGoodEffect } from './traits'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -468,7 +468,7 @@ export const Units: TUnits = [
       SpiderVenomEffect,
       {
         name: `Ride Em All Down`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly Spiderfang Grot unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
