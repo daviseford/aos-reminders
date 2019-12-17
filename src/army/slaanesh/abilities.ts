@@ -17,7 +17,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Locus of Diversion`,
-    desc: `Each friendly Hedonite hero that is within 6" of an enemy unit can create a Locus of Diversion. If they do, select 1 enemy unit within 6" of the selected hero and roll a D6, adding 2 if the Hedonite hero is a Greater Daemon. On a 4+ that enemy unit fights at the end of the following combat phase. You cannot pick the same unit as the target for this ability more than once in the same charge phase (whether successful or not).`,
+    desc: `Each friendly Hedonite hero that is within 6" of an enemy unit can create a Locus of Diversion. If they do, select 1 enemy unit within 6" of the selected hero and roll a D6, adding 2 if the Hedonite hero is a Greater Daemon. On a 5+, that enemy unit fights at the end of the following combat phase, after the players have picked any other units to fight in that combat phase. You cannot pick the same unit as the target for this ability more than once in the same charge phase (whether successful or not).`,
     when: [END_OF_CHARGE_PHASE],
   },
   {

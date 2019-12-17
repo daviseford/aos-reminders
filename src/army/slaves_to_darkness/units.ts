@@ -53,7 +53,7 @@ export const getSlavesUnits = () => {
 // Common effects used on multiple warscrolls.
 const ChaosRuneshieldEffect = {
   name: `Chaos Runeshield / Rune-etched Plating / Dark Blessings`,
-  desc: `Roll a dice each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
+  desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION],
 }
 const OracularVisionsEffect = {
@@ -180,7 +180,7 @@ export const Units: TUnits = [
       ChaosMarkAll,
       {
         name: `The Armour of Morkar`,
-        desc: `Roll a dice each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -196,7 +196,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Everchosen`,
-        desc: `You can roll a dice if this model is affected by a spell or endless spell. On a 4+ it has no effect on this model.`,
+        desc: `You can roll a D6 if this model is affected by a spell or endless spell. On a 4+ it has no effect on this model.`,
         when: [DURING_GAME],
       },
       {
@@ -211,7 +211,7 @@ export const Units: TUnits = [
       },
       {
         name: `Three-headed Titan : Filth-spewer`,
-        desc: `Pick 1 enemy unit within 12" of this model and roll a dice. On a 3+ that unit suffers D3 mortal wounds.`,
+        desc: `Pick 1 enemy unit within 12" of this model and roll a D6. On a 3+ that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -247,7 +247,7 @@ export const Units: TUnits = [
       },
       {
         name: `All-seeing Dominion`,
-        desc: `You can use this ability when your opponent spends a command point. Roll a dice before resolving any of the effects of the opponents command ability. On a 1, this ability has no effect. On a 2+ this model can use By My Will without spending a command point. This can be used at any time the opponent spends a command point regardless of phase or if By My Will has already been used.`,
+        desc: `You can use this ability when your opponent spends a command point. Roll a D6 before resolving any of the effects of the opponents command ability. On a 1, this ability has no effect. On a 2+ this model can use By My Will without spending a command point. This can be used at any time the opponent spends a command point regardless of phase or if By My Will has already been used.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -307,7 +307,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpsteel Shields`,
-        desc: `You can roll a dice if this unit is affected by a spell or endless spell. On a 5+ the effects are ignored on this unit.`,
+        desc: `You can roll a D6 if this unit is affected by a spell or endless spell. On a 5+ the effects are ignored on this unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -412,7 +412,7 @@ export const Units: TUnits = [
       ...KnigntsOfChaosEffect,
       {
         name: `Brutish Rampage`,
-        desc: `Roll a dice for each enemy unit within 1" of the model after it finishes a charge move. On a 2+ the target suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 1" of the model after it finishes a charge move. On a 2+ the target suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -534,7 +534,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Infernal Runeshield`,
-        desc: `Each time you allocate a wound or mortal wound to this model, roll a dice. On a 6 the wound is negated and the attacking model suffers 1 mortal wound.`,
+        desc: `Each time you allocate a wound or mortal wound to this model, roll a D6. On a 6 the wound is negated and the attacking model suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -698,7 +698,7 @@ export const Units: TUnits = [
       ExaltedCharioteerEffect,
       {
         name: `Crashing Charge`,
-        desc: `After this unit has finished a charge move, roll a dice for each enemy model within 1". On a 2+ the target suffers D3 mortal wounds.`,
+        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 1". On a 2+ the target suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -769,12 +769,12 @@ export const Units: TUnits = [
       ChaosMarkAll,
       {
         name: `Protection of the Dark Gods`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range. On a 6+ the allocated wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range. On a 6+ the allocated wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Favour of the Ruinous Powers`,
-        desc: `This model may pick a mortal Slaves to Darkness unit within 18" and roll a dice. On a 3+ the prayer is answered. The prayer effect lasts until your next hero phase. The same unit cannot benefit from the same prayer more than once per turn.`,
+        desc: `This model may pick a mortal Slaves to Darkness unit within 18" and roll a D6. On a 3+ the prayer is answered. The prayer effect lasts until your next hero phase. The same unit cannot benefit from the same prayer more than once per turn.`,
         when: [START_OF_HERO_PHASE],
         prayer: true,
       },
@@ -785,7 +785,7 @@ export const Units: TUnits = [
       },
       {
         name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, you can re-roll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a dice. On a 4+ ignore the effects.`,
+        desc: `If active, you can re-roll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
         when: [DURING_GAME],
       },
       {
@@ -852,7 +852,7 @@ export const Units: TUnits = [
       },
       {
         name: `Two-headed Horror`,
-        desc: `You can pick 1 enemy model that has a wounds characteristic of 2 or less and that is within 3" of this model, and roll a dice. On a 6, that model is slain.`,
+        desc: `You can pick 1 enemy model that has a wounds characteristic of 2 or less and that is within 3" of this model, and roll a D6. On a 6, that model is slain.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -952,7 +952,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shattered Gloom Globe`,
-        desc: `While this unit includes any Thrallmasters, you can pick 1 enemy unit within 3" of this unit and roll a dice. On a 4+, subtract 1 from hit rolls for that unit until your next hero phase. The same unit cannot be affected by this ability more than once per turn.`,
+        desc: `While this unit includes any Thrallmasters, you can pick 1 enemy unit within 3" of this unit and roll a D6. On a 4+, subtract 1 from hit rolls for that unit until your next hero phase. The same unit cannot be affected by this ability more than once per turn.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -1017,7 +1017,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Dark Master`,
-        desc: `Secretly note down an enemy unit for manipulation. When activated, until your next hero phase your opponent must roll a dice each time the target attempts to cast a spell, move, charge, or attack. On a 5+, the action can be performed normally otherwise it cannot be completed.`,
+        desc: `Secretly note down an enemy unit for manipulation. When activated, until your next hero phase your opponent must roll a D6 each time the target attempts to cast a spell, move, charge, or attack. On a 5+, the action can be performed normally otherwise it cannot be completed.`,
         when: [END_OF_SETUP],
       },
       {
@@ -1075,7 +1075,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aura of Mutation`,
-        desc: `You can pick a unit within 18". Roll a dice and consult the chart below:
+        desc: `You can pick a unit within 18". Roll a D6 and consult the chart below:
 
         1: Hideous Disfigurements: Subtract 1 from the bravery characteristic of the unit for the rest of the battle.
 
@@ -1108,7 +1108,7 @@ export const Units: TUnits = [
       },
       {
         name: `Beast Unbound`,
-        desc: `If this model is within 6" of an enemy unit and more than 12" from its master you must roll a dice. On a 4+ the closest other unit within 6" of this model immediately suffers D3 mortal wounds.`,
+        desc: `If this model is within 6" of an enemy unit and more than 12" from its master you must roll a D6. On a 4+ the closest other unit within 6" of this model immediately suffers D3 mortal wounds.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -1123,7 +1123,7 @@ export const Units: TUnits = [
       },
       {
         name: `Insurmountable Strength`,
-        desc: `In your hero phase, pick 1 terrain feature within 6" of this model and roll a dice for each other unit within 6" of that terrain feature. On a 3+, that unit suffers D3 mortal wounds.`,
+        desc: `In your hero phase, pick 1 terrain feature within 6" of this model and roll a D6 for each other unit within 6" of that terrain feature. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -1223,7 +1223,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Searing Doombolts`,
-        desc: `You can pick 1 Chaos Warshrine from this battalion and roll a dice for each enemy unit within 24" and visible. For each 6, that unit suffers D3 mortal wounds.`,
+        desc: `You can pick 1 Chaos Warshrine from this battalion and roll a D6 for each enemy unit within 24" and visible. For each 6, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -1233,7 +1233,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Dark Cavalry`,
-        desc: `Each time a unit from this battalion finishes a charge move, you can pick 1 enemy unit within 1" of the charging unit. Roll a dice. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time a unit from this battalion finishes a charge move, you can pick 1 enemy unit within 1" of the charging unit. Roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -1274,7 +1274,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Grandfather's Favour`,
-        desc: `You can pick 1 unit from this battalion and 1 enemy unit within 1" of the selected unit. Roll a dice. On a 3+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `You can pick 1 unit from this battalion and 1 enemy unit within 1" of the selected unit. Roll a D6. On a 3+ that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

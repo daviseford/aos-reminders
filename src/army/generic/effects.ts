@@ -19,7 +19,7 @@ const GenericEffects = {
     },
     {
       name: `Gaping Maw`,
-      desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+      desc: `If the unmodified hit roll for an attack made with this model's Fanged Maw is 6, that attack inflicts 6 mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll)`,
       when: [COMBAT_PHASE],
     },
     {

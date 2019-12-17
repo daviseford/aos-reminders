@@ -29,7 +29,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blasphemous Cuirass (Ravagers)`,
-        desc: `Roll a dice each time a mortal wound is allocated to the bearer. On a 5+ it is negated.`,
+        desc: `Roll a D6 each time a mortal wound is allocated to the bearer. On a 5+ it is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],

@@ -631,7 +631,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rune Lore: Ancestral Shield`,
-        desc: `If active, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {

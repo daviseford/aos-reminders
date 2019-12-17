@@ -77,7 +77,7 @@ const SlaughterQueenEffects = [
   },
   {
     name: `Orgy of Slaughter`,
-    desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model. If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase.`,
+    desc: `If this model is your general, you can use this ability. If you do, pick a friendly Daughters of Khaine unit within 14" of this model. If that unit is within 3" of an enemy unit, it can pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
     when: [HERO_PHASE],
     command_ability: true,
   },
@@ -466,8 +466,8 @@ export const Battalions: TBattalions = [
     name: `Temple Nest`,
     effects: [
       {
-        name: `Lethal Transfixation`,
-        desc: `Each time your opponent makes an unmodified hit roll of 1 when attacking a Temple Nest unit in this phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        name: `Lethal Transfixion`,
+        desc: `Each time your opponent makes a hit roll of 1 (after re-rolls, but before modifiers are applied) when attacking a Temple Nest unit in the combat phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
     ],

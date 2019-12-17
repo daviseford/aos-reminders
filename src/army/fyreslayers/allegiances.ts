@@ -93,7 +93,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Skull-breakers and Oath-takers`,
-        desc: `Pick 1 friendly HERMDAR VULKITE BERZERKER unit or 1 friendly HERMDAR HEARHTGUARD BERZERKER unit wholly within 12" of a HERMDAR HERO. That unit fights at the start of that combat phase.`,
+        desc: `Pick 1 friendly HERMDAR VULKITE BERZERKER unit or 1 friendly HERMDAR HEARHTGUARD BERZERKER unit wholly within 12" of a HERMDAR HERO. That unit fights at the start of that combat phase. It cannot fight again in that phase unless an ability or spell allows it to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },

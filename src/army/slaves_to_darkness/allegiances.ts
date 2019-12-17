@@ -45,7 +45,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Binding Rituals`,
-        desc: `You may select 1 friendly Cabalists wizard to perform 1 binding ritual. For either ritual selection, pick 1 friendly Cabalists unit within 3" this wizard and roll a dice. On a 3+, D3 models from the target unit are slain.
+        desc: `You may select 1 friendly Cabalists wizard to perform 1 binding ritual. For either ritual selection, pick 1 friendly Cabalists unit within 3" this wizard and roll a D6. On a 3+, D3 models from the target unit are slain.
                Ritual of Sorcerous Might: For each slain model, add 1 to the casting rolls made for friendly Cabalists wizards until the end of this phase.
                Ritual of Corruption: Pick 1 predatory endless spell within 12" of the ritual wizard. You may move that endless spell 3" per each slain model.`,
         when: [START_OF_HERO_PHASE],
@@ -74,12 +74,12 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Sacrilegious Might`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Despoilers Daemon Prince. On a 5+ it is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Despoilers Daemon Prince. On a 5+ it is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Blessed by the Unholy`,
-        desc: `You can roll a dice for each friendly Despoilers Daemon Prince and friendly Despoilers monster on the battlefield. On a 4+ you can heal up to D3 wounds allocated to that model. Mutalith Vortex Beasts can only heal 1 wound instead.`,
+        desc: `You can roll a D6 for each friendly Despoilers Daemon Prince and friendly Despoilers monster on the battlefield. On a 4+ you can heal up to D3 wounds allocated to that model. Mutalith Vortex Beasts can only heal 1 wound instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -94,7 +94,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Nightmare Chasm`,
-        desc: `Roll a dice for this terrain feature. On a 6, each unit within 1" of the terrain suffers D3 mortal wounds (roll damage separately for each unit).`,
+        desc: `Roll a D6 for this terrain feature. On a 6, each unit within 1" of the terrain suffers D3 mortal wounds (roll damage separately for each unit).`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -125,7 +125,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dark Prophecy`,
-        desc: `If Archaon is your general and on the battlefield, roll a dice and keep the result hidden. At the start of the next battle round, before players determine who has the first turn, you can reveal the result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
+        desc: `If Archaon is your general and on the battlefield, roll a D6 and keep the result hidden. At the start of the next battle round, before players determine who has the first turn, you can reveal the result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },

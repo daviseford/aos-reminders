@@ -45,7 +45,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Blood of the Berzerker`,
-        desc: `Once per battle in the combat phase, after this general has fought in that phase for the first time, if they are within 3" of an enemy unit, they can immediately pile in and then attack with all melee weapons they are armed with for a 2nd time.`,
+        desc: `Once per battle in the combat phase, after this general has fought in that phase for the first time, if they are within 3" of an enemy unit, they and their mount (if they have one) can immediately make a pile-in move and then attack with all of the melee weapons they are armed with for a second time.`,
         when: [COMBAT_PHASE],
       },
     ],

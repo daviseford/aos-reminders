@@ -35,7 +35,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Superlative Sailors`,
-        desc: `Whenever a Barak-Zilfin SKYVESSEL suffers a mortal wound, roll a dice. On a roll of 6 that mortal wound is ignored.`,
+        desc: `Whenever a Barak-Zilfin SKYVESSEL suffers a mortal wound, roll a D6. On a roll of 6 that mortal wound is ignored.`,
         when: [WOUND_ALLOCATION],
       },
     ],

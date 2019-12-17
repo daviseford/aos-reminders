@@ -58,7 +58,7 @@ export const Units: TUnits = [
       },
       {
         name: `Prophet of da Waaagh!`,
-        desc: `Roll a dice. On a 4+, you receive 1 command point.`,
+        desc: `Roll a D6. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -109,9 +109,9 @@ export const Units: TUnits = [
         name: `Ritual Dance`,
         desc: `At the start of your hero phase, you can say that this model is performing one of the following dances:
 
-        Grimdokk Dance: Pick 1 friendly BONESPLITTERZ model within 12" of this model and roll a dice. On a 3+, you can heal up to D3 wounds allocated to that model.
-        Glyphdokk Dance: Pick 1 friendly BONESPLITTERZ unit wholly within 12" of this model and roll a dice. On a 3+, add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.
-        Weirddokk Dance: Pick 1 friendly BONESPLITTERZ WIZARD wholly within 12" of this model and roll a dice. On a 3+, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
+        Grimdokk Dance: Pick 1 friendly BONESPLITTERZ model within 12" of this model and roll a D6. On a 3+, you can heal up to D3 wounds allocated to that model.
+        Glyphdokk Dance: Pick 1 friendly BONESPLITTERZ unit wholly within 12" of this model and roll a D6. On a 3+, add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.
+        Weirddokk Dance: Pick 1 friendly BONESPLITTERZ WIZARD wholly within 12" of this model and roll a D6. On a 3+, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -143,7 +143,7 @@ export const Units: TUnits = [
       },
       {
         name: `Da Final Fling`,
-        desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a dice. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a D6. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
       {
