@@ -8,7 +8,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Soul Cage`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until the start of your next hero phase, that unit cannot retreat. In addition, until the start of your next hero phase, that unit cannot fight in the combat phase unless all other enemy units that are eligible to fight have already done so.`,
+        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until the start of your next hero phase, that unit cannot retreat. In addition, until your next hero phase, that unit fights at the end of the combat phase.`,
         when: [HERO_PHASE],
       },
     ],
