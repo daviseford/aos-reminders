@@ -7,6 +7,7 @@ import { useSubscription } from 'context/useSubscription'
 import { selections, army, selectors, realmscape } from 'ducks'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { armyHasEntries } from 'utils/armyUtils'
+import { logClick } from 'utils/analytics'
 import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { TUnits, IArmy } from 'types/army'
@@ -85,6 +86,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
       resetAllySelections()
       resetRealmscapeStore()
       resetSelections()
+      logClick('ClearArmy')
       setLoadedArmy(null)
     },
     [resetAllySelections, resetRealmscapeStore, resetSelections, setLoadedArmy]

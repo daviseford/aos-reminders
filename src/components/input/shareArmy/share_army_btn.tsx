@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FaLink } from 'react-icons/fa'
 import { useAppStatus } from 'context/useAppStatus'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
@@ -27,9 +26,8 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   showSavedArmies,
   hiddenReminders,
 }) => {
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isOffline } = useAppStatus()
-  const { handleLogin } = useSavedArmies()
   const { isActive } = useSubscription()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -41,7 +39,7 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
 
   return (
     <>
-      {!isAuthenticated && <ShareButton handleClick={handleLogin} />}
+      {!isAuthenticated && <ShareButton handleClick={loginWithRedirect} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 

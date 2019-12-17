@@ -5,7 +5,6 @@ import qs from 'qs'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { logPageView, logClick, logEvent } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { LocalRedemptionKey } from 'utils/localStore'
@@ -180,13 +179,13 @@ const setLocalRedemptionKey = () => {
   }
 }
 const LoginSection = () => {
-  const { handleLogin } = useSavedArmies()
+  const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()
     setLocalRedemptionKey()
     logClick('Login-Before-Redeem')
-    return handleLogin({ redirect_uri: window.location.href })
+    return loginWithRedirect({ redirect_uri: window.location.href })
   }
 
   return (
