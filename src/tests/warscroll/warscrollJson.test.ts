@@ -183,6 +183,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with Dabblings in Sorcery (Anvilgard Battle Trait)', () => {
+    const parsedText = getFile('1576513040341-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('Dabblings in Sorcery (Anvilgard Battle Trait)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1574686232621-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

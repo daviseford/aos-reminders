@@ -54,6 +54,7 @@ const warscrollTypoMap: TNameMap = {
   'Blade of the All-Frost': 'Blade of All-Frost',
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
+  'Dabbling in Sorcery': 'Dabblings in Sorcery (Anvilgard Battle Trait)',
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
