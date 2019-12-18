@@ -238,8 +238,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = getFile('1576681454336-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    console.log(warscrollTxt.selections)
-
     expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(warscrollTxt.origin_realm).toEqual(ULGU)
 
