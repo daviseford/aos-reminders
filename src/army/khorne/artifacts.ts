@@ -130,15 +130,15 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Brazen Rune`,
+    name: `The Brazen Rune`,
     effects: [
       {
-        name: `Brazen Rune`,
+        name: `The Brazen Rune`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was inflicted by a spell. On a 2+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Brazen Rune`,
+        name: `The Brazen Rune`,
         desc: `Once per battle, the bearer can attempt to unbind 1 spell in the enemy hero phase in the same manner as a WIZARD or attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
         when: [START_OF_HERO_PHASE],
       },

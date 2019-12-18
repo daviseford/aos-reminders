@@ -427,7 +427,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain('Brazen Rune')
+    expect(res.selections.artifacts).toContain('The Brazen Rune')
     expect(res.errors).toEqual([])
   })
 

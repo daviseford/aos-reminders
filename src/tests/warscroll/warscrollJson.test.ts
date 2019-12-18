@@ -202,6 +202,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with The Brazen Rune', () => {
+    const parsedText = getFile('1576533398655-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHORNE)
+    expect(warscrollTxt.selections.artifacts).toContain('The Brazen Rune')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with The Dolorous Guard and The Forgotten Scions', () => {
     const parsedText = getFile('1576527400569-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
