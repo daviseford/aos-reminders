@@ -14,6 +14,7 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHORNE,
+  NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
@@ -25,7 +26,6 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  NIGHTHAUNT,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -73,7 +73,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Untamed Beasts',
       'Cypher Lords',
       'Iron Golems',
-      'Gaunt Summoner on Disc of Tzeentch',
     ])
     expect(warscrollTxt.errors).toEqual([])
   })
