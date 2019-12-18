@@ -25,6 +25,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  NIGHTHAUNT,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
 
@@ -198,6 +199,20 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.origin_realm).toEqual(GHUR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with The Dolorous Guard and The Forgotten Scions', () => {
+    const parsedText = getFile('1576527400569-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
+    expect(warscrollTxt.origin_realm).toEqual(HYSH)
+    expect(warscrollTxt.selections.battalions).toEqual([
+      'The Forgotten Scions',
+      'The Dolorous Guard',
+      'The Condemned',
+    ])
     expect(warscrollTxt.errors).toEqual([])
   })
 
