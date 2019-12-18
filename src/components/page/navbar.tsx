@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { FaDice } from 'react-icons/fa'
 import { max } from 'lodash'
 import config from 'auth_config.json'
 import { useAppStatus } from 'context/useAppStatus'
@@ -45,6 +46,12 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
       {pathname !== ROUTES.HOME && (
         <Link to={ROUTES.HOME} className={navbarStyles.link} onClick={() => logClick('Navbar-Home')}>
           Home
+        </Link>
+      )}
+      {pathname === ROUTES.HOME && (
+        <Link to={ROUTES.GAMEMODE} className={navbarStyles.link} onClick={() => logClick('Navbar-Game-Mode')}>
+          <FaDice className="mr-2" />
+          Play!
         </Link>
       )}
       {isAuthenticated && pathname !== ROUTES.PROFILE && (

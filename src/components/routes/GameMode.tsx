@@ -25,7 +25,7 @@ const GameMode: React.FC = () => {
 
   return (
     <div className={theme.bgColor}>
-      <Header />
+      <Header isGameMode={true} />
 
       {/* <Suspense fallback={<></>}>
         <AppBanner />

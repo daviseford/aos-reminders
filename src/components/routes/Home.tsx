@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={theme.bgColor}>
-      <Header />
+      <Header isGameMode={false} />
 
       {/* <Suspense fallback={<></>}>
         <AppBanner />

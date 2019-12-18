@@ -16,14 +16,15 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 
 const Navbar = lazy(() => import('./navbar'))
 
-export const Header = () => {
+export const Header = props => {
+  const { isGameMode } = props
   const { theme } = useTheme()
   return (
     <div className={theme.headerColor}>
       <Suspense fallback={<LoadingHeader />}>
         <Navbar />
       </Suspense>
-      <Jumbotron />
+      <Jumbotron isGameMode={isGameMode} />
     </div>
   )
 }
@@ -31,6 +32,7 @@ export const Header = () => {
 interface IJumbotronProps {
   factionName: TSupportedFaction
   hasSelections: boolean
+  isGameMode: boolean
   isMobile: boolean
   resetAllySelections: () => void
   resetRealmscapeStore: () => void
@@ -42,6 +44,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
     factionName,
     hasSelections,
+    isGameMode,
     isMobile,
     resetAllySelections,
     resetRealmscapeStore,
@@ -49,7 +52,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     setFactionName,
   } = props
   const { isOnline } = useAppStatus()
-  const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+  const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
   const { theme } = useTheme()
 
   // Get our user's favorite faction from localStorage/API
@@ -89,18 +92,27 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
             daviseford.com
           </LinkNewTab>
         </p>
-        <span className="text-white">Select your army to get started:</span>
-        <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-            <SelectOne
-              value={titleCase(factionName)}
-              items={SUPPORTED_FACTIONS}
-              setValue={setValue}
-              hasDefault={true}
-              toTitle={true}
-            />
+        {isGameMode ? (
+          <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+            <h2 className="display-6 text-white">{titleCase(factionName)}</h2>
+            {loadedArmy && <h3 className={theme.textSecondary}>{loadedArmy.armyName}</h3>}
           </div>
-        </div>
+        ) : (
+          <div>
+            <span className="text-white">Select your army to get started:</span>
+            <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+              <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+                <SelectOne
+                  value={titleCase(factionName)}
+                  items={SUPPORTED_FACTIONS}
+                  setValue={setValue}
+                  hasDefault={true}
+                  toTitle={true}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
