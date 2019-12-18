@@ -78,6 +78,14 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with StD', () => {
+    const parsedText = getFile('1576592520958-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should (not) work with The Wraith Fleet', () => {
     const parsedText = getFile('1576230943609-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
