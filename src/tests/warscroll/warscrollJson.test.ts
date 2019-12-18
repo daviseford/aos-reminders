@@ -234,7 +234,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with ', () => {
+  it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
     const parsedText = getFile('1576681454336-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
