@@ -593,15 +593,25 @@ export const Units: TUnits = [
     name: `Plague Monks`,
     effects: [
       {
-        name: `Pair of Foetid Blades`,
-        desc: `You can re-roll hit rolls for attacks made with a pair of Foetid Blades.`,
+        name: `Foetid Weapons`,
+        desc: `If the unmodified wound roll for an atack made with a melee weapon by this unit is 6, that attack succeeds twice instead of once. Make a save roll for each success.`,
         when: [COMBAT_PHASE],
       },
       FrenziedAssaultEffect,
       {
         name: `Book of Woes`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a D6. On a 4+ that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a D6. On a 4-5 that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds. This ability has no effect on NURGLE units.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Standard Bearers`,
+        desc: `While this unit includes any Standard Bearers, each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, roll a D6. On a 6, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Plague Harbingers`,
+        desc: `Add 1 to run and charge rolls for this unit while it includes any Plague Harbingers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
