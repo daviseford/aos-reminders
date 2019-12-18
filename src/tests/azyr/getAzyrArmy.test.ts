@@ -207,6 +207,17 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('handles BCR3 (legacy, recognize as Ogor Mawtribes)', () => {
+    const fileTxt = getFile('BCR3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: "Braggoth's Beast Hammer" }, // no longer exists
+      { severity: 'warn', text: 'Svard Alfrostun' }, // no longer exists
+    ])
+  })
+
   it('handles BCR2 (legacy, recognize as Ogor Mawtribes)', () => {
     const fileTxt = getFile('BCR2')
     const pages = handleAzyrPages(fileTxt)
@@ -221,8 +232,8 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
     expect(res.errors).toEqual([
-      { severity: 'warn', text: "Braggoth's Beast Hammer" },
-      { severity: 'warn', text: 'Svard Alfrostun' },
+      { severity: 'warn', text: "Braggoth's Beast Hammer" }, // no longer exists
+      { severity: 'warn', text: 'Svard Alfrostun' }, // no longer exists
     ])
   })
 
