@@ -121,10 +121,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Scoll of Dark Unravelling (Cabalists)`,
+    name: `Scroll of Dark Unravelling (Cabalists)`,
     effects: [
       {
-        name: `Scoll of Dark Unravelling (Cabalists)`,
+        name: `Scroll of Dark Unravelling (Cabalists)`,
         desc: `Once per battle, when the bearer attempts to unbind a spell, you can use this artifact to automatically unbind it (do not roll the dice).`,
         when: [HERO_PHASE],
       },

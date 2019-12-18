@@ -27,7 +27,7 @@ import {
   TZEENTCH,
   NIGHTHAUNT,
 } from 'meta/factions'
-import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
+import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
@@ -75,14 +75,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Iron Golems',
       'Gaunt Summoner on Disc of Tzeentch',
     ])
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with StD', () => {
-    const parsedText = getFile('1576592520958-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-
-    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -239,6 +231,49 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(warscrollTxt.origin_realm).toEqual(AQSHY)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1576681454336-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    console.log(warscrollTxt.selections)
+
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.origin_realm).toEqual(ULGU)
+
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: ['Cabalists'],
+      artifacts: ['Spellmirror (Ulgu)', 'Scroll of Dark Unravelling (Cabalists)', 'Soul Feeder (Cabalists)'],
+      battalions: ['Godswrath Warband'],
+      commands: ['Spurred by the Gods'],
+      endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
+      scenery: [],
+      spells: [
+        'Binding Damnation (Slaves)',
+        'Ruinous Vigour (Slaves)',
+        'Whispers of Chaos (Slaves)',
+        'Mask of Darkness (Slaves)',
+        'Crippling Ruin',
+        'Winds of Chaos',
+        'Daemonic Power',
+        'Favour of the Ruinous Powers',
+      ],
+      traits: ['Mighty Ritualist (Cabalists)', 'Bolstered by Hate (Ravagers, Cabalists, Despoilers)'],
+      triumphs: [],
+      units: [
+        'Chaos Lord',
+        'Chaos Sorcerer Lord on Manticore',
+        'Chaos Sorcerer Lord',
+        'Chaos Warriors',
+        'Chaos Marauders',
+        'Chaos Chosen',
+        'Untamed Beasts',
+        'Chaos Warshrine',
+      ],
+    })
+
     expect(warscrollTxt.errors).toEqual([])
   })
 
