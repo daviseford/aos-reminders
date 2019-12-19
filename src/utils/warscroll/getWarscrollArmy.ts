@@ -81,6 +81,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       if (txt.startsWith('- ')) {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
+        if (txt.startsWith('- Mark of Chaos : ')) return accum
 
         if (txt.startsWith('- Lodge: ')) {
           const allegiance = txt.replace('- Lodge: ', '').trim()

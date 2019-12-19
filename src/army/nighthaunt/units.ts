@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_ROUND,
   END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
@@ -654,6 +655,46 @@ export const Battalions: TBattalions = [
         name: `Shrieker Host`,
         desc: `Re-roll battleshock rolls of 1 for enemy units that are within 6" of any units from this battalion at the start of the battleshock phase. In addition, the Inspiring Presence command ability cannot be used on enemy units that are within 6" of any units from this battalion.`,
         when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Forgotten Scions`,
+    effects: [
+      {
+        name: `Gharest Malcor, The Traitor Knight`,
+        desc: `Add 1 to the Attacks characteristic of Malcor's Sword of Stolen Hours.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Gharest Malcor, The Traitor Knight`,
+        desc: `Once per battle round, you can use the command ability on Malcor's warscroll without a command point being spent.`,
+        when: [DURING_ROUND],
+      },
+    ],
+  },
+  {
+    name: `The Dolorous Guard`,
+    effects: [
+      {
+        name: `Knights of Regret`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by units from this battalion that have made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Knights of Regret`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to your general if your general is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of your general, instead of to your general.`,
+        when: [WOUND_ALLOCATION],
+      },
+    ],
+  },
+  {
+    name: `The Emerald Host`,
+    effects: [
+      {
+        name: `The Emerald Curse`,
+        desc: `After armies are set up, but before the first battle round begins, you can pick 1 enemy HERO. Subtract 1 from save rolls for attacks that target that HERO.`,
+        when: [END_OF_SETUP],
       },
     ],
   },

@@ -14,6 +14,7 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHORNE,
+  NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
@@ -26,7 +27,7 @@ import {
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
-import { AQSHY, HYSH, GHUR } from 'types/realmscapes'
+import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
@@ -72,7 +73,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Untamed Beasts',
       'Cypher Lords',
       'Iron Golems',
-      'Gaunt Summoner on Disc of Tzeentch',
     ])
     expect(warscrollTxt.errors).toEqual([])
   })
@@ -183,6 +183,15 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with Dabblings in Sorcery (Anvilgard Battle Trait)', () => {
+    const parsedText = getFile('1576513040341-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.selections.traits).toContain('Dabblings in Sorcery (Anvilgard Battle Trait)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1574686232621-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -192,12 +201,76 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
+  it('should work with The Brazen Rune', () => {
+    const parsedText = getFile('1576533398655-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHORNE)
+    expect(warscrollTxt.selections.artifacts).toContain('The Brazen Rune')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with The Dolorous Guard and The Forgotten Scions', () => {
+    const parsedText = getFile('1576527400569-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
+    expect(warscrollTxt.origin_realm).toEqual(HYSH)
+    expect(warscrollTxt.selections.battalions).toEqual([
+      'The Forgotten Scions',
+      'The Dolorous Guard',
+      'The Condemned',
+    ])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with OBR', () => {
     const parsedText = getFile('1575078564630-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(warscrollTxt.origin_realm).toEqual(AQSHY)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
+    const parsedText = getFile('1576681454336-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.origin_realm).toEqual(ULGU)
+
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: ['Cabalists'],
+      artifacts: ['Spellmirror (Ulgu)', 'Scroll of Dark Unravelling (Cabalists)', 'Soul Feeder (Cabalists)'],
+      battalions: ['Godswrath Warband'],
+      commands: ['Spurred by the Gods'],
+      endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
+      scenery: [],
+      spells: [
+        'Binding Damnation (Slaves)',
+        'Ruinous Vigour (Slaves)',
+        'Whispers of Chaos (Slaves)',
+        'Mask of Darkness (Slaves)',
+        'Crippling Ruin',
+        'Winds of Chaos',
+        'Daemonic Power',
+        'Favour of the Ruinous Powers',
+      ],
+      traits: ['Mighty Ritualist (Cabalists)', 'Bolstered by Hate (Ravagers, Cabalists, Despoilers)'],
+      triumphs: [],
+      units: [
+        'Chaos Lord',
+        'Chaos Sorcerer Lord on Manticore',
+        'Chaos Sorcerer Lord',
+        'Chaos Warriors',
+        'Chaos Marauders',
+        'Chaos Chosen',
+        'Untamed Beasts',
+        'Chaos Warshrine',
+      ],
+    })
+
     expect(warscrollTxt.errors).toEqual([])
   })
 
