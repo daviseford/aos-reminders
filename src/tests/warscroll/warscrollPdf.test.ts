@@ -21,6 +21,8 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  KHORNE,
+  CHAOS_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -107,6 +109,18 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.selections.battalions).toContain("Kin-eater's Bully Boys")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('reads a unit with ignored unknown selections', () => {
+    const pdfText = getFile('IgnoreUnknown')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.endless_spells).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([])
     expect(warscrollTxt.errors).toEqual([])
   })
 
