@@ -905,13 +905,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Helblaster Volley Gun',
         ],
       },
-      unknownSelections: [
-        'Warhammer & Shield',
-        'Grandhammers',
-        'Warblade & Shield',
-        'Grandblades',
-        'Halberds and Shields',
-      ],
+      unknownSelections: [],
     })
   })
 })

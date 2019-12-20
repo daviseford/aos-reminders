@@ -118,16 +118,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Untamed Beasts',
         ],
       },
-      unknownSelections: [
-        'Aspiring Champion',
-        'Hornblower',
-        'Standard Bearer',
-        'Chaos Hand',
-        'Doom Knight',
-        'Cursed Lance',
-        'Cursed Flail',
-        'Ensor celled',
-      ],
+      unknownSelections: ['Aspiring Champion'],
     })
   })
 
@@ -166,7 +157,7 @@ describe('getAzyrArmyFromPdf', () => {
         triumphs: [],
         units: ['Archaon the Everchosen', 'Varanguard'],
       },
-      unknownSelections: ['Ensorcelled'],
+      unknownSelections: [],
     })
   })
 
@@ -911,15 +902,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Skryre Acolytes',
         ],
       },
-      // These are all upgrades, and we would not expect to find them
-      unknownSelections: [
-        'Clawleader',
-        'Clanr at Standard Bearer',
-        'Clanr at Bell-ringer',
-        'Bringer-of-the-Word',
-        'Standard Bearers',
-        'Plague Harbingers',
-      ],
+      unknownSelections: [],
     })
   })
 

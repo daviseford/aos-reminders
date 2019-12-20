@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
-import { getReminderKey } from 'utils/reminderUtils'
+import { GetReminderKey } from 'utils/reminderUtils'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
@@ -54,6 +54,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [title, showWhen])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
+  const GetKey = new GetReminderKey()
 
   return (
     <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
@@ -69,7 +70,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
         />
         <div className={bodyClass}>
           {actions.map((action, i) => {
-            const name = getReminderKey(when, action)
+            const name = GetKey.reminderKey(when, action)
             const showEntry = () => showReminder(name)
             const hideEntry = () => hideReminder(name)
             const isHidden = !!hidden.find(k => name === k)

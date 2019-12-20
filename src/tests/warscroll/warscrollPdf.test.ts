@@ -4,6 +4,7 @@ import { parsePdf } from 'utils/pdf/pdfUtils'
 import path from 'path'
 import {
   BIG_WAAAGH,
+  CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -78,14 +79,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Arkanaut Ironclad',
         ],
       },
-      unknownSelections: [
-        'Light Skyhooks',
-        'Aethermatic Volley Guns',
-        'Aethershot Rifles',
-        'Drill Cannons',
-        'Heavy Sky Cannon',
-        'Aethermatic Volley Cannon',
-      ],
+      unknownSelections: [],
     })
   })
 
@@ -107,6 +101,18 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.selections.battalions).toContain("Kin-eater's Bully Boys")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('reads a unit with ignored unknown selections', () => {
+    const pdfText = getFile('IgnoreUnknown')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(warscrollTxt.selections.endless_spells).toEqual([])
+    expect(warscrollTxt.selections.artifacts).toEqual([])
+    expect(warscrollTxt.unknownSelections).toEqual([])
     expect(warscrollTxt.errors).toEqual([])
   })
 
@@ -137,7 +143,7 @@ describe('getWarscrollArmyFromPdf', () => {
         triumphs: [],
         units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
       },
-      unknownSelections: ['Greatblades'],
+      unknownSelections: [],
     })
 
     expect(warscrollTxt.errors).toEqual([])
@@ -179,11 +185,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.origin_realm).toEqual(null)
     expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.unknownSelections).toEqual([
-      'Witch Rod',
-      'Shield & Lance',
-      'Vicious Blade & Wicked Cutlass',
-    ])
+    expect(warscrollTxt.unknownSelections).toEqual([])
     expect(warscrollTxt.selections).toEqual({
       allegiances: ['Anvilgard'],
       artifacts: [
@@ -805,7 +807,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Dread Saurian',
         ],
       },
-      unknownSelections: ['Meteoric Standard', 'Clubs'],
+      unknownSelections: [],
     })
   })
 })
