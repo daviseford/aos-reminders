@@ -254,6 +254,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with Fyreslayers8', () => {
+    const parsedText = getFile('Fyreslayers8')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Fyreslayers3', () => {
     const parsedText = getFile('Fyreslayers3')
     const res = getBattlescribeArmy(parsedText)
@@ -582,7 +589,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: '*COURT OF NULAHMIA',
+        text: 'COURT OF NULAHMIA',
       },
     ])
   })
