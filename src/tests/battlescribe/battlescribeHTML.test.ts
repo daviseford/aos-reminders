@@ -70,24 +70,42 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
+  it('should work with Stormcast6', () => {
+    const parsedText = getFile('Stormcast6')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.allySelections).toEqual({
+      CITIES_OF_SIGMAR: { battalions: [], units: ['Cogsmith', 'Cannon', 'Organ Gun'] },
+    })
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with StD2', () => {
+    const parsedText = getFile('StD2')
+    const res = getBattlescribeArmy(parsedText)
+    // TODO fix this, just not in the mood right now
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Mark of the All-favoured',
+      },
+    ])
+  })
+
   it('should work with Khorne6', () => {
     const parsedText = getFile('Khorne6')
     const res = getBattlescribeArmy(parsedText)
-
     expect(res.errors).toEqual([])
   })
 
   it('should work with Khorne5', () => {
     const parsedText = getFile('Khorne5')
     const res = getBattlescribeArmy(parsedText)
-
     expect(res.errors).toEqual([])
   })
 
   it('should work with TombKings1', () => {
     const parsedText = getFile('TombKings1')
     const res = getBattlescribeArmy(parsedText)
-
     expect(res.factionName).toEqual(TOMB_KINGS)
     expect(res.errors).toEqual([])
   })
@@ -95,7 +113,6 @@ describe('getBattlescribeArmy', () => {
   it('should work with Sylvaneth3', () => {
     const parsedText = getFile('Sylvaneth3')
     const res = getBattlescribeArmy(parsedText)
-
     expect(res.factionName).toEqual(SYLVANETH)
     expect(res.errors).toEqual([])
   })
@@ -121,7 +138,6 @@ describe('getBattlescribeArmy', () => {
   it('should work with Nighthaunt2', () => {
     const parsedText = getFile('Nighthaunt2')
     const res = getBattlescribeArmy(parsedText)
-
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.errors).toEqual([])
   })
@@ -247,6 +263,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Fyreslayers8', () => {
+    const parsedText = getFile('Fyreslayers8')
+    const res = getBattlescribeArmy(parsedText)
+
     expect(res.errors).toEqual([])
   })
 
@@ -578,7 +601,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: '*COURT OF NULAHMIA',
+        text: 'COURT OF NULAHMIA',
       },
     ])
   })

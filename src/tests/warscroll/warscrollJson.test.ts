@@ -34,6 +34,13 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with The Fleshform Raiment (Noble Heirlooms)', () => {
+    const parsedText = getFile('1576858425499-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('The Fleshform Raiment (Noble Heirlooms)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Guardian of Souls and Chaos allegiance', () => {
     const parsedText = getFile('1574504452431-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
