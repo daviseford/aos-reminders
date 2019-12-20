@@ -4,6 +4,7 @@ import { parsePdf } from 'utils/pdf/pdfUtils'
 import path from 'path'
 import {
   BIG_WAAAGH,
+  CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -21,8 +22,6 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
-  KHORNE,
-  CHAOS_GRAND_ALLIANCE,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
