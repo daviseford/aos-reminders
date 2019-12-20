@@ -4,7 +4,7 @@ import { logFailedImport } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { isDev } from 'utils/env'
 import { getAllyData } from 'utils/import/allyData'
-import { parserOptions } from 'utils/import/options'
+import { parserOptions, ignoredUnknownSelections } from 'utils/import/options'
 import { createFatalError, hasFatalError, getAllyWarnings, getWarnings } from 'utils/import/warnings'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
 import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
@@ -34,6 +34,8 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
       errors: [createFatalError(errorTxt)],
     }
   }
+
+  unknownSelections = unknownSelections.filter(x => !ignoredUnknownSelections.includes(x))
 
   const foundSelections: string[] = []
 

@@ -167,6 +167,48 @@ const battlescribeTypoMap: TNameMap = {
   Voxaxe: 'Vosaxe',
 }
 
+/**
+ * This is where we store unknown values that are expected and inconsequential
+ * Such as weapon options for units
+ * And we shouldn't bother searching for them in the error checking process
+ */
+export const ignoredUnknownSelections = [
+  'Aethermatic Volley Cannon',
+  'Aethermatic Volley Guns',
+  'Aethershot Rifles',
+  'Axe',
+  'Bringer-of-the-Word',
+  'Chaos Hand',
+  'Clanr at Bell-ringer',
+  'Clanr at Standard Bearer',
+  'Clanrat Bell-ringer',
+  'Clanrat Standard Bearer',
+  'Clawleader',
+  'Clubs',
+  'Cursed Flail',
+  'Cursed Lance',
+  'Doom Knight',
+  'Drill Cannons',
+  'Ensor celled',
+  'Ensorcelled',
+  'Grandblades',
+  'Grandhammers',
+  'Greatblades',
+  'Halberds and Shields',
+  'Heavy Sky Cannon',
+  'Hornblower',
+  'Light Skyhooks',
+  'Meteoric Standard',
+  'Plague Harbingers',
+  'Shield & Lance',
+  'Standard Bearer',
+  'Standard Bearers',
+  'Vicious Blade & Wicked Cutlass',
+  'Warblade & Shield',
+  'Warhammer & Shield',
+  'Witch Rod',
+]
+
 // Azyr helper
 export const factionToAllegianceMap = {
   'Clans Eshin': 'Masters of Murder (Eshin)',

@@ -80,14 +80,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Arkanaut Ironclad',
         ],
       },
-      unknownSelections: [
-        'Light Skyhooks',
-        'Aethermatic Volley Guns',
-        'Aethershot Rifles',
-        'Drill Cannons',
-        'Heavy Sky Cannon',
-        'Aethermatic Volley Cannon',
-      ],
+      unknownSelections: [],
     })
   })
 
@@ -151,7 +144,7 @@ describe('getWarscrollArmyFromPdf', () => {
         triumphs: [],
         units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
       },
-      unknownSelections: ['Greatblades'],
+      unknownSelections: [],
     })
 
     expect(warscrollTxt.errors).toEqual([])
@@ -193,11 +186,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.origin_realm).toEqual(null)
     expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.unknownSelections).toEqual([
-      'Witch Rod',
-      'Shield & Lance',
-      'Vicious Blade & Wicked Cutlass',
-    ])
+    expect(warscrollTxt.unknownSelections).toEqual([])
     expect(warscrollTxt.selections).toEqual({
       allegiances: ['Anvilgard'],
       artifacts: [
@@ -819,7 +808,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Dread Saurian',
         ],
       },
-      unknownSelections: ['Meteoric Standard', 'Clubs'],
+      unknownSelections: [],
     })
   })
 })
