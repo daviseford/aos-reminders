@@ -22,6 +22,28 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const ChameleonBaseEffects = [
+  {
+    name: `Chameleon Ambush`,
+    desc: `Instead of setting up Chameleon Skinks on the battlefield, you can place it to one side and say that it is in hiding. In any of your movement phases, you can reveal a unit that is in hiding by setting it up anywhere on the battlefield.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Disappear From Sight`,
+    desc: `Chameleon Skinks can blend with its surroundings and go into hiding. If it does so, remove it from the battlefield. You can reveal it via "Chameleon Ambush" in any subsequent turn.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Perfect Mimicry`,
+    desc: `If all models in this unit are within or on a terrain feature, their Save characteristic is 3+ rather than 6+. This includes the bonus for being in cover.`,
+    when: [DURING_GAME],
+  },
+]
+const DeadlyVenomEffect = {
+  name: `Deadly Venom`,
+  desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+}
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
   desc: `When this model attacks with its Crushing Stomps, add 1 to any wound rolls if it charged in the same turn.`,
@@ -394,21 +416,7 @@ export const Units: TUnits = [
   {
     name: `Chameleon Skinks`,
     effects: [
-      {
-        name: `Chameleon Ambush`,
-        desc: `Instead of setting up Chameleon Skinks on the battlefield, you can place it to one side and say that it is in hiding. In any of your movement phases, you can reveal a unit that is in hiding by setting it up anywhere on the battlefield.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Disappear From Sight`,
-        desc: `Chameleon Skinks can blend with its surroundings and go into hiding. If it does so, remove it from the battlefield. You can reveal it via "Chameleon Ambush" in any subsequent turn.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Perfect Mimicry`,
-        desc: `If all models in this unit are within or on a terrain feature, their Save characteristic is 3+ rather than 6+. This includes the bonus for being in cover.`,
-        when: [DURING_GAME],
-      },
+      ...ChameleonBaseEffects,
       {
         name: `Star-venom`,
         desc: `If the hit roll is 6 or higher when a model attacks with a Dartpipe, the attack's Damage characteristic is 2 rather than 1, or 3 rather than 1 if the target is a CHAOS DAEMON.`,
@@ -570,6 +578,50 @@ export const Units: TUnits = [
       {
         name: `Light of the Heavens`,
         desc: `If this model's Searing Beam targets a unit of CHAOS DAEMONS, its Damage characteristic is 3 rather than 2.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Celestial Swarm`,
+    effects: [
+      {
+        name: `Swarming Tide`,
+        desc: `In your hero phase, you may heal D3 wounds allocated to this unit, as more creatures materialise to supplement their number.`,
+        when: [HERO_PHASE],
+      },
+      DeadlyVenomEffect,
+    ],
+  },
+  {
+    name: `Skink Chief`,
+    effects: [
+      {
+        name: `Marked for Greatness`,
+        desc: `You can re-roll a single dice for this model in each phase.`,
+        when: [DURING_GAME],
+      },
+      StarbucklersEffect,
+    ],
+  },
+  {
+    name: `Skink Prophet`,
+    effects: [
+      DeadlyVenomEffect,
+      {
+        name: `Priestly Rites`,
+        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Chameleon Skink Stalker`,
+    effects: [
+      ...ChameleonBaseEffects,
+      {
+        name: `Master Hunter`,
+        desc: `Add 2 to the result of wound rolls for this model's Stalker Blowpipe if it did not move, and was not set up, in the movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
