@@ -79,6 +79,18 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should work with StD2', () => {
+    const parsedText = getFile('StD2')
+    const res = getBattlescribeArmy(parsedText)
+    // TODO fix this, just not in the mood right now
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Mark of the All-favoured',
+      },
+    ])
+  })
+
   it('should work with Khorne6', () => {
     const parsedText = getFile('Khorne6')
     const res = getBattlescribeArmy(parsedText)
