@@ -36,7 +36,7 @@ const DuardinArtilleryEffects = [
   },
   {
     name: `Duardin Artillery`,
-    desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery. The Crew are in cover while they are within 1" of their war machine.`,
+    desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
     when: [BATTLESHOCK_PHASE],
   },
   {
