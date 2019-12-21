@@ -1,21 +1,22 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import qs from 'qs'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { logPageView, logClick, logEvent } from 'utils/analytics'
-import { ROUTES } from 'utils/env'
 import { LocalRedemptionKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import { ContactComponent } from 'components/page/contact'
+import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { IUser } from 'types/user'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
+/**
+ * This Route is used for coupon code redemption
+ */
 const Redeem: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
@@ -46,7 +47,7 @@ const Redeem: React.FC = () => {
 
       <div className={containerClass}>
         <div className="col text-center">
-          {!user && <LoginSection />}
+          {!user && <Login />}
           {user && <RedeemSection />}
         </div>
       </div>
@@ -59,8 +60,8 @@ const Preamble = () => (
 )
 
 const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
-  const localInfo = LocalRedemptionKey.get()
-  if (localInfo && localInfo.giftId) return localInfo
+  const redeemInfo = LocalRedemptionKey.get()
+  if (redeemInfo && redeemInfo.giftId) return redeemInfo
 
   const { redeem, referrer } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
@@ -79,8 +80,8 @@ const RedeemSection = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  if (!redeemInfo && success) return <Success />
-  if (!redeemInfo && error) return <Error error={error} />
+  if (!redeemInfo && success) return <RedemptionSuccess />
+  if (!redeemInfo && error) return <RedemptionError error={error} />
   if (!redeemInfo) return <NoKeyFound />
 
   const { giftId, userId } = redeemInfo
@@ -117,8 +118,8 @@ const RedeemSection = () => {
         </GenericButton>
       )}
 
-      {success && <Success />}
-      {error && <Error error={error} />}
+      {success && <RedemptionSuccess />}
+      {error && <RedemptionError error={error} />}
     </div>
   )
 }
@@ -126,49 +127,6 @@ const RedeemSection = () => {
 const NoKeyFound = () => (
   <p>We couldn't locate a subscription id. You may have arrived here via a malformed link.</p>
 )
-
-const Success = () => {
-  const handleClickSuccess = () => {
-    window.location.replace(ROUTES.PROFILE)
-  }
-
-  return (
-    <>
-      <h5>Woohoo! You're all set!</h5>
-
-      <h2>
-        <FaRegSmileBeam />
-      </h2>
-
-      <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>
-        Take me to my Profile!
-      </GenericButton>
-    </>
-  )
-}
-
-const Error = ({ error }: { error: string }) => {
-  return (
-    <>
-      <GenericButton className={`btn btn-danger btn-lg`} disabled>
-        Error!
-        <FaRegFrown className="ml-2" />
-      </GenericButton>
-
-      <p className="pt-3">We're sorry. There was an error redeeming your subscription.</p>
-      <p>
-        <code>{error}</code>
-      </p>
-      <p>If you continue to receive this error, please get in contact with us using the links below.</p>
-
-      <div className="row text-center pt-2 pb-3">
-        <div className="col">
-          <ContactComponent size="small" />
-        </div>
-      </div>
-    </>
-  )
-}
 
 const setLocalRedemptionKey = () => {
   const { redeem, referrer } = qs.parse(window.location.search, {
@@ -178,7 +136,7 @@ const setLocalRedemptionKey = () => {
     LocalRedemptionKey.set(redeem, referrer)
   }
 }
-const LoginSection = () => {
+const Login = () => {
   const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
@@ -189,16 +147,9 @@ const LoginSection = () => {
   }
 
   return (
-    <div>
+    <RedemptionLogin handleClick={handleClick}>
       <Preamble />
-      <p>
-        First, you're going to need to create an account and log in. Once you've done that, we'll set your
-        subscription up!
-      </p>
-      <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClick}>
-        Log In / Sign Up
-      </GenericButton>
-    </div>
+    </RedemptionLogin>
   )
 }
 
