@@ -25,6 +25,11 @@ interface IUpdateTheme {
   theme: TThemeType
 }
 
+interface IRedeemCoupon {
+  couponId: string
+  userName: string // userName receiving the gift
+}
+
 interface IRedeemGift {
   giftId: string
   userId: string // userId of the referrer
@@ -36,6 +41,7 @@ const withAuth = (data: { [key: string]: any }) => ({ ...data, authKey: SUBSCRIP
 const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send(withAuth(data))
 const getFavoriteFaction = (userName: string) => request.get(`${api}/favorite/${userName}`)
 const getSubscription = (userName: string) => request.get(`${api}/user/${userName}`)
+const redeemCoupon = (data: IRedeemCoupon) => request.post(`${api}/redeem_coupon`).send(withAuth(data))
 const redeemGift = (data: IRedeemGift) => request.post(`${api}/redeem`).send(withAuth(data))
 const updateFavoriteFaction = (data: IUpdateFavorite) => request.post(`${api}/favorite`).send(withAuth(data))
 const updateTheme = (data: IUpdateTheme) => request.post(`${api}/theme`).send(withAuth(data))
@@ -44,6 +50,7 @@ export const SubscriptionApi = {
   cancelSubscription,
   getFavoriteFaction,
   getSubscription,
+  redeemCoupon,
   redeemGift,
   updateFavoriteFaction,
   updateTheme,

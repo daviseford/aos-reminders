@@ -9,9 +9,10 @@ import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))
+const Join = lazy(() => import('components/routes/Join'))
 const Profile = lazy(() => import('components/routes/Profile'))
-const Subscribe = lazy(() => import('components/routes/Subscribe'))
 const Redeem = lazy(() => import('components/routes/Redeem'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
@@ -25,9 +26,10 @@ const App = () => {
         <Suspense fallback={<LoadingBody />}>
           <Switch>
             <Route path={ROUTES.HOME} exact component={Home} />
-            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
-            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+            <Route path={ROUTES.JOIN} component={Join} />
             <Route path={ROUTES.REDEEM} component={Redeem} />
+            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
           </Switch>
         </Suspense>
       </BrowserRouter>

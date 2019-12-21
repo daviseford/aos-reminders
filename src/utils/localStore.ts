@@ -16,7 +16,7 @@ export const getNotificationBanner = (name: string) => localStorage.getItem(name
 export const LocalCouponKey = {
   clear: () => localStorage.removeItem(LOCAL_COUPON_CODE_KEY),
   get: () => localStorage.getItem(LOCAL_COUPON_CODE_KEY),
-  set: (couponCode: string) => localStorage.setItem(LOCAL_COUPON_CODE_KEY, couponCode),
+  set: (couponId: string) => localStorage.setItem(LOCAL_COUPON_CODE_KEY, couponId),
 }
 
 export const LocalRedemptionKey = {
