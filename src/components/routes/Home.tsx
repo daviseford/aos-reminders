@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={theme.bgColor}>
-      <Header isGameMode={false} />
+      <Header />
 
       {/* <Suspense fallback={<></>}>
         <AppBanner />
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={<></>}>
-        <Reminders isGameMode={false} />
+        <Reminders />
 
         <PrintArmy />
 

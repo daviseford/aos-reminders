@@ -8,20 +8,20 @@ import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { useAppStatus } from 'context/useAppStatus'
 
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
   army: IArmy
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
-  isGameMode: boolean
   isMobile: boolean
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const { allyArmies, army, hideWhens, isGameMode, isMobile, showWhen, visibleWhens, ...currentArmy } = props
+  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
 
   const reminders = useMemo(() => {
     return processReminders(
@@ -40,6 +40,8 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   const [firstLoad, setFirstLoad] = useState(true)
 
+  const { isGameMode } = useAppStatus()
+
   useEffect(() => {
     setFirstLoad(true)
   }, [currentArmy.factionName])
@@ -48,7 +50,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     // Remove orphaned phases
     // (phases where the rules have been removed via army_builder)
     const orphans = without(visibleWhens, ...titles)
-    console.log(titles)
+    if (isGameMode) console.log(titles)
     if (orphans.length) hideWhens(orphans)
 
     // If we're on mobile AND it's our first load of a new army AND
@@ -57,7 +59,7 @@ const RemindersComponent = (props: IRemindersProps) => {
       setFirstLoad(false)
       showWhen(titles[0]) // Show the first phase
     }
-  }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
+  }, [isGameMode, isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
     <div className="row mx-auto mt-3 d-flex justify-content-center">

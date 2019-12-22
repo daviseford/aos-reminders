@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { logEvent } from 'utils/analytics'
 
 interface IAppStatusProvider {
+  isGameMode: boolean
   isOffline: boolean
   isOnline: boolean
   hasNewContent: boolean
+  toggleGameMode: () => void
 }
 
 const timeout = (ms: number, promise) => {
@@ -18,8 +21,14 @@ const timeout = (ms: number, promise) => {
 const AppStatusContext = React.createContext<IAppStatusProvider | void>(undefined)
 
 const AppStatusProvider: React.FC = ({ children }) => {
+  const [isGameMode, setIsGameMode] = useState(false)
   const [isOffline, setIsOffline] = useState(false)
   const [hasNewContent, setHasNewContent] = useState(false)
+
+  const toggleGameMode = useCallback(() => {
+    logEvent(`ToggleGameMode-{ isGameMode ? 'off' : 'on' }`)
+    return setIsGameMode(!isGameMode)
+  }, [isGameMode])
 
   const setOffline = () => {
     console.log('App is running in offline mode.')
@@ -68,7 +77,9 @@ const AppStatusProvider: React.FC = ({ children }) => {
   })
 
   return (
-    <AppStatusContext.Provider value={{ isOffline, isOnline: !isOffline, hasNewContent }}>
+    <AppStatusContext.Provider
+      value={{ isGameMode, isOffline, isOnline: !isOffline, hasNewContent, toggleGameMode }}
+    >
       {children}
     </AppStatusContext.Provider>
   )
