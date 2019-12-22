@@ -98,7 +98,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
             {loadedArmy && <h3 className={theme.textSecondary}>{loadedArmy.armyName}</h3>}
           </div>
         ) : (
-          <div>
+          <>
             <span className="text-white">Select your army to get started:</span>
             <div className={`d-flex pt-3 pb-2 justify-content-center`}>
               <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
@@ -111,7 +111,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
                 />
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>
