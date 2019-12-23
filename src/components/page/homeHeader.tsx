@@ -94,9 +94,10 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         </p>
         <ToggleGameMode />
         {isGameMode ? (
-          <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-            <h2 className="display-6 text-white">{titleCase(factionName)}</h2>
-            {loadedArmy && <h3 className={theme.textSecondary}>{loadedArmy.armyName}</h3>}
+          <div className={`pt-3 pb-2 justify-content-center`}>
+            <h2 className="display-6 text-white">
+              {loadedArmy ? loadedArmy.armyName : titleCase(factionName)}
+            </h2>
           </div>
         ) : (
           <>
