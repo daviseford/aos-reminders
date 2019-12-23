@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
+import { useAppStatus } from 'context/useAppStatus'
 import { GetReminderKey } from 'utils/reminderUtils'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
@@ -55,6 +56,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
   const GetKey = new GetReminderKey()
+  const { isGameMode } = useAppStatus()
 
   return (
     <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
@@ -76,13 +78,15 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
             const isHidden = !!hidden.find(k => name === k)
 
             return (
-              <ActionText
-                {...action}
-                isVisible={!isHidden}
-                hideEntry={hideEntry}
-                showEntry={showEntry}
-                key={name}
-              />
+              (!isGameMode || !isHidden) && (
+                <ActionText
+                  {...action}
+                  isVisible={!isHidden}
+                  hideEntry={hideEntry}
+                  showEntry={showEntry}
+                  key={name}
+                />
+              )
             )
           })}
         </div>
@@ -114,6 +118,7 @@ interface IActionTextProps extends TTurnAction {
 
 const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, showEntry, hideEntry } = props
+  const { isGameMode } = useAppStatus()
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
@@ -123,9 +128,11 @@ const ActionText = (props: IActionTextProps) => {
         <div className="flex-grow-1">
           <ActionTitle {...props} />
         </div>
-        <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
-        </div>
+        {!isGameMode && (
+          <div className="px-2 d-print-none">
+            <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+          </div>
+        )}
       </div>
 
       {isVisible && <ActionDescription text={desc} />}
