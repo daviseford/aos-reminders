@@ -16,7 +16,6 @@ import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { SelectOne } from 'components/input/select'
 import { LinkNewTab } from 'components/helpers/link'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
-import { centerContentClass } from 'theme/helperClasses'
 
 const Navbar = lazy(() => import('./navbar'))
 
@@ -122,31 +121,28 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 
 const ToggleGameMode = () => {
   const { isGameMode, toggleGameMode } = useAppStatus()
-  const { theme } = useTheme()
 
   return (
-    <div className={`${theme.card} mt-2`}>
-      <div className={`${theme.cardBody} ${centerContentClass} pb-0 text-white`}>
-        <label htmlFor="visual-theme-switch">
-          <FaEdit className="mr-2" size={32} />
-          <Switch
-            onChange={toggleGameMode}
-            checked={isGameMode}
-            onColor="#1C7595"
-            onHandleColor="#E9ECEF"
-            handleDiameter={36}
-            uncheckedIcon={false}
-            checkedIcon={false}
-            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-            height={26}
-            width={80}
-            className="react-switch"
-            id="visual-theme-switch"
-          />
-          <FaDice className="ml-2" size={32} />
-        </label>
-      </div>
+    <div className="text-white">
+      <label htmlFor="visual-theme-switch">
+        <FaEdit className="mr-2" size={32} />
+        <Switch
+          onChange={toggleGameMode}
+          checked={isGameMode}
+          onColor="#1C7595"
+          onHandleColor="#E9ECEF"
+          handleDiameter={36}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+          height={26}
+          width={80}
+          className="react-switch"
+          id="visual-theme-switch"
+        />
+        <FaDice className="ml-2" size={32} />
+      </label>
     </div>
   )
 }
