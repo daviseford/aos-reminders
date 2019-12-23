@@ -6,6 +6,7 @@ import { FaDice, FaEdit } from 'react-icons/fa'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { IStore } from 'types/store'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -150,7 +151,7 @@ const ToggleGameMode = () => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: IStore, ownProps) => {
   return {
     ...ownProps,
     factionName: selectors.getFactionName(state),
