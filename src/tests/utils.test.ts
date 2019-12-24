@@ -1,6 +1,6 @@
 import { AQSHY, ULGU } from 'types/realmscapes'
 import { getRealmscape } from 'utils/realmUtils'
-import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
+import { getVisibleReminders } from 'utils/reminderUtils'
 
 describe('realmUtils', () => {
   it('should return the correct realm from a given string', () => {
