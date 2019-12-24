@@ -7,6 +7,7 @@ import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName, prepareArmyForS3 } from 'utils/armyUtils'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
@@ -25,6 +26,7 @@ interface ISavedArmiesContext {
   getFavoriteFaction: () => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
+  reloadArmy: () => Promise<void>
   saveArmy: (army: ISavedArmy) => Promise<void>
   saveArmyToS3: (army: IImportedArmy | ISavedArmy | ICurrentArmy) => Promise<void>
   savedArmies: ISavedArmyFromApi[]
@@ -159,6 +161,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
+  const reloadArmy = useCallback(async () => {
+    if (!loadedArmy) return
+    const fullLoadedArmy = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
+    addArmyToStore(fullLoadedArmy)
+  }, [loadedArmy, savedArmies])
+
   const getFavoriteFaction = useCallback(async () => {
     try {
       if (waitingForApi) return
@@ -223,6 +231,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         getFavoriteFaction,
         loadedArmy,
         loadSavedArmies,
+        reloadArmy,
         saveArmy,
         saveArmyToS3,
         savedArmies,

@@ -1,22 +1,20 @@
 import React from 'react'
-import { FaSyncAlt } from 'react-icons/fa'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
+import { FaSyncAlt } from 'react-icons/fa'
 import GenericButton from 'components/input/generic_button'
-import { ISavedArmy } from 'types/savedArmy'
 
-interface IReloadArmyProps {
-  id: string
-  currentArmy: ISavedArmy
-  changedKeys: string[]
-}
+interface IReloadArmyProps {}
 
 type TReloadArmyBtn = React.FC<IReloadArmyProps>
 
-const ReloadArmyBtn: TReloadArmyBtn = ({ currentArmy, id, changedKeys }) => {
+const ReloadArmyBtn: TReloadArmyBtn = () => {
   const { isDark } = useTheme()
+  const { reloadArmy } = useSavedArmies()
 
   const handleClick = async e => {
     e.preventDefault()
+    reloadArmy()
   }
 
   const btnClass = `btn${isDark ? ` btn-outline-light ` : ` `} btn-block`

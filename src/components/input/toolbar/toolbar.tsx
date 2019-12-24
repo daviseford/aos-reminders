@@ -125,11 +125,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
               />
             </div>
             <div className={btnWrapperClass}>
-              <ReloadArmyBtn
-                currentArmy={{ ...currentArmy, ...loadedArmy }}
-                changedKeys={changedKeys}
-                id={loadedArmy.id}
-              />
+              <ReloadArmyBtn />
             </div>
           </>
         )}
