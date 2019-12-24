@@ -55,12 +55,12 @@ const Home: React.FC = () => {
           <Suspense fallback={<></>}>
             <AlliedArmies />
           </Suspense>
-
-          <Suspense fallback={<></>}>
-            <Toolbar />
-          </Suspense>
         </>
       )}
+
+      <Suspense fallback={<></>}>
+        <Toolbar />
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <Reminders />

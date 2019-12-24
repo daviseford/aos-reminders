@@ -50,7 +50,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
     resetSelections,
     updateAllyArmy,
   } = props
-  const { isOnline } = useAppStatus()
+  const { isGameMode, isOnline } = useAppStatus()
   const { loadedArmy, armyHasChanges, setLoadedArmy } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
 
@@ -95,21 +95,25 @@ const ToolbarComponent = (props: IToolbarProps) => {
   return (
     <div className="container d-print-none">
       <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
-        <div className={btnWrapperClass}>
-          <Suspense fallback={<LoadingBtn />}>
-            <ClearArmyButton clearArmyClick={clearArmyClick} />
-          </Suspense>
-        </div>
-        <div className={btnWrapperClass}>
-          <Suspense fallback={<LoadingBtn />}>
-            <AddAllyButton setAllyClick={handleAllyClick} />
-          </Suspense>
-        </div>
-        <div className={btnWrapperClass}>
-          <Suspense fallback={<LoadingBtn />}>
-            <DownloadPDFButton />
-          </Suspense>
-        </div>
+        {!isGameMode && (
+          <>
+            <div className={btnWrapperClass}>
+              <Suspense fallback={<LoadingBtn />}>
+                <ClearArmyButton clearArmyClick={clearArmyClick} />
+              </Suspense>
+            </div>
+            <div className={btnWrapperClass}>
+              <Suspense fallback={<LoadingBtn />}>
+                <AddAllyButton setAllyClick={handleAllyClick} />
+              </Suspense>
+            </div>
+            <div className={btnWrapperClass}>
+              <Suspense fallback={<LoadingBtn />}>
+                <DownloadPDFButton />
+              </Suspense>
+            </div>
+          </>
+        )}
         {isOnline && loadedArmy && hasChanges && (
           <div className={btnWrapperClass}>
             <UpdateArmyBtn
@@ -119,28 +123,32 @@ const ToolbarComponent = (props: IToolbarProps) => {
             />
           </div>
         )}
-        <div className={btnWrapperClass} hidden={!hasEntries}>
-          <Suspense fallback={<LoadingBtn />}>
-            <SaveArmyBtn showSavedArmies={showSavedArmies} />
-          </Suspense>
-        </div>
-        <div className={btnWrapperClass}>
-          <Suspense fallback={<LoadingBtn />}>
-            <ImportArmyButton
-              show={showImportArmy}
-              hide={hideImportArmy}
-              isShowing={isShowingImport}
-              // TODO: Enable after a couple weeks from now (9/9/19)
-              // isSubscribed={isSubscribed}
-              isSubscribed={true}
-            />
-          </Suspense>
-        </div>
-        <div className={btnWrapperClass} hidden={!hasEntries}>
-          <Suspense fallback={<LoadingBtn />}>
-            <ShareArmyBtn />
-          </Suspense>
-        </div>
+        {!isGameMode && (
+          <>
+            <div className={btnWrapperClass} hidden={!hasEntries}>
+              <Suspense fallback={<LoadingBtn />}>
+                <SaveArmyBtn showSavedArmies={showSavedArmies} />
+              </Suspense>
+            </div>
+            <div className={btnWrapperClass}>
+              <Suspense fallback={<LoadingBtn />}>
+                <ImportArmyButton
+                  show={showImportArmy}
+                  hide={hideImportArmy}
+                  isShowing={isShowingImport}
+                  // TODO: Enable after a couple weeks from now (9/9/19)
+                  // isSubscribed={isSubscribed}
+                  isSubscribed={true}
+                />
+              </Suspense>
+            </div>
+            <div className={btnWrapperClass} hidden={!hasEntries}>
+              <Suspense fallback={<LoadingBtn />}>
+                <ShareArmyBtn />
+              </Suspense>
+            </div>
+          </>
+        )}
         <div className={btnWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
