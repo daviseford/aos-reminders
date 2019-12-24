@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { FaCloudUploadAlt } from 'react-icons/fa'
+import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { logEvent } from 'utils/analytics'
@@ -30,7 +31,11 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
     setIsSaving(false)
   }
 
-  const btnClass = `btn${isDark ? ` btn-outline-light ` : ` `}btn-success btn-block`
+  const { isGameMode } = useAppStatus()
+
+  const btnClass = isGameMode
+    ? `btn${isDark ? ` btn-outline-light ` : ` `} btn-block`
+    : `btn${isDark ? ` btn-outline-light ` : ` `}btn-success btn-block`
 
   if (!canUpdate) return null
 

@@ -19,6 +19,7 @@ const ClearArmyButton = lazy(() => import('./clear_army_btn'))
 const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
 const ImportArmyButton = lazy(() => import('./import_army_btn'))
 const ImportContainer = lazy(() => import('../importPdf/drop_container'))
+const ReloadArmyBtn = lazy(() => import('../savedArmies/reload_army_btn'))
 const SaveArmyBtn = lazy(() => import('../savedArmies/save_army_btn'))
 const ShareArmyBtn = lazy(() => import('../shareArmy/share_army_btn'))
 const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
@@ -115,13 +116,22 @@ const ToolbarComponent = (props: IToolbarProps) => {
           </>
         )}
         {isOnline && loadedArmy && hasChanges && (
-          <div className={btnWrapperClass}>
-            <UpdateArmyBtn
-              currentArmy={{ ...currentArmy, ...loadedArmy }}
-              changedKeys={changedKeys}
-              id={loadedArmy.id}
-            />
-          </div>
+          <>
+            <div className={btnWrapperClass}>
+              <UpdateArmyBtn
+                currentArmy={{ ...currentArmy, ...loadedArmy }}
+                changedKeys={changedKeys}
+                id={loadedArmy.id}
+              />
+            </div>
+            <div className={btnWrapperClass}>
+              <ReloadArmyBtn
+                currentArmy={{ ...currentArmy, ...loadedArmy }}
+                changedKeys={changedKeys}
+                id={loadedArmy.id}
+              />
+            </div>
+          </>
         )}
         {!isGameMode && (
           <>
