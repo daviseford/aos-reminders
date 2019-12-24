@@ -4,6 +4,7 @@ import { without } from 'lodash'
 import { visibility, selectors } from 'ducks'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
+import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
 import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
@@ -21,9 +22,20 @@ interface IRemindersProps extends ICurrentArmy {
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
+  const {
+    allyArmies,
+    army,
+    hiddenReminders,
+    hideWhens,
+    isMobile,
+    showWhen,
+    visibleWhens,
+    ...currentArmy
+  } = props
 
-  const reminders = useMemo(() => {
+  const { isGameMode } = useAppStatus()
+
+  let reminders = useMemo(() => {
     return processReminders(
       army,
       currentArmy.factionName,
@@ -35,12 +47,12 @@ const RemindersComponent = (props: IRemindersProps) => {
     )
   }, [army, allyArmies, currentArmy])
 
+  if (isGameMode) reminders = getVisibleReminders(reminders, hiddenReminders)
+
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
 
   const [firstLoad, setFirstLoad] = useState(true)
-
-  const { isGameMode } = useAppStatus()
 
   useEffect(() => {
     setFirstLoad(true)
@@ -50,7 +62,6 @@ const RemindersComponent = (props: IRemindersProps) => {
     // Remove orphaned phases
     // (phases where the rules have been removed via army_builder)
     const orphans = without(visibleWhens, ...titles)
-    if (isGameMode) console.log(titles)
     if (orphans.length) hideWhens(orphans)
 
     // If we're on mobile AND it's our first load of a new army AND
