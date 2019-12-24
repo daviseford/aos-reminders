@@ -56,7 +56,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
   const GetKey = new GetReminderKey()
-  const { isGameMode } = useAppStatus()
 
   return (
     <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
@@ -78,15 +77,13 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
             const isHidden = !!hidden.find(k => name === k)
 
             return (
-              (!isGameMode || !isHidden) && (
-                <ActionText
-                  {...action}
-                  isVisible={!isHidden}
-                  hideEntry={hideEntry}
-                  showEntry={showEntry}
-                  key={name}
-                />
-              )
+              <ActionText
+                {...action}
+                isVisible={!isHidden}
+                hideEntry={hideEntry}
+                showEntry={showEntry}
+                key={name}
+              />
             )
           })}
         </div>
