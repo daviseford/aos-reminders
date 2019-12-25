@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { isEqual, sortBy } from 'lodash'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { store } from 'index'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { logEvent } from 'utils/analytics'
-import { isValidFactionName, prepareArmyForS3 } from 'utils/armyUtils'
+import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
@@ -60,8 +61,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
       if (!loadedArmy || !currentArmy) return { hasChanges: false, changedKeys: [] }
+
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
+
+      const hiddenReminders = store.getState().visibility.reminders
+      currentArmy = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
