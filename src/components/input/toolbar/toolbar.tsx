@@ -117,13 +117,15 @@ const ToolbarComponent = (props: IToolbarProps) => {
         )}
         {isOnline && loadedArmy && hasChanges && (
           <>
-            <div className={btnWrapperClass}>
-              <UpdateArmyBtn
-                currentArmy={{ ...currentArmy, ...loadedArmy }}
-                changedKeys={changedKeys}
-                id={loadedArmy.id}
-              />
-            </div>
+            {!isGameMode && (
+              <div className={btnWrapperClass}>
+                <UpdateArmyBtn
+                  currentArmy={{ ...currentArmy, ...loadedArmy }}
+                  changedKeys={changedKeys}
+                  id={loadedArmy.id}
+                />
+              </div>
+            )}
             <div className={btnWrapperClass}>
               <ReloadArmyBtn />
             </div>
