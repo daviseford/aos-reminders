@@ -125,10 +125,19 @@ const ActionText = (props: IActionTextProps) => {
         <div className="flex-grow-1">
           <ActionTitle {...props} />
         </div>
-        {!isGameMode && (
-          <div className="px-2 d-print-none">
+        <div className="px-2 d-print-none">
+          {isGameMode ? (
+            <VisibilityToggle
+              isVisible={isVisible}
+              setVisibility={handleVisibility}
+              withConfirmation={true}
+              type="clear"
+              size={1}
+            />
+          ) : (
             <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
-          </div>
+          )}
+        </div>
         )}
       </div>
 
