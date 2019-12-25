@@ -126,7 +126,7 @@ const ToggleGameMode = () => {
   return (
     <div className="text-white">
       <label htmlFor="visual-theme-switch">
-        <FaEdit className="mr-2" size={32} />
+        <FaEdit className="mr-2 align-top" size={32} />
         <Switch
           onChange={toggleGameMode}
           checked={isGameMode}
@@ -142,7 +142,7 @@ const ToggleGameMode = () => {
           className="react-switch"
           id="visual-theme-switch"
         />
-        <FaDice className="ml-2" size={32} />
+        <FaDice className="ml-2 align-top" size={32} />
       </label>
     </div>
   )
