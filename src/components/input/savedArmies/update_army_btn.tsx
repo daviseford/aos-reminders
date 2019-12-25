@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { FaCloudUploadAlt } from 'react-icons/fa'
+import { store } from 'index'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
@@ -25,7 +26,8 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const handleClick = async e => {
     e.preventDefault()
     setIsSaving(true)
-    const payload = prepareArmy(currentArmy, 'update', changedKeys)
+    const hiddenReminders = store.getState().visibility.reminders
+    const payload = prepareArmy({ ...currentArmy, hiddenReminders }, 'update', changedKeys)
     await updateArmy(id, payload)
     logEvent(`UpdateArmy-${currentArmy.factionName}`)
     setIsSaving(false)
