@@ -170,6 +170,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     if (!loadedArmy) return
     const fullLoadedArmy = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
     addArmyToStore(fullLoadedArmy)
+    logEvent(`ReloadArmy-${fullLoadedArmy.factionName}`)
   }, [loadedArmy, savedArmies])
 
   const getFavoriteFaction = useCallback(async () => {
