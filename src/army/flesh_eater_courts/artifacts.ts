@@ -111,10 +111,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `The Fleshform Rament (Noble Heirlooms)`,
+    name: `The Fleshform Raiment (Noble Heirlooms)`,
     effects: [
       {
-        name: `The Fleshform Rament (Noble Heirlooms)`,
+        name: `The Fleshform Raiment (Noble Heirlooms)`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
       },

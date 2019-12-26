@@ -28,6 +28,33 @@ const getKharadronUnits = () => KharadronOverlords.Units
 const getStormcastUnits = () => Stormcast.Units
 const getSylvanethUnits = () => Sylvaneth.Units
 
+const DuardinArtilleryEffects = [
+  {
+    name: `Duardin Artillery`,
+    desc: `The Crew are in cover while they are within 1" of their war machine.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Duardin Artillery`,
+    desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Duardin Artillery`,
+    desc: `The war machine cannot make charge moves.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Duardin Artillery`,
+    desc: `If its Crew are within 1" of the model in the shooting phase, they can fire the war machine.`,
+    when: [SHOOTING_PHASE],
+  },
+  {
+    name: `Duardin Artillery`,
+    desc: `This model can only move if its Crew are within 1" at the start of the movement phase.`,
+    when: [MOVEMENT_PHASE],
+  },
+]
 const CelestialHurricanumEffects = [
   {
     name: `Locus of Azyr`,
@@ -1366,6 +1393,38 @@ export const Units: TUnits = [
         desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+    ],
+  },
+  {
+    name: `Cannon`,
+    effects: [
+      ...DuardinArtilleryEffects,
+      {
+        name: `Explosive Shells`,
+        desc: `You can re-roll the damage inflicted by a Cannon Shell if the target unit has 10 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune of Accuracy`,
+        desc: `You can re-roll failed hit rolls when firing a Cannon Shell if there is an ENGINEER from your army within 1" of the war machine.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Organ Gun`,
+    effects: [
+      ...DuardinArtilleryEffects,
+      {
+        name: `Organ Fire`,
+        desc: `In the shooting phase the Organ Gun's Crew can load 1, 2, 3 or 4 barrels. If they load 2 or more barrels, roll a dice; if the result is equal to or greater than the number of loaded barrels, make one Barrage of Shots attack for each loaded barrel (roll separately to determine the number of Barrage of Shots attacks made for each barrel being fired). However, if the result is less than the number of loaded barrels, the Organ Gun jams and no shots are fired this phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune of Forging`,
+        desc: `You can re-roll the dice rolled to see if an Organ Gun jams if there is an ENGINEER from your army within 1" of the war machine.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

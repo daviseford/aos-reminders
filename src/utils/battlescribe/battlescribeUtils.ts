@@ -4,6 +4,7 @@ export const cleanText = (txt: string) => {
       .replace(/(.+)\\n {1,}(.+)/g, `$1 $2`)
       .replace(/\r|\n|\v|\f|↵/g, ' ')
       .replace(/ {2,}/g, ' ')
+      .replace(/\*/g, '') // Remove asteriks
       .replace(/[‘’]/g, `'`) // Replace special apostrophes
       .replace(/[“”]/g, `"`) // Replace special quotes
       .replace(/[‑–—]/g, `-`) // Replace special dashes
