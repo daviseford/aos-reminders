@@ -138,7 +138,6 @@ const ActionText = (props: IActionTextProps) => {
             <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
           )}
         </div>
-        )}
       </div>
 
       {isVisible && <ActionDescription text={desc} />}
