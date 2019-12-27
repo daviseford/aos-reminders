@@ -21,10 +21,10 @@ export const ConfirmDismissNotificationModal: React.FC<IModalComponentProps> = p
   }
 
   return (
-    <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Hide Notification Modal">
+    <GenericModal isOpen={modalIsOpen} closeModal={closeModal} label="Hide Rule Modal">
       <div className="row">
         <div className={`col ${theme.text}`}>
-          <h4 className="mb-3">Hide notification?</h4>
+          <h4 className="mb-3">Hide rule?</h4>
         </div>
       </div>
 
