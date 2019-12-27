@@ -8,7 +8,7 @@ import { SavedArmyCard } from 'components/input/savedArmies/saved_army_card'
 import { PaginateButtons } from 'components/input/savedArmies/paginate_buttons'
 
 const ShowSavedArmies: React.FC = () => {
-  const { isOffline } = useAppStatus()
+  const { isOffline, isGameMode } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
   const { savedArmies, loadSavedArmies } = useSavedArmies()
@@ -22,6 +22,7 @@ const ShowSavedArmies: React.FC = () => {
     }
   }, [loadSavedArmies, isAuthenticated, isSubscribed, isOffline])
 
+  if (isGameMode) return <></>
   if (paginatedArmies.length === 0) return <NoArmiesFound />
 
   return (
