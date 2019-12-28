@@ -62,11 +62,24 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   const hasEntries = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
-  const [isShowingSavedArmies, setIsShowingSavedArmies] = useState(false)
+  const [isShowingSavedArmiesState, setIsShowingSavedArmies] = useState({ edit: false, game: false })
   const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
 
-  const showSavedArmies = () => setIsShowingSavedArmies(true)
-  const hideSavedArmies = () => setIsShowingSavedArmies(false)
+  const mode = isGameMode ? 'game' : 'edit'
+  const isShowingSavedArmies = () => {
+    return isShowingSavedArmiesState[mode]
+  }
+  const showOrHideSavedArmies = show => {
+    const change = {}
+    change[mode] = show
+    setIsShowingSavedArmies({ ...isShowingSavedArmiesState, ...change })
+  }
+  const showSavedArmies = () => {
+    showOrHideSavedArmies(true)
+  }
+  const hideSavedArmies = () => {
+    showOrHideSavedArmies(false)
+  }
 
   const showImportArmy = () => setIsShowingWarscrollImport(true)
   const hideImportArmy = () => setIsShowingWarscrollImport(false)
@@ -160,7 +173,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
         <div className={btnWrapperClass} hidden={isOnline && (!isSubscribed || !isActive)}>
           <Suspense fallback={<></>}>
             <ShowSavedArmiesBtn
-              isShowingSavedArmies={isShowingSavedArmies}
+              isShowingSavedArmies={isShowingSavedArmies()}
               hideSavedArmies={hideSavedArmies}
               showSavedArmies={showSavedArmies}
             />
@@ -174,7 +187,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
         </Suspense>
       </div>
 
-      <div hidden={!isShowingSavedArmies}>
+      <div hidden={!isShowingSavedArmies()}>
         <Suspense fallback={<></>}>
           <ShowSavedArmies />
         </Suspense>
