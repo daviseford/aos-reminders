@@ -2,10 +2,10 @@ import React, { Suspense, lazy, useEffect } from 'react'
 import Switch from 'react-switch'
 import { connect } from 'react-redux'
 import { factionNames, selections, selectors, realmscape } from 'ducks'
-import { FaDice, FaEdit } from 'react-icons/fa'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { centerContentClass } from 'theme/helperClasses'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -121,29 +121,34 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
 }
 
 const ToggleGameMode = () => {
+  const { theme } = useTheme()
   const { isGameMode, toggleGameMode } = useAppStatus()
 
+  const spanClass = `align-self-center pb-2`
+
   return (
-    <div className="text-white">
-      <label htmlFor="visual-theme-switch">
-        <FaEdit className="mr-2 align-top" size={32} />
-        <Switch
-          onChange={toggleGameMode}
-          checked={isGameMode}
-          onColor="#1C7595"
-          onHandleColor="#E9ECEF"
-          handleDiameter={36}
-          uncheckedIcon={false}
-          checkedIcon={false}
-          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-          height={26}
-          width={80}
-          className="react-switch"
-          id="visual-theme-switch"
-        />
-        <FaDice className="ml-2 align-top" size={32} />
-      </label>
+    <div className={`${centerContentClass} ${theme.text}`}>
+      <div className={`d-inline-flex flex-row`}>
+        <span className={`${spanClass} mr-2 ${isGameMode ? `` : `font-weight-bold`}`}>Edit</span>
+        <label htmlFor="visual-theme-switch" className="mb-0">
+          <Switch
+            onChange={toggleGameMode}
+            checked={isGameMode}
+            onColor="#1C7595"
+            onHandleColor="#E9ECEF"
+            handleDiameter={30}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={20}
+            width={80}
+            className="react-switch"
+            id="visual-theme-switch"
+          />
+        </label>
+        <span className={`${spanClass} ml-2 ${isGameMode ? `font-weight-bold` : ``}`}>Play</span>
+      </div>
     </div>
   )
 }
