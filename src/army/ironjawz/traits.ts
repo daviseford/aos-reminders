@@ -5,10 +5,10 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
-  MOVEMENT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -37,7 +37,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Brutish Cunning`,
-        desc: `Once per battle round, this general can use the mighty destroyers command ability without spending a command point.`,
+        desc: `Once per battle round, this general can use the Mighty Destroyers command ability without spending a command point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bestial Charisma`,
-        desc: `Once per battle round this general can use the Inspiring Presence without spending a command point.`,
+        desc: `Once per battle round this general can use Inspiring Presence without spending a command point.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Burstin' with Power`,
-        desc: `The general knows 1 extra spell from the lore of the weird, in addition, they can cast 1 extra spell.`,
+        desc: `The general knows 1 extra spell from the Lore of the Weird, in addition, they can cast 1 extra spell.`,
         when: [HERO_PHASE],
       },
     ],
