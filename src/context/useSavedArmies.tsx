@@ -54,6 +54,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
+  const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)
   const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
@@ -65,9 +66,14 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      if (!loadedArmy || !currentArmy || !savedArmies.length) return { hasChanges: false, changedKeys: [] }
+      const noChanges = { hasChanges: false, changedKeys: [] }
+      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChanges
 
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
+      if (!original) {
+        setLoadedArmy(null)
+        return noChanges
+      }
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
@@ -89,20 +95,28 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
       return { hasChanges: changedKeys.length > 0, changedKeys }
     },
-    [loadedArmy, savedArmies]
+    [loadedArmy, savedArmies, savedArmiesPopulated]
   )
 
   const loadSavedArmies = useCallback(async () => {
-    if (isOffline) return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
-    if (!user) return setSavedArmies([])
+    if (isOffline) {
+      setSavedArmiesPopulated(true)
+      return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
+    }
+    if (!user) {
+      setSavedArmiesPopulated(false)
+      return setSavedArmies([])
+    }
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
       LocalSavedArmies.set(savedArmies)
+      setSavedArmiesPopulated(true)
     } catch (err) {
       console.error(err)
+      setSavedArmiesPopulated(false)
     }
   }, [user, isOffline])
 
