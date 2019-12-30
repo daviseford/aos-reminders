@@ -9,7 +9,7 @@ import { SubscriptionApi } from 'api/subscriptionApi'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies, LocalLoadedArmy } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
 import { TSupportedFaction } from 'meta/factions'
@@ -54,9 +54,14 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
-  const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
+  const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
+
+  const setLoadedArmy = (army: TLoadedArmy) => {
+    LocalLoadedArmy.set(army)
+    setLoadedArmyState(army)
+  }
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
@@ -242,10 +247,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         saveArmyToS3,
         savedArmies,
         saveLink,
-        setLoadedArmy,
         updateArmy,
         updateArmyName,
         updateFavoriteFaction,
+        setLoadedArmy,
       }}
     >
       {children}
