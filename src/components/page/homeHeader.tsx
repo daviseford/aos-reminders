@@ -6,7 +6,6 @@ import { FaDice, FaEdit } from 'react-icons/fa'
 import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
-import { IStore } from 'types/store'
 import { withSelectOne } from 'utils/withSelect'
 import { logFactionSwitch } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -16,10 +15,11 @@ import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { SelectOne } from 'components/input/select'
 import { LinkNewTab } from 'components/helpers/link'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { IStore } from 'types/store'
 
 const Navbar = lazy(() => import('./navbar'))
 
-export const Header = props => {
+export const Header = () => {
   const { theme } = useTheme()
   return (
     <div className={theme.headerColor}>
@@ -94,8 +94,8 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
         </p>
         <ToggleGameMode />
         {isGameMode ? (
-          <div className={`pt-3 pb-2 justify-content-center`}>
-            <h2 className="display-6 text-white">
+          <div className={`pt-1 pb-0 justify-content-center`}>
+            <h2 className="display-5 text-white">
               {loadedArmy ? loadedArmy.armyName : titleCase(factionName)}
             </h2>
           </div>

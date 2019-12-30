@@ -54,6 +54,9 @@ const ToolbarComponent = (props: IToolbarProps) => {
   const { isGameMode, isOnline } = useAppStatus()
   const { loadedArmy, armyHasChanges, setLoadedArmy } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
+  const [isShowingSavedArmies, setIsShowingSavedArmies] = useState({ edit: false, game: false })
+  const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
+  const currentViewMode = isGameMode ? 'game' : 'edit'
 
   const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
     currentArmy,
@@ -61,11 +64,6 @@ const ToolbarComponent = (props: IToolbarProps) => {
   ])
 
   const hasEntries = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
-
-  const [isShowingSavedArmies, setIsShowingSavedArmies] = useState({ edit: false, game: false })
-  const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
-
-  const currentViewMode = isGameMode ? 'game' : 'edit'
 
   const showOrHideSavedArmies = (show: boolean) => {
     setIsShowingSavedArmies(s => ({ ...s, [currentViewMode]: show }))
