@@ -26,8 +26,8 @@ const AppStatusProvider: React.FC = ({ children }) => {
   const [hasNewContent, setHasNewContent] = useState(false)
 
   const toggleGameMode = useCallback(() => {
-    logEvent(`ToggleGameMode-${isGameMode ? 'off' : 'on'}`)
-    return setIsGameMode(!isGameMode)
+    logEvent(`ToggleGameMode-${isGameMode ? 'Off' : 'On'}`)
+    setIsGameMode(!isGameMode)
   }, [isGameMode])
 
   const setOffline = () => {
