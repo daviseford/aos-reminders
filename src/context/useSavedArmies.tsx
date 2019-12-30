@@ -247,10 +247,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         saveArmyToS3,
         savedArmies,
         saveLink,
+        setLoadedArmy,
         updateArmy,
         updateArmyName,
         updateFavoriteFaction,
-        setLoadedArmy,
       }}
     >
       {children}
