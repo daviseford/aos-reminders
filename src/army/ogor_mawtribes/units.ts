@@ -460,36 +460,6 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Big Name: Deathcheater`,
-        desc: `If selected, this model has a Wounds characteristic of 9 instead of 8.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Big Name: Brawlerguts`,
-        desc: `If selected, you can add 1 to wound rolls for attacks made by this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Big Name: Fateseeker`,
-        desc: `If selected, this model has a Save characteristic of 3+ instead of 4+.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Big Name: Longstrider`,
-        desc: `If selected, this model has a Move characteristic of 8" instead of 6".`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Big Name: Giantbreaker`,
-        desc: `If selected, add 1 to the damage inflicted by this model's weapons when they are used for an attack that targets a MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Big Name: Wallcrusher`,
-        desc: `If selected, you can re-roll 1 wound roll for 1 attack made with 1 melee weapon each time this model attacks. In addition, you can re-roll wound rolls for attacks made with melee weapons by this model that target a unit that is part of a garrison.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Thundermace`,
         desc: `If the unmodified hit roll for an attack made with a Thundermace is 6, that attack inflicts 1 mortal wound in addition to any normal damage. If the target unit has more than 3 models, on an unmodified 6, that attack inflicts D3 mortal wounds instead of 1.`,
         when: [COMBAT_PHASE],
