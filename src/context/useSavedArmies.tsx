@@ -65,7 +65,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      if (!loadedArmy || !currentArmy) return { hasChanges: false, changedKeys: [] }
+      if (!loadedArmy || !currentArmy || !savedArmies.length) return { hasChanges: false, changedKeys: [] }
 
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
