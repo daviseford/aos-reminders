@@ -9,7 +9,7 @@ interface IResetChanges {
   isTinyMobile: boolean
 }
 
-const ReloadArmyBtn: React.FC<IResetChanges> = ({ isTinyMobile }) => {
+const ResetChangesBtn: React.FC<IResetChanges> = ({ isTinyMobile }) => {
   const { isDark } = useTheme()
   const { reloadArmy } = useSavedArmies()
 
@@ -24,4 +24,4 @@ const ReloadArmyBtn: React.FC<IResetChanges> = ({ isTinyMobile }) => {
   )
 }
 
-export default componentWithSize(ReloadArmyBtn)
+export default componentWithSize(ResetChangesBtn)
