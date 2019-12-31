@@ -27,7 +27,7 @@ interface ISavedArmiesContext {
   getFavoriteFaction: () => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
-  reloadArmy: () => Promise<void>
+  reloadArmy: () => void
   saveArmy: (army: ISavedArmy) => Promise<void>
   saveArmyToS3: (army: IImportedArmy | ISavedArmy | ICurrentArmy) => Promise<void>
   savedArmies: ISavedArmyFromApi[]
@@ -185,7 +185,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
-  const reloadArmy = useCallback(async () => {
+  const reloadArmy = useCallback(() => {
     if (!loadedArmy) return
     const fullLoadedArmy = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
     addArmyToStore(fullLoadedArmy)
