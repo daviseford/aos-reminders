@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
+import { useAppStatus } from 'context/useAppStatus'
 import { GetReminderKey } from 'utils/reminderUtils'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
@@ -114,6 +115,7 @@ interface IActionTextProps extends TTurnAction {
 
 const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, showEntry, hideEntry } = props
+  const { isGameMode } = useAppStatus()
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
@@ -124,7 +126,17 @@ const ActionText = (props: IActionTextProps) => {
           <ActionTitle {...props} />
         </div>
         <div className="px-2 d-print-none">
-          <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+          {isGameMode ? (
+            <VisibilityToggle
+              isVisible={isVisible}
+              setVisibility={handleVisibility}
+              withConfirmation={true}
+              type="clear"
+              size={1}
+            />
+          ) : (
+            <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+          )}
         </div>
       </div>
 

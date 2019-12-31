@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import { getVisibleReminders } from 'utils/pdf/generate/getVisibleReminders'
+import { getVisibleReminders } from 'utils/reminderUtils'
 import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { titleCase } from 'utils/textUtils'

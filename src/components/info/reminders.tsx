@@ -1,9 +1,11 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
+import { useAppStatus } from 'context/useAppStatus'
 import { visibility, selectors } from 'ducks'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
+import { getVisibleReminders } from 'utils/reminderUtils'
 import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
@@ -20,9 +22,20 @@ interface IRemindersProps extends ICurrentArmy {
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const { allyArmies, army, hideWhens, isMobile, showWhen, visibleWhens, ...currentArmy } = props
+  const {
+    allyArmies,
+    army,
+    hiddenReminders,
+    hideWhens,
+    isMobile,
+    showWhen,
+    visibleWhens,
+    ...currentArmy
+  } = props
 
-  const reminders = useMemo(() => {
+  const { isGameMode } = useAppStatus()
+
+  let reminders = useMemo(() => {
     return processReminders(
       army,
       currentArmy.factionName,
@@ -33,6 +46,8 @@ const RemindersComponent = (props: IRemindersProps) => {
       currentArmy.allySelections
     )
   }, [army, allyArmies, currentArmy])
+
+  if (isGameMode) reminders = getVisibleReminders(reminders, hiddenReminders)
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
@@ -55,10 +70,10 @@ const RemindersComponent = (props: IRemindersProps) => {
       setFirstLoad(false)
       showWhen(titles[0]) // Show the first phase
     }
-  }, [isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
+  }, [isGameMode, isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
-    <div className="row mx-auto mt-3 d-flex justify-content-center">
+    <div className={`row mx-auto ${isGameMode ? `mt-0` : `mt-3`} d-flex justify-content-center`}>
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map((when, i) => {
           return (

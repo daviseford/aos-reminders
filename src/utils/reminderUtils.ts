@@ -1,4 +1,4 @@
-import { TTurnAction } from 'types/data'
+import { IReminder, TTurnAction } from 'types/data'
 
 export class GetReminderKey {
   private _names: string[] = []
@@ -10,4 +10,17 @@ export class GetReminderKey {
     this._names.push(name)
     return name
   }
+}
+
+export const getVisibleReminders = (reminders: IReminder, hiddenReminders: string[]): IReminder => {
+  const GetKey = new GetReminderKey()
+
+  return Object.keys(reminders).reduce((a, when) => {
+    const actions = reminders[when].filter(action => {
+      const name = GetKey.reminderKey(when, action)
+      return !hiddenReminders.some(hr => hr.includes(name))
+    })
+    if (actions.length > 0) a[when] = actions
+    return a
+  }, {} as IReminder)
 }
