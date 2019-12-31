@@ -147,6 +147,8 @@ const battlescribeTypoMap: TNameMap = {
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Shasdow Warrior': 'Shadow Warriors',
+  'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
+  'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'Sneaky Shufflers': 'Sneaky Snufflers',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
   'The Beguilling Gem': 'Beguiling Gem (Chaos)',
