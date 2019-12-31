@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { without } from 'lodash'
+import { useAppStatus } from 'context/useAppStatus'
 import { visibility, selectors } from 'ducks'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
@@ -9,7 +10,6 @@ import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
-import { useAppStatus } from 'context/useAppStatus'
 
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
@@ -73,7 +73,7 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [isGameMode, isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
 
   return (
-    <div className="row mx-auto mt-3 d-flex justify-content-center">
+    <div className={`row mx-auto ${isGameMode ? `mt-0` : `mt-3`} d-flex justify-content-center`}>
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map((when, i) => {
           return (
