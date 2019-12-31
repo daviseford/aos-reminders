@@ -38,6 +38,64 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with BigWaaagh4', () => {
+    const parsedText = getFile('BigWaaagh4')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fireball',
+      },
+    ])
+  })
+  it('should work with LoG1', () => {
+    const parsedText = getFile('LoG1')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Overwhelming Dread',
+      },
+    ])
+  })
+  it('should work with Soulblight2', () => {
+    const parsedText = getFile('Soulblight2')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Beguile',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+  it('should work with StD3', () => {
+    const parsedText = getFile('StD3')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+  it('should work with Stormcast3', () => {
+    const parsedText = getFile('Stormcast3')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+  it('should work with Tzeentch2', () => {
+    const parsedText = getFile('Tzeentch2')
+    const res = getBattlescribeArmy(parsedText)
+    // I don't think this is a valid spell in AOS 2.0
+    // Only found it in the old books
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fractal Mindstorm',
+      },
+    ])
+  })
+
   it('should work with CoS1', () => {
     const parsedText = getFile('CoS1')
     const res = getBattlescribeArmy(parsedText)

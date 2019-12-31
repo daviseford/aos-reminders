@@ -59,6 +59,81 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('handles BigWaaagh3', () => {
+    const fileTxt = getFile('BigWaaagh3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.spells).toContain("Get 'Em Beat (Ironjawz)")
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO8', () => {
+    const fileTxt = getFile('KO8')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // These are classified as Mount Traits instead of artifacts
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Incredible Self-healing Hull',
+      },
+      {
+        severity: 'warn',
+        text: 'Magnificent Omniscope',
+      },
+      {
+        severity: 'warn',
+        text: 'The Last Word',
+      },
+    ])
+  })
+
+  it('handles Seraphon3', () => {
+    const fileTxt = getFile('Seraphon3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Seraphon4', () => {
+    const fileTxt = getFile('Seraphon4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Slaanesh3', () => {
+    const fileTxt = getFile('Slaanesh3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles StD8', () => {
+    const fileTxt = getFile('StD8')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+  it('handles StD9', () => {
+    const fileTxt = getFile('StD9')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+  it('handles StD10', () => {
+    const fileTxt = getFile('StD10')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // Warpfire Dragon is a Destruction unit
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Warpfire Dragon',
+      },
+    ])
+  })
+
   it('handles StD2', () => {
     const fileTxt = getFile('StD2')
     const pages = handleAzyrPages(fileTxt)
