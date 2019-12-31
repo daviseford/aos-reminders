@@ -286,6 +286,7 @@ export const importFactionNameMap = {
   'Clans Pestilens': SKAVEN,
   'Clans Skryre': SKAVEN,
   'Clans Verminus': SKAVEN,
+  'Darkling Covens': CITIES_OF_SIGMAR,
   'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
   'Disciples of Tzeentch': TZEENTCH,
   'Flesh Eater Courts': FLESH_EATER_COURTS,
