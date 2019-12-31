@@ -107,7 +107,7 @@ const StardrakeShieldsEffect = {
   desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
-const CelestialRitesEffect = {
+export const CelestialRitesEffect = {
   name: `Celestial Rites`,
   desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
   when: [HERO_PHASE],
