@@ -34,6 +34,37 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Amethyst Glow/Dread Withering trait/spell', () => {
+    const parsedText = getFile('1577088536258-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.traits).toContain('Amethyst Glow')
+    expect(warscrollTxt.selections.spells).toContain('Dread Withering')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with legacy Wood Elf warscrolls', () => {
+    const parsedText = getFile('1577400809137-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Darkling Covens', () => {
+    const parsedText = getFile('1577400907052-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // We convert Darkling Covens to Cities of Sigmar
+    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with legacy High Elf warscrolls', () => {
+    const parsedText = getFile('1577741192555-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Highborn Repeater Bolt Thrower')
+    expect(warscrollTxt.selections.units).toContain('Highborn Archers')
+    expect(warscrollTxt.selections.units).toContain('Loremaster')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with The Fleshform Raiment (Noble Heirlooms)', () => {
     const parsedText = getFile('1576858425499-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

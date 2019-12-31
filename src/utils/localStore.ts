@@ -7,6 +7,7 @@ const LOCAL_SAVED_ARMIES_KEY = 'savedArmies'
 const LOCAL_THEME_KEY = 'theme'
 const LOCAL_USERNAME_KEY = 'userName'
 const LOCAL_REDEMPTION_KEY = 'redeem'
+const LOCAL_LOADED_ARMY_KEY = 'loadedArmy'
 
 export const hideNotificationBanner = (name: string) => localStorage.setItem(name, 'hidden')
 export const getNotificationBanner = (name: string) => localStorage.getItem(name)
@@ -51,5 +52,20 @@ export const LocalSavedArmies = {
   },
   set: (savedArmies: ISavedArmyFromApi[]) => {
     localStorage.setItem(LOCAL_SAVED_ARMIES_KEY, JSON.stringify(savedArmies))
+  },
+}
+
+type TLoadedArmy = { id: string; armyName: string } | null
+
+export const LocalLoadedArmy = {
+  get: () => {
+    const loadedArmy = localStorage.getItem(LOCAL_LOADED_ARMY_KEY)
+    if (!loadedArmy) return null
+    return JSON.parse(loadedArmy)
+  },
+  set: (loadedArmy: TLoadedArmy) => {
+    loadedArmy
+      ? localStorage.setItem(LOCAL_LOADED_ARMY_KEY, JSON.stringify(loadedArmy))
+      : localStorage.removeItem(LOCAL_LOADED_ARMY_KEY)
   },
 }

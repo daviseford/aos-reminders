@@ -1,4 +1,5 @@
 import React from 'react'
+import { version } from '../../../package.json'
 import { useTheme } from 'context/useTheme'
 import { DonateComponent } from 'components/info/donate'
 import { ContactComponent } from 'components/page/contact'
@@ -13,11 +14,12 @@ const FooterComponent = () => {
       <DonateComponent />
       <OfflineComponent />
       <DisclaimerComponent />
-      <div className="row text-center pt-2 pb-3">
+      <div className="row text-center pt-2">
         <div className="col">
           <ContactComponent size="small" />
         </div>
       </div>
+      <VersionComponent />
     </div>
   )
 }
@@ -35,6 +37,18 @@ const DisclaimerComponent = () => {
           fan-made.
           <br />I take absolutely no credit for any of the Games Workshop content displayed above.
         </small>
+      </div>
+    </div>
+  )
+}
+
+const VersionComponent = () => {
+  const { theme } = useTheme()
+
+  return (
+    <div className={`row text-center ${theme.bgColor} pt-1 pb-2`}>
+      <div className="col">
+        <small className={theme.text}>AoS Reminders - v{version}</small>
       </div>
     </div>
   )

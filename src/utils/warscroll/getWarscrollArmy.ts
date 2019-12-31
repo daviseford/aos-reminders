@@ -300,6 +300,7 @@ const getCity = (txt: string) => {
  * We will want to extract the trait AND the spell, if possible
  */
 const traitToSpellMapper = [
+  'Amethyst Glow -',
   'Blood Sigil -',
   'Dark Acolyte -',
   'Druid of the Everspring -',

@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react'
 import { useTheme } from 'context/useTheme'
 import { useSubscription } from 'context/useSubscription'
+import { useAppStatus } from 'context/useAppStatus'
 import { logPageView } from 'utils/analytics'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
@@ -19,6 +20,7 @@ const UpdateBanner = lazy(() => import('components/info/banners/update_banner'))
 const Home: React.FC = () => {
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
+  const { isGameMode } = useAppStatus()
 
   useEffect(() => {
     logPageView()
@@ -40,17 +42,21 @@ const Home: React.FC = () => {
         <UpdateBanner />
       </Suspense>
 
-      <Suspense fallback={<></>}>
-        <LoadedArmyHeader />
-      </Suspense>
+      {!isGameMode && (
+        <>
+          <Suspense fallback={<></>}>
+            <LoadedArmyHeader />
+          </Suspense>
 
-      <Suspense fallback={<LargeSpinner className="mt-5" />}>
-        <ArmyBuilder />
-      </Suspense>
+          <Suspense fallback={<LargeSpinner className="mt-5" />}>
+            <ArmyBuilder />
+          </Suspense>
 
-      <Suspense fallback={<></>}>
-        <AlliedArmies />
-      </Suspense>
+          <Suspense fallback={<></>}>
+            <AlliedArmies />
+          </Suspense>
+        </>
+      )}
 
       <Suspense fallback={<></>}>
         <Toolbar />

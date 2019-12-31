@@ -1,13 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { isEqual, sortBy } from 'lodash'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { store } from 'index'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { logEvent } from 'utils/analytics'
-import { isValidFactionName, prepareArmyForS3 } from 'utils/armyUtils'
-import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
+import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies, LocalLoadedArmy } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 import { isDev } from 'utils/env'
 import { TSupportedFaction } from 'meta/factions'
@@ -25,6 +27,7 @@ interface ISavedArmiesContext {
   getFavoriteFaction: () => Promise<void>
   loadedArmy: { id: string; armyName: string } | null
   loadSavedArmies: () => Promise<void>
+  reloadArmy: () => void
   saveArmy: (army: ISavedArmy) => Promise<void>
   saveArmyToS3: (army: IImportedArmy | ISavedArmy | ICurrentArmy) => Promise<void>
   savedArmies: ISavedArmyFromApi[]
@@ -51,15 +54,30 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const { user } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
-  const [loadedArmy, setLoadedArmy] = useState<TLoadedArmy>(null)
+  const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)
+  const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
 
+  const setLoadedArmy = (army: TLoadedArmy) => {
+    LocalLoadedArmy.set(army)
+    setLoadedArmyState(army)
+  }
+
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      if (!loadedArmy || !currentArmy) return { hasChanges: false, changedKeys: [] }
+      const noChanges = { hasChanges: false, changedKeys: [] }
+      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChanges
+
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
+      if (!original) {
+        setLoadedArmy(null)
+        return noChanges
+      }
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
+
+      const hiddenReminders = store.getState().visibility.reminders
+      currentArmy = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
@@ -77,20 +95,28 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
       return { hasChanges: changedKeys.length > 0, changedKeys }
     },
-    [loadedArmy, savedArmies]
+    [loadedArmy, savedArmies, savedArmiesPopulated]
   )
 
   const loadSavedArmies = useCallback(async () => {
-    if (isOffline) return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
-    if (!user) return setSavedArmies([])
+    if (isOffline) {
+      setSavedArmiesPopulated(true)
+      return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
+    }
+    if (!user) {
+      setSavedArmiesPopulated(false)
+      return setSavedArmies([])
+    }
 
     try {
       const res = await PreferenceApi.getUserItems(user.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
       LocalSavedArmies.set(savedArmies)
+      setSavedArmiesPopulated(true)
     } catch (err) {
       console.error(err)
+      setSavedArmiesPopulated(false)
     }
   }, [user, isOffline])
 
@@ -159,6 +185,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     [loadSavedArmies, user, loadedArmy]
   )
 
+  const reloadArmy = useCallback(() => {
+    if (!loadedArmy) return
+    const fullLoadedArmy = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
+    addArmyToStore(fullLoadedArmy)
+    logEvent(`ReloadArmy-${fullLoadedArmy.factionName}`)
+  }, [loadedArmy, savedArmies])
+
   const getFavoriteFaction = useCallback(async () => {
     try {
       if (waitingForApi) return
@@ -223,6 +256,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         getFavoriteFaction,
         loadedArmy,
         loadSavedArmies,
+        reloadArmy,
         saveArmy,
         saveArmyToS3,
         savedArmies,

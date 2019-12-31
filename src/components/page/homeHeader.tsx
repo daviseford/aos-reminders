@@ -9,10 +9,12 @@ import { logFactionSwitch } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { getArmyLink } from 'utils/handleQueryParams'
+import { LinkNewTab } from 'components/helpers/link'
 import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { SelectOne } from 'components/input/select'
-import { LinkNewTab } from 'components/helpers/link'
+import ToggleGameMode from 'components/input/toggle_game_mode'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { IStore } from 'types/store'
 
 const Navbar = lazy(() => import('./navbar'))
 
@@ -48,8 +50,8 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections,
     setFactionName,
   } = props
-  const { isOnline } = useAppStatus()
-  const { setLoadedArmy, getFavoriteFaction, favoriteFaction } = useSavedArmies()
+  const { isOnline, isGameMode } = useAppStatus()
+  const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
   const { theme } = useTheme()
 
   // Get our user's favorite faction from localStorage/API
@@ -89,24 +91,35 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
             daviseford.com
           </LinkNewTab>
         </p>
-        <span className="text-white">Select your army to get started:</span>
-        <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-          <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-            <SelectOne
-              value={titleCase(factionName)}
-              items={SUPPORTED_FACTIONS}
-              setValue={setValue}
-              hasDefault={true}
-              toTitle={true}
-            />
+        <ToggleGameMode />
+        {isGameMode ? (
+          <div className={`pt-1 pb-0 justify-content-center`}>
+            <h2 className="display-5 text-white">
+              {loadedArmy ? loadedArmy.armyName : titleCase(factionName)}
+            </h2>
           </div>
-        </div>
+        ) : (
+          <>
+            <span className="text-white">Select your army to get started:</span>
+            <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+              <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+                <SelectOne
+                  value={titleCase(factionName)}
+                  items={SUPPORTED_FACTIONS}
+                  setValue={setValue}
+                  hasDefault={true}
+                  toTitle={true}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: IStore, ownProps) => {
   return {
     ...ownProps,
     factionName: selectors.getFactionName(state),
