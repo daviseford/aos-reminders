@@ -12,6 +12,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -378,6 +379,66 @@ const CommandTraits: TTraits = [
         name: `Old Granitetooth`,
         desc: `Add 1 to charge rolls for friendly STONEHORNS and MOURNFANG PACK units while they are wholly within 12" of this model.`,
         when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Deathcheater (Big Name)`,
+    effects: [
+      {
+        name: `Deathcheater (Big Name)`,
+        desc: `This model has a Wounds characteristic of 9 instead of 8.`,
+        when: [WOUND_ALLOCATION],
+      },
+    ],
+  },
+  {
+    name: `Brawlerguts (Big Name)`,
+    effects: [
+      {
+        name: `Brawlerguts (Big Name)`,
+        desc: `You can add 1 to wound rolls for attacks made by this model if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fateseeker (Big Name)`,
+    effects: [
+      {
+        name: `Fateseeker (Big Name)`,
+        desc: `This model has a Save characteristic of 3+ instead of 4+.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Longstrider (Big Name)`,
+    effects: [
+      {
+        name: `Longstrider (Big Name)`,
+        desc: `This model has a Move characteristic of 8" instead of 6".`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Giantbreaker (Big Name)`,
+    effects: [
+      {
+        name: `Giantbreaker (Big Name)`,
+        desc: `Add 1 to the damage inflicted by this model's weapons when they are used for an attack that targets a MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wallcrusher (Big Name)`,
+    effects: [
+      {
+        name: `Wallcrusher (Big Name)`,
+        desc: `You can re-roll 1 wound roll for 1 attack made with 1 melee weapon each time this model attacks. In addition, you can re-roll wound rolls for attacks made with melee weapons by this model that target a unit that is part of a garrison.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

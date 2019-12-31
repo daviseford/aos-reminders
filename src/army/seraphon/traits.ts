@@ -6,6 +6,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import { CelestialRitesEffect } from './units'
 
 const CommandTraits: TTraits = [
   {
@@ -77,6 +78,7 @@ const CommandTraits: TTraits = [
         desc: `If this general is a SKINK PRIEST from the Skink Priest warscroll, they can use the Celestial Rites ability from their warscroll twice in each of their hero phases rather than once. If they are not a SKINK PRIEST from the Skink Priest warscroll, then they can use the Celestial Rites ability.`,
         when: [HERO_PHASE],
       },
+      CelestialRitesEffect,
     ],
   },
   {
