@@ -20,7 +20,7 @@ const ToggleGameMode = () => {
         >
           Edit
         </span>
-        <label htmlFor="visual-theme-switch" className="mb-0">
+        <label htmlFor="game-mode-switch" className="mb-0">
           <Switch
             onChange={toggleGameMode}
             checked={isGameMode}
@@ -34,7 +34,7 @@ const ToggleGameMode = () => {
             height={20}
             width={80}
             className="react-switch"
-            id="visual-theme-switch"
+            id="game-mode-switch"
           />
         </label>
         <span
