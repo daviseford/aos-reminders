@@ -104,7 +104,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Jade Diadem (${GHYRAN})`,
         desc: `If the unmodified save roll for an attack that targets the bearer is 6, heal 1 wound allocated to the bearer.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
