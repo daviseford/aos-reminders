@@ -105,8 +105,15 @@ export const logEvent = (event: string) => {
   }
 }
 
+/**
+ * This variable stores individual selections that we've already seen
+ * To prevent logging duplicate selections
+ */
 let selectionStore: string[] = []
 
+/**
+ * Utility to reset the selectionStore
+ */
 export const resetAnalyticsStore = () => {
   selectionStore = []
 }
