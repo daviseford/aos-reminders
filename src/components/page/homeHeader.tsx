@@ -5,7 +5,7 @@ import { useTheme } from 'context/useTheme'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
 import { withSelectOne } from 'utils/withSelect'
-import { logFactionSwitch } from 'utils/analytics'
+import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { titleCase } from 'utils/textUtils'
 import { getArmyLink } from 'utils/handleQueryParams'
@@ -73,6 +73,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetSelections()
     resetRealmscapeStore()
     resetAllySelections()
+    resetAnalyticsStore()
     if (isOnline) logFactionSwitch(value)
     setFactionName(value)
   })
