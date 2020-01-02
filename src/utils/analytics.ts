@@ -105,19 +105,30 @@ export const logEvent = (event: string) => {
   }
 }
 
+let selectionStore: string[] = []
+
+export const resetAnalyticsStore = () => {
+  selectionStore = []
+}
+
 /**
  * Used for logging individual units, traits, abilities, etc
  * @param trait
  * @param name
  */
 export const logIndividualSelection = (trait: string, name: string, label: string) => {
-  if (name && trait) {
-    logToGA({
-      category: `Individual-Selection`,
-      action: `${trait}-${name}`,
-      label,
-    })
-  }
+  if (!name || !trait) return
+
+  const lookup = `${trait}-${name}-${label}`
+
+  if (selectionStore.includes(lookup)) return
+  selectionStore.push(lookup)
+
+  logToGA({
+    category: `Individual-Selection`,
+    action: `${trait}-${name}`,
+    label,
+  })
 }
 
 /**

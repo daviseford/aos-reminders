@@ -2,11 +2,12 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
 import { componentWithSize } from 'utils/mapSizesToProps'
+import { resetAnalyticsStore } from 'utils/analytics'
 import Spinner from 'components/helpers/spinner'
 import { handleParseFile } from 'components/input/importPdf/parseFile'
 import {
@@ -52,6 +53,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
 
   const startProcessing = () => {
     setLoadedArmy(null)
+    resetAnalyticsStore()
     setIsDone(false)
     setIsError(false)
     setIsProcessing(true)
