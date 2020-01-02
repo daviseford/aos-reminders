@@ -15,7 +15,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon`,
-        desc: `Casting value of 8. Only Skaventide wizards can attempt to cast this spell. Set up 1 of these models wholly within 26" of the caster. Then set up the second and third models exactly 7" from each other to form a triangle.`,
+        desc: `Casting value of 8. Only Skaventide wizards can attempt to cast this spell. Set up 1 of these models wholly within 13" of the caster. Then set up the second and third models exactly 7" from each other to form a triangle.`,
         when: [HERO_PHASE],
       },
       {
