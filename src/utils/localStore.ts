@@ -6,18 +6,11 @@ const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 const LOCAL_SAVED_ARMIES_KEY = 'savedArmies'
 const LOCAL_THEME_KEY = 'theme'
 const LOCAL_USERNAME_KEY = 'userName'
-const LOCAL_COUPON_CODE_KEY = 'couponCode'
 const LOCAL_REDEMPTION_KEY = 'redeem'
 const LOCAL_LOADED_ARMY_KEY = 'loadedArmy'
 
 export const hideNotificationBanner = (name: string) => localStorage.setItem(name, 'hidden')
 export const getNotificationBanner = (name: string) => localStorage.getItem(name)
-
-export const LocalCouponKey = {
-  clear: () => localStorage.removeItem(LOCAL_COUPON_CODE_KEY),
-  get: () => localStorage.getItem(LOCAL_COUPON_CODE_KEY),
-  set: (couponId: string) => localStorage.setItem(LOCAL_COUPON_CODE_KEY, couponId),
-}
 
 export const LocalRedemptionKey = {
   clear: () => localStorage.removeItem(LOCAL_REDEMPTION_KEY),

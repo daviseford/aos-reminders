@@ -25,10 +25,19 @@ const App = () => {
       <BrowserRouter>
         <Suspense fallback={<LoadingBody />}>
           <Switch>
+            {/* Main page of the app */}
             <Route path={ROUTES.HOME} exact component={Home} />
+
+            {/* Coupon redemption */}
             <Route path={ROUTES.JOIN} component={Join} />
+
+            {/* Gift subscription redemption */}
             <Route path={ROUTES.REDEEM} component={Redeem} />
+
+            {/* Subscribe page */}
             <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+
+            {/* Profile page */}
             <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
           </Switch>
         </Suspense>

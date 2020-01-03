@@ -4,7 +4,6 @@ import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { logPageView, logClick, logEvent } from 'utils/analytics'
-import { LocalCouponKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
@@ -57,19 +56,23 @@ const Preamble = () => <p>Congratulations!</p>
 
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
-  const [couponId, setCouponId] = useState<string | null>(LocalCouponKey.get() || null)
+  const [couponId, setCouponId] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
   if (!couponId && success) return <RedemptionSuccess />
   if (!couponId && error) return <RedemptionError error={error} />
-  if (!couponId) return <NoKeyFound />
+
+  const handleChange = e => {
+    const val = e.target.value
+    setCouponId(val || null)
+  }
 
   const handleClickRedeem = async e => {
     try {
       e.preventDefault()
+      if (!couponId) return
       const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
-      LocalCouponKey.clear()
       if (body.error) return setError(body.error)
       if (body.success) {
         setSuccess(true)
@@ -83,15 +86,28 @@ const RedeemSection = () => {
 
   return (
     <div>
-      {!error && !success && <Preamble />}
       {!error && !success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this coupon
-          code, click the button below!
+          You're currently logged in as <strong>{user.email}</strong>.
+          <br />
+          If you're ready to redeem your coupon code, just enter it below.
         </p>
       )}
 
       {!error && !success && (
+        <div className={`row justify-content-center pb-3`}>
+          <div className={`col col-md-6 col-xl-3`}>
+            <input
+              className="form-control form-control-lg"
+              type="text"
+              placeholder="ABC_123"
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      )}
+
+      {!success && couponId && couponId.length >= 7 && (
         <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClickRedeem}>
           Redeem
         </GenericButton>
@@ -103,12 +119,15 @@ const RedeemSection = () => {
   )
 }
 
+const NoKeyFound = () => {
+  return <div>No key found</div>
+}
+
 const Login = () => {
   const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()
-    LocalCouponKey.get()
     logClick('Login-Before-Coupon')
     return loginWithRedirect({ redirect_uri: window.location.href })
   }
