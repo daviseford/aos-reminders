@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
-import { logEvent } from 'utils/analytics'
+import { logEvent, resetAnalyticsStore } from 'utils/analytics'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 
@@ -16,6 +16,7 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   const handleLoadClick = async e => {
     e.preventDefault()
     if (isOnline) logEvent(`LoadArmy-${army.factionName}`)
+    resetAnalyticsStore()
     setLoadedArmy({ id: army.id, armyName: army.armyName })
     addArmyToStore(army)
   }
