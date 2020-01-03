@@ -20,13 +20,23 @@ import {
 const MartialMemoriesEffects = [
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
+    desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than once dice for this unit in the same phase.`,
+    desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
     when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Martial Memories`,
+    desc: `Once per phase, you can re-roll 1 charge roll. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Martial Memories`,
+    desc: `Once per phase, you can re-roll 1 run roll. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    when: [MOVEMENT_PHASE],
   },
 ]
 

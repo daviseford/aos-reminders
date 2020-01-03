@@ -364,6 +364,11 @@ export const Units: TUnits = [
         desc: `Add 1 to this unit's hit rolls if it has at least 20 models, and 1 to the number of attacks each model makes with its Celestite weapon if it has at least 30 models.`,
         when: [COMBAT_PHASE],
       },
+      {
+        name: `Alpha Talon`,
+        desc: `The leader of this unit is the Alpha Talon. An Alpha Talon makes 2 attacks rather than 1 with its Celestite Club or Spear.`,
+        when: [COMBAT_PHASE],
+      },
       WardrumEffect,
     ],
   },

@@ -26,7 +26,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Hexgorgers`,
-        desc: `Subtract 2 from the casting rolls for WIZARDS while they are within 12" of any Hexgorger Skulls models. If addition, if a Wizard attempts to cast a spell within 12" of both Hexgorger models from the same Judement and the casting roll is an unmodified 8, the attempt fails and each Wizard within 12" suffers D6 mortal wounds.`,
+        desc: `Subtract 2 from the casting rolls for WIZARDS while they are within 12" of any Hexgorger Skulls models. If addition, if a WIZARD attempts to cast a spell within 12" of both Hexgorger models from the same Judgement and the casting roll is an unmodified 8, then that casting attempt is not successful, that WIZARD no longer knows that spell, and each WIZARD within 12" of that Judgement of Khorne suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
