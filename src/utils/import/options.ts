@@ -90,6 +90,7 @@ const warscrollTypoMap: TNameMap = {
   'The Gorechosen': 'Gorechosen',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
+  'Vitrolic Spray': 'Vitriolic Spray (Anvilgard)',
   'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warrior Indomniate': 'Warrior Indominate',
