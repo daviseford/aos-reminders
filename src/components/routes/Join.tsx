@@ -1,11 +1,9 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import qs from 'qs'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { logPageView, logClick, logEvent } from 'utils/analytics'
-import { LocalRedemptionKey } from 'utils/localStore'
 import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
@@ -17,7 +15,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 /**
  * This Route is used for coupon code redemption
  */
-const Redeem: React.FC = () => {
+const Join: React.FC = () => {
   const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
@@ -26,7 +24,6 @@ const Redeem: React.FC = () => {
 
   useEffect(() => {
     logPageView()
-    setLocalRedemptionKey()
   }, [])
 
   useEffect(() => {
@@ -55,94 +52,82 @@ const Redeem: React.FC = () => {
   )
 }
 
-const Preamble = () => (
-  <p>Congratulations! One of your friends has decided that you deserve a subscription to AoS Reminders!</p>
-)
-
-const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
-  const redeemInfo = LocalRedemptionKey.get()
-  if (redeemInfo && redeemInfo.giftId) return redeemInfo
-
-  const { redeem, referrer } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  })
-
-  if (redeem && referrer) {
-    return { giftId: redeem, userId: referrer }
-  }
-
-  return null
-}
+const Preamble = () => <p>Congratulations! We'll help you redeem your coupon code ASAP!</p>
 
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
-  const redeemInfo = getRedemptionInfo()
+  const [couponId, setCouponId] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  if (!redeemInfo && success) return <RedemptionSuccess />
-  if (!redeemInfo && error) return <RedemptionError error={error} showButton={true} />
-  if (!redeemInfo) return <NoKeyFound />
+  if (!couponId && success) return <RedemptionSuccess />
+  if (!couponId && error) return <RedemptionError error={error} showButton={false} />
 
-  const { giftId, userId } = redeemInfo
+  const handleChange = e => {
+    const val = e.target.value
+    setCouponId(val || null)
+  }
 
   const handleClickRedeem = async e => {
     try {
       e.preventDefault()
-      const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
-      LocalRedemptionKey.clear()
-      if (body.error) return setError(body.error)
-      if (body.success) {
+      if (!couponId) return
+      const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
+      if (body.error) {
+        setError(body.error)
+      } else {
+        logEvent(`Redeemed-Coupon`)
+        setError('')
         setSuccess(true)
-        logEvent(`Redeemed-Gift`)
       }
     } catch (err) {
       console.error(err)
-      setError('An unknown error occurred.')
+      return setError('An unknown error occurred.')
     }
   }
 
   return (
     <div>
-      {!error && !success && <Preamble />}
-      {!error && !success && (
+      {!success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this gifted
-          subscription, click the button below!
+          You're currently logged in as <strong>{user.email}</strong>.
+          <br />
+          <br />
+          If you're ready to redeem your coupon code, just enter it below.
         </p>
       )}
 
-      {!error && !success && (
+      {!success && (
+        <div className={`row justify-content-center pb-3`}>
+          <div className={`col col-md-6 col-xl-3`}>
+            <input
+              className="form-control form-control-lg"
+              type="text"
+              placeholder="ABC_123"
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      )}
+
+      {!success && couponId && couponId.length >= 7 && (
         <GenericButton className={`btn btn-primary btn-lg`} onClick={handleClickRedeem}>
           Redeem
         </GenericButton>
       )}
 
       {success && <RedemptionSuccess />}
-      {error && <RedemptionError error={error} showButton={true} />}
+      {error && <RedemptionError error={error} showButton={false} />}
     </div>
   )
 }
 
-const NoKeyFound = () => (
-  <p>We couldn't locate a subscription id. You may have arrived here via a malformed link.</p>
-)
-
-const setLocalRedemptionKey = () => {
-  const { redeem, referrer } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  })
-  if (redeem && referrer) {
-    LocalRedemptionKey.set(redeem, referrer)
-  }
-}
 const Login = () => {
   const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()
-    setLocalRedemptionKey()
-    logClick('Login-Before-Redeem')
+    logClick('Login-Before-Coupon')
     return loginWithRedirect({ redirect_uri: window.location.href })
   }
 
@@ -153,4 +138,4 @@ const Login = () => {
   )
 }
 
-export default Redeem
+export default Join
