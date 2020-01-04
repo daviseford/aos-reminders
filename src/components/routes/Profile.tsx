@@ -18,7 +18,7 @@ import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks
 import { SelectOne } from 'components/input/select'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { centerContentClass } from 'theme/helperClasses'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import { PRIMARY_FACTIONS } from 'meta/factions'
 import { IUser } from 'types/user'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -114,7 +114,7 @@ const FavoriteArmySelect = () => {
             {isActive ? (
               <SelectOne
                 value={favoriteFaction ? titleCase(favoriteFaction) : null}
-                items={SUPPORTED_FACTIONS}
+                items={PRIMARY_FACTIONS}
                 setValue={withSelectOne(updateFavoriteFaction)}
                 hasDefault={true}
                 toTitle={true}
