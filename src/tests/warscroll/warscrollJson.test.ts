@@ -34,6 +34,13 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Vitriolic Spray (Anvilgard)', () => {
+    const parsedText = getFile('1577866703167-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Amethyst Glow/Dread Withering trait/spell', () => {
     const parsedText = getFile('1577088536258-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
