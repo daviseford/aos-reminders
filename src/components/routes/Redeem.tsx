@@ -81,7 +81,7 @@ const RedeemSection = () => {
   const [error, setError] = useState('')
 
   if (!redeemInfo && success) return <RedemptionSuccess />
-  if (!redeemInfo && error) return <RedemptionError error={error} />
+  if (!redeemInfo && error) return <RedemptionError error={error} showButton={true} />
   if (!redeemInfo) return <NoKeyFound />
 
   const { giftId, userId } = redeemInfo
@@ -119,7 +119,7 @@ const RedeemSection = () => {
       )}
 
       {success && <RedemptionSuccess />}
-      {error && <RedemptionError error={error} />}
+      {error && <RedemptionError error={error} showButton={true} />}
     </div>
   )
 }

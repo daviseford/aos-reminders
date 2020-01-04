@@ -52,7 +52,7 @@ const Join: React.FC = () => {
   )
 }
 
-const Preamble = () => <p>Congratulations!</p>
+const Preamble = () => <p>Congratulations! We'll help you redeem your coupon code ASAP!</p>
 
 const RedeemSection = () => {
   const { user }: { user: IUser } = useAuth0()
@@ -61,7 +61,7 @@ const RedeemSection = () => {
   const [error, setError] = useState('')
 
   if (!couponId && success) return <RedemptionSuccess />
-  if (!couponId && error) return <RedemptionError error={error} />
+  if (!couponId && error) return <RedemptionError error={error} showButton={false} />
 
   const handleChange = e => {
     const val = e.target.value
@@ -73,28 +73,31 @@ const RedeemSection = () => {
       e.preventDefault()
       if (!couponId) return
       const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
-      if (body.error) return setError(body.error)
-      if (body.success) {
-        setSuccess(true)
+      if (body.error) {
+        setError(body.error)
+      } else {
         logEvent(`Redeemed-Coupon`)
+        setError('')
+        setSuccess(true)
       }
     } catch (err) {
       console.error(err)
-      setError('An unknown error occurred.')
+      return setError('An unknown error occurred.')
     }
   }
 
   return (
     <div>
-      {!error && !success && (
+      {!success && (
         <p>
           You're currently logged in as <strong>{user.email}</strong>.
+          <br />
           <br />
           If you're ready to redeem your coupon code, just enter it below.
         </p>
       )}
 
-      {!error && !success && (
+      {!success && (
         <div className={`row justify-content-center pb-3`}>
           <div className={`col col-md-6 col-xl-3`}>
             <input
@@ -114,13 +117,9 @@ const RedeemSection = () => {
       )}
 
       {success && <RedemptionSuccess />}
-      {error && <RedemptionError error={error} />}
+      {error && <RedemptionError error={error} showButton={false} />}
     </div>
   )
-}
-
-const NoKeyFound = () => {
-  return <div>No key found</div>
 }
 
 const Login = () => {

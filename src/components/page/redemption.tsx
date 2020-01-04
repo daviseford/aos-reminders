@@ -41,13 +41,15 @@ export const RedemptionSuccess = () => {
   )
 }
 
-export const RedemptionError: React.FC<{ error: string }> = ({ error }) => {
+export const RedemptionError: React.FC<{ error: string; showButton: boolean }> = ({ error, showButton }) => {
   return (
     <>
-      <GenericButton className={`btn btn-danger btn-lg`} disabled>
-        Error!
-        <FaRegFrown className="ml-2" />
-      </GenericButton>
+      {showButton && (
+        <GenericButton className={`btn btn-danger btn-lg`} disabled>
+          Error!
+          <FaRegFrown className="ml-2" />
+        </GenericButton>
+      )}
 
       <p className="pt-3">We're sorry. There was an error redeeming your subscription.</p>
       <p>
