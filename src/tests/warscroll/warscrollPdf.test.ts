@@ -22,6 +22,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  KHORNE,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -29,6 +30,17 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('does not include Quicksilver Swords via unknownSelections', () => {
+    const pdfText = getFile('KhorneDaemonPrincewithSword')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHORNE)
+    expect(warscrollTxt.selections.units).toEqual(['Daemon Prince'])
+    expect(warscrollTxt.selections.endless_spells).toEqual([])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('reads Ossiarch Bonereapers full pdf', () => {
     const pdfText = getFile('OBR1')
     const parsedText = parsePdf(pdfText)

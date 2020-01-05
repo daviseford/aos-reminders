@@ -56,7 +56,13 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.selections.spells).toContain('Binding Damnation (Slaves)')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles BigWaaagh3', () => {
@@ -113,13 +119,25 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('StD8')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
   it('handles StD9', () => {
     const fileTxt = getFile('StD9')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
   it('handles StD10', () => {
     const fileTxt = getFile('StD10')
@@ -131,6 +149,11 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'warn',
         text: 'Warpfire Dragon',
       },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
     ])
   })
 
@@ -139,7 +162,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles StD3', () => {
@@ -156,7 +185,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles StD5', () => {
@@ -168,7 +203,13 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'ambiguity-warn',
+          text:
+            "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        },
+      ],
       factionName: SLAVES_TO_DARKNESS,
       origin_realm: null,
       realmscape_feature: null,
@@ -203,7 +244,13 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.selections.allegiances).toEqual(['Cabalists'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles StD7', () => {
