@@ -243,6 +243,8 @@ export const ignoredUnknownSelections = [
   'Spirit Swords',
   'Standard Bearer',
   'Standard Bearers',
+  'Sword',
+  'Swords',
   'Starstrike Javelin',
   'Tenderiser',
   'Tzaangor Mutant',
