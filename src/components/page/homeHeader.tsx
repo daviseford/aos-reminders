@@ -13,7 +13,7 @@ import { LinkNewTab } from 'components/helpers/link'
 import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { SelectOne } from 'components/input/select'
 import ToggleGameMode from 'components/input/toggle_game_mode'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import { IStore } from 'types/store'
 
 const Navbar = lazy(() => import('./navbar'))
@@ -31,7 +31,7 @@ export const Header = () => {
 }
 
 interface IJumbotronProps {
-  factionName: TSupportedFaction
+  factionName: TPrimaryFactions
   hasSelections: boolean
   isMobile: boolean
   resetAllySelections: () => void
@@ -106,7 +106,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
               <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
                 <SelectOne
                   value={titleCase(factionName)}
-                  items={SUPPORTED_FACTIONS}
+                  items={PRIMARY_FACTIONS}
                   setValue={setValue}
                   hasDefault={true}
                   toTitle={true}

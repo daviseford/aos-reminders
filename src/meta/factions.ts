@@ -1,3 +1,5 @@
+import { sortBy } from 'lodash'
+
 // Supported Faction Types
 export type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
 export type TBigWaaagh = 'BIG_WAAAGH'
@@ -84,8 +86,11 @@ export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
 
-// Supported Factions
-export type TSupportedFaction =
+/**
+ * Primary factions - excluding mercenary armies that are only taken as allies
+ * e.g. Mercenary Companies
+ */
+export type TPrimaryFactions =
   | TBeastsOfChaos
   | TBigWaaagh
   | TBonesplitterz
@@ -128,7 +133,10 @@ export type TSupportedFaction =
   | TTzeentch
   | TWanderers
 
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
+// Supported Factions
+export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies
+
+export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
   BONESPLITTERZ,
@@ -153,7 +161,6 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LETHISIAN_DEFENDERS,
-  MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -171,3 +178,5 @@ export const SUPPORTED_FACTIONS: TSupportedFaction[] = [
   TZEENTCH,
   WANDERERS,
 ]
+
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([...PRIMARY_FACTIONS, MERCENARY_COMPANIES])
