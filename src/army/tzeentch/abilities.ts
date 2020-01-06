@@ -1,4 +1,4 @@
-import { END_OF_SETUP, DURING_GAME, HERO_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, END_OF_SETUP, DURING_GAME, HERO_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -20,10 +20,15 @@ const Abilities: TAbilities = [
   },
   {
     name: `Summon Daemons of Tzeentch`,
-    desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one or more units from the summoning list onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
+    desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one unit from the summoning list onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
 
     Summoned units must be set up wholly within 12" of a friendly Tzeentch Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
     when: [END_OF_MOVEMENT_PHASE],
+  },
+  {
+    name: `Locus of Change`,
+    desc: `Temp.`,
+    when: [COMBAT_PHASE],
   },
 ]
 

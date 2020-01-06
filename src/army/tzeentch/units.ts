@@ -7,7 +7,6 @@ import {
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -59,7 +58,7 @@ export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
 
 const ArcaneTomeEffect = {
   name: `Arcane Tome`,
-  desc: `Once per battle, you can roll three dice instead of two for that casting attempt.`,
+  desc: `Once per battle, when this model attempts to cast or unbind a spell, you can roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the casting or unbinding roll.`,
   when: [HERO_PHASE],
 }
 
@@ -70,10 +69,23 @@ const BeaconOfSorceryEffect = {
   command_ability: true,
 }
 
+const BoltofChangeEffect = {
+  name: `Bolt of Change`,
+  desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+
 const CapriciousWarpflameEffect = {
   name: `Capricious Warpflame`,
-  desc: `Roll a D6 at the end of the shooting phase for each unit that suffered wounds from a Warpflame. On a 4 or more, that unit suffers an additional D3 mortal wounds. On a 1, Tzeentch's fickle nature reveals itself and one model in that unit heals D3 wounds instead.`,
-  when: [END_OF_SHOOTING_PHASE],
+  desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models. Add 2 to hit rolls instead of 1 if the target unit has 20 or more models.`,
+  when: [SHOOTING_PHASE],
+}
+
+const MagicTouchedEffect = {
+  name: `Magic-touched`,
+  desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a dice before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
+  when: [HERO_PHASE],
 }
 
 const MasteryOfMagicEffect = {
@@ -84,14 +96,31 @@ const MasteryOfMagicEffect = {
 
 const SkySharksEffect = {
   name: `Sky-sharks`,
-  desc: `A Screamer's Lamprey Bites attack inflicts D3 Damage if the target is a MONSTER.`,
+  desc: `If the target is an enemy Monster, change the Damage characteristic of this unit's Lamprey Bite to D3.`,
   when: [COMBAT_PHASE],
+}
+
+const SpellEaterEffect = {
+  name: `Spell-eater`,
+  desc: `Once per turn, in your hero phase, you can pick 1 endless spell within 18" of this model. That endless spell is dispelled.`,
+  when: [HERO_PHASE],
 }
 
 const SpellThiefEffect = {
   name: `Spell-thief`,
   desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
   when: [HERO_PHASE],
+}
+const TouchedbyFireEffect = {
+  name: `Trouched by Fire`,
+  desc: `Roll a dice each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
+  when: [COMBAT_PHASE],
+}
+
+const WakeofFireEffect = {
+  name: `Wake of Fire`,
+  desc: `After this unit has made a normal move, you can pick 1 enemy unit that has any models passed across by any models from this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+  when: [MOVEMENT_PHASE],
 }
 
 // Unit Names
@@ -100,16 +129,26 @@ export const Units: TUnits = [
     name: `Kairos Fateweaver`,
     effects: [
       MasteryOfMagicEffect,
+      SpellEaterEffect,
       {
         name: `Oracle of Eternity`,
-        desc: `Once per battle, you can change the result of a single dice roll to the result of your choosing. However, this ability may not be used to affect the roll to see who takes the first turn in a battle round.`,
+        desc: `Once per battle, in either player's turn, if this model is on the battlefield, you can replace a single dice from one of the following dice rolls with a result of your choice.
+
+        Casting rolls Unbinding rolls Dispelling rolls Run rolls Charge rolls Hit rolls Wound rolls Save rolls Any roll that determines the Damage characteristic of a missile or melee weapon Battleshock test
+
+        Note that this ability only allows you to replace a single dice roll. For 2D6 rolls (such as casting rolls or charge rolls), you can only replace 1 of the dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be re-rolled or modified further.`,
         when: [DURING_GAME],
       },
       {
         name: `Gift of Change`,
-        desc: `Casting value 8. Pick a visible enemy unit within 18" of the caster. That unit suffers a number of mortal wounds as shown in the damage table. If any models were slain by this spell, you can set up a Tzeentch Chaos Spawn within 3" of that unit.`,
+        desc: `Casting value 8. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Magic`,
+        desc: `While friendly Wizards are wholly within 18" of him, Kairos Fateweaver knows any spells on those Wizards' warscrolls that are possible for him to cast.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -165,30 +204,26 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Herald of Tzeentch on Disc`,
+    name: `Fluxmaster, Herald of Tzeentch on Disc`,
     effects: [
       ArcaneTomeEffect,
       {
         name: `Blue Fire of Tzeentch`,
-        desc: `Casting value 4. Pick a visible enemy unit within 18". You roll 9 dice and your opponent rolls 1 dice. The target suffers 1 mortal wound for each one of your dice matches the dice rolled by your opponent.`,
+        desc: `Casting value 5. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
     ],
   },
   {
-    name: `Herald of Tzeentch on Burning Chariot`,
+    name: `Fateskimmer, Herald of Tzeentch on Burning Chariot`,
     effects: [
       ArcaneTomeEffect,
       SkySharksEffect,
-      {
-        name: `Wake of Fire`,
-        desc: `After a Burning Chariot of Tzeentch moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE],
-      },
+      WakeofFireEffect,
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 9. Roll a D6 for each enemy unit within 9". On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 8. If successfully cast, roll a dice for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -216,47 +251,57 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Pink Horrors of Tzeentch`,
+    name: `Horrors of Tzeentch`,
     effects: [
       {
-        name: `Flickering Flames`,
-        desc: `You can add 1 to hit rolls made for a PINK HORRORS Magical Flames attack if its unit contains 20 or more models.`,
+        name: `Icon Bearer`,
+        desc: `If the unmodified roll for a battleshock test for this unit while it includes any Pink Horror Icon Bearers is 1, you can return D6 slain Horrors of Tzeentch models to this unit, and no models from this unit will flee in that battleshock phase. Set up the Horrors of Tzeentch models one at a time within 1" of a model from this unit that has not been returned in that phase. The models can only be set up within 3" of an enemy unit if this unit was within 3" of that enemy unit before any models were returned.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Horn Blower`,
+        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Pink Horror Hornblowers is 1, that battleshock test must be re-rolled.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Ectoplasmic Elasticity`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a Pink Horror from this unit. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Flickers Flames`,
+        desc: `Add 1 to hit rolls for attacks made with this unit's Magical Flames while this unit has 20 or more models.`,
         when: [SHOOTING_PHASE],
       },
       {
+        name: `Split and Split again`,
+        desc: `When you allocate wounds or mortal wounds to this unit, you must allocate them to a Pink Horror model if it is possible to do so.
+
+        Each time an Iridescent Horror or Pink Horror model from a friendly unit with this ability is slain, you can add 2 Blue Horror models to that unit after removing the slain model. Each time a Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model.
+
+        Set up the additional models one at a time within 1" of the position that the slain model had occupied. The additional models can only be set up within 3" of an enemy unit if the position that the slain model had occupied or any other models from the slain model's unit are within 3" of that enemy unit. If you cannot set up the additional models in this way, they are removed from play (they do not count as being slain).`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
         name: `Locus of Conjuration`,
-        desc: `You can add 1 to any casting rolls made for this unit if it is within 9" of any TZEENTCH DAEMON HEROES from your army.`,
+        desc: `You can add 1 to any casting rolls made for this unit if it is wholly within 12" of any friendly TZEENTCH DAEMON HEROES.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Icon Bearer`,
-        desc: `If the unmodified roll for a battleshock test for a unit that includes any Icon Bearers is 1, you can add D6 models to that unit, and no models from that unit will flee in that battleshock phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `Your opponent must re-roll battleshock tests of 1 for units that are within 6" of any Hornblowers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Blue Horrors of Tzeentch`,
-    effects: [
-      {
-        name: `Split`,
-        desc: `If a friendly PINK HORROR model is slain, you can either take petty vengeance or receive 2 BLUE HORROR Points. If you take petty vengeance, pick an enemy unit within 9" of the slain PINK HORROR and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any BLUE HORROR Points you receive can be used instead of or as well as Fate Points when you summon a BLUE HORRORS unit to the battlefield.`,
+        name: `Petty Vengeance`,
+        desc: `If a Pink Horror model from this unit is slain and you do not use its Split and Split Again ability to add any models to this unit, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 5+, that enemy unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
       },
-    ],
-  },
-  {
-    name: `Brimstone Horrors of Tzeentch`,
-    effects: [
       {
-        name: `Split Again`,
-        desc: `If a friendly BLUE HORROR model is slain, you can either take petty vengeance or receive 1 Brimstone Horror Point. If you take petty vengeance, pick an enemy unit within 9" of the slain BLUE HORROR and roll a D6. On a 6+ that enemy unit suffers 1 mortal wound. Any Brimstone Horror Points you receive can be used instead of or as well as Fate Points when you summon a BRIMSTONE HORRORS unit to the battlefield.`,
-        when: [WOUND_ALLOCATION],
+        name: `Magic`,
+        desc: `This unit is a Wizard while it has 9 or more Pink Horrors. It can attempt to cast 1 spell in your hero phase and attmept to unbind 1 spell in the enemy hero phase.It knows the Channelled Pink Fire spell. It cannot attempt to cast any spells other than Channelled Pink Fire, but any number of Horrors of Tzeentch units that have 9 or more Pink Horrors can attempt to cast Channelled Pink Fire in the same hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Channelled Pink Fire`,
+        desc: `Casting value 6. If successfully cast, pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
+        spell: true,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -268,9 +313,10 @@ export const Units: TUnits = [
     name: `Flamers of Tzeentch`,
     effects: [
       CapriciousWarpflameEffect,
+      TouchedbyFireEffect,
       {
-        name: `Locus of Transmogrification`,
-        desc: `Roll a D6 each time a model in this unit is slain within 9" of a Tzeentch Daemon Hero from your army; on a 6, add two Flamer models to this unit.`,
+        name: `Guided by Billowing Flames`,
+        desc: `Add 1 to hit rolls for attacks made with this unit's Warpflame while it is wholly within 9" of any friendly Exalted Flamers.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -281,59 +327,43 @@ export const Units: TUnits = [
       SkySharksEffect,
       {
         name: `Slashing Fins`,
-        desc: `After a unit of Screamers moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6 for each Screamer that passed across it; for each roll of 6, that unit suffers a mortal wound.`,
+        desc: `After this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that unit. For each 5+, that unit suffers 1 mortal wound. If that enemy unit is a Wizard, for each 5+, inflict D3 mortal wounds instead of 1.`,
         when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Locus of Change`,
-        desc: `Subtract 1 from hit rolls for attacks that target this unit while this unit is wholly within 12" of a friendly Tzeentch Daemon Hero.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   {
     name: `Burning Chariots of Tzeentch`,
-    effects: [
-      SkySharksEffect,
-      CapriciousWarpflameEffect,
-      {
-        name: `Wake of Fire`,
-        desc: `After a Burning Chariot moves in the movement phase, you can pick an enemy unit that it moved across. Roll a D6; on a roll of 4 or more, the unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
+    effects: [SkySharksEffect, CapriciousWarpflameEffect, TouchedbyFireEffect, WakeofFireEffect],
   },
   {
     name: `Curseling, Eye of Tzeentch`,
     effects: [
       {
         name: `Vessel of Chaos`,
-        desc: `Each time a Curseling successfully unbinds an enemy spell, he can immediately attempt to cast it himself even though it is your opponent's hero phase. If this spell is cast, your opponent cannot attempt to unbind it.`,
+        desc: `If this model successfully unbinds a spell that is possible for it to cast, it can immediately attempt to cast that spell even though it is the enemy hero phase. If that spell is successfully cast, it cannot be unbound.`,
         when: [HERO_PHASE],
       },
       {
         name: `Glean Magic`,
-        desc: `Casting value 3. Pick an enemy wizard within 24", choose one of the spells from their warscroll and roll two dice. if the result is equal to or greater than the casting value of the spell, the Curseling leanrs that spell and can us it for the rest of the game.`,
+        desc: `Casting value 3. If successfully cast, pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a dice. On a 3+, the caster knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Disrupter of the Arcane`,
+        desc: `You can re-roll unbinding and dispelling rolls for this model.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
     name: `Magister`,
-    effects: [
-      {
-        name: `Magic-touched`,
-        desc: `If the result of a casting roll for this model is a double, whether or not the spell is successfullycast, it can attempt to cast another spell this turn.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Bolt of Change`,
-        desc: `Casting value 7. Pick a visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. If any models were slain by this spell, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
+    effects: [MagicTouchedEffect, BoltofChangeEffect],
+  },
+  {
+    name: `Magister on Disc of Tzeentch`,
+    effects: [MagicTouchedEffect, BoltofChangeEffect],
   },
   {
     name: `Gaunt Summoner of Tzeentch`,
@@ -498,7 +528,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Mastery of Wyrdflame`,
-        desc: `You can make a Sorcerous Bolt attack with each Kairic Acolyte model from a Witchfyre Coven in each of your hero phases.`,
+        desc: `Once per turn, in your hero phase, pick 1 Kairic Acolyte unit in this battalion. That unit can make a shooting attack.`,
         when: [HERO_PHASE],
       },
     ],

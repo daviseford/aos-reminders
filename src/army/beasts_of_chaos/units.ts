@@ -385,7 +385,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Guided by the Future`,
-        desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -436,7 +436,7 @@ export const Units: TUnits = [
       },
       {
         name: `Guided by the Past`,
-        desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if one or more enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if any enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
