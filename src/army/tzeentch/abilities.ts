@@ -1,4 +1,11 @@
-import { COMBAT_PHASE, END_OF_SETUP, DURING_GAME, HERO_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import {
+  // eslint-disable-next-line
+  COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
+  DURING_GAME,
+  HERO_PHASE,
+} from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -25,11 +32,11 @@ const Abilities: TAbilities = [
     Summoned units must be set up wholly within 12" of a friendly Tzeentch Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
     when: [END_OF_MOVEMENT_PHASE],
   },
-  {
-    name: `Locus of Change`,
-    desc: `Temp.`,
-    when: [COMBAT_PHASE],
-  },
+  //{
+  //  name: `Locus of Change`,
+  //  desc: `Temp.`,
+  //  when: [COMBAT_PHASE],
+  //},
 ]
 
 export default Abilities

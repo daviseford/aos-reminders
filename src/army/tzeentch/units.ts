@@ -5,12 +5,13 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  TURN_ONE_MOVEMENT_PHASE,
+  TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { MARK_TZEENTCH } from 'meta/alliances'
@@ -64,8 +65,8 @@ const ArcaneTomeEffect = {
 
 const BeaconOfSorceryEffect = {
   name: `Beacon of Sorcery`,
-  desc: `If a Lord of Change uses this ability, then until your next hero phase you can add 1 to all casting and unbinding rolls made for friendly TZEENTCH DAEMON WIZARDS that are within 18" of the Lord of Change.`,
-  when: [HERO_PHASE],
+  desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can add 1 to casting and unbinding rolls for friendly Tzeentch Daemon Wizards while they are wholly within 18" of that model.`,
+  when: [START_OF_HERO_PHASE],
   command_ability: true,
 }
 
@@ -90,7 +91,7 @@ const MagicTouchedEffect = {
 
 const MasteryOfMagicEffect = {
   name: `Mastery of Magic`,
-  desc: `When you make a casting or unbinding roll for this model, change the result of the lowest dice so that it matches the highest.`,
+  desc: `When this model makes a casting, unbinding or dispelling roll, you can change the lowest D6 to match the highest D6.`,
   when: [HERO_PHASE],
 }
 
@@ -108,11 +109,11 @@ const SpellEaterEffect = {
 
 const SpellThiefEffect = {
   name: `Spell-thief`,
-  desc: `If the result of an unbinding roll for a Lord of Change is 9 or more, it learns the spell that is being cast, and can cast it in subsequent turns.`,
+  desc: `If this model successfully unbinds an enemy spell with an unbinding roll of 9+, this model can attempt to cast that spell, if it is possible for it to do so, for the rest of the battle.`,
   when: [HERO_PHASE],
 }
 const TouchedbyFireEffect = {
-  name: `Trouched by Fire`,
+  name: `Touched by Fire`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
   when: [COMBAT_PHASE],
 }
@@ -134,7 +135,7 @@ export const Units: TUnits = [
         name: `Oracle of Eternity`,
         desc: `Once per battle, in either player's turn, if this model is on the battlefield, you can replace a single dice from one of the following dice rolls with a result of your choice.
 
-        Casting rolls Unbinding rolls Dispelling rolls Run rolls Charge rolls Hit rolls Wound rolls Save rolls Any roll that determines the Damage characteristic of a missile or melee weapon Battleshock test
+        Casting rolls, Unbinding rolls, Dispelling rolls, Run rolls, Charge rolls, Hit rolls, Wound rolls, Save rolls, Any roll that determines the Damage characteristic of a missile or melee weapon, Battleshock test
 
         Note that this ability only allows you to replace a single dice roll. For 2D6 rolls (such as casting rolls or charge rolls), you can only replace 1 of the dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be re-rolled or modified further.`,
         when: [DURING_GAME],
@@ -155,12 +156,13 @@ export const Units: TUnits = [
   {
     name: `Lord of Change`,
     effects: [
-      MasteryOfMagicEffect,
-      SpellThiefEffect,
       BeaconOfSorceryEffect,
+      MasteryOfMagicEffect,
+      SpellEaterEffect,
+      SpellThiefEffect,
       {
         name: `Infernal Gateway`,
-        desc: `Casting value 7. Pick a visible enemy within 18" of the caster and roll 9 dice. For each roll that equals or beats the number shown on the damage table, the unit suffers a mortal wound.`,
+        desc: `Casting value 7. Pick a visible enemy within 18" of the caster and roll 9 dice. That unit suffers 1 mortal wound for each roll that is equal to or greater than the Infernal Gateway value shown on the caster's damage table.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -171,28 +173,28 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arch-deceiver`,
-        desc: `After set-up is complete, you can remove the Changeling from the battlefield and set up it up again in your opponent's territory, more than 3" from any enemy units. Enemy units treat it as part of their own army - they can move within 3" of it but they cannot target it with spells or attacks, and so on. If it makes a charge move, attacks, casts or unbinds a spell, or is within 3" of an enemy HERO at the end of any phase, it is revealed and this ability no longer has an effect.`,
-        when: [END_OF_SETUP],
+        desc: `At the start of the first battle round, after armies have been set up but before the first turn begins, you can remove this model from the battlefield. If you do so, at the end of your first movement phase, you must set this model up again anywhere within your opponent's territory more than 3" from any enemy units.`,
+        when: [TURN_ONE_START_OF_TURN, TURN_ONE_MOVEMENT_PHASE],
       },
       {
         name: `Puckish Misdirection`,
-        desc: `Until the Changeling is revealed, you can pick one unit within 9" of it in each enemy hero phase. That unit halves its Move until your next hero phase.`,
+        desc: `In the enemy hero phase, you can pick 1 enemy unit within 9" of this model. If you do so, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and half the Move characteristic of that unit (rounding up).`,
         when: [HERO_PHASE],
       },
       {
-        name: `Formless Horror`,
-        desc: `In the combat phase, you can pick a melee weapon wielded by an enemy model within 3" of the Changeling, and use that weapon's Range, Attacks, To Hit, To Wound, Rend and Damage characteristics instead of those for the Trickster's Staff. If a weapon does not have a value for one or more of these characteristics (e.g. it is given as '*' or 'see below'), it cannot be picked.`,
-        when: [COMBAT_PHASE],
+        name: `Changeling Magic`,
+        desc: `While this model is within 9" of an enemy Wizard, it knows any spell on that Wizard's warscroll that are possible for this model to cast.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Herald of Tzeentch`,
+    name: `Changecaster, Herald of Tzeentch`,
     effects: [
       ArcaneTomeEffect,
       {
         name: `Fortune and Fate`,
-        desc: `If you roll a 9+ for a Herald of Tzeentch's casting roll, it can attempt to cast one extra spell this hero phase (it must be a different spell).`,
+        desc: `If this model successfully casts a spell with a casting roll of 9+, this model can attempt to cast 1 extra spell in that phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -234,17 +236,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Frantic Scribbling`,
-        desc: `Roll a D6 each time a WIZARD within 18" of the Blue Scribes successfully casts a spell (whether or not it is unbound); on a 4 or more the Scribes learn that spell and can attempt to cast it in subsequent turns.`,
+        desc: `Each time a Wizard wholly within 18" of this model successfully casts a spell that is not unbound and that is possible for this model to cast, you can roll a dice. On a 4+, this model knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
       },
       {
         name: `Scrolls of Sorcery`,
-        desc: `Once in each of your hero phases, the Blue Scribes can read from their Scrolls of Sorcery instead of making a casting attempt. If they do, roll a D6; on a 1, they can't decipher the scrawls and the casting attempt automatically fails, but on a 2+, that spell is successfully cast and can only be unbound on a roll of 9+.`,
+        desc: `Once in each of your hero phases, when this model attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a dice. On a 2+, that spell is automatically cast and cannot be unbound.`,
         when: [HERO_PHASE],
       },
       {
         name: `Boon of Tzeentch`,
-        desc: `Casting value 4. You can re-roll failed casting rolls made for TZEENTCH WIZARDS within 18" of the Blue Scribes.`,
+        desc: `Casting value 4. If successfully cast, you can re-roll casting rolls for friendly Tzeentch Wizardswholly within 18" of the caster for the rest of that phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -307,7 +309,7 @@ export const Units: TUnits = [
   },
   {
     name: `Exalted Flamers of Tzeentch`,
-    effects: [CapriciousWarpflameEffect],
+    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],
   },
   {
     name: `Flamers of Tzeentch`,
@@ -317,7 +319,7 @@ export const Units: TUnits = [
       {
         name: `Guided by Billowing Flames`,
         desc: `Add 1 to hit rolls for attacks made with this unit's Warpflame while it is wholly within 9" of any friendly Exalted Flamers.`,
-        when: [WOUND_ALLOCATION],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -370,17 +372,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Book of Profane Secrets`,
-        desc: `Once per battle, at the end of your movement phase, if this model is within 9" of a Realmgate it can use its Book of Profane Secrets. If it does so, you can summon 1 unit from the list on the warscroll to the battlefield, and add it to your army. The summoned unit must be set up wholly within 9" of a this model and wholly within 9" of the Realmgate, and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
+        desc: `Once per battle this model can use this ability. Summon 1 unit of the following to the battlefield: 10 Bloodletters, 10 Daemonettes, 10 Pink Horrors, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
+        when: [HERO_PHASE],
       },
       {
         name: `Warptongue Blade`,
-        desc: `If a Warptongue Blade inflicts damage on an enemy unit, roll two dice. If the roll is higher than the enemy unit's Bravery, one model in the unit is slain. Otherwise, the blade inflicts 1 wound.`,
+        desc: `If the unmodified wound roll for an attack made with a Warptongue Blade is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a save roll).`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Infernal Flames`,
-        desc: `Casting value 8. Pick a visible enemy unit and roll 1 dice for each model in the target unit that is within 18" of the caster; the unit suffers 1 mortal wound for each roll of a 4+. Roll 3 dice for each MONSTER or War Machine in the target unit.`,
+        desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is an enemy Monsteror War Machine, roll 3 dice for each model instead.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -391,17 +393,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Soulbound Shield`,
-        desc: `If this model suffers any wounds or mortal wounds as the result of a spell, roll a D6. If the result is 4 or more, the wounds are ignored.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
         when: [HERO_PHASE],
       },
       {
         name: `Hovering Disc of Tzeentch`,
-        desc: `Add 2 to the result of any save rolls for this model in the combat phase unless the attacker can fly.`,
+        desc: `Add 2 to the result of any save rolls for this model in the combat phase unless the attacker is a Monster or can fly.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Lord of Fate`,
-        desc: `If a Fatemaster uses this ability, roll a D6. Until your next hero phase, any time you make a dice roll for this model or a TZEENTCH MORTAL unit within 9",and the result matches that on the dice you rolled in the hero phase, you can choose to re-roll it.`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick a friendly model with this command ability. Until your next hero phase, you can re-roll hit rolls for attacks made by friendly Tzeentch units wholly within 9" of this model.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -412,22 +414,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brutal Rage`,
-        desc: `If this model has suffered 5 or more wounds, add 1 to all of its hit rolls but subtract 1 from all of its casting and unbinding rolls (healing wounds may mean the Thaumaturge ceases to be enraged).`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        desc: `You can re-roll hit and wound rolls for attacks made with melee weapons by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
+        when: [COMBAT_PHASE],
       },
       {
-        name: `Mighty Bulk`,
-        desc: `After this model completes a charge move, pick an enemy unit within 1";that unit suffers D3 mortal wounds.`,
+        name: `Mighty Rampage`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Overwhelming Power`,
-        desc: `This model heals 1 wound in each of its hero phases.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Fireblast`,
-        desc: `Casting value 7. Pick a visible enemy unit within 18". The unit suffers D6 mortal wounds. You can set up 1 unit of BRIMSTONE HORRORS within 1" of the target. The number of models set up in the new unit is equal to the number of mortal wounds inflicted.`,
+        name: `Choking Tendrils`,
+        desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -438,27 +435,28 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arcanite Shield`,
-        desc: `Roll a D6 before allocating a wound or mortal wound to a model that has an Arcanite Shield. On a roll of 6, the shield deflects the damage and the wound is ignored.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Gestalt Sorcery`,
-        desc: `You can add 1 to the hit rolls of this unit's Sorcerous Bolts if it is within 9" of at least one friendly TZEENTCH WIZARD.`,
-        when: [SHOOTING_PHASE],
+        desc: `Casting Value 6. If successfully cast, pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
+        when: [HERO_PHASE, SHOOTING_PHASE],
+        spell: true,
       },
       {
         name: `Paired Cursed Blades`,
-        desc: `You can add 1 to any hit rolls made for models attacking with Paired Cursed Blades.`,
+        desc: `You can re-roll hit rolls for attacks made with a pair of Cursed Blades.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Scroll of Dark Arts`,
-        desc: `If at least one model in the unit is equipped with a Scroll of Dark Arts, you can increase the range of the unit's Sorcerous Bolts to 18".`,
-        when: [SHOOTING_PHASE],
+        desc: `A unit that includes any Scrolls of Dark Arts can add 1 to casting and unbinding rolls.`,
+        when: [HERO_PHASE],
       },
       {
         name: `Vulchare`,
-        desc: `If at least one model in the unit is equipped with a Vulcharc, roll a D6 each time an enemy WIZARD within 18" of the unit successfully casts a spell. On a roll of 5 or more, the wizard suffers one mortal wound as soon as the spell's effects have been resolved.`,
+        desc: `If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a dice. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
         when: [HERO_PHASE],
       },
     ],
@@ -470,33 +468,6 @@ export const Units: TUnits = [
         name: `Writhing Tentacles`,
         desc: `If you roll a double when determining the number of attacks made by a Tzeentch Chaos Spawn's Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
         when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Mutalith Vortex Beast of Tzeentch`,
-    effects: [
-      {
-        name: `Aura of Mutation`,
-        desc: `In your hero phase, you can pick a unit within 15". Roll a D6 and consult the chart below:
-
-        1. Hideous Disfigurements: Reduce the Bravery of each model in the target unit by 1 for the rest of the battle.
-
-        2. Trollbrains: For the rest of the battle, the controlling player must roll a D6 at the start of each of their hero phases. On the roll of a 1, the target unit can't be selected to cast spells, move or attack until their next hero phase.
-
-        3. Gift of Mutations: Reduce the Move of each model in the target unit by 1 for the rest of the battle.
-
-        4. Tide of Transmogrification: The target unit sufers D3 mortal wounds.
-
-        5. Maelstrom of Change: The target unit suffers D6 mortal wounds.
-
-        6. Spawnchange: The target unit suffers D6 mortal wounds. For each model that is slain as a result, set up a Chaos Spawn within 3" of the target unit. All Chaos Spawn created as a result of Spawnchange are added to your army.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mutant Regeneration`,
-        desc: `Heal D3 wounds in each of your hero phases.`,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -514,6 +485,18 @@ export const Units: TUnits = [
       {
         name: `Infernal Gateway`,
         desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and roll 9 dice. For each roll that equals or beats the value shown for Infernal Gateway on the damage table above, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Vortemis the All-seeing`,
+    effects: [
+      MagicTouchedEffect,
+      {
+        name: `Sorcerous Insight`,
+        desc: `Casting value 5. If successfully cast, you receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -8,7 +8,7 @@ import {
   START_OF_HERO_PHASE,
   DURING_GAME,
 } from 'types/phases'
-
+/*
 const Allegiances: TAllegiances = [
   {
     name: `The Eternal Conflagration`,
@@ -138,3 +138,4 @@ const Allegiances: TAllegiances = [
 ]
 
 export default Allegiances
+*/
