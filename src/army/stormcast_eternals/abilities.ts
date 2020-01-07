@@ -1,4 +1,4 @@
-import { DURING_SETUP, END_OF_MOVEMENT_PHASE, COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { DURING_SETUP, END_OF_MOVEMENT_PHASE, COMBAT_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)

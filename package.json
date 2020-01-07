@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "@auth0/auth0-spa-js": "1.6.0",
+    "@auth0/auth0-spa-js": "1.6.1",
     "@reduxjs/toolkit": "1.2.1",
     "bootstrap": "4.4.1",
     "core-js": "3.6.2",
