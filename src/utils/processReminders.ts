@@ -78,7 +78,7 @@ export const processReminders: TProcessReminders = (
   // Last step, we need to sort by the original order
   const ordered = Object.keys(Game).reduce((accum, key) => {
     if (reminders[key]) {
-      accum[key] = reminders[key]
+      accum[key] = sortBy(reminders[key], ['condition', 'name'])
     }
     return accum
   }, {})
