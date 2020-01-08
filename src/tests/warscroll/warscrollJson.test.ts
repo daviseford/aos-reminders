@@ -655,17 +655,12 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SKAVEN)
-    // These attributes come from the Warpcog Convocation battalion
-    expect(warscrollTxt.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Arkhspark Voltik',
-      },
-      {
-        severity: 'warn',
-        text: 'Rattlegauge Warplock',
-      },
+    expect(warscrollTxt.selections.battalions).toEqual([
+      'Warpcog Convocation',
+      'Arkhspark Voltik (Enginecoven)',
+      'Rattlegauge Warplock (Enginecoven)',
     ])
+    expect(warscrollTxt.errors).toEqual([])
   })
 
   it('should work with Dark Wizardry', () => {

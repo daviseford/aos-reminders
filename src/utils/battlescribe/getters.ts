@@ -402,6 +402,14 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     })
   })
 
+  // Remove duplicates like "Gors" and "Gor" (leaves the pluralized version)
+  Collection.units.forEach(x => {
+    if (x.endsWith('s')) {
+      const singular = x.slice(0, -1)
+      Collection.units = without(Collection.units, singular)
+    }
+  })
+
   return Collection
 }
 

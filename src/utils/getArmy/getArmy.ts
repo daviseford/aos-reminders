@@ -74,7 +74,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
   Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
   Army.Triumphs = modify.Triumphs()
-  Army.Units = modify.Units([...Units, ...AlliedUnits], GrandAlliance)
+  Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance)
   Army.Game = processGame([
     Army.Allegiances,
     Army.Artifacts,
