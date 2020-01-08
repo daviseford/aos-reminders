@@ -87,7 +87,7 @@
     "@types/superagent": "4.1.4",
     "@types/webpack-env": "1.15.0",
     "babel-jest": "24.9.0",
-    "husky": "4.0.0",
+    "husky": "4.0.1",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
     "react-app-rewired": "2.1.5",
