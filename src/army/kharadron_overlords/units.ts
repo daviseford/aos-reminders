@@ -9,13 +9,14 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   TURN_ONE_DURING_ROUND,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
-  START_OF_CHARGE_PHASE,
-  START_OF_MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 const FlyingTransportEffect = {
@@ -66,30 +67,30 @@ const GlorySeekersEffects = [
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
-const ExplodingDrillEffect = {
-  name: `Exploding Drill`,
-  desc: `If the wound roll for a Drill Cannon is 6+, pick another enemy unit within 3" of the target. That unit suffers D3 mortal wounds.`,
-  when: [SHOOTING_PHASE],
-}
-const SkyhookEffect = {
+const getSkyhookEffect = (val: number) => ({
   name: `Skyhook`,
-  desc: `Add 2 to charge rolls for this model if it is armed with a Skyhook.`,
+  desc: `Add ${val} to charge rolls for this unit if it is armed with a Skyhook.`,
   when: [CHARGE_PHASE],
+})
+const HitchersEffect = {
+  name: `Hitchers`,
+  desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move (as long as this model has not already made a normal move in the same phase).
+
+  If you do so, after that SKYVESSEL has moved, remove this model from the battlefield and set it up again wholly within 6" of that SKYVESSEL, more than 1" from any terrain features or objectives and more than 9" from any enemy models.
+
+  No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
+  when: [MOVEMENT_PHASE],
 }
-const EndinriggersBaseEffects = [
-  ExplodingDrillEffect,
-  {
-    name: `Grapnel Launcher`,
-    desc: `If this unit is more than 3" from an enemy unit, choose a terrain feature or model with a wounds characteristic of 10+ within 24". Roll a D6 for each model armed with a grapnel launcher. If any die is 4+, immediately move any distance as long as each model in this unit is moved directly and in a straight line towards the target and no model in this unit moves within 3" of any enemy models at any point in the move.`,
-    when: [END_OF_SHOOTING_PHASE],
-  },
-  {
-    name: `Hitchers`,
-    desc: `Models are not counted toward the maximum number of SKYFARERS that can be embarked on a SKYVESSEL or the Overburdened rule.`,
-    when: [DURING_GAME],
-  },
-  SkyhookEffect,
-]
+const EndrincraftEffect = {
+  name: `Endrincraft`,
+  desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this unit and roll 1 dice for each model in this unit. For each 4+, heal 1 wound allocated to that SKYVESSEL.`,
+  when: [START_OF_HERO_PHASE],
+}
+const GrapnelLauncherEffect = {
+  name: `Grapnel Launcher`,
+  desc: `Enemy units cannot retreat if they are within 3" of any models from this unit armed with a Grapnel Launcher.`,
+  when: [MOVEMENT_PHASE],
+}
 const BombRacksEffect = {
   name: `Bomb Racks`,
   desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a dice. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
@@ -97,7 +98,7 @@ const BombRacksEffect = {
 }
 const SkyminesEffect = {
   name: `Skymines`,
-  desc: `When a flying enemy unit ends a charge within 1", roll a die for each model in the charging unit. For each 6+ the enemy unit suffers a mortal wound.`,
+  desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
 }
 const AethericNavigationEffect = {
@@ -105,35 +106,6 @@ const AethericNavigationEffect = {
   desc: `This model can move an extra D3" if a friendly Aetheric Navigator is visible to it.`,
   when: [MOVEMENT_PHASE],
 }
-const ArkanautBaseEffects = [
-  AethericNavigationEffect,
-  BombRacksEffect,
-  {
-    name: `Tireless Endrinrigger`,
-    desc: `Roll a D6, on a 4+ heal 1 wound.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Set-up`,
-    desc: `When you set up a SKYVESSEL with the Vessel ability, you can declare SKYFARER units will start the battle embarked within it instead of being set up seperatly.`,
-    when: [DURING_SETUP],
-  },
-  {
-    name: `Embark`,
-    desc: `If all models in a SKYFARER unit can move to within 3" of a friendly SKYVESSEL in the movement phase, they can embark within it. Remove the unit from the battlefield and place it to one side - it is now embarked inside the vessel. Embarked units cannot normally do anything or be affected in any way whilst they are embarked. Unless specifically stated, abilities that affect other units within a certain range have no effect on a unit that is embarked or whilst the unit that has the ability is embarked, and you cannot measure from or to an embarked unit.`,
-    when: [MOVEMENT_PHASE],
-  },
-  {
-    name: `Disembark`,
-    desc: `Any unit that begins its hero phase embarked within a SKYVESSEL can disembark during the hero phase. When a unit disembarks, set it up so that all its models are within 3" of the vessel and none are within 3" of any enemy models - any disembarking model that cannot be set up in this way is slain. Units that disembark can then act normally, including using abilities that can be used in the hero phase, for the remainder of their turn. Note that a unit cannot both disembark and embark in the same turn.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Destroyed`,
-    desc: `When this SKYVESSEL is destroyed, the passengers immediately bail out: roll a D6 for each model embarked within it. For each roll of 1, a model from that model's unit (your choice) is slain. The embarked units must then disembark before the vessel is removed.`,
-    when: [WOUND_ALLOCATION],
-  },
-]
 
 // Unit Names
 export const Units: TUnits = [
@@ -195,36 +167,42 @@ export const Units: TUnits = [
     name: `Arkanaut Admiral`,
     effects: [
       {
-        name: `First to the Fray`,
-        desc: `On successful charge, add 1 to charge rolls for KHARADRON OVERLORDS units within 18" of this model until the end of the phase.`,
-        when: [CHARGE_PHASE],
+        name: `If You Want A Job Done...`,
+        desc: `You can re-roll hit and wound rolls of 1 for attacks made with a melee weapon by this model that target a HERO or MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Protect the Admiral!`,
+        desc: `Do not take battleshock tests for friendly KHARADRON OVERLORDS units while they are wholly within 12" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Protect the Admiral!`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly ARKANAUT ADMIRAL while it is within 3" of any friendly SKYFARERS units with 5 or more models. On a 5+, you must allocate that wound or mortal wound to a friendly SKYFARERS unit with 5 or more models that is within 3" of that ARKANAUT ADMIRAL, instead of to that ARKANAUT ADMIRAL.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Master of the Skies`,
-        desc: `The SKYVESSEL the Arkanaut Admiral is embarked upon can run and shoot.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `If You Want A Job Done...`,
-        desc: `Re-roll hit and wound rolls of 1 if the target is a MONSTER or HERO.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Invoke the Code - Lead by Example`,
-        desc: `KHARADRON OVERLORDS within 12" do not take battleshock tests until your next hero phase.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. That SKYVESSEL can shoot in that phase even if it ran earlier in the same turn.`,
+        when: [START_OF_SHOOTING_PHASE],
         command_ability: true,
       },
       {
-        name: `Invoke the Code - Look out for the Boss`,
-        desc: `Until next hero phase, when the Admiral suffers a wound or mortal wound roll a die. On a 5+ a SKYFARERS unit within 1" suffers a mortal wound instead".`,
-        when: [HERO_PHASE],
+        name: `On My Mark, Fire!`,
+        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. You can re-roll hit rolls of 1 for attacks made by that SKYVESSEL in that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
         command_ability: true,
       },
       {
-        name: `Invoke the Code - Talk Softly, Carry a Big Hammer`,
-        desc: `Re-roll failed hit and wound rolls.`,
-        when: [COMBAT_PHASE],
+        name: `Repel Boarders!`,
+        desc: `You can use this command ability at the start of your combat phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. Add 1 to hit rolls for attacks made by that SKYVESSEL and any models in its garrison in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Up And At Them!`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SKYFARERS unit that is wholly within 12" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that phase.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -277,15 +255,7 @@ export const Units: TUnits = [
         desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Hitcher`,
-        desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move (as long as this model has not already made a normal move in the same phase).
-
-        If you do so, after that SKYVESSEL has moved, remove this model from the battlefield and set it up again wholly within 6" of that SKYVESSEL, more than 1" from any terrain features or objectives and more than 9" from any enemy models.
-
-        No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
-        when: [MOVEMENT_PHASE],
-      },
+      HitchersEffect,
       {
         name: `First Rule of Grungsson`,
         desc: `You can use this command ability at the start of your charge phase if a friendly model with this command ability is on the battlefield. If you do so, pick 1 friendly model with this command ability. You can re-roll charge rolls for friendly BARAK-NAR units that are wholly within 24" of that model until the end of that phase.`,
@@ -297,24 +267,34 @@ export const Units: TUnits = [
   {
     name: `Skywardens`,
     effects: [
-      ...EndinriggersBaseEffects,
-      SkyminesEffect,
+      {
+        name: `Custodian`,
+        desc: `1 model in this unit can be a Custodian. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
       {
         name: `Timed Charges`,
-        desc: `When this unit retreats, before moving the unit, roll a die for each enemy unit within 3". On a 6 that unit suffers a mortal wound.`,
+        desc: `Roll 1 dice for each enemy unit that is within 3" of this unit immediately before this unit makes a retreat move. On a 4+, the unit being rolled for suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
+      getSkyhookEffect(1),
+      GrapnelLauncherEffect,
+      HitchersEffect,
+      SkyminesEffect,
     ],
   },
   {
     name: `Endrinriggers`,
     effects: [
-      ...EndinriggersBaseEffects,
       {
-        name: `Endrincraft`,
-        desc: `Heal 1 wound on a single SKYVESSEL this unit is embarked upon, or within 1".`,
-        when: [HERO_PHASE],
+        name: `Mizzenmaster`,
+        desc: `1 model in this unit can be a Mizzenmaster. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
       },
+      EndrincraftEffect,
+      getSkyhookEffect(1),
+      GrapnelLauncherEffect,
+      HitchersEffect,
     ],
   },
   {
@@ -353,7 +333,7 @@ export const Units: TUnits = [
       FlyHighEffect,
       FlyingTransportEffect,
       SkyCannonEffect,
-      SkyhookEffect,
+      getSkyhookEffect(2),
     ],
   },
   {
@@ -364,7 +344,7 @@ export const Units: TUnits = [
       FlyHighEffect,
       FlyingTransportEffect,
       SkyCannonEffect,
-      SkyhookEffect,
+      getSkyhookEffect(2),
       {
         name: `Aetheric Navigator and Endrinrigger`,
         desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
