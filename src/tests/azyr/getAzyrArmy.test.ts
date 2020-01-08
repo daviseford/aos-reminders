@@ -112,7 +112,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Slaanesh3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles StD8', () => {
@@ -867,9 +873,9 @@ describe('getAzyrArmyFromPdf', () => {
       triumphs: [],
       units: [
         'Keeper of Secrets w/ Ritual Knife',
+        'Keeper of Secrets w/ Living Whip',
         'The Contorted Epitome',
         'The Masque',
-        'Keeper of Secrets w/ Living Whip',
       ],
     })
   })
@@ -1174,7 +1180,7 @@ describe('getAzyrArmyFromPdf', () => {
       'Lord-Arcanum',
       'Lord-Celestant',
       'Evocators',
-      'Prosecutors with Stormcall Javelins',
+      'Prosecutors with Celestial Hammers',
       'Vanguard-Raptors with Hurricane Crossbows',
     ])
     expect(res.errors).toEqual([
