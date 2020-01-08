@@ -231,7 +231,6 @@ export const ignoredUnknownSelections = [
   'Pig-iron Choppas',
   'Plague Harbingers',
   'Poleaxes',
-  'Ritual Knife or Sinistrous Hand',
   'Runic Iron',
   'Savage Blade(s)',
   'Savage Greatblade',

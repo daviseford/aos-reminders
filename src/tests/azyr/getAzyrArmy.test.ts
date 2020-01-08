@@ -872,10 +872,10 @@ describe('getAzyrArmyFromPdf', () => {
       traits: ['True Child of Slaanesh (Pretenders Host)', 'Monarch of Lies (Pretenders Host)'],
       triumphs: [],
       units: [
-        'Keeper of Secrets w/ Ritual Knife',
         'Keeper of Secrets w/ Living Whip',
         'The Contorted Epitome',
         'The Masque',
+        'Keeper of Secrets w/ Ritual Knife',
       ],
     })
   })
