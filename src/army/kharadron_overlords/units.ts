@@ -14,8 +14,34 @@ import {
   TURN_ONE_DURING_ROUND,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
+  START_OF_CHARGE_PHASE,
+  START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
+const FlyingTransportEffect = {
+  name: `FLYING TRANSPORT`,
+  desc: `This model can fly, and can be garrisoned by up to 15 friendly Marine models even though it is not a terrain feature.
+
+  Halve this model's Move characteristic and it cannot Fly High if there are 11 or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
+
+  An attack made by a weapon that is in range of this model can target either this model or a unit in its garrison. If this model is destroyed, before it is removed from play, roll 1 dice for each model in its garrison. On a 1, that model is slain. Set up any surviving models wholly within 3" of this model and more than 3" from any enemy units.`,
+  when: [DURING_GAME],
+}
+const DisengageEffect = {
+  name: `Disengage`,
+  desc: `This model and any models in its garrison can still shoot if this model retreats in the same turn, as long as there are no enemy units that can fly within 3" of this model at the start of the retreat move and there are less than 10 wounds allocated to this model at the start of the retreat move.`,
+  when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+}
+const FlyHighEffect = {
+  name: `Fly High`,
+  desc: `Instead of making a normal move with this model, if there are less than 7 wounds currently allocated to this model, you can say that it will fly high (it can retreat and disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
+  when: [MOVEMENT_PHASE],
+}
+const SkyCannonEffect = {
+  name: `Sky Cannon`,
+  desc: `Before attacking with a Sky Cannon, choose either the Shrapnel or Shell missile weapon characteristics for that shooting attack.`,
+  when: [SHOOTING_PHASE],
+}
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
@@ -28,11 +54,18 @@ const AetherKhemistEffects = [
     when: [START_OF_COMBAT_PHASE],
   },
 ]
-const GlorySeekersEffect = {
-  name: `Glory Seekers`,
-  desc: `Add 1 to hit rolls on attacks targeting a HERO or MONSTER.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
-}
+const GlorySeekersEffects = [
+  {
+    name: `Glory Seekers`,
+    desc: `You can re-roll battleshock tests for this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+  {
+    name: `Glory Seekers`,
+    desc: `You can add 1 to hit rolls for attacks made by this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+  },
+]
 const ExplodingDrillEffect = {
   name: `Exploding Drill`,
   desc: `If the wound roll for a Drill Cannon is 6+, pick another enemy unit within 3" of the target. That unit suffers D3 mortal wounds.`,
@@ -40,8 +73,8 @@ const ExplodingDrillEffect = {
 }
 const SkyhookEffect = {
   name: `Skyhook`,
-  desc: `After all attacks for this unit are completed, if any wounds inflicted by this unit's Skyhook were allocated to an enemy unit and not negated, you can move this unit D6", as long as it ends closer to one of the enemy units the wounds were allocated to.`,
-  when: [SHOOTING_PHASE],
+  desc: `Add 2 to charge rolls for this model if it is armed with a Skyhook.`,
+  when: [CHARGE_PHASE],
 }
 const EndinriggersBaseEffects = [
   ExplodingDrillEffect,
@@ -59,12 +92,8 @@ const EndinriggersBaseEffects = [
 ]
 const BombRacksEffect = {
   name: `Bomb Racks`,
-  desc: `If a non-flying enemy ends their charge within 1", select a bomb type and then roll a die. On a 4+ the enemy unit suffers the selected bomb effect.
-  
-  Detonation Drills: Enemy unit fights after all other units.
-  
-  Grudgesettler Bombs: Enemy suffers D3 mortal wounds.`,
-  when: [CHARGE_PHASE],
+  desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a dice. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+  when: [START_OF_COMBAT_PHASE],
 }
 const SkyminesEffect = {
   name: `Skymines`,
@@ -139,7 +168,7 @@ export const Units: TUnits = [
         desc: `Khazgan has +1 Wounds and is treated as if he can fly when moving.`,
         when: [DURING_GAME],
       },
-      GlorySeekersEffect,
+      ...GlorySeekersEffects,
     ],
   },
   {
@@ -239,29 +268,28 @@ export const Units: TUnits = [
     name: `Brokk Grungsson, Lord-Magnate of Barak-Nar`,
     effects: [
       {
-        name: `The Lord-Magnate Moves`,
-        desc: `On a successful charge, pick an enemy unit within 1/2" and roll a die, on a 2+ inflict D3 mortal wounds to the selected unit.`,
+        name: `Custom-built Dirigible Suit`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Champion of Barak-Nar`,
-        desc: `Re-roll hit and wounds rolls of 1 when targeting a HERO or MONSTER.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Supercharged Harness`,
-        desc: `Roll a D6; On a 1, suffer a mortal wound. On a 3+, the damage characteristic for Aethermatic Saw attacks is 3.`,
+        name: `Endrinharness`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `High Hitcher`,
-        desc: `When embarked on a SKYVESSEL Brokk does not count toward the maximum number of SKYFARERS or the Overburdened rule.`,
-        when: [DURING_GAME],
+        name: `Hitcher`,
+        desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move (as long as this model has not already made a normal move in the same phase).
+
+        If you do so, after that SKYVESSEL has moved, remove this model from the battlefield and set it up again wholly within 6" of that SKYVESSEL, more than 1" from any terrain features or objectives and more than 9" from any enemy models.
+
+        No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
+        when: [MOVEMENT_PHASE],
       },
       {
         name: `First Rule of Grungsson`,
-        desc: `KHARADRON OVERLORDS units within 18" can run and charge until your next hero phase.`,
-        when: [HERO_PHASE],
+        desc: `You can use this command ability at the start of your charge phase if a friendly model with this command ability is on the battlefield. If you do so, pick 1 friendly model with this command ability. You can re-roll charge rolls for friendly BARAK-NAR units that are wholly within 24" of that model until the end of that phase.`,
+        when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
     ],
@@ -291,76 +319,62 @@ export const Units: TUnits = [
   },
   {
     name: `Arkanaut Company`,
-    effects: [GlorySeekersEffect],
+    effects: [...GlorySeekersEffects],
   },
   {
     name: `Grundstok Gunhauler`,
     effects: [
-      ExplodingDrillEffect,
+      FlyHighEffect,
+      DisengageEffect,
       BombRacksEffect,
       {
         name: `Ahead Full`,
-        desc: `In each of your hero phases, the Captain of a Grundstok Gunhauler can give this order. If they do so, until your next hero phase you can re-roll run and charge rolls for the Grundstok Gunhauler, but it may not attack in the shooting phase.`,
-        when: [HERO_PHASE],
+        desc: `Once per battle, at the start of your movement phase, you can say that this model will move ahead full. If you do so, add 6" to the Move characteristic of this model in that phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
       {
         name: `Escort Vessel`,
-        desc: `Each time a SKYVESSEL within 3" suffers wound or mortal wound, roll a die. On a 5+, the Gunhauler suffers a mortal wound instead. You can only use this ability once for each wound or mortal wound.`,
-        when: [DURING_GAME],
+        desc: `Roll 1 dice each time you allocate a wound or mortal wound to a friendly SKYVESSEL other than a GRUNDSTOK GUNHAULER while it is within 3" of any friendly GRUNDSTOK GUNHAULERS. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
+      {
+        name: `Drill Cannon`,
+        desc: `If the unmodified hit roll for an attack made with a Drill Cannon is 5+, that attack inflicts 3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      SkyCannonEffect,
     ],
   },
   {
     name: `Arkanaut Frigate`,
     effects: [
-      {
-        name: `All Hands to the Guns`,
-        desc: `Until your next hero phase re-roll hits rolls of 1 in the shooting phase; the Frigate's movement is halved and it cannot run.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Vessel/Overburdened`,
-        desc: `This model can carry up to 15 SKYFARER models, but its movement characteristic is reduced by 1" for each over 10.`,
-        when: [DURING_GAME],
-      },
+      BombRacksEffect,
+      DisengageEffect,
+      FlyHighEffect,
+      FlyingTransportEffect,
+      SkyCannonEffect,
       SkyhookEffect,
-      SkyminesEffect,
-      ...ArkanautBaseEffects,
     ],
   },
   {
     name: `Arkanaut Ironclad`,
     effects: [
-      {
-        name: `Flagship`,
-        desc: `Until your next hero phase all visible SKYVESSELS gain 1 of the following effects:
-        
-        Fire At Will: Add 2 to the attacks characteristic of Aethershot Carbines.
-        
-        Make Every Shot Count: Re-roll hit rolls of 1 during the shooting phase.
-        
-        Prove Your Worth: Add 3" to the range of all missile weapons.
-        
-        'Ware The Skies: Re-roll hit and wound rolls of 1 against targets that can fly.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Batten the Hatches`,
-        desc: `Before any unit disembarks you can choose to Batten the Hatches. If you do so re-roll saves of 1. Embarked units cannot embark/disembark.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Supremacy Mine`,
-        desc: `Once per battle, when enemy flying unit ends charge within 1", roll a die. On a 2+, inflict D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Vessel/Overburdened`,
-        desc: `This model can carry up to 25 SKYFARER models but its movement characteristic is reduced by 1" for each over 20.`,
-        when: [DURING_GAME],
-      },
+      BombRacksEffect,
+      DisengageEffect,
+      FlyHighEffect,
+      FlyingTransportEffect,
+      SkyCannonEffect,
       SkyhookEffect,
-      ...ArkanautBaseEffects,
+      {
+        name: `Aetheric Navigator and Endrinrigger`,
+        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Aetheric Navigator and Endrinrigger`,
+        desc: `You can re-roll run rolls for this model.`,
+        when: [MOVEMENT_PHASE],
+      },
     ],
   },
 ]
