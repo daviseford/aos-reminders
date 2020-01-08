@@ -31,10 +31,13 @@ const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
 const modifyBattalions = (battalions: TBattalions): TBattalions =>
   sortedUniqBy(sortBy(battalions, 'name'), 'name')
 
-const modifyUnits = (units: TUnits, alliance: TGrandAlliances): TUnits => {
+const modifyUnits = (units: TUnits, alliedUnits: TUnits, alliance: TGrandAlliances): TUnits => {
   const { Units } = GrandAllianceConfig[alliance]
   return uniqBy(
-    units.concat(sortBy(Units, 'name')).map(u => ({ ...u, unit: true })),
+    sortBy(units, 'name')
+      .concat(sortBy(alliedUnits, 'name'))
+      .concat(sortBy(Units, 'name'))
+      .map(u => ({ ...u, unit: true })),
     'name'
   )
 }
