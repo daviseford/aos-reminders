@@ -4,8 +4,6 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -13,10 +11,10 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
   TURN_ONE_DURING_ROUND,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
-  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 const FlyingTransportEffect = {
@@ -27,6 +25,11 @@ const FlyingTransportEffect = {
 
   An attack made by a weapon that is in range of this model can target either this model or a unit in its garrison. If this model is destroyed, before it is removed from play, roll 1 dice for each model in its garrison. On a 1, that model is slain. Set up any surviving models wholly within 3" of this model and more than 3" from any enemy units.`,
   when: [DURING_GAME],
+}
+const EndrinharnessEffect = {
+  name: `Endrinharness`,
+  desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
 }
 const DisengageEffect = {
   name: `Disengage`,
@@ -46,13 +49,13 @@ const SkyCannonEffect = {
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
-    desc: `Pick a friendly SKYFARERS unit within 10" and then select one type of weapon carried by that unit. Until your next hero phase, add 1 to the attacks characteristic of that weapon. A weapon cannot be augmented more than once per hero phase.`,
+    desc: `In your hero phase you can pick 1 friendly SKYFARERS unit wholly within 12" of this model. Until your next hero phase, you can re-roll wound rolls of 1 for attacks made by that unit. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.`,
     when: [HERO_PHASE],
   },
   {
     name: `Atmospheric Isolation`,
-    desc: `Subtract 1 from the attacks characteristic for all enemy melee weapons on models within 3" (Min 1).`,
-    when: [START_OF_COMBAT_PHASE],
+    desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of any friendly models with this ability. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
 const GlorySeekersEffects = [
@@ -101,27 +104,24 @@ const SkyminesEffect = {
   desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
 }
-const AethericNavigationEffect = {
-  name: `Aetheric Navigation`,
-  desc: `This model can move an extra D3" if a friendly Aetheric Navigator is visible to it.`,
-  when: [MOVEMENT_PHASE],
-}
 
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Endrinmaster`,
+    name: `Endrinmaster with Endrinharness`,
     effects: [
       {
-        name: `Endrincraft`,
-        desc: `One SKYVESSEL that an Endrinrigger is embarked on or within 3" of immediately heals D3 wounds.`,
-        when: [HERO_PHASE],
+        name: `Endrinmaster`,
+        desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to D3 wounds allocated to that SKYVESSEL.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Supercharged Harness`,
-        desc: `Roll a D6. On a 1, suffer a mortal wound. On a 3+, the damage characteristic of the Aethermight Hammer is 3 until the end of this phase.`,
-        when: [COMBAT_PHASE],
+        name: `By Grungni, I Have My Eye On You!`,
+        desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can re-roll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
       },
+      EndrinharnessEffect,
     ],
   },
   {
@@ -137,10 +137,19 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Khazgan Drakkskewer`,
-        desc: `Khazgan has +1 Wounds and is treated as if he can fly when moving.`,
+        desc: `Add 1 to Khazgan Drakkskewer's Wounds characteristic. In addition, Khazgan Drakkskewer can fly.`,
         when: [DURING_GAME],
       },
-      ...GlorySeekersEffects,
+      {
+        name: `Thundrik's Profiteers`,
+        desc: `You can add 1 to hit rolls for attacks made by this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Thundrik's Profiteers`,
+        desc: `You can re-roll battleshock tests for this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
+        when: [BATTLESHOCK_PHASE],
+      },
     ],
   },
   {
@@ -148,17 +157,22 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Aethersight`,
-        desc: `This model can attempt to unbind 1 spell each enemy hero phase as if it were a wizard.`,
+        desc: `This model can attempt to unbind 1 spell in the enemy hero phase, in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
+        name: `Aethersight`,
+        desc: `This model can attempt to dispel 1 endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Aetherstorm`,
-        desc: `Roll a D6. On a 3+, all enemy units that can fly halve their movement characteristic if they start within 18" of this model, until your next hero phase. The Aetheric Navigator cannot use Read the Winds the same turn Aetherstorm is used.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 36" of this model that is visible to them and can fly, and roll a dice. On a 1-2 nothing happens. On a 3-5 halve the Move characteristic of that unit until your next hero phase. On a 6, halve the Move characteristic of that unit until your next hero phase, and that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Read the Winds`,
-        desc: `If the Navigator does not move, re-roll run/charge rolls for all visible SKYVESSELS. Cannot use in same turn as Aetherstorm. If the Aetheric Navigator is embarked, Read the Winds only affects the SKYVESSEL they are embarked upon.`,
+        desc: `You can re-roll run and charge rolls for friendly SKYVESSELS that are visible to a friendly AETHERIC NAVIGATOR that has not attempted to use the Aetherstorm ability in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -216,28 +230,18 @@ export const Units: TUnits = [
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Drillbill`,
-        desc: `If an enemy unit ends its charge within 1" of a unit with a drillbill, roll a die. On 2+ the charging unit suffer a mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Keep your Distance`,
-        desc: `When you choose this unit to attack, instead you can retreat, making a move/run out of combat instead. May not embark.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Choking Fug`,
-        desc: `Enemy models that end their charge within 2" of a model with an Aetheric Fumigator subtract 1 from the attacks characterstics of melee weapons to a minimum of 1 until the end of the combat phase.`,
-        when: [COMBAT_PHASE],
+        desc: `Subtract 1 from hit rolls for attacks made by enemy models within 3" of any friendly models armed with an Aetheric Fumigator. This ability cannot be used by a model that is part of a garrison.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
-        name: `Pin Them, Shred Them`,
-        desc: `If a model armed with a Grundstok Mortar causes unsaved wounds this phase, you can re-roll the number of shots for models armed with Decksweepers, if they target the same unit.`,
+        name: `Pin Them, Shred Them, Finish Them`,
+        desc: `Add 1 to hit rolls for attacks made with a Grundstok Mortar, Decksweeper or Aethercannon when it is used by a unit that has at least 1 of each of these weapons (i.e. at least 1 Grundstok Mortar, and at least 1 Decksweeper, and at least 1 Aethercannon). This ability cannot be used by a model that is part of a garrison.`,
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Finish Them`,
-        desc: `If a model armed with a Decksweeper causes unsaved wounds this phase, you can re-roll hit and damage rolls for models armed with Aethercannons, if they target the same unit.`,
+        name: `Drive Them Back!`,
+        desc: `Add 1 to the Attacks characteristic of missile weapons used by this unit while any enemy units are within 3" of this unit. This ability cannot be used by a model that is part of a garrison.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -251,17 +255,13 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `Endrinharness`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      HitchersEffect,
-      {
         name: `First Rule of Grungsson`,
         desc: `You can use this command ability at the start of your charge phase if a friendly model with this command ability is on the battlefield. If you do so, pick 1 friendly model with this command ability. You can re-roll charge rolls for friendly BARAK-NAR units that are wholly within 24" of that model until the end of that phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
+      EndrinharnessEffect,
+      HitchersEffect,
     ],
   },
   {
@@ -304,24 +304,24 @@ export const Units: TUnits = [
   {
     name: `Grundstok Gunhauler`,
     effects: [
-      FlyHighEffect,
-      DisengageEffect,
-      BombRacksEffect,
       {
         name: `Ahead Full`,
         desc: `Once per battle, at the start of your movement phase, you can say that this model will move ahead full. If you do so, add 6" to the Move characteristic of this model in that phase.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Escort Vessel`,
-        desc: `Roll 1 dice each time you allocate a wound or mortal wound to a friendly SKYVESSEL other than a GRUNDSTOK GUNHAULER while it is within 3" of any friendly GRUNDSTOK GUNHAULERS. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
         name: `Drill Cannon`,
         desc: `If the unmodified hit roll for an attack made with a Drill Cannon is 5+, that attack inflicts 3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
         when: [SHOOTING_PHASE],
       },
+      {
+        name: `Escort Vessel`,
+        desc: `Roll 1 dice each time you allocate a wound or mortal wound to a friendly SKYVESSEL other than a GRUNDSTOK GUNHAULER while it is within 3" of any friendly GRUNDSTOK GUNHAULERS. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+      BombRacksEffect,
+      DisengageEffect,
+      FlyHighEffect,
       SkyCannonEffect,
     ],
   },
@@ -332,19 +332,13 @@ export const Units: TUnits = [
       DisengageEffect,
       FlyHighEffect,
       FlyingTransportEffect,
-      SkyCannonEffect,
       getSkyhookEffect(2),
+      SkyCannonEffect,
     ],
   },
   {
     name: `Arkanaut Ironclad`,
     effects: [
-      BombRacksEffect,
-      DisengageEffect,
-      FlyHighEffect,
-      FlyingTransportEffect,
-      SkyCannonEffect,
-      getSkyhookEffect(2),
       {
         name: `Aetheric Navigator and Endrinrigger`,
         desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
@@ -355,6 +349,12 @@ export const Units: TUnits = [
         desc: `You can re-roll run rolls for this model.`,
         when: [MOVEMENT_PHASE],
       },
+      BombRacksEffect,
+      DisengageEffect,
+      FlyHighEffect,
+      FlyingTransportEffect,
+      getSkyhookEffect(2),
+      SkyCannonEffect,
     ],
   },
 ]
