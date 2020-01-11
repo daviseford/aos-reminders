@@ -1,11 +1,4 @@
-import {
-  // eslint-disable-next-line
-  COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  END_OF_SETUP,
-  DURING_GAME,
-  HERO_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, END_OF_MOVEMENT_PHASE, END_OF_SETUP, DURING_GAME, HERO_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities (always active regardless of army composition)
