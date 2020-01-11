@@ -32,11 +32,11 @@ const Abilities: TAbilities = [
     Summoned units must be set up wholly within 12" of a friendly Tzeentch Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
     when: [END_OF_MOVEMENT_PHASE],
   },
-  //{
-  //  name: `Locus of Change`,
-  //  desc: `Temp.`,
-  //  when: [COMBAT_PHASE],
-  //},
+  {
+    name: `Locus of Change`,
+    desc: `SUbtract 1 from hit rolls for attacks made with melee weapons that target friendly Tzeentch Daemon units that are wholly within 12" of a friendly Tzeentch Daemon Hero.`,
+    when: [COMBAT_PHASE],
+  },
 ]
 
 export default Abilities
