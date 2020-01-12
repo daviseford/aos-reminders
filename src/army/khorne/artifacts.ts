@@ -120,10 +120,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Blood-forged Armour`,
+    name: `The Blood-forged Armour`,
     effects: [
       {
-        name: `Blood-forged Armour`,
+        name: `The Blood-forged Armour`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
