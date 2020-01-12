@@ -12,6 +12,7 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
+  GREENSKINZ,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -113,7 +114,6 @@ const azyrTypoMap: TNameMap = {
   'Ogors Gluttons': 'Ogor Gluttons',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
-  'The Blood-forged Armour': 'Blood-forged Armour',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -347,6 +347,7 @@ export const importFactionNameMap = {
   Dispossessed: DISPOSSESSED,
   Everchosen: SLAVES_TO_DARKNESS,
   Fyreslayers: FYRESLAYERS,
+  Greenskinz: GREENSKINZ,
   Gutbusters: OGOR_MAWTRIBES,
   Ironjawz: IRONJAWZ,
   Khorne: KHORNE,
