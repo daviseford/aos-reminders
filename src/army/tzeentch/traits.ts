@@ -6,7 +6,6 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
