@@ -112,6 +112,7 @@ const azyrTypoMap: TNameMap = {
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
   'Ogors Gluttons': 'Ogor Gluttons',
+  'The Skyborne Slayers': 'Skyborne Slayers',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
 }
