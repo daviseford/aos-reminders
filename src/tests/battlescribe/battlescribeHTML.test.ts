@@ -80,7 +80,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with Stormcast7', () => {
     const parsedText = getFile('Stormcast7')
     const res = getBattlescribeArmy(parsedText)
-    console.log(res)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([])
   })
 

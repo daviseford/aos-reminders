@@ -77,7 +77,10 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
     const factionValue = value.replace('(Warscroll Compendium)', '').replace(/.+\((.+)\).+/g, '$1')
 
     const sep = factionValue.includes(': ') ? ': ' : ' - '
-    let [grandAlliance, factionName] = factionValue.split(sep).map(x => x.trim())
+    let [grandAlliance, factionName] = factionValue.split(sep).map(x => {
+      // Remove any stray parentheses
+      return x.replace(/(\(|\))/g, '').trim()
+    })
 
     factionName = importFactionNameMap[factionName] || 'Unknown'
 
