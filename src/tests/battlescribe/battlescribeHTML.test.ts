@@ -16,6 +16,7 @@ import {
   KHORNE,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
+  LEGIONS_OF_GRIEF,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -29,7 +30,6 @@ import {
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,
-  LEGIONS_OF_GRIEF,
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
