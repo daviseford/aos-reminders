@@ -91,7 +91,6 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 
 export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null as string | null, allegiance: null as string | null }
-
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -318,7 +317,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const fixedKeys = Object.keys(mergedTraits).reduce((a, key) => {
     const val = mergedTraits[key]
     if (key === 'Selections' && isString(val)) {
-      a.allegiance = val
+      a.allegiance = stripAllegiancePrefix(val)
     } else if (key === 'Categories' && isString(val)) {
       a.faction = val
     } else {
@@ -329,6 +328,8 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
 
   return fixedKeys
 }
+
+const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
 export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {
   const Collection = {
