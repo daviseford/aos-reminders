@@ -28,14 +28,14 @@
   dependencies:
     "@babel/highlight" "^7.8.0"
 
-"@babel/compat-data@^7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.8.0.tgz#1d3a9fbda3c58774395cd617d263a196dfa45d92"
-  integrity sha512-ixPUWJpnd9hHvRkyIE3mJ6PY5DEWmR08UkcpdqI5kV5g/d6knT8Wth1LE5v5sVTIJkm9dGpQsXnhwxcf2/PjAg==
+"@babel/compat-data@^7.8.0", "@babel/compat-data@^7.8.1":
+  version "7.8.1"
+  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.8.1.tgz#fc0bbbb7991e4fb2b47e168e60f2cc2c41680be9"
+  integrity sha512-Z+6ZOXvyOWYxJ50BwxzdhRnRsGST8Y3jaZgxYig575lTjVSs3KtJnmESwZegg6e2Dn0td1eDhoWlp1wI4BTCPw==
   dependencies:
     browserslist "^4.8.2"
     invariant "^2.2.4"
-    semver "^7.1.1"
+    semver "^5.5.0"
 
 "@babel/core@7.6.0":
   version "7.6.0"
@@ -141,15 +141,15 @@
     "@babel/types" "^7.8.0"
 
 "@babel/helper-compilation-targets@^7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@babel/helper-compilation-targets/-/helper-compilation-targets-7.8.0.tgz#63d3924bc04b68b2d24d25b8cc452ee86dcb3a59"
-  integrity sha512-VcMSwBCqA2mGqmFFnLYtaC+Zkok5pVMOypeGn76RpSBAoFqc1olWjYoNqTn09YMChTi6rsbPIkkEOAwfsKSqRg==
+  version "7.8.1"
+  resolved "https://registry.yarnpkg.com/@babel/helper-compilation-targets/-/helper-compilation-targets-7.8.1.tgz#309da97e93e6ca74896393d0c8da7af39cb4cea8"
+  integrity sha512-Fsrljg8DHSdnKSzC0YFopX7lseRpVfWMYuC1Dnvf7tw972E2KDjZ4XEaqjO9aJL0sLcG4KNRXxowDxHYIcZ+Cw==
   dependencies:
-    "@babel/compat-data" "^7.8.0"
+    "@babel/compat-data" "^7.8.1"
     browserslist "^4.8.2"
     invariant "^2.2.4"
     levenary "^1.1.0"
-    semver "^7.1.1"
+    semver "^5.5.0"
 
 "@babel/helper-create-class-features-plugin@^7.7.4", "@babel/helper-create-class-features-plugin@^7.8.0":
   version "7.8.0"
@@ -921,9 +921,9 @@
     semver "^5.5.0"
 
 "@babel/preset-env@^7.4.5":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.8.0.tgz#f0a0a353091cb2135e9aea21ed9c4563c51bd31f"
-  integrity sha512-g3wnth3Ct+ZvnaHcvb5PQyojqNj0whXTkO7hatXgz+lQ2FphOoXrG1JMIfeaHgDakGzx3LiNe0KsWO69xSVFDA==
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.8.2.tgz#dd55bd61f5d0bb1237915173c0e94aa350de3089"
+  integrity sha512-AF2YUl2bGsLWTtFL68upTTB7nDo05aEcKjHmXJE+aXRvsx5K+9yRsHQP3MjnTrLOWe/eFyUr93dfILROsKC4eg==
   dependencies:
     "@babel/compat-data" "^7.8.0"
     "@babel/helper-compilation-targets" "^7.8.0"
@@ -4037,9 +4037,9 @@ diff-sequences@^24.9.0:
   integrity sha512-Dj6Wk3tWyTE+Fo1rW8v0Xhwk80um6yFYKbuAxc9c3EZxIHFDYwbi34Uk42u1CdnIiVorvt4RmlSDjIPyzGC2ew==
 
 diff@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.1.tgz#0c667cb467ebbb5cea7f14f135cc2dba7780a8ff"
-  integrity sha512-s2+XdvhPCOF01LRQBC8hf4vhbVmI2CGS5aZnxLJlT5FtdhPCDFq80q++zK2KlrVorVDdL5BOGZ/VfLrVtYNF+Q==
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
+  integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -4408,9 +4408,9 @@ eslint-loader@3.0.2:
     schema-utils "^2.2.0"
 
 eslint-module-utils@^2.4.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.5.1.tgz#ea59ab958c11cd8b769c8749487aad713f2d5753"
-  integrity sha512-GcNwsYv8MfoEBSbAmV+PSVn2RlhpCShbLImtNviAYa/LE0PgNqxH5tLi1Ld9yeFwdjHsarXK+7G9vsyddmB6dw==
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.5.2.tgz#7878f7504824e1b857dd2505b59a8e5eda26a708"
+  integrity sha512-LGScZ/JSlqGKiT8OC+cYRxseMjyqt6QO54nl281CK93unD89ijSeRV6An8Ci/2nvWVKe8K/Tqdm75RQoIOCr+Q==
   dependencies:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
@@ -10394,11 +10394,6 @@ semver@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
-
-semver@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.1.tgz#29104598a197d6cbe4733eeecbe968f7b43a9667"
-  integrity sha512-WfuG+fl6eh3eZ2qAf6goB7nhiCd7NPXhmyFxigB/TOkQyeLP8w8GsVehvtGNtnNmyboz4TgeK40B1Kbql/8c5A==
 
 semver@~5.3.0:
   version "5.3.0"
