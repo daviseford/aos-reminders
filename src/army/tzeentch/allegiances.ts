@@ -7,26 +7,37 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   DURING_GAME,
+  WOUND_ALLOCATION,
+  MOVEMENT_PHASE,
+  HERO_PHASE,
 } from 'types/phases'
-/*
+
 const Allegiances: TAllegiances = [
   {
     name: `The Eternal Conflagration`,
     effects: [
       {
-        name: `Figureheads of the Dark Prince`,
-        desc: `This army can have up to 3 generals instead of 1. Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes. An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general. In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
-        when: [START_OF_GAME],
+        name: `Twisters of Materiality`,
+        desc: `Improve the Rend characteristic of friendly Eternal Conflagration units' Warpflame, Billowing Warpflame, and Magical Flames missle weapons by 1.`,
+        when: [SHOOTING_PHASE],
       },
       {
-        name: `Escalating Havoc`,
-        desc: `You receive D3 depravity points if any friendly Invaders Host units are wholly within enemy territory. If 3 or more friendly Invaders Host units are wholly within enemy territory at the start of your hero phase, you receive D6 depravity points instead.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Infernos of Mutation`,
+        desc: `You can use this command ability in the shooting phase. If you do so, pick 1 friendly Eternal Conflagration Daemon unit wholly within 12" of a friendly Daemon Hero. If the unmodified hit roll for any attack made by that unit's Warpflame, Billowing Warpflame, or Magical Flames missile weapons is 6, subtract 2 from the Bravery characteristic of the target unit until the end of the battle round. A unit cannot benefit from this command ability more than once per turn.`,
+        when: [SHOOTING_PHASE],
+        command_ability: true,
       },
       {
-        name: `Invaders Hedonite Host`,
-        desc: `A Hedonite Host battalion in an Invaders Host army must contain 2-4 Epicurean Revellers battalions and 0-2 Seeker Cavalcade battalions instead of the standard quantities.`,
-        when: [START_OF_GAME],
+        name: `Coruscating Flames`,
+        desc: `Subtract 1 from hit rolls for attacks made with missle weapons that target friendly Eternal Conflagration Daemon units wholly within 12" of this general.`,
+        when: [SHOOTING_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `Shroud of Warpflame`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound inflicted by a melee weapon to the bearer. On a 3+, the attacking unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION],
+        artifact: true,
       },
     ],
   },
@@ -34,19 +45,21 @@ const Allegiances: TAllegiances = [
     name: `The Host Duplicitous`,
     effects: [
       {
-        name: `Heir to the Throne`,
-        desc: `If the general of a Pretenders Host army is a hero, they have 2 different command traits instead of 1. If you randomly generate traits, roll again if the second result matches the first.`,
-        when: [START_OF_GAME],
+        name: `Ranks of Mischievous Mirages`,
+        desc: `Enemy units within 3" of a Host Duplicitous unit cannot retreat.`,
+        when: [MOVEMENT_PHASE],
       },
       {
-        name: `Heir to the Throne`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee and missle weapons by Pretenders Host units while they have 10 or more models.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Impossible to Anticipate`,
+        desc: `You can use this command ability once per battle, immediately after a friendly Hosts Duplicitous Horrors of Tzeentch unit is destroyed. If you do so, roll a dice. On a 5+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from any enemy units.`,
+        when: [WOUND_ALLOCATION],
+        command_ability: true,
       },
       {
-        name: `Warlord Supreme`,
-        desc: `You receive D3 depravity points if your general is within 3" of any enemy units. If your general is within 3" of 3 or more enemy units you receive D6 depravity points instead.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Will of the Phantom Lord`,
+        desc: `You can re-roll casting and unbinding rolls for friendly Hosts Duplicitous Daemon Wizards while they are wholly within 9" of this general.`,
+        when: [HERO_PHASE],
+        command_trait: true,
       },
       {
         name: `Pretenders Hedonite Host`,
@@ -138,4 +151,3 @@ const Allegiances: TAllegiances = [
 ]
 
 export default Allegiances
-*/

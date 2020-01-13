@@ -13,6 +13,8 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION,
+  START_OF_GAME,
+  END_OF_CHARGE_PHASE,
 } from 'types/phases'
 import { MARK_TZEENTCH } from 'meta/alliances'
 import SlavestoDarkness from 'army/slaves_to_darkness'
@@ -520,8 +522,8 @@ export const TzeentchBattalions: TBattalions = [
     name: `Skyshoal Coven`,
     effects: [
       {
-        name: `Scintillating Attack Run`,
-        desc: `In each of your hero phases, you can move any units from a Skyshoal Coven up to 9" as if it were the movement phase (they cannot run as part of this move, and it does not stop them from moving normally later in the turn). After a unit moves in this manner, you can pick an enemy unit that it moved across.RolladiceforeachmodelintheSkyshoalCovenunit;foreachrollof6,the unit it moved across suffers a mortal wound.`,
+        name: `Diving from the skies`,
+        desc: `After a friendly uni from this battalion made a normal move, you can pick 1 enemy unit that has any models passed across by any models fro that friendly unit and roll a dice. On a 2", that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -530,34 +532,9 @@ export const TzeentchBattalions: TBattalions = [
     name: `Tzaangor Coven`,
     effects: [
       {
-        name: `Aspirant Gor-kin`,
-        desc: `If the unit of Tzaangors from a Tzaangor Coven is within 3" of an enemy unit and within 9" of the battalion's unit of Tzaangor Enlightened or Tzaangor Skyfires at the start of your hero phase, it can pile in and attack as if it were the combat phase. If the unit of Tzaangors is within 9" of both of these units at the start of your hero phase, then you can also add 1 to their wound rolls when they attack in this manner.`,
+        name: `Pride of the Gor-kin`,
+        desc: `At the start of your hero phase, you can pick 1 friendly unit from this battalion that is within 3" of an enemy unit. That unit can shoot or fight.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Ferocious Fighters`,
-        desc: `Vicious Beak attacks made by models from a Tzaangor Coven wound on a roll of 4+ instead of 5+.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cult of the Transient Form`,
-    effects: [
-      {
-        name: `The Change-gift`,
-        desc: `Roll a D6 each time a Kairic Acolyte from the Cult of the Transient Form is slain. On a roll of 6, they are blessed with new life and are transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit. In addition, roll a D6 each time a HERO from the Cult of the Transient Form is slain. On a roll of 6 they are reborn as a horrific Tzeentch Chaos Spawn; set up a Tzeentch Chaos Spawn under your control anywhere within 6" of the slain HERO model just before removing it.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `The Pyrofane Cult`,
-    effects: [
-      {
-        name: `Arch-Pyromancers`,
-        desc: `You can add 1 to the wound rolls of Sorcerous Bolt attacks made by Kairic Acolytes from the Pyrofane Cult for each other unit from the battalion that attacked the target unit with Sorcerous Bolts earlier in the same phase. For example, if two units of Kairic Acolytes from the Pyrofane Cult had already targeted a unit with Sorcerous Bolts, you could add 2 to the wound rolls of the third unit that did so.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -566,8 +543,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Boon of Mutation`,
-        desc: `In each of your hero phases, roll a D6 for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, they are blessed with mutation and transmogrified into a Tzaangor. If there is already a friendly Tzaangor unit within 6" of the slain model's unit, add the Tzaangor to that unit, otherwise set it up as a new unit within 6" of the slain model's unit.`,
-        when: [HERO_PHASE],
+        desc: `In each of the charge phase, roll a D6 for each enemy unit that is within 3" of a unit from an Alter-kin Coven. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds. If any models are slain in this manner, you can add 1 Tzaangor model to an existing Tzaangor unit in your army. If you do so, set up that Tzaangor model within 1" of a friendly Tzaangor unit that is within 9" of the slain model. The model can only be set up within 3" of an enemy unit if the friendly Tzaangor unit was within 3" of that enemy unit before any models were added.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -576,13 +553,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Master of the Cult`,
-        desc: `Each time you use a Destiny Dice to predetermine a dice roll for the master of the cult, roll a D6; on a roll of 4, 5 or 6, you may roll another dice and immediately add it to your Destiny Dice pool.`,
+        desc: `After armies are set up but before the first battle round begins, pick 1 friendly model from this battalion. For the rest of the battle, each time you spend a Destiny Dice to replace a dice roll for that model, roll a dice. On a 2+, you can replace one of your remaining Destiny Dice with that roll.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Cabal of Sorcerers`,
-        desc: `Each Wizard from an Arcanite Cabal that is within 9" of at least two other WIZARDS from the same battalion in your hero phase can attempt to cast one additional spell.`,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -591,13 +563,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Destiny Preordained`,
-        desc: `When generating your Destiny Dice pool at the start of the battle, you can choose the results of 3 of the dice before rolling the remaining 6 dice as normal.`,
+        desc: `When generating your Destiny Dice pool at the start of the battle, you can choose the results of 6 of the dice before rolling the remaining 3 dice as normal.`,
         when: [END_OF_SETUP],
-      },
-      {
-        name: `Strength in Conviction`,
-        desc: `Add 1 to the Bravery of all models in an Arcanite Cult.`,
-        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -606,7 +573,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Feed of Magic`,
-        desc: `If a unit from an Aether-eater Host successfully unbinds a spell cast by an enemy model, they immediately heal D3 wounds. Whilst an Aether-eater Host has 9 or more units, then any units of Screamers from the battalion can attempt to unbind one spell in each enemy hero phase in the same manner as a wizard (meaning they can also heal wounds as described above).`,
+        desc: `If a friendly unit from this battalion successfully unbinds a spell in the enemy hero phase, you can immediately heal D3 wounds allocated to that unit. In addition, 1 friendly Screamers of Tzeentch unit from this battalion can attempt to unbind 1 spell in the enemy hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -616,8 +583,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Deceive and Dismay`,
-        desc: `At the start of each of your hero phases, you may pick a pair of units from this battalion that are within 27" of the battalion's Lord of Change to swap places. To do so, take one model from each unit, and have them swap places on the battlefield. Then, remove all of the other models from the two units, and set them back up within 9" of the model from their unit that first swapped places. If a Changehost has 9 or more units at the start of your hero phase, you can pick two different pairs of units to swap places rather than only one. If the Changehost has 18 or more units, then you can pick three different pairs of units to swap places. Each unit can only move this way once in a hero phase.`,
-        when: [HERO_PHASE],
+        desc: `At the start of each of your hero phases, if the Lord of Change from this battalion is your general and is on the battlefield, you can pick 2 other friendly units from this battalion and remove them from the battlefield. If you do so, set up those units again anywhere on the battlefield more than 9" from any enemy units. The units you set up cannot move in the following movement phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -626,8 +593,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Horrors Without Number`,
-        desc: `In each of your hero phases, add D3 models to each unit of PINK HORRORSand/or BLUE HORRORS, and add 1 model to each unit of BRIMSTONE HORRORS in this battalion.`,
-        when: [HERO_PHASE],
+        desc: `At the start of your hero phases, you can return D3 slain Horrors of Tzeentch models to each friendly Horrors of Tzeentch unit from this battalion (roll separately for each unit)`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -636,7 +603,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Knowledge of Past, Present and Future`,
-        desc: `You can re-roll any hit, wound, save and run rolls of 1 - as well as any dice rolls of 1 in a charge roll - for models from this battalion.`,
+        desc: `You can re-roll any hit, wound, save and run rolls of 1 for models from this battalion.`,
         when: [DURING_GAME],
       },
     ],
@@ -646,38 +613,8 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `The Will of Tzeentch`,
-        desc: `At the start of each of your hero phases, add 1 dice to your Destiny Dice pool whilst at least one model from this battalion is on the battlefield. In addition, you can choose to substitute dice rolls that you have already made with Destiny Dice (rather than substituting them before rolling) whilst this battalion has 9 or more models.`,
+        desc: `At the start of your hero phases, if 1 or more friendly units from this battalion are on the battlefield, you can roll a dice and add it to your Destiny Dice. In addition, at the start of your hero phase, if the Lord of Change from this battalion is on the battlefield, you can reroll one of your Destiny Dice.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Master of Fate`,
-        desc: `If the Lord of Change from this battalion is on the battlefield, then in each of your hero phases you can choose to re-roll the result of one of the dice in your Destiny Dice pool.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Eternal Conflagration`,
-    effects: [
-      {
-        name: `Pawns of the Radiant Lord`,
-        desc: `When the Lord of Change that must be taken in this battalion successfully casts an Arcane Bolt or Mystic Shield spell, you can measure the range and visibility for the spell from a Flamer from this battalion instead of the caster.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Coruscating Flames`,
-        desc: `Your opponent must subtract 1 from any hit rolls that target units of Flamers and Exalted Flamers of Tzeentch from the Eternal Conflagration in the shooting phase.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Hosts Duplicitous`,
-    effects: [
-      {
-        name: `Glamoursmiths`,
-        desc: `When a WIZARD from this battalion rolls a 1 on any dice as part of a casting roll, count it as a 2instead.`,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -686,8 +623,28 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Storm of Daemonic Fire`,
-        desc: `In each of your hero phases, roll a D6 for each enemy unit that is within 9" of a unit from a Warpflame Host. On a roll of a 6, the unit being rolled for suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
+        desc: `At the end of the charge phase, roll a dice for each enemy unit within 9" of any friendly units from this battalion. On a 6, that enemy unit suffers D3 mortal wounds.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ab-Het's Skyseekers`,
+    effects: [
+      {
+        name: `Foreseen Manoeuveres`,
+        desc: `When making a charge roll for a unit from this battalino, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fate Legion`,
+    effects: [
+      {
+        name: `Three times three, the offerings be`,
+        desc: `If your army includes this battalion, you start the battle with 9 Fate Points.`,
+        when: [START_OF_GAME],
       },
     ],
   },
