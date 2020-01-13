@@ -201,7 +201,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Slayer of Kings`,
-        desc: `If the unmodified wound rolls for 2 attacks targeting the same enemy hero in the same phase are 6, the enemy hero is slain.`,
+        desc: `Each time this model attacks, if the unmodified wound roll for 2 attacks targeting the same enemy hero 6, that hero is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -236,7 +236,7 @@ export const Units: TUnits = [
       },
       {
         name: `By My Will`,
-        desc: `You can use this once per turn. Pick 1 friendly Slaves to Darkness unit on the battlefield. If a model from that unit is slain by a melee weapon, it may fight before it is removed from play.`,
+        desc: `You can use this once per turn. Pick 1 friendly Slaves to Darkness unit on the battlefield. If a model from that unit is slain by a melee weapon, it may fight before it is removed from play. The same unit cannot benefit from this more than once per turn.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -350,7 +350,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bloated Blessings: ${MARK_NURGLE}`,
-        desc: `Pick 1 friendly Slaves to Darkness Nurgle unit wholly within 12" of this model. Until your next hero phase, unmodified hit rolls of 6 against the buffed unit inflict D3 mortal wounds to the attacker after all its attacks have resolved.`,
+        desc: `Pick 1 friendly Slaves to Darkness Nurgle unit wholly within 12" of this model. Until your next hero phase, if any unmodified hit rolls of 6 occur against the buffed unit, inflict D3 mortal wounds to the attacker after all its attacks have resolved. The same unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
@@ -565,7 +565,7 @@ export const Units: TUnits = [
       },
       {
         name: `Last Gasp of Glory`,
-        desc: `Friendly Chaos Marauders and Cultists models that are slain within 12" of this model that have not yet fought in this phase can fight before being removed from play.`,
+        desc: `Friendly Chaos Marauders and Cultists models that are slain within 12" of this model that have not yet fought in this phase can fight before being removed from play. The same unit cannot benefit from this ability more than once per turn.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -769,7 +769,7 @@ export const Units: TUnits = [
       ChaosMarkAll,
       {
         name: `Protection of the Dark Gods`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range. On a 6+ the allocated wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range of any model with this ability. On a 6+ the allocated wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -1294,7 +1294,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Circles Unleashed`,
-        desc: `Select one of The Eight Circles of the Varanguard keywords for each unit in this battalion.`,
+        desc: `You can replace one of The Eight Circles of the Varanguard keywords with a different keyword from the same list for each unit in this battalion.`,
         when: [DURING_SETUP],
       },
     ],
