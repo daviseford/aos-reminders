@@ -12,6 +12,7 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
+  GREENSKINZ,
   IDONETH_DEEPKIN,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
@@ -111,9 +112,9 @@ const azyrTypoMap: TNameMap = {
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
   'Ogors Gluttons': 'Ogor Gluttons',
+  'The Skyborne Slayers': 'Skyborne Slayers',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
-  'The Blood-forged Armour': 'Blood-forged Armour',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -144,6 +145,7 @@ const battlescribeTypoMap: TNameMap = {
   'Light of Dracothian': 'Light of Dracothion',
   'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
   'Mazrall the Butcher': 'Mazarall the Butcher',
+  'Mortek Shied-corps': 'Mortek Shield-Corps',
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
   'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
@@ -157,6 +159,7 @@ const battlescribeTypoMap: TNameMap = {
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
+  'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Warp Lighting Storm': 'Warp Lightning Storm',
   'Warrgog Prophet': 'Wurrgog Prophet',
@@ -347,6 +350,7 @@ export const importFactionNameMap = {
   Dispossessed: DISPOSSESSED,
   Everchosen: SLAVES_TO_DARKNESS,
   Fyreslayers: FYRESLAYERS,
+  Greenskinz: GREENSKINZ,
   Gutbusters: OGOR_MAWTRIBES,
   Ironjawz: IRONJAWZ,
   Khorne: KHORNE,

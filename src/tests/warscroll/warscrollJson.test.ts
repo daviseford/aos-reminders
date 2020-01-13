@@ -12,6 +12,7 @@ import {
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
+  GREENSKINZ,
   IRONJAWZ,
   KHORNE,
   NIGHTHAUNT,
@@ -34,6 +35,58 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should not work with The Choir of Torments battalion (not in current book)', () => {
+    const parsedText = getFile('1578184338167-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'The Choir of Torments',
+      },
+    ])
+  })
+
+  it("should not work with Everwinter's Master trait (not in book)", () => {
+    const parsedText = getFile('1578192442310-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Everwinter's Master",
+      },
+    ])
+  })
+
+  it('should work with Greenskinz', () => {
+    const parsedText = getFile('1578518862312-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(GREENSKINZ)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should not work with Stormcast/Nighthaunt mix', () => {
+    const parsedText = getFile('1578691480138-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Knight of Shrouds on Ethereal Steed',
+      },
+      {
+        severity: 'warn',
+        text: 'Bladegheist Revenants',
+      },
+    ])
+  })
+
+  it('should work with The Blood-forged Armour', () => {
+    const parsedText = getFile('1578730417865-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('The Blood-forged Armour')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Vitriolic Spray (Anvilgard)', () => {
     const parsedText = getFile('1577866703167-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

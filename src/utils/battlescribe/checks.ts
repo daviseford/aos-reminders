@@ -54,7 +54,9 @@ export const isAllegianceObj = (obj: IParentNode | IChildNode): obj is IParentNo
       isParentNode(x) &&
       (x.nodeName === 'h4' || x.nodeName === 'li') &&
       isChildNode(x.childNodes[0]) &&
-      (x.childNodes[0].value === 'Allegiance' || x.childNodes[0].value === 'Alliegiance')
+      (x.childNodes[0].value === 'Allegiance' ||
+        x.childNodes[0].value === 'Alliegiance' ||
+        x.childNodes[0].value.startsWith('Allegiance:'))
     )
   })
   return !!subObj
