@@ -27,6 +27,7 @@ import {
   SLAANESH,
   SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
+  TZEENTCH,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
 
@@ -46,6 +47,60 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'ambiguity-warn',
         text:
           "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles Tzeentch3 (waiting for new book)', () => {
+    const fileTxt = getFile('Tzeentch3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Eternal Conflagration',
+      },
+      {
+        severity: 'warn',
+        text: 'Shroud of Warpflame',
+      },
+      {
+        severity: 'warn',
+        text: 'Coruscating Flames',
+      },
+      {
+        severity: 'warn',
+        text: 'Changecaster',
+      },
+    ])
+  })
+
+  it('handles Stormcast7', () => {
+    const fileTxt = getFile('Stormcast7')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections.battalions).toContain('Skyborne Slayers')
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles StD11', () => {
+    const fileTxt = getFile('StD11')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -112,7 +167,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Slaanesh3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles StD8', () => {
@@ -866,10 +927,10 @@ describe('getAzyrArmyFromPdf', () => {
       traits: ['True Child of Slaanesh (Pretenders Host)', 'Monarch of Lies (Pretenders Host)'],
       triumphs: [],
       units: [
-        'Keeper of Secrets w/ Ritual Knife',
+        'Keeper of Secrets w/ Living Whip',
         'The Contorted Epitome',
         'The Masque',
-        'Keeper of Secrets w/ Living Whip',
+        'Keeper of Secrets w/ Ritual Knife',
       ],
     })
   })
@@ -1174,7 +1235,7 @@ describe('getAzyrArmyFromPdf', () => {
       'Lord-Arcanum',
       'Lord-Celestant',
       'Evocators',
-      'Prosecutors with Stormcall Javelins',
+      'Prosecutors with Celestial Hammers',
       'Vanguard-Raptors with Hurricane Crossbows',
     ])
     expect(res.errors).toEqual([

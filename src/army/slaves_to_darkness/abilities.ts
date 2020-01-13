@@ -16,7 +16,7 @@ import { MARK_KHORNE, MARK_SLAANESH, MARK_NURGLE, MARK_TZEENTCH, MARK_UNDIVIDED 
 const Abilities: TAbilities = [
   {
     name: `Aura of Chaos`,
-    desc: `Each Slaves to Darkness hero in this allegiance has an Aura of Chaos based on its Mark of Chaos chosen during army construction. If a unit has more than one Mark of Chaos you must select one aura it will use for the duration of the battle.`,
+    desc: `If a Slaves to Darkness hero has a Mark of Chaos keyword, that hero has an Aura of Chaos based on the Mark selected during army construction. If a unit has more than one Mark of Chaos you must select one aura it will use for the duration of the battle.`,
     when: [DURING_SETUP],
   },
   {

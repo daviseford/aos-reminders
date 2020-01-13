@@ -2,7 +2,7 @@ import { uniq } from 'lodash'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { mapListToDict } from 'utils/mapListToDict'
 import { TImportError } from 'types/import'
-import { TNameMap } from 'utils/import/options'
+import { TNameMap, importUnitOptionMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
 import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
@@ -53,6 +53,13 @@ export const importSelectionLookup = (
       if (NameMap[val]) {
         foundSelections.push(orig)
         return val
+      }
+
+      // See if we have a matching conversion for a certain weapon -> unit
+      // e.g. 'Ritual Knife' -> 'Keeper of Secrets w/ Ritual Knife'
+      if (type === 'units' && importUnitOptionMap[orig]) {
+        foundSelections.push(orig)
+        return importUnitOptionMap[orig]
       }
 
       // We will check everything against uppercased values

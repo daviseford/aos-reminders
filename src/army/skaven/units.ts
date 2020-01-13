@@ -931,27 +931,51 @@ export const Battalions: TBattalions = [
   },
   {
     name: `Warpcog Convocation`,
+    effects: [],
+  },
+  {
+    name: `Arkhspark Voltik (Enginecoven)`,
     effects: [
       {
         name: `Arkhspark Voltik`,
         desc: `In your shooting phase, you can pick 1 WARP LIGHTNING CANNON from this enginecoven that is within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion. If you do so, subtract 1 from the power of that WARP LIGHTNING CANNON's Warp Lightning Blast in that shooting phase (to a minimum power of 1).`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  {
+    name: `Gascloud Chokelung (Enginecoven)`,
+    effects: [
       {
         name: `Gascloud Chokelung`,
         desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  {
+    name: `Gautfyre Skorch (Enginecoven)`,
+    effects: [
       {
         name: `Gautfyre Skorch`,
-        desc: `Up to 2 units can join each WARP- GRINDER from this enginecoven instead of only 1, as long as both of the units come from the same enginecoven as the WARP-GRINDER that they join tunnelling.`,
+        desc: `Up to 2 units can join each WARP-GRINDER from this enginecoven instead of only 1, as long as both of the units come from the same enginecoven as the WARP-GRINDER that they join tunnelling.`,
         when: [DURING_GAME],
       },
+    ],
+  },
+  {
+    name: `Rattlegauge Warplock (Enginecoven)`,
+    effects: [
       {
         name: `Rattlegauge Warplock`,
         desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  {
+    name: `Whyrlblade Threshik (Enginecoven)`,
+    effects: [
       {
         name: `Whyrlblade Threshik`,
         desc: `You can move a unit from this enginecoven an extra 3" when it starts the move wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
@@ -959,6 +983,7 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+
   {
     name: `Congregation of Filth`,
     effects: [

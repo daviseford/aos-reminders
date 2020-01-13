@@ -16,6 +16,7 @@ import {
   KHORNE,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
+  LEGIONS_OF_GRIEF,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -38,6 +39,62 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with LoG1', () => {
+    const parsedText = getFile('LoG1')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Overwhelming Dread',
+      },
+    ])
+  })
+
+  it('should work with OBR1', () => {
+    const parsedText = getFile('OBR1')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Vokmortian')
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Allegiance: The Ossiarch Empire',
+      },
+    ])
+  })
+
+  it('should work with OBR2', () => {
+    const parsedText = getFile('OBR2')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.selections.scenery).toContain('Bone-Tithe Nexus')
+    expect(res.selections.allegiances).toContain('Petrifex Elite')
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Allegiance: The Ossiarch Empire',
+      },
+    ])
+  })
+
+  it('should work with Stormcast7', () => {
+    const parsedText = getFile('Stormcast7')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Tzeentch3', () => {
+    const parsedText = getFile('Tzeentch3')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gaunt Summoner & Chaos Familiars',
+      },
+    ])
+  })
+
   it('should work with BigWaaagh4', () => {
     const parsedText = getFile('BigWaaagh4')
     const res = getBattlescribeArmy(parsedText)

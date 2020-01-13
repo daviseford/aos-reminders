@@ -12,6 +12,7 @@ import {
   GLOOMSPITE_GITZ,
   IRONJAWZ,
   KHARADRON_OVERLORDS,
+  KHORNE,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -22,7 +23,6 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
-  KHORNE,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -30,6 +30,20 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('reads Warpcog Convocation correctly with no errors', () => {
+    const pdfText = getFile('WarpcogList')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SKAVEN)
+    expect(warscrollTxt.selections.battalions).toEqual([
+      'Warpcog Convocation',
+      'Rattlegauge Warplock (Enginecoven)',
+      'Gascloud Chokelung (Enginecoven)',
+    ])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('does not include Quicksilver Swords via unknownSelections', () => {
     const pdfText = getFile('KhorneDaemonPrincewithSword')
     const parsedText = parsePdf(pdfText)
