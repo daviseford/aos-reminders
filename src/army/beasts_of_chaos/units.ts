@@ -385,7 +385,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Guided by the Future`,
-        desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -436,7 +436,7 @@ export const Units: TUnits = [
       },
       {
         name: `Guided by the Past`,
-        desc: `In the combat phase, you can re-roll failed hit and wound rolls for attacks made by this unit if one or more enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if any enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -462,7 +462,7 @@ export const Units: TUnits = [
       },
       {
         name: `Arcanite Shield`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly TZAANGORS unit that has any models armed with Arcanite Shields. On a 6+ that wound or mortal wound is negated.`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
         when: [WOUND_ALLOCATION],
       },
       {

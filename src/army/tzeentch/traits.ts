@@ -6,7 +6,6 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -15,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Arch-sorcerer`,
-        desc: `Generate two additional spells for your general from the Lore of Fate.`,
+        desc: `This general knows 2 extra spells from their Lore.`,
         when: [START_OF_SETUP],
       },
     ],
@@ -25,7 +24,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Nexus of Fate`,
-        desc: `If your general is on the battlefield at the start of your hero phase, roll a D6; on a 1 or 6, you can choose to replace one Destiny Dice from your pool with the number you rolled.`,
+        desc: `At the start of your hero phase, if this general is on the field, you can roll a die. If you do so, you can replace one of your Destiny Dice with that roll.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -35,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Magical Supremacy`,
-        desc: `Add 12" to the range at which your general can attempt to unbind spells.`,
+        desc: `Add 12" to the range at which your general can attempt to unbind spells and dispel endless spells.`,
         when: [HERO_PHASE],
       },
     ],
@@ -45,7 +44,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Boundless Mutation`,
-        desc: `At the start of each of your hero phases, roll a D6; on a 2 or more, your general heals D3 wounds. On a roll of 1, your general suffers 1 mortal wound; if this slays the general, before you remove the general's model, you can add a Tzeentch Chaos Spawn to your army and set it up within 1" of your general.`,
+        desc: `At the start of your hero phases, roll a D6; on a 2+, your general heals D3 wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -55,7 +54,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cult Demagogue`,
-        desc: `Add 2 to the Bravery characteristic of friendly Tzeentch Arcanite units whilst they are within 9" of the general.`,
+        desc: `If a casting roll for this general is a double, the casting attempt is automatically successful(regardless of result). In addition, if the spell is not unbound, you receive 2 fate points instead of 1.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -65,7 +64,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Arcane Sacrifice`,
-        desc: `At the start of your hero phase, you can inflict D3 mortal wounds on a friendly unit within 3" of your general. If you do so, then you can re-roll any failed casting rolls for your general for the duration of that phase, and increase the range of any spells they cast by 9".`,
+        desc: `At the start of your hero phase, you can inflict 1 mortal wounds on a friendly Tzeentch unit within 3" of your general. If you do so, until the end of that phase, add 9" to the range of any spell successfully cast by this general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -75,7 +74,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Daemonspark`,
-        desc: `Once per battle, in your hero phase, you can unleash the Daemonspark. Add 1 to the Damage characteristic of all of your general's melee weapons for the rest of the turn.`,
+        desc: `Once per battle, in your hero phase, you can unleash the Daemonspark. If you do so, you immediately gain 3 Fate Points.`,
         when: [HERO_PHASE],
       },
     ],
@@ -85,8 +84,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Incorporeal Form`,
-        desc: `Your opponent must subtract 1 from any hit rolls that target your general in the combat phase.`,
-        when: [COMBAT_PHASE],
+        desc: `Each time this general is affected by a spell or endless spell, you can roll a dice. On a 5+, ignore the effects of that spell or endless spell on this general.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -95,18 +94,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Aether Tether`,
-        desc: `You can re-roll save rolls of 1 for your general.`,
+        desc: `Add 1 to save rolls for attacks that target this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Blessing of Tzeentch`,
-    effects: [
-      {
-        name: `Blessing of Tzeentch`,
-        desc: `Each time your general suffers a wound or mortal wound, roll a D6; on a roll of 6, the wound is ignored.`,
-        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -115,7 +104,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Soul Burn`,
-        desc: `Each time you make a wound roll of 6 or higher for any of your general's melee weapons, the target unit suffers 1 mortal wound in addition to any other damage it suffers.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this gerenal is a 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -125,8 +114,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Illusionist`,
-        desc: `Your opponent must subtract 1 from any hit rolls that target your general in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        desc: `Subtract 1 from hit rolls for attacks that target this general.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },

@@ -1,128 +1,119 @@
 import { TSpells } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 // Spell Lores of Tzeentch
 const Spells: TSpells = [
   // Lord of Fate
   {
-    name: `Bolt of Tzeentch (Mortal)`,
+    name: `Bolt of Tzeentch`,
     effects: [
       {
         name: `Bolt of Tzeentch`,
-        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Arcane Suggestion (Mortal)`,
+    name: `Arcane Suggestion`,
     effects: [
       {
         name: `Arcane Suggestion`,
-        desc: `Casting value of 7. Pick an enemy unit (not a hero or monster) within 18" of the caster. Roll a D6 and follow the D3 result:
-               1 -  The unit immediately suffers D3 mortal wounds.
-               2 -  Until the end of this turn, subtract 1 from hit and wound rolls for the unit.
-               3 -  Until the end of this turn, subtract 1 from the save rolls for the unit.`,
-        when: [HERO_PHASE],
+        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them and pick one of the following: 
+        
+        - The unit suffers D3 mortal wounds.
+        - Subtract 1 from hit and wound rolls made by that unit until your next hero phase. 
+        - Subtract 1 from save rolls for attacks that target that unit until your next hero phase`,
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Glimpse the Future (Mortal)`,
+    name: `Glimpse the Future`,
     effects: [
       {
         name: `Glimpse the Future`,
-        desc: `Casting value of 7. Roll a D6 and add it to your Destiny Dice pool.`,
+        desc: `Casting value of 7. Roll a dice and add it to your Destiny Dice pool.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Shield of Fate (Mortal)`,
+    name: `Shield of Fate`,
     effects: [
       {
         name: `Shield of Fate`,
-        desc: `Casting value of 5. Pick a friendly Tzeentch unit within 18" of the caster. Until the start of your next hero phase, the selected unit can:
-               Re-roll saves of 1   if you have 1-3 Destiny Dice.
-               Re-roll saves of 1-2 if you have 4-6 Destiny Dice.
-               Re-roll saves of 1-3 if you have 7-9 Destiny Dice.`,
-        when: [HERO_PHASE],
+        desc: `Casting value of 6. Pick a friendly Tzeentch unit wholly within 18" of the caster and visible. Until the start of your next hero phase, the selected unit gains the benefit below based on the number of destiny dice left in your pool:
+               1-3: You can re-roll save rolls of 1 for attacks that target that unit.
+               4-6: You can re-roll save rolls for attacks that target that unit.
+               7-9: You can roll a dice each tim that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can re-roll save rolls for attacks that target that unit.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Infusion Arcanum (Mortal)`,
+    name: `Infusion Arcanum`,
     effects: [
       {
         name: `Infusion Arcanum`,
         desc: `Casting value of 5. Until your next hero phase you can add 1 to all hit and wound rolls for the caster.`,
-        when: [HERO_PHASE],
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Treacherous Bond (Mortal)`,
+    name: `Treacherous Bond`,
     effects: [
       {
         name: `Treacherous Bond`,
-        desc: `Casting value of 6. Pick a friendly unit within 18" of the caster. Until your next hero phase, as long as the target is within 9" of the caster, roll a D6 whenever the caster suffers an unsaved wound or mortal wound. On a 2+ the chosen unit suffers the wound or mortal wound instead.`,
-        when: [HERO_PHASE],
+        desc: `Casting value of 5. Pick 1 friendly Tzeentch Mortal unit wholly within 9" of the caster and visible to them. Until your next hero phase, roll a dice before you allocate any wounds or mortal wounds to the caster. On a 3+, you must allocate those wounds or mortal wounds to that friendly unit isntead.`,
+        when: [HERO_PHASE, WOUND_ALLOCATION],
       },
     ],
   },
   // Lore of Change.
   {
-    name: `Bolt of Tzeentch (Daemon)`,
-    effects: [
-      {
-        name: `Bolt of Tzeentch`,
-        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Treason of Tzeentch (Daemon)`,
+    name: `Treason of Tzeentch`,
     effects: [
       {
         name: `Treason of Tzeentch`,
-        desc: `Casting value of 5. Pick an enemy unit with 2 or more models within 18" of the caster that is visible to them. Roll a D6 for each model in the unit you picked. It suffers 1 mortal wound for each dice roll of 6 or more. If, after any of the mortal wounds caused by this spell are allocated, only one model remains in the unit, any remaining mortal wounds caused by this spell are negated and have no effect.`,
-        when: [HERO_PHASE],
+        desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster and visible to them. Roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. if any models are slain by this spell, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Arcane Transformation (Daemon)`,
+    name: `Arcane Transformation`,
     effects: [
       {
         name: `Arcane Transformation`,
-        desc: `Casting value of 7. Pick a friendly hero within 18" of the caster and visible to them. You can permanently increase that model's move, bravery, or attacks charateristic of one weapon by 1. However, each hero can only be chosen as the target of this spell once per battle.`,
+        desc: `Casting value of 6. Pick a friendly Tzeentch hero wholly within 18" of the caster and visible to them. Until your next hero phase, you can either add 1 to that Hero's move and bravery characteristic or add 1 to the Attacks characteristic of one of that Hero's melee weapons.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Unchecked Mutation (Daemon)`,
+    name: `Unchecked Mutation`,
     effects: [
       {
         name: `Unchecked Mutation`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster. The unit selected suffers D3 mortal wounds and then you roll a D6. That unit suffers D3 mortal wounds. After the mortal wounds have been allocated, roll a D6. On a roll of 5 or more, the unit suffers 1 more mortal wound. If the unit suffers 1 more mortal wound, roll a D6 after the mortal wound has been allocated; on a roll of 5 or more the unit suffers 1 more mortal wound, and so on until you fail to roll a 5 or more.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models are slain by this spell, you can roll a dice. On a 3+, that unit suffers an additional D3 mortal wounds and this spell ends.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Fold Reality (Daemon)`,
+    name: `Fold Reality`,
     effects: [
       {
         name: `Fold Reality`,
-        desc: `Casting value of 7. Pick a friendly unit of Tzeentch Daemons within 18" of the caster and visible to them. Roll a D6 and on a 2+ you can return that many slain models to the unit. On a 1, the entire unit is slain.`,
+        desc: `Casting value of 7. Pick a friendly unit of Tzeentch Daemons wholly within 18" of the caster and visible to them, and roll a dice. On a 1, that unit is destroyed. On a 2+, you can return a number of slaim models equal to that roll to that unit. Set up the models one at a time 1" of a model from that unit that has not been returned in that phase. The models can only be set up within 3" of an enemy unit if the friendly unit was within 3" of that enemy unit before any models were returned.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Tzeentch's Inferno. (Daemon)`,
+    name: `Tzeentch's Firestorm`,
     effects: [
       {
         name: `Tzeentch's Inferno.`,

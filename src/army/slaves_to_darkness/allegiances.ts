@@ -125,7 +125,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dark Prophecy`,
-        desc: `If Archaon is your general and on the battlefield, roll a D6 and keep the result hidden. At the start of the next battle round, before players determine who has the first turn, you can reveal the result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
+        desc: `If Archaon is your general and on the battlefield, roll a D6 and keep the result hidden beneath an opaque container. At the start of the next battle round, before players determine who has the first turn, you must reveal the result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
         when: [START_OF_HERO_PHASE],
         command_ability: true,
       },
