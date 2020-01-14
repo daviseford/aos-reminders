@@ -374,8 +374,8 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Book of Profane Secrets`,
-        desc: `Once per battle this model can use this ability. Summon 1 unit of the following to the battlefield: 10 Bloodletters, 10 Daemonettes, 10 Pink Horrors, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
-        when: [HERO_PHASE],
+        desc: `Once per battle this model can use this ability at the start of your hero phase. Summon 1 unit of the following to the battlefield: 10 Bloodletters, 10 Daemonettes, 10 Pink Horrors, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Warptongue Blade`,
