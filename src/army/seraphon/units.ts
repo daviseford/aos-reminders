@@ -406,6 +406,11 @@ export const Units: TUnits = [
     name: `Skinks`,
     effects: [
       {
+        name: `Alpha`,
+        desc: `The leader of this unit is the Alpha. An Alpha makes 2 attacks rather than 1 in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Wary Fighters`,
         desc: `When it is a Skink unit's turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.`,
         when: [COMBAT_PHASE],

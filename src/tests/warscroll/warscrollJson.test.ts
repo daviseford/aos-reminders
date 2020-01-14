@@ -263,7 +263,16 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       units: ['Corvus Cabal'],
     })
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Blessing of Tzeentch',
+      },
+      {
+        severity: 'warn',
+        text: 'Pink Horrors of Tzeentch',
+      },
+    ])
   })
 
   it('should work with Hailstorm Battery (SCE battalion)', () => {
@@ -525,7 +534,16 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(TZEENTCH)
     expect(warscrollTxt.selections.traits).toEqual(['Arch-sorcerer'])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Souldraught',
+      },
+      {
+        severity: 'warn',
+        text: 'Cult of the Transient Form',
+      },
+    ])
   })
 
   it('should work with Big Rukk', () => {
@@ -733,12 +751,17 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Windthief Charm', () => {
+  it('should work with Windthief Charm (deprecated as of 2020)', () => {
     const parsedText = getFile('1572003972006-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(TZEENTCH)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Windthief Charm',
+      },
+    ])
   })
 
   it('should work with Hammers of Augury', () => {

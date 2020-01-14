@@ -51,29 +51,12 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles Tzeentch3 (waiting for new book)', () => {
+  it('handles Tzeentch3', () => {
     const fileTxt = getFile('Tzeentch3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Eternal Conflagration',
-      },
-      {
-        severity: 'warn',
-        text: 'Shroud of Warpflame',
-      },
-      {
-        severity: 'warn',
-        text: 'Coruscating Flames',
-      },
-      {
-        severity: 'warn',
-        text: 'Changecaster',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles Stormcast7', () => {

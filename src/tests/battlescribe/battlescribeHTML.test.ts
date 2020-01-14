@@ -90,6 +90,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Fireblast',
+      },
+      {
+        severity: 'warn',
         text: 'Gaunt Summoner & Chaos Familiars',
       },
     ])
@@ -149,6 +153,10 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: 'Fractal Mindstorm',
+      },
+      {
+        severity: 'warn',
+        text: 'Pink Horrors of Tzeentch',
       },
     ])
   })
@@ -634,7 +642,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Souldraught',
+      },
+    ])
   })
 
   it('should work with StD1', () => {
