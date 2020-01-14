@@ -18,7 +18,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Masters of Destiny`,
-    desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use.`,
+    desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use. Dice used in this way cannot be rerolled or modifed in anyway.`,
     when: [DURING_GAME],
   },
   {
@@ -40,10 +40,10 @@ const Abilities: TAbilities = [
   },
   {
     name: `Agendas of Anarchy`,
-    desc: `At the start of your hero phase, you can say that your army intends to complete one of the following agendas before the start of your next hero phase. You must tell your opponent which agenda you intend to complete, and you cannot complete the same agenda more than once per battle. 
-    
-    If a friendly Tzeentch unit completes one of the following agendas during a battle, that unit gains that agenda's ability for the rest of the game. 
-    
+    desc: `At the start of your hero phase, you can say that your army intends to complete one of the following agendas before the start of your next hero phase. You must tell your opponent which agenda you intend to complete, and you cannot complete the same agenda more than once per battle.
+
+    If a friendly Tzeentch unit completes one of the following agendas during a battle, that unit gains that agenda's ability for the rest of the game.
+
     Friendly Tzeentch units that complete more than 1 agenda must choose which ability they wish to keep; any other ability gained are lost.`,
     when: [START_OF_HERO_PHASE],
   },

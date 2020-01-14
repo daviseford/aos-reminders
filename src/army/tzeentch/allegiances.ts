@@ -152,7 +152,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Guild of SUmmoners`,
+    name: `The Guild of Summoners`,
     effects: [
       {
         name: `Scions of the Exiled`,
