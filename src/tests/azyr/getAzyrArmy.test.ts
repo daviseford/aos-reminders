@@ -36,6 +36,83 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Tzeentch4', () => {
+    const fileTxt = getFile('Tzeentch4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+
+    expect(res).toEqual({
+      allyFactionNames: [SLAANESH],
+      allySelections: { SLAANESH: { battalions: [], units: ['Keeper of Secrets w/ Ritual Knife'] } },
+      allyUnits: ['Keeper of Secrets'],
+      errors: [],
+      factionName: 'TZEENTCH',
+      origin_realm: null,
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['The Guild of Summoners'],
+        artifacts: ['Brimstone Familiar'],
+        battalions: [],
+        commands: ['Will of the Arcane Lords'],
+        endless_spells: [
+          'Purple Sun of Shyish',
+          'Realmscourge Rupture (Slaves)',
+          'Prismatic Palisade',
+          'Suffocating Gravetide',
+          'Balewind Vortex',
+          'Aethervoid Pendulum',
+          'Soulsnare Shackles',
+        ],
+        scenery: [],
+        spells: [
+          'Glimpse the Future',
+          'Arcane Suggestion',
+          'Shield of Fate',
+          "Tzeentch's Firestorm",
+          'Infernal Flames',
+          'Gestalt Sorcery',
+        ],
+        traits: ['Prophet of the Ostensible'],
+        triumphs: [],
+        units: ['Gaunt Summoner of Tzeentch', 'Kairic Acolytes'],
+      },
+      unknownSelections: [],
+    })
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Slaanesh4', () => {
+    const fileTxt = getFile('Slaanesh4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+
+    expect(res.selections.artifacts).toContain("Guardian's Coronet (Hysh)")
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles IDK4', () => {
+    const fileTxt = getFile('IDK4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+
+    expect(res.selections.allegiances).toEqual(['Dhom Hain (Enclave)'])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
   it('handles Khorne6', () => {
     const fileTxt = getFile('Khorne6')
     const pages = handleAzyrPages(fileTxt)

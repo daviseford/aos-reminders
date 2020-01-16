@@ -844,15 +844,15 @@ const RealmArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Guardan's Coronet (${HYSH})`,
+    name: `Guardian's Coronet (${HYSH})`,
     effects: [
       {
-        name: `Guardan's Coronet (${HYSH})`,
+        name: `Guardian's Coronet (${HYSH})`,
         desc: `Once per battle, at the start of your hero phase, the bearer can call upon the guardian spirits. If they do so, until your next hero phase, roll a D6 each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Guardan's Coronet (${HYSH})`,
+        name: `Guardian's Coronet (${HYSH})`,
         desc: `If active, roll a D6 each time you allocate a wound to the bearer. On a 4+ the wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
