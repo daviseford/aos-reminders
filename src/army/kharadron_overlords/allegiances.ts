@@ -3,41 +3,41 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_SETUP,
-  START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import {
+  AlwaysABreezeIfYouLookForItEffect,
   AlwaysTakeWhatYouAreOwedEffect,
+  ChronicleOfGrudgesEffect,
+  DontArgueWithTheWindEffect,
   HonourIsEverythingEffect,
+  HonourTheGodsJustInCaseEffect,
+  LeaveNoDuardinBehindEffect,
   MasterTheSkiesEffect,
   ProsecuteWarsWithAllHasteEffect,
+  RespectYourCommandersEffect,
   SeekNewProspectsEffect,
+  ShowThemYourSteelEffect,
+  TakeHelpWhereYouCanGetItEffect,
+  ThroughKnowledgePowerEffect,
+  TrustAethermaticsNotSuperstitionEffect,
+  WhereTheresWarTheresGoldEffect,
+  WhoStrikesFirstStrikesHardestEffect,
 } from './traits'
 
 const Allegiances: TAllegiances = [
   {
     name: `Barak-Zilfin, The Windswept City (Skyport)`,
     effects: [
+      AlwaysABreezeIfYouLookForItEffect,
+      DontArgueWithTheWindEffect,
       MasterTheSkiesEffect,
-      {
-        name: `AMENDMENT: Don't Argue With the Wind`,
-        desc: `In your movement phase, if you declare a friendly BARAK- ZILFIN unit will run, do not make a run roll Instead, add 6" to the Move characteristic of all models in that unit for that phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `FOOTNOTE: There's Always a Breeze if You Look for it`,
-        desc: `Once per battle, in your hero phase, 1 friendly BARAK-ZILFIN unit can make a normal move (it can run, retreat or disengage).`,
-        when: [HERO_PHASE],
-      },
       {
         name: `Magnificent Skyvessels`,
         desc: `You can choose 1 extra SKYVESSEL in your army to have a great endrinwork.`,
@@ -61,16 +61,8 @@ const Allegiances: TAllegiances = [
     name: `Barak-Zon, City of the Sun (Skyport)`,
     effects: [
       HonourIsEverythingEffect,
-      {
-        name: `AMENDMENT: Leave no Duardin Behind`,
-        desc: `Add 2 to the Bravery characteristic of friendly SKYFARERS units while they are wholly within 12" of a friendly SKYVESSEL.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `FOOTNOTE: Show Them Your Steel`,
-        desc: `Once per battle, in your hero phase, 1 friendly SKYFARERS unit that is part of a garrison on a SKYVESSEL can leave that garrison. Set up that unit wholly within 3" of that SKYVESSEL and more than 9" from any enemy units.`,
-        when: [HERO_PHASE],
-      },
+      LeaveNoDuardinBehindEffect,
+      ShowThemYourSteelEffect,
       {
         name: `Deeds, Not Words`,
         desc: `Add 1 to wound rolls for attacks made with melee weapons by friendly SKYFARERS units that made a charge move in the same turn, and add 1 to hit rolls for attacks made with melee weapons by friendly SKYWARDENS units that made a charge move in the same turn.`,
@@ -93,13 +85,9 @@ const Allegiances: TAllegiances = [
   {
     name: `Barak-Urbaz, The Market City (Skyport)`,
     effects: [
-      SeekNewProspectsEffect,
-      {
-        name: `FOOTNOTE: Where There's War, There's Gold`,
-        desc: `Once per battle, at the end of the combat phase, 1 friendly SKYFARERS unit that fought in that phase gains 1 share of aether-gold.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
       AlwaysTakeWhatYouAreOwedEffect,
+      SeekNewProspectsEffect,
+      WhereTheresWarTheresGoldEffect,
       {
         name: `Khemists Supreme`,
         desc: `Replace the rules for this general's Aetheric Augmentation ability with: 
@@ -124,13 +112,9 @@ const Allegiances: TAllegiances = [
   {
     name: `Barak-Mhornar, City of Shadow (Skyport)`,
     effects: [
-      SeekNewProspectsEffect,
       ProsecuteWarsWithAllHasteEffect,
-      {
-        name: `FOOTNOTE: Who Strikes First, Strikes Hardest`,
-        desc: `Once per battle, at the start of your combat phase, you can pick 1 friendly BARAK-MHORNAR unit that is within 3" of an enemy unit. That friendly unit fights at the start of that combat phase, but cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      SeekNewProspectsEffect,
+      WhoStrikesFirstStrikesHardestEffect,
       {
         name: `Fearsome Raiders`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly BARAK-MHORNAR units.`,
@@ -153,25 +137,13 @@ const Allegiances: TAllegiances = [
   {
     name: `Barak-Thryng, City of the Ancestors (Skyport)`,
     effects: [
-      {
-        name: `ARTYCLE: Chronicle of Grudges`,
-        desc: `After armies are set up but before the first battle round begins, pick up to 3 different enemy units. You can re-roll hit rolls of 1 for attacks made by friendly BARAK-THRYNG units that target those units.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `FOOTNOTE: Honour the Gods, Just in Case`,
-        desc: `Once per battle, at the start of your shooting phase or a combat phase, you can pick 1 friendly BARAK-THRYNG unit. Until the end of that phase, unmodified hit rolls of 6 for attacks made by that unit score 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [START_OF_SHOOTING_PHASE, START_OF_COMBAT_PHASE],
-      },
+      ChronicleOfGrudgesEffect,
+      HonourTheGodsJustInCaseEffect,
+      TakeHelpWhereYouCanGetItEffect,
       {
         name: `Incredibly Stubborn`,
         desc: `If a friendly SKYFARERS model is slain while it is within 3" of an enemy unit, roll a dice. On a 4+, that model can fight before it is removed from play.`,
         when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `AMENDMENT: Take Help Where You Can Get It`,
-        desc: `1 in 4 units in your army can be a DUARDIN unit that does not have the KHARADRON OVERLORDS keyword. Those units gain the BARAK-THRYNG keyword. They cannot be the army general and do not count towards the number of Battleline units in the army.`,
-        when: [START_OF_SETUP],
       },
       {
         name: `Supremely Stubborn`,
@@ -190,21 +162,9 @@ const Allegiances: TAllegiances = [
   {
     name: `Barak-Nar, City of the First Sunrise (Skyport)`,
     effects: [
-      {
-        name: `ARTYCLE: Respect Your Commanders`,
-        desc: `You can re-roll battleshock tests for friendly BARAK-NAR units while they are wholly within 12" of a friendly BARAK-NAR HERO.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `AMENDMENT: Trust Aethermatics, Not Superstition`,
-        desc: `Each BARAK-NAR HERO can attempt to unbind 1 spell in the enemy hero phase. If they can already attempt to unbind a spell, they can attempt to unbind 1 extra spell in the enemy hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `FOOTNOTE: Through Knowledge, Power`,
-        desc: `Add 1 to unbinding rolls for BARAK-NAR HEROES.`,
-        when: [HERO_PHASE],
-      },
+      RespectYourCommandersEffect,
+      ThroughKnowledgePowerEffect,
+      TrustAethermaticsNotSuperstitionEffect,
       {
         name: `Scholars and Commanders`,
         desc: `At the start of the first battle round, roll a dice for each friendly BARAK-NAR HERO on the battlefield (including any that are part of a garrison). For each 4+, you receive 1 extra command point.`,
