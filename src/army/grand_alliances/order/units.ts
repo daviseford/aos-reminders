@@ -28,7 +28,7 @@ const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
   },
   {
     name: `Talismanic Tattoos`,
-    desc: `Roll a dice each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
+    desc: `Roll a D6 each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
     when: [WOUND_ALLOCATION],
   },
 ]
@@ -320,7 +320,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Swift of Wing`,
-        desc: `You always count as having rolled a 6 when making a run move for this unit - do not roll a dice.`,
+        desc: `You always count as having rolled a 6 when making a run move for this unit - do not roll a D6.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -351,7 +351,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Conjoined Destiny`,
-        desc: `Roll a dice for this unit in your hero phase. If the result is odd, nothing happens. If the result is even, you can heal a number of wounds that have been allocated to this model equal to the dice result.`,
+        desc: `Roll a D6 for this unit in your hero phase. If the result is odd, nothing happens. If the result is even, you can heal a number of wounds that have been allocated to this model equal to the dice result.`,
         when: [HERO_PHASE],
       },
     ],
@@ -366,7 +366,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Banner of the Forests`,
-        desc: `In your hero phase, you can declare that this model will plant his standard in the ground. If you do so, you may not move this model until your next hero phase. Roll a dice for each enemy unit within 10". On a 4+, halve that unit's Move characteristic (rounding up) until the start of your next hero phase.`,
+        desc: `In your hero phase, you can declare that this model will plant his standard in the ground. If you do so, you may not move this model until your next hero phase. Roll a D6 for each enemy unit within 10". On a 4+, halve that unit's Move characteristic (rounding up) until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

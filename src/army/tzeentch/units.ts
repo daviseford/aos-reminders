@@ -87,7 +87,7 @@ const CapriciousWarpflameEffect = {
 
 const MagicTouchedEffect = {
   name: `Magic-touched`,
-  desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a dice before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
+  desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a D6 before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
   when: [HERO_PHASE],
 }
 
@@ -116,13 +116,13 @@ const SpellThiefEffect = {
 }
 const TouchedbyFireEffect = {
   name: `Touched by Fire`,
-  desc: `Roll a dice each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
   when: [COMBAT_PHASE],
 }
 
 const WakeofFireEffect = {
   name: `Wake of Fire`,
-  desc: `After this unit has made a normal move, you can pick 1 enemy unit that has any models passed across by any models from this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+  desc: `After this unit has made a normal move, you can pick 1 enemy unit that has any models passed across by any models from this unit and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [MOVEMENT_PHASE],
 }
 
@@ -227,7 +227,7 @@ export const Units: TUnits = [
       WakeofFireEffect,
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 8. If successfully cast, roll a dice for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 8. If successfully cast, roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -238,12 +238,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Frantic Scribbling`,
-        desc: `Each time a Wizard wholly within 18" of this model successfully casts a spell that is not unbound and that is possible for this model to cast, you can roll a dice. On a 4+, this model knows that spell for the rest of the battle.`,
+        desc: `Each time a Wizard wholly within 18" of this model successfully casts a spell that is not unbound and that is possible for this model to cast, you can roll a D6. On a 4+, this model knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
       },
       {
         name: `Scrolls of Sorcery`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a dice. On a 2+, that spell is automatically cast and cannot be unbound.`,
+        desc: `Once in each of your hero phases, when this model attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a D6. On a 2+, that spell is automatically cast and cannot be unbound.`,
         when: [HERO_PHASE],
       },
       {
@@ -269,7 +269,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ectoplasmic Elasticity`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a Pink Horror from this unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Pink Horror from this unit. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -293,7 +293,7 @@ export const Units: TUnits = [
       },
       {
         name: `Petty Vengeance`,
-        desc: `If a Pink Horror model from this unit is slain and you do not use its Split and Split Again ability to add any models to this unit, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 5+, that enemy unit suffers 1 mortal wound.`,
+        desc: `If a Pink Horror model from this unit is slain and you do not use its Split and Split Again ability to add any models to this unit, you can pick 1 enemy unit within 1" of this unit and roll a D6. On a 5+, that enemy unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -350,7 +350,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glean Magic`,
-        desc: `Casting value 3. If successfully cast, pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a dice. On a 3+, the caster knows that spell for the rest of the battle.`,
+        desc: `Casting value 3. If successfully cast, pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -395,7 +395,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Soulbound Shield`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -421,7 +421,7 @@ export const Units: TUnits = [
       },
       {
         name: `Mighty Rampage`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -437,7 +437,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arcanite Shield`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -458,7 +458,7 @@ export const Units: TUnits = [
       },
       {
         name: `Vulchare`,
-        desc: `If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a dice. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
+        desc: `If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a D6. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
         when: [HERO_PHASE],
       },
     ],
@@ -523,7 +523,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Diving from the skies`,
-        desc: `After a friendly uni from this battalion made a normal move, you can pick 1 enemy unit that has any models passed across by any models fro that friendly unit and roll a dice. On a 2", that enemy unit suffers D3 mortal wounds.`,
+        desc: `After a friendly uni from this battalion made a normal move, you can pick 1 enemy unit that has any models passed across by any models fro that friendly unit and roll a D6. On a 2", that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -553,7 +553,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Master of the Cult`,
-        desc: `After armies are set up but before the first battle round begins, pick 1 friendly model from this battalion. For the rest of the battle, each time you spend a Destiny Dice to replace a dice roll for that model, roll a dice. On a 2+, you can replace one of your remaining Destiny Dice with that roll.`,
+        desc: `After armies are set up but before the first battle round begins, pick 1 friendly model from this battalion. For the rest of the battle, each time you spend a Destiny Dice to replace a dice roll for that model, roll a D6. On a 2+, you can replace one of your remaining Destiny Dice with that roll.`,
         when: [DURING_GAME],
       },
     ],
@@ -613,7 +613,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `The Will of Tzeentch`,
-        desc: `At the start of your hero phases, if 1 or more friendly units from this battalion are on the battlefield, you can roll a dice and add it to your Destiny Dice. In addition, at the start of your hero phase, if the Lord of Change from this battalion is on the battlefield, you can reroll one of your Destiny Dice.`,
+        desc: `At the start of your hero phases, if 1 or more friendly units from this battalion are on the battlefield, you can roll a D6 and add it to your Destiny Dice. In addition, at the start of your hero phase, if the Lord of Change from this battalion is on the battlefield, you can reroll one of your Destiny Dice.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -623,7 +623,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Storm of Daemonic Fire`,
-        desc: `At the end of the charge phase, roll a dice for each enemy unit within 9" of any friendly units from this battalion. On a 6, that enemy unit suffers D3 mortal wounds.`,
+        desc: `At the end of the charge phase, roll a D6 for each enemy unit within 9" of any friendly units from this battalion. On a 6, that enemy unit suffers D3 mortal wounds.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -633,7 +633,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Foreseen Manoeuveres`,
-        desc: `When making a charge roll for a unit from this battalino, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll.`,
+        desc: `When making a charge roll for a unit from this battalion, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll.`,
         when: [CHARGE_PHASE],
       },
     ],

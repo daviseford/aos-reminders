@@ -30,6 +30,90 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('reads 2020 KO pdf', () => {
+    const pdfText = getFile('KO_2020')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'KHARADRON_OVERLORDS',
+      origin_realm: 'Ghur',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Barak-Zilfin, The Windswept City (Skyport)'],
+        artifacts: [
+          'Spell in a Bottle',
+          'Proclamator Mask-hailer',
+          'Miniaturised Aethermatic Repulsion Field',
+          'Seismic Shock-gauntlets',
+          'Cyclonic Aethometer',
+          "Svaregg-Stein 'Illuminator' Flarepistol",
+          'Voidstone Orb',
+          'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)',
+          "Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)",
+          "Coalbeard's Collapsible Compartments (Great Endrinwork)",
+          'Prudency Chutes (Great Endrinwork)',
+          "Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)",
+          'The Last Word (Great Endrinwork)',
+          "Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)",
+        ],
+        battalions: ['Grand Armada', 'Grundstok Escort Wing', 'Iron Sky Attack Squadron', 'Iron Sky Command'],
+        commands: [
+          'Master of the Skies',
+          'On My Mark, Fire!',
+          'Repel Boarders!',
+          'Up And At Them!',
+          'First Rule of Grungsson',
+        ],
+        endless_spells: [],
+        scenery: [],
+        spells: [],
+        traits: [
+          'Grudgebearer',
+          'ARTYCLE: Master the Skies',
+          'AMENDMENT: Trust to Your Guns',
+          'FOOTNOTE: Show Them Your Steel',
+        ],
+        triumphs: [],
+        units: [
+          'Aether-Khemist',
+          'Aetheric Navigator',
+          'Arkanaut Admiral',
+          'Bjorgen Thundrik',
+          'Brokk Grungsson, Lord-Magnate of Barak-Nar',
+          'Endrinmaster with Dirigible Suit',
+          'Endrinmaster with Endrinharness',
+          'Arkanaut Company',
+          'Endrinriggers',
+          'Grundstok Gunhauler',
+          'Grundstok Thunderers',
+          'Skywardens',
+          "Thundrik's Profiteers",
+          'Arkanaut Frigate',
+          'Arkanaut Ironclad',
+        ],
+      },
+      unknownSelections: [
+        'Barak Zilfin',
+        'Skypikes',
+        'Skyhooks',
+        'Drill Launcher',
+        'Grapnel Launchers',
+        'Drill Cannon',
+        'Heavy Skyhook',
+        'Barak Zilfin)',
+      ],
+    })
+    console.log(warscrollTxt)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('reads Warpcog Convocation correctly with no errors', () => {
     const pdfText = getFile('WarpcogList')
     const parsedText = parsePdf(pdfText)

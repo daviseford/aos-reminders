@@ -196,7 +196,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `War Wound`,
-        desc: `Roll a dice for this general in your hero phase. On a 1, subtract 1 from hit rolls for this general until your next hero phase. On a 2+, you receive 1 command point,`,
+        desc: `Roll a D6 for this general in your hero phase. On a 1, subtract 1 from hit rolls for this general until your next hero phase. On a 2+, you receive 1 command point,`,
         when: [HERO_PHASE],
       },
     ],
@@ -286,7 +286,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `A Nose for Gold`,
-        desc: `Roll a dice for this general in your hero phase. On a 5+, they gain 1 share of aether-gold.`,
+        desc: `Roll a D6 for this general in your hero phase. On a 5+, they gain 1 share of aether-gold.`,
         when: [HERO_PHASE],
       },
     ],

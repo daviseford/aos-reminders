@@ -55,6 +55,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         accum.allegiances = accum.allegiances.concat(skyport)
         return accum
       }
+      // 2020 format
+      if (txt.startsWith('Sky Port: ')) {
+        let skyport = txt.replace(/^Sky Port: /g, '').trim()
+        skyport = txt.replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
+        accum.allegiances = accum.allegiances.concat(skyport)
+        return accum
+      }
 
       if (txt.startsWith('- Mortal Realm: ')) {
         origin_realm = txt.replace('- Mortal Realm: ', '').trim()

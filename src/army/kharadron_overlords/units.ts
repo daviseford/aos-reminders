@@ -4,6 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -94,7 +95,7 @@ const GrapnelLauncherEffect = {
 }
 const BombRacksEffect = {
   name: `Bomb Racks`,
-  desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a dice. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+  desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
   when: [START_OF_COMBAT_PHASE],
 }
 const SkyminesEffect = {
@@ -102,25 +103,30 @@ const SkyminesEffect = {
   desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
 }
+const EndrinmasterBaseEffects = [
+  {
+    name: `Endrinmaster`,
+    desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to D3 wounds allocated to that SKYVESSEL.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `By Grungni, I Have My Eye On You!`,
+    desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can re-roll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
+    when: [HERO_PHASE],
+    command_ability: true,
+  },
+  EndrinharnessEffect,
+]
 
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Endrinmaster`,
-    effects: [
-      {
-        name: `Endrinmaster`,
-        desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to D3 wounds allocated to that SKYVESSEL.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `By Grungni, I Have My Eye On You!`,
-        desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can re-roll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-      EndrinharnessEffect,
-    ],
+    name: `Endrinmaster with Dirigible Suit`,
+    effects: [...EndrinmasterBaseEffects],
+  },
+  {
+    name: `Endrinmaster with Endrinharness`,
+    effects: [...EndrinmasterBaseEffects],
   },
   {
     name: `Aether-Khemist`,
@@ -165,7 +171,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aetherstorm`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 36" of this model that is visible to them and can fly, and roll a dice. On a 1-2 nothing happens. On a 3-5 halve the Move characteristic of that unit until your next hero phase. On a 6, halve the Move characteristic of that unit until your next hero phase, and that unit suffers D3 mortal wounds.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 36" of this model that is visible to them and can fly, and roll a D6. On a 1-2 nothing happens. On a 3-5 halve the Move characteristic of that unit until your next hero phase. On a 6, halve the Move characteristic of that unit until your next hero phase, and that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
@@ -190,7 +196,7 @@ export const Units: TUnits = [
       },
       {
         name: `Protect the Admiral!`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly ARKANAUT ADMIRAL while it is within 3" of any friendly SKYFARERS units with 5 or more models. On a 5+, you must allocate that wound or mortal wound to a friendly SKYFARERS unit with 5 or more models that is within 3" of that ARKANAUT ADMIRAL, instead of to that ARKANAUT ADMIRAL.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly ARKANAUT ADMIRAL while it is within 3" of any friendly SKYFARERS units with 5 or more models. On a 5+, you must allocate that wound or mortal wound to a friendly SKYFARERS unit with 5 or more models that is within 3" of that ARKANAUT ADMIRAL, instead of to that ARKANAUT ADMIRAL.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -249,7 +255,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Custom-built Dirigible Suit`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -359,6 +365,16 @@ export const Units: TUnits = [
 
 // Battalions
 export const Battalions: TBattalions = [
+  {
+    name: `Intrepid Prospectors`,
+    effects: [
+      {
+        name: `This'll Be Quick Work`,
+        desc: `After armies have been set up but before the first battle round begins, you can move friendly units from this battalion up to 6".`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
   {
     name: `Grand Armada`,
     effects: [

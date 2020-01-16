@@ -20,7 +20,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Masterwrought Armour`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -130,7 +130,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seismic Shock-gauntlets`,
-        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within l" of the bearer and roll a dice, On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within l" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -150,7 +150,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Phosphorite Bomblets`,
-        desc: `Once per battle, in your shooting phase. you can pick 1 unit within 6" of this model and roll a dice. On a 2+ that unit suffers 1 mortal wound you can roll again. Keep on rolling until the target is destroyed or you roll a 1.`,
+        desc: `Once per battle, in your shooting phase. you can pick 1 unit within 6" of this model and roll a D6. On a 2+ that unit suffers 1 mortal wound you can roll again. Keep on rolling until the target is destroyed or you roll a 1.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -160,7 +160,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Miniaturised Aethermatic Repulsion Field`,
-        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a dice. If you do so, on a 3+, ignore the effects of that spell on the bearer.`,
+        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a D6. If you do so, on a 3+, ignore the effects of that spell on the bearer.`,
         when: [HERO_PHASE, START_OF_HERO_PHASE],
       },
     ],
@@ -180,7 +180,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Caustic Anatomiser`,
-        desc: `Once per battle, at the start of the combat phase, you can say that the bearer will use their Caustic Anatomiser. If you do so, roll a dice for each enemy model within 6" of this model. For each 5+, that model's unit suffers 1 mortal wound.`,
+        desc: `Once per battle, at the start of the combat phase, you can say that the bearer will use their Caustic Anatomiser. If you do so, roll a D6 for each enemy model within 6" of this model. For each 5+, that model's unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -260,7 +260,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Malefic Skymines (Great Endrinwork)`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit that can fly and is within 6" of this model and roll a dice. On a 2-3, that enemy unit suffers D3 mortal wounds. On a 4+ that enemy unit suffers D6 mortal wounds.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit that can fly and is within 6" of this model and roll a D6. On a 2-3, that enemy unit suffers D3 mortal wounds. On a 4+ that enemy unit suffers D6 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -280,7 +280,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
-        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D6 mortal wounds.`,
+        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],

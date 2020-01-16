@@ -34,7 +34,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Shroud of Warpflame`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound inflicted by a melee weapon to the bearer. On a 3+, the attacking unit suffers 1 mortal wound.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound inflicted by a melee weapon to the bearer. On a 3+, the attacking unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION],
         artifact: true,
       },
@@ -50,7 +50,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Impossible to Anticipate`,
-        desc: `You can use this command ability once per battle, immediately after a friendly Hosts Duplicitous Horrors of Tzeentch unit is destroyed. If you do so, roll a dice. On a 5+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from any enemy units.`,
+        desc: `You can use this command ability once per battle, immediately after a friendly Hosts Duplicitous Horrors of Tzeentch unit is destroyed. If you do so, roll a D6. On a 5+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from any enemy units.`,
         when: [WOUND_ALLOCATION],
         command_ability: true,
       },
@@ -100,7 +100,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a dice each time a friendly Kairic Acolyte model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 Tzaangor model to an existing Tzaangor unit in your army. If you do so, set up that Tzaangor model within 1" of a friendly Tzaangor unit that is within 9" of the slain model. The modle can only be set up within 3" of an enemy unit if the friendly Tzaangor unit was within 3" of that enemy unit before any models were added.`,
+        desc: `Roll a D6 each time a friendly Kairic Acolyte model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 Tzaangor model to an existing Tzaangor unit in your army. If you do so, set up that Tzaangor model within 1" of a friendly Tzaangor unit that is within 9" of the slain model. The modle can only be set up within 3" of an enemy unit if the friendly Tzaangor unit was within 3" of that enemy unit before any models were added.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -128,7 +128,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Arrows of Tzeentch`,
-        desc: `Add 1 to hit rolls for attacks made with Sorcerous Bolts by friendly Kairic Acolytes units. In addition, at the end of your shooting phase, roll a dice for each enemy unit that suffered any wounds inflicted by attacks made with Sorcerous Bolts in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `Add 1 to hit rolls for attacks made with Sorcerous Bolts by friendly Kairic Acolytes units. In addition, at the end of your shooting phase, roll a D6 for each enemy unit that suffered any wounds inflicted by attacks made with Sorcerous Bolts in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -167,7 +167,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Prophet of the Ostensible`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
         command_trait: true,
       },

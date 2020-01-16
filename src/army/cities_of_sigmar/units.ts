@@ -1418,7 +1418,7 @@ export const Units: TUnits = [
       ...DuardinArtilleryEffects,
       {
         name: `Organ Fire`,
-        desc: `In the shooting phase the Organ Gun's Crew can load 1, 2, 3 or 4 barrels. If they load 2 or more barrels, roll a dice; if the result is equal to or greater than the number of loaded barrels, make one Barrage of Shots attack for each loaded barrel (roll separately to determine the number of Barrage of Shots attacks made for each barrel being fired). However, if the result is less than the number of loaded barrels, the Organ Gun jams and no shots are fired this phase.`,
+        desc: `In the shooting phase the Organ Gun's Crew can load 1, 2, 3 or 4 barrels. If they load 2 or more barrels, roll a D6; if the result is equal to or greater than the number of loaded barrels, make one Barrage of Shots attack for each loaded barrel (roll separately to determine the number of Barrage of Shots attacks made for each barrel being fired). However, if the result is less than the number of loaded barrels, the Organ Gun jams and no shots are fired this phase.`,
         when: [SHOOTING_PHASE],
       },
       {

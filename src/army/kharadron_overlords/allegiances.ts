@@ -45,7 +45,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Master Commander`,
-        desc: `If this general is part of your army and on the battlefield, each time you spend a command point to use a command ability on this general's warscroll, roll a dice. On a 5+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield, each time you spend a command point to use a command ability on this general's warscroll, roll a D6. On a 5+, you receive 1 extra command point.`,
         when: [DURING_GAME],
         command_trait: true,
       },
@@ -70,7 +70,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Bearer of the Ironstar`,
-        desc: `The first time this general is slain, before removing them, roll a dice. On a 2+ they are not slain, you can heal up to D3 wounds allocated to them, and any wounds remaining to be allocated to them are negated,`,
+        desc: `The first time this general is slain, before removing them, roll a D6. On a 2+ they are not slain, you can heal up to D3 wounds allocated to them, and any wounds remaining to be allocated to them are negated,`,
         when: [WOUND_ALLOCATION],
         command_trait: true,
       },
@@ -142,7 +142,7 @@ const Allegiances: TAllegiances = [
       TakeHelpWhereYouCanGetItEffect,
       {
         name: `Incredibly Stubborn`,
-        desc: `If a friendly SKYFARERS model is slain while it is within 3" of an enemy unit, roll a dice. On a 4+, that model can fight before it is removed from play.`,
+        desc: `If a friendly SKYFARERS model is slain while it is within 3" of an enemy unit, roll a D6. On a 4+, that model can fight before it is removed from play.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -167,7 +167,7 @@ const Allegiances: TAllegiances = [
       TrustAethermaticsNotSuperstitionEffect,
       {
         name: `Scholars and Commanders`,
-        desc: `At the start of the first battle round, roll a dice for each friendly BARAK-NAR HERO on the battlefield (including any that are part of a garrison). For each 4+, you receive 1 extra command point.`,
+        desc: `At the start of the first battle round, roll a D6 for each friendly BARAK-NAR HERO on the battlefield (including any that are part of a garrison). For each 4+, you receive 1 extra command point.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
