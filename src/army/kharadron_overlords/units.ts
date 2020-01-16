@@ -365,13 +365,8 @@ export const Battalions: TBattalions = [
     name: `Grand Armada`,
     effects: [
       {
-        name: `On a War Footing`,
-        desc: `All SKYVESSELS can make a move.`,
-        when: [TURN_ONE_HERO_PHASE],
-      },
-      {
         name: `Constitutional Experts`,
-        desc: `While Admiral and one HERO are alive, you can use footnotes (except from 'These are Just Guidelines') once per round.`,
+        desc: `Once per battle, if the ARKANAUT ADMIRAL or BROKK GRUNGSSON from this battalion is on the battlefield, you can use a footnote even if it has been used before in the same battle.`,
         when: [DURING_GAME],
       },
     ],
@@ -380,29 +375,24 @@ export const Battalions: TBattalions = [
     name: `Iron Sky Command`,
     effects: [
       {
-        name: `Lord of the Skies`,
-        desc: `Friendly units with 12" of Ironclad subtract 1 from battleshock tests.`,
+        name: `Lords of the Skies`,
+        desc: `Do not take battleshock tests for friendly KHARADRON OVERLORDS units while they are wholly within 18" of the ARKANAUT IRONCLAD from this battalion.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Trusted Bodyguard`,
-        desc: `When HERO within 3" of Arkanaut Company. Wound / mortal wound on 5+ transfered to Arkanaut Company.`,
-        when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Iron Sky Squadron`,
+    name: `Iron Sky Attack Squadron`,
     effects: [
       {
         name: `Bold Privateers`,
-        desc: `When Arkanaut Company disembarks, re-roll run and charges that turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `ARKANAUT COMPANY units from this battalion can leave an ARKANAUT FRIGATE from the same battalion either before or after it has moved.`,
+        when: [MOVEMENT_PHASE],
       },
       {
-        name: `Opening Salvo`,
-        desc: `+1 attacks to all missile weapons on Frigates.`,
-        when: [TURN_ONE_DURING_ROUND],
+        name: `Bold Privateers`,
+        desc: `Roll 3D6 instead of 2D6 when making charge rolls for ARKANAUT COMPANY units from this battalion that left an ARKANAUT FRIGATE from the same battalion in the movement phase of the same turn.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -410,24 +400,9 @@ export const Battalions: TBattalions = [
     name: `Grundstok Escort Wing`,
     effects: [
       {
-        name: `Focus Fire`,
-        desc: `+1 to hit rolls vs one targeted enemy unit.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetherstrike Force`,
-    effects: [
-      {
-        name: `Marked for Destruction`,
-        desc: `Knight-Venator can use Star-fated Arrow. If target is hit but not slain, +1 hit rolls against target for battle.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lightning-fast Volleys`,
-        desc: `Choose single unit (not Knight-Venator) within 6" of two battalion units; chosen unit can make shooting attacks.`,
-        when: [HERO_PHASE],
+        name: `Focused Fire`,
+        desc: `At the start of your shooting phase, you can pick 1 enemy unit for this battalion to focus fire on. If you do so, you can re-roll hit rolls of 1 for attacks made by units from this battalion that target that unit in that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
