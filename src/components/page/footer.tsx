@@ -53,7 +53,7 @@ const VersionComponent = () => {
           href="https://github.com/daviseford/aos-reminders/releases/latest"
           label={'GithubLatestRelease'}
         >
-          <small className={theme.text}>AoS Reminders - v{version}</small>
+          <small className={theme.text}>AoS Reminders v{version} - Release Notes</small>
         </LinkNewTab>
       </div>
     </div>

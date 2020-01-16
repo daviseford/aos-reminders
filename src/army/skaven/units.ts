@@ -90,6 +90,11 @@ const WarpLightningEffect = {
   when: [HERO_PHASE],
   spell: true,
 }
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `This unit can retreat and still charge later in the same turn while it includes any Standard Bearers.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -377,11 +382,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic for the Clawleader's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `This unit can retreat and still charge later in the same turn while it includes any Clanrat Standard Bearers.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Bell-ringer`,
         desc: `Add 2 to run rolls for this unit while it includes any Clanrat Bell-ringers.`,
@@ -446,7 +447,20 @@ export const Units: TUnits = [
   },
   {
     name: `Stormvermin`,
-    effects: [ClanshieldEffect],
+    effects: [
+      ClanshieldEffect,
+      StandardBearerEffect,
+      {
+        name: `Drummers`,
+        desc: `Add 2 to run rolls for this unit while it includes any Stormvermin Drummers.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Fangleader`,
+        desc: `Add 1 to the Attacks characteristic of the Fangleader's model's Rusty Halberd.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   {
     name: `Spiteclaw's Swarm`,
