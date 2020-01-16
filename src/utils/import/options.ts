@@ -105,6 +105,7 @@ const warscrollTypoMap: TNameMap = {
 const azyrTypoMap: TNameMap = {
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
+  'DHOM-HAIN': 'Dhom Hain (Enclave)',
   'Druid of the Everspring Circle': 'Druid of the Everspring (Living City)',
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',

@@ -55,12 +55,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('OBR1')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Vokmortian')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Allegiance: The Ossiarch Empire',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with OBR2', () => {
@@ -69,12 +64,25 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.selections.scenery).toContain('Bone-Tithe Nexus')
     expect(res.selections.allegiances).toContain('Petrifex Elite')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Allegiance: The Ossiarch Empire',
-      },
-    ])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with OBR3', () => {
+    const parsedText = getFile('OBR3')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with OBR4', () => {
+    const parsedText = getFile('OBR4')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with StD4', () => {
+    const parsedText = getFile('StD4')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Stormcast7', () => {

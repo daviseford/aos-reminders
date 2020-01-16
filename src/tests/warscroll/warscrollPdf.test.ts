@@ -120,7 +120,6 @@ describe('getWarscrollArmyFromPdf', () => {
         'Barak Zilfin)',
       ],
     })
-    console.log(warscrollTxt)
     expect(warscrollTxt.errors).toEqual([])
   })
 
