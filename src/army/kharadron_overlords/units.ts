@@ -108,7 +108,7 @@ const SkyminesEffect = {
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Endrinmaster with Endrinharness`,
+    name: `Endrinmaster`,
     effects: [
       {
         name: `Endrinmaster`,

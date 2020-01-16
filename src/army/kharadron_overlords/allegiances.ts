@@ -3,24 +3,24 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
-  TURN_ONE_START_OF_ROUND,
-  START_OF_SETUP,
-  END_OF_COMBAT_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import {
-  SeekNewProspectsEffect,
-  ProsecuteWarsWithAllHasteEffect,
+  AlwaysTakeWhatYouAreOwedEffect,
   HonourIsEverythingEffect,
   MasterTheSkiesEffect,
-  AlwaysTakeWhatYouAreOwedEffect,
+  ProsecuteWarsWithAllHasteEffect,
+  SeekNewProspectsEffect,
 } from './traits'
 
 const Allegiances: TAllegiances = [
