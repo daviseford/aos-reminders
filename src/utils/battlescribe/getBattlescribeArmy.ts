@@ -22,8 +22,6 @@ const getInitialBattlescribeArmy = (html_string: string) => {
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
 
-  debugger
-
   return {
     allyFactionNames: [],
     allySelections: {},
