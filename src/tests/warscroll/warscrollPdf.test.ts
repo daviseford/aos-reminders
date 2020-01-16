@@ -62,6 +62,7 @@ describe('getWarscrollArmyFromPdf', () => {
           "Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)",
           'The Last Word (Great Endrinwork)',
           "Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)",
+          'Staff of Ocular Optimisation',
         ],
         battalions: [
           'Grand Armada',
@@ -86,6 +87,9 @@ describe('getWarscrollArmyFromPdf', () => {
           'ARTYCLE: Master the Skies',
           'AMENDMENT: Trust to Your Guns',
           'FOOTNOTE: Show Them Your Steel',
+          "FOOTNOTE: There's Always a Breeze if You Look for it",
+          "AMENDMENT: Don't Argue With the Wind",
+          'Master Commander',
         ],
         triumphs: [],
         units: [
@@ -107,7 +111,6 @@ describe('getWarscrollArmyFromPdf', () => {
         ],
       },
       unknownSelections: [
-        'Barak Zilfin',
         'Skypikes',
         'Skyhooks',
         'Drill Launcher',

@@ -50,15 +50,19 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
+      // Deprecated format
       if (txt.startsWith('Skyport: ')) {
         const skyport = txt.replace(/^Skyport: /g, '').trim()
         accum.allegiances = accum.allegiances.concat(skyport)
         return accum
       }
-      // 2020 format
-      if (txt.startsWith('Sky Port: ')) {
-        let skyport = txt.replace(/^Sky Port: /g, '').trim()
-        skyport = txt.replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
+
+      // New format
+      if (txt.startsWith('- Sky Port: ')) {
+        const skyport = txt
+          .replace('- Sky Port: ', '')
+          .trim()
+          .replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
         accum.allegiances = accum.allegiances.concat(skyport)
         return accum
       }

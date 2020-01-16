@@ -1130,7 +1130,7 @@ describe('getBattlescribeArmy', () => {
       'Arkanaut Admiral',
       'Bjorgen Thundrik',
       'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-      'Endrinmaster',
+      'Endrinmaster with Dirigible Suit',
       'Arkanaut Frigate',
       'Arkanaut Ironclad',
       'Grundstok Gunhauler',
