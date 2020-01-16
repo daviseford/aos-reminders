@@ -16,6 +16,31 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+export const SeekNewProspectsEffect = {
+  name: `ARTYCLE: Seek New Prospects`,
+  desc: `You can re-roll battleshock tests for friendly BARAK-URBAZ units while they are wholly within your opponent's territory.`,
+  when: [BATTLESHOCK_PHASE],
+}
+export const ProsecuteWarsWithAllHasteEffect = {
+  name: `AMENDMENT: Prosecute Wars With All Haste`,
+  desc: `In your first turn, friendly KHARADRON OVERLORDS units can run and still shoot later in the turn.`,
+  when: [TURN_ONE_MOVEMENT_PHASE, TURN_ONE_SHOOTING_PHASE],
+}
+export const HonourIsEverythingEffect = {
+  name: `ARTYCLE: Honour is Everything`,
+  desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER,`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+export const MasterTheSkiesEffect = {
+  name: `ARTYCLE: Master the Skies`,
+  desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+export const AlwaysTakeWhatYouAreOwedEffect = {
+  name: `AMENDMENT: Always Take What You Are Owed`,
+  desc: `Pick up to D3 different KHARADRON OVERLORDS units in your army. Each of those units starts the battle with 1 share of aether-gold in addition to any they normally receive.`,
+  when: [START_OF_SETUP],
+}
 const CommandTraits: TTraits = [
   {
     name: `Wealthy`,
@@ -179,23 +204,11 @@ const CommandTraits: TTraits = [
   },
   {
     name: `ARTYCLE: Honour is Everything`,
-    effects: [
-      {
-        name: `ARTYCLE: Honour is Everything`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER,`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
+    effects: [HonourIsEverythingEffect],
   },
   {
     name: `ARTYCLE: Master the Skies`,
-    effects: [
-      {
-        name: `ARTYCLE: Master the Skies`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
+    effects: [MasterTheSkiesEffect],
   },
   {
     name: `ARTYCLE: Settle the Grudges`,
@@ -209,23 +222,11 @@ const CommandTraits: TTraits = [
   },
   {
     name: `AMENDMENT: Always Take What You Are Owed`,
-    effects: [
-      {
-        name: `AMENDMENT: Always Take What You Are Owed`,
-        desc: `Pick up to D3 different KHARADRON OVERLORDS units in your army. Each of those units starts the battle with 1 share of aether-gold in addition to any they normally receive.`,
-        when: [START_OF_SETUP],
-      },
-    ],
+    effects: [AlwaysTakeWhatYouAreOwedEffect],
   },
   {
     name: `AMENDMENT: Prosecute Wars With All Haste`,
-    effects: [
-      {
-        name: `AMENDMENT: Prosecute Wars With All Haste`,
-        desc: `In your first turn, friendly KHARADRON OVERLORDS units can run and still shoot later in the turn.`,
-        when: [TURN_ONE_MOVEMENT_PHASE, TURN_ONE_SHOOTING_PHASE],
-      },
-    ],
+    effects: [ProsecuteWarsWithAllHasteEffect],
   },
   {
     name: `AMENDMENT: Trust to Your Guns`,
