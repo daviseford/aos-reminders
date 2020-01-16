@@ -25,7 +25,6 @@ import {
   RealmscapeSpells,
 } from 'army/generic'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { TSupportedFaction, KHARADRON_OVERLORDS } from 'meta/factions'
 
 const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
   sortedUniqBy(sortBy(allegiances, 'name'), 'name')

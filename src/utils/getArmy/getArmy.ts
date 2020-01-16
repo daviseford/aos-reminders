@@ -69,7 +69,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
   Army.Commands = modify.Commands(realmscape, Collection)
-  Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells, factionName)
+  Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
   Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
