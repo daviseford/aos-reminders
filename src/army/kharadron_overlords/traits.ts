@@ -4,33 +4,36 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
+  START_OF_SETUP,
+  TURN_ONE_MOVEMENT_PHASE,
+  TURN_ONE_SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
-    name: `Doughty Champion`,
+    name: `Wealthy`,
     effects: [
       {
-        name: `Doughty Champion`,
-        desc: `Ignore mortal wounds on 5+.`,
-        when: [DURING_GAME],
+        name: `Wealthy`,
+        desc: `This general starts the battle with 2 shares of aether-gold instead of 1.`,
+        when: [START_OF_GAME],
       },
     ],
   },
   {
-    name: `Fleetmaster`,
+    name: `Tough as Old Boots`,
     effects: [
       {
-        name: `Fleetmaster`,
-        desc: `Can remove SKYVESSEL and set-up again.`,
-        when: [END_OF_SETUP],
+        name: `Tough as Old Boots`,
+        desc: `Add 2 to this general's Wounds characteristic.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -39,48 +42,138 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Grudgebearer`,
-        desc: `+1 Attack to chosen melee weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Stickler for the Code`,
-    effects: [
-      {
-        name: `Stickler for the Code`,
-        desc: `Generate additional unique footnote. Lost if general is slain.`,
-        when: [START_OF_GAME],
-      },
-    ],
-  },
-  {
-    name: `Prospector`,
-    effects: [
-      {
-        name: `Prospector`,
-        desc: `Choose terrain. While general is alive, units pass battleshock if on or within terrain.`,
+        desc: `After armies are set up, pick 1 enemy HERO. Double the damage inflicted by weapons used by this general that target that HERO.`,
         when: [END_OF_SETUP],
       },
     ],
   },
   {
-    name: `Rising Star`,
+    name: `Cunning Fleetmaster`,
     effects: [
       {
-        name: `Rising Star`,
-        desc: `Units within 7" can use General's Bravery.`,
-        when: [DURING_GAME],
+        name: `Cunning Fleetmaster`,
+        desc: `After armies are set up, but before the first battle round begins, you can make a normal move with 1 friendly SKYVESSEL. It can fly high unless it is an ARKANAUT IRONCLAD.`,
+        when: [END_OF_SETUP],
       },
     ],
   },
   {
-    name: `ARTYCLE: Defend Your Territory`,
+    name: `War Wound`,
     effects: [
       {
-        name: `ARTYCLE: Defend Your Territory`,
-        desc: `Re-roll battleshock tests for units wholly within your territory.`,
-        when: [DURING_GAME],
+        name: `War Wound`,
+        desc: `Roll a dice for this general in your hero phase. On a 1, subtract 1 from hit rolls for this general until your next hero phase. On a 2+, you receive 1 command point,`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `A Scholar and an Arkanaut`,
+    effects: [
+      {
+        name: `A Scholar and an Arkanaut`,
+        desc: `You can pick an extra footnote for your army: You cannot pick a footnote your army already has.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Grandmaster`,
+    effects: [
+      {
+        name: `Grandmaster`,
+        desc: `When you use this general's Endrinmaster ability, add 1 to the number of wounds the ability allows you to heal.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Great Tinkerer`,
+    effects: [
+      {
+        name: `Great Tinkerer`,
+        desc: `Add 2 to the Attacks characteristic of this general's Gaze of Grungni weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Endrinprofessor`,
+    effects: [
+      {
+        name: `Endrinprofessor`,
+        desc: `Once in each of your hero phases, this general can use the By Grungni, I Have My Eye On You! command ability without a command point being spent.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Stormcaller`,
+    effects: [
+      {
+        name: `Stormcaller`,
+        desc: `When this general uses their Aetherstorm ability; you can re-roll the dice that determines what effect it has on the enemy unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ride the Winds`,
+    effects: [
+      {
+        name: `Ride the Winds`,
+        desc: `Add 3" to the Move characteristic of a SKYVESSEL that has this general in its garrison.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sceptic`,
+    effects: [
+      {
+        name: `Sceptic`,
+        desc: `Add 1 to dispelling and unbinding rolls for this general.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Diviner`,
+    effects: [
+      {
+        name: `Diviner`,
+        desc: `After armies are set up, pick 1 terrain feature or objective. Do not take battleshock tests for friendly KHARADRON OVERLORDS units while they are wholly within 12" of that terrain feature or objective.`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `A Nose for Gold`,
+    effects: [
+      {
+        name: `A Nose for Gold`,
+        desc: `Roll a dice for this general in your hero phase. On a 5+, they gain 1 share of aether-gold.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Genius in the Making`,
+    effects: [
+      {
+        name: `Genius in the Making`,
+        desc: `The range of this general's Aetheric Augmentation ability is 18" instead of 12".`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Collector`,
+    effects: [
+      {
+        name: `Collector`,
+        desc: `If you choose this general to have an artefact of power, you can choose 1 extra friendly HERO to have an artefact of power.`,
+        when: [START_OF_SETUP],
       },
     ],
   },
@@ -89,7 +182,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `ARTYCLE: Honour is Everything`,
-        desc: `Re-roll hit and wounds of 1 vs HERO and MONSTER.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER,`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -99,28 +192,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `ARTYCLE: Master the Skies`,
-        desc: `Re-roll hit and wounds of 1 vs flying units.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `ARTYCLE: Respect Your Commanders`,
-    effects: [
-      {
-        name: `ARTYCLE: Respect Your Commanders`,
-        desc: `Re-roll battleshock when within 8" of a HERO.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `ARTYCLE: Seek New Prospects`,
-    effects: [
-      {
-        name: `ARTYCLE: Seek New Prospects`,
-        desc: `Re-roll battleshock tests for units wholly within enemy territory.`,
-        when: [DURING_GAME],
       },
     ],
   },
@@ -129,8 +202,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `ARTYCLE: Settle the Grudges`,
-        desc: `Choose an enemy unit, re-roll hit and wounds of 1 vs this enemy.`,
-        when: [END_OF_SETUP, DURING_GAME],
+        desc: `After armies are set up but before the first battle round begins, pick 1 enemy unit, You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS units that target that unit.`,
+        when: [END_OF_SETUP],
       },
     ],
   },
@@ -139,28 +212,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `AMENDMENT: Always Take What You Are Owed`,
-        desc: `Your Army can include one additional artifact of power.`,
-        when: [DURING_SETUP],
-      },
-    ],
-  },
-  {
-    name: `AMENDMENT: Don't Argue With the Wind`,
-    effects: [
-      {
-        name: `AMENDMENT: Don't Argue With the Wind`,
-        desc: `When you run with a SKYVESSEL, result is always 6.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `AMENDMENT: Leave no Duardin Behind`,
-    effects: [
-      {
-        name: `AMENDMENT: Leave no Duardin Behind`,
-        desc: `If unit within 7" of SKYVESSEL fails battleshock, does not flee on 5+.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Pick up to D3 different KHARADRON OVERLORDS units in your army. Each of those units starts the battle with 1 share of aether-gold in addition to any they normally receive.`,
+        when: [START_OF_SETUP],
       },
     ],
   },
@@ -169,18 +222,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `AMENDMENT: Prosecute Wars With All Haste`,
-        desc: `In first turn, units can run and shoot.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `AMENDMENT: Trust Aethermatics, Not Superstition`,
-    effects: [
-      {
-        name: `AMENDMENT: Trust Aethermatics, Not Superstition`,
-        desc: `HEROES can unbind +1 spell.`,
-        when: [HERO_PHASE],
+        desc: `In your first turn, friendly KHARADRON OVERLORDS units can run and still shoot later in the turn.`,
+        when: [TURN_ONE_MOVEMENT_PHASE, TURN_ONE_SHOOTING_PHASE],
       },
     ],
   },
@@ -189,38 +232,28 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `AMENDMENT: Trust to Your Guns`,
-        desc: `+1 to bravery when not within 3" of enemies.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `FOOTNOTE: Surrender is Rarely Profitable`,
-    effects: [
-      {
-        name: `FOOTNOTE: Surrender is Rarely Profitable`,
-        desc: `Once per battle, replace battleshock roll with 1.`,
+        desc: `Add 1 to the Bravery characteristic of friendly KHARADRON OVERLORDS units while they are more than 3" from any enemy units.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   {
-    name: `FOOTNOTE: There's no Reward Without Risk`,
+    name: `FOOTNOTE: There's No Reward Without Risk`,
     effects: [
       {
-        name: `FOOTNOTE: There's no Reward Without Risk`,
-        desc: `Once per battle, re-roll one charge roll.`,
+        name: `FOOTNOTE: There's No Reward Without Risk`,
+        desc: `Once per battle, you can re-roll a charge roll for a friendly KHARADRON OVERLORDS unit.`,
         when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `FOOTNOTE: There's no Trading With Some People`,
+    name: `FOOTNOTE: There's No Trading With Some People`,
     effects: [
       {
-        name: `FOOTNOTE: There's no Trading With Some People`,
-        desc: `Once per battle, if enemy suffers 1 unsaved wound, suffer D3 mortal wounds.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
+        name: `FOOTNOTE: There's No Trading With Some People`,
+        desc: `Once per battle, a friendly KHARADRON OVERLORDS unit that has run and/or retreated in the same turn can still shoot and/or charge.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -239,18 +272,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `FOOTNOTE: Without Our Ships, We Are Naught`,
-        desc: `Once per battle, re-roll SKYVESSEL heal roll.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `FOOTNOTE: These Are Just Guidelines`,
-    effects: [
-      {
-        name: `FOOTNOTE: These Are Just Guidelines`,
-        desc: `Once per battle, change army's ARTYCLE.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Once per battle, you can heal up to D3 wounds allocated to a friendly SKYVESSEL,`,
+        when: [DURING_GAME],
       },
     ],
   },
