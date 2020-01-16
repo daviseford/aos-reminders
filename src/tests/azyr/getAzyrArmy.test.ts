@@ -1053,7 +1053,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Arkanaut Admiral',
           'Bjorgen Thundrik',
           'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-          'Endrinmaster',
+          'Endrinmaster with Dirigible Suit',
           'Arkanaut Company',
           'Grundstok Gunhauler',
           'Arkanaut Frigate',
