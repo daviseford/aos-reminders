@@ -64,7 +64,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('reads KO pdf (issue #794)', () => {
+  it('reads deprecated KO pdf (issue #794)', () => {
     const pdfText = getFile('skydorfs')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -73,25 +73,35 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Aethershock Earbuster',
+        },
+        {
+          severity: 'warn',
+          text: 'Aetherspheric Endrins',
+        },
+      ],
       factionName: 'KHARADRON_OVERLORDS',
       origin_realm: 'Chamon',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: ['Barak-Zilfin, The Windswept City (Skyport)'],
-        artifacts: ['Aethershock Earbuster (AETHERMATIC WEAPON)', 'Aetherspheric Endrins (GREAT ENDRINWORK)'],
+        artifacts: ['Staff of Ocular Optimisation'],
         battalions: [],
         commands: [],
         endless_spells: [],
         scenery: [],
         spells: [],
         traits: [
-          "FOOTNOTE: There's no Trading With Some People",
-          'Fleetmaster',
-          'ARTYCLE: Master the Skies',
-          "AMENDMENT: Don't Argue With the Wind",
+          "FOOTNOTE: There's No Trading With Some People",
+          'Cunning Fleetmaster',
           "FOOTNOTE: There's Always a Breeze if You Look for it",
+          "AMENDMENT: Don't Argue With the Wind",
+          'ARTYCLE: Master the Skies',
+          'Master Commander',
         ],
         triumphs: [],
         units: [
@@ -423,19 +433,25 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  it('reads a KO warscroll pdf file correctly', () => {
+  it('reads a deprecated KO warscroll pdf file correctly', () => {
     const pdfText = getFile('KOList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aethershock Earbuster',
+      },
+    ])
     expect(warscrollTxt.selections.traits).toEqual([
-      "FOOTNOTE: There's no Reward Without Risk",
-      "FOOTNOTE: There's no Trading With Some People",
-      'ARTYCLE: Master the Skies',
-      "AMENDMENT: Don't Argue With the Wind",
+      "FOOTNOTE: There's No Reward Without Risk",
+      "FOOTNOTE: There's No Trading With Some People",
       "FOOTNOTE: There's Always a Breeze if You Look for it",
+      "AMENDMENT: Don't Argue With the Wind",
+      'ARTYCLE: Master the Skies',
+      'Master Commander',
     ])
     expect(warscrollTxt.selections.units).toEqual([
       'Aether-Khemist',

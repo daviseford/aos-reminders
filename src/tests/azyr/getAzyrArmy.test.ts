@@ -111,12 +111,28 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('handles KO8', () => {
+  it('handles deprecated KO8', () => {
     const fileTxt = getFile('KO8')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     // These are classified as Mount Traits instead of artifacts
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Gattlesson's Endless Repeater",
+      },
+      {
+        severity: 'warn',
+        text: 'Hammer of Aethermatic Might',
+      },
+      {
+        severity: 'warn',
+        text: 'Sledgeshock Hammer',
+      },
+      {
+        severity: 'warn',
+        text: 'These Are Just Guidelines',
+      },
       {
         severity: 'warn',
         text: 'Incredible Self-healing Hull',
@@ -327,14 +343,23 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles KO7', () => {
+  it('handles deprecated KO7', () => {
     const fileTxt = getFile('KO7')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     // Azyr incorrectly classifies The Last Word as a Mount Trait
     // Even though it's an artifact :(
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'The Last Word' }])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Hammer of Aethermatic Might',
+      },
+      {
+        severity: 'warn',
+        text: 'The Last Word',
+      },
+    ])
   })
 
   it('handles Ironjawz3', () => {
@@ -829,41 +854,51 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles KO6', () => {
+  it('handle deprecated KO6', () => {
     const fileTxt = getFile('KO6')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     // Azyr incorrectly classifies The Last Word as a Mount Trait
     // Even though it's an artifact :(
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'The Last Word' }])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aethershock Earbuster',
+      },
+      {
+        severity: 'warn',
+        text: 'The Last Word',
+      },
+    ])
   })
 
-  it('handles KO5', () => {
+  it('handles deprecated KO5', () => {
     const fileTxt = getFile('KO5')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Seek New Prospects',
-      'AMENDMENT: Prosecute Wars With All Haste',
-      "FOOTNOTE: There's no Trading With Some People",
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
+      'AMENDMENT: Prosecute Wars With All Haste',
+      "FOOTNOTE: There's No Trading With Some People",
       'Opportunistic Privateers',
     ])
     expect(res.errors).toEqual([])
   })
 
-  it('handles KO4', () => {
+  it('handles deprecated KO4', () => {
     const fileTxt = getFile('KO4')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.traits).toEqual([
-      'ARTYCLE: Master the Skies',
-      "AMENDMENT: Don't Argue With the Wind",
-      'FOOTNOTE: Without Our Ships, We Are Naught',
       "FOOTNOTE: There's Always a Breeze if You Look for it",
+      "AMENDMENT: Don't Argue With the Wind",
+      'ARTYCLE: Master the Skies',
+      'FOOTNOTE: Without Our Ships, We Are Naught',
+      'Master Commander',
     ])
     expect(res.errors).toEqual([])
   })
@@ -970,7 +1005,7 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles KO1', () => {
+  it('handles deprecated KO1', () => {
     const fileTxt = getFile('KO1')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
@@ -978,20 +1013,27 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'These Are Just Guidelines',
+        },
+      ],
       factionName: KHARADRON_OVERLORDS,
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: ['Barak-Thryng, City of the Ancestors (Skyport)'],
-        artifacts: [],
+        artifacts: ['Grudgehammer'],
         battalions: [],
         commands: [
-          'Invoke the Code - Lead by Example',
-          'Invoke the Code - Look out for the Boss',
-          'Invoke the Code - Talk Softly, Carry a Big Hammer',
+          'Master of the Skies',
+          'On My Mark, Fire!',
+          'Repel Boarders!',
+          'Up And At Them!',
           'First Rule of Grungsson',
+          'By Grungni, I Have My Eye On You!',
         ],
         endless_spells: [],
         scenery: [],
@@ -999,8 +1041,10 @@ describe('getAzyrArmyFromPdf', () => {
         traits: [
           'ARTYCLE: Settle the Grudges',
           'AMENDMENT: Trust to Your Guns',
-          'FOOTNOTE: These Are Just Guidelines',
           'FOOTNOTE: Honour the Gods, Just in Case',
+          'ARTYCLE: Chronicle of Grudges',
+          'AMENDMENT: Take Help Where You Can Get It',
+          'Supremely Stubborn',
         ],
         triumphs: [],
         units: [
