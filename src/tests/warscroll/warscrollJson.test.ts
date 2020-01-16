@@ -27,6 +27,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  KHARADRON_OVERLORDS,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -35,6 +36,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with any endless spell (KO)', () => {
+    const parsedText = getFile('1579105159803-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(warscrollTxt.selections.endless_spells).toContain('Darkfire Daemonrift (Slaves)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
     const parsedText = getFile('1578184338167-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -46,7 +55,7 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  it("should not work with Everwinter's Master trait (not in book)", () => {
+  it("should not work with Everwinter's Master trait (not in current book)", () => {
     const parsedText = getFile('1578192442310-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.errors).toEqual([

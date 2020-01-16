@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { processGame } from 'utils/processGame'
-import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
+import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { modify } from 'utils/getArmy/modify'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -54,7 +54,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   } = Army as IInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
 
-  const GrandAllianceEndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+  const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
 
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
     Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
@@ -69,7 +69,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
   Army.Commands = modify.Commands(realmscape, Collection)
-  Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)
+  Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells, factionName)
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
   Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)

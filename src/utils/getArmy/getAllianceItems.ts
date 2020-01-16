@@ -4,6 +4,8 @@ import {
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   ORDER_GRAND_ALLIANCE,
+  KHARADRON_OVERLORDS,
+  TSupportedFaction,
 } from 'meta/factions'
 import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
 import { getArmyList } from 'meta/army_list'
@@ -50,4 +52,28 @@ export const getAllianceItems = (
     ),
     'name'
   )
+}
+
+/**
+ * Used for KO, since they can take ANY endless spell in the game now
+ */
+export const getAllEndlessSpells = (): TEntry[] => {
+  return [
+    ...getAllianceItems(CHAOS, 'EndlessSpells', []),
+    ...getAllianceItems(DEATH, 'EndlessSpells', []),
+    ...getAllianceItems(DESTRUCTION, 'EndlessSpells', []),
+    ...getAllianceItems(ORDER, 'EndlessSpells', []),
+  ]
+}
+
+export const getGrandAllianceEndlessSpells = (
+  grandAlliance: TGrandAlliances,
+  originalEntries: TEntry[] = [],
+  factionName: TSupportedFaction
+): TEntry[] => {
+  if (factionName === KHARADRON_OVERLORDS) {
+    return getAllEndlessSpells()
+  } else {
+    return getAllianceItems(grandAlliance, 'EndlessSpells', originalEntries)
+  }
 }
