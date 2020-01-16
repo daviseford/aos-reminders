@@ -1065,32 +1065,44 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with KO2', () => {
+  it('should work with deprecated KO2', () => {
     const parsedText = getFile('KO2')
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.selections.allegiances).toEqual([
       'Barak-Nar, City of the First Sunrise (Skyport)',
-      'Endless Skies (Custom Skyport)',
       'Barak-Mhornar, City of Shadow (Skyport)',
     ])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
     expect(res.selections.traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
+      'FOOTNOTE: Through Knowledge, Power',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
       'AMENDMENT: Prosecute Wars With All Haste',
       'ARTYCLE: Seek New Prospects',
-      'FOOTNOTE: Through Knowledge, Power',
-      'Champion of Progress',
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
+      'Champion of Progress',
       'Opportunistic Privateers',
     ])
     expect(res.selections.scenery).toEqual(['Penumbral Engine'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Endless Skies',
+      },
+      {
+        severity: 'warn',
+        text: 'Sledgeshock Hammer',
+      },
+      {
+        severity: 'warn',
+        text: 'Aetherstrike Force',
+      },
+    ])
   })
 
-  it('should work with KO1', () => {
+  it('should work with deprecated KO1', () => {
     const parsedText = getFile('KO1')
     const res = getBattlescribeArmy(parsedText)
 
@@ -1098,16 +1110,19 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
     expect(res.selections.commands).toEqual([
       'Invoke the Code',
-      'Invoke the Code - Lead by Example',
-      'Invoke the Code - Look out for the Boss',
-      'Invoke the Code - Talk Softly, Carry a Big Hammer',
+      'Master of the Skies',
+      'On My Mark, Fire!',
+      'Repel Boarders!',
+      'Up And At Them!',
       'First Rule of Grungsson',
+      'By Grungni, I Have My Eye On You!',
     ])
     expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
     expect(res.selections.traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
       "FOOTNOTE: Where There's War, There's Gold",
+      'Khemists Supreme',
     ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',
@@ -1115,7 +1130,7 @@ describe('getBattlescribeArmy', () => {
       'Arkanaut Admiral',
       'Bjorgen Thundrik',
       'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-      'Endrinmaster',
+      'Endrinmaster with Dirigible Suit',
       'Arkanaut Frigate',
       'Arkanaut Ironclad',
       'Grundstok Gunhauler',
@@ -1125,26 +1140,35 @@ describe('getBattlescribeArmy', () => {
       'Skywardens',
       "Thundrik's Profiteers",
     ])
-    expect(res.selections.battalions).toEqual([
-      'Aetherstrike Force',
-      'Grand Armada',
-      'Grundstok Escort Wing',
-      'Iron Sky Command',
-      'Iron Sky Squadron',
-    ])
+    expect(res.selections.battalions).toEqual(['Grand Armada', 'Grundstok Escort Wing', 'Iron Sky Command'])
     expect(res.selections.artifacts).toEqual([
-      'Aethersight Loupe (SKY-PORT TREASURE)',
-      "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
       'Ghyrropian Gauntlets (Ghyran)',
       'The Sunderblade (Ghyran)',
       'Jade Diadem (Ghyran)',
       'Greenglade Flask (Ghyran)',
-      'Staff of Ocular Optimisation (AETHERMATIC WEAPON)',
-      'Malefic Skymines (GREAT ENDRINWORK)',
-      'The Last Word (GREAT ENDRINWORK)',
-      'Prudency Chutes (GREAT ENDRINWORK)',
+      'Malefic Skymines (Great Endrinwork)',
+      'The Last Word (Great Endrinwork)',
+      'Prudency Chutes (Great Endrinwork)',
+      'Breath of Morgrim',
     ])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aethersight Loupe',
+      },
+      {
+        severity: 'warn',
+        text: "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+      },
+      {
+        severity: 'warn',
+        text: 'Aetherstrike Force',
+      },
+      {
+        severity: 'warn',
+        text: 'Iron Sky Squadron',
+      },
+    ])
   })
 
   it('should work with Sylvaneth2', () => {

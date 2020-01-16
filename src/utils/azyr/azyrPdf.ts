@@ -341,6 +341,7 @@ const commonTypos = {
   'Souldr aught': 'Souldraught',
   'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
+  'These Ar e Just Guidelines': 'These Are Just Guidelines',
   'T ype': 'Type',
   'Varanguar d': 'Varanguard',
   'Warbeat:': 'Spell:',

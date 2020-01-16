@@ -3,236 +3,294 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
+  DURING_ROUND,
+  END_OF_CHARGE_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
-    name: `The Last Word (GREAT ENDRINWORK)`,
+    name: `Masterwrought Armour`,
     effects: [
       {
-        name: `The Last Word (GREAT ENDRINWORK)`,
-        desc: `When an enemy unit finishes a charge within 1/2" of this vessel, you can immediately shoot at that unit with this weapon as if it were your shooting phase.`,
-        when: [CHARGE_PHASE],
+        name: `Masterwrought Armour`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
   {
-    name: `Incredible Self-healing Hull (GREAT ENDRINWORK)`,
+    name: `Hammer of Aetheric Might`,
     effects: [
       {
-        name: `Incredible Self-healing Hull (GREAT ENDRINWORK)`,
-        desc: `Roll a D6 for this SKYVESSEL in each of your hero phases. On a roll of 4 or more it heals 1 wound. This is in addition to any other healing it receives.`,
+        name: `Hammer of Aetheric Might`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to its normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gattleson's Endless Repeater`,
+    effects: [
+      {
+        name: `Gattleson's Endless Repeater`,
+        desc: `Add 2 to the Attacks characteristic of the bearer's Volley Pistol.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Rune of Mark`,
+    effects: [
+      {
+        name: `Rune of Mark`,
+        desc: `After armies are set up, pick 1 enemy HERO. If that HERO is slain, before the model is removed from play you can give 1 share of aether-gold each to the 3 closest friendly KHARADRON OVERLORDS units to that HERO.`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Flask of Vintage Amberwhisky`,
+    effects: [
+      {
+        name: `Flask of Vintage Amberwhisky`,
+        desc: `Once per battle, in your hero phase, you can either heal up to D6 wounds allocated to the bearer or heal up to 2 wounds allocated to the bearer.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Malefic Skymines (GREAT ENDRINWORK)`,
+    name: `Proclamator Mask-hailer`,
     effects: [
       {
-        name: `Malefic Skymines (GREAT ENDRINWORK)`,
-        desc: `If an enemy unit that can fly ends its charge move within 1" of this SKYVESSEL, it suffers D3 mortal wounds. This is in addition to any other ability that affects charging units.`,
+        name: `Proclamator Mask-hailer`,
+        desc: `Once per battle round, this general can use a command ability on their warscroll without a command point being spent.`,
+        when: [DURING_ROUND],
+      },
+    ],
+  },
+  {
+    name: `Cyclonic Aethometer`,
+    effects: [
+      {
+        name: `Cyclonic Aethometer`,
+        desc: `When you use the bearer's Aetherstorm ability, add 1 to the dice roll that determines its effect.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Svaregg-Stein 'Illuminator' Flarepistol`,
+    effects: [
+      {
+        name: `Svaregg-Stein 'Illuminator' Flarepistol`,
+        desc: `The first time in a battle that the bearer's Ranging Pistol scores a hit on an enemy unit, you can re-roll hit rolls for attacks made by other friendly KHARADRON OVERLORDS units that target that enemy unit in the same phase,`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Voidstone Orb`,
+    effects: [
+      {
+        name: `Voidstone Orb`,
+        desc: `Once per battle, when you use the bearer's Aethersight ability, you can say that the bearer will use their Voidstone Orb. If you do so, the dispelling or unbinding roll for that use of the ability is automatically successful (do not roll the dice).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Cogmonculus`,
+    effects: [
+      {
+        name: `Cogmonculus`,
+        desc: `Once per phase, you can re-roll 1 hit or wound roll for an attack made by the bearer, or re-roll 1 save roll for an attack that targets the bearer. You cannot use this ability to re-roll more than 1 dice per phase.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Aetherquartz Monolens`,
+    effects: [
+      {
+        name: `Aetherquartz Monolens`,
+        desc: `The bearer's Gaze of Grungni has a Range of 18" instead of 9".`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seismic Shock-gauntlets`,
+    effects: [
+      {
+        name: `Seismic Shock-gauntlets`,
+        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within l" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `Ebullient Buoyancy Aid (GREAT ENDRINWORK)`,
+    name: `Aether-injection Boosters`,
     effects: [
       {
-        name: `Ebullient Buoyancy Aid (GREAT ENDRINWORK)`,
-        desc: `This SKYVESSEL halves any penalty for being overburdened, rounding down. Re-roll this result if this SKYVESSEL is a Grundstok Gunhauler.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Prudency Chutes (GREAT ENDRINWORK)`,
-    effects: [
-      {
-        name: `Prudency Chutes (GREAT ENDRINWORK)`,
-        desc: `If this SKYVESSEL is destroyed, you can re-roll any rolls of 1 when determining whether its passengers survive when they bail out. Re-roll this result if this SKYVESSEL is a Grundstok Gunhauler.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Magnificent Omniscope (GREAT ENDRINWORK)`,
-    effects: [
-      {
-        name: `Magnificent Omniscope (GREAT ENDRINWORK)`,
-        desc: `This SKYVESSEL can move an extra D6" rather than D3" when it uses its Aetheric Navigation ability. Re-roll this result if this SKYVESSEL is a Grundstok Gunhauler.`,
+        name: `Aether-injection Boosters`,
+        desc: `When the bearer retreats, they can use the Disengage and Fly High abilities from the Grundstok Gunhauler warscroll.`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
   {
-    name: `Aetherspheric Endrins (GREAT ENDRINWORK)`,
+    name: `Phosphorite Bomblets`,
     effects: [
       {
-        name: `Aetherspheric Endrins (GREAT ENDRINWORK)`,
-        desc: `A SKYVESSEL with these endrins can be set up in the aethersphere.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Aetherspheric Endrins (GREAT ENDRINWORK)`,
-        desc: `At the beginning of any of your hero phases, this vessel can descend. When it does, set it up on the battlefield more than 9" from the enemy. Units that disembark from the vessel in the turn it descends must do so more than 9" from the enemy. Neither the vessel nor units that disembark from it can move in the movement phase in the turn it descends. If the vessel has not descended by the end of the battle, the vessel and any units embarked on it are considered slain.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Breath of Morgrim (GREAT ENDRINWORK)`,
-    effects: [
-      {
-        name: `Breath of Morgrim (GREAT ENDRINWORK)`,
-        desc: `Immediately after you move the Ironclad that has this great endrinwork in the movement phase (though not if it runs), pick an enemy unit within 6" and roll a D6 for each model in that unit. If you roll at least one 6, that unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hammer of Aethermatic Might (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Hammer of Aethermatic Might (AETHERMATIC WEAPON)`,
-        desc: `Wound rolls of 6 or more made for this weapon cause double damage.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sledgeshock Hammer (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Sledgeshock Hammer (AETHERMATIC WEAPON)`,
-        desc: `Add 1 to wound rolls made for this weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aethershock Bludgeon (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Aethershock Bludgeon (AETHERMATIC WEAPON)`,
-        desc: `Improve the Rend characteristic of this weapon by 1 (if it has a Rend of '-' it becomes -1).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Gattlesson's Endless Repeater (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Gattlesson's Endless Repeater (AETHERMATIC WEAPON)`,
-        desc: `Add 2 to the Attacks characteristic of this weapon.`,
+        name: `Phosphorite Bomblets`,
+        desc: `Once per battle, in your shooting phase. you can pick 1 unit within 6" of this model and roll a D6. On a 2+ that unit suffers 1 mortal wound you can roll again. Keep on rolling until the target is destroyed or you roll a 1.`,
         when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `Aethershock Earbuster (AETHERMATIC WEAPON)`,
+    name: `Miniaturised Aethermatic Repulsion Field`,
     effects: [
       {
-        name: `Aethershock Earbuster (AETHERMATIC WEAPON)`,
-        desc: `If any models are slain with this weapon, their unit must immediately take a battleshock test. This is in addition to the test they must take in the battleshock phase.`,
+        name: `Miniaturised Aethermatic Repulsion Field`,
+        desc: `Each time the bearer is affected by a spell or endless spell, you can roll a D6. If you do so, on a 3+, ignore the effects of that spell on the bearer.`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Emergency Ventplates`,
+    effects: [
+      {
+        name: `Emergency Ventplates`,
+        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
         when: [SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `Staff of Ocular Optimisation (AETHERMATIC WEAPON)`,
+    name: `Caustic Anatomiser`,
     effects: [
       {
-        name: `Staff of Ocular Optimisation (AETHERMATIC WEAPON)`,
-        desc: `Add 1 to any hit rolls you make in the shooting phase for a HERO with a Staff of Ocular Optimisation.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetherspeed Hammer (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Aetherspeed Hammer (AETHERMATIC WEAPON)`,
-        desc: `Bearer piles-in and attacks first.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Grudgehammer (AETHERMATIC WEAPON)`,
-    effects: [
-      {
-        name: `Grudgehammer (AETHERMATIC WEAPON)`,
-        desc: `The bearer can re-roll all failed hit and wound rolls in the combat phase for attacks that target an enemy unit which was picked for the Settle The Grudges artycle.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Masterwrought Armour (SKY-PORT TREASURE)`,
-    effects: [
-      {
-        name: `Masterwrought Armour (SKY-PORT TREASURE)`,
-        desc: `Re-roll save rolls of 1 for this HERO.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Balebreath Mask (SKY-PORT TREASURE)`,
-    effects: [
-      {
-        name: `Balebreath Mask (SKY-PORT TREASURE)`,
-        desc: `At the beginning of each combat phase, roll a D6 if there is an enemy unit within 3" of this HERO. On a roll of 4 or more that unit suffers a mortal wound.`,
+        name: `Caustic Anatomiser`,
+        desc: `Once per battle, at the start of the combat phase, you can say that the bearer will use their Caustic Anatomiser. If you do so, roll a D6 for each enemy model within 6" of this model. For each 5+, that model's unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Autotinkerer (SKY-PORT TREASURE)`,
+    name: `Spell in a Bottle`,
     effects: [
       {
-        name: `Autotinkerer (SKY-PORT TREASURE)`,
-        desc: `In your hero phase, this HERO can attempt to repair a single SKYVESSEL within 3" or the one it is embarked upon. On a roll of 4 or more, that SKYVESSEL heals 1 wound.`,
-        when: [HERO_PHASE],
+        name: `Spell in a Bottle`,
+        desc: `Pick 1 endless spell. Any endless spell can be chosen (all restrictions are ignored) but you must pay any points required for the model. Once per battles the bearer can automatically cast that endless spell (do not roll 2D6) and it cannot be unbound,`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   {
-    name: `Aethersight Loupe (SKY-PORT TREASURE)`,
+    name: `The Last Word (Great Endrinwork)`,
     effects: [
       {
-        name: `Aethersight Loupe (SKY-PORT TREASURE)`,
-        desc: `This HERO can unbind one spell in each enemy hero phase as if they were a wizard. If they already have this ability, they roll an extra dice when they do so and add it to their total.`,
-        when: [HERO_PHASE],
+        name: `The Last Word (Great Endrinwork)`,
+        desc: `At the end of the enemy charge phase you can pick 1 enemy unit that finished a charge move in that phase within 3" of this model. This model can shoot at that unit with its Great Sky Cannon, Great Skyhook or Great Volley Cannon.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `Gimlet Lens (SKY-PORT TREASURE)`,
+    name: `Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)`,
     effects: [
       {
-        name: `Gimlet Lens (SKY-PORT TREASURE)`,
-        desc: `Enemy units can never benefit from modifiers to their Save or save rolls (e.g. from being within cover) against attacks made by this HERO.`,
+        name: `Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)`,
+        desc: `Add 2 to this model's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Aethercharged Rune (SKY-PORT TREASURE)`,
+    name: `Ebullient Buoyancy Aid (Great Endrinwork)`,
     effects: [
       {
-        name: `Aethercharged Rune (SKY-PORT TREASURE)`,
-        desc: `Once per battle, you can change the result of one hit, wound, damage or save roll for this HERO to the result of your choice.`,
+        name: `Ebullient Buoyancy Aid (Great Endrinwork)`,
+        desc: `This model can fly high and/or disengage even while it has a garrison of 16 or more models.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Prudency Chutes (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Prudency Chutes (Great Endrinwork)`,
+        desc: `If this model is destroyed, you do not have to roll to see if models in its garrison are slain (they all survive).`,
+        when: [WOUND_ALLOCATION],
+      },
+    ],
+  },
+  {
+    name: `Magnificent Omniscope (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Magnificent Omniscope (Great Endrinwork)`,
+        desc: `Add 2" to this model's Move characteristic,`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model, and roll a number of dice equal to the charge roll for that charge move. For each 4+. that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Malefic Skymines (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Malefic Skymines (Great Endrinwork)`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit that can fly and is within 6" of this model and roll a D6. On a 2-3, that enemy unit suffers D3 mortal wounds. On a 4+ that enemy unit suffers D6 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
+        desc: `When this model makes a normal move, you can add D3" to that move. If you wish, you can add 2D3" to that move instead of D3", but if you do so and you roll a double, then this model suffers 1 mortal wound after the move is made.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
+        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D6 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
+    effects: [
+      {
+        name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
+        desc: `This model can use the Flying Transport ability from the Arkanaut Ironclad warscroll. If it does so, the maximum number of models that can garrison it is 5 instead of 25, and it can always fly high and/or disengage no matter how many models are in its garrison,`,
         when: [DURING_GAME],
       },
     ],

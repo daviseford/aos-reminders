@@ -7,7 +7,7 @@ import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
-// const AppBanner = lazy(() => import('components/info/banners/app_banner'))
+const AppBanner = lazy(() => import('components/info/banners/app_banner'))
 const ArmyBuilder = lazy(() => import('components/input/army_builder'))
 const FooterComponent = lazy(() => import('components/page/footer'))
 const LoadedArmyHeader = lazy(() => import('components/input/savedArmies/loaded_army_header'))
@@ -34,9 +34,9 @@ const Home: React.FC = () => {
     <div className={theme.bgColor}>
       <Header />
 
-      {/* <Suspense fallback={<></>}>
+      <Suspense fallback={<></>}>
         <AppBanner />
-      </Suspense> */}
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <UpdateBanner />

@@ -48,7 +48,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Molten Entrails`,
-        desc: `Casting value of 7. Pick 1 friendly OGOR MAWTRIBES MONSTER wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, add I to the Damage characteristic of the melee weapons used by that MONSTER'S mount.`,
+        desc: `Casting value of 7. Pick 1 friendly OGOR MAWTRIBES MONSTER wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, add 1 to the Damage characteristic of the melee weapons used by that MONSTER'S mount.`,
         when: [HERO_PHASE],
       },
     ],

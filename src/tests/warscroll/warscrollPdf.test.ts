@@ -30,6 +30,100 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('reads 2020 KO pdf', () => {
+    const pdfText = getFile('KO_2020')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'KHARADRON_OVERLORDS',
+      origin_realm: 'Ghur',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Barak-Zilfin, The Windswept City (Skyport)'],
+        artifacts: [
+          'Spell in a Bottle',
+          'Proclamator Mask-hailer',
+          'Miniaturised Aethermatic Repulsion Field',
+          'Seismic Shock-gauntlets',
+          'Cyclonic Aethometer',
+          "Svaregg-Stein 'Illuminator' Flarepistol",
+          'Voidstone Orb',
+          'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)',
+          "Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)",
+          "Coalbeard's Collapsible Compartments (Great Endrinwork)",
+          'Prudency Chutes (Great Endrinwork)',
+          "Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)",
+          'The Last Word (Great Endrinwork)',
+          "Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)",
+          'Staff of Ocular Optimisation',
+        ],
+        battalions: [
+          'Grand Armada',
+          'Grundstok Escort Wing',
+          'Intrepid Prospectors',
+          'Iron Sky Attack Squadron',
+          'Iron Sky Command',
+        ],
+        commands: [
+          'Master of the Skies',
+          'On My Mark, Fire!',
+          'Repel Boarders!',
+          'Up And At Them!',
+          'First Rule of Grungsson',
+          'By Grungni, I Have My Eye On You!',
+        ],
+        endless_spells: [],
+        scenery: [],
+        spells: [],
+        traits: [
+          'Grudgebearer',
+          'ARTYCLE: Master the Skies',
+          'AMENDMENT: Trust to Your Guns',
+          'FOOTNOTE: Show Them Your Steel',
+          "FOOTNOTE: There's Always a Breeze if You Look for it",
+          "AMENDMENT: Don't Argue With the Wind",
+          'Master Commander',
+        ],
+        triumphs: [],
+        units: [
+          'Aether-Khemist',
+          'Aetheric Navigator',
+          'Arkanaut Admiral',
+          'Bjorgen Thundrik',
+          'Brokk Grungsson, Lord-Magnate of Barak-Nar',
+          'Endrinmaster with Dirigible Suit',
+          'Endrinmaster with Endrinharness',
+          'Arkanaut Company',
+          'Endrinriggers',
+          'Grundstok Gunhauler',
+          'Grundstok Thunderers',
+          'Skywardens',
+          "Thundrik's Profiteers",
+          'Arkanaut Frigate',
+          'Arkanaut Ironclad',
+        ],
+      },
+      unknownSelections: [
+        'Skypikes',
+        'Skyhooks',
+        'Drill Launcher',
+        'Grapnel Launchers',
+        'Drill Cannon',
+        'Heavy Skyhook',
+        'Barak Zilfin)',
+      ],
+    })
+    console.log(warscrollTxt)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('reads Warpcog Convocation correctly with no errors', () => {
     const pdfText = getFile('WarpcogList')
     const parsedText = parsePdf(pdfText)
@@ -64,7 +158,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('reads KO pdf (issue #794)', () => {
+  it('reads deprecated KO pdf (issue #794)', () => {
     const pdfText = getFile('skydorfs')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -73,25 +167,35 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Aethershock Earbuster',
+        },
+        {
+          severity: 'warn',
+          text: 'Aetherspheric Endrins',
+        },
+      ],
       factionName: 'KHARADRON_OVERLORDS',
       origin_realm: 'Chamon',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         allegiances: ['Barak-Zilfin, The Windswept City (Skyport)'],
-        artifacts: ['Aethershock Earbuster (AETHERMATIC WEAPON)', 'Aetherspheric Endrins (GREAT ENDRINWORK)'],
+        artifacts: ['Staff of Ocular Optimisation'],
         battalions: [],
         commands: [],
         endless_spells: [],
         scenery: [],
         spells: [],
         traits: [
-          "FOOTNOTE: There's no Trading With Some People",
-          'Fleetmaster',
-          'ARTYCLE: Master the Skies',
-          "AMENDMENT: Don't Argue With the Wind",
+          "FOOTNOTE: There's No Trading With Some People",
+          'Cunning Fleetmaster',
           "FOOTNOTE: There's Always a Breeze if You Look for it",
+          "AMENDMENT: Don't Argue With the Wind",
+          'ARTYCLE: Master the Skies',
+          'Master Commander',
         ],
         triumphs: [],
         units: [
@@ -423,19 +527,25 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  it('reads a KO warscroll pdf file correctly', () => {
+  it('reads a deprecated KO warscroll pdf file correctly', () => {
     const pdfText = getFile('KOList')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aethershock Earbuster',
+      },
+    ])
     expect(warscrollTxt.selections.traits).toEqual([
-      "FOOTNOTE: There's no Reward Without Risk",
-      "FOOTNOTE: There's no Trading With Some People",
-      'ARTYCLE: Master the Skies',
-      "AMENDMENT: Don't Argue With the Wind",
+      "FOOTNOTE: There's No Reward Without Risk",
+      "FOOTNOTE: There's No Trading With Some People",
       "FOOTNOTE: There's Always a Breeze if You Look for it",
+      "AMENDMENT: Don't Argue With the Wind",
+      'ARTYCLE: Master the Skies',
+      'Master Commander',
     ])
     expect(warscrollTxt.selections.units).toEqual([
       'Aether-Khemist',

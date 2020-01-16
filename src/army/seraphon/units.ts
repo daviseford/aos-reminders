@@ -620,7 +620,7 @@ export const Units: TUnits = [
       DeadlyVenomEffect,
       {
         name: `Priestly Rites`,
-        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
+        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a D6. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

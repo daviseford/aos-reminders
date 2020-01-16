@@ -364,7 +364,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Daemonic Power',
         'Favour of the Ruinous Powers',
       ],
-      traits: ['Mighty Ritualist (Cabalists)', 'Bolstered by Hate (Ravagers, Cabalists, Despoilers)'],
+      traits: ['Mighty Ritualist (Cabalists)', 'All for One (Cabalists)'],
       triumphs: [],
       units: [
         'Chaos Lord',

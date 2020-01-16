@@ -486,7 +486,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tyrant of Battle`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re- roll hit and wound rolls of 1 for friendly CLANS VERMINUS units while they are wholly within 13" of that model.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll hit and wound rolls of 1 for friendly CLANS VERMINUS units while they are wholly within 13" of that model.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
