@@ -28,7 +28,15 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
   const Collection = getCollection(Army)
   const { Commands = [] } = Collection
 
-  const { Abilities = [], Allegiances = [], Artifacts = [], Battalions = [], Spells = [], Traits = [] } = Army
+  const {
+    Abilities = [],
+    Allegiances = [],
+    AllegianceType = 'Allegiances',
+    Artifacts = [],
+    Battalions = [],
+    Spells = [],
+    Traits = [],
+  } = Army
 
   const abilities = [...Abilities].map(x => [x.name, x.desc])
   const allegiances = [...Allegiances].map(x => [x.name, ...x.effects.map(y => y.desc)])
@@ -42,7 +50,7 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
   const ws = XLSX.utils.aoa_to_sheet([
     ['Faction Abilities'],
     ...abilities,
-    ['Allegiances'],
+    [AllegianceType],
     ...allegiances,
     ['Battalions'],
     ...battalions,
