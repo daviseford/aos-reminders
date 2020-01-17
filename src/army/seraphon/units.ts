@@ -406,6 +406,11 @@ export const Units: TUnits = [
     name: `Skinks`,
     effects: [
       {
+        name: `Alpha`,
+        desc: `The leader of this unit is the Alpha. An Alpha makes 2 attacks rather than 1 in the combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Wary Fighters`,
         desc: `When it is a Skink unit's turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.`,
         when: [COMBAT_PHASE],
@@ -615,7 +620,7 @@ export const Units: TUnits = [
       DeadlyVenomEffect,
       {
         name: `Priestly Rites`,
-        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
+        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a D6. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

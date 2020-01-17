@@ -84,7 +84,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Incorporeal Form`,
-        desc: `Each time this general is affected by a spell or endless spell, you can roll a dice. On a 5+, ignore the effects of that spell or endless spell on this general.`,
+        desc: `Each time this general is affected by a spell or endless spell, you can roll a D6. On a 5+, ignore the effects of that spell or endless spell on this general.`,
         when: [HERO_PHASE],
       },
     ],

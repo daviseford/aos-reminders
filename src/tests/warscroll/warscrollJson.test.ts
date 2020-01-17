@@ -27,6 +27,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
+  KHARADRON_OVERLORDS,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -35,6 +36,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with any endless spell (KO)', () => {
+    const parsedText = getFile('1579105159803-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(warscrollTxt.selections.endless_spells).toContain('Darkfire Daemonrift (Slaves)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
     const parsedText = getFile('1578184338167-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -46,7 +55,7 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
   })
 
-  it("should not work with Everwinter's Master trait (not in book)", () => {
+  it("should not work with Everwinter's Master trait (not in current book)", () => {
     const parsedText = getFile('1578192442310-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.errors).toEqual([
@@ -263,7 +272,16 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       units: ['Corvus Cabal'],
     })
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Blessing of Tzeentch',
+      },
+      {
+        severity: 'warn',
+        text: 'Pink Horrors of Tzeentch',
+      },
+    ])
   })
 
   it('should work with Hailstorm Battery (SCE battalion)', () => {
@@ -355,7 +373,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Daemonic Power',
         'Favour of the Ruinous Powers',
       ],
-      traits: ['Mighty Ritualist (Cabalists)', 'Bolstered by Hate (Ravagers, Cabalists, Despoilers)'],
+      traits: ['Mighty Ritualist (Cabalists)', 'All for One (Cabalists)'],
       triumphs: [],
       units: [
         'Chaos Lord',
@@ -525,7 +543,16 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(TZEENTCH)
     expect(warscrollTxt.selections.traits).toEqual(['Arch-sorcerer'])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Souldraught',
+      },
+      {
+        severity: 'warn',
+        text: 'Cult of the Transient Form',
+      },
+    ])
   })
 
   it('should work with Big Rukk', () => {
@@ -733,12 +760,17 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with Windthief Charm', () => {
+  it('should work with Windthief Charm (deprecated as of 2020)', () => {
     const parsedText = getFile('1572003972006-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(TZEENTCH)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Windthief Charm',
+      },
+    ])
   })
 
   it('should work with Hammers of Augury', () => {

@@ -25,7 +25,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Secret-eater`,
-        desc: `Pick 1 of the bearer's weapons. If the unmodified hit roll for an attack made with that weapon is 6, you can roll a dice and add it to your Destiny Dice.`,
+        desc: `Pick 1 of the bearer's weapons. If the unmodified hit roll for an attack made with that weapon is 6, you can roll a D6 and add it to your Destiny Dice.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -185,7 +185,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Aspect of Tzeentch`,
-        desc: `If the bearer is on the battlefield, roll a dice each time you spend a Destiny Dice. On a 5+, you can roll a dice and add it to your Destiny Dice.`,
+        desc: `If the bearer is on the battlefield, roll a D6 each time you spend a Destiny Dice. On a 5+, you can roll a D6 and add it to your Destiny Dice.`,
         when: [DURING_GAME],
       },
     ],

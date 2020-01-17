@@ -65,9 +65,9 @@ const modifyArtifacts = (
 const modifyTraits = (traits: TTraits, alliance: TGrandAlliances, Collection: ICollection): TTraits => {
   const { Traits } = GrandAllianceConfig[alliance]
   return uniqBy(
-    traits
-      .concat(Collection.Traits)
-      .concat(Traits)
+    sortBy(traits, 'name')
+      .concat(sortBy(Collection.Traits, 'name'))
+      .concat(sortBy(Traits, 'name'))
       .map(t => ({ ...t, command_trait: true })),
     'name'
   )

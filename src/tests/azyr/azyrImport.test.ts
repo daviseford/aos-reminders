@@ -1791,7 +1791,7 @@ describe('handleAzyrPages', () => {
       'FACTION: Kharadron Overlords',
       // The below typo is left in place to test against later
       'ALLEGIANCE: Bar ak-Thr yng, City of the Ancest ors',
-      'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Ar e Just Guidelines',
+      'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Are Just Guidelines',
       'UNIT: Aether-Khemist',
       'UNIT: Aetheric Navigator',
       'UNIT: Arkanaut Admiral',

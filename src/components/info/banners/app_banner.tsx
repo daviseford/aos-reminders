@@ -5,7 +5,7 @@ import { NotificationBanner } from 'components/info/banners/notification_banner'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
-  const name = 'Share_Button_Launch'
+  const name = 'KO_Tzeentch_Update_2020'
 
   return (
     <NotificationBanner
@@ -15,7 +15,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      You can now share your list with others! Just click the Share button!
+      Kharadron Overlords and Tzeentch rules are fully up-to-date!
     </NotificationBanner>
   )
 })

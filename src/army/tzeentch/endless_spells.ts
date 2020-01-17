@@ -35,7 +35,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `The Parchment Curse`,
-        desc: `Casting Value 8. Only the caster of the Tome of Eyes can attempt to cast this spell. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them and roll a dice. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
+        desc: `Casting Value 8. Only the caster of the Tome of Eyes can attempt to cast this spell. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them and roll a D6. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -58,7 +58,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Radiant Transmogrification`,
-        desc: `At the end of your movement phase, if the Burning Sigil of Tzeentch is on the battlefield, you must roll a dice on the following table:
+        desc: `At the end of your movement phase, if the Burning Sigil of Tzeentch is on the battlefield, you must roll a D6 on the following table:
 
         1 - Dismembered by Change: Pick 1 unit within 12" of this model and visible to it. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos S paw n to your army and set it up within 3" of the slain model's unit.
         2 - Crippling  Appendages: Pick 1 unit within 12" of this model and visible to it. Halve the Move characteristic of that unit until the start of your next hero phase.

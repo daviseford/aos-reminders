@@ -15,14 +15,15 @@ export const cleanText = (txt: string) => {
   )
 }
 export const ignoredValues = [
+  'Allegiance: The Ossiarch Empire',
   'Allegiance',
   'Alliegiance', // lol
-  'Game Type',
-  'Realm of Battle',
   'Damage Table',
-  'Realm of Origin',
+  'Game Type',
   'Points Variation',
   'Purchased Command Points',
+  'Realm of Battle',
+  'Realm of Origin',
 ]
 
 export const fixKeys = (obj: { [key: string]: string[] }) => {

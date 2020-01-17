@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { processGame } from 'utils/processGame'
-import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
+import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { modify } from 'utils/getArmy/modify'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -54,7 +54,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   } = Army as IInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
 
-  const GrandAllianceEndlessSpells = getAllianceItems(GrandAlliance, 'EndlessSpells', EndlessSpells)
+  const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
 
   if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
     Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
