@@ -4,20 +4,23 @@ import { getArmyFromList } from 'meta/army_list'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
 
-const FILENAME = 'rules_export.xlsx'
-
 /**
  * Prints all rules to an xlsx file
  * Requested by Rufio Symes of Honest Wargamer for an event
  */
 const generateHonestWargamerSheets = () => {
+  const FILENAME = 'rules_export.xlsx'
+
+  console.log(`Generating ${FILENAME}...`)
+
   const workbook = XLSX.utils.book_new()
 
   // Create a sheet for every faction
   SUPPORTED_FACTIONS.forEach(x => makeWorksheet(workbook, x))
-  // makeWorksheet(workbook, IDONETH_DEEPKIN)
 
   XLSX.writeFile(workbook, FILENAME)
+
+  console.log(`Done. Saved to ${FILENAME}`)
 }
 
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
@@ -57,6 +60,39 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
   XLSX.utils.book_append_sheet(workbook, ws, titleCase(factionName))
 }
 
-console.log('Generating .xlsx file...')
+/**
+ * Prints all factions + allegiances to an XLSX sheet
+ * Requested by Dan of AoS Shorts
+ */
+const generateAoSShortsAllegianceData = () => {
+  const FILENAME = 'allegiance_export.xlsx'
+
+  console.log(`Generating ${FILENAME}...`)
+
+  const workbook = XLSX.utils.book_new()
+
+  const ws = XLSX.utils.aoa_to_sheet([[]]) // Create a blank worksheet
+
+  XLSX.utils.book_append_sheet(workbook, ws, 'AoS Shorts')
+
+  // Create a sheet for every faction
+  const data = SUPPORTED_FACTIONS.map(makeAllegianceWorksheet)
+
+  XLSX.utils.sheet_add_aoa(ws, data)
+
+  XLSX.writeFile(workbook, 'allegiance_export.xlsx')
+
+  console.log(`Done. Saved to ${FILENAME}`)
+}
+
+const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
+  const { Army } = getArmyFromList(factionName)
+  const { Allegiances = [], AllegianceType = 'Allegiances' } = Army
+  const allegiances = [...Allegiances].map(x => [x.name])
+
+  return [[titleCase(factionName)], [AllegianceType], ...allegiances]
+}
+
+/** Run the scripts */
 generateHonestWargamerSheets()
-console.log(`Done. Saved to ${FILENAME}`)
+generateAoSShortsAllegianceData()
