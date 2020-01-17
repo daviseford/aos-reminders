@@ -60,8 +60,6 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
   XLSX.utils.book_append_sheet(workbook, ws, titleCase(factionName))
 }
 
-generateHonestWargamerSheets()
-
 /**
  * Prints all factions + allegiances to an XLSX sheet
  * Requested by Dan of AoS Shorts
@@ -78,7 +76,7 @@ const generateAoSShortsAllegianceData = () => {
   XLSX.utils.book_append_sheet(workbook, ws, 'AoS Shorts')
 
   // Create a sheet for every faction
-  const data = SUPPORTED_FACTIONS.map(x => makeAllegianceWorksheet(workbook, ws, x))
+  const data = SUPPORTED_FACTIONS.map(makeAllegianceWorksheet)
 
   XLSX.utils.sheet_add_aoa(ws, data)
 
@@ -87,14 +85,14 @@ const generateAoSShortsAllegianceData = () => {
   console.log(`Done. Saved to ${FILENAME}`)
 }
 
-const makeAllegianceWorksheet = (
-  workbook: XLSX.WorkBook,
-  ws: XLSX.WorkSheet,
-  factionName: TSupportedFaction
-) => {
+const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
   const { Army } = getArmyFromList(factionName)
   const { Allegiances = [], AllegianceType = 'Allegiances' } = Army
   const allegiances = [...Allegiances].map(x => [x.name])
 
   return [[titleCase(factionName)], [AllegianceType], ...allegiances]
 }
+
+/** Run the scripts */
+generateHonestWargamerSheets()
+generateAoSShortsAllegianceData()
