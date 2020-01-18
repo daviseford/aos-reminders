@@ -36,6 +36,28 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles KO9', () => {
+    const fileTxt = getFile('KO9')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO10', () => {
+    const fileTxt = getFile('KO10')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Tzeentch5', () => {
+    const fileTxt = getFile('Tzeentch5')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Tzeentch4', () => {
     const fileTxt = getFile('Tzeentch4')
     const pages = handleAzyrPages(fileTxt)
@@ -51,7 +73,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        allegiances: ['The Guild of Summoners'],
+        allegiances: ['Guild of Summoners'],
         artifacts: ['Brimstone Familiar'],
         battalions: [],
         commands: ['Will of the Arcane Lords'],
@@ -213,14 +235,6 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Incredible Self-healing Hull',
-      },
-      {
-        severity: 'warn',
-        text: 'Magnificent Omniscope',
-      },
-      {
-        severity: 'warn',
-        text: 'The Last Word',
       },
     ])
   })
@@ -425,16 +439,10 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    // Azyr incorrectly classifies The Last Word as a Mount Trait
-    // Even though it's an artifact :(
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Hammer of Aethermatic Might',
-      },
-      {
-        severity: 'warn',
-        text: 'The Last Word',
       },
     ])
   })
@@ -936,16 +944,10 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    // Azyr incorrectly classifies The Last Word as a Mount Trait
-    // Even though it's an artifact :(
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Aethershock Earbuster',
-      },
-      {
-        severity: 'warn',
-        text: 'The Last Word',
       },
     ])
   })

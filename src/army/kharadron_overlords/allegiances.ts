@@ -70,7 +70,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Bearer of the Ironstar`,
-        desc: `The first time this general is slain, before removing them, roll a D6. On a 2+ they are not slain, you can heal up to D3 wounds allocated to them, and any wounds remaining to be allocated to them are negated,`,
+        desc: `The first time this general is slain, before removing them, roll a D6. On a 2+ they are not slain, you can heal up to D3 wounds allocated to them, and any wounds remaining to be allocated to them are negated.`,
         when: [WOUND_ALLOCATION],
         command_trait: true,
       },

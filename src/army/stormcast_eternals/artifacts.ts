@@ -258,7 +258,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Staff of Focus`,
-        desc: `Once per battle. Add 1 to casting rolls for the bearer until the end of that phase. In addition, if the bearer casts a spell that inflicts any mortal wounds during that phase, add 1 to the number of mortal wounds inflicted on each unit.`,
+        desc: `Once per battle, add 1 to casting rolls for the bearer until the end of that phase. In addition, if the bearer casts a spell that inflicts any mortal wounds during that phase, add 1 to the number of mortal wounds inflicted on each unit.`,
         when: [HERO_PHASE],
       },
     ],
