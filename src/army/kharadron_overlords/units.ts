@@ -17,7 +17,7 @@ import {
 } from 'types/phases'
 
 const FlyingTransportEffect = {
-  name: `FLYING TRANSPORT`,
+  name: `Flying Transport`,
   desc: `This model can fly, and can be garrisoned by up to 15 friendly Marine models even though it is not a terrain feature.
 
   Halve this model's Move characteristic and it cannot Fly High if there are 11 or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
@@ -115,18 +115,17 @@ const EndrinmasterBaseEffects = [
     when: [HERO_PHASE],
     command_ability: true,
   },
-  EndrinharnessEffect,
 ]
 
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Endrinmaster with Dirigible Suit`,
-    effects: [...EndrinmasterBaseEffects],
+    effects: [...EndrinmasterBaseEffects, HitchersEffect],
   },
   {
     name: `Endrinmaster with Endrinharness`,
-    effects: [...EndrinmasterBaseEffects],
+    effects: [...EndrinmasterBaseEffects, EndrinharnessEffect],
   },
   {
     name: `Aether-Khemist`,
@@ -323,7 +322,12 @@ export const Units: TUnits = [
         desc: `Roll 1 dice each time you allocate a wound or mortal wound to a friendly SKYVESSEL other than a GRUNDSTOK GUNHAULER while it is within 3" of any friendly GRUNDSTOK GUNHAULERS. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
-      BombRacksEffect,
+      // Differs from the other Bomb Racks ability
+      {
+        name: `Bomb Racks`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
       DisengageEffect,
       FlyHighEffect,
       SkyCannonEffect,
