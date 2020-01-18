@@ -77,7 +77,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Crewed War Machine`,
-        desc: `This unit cannot make charge moves,`,
+        desc: `This unit cannot make charge moves.`,
         when: [CHARGE_PHASE],
       },
       {

@@ -13,7 +13,7 @@ import {
 
 const Allegiances: TAllegiances = [
   {
-    name: `The Eternal Conflagration`,
+    name: `Eternal Conflagration`,
     effects: [
       {
         name: `Twisters of Materiality`,
@@ -41,11 +41,11 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Host Duplicitous`,
+    name: `Hosts Duplicitous`,
     effects: [
       {
         name: `Ranks of Mischievous Mirages`,
-        desc: `Enemy units within 3" of a Host Duplicitous unit cannot retreat.`,
+        desc: `Enemy units within 3" of a Hosts Duplicitous unit cannot retreat.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -68,7 +68,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Host Arcanum`,
+    name: `Hosts Arcanum`,
     effects: [
       {
         name: `Thieves of All Things Arcane`,
@@ -96,7 +96,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Cult of the Transient Form`,
+    name: `Cult of the Transient Form`,
     effects: [
       {
         name: `The Change-gift`,
@@ -124,7 +124,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Pyrofane Cult`,
+    name: `Pyrofane Cult`,
     effects: [
       {
         name: `Arrows of Tzeentch`,
@@ -152,7 +152,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Guild of Summoners`,
+    name: `Guild of Summoners`,
     effects: [
       {
         name: `Scions of the Exiled`,
