@@ -27,6 +27,7 @@ export type TUnits = TEntry[]
 export interface IInitialArmy {
   Abilities?: TAbilities
   Allegiances?: TAllegiances
+  AllegianceType?: string
   AlliedUnits?: TUnits
   Artifacts?: TArtifacts
   Battalions?: TBattalions

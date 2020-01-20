@@ -19,6 +19,7 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { TEffects, TEntry } from 'types/data'
+import { GreatEndrinworks } from './artifacts'
 
 const effectToEntry = (effect: TEffects): TEntry => {
   return {
@@ -26,6 +27,8 @@ const effectToEntry = (effect: TEffects): TEntry => {
     effects: [effect],
   }
 }
+
+const GreatEndrinworksTraits = GreatEndrinworks.map(x => ({ ...x, mount_trait: true }))
 
 export const ProsecuteWarsWithAllHasteEffect = {
   name: `AMENDMENT: Prosecute Wars With All Haste`,
@@ -35,7 +38,7 @@ export const ProsecuteWarsWithAllHasteEffect = {
 }
 export const HonourIsEverythingEffect = {
   name: `ARTYCLE: Honour is Everything`,
-  desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER,`,
+  desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
   command_trait: true,
 }
@@ -196,7 +199,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `War Wound`,
-        desc: `Roll a D6 for this general in your hero phase. On a 1, subtract 1 from hit rolls for this general until your next hero phase. On a 2+, you receive 1 command point,`,
+        desc: `Roll a D6 for this general in your hero phase. On a 1, subtract 1 from hit rolls for this general until your next hero phase. On a 2+, you receive 1 command point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -372,11 +375,12 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `FOOTNOTE: Without Our Ships, We Are Naught`,
-        desc: `Once per battle, you can heal up to D3 wounds allocated to a friendly SKYVESSEL,`,
+        desc: `Once per battle, you can heal up to D3 wounds allocated to a friendly SKYVESSEL.`,
         when: [DURING_GAME],
       },
     ],
   },
+  ...GreatEndrinworksTraits,
 ]
 
 export default CommandTraits
