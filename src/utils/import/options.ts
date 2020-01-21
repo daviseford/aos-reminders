@@ -54,6 +54,7 @@ const warscrollTypoMap: TNameMap = {
   'Berzerker Lord': 'Berserker Lord (Mortal)',
   'Blade of All Frost': 'Blade of All-Frost',
   'Blade of the All-Frost': 'Blade of All-Frost',
+  'Brute Fist': 'BruteFist',
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
   'Dabbling in Sorcery': 'Dabblings in Sorcery (Anvilgard Battle Trait)',
