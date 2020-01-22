@@ -24,6 +24,11 @@ small {
 
 /* Custom Classes */
 
+.FullHeight {
+    height: calc(100vh - 100px);
+    box-sizing: border-box;
+}
+
 .LoadingContainer {
     padding-top: 35vh;
 }
