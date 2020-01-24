@@ -39,7 +39,7 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
         </Suspense>
       </div>
       <PageHeader />
-      {isActive ? <SubscribedView /> : <UnsubscribedView />}>
+      {isActive ? <SubscribedView /> : <UnsubscribedView />}
       <FooterComponent />
     </div>
   )
@@ -186,7 +186,8 @@ const SubscribeBtn = () => {
       onClick={() => logClick('Stats-Subscribe')}
     >
       <div className={centerContentClass}>
-        <FaUserGraduate className="mr-2" /> Subscribe
+        <FaUserGraduate className="mr-2" />
+        Subscribe
       </div>
     </Link>
   )
