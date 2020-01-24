@@ -21,7 +21,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       <span>
         Subscribers can now access advanced usage stats{' '}
         <Link to={ROUTES.STATS} onClick={() => logClick(name)}>
-          via our new Stats page.{' '}
+          via our new Stats page.
         </Link>
       </span>
     </NotificationBanner>

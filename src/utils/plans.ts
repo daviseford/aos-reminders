@@ -64,7 +64,7 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
   },
 ]
 
-// Half off sale
+// Quarter price
 // Started 10/18/19 - Ended 10/29/19
 // export const SubscriptionPlans: ISubscriptionPlan[] = [
 //   {
@@ -97,27 +97,53 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
 // ]
 
 // Full price
-// Started 12/30/2019
+// Started 1/25/2020
 export const SubscriptionPlans: ISubscriptionPlan[] = [
   {
-    cost: '1.99',
-    dev: 'plan_FkxFLAaT1qDsha',
-    monthly_cost: '1.99',
-    prod: 'plan_FkxAvHwfImy1WU',
+    cost: '2.99',
+    dev: 'plan_GblPX6W3J63QVQ',
+    monthly_cost: '2.99',
+    prod: 'plan_GblMrWu14MyTIX',
     title: '1 Month',
   },
   {
-    cost: '4.47',
-    dev: 'plan_FkxFWSZADnJp1G',
-    monthly_cost: '1.49',
-    prod: 'plan_FkxCFxAtQuXdSm',
+    cost: '7.47',
+    dev: 'plan_GblQjaElSrCaMA',
+    monthly_cost: '2.49',
+    prod: 'plan_GblNdann3IIBaL',
     title: '3 Months',
   },
   {
-    cost: '11.88',
-    dev: 'plan_FkxGRttbVwtLzD',
-    monthly_cost: '0.99',
-    prod: 'plan_FkxDFaZM1vCkMF',
+    cost: '23.88',
+    dev: 'plan_GblQrGW7mAZr43',
+    monthly_cost: '1.99',
+    prod: 'plan_GblPyQOBWwGDrg',
     title: '1 Year',
   },
 ]
+
+// Half price
+// Started 12/30/2019
+// export const SubscriptionPlans: ISubscriptionPlan[] = [
+//   {
+//     cost: '1.99',
+//     dev: 'plan_FkxFLAaT1qDsha',
+//     monthly_cost: '1.99',
+//     prod: 'plan_FkxAvHwfImy1WU',
+//     title: '1 Month',
+//   },
+//   {
+//     cost: '4.47',
+//     dev: 'plan_FkxFWSZADnJp1G',
+//     monthly_cost: '1.49',
+//     prod: 'plan_FkxCFxAtQuXdSm',
+//     title: '3 Months',
+//   },
+//   {
+//     cost: '11.88',
+//     dev: 'plan_FkxGRttbVwtLzD',
+//     monthly_cost: '0.99',
+//     prod: 'plan_FkxDFaZM1vCkMF',
+//     title: '1 Year',
+//   },
+// ]
