@@ -10,6 +10,7 @@ import GenericButton from 'components/input/generic_button'
 import { Link } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
 import { centerContentClass } from 'theme/helperClasses'
+import FooterComponent from 'components/page/footer'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -37,6 +38,7 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
         </Suspense>
       </div>
       {isActive ? <SubscribedView /> : <UnsubscribedView />}>
+      <FooterComponent />
     </div>
   )
 })
@@ -52,7 +54,9 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
 
   return (
     <>
-      <div className={`container ${theme.bgColor} ${theme.text} pb-4`}>Welcome to the stats page</div>
+      <div className={`container ${theme.bgColor} ${theme.text} text-center pb-4`}>
+        <h2>AoS Reminders Statistics</h2>
+      </div>
 
       <div className={`container ${theme.bgColor} ${theme.text}`}>
         {!iframeIsLoaded && <LargeSpinner />}
@@ -70,25 +74,97 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
 
         {/* Post-stats section */}
         <CoachShoutout />
+        <Methodology />
       </div>
     </>
   )
 })
 
+const Methodology = () => {
+  const { theme } = useTheme()
+  return (
+    <div className={`row ${theme.bgColor} ${theme.text} mt-3`}>
+      <div className="col">
+        <h3>FAQ</h3>
+        <h5>How are these stats collected?</h5>
+        <p>
+          Everytime you select a unit, faction, trait, or anything else in AoS Reminders, that selection is
+          logged. Every PDF or HTML file that is imported is also logged.
+        </p>
+
+        <h5>Doesn't that just mean these are popular choices?</h5>
+        <p>
+          Yes. The great thing about the Warhammer community is that it's full of detailed-oriented players
+          who tend to congregate towards powerful, efficient choices. If you build lists using this data as a
+          starting point, you will generally find yourself building a very strong list.
+        </p>
+
+        <h5>Player X just won a tournament without using the most popular choices! Your stats suck!</h5>
+        <p>
+          That's not a question, but listen - you should view these stats as a helpful aggregation of
+          prevailing ideas regarding the current AoS meta - in other words, these stats represent the{' '}
+          <LinkNewTab label="WisdomOfCrowds" href="https://en.wikipedia.org/wiki/Wisdom_of_the_crowd">
+            wisdom of the crowds.
+          </LinkNewTab>
+        </p>
+        <p>
+          We're not necessarily going to be able to predict the list composition of a specific top-table army
+          - but we can <em>probably</em> predict the number of Ossiarch Bonereapers armies that will use the
+          Petrifex Elite legion!
+        </p>
+
+        <h5>My gaming group doesn't use this, so these stats aren't accurate!</h5>
+        <p>
+          One of the great things about statistics is that we can infer large trends in a population from a
+          smaller subset of data. For example, when political parties conduct polling, they don't literally
+          call every single person in the country to get their thoughts. They collect data from a varied
+          subset of the population and extrapolate from there. That's how population-based statistics work!
+        </p>
+        <p>
+          Similarly, while you may not personally be represented in these stats, that does not render them
+          useless. Thousands of lists are created every week using AoS Reminders, and trends certainly do
+          emerge. Furthermore, those trends closely mirror competitive play - go look at Endless Spells used
+          in tournaments vs. the most popular Endless Spells in AoS Reminders. They will be nearly identical.
+        </p>
+      </div>
+    </div>
+  )
+}
+
 const CoachShoutout = () => {
   const { theme } = useTheme()
   return (
-    <div className={`row ${theme.bgColor} ${theme.text} mt-3 text-center`}>
-      <div className="col">
-        <h4>Go Deeper</h4>
-        Check out AoS Coach's{' '}
-        <LinkNewTab
-          href="https://www.youtube.com/playlist?list=PLVceda-W9EygvVeoWhrKaBBCvIiSWasVo"
-          label={`CoachLink`}
-        >
-          Emerging Meta
-        </LinkNewTab>{' '}
-        series, where he deep-dives on these stats and explains the latest trends.
+    <div
+      className={`row ${theme.bgColor} ${theme.text} mt-3 text-center align-items-start justify-content-center`}
+    >
+      <div className="col-12 mt-2">
+        <h3>Go Deeper with AoS Coach</h3>
+      </div>
+      <div className="col-12 col-md-8 col-xl-6">
+        <div className="embed-responsive embed-responsive-16by9">
+          <iframe
+            className="embed-responsive-item"
+            title="Emerging Meta Series"
+            width="100%"
+            height="100%"
+            src="https://www.youtube-nocookie.com/embed/videoseries?list=PLVceda-W9EygvVeoWhrKaBBCvIiSWasVo"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+      <div className="col-12 mt-2">
+        <p>
+          Check out AoS Coach's{' '}
+          <LinkNewTab
+            href="https://www.youtube.com/playlist?list=PLVceda-W9EygvVeoWhrKaBBCvIiSWasVo"
+            label={`CoachLink`}
+          >
+            Emerging Meta
+          </LinkNewTab>{' '}
+          series, where he deep-dives on these stats and explains the latest trends.
+        </p>
       </div>
     </div>
   )
