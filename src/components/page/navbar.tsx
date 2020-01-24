@@ -47,6 +47,11 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
           Home
         </Link>
       )}
+      {pathname !== ROUTES.STATS && (
+        <Link to={ROUTES.STATS} className={navbarStyles.link} onClick={() => logClick('Navbar-Stats')}>
+          Stats
+        </Link>
+      )}
       {isAuthenticated && pathname !== ROUTES.PROFILE && (
         <Link to={ROUTES.PROFILE} className={navbarStyles.link} onClick={() => logClick('Navbar-Profile')}>
           Profile
