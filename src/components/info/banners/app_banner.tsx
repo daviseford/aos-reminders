@@ -2,10 +2,13 @@ import React from 'react'
 import { useTheme } from 'context/useTheme'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
+import { logClick } from 'utils/analytics'
+import { Link } from 'react-router-dom'
+import { ROUTES } from 'utils/env'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
-  const name = 'KO_Tzeentch_Update_2020'
+  const name = 'Stats_2020_Release'
 
   return (
     <NotificationBanner
@@ -15,7 +18,12 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      Kharadron Overlords and Tzeentch rules are fully up-to-date!
+      <span>
+        Subscribers can now access advanced usage stats{' '}
+        <Link to={ROUTES.STATS} onClick={() => logClick(name)}>
+          via our new Stats page.{' '}
+        </Link>
+      </span>
     </NotificationBanner>
   )
 })

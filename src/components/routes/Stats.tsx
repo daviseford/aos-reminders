@@ -202,11 +202,11 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
     <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
       <div className={`row`}>
         <div className={`col text-center`}>
-          <h5>AoS Reminders is used by thousands of players all over the world.</h5>
-          <h5>
+          <p>AoS Reminders is used by thousands of players all over the world.</p>
+          <p>
             Do you want insights into popular battalions, must-have artifacts, and optimal traits and
             allegiances?
-          </h5>
+          </p>
         </div>
       </div>
 
@@ -225,6 +225,16 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
 
         {!isActive && <SubscribeBtn />}
       </div>
+
+      <div className={`row mt-3`}>
+        <div className={`col text-center`}>
+          <p>
+            Subscribe now to unlock advanced stats - view historical selections broken down by faction,
+            category, or value!
+          </p>
+        </div>
+      </div>
+
       <div
         className={`row align-items-center justify-content-center mt-3`}
         style={{ backgroundColor: '#F4F4F4' }}
