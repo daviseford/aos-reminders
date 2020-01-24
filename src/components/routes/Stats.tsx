@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
 import { centerContentClass } from 'theme/helperClasses'
 import FooterComponent from 'components/page/footer'
+import { FaSignInAlt, FaUserGraduate } from 'react-icons/fa'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -107,7 +108,7 @@ const Methodology = () => {
         <p>
           We're not necessarily going to be able to predict the list composition of a specific top-table army
           - but we can <em>probably</em> predict the number of Ossiarch Bonereapers armies that will use the
-          Petrifex Elite legion!
+          Petrifex Elite legion in a given tournament.
         </p>
 
         <h5>My gaming group doesn't use this, so these stats aren't accurate!</h5>
@@ -179,8 +180,14 @@ const CoachShoutout = () => {
 const SubscribeBtn = () => {
   const { theme } = useTheme()
   return (
-    <Link to={ROUTES.SUBSCRIBE} className={theme.genericButton} onClick={() => logClick('Stats-Subscribe')}>
-      <div className={centerContentClass}>Subscribe</div>
+    <Link
+      to={ROUTES.SUBSCRIBE}
+      className={`${theme.genericButton} btn-lg`}
+      onClick={() => logClick('Stats-Subscribe')}
+    >
+      <div className={centerContentClass}>
+        <FaUserGraduate className="mr-2" /> Subscribe
+      </div>
     </Link>
   )
 }
@@ -193,21 +200,22 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
   return (
     <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
       <div className={`row`}>
-        <div className={`col text-center lead`}>
-          <p>AoS Reminders is used by thousands of players all over the world.</p>
-          <p>
+        <div className={`col text-center`}>
+          <h5>AoS Reminders is used by thousands of players all over the world.</h5>
+          <h5>
             Do you want insights into popular battalions, must-have artifacts, and optimal traits and
             allegiances?
-          </p>
+          </h5>
         </div>
       </div>
 
-      <div className={`row align-items-center justify-content-center`}>
+      <div className={`row align-items-center justify-content-center mt-2`}>
         {!isAuthenticated && (
           <GenericButton
             onClick={() => loginWithRedirect({ redirect_uri: window.location.href })}
-            className={theme.genericButton}
+            className={`${theme.genericButton} btn-lg`}
           >
+            <FaSignInAlt className="mr-2" />
             Login
           </GenericButton>
         )}
