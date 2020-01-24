@@ -288,9 +288,11 @@ const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 const commonTypos = {
   'Aggr essiv e': 'Aggressive',
   'Allher d': 'Allherd',
+  'Alwa ys T ak e What Y ou Ar e Owed': 'Always Take What You Are Owed',
   'Amar anthine': 'Amaranthine',
   'Ar tiller y': 'Artillery',
   'Balefir e': 'Balefire',
+  'Bar ak-Urbaz': 'Barak-Urbaz',
   'Bat tle': 'Battle',
   'Bear er': 'Bearer',
   'Berserk er Lor d': 'Berserker Lord',
@@ -333,6 +335,7 @@ const commonTypos = {
   'mor e': 'more',
   'Nur gle': 'Nurgle',
   'Ossiar ch Boner eapers': 'Ossiarch Bonereapers',
+  'Or der': 'Order',
   'Ov erlords': 'Overlords',
   'Pist ol': 'Pistol',
   'Pr ogr ess': 'Progress',
@@ -352,6 +355,7 @@ const commonTypos = {
   'Warpfir e': 'Warpfire',
   'Wick ed': 'Wicked',
   'Wor d': 'Word',
+  "Wher e Ther e's W ar, Ther e's Gold": "Where There's War, There's Gold",
   FUETHÁN: 'FUETHAN',
 }
 
