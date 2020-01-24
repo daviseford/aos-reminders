@@ -134,8 +134,9 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Share army lists with your friends!
+        <strong>NEW:</strong> Access to advanced stats!
       </li>
+      <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
       <li>Choose your favorite faction</li>
       <li>

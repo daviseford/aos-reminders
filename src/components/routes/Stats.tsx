@@ -37,6 +37,7 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
           <Navbar />
         </Suspense>
       </div>
+      <PageHeader />
       {isActive ? <SubscribedView /> : <UnsubscribedView />}>
       <FooterComponent />
     </div>
@@ -54,10 +55,6 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
 
   return (
     <>
-      <div className={`container ${theme.bgColor} ${theme.text} text-center pb-4`}>
-        <h2>AoS Reminders Statistics</h2>
-      </div>
-
       <div className={`container ${theme.bgColor} ${theme.text}`}>
         {!iframeIsLoaded && <LargeSpinner />}
         <div className={`row ${theme.bgColor} align-items-start justify-content-center mt-3 StatsIFrame`}>
@@ -131,6 +128,15 @@ const Methodology = () => {
   )
 }
 
+const PageHeader = () => {
+  const { theme } = useTheme()
+  return (
+    <div className={`container ${theme.bgColor} ${theme.text} text-center mt-3 pb-2`}>
+      <h2>AoS Reminders Statistics</h2>
+    </div>
+  )
+}
+
 const CoachShoutout = () => {
   const { theme } = useTheme()
   return (
@@ -163,7 +169,7 @@ const CoachShoutout = () => {
           >
             Emerging Meta
           </LinkNewTab>{' '}
-          series, where he deep-dives on these stats and explains the latest trends.
+          series, where he goes in depth on these stats and explains the latest trends.
         </p>
       </div>
     </div>
@@ -185,10 +191,10 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
   const { theme } = useTheme()
 
   return (
-    <div className={`container ${theme.bgColor} ${theme.text} pb-4`}>
+    <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
       <div className={`row`}>
-        <div className={`col text-center`}>
-          <p>AoS Reminders is used by tons of players all over the world.</p>
+        <div className={`col text-center lead`}>
+          <p>AoS Reminders is used by thousands of players all over the world.</p>
           <p>
             Do you want insights into popular battalions, must-have artifacts, and optimal traits and
             allegiances?
@@ -198,7 +204,10 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
 
       <div className={`row align-items-center justify-content-center`}>
         {!isAuthenticated && (
-          <GenericButton onClick={loginWithRedirect} className={theme.genericButton}>
+          <GenericButton
+            onClick={() => loginWithRedirect({ redirect_uri: window.location.href })}
+            className={theme.genericButton}
+          >
             Login
           </GenericButton>
         )}
@@ -207,12 +216,17 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
 
         {!isActive && <SubscribeBtn />}
       </div>
-      <div className={`row align-items-center justify-content-center mt-3`}>
-        <img
-          className={`d-block mx-auto mb-4 img-fluid`}
-          src="/img/stats_cta_mobile.png"
-          alt="Subscribe to access advanced stats"
-        />
+      <div
+        className={`row align-items-center justify-content-center mt-3`}
+        style={{ backgroundColor: '#F4F4F4' }}
+      >
+        <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('Stats-Cta-Subscribe')}>
+          <img
+            className={`d-block mx-auto mb-4 img-fluid`}
+            src={`/img/stats_cta_${isMobile ? `mobile` : `desktop`}.png`}
+            alt="Subscribe to access advanced stats"
+          />
+        </Link>
       </div>
 
       <CoachShoutout />
