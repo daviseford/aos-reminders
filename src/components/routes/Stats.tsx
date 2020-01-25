@@ -133,7 +133,7 @@ const PageHeader = () => {
   const { theme } = useTheme()
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center mt-3 pb-2`}>
-      <h2>AoS Reminders Statistics</h2>
+      <h2>Advanced Analytics</h2>
     </div>
   )
 }
@@ -230,7 +230,8 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
         <div className={`col text-center`}>
           <p>
             Subscribe now to unlock advanced stats - view historical selections broken down by faction,
-            category, or value!
+            category, or value! Find out which artifacts/traits/battalions are typically used with{' '}
+            <em>any</em> faction.
           </p>
         </div>
       </div>
