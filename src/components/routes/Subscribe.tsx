@@ -76,6 +76,7 @@ const ExamplesRow = () => {
           label={'Demo-Import'}
         />
       </div>
+      <StatsDemo />
       <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
@@ -87,6 +88,23 @@ const ExamplesRow = () => {
     </div>
   )
 }
+
+const StatsDemo = componentWithSize(props => {
+  return (
+    <div className={'col-12 col-xl-8 col-xxl-5 text-center'}>
+      <figure className="figure">
+        <img
+          className={`figure-img img-fluid rounded img-thumbnail`}
+          src={`/img/stats_demo_${props.isMobile ? `mobile` : `desktop`}.png`}
+          alt="Subscribe to access advanced stats"
+        />
+        <figcaption className="figure-caption text-center">
+          <strong>Advanced Stats</strong>
+        </figcaption>
+      </figure>
+    </div>
+  )
+})
 
 const MobileDarkModeDemo = componentWithSize(props => {
   if (!props.isMobile) return null
@@ -134,8 +152,9 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Share army lists with your friends!
+        <strong>NEW:</strong> Access to advanced stats!
       </li>
+      <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
       <li>Choose your favorite faction</li>
       <li>

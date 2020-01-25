@@ -27,5 +27,6 @@ export const ROUTES = {
   PROFILE: '/profile',
   JOIN: '/join',
   REDEEM: '/redeem',
+  STATS: '/stats',
   SUBSCRIBE: '/subscribe',
 }
