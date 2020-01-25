@@ -30,6 +30,17 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('does not import the wrong trait (issue #863)', () => {
+    const pdfText = getFile('BloodVulture')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(warscrollTxt.selections.traits).not.toContain("Blood Vulture's Gaze")
+    expect(warscrollTxt.selections.traits).toEqual(['Metalcruncher'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('reads 2020 KO pdf', () => {
     const pdfText = getFile('KO_2020')
     const parsedText = parsePdf(pdfText)
