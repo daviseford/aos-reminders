@@ -256,6 +256,12 @@ export const Units: TUnits = [
         desc: `Once per battle, before you attempt to cast a spell with Zarbag, you can roll a D6. On a 2+ add 2 to the casting roll.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Face of Da Bad Moon`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 3" of the caster that is visible to them. That unit must make a normal move, and must retreat. If it is impossible for the unit to make the move for any reason, it suffers D6 mortal wounds instead.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
     ],
   },
   {

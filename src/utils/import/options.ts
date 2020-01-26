@@ -191,6 +191,7 @@ export const ignoredUnknownSelections = [
   'Banner Bearer',
   'Barbed Whips and Blade Bucklers',
   'Barbed Whips and Sacrificial Knives',
+  'Blood Vulture',
   'Boltstorm Pistol',
   'Boss Gore-hacka and Choppa',
   'Brayhorn',
