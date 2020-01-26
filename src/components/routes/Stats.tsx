@@ -46,13 +46,22 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
 })
 
 const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 320 }) => {
-  const { theme } = useTheme()
+  const { theme, isDark } = useTheme()
+
+  const reportUrl = {
+    dark: {
+      desktop: `C3m7`,
+      mobile: `KXaCB`,
+    },
+    light: {
+      desktop: `mqjCB`,
+      mobile: `tqjCB`,
+    },
+  }[isDark ? 'dark' : 'light'][width < 1000 ? 'mobile' : 'desktop']
 
   const [iframeIsLoaded, setIFrameIsLoaded] = useState(false)
 
-  const iframeUrl = `https://datastudio.google.com/embed/reporting/5e1a60c3-06b3-40b8-9994-01dc86393665/page/${
-    width < 1000 ? `KXaCB` : `C3m7`
-  }`
+  const iframeUrl = `https://datastudio.google.com/embed/reporting/5e1a60c3-06b3-40b8-9994-01dc86393665/page/${reportUrl}`
 
   return (
     <>
