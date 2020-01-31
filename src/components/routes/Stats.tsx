@@ -239,8 +239,10 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
         <div className={`col text-center`}>
           <p>
             Subscribe now to unlock advanced stats - view historical selections broken down by faction,
-            category, or value! Find out which artifacts/traits/battalions are typically used with{' '}
-            <em>any</em> faction.
+            category, or value!
+          </p>
+          <p>
+            Find out which artifacts/traits/battalions are typically used with <em>any</em> faction.
           </p>
         </div>
       </div>
