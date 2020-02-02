@@ -242,7 +242,7 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
             category, or value!
           </p>
           <p>
-            Find out which artifacts/traits/battalions are typically used with <em>any</em> faction.
+            Find out which artifacts, traits, and battalions are typically used with <em>any</em> faction.
           </p>
         </div>
       </div>

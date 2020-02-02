@@ -24,6 +24,7 @@ interface IAllyArmyBuilderProps {
   allySelectOptions: TSupportedFaction[] // parent
   deleteAllyArmy: (factionName: TSupportedFaction) => void // dispatch2Props
   deleteAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
+  factionName: TSupportedFaction // state2Props
   hideAlly: (value: string) => void // dispatch2Props
   resetAllySelection: (factionName: TSupportedFaction) => void // dispatch2Props
   showAlly: (value: string) => void // dispatch2Props
@@ -41,6 +42,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
     allySelectOptions,
     deleteAllyArmy,
     deleteAllySelection,
+    factionName,
     hideAlly,
     resetAllySelection,
     showAlly,
@@ -111,6 +113,7 @@ const AllyArmyBuilderComponent = (props: IAllyArmyBuilderProps) => {
         allySelectOptions={allySelectOptions}
         battalionItems={sortBy(allyArmy.Battalions, 'name')}
         battalionValues={battalions}
+        factionName={factionName}
         handleClose={handleClose}
         isVisible={isVisible}
         setAllyFactionName={handleSetAllyFactionName}
@@ -128,6 +131,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyFactionNames: selectors.getAllyFactionNames(state),
   allySelections: selectors.getAllySelections(state),
+  factionName: selectors.getFactionName(state),
   visibleAllies: selectors.getAllies(state),
 })
 
@@ -150,6 +154,7 @@ interface IAllyCardProps {
   allySelectOptions: TSupportedFaction[]
   battalionItems: TBattalions
   battalionValues: string[]
+  factionName: TSupportedFaction
   handleClose: (e: any) => void
   isVisible: boolean
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
@@ -166,6 +171,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
     allySelectOptions,
     battalionItems,
     battalionValues,
+    factionName,
     handleClose,
     isVisible,
     setAllyFactionName,
@@ -219,7 +225,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           items={selectUnitItems}
           setValues={setUnits}
           isClearable={true}
-          log={{ title: 'AlliedUnits', label: allyFactionName }}
+          log={{ title: 'AlliedUnits', label: factionName }}
         />
         <h5 className={`text-center ${theme.text} mt-2`}>Allied Battalions</h5>
         <SelectMulti
@@ -227,7 +233,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           items={selectBattalionItems}
           setValues={setBattalions}
           isClearable={true}
-          log={{ title: 'AlliedBattalions', label: allyFactionName }}
+          log={{ title: 'AlliedBattalions', label: factionName }}
         />
       </div>
     </div>
