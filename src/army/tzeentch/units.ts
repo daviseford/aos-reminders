@@ -67,7 +67,7 @@ const ArcaneTomeEffect = {
 
 const BeaconOfSorceryEffect = {
   name: `Beacon of Sorcery`,
-  desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can add 1 to casting and unbinding rolls for friendly Tzeentch Daemon Wizards while they are wholly within 18" of that model.`,
+  desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can add 1 to casting and unbinding rolls for friendly TZEENTCH DAEMON WIZARDS while they are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per turn.`,
   when: [START_OF_HERO_PHASE],
   command_ability: true,
 }
@@ -457,7 +457,7 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
-        name: `Vulchare`,
+        name: `Vulcharc`,
         desc: `If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a D6. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
         when: [HERO_PHASE],
       },
@@ -583,7 +583,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Deceive and Dismay`,
-        desc: `At the start of each of your hero phases, if the Lord of Change from this battalion is your general and is on the battlefield, you can pick 2 other friendly units from this battalion and remove them from the battlefield. If you do so, set up those units again anywhere on the battlefield more than 9" from any enemy units. The units you set up cannot move in the following movement phase.`,
+        desc: `At the start of your hero phase, if the LORD OF CHANGE from this battalion is your general and is on the battlefield, you can pick 1 other friendly unit from this battalion and remove it from the battlefield. If you do so, set up that unit again anywhere on the battlefield more than 9" from any enemy units. The unit you set up in this manner cannot move in the following movement phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
