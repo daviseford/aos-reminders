@@ -1,9 +1,10 @@
 import React, { useEffect, lazy, Suspense } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { logPageView, logClick } from 'utils/analytics'
-import { GITHUB_URL } from 'utils/env'
+import { GITHUB_URL, ROUTES } from 'utils/env'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { ContactComponent } from 'components/page/contact'
@@ -152,7 +153,7 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Access to advanced stats!
+        <strong>NEW:</strong> Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
       </li>
       <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
