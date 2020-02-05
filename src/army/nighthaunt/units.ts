@@ -517,7 +517,7 @@ export const Units: TUnits = [
       {
         name: `Evocation of Death - Second Level - Unholy Vigour`,
         desc: `This model can run and charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Evocation of Death - Third Level - Spectral Scythes`,
@@ -527,7 +527,7 @@ export const Units: TUnits = [
       {
         name: `Evocation of Death - Fourth Level - Insubstantial Form`,
         desc: `This model can retreat and charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Evocation of Death - Fifth Level - Witch-fire`,
