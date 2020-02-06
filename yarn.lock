@@ -2273,10 +2273,10 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
-"@types/react-stripe-elements@6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react-stripe-elements/-/react-stripe-elements-6.0.3.tgz#c13d094976725213b1acd5a49c22559cbc1825d6"
-  integrity sha512-IaS/3kBDTHW2LXyrABHgj8iKzF+IS6AHEUDsN8iec7YZYxDfrbOyzV8v62K5zwxF2og0/OtRvRCHsBNJN9UAJg==
+"@types/react-stripe-elements@6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react-stripe-elements/-/react-stripe-elements-6.0.4.tgz#0931064941b4f74e25edb8955703eee90774a057"
+  integrity sha512-EzEeBiOwQJ0fPzZhtg9zqyy5GJbEbi0sFNFCowFXmRwraRcMRyZ4p2UK8nylzfCR2KtMPZ2fgUVH9xD/VL/StQ==
   dependencies:
     "@types/react" "*"
     "@types/stripe-v3" "*"
@@ -2324,10 +2324,10 @@
   resolved "https://registry.yarnpkg.com/@types/stripe-v3/-/stripe-v3-3.1.14.tgz#5eefbec24754d23f6a039e8fb5c7ea0253007836"
   integrity sha512-2hT1xOiS4312NsrT1dYuAM7qvoMcegS12wcQ78e7hdRrzetM4d91QJn6IYWP5qWP5v4Rc4acDfoIR9cbhpSgMA==
 
-"@types/superagent@4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@types/superagent/-/superagent-4.1.4.tgz#63f74955a28073870cfd9c100bcacb26d72b3764"
-  integrity sha512-SRH2q6/5/nhOkAuLXm3azRGjBYpoKCZWh138Rt1AxSIyE6/1b9uClIH2V+JfyDtjIvgr5yQqYgNUmdpbneJoZQ==
+"@types/superagent@4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@types/superagent/-/superagent-4.1.5.tgz#dc46a8ad2f4d96f8e7a777c4ea6a5847184af877"
+  integrity sha512-9loAjd4tUO+I8zsTMRzFMWV0PZYy4ffJ+OnMBBdDI/Pe/Df4IIxSzwsLRc6WF7dMAIfBm1ucYqVZPwwu8pnruA==
   dependencies:
     "@types/cookiejar" "*"
     "@types/node" "*"
