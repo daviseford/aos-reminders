@@ -20,6 +20,7 @@ export type TIronjawz = 'IRONJAWZ'
 export type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export type TKhorne = 'KHORNE'
 export type TLegionOfBlood = 'LEGION_OF_BLOOD'
+export type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
 export type TLegionOfNight = 'LEGION_OF_NIGHT'
 export type TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
@@ -63,6 +64,7 @@ export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGION_OF_BLOOD: TLegionOfBlood = 'LEGION_OF_BLOOD'
+export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
 export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
 export const LEGION_OF_SACRAMENT: TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
@@ -110,6 +112,7 @@ export type TPrimaryFactions =
   | TKharadronOverlords
   | TKhorne
   | TLegionOfBlood
+  | TLegionOfChaosAscendant
   | TLegionOfNight
   | TLegionOfSacrament
   | TLegionsOfAzgorh
@@ -156,6 +159,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_BLOOD,
+  LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
   LEGIONS_OF_AZGORH,
