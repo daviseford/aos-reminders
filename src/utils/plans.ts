@@ -98,30 +98,30 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
 
 // Long-term prices (hopefully)
 // Note: Amanda suggested these prices
-// Started 1/30/2020
-export const SubscriptionPlans: ISubscriptionPlan[] = [
-  {
-    cost: '3.99',
-    dev: 'plan_Ge65ibcpPwtIpb',
-    monthly_cost: '3.99',
-    prod: 'plan_Ge63m2HrhrZQft',
-    title: '1 Month',
-  },
-  {
-    cost: '5.99',
-    dev: 'plan_Ge6616VCSFfPyO',
-    monthly_cost: '1.49',
-    prod: 'plan_Ge64gbGneyAVE9',
-    title: '3 Months',
-  },
-  {
-    cost: '12.99',
-    dev: 'plan_Ge669qlfuLBS1y',
-    monthly_cost: '1.08',
-    prod: 'plan_Ge65SmouZEG7ia',
-    title: '1 Year',
-  },
-]
+// Started 1/30/2020 - Ended 2/6/20
+// export const SubscriptionPlans: ISubscriptionPlan[] = [
+//   {
+//     cost: '3.99',
+//     dev: 'plan_Ge65ibcpPwtIpb',
+//     monthly_cost: '3.99',
+//     prod: 'plan_Ge63m2HrhrZQft',
+//     title: '1 Month',
+//   },
+//   {
+//     cost: '5.99',
+//     dev: 'plan_Ge6616VCSFfPyO',
+//     monthly_cost: '1.99',
+//     prod: 'plan_Ge64gbGneyAVE9',
+//     title: '3 Months',
+//   },
+//   {
+//     cost: '12.99',
+//     dev: 'plan_Ge669qlfuLBS1y',
+//     monthly_cost: '1.08',
+//     prod: 'plan_Ge65SmouZEG7ia',
+//     title: '1 Year',
+//   },
+// ]
 
 // Price discovery #1
 // Started 1/25/2020. Ended 1/30/2020
@@ -150,27 +150,27 @@ export const SubscriptionPlans: ISubscriptionPlan[] = [
 // ]
 
 // Half price
-// Started 12/30/2019
-// export const SubscriptionPlans: ISubscriptionPlan[] = [
-//   {
-//     cost: '1.99',
-//     dev: 'plan_FkxFLAaT1qDsha',
-//     monthly_cost: '1.99',
-//     prod: 'plan_FkxAvHwfImy1WU',
-//     title: '1 Month',
-//   },
-//   {
-//     cost: '4.47',
-//     dev: 'plan_FkxFWSZADnJp1G',
-//     monthly_cost: '1.49',
-//     prod: 'plan_FkxCFxAtQuXdSm',
-//     title: '3 Months',
-//   },
-//   {
-//     cost: '11.88',
-//     dev: 'plan_FkxGRttbVwtLzD',
-//     monthly_cost: '0.99',
-//     prod: 'plan_FkxDFaZM1vCkMF',
-//     title: '1 Year',
-//   },
-// ]
+// Started 12/30/2019 - Restarted 2/6/20
+export const SubscriptionPlans: ISubscriptionPlan[] = [
+  {
+    cost: '1.99',
+    dev: 'plan_FkxFLAaT1qDsha',
+    monthly_cost: '1.99',
+    prod: 'plan_FkxAvHwfImy1WU',
+    title: '1 Month',
+  },
+  {
+    cost: '4.47',
+    dev: 'plan_FkxFWSZADnJp1G',
+    monthly_cost: '1.49',
+    prod: 'plan_FkxCFxAtQuXdSm',
+    title: '3 Months',
+  },
+  {
+    cost: '11.88',
+    dev: 'plan_FkxGRttbVwtLzD',
+    monthly_cost: '0.99',
+    prod: 'plan_FkxDFaZM1vCkMF',
+    title: '1 Year',
+  },
+]
