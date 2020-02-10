@@ -125,7 +125,7 @@ const WardrumEffect = {
 const StarbucklersEffect = {
   name: `Star-bucklers`,
   desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-  when: [DURING_GAME],
+  when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
 const ImperviousDefenceEffects = [
   {
@@ -339,6 +339,12 @@ export const Units: TUnits = [
         name: `Serpent Staff`,
         desc: `A Skink Starpriest can level its staff at a SERAPHON unit in your army that is within 8", granting them the venom of the two-headed celestial serpent. Until your next hero phase, whenever models from that unit attack with their bite or jaws, a wound roll of 6 or more causes twice the normal amount of Damage.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Summon Starlight`,
+        desc: `Casting value of 6. Pick a unit within 20" to be bathed in starlight. If the unit is SERAPHON, subtract 1 from the hit rolls of any attacks that target it until your next hero phase. Otherwise, subtract 1 from the hit rolls of any attacks that it makes until your next hero phase. If a unit of CHAOS DAEMONS is bathed in starlight, it also suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

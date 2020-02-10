@@ -302,7 +302,7 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory'],
+      spells: ['Meteoric Convocation', 'Claws of Glory', 'Summon Starlight'],
       traits: ['Great Rememberer'],
       triumphs: [],
       units: [
@@ -462,7 +462,7 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory'],
+      spells: ['Meteoric Convocation', 'Claws of Glory', 'Summon Starlight'],
       traits: ['Great Rememberer'],
       triumphs: [],
       units: [
