@@ -5,6 +5,7 @@ import { useAppStatus } from 'context/useAppStatus'
 import { logPageView } from 'utils/analytics'
 import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import QuoteApp from 'components/dragndrop/example'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
 // const AppBanner = lazy(() => import('components/info/banners/app_banner'))
@@ -37,6 +38,8 @@ const Home: React.FC = () => {
       {/* <Suspense fallback={<></>}>
         <AppBanner />
       </Suspense> */}
+
+      <QuoteApp />
 
       <Suspense fallback={<></>}>
         <UpdateBanner />

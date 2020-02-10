@@ -2229,6 +2229,13 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.1.tgz#937fab3194766256ee09fcd40b781740758617e7"
   integrity sha512-lhbQXx9HKZAPgBkISrBcmAcMpZsmpe/Cd/hY7LGZS5OfkySUBItnPZHgQPssWYUET8elF+yCFBbP1Q0RZPTdaw==
 
+"@types/react-beautiful-dnd@^12.1.1":
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-beautiful-dnd/-/react-beautiful-dnd-12.1.1.tgz#149e638c0f912eee6b74ea419b26bb43d0b1da60"
+  integrity sha512-CPKynKgGVRK+xmywLMD0qNWamdscxhgf1Um+2oEgN6Qibn1rye3M4p2bdxAMgtOTZ2L81bYl6KGKSzJVboJWeA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-copy-to-clipboard@4.3.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-4.3.0.tgz#8e07becb4f11cfced4bd36038cb5bdf5c2658be5"
