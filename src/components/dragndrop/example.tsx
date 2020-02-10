@@ -17,7 +17,8 @@ const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
 })
 
 const grid = 8
-const reorder = (list, startIndex, endIndex) => {
+
+const reorder = (list: any[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
@@ -33,7 +34,7 @@ const QuoteItem = styled.div`
   padding: ${grid}px;
 `
 
-function Quote({ quote, index }) {
+const Quote = ({ quote, index }) => {
   return (
     <Draggable draggableId={quote.id} index={index}>
       {provided => (
@@ -50,17 +51,12 @@ const QuoteList = React.memo(function QuoteList({ quotes }) {
   return quotes.map((quote: Quote, index: number) => <Quote quote={quote} index={index} key={quote.id} />)
 })
 
-function QuoteApp() {
+const QuoteApp = () => {
   const [state, setState] = useState<{ quotes: Quote[] }>({ quotes: initial })
 
   function onDragEnd(result) {
-    if (!result.destination) {
-      return
-    }
-
-    if (result.destination.index === result.source.index) {
-      return
-    }
+    if (!result.destination) return
+    if (result.destination.index === result.source.index) return
 
     const quotes = reorder(state.quotes, result.source.index, result.destination.index) as Quote[]
 
