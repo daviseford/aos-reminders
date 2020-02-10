@@ -18,6 +18,7 @@
     "pdfjs-dist": "2.2.228",
     "qs": "6.9.1",
     "react": "16.13.0",
+    "react-beautiful-dnd": "12.2.0",
     "react-copy-to-clipboard": "5.0.2",
     "react-dom": "16.13.0",
     "react-dropzone": "10.2.1",
