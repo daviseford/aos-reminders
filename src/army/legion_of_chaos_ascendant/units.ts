@@ -150,7 +150,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Host of Arcane`,
+    name: `Host of the Arcane`,
     effects: [
       {
         name: `Agents of the Change God`,
