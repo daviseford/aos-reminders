@@ -125,7 +125,7 @@ const WardrumEffect = {
 const StarbucklersEffect = {
   name: `Star-bucklers`,
   desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-  when: [DURING_GAME],
+  when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
 const ImperviousDefenceEffects = [
   {
