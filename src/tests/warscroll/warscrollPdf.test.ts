@@ -494,9 +494,9 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.selections).toEqual({
       allegiances: [],
       artifacts: [
-        'Whip of Subversion (Invaders Host)',
-        'The Rod of Misrule (Invaders Host)',
-        'Fallacious Gift (Invaders Host)',
+        'Whip of Subversion (Invaders)',
+        'The Rod of Misrule (Invaders)',
+        'Fallacious Gift (Invaders)',
       ],
       battalions: ['Hedonite Host'],
       commands: ['Grisly Trophy', 'Revel in Agony: Slaanesh', 'Excess of Violence'],
@@ -504,11 +504,11 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)', 'Cacophonic Choir', 'Acquiescence'],
       traits: [
-        'Delusions of Infallibility (Invaders Host)',
-        'Inspirer (Pretenders Host)',
-        'Strongest Alone (Pretenders Host)',
-        'Hunter of Godbeasts (Pretenders Host)',
-        'Monarch of Lies (Pretenders Host)',
+        'Delusions of Infallibility (Invaders)',
+        'Inspirer (Pretenders)',
+        'Strongest Alone (Pretenders)',
+        'Hunter of Godbeasts (Pretenders)',
+        'Monarch of Lies (Pretenders)',
       ],
       triumphs: [],
       units: [

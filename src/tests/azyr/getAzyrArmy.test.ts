@@ -61,7 +61,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO12')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Auric Runefather'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles KO13', () => {
@@ -75,6 +81,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO14')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
+    console.log(res.selections.allegiances)
     expect(res.errors).toEqual([])
   })
 
@@ -82,6 +89,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO15')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.traits).toContain('Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)')
     expect(res.errors).toEqual([])
   })
 
@@ -89,53 +97,22 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO16')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+      },
+    ])
   })
 
   it('handles KO17', () => {
     const fileTxt = getFile('KO17')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles KO18', () => {
-    const fileTxt = getFile('KO18')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Khorne7', () => {
-    const fileTxt = getFile('Khorne7')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Khorne8', () => {
-    const fileTxt = getFile('Khorne8')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Khorne9', () => {
-    const fileTxt = getFile('Khorne9')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Khorne10', () => {
-    const fileTxt = getFile('Khorne10')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Khorne11', () => {
-    const fileTxt = getFile('Khorne11')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.errors).toEqual([])
@@ -1102,11 +1079,11 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.selections).toEqual({
-      allegiances: ['Pretenders (Host)'],
+      allegiances: ['Pretenders Host'],
       artifacts: [
-        'The Crown of Dark Secrets (Pretenders Host)',
-        'Sceptre of Domination (Pretenders Host)',
-        'Sliverslash (Pretenders Host)',
+        'The Crown of Dark Secrets (Pretenders)',
+        'Sceptre of Domination (Pretenders)',
+        'Sliverslash (Pretenders)',
       ],
       battalions: [],
       commands: ['Excess of Violence'],
@@ -1119,7 +1096,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Cacophonic Choir',
         'Overwhelming Acquiescence',
       ],
-      traits: ['True Child of Slaanesh (Pretenders Host)', 'Monarch of Lies (Pretenders Host)'],
+      traits: ['True Child of Slaanesh (Pretenders)', 'Monarch of Lies (Pretenders)'],
       triumphs: [],
       units: [
         'Keeper of Secrets w/ Living Whip',

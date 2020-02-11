@@ -762,7 +762,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SLAANESH)
-    expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers Host)')
+    expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers)')
     expect(warscrollTxt.errors).toEqual([])
   })
 
