@@ -3,6 +3,8 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -129,6 +131,67 @@ const Allegiances: TAllegiances = [
         name: `Crowncleaver`,
         desc: `Pick one of the bearer's melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
         when: [COMBAT_PHASE],
+        artifact: true,
+      },
+    ],
+  },
+  {
+    name: `Flayed`,
+    effects: [
+      {
+        name: `Blood-woken Runes`,
+        desc: `If any enemy heroes or monsters were slain by attacks made by friendly Flayed mortal units in this phase, you can add 1 to save rolls for attacks that target the Flayed Mortal unit for the rest of the battle. A unit cannot benefit from this more than once per battle.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Wrathspeaker`,
+        desc: `Pick 1 friendly Flayed mortal unit wholly within 12" of a friendly Flayed mortal hero with this ability. Add 1 to the hit rolls for melee weapon attacks made by the selected unit if it made a charge move this turn.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Wrathspeaker`,
+        desc: `If a Flayed mortal unit makes a charge move this turn, you can selected it to be a target of the Wrathspeaker command ability.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Vessel of Butchery`,
+        desc: `You can re-roll prayer rolls of 1 for friendly Flayed priests wholly within 8" of this general.`,
+        when: [HERO_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `The Slaughterhelm`,
+        desc: `Add 2 to the charge rolls for the bearer.`,
+        when: [CHARGE_PHASE],
+        artifact: true,
+      },
+    ],
+  },
+  {
+    name: `Baleful Lords`,
+    effects: [
+      {
+        name: `Unbound Slaughter`,
+        desc: `Friendly Baleful Lords Bloodthirsters can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Frenzied Annihilator`,
+        desc: `Pick 1 friendly Baleful Lords Bloodthirster. Until the end of the phase the selected model is treated as though it has 0 wounds when referencing its damage table.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Thirst for Carnage`,
+        desc: `Add 1 to charge rolls for friendly Baleful Lords Bloodthirsters within 8" of this general.`,
+        when: [CHARGE_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `Black Brass Crown`,
+        desc: `Add 1 to save rolls for attacks that target the bearer.`,
+        when: [DURING_GAME],
         artifact: true,
       },
     ],

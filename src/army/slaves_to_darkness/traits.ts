@@ -165,6 +165,37 @@ const CommandTraits: TTraits = [
       },
     ],
   },
+  // Knights of the Empty Throne Traits
+  {
+    name: `Annihilating Charge (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Annihilating Charge (Knights of the Empty Throne)`,
+        desc: `You can re-roll charge rolls for friendly Knights of the Empty Throne units wholly within 12" of this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Inescapeable Doom (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Inescapeable Doom (Knights of the Empty Throne)`,
+        desc: `Enemy units within 3" of this general cannot retreat.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wall of Cursed Iron (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Wall of Cursed Iron (Knights of the Empty Throne)`,
+        desc: `When friendly Knights of the Empty Throne units wholly within 12" of this general use their Warpsteel Shields ability, add 1 to the roll.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 ]
 
 export default CommandTraits

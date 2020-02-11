@@ -140,7 +140,6 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-
   // Despoilers Artifacts
   {
     name: `Crown of Hellish Adoration (Despoilers)`,
@@ -199,6 +198,37 @@ const Artifacts: TArtifacts = [
         name: `Realmwarper's Twist-rune (Despoilers)`,
         desc: `Friendly Despoilers units wholly within 12" of the bearer are unaffected by Pitch-black and Nightmare Chasm scenery rules.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  // Knights of the Empty Throne Artifacts
+  {
+    name: `Flask of Daemonblood (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Flask of Daemonblood (Knights of the Empty Throne)`,
+        desc: `This unit can roll a D6 and 4+ you can heal D3 wounds that have been allocated.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Grasping Plate (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Grasping Plate (Knights of the Empty Throne)`,
+        desc: `This unit is eligible to fight if it is within 6" of an enemy unit. It can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Corrupted Nullstone (Knights of the Empty Throne)`,
+    effects: [
+      {
+        name: `Corrupted Nullstone (Knights of the Empty Throne)`,
+        desc: `Once per battle, this unit can attempt to unbind 1 spell. If it does so the spell is automatically unbound.`,
+        when: [HERO_PHASE],
       },
     ],
   },
