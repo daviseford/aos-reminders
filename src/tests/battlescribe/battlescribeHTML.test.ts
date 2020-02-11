@@ -577,7 +577,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
-    expect(res.selections.allegiances).toEqual(['Invaders (Host)', 'Godseekers (Host)', 'Pretenders (Host)'])
+    expect(res.selections.allegiances).toEqual(['Invaders Host', 'Godseekers Host', 'Pretenders Host'])
     expect(res.errors).toEqual([])
   })
 
