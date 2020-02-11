@@ -36,6 +36,164 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with ', () => {
+    const parsedText = getFile('1580039041399-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580200625912-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580248993240-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580358168289-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580375604757-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580398091514-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580440441382-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580484734612-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580488119083-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580490187686-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580541327125-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580656732895-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580745071263-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580849640370-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580862836168-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580923367340-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1580985291764-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581012080795-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581047089046-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581047713522-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581090466915-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581111836908-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1581112652309-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+  it('should work with ', () => {
+    const parsedText = getFile('1581135844634-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+  it('should work with ', () => {
+    const parsedText = getFile('1581348961311-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+  it('should work with ', () => {
+    const parsedText = getFile('1581349043959-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+  it('should work with ', () => {
+    const parsedText = getFile('1581363713665-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with any endless spell (KO)', () => {
     const parsedText = getFile('1579105159803-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
