@@ -116,6 +116,7 @@ const handlePages = (text: string): string[] => {
     .replace(/General's Adjutant/g, ' ') // Get rid of General markings
     .replace(/([\w]+)? (General)/g, generalReplacer) // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
+    .replace(/Sky Cannon: Shell/g, 'Sky Cannon')
 
   const items = preppedText.split('ITEM: ')
   const title = handleTitle(items.shift() as string)

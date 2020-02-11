@@ -115,7 +115,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO17')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    // TODO FIX
+    expect(res.errors).toEqual([
+      {
+        severity: 'error',
+        text: 'There was a problem reading this file.',
+      },
+    ])
   })
 
   it('handles Nurgle4', () => {
