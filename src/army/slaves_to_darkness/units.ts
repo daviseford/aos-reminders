@@ -779,9 +779,9 @@ export const Units: TUnits = [
         prayer: true,
       },
       {
-        name: `Favor: ${MARK_KHORNE}`,
+        name: `Favour: ${MARK_KHORNE}`,
         desc: `If active, you can re-roll charge rolls for the unit. If you buffed a Khorne unit, you can re-roll its hit rolls as well.`,
-        when: [DURING_GAME],
+        when: [DURING_GAME, CHARGE_PHASE],
       },
       {
         name: `Favour: ${MARK_TZEENTCH}`,
@@ -796,12 +796,12 @@ export const Units: TUnits = [
       {
         name: `Favour: ${MARK_SLAANESH}`,
         desc: `If active, you can re-roll charge rolls for the buffed unit. If you buffed a Slaanesh unit, it also does not take battleshock tests.`,
-        when: [DURING_GAME],
+        when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
       },
       {
-        name: `Favor: ${MARK_UNDIVIDED}`,
+        name: `Favour: ${MARK_UNDIVIDED}`,
         desc: `If active, you can re-roll hit and wound rolls for the buffed unit. If you buffed an Undivided unit, you can re-roll its charge rolls as well.`,
-        when: [DURING_GAME],
+        when: [DURING_GAME, CHARGE_PHASE],
       },
     ],
   },

@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -175,6 +176,67 @@ const Allegiances: TAllegiances = [
         name: `Brimstone Familiar`,
         desc: `Do not take battleshock tests for friendly Guild of Summoners units while they are wholly within 12" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
+        artifact: true,
+      },
+    ],
+  },
+  {
+    name: `Unbound Flux`,
+    effects: [
+      {
+        name: `Maddening Cascade`,
+        desc: `Each time an Unbound Flux Daemon wizard casts a spell inflicting mortal wounds, roll a dice for each unit that suffered any mortal wounds from the spell. On a 4+ that unit suffers 1 additional mortal wound.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Fuelled by Mayhem`,
+        desc: `Pick 1 friendly Unbound Flux daemon wizard wholly within 9" of a friendly Unbound Flux daemon hero or wholly within 18" of a friendly Unbound Flux daemon general. Add 1 to the casting rolls for that wizard until the end of the phase. A unit cannot benefit from this ability more than once per turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Aegis of Insanity`,
+        desc: `Do not take battleshock tests for friendly Unbound Flux daemon units while they are wholly within 9" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `The Enlightener`,
+        desc: `If the unmodified hit roll for an attack made with this weapon is 6, that attack deals D3 mortal wounds and the attack sequence ends.`,
+        when: [COMBAT_PHASE],
+        artifact: true,
+      },
+    ],
+  },
+  {
+    name: `Cult of a Thousand Eyes`,
+    effects: [
+      {
+        name: `Marked for Death`,
+        desc: `After armies have been setup before the first battle round, pick up to D3 different enemy units. For the rest of the battle, you can re-roll hit rolls for melee attacks by friendly Cult of a Thousand Eyes mortal units targeting the selected units.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Marked for Death`,
+        desc: `You can re-roll hit rolls for melee attacks against the pre-selected targets.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Eyes Everywhere`,
+        desc: `Pick 1 friendly Cult of a Thousand Eyes mortal unit wholly within 12" of a Cult of a Thousand Eyes mortal hero. Until the start of your next hero phase, enemy units do not receive the benefit of cover against the buffed unit.`,
+        when: [START_OF_HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Tzeentch is Pleased`,
+        desc: `Each time you spend a command point, if this general is on the battlefield, you can roll a dice. On a 5+ you can heal D3 wounds allocated to this general.`,
+        when: [DURING_GAME],
+        command_trait: true,
+      },
+      {
+        name: `Crown of Whispers`,
+        desc: `Add 1 to save rolls for attacks that target the bearer.`,
+        when: [DURING_GAME],
         artifact: true,
       },
     ],

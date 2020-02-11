@@ -50,6 +50,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
+      // 2/10/20 hotfix
+      if (txt.startsWith('undefined x ')) {
+        txt = txt.replace('undefined x ', '')
+      }
+
       // Deprecated format
       if (txt.startsWith('Skyport: ')) {
         const skyport = txt.replace(/^Skyport: /g, '').trim()
@@ -63,7 +68,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           .replace('- Sky Port: ', '')
           .trim()
           .replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
-        accum.allegiances = accum.allegiances.concat(skyport)
+        if (skyport !== 'None') {
+          accum.allegiances = accum.allegiances.concat(skyport)
+        }
         return accum
       }
 

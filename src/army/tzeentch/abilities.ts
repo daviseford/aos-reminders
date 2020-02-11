@@ -41,7 +41,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Locus of Change`,
-    desc: `SUbtract 1 from hit rolls for attacks made with melee weapons that target friendly Tzeentch Daemon units that are wholly within 12" of a friendly Tzeentch Daemon Hero.`,
+    desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly Tzeentch Daemon units that are wholly within 12" of a friendly Tzeentch Daemon Hero.`,
     when: [COMBAT_PHASE],
   },
   {

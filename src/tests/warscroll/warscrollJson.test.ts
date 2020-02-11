@@ -36,6 +36,60 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Warp Lightning Vortex', () => {
+    const parsedText = getFile('1580248993240-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Staff of Ocular Optimisation',
+      },
+      {
+        severity: 'warn',
+        text: 'Warp Lightning Vortex',
+      },
+    ])
+  })
+
+  it('should work with Indomitable Will', () => {
+    const parsedText = getFile('1580490187686-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Indomitable Will',
+      },
+    ])
+  })
+
+  it('should work with Sky Port: None', () => {
+    const parsedText = getFile('1580985291764-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.allegiances).toEqual([])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Vial of Pure Blood', () => {
+    const parsedText = getFile('1581111836908-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Vial of Pure Blood')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Spider Rider Skittermob', () => {
+    const parsedText = getFile('1581135844634-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // Converted to Skitterswarm
+    // expect(warscrollTxt.selections.battalions).toContain('Spider Rider Skitterswarm')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with "undefined x" entry (2/10/20 hotfix)', () => {
+    const parsedText = getFile('1581363713665-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with any endless spell (KO)', () => {
     const parsedText = getFile('1579105159803-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -708,7 +762,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(SLAANESH)
-    expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers Host)')
+    expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers)')
     expect(warscrollTxt.errors).toEqual([])
   })
 

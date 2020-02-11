@@ -20,6 +20,7 @@ import {
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_BLOOD,
+  LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
   LEGIONS_OF_AZGORH,
@@ -64,6 +65,7 @@ import Ironjawz from 'army/ironjawz'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Khorne from 'army/khorne'
 import LegionOfBlood from 'army/legion_of_blood'
+import LegionOfChaosAscendant from 'army/legion_of_chaos_ascendant'
 import LegionOfNight from 'army/legion_of_night'
 import LegionOfSacrament from 'army/legion_of_sacrament'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
@@ -163,6 +165,10 @@ const ArmyList: TArmyList = {
   [LEGION_OF_BLOOD]: {
     Army: { ...LegionOfBlood },
     GrandAlliance: DEATH,
+  },
+  [LEGION_OF_CHAOS_ASCENDANT]: {
+    Army: { ...LegionOfChaosAscendant },
+    GrandAlliance: CHAOS,
   },
   [LEGION_OF_NIGHT]: {
     Army: { ...LegionOfNight },

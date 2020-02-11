@@ -116,6 +116,7 @@ const handlePages = (text: string): string[] => {
     .replace(/General's Adjutant/g, ' ') // Get rid of General markings
     .replace(/([\w]+)? (General)/g, generalReplacer) // Get rid of General markings
     .replace(/,/g, commaAlt) // Save any existing commas
+    .replace(/Sky Cannon: Shell/g, 'Sky Cannon')
 
   const items = preppedText.split('ITEM: ')
   const title = handleTitle(items.shift() as string)
@@ -290,7 +291,9 @@ const commonTypos = {
   'Allher d': 'Allherd',
   'Alwa ys T ak e What Y ou Ar e Owed': 'Always Take What You Are Owed',
   'Amar anthine': 'Amaranthine',
+  'AQSH Y': 'AQSHY',
   'Ar tiller y': 'Artillery',
+  'Arm y deem ed  invalid  by': 'Army deemed invalid by',
   'Balefir e': 'Balefire',
   'Bar ak-Urbaz': 'Barak-Urbaz',
   'Bat tle': 'Battle',
@@ -302,6 +305,7 @@ const commonTypos = {
   'Bloodlor ds': 'Bloodlords',
   'Bloodr eaper': 'Bloodreaper',
   'Boltst orm': 'Boltstorm',
+  'Br eath of Mor grim': 'Breath of Morgrim',
   'CH AMON': 'CHAMON',
   'Cir cle': 'Circle',
   'Cour t': 'Court',
@@ -324,6 +328,7 @@ const commonTypos = {
   'Honour ed Retinue': '',
   'Honoured Retinue': '',
   'Hosts Duplicit ous': 'Hosts Duplicitous',
+  'Iggrind-Kaz Surge-injection Endrin Mk ​  IV': 'Iggrind-Kaz Surge-injection Endrin Mk. IV',
   'Incr edible': 'Incredible',
   'Inv ocation': 'Invocation',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
@@ -334,8 +339,8 @@ const commonTypos = {
   'Mercenar y Company': 'Mercenary Company',
   'mor e': 'more',
   'Nur gle': 'Nurgle',
-  'Ossiar ch Boner eapers': 'Ossiarch Bonereapers',
   'Or der': 'Order',
+  'Ossiar ch Boner eapers': 'Ossiarch Bonereapers',
   'Ov erlords': 'Overlords',
   'Pist ol': 'Pistol',
   'Pr ogr ess': 'Progress',
@@ -344,6 +349,7 @@ const commonTypos = {
   'Shar d': 'Shard',
   'Sk ewer': 'Skewer',
   'Sky Port': 'Skyport',
+  'Sky-por t': 'Sky-port',
   'Sla yer': 'Slayer',
   'Souldr aught': 'Souldraught',
   'Standar d': 'Standard',
@@ -356,6 +362,7 @@ const commonTypos = {
   'Wick ed': 'Wicked',
   'Wor d': 'Word',
   "Wher e Ther e's W ar, Ther e's Gold": "Where There's War, There's Gold",
+  "Zonbarcorp'Debtsettler' Spar Torpedo": "Zonbarcorp 'Debtsettler' Spar Torpedo",
   FUETHÁN: 'FUETHAN',
 }
 
