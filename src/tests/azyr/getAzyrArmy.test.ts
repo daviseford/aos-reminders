@@ -50,6 +50,104 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('handles KO11', () => {
+    const fileTxt = getFile('KO11')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO12', () => {
+    const fileTxt = getFile('KO12')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO13', () => {
+    const fileTxt = getFile('KO13')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO14', () => {
+    const fileTxt = getFile('KO14')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO15', () => {
+    const fileTxt = getFile('KO15')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO16', () => {
+    const fileTxt = getFile('KO16')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO17', () => {
+    const fileTxt = getFile('KO17')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles KO18', () => {
+    const fileTxt = getFile('KO18')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne7', () => {
+    const fileTxt = getFile('Khorne7')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne8', () => {
+    const fileTxt = getFile('Khorne8')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne9', () => {
+    const fileTxt = getFile('Khorne9')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne10', () => {
+    const fileTxt = getFile('Khorne10')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Khorne11', () => {
+    const fileTxt = getFile('Khorne11')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles Nurgle4', () => {
+    const fileTxt = getFile('Nurgle4')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Tzeentch5', () => {
     const fileTxt = getFile('Tzeentch5')
     const pages = handleAzyrPages(fileTxt)
