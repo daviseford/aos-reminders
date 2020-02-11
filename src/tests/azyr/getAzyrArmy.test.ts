@@ -81,7 +81,6 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO14')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    console.log(res.selections.allegiances)
     expect(res.errors).toEqual([])
   })
 
