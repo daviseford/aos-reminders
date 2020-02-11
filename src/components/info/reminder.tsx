@@ -1,10 +1,11 @@
-import React, { useMemo, useEffect, useCallback } from 'react'
+import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
 import { GetReminderKey } from 'utils/reminderUtils'
-import { titleCase } from 'utils/textUtils'
+import { titleCase, getActionTitle, generateUUID } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
@@ -23,6 +24,14 @@ interface IReminderProps {
   when: string
 }
 
+const reorder = (list: any[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+
+  return result
+}
+
 const ReminderComponent: React.FC<IReminderProps> = props => {
   const {
     actions,
@@ -38,6 +47,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const { theme } = useTheme()
 
+  const stateActions = useMemo(() => actions.map(x => ({ ...x, id: generateUUID() })), [actions])
+
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
   }, [hiddenReminders, when])
@@ -45,6 +56,17 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const title = useMemo(() => titleCase(when), [when])
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
+
+  const [state, setState] = useState<{ quotes: any[] }>({ quotes: [] })
+
+  function onDragEnd(result) {
+    if (!result.destination) return
+    if (result.destination.index === result.source.index) return
+
+    const quotes = reorder(state.quotes, result.source.index, result.destination.index)
+
+    setState({ quotes })
+  }
 
   useEffect(() => {
     if (!isMobile) showWhen(title) // Auto-open reminders on desktop
@@ -58,37 +80,59 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const GetKey = new GetReminderKey()
 
   return (
-    <div className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}>
-      <div className="card border-dark my-2 mx-1">
-        <CardHeaderComponent
-          title={title}
-          showCard={handleShowWhen}
-          hideCard={hideWhen}
-          isVisible={isVisible}
-          headerClassName={`${theme.reminderHeader} text-white`}
-          iconSize={1.2}
-          isMobile={isMobile}
-        />
-        <div className={bodyClass}>
-          {actions.map((action, i) => {
-            const name = GetKey.reminderKey(when, action)
-            const showEntry = () => showReminder(name)
-            const hideEntry = () => hideReminder(name)
-            const isHidden = !!hidden.find(k => name === k)
-
-            return (
-              <ActionText
-                {...action}
-                isVisible={!isHidden}
-                hideEntry={hideEntry}
-                showEntry={showEntry}
-                key={name}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="list">
+        {provided => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}
+          >
+            <div className="card border-dark my-2 mx-1">
+              <CardHeaderComponent
+                title={title}
+                showCard={handleShowWhen}
+                hideCard={hideWhen}
+                isVisible={isVisible}
+                headerClassName={`${theme.reminderHeader} text-white`}
+                iconSize={1.2}
+                isMobile={isMobile}
               />
-            )
-          })}
-        </div>
-      </div>
-    </div>
+              <div className={bodyClass}>
+                {stateActions.map((action, i) => {
+                  const name = GetKey.reminderKey(when, action)
+                  const showEntry = () => showReminder(name)
+                  const hideEntry = () => hideReminder(name)
+                  const isHidden = !!hidden.find(k => name === k)
+
+                  return (
+                    <Draggable draggableId={action.id} index={i}>
+                      {provided => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <ActionText
+                            {...action}
+                            isVisible={!isHidden}
+                            hideEntry={hideEntry}
+                            showEntry={showEntry}
+                            key={name}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })}
+              </div>
+            </div>
+
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   )
 }
 
