@@ -1,8 +1,6 @@
 import { TAllegiances } from 'types/army'
 import { COMBAT_PHASE, WOUND_ALLOCATION, END_OF_BATTLESHOCK_PHASE, HERO_PHASE } from 'types/phases'
 
-// This is where we store sub-allegiances such as
-// Grand Courts, Hosts, Clans, Glades, Lodges, etc
 const Allegiances: TAllegiances = [
   {
     name: `Legion of the First Prince`,

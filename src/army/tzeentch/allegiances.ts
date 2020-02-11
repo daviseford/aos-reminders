@@ -3,13 +3,13 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
-  END_OF_SETUP,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [

@@ -1,7 +1,6 @@
 import { HERO_PHASE, WOUND_ALLOCATION, COMBAT_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
 
-// Spells, Prayers, etc. go here
 const Spells: TSpells = [
   {
     name: `Bolt of Ruin`,

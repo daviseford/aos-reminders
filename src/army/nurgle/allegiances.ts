@@ -1,13 +1,13 @@
 import { TAllegiances } from 'types/army'
 import {
-  COMBAT_PHASE,
-  HERO_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_SETUP,
+  HERO_PHASE,
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
-  DURING_GAME,
   WOUND_ALLOCATION,
 } from 'types/phases'
 

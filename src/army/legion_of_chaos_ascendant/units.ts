@@ -2,10 +2,10 @@ import { TBattalions, TUnits } from 'types/army'
 import { HERO_PHASE, CHARGE_PHASE, COMBAT_PHASE } from 'types/phases'
 import Khorne from 'army/khorne'
 import Nurgle from 'army/nurgle'
-import Slaanesh from 'army/slaanesh'
-import Tzeentch from 'army/tzeentch'
-import SlavestoDarkness from 'army/slaves_to_darkness'
 import Skaven from 'army/skaven'
+import Slaanesh from 'army/slaanesh'
+import SlavestoDarkness from 'army/slaves_to_darkness'
+import Tzeentch from 'army/tzeentch'
 import { filterUnits } from 'utils/filterUtils'
 
 const getKhorneDaemonUnits = () => {
@@ -31,63 +31,63 @@ const getKhorneDaemonUnits = () => {
 
 const getNurgleDaemonUnits = () => {
   const listOfUnits = [
-    `Rotigus`,
-    `Great Unclean One`,
-    `Poxbringer, Herald of Nurgle`,
-    `Epidemius, Tallyman of Nurgle`,
-    `Spoilpox Scrivener, Herald of Nurgle`,
-    `Sloppity Bilepiper, Herald of Nurgle`,
-    `Horticulous Slimux`,
-    `Plaguebearers`,
-    `Plague Drones`,
     `Beasts of Nurgle`,
+    `Epidemius, Tallyman of Nurgle`,
+    `Great Unclean One`,
+    `Horticulous Slimux`,
     `Nurglings`,
+    `Plague Drones`,
+    `Plaguebearers`,
+    `Poxbringer, Herald of Nurgle`,
     `Pusgoyle Blightlords`,
+    `Rotigus`,
+    `Sloppity Bilepiper, Herald of Nurgle`,
+    `Spoilpox Scrivener, Herald of Nurgle`,
   ]
   return filterUnits(Nurgle.Units, listOfUnits)
 }
 const getSlaaneshDaemonUnits = () => {
   const listOfUnits = [
-    `Keeper of Secrets w/ Ritual Knife`,
-    `Keeper of Secrets w/ Living Whip`,
-    `Keeper of Secrets w/ Shining Aegis`,
-    `Keeper of Secrets w/ Sinistrous Hand`,
-    `Syll'Esske, the Vengeful Allegiance`,
-    `Shalaxi Helbane`,
-    `The Contorted Epitome`,
-    `Infernal Enrapturess, Herald of Slaanesh`,
-    `The Masque`,
-    `Viceleader, Herald of Slaanesh`,
+    `Bladebringer, Herald on Exalted Chariot`,
     `Bladebringer, Herald on Hellflayer`,
     `Bladebringer, Herald on Seeker Chariot`,
-    `Hellflayer`,
-    `Seeker Chariots`,
-    `Bladebringer, Herald on Exalted Chariot`,
+    `Daemonettes`,
     `Exalted Chariot`,
     `Fiends`,
-    `Daemonettes`,
+    `Hellflayer`,
+    `Infernal Enrapturess, Herald of Slaanesh`,
+    `Keeper of Secrets w/ Living Whip`,
+    `Keeper of Secrets w/ Ritual Knife`,
+    `Keeper of Secrets w/ Shining Aegis`,
+    `Keeper of Secrets w/ Sinistrous Hand`,
+    `Seeker Chariots`,
     `Seekers`,
+    `Shalaxi Helbane`,
     `Soulfeaster Keeper of Secrets`,
+    `Syll'Esske, the Vengeful Allegiance`,
+    `The Contorted Epitome`,
+    `The Masque`,
+    `Viceleader, Herald of Slaanesh`,
   ]
   return filterUnits(Slaanesh.Units, listOfUnits)
 }
 
 const getTzeentchDaemonUnits = () => {
   const listOfUnits = [
+    `Burning Chariots of Tzeentch`,
+    `Changecaster, Herald of Tzeentch`,
+    `Exalted Flamers of Tzeentch`,
+    `Exalted Greater Demon of Tzeentch`,
+    `Fateskimmer, Herald of Tzeentch on Burning Chariot`,
+    `Flamers of Tzeentch`,
+    `Fluxmaster, Herald of Tzeentch on Disc`,
+    `Gaunt Summoner of Tzeentch`,
+    `Horrors of Tzeentch`,
     `Kairos Fateweaver`,
     `Lord of Change`,
-    `The Changeling`,
-    `Changecaster, Herald of Tzeentch`,
-    `Fluxmaster, Herald of Tzeentch on Disc`,
-    `Fateskimmer, Herald of Tzeentch on Burning Chariot`,
-    `The Blue Scribes`,
-    `Horrors of Tzeentch`,
-    `Exalted Flamers of Tzeentch`,
-    `Flamers of Tzeentch`,
     `Screamers of Tzeentch`,
-    `Burning Chariots of Tzeentch`,
-    `Gaunt Summoner of Tzeentch`,
-    `Exalted Greater Demon of Tzeentch`,
+    `The Blue Scribes`,
+    `The Changeling`,
   ]
   return filterUnits(Tzeentch.Units, listOfUnits)
 }
@@ -117,10 +117,10 @@ const getSkavenDaemonUnits = () => {
 export const Units: TUnits = [
   ...getKhorneDaemonUnits(),
   ...getNurgleDaemonUnits(),
-  ...getSlaaneshDaemonUnits(),
-  ...getTzeentchDaemonUnits(),
-  ...getSlavesDaemonUnits(),
   ...getSkavenDaemonUnits(),
+  ...getSlaaneshDaemonUnits(),
+  ...getSlavesDaemonUnits(),
+  ...getTzeentchDaemonUnits(),
 ]
 
 // Allied units (usually this will involve writing a function to grab units from another army)
