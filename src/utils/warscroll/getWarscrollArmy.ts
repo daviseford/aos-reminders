@@ -68,7 +68,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           .replace('- Sky Port: ', '')
           .trim()
           .replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
-        accum.allegiances = accum.allegiances.concat(skyport)
+        if (skyport !== 'None') {
+          accum.allegiances = accum.allegiances.concat(skyport)
+        }
         return accum
       }
 

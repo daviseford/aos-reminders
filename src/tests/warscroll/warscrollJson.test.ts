@@ -36,159 +36,55 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should work with ', () => {
-    const parsedText = getFile('1580039041399-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580200625912-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
+  it('should work with Warp Lightning Vortex', () => {
     const parsedText = getFile('1580248993240-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Staff of Ocular Optimisation',
+      },
+      {
+        severity: 'warn',
+        text: 'Warp Lightning Vortex',
+      },
+    ])
   })
 
-  it('should work with ', () => {
-    const parsedText = getFile('1580358168289-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580375604757-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580398091514-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580440441382-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580484734612-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580488119083-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
+  it('should work with Indomitable Will', () => {
     const parsedText = getFile('1580490187686-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Indomitable Will',
+      },
+    ])
   })
 
-  it('should work with ', () => {
-    const parsedText = getFile('1580541327125-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580656732895-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580745071263-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580849640370-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580862836168-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1580923367340-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
+  it('should work with Sky Port: None', () => {
     const parsedText = getFile('1580985291764-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.allegiances).toEqual([])
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with ', () => {
-    const parsedText = getFile('1581012080795-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1581047089046-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1581047713522-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
-    const parsedText = getFile('1581090466915-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-
-  it('should work with ', () => {
+  it('should work with Vial of Pure Blood', () => {
     const parsedText = getFile('1581111836908-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Vial of Pure Blood')
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with ', () => {
-    const parsedText = getFile('1581112652309-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-  it('should work with ', () => {
+  it('should work with Spider Rider Skittermob', () => {
     const parsedText = getFile('1581135844634-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // Converted to Skitterswarm
+    // expect(warscrollTxt.selections.battalions).toContain('Spider Rider Skitterswarm')
     expect(warscrollTxt.errors).toEqual([])
   })
-  it('should work with ', () => {
-    const parsedText = getFile('1581348961311-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-  it('should work with ', () => {
-    const parsedText = getFile('1581349043959-Warscroll_Builder')
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.errors).toEqual([])
-  })
-  it('should work with ', () => {
+
+  it('should work with "undefined x" entry (2/10/20 hotfix)', () => {
     const parsedText = getFile('1581363713665-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.errors).toEqual([])
