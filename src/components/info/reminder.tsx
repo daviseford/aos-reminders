@@ -5,7 +5,7 @@ import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
 import { GetReminderKey } from 'utils/reminderUtils'
-import { titleCase, getActionTitle, generateUUID } from 'utils/textUtils'
+import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
@@ -60,21 +60,21 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
 
-  const [state, setState] = useState<TActionWithId[]>(
+  const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(
     actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) }))
   )
 
-  console.log('state', state)
+  const onDragEnd = useCallback(
+    result => {
+      if (!result.destination) return
+      if (result.destination.index === result.source.index) return
 
-  function onDragEnd(result) {
-    if (!result.destination) return
-    if (result.destination.index === result.source.index) return
+      const newState = reorder(actionsWithId, result.source.index, result.destination.index)
 
-    const quotes = reorder(state, result.source.index, result.destination.index)
-
-    console.log('a', quotes)
-    setState(quotes)
-  }
+      setActionsWithId(newState)
+    },
+    [actionsWithId]
+  )
 
   useEffect(() => {
     if (!isMobile) showWhen(title) // Auto-open reminders on desktop
@@ -106,7 +106,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isMobile={isMobile}
               />
               <div className={bodyClass}>
-                {state.map((action, i) => {
+                {actionsWithId.map((action, i) => {
                   const showEntry = () => showReminder(action.id)
                   const hideEntry = () => hideReminder(action.id)
                   const isHidden = !!hidden.find(k => action.id === k)
