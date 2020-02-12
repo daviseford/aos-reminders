@@ -39,6 +39,98 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with Gloomspite5', () => {
+    const parsedText = getFile('Gloomspite5')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Light of the Bad Moon',
+      },
+    ])
+  })
+
+  it('should work with Khorne7', () => {
+    const parsedText = getFile('Khorne7')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with Nighthaunt6', () => {
+    const parsedText = getFile('Nighthaunt6')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Beguile',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Coven Throne can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+
+  it('should work with Nurgle4', () => {
+    const parsedText = getFile('Nurgle4')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Cabalists',
+      },
+      {
+        severity: 'warn',
+        text: 'Soul Feeder',
+      },
+    ])
+  })
+
+  it('should work with Slaanesh5', () => {
+    const parsedText = getFile('Slaanesh5')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Hellstriders')
+    expect(res.selections.units).toContain('Bladebringer, Herald on Exalted Chariot')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with StD5', () => {
+    const parsedText = getFile('StD5')
+    const res = getBattlescribeArmy(parsedText)
+    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fractal Mindstorm',
+      },
+    ])
+  })
+
+  it('should work with StD6', () => {
+    const parsedText = getFile('StD6')
+    const res = getBattlescribeArmy(parsedText)
+    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fractal Mindstorm',
+      },
+    ])
+  })
+
+  it('should work with Tzeentch4', () => {
+    const parsedText = getFile('Tzeentch4')
+    const res = getBattlescribeArmy(parsedText)
+    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fractal Mindstorm',
+      },
+    ])
+  })
+
   it('should work with LoG1', () => {
     const parsedText = getFile('LoG1')
     const res = getBattlescribeArmy(parsedText)
