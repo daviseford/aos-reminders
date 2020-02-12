@@ -18,7 +18,7 @@ import {
 
 const FlyingTransportEffect = {
   name: `Flying Transport`,
-  desc: `This model can fly, and can be garrisoned by up to 15 friendly Marine models even though it is not a terrain feature.
+  desc: `This model can fly, and can be garrisoned by up to 15 friendly Marine models even though it is not a terrain feature. If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.
 
   Halve this model's Move characteristic and it cannot Fly High if there are 11 or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
 

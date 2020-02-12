@@ -463,6 +463,16 @@ export const Units: TUnits = [
         desc: `Remember to declare that your Terradons are swooping. In the following combat phase you can re-roll failed hit and wound rolls for this unit.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
+      {
+        name: `Unit Leader - Alpha`,
+        desc: `The leader of this unit is either an Alpha or a Master of the Skies. An Alpha's ranged weapon has a To Hit characteristic of 3+ rather than 4+.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Unit Leader - Master of the Skies`,
+        desc: `The leader of this unit is either an Alpha or a Master of the Skies. A Master of the Skies is armed with a Skyblade instead of its ranged weapon.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   {
