@@ -24,6 +24,10 @@ interface IReminderProps {
   when: string
 }
 
+interface TActionWithId extends TTurnAction {
+  id: string
+}
+
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
@@ -46,8 +50,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   } = props
 
   const { theme } = useTheme()
-
-  const stateActions = useMemo(() => actions.map(x => ({ ...x, id: generateUUID() })), [actions])
+  const GetKey = new GetReminderKey()
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
@@ -57,15 +60,20 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
 
-  const [state, setState] = useState<{ quotes: any[] }>({ quotes: [] })
+  const [state, setState] = useState<TActionWithId[]>(
+    actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) }))
+  )
+
+  console.log('state', state)
 
   function onDragEnd(result) {
     if (!result.destination) return
     if (result.destination.index === result.source.index) return
 
-    const quotes = reorder(state.quotes, result.source.index, result.destination.index)
+    const quotes = reorder(state, result.source.index, result.destination.index)
 
-    setState({ quotes })
+    console.log('a', quotes)
+    setState(quotes)
   }
 
   useEffect(() => {
@@ -77,7 +85,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [title, showWhen])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
-  const GetKey = new GetReminderKey()
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -99,14 +106,13 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isMobile={isMobile}
               />
               <div className={bodyClass}>
-                {stateActions.map((action, i) => {
-                  const name = GetKey.reminderKey(when, action)
-                  const showEntry = () => showReminder(name)
-                  const hideEntry = () => hideReminder(name)
-                  const isHidden = !!hidden.find(k => name === k)
+                {state.map((action, i) => {
+                  const showEntry = () => showReminder(action.id)
+                  const hideEntry = () => hideReminder(action.id)
+                  const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
-                    <Draggable draggableId={action.id} index={i}>
+                    <Draggable draggableId={action.id} index={i} key={action.id}>
                       {provided => (
                         <div
                           ref={provided.innerRef}
@@ -118,7 +124,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                             isVisible={!isHidden}
                             hideEntry={hideEntry}
                             showEntry={showEntry}
-                            key={name}
+                            key={action.id}
                           />
                         </div>
                       )}
