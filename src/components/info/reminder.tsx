@@ -50,7 +50,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   } = props
 
   const { theme } = useTheme()
-  const GetKey = new GetReminderKey()
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(name => name.includes(when))
@@ -60,9 +59,17 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
 
-  const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(
-    actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) }))
-  )
+  const getActionWithId = useMemo(() => {
+    const GetKey = new GetReminderKey()
+    return actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) }))
+  }, [actions, when])
+
+  const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(getActionWithId)
+
+  useEffect(() => {
+    const GetKey = new GetReminderKey()
+    setActionsWithId(actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) })))
+  }, [actions, when])
 
   const onDragEnd = useCallback(
     result => {
