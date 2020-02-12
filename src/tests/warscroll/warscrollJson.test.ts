@@ -28,6 +28,7 @@ import {
   SYLVANETH,
   TZEENTCH,
   KHARADRON_OVERLORDS,
+  LEGION_OF_CHAOS_ASCENDANT,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -36,6 +37,28 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should work with Secret-eater', () => {
+    const parsedText = getFile('1581426257666-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Secret-eater')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Legion of Chaos Ascendant', () => {
+    const parsedText = getFile('1581436593161-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(LEGION_OF_CHAOS_ASCENDANT)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Fecula Flyblown and The Wurmspat', () => {
+    const parsedText = getFile('1581503416759-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Fecula Flyblown')
+    expect(warscrollTxt.selections.units).toContain('The Wurmspat')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Warp Lightning Vortex', () => {
     const parsedText = getFile('1580248993240-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
