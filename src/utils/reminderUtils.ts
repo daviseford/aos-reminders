@@ -1,4 +1,5 @@
 import { IReminder, TTurnAction } from 'types/data'
+import { hashCode } from './textUtils'
 
 export class GetReminderKey {
   private _names: string[] = []
@@ -23,4 +24,9 @@ export const getVisibleReminders = (reminders: IReminder, hiddenReminders: strin
     if (actions.length > 0) a[when] = actions
     return a
   }, {} as IReminder)
+}
+
+export const hashReminder = (phase: string, action: TTurnAction): string => {
+  const name = `${phase}_${action.condition}_${action.name}_${action.desc}`.split(' ').join('_')
+  return hashCode(name)
 }

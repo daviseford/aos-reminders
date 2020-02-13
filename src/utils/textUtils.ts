@@ -16,6 +16,17 @@ export const generateUUID = () => {
   return [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join('')
 }
 
+export const hashCode = (str: string): string => {
+  let hash = 0
+  if (str.length === 0) return 'none'
+  for (let i = 0; i < str.length; i++) {
+    let char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32bit integer
+  }
+  return `${hash}`
+}
+
 export const getActionTitle = ({
   artifact,
   command_ability,
