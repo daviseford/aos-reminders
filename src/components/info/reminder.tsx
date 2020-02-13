@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
-import { GetReminderKey } from 'utils/reminderUtils'
+import { hashReminder } from 'utils/reminderUtils'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
@@ -60,15 +60,13 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
 
   const getActionWithId = useMemo(() => {
-    const GetKey = new GetReminderKey()
-    return actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) }))
+    return actions.map(x => ({ ...x, id: hashReminder(when, x) }))
   }, [actions, when])
 
   const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(getActionWithId)
 
   useEffect(() => {
-    const GetKey = new GetReminderKey()
-    setActionsWithId(actions.map(x => ({ ...x, id: GetKey.reminderKey(when, x) })))
+    setActionsWithId(actions.map(x => ({ ...x, id: hashReminder(when, x) })))
   }, [actions, when])
 
   const onDragEnd = useCallback(
@@ -92,6 +90,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [title, showWhen])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
+
+  console.log(actionsWithId)
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

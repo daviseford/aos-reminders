@@ -3,6 +3,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ISelections, IAllySelections } from 'types/selections'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { TSideEffectTypes } from 'utils/withSelect'
+import { TTurnAction } from './data'
 
 export interface IArmyStore {
   army: IArmy
@@ -17,6 +18,10 @@ export interface IRealmscapeStore {
   origin_realm: string | null
   realmscape: string | null
   realmscape_feature: string | null
+}
+
+export interface IReminderStore {
+  [when: string]: TTurnAction[]
 }
 
 export type TSavedArmiesStore = ISavedArmyFromApi[]
@@ -45,6 +50,7 @@ export interface IStore {
   army: IArmyStore
   factionNames: IFactionNameStore
   realmscape: IRealmscapeStore
+  reminders: IReminderStore
   selections: ISelectionStore
   visibility: IVisibilityStore
 }

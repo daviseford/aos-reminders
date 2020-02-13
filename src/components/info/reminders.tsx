@@ -10,6 +10,8 @@ import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { reminders } from 'ducks/reminders'
+import { IReminder } from 'types/data'
 
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
@@ -17,6 +19,7 @@ interface IRemindersProps extends ICurrentArmy {
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
   isMobile: boolean
+  setReminders: (reminders: IReminder) => void
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
@@ -29,6 +32,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     hideWhens,
     isMobile,
     showWhen,
+    setReminders,
     visibleWhens,
     ...currentArmy
   } = props
@@ -48,6 +52,10 @@ const RemindersComponent = (props: IRemindersProps) => {
   }, [army, allyArmies, currentArmy])
 
   if (isGameMode) reminders = getVisibleReminders(reminders, hiddenReminders)
+
+  useEffect(() => {
+    setReminders(reminders)
+  }, [reminders, setReminders])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
@@ -94,6 +102,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const mapDispatchToProps = {
   hideWhens: visibility.actions.deleteWhens,
+  setReminders: reminders.actions.setReminders,
   showWhen: visibility.actions.addWhen,
 }
 

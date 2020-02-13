@@ -22,6 +22,7 @@ import 'css/animations.scss'
 import 'css/index.scss'
 import { ThemeProvider } from 'context/useTheme'
 import { installNewWorker } from 'utils/installNewWorker'
+import { reminders } from 'ducks/reminders'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -41,6 +42,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   army: army.reducer,
   factionNames: factionNames.reducer,
+  reminders: reminders.reducer,
   realmscape: realmscape.reducer,
   selections: selections.reducer,
   visibility: visibility.reducer,
