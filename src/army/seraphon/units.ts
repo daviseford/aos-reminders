@@ -249,6 +249,11 @@ export const Units: TUnits = [
     name: `Saurus Sunblood`,
     effects: [
       {
+        name: `Aeon Shield`,
+        desc: `When you make save rolls for this model, ignore the enemy's Rend characteristic unless it is -3 or better.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
         name: `Ferocious Rage`,
         desc: `If the hit roll for one of this model's attacks is 6 or higher, make D3 wound rolls rather than 1. If the wound roll for one of this model's attacks is 6 or higher, it causes D3 Damage rather than 1.`,
         when: [COMBAT_PHASE],
@@ -462,6 +467,16 @@ export const Units: TUnits = [
         name: `Swooping Dive`,
         desc: `Remember to declare that your Terradons are swooping. In the following combat phase you can re-roll failed hit and wound rolls for this unit.`,
         when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Unit Leader - Alpha`,
+        desc: `The leader of this unit is either an Alpha or a Master of the Skies. An Alpha's ranged weapon has a To Hit characteristic of 3+ rather than 4+.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Unit Leader - Master of the Skies`,
+        desc: `The leader of this unit is either an Alpha or a Master of the Skies. A Master of the Skies is armed with a Skyblade instead of its ranged weapon.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

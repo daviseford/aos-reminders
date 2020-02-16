@@ -80,6 +80,19 @@ export const AlliedUnits: TUnits = [
   ...SlaveUnits,
 ]
 
+const SorcererBaseEffects = [
+  {
+    name: `Blessed with Vitality`,
+    desc: `Roll a D6 each time this model successfully casts a spell and it is not unbound. On a 4+ you can heal 1 wound allocated to this model.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Stream of Corruption`,
+    desc: `Casting value of 6. Pick an enemy unit within 7" and visible. That unit suffers 3 mortal wounds.`,
+    when: [HERO_PHASE],
+    spell: true,
+  },
+]
 const BlubberAndBileEffect = {
   name: `Blubber and Bile`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
@@ -583,24 +596,7 @@ export const Units: TUnits = [
   },
   {
     name: `Sorcerer`,
-    effects: [
-      {
-        name: `Blessed with Vitality`,
-        desc: `Roll a D6 each time this model successfully casts a spell and it is not unbound. On a 4+ you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Stream of Corruption.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Stream of Corruption`,
-        desc: `Casting value of 6. Pick an enemy unit within 7" and visible. That unit suffers 3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
+    effects: [...SorcererBaseEffects],
   },
   {
     name: `Lord of Blights`,
@@ -736,6 +732,29 @@ export const Units: TUnits = [
         desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Nurgle Daemon unit wholly within 28" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until your next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Fecula Flyblown`,
+    effects: [
+      ...SorcererBaseEffects,
+      {
+        name: `Retchling`,
+        desc: `Once per battle, in your hero phase, you can choose for this model to channel the power of its familiar. If you do so, this model can attempt to cast 1 additional spell that phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Wurmspat`,
+    effects: [
+      VirulentDischargeEffect,
+      BlightedWeaponsEffect,
+      {
+        name: `Festering Bodyguards`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Fecula Flyblown while she is within 3" of this unit. On a 4+, that wound or mortal wound is allocated to this unit instead of Fecula Flyblown.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
