@@ -60,13 +60,13 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden, actions])
 
   const getActionWithId = useMemo(() => {
-    return actions.map(x => ({ ...x, id: hashReminder(when, x) }))
+    return actions.map(x => ({ ...x, id: hashReminder(when, x.name, x.desc) }))
   }, [actions, when])
 
   const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(getActionWithId)
 
   useEffect(() => {
-    setActionsWithId(actions.map(x => ({ ...x, id: hashReminder(when, x) })))
+    setActionsWithId(actions.map(x => ({ ...x, id: hashReminder(when, x.name, x.desc) })))
   }, [actions, when])
 
   const onDragEnd = useCallback(

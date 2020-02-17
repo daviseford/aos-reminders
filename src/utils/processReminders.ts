@@ -8,6 +8,7 @@ import { IArmy, TAllyArmies } from 'types/army'
 import { TEffects, IReminder, TTurnAction } from 'types/data'
 import { ISelections, IAllySelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
+import { hashReminder } from './reminderUtils'
 
 type TProcessReminders = (
   army: IArmy,
@@ -48,15 +49,17 @@ export const processReminders: TProcessReminders = (
   if (army.Abilities && army.Abilities.length) {
     army.Abilities.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
-      const t: TTurnAction = {
-        name: a.name,
-        desc: a.desc,
-        condition: [`${titleCase(factionName)} Allegiance`],
-        tag: a.tag || false,
-        allegiance_ability: !command_ability,
-        command_ability,
-      }
       a.when.forEach(when => {
+        const t: TTurnAction = {
+          id: hashReminder(when, a.name, a.desc),
+          name: a.name,
+          desc: a.desc,
+          condition: [`${titleCase(factionName)} Allegiance`],
+          tag: a.tag || false,
+          allegiance_ability: !command_ability,
+          command_ability,
+          when,
+        }
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
       })
     })
@@ -65,12 +68,14 @@ export const processReminders: TProcessReminders = (
   // Add Realmscape features
   if (realmscape_feature) {
     const r = RealmscapeFeatures.find(x => x.name === realmscape_feature) as TEffects
-    const t: TTurnAction = {
-      name: r.name,
-      desc: r.desc,
-      condition: [`Realmscape Feature`],
-    }
     r.when.forEach(when => {
+      const t: TTurnAction = {
+        id: hashReminder(when, r.name, r.desc),
+        name: r.name,
+        desc: r.desc,
+        condition: [`Realmscape Feature`],
+        when,
+      }
       reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
     })
   }

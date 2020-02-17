@@ -26,7 +26,7 @@ export const getVisibleReminders = (reminders: IReminder, hiddenReminders: strin
   }, {} as IReminder)
 }
 
-export const hashReminder = (phase: string, action: TTurnAction): string => {
-  const name = `${phase}_${action.condition}_${action.name}_${action.desc}`.split(' ').join('_')
-  return hashCode(name)
+export const hashReminder = (phase: string, name: string, desc: string): string => {
+  const str = `${phase}_${name}_${desc}`.split(' ').join('_')
+  return hashCode(str)
 }

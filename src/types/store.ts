@@ -21,7 +21,7 @@ export interface IRealmscapeStore {
 }
 
 export interface IReminderStore {
-  [when: string]: TTurnAction[]
+  reminders: { [when: string]: TTurnAction[] }
 }
 
 export type TSavedArmiesStore = ISavedArmyFromApi[]

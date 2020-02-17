@@ -61,6 +61,7 @@ const RemindersComponent = (props: IRemindersProps) => {
 
   useEffect(() => {
     setReminders(reminders)
+    console.log('hello?', reminders)
   }, [reminders, setReminders])
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])

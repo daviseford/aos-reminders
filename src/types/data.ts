@@ -48,9 +48,11 @@ export interface IReminder {
 
 export type TTurnAction = {
   actionTitle?: string
+  id: string
   condition: string[]
   desc: string
   name: string
+  when: TTurnWhen
   tag?: string | false
 } & {
   [prop in TEntryProperties]?: boolean
