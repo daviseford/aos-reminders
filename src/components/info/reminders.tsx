@@ -13,6 +13,12 @@ import { IStore } from 'types/store'
 import { reminders } from 'ducks/reminders'
 import { IReminder } from 'types/data'
 
+// if (process.env.NODE_ENV === 'development') {
+//   const whyDidYouRender = require('@welldone-software/why-did-you-render')
+//   whyDidYouRender(React)
+// }
+
+
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
   army: IArmy
@@ -90,6 +96,8 @@ const RemindersComponent = (props: IRemindersProps) => {
     </div>
   )
 }
+
+// RemindersComponent.whyDidYouRender = true
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,

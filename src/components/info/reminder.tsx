@@ -57,7 +57,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const title = useMemo(() => titleCase(when), [when])
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
-  const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden.length, actions.length])
+  const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden, actions])
 
   const getActionWithId = useMemo(() => {
     return actions.map(x => ({ ...x, id: hashReminder(when, x) }))
