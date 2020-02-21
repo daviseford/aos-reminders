@@ -4,7 +4,7 @@ import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
 import { GetReminderKey } from 'utils/reminderUtils'
-import { titleCase, getActionTitle } from 'utils/textUtils'
+import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
@@ -108,6 +108,7 @@ const mapDispatchToProps = {
 export const Reminder = connect(mapStateToProps, mapDispatchToProps)(ReminderComponent)
 
 interface IActionTextProps extends TTurnAction {
+  actionTitle?: string
   hideEntry: () => void
   showEntry: () => void
   isVisible: boolean
@@ -145,17 +146,16 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const ActionTitle = (props: IActionTextProps) => {
+const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
   const { theme } = useTheme()
-  const title = getActionTitle(props)
-  const titleStr = title ? `${title} - ` : ``
+  const titleStr = actionTitle ? `${actionTitle} - ` : ''
 
   return (
     <>
       <span className={`${theme.textMuted} font-weight-bold`}>{titleStr}</span>
       <strong className={theme.text}>
-        {props.name && `${props.name}`}
-        {props.tag && ` (${props.tag})`}
+        {name}
+        {tag && ` (${tag})`}
       </strong>
     </>
   )
