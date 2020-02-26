@@ -192,7 +192,7 @@ export const Units: TUnits = [
       {
         name: `Ancient Warlord`,
         desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a Saurus Hero from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
-        when: [COMBAT_PHASE],
+        when: [HERO_PHASE],
         command_ability: true,
       },
     ],
