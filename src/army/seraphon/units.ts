@@ -415,6 +415,11 @@ export const Units: TUnits = [
         desc: `If the wound roll for a Celestite Lance is 6 or higher and the model charged in the same turn, the attack inflicts an additional mortal wound.`,
         when: [COMBAT_PHASE],
       },
+      {
+        name: `Alpha Knight`,
+        desc: `The leader of this unit is the Alpha Knight. An Alpha Knight makes 2 attacks rather than 1 with its Celestite Blade or Lance.`,
+        when: [COMBAT_PHASE],
+      },
       StardrakeShieldsEffect,
       WardrumEffect,
     ],
