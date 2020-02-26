@@ -192,7 +192,7 @@ export const Units: TUnits = [
       {
         name: `Ancient Warlord`,
         desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a Saurus Hero from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
-        when: [COMBAT_PHASE],
+        when: [HERO_PHASE],
         command_ability: true,
       },
     ],
@@ -388,6 +388,7 @@ export const Units: TUnits = [
     effects: [
       StardrakeIconEffect,
       StardrakeShieldsEffect,
+      WardrumEffect,
       {
         name: `Sworn Guardians`,
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 1 to the result of any save rolls for it.`,
@@ -397,6 +398,11 @@ export const Units: TUnits = [
         name: `Sworn Guardians`,
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 2 to its Bravery.`,
         when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Alpha Guardian`,
+        desc: `The leader of this unit is the Alpha Guardian. An Alpha Guardian makes 3 attacks rather than 2 with its Celestite Polearm.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
