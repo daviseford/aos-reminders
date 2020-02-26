@@ -388,6 +388,7 @@ export const Units: TUnits = [
     effects: [
       StardrakeIconEffect,
       StardrakeShieldsEffect,
+      WardrumEffect,
       {
         name: `Sworn Guardians`,
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 1 to the result of any save rolls for it.`,
