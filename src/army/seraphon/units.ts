@@ -398,6 +398,11 @@ export const Units: TUnits = [
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 2 to its Bravery.`,
         when: [BATTLESHOCK_PHASE],
       },
+      {
+        name: `Alpha Guardian`,
+        desc: `The leader of this unit is the Alpha Guardian. An Alpha Guardian makes 3 attacks rather than 2 with its Celestite Polearm.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   {
