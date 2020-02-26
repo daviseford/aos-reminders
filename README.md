@@ -34,6 +34,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [stures](https://github.com/stures)
 + [Redmongrel](https://github.com/Redmongrel)
 + [bszonye](https://github.com/bszonye)
++ [Flui](https://github.com/Flui)
 + Lorax
 
 ## Available Scripts
