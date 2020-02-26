@@ -47,6 +47,7 @@ export interface IReminder {
 }
 
 export type TTurnAction = {
+  actionTitle?: string
   condition: string[]
   desc: string
   name: string

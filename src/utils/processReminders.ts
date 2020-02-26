@@ -1,6 +1,6 @@
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import produce from 'immer'
-import { titleCase } from 'utils/textUtils'
+import { titleCase, getActionTitle } from 'utils/textUtils'
 import { RealmscapeFeatures } from 'army/generic'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
@@ -78,7 +78,9 @@ export const processReminders: TProcessReminders = (
   // Last step, we need to sort by the original order
   const ordered = Object.keys(Game).reduce((accum, key) => {
     if (reminders[key]) {
-      accum[key] = sortBy(reminders[key], ['condition', 'name'])
+      // Calculate ActionTitles
+      const turnActions = reminders[key].map(action => ({ ...action, actionTitle: getActionTitle(action) }))
+      accum[key] = sortBy(turnActions, ['actionTitle', 'name'])
     }
     return accum
   }, {})
