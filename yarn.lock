@@ -1933,6 +1933,18 @@
     redux-thunk "^2.3.0"
     reselect "^4.0.0"
 
+"@stripe/react-stripe-js@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.0.3.tgz#92224921d157728a3e11ce68ca5e5cb6fec37647"
+  integrity sha512-9E0HRAyd95B1jSS+nh5ol4M5RvQUnWTCB+Td9xKKa68OrEvmRqpNy/wvMyY9SGCy7fcMkZfiST9Oy09OkkDM/A==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.0.2.tgz#dfa798d00bdc72b3b1673e6fa801f55e49d1e240"
+  integrity sha512-YZNXVFCDSvjjE7aPP78qUt4cBrHlrj97Q/uXgrZbjDwJdPJYXv31EQGgBblbDjdIeq+kPfmZixulc/Hn1LZqJQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
@@ -9978,7 +9990,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10383,13 +10395,6 @@ react-sizes@2.0.0:
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.6.0"
-
-react-stripe-elements@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-6.1.0.tgz#487ba92eca05b58c5b005058c055793e97fe28ff"
-  integrity sha512-AyZw2Qx6VmHlrlpjLKiX7qRbUj+ncwixCThx+SgBq9hdEhCxIPUdX0QMcPAttY3HK8soL/cZaY1oe2SPTMLNcQ==
-  dependencies:
-    prop-types "15.7.2"
 
 react-switch@5.0.1:
   version "5.0.1"

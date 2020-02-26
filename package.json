@@ -6,6 +6,8 @@
   "dependencies": {
     "@auth0/auth0-spa-js": "1.6.4",
     "@reduxjs/toolkit": "1.2.5",
+    "@stripe/react-stripe-js": "1.0.3",
+    "@stripe/stripe-js": "1.0.2",
     "bootstrap": "4.4.1",
     "core-js": "3.6.4",
     "jspdf": "1.5.3",
@@ -27,7 +29,6 @@
     "react-scripts": "3.4.0",
     "react-select": "3.0.8",
     "react-sizes": "2.0.0",
-    "react-stripe-elements": "6.1.0",
     "react-switch": "5.0.1",
     "redux": "4.0.5",
     "redux-persist": "6.0.0",

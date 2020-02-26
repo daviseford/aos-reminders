@@ -1,19 +1,14 @@
 import React from 'react'
-import { injectStripe, Elements } from 'react-stripe-elements'
+import { useStripe, Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import qs from 'qs'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { SubscriptionPlans, ISubscriptionPlan } from 'utils/plans'
-import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
 import { IUser } from 'types/user'
 
-interface ICheckoutProps {
-  stripe?: any
-}
-
-const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
-  const { stripe } = props
+const PricingPlansComponent: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
 
   return (
@@ -22,7 +17,7 @@ const PricingPlansComponent: React.FC<ICheckoutProps> = props => {
 
       <div className="card-deck text-center">
         {SubscriptionPlans.map((plan, i) => (
-          <PlanComponent stripe={stripe} user={user} supportPlan={plan} key={i} />
+          <PlanComponent user={user} supportPlan={plan} key={i} />
         ))}
       </div>
       <div className="row text-center justify-content-center">
@@ -56,14 +51,16 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  stripe: any
   user: IUser
   supportPlan: ISubscriptionPlan
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
-  const { stripe, user, supportPlan } = props
+  const { user, supportPlan } = props
+  const stripe = useStripe()
   const { isAuthenticated, loginWithRedirect } = useAuth0()
+
+  if (!stripe) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
@@ -140,14 +137,12 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   )
 }
 
-const InjectedPricingPlans = injectStripe(PricingPlansComponent)
+const stripePromise = loadStripe(STRIPE_KEY)
 
 export const PricingPlans = () => {
   return (
-    <AsyncStripeProvider apiKey={STRIPE_KEY}>
-      <Elements>
-        <InjectedPricingPlans />
-      </Elements>
-    </AsyncStripeProvider>
+    <Elements stripe={stripePromise}>
+      <PricingPlansComponent />
+    </Elements>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { injectStripe, Elements } from 'react-stripe-elements'
+import { useStripe, Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import qs from 'qs'
 import { capitalize } from 'lodash'
 import CopyToClipboard from 'react-copy-to-clipboard'
@@ -10,7 +11,6 @@ import { useTheme } from 'context/useTheme'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import AsyncStripeProvider from 'components/payment/asyncStripeProvider'
 import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
 import { centerContentClass } from 'theme/helperClasses'
 import GenericButton from 'components/input/generic_button'
@@ -20,12 +20,11 @@ import { IUser } from 'types/user'
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
 interface ICheckoutProps {
-  stripe?: any
   isMobile?: boolean
 }
 
 const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(props => {
-  const { stripe } = props
+  const stripe = useStripe()
   const { isActive } = useSubscription()
 
   if (!stripe || !isActive) return <></>
@@ -128,13 +127,7 @@ const GiftButton = (props: IGiftButtonProps) => {
   )
 }
 
-interface IPurchaseTable {
-  stripe: any
-  isMobile: boolean
-}
-
-const PurchaseTable = (props: IPurchaseTable) => {
-  const { isMobile } = props
+const PurchaseTable = componentWithSize(({ isMobile = false }) => {
   const { theme } = useTheme()
   const { user }: { user: IUser } = useAuth0()
 
@@ -153,7 +146,7 @@ const PurchaseTable = (props: IPurchaseTable) => {
             </thead>
             <tbody>
               {GiftedSubscriptionPlans.map((plan, i) => (
-                <PlanComponent {...props} user={user} supportPlan={plan} key={i} />
+                <PlanComponent isMobile={isMobile} user={user} supportPlan={plan} key={i} />
               ))}
             </tbody>
           </table>
@@ -174,7 +167,7 @@ const PurchaseTable = (props: IPurchaseTable) => {
       </div>
     </>
   )
-}
+})
 
 const PlansHeader = () => {
   const { theme } = useTheme()
@@ -186,16 +179,18 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  stripe: any
   user: IUser
   supportPlan: IGiftedSubscriptionPlans
   isMobile: boolean
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
-  const { stripe, user, supportPlan, isMobile } = props
+  const { user, supportPlan, isMobile } = props
+  const stripe = useStripe()
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const [quantity, setQuantity] = useState(1)
+
+  if (!stripe) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
@@ -275,14 +270,12 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   )
 }
 
-const InjectedGiftSubscriptions = injectStripe(GiftSubscriptionsComponent)
+const stripePromise = loadStripe(STRIPE_KEY)
 
 export const GiftSubscriptions = () => {
   return (
-    <AsyncStripeProvider apiKey={STRIPE_KEY}>
-      <Elements>
-        <InjectedGiftSubscriptions />
-      </Elements>
-    </AsyncStripeProvider>
+    <Elements stripe={stripePromise}>
+      <GiftSubscriptionsComponent />
+    </Elements>
   )
 }
