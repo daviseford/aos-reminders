@@ -190,8 +190,13 @@ export const Units: TUnits = [
     effects: [
       ...CarnosaurBaseEffects,
       {
+        name: `Blazing Sunbolts`,
+        desc: `If the Saurus Oldblood atop the Carnosaur targets a CHAOS DAEMON unit with its Sunbolt Gauntlet, you can add 2 to the result of the wound rolls.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
         name: `Ancient Warlord`,
-        desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a Saurus Hero from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
+        desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a SAURUS HERO from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -413,6 +418,11 @@ export const Units: TUnits = [
       {
         name: `Blazing Lances`,
         desc: `If the wound roll for a Celestite Lance is 6 or higher and the model charged in the same turn, the attack inflicts an additional mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Alpha Knight`,
+        desc: `The leader of this unit is the Alpha Knight. An Alpha Knight makes 2 attacks rather than 1 with its Celestite Blade or Lance.`,
         when: [COMBAT_PHASE],
       },
       StardrakeShieldsEffect,
