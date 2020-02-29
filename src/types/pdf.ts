@@ -1,5 +1,5 @@
-import { ICurrentArmy } from 'types/army'
-import { IReminder } from 'types/data'
+import { ICurrentArmy } from './army'
+import { IReminder } from './data'
 
 export type TPdfStylePdf =
   | 'army'

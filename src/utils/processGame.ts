@@ -2,8 +2,6 @@ import { flatten } from 'lodash'
 import { TGameStructure, Game } from 'meta/game_structure'
 import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
 import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'
-import { hashReminder } from 'utils/reminderUtils'
-import { TTurnWhen } from 'types/phases'
 
 type TEntries = TAllegiances | TArtifacts | TBattalions | TEndlessSpells | TSpells | TTraits | TUnits
 
@@ -14,8 +12,8 @@ export const processGame = (allEntries: TEntries[]): TGameStructure => {
     (game, entry: TEntry) => {
       const withEntry = addProps(entry)
       entry.effects.forEach(effect => {
+        const action = withEntry(effect)
         effect.when.forEach(phase => {
-          const action = withEntry(effect, phase)
           game[phase] = game[phase] ? game[phase].concat(action) : [action]
         })
       })
@@ -34,14 +32,12 @@ const addProps = (entry: TEntry) => {
   // Figure out if an entry key is true and store it for now
   const entryProp = ENTRY_PROPERTIES.find(k => entry[k] === true)
 
-  return (effect: TEffects, when: TTurnWhen): TTurnAction => {
+  return (effect: TEffects): TTurnAction => {
     const action: TTurnAction = {
-      id: hashReminder(when, effect.name, effect.desc),
       condition: [entry.name],
       name: effect.name,
       desc: effect.desc,
       tag: effect.tag || false,
-      when,
     }
 
     // Figure out if an effects key is true
