@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
-import { hashReminder } from 'utils/reminderUtils'
 import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
@@ -22,10 +21,6 @@ interface IReminderProps {
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
   when: string
-}
-
-interface TActionWithId extends TTurnAction {
-  id: string
 }
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
@@ -59,26 +54,18 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const isVisible = useMemo(() => !!visibleWhens.find(w => title === w), [visibleWhens, title])
   const isPrintable = useMemo(() => hidden.length !== actions.length, [hidden, actions])
 
-  const getActionWithId = useMemo(() => {
-    return actions.map(x => ({ ...x, id: hashReminder(when, x.name, x.desc) }))
-  }, [actions, when])
-
-  const [actionsWithId, setActionsWithId] = useState<TActionWithId[]>(getActionWithId)
-
-  useEffect(() => {
-    setActionsWithId(actions.map(x => ({ ...x, id: hashReminder(when, x.name, x.desc) })))
-  }, [actions, when])
+  const [actionsState, setActionsState] = useState<TTurnAction[]>(actions)
 
   const onDragEnd = useCallback(
     result => {
       if (!result.destination) return
       if (result.destination.index === result.source.index) return
 
-      const newState = reorder(actionsWithId, result.source.index, result.destination.index)
+      const newState = reorder(actionsState, result.source.index, result.destination.index)
 
-      setActionsWithId(newState)
+      setActionsState(newState)
     },
-    [actionsWithId]
+    [actionsState]
   )
 
   useEffect(() => {
@@ -111,7 +98,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isMobile={isMobile}
               />
               <div className={bodyClass}>
-                {actionsWithId.map((action, i) => {
+                {actionsState.map((action, i) => {
                   const showEntry = () => showReminder(action.id)
                   const hideEntry = () => hideReminder(action.id)
                   const isHidden = !!hidden.find(k => action.id === k)
