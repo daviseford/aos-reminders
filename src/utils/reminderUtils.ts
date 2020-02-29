@@ -28,5 +28,5 @@ export const getVisibleReminders = (reminders: IReminder, hiddenReminders: strin
 
 export const hashReminder = (phase: string, name: string, desc: string): string => {
   const str = `${phase}_${name}_${desc}`.split(' ').join('_')
-  return hashCode(str)
+  return `${phase}_${hashCode(str)}`
 }
