@@ -52,7 +52,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   const { theme } = useTheme()
 
   const hidden = useMemo(() => {
-    return hiddenReminders.filter(name => name.includes(when))
+    return hiddenReminders.filter(id => id.includes(when))
   }, [hiddenReminders, when])
 
   const title = useMemo(() => titleCase(when), [when])
@@ -175,8 +175,8 @@ const ActionText = (props: IActionTextProps) => {
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
         <div className="d-flex mb-1">
-          <div {...draggableProps.dragHandleProps}>
-            <div className="flex-grow-1">
+          <div className="flex-grow-1">
+            <div {...draggableProps.dragHandleProps}>
               <ActionTitle {...props} />
             </div>
           </div>
