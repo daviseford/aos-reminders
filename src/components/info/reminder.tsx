@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
@@ -119,19 +119,14 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                   return (
                     <Draggable draggableId={action.id} index={i} key={action.id}>
                       {provided => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <ActionText
-                            {...action}
-                            isVisible={!isHidden}
-                            hideEntry={hideEntry}
-                            showEntry={showEntry}
-                            key={action.id}
-                          />
-                        </div>
+                        <ActionText
+                          {...action}
+                          isVisible={!isHidden}
+                          hideEntry={hideEntry}
+                          showEntry={showEntry}
+                          key={action.id}
+                          draggableProps={provided}
+                        />
                       )}
                     </Draggable>
                   )
@@ -167,36 +162,41 @@ interface IActionTextProps extends TTurnAction {
   hideEntry: () => void
   showEntry: () => void
   isVisible: boolean
+  draggableProps: DraggableProvided
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, showEntry, hideEntry } = props
+  const { isVisible, desc, showEntry, hideEntry, draggableProps } = props
   const { isGameMode } = useAppStatus()
 
   const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
 
   return (
-    <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
-      <div className="d-flex mb-1">
-        <div className="flex-grow-1">
-          <ActionTitle {...props} />
+    <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
+      <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
+        <div className="d-flex mb-1">
+          <div {...draggableProps.dragHandleProps}>
+            <div className="flex-grow-1">
+              <ActionTitle {...props} />
+            </div>
+          </div>
+          <div className="px-2 d-print-none">
+            {isGameMode ? (
+              <VisibilityToggle
+                isVisible={isVisible}
+                setVisibility={handleVisibility}
+                withConfirmation={true}
+                type="clear"
+                size={1}
+              />
+            ) : (
+              <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+            )}
+          </div>
         </div>
-        <div className="px-2 d-print-none">
-          {isGameMode ? (
-            <VisibilityToggle
-              isVisible={isVisible}
-              setVisibility={handleVisibility}
-              withConfirmation={true}
-              type="clear"
-              size={1}
-            />
-          ) : (
-            <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
-          )}
-        </div>
-      </div>
 
-      {isVisible && <ActionDescription text={desc} />}
+        {isVisible && <ActionDescription text={desc} />}
+      </div>
     </div>
   )
 }
