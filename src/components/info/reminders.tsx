@@ -36,7 +36,6 @@ const RemindersComponent = (props: IRemindersProps) => {
   const { isGameMode } = useAppStatus()
 
   let reminders = useMemo(() => {
-    console.log('regenerating reminders')
     return processReminders(
       army,
       currentArmy.factionName,

@@ -91,8 +91,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
-  console.log(actionsWithId)
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="list">
