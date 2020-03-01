@@ -10,6 +10,7 @@ import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
+import { LocalReminderOrder } from 'utils/localStore'
 
 interface IReminderProps {
   actions: TTurnAction[]
@@ -20,7 +21,7 @@ interface IReminderProps {
   isMobile: boolean
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
-  when: string
+  when: TTurnWhen
 }
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
@@ -61,11 +62,17 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
       if (!result.destination) return
       if (result.destination.index === result.source.index) return
 
-      const newState = reorder(actionsState, result.source.index, result.destination.index)
+      const orderedActions: TTurnAction[] = reorder(
+        actionsState,
+        result.source.index,
+        result.destination.index
+      )
+      const ids = orderedActions.map(x => x.id)
 
-      setActionsState(newState)
+      setActionsState(orderedActions)
+      LocalReminderOrder.set(when, ids)
     },
-    [actionsState]
+    [actionsState, when]
   )
 
   useEffect(() => {
@@ -78,7 +85,10 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   useEffect(() => {
     setActionsState(actions)
-  }, [actions])
+    return () => {
+      LocalReminderOrder.clearWhen(when)
+    }
+  }, [actions, when])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 

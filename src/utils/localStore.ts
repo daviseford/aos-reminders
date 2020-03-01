@@ -1,8 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
+import { TTurnWhen } from 'types/phases'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { TThemeType } from 'types/theme'
-import { IReminder, TTurnAction } from 'types/data'
-import { TTurnWhen } from 'types/phases'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 const LOCAL_LOADED_ARMY_KEY = 'loadedArmy'
@@ -75,7 +74,7 @@ export const LocalLoadedArmy = {
 
 export const LocalReminderOrder = {
   clear: () => localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify({})),
-  clearAction: (when: TTurnWhen) => {
+  clearWhen: (when: TTurnWhen) => {
     const existingReminders = LocalReminderOrder.get()
     const reminders = { ...existingReminders, [when]: undefined }
     localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(reminders))
@@ -83,16 +82,16 @@ export const LocalReminderOrder = {
   get: () => {
     const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
     if (!reminders) return {}
-    return JSON.parse(reminders) as IReminder
+    return JSON.parse(reminders) as { [when: string]: string[] }
   },
   getWhen: (when: TTurnWhen) => {
     const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
-    if (!reminders || !reminders[when]) return null
-    return JSON.parse(reminders[when]) as IReminder
+    if (!reminders) return undefined
+    return JSON.parse(reminders[when]) as string[] | undefined
   },
-  set: (when: TTurnWhen, actions: TTurnAction[]) => {
+  set: (when: TTurnWhen, ids: string[]) => {
     const existingReminders = LocalReminderOrder.get()
-    const reminders = { ...existingReminders, [when]: actions }
+    const reminders = { ...existingReminders, [when]: ids }
     localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(reminders))
   },
 }

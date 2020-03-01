@@ -10,6 +10,7 @@ import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
 import { IStore } from 'types/store'
+import { LocalReminderOrder } from 'utils/localStore'
 
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies
@@ -36,6 +37,7 @@ const RemindersComponent = (props: IRemindersProps) => {
   const { isGameMode } = useAppStatus()
 
   let reminders = useMemo(() => {
+    LocalReminderOrder.clear()
     return processReminders(
       army,
       currentArmy.factionName,
