@@ -1379,7 +1379,7 @@ export const Battalions: TBattalions = [
     name: `Cleansing Phalanx`,
     effects: [
       {
-        name: `Channelled Empoowerment`,
+        name: `Channelled Empowerment`,
         desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, you can re-roll failed hit rolls for attacks made by the SEQUITORS unit in addition to the effects of the spell.`,
         when: [COMBAT_PHASE],
       },
