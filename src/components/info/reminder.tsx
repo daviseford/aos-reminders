@@ -76,6 +76,10 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     showWhen(title)
   }, [title, showWhen])
 
+  useEffect(() => {
+    setActionsState(actions)
+  }, [actions])
+
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
   return (
