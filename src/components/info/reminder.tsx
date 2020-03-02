@@ -1,9 +1,12 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-beautiful-dnd'
+import { isEqual, sortBy } from 'lodash'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
+import { LocalReminderOrder } from 'utils/localStore'
+import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
@@ -20,15 +23,7 @@ interface IReminderProps {
   isMobile: boolean
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
-  when: string
-}
-
-const reorder = (list: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
-
-  return result
+  when: TTurnWhen
 }
 
 const ReminderComponent: React.FC<IReminderProps> = props => {
@@ -61,11 +56,17 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
       if (!result.destination) return
       if (result.destination.index === result.source.index) return
 
-      const newState = reorder(actionsState, result.source.index, result.destination.index)
+      const orderedActions: TTurnAction[] = reorder(
+        actionsState,
+        result.source.index,
+        result.destination.index
+      )
+      const ids = orderedActions.map(x => x.id)
 
-      setActionsState(newState)
+      setActionsState(orderedActions)
+      LocalReminderOrder.set(when, ids)
     },
-    [actionsState]
+    [actionsState, when]
   )
 
   useEffect(() => {
@@ -77,8 +78,19 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [title, showWhen])
 
   useEffect(() => {
-    setActionsState(actions)
-  }, [actions])
+    // If we've previously dragged some reminders around,
+    // and the stored reminder order has the same ids as our current actions
+    // Go ahead and set the actionState to be ordered properly
+    const currentIds = sortBy(actions.map(x => x.id))
+    const storedIds = LocalReminderOrder.getWhen(when) || []
+
+    if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
+      const reordered = reorderViaIndex(actions, storedIds)
+      setActionsState(reordered)
+    } else {
+      setActionsState(actions)
+    }
+  }, [actions, when])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
