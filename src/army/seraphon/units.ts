@@ -279,7 +279,7 @@ export const Units: TUnits = [
       {
         name: `Saurian Savagery`,
         desc: `If the Saurus Scar-Veteran on Carnosaur uses this ability, pick a Saurus unit within 15". Until your next hero phase, whenever you roll a hit roll of 6 or more for a model in that unit, that model can immediately make one additional attack using the same weapon.`,
-        when: [COMBAT_PHASE],
+        when: [HERO_PHASE],
         command_ability: true,
       },
     ],

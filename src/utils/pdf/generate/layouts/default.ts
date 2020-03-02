@@ -1,8 +1,9 @@
 import jsPDF from 'jspdf'
 import { getVisibleReminders } from 'utils/reminderUtils'
+import { reorderReminders } from 'utils/reorder'
+import { titleCase } from 'utils/textUtils'
 import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
-import { titleCase } from 'utils/textUtils'
 import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
@@ -72,7 +73,7 @@ const PageOpts = {
 export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
   const { factionName, hiddenReminders, reminders, ...currentArmy } = data
 
-  const visibleReminders = getVisibleReminders(reminders, hiddenReminders)
+  const orderedReminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
   const doc = new jsPDF({
     unit: 'in',
@@ -89,7 +90,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
 
-  Layout.getReminderText(visibleReminders)
+  Layout.getReminderText(orderedReminders)
   const pages = Layout.splitTextToPages()
 
   pages.forEach((page, pageNum) => {

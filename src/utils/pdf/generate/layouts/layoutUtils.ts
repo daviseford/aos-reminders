@@ -11,12 +11,6 @@ interface IPhaseAndRuleObj {
   rules: ICompactPdfTextObj[][]
 }
 
-interface IRulesToColumns {
-  col0: ICompactPdfTextObj[][]
-  col1: ICompactPdfTextObj[][]
-  full: ICompactPdfTextObj[]
-}
-
 interface IPageOpts {
   colLineWidth: number
   colTitleLineWidth: number
