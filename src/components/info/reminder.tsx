@@ -1,11 +1,12 @@
 import React, { useMemo, useEffect, useCallback, useState } from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-beautiful-dnd'
+import { isEqual, sortBy } from 'lodash'
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
 import { LocalReminderOrder } from 'utils/localStore'
-import { reorder } from 'utils/reorder'
+import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
@@ -77,9 +78,17 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   }, [title, showWhen])
 
   useEffect(() => {
-    setActionsState(actions)
-    return () => {
-      LocalReminderOrder.clearWhen(when)
+    // If we've previously dragged some reminders around,
+    // and the stored reminder order has the same ids as our current actions
+    // Go ahead and set the actionState to be ordered properly
+    const currentIds = sortBy(actions.map(x => x.id))
+    const storedIds = LocalReminderOrder.getWhen(when) || []
+
+    if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
+      const reordered = reorderViaIndex(actions, storedIds)
+      setActionsState(reordered)
+    } else {
+      setActionsState(actions)
     }
   }, [actions, when])
 

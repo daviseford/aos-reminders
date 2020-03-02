@@ -7,7 +7,7 @@ export const reorderViaIndex = <T extends WithId>(list: T[], ids: string[]) => {
     const entry = list.find(l => l.id && l.id === id)
     if (entry) a.push(entry)
     return a
-  }, [] as any[])
+  }, [] as T[])
 }
 
 // Used for drag and drop by react-beautful-dnd

@@ -72,6 +72,10 @@ export const LocalLoadedArmy = {
   },
 }
 
+interface ILocalReminder {
+  [when: string]: string[]
+}
+
 export const LocalReminderOrder = {
   clear: () => localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify({})),
   clearWhen: (when: TTurnWhen) => {
@@ -82,12 +86,13 @@ export const LocalReminderOrder = {
   get: () => {
     const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
     if (!reminders) return {}
-    return JSON.parse(reminders) as { [when: string]: string[] }
+    return JSON.parse(reminders) as ILocalReminder
   },
   getWhen: (when: TTurnWhen) => {
     const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
     if (!reminders) return undefined
-    return JSON.parse(reminders[when]) as string[] | undefined
+    const parsed = JSON.parse(reminders) as ILocalReminder
+    return parsed[when]
   },
   set: (when: TTurnWhen, ids: string[]) => {
     const existingReminders = LocalReminderOrder.get()
