@@ -4,13 +4,14 @@ import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-
 import { visibility, selectors } from 'ducks'
 import { useTheme } from 'context/useTheme'
 import { useAppStatus } from 'context/useAppStatus'
+import { LocalReminderOrder } from 'utils/localStore'
+import { reorder } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { CardHeaderComponent } from 'components/info/card'
 import { TTurnAction } from 'types/data'
 import { IStore } from 'types/store'
 import { TTurnWhen } from 'types/phases'
-import { LocalReminderOrder } from 'utils/localStore'
 
 interface IReminderProps {
   actions: TTurnAction[]
@@ -22,14 +23,6 @@ interface IReminderProps {
   showReminder: (value: string) => void
   showWhen: (value: string) => void // dispatch
   when: TTurnWhen
-}
-
-const reorder = (list: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
-
-  return result
 }
 
 const ReminderComponent: React.FC<IReminderProps> = props => {
