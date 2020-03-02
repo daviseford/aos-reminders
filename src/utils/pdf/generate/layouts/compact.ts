@@ -1,8 +1,9 @@
 import jsPDF from 'jspdf'
 import { getVisibleReminders } from 'utils/reminderUtils'
-import CompactPDFLayout, { reorderReminders } from 'utils/pdf/generate/layouts/layoutUtils'
-import { Logo } from 'utils/pdf/generate/logo'
+import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
+import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
+import { Logo } from 'utils/pdf/generate/logo'
 import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {

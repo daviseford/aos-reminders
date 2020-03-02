@@ -1,13 +1,10 @@
 import jsPDF from 'jspdf'
-import { sum, slice, sortBy, isEqual } from 'lodash'
+import { sum, slice } from 'lodash'
 import { titleCase, getActionTitle } from 'utils/textUtils'
 import { IReminder, TTurnAction } from 'types/data'
 import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
 import { ICurrentArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
-import { LocalReminderOrder } from 'utils/localStore'
-import { reorderViaIndex } from 'utils/reorder'
-import { TTurnWhen } from 'types/phases'
 
 interface IPhaseAndRuleObj {
   phase: ICompactPdfTextObj
@@ -403,21 +400,4 @@ export default class CompactPdfLayout {
 
     return text.concat(selectionText, endText)
   }
-}
-
-export const reorderReminders = (reminders: IReminder): IReminder => {
-  return Object.keys(reminders).reduce((accum, when) => {
-    const actions = reminders[when]
-    const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen) || []
-
-    if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
-      const reordered = reorderViaIndex(actions, storedIds)
-      accum[when] = reordered
-    } else {
-      accum[when] = actions
-    }
-
-    return accum
-  }, {} as IReminder)
 }
