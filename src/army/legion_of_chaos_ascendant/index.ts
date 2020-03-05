@@ -8,6 +8,7 @@ import Traits from './traits'
 export default {
   Abilities,
   Allegiances,
+  AllegianceType: 'Hosts of Change',
   AlliedUnits,
   Artifacts,
   Battalions,

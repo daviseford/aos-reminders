@@ -9,6 +9,7 @@ import Traits from './traits'
 export default {
   Abilities,
   Allegiances,
+  AllegianceType: 'Change Covens',
   AlliedUnits,
   Artifacts,
   Battalions,
