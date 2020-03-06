@@ -305,7 +305,12 @@ export const Units: TUnits = [
         name: `Channelled Pink Fire`,
         desc: `Casting value 6. If successfully cast, pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
         spell: true,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Channelled Pink Fire`,
+        desc: `If active, add 1 to hit rolls for attacks made by the buffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -443,8 +448,13 @@ export const Units: TUnits = [
       {
         name: `Gestalt Sorcery`,
         desc: `Casting Value 6. If successfully cast, pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
-        when: [HERO_PHASE, SHOOTING_PHASE],
+        when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Gestalt Sorcery`,
+        desc: `If active, improve the Rend characteristic of the buffed unit's Sorcerous Bolt attack by 1.`,
+        when: [SHOOTING_PHASE],
       },
       {
         name: `Paired Cursed Blades`,
