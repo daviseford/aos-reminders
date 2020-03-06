@@ -1,5 +1,12 @@
 import { TSpells } from 'types/army'
-import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  HERO_PHASE,
+  WOUND_ALLOCATION,
+  SHOOTING_PHASE,
+  DURING_GAME,
+  MOVEMENT_PHASE,
+} from 'types/phases'
 
 // Spell Lores of Tzeentch
 const Spells: TSpells = [
@@ -24,7 +31,17 @@ const Spells: TSpells = [
         - The unit suffers D3 mortal wounds.
         - Subtract 1 from hit and wound rolls made by that unit until your next hero phase. 
         - Subtract 1 from save rolls for attacks that target that unit until your next hero phase`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Arcane Suggestion`,
+        desc: `If active, subtract 1 from the hit and wound rolls from the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Arcane Suggestion`,
+        desc: `If active, subtract 1 from the save rolls made by the debuffed unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -43,11 +60,16 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Shield of Fate`,
-        desc: `Casting value of 6. Pick a friendly Tzeentch unit wholly within 18" of the caster and visible. Until the start of your next hero phase, the selected unit gains the benefit below based on the number of destiny dice left in your pool:
+        desc: `Casting value of 6. Pick a friendly Tzeentch unit wholly within 18" of the caster and visible. Until the start of your next hero phase, the selected unit gains a benefit based on the number of destiny dice left in your pool.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Shield of Fate`,
+        desc: `Effect based on number of destiny dice in pool:
                1-3: You can re-roll save rolls of 1 for attacks that target that unit.
                4-6: You can re-roll save rolls for attacks that target that unit.
-               7-9: You can roll a D6 each tim that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can re-roll save rolls for attacks that target that unit.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+               7-9: You can roll a D6 each time that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can re-roll save rolls for attacks that target that unit.`,
+        when: [HERO_PHASE, DURING_GAME],
       },
     ],
   },
@@ -57,7 +79,12 @@ const Spells: TSpells = [
       {
         name: `Infusion Arcanum`,
         desc: `Casting value of 5. Until your next hero phase you can add 1 to all hit and wound rolls for the caster.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Infusion Arcanum`,
+        desc: `If active, you can add 1 to all hit and wound rolls on the buffed unit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -66,8 +93,13 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Treacherous Bond`,
-        desc: `Casting value of 5. Pick 1 friendly Tzeentch Mortal unit wholly within 9" of the caster and visible to them. Until your next hero phase, roll a D6 before you allocate any wounds or mortal wounds to the caster. On a 3+, you must allocate those wounds or mortal wounds to that friendly unit isntead.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION],
+        desc: `Casting value of 5. Pick 1 friendly Tzeentch Mortal unit wholly within 9" of the caster and visible to them. Until your next hero phase, roll a D6 before you allocate any wounds or mortal wounds to the caster. On a 3+, you must allocate those wounds or mortal wounds to that friendly unit instead.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Treacherous Bond`,
+        desc: `If active, roll a D6 before allocating wounds/mortal wounds to the caster. On a 3+, you must allocate those wounds to the bonded friendly unit instead.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -78,7 +110,12 @@ const Spells: TSpells = [
       {
         name: `Treason of Tzeentch`,
         desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster and visible to them. Roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. if any models are slain by this spell, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Treason of Tzeentch`,
+        desc: `If any models had been slain by this spell subtract 1 from hit rolls for attacks made by that unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -89,6 +126,16 @@ const Spells: TSpells = [
         name: `Arcane Transformation`,
         desc: `Casting value of 6. Pick a friendly Tzeentch hero wholly within 18" of the caster and visible to them. Until your next hero phase, you can either add 1 to that Hero's move and bravery characteristic or add 1 to the Attacks characteristic of one of that Hero's melee weapons.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Arcane Transformation`,
+        desc: `If active, add 1 to the buffed hero's move and bravery characteristic.`,
+        when: [DURING_GAME, MOVEMENT_PHASE],
+      },
+      {
+        name: `Arcane Transformation`,
+        desc: `If active, add 1 to the buffed hero's melee Attacks characteristic for one weapon.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

@@ -61,6 +61,18 @@ const MurderousChargeEffect = {
   when: [CHARGE_PHASE],
 }
 
+const BloodBoilEffect = {
+  name: `Bloodfuelled Prayers: Blood Boil`,
+  desc: `If this prayer is answered, pick 1 enemy unit within 16" of this model. The target suffers D6 mortal wounds.`,
+  when: [HERO_PHASE],
+}
+
+const BloodBindEffect = {
+  name: `Bloodfuelled Prayers: Blood Bind`,
+  desc: `If this prayer is answered, pick 1 enemy unit within 16" of this model and not within 3" of any friendly units. Your opponent must move the target unit a number of inches equal to the prayer roll. The first model to be moved must finish its move as close as possible to the closest unit from the chanting model's army. Any remaining models in the unit must maintain cohesion.`,
+  when: [HERO_PHASE],
+}
+
 // Khorne specific units. Export for use in Grand Alliance.
 export const Units: TUnits = [
   {
@@ -407,6 +419,8 @@ export const Units: TUnits = [
         desc: `In your hero phase, this model can chant one of the prayers on this unit's warscroll. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers D3 mortal wounds and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered.`,
         when: [HERO_PHASE],
       },
+      BloodBoilEffect,
+      BloodBindEffect,
     ],
   },
   {
@@ -422,6 +436,8 @@ export const Units: TUnits = [
         desc: `In your hero phase, a Slaughterpriest can pray to Khorne for aid. Pick one of the prayers on the warscroll, then roll a D6, adding 1 to the result if the Slaughterpriest slew any enemy models in the previous turn. If the result is 4 or higher, the effect takes place. If the result is 1, this Slaughterpriest suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
+      BloodBoilEffect,
+      BloodBindEffect,
     ],
   },
   {

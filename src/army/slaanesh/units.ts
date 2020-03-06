@@ -97,12 +97,19 @@ const HornBlowerEffect = {
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be re-rolled.`,
   when: [BATTLESHOCK_PHASE],
 }
-const AcquiescenceEffect = {
-  name: `Acquiescence`,
-  desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
+const AcquiescenceEffects = [
+  {
+    name: `Acquiescence`,
+    desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+    when: [HERO_PHASE],
+    spell: true,
+  },
+  {
+    name: `Acquiescence`,
+    desc: `If active, you can re-roll hit rolls of 1 for attacks that target the debuffed unit.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+  },
+]
 
 // Combine lists together to make army unit entry.
 export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
@@ -186,6 +193,11 @@ export const Units: TUnits = [
         spell: true,
       },
       {
+        name: `Subvert`,
+        desc: `If active, the debuffed HERO cannot use any command abilities.`,
+        when: [DURING_GAME],
+      },
+      {
         name: `Regal Authority`,
         desc: `If this model is your general and is on the battlefield, until the end of this phase, you can re-roll hit rolls of 1 for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
         when: [START_OF_COMBAT_PHASE],
@@ -243,6 +255,16 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
         spell: true,
       },
+      {
+        name: `Refine Senses`,
+        desc: `If active, you can re-roll hit rolls for attacks made by the buffed unit that target a HERO.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Refine Senses`,
+        desc: `If active, and you can re-roll save rolls for attacks made by Heroes that target the buffed unit.`,
+        when: [DURING_GAME],
+      },
     ],
   },
   {
@@ -273,6 +295,11 @@ export const Units: TUnits = [
         desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can re-roll hit rolls of 1 for attacks that target those units until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Overwhelming Acquiescence`,
+        desc: `If active, you can re-roll hit rolls of 1 for attacks that target the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -336,7 +363,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      AcquiescenceEffect,
+      ...AcquiescenceEffects,
     ],
   },
   {
@@ -357,7 +384,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      AcquiescenceEffect,
+      ...AcquiescenceEffects,
     ],
   },
   {
@@ -383,7 +410,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      AcquiescenceEffect,
+      ...AcquiescenceEffects,
     ],
   },
   {
@@ -444,7 +471,7 @@ export const Units: TUnits = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      AcquiescenceEffect,
+      ...AcquiescenceEffects,
     ],
   },
   {
