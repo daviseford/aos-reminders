@@ -14,7 +14,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Bronzed Flesh`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, pick 1 friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Add 1 to save rolls for that unit until the start of your next hero phase.`,
+        desc: `If this prayer is answered, pick 1 friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Add 1 to save rolls for that unit until the start of your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -30,7 +30,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Blood Sacrifice`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, pick a friendly KHORNE unit wholly within 8" of the model chanting this prayer. That unit suffers D3 mortal wounds and you receive 1 Blood Tithe point.`,
+        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 8" of the model chanting this prayer. That unit suffers D3 mortal wounds and you receive 1 Blood Tithe point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -41,7 +41,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Resanguination`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, pick a friendly KHORNE HERO wholly within 16" of the model chanting this prayer and visible to them. You can heal up to D3 wounds allocated to that unit.`,
+        desc: `If this prayer is answered, pick a friendly KHORNE HERO wholly within 16" of the model chanting this prayer and visible to them. You can heal up to D3 wounds allocated to that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -52,7 +52,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Brazen Fury`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Do not take battleshock tests for that unit until your next hero phase.`,
+        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Do not take battleshock tests for that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -68,7 +68,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Killing Frenzy`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer. Add 1 to hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer. Add 1 to hit rolls for attacks made by that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -84,7 +84,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Spellbane Hex`,
-        desc: `At the start of your hero phase, 1 friendly model that knows this prayer can chant it. If they do so, make a prayer roll by rolling a dice. On a 1, the model chanting this prayer suffers 1 mortal wound and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered. If this prayer is answered, you can dispel 1 endless spell within 16" of the model chanting this prayer.`,
+        desc: `If this prayer is answered, you can dispel 1 endless spell within 16" of the model chanting this prayer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

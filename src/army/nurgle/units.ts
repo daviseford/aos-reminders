@@ -415,6 +415,11 @@ export const Units: TUnits = [
         spell: true,
       },
       {
+        name: `Fleshy Abundance`,
+        desc: `If active, add 1 to the wounds characteristic of all models in the buffed unit.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
         name: `Lord of Nurgle`,
         desc: `Until your next hero phase, all friendly Nurgle units within 14" of this model add 1 to their attacks characteristic of any of their melee weapons.`,
         when: [HERO_PHASE],
@@ -474,7 +479,7 @@ export const Units: TUnits = [
       },
       {
         name: `Miasma of Pestilence`,
-        desc: `If successfully cast earlier, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to that unit and not negated. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `If active, roll a D6 at the end of each phase in which any wounds or mortal wounds were allocated to the debuffed unit and not negated. On a 2+ that unit suffers D3 mortal wounds.`,
         when: [
           END_OF_HERO_PHASE,
           END_OF_MOVEMENT_PHASE,
@@ -540,6 +545,11 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
         command_ability: true,
       },
+      {
+        name: `Spearhead of Contagion`,
+        desc: `If active, add 8" to the buffed unit's move characteristic.`,
+        when: [MOVEMENT_PHASE],
+      },
     ],
   },
   {
@@ -565,6 +575,11 @@ export const Units: TUnits = [
         desc: `Casting value of 7. Select a unit within 14" that is visible. Subtract 1 from the save rolls for that unit for the rest of the battle. This spell cannot be cast on the same enemy unit more that once per battle.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Curse of the Leper`,
+        desc: `If active, subtract 1 from the save rolls for the debuffed unit for the rest of the battle.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -732,6 +747,11 @@ export const Units: TUnits = [
         desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Nurgle Daemon unit wholly within 28" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until your next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Grandfather's Exalted Joy`,
+        desc: `If active, add 1 to the Attacks characteristic of the buffed unit's melee weapons.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
