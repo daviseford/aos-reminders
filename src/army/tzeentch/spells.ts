@@ -113,7 +113,7 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Tzeentch's Firestorm`,
+    name: `Tzeentch's Firestorm (Lore of Change)`,
     effects: [
       {
         name: `Tzeentch's Firestorm`,

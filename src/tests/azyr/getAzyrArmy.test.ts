@@ -171,7 +171,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Glimpse the Future',
           'Arcane Suggestion',
           'Shield of Fate',
-          "Tzeentch's Firestorm",
+          "Tzeentch's Firestorm (Lore of Change)",
           'Infernal Flames',
           'Gestalt Sorcery',
         ],

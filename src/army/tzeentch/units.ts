@@ -226,7 +226,7 @@ export const Units: TUnits = [
       SkySharksEffect,
       WakeofFireEffect,
       {
-        name: `Tzeentch's Firestorm`,
+        name: `Tzeentch's Firestorm (Fateskimmer)`,
         desc: `Casting value 8. If successfully cast, roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
