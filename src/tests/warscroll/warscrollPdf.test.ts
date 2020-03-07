@@ -23,6 +23,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TZEENTCH,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -675,6 +676,86 @@ describe('getWarscrollArmyFromPdf', () => {
       traits: [],
       triumphs: [],
       units: ['Lord-Arcanum on Celestial Dracoline'],
+    })
+  })
+
+  it('correctly imports the Fateskimmer and his warscroll spell', () => {
+    const pdfText = getFile('Fateskimmer')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Bolt of Tzeentch', "Tzeentch's Firestorm"],
+      traits: [],
+      triumphs: [],
+      units: ['Fateskimmer, Herald of Tzeentch on Burning Chariot'],
+    })
+  })
+
+  it('correctly imports the Fateskimmer when he has both Firestorm spells', () => {
+    const pdfText = getFile('BothFirestormsOnFateskimmer')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ["Tzeentch's Firestorm"],
+      traits: [],
+      triumphs: [],
+      units: ['Fateskimmer, Herald of Tzeentch on Burning Chariot'],
+    })
+  })
+
+  it('correctly imports the Fateskimmer and another hero with the Firestorm lore spell', () => {
+    const pdfText = getFile('BothFirestorms')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ['Bolt of Tzeentch', "Tzeentch's Firestorm", 'Infernal Flames'],
+      traits: [],
+      triumphs: [],
+      units: ['Fateskimmer, Herald of Tzeentch on Burning Chariot', 'Gaunt Summoner of Tzeentch'],
+    })
+  })
+
+  it('correctly imports the Firestorm lore spell', () => {
+    const pdfText = getFile('FirestormLoreSpell')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.selections).toEqual({
+      allegiances: [],
+      artifacts: [],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: ["Tzeentch's Firestorm", 'Infernal Flames'],
+      traits: [],
+      triumphs: [],
+      units: ['Gaunt Summoner of Tzeentch'],
     })
   })
 

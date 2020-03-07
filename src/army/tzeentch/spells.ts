@@ -116,7 +116,7 @@ const Spells: TSpells = [
     name: `Tzeentch's Firestorm`,
     effects: [
       {
-        name: `Tzeentch's Inferno.`,
+        name: `Tzeentch's Firestorm`,
         desc: `Casting value of 9. Pick an enemy unit within 18" of the caster and visible to them. Roll 9 dice - for each 6 the unit targeted suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
