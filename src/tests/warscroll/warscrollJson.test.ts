@@ -354,10 +354,6 @@ describe('getWarscrollArmyFromPdf', () => {
         severity: 'warn',
         text: 'Blessing of Tzeentch',
       },
-      {
-        severity: 'warn',
-        text: 'Pink Horrors of Tzeentch',
-      },
     ])
   })
 
