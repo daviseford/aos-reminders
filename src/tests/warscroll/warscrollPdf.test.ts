@@ -23,6 +23,7 @@ import {
   SLAANESH,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TZEENTCH,
 } from 'meta/factions'
 
 const getFile = (filename: string) => {
@@ -955,5 +956,35 @@ describe('getWarscrollArmyFromPdf', () => {
       },
       unknownSelections: [],
     })
+  })
+
+  it('imports blue horrors as horrors (issue #907)', () => {
+    const pdfText = getFile('BlueHorrors')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
+  })
+
+  it('imports brimstone horrors as horrors (issue #907)', () => {
+    const pdfText = getFile('BrimstoneHorrors')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
+  })
+
+  it('imports pink horrors as horrors (issue #907)', () => {
+    const pdfText = getFile('PinkHorrors')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
+    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 })
