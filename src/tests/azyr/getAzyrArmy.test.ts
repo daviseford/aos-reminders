@@ -840,7 +840,12 @@ describe('getAzyrArmyFromPdf', () => {
       spells: ["Martyr's Sacrifice (Priest)", 'Mindrazor (Wizard)', "Arnzipal's Black Horror"],
       traits: [],
       triumphs: [],
-      units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+      units: [
+        'Hag Queen on Cauldron of Blood',
+        'Morathi, High Oracle of Khaine',
+        'Sisters of Slaughter',
+        'Morathi, the Shadow Queen',
+      ],
     })
   })
 

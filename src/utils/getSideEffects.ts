@@ -16,6 +16,11 @@ export const getSideEffects = (items: TEntry[]) => {
         addToAccum(accum, item.name, effect.name, 'commands')
       }
     })
+    if (item.entries) {
+      item.entries.forEach(entry => {
+        addToAccum(accum, item.name, entry.name, 'units')
+      })
+    }
     return accum
   }, {} as IWithSelectMultipleWithSideEffectsPayload)
 

@@ -155,10 +155,41 @@ const BladedImpactEffect = {
   when: [CHARGE_PHASE],
 }
 
+const MorathiShadowQueen = {
+  name: `Morathi, the Shadow Queen`,
+  effects: [
+    ...MorathiEffects,
+    {
+      name: `Monstrous Revelation`,
+      desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
+
+               Morathi's Shadow Queen model can only be set up within 3" of an enemy unit if her High Oracle of Khaine model was within 3" of that unit before her transformation.
+
+               If there is insufficient room to place Morathi exactly where she was standing before her transformation, simply place the model as close as possible to that spot where there is room. If, after her Shadow Queen model has been set up, Morathi is more than 14" away from the spot where she was standing before her transformation, she cannot move in the following movement phase.
+
+               Any wounds allocated to Morathi in her High Oracle of Khaine form prior to her transformation are carried over to her Shadow Queen form and then doubled.
+
+               Morathi remains in this form for the remainder of the battle. If she was your general in the High Oracle form she remains your general.`,
+      when: [HERO_PHASE],
+    },
+    {
+      name: `Gaze of Morathi`,
+      desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a D6. If the result exceeds that model's Wounds characteristic, it is slain.`,
+      when: [SHOOTING_PHASE],
+    },
+    {
+      name: `Magic`,
+      desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
+      when: [HERO_PHASE],
+    },
+  ],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
     name: `Morathi, High Oracle of Khaine`,
+    entries: [MorathiShadowQueen],
     effects: [
       ...MorathiEffects,
       {
@@ -194,35 +225,7 @@ export const Units: TUnits = [
       },
     ],
   },
-  {
-    name: `Morathi, the Shadow Queen`,
-    effects: [
-      ...MorathiEffects,
-      {
-        name: `Monstrous Revelation`,
-        desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
-
-               Morathi's Shadow Queen model can only be set up within 3" of an enemy unit if her High Oracle of Khaine model was within 3" of that unit before her transformation.
-
-               If there is insufficient room to place Morathi exactly where she was standing before her transformation, simply place the model as close as possible to that spot where there is room. If, after her Shadow Queen model has been set up, Morathi is more than 14" away from the spot where she was standing before her transformation, she cannot move in the following movement phase.
-
-               Any wounds allocated to Morathi in her High Oracle of Khaine form prior to her transformation are carried over to her Shadow Queen form and then doubled.
-
-               Morathi remains in this form for the remainder of the battle. If she was your general in the High Oracle form she remains your general.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Gaze of Morathi`,
-        desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a D6. If the result exceeds that model's Wounds characteristic, it is slain.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
+  MorathiShadowQueen,
   {
     name: `Hag Queen`,
     effects: [...HagQueenEffects, ...WitchbrewEffects],
