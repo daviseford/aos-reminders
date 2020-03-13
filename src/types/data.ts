@@ -28,7 +28,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
 export type TEntry = {
   name: string
   effects: TEffects[]
-  entries?: TEntry[]
+  pairedWith?: [TEntry, string][]
   isSideEffect?: boolean
 } & {
   [prop in TEntryProperties]?: boolean

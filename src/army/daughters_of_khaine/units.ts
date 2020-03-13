@@ -155,6 +155,44 @@ const BladedImpactEffect = {
   when: [CHARGE_PHASE],
 }
 
+const MorathiHighOracle = {
+  name: `Morathi, High Oracle of Khaine`,
+  effects: [
+    ...MorathiEffects,
+    {
+      name: `Monstrous Transformation`,
+      desc: `Morathi can transform into her monstrous aspect.`,
+      when: [START_OF_HERO_PHASE],
+    },
+    {
+      name: `The Truth Revealed.`,
+      desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
+      when: [START_OF_HERO_PHASE],
+    },
+    {
+      name: `Sorceress Supreme`,
+      desc: `Add 1 to casting and unbinding rolls made for Morathi, High Oracle of Khaine. In addition, double the range of spells she attempts to cast.`,
+      when: [HERO_PHASE],
+    },
+    {
+      name: `Enchanting Beauty`,
+      desc: `Subtract 1 from the hit rolls of attacks that target Morathi, High Oracle of Khaine.`,
+      when: [DURING_GAME],
+    },
+    {
+      name: `Magic`,
+      desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
+      when: [HERO_PHASE],
+    },
+    {
+      name: `Worship Through Bloodshed`,
+      desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ). Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
+      when: [HERO_PHASE],
+      command_ability: true,
+    },
+  ],
+}
+
 const MorathiShadowQueen = {
   name: `Morathi, the Shadow Queen`,
   effects: [
@@ -187,45 +225,8 @@ const MorathiShadowQueen = {
 
 // Unit Names
 export const Units: TUnits = [
-  {
-    name: `Morathi, High Oracle of Khaine`,
-    entries: [MorathiShadowQueen],
-    effects: [
-      ...MorathiEffects,
-      {
-        name: `Monstrous Transformation`,
-        desc: `Morathi can transform into her monstrous aspect.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `The Truth Revealed.`,
-        desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Sorceress Supreme`,
-        desc: `Add 1 to casting and unbinding rolls made for Morathi, High Oracle of Khaine. In addition, double the range of spells she attempts to cast.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Enchanting Beauty`,
-        desc: `Subtract 1 from the hit rolls of attacks that target Morathi, High Oracle of Khaine.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Worship Through Bloodshed`,
-        desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ). Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-    ],
-  },
-  MorathiShadowQueen,
+  { ...MorathiHighOracle, pairedWith: [[MorathiShadowQueen, 'units']] },
+  { ...MorathiShadowQueen, pairedWith: [[MorathiHighOracle, 'units']] },
   {
     name: `Hag Queen`,
     effects: [...HagQueenEffects, ...WitchbrewEffects],

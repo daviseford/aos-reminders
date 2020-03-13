@@ -16,9 +16,9 @@ export const getSideEffects = (items: TEntry[]) => {
         addToAccum(accum, item.name, effect.name, 'commands')
       }
     })
-    if (item.entries) {
-      item.entries.forEach(entry => {
-        addToAccum(accum, item.name, entry.name, 'units')
+    if (item.pairedWith) {
+      item.pairedWith.forEach(([entry, type]) => {
+        addToAccum(accum, item.name, entry.name, type)
       })
     }
     return accum
