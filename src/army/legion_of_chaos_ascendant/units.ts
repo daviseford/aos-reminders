@@ -104,6 +104,7 @@ const getSlavesDaemonUnits = () => {
 
 const getSkavenDaemonUnits = () => {
   const listOfUnits = [
+    `Lord Skreech Verminking`,
     `Verminlord Corruptor`,
     `Verminlord Deceiver`,
     `Verminlord Warbringer`,
