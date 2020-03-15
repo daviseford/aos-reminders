@@ -28,7 +28,7 @@ type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
     values: string[] // ['Tyrant Slayer']
-    slice: string // e.g. artifacts, spells, etc
+    slice: TSelectionTypes // e.g. artifacts, spells, etc
   }
 }
 

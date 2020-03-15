@@ -53,7 +53,7 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   method({ ...payload, [key]: values })
 }
 
-export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
+export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands' | 'units'
 
 export interface IWithSelectMultipleWithSideEffectsPayload {
   [key: string]: {
