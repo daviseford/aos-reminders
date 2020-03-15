@@ -1,4 +1,4 @@
-import { uniq, without } from 'lodash'
+import { flatten, uniq, without } from 'lodash'
 import { createSlice } from '@reduxjs/toolkit'
 import { TSupportedFaction } from 'meta/factions'
 import { TUnits, TBattalions } from 'types/army'
@@ -43,6 +43,9 @@ const resetAllySelections = (state, action) => {
 }
 const resetSelections = (state, action) => {
   state.selections = initialState.selections
+}
+const resetSideEffects = (state, action) => {
+  state.sideEffects = initialState.sideEffects
 }
 const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
   const { factionName, units } = action.payload
@@ -118,6 +121,7 @@ export const selections = createSlice({
     resetAllySelection,
     resetAllySelections,
     resetSelections,
+    resetSideEffects,
     updateAllegiances,
     updateAllyBattalions,
     updateAllySelections,
@@ -137,6 +141,7 @@ export const selections = createSlice({
 
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
+  const selectionNames = uniq(flatten(Object.keys(state.selections).map(x => state.selections[x])))
 
   const removedSideEffects = state.selections[type]
     .reduce((a, v) => {
@@ -150,5 +155,11 @@ const handleSideEffects = (state: IStore['selections'], payload: string[], type:
     Object.keys(sideEffect).forEach(slice => {
       state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
     })
+  })
+
+  Object.keys(state.sideEffects).forEach(s => {
+    if (!selectionNames.includes(s)) {
+      delete state.sideEffects[s]
+    }
   })
 }

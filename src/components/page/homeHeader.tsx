@@ -37,6 +37,7 @@ interface IJumbotronProps {
   resetAllySelections: () => void
   resetRealmscapeStore: () => void
   resetSelections: () => void
+  resetSideEffects: () => void
   setFactionName: (value: string | null) => void
 }
 
@@ -48,6 +49,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     resetAllySelections,
     resetRealmscapeStore,
     resetSelections,
+    resetSideEffects,
     setFactionName,
   } = props
   const { isOnline, isGameMode } = useAppStatus()
@@ -71,6 +73,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)
     resetSelections()
+    resetSideEffects()
     resetRealmscapeStore()
     resetAllySelections()
     resetAnalyticsStore()
@@ -132,6 +135,7 @@ const mapDispatchToProps = {
   resetAllySelections: selections.actions.resetAllySelections,
   resetRealmscapeStore: realmscape.actions.resetRealmscapeStore,
   resetSelections: selections.actions.resetSelections,
+  resetSideEffects: selections.actions.resetSideEffects,
   setFactionName: factionNames.actions.setFactionName,
 }
 

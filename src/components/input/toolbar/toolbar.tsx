@@ -36,6 +36,7 @@ interface IToolbarProps {
   resetAllySelections: () => void
   resetRealmscapeStore: () => void
   resetSelections: () => void
+  resetSideEffects: () => void
   updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
   updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
 }
@@ -49,6 +50,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
     resetAllySelections,
     resetRealmscapeStore,
     resetSelections,
+    resetSideEffects,
     updateAllyArmy,
   } = props
   const { isGameMode, isOnline } = useAppStatus()
@@ -91,10 +93,11 @@ const ToolbarComponent = (props: IToolbarProps) => {
       resetAllySelections()
       resetRealmscapeStore()
       resetSelections()
+      resetSideEffects()
       logClick('ClearArmy')
       setLoadedArmy(null)
     },
-    [resetAllySelections, resetRealmscapeStore, resetSelections, setLoadedArmy]
+    [resetAllySelections, resetRealmscapeStore, resetSelections, resetSideEffects, setLoadedArmy]
   )
 
   if (isGameMode) return <></>
@@ -191,6 +194,7 @@ const mapDispatchToProps = {
   resetAllySelections: selections.actions.resetAllySelections,
   resetRealmscapeStore: realmscape.actions.resetRealmscapeStore,
   resetSelections: selections.actions.resetSelections,
+  resetSideEffects: selections.actions.resetSideEffects,
   updateAllyArmy: army.actions.updateAllyArmy,
   updateAllyUnits: selections.actions.updateAllyUnits,
 }
