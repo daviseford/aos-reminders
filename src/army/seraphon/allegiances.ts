@@ -1,4 +1,5 @@
 import { TAllegiances } from 'types/army'
+<<<<<<< HEAD
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -219,6 +220,15 @@ const Allegiances: TAllegiances = [
         artifact: true,
       },
     ],
+=======
+
+// This is where we store sub-allegiances such as
+// Grand Courts, Hosts, Clans, Glades, Lodges, etc
+const Allegiances: TAllegiances = [
+  {
+    name: ``,
+    effects: [{ name: ``, desc: ``, when: [] }],
+>>>>>>> c3740a0... adding for WIP
   },
 ]
 

@@ -10,7 +10,10 @@ import Traits from './traits'
 export default {
   Abilities,
   Allegiances,
+<<<<<<< HEAD
   AllegianceType: 'Constellations',
+=======
+>>>>>>> c3740a0... adding for WIP
   Artifacts,
   Battalions,
   EndlessSpells,
