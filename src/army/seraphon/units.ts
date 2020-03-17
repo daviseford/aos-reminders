@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -15,9 +16,25 @@ import {
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
-  END_OF_CHARGE_PHASE,
 } from 'types/phases'
 
+const CelestiteWarspearEffect = {
+  name: `Celestite Warspear`,
+  desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+const SaurianSavageryEffect = {
+  name: `Saurian Savagery`,
+  desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability, Until the end of that phase, if the unmodified hit roll for an attack made with a melee weapon by that friendly SAURUS unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. A unit cannot benefit from this command ability more than once per phase.`,
+  when: [COMBAT_PHASE],
+  command_ability: true,
+}
+const WrathOfTheSeraphonEffect = {
+  name: `Wrath of the Seraphon`,
+  desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
+  when: [COMBAT_PHASE],
+  command_ability: true,
+}
 const TerrorEffect = {
   name: `Terror`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
@@ -38,22 +55,23 @@ const SteadfastMajestyEffect = {
   desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
   when: [BATTLESHOCK_PHASE],
 }
+const ColdFerocityEffect = {
+  name: `Cold Ferocity`,
+  desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [COMBAT_PHASE],
+}
 const CarnosaurBaseEffects = [
   {
-    name: `Bloodroar`,
-    desc: `If your opponent takes a battleshock test for a unit within 8" of any Carnosaurs, roll a D6. If the result is higher than the result on your opponent's dice, D3 models flee from the unit (as well as any that flee because of the test).`,
-    when: [BATTLESHOCK_PHASE],
-  },
-  {
     name: `Pinned Down`,
-    desc: `If an enemy MONSTER is hit twice with the Carnosaur's Clawed Forelimbs, you can add 2 to the result when rolling to hit that target with the Carnosaur's Massive Jaws in the same turn.`,
+    desc: `Add 1 to hit rolls for attacks made with Massive Jaws if the target has a Wounds characteristic of 7 or less.`,
     when: [COMBAT_PHASE],
   },
   {
     name: `Blood Frenzy`,
-    desc: `Once this model has slain an enemy with its Massive Jaws, it can run and charge in the same turn for the rest of the battle.`,
+    desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
   },
+  TerrorEffect,
 ]
 const SlannBaseEffects = [
   {
@@ -171,48 +189,20 @@ export const Units: TUnits = [
       ...CarnosaurBaseEffects,
       {
         name: `Blazing Sunbolts`,
-        desc: `If the Saurus Oldblood atop the Carnosaur targets a CHAOS DAEMON unit with its Sunbolt Gauntlet, you can add 2 to the result of the wound rolls.`,
+        desc: `Add 1 to wound rolls for attacks made with a Sunbolt Gauntlet if the target is a CHAOS DAEMON unit.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Ancient Warlord`,
-        desc: `If the Saurus Oldblood uses this ability, then until your next hero phase, whenever a SAURUS HERO from your army within 20" attacks in the combat phase, pick one of its weapons and add 2 to its Attacks characteristic until the end of the phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      ColdFerocityEffect,
+      WrathOfTheSeraphonEffect,
     ],
   },
   {
     name: `Saurus Oldblood`,
-    effects: [
-      {
-        name: `Paragon of Order`,
-        desc: `If a Saurus Oldblood uses this ability, each Seraphon unit from your army within 10" can immediately reform around one of its models. That model must stay where it is, but each other model in the unit can move up to 3" so long as it does not end this move within 3" of the enemy. The same unit cannot benefit from this command ability more than once in the same phase.`,
-        when: [DURING_GAME],
-        command_ability: true,
-      },
-      {
-        name: `Wrath of the Seraphon`,
-        desc: `You can re-roll wound rolls of 1 for Saurus models within 5" of an Oldblood.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
+    effects: [ColdFerocityEffect, WrathOfTheSeraphonEffect],
   },
   {
     name: `Saurus Scar-Veteran on Cold One`,
-    effects: [
-      {
-        name: `Cold Ferocity`,
-        desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Saurian Savagery`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability, Until the end of that phase, if the unmodified hit roll for an attack made with a melee weapon by that friendly SAURUS unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [ColdFerocityEffect, SaurianSavageryEffect],
   },
   {
     name: `Saurus Eternity Warden`,
@@ -233,18 +223,13 @@ export const Units: TUnits = [
     name: `Saurus Sunblood`,
     effects: [
       {
-        name: `Aeon Shield`,
-        desc: `When you make save rolls for this model, ignore the enemy's Rend characteristic unless it is -3 or better.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Ferocious Rage`,
-        desc: `If the hit roll for one of this model's attacks is 6 or higher, make D3 wound rolls rather than 1. If the wound roll for one of this model's attacks is 6 or higher, it causes D3 Damage rather than 1.`,
+        name: `Primal Rage`,
+        desc: `If the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead Of 1. Make a wound and save roll for each hit. In addition, if the unmodified wound roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Scent of Weakness`,
-        desc: `If the Saurus Sunblood uses this ability, pick an enemy unit within 15" - until your next hero phase, re-roll failed hit rolls for attacks made in the combat phase against that unit by any of your Saurus models.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability, Until the end Of that phase, add 1 to wound rolls for attacks made by friendly SAURUS models that target that enemy unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -252,16 +237,7 @@ export const Units: TUnits = [
   },
   {
     name: `Saurus Scar-Veteran on Carnosaur`,
-    effects: [
-      ...CarnosaurBaseEffects,
-      StardrakeShieldsEffect,
-      {
-        name: `Saurian Savagery`,
-        desc: `If the Saurus Scar-Veteran on Carnosaur uses this ability, pick a Saurus unit within 15". Until your next hero phase, whenever you roll a hit roll of 6 or more for a model in that unit, that model can immediately make one additional attack using the same weapon.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...CarnosaurBaseEffects, CelestiteWarspearEffect, ColdFerocityEffect, SaurianSavageryEffect],
   },
   {
     name: `Saurus Astrolith Bearer`,
@@ -392,15 +368,11 @@ export const Units: TUnits = [
     name: `Saurus Knights`,
     effects: [
       {
-        name: `Celestite Warspear`,
-        desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Saurus Knight Alpha`,
         desc: `1 model in this unit can be a Saurus Knight Alpha. Add 1 to the Attacks characteristic of that model's Celestite Blade or Celestite Warspear.`,
         when: [COMBAT_PHASE],
       },
+      CelestiteWarspearEffect,
       StardrakeIconEffect,
       WardrummerEffect,
     ],
