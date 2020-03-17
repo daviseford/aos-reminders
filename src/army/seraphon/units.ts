@@ -12,13 +12,10 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_GAME,
   START_OF_HERO_PHASE,
+  TURN_FOUR_START_OF_TURN,
   TURN_ONE_HERO_PHASE,
-  TURN_ONE_MOVEMENT_PHASE,
-  TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
 
@@ -726,14 +723,19 @@ export const Battalions: TBattalions = [
     name: `Eternal Starhost`,
     effects: [
       {
-        name: `Drakescale Shieldwall`,
-        desc: `Add 1 to the result of any save rolls for the Eternal Starhost's Saurus Guard while they are within 10" of their Eternity Warden.`,
-        when: [DURING_GAME],
+        name: `Celestial Reinforcement`,
+        desc: `At the start of your hero phase, you receive D3 celestial conjuration points if the SLANN, STARSEER or ORACLE from this battalion is on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
       },
+    ],
+  },
+  {
+    name: `Shadowstrike Temple-host`,
+    effects: [
       {
-        name: `Patient Guardians`,
-        desc: `If a unit of Saurus Guard from an Eternal Starhost does not move in its movement or charge phases, its Celestite Polearms have a Damage characteristic of D3 rather than 1 in the following combat phase.`,
-        when: [COMBAT_PHASE],
+        name: `The Trap is Sprung`,
+        desc: `In your hero phase, pick 1 enemy unit that is visible to the STARPRIESTor PRIESTfrom this battalion. Until your next hero phase, add 1 to hit rolls for attacks made by units from this battalion that target that unit.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -741,19 +743,29 @@ export const Battalions: TBattalions = [
     name: `Shadowstrike Starhost`,
     effects: [
       {
-        name: `Stealthy Advance`,
-        desc: `After set-up is complete, you can roll two dice for each unit in a Shadowstrike Starhost and move all of its models up to that many inches.`,
-        when: [END_OF_SETUP],
+        name: `Strike from the Stars`,
+        desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is waiting in the stars as a reserve unit.`,
+        when: [DURING_SETUP],
       },
       {
-        name: `The Trap is Sprung`,
-        desc: `Pick a unit that is visible to the starhost's Skink Priest or Starpriest. Until your next hero phase, you can re-roll hit and wound rolls of 1 for units from the Shadowstrike Starhost that attack the unit you picked.`,
-        when: [HERO_PHASE],
+        name: `Strike from the Stars`,
+        desc: `At the end of any of your movement phases, you can set up any of those units on the battlefield more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Strike From the Skies`,
-        desc: `Instead of setting up the flying unit from Shadowstrike Starhost on the battlefield, you can place it to one side and say that it is hidden amid the clouds. In any of your movement phases, the unit can plummet from the skies to assail the foe. When it does so, you can set it up anywhere more than 3" from the enemy. In the following combat phase, add 1 to the result of any wound rolls made for models from that unit.`,
-        when: [MOVEMENT_PHASE],
+        name: `Strike from the Stars`,
+        desc: `Reserve units that are not set up on the battlefield before the start of the fourth battle round are slain.`,
+        when: [TURN_FOUR_START_OF_TURN],
+      },
+    ],
+  },
+  {
+    name: `Firelance Temple-host`,
+    effects: [
+      {
+        name: `Savage Hunters`,
+        desc: `Add 3 to run and charge rolls for units from this battalion that are wholly within 18" of the SCAR-VETERAN from the same battalion.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -761,34 +773,19 @@ export const Battalions: TBattalions = [
     name: `Firelance Starhost`,
     effects: [
       {
-        name: `Blazing Cohort`,
-        desc: `If the wound roll for a Celestite weapon carried by a model from a Firelance Starhost is 6 or higher and it charged in the same turn, the attack inflicts an additional mortal wound, as well as any caused by the Saurus Knights Blazing Lances ability.`,
+        name: `Blazing Cohorts`,
+        desc: `If the unmodified wound roll for an attack made with a Celestite weapon by a unit from this battalion is 6, that attacks inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Azyrite Hunters`,
-        desc: `Add 3 to the result of any run and charge rolls for Saurus Knights that are within 10" of their Scar-Veteran.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Azyrite Hunters`,
-        desc: `Add 3 to the result of any run and charge rolls for Saurus Knights that are within 10" of their Scar-Veteran.`,
-        when: [CHARGE_PHASE],
       },
     ],
   },
   {
-    name: `Starbeast Constellation`,
+    name: `Sunclaw Temple-host`,
     effects: [
       {
-        name: `Ordered Constellation`,
-        desc: `Units in a Starbeast Constellation do not need to take battleshock tests.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Strategic Mastery`,
-        desc: `You receive D3+1 command points, instead of 1, for each Starbeast Constellation in your army.`,
-        when: [START_OF_GAME],
+        name: `Ferocity Unbound`,
+        desc: `Improve the Rend characteristic of Jaws weapons used by units from this battalion by 1.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -796,13 +793,28 @@ export const Battalions: TBattalions = [
     name: `Sunclaw Starhost`,
     effects: [
       {
-        name: `Predatory Starhost`,
-        desc: `Saurus Warriors from a Sunclaw Starhost make 2 attacks with their Powerful Jaws and Stardrake Shields rather than 1.`,
+        name: `Star-charged Celestite`,
+        desc: `Improve the Rend characteristic of Celestite weapons used by units from this battalion by 1.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  {
+    name: `Thunderquake Temple-host`,
+    effects: [
       {
-        name: `Star-charged Celestite`,
-        desc: `The Celestite weapons carried by Saurus Warriors in a Sunclaw Starhost are supercharged with the power of Azyr. Celestite Clubs or Spears carried by Saurus Warriors in this starhost have a Rend characteristic of -1 rather than '-'. When attacking CHAOS DAEMONS, these weapons also have a Damage characteristic of 2 rather than 1.`,
+        name: `Beastmasters`,
+        desc: `In your hero phase, declare if this battalion will be swift or savage. If you choose for it to be swift, until your next hero phase, units from this battalion can run and still shoot and/or charge in the same turn. If you choose savage, until your next hero phase, add 1 to the Attacks characteristic of melee weapons used by units from this battalion.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Beastmasters (Swift)`,
+        desc: `If you chose for this battalion to be swift, until your next hero phase, units from this battalion can run and still shoot and/or charge in the same turn. If you choose savage, until your next hero phase, add 1 to the Attacks characteristic of melee weapons used by units from this battalion.`,
+        when: [SHOOTING_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Beastmasters (Savage)`,
+        desc: `If you chose for this battalion to be savage, until your next hero phase, add 1 to the Attacks characteristic of melee weapons used by units from this battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -811,49 +823,19 @@ export const Battalions: TBattalions = [
     name: `Thunderquake Starhost`,
     effects: [
       {
-        name: `Creator's Will`,
-        desc: `The Engine of the Gods or Troglodon, and any units from the Thunderquake Starhost within 8", are guided by the will of their creator. At the start of your charge phase, you can declare that all of those units will be swift until your next charge phase, in which case you can re-roll charge rolls for those units and hit rolls for attacks made by those units. You can instead declare that all those units will be savage until your next charge phase, in which case you can re-roll wound rolls for attacks made by those units and save rolls for attacks that target those units.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
         name: `Celestial Surge`,
-        desc: `The great beasts of the seraphon are almost invincible when they march forth as a pack, even more so when in the presence of the Starmaster that created them. In your hero phase, each model from a Thunderquake Starhost heals a wound. Models from a Thunderquake Starhost that are within 10" of a SLANN heal D3 wounds instead.`,
+        desc: `In your hero phase, you can heal 1 wound allocated to each unit from this battalion. If the unit is wholly within 18" of a friendly SLANN, heal D3 wounds instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Fangs of Sotek`,
+    name: `Eternal Temple-host`,
     effects: [
       {
-        name: `First to Battle`,
-        desc: `In the first battle round, add 3" to the Move characteristic of Fangs of Sotek units, excluding Zectoka.`,
-        when: [TURN_ONE_MOVEMENT_PHASE],
-      },
-      {
-        name: `First Oldblood`,
-        desc: `If Ku-Quar is on the battlefield at the start of the first battle round, you receive 1 extra command point. If Ku-Quar is on the battlefield at the start of the first battle round and this battalion contains the maximum number of battalions, you receive D3 extra command points instead of 1.`,
-        when: [TURN_ONE_START_OF_ROUND],
-      },
-    ],
-  },
-  {
-    name: `Dracothion's Tail`,
-    effects: [
-      {
-        name: `Appear at Kuoteq's Command`,
-        desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up waiting to appear at Kuoteq's command as a reserve unit. You can set up 1 reserve unit waiting to appear at Kuoteq's command for each unit from the same battalion you set up on the battlefield. Kuoteq must be set up on the battlefield.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Appear at Kuoteq's Command`,
-        desc: `In your hero phase, you can set up one or more of the reserve units waiting to appear at Kuoteq's command on the battlefield more than 9" from any enemy units and wholly within 18" of Kuoteq. However, each reserve unit set up in the same turn must be a different unit chosen from a different warscroll - Kuoteq cannot command the same unit to appear more than once in the same turn. Reserve units that are set up in this way cannot move in the following movement phase. Any reserve units waiting to appear at Kuoteq's command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Ancient Knowledge`,
-        desc: `If Kuoteq is on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point. If Kuoteq is on the battlefield at the start of your hero phase, and this battalion contained the maximum number of battalions at the start of the battle, you receive 1 extra command point on a roll of 2+ instead of 4+.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Primal Vistas`,
+        desc: `If the SLANN, STARSEER or ORACLE from this battalion is on the battlefield, the Primeval Domain battle trait (pg 55) applies to all terrain features, not just those in your territory.`,
+        when: [DURING_GAME],
       },
     ],
   },
