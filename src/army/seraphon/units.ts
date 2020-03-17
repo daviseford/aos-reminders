@@ -16,6 +16,7 @@ import {
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
+  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
 const CelestiteWarspearEffect = {
@@ -317,13 +318,18 @@ export const Units: TUnits = [
   {
     name: `Engine of the Gods`,
     effects: [
+      ...StegadonBaseEffects,
       {
         name: `Cosmic Engine`,
-        desc: `Roll for Engine of the Gods effect.`,
-        when: [HERO_PHASE],
+        desc: `At the start of your shooting phase, you can make 1 cosmic engine roll for 1 model with this ability. Roll 2D6 and look up the roll on the table. If there is a friendly SLANN within 12" of this model, you can choose to roll 3D6.
+        
+        2-3: This model suffers D3 mortal wounds.
+        4-8: Heal D3 wounds allocated to each friendly SERAPHON unit wholly within 12" of this model (roll separately for each unit).
+        9-12: You can either pick 1 enemy unit within 24" this model that is visible to it and roll 1 dice, or roll 1 dice for each enemy unit within 12" of this model that is visible to it. On a 2+, that unit suffers D3 mortal wounds.
+        13-17: You can set up 1 unit of 10 Saurus Warriors wholly within 12" of this model and more than 9" from any enemy units, and add it to your army.
+        18: For the rest of the turn you can re-roll charge rolls for friendly SERAPHON units wholly within 24" of this model, and double the Attacks characteristic of weapons used by friendly SERAPHON units while they are wholly within 24" Of this model.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
-      SteadfastMajestyEffect,
-      UnstoppableStampedeEffect,
     ],
   },
   {
