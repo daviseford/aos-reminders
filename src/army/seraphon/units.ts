@@ -104,20 +104,20 @@ const StardrakeShieldsEffect = {
   desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
-export const CelestialRitesEffect = {
+const CelestialRitesEffect = {
   name: `Celestial Rites`,
   desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
   when: [HERO_PHASE],
 }
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
-  desc: `If a battleshock test is made for an enemy unit within 5" of any Stardrake Icons, add 1 to the result.`,
+  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
   when: [BATTLESHOCK_PHASE],
 }
-const WardrumEffect = {
-  name: `Wardrum`,
-  desc: `A unit that includes any wardrums can march in its movement phase. When it does so, it doubles its Move characteristic but cannot run or charge in the same turn.`,
-  when: [MOVEMENT_PHASE],
+const WardrummerEffect = {
+  name: `Wardrummer`,
+  desc: `You can re-roll charge rolls for units that include any Wardrummers.`,
+  when: [CHARGE_PHASE],
 }
 const StarbucklersEffect = {
   name: `Star-bucklers`,
@@ -219,17 +219,16 @@ export const Units: TUnits = [
     name: `Saurus Scar-Veteran on Cold One`,
     effects: [
       {
-        name: `Fury of the Seraphon`,
-        desc: `After this model has made all its Celestite War-pick attacks, roll a D6. If the result is 4 or higher, it can attack again with its Celestite War-pick. Roll again after those attacks; if the result is 6, it can attack for a third and final time.`,
+        name: `Cold Ferocity`,
+        desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Savage Charge`,
-        desc: `If a Scar-Veteran on Cold One uses this ability, then you can re-roll charge rolls and hit rolls of 1 for Saurus units within 8". In addition, until your next hero phase this model and any Saurus Knights within 8" make an additional attack with their Cold Ones' Vicious Bites.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
+        name: `Saurian Savagery`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability, Until the end of that phase, if the unmodified hit roll for an attack made with a melee weapon by that friendly SAURUS unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [COMBAT_PHASE],
         command_ability: true,
       },
-      StardrakeShieldsEffect,
     ],
   },
   {
@@ -370,19 +369,18 @@ export const Units: TUnits = [
   {
     name: `Saurus Warriors`,
     effects: [
-      StardrakeIconEffect,
-      StardrakeShieldsEffect,
       {
         name: `Ordered Cohort`,
-        desc: `Add 1 to this unit's hit rolls if it has at least 20 models, and 1 to the number of attacks each model makes with its Celestite weapon if it has at least 30 models.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Celestite Clubs or Celestite Spears while this unit has 15 or more models,`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Alpha Talon`,
-        desc: `The leader of this unit is the Alpha Talon. An Alpha Talon makes 2 attacks rather than 1 with its Celestite Club or Spear.`,
+        name: `Saurus Warrior Alpha`,
+        desc: `1 model in this unit can be a Saurus Warrior Alpha. Add 1 to the Attacks characteristic Of that model's Celestite Club or Celestite Spear.`,
         when: [COMBAT_PHASE],
       },
-      WardrumEffect,
+      StardrakeIconEffect,
+      WardrummerEffect,
     ],
   },
   {
@@ -390,7 +388,7 @@ export const Units: TUnits = [
     effects: [
       StardrakeIconEffect,
       StardrakeShieldsEffect,
-      WardrumEffect,
+      WardrummerEffect,
       {
         name: `Sworn Guardians`,
         desc: `If this unit is within 8" of any SERAPHON HEROES, add 1 to the result of any save rolls for it.`,
@@ -423,7 +421,7 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       StardrakeShieldsEffect,
-      WardrumEffect,
+      WardrummerEffect,
     ],
   },
   {
