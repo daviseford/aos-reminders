@@ -12,6 +12,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_FOUR_START_OF_TURN,
@@ -322,12 +323,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cosmic Herald`,
-        desc: `At the start of your hero phase, you can roll a D6 for this model. If you do so, on a 2+, you receive 1 command point. On a 1, your opponent receives 1 command point instead.`,
+        desc: `At the start of your hero phase, roll a dice for this model. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Curse of Fates`,
-        desc: `Casting value of 4. Pick a unit within 20". Once per phase until your next hero phase, you can increase or decrease the result of a single dice roll for that unit by one.`,
+        name: `Astromancer's Staff`,
+        desc: `At the start of your charge phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, in that phase you can attempt to charge with that unit if it is within 18" of the enemy instead of 12", and you roll 3D6 instead of 2D6 when making the charge roll.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Control Fate`,
+        desc: `Casting value of 7. Pick 1 unit within 18" of the caster and visible to them. If that unit is an enemy unit, until your next hero phase, subtract 1 from save rolls for attacks that target that unit, If that unit is a friendly SERAPHON unit, until your next hero phase, add 1 to save rolls for attacks that target that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -337,13 +343,18 @@ export const Units: TUnits = [
     name: `Skink Starpriest`,
     effects: [
       {
+        name: `Astral Herald`,
+        desc: `At the start of your hero phase, roll a dice for this model. On a 5+ you receive 1 command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Serpent Staff`,
-        desc: `A Skink Starpriest can level its staff at a SERAPHON unit in your army that is within 8", granting them the venom of the two-headed celestial serpent. Until your next hero phase, whenever models from that unit attack with their bite or jaws, a wound roll of 6 or more causes twice the normal amount of Damage.`,
+        desc: `In your hero phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, until your next hero phase, if the unmodified wound roll for an attack made by that unit is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Summon Starlight`,
-        desc: `Casting value of 6. Pick a unit within 20" to be bathed in starlight. If the unit is SERAPHON, subtract 1 from the hit rolls of any attacks that target it until your next hero phase. Otherwise, subtract 1 from the hit rolls of any attacks that it makes until your next hero phase. If a unit of CHAOS DAEMONS is bathed in starlight, it also suffers D3 mortal wounds.`,
+        name: `Blazing Starlight`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
