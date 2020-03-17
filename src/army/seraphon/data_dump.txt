@@ -121,7 +121,7 @@ After set-up is complete but before the battle begins, secretly record the numbe
 
 2 Light of Dracothion:The light from the Great Drake’s tears can wash away the foulest and most corruptive of energies.
 
-Once per battle, you can automatically unbind 1 spell cast by an enemy WIZARDwithin 15" of the bearer, or automatically dispel 1 endless spell within 15" of the bearer.
+Once per battle, you can automatically unbind 1 spell cast by an enemy WIZARD within 15" of the bearer, or automatically dispel 1 endless spell within 15" of the bearer.
 
 3 Prism of Amyntok:This prism can channel aetheric power from the skies to blast the bearer’s foes with a beam of pure white energy.
 
