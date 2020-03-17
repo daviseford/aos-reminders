@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   START_OF_HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 import { CelestialRitesEffect } from './units'
 
@@ -14,7 +15,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Arcane Might`,
-        desc: `You can re-roll one casting or unbinding roll for this general each hero phase.`,
+        desc: `You can re-roll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -24,7 +25,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Vast Intellect`,
-        desc: `This general can use the Curse of Fates and Summon Starlight spells from the Skink Starseer and Skink Starpriest warscrolls.`,
+        desc: `This general knows 1 extra spell from the Lore of Celestial Domination (pg 60).`,
         when: [HERO_PHASE],
       },
     ],
@@ -34,8 +35,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Great Rememberer`,
-        desc: `If this general is on the battlefield, you can use the Lords of Space and Time battle trait twice in each of your hero phases rather than only once.`,
-        when: [HERO_PHASE],
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -44,7 +45,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Disciplined Fury`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with this general's melee weapons.`,
+        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -54,7 +55,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Thickly Scaled Hide`,
-        desc: `You can re-roll save rolls of 1 for this general.`,
+        desc: `You can re-roll save rolls of 1 for attacks that target this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -64,7 +65,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mighty War Leader`,
-        desc: `At the start of your hero phase, if this general is on the battlefield, roll a D6. On a 5+ you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -75,10 +76,9 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Master of Star Rituals`,
-        desc: `If this general is a SKINK PRIEST from the Skink Priest warscroll, they can use the Celestial Rites ability from their warscroll twice in each of their hero phases rather than once. If they are not a SKINK PRIEST from the Skink Priest warscroll, then they can use the Celestial Rites ability.`,
+        desc: `Add 1 to casting rolls for this general if they are a WIZARD. If they are not a WIZARD, then once per battle round they can use the Herald of the Old Ones command ability from the Skink Priest warscroll without a command point being spent.`,
         when: [HERO_PHASE],
       },
-      CelestialRitesEffect,
     ],
   },
   {
@@ -86,8 +86,13 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Nimble`,
-        desc: `Add 1 to this general's Move characteristic. In addition, add 1 to save rolls for this general as long as they are not riding upon a mount.`,
+        desc: `Add 1 to save rolls for attacks that target this general.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Nimble`,
+        desc: `Add 1" to this general's Move characteristic.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -96,7 +101,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cunning`,
-        desc: `Roll a D6 at the start of the combat phase if this general is within 3" of an enemy HERO. On a 4+ the enemy HERO suffers 1 mortal wound.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of this general and roll a dice. On a 4+, that enemy HERO suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

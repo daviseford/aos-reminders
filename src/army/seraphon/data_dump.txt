@@ -107,7 +107,7 @@ Add 1" to this general’s Move characteristic, and add 1 to save rolls for atta
 
 3 Cunning:With reptilian calculation this general looks for opportunities to strike.
 
-At the start of the combat phase, you can pick 1 enemy HEROwithin 3" of this general and roll a dice. On a 4+, that enemy HEROsuffers 1 mortal wound
+At the start of the combat phase, you can pick 1 enemy HERO within 3" of this general and roll a dice. On a 4+, that enemy HERO suffers 1 mortal wound
 
 TREASURES OF THE OLD ONES
 
