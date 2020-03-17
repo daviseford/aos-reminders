@@ -20,6 +20,11 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+const TerrorEffect = {
+  name: `Terror`,
+  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
+  when: [BATTLESHOCK_PHASE],
+}
 const ChameleonBaseEffects = [
   {
     name: `Chameleon Ambush`,
@@ -674,23 +679,29 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Troglodon`,
+    name: `Skink Oracle on Troglodon`,
     effects: [
       {
-        name: `Divining Rod`,
-        desc: `The Skink Oracle can use its Divining Rod to attempt to unbind a spell in each enemy hero phase in the same manner as a wizard.`,
+        name: `Oracle of the Slann`,
+        desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Primeval Roar`,
-        desc: `Enemy units within 8" of any Troglodons in the battleshock phase must subtract 1 from their Bravery.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Regeneration`,
+        desc: `In your hero phase, you can roll a dice for this model. If you do so, on a 2+, heal up to D3 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Venomous Spittle`,
+        desc: `If the unmodified wound roll for an attack made with this model's Noxious Spittle or Venomous Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Drawn to the Screams`,
-        desc: `If a unit suffers any wounds from this model's Noxious Spittle in the shooting phase, and the Troglodon charges in the subsequent charge phase, you can add 3" to its charge distance as long as it ends its charge within 1/2" of a screaming unit.`,
-        when: [CHARGE_PHASE],
+        desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can re-roll charge rolls for this model.`,
+        when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
+      TerrorEffect,
     ],
   },
   {
