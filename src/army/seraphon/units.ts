@@ -285,18 +285,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Celestial Conduit`,
-        desc: `Add 1 to casting rolls for friendly Seraphon WIZARDS while they are within 12" of any Astrolith Bearer. In addition, add 8" to the range of any spells cast by friendly Seraphon WIZARDS while they are within 12" of any Astrolith Bearer.`,
+        desc: `Add 1 to casting rolls for friendly SERAPHON WIZARDS while they are within 12" of any models with this ability. In addition, add 6" to the range of any spells cast by friendly SERAPHON WIZARDS while they are within 12" of any models with this ability.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Proud Defiance`,
-        desc: `You can re-roll hit rolls for friendly Seraphon units while they are wholly within 12" of this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `At the end of your hero phase, you receive D3 celestial conjuration points if there are one or more friendly SAURUS ASTROLITH BEARERS on the battlefield.`,
-        when: [END_OF_HERO_PHASE],
+        name: `Revivifying Energies`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly SERAPHON unit wholly within 12" of any models with this ability. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -409,18 +404,17 @@ export const Units: TUnits = [
   {
     name: `Saurus Knights`,
     effects: [
+      {
+        name: `Celestite Warspear`,
+        desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Saurus Knight Alpha`,
+        desc: `1 model in this unit can be a Saurus Knight Alpha. Add 1 to the Attacks characteristic of that model's Celestite Blade or Celestite Warspear.`,
+        when: [COMBAT_PHASE],
+      },
       StardrakeIconEffect,
-      {
-        name: `Blazing Lances`,
-        desc: `If the wound roll for a Celestite Lance is 6 or higher and the model charged in the same turn, the attack inflicts an additional mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Alpha Knight`,
-        desc: `The leader of this unit is the Alpha Knight. An Alpha Knight makes 2 attacks rather than 1 with its Celestite Blade or Lance.`,
-        when: [COMBAT_PHASE],
-      },
-      StardrakeShieldsEffect,
       WardrummerEffect,
     ],
   },
