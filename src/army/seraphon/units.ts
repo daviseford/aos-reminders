@@ -5,10 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_SETUP,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -18,6 +15,7 @@ import {
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
+  END_OF_CHARGE_PHASE,
 } from 'types/phases'
 
 const TerrorEffect = {
@@ -59,24 +57,26 @@ const CarnosaurBaseEffects = [
 ]
 const SlannBaseEffects = [
   {
-    name: `Celestial Conjuration`,
-    desc: `Summon units with this model. Summoned units must be set up wholly within 12" of a friendly SLANN or a friendly SAURUS ASTROLITH BEARER, and more than 9" from any enemy units.`,
-    when: [END_OF_MOVEMENT_PHASE],
-  },
-  {
-    name: `Celestial Conjuration`,
-    desc: `At the end of your hero phase, you receive 1 celestial conjuration point if your general is a SLANN and is on the battlefield, and 3 points per unused spell.`,
-    when: [END_OF_HERO_PHASE],
-  },
-  {
-    name: `Masters of Order`,
-    desc: `SLANN WIZARDS can attempt to unbind enemy spells that are cast anywhere on the battlefield, and attempt to dispel endless spells anywhere on the battlefield.`,
+    name: `Arcane Vassal`,
+    desc: `When this model attempts to cast a spell, before making the casting roll, you can pick either 1 friendly SKINK WIZARD that is within 12" of this model or 1 friendly ORACLE anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for the spell from that SKINK WIZARD or ORACLE.`,
     when: [HERO_PHASE],
   },
   {
-    name: `Contemplations of the Ancient Ones`,
-    desc: `At the end of your hero phase, you can pick 1 friendly SLANN WIZARD and replace the spell they know from the Seraphon Spell Lore table with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the unit had before.`,
-    when: [END_OF_HERO_PHASE],
+    name: `Masters of Order`,
+    desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind enemy spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Comet's Call`,
+    desc: `Casting value Of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
+    when: [HERO_PHASE],
+    spell: true,
+  },
+  {
+    name: `Gift from the Heavens`,
+    desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
+    when: [HERO_PHASE],
+    command_ability: true,
   },
 ]
 const StegadonBaseEffects = [
@@ -92,11 +92,6 @@ const StardrakeShieldsEffect = {
   name: `Stardrake Shields`,
   desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
-}
-const CelestialRitesEffect = {
-  name: `Celestial Rites`,
-  desc: `Roll a D6. If the result is 4 or more, pick a SERAPHON unit within 8". You can re-roll run rolls, charge rolls and save rolls for that unit until your next hero phase.`,
-  when: [HERO_PHASE],
 }
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
@@ -133,15 +128,29 @@ export const Units: TUnits = [
     effects: [
       ...SlannBaseEffects,
       {
+        name: `Azyrite Force Barrier`,
+        desc: `The Attacks characteristic Of Azyrite Force Barrier is equal to the number ofenemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Dead for Innumerable Ages`,
-        desc: `In the battleshock phase of each turn, roll a D6 and add the number of wounds that Lord Kroak suffered during the turn. If the result is higher than his Bravery, he is 'slain'. Otherwise, any wounds he has suffered are immediately healed.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Impeccable Foresight`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, roll 3 dice. For each 4+, you receive 1 extra command point. You cannot use this command ability more than once per hero phase.`,
+        desc: `At the start of your hero phase, roll 3 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
-        command_ability: true,
+      },
+      {
+        name: `Celestial Deliverance`,
+        desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase. 
+        
+        Casting value Of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value Of 9 the third time it is attempted in a phase.
+        
+        Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds, If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -150,24 +159,9 @@ export const Units: TUnits = [
     effects: [
       ...SlannBaseEffects,
       {
-        name: `Celestial Configuration`,
-        desc: `Roll a D6 and see which constellation is in the ascendant, and how it affects your army.
-
-        1-2: The Hunter's Steed: Add 1 to run and charge rolls for Seraphon units in your army.
-        3-4: The Sage's Staff: Add 1 to casting rolls when Seraphon WIZARDS in your army attempt to cast spells.
-        5-6: The Great Drake: You can re-roll hit rolls of 1 for Seraphon units in your army.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Celestial Configuration`,
-        desc: `At the start of your hero phase, one Slann Starmaster in your army can attempt to turn the constellations to its advantage instead of casting one of its spells. If it does so, roll a D6. If the result is a 1, the Slann is distracted by its exertions and cannot cast any spells this phase. If the result is 4 or higher, you can pick a new ascendant constellation from the table. Otherwise, there is no effect.`,
+        name: `Foresight`,
+        desc: `At the start Of your hero phase, roll 2 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Gift from the Heavens`,
-        desc: `If a Slann Starmaster uses this ability, Seraphon units from your army that are within 10" are affected. Until your next hero phase, those units can fly and you can re-roll failed save rolls for them in the shooting phase.`,
-        when: [MOVEMENT_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -531,21 +525,16 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Razordons`,
+    name: `Razordon Hunting Pack`,
     effects: [
       {
         name: `Instinctive Defence`,
-        desc: `Once per turn, if an enemy unit ends a charge move within 3" of a Razordon unit, roll a D6. If the result is 4 or higher, the Razordons immediately attack the charging unit with their Volleys of Spikes.`,
-        when: [CHARGE_PHASE],
+        desc: `If there are any enemy units within 3" of this unit at the end of the charge phase, and no enemy units were within 3" of this unit at the start of that phase, each Razordon in this unit can make a shooting attack with its Volley of Spikes but the Attacks characteristic for that attack is D6 instead of 2D6.`,
+        when: [END_OF_CHARGE_PHASE],
       },
       {
         name: `Piercing Barbs`,
-        desc: `If a Razordon shoots a Volley of Spikes at a target within 6", it has a Rend characteristic of -1 rather than '-'.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Goaded to Anger`,
-        desc: `You can re-roll all hit rolls of 1 for a Razordon in the shooting phase while its unit is within 3" of any Skink Handlers from your army.`,
+        desc: `Improve the Rend characteristic by 1 for an attack made with a Volley of Spikes if the distance to the target is 6" or less.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -554,18 +543,18 @@ export const Units: TUnits = [
     name: `Kroxigor`,
     effects: [
       {
-        name: `Energy Transference`,
-        desc: `You can re-roll wound rolls of 1 for Kroxigor that are within 3" of any SKINKS.`,
+        name: `Battle Synergy`,
+        desc: `Add 1 to hit rolls for attacks made by this unit while it is wholly within 6" Of any SKINK units.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Sweeping Blows`,
-        desc: `When a Kroxigor attacks with a Moon Hammer, it swings it in a wide arc that hits a number of foes. Select a target unit and make one attack against it for each of its models within range.`,
+        desc: `The Attacks characteristic of a Moon Hammer is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Jaws like a Steel Trap`,
-        desc: `If the wound roll for an attack made with a model's Vice-like Jaws is 6+, both you and your opponent roll a D6. If you score higher, your opponent does not make a save roll - instead, the target suffers a number of mortal wounds equal to the difference between the two dice rolls. Otherwise, the attack causes no damage.`,
+        name: `Jaws Like a Steel Trap`,
+        desc: `If the unmodified hit roll for an attack made with Vice-like Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage,`,
         when: [COMBAT_PHASE],
       },
     ],
