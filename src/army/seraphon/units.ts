@@ -10,15 +10,25 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  TURN_FOUR_START_OF_TURN,
-  TURN_ONE_HERO_PHASE,
-  WOUND_ALLOCATION,
   START_OF_SHOOTING_PHASE,
+  TURN_FOUR_START_OF_TURN,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
+const SelflessProtectorEffect = {
+  name: `Selfless Protector`,
+  desc: `Roll a dice before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
+  when: [WOUND_ALLOCATION],
+}
+const VoraciousAppetiteEffect = {
+  name: `Voracious Appetite`,
+  desc: `If the unmodified hit roll for an attack made with Tearing Jaws is 6, that attack scores 2 hits on the target instead of l. Make a wound and save roll for each hit.`,
+  when: [COMBAT_PHASE],
+}
 const CelestiteWarspearEffect = {
   name: `Celestite Warspear`,
   desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
@@ -41,14 +51,9 @@ const TerrorEffect = {
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
   when: [BATTLESHOCK_PHASE],
 }
-const DeadlyVenomEffect = {
-  name: `Deadly Venom`,
-  desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
-  when: [COMBAT_PHASE],
-}
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
-  desc: `Roll 1 dice for each enemy unit that is within 1" Of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
+  desc: `Roll 1 dice for each enemy unit that is within 1" of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
 }
 const SteadfastMajestyEffect = {
@@ -97,7 +102,7 @@ const SlannBaseEffects = [
   },
   {
     name: `Comet's Call`,
-    desc: `Casting value Of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
+    desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
     when: [HERO_PHASE],
     spell: true,
   },
@@ -109,11 +114,6 @@ const SlannBaseEffects = [
   },
 ]
 const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
-const StardrakeShieldsEffect = {
-  name: `Stardrake Shields`,
-  desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-  when: [COMBAT_PHASE, SHOOTING_PHASE],
-}
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
@@ -129,18 +129,6 @@ const StarbucklersEffect = {
   desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
-const ImperviousDefenceEffects = [
-  {
-    name: `Impervious Defence`,
-    desc: `When you make save rolls for a Bastiladon, ignore the attacker's Rend characteristic.`,
-    when: [COMBAT_PHASE, SHOOTING_PHASE],
-  },
-  {
-    name: `Impervious Defence`,
-    desc: `Roll a D6 whenever this model suffers a mortal wound. On a result of 4 or higher, the wound is ignored.`,
-    when: [WOUND_ALLOCATION],
-  },
-]
 
 // Unit Names
 export const Units: TUnits = [
@@ -150,7 +138,7 @@ export const Units: TUnits = [
       ...SlannBaseEffects,
       {
         name: `Azyrite Force Barrier`,
-        desc: `The Attacks characteristic Of Azyrite Force Barrier is equal to the number ofenemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
+        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number ofenemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -167,7 +155,7 @@ export const Units: TUnits = [
         name: `Celestial Deliverance`,
         desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase. 
         
-        Casting value Of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value Of 9 the third time it is attempted in a phase.
+        Casting value of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value of 9 the third time it is attempted in a phase.
         
         Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds, If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
@@ -181,7 +169,7 @@ export const Units: TUnits = [
       ...SlannBaseEffects,
       {
         name: `Foresight`,
-        desc: `At the start Of your hero phase, roll 2 dice for this model. For each 4+, you receive 1 command point.`,
+        desc: `At the start of your hero phase, roll 2 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -211,15 +199,13 @@ export const Units: TUnits = [
     name: `Saurus Eternity Warden`,
     effects: [
       {
-        name: `Selfless Protector`,
-        desc: `Each time this model is within 2" of a Slann that suffers a wound or mortal wound, it can attempt to intervene. If it does so, roll a D6. If the result is 2 or higher, the Slann ignores that wound or mortal wound but this model suffers a mortal wound in its place.`,
-        when: [WOUND_ALLOCATION],
-      },
-      {
-        name: `Alpha Warden`,
-        desc: `Saurus Guard make an additional attack with their Celestite Polearms while their unit is within 5" of any Saurus Eternity Wardens from your army.`,
+        name: `Prime Guardian`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS GUARD unit wholly within 18" Ofa friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [COMBAT_PHASE],
+        command_ability: true,
       },
+      ColdFerocityEffect,
+      SelflessProtectorEffect,
     ],
   },
   {
@@ -227,12 +213,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Primal Rage`,
-        desc: `If the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead Of 1. Make a wound and save roll for each hit. In addition, if the unmodified wound roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        desc: `If the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. In addition, if the unmodified wound roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Scent of Weakness`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability, Until the end Of that phase, add 1 to wound rolls for attacks made by friendly SAURUS models that target that enemy unit. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability, Until the end of that phase, add 1 to wound rolls for attacks made by friendly SAURUS models that target that enemy unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -327,7 +313,7 @@ export const Units: TUnits = [
         4-8: Heal D3 wounds allocated to each friendly SERAPHON unit wholly within 12" of this model (roll separately for each unit).
         9-12: You can either pick 1 enemy unit within 24" this model that is visible to it and roll 1 dice, or roll 1 dice for each enemy unit within 12" of this model that is visible to it. On a 2+, that unit suffers D3 mortal wounds.
         13-17: You can set up 1 unit of 10 Saurus Warriors wholly within 12" of this model and more than 9" from any enemy units, and add it to your army.
-        18: For the rest of the turn you can re-roll charge rolls for friendly SERAPHON units wholly within 24" of this model, and double the Attacks characteristic of weapons used by friendly SERAPHON units while they are wholly within 24" Of this model.`,
+        18: For the rest of the turn you can re-roll charge rolls for friendly SERAPHON units wholly within 24" of this model, and double the Attacks characteristic of weapons used by friendly SERAPHON units while they are wholly within 24" of this model.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -342,7 +328,7 @@ export const Units: TUnits = [
       },
       {
         name: `Saurus Warrior Alpha`,
-        desc: `1 model in this unit can be a Saurus Warrior Alpha. Add 1 to the Attacks characteristic Of that model's Celestite Club or Celestite Spear.`,
+        desc: `1 model in this unit can be a Saurus Warrior Alpha. Add 1 to the Attacks characteristic of that model's Celestite Club or Celestite Spear.`,
         when: [COMBAT_PHASE],
       },
       StardrakeIconEffect,
@@ -352,24 +338,14 @@ export const Units: TUnits = [
   {
     name: `Saurus Guard`,
     effects: [
-      StardrakeIconEffect,
-      StardrakeShieldsEffect,
-      WardrummerEffect,
       {
-        name: `Sworn Guardians`,
-        desc: `If this unit is within 8" of any SERAPHON HEROES, add 1 to the result of any save rolls for it.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Sworn Guardians`,
-        desc: `If this unit is within 8" of any SERAPHON HEROES, add 2 to its Bravery.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Alpha Guardian`,
-        desc: `The leader of this unit is the Alpha Guardian. An Alpha Guardian makes 3 attacks rather than 2 with its Celestite Polearm.`,
+        name: `Saurus Guard Alpha`,
+        desc: `1 model in this unit can be a Saurus Guard Alpha. Add 1 to the Attacks characteristic of that model's Celestite Polearm.`,
         when: [COMBAT_PHASE],
       },
+      SelflessProtectorEffect,
+      StardrakeIconEffect,
+      WardrummerEffect,
     ],
   },
   {
@@ -429,6 +405,22 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Terradon Chief`,
+    effects: [
+      {
+        name: `Lead from on High`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons by models that cannot fly that target this model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Coordinated Attack`,
+        desc: `You can this command ability when a friendly TERRADON RIDERS unit uses its Deadly Cargo ability while it is wholly within 12" of a friendly model with this command ability. If you do so, the enemy unit suffers D3 mortal wounds for each 2+ instead of each 4+.`,
+        when: [MOVEMENT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
     name: `Terradon Riders`,
     effects: [
       {
@@ -444,6 +436,18 @@ export const Units: TUnits = [
     ],
   },
   {
+    name: `Ripperdactyl Chief`,
+    effects: [
+      VoraciousAppetiteEffect,
+      {
+        name: `Ripperdactyl Assault`,
+        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
     name: `Ripperdactyl Riders`,
     effects: [
       {
@@ -453,16 +457,12 @@ export const Units: TUnits = [
       },
       {
         name: `Toad Rage`,
-        desc: `At the start of the combat phase, you can set up 1 Blot Toad marker next to 1 enemy unit. If you do so, you can re-roll hit rolls for attacks made with Tearing Jaws by friendly RIPPERDACTYL units that are wholly within 6" Of that enemy unit. At the end of the combat phase, remove the Blot Toad marker; it cannot be used again in that battle.
+        desc: `At the start of the combat phase, you can set up 1 Blot Toad marker next to 1 enemy unit. If you do so, you can re-roll hit rolls for attacks made with Tearing Jaws by friendly RIPPERDACTYL units that are wholly within 6" of that enemy unit. At the end of the combat phase, remove the Blot Toad marker; it cannot be used again in that battle.
 
         Designer's Note: Blot Toads are not units; they are markers that are used to keep track of which enemy units this ability affects and how many times you can use this ability during a battle.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Voracious Appetite`,
-        desc: `If the unmodified hit roll for an attack made with Tearing Jaws is 6, that attack scores 2 hits on the target instead of l. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
+      VoraciousAppetiteEffect,
     ],
   },
   {
@@ -495,7 +495,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Battle Synergy`,
-        desc: `Add 1 to hit rolls for attacks made by this unit while it is wholly within 6" Of any SKINK units.`,
+        desc: `Add 1 to hit rolls for attacks made by this unit while it is wholly within 6" of any SKINK units.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -520,7 +520,7 @@ export const Units: TUnits = [
       ...StegadonBaseEffects,
       {
         name: `Gout of Sunfire`,
-        desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number Of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -577,25 +577,28 @@ export const Units: TUnits = [
     name: `Dread Saurian`,
     effects: [
       {
-        name: `Primal Presence`,
-        desc: `Do not take battleshock tests for friendly Skink units while they are wholly within 24" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
         name: `Arcane Glyphs`,
-        desc: `You can heal up to D3 wounds allocated to this model.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 6+, ignore the effects of that spell or endless spell on this model. Add 2 to the roll if this model is within 12" of a friendly Slann.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Devourer of Beasts`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this model that target a MONSTER.`,
-        when: [COMBAT_PHASE],
+        name: `Obliterating Charge`,
+        desc: `After this model makes a charge move, roll a dice for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a Monster or D6 mortal wounds if it is not a Monster.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Death Throes`,
+        desc: `If this model is slain, before removing it from the battlefield, roll a dice for each enemy unit within 3" of it that is not a Monster. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Roar of Ruin`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of any friendly models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Once per battle at the start of the battleshock phase, you can say this model will use its Roar of Ruin. If you do so, halve the Bravery characteristic of enemy units (rounding up) that are within 12" of this model until the end of that phase.
+
+        Designer's Note: If a unit is affected by both the Roar of Ruin and Terror abilities, its Bravery characteristic is first halved (rounding up), and then 1 is subtracted from it.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
       },
+      TerrorEffect,
     ],
   },
 ]
