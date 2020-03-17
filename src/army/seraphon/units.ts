@@ -433,33 +433,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Deadly Cargo`,
-        desc: `Once per game, the unit can drop its boulders onto an enemy unit it moves over during the movement phase. Roll a D6 for each Terradon in this unit; for each result of 4 or more, the enemy unit is struck by an exploding boulder and suffers D3 mortal wounds.`,
+        desc: `Once per battle, after this unit finishes a move, you can pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that enemy unit. For each 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Sunleech Bolas`,
-        desc: `If an attack made with a Sunleech Bolas scores a hit, the projectile bursts and spreads flames among the foe. Roll a D6 and make that many wound rolls.`,
+        name: `Terradon Rider Alpha`,
+        desc: `1 model in this unit can be a Terradon Rider Alpha. Add 1 to the Attacks characteristic of that model's missile weapons.`,
         when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Skyblade`,
-        desc: `If the target of an attack made with a Skyblade can fly, you can re-roll failed hit rolls.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Swooping Dive`,
-        desc: `Remember to declare that your Terradons are swooping. In the following combat phase you can re-roll failed hit and wound rolls for this unit.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Unit Leader - Alpha`,
-        desc: `The leader of this unit is either an Alpha or a Master of the Skies. An Alpha's ranged weapon has a To Hit characteristic of 3+ rather than 4+.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Unit Leader - Master of the Skies`,
-        desc: `The leader of this unit is either an Alpha or a Master of the Skies. A Master of the Skies is armed with a Skyblade instead of its ranged weapon.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -467,29 +447,20 @@ export const Units: TUnits = [
     name: `Ripperdactyl Riders`,
     effects: [
       {
-        name: `Toad Rage`,
-        desc: `Place Blot Toad for Ripperdactyls.`,
-        when: [TURN_ONE_HERO_PHASE],
-      },
-      {
-        name: `Toad Rage`,
-        desc: `Move Blot Toad up to D6 inches.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Swooping Dive`,
-        desc: `Remember to declare that your Ripperdactyls are swooping. In your following combat phase you can re-roll failed hit and wound rolls for this unit.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Swooping Dive`,
-        desc: `You can re-roll failed hit and wound rolls for this unit in your combat phase.`,
+        name: `Ripperdactyl Rider Alpha`,
+        desc: `1 model in this unit can be a Ripperdactyl Rider Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Warspear,`,
         when: [COMBAT_PHASE],
       },
-      StarbucklersEffect,
+      {
+        name: `Toad Rage`,
+        desc: `At the start of the combat phase, you can set up 1 Blot Toad marker next to 1 enemy unit. If you do so, you can re-roll hit rolls for attacks made with Tearing Jaws by friendly RIPPERDACTYL units that are wholly within 6" Of that enemy unit. At the end of the combat phase, remove the Blot Toad marker; it cannot be used again in that battle.
+
+        Designer's Note: Blot Toads are not units; they are markers that are used to keep track of which enemy units this ability affects and how many times you can use this ability during a battle.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
       {
         name: `Voracious Appetite`,
-        desc: `If the hit roll for an attack made with a Ripperdactyl's Vicious Beak scores a hit, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with Tearing Jaws is 6, that attack scores 2 hits on the target instead of l. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -562,57 +533,17 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Bastiladon w/ Ark of Sotek`,
+    name: `Bastiladon`,
     effects: [
-      ...ImperviousDefenceEffects,
-      {
-        name: `Tide of Snakes`,
-        desc: `At the start of each combat phase, a Bastiladon carrying an Ark of Sotek can unleash a tide of venomous serpents. Pick up to six enemy units within 8" and mark each one with a dice showing a different number. Then roll twelve dice to see where the snakes go. Each enemy unit suffers one mortal wound for each roll that matches the number on its dice. Any dice that do not roll a matching number have no effect as the snakes slither away.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Bastiladon w/ Solar Engine`,
-    effects: [
-      ...ImperviousDefenceEffects,
       {
         name: `Light of the Heavens`,
-        desc: `If this model's Searing Beam targets a unit of CHAOS DAEMONS, its Damage characteristic is 3 rather than 2.`,
+        desc: `Add 1 to the damage inflicted by each successful attack made with a Solar Engine that targets a CHAOS DAEMON unit.`,
         when: [SHOOTING_PHASE],
       },
-    ],
-  },
-  {
-    name: `Celestial Swarm`,
-    effects: [
       {
-        name: `Swarming Tide`,
-        desc: `In your hero phase, you may heal D3 wounds allocated to this unit, as more creatures materialise to supplement their number.`,
-        when: [HERO_PHASE],
-      },
-      DeadlyVenomEffect,
-    ],
-  },
-  {
-    name: `Skink Chief`,
-    effects: [
-      {
-        name: `Marked for Greatness`,
-        desc: `You can re-roll a single dice for this model in each phase.`,
-        when: [DURING_GAME],
-      },
-      StarbucklersEffect,
-    ],
-  },
-  {
-    name: `Skink Prophet`,
-    effects: [
-      DeadlyVenomEffect,
-      {
-        name: `Priestly Rites`,
-        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a D6. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
-        when: [HERO_PHASE],
+        name: `Tide of Snakes`,
+        desc: `Ifthe unmodified hit roll for an attack made with an Ark of Sotek is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll),`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
