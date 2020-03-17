@@ -127,7 +127,7 @@ const WardrummerEffect = {
 }
 const StarbucklersEffect = {
   name: `Star-bucklers`,
-  desc: `When you make save rolls for a unit carrying Star-bucklers, ignore the enemy's Rend characteristic unless it is -2 or better.`,
+  desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
 const ImperviousDefenceEffects = [
@@ -302,24 +302,18 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Skink Priest w/ Cloak of Feathers`,
+    name: `Skink Priest`,
     effects: [
-      CelestialRitesEffect,
       {
-        name: `Cloak of Feathers`,
-        desc: `A Skink Priest wearing a Cloak of Feathers has a Save of 4+ rather than 5+, a Move of 14" rather than 8", and can fly.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Skink Priest w/ Priestly Trappings`,
-    effects: [
-      CelestialRitesEffect,
-      {
-        name: `Priestly Trappings`,
-        desc: `A Skink Priest wearing Priestly Trappings affects all SERAPHON units from your army within 8" when it performs a Celestial Rite, rather than a single unit.`,
+        name: `Star-stone Staff`,
+        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a dice, On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Herald of the Old Ones`,
+        desc: `You can use this command ability in your hero phase, If you do so, pick 1 friendly SKINK unit wholly within 18" of a friendly model with this command ability. Until your next hero phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
       },
     ],
   },
@@ -438,19 +432,14 @@ export const Units: TUnits = [
     name: `Skinks`,
     effects: [
       {
-        name: `Alpha`,
-        desc: `The leader of this unit is the Alpha. An Alpha makes 2 attacks rather than 1 in the combat phase.`,
+        name: `Skink Alpha`,
+        desc: `1 model in this unit can be a Skink Alpha. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Wary Fighters`,
-        desc: `When it is a Skink unit's turn to pile in and attack, it can withdraw instead. Move each model in the unit up to 8", so that each one ends up at least 3" from the enemy.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Celestial Cohort`,
-        desc: `Add 1 to hit rolls for Skinks in the shooting phase if it has at least 20 models, or add 2 if it has at least 30 models.`,
-        when: [SHOOTING_PHASE],
+        name: `Swarming Cohort`,
+        desc: `Add 1 to the Attacks characteristic of weapons used by this unit while it has 15 or more models,`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       StarbucklersEffect,
     ],
