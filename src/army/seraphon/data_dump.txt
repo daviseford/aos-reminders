@@ -306,13 +306,13 @@ ABILITIES
 
 Savagery Incarnate:The saurus of Koatl’s Claw are renowned as being the most primordially vicious of their kind.
 
-Add 1 to hit rolls for attacks made by friendly KOATL’S CLAW SAURUSunits that made a charge move in the same turn.
+Add 1 to hit rolls for attacks made by friendly KOATL’S CLAW SAURUS units that made a charge move in the same turn.
 
 COMMAND ABILITY
 
 Controlled Fury:The saurus lords of Koatl’s Claw are capable of unleashing the ravening fury of their kin.
 
-You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly KOATL’S CLAW SAURUSunit wholly within 24" of a friendly KOATL’S CLAW SAURUS HERO. That unit counts as having made a charge move in that turn for the purposes of the Savagery Incarnate ability.
+You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly KOATL’S CLAW SAURUS unit wholly within 24" of a friendly KOATL’S CLAW SAURUS HERO. That unit counts as having made a charge move in that turn for the purposes of the Savagery Incarnate ability.
 
 COMMAND TRAIT
 
@@ -320,7 +320,7 @@ A KOATL’S CLAWSAURUS general must have this command trait instead of one liste
 
 Dominant Predator:Even the most frenzied saurus of Koatl’s Claw pay respect to this mighty alpha-lizard.
 
-Roll a dice each time this general is used to issue a command to a friendly KOATL’S CLAW SAURUSunit. On a 4+, you receive 1 extra command point.
+Roll a dice each time this general is used to issue a command to a friendly KOATL’S CLAW SAURUS unit. On a 4+, you receive 1 extra command point.
 
 ARTEFACT OF POWER
 
