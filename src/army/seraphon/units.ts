@@ -25,23 +25,6 @@ const TerrorEffect = {
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
   when: [BATTLESHOCK_PHASE],
 }
-const ChameleonBaseEffects = [
-  {
-    name: `Chameleon Ambush`,
-    desc: `Instead of setting up Chameleon Skinks on the battlefield, you can place it to one side and say that it is in hiding. In any of your movement phases, you can reveal a unit that is in hiding by setting it up anywhere on the battlefield.`,
-    when: [MOVEMENT_PHASE],
-  },
-  {
-    name: `Disappear From Sight`,
-    desc: `Chameleon Skinks can blend with its surroundings and go into hiding. If it does so, remove it from the battlefield. You can reveal it via "Chameleon Ambush" in any subsequent turn.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Perfect Mimicry`,
-    desc: `If all models in this unit are within or on a terrain feature, their Save characteristic is 3+ rather than 6+. This includes the bonus for being in cover.`,
-    when: [DURING_GAME],
-  },
-]
 const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
@@ -447,10 +430,26 @@ export const Units: TUnits = [
   {
     name: `Chameleon Skinks`,
     effects: [
-      ...ChameleonBaseEffects,
+      {
+        name: `Chameleon Ambush`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Chameleon Ambush`,
+        desc: `If you set this unit up in reserve, at the end of any of your movement phases, you can set up this unit on the battlefield more than 9" from any enemy units.
+    
+        If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Perfect Mimicry`,
+        desc: `The cover modifier adds 3 to save rolls for attacks that target this unit, instead of 1.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
       {
         name: `Star-venom`,
-        desc: `If the hit roll is 6 or higher when a model attacks with a Dartpipe, the attack's Damage characteristic is 2 rather than 1, or 3 rather than 1 if the target is a CHAOS DAEMON.`,
+        desc: `If the unmodified hit roll for an attack made with a Dartpipe is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -522,27 +521,12 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Skink Handlers`,
-    effects: [
-      {
-        name: `Aim for their Eyes`,
-        desc: `If you roll a hit roll of 6 or more for a Goad-spear, that attack has struck the target in the eyes and wounds automatically - there is no need to make a wound roll for that attack.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Salamanders`,
+    name: `Salamander Hunting Pack`,
     effects: [
       {
         name: `It Burns!`,
-        desc: `Roll a D6 at the end of the shooting phase for each unit that suffered any wounds from a Salamander's Stream of Fire in that phase. If the result is 4 or higher, the unit suffers D3 mortal wounds as the corrosive liquid eats through armour, flesh and bone.`,
-        when: [END_OF_SHOOTING_PHASE],
-      },
-      {
-        name: `Goaded to Fury`,
-        desc: `The range of a Salamander's Stream of Fire attack is increased to 12" while its unit is within 3" of any Skink Handlers from your army.`,
-        when: [SHOOTING_PHASE],
+        desc: `If the unmodified hit roll for an attack made with a Stream of Fire or Burning Jaws is 6, that attack inflicts mortal wounds on the target unit and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -653,17 +637,6 @@ export const Units: TUnits = [
         name: `Priestly Rites`,
         desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a D6. If the result is 4+ you can re-roll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Chameleon Skink Stalker`,
-    effects: [
-      ...ChameleonBaseEffects,
-      {
-        name: `Master Hunter`,
-        desc: `Add 2 to the result of wound rolls for this model's Stalker Blowpipe if it did not move, and was not set up, in the movement phase of the same turn.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
