@@ -3,6 +3,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 
 // Army Imports
 import beasts_of_chaos from 'army/beasts_of_chaos'
+import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
 import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
 
@@ -38,10 +39,6 @@ describe('getArmy', () => {
 
     expect(army1.Allegiances).toBeDefined()
     expect(army1.Allegiances.length).toEqual(numEntries)
-
-    const army2 = getArmy(SERAPHON) as IArmy
-    expect(army2.Allegiances).toBeDefined()
-    expect(army2.Allegiances.length).toEqual(0)
   })
 
   it('adds Scenery to an army', () => {
@@ -52,9 +49,10 @@ describe('getArmy', () => {
     expect(army1.Scenery).toBeDefined()
     expect(army1.Scenery.length).toEqual(army1SceneryNum + genericSceneryNum)
 
+    const army2SceneryNum = seraphon.Scenery.length
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
-    expect(army2.Scenery.length).toEqual(genericSceneryNum)
+    expect(army2.Scenery.length).toEqual(army2SceneryNum + genericSceneryNum)
   })
 
   it('adds Triumphs to an army', () => {

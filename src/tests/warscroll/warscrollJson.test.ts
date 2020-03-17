@@ -901,7 +901,12 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(warscrollTxt.factionName).toEqual(SERAPHON)
     expect(warscrollTxt.selections.endless_spells).toContain('Everblaze Comet')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Razordons',
+      },
+    ])
   })
 
   it('should work with Horn of the Consort', () => {

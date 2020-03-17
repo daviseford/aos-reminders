@@ -303,17 +303,16 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory', 'Summon Starlight'],
+      spells: ["Comet's Call", 'Blazing Starlight'],
       traits: ['Great Rememberer'],
       triumphs: [],
       units: [
         'Slann Starmaster',
         'Skink Starpriest',
         'Saurus Astrolith Bearer',
-        'Razordons',
         'Ripperdactyl Riders',
         'Skinks',
-        'Bastiladon w/ Ark of Sotek',
+        'Bastiladon',
       ],
     })
   })
@@ -463,17 +462,16 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
       scenery: [],
-      spells: ['Meteoric Convocation', 'Claws of Glory', 'Summon Starlight'],
+      spells: ["Comet's Call", 'Blazing Starlight'],
       traits: ['Great Rememberer'],
       triumphs: [],
       units: [
         'Slann Starmaster',
         'Skink Starpriest',
         'Saurus Astrolith Bearer',
-        'Razordons',
         'Ripperdactyl Riders',
         'Skinks',
-        'Bastiladon w/ Ark of Sotek',
+        'Bastiladon',
       ],
     })
   })
@@ -775,10 +773,10 @@ describe('getWarscrollArmyFromPdf', () => {
       commands: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex'],
       scenery: [],
-      spells: ['Walk Between Realms'],
+      spells: ['Walk Between Realms', "Comet's Call"],
       traits: ['Great Rememberer'],
       triumphs: [],
-      units: ['Slann Starmaster', 'Bastiladon w/ Ark of Sotek'],
+      units: ['Slann Starmaster', 'Bastiladon'],
     })
   })
 
@@ -792,7 +790,16 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Meteoric Convocation',
+        },
+        {
+          severity: 'warn',
+          text: 'Razordons',
+        },
+      ],
       factionName: SERAPHON,
       origin_realm: 'Ghyran',
       realmscape_feature: null,
@@ -801,10 +808,10 @@ describe('getWarscrollArmyFromPdf', () => {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: ['Impeccable Foresight', 'Ancient Warlord'],
+        commands: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
-        spells: ['Meteoric Convocation'],
+        spells: ["Comet's Call", 'Celestial Deliverance'],
         traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -812,7 +819,6 @@ describe('getWarscrollArmyFromPdf', () => {
           'Engine of the Gods',
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
-          'Razordons',
           'Saurus Guard',
           'Stegadon w/ Skystreak Bow',
         ],
@@ -831,7 +837,16 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Meteoric Convocation',
+        },
+        {
+          severity: 'warn',
+          text: 'Razordons',
+        },
+      ],
       factionName: SERAPHON,
       origin_realm: 'Ghyran',
       realmscape_feature: null,
@@ -840,10 +855,10 @@ describe('getWarscrollArmyFromPdf', () => {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: ['Impeccable Foresight', 'Ancient Warlord'],
+        commands: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
-        spells: ['Meteoric Convocation'],
+        spells: ["Comet's Call", 'Celestial Deliverance'],
         traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -851,7 +866,6 @@ describe('getWarscrollArmyFromPdf', () => {
           'Engine of the Gods',
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
-          'Razordons',
           'Saurus Guard',
           'Stegadon w/ Skystreak Bow',
         ],
@@ -870,7 +884,16 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Meteoric Convocation',
+        },
+        {
+          severity: 'warn',
+          text: 'Razordons',
+        },
+      ],
       factionName: SERAPHON,
       origin_realm: 'Ghyran',
       realmscape_feature: null,
@@ -879,10 +902,10 @@ describe('getWarscrollArmyFromPdf', () => {
         allegiances: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
-        commands: ['Impeccable Foresight', 'Ancient Warlord'],
+        commands: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
         scenery: ['Penumbral Engine'],
-        spells: ['Meteoric Convocation'],
+        spells: ["Comet's Call", 'Celestial Deliverance'],
         traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -890,7 +913,6 @@ describe('getWarscrollArmyFromPdf', () => {
           'Engine of the Gods',
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
-          'Razordons',
           'Saurus Guard',
           'Stegadon w/ Skystreak Bow',
         ],
@@ -945,16 +967,9 @@ describe('getWarscrollArmyFromPdf', () => {
         spells: [],
         traits: ['Disciplined Fury'],
         triumphs: [],
-        units: [
-          'Engine of the Gods',
-          'Chameleon Skinks',
-          'Saurus Warriors',
-          'Bastiladon w/ Solar Engine',
-          'Bastiladon w/ Ark of Sotek',
-          'Dread Saurian',
-        ],
+        units: ['Engine of the Gods', 'Chameleon Skinks', 'Saurus Warriors', 'Bastiladon', 'Dread Saurian'],
       },
-      unknownSelections: [],
+      unknownSelections: ['Solar Engine', 'Ark of Sotek'],
     })
   })
 

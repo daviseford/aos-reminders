@@ -323,14 +323,36 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Seraphon3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Coronal Shield',
+      },
+      {
+        severity: 'warn',
+        text: 'Claws of Glor y',
+      },
+      {
+        severity: 'warn',
+        text: 'Celestial Swarm',
+      },
+    ])
   })
 
   it('handles Seraphon4', () => {
     const fileTxt = getFile('Seraphon4')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Claws of Glor y',
+      },
+      {
+        severity: 'warn',
+        text: 'Skink Prophet',
+      },
+    ])
   })
 
   it('handles Slaanesh3', () => {
@@ -744,7 +766,24 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.artifacts).toEqual(["Anraheirs's Claw (Ghur)", 'Gryph-feather Charm (Ghur)'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Dracothion's Tail",
+      },
+      {
+        severity: 'warn',
+        text: 'Meteoric Convocation',
+      },
+      {
+        severity: 'warn',
+        text: 'Salamanders',
+      },
+      {
+        severity: 'warn',
+        text: 'Skink Handlers',
+      },
+    ])
   })
 
   it('handles Khorne5', () => {
@@ -1137,7 +1176,12 @@ describe('getAzyrArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: 'Fangs of Sotek',
+        },
+      ],
       factionName: SERAPHON,
       origin_realm: null,
       realmscape_feature: null,
@@ -1145,18 +1189,18 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         allegiances: [],
         artifacts: [],
-        battalions: ['Fangs of Sotek', 'Sunclaw Starhost'],
-        commands: ['Gift from the Heavens'],
+        battalions: ['Sunclaw Starhost'],
+        commands: ['Gift from the Heavens', 'Herald of the Old Ones'],
         endless_spells: [],
         scenery: [],
-        spells: [],
+        spells: ["Comet's Call"],
         traits: [],
         triumphs: [],
         units: [
           'Slann Starmaster',
           'Engine of the Gods',
           'Saurus Astrolith Bearer',
-          'Skink Priest w/ Cloak of Feathers',
+          'Skink Priest',
           'Saurus Warriors',
         ],
       },
