@@ -47,18 +47,28 @@ const DeadlyVenomEffect = {
 }
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
-  desc: `When this model attacks with its Crushing Stomps, add 1 to any wound rolls if it charged in the same turn.`,
-  when: [COMBAT_PHASE],
+  desc: `Roll 1 dice for each enemy unit that is within 1" Of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
 }
 const SteadfastMajestyEffect = {
   name: `Steadfast Majesty`,
-  desc: `You can re-roll battleshock tests for units of SKINKS within 5" of any STEGADONS.`,
+  desc: `You can re-roll battleshock tests for friendly SKINK units while they are wholly within 18" of any friendly STEGADON units.`,
   when: [BATTLESHOCK_PHASE],
 }
 const ColdFerocityEffect = {
   name: `Cold Ferocity`,
   desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
+}
+const ArmouredCrestEffect = {
+  name: `Armoured Crest`,
+  desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
+  when: [START_OF_COMBAT_PHASE],
+}
+const SkinkChiefEffect = {
+  name: `Skink Chief`,
+  desc: `This model can include 1 Skink Chief armed with a Meteoric Warspear. If it does, this model has the HERO keyword but any command traits or artefacts of power this model has only affect attacks made by the Skink Chief.`,
+  when: [DURING_GAME],
 }
 const CarnosaurBaseEffects = [
   {
@@ -97,15 +107,7 @@ const SlannBaseEffects = [
     command_ability: true,
   },
 ]
-const StegadonBaseEffects = [
-  SteadfastMajestyEffect,
-  UnstoppableStampedeEffect,
-  {
-    name: `Skink Alpha`,
-    desc: `If a Stegadon is ridden by a Skink Alpha, then in your hero phase the Alpha can give orders to a SKINK unit within 8". If that unit is not within 3" of an enemy unit, you can immediately roll a D6 and move each of its models up to that many inches. In addition, until your next hero phase, you can re-roll hit rolls of 1 for that unit.`,
-    when: [HERO_PHASE],
-  },
-]
+const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
 const StardrakeShieldsEffect = {
   name: `Stardrake Shields`,
   desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
@@ -533,7 +535,7 @@ export const Units: TUnits = [
   },
   {
     name: `Stegadon w/ Skystreak Bow`,
-    effects: [...StegadonBaseEffects],
+    effects: [...StegadonBaseEffects, SkinkChiefEffect],
   },
   {
     name: `Stegadon w/ Sunfire Throwers`,
@@ -541,9 +543,16 @@ export const Units: TUnits = [
       ...StegadonBaseEffects,
       {
         name: `Gout of Sunfire`,
-        desc: `When a Stegadon attacks with its Sunfire Throwers, select a target unit and make one attack against it for each of its models within range.`,
+        desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number Of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
+      {
+        name: `Coordinated Strike`,
+        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly SKINK unit wholly within 24" of a friendly STEGADON HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by that SKINK unit. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      SkinkChiefEffect,
     ],
   },
   {
