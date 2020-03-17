@@ -493,7 +493,12 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Fyreslayers8')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Summon Starlight',
+      },
+    ])
   })
 
   it('should work with Fyreslayers3', () => {
@@ -726,7 +731,20 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Meteoric Convocation',
+      },
+      {
+        severity: 'warn',
+        text: 'Summon Starlight',
+      },
+      {
+        severity: 'warn',
+        text: 'Light of the Heavens',
+      },
+    ])
   })
 
   it('should work with Wanderers1', () => {
@@ -1306,7 +1324,36 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allyFactionNames).toEqual([STORMCAST_ETERNALS])
-    expect(res.errors).toEqual([{ text: "Klaq-Tor's Talons", severity: 'warn' }])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Coronal Shield',
+      },
+      {
+        severity: 'warn',
+        text: "Dracothion's Tail",
+      },
+      {
+        severity: 'warn',
+        text: "Klaq-Tor's Talons",
+      },
+      {
+        severity: 'warn',
+        text: 'Claws of Glory',
+      },
+      {
+        severity: 'warn',
+        text: 'Razordons',
+      },
+      {
+        severity: 'warn',
+        text: 'Salamanders',
+      },
+      {
+        severity: 'warn',
+        text: 'Skink Handlers',
+      },
+    ])
     expect(res.allySelections).toEqual({
       STORMCAST_ETERNALS: {
         battalions: ['Lightning Echelon', 'Skyborne Slayers'],
@@ -1321,30 +1368,34 @@ describe('getBattlescribeArmy', () => {
     })
     expect(res.selections).toEqual({
       allegiances: [],
-      artifacts: ['Blade of Realities', 'Light of Dracothion', 'Coronal Shield'],
-      battalions: ["Dracothion's Tail"],
-      commands: ['Impeccable Foresight', 'Ancient Warlord', 'Saurian Savagery'],
+      artifacts: ['Blade of Realities', 'Light of Dracothion'],
+      battalions: [],
+      commands: [
+        'Impeccable Foresight',
+        'Ancient Warlord',
+        'Gift from the Heavens',
+        'Herald of the Old Ones',
+        'Wrath of the Seraphon',
+        'Saurian Savagery',
+      ],
       endless_spells: [],
       scenery: [],
-      spells: ['Arcane Bolt', 'Celestial Deliverance', 'Claws of Glory', "Comet's Call", 'Mystic Shield'],
+      spells: ['Arcane Bolt', 'Celestial Deliverance', "Comet's Call", 'Mystic Shield'],
       traits: [],
       triumphs: [],
       units: [
         'Engine of the Gods',
         'Lord Kroak',
         'Saurus Astrolith Bearer',
-        'Skink Priest w/ Cloak of Feathers',
-        'Bastiladon w/ Ark of Sotek',
+        'Skink Priest',
+        'Bastiladon',
         'Stegadon w/ Skystreak Bow',
-        'Razordons',
-        'Salamanders',
         'Saurus Guard',
         'Saurus Knights',
         'Skinks',
         'Chameleon Skinks',
         'Kroxigor',
         'Ripperdactyl Riders',
-        'Skink Handlers',
         'Terradon Riders',
         'Saurus Oldblood on Carnosaur',
         'Saurus Scar-Veteran on Carnosaur',

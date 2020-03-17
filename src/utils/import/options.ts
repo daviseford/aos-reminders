@@ -280,7 +280,6 @@ export const factionToAllegianceMap = {
 
 // If a certain trait maps to a specific unit type, put it here
 export const importUnitOptionMap = {
-  'Ark of Sotek': 'Bastiladon w/ Ark of Sotek',
   'Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Celestial Hammer(s)': 'Prosecutors with Celestial Hammers',
   'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
@@ -291,7 +290,6 @@ export const importUnitOptionMap = {
   'Shining Aegis': 'Keeper of Secrets w/ Shining Aegis',
   'Sinistrous Hand': 'Keeper of Secrets w/ Sinistrous Hand',
   'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
-  'Solar Engine': 'Bastiladon w/ Solar Engine',
   'Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
   'Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
