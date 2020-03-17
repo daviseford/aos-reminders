@@ -1,13 +1,12 @@
 import { TTraits } from 'types/army'
 import {
-  HERO_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  START_OF_HERO_PHASE,
-  START_OF_COMBAT_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
-import { CelestialRitesEffect } from './units'
 
 const CommandTraits: TTraits = [
   {
