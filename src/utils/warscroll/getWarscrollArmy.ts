@@ -8,6 +8,7 @@ import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
+  debugger
   const errorChecked = importErrorChecker(army, WARSCROLL_BUILDER)
 
   return errorChecked

@@ -199,77 +199,25 @@ describe('getWarscrollArmyFromJson', () => {
   //   expect(warscrollTxt.errors).toEqual([])
   // })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582816094064-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Brand of the Split Daemon', () => {
+    const parsedText = getFile('1582816094064-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Brand of the Split Daemon')
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582909077631-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with ', () => {
+    const parsedText = getFile('1582909138740-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582909138740-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583053905985-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583173545577-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583265530142-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583366831288-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583417523555-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583521008942-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583668452669-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583856852099-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583857133511-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Bracers of Ember Iron', () => {
+    const parsedText = getFile('1583265530142-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Bracers of Ember Iron')
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
   it('should work with Flask of Daemonblood and Varanguard', () => {
     const parsedText = getFile('1583954971824-Warscroll_Builder')

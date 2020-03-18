@@ -65,6 +65,7 @@ const Allegiances: TAllegiances = [
         name: `Brand of the Split Daemon`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        artifact: true,
       },
     ],
   },
