@@ -342,7 +342,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Eyes of the Nine`,
+    name: `The Eyes of the Nine`,
     effects: [
       {
         name: `Arcanite Shield`,

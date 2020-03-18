@@ -105,10 +105,10 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should work with Eyes of the Nine', () => {
+  it('should work with The Eyes of the Nine', () => {
     const parsedText = getFile('1584407465731-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-    expect(warscrollTxt.selections.units).toContain('Eyes of the Nine')
+    expect(warscrollTxt.selections.units).toContain('The Eyes of the Nine')
     expect(warscrollTxt.selections.units).toContain('Great Bray-Shaman')
     expect(warscrollTxt.errors).toEqual([])
   })
