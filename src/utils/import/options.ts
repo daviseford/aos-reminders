@@ -68,6 +68,7 @@ const warscrollTypoMap: TNameMap = {
   'Explosize Charge': 'Explosive Charge',
   'Extend Astomatrix': 'Extend Astromatrix',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
+  'Great Bray Shaman of Tzeentch': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
   'Great-Bray Shaman': 'Great Bray-Shaman',
   'Gristlegore Royal Terrorgheist': 'Royal Terrorgheist',

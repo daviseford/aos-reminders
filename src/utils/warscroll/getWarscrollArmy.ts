@@ -14,6 +14,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 }
 
 const unitIndicatorsTxt = [
+  'Artillery',
   'Leaders',
   'Units',
   'Behemoths',

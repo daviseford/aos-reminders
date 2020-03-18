@@ -278,7 +278,7 @@ export const Units: TUnits = [
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Split and Split again`,
+        name: `Split and Split Again`,
         desc: `When you allocate wounds or mortal wounds to this unit, you must allocate them to a Pink Horror model if it is possible to do so.
 
         Each time an Iridescent Horror or Pink Horror model from a friendly unit with this ability is slain, you can add 2 Blue Horror models to that unit after removing the slain model. Each time a Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model.
@@ -338,6 +338,21 @@ export const Units: TUnits = [
         name: `Slashing Fins`,
         desc: `After this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that unit. For each 5+, that unit suffers 1 mortal wound. If that enemy unit is a Wizard, for each 5+, inflict D3 mortal wounds instead of 1.`,
         when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Eyes of the Nine`,
+    effects: [
+      {
+        name: `Arcanite Shield`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Split`,
+        desc: `If the Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model. The Brimstone Horrors' Magical Flames have an Attacks characteristic of 1 instead of 2, and their Taloned Hands have an Attacks characteristic of 2 instead of 1.`,
+        when: [],
       },
     ],
   },
