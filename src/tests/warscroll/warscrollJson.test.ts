@@ -271,17 +271,29 @@ describe('getWarscrollArmyFromJson', () => {
   //   expect(warscrollTxt.errors).toEqual([])
   // })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583954971824-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Flask of Daemonblood and Varanguard', () => {
+    const parsedText = getFile('1583954971824-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Flask of Daemonblood (Knights of the Empty Throne)')
+    expect(warscrollTxt.selections.units).toContain('Varanguard')
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1583957769353-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Warpfire Thrower', () => {
+    const parsedText = getFile('1583957769353-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Warpfire Thrower')
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Skaven Warlord',
+      },
+      {
+        severity: 'warn',
+        text: 'Poisoned Wind Mortar Weapon Team',
+      },
+    ])
+  })
 
   it('should work with Eyes of the Nine', () => {
     const parsedText = getFile('1584407465731-Warscroll_Builder')
