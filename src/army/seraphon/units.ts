@@ -113,7 +113,16 @@ const SlannBaseEffects = [
     command_ability: true,
   },
 ]
-const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
+const StegadonBaseEffects = [
+  ArmouredCrestEffect,
+  SteadfastMajestyEffect,
+  UnstoppableStampedeEffect,
+  {
+    name: `Gout of Sunfire`,
+    desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
+    when: [SHOOTING_PHASE],
+  },
+]
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
@@ -511,26 +520,21 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Stegadon w/ Skystreak Bow`,
-    effects: [...StegadonBaseEffects, SkinkChiefEffect],
-  },
-  {
-    name: `Stegadon w/ Sunfire Throwers`,
+    name: `Stegadon with Skink Chief`,
     effects: [
       ...StegadonBaseEffects,
-      {
-        name: `Gout of Sunfire`,
-        desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
+      SkinkChiefEffect,
       {
         name: `Coordinated Strike`,
         desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly SKINK unit wholly within 24" of a friendly STEGADON HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by that SKINK unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      SkinkChiefEffect,
     ],
+  },
+  {
+    name: `Stegadon`,
+    effects: [...StegadonBaseEffects],
   },
   {
     name: `Bastiladon`,

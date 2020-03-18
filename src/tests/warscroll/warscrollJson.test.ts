@@ -7,6 +7,7 @@ import {
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
+  DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
@@ -14,7 +15,9 @@ import {
   GLOOMSPITE_GITZ,
   GREENSKINZ,
   IRONJAWZ,
+  KHARADRON_OVERLORDS,
   KHORNE,
+  LEGION_OF_CHAOS_ASCENDANT,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -27,8 +30,6 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  KHARADRON_OVERLORDS,
-  LEGION_OF_CHAOS_ASCENDANT,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -36,7 +37,94 @@ const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
 }
 
-describe('getWarscrollArmyFromPdf', () => {
+describe('getWarscrollArmyFromJson', () => {
+  it('should work with Hrothgorn', () => {
+    const parsedText = getFile('1581874796290-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Hrothgorn')
+    expect(warscrollTxt.selections.units).toContain("Hrothgorn's Mantrappers")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Morathi, High Oracle of Khaine', () => {
+    const parsedText = getFile('1582028528350-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // @ts-ignore
+    expect(warscrollTxt.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi, High Oracle of Khaine')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Fecund Rituculturalists', () => {
+    const parsedText = getFile('1582292305596-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.battalions).toContain('Fecund Rituculturalists')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Brand of the Split Daemon', () => {
+    const parsedText = getFile('1582816094064-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Brand of the Split Daemon')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with ', () => {
+    const parsedText = getFile('1582909138740-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Bracers of Ember Iron', () => {
+    const parsedText = getFile('1583265530142-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Bracers of Ember Iron')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Flask of Daemonblood and Varanguard', () => {
+    const parsedText = getFile('1583954971824-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Flask of Daemonblood (Knights of the Empty Throne)')
+    expect(warscrollTxt.selections.units).toContain('Varanguard')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Warpfire Thrower', () => {
+    const parsedText = getFile('1583957769353-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Warpfire Thrower')
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Skaven Warlord',
+      },
+      {
+        severity: 'warn',
+        text: 'Poisoned Wind Mortar Weapon Team',
+      },
+    ])
+  })
+
+  it('should work with The Eyes of the Nine', () => {
+    const parsedText = getFile('1584407465731-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('The Eyes of the Nine')
+    expect(warscrollTxt.selections.units).toContain('Great Bray-Shaman')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with a new Seraphon list', () => {
+    const parsedText = getFile('1584466193437-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should not include ARTILLERY markup', () => {
+    const parsedText = getFile('1584488352657-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Secret-eater', () => {
     const parsedText = getFile('1581426257666-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

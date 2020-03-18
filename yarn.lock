@@ -1933,17 +1933,17 @@
     redux-thunk "^2.3.0"
     reselect "^4.0.0"
 
-"@stripe/react-stripe-js@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.0.3.tgz#92224921d157728a3e11ce68ca5e5cb6fec37647"
-  integrity sha512-9E0HRAyd95B1jSS+nh5ol4M5RvQUnWTCB+Td9xKKa68OrEvmRqpNy/wvMyY9SGCy7fcMkZfiST9Oy09OkkDM/A==
+"@stripe/react-stripe-js@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.1.0.tgz#a7f93a146f6691906a92fcaa3b0be7e9f9838c4d"
+  integrity sha512-9FzIv5R6J0ElRpGtrASxcgvmkwFyfQgwYKt6s3u1EaqfgOWCR0cgERmbEwEK2naI0xvr25BnSrd2DYiNbwNT+Q==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.1.0.tgz#0cd2b88272b5932951989b24ed0faa2d58047015"
-  integrity sha512-FEg0lVsvAkP4nLLa/mTujTUQqyC657P9k1fZ8RzO2b7/GwswKdz2vaJr2os8wa5K8QY2qj/RnYZo2nQmshRDQQ==
+"@stripe/stripe-js@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.2.0.tgz#60ab1f1acee27708ae286bec4473643aa32ffa84"
+  integrity sha512-z9N0ue1JDJSFL260uNqnEqyFzEVU9XMExEtTZNl02pH8/YBkbEu18cN9XTjAfs+qfPS/LQGOurGb7r5krIpWNQ==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"

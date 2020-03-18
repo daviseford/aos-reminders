@@ -19,7 +19,7 @@ export const cleanWarscrollText = (pdfText: string[]) => {
     )
     .join('¬')
     .replace(
-      /[^¬]*?\([0-9]+\)¬(?!(LEADERS|UNITS|BEHEMOTHS|WAR MACHINES|ENDLESS SPELLS|BATTALIONS|BATTLELINE|TOTAL|Spearhead|Main Body|Rearguard|Extra Command Point|-|[^¬]*?\([0-9]+\)))(.*?)¬/gi,
+      /[^¬]*?\([0-9]+\)¬(?!(LEADERS|UNITS|ARTILLERY|BEHEMOTHS|WAR MACHINES|ENDLESS SPELLS|BATTALIONS|BATTLELINE|TOTAL|Spearhead|Main Body|Rearguard|Extra Command Point|-|[^¬]*?\([0-9]+\)))(.*?)¬/gi,
       '$2¬'
     ) // Remove custom unit names
     .split('¬')

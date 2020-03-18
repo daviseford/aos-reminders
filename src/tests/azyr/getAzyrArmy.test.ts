@@ -36,6 +36,102 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  // TODO Fix by adding legacy units to Order
+  xit('handles 1582094113733-Azyr', () => {
+    const fileTxt = getFile('1582094113733-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1582914528373-Azyr', () => {
+    const fileTxt = getFile('1582914528373-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+  it('handles 1583001514847-Azyr', () => {
+    const fileTxt = getFile('1583001514847-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1583363189608-Azyr', () => {
+    const fileTxt = getFile('1583363189608-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
+    expect(res.selections.traits).toContain('Rage Unchained (Daemon)')
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles 1584088830450-Azyr', () => {
+    const fileTxt = getFile('1584088830450-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.traits).toContain('Ionrach: Emissary of the Deep Places')
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('handles 1584173198145-Azyr', () => {
+    const fileTxt = getFile('1584173198145-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584173207896-Azyr', () => {
+    const fileTxt = getFile('1584173207896-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584223772080-Azyr', () => {
+    const fileTxt = getFile('1584223772080-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.allegiances).toContain('Coalesced')
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584242711185-Azyr', () => {
+    const fileTxt = getFile('1584242711185-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.units).toContain('The Eyes of the Nine')
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584271452754-Azyr', () => {
+    const fileTxt = getFile('1584271452754-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Bound Emerald Lifeswarm',
+      },
+      {
+        severity: 'warn',
+        text: 'Bound Purple Sun of Shyish',
+      },
+    ])
+  })
+
   it('handles KO9', () => {
     const fileTxt = getFile('KO9')
     const pages = handleAzyrPages(fileTxt)
@@ -220,6 +316,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
     expect(res.selections.traits).toEqual(['Berserker Lord (Mortal)'])
     expect(res.errors).toEqual([
       {

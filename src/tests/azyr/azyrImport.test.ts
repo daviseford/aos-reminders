@@ -60,7 +60,7 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual([
       'FACTION: Khorne',
       'UNIT: Bloodthirster',
-      "ARTEFACT: A'rgath, the King of Blades",
+      'ARTEFACT: Argath the King of Blades',
       'UNIT: Slaughterpriest',
       'UNIT: Bloodsecrator',
       'UNIT: Lord of Khorne',

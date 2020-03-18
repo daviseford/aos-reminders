@@ -60,10 +60,10 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Mighty War Leader`,
+    name: `Mighty Warleader`,
     effects: [
       {
-        name: `Mighty War Leader`,
+        name: `Mighty Warleader`,
         desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },

@@ -19,10 +19,10 @@ import {
 
 const Allegiances: TAllegiances = [
   {
-    name: `The Coalesced`,
+    name: `Coalesced`,
     effects: [
       {
-        name: `The Coalesced`,
+        name: `Coalesced`,
         desc: `If your army is a COALESCED army, you can give it the KOATL'S CLAW or THUNDER LIZARD keyword. All COALESCED units in your army gain that keyword and you can use the extra abilities listed for that Constellation (pg 64-67).`,
         when: [START_OF_SETUP],
       },
@@ -49,7 +49,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Starborne`,
+    name: `Starborne`,
     effects: [
       {
         name: `Unfeeling`,

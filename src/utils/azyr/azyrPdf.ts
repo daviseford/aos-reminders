@@ -276,13 +276,14 @@ const allegianceTypes = [
   'Legion',
   'Lodge',
   'Mawtribe',
-  'Skyport',
   'Sky-port',
+  'Skyport',
   'Slaughterhost',
   'Stormhost',
   'Stronghold',
   'Temple',
   'Warclan',
+  'Way of the Seraphon',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
@@ -317,6 +318,7 @@ const commonTypos = {
   'Dominat or': 'Dominator',
   'Dr aining': 'Draining',
   'Dr ead': 'Dread',
+  'Emissar y of the Deep Places': 'Emissary of the Deep Places',
   'Encla ve': 'Enclave',
   'Eternal Conflagr ation': 'Eternal Conflagration',
   'Ether eal': 'Ethereal',
@@ -361,6 +363,7 @@ const commonTypos = {
   'Warpfir e': 'Warpfire',
   'Wick ed': 'Wicked',
   'Wor d': 'Word',
+  "A'rgath, the King of Blades": 'Argath the King of Blades',
   "Wher e Ther e's W ar, Ther e's Gold": "Where There's War, There's Gold",
   "Zonbarcorp'Debtsettler' Spar Torpedo": "Zonbarcorp 'Debtsettler' Spar Torpedo",
   FUETHÁN: 'FUETHAN',
