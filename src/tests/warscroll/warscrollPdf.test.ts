@@ -31,6 +31,15 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('imports new Seraphon armies correctly', () => {
+    const pdfText = getFile('NewSeraphon')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('does not import the wrong trait (issue #863)', () => {
     const pdfText = getFile('BloodVulture')
     const parsedText = parsePdf(pdfText)
@@ -820,7 +829,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
           'Saurus Guard',
-          'Stegadon w/ Skystreak Bow',
+          'Stegadon',
         ],
       },
       unknownSelections: [],
@@ -867,7 +876,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
           'Saurus Guard',
-          'Stegadon w/ Skystreak Bow',
+          'Stegadon',
         ],
       },
       unknownSelections: [],
@@ -914,7 +923,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Saurus Oldblood on Carnosaur',
           'Kroxigor',
           'Saurus Guard',
-          'Stegadon w/ Skystreak Bow',
+          'Stegadon',
         ],
       },
       unknownSelections: [],
