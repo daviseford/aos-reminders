@@ -793,6 +793,21 @@ export const NurgleBattalions: TBattalions = [
     ],
   },
   {
+    name: `Fecund Rituculturalists`,
+    effects: [
+      {
+        name: `Rituculturalists`,
+        desc: `You can re-roll hit rolls of 1 for models from this battalion whilst they are within 7" of Horticulous Slimux.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Fertile Ground`,
+        desc: `If the unit of Plaguebearers from this battalion is within 3" of Horticulous at the start of your hero phase, you may immediately replace D3 of its models that were slain earlier in the battle.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
     name: `Tallyband of Nurgle`,
     effects: [
       {
