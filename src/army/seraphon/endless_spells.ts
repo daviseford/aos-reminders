@@ -1,19 +1,19 @@
 import { TEndlessSpells } from 'types/army'
 import {
-  PurpleSunEffects,
-  BalewindVortexEffects,
-  PrismaticPalisadeEffects,
-  RavenaksGnashingJawsEffects,
   AethervoidPendulumEffects,
-  SuffocatingGravetideEffects,
-  UmbralSpellportalEffects,
-  MalevolentMaelstromEffects,
-  QuicksilverSwordsEffects,
-  EmeraldLifeswarmEffects,
-  SoulsnareShacklesEffects,
+  BalewindVortexEffects,
   BurningHeadEffects,
   ChronomanticCogsEffects,
+  EmeraldLifeswarmEffects,
   GeminidsOfUhlGyshEffects,
+  MalevolentMaelstromEffects,
+  PrismaticPalisadeEffects,
+  PurpleSunEffects,
+  QuicksilverSwordsEffects,
+  RavenaksGnashingJawsEffects,
+  SoulsnareShacklesEffects,
+  SuffocatingGravetideEffects,
+  UmbralSpellportalEffects,
 } from 'army/generic/endless_spells'
 import { START_OF_ROUND } from 'types/phases'
 
@@ -39,7 +39,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [BoundEffect, ...SoulsnareShacklesEffects],
   },
   {
-    name: `Bound Burning Head`,
+    name: `Bound The Burning Head`,
     effects: [BoundEffect, ...BurningHeadEffects],
   },
   {
