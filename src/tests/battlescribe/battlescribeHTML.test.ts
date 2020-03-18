@@ -1389,7 +1389,7 @@ describe('getBattlescribeArmy', () => {
         'Saurus Astrolith Bearer',
         'Skink Priest',
         'Bastiladon',
-        'Stegadon w/ Skystreak Bow',
+        'Stegadon',
         'Saurus Guard',
         'Saurus Knights',
         'Skinks',

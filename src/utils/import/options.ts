@@ -66,6 +66,7 @@ const warscrollTypoMap: TNameMap = {
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
   'Explosize Charge': 'Explosive Charge',
+  'Extend Astomatrix': 'Extend Astromatrix',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',
   'Great-Bray Shaman': 'Great Bray-Shaman',
@@ -282,16 +283,12 @@ export const factionToAllegianceMap = {
 export const importUnitOptionMap = {
   'Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Celestial Hammer(s)': 'Prosecutors with Celestial Hammers',
-  'Cloak of Feathers': 'Skink Priest w/ Cloak of Feathers',
   'Living Whip': 'Keeper of Secrets w/ Living Whip',
-  'Priestly Trappings': 'Skink Priest w/ Priestly Trappings',
   'Ritual Knife or Sinistrous Hand': 'Keeper of Secrets w/ Ritual Knife',
   'Ritual Knife': 'Keeper of Secrets w/ Ritual Knife',
   'Shining Aegis': 'Keeper of Secrets w/ Shining Aegis',
   'Sinistrous Hand': 'Keeper of Secrets w/ Sinistrous Hand',
-  'Skystreak Bow': 'Stegadon w/ Skystreak Bow',
   'Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
-  'Sunfire Throwers': 'Stegadon w/ Sunfire Throwers',
   'Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
 }
 
