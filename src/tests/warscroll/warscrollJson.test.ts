@@ -38,54 +38,6 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581544089352-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581629990799-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581673461041-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581783130039-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581797039436-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581800327005-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581829080362-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581834848922-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
   it('should work with Hrothgorn', () => {
     const parsedText = getFile('1581874796290-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
