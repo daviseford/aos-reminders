@@ -58,6 +58,7 @@ const warscrollTypoMap: TNameMap = {
   'Blue Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Bracers of Ember-iron': 'Bracers of Ember Iron',
   'Brand of the Spirit Daemon': 'Brand of the Split Daemon',
+  'Morathi High Oracle of Khaine': 'Morathi, High Oracle of Khaine',
   'Brimstone Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Brute Fist': 'BruteFist',
   'Bursting with Power': "Burstin' with Power",

@@ -7,6 +7,7 @@ import {
   BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
+  DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
@@ -14,7 +15,9 @@ import {
   GLOOMSPITE_GITZ,
   GREENSKINZ,
   IRONJAWZ,
+  KHARADRON_OVERLORDS,
   KHORNE,
+  LEGION_OF_CHAOS_ASCENDANT,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -27,8 +30,6 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
-  KHARADRON_OVERLORDS,
-  LEGION_OF_CHAOS_ASCENDANT,
 } from 'meta/factions'
 import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
 
@@ -115,29 +116,13 @@ describe('getWarscrollArmyFromJson', () => {
   //   expect(warscrollTxt.errors).toEqual([])
   // })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582028528350-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582092663997-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582234641656-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1582234644342-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Morathi, High Oracle of Khaine', () => {
+    const parsedText = getFile('1582028528350-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // @ts-ignore
+    expect(warscrollTxt.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi, High Oracle of Khaine')
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
   it('should work with Fecund Rituculturalists', () => {
     const parsedText = getFile('1582292305596-Warscroll_Builder')
