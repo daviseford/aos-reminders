@@ -61,7 +61,6 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1583363189608-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    console.log(res)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
     expect(res.selections.traits).toContain('Rage Unchained (Daemon)')
     expect(res.errors).toEqual([
