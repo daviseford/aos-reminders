@@ -86,35 +86,13 @@ describe('getWarscrollArmyFromJson', () => {
   //   expect(warscrollTxt.errors).toEqual([])
   // })
 
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581852046842-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581874796290-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581877713946-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581891856042-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
-
-  // it('should work with ', () => {
-  //   const parsedText = getFile('1581957114077-Warscroll_Builder')
-  //   const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
-  //   expect(warscrollTxt.errors).toEqual([])
-  // })
+  it('should work with Hrothgorn', () => {
+    const parsedText = getFile('1581874796290-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Hrothgorn')
+    expect(warscrollTxt.selections.units).toContain("Hrothgorn's Mantrappers")
+    expect(warscrollTxt.errors).toEqual([])
+  })
 
   it('should work with Morathi, High Oracle of Khaine', () => {
     const parsedText = getFile('1582028528350-Warscroll_Builder')

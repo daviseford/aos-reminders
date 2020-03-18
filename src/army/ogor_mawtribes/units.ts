@@ -471,6 +471,53 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Hrothgorn's Mantrappers`,
+    effects: [
+      {
+        name: `Shivering Gnoblars`,
+        desc: `This unit is not considered a Beastclaw Raiders unit for the purposes of the 'Grasp of the Everwinter' battle trait.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Hidden Trap`,
+        desc: `At the start of the first hero phase, if this unit is in your army, you can pick 1 terrain feature or objective that is not wholly within enemy territory and say that it is trapped. If you do so, place 1 Bushwakka's Trap marker next to that terrain feature or objective.
+
+      The first time a unit finishes a move within 1" of the trapped terrain feature or objective, roll a dice. On a 2+, that unit suffers D6 mortal wounds and the Bushwakka's Trap marker is removed.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+      {
+        name: `Here You Go Boss!`,
+        desc: `While a friendly HROTHGORN is within 3" of this unit while it includes Quiv, add 1 to the Attacks characteristic of his Trap Launcher.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hrothgorn`,
+    effects: [
+      {
+        name: `Masters of Ambush`,
+        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, when you would set up a friendly Hrothgorn's Mantrappers unit, instead of setting up that unit on the battlefield, you can say that it is joining this model in ambush as a reserve unit. 1 unit can join this model in this way.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Masters of Ambush`,
+        desc: `At the end of your movement phase, you can set up this model anywhere on the battlefield more than 9" from any enemy units; then set up any unit that joined this model wholly within 12" of this model and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Masters of Ambush`,
+        desc: `Any reserve units in ambush that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        when: [TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Thrafnir`,
+        desc: `The first time this model is set up on the battlefield, you can set up a Frost Sabres unit consisting of a single model on the battlefield and add it to your army. Set up the Frost Sabre wholly within 3" of this model and more than 9" from any enemy units.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
 ]
 
 export const AlliedUnits: TUnits = []
