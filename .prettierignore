@@ -1,6 +1,8 @@
 package.json
 tsconfig.json
 node_modules/
+build/*
+tests/fixtures/*
 *.md
 *.sh
 *.log

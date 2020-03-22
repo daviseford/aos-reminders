@@ -107,10 +107,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
       const textX = isPhase || isArmy ? centerX : x
       const textAlign = isPhase || isArmy ? 'center' : 'left'
 
-      doc
-        .setFontSize(style.fontSize)
-        .setFontStyle(style.style)
-        .text(t.text, textX, y, null, null, textAlign)
+      doc.setFontSize(style.fontSize).setFontStyle(style.style).text(t.text, textX, y, null, null, textAlign)
 
       if (isPhase) {
         doc
