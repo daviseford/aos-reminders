@@ -91,7 +91,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           plan: supportPlan.title,
         })}`,
       })
-      .then(function(result) {
+      .then(function (result) {
         if (result.error) {
           // If `redirectToCheckout` fails due to a browser or network
           // error, display the localized error message to your customer.

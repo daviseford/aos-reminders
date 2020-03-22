@@ -370,10 +370,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     let [has_matched, process_entries] = [false, true]
     Object.keys(lookup).forEach(key => {
       if (!has_matched && r.name.startsWith(`${key}:`)) {
-        const vals = r.name
-          .split(`${key}:`)[1]
-          .split(',')
-          .map(cleanText)
+        const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
         Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         has_matched = true
         if (key === 'Endless Spell') process_entries = false

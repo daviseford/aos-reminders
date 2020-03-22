@@ -65,10 +65,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       // New format
       if (txt.startsWith('- Sky Port: ')) {
-        const skyport = txt
-          .replace('- Sky Port: ', '')
-          .trim()
-          .replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
+        const skyport = txt.replace('- Sky Port: ', '').trim().replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
         if (skyport !== 'None') {
           accum.allegiances = accum.allegiances.concat(skyport)
         }
@@ -197,10 +194,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // Add weapon options and other configuration
         if (selector === 'units' && accum[selector].length > 0) {
-          const attr = txt
-            .split('-')[1]
-            .replace('Weapon : ', '')
-            .trim()
+          const attr = txt.split('-')[1].replace('Weapon : ', '').trim()
 
           if (importUnitOptionMap[attr]) {
             const accumMock = [...accum[selector]]
@@ -298,12 +292,7 @@ const getCity = (txt: string) => {
   const city = txt.split('- City: ')[1].split('(')
   const allegiance = city[0].trim()
   try {
-    const trait = city[1]
-      ? city[1]
-          .split('Illicit Dealings: ')[1]
-          .replace(')', '')
-          .trim()
-      : null
+    const trait = city[1] ? city[1].split('Illicit Dealings: ')[1].replace(')', '').trim() : null
     return { allegiance, trait }
   } catch (err) {
     return { allegiance, trait: null }
