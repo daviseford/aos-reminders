@@ -35,6 +35,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [Redmongrel](https://github.com/Redmongrel)
 + [bszonye](https://github.com/bszonye)
 + [Flui](https://github.com/Flui)
++ [dccourt](https://github.com/dccourt)
 + Lorax
 
 ## Available Scripts
