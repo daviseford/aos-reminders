@@ -266,7 +266,7 @@ export const Units: TUnits = [
       },
       {
         name: `Beast Handler`,
-        desc: `Re-roll failed charge rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
+        desc: `Re-roll failed charge rolls for friendly Beasts of Nurgle units while they are within 7" of this model.`,
         when: [CHARGE_PHASE],
       },
       {
