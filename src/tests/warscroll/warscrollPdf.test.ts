@@ -25,6 +25,7 @@ import {
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}.pdf`), 'utf8')
@@ -170,6 +171,17 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.selections.traits).not.toContain("Blood Vulture's Gaze")
     expect(warscrollTxt.selections.traits).toEqual(['Metalcruncher'])
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('imports Seraphon Constellations properly', () => {
+    const pdfText = getFile('1000-Sunclaw_Temple-host')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.KOATLS_CLAW)
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.COALESCED) // auto-added because of Koatl's Claw
     expect(warscrollTxt.errors).toEqual([])
   })
 

@@ -17,12 +17,21 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+export const SeraphonConstellations = {
+  COALESCED: `Coalesced`,
+  DRACOTHIANS_TAIL: `Dracothian's Tail`,
+  FANGS_OF_SOTEK: `Fangs of Sotek`,
+  KOATLS_CLAW: `Koatl's Claw`,
+  STARBORNE: `Starborne`,
+  THUNDER_LIZARD: `Thunder Lizard`,
+}
+
 const Allegiances: TAllegiances = [
   {
-    name: `Coalesced`,
+    name: SeraphonConstellations.COALESCED,
     effects: [
       {
-        name: `Coalesced`,
+        name: SeraphonConstellations.COALESCED,
         desc: `If your army is a COALESCED army, you can give it the KOATL'S CLAW or THUNDER LIZARD keyword. All COALESCED units in your army gain that keyword and you can use the extra abilities listed for that Constellation (pg 64-67).`,
         when: [START_OF_SETUP],
       },
@@ -49,7 +58,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Starborne`,
+    name: SeraphonConstellations.STARBORNE,
     effects: [
       {
         name: `Unfeeling`,
@@ -88,7 +97,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Dracothian's Tail`,
+    name: SeraphonConstellations.DRACOTHIANS_TAIL,
     effects: [
       {
         name: `Appear on Command`,
@@ -120,7 +129,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Fangs of Sotek`,
+    name: SeraphonConstellations.FANGS_OF_SOTEK,
     effects: [
       {
         name: `First to Battle`,
@@ -148,7 +157,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `Koatl's Claw`,
+    name: SeraphonConstellations.KOATLS_CLAW,
     effects: [
       {
         name: `Savagery Incarnate`,
@@ -176,7 +185,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: `The Thunder Lizard`,
+    name: SeraphonConstellations.THUNDER_LIZARD,
     effects: [
       {
         name: `Mighty Beasts of War`,
