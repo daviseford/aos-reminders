@@ -267,6 +267,7 @@ const endlessTypes = ['Endless Spell', 'Magmic Invocation', 'Judgement of Khorne
 const endlessRegexp = new RegExp(`Role: {1,4}(${endlessTypes.join('|')})`, 'g')
 
 const allegianceTypes = [
+  'Constellation',
   'Coven',
   'Enclave',
   'Glade',

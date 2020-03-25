@@ -3,6 +3,7 @@ import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
 import { importUnitOptionMap, importFactionNameMap } from 'utils/import/options'
 import { importErrorChecker } from 'utils/import'
 import GenericScenery from 'army/generic/scenery'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 
@@ -113,6 +114,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             accum.traits = accum.traits.concat(trait)
             return accum
           }
+        }
+
+        if (txt.startsWith('- Constellation: ')) {
+          const name = txt.replace('- Constellation: ', '').trim()
+          const allegiances = getSeraphonConstellations(name)
+          accum.allegiances = accum.allegiances.concat(allegiances)
+          return accum
         }
 
         if (txt.startsWith('- Great Endrinworks : ')) {
@@ -333,4 +341,12 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
   const [trait, spell] = cleaned.split(' - ').map(x => x.trim())
 
   return [trait, spell === 'All Spells' ? null : spell]
+}
+
+const getSeraphonConstellations = (value: string): string[] => {
+  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value))
+    return [value, SeraphonConstellations.COALESCED]
+  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value))
+    return [value, SeraphonConstellations.STARBORNE]
+  return [value]
 }
