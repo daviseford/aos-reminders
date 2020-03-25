@@ -30,12 +30,22 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import { AQSHY, ULGU } from 'types/realmscapes'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles Seraphon5', () => {
+    const fileTxt = getFile('Seraphon5')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.errors).toEqual([])
+  })
+
   // TODO Fix by adding legacy units to Order
   xit('handles 1582094113733-Azyr', () => {
     const fileTxt = getFile('1582094113733-Azyr')

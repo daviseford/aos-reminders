@@ -344,16 +344,9 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
 }
 
 const getSeraphonConstellations = (value: string): string[] => {
-  if (value === SeraphonConstellations.COALESCED || value === SeraphonConstellations.STARBORNE) return [value]
-
-  const StarborneAllegiances = [
-    SeraphonConstellations.DRACOTHIANS_TAIL,
-    SeraphonConstellations.FANGS_OF_SOTEK,
-  ]
-  const CoalescedAllegiances = [SeraphonConstellations.KOATLS_CLAW, SeraphonConstellations.THUNDER_LIZARD]
-
-  if (StarborneAllegiances.includes(value)) return [value, SeraphonConstellations.STARBORNE]
-  if (CoalescedAllegiances.includes(value)) return [value, SeraphonConstellations.COALESCED]
-
+  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value))
+    return [value, SeraphonConstellations.COALESCED]
+  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value))
+    return [value, SeraphonConstellations.STARBORNE]
   return [value]
 }

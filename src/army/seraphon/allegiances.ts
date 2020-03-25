@@ -17,13 +17,21 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
+// These are sub-allegiances
+const DRACOTHIANS_TAIL = `Dracothian's Tail`
+const FANGS_OF_SOTEK = `Fangs of Sotek`
+const KOATLS_CLAW = `Koatl's Claw`
+const THUNDER_LIZARD = `Thunder Lizard`
+
 export const SeraphonConstellations = {
+  COALESCED_ALLEGIANCES: [KOATLS_CLAW, THUNDER_LIZARD],
   COALESCED: `Coalesced`,
-  DRACOTHIANS_TAIL: `Dracothian's Tail`,
-  FANGS_OF_SOTEK: `Fangs of Sotek`,
-  KOATLS_CLAW: `Koatl's Claw`,
+  DRACOTHIANS_TAIL,
+  FANGS_OF_SOTEK,
+  KOATLS_CLAW,
+  STARBORNE_ALLEGIANCES: [DRACOTHIANS_TAIL, FANGS_OF_SOTEK],
   STARBORNE: `Starborne`,
-  THUNDER_LIZARD: `Thunder Lizard`,
+  THUNDER_LIZARD,
 }
 
 const Allegiances: TAllegiances = [
