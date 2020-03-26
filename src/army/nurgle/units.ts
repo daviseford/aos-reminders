@@ -296,7 +296,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icon Bearer`,
-        desc: `Models in this unit can be Icon Bearers. If an unmodified roll of 1 is made for a battleshock test, no models feel. Instead D6 models are added to the unit (up to a total equal to the starting size of the unit).`,
+        desc: `Models in this unit can be Icon Bearers. If an unmodified roll of 1 is made for a battleshock test, no models flee. Instead D6 models are added to the unit (up to a total equal to the starting size of the unit).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -327,7 +327,7 @@ export const Units: TUnits = [
       },
       {
         name: `Icon Bearer`,
-        desc: `Models in this unit can be Icon Bearers. If an unmodified roll of 1 is made for a battleshock test, no models feel. Instead 1 model is added to the unit (up to a total equal to the starting size of the unit).`,
+        desc: `Models in this unit can be Icon Bearers. If an unmodified roll of 1 is made for a battleshock test, no models flee. Instead 1 model is added to the unit (up to a total equal to the starting size of the unit).`,
         when: [BATTLESHOCK_PHASE],
       },
       {
