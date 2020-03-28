@@ -18,7 +18,7 @@ import {
 } from 'types/phases'
 
 // These are sub-allegiances
-const DRACOTHIANS_TAIL = `Dracothian's Tail`
+const DRACOTHIONS_TAIL = `Dracothion's Tail`
 const FANGS_OF_SOTEK = `Fangs of Sotek`
 const KOATLS_CLAW = `Koatl's Claw`
 const THUNDER_LIZARD = `Thunder Lizard`
@@ -26,10 +26,10 @@ const THUNDER_LIZARD = `Thunder Lizard`
 export const SeraphonConstellations = {
   COALESCED_ALLEGIANCES: [KOATLS_CLAW, THUNDER_LIZARD],
   COALESCED: `Coalesced`,
-  DRACOTHIANS_TAIL,
+  DRACOTHIONS_TAIL,
   FANGS_OF_SOTEK,
   KOATLS_CLAW,
-  STARBORNE_ALLEGIANCES: [DRACOTHIANS_TAIL, FANGS_OF_SOTEK],
+  STARBORNE_ALLEGIANCES: [DRACOTHIONS_TAIL, FANGS_OF_SOTEK],
   STARBORNE: `Starborne`,
   THUNDER_LIZARD,
 }
@@ -105,7 +105,7 @@ const Allegiances: TAllegiances = [
     ],
   },
   {
-    name: SeraphonConstellations.DRACOTHIANS_TAIL,
+    name: SeraphonConstellations.DRACOTHIONS_TAIL,
     effects: [
       {
         name: `Appear on Command`,
