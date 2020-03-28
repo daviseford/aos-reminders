@@ -175,6 +175,17 @@ describe('getWarscrollArmyFromPdf', () => {
   })
 
   it('imports Seraphon Constellations properly', () => {
+    const pdfText = getFile('1000-Firelance_Starhost')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.factionName).toEqual(SERAPHON)
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.DRACOTHIONS_TAIL)
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('imports Seraphon Constellations properly', () => {
     const pdfText = getFile('1000-Sunclaw_Temple-host')
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
