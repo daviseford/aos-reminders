@@ -209,7 +209,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Prime Guardian`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS GUARD unit wholly within 18" Ofa friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS GUARD unit wholly within 18" of a friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
