@@ -194,12 +194,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Fists of the Everchosen`,
-        desc: `Varanguard units gain the hero keyword. The 'Look Out, Sir!' rule does not apply to them.`,
+        desc: `Varanguard units gain the HERO keyword. The 'Look Out, Sir!' rule does not apply to them.`,
         when: [DURING_GAME],
       },
       {
         name: `Unmatched Conquerors`,
-        desc: `Pick 1 enemy unit controlling an objective within 12" of a friendly Knights of the Empty Throne hero. Roll a number of dice equal to the number of models in the target. For each 3+, until the end of the battle round, the number of models in that unit counted towards the objective control is reduced by 1. A unit cannot be affected by this more than once per turn.`,
+        desc: `Pick 1 enemy unit controlling an objective within 12" of a friendly Knights of the Empty Throne HERO. Roll a number of dice equal to the number of models in the target. For each 3+, until the end of the battle round, the number of models in that unit counted towards the objective control is reduced by 1. A unit cannot be affected by this more than once per turn.`,
         when: [END_OF_CHARGE_PHASE],
         command_ability: true,
       },
