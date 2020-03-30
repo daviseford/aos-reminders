@@ -1,10 +1,10 @@
 import { TAllegiances } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
@@ -15,7 +15,6 @@ import {
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
-  CHARGE_PHASE,
 } from 'types/phases'
 
 // These are sub-allegiances
