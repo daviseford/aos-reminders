@@ -19,7 +19,7 @@ const Abilities: TAbilities = [
 
     The Great Drake: In the combat phase, pick 1 friendly SERAPHON HERO. Until the end of that phase, you can add 1 to the Attacks characteristic of melee weapons used by that HERO.
     The Hunter's Steed: Add 1 to run rolls and charge rolls for friendly SERAPHON units.
-    The Sage's Staff: In the hero phase, pick 1 friendly SERAPHON WIZARD. You can add 1 to casting or dispelling rolls for that WIZARD if it is your hero phase, and you can add 1 to unbinding rolls for that WIZARD if it is the enemy hero phase.`,
+    The Sage's Staff: At the start of the hero phase, pick 1 friendly SERAPHON WIZARD. You can add 1 to casting or dispelling rolls for that WIZARD if it is your hero phase, and you can add 1 to unbinding rolls for that WIZARD if it is the enemy hero phase.`,
     when: [START_OF_HERO_PHASE],
   },
 ]

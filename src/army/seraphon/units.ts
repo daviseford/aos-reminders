@@ -450,7 +450,7 @@ export const Units: TUnits = [
       VoraciousAppetiteEffect,
       {
         name: `Ripperdactyl Assault`,
-        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model.`,
+        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -546,7 +546,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tide of Snakes`,
-        desc: `Ifthe unmodified hit roll for an attack made with an Ark of Sotek is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll),`,
+        desc: `If the unmodified hit roll for an attack made with an Ark of Sotek is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll),`,
         when: [COMBAT_PHASE],
       },
     ],

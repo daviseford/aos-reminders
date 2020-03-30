@@ -15,6 +15,7 @@ import {
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
+  CHARGE_PHASE,
 } from 'types/phases'
 
 // These are sub-allegiances
@@ -109,7 +110,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Appear on Command`,
-        desc: `Instead of setting up a friendly DRACOTHION'S TAIL unit on the battlefield, you can place it to one side and say that it is set up waiting to appear at command as a reserve unit. You can set up 1 reserve unit waiting to appear at command for each friendly DRACOTHION'S TAIL unit you have already set up on the battlefield.`,
+        desc: `'Instead of setting up a friendly DRACOTHION'S TAIL unit on the battlefield before the battle begins, you can place it to one side and say that it is set up waiting to appear at command as a reserve unit. You can set up 1 reserve unit waiting to appear at command for each friendly DRACOTHION'S TAIL unit you have already set up on the battlefield.`,
         when: [DURING_SETUP],
       },
       {
@@ -146,8 +147,8 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Parting Shot`,
-        desc: `You can use this command ability at the end of the enemy charge phase. If you do so, pick 1 friendly FANGS OF SOTEK SKINKS unit from the Skinks warscroll, or friendly FANGS OF SOTEK CHAMELEON SKINKS unit, that is wholly within 18" of a friendly FANGS OF SOTEK HERO. That SKINKS or CHAMELEON SKINKS unit can shoot. After you have resolved all of that unit's shooting attacks, roll a dice. On a 4+, that unit can make a normal move; if it does, it must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [END_OF_CHARGE_PHASE],
+        desc: `You can use this command ability when an enemy unit ends a charge move within 3" of a friendly FANGS OF SOTEK unit from the Skinks or Chameleon Skinks warscroll that is wholly within 18" of a friendly FANGS OF SOTEK HERO. If you do so, that unit can shoot. After you have resolved all of that unit's shooting attacks, roll a dice. On a 4+, that unit must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
+        when: [CHARGE_PHASE],
         command_ability: true,
       },
       {
