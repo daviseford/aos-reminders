@@ -325,6 +325,7 @@ const traitToSpellMapper = [
   'One with Fire and Ice -',
   'Rune of Ulgu -',
   'Secretive Warlock -',
+  'Vast Intellect -',
   'Whitefire Tome -',
 ]
 
@@ -343,6 +344,11 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
   return [trait, spell === 'All Spells' ? null : spell]
 }
 
+/**
+ * If a Seraphon army has taken a constellation such as Koatl's Claw or Thunder Lizard,
+ * this function adds the "Way of the Seraphon" that the constellation is associated with
+ * @param value
+ */
 const getSeraphonConstellations = (value: string): string[] => {
   if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value))
     return [value, SeraphonConstellations.COALESCED]
