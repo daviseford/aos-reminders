@@ -38,6 +38,65 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  // TODO
+  xit('should work with legacy Bretonnian units', () => {
+    const parsedText = getFile('1585029831842-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'King on Hippogryph',
+      },
+      {
+        severity: 'warn',
+        text: 'Damsel',
+      },
+      {
+        severity: 'warn',
+        text: 'Bretonnian Lord',
+      },
+      {
+        severity: 'warn',
+        text: 'Knights of the Realm',
+      },
+      {
+        severity: 'warn',
+        text: 'Knights Errant',
+      },
+      {
+        severity: 'warn',
+        text: 'Men At Arms',
+      },
+      {
+        severity: 'warn',
+        text: 'Peasant Bowmen',
+      },
+      {
+        severity: 'warn',
+        text: 'Grail Knights',
+      },
+      {
+        severity: 'warn',
+        text: 'Field Trebuchet',
+      },
+    ])
+  })
+
+  it('should work with Vast Intellect - Celestial Apotheosis (trait/spell)', () => {
+    const parsedText = getFile('1585065423836-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.spells).toContain('Celestial Apotheosis')
+    expect(warscrollTxt.selections.traits).toContain('Vast Intellect')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with Fusil of Conflagration', () => {
+    const parsedText = getFile('1585867355154-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain('Fusil of Conflagration')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Hrothgorn', () => {
     const parsedText = getFile('1581874796290-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
@@ -68,9 +127,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(warscrollTxt.errors).toEqual([])
   })
 
-  it('should work with ', () => {
+  it("should work with A'rgath the King of Blades", () => {
     const parsedText = getFile('1582909138740-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain("A'rgath, the King of Blades")
     expect(warscrollTxt.errors).toEqual([])
   })
 

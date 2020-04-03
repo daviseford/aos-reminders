@@ -71,6 +71,7 @@ const warscrollTypoMap: TNameMap = {
   'Extend Astomatrix': 'Extend Astromatrix',
   'Eyes of the Nine': 'The Eyes of the Nine',
   'Flash of Daemonblood': 'Flask of Daemonblood (Knights of the Empty Throne)',
+  'Fusil of Conflaguration': 'Fusil of Conflagration',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',
   'Great Bray Shaman of Tzeentch': 'Great Bray-Shaman',
   'Great Bray Shaman': 'Great Bray-Shaman',

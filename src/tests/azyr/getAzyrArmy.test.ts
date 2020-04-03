@@ -37,6 +37,41 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles 1584593035311-Azyr', () => {
+    const fileTxt = getFile('1584593035311-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584593121651-Azyr', () => {
+    const fileTxt = getFile('1584593121651-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1584757344425-Azyr', () => {
+    const fileTxt = getFile('1584757344425-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1585918489536-Azyr', () => {
+    const fileTxt = getFile('1585918489536-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('handles 1585918507211-Azyr', () => {
+    const fileTxt = getFile('1585918507211-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles Seraphon5', () => {
     const fileTxt = getFile('Seraphon5')
     const pages = handleAzyrPages(fileTxt)

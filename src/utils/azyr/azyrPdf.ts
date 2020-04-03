@@ -284,6 +284,7 @@ const allegianceTypes = [
   'Stronghold',
   'Temple',
   'Warclan',
+  'Warriors',
   'Way of the Seraphon',
 ]
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
@@ -362,6 +363,7 @@ const commonTypos = {
   'Varanguar d': 'Varanguard',
   'Warbeat:': 'Spell:',
   'Warpfir e': 'Warpfire',
+  'Way of the Ser aphon': 'Way of the Seraphon',
   'Wick ed': 'Wicked',
   'Wor d': 'Word',
   "A'rgath, the King of Blades": 'Argath the King of Blades',
