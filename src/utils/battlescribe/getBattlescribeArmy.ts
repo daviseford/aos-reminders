@@ -69,6 +69,6 @@ export interface IFactionInfo {
 
 export interface IAllegianceInfo {
   faction: string | null
-  allegiance: string | null
+  allegiance: string[] | null
   [key: string]: string | string[] | null
 }

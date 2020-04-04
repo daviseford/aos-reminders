@@ -10,8 +10,8 @@ interface IAppStatusProvider {
 }
 
 const timeout = (ms: number, promise) => {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
       reject(new Error('timeout'))
     }, ms)
     promise.then(resolve, reject)

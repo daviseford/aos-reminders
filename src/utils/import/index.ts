@@ -106,7 +106,9 @@ const removeFoundErrors: TRemoveFoundErrors = (errors, selections, allyData) => 
     .map(x => [...x.units, ...x.battalions])
     .flat()
 
-  const found = Object.values(selections).concat(foundAllies).flat()
+  const found = Object.values(selections)
+    .concat(foundAllies)
+    .flat()
 
   const filteredErrors = errors
     .filter(e => !found.some(f => f === e.text))

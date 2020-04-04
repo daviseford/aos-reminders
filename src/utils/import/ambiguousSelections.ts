@@ -21,7 +21,9 @@ export const addAmbiguousSelectionErrors = (
     .map(x => (x ? x.units : []))
     .flat()
 
-  const flatSelections = Object.values(selections).concat(flatAllySelections).flat()
+  const flatSelections = Object.values(selections)
+    .concat(flatAllySelections)
+    .flat()
   flatSelections.forEach(selection => {
     const match = ambiguousNamesMap[selection]
     if (match) {
