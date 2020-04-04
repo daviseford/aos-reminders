@@ -39,6 +39,42 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1584738126669-Battlescribe', () => {
+    const parsedText = getFile('1584738126669-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1585178928663-Battlescribe', () => {
+    const parsedText = getFile('1585178928663-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1585479992182-Battlescribe', () => {
+    const parsedText = getFile('1585479992182-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1585565427855-Battlescribe', () => {
+    const parsedText = getFile('1585565427855-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1585658848917-Battlescribe', () => {
+    const parsedText = getFile('1585658848917-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1585870135227-Battlescribe', () => {
+    const parsedText = getFile('1585870135227-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with Gloomspite5', () => {
     const parsedText = getFile('Gloomspite5')
     const res = getBattlescribeArmy(parsedText)
