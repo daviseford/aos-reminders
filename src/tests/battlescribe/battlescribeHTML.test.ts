@@ -40,12 +40,6 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
-  it('should work with 1585178928663-Battlescribe', () => {
-    const parsedText = getFile('1585178928663-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with 1585479992182-Battlescribe', () => {
     const parsedText = getFile('1585479992182-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -57,18 +51,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Skink Handler',
       },
     ])
-  })
-
-  it('should work with 1585565427855-Battlescribe', () => {
-    const parsedText = getFile('1585565427855-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with 1585658848917-Battlescribe', () => {
-    const parsedText = getFile('1585658848917-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1585870135227-Battlescribe', () => {
