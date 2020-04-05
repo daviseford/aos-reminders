@@ -33,12 +33,42 @@ import {
 } from 'meta/factions'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 import { HYSH } from 'types/realmscapes'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1585479992182-Battlescribe', () => {
+    const parsedText = getFile('1585479992182-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Skink Handler',
+      },
+    ])
+  })
+
+  it('should work with 1585870135227-Battlescribe', () => {
+    const parsedText = getFile('1585870135227-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Shadowstrike Temple-host')
+    expect(res.selections.battalions).toContain('Thunderquake Temple-host')
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.selections.scenery).toContain('Realmshaper Engine')
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Skink Handler',
+      },
+    ])
+  })
+
   it('should work with Gloomspite5', () => {
     const parsedText = getFile('Gloomspite5')
     const res = getBattlescribeArmy(parsedText)

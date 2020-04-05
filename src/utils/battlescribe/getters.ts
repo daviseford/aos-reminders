@@ -20,7 +20,7 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
   allegianceInfo.forEach(info => {
     const mappedAllegiance = isValidFactionName(info.allegiance)
       ? info.allegiance
-      : importFactionNameMap[info.allegiance || '']
+      : importFactionNameMap[info.allegiance?.[0] || '']
     const mappedFaction = isValidFactionName(info.faction)
       ? info.faction
       : importFactionNameMap[info.faction || '']
@@ -32,7 +32,9 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
       store.factionName = mappedFaction
     }
 
-    if (info.allegiance) store.allegiances.push(info.allegiance)
+    if (info.allegiance) {
+      store.allegiances = store.allegiances.concat(info.allegiance)
+    }
   })
 
   return {
@@ -93,7 +95,8 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 }
 
 export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
-  const allegianceInfo = { faction: null as string | null, allegiance: null as string | null }
+  const allegianceInfo = { faction: null as string | null, allegiance: null as string[] | null }
+
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -133,11 +136,11 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
 
     if (!nameObj || !isParentNode(nameObj)) {
       let allegiance = allegianceCategoryLookup(childNodes)
-      allegianceInfo.allegiance = allegiance
+      allegianceInfo.allegiance = allegiance ? [allegiance] : null
 
       if (!allegiance) {
         allegiance = allegianceSelectionLookup(childNodes)
-        allegianceInfo.allegiance = allegiance
+        allegianceInfo.allegiance = allegiance ? [allegiance] : null
       }
 
       allegianceInfo.faction = factionAllegianceh4Lookup(childNodes)
@@ -241,6 +244,7 @@ const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): 
 
 export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null, allegiance: null }
+
   let liNode = obj
 
   const ulNode = obj.childNodes.find(x => x.nodeName === 'ul') as IParentNode
@@ -320,7 +324,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const fixedKeys = Object.keys(mergedTraits).reduce((a, key) => {
     const val = mergedTraits[key]
     if (key === 'Selections' && isString(val)) {
-      a.allegiance = stripAllegiancePrefix(val)
+      a.allegiance = [stripAllegiancePrefix(val)]
     } else if (key === 'Categories' && isString(val)) {
       a.faction = val
     } else {
@@ -328,6 +332,28 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     }
     return a
   }, allegianceInfo as IAllegianceInfo)
+
+  // Seraphon hotfix
+  // It's messy, sorry!
+  if (
+    // @ts-ignore
+    ulNode?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
+  ) {
+    const way =
+      // @ts-ignore
+      obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]
+        ?.value
+    const constellation =
+      // @ts-ignore
+      ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value?.replace(
+        'The ',
+        ''
+      )
+
+    if ((way || constellation) && !fixedKeys.allegiance) fixedKeys.allegiance = []
+    if (way) fixedKeys.allegiance?.push(way)
+    if (constellation) fixedKeys.allegiance?.push(constellation)
+  }
 
   return fixedKeys
 }
@@ -348,6 +374,10 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     units: [] as string[],
   }
 
+  /**
+   * If a value is prefixed with a certain string,
+   * assign the value to a certain selection type
+   */
   const lookup = {
     'Battle Traits': 'traits',
     'Endless Spell': 'endless_spells',
@@ -363,6 +393,17 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     Unit: 'units',
   }
 
+  /**
+   * Names that if they are matched exactly,
+   * should be placed in a certain selection type
+   */
+  const exactMatches = {
+    'Firelance Temple-Host': 'battalions',
+    'Shadowstrike Temple-Host': 'battalions',
+    'Sunclaw Temple-Host': 'battalions',
+    'Thunderquake Temple-Host': 'battalions',
+  }
+
   roots.forEach(r => {
     // Handle name first
     if (ignoredValues.includes(r.name)) return
@@ -376,6 +417,17 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
         if (key === 'Endless Spell') process_entries = false
       }
     })
+
+    // Check for exact matches
+    if (!has_matched) {
+      const cleanedName = cleanText(r.name)
+      Object.keys(exactMatches).forEach(key => {
+        if (!has_matched && key === cleanedName) {
+          Collection[exactMatches[key]] = uniq(Collection[exactMatches[key]].concat([cleanedName]))
+          has_matched = true
+        }
+      })
+    }
 
     // Put everything else in units
     if (!has_matched) {

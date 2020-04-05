@@ -49,6 +49,15 @@ export const isAllegianceObj = (obj: IParentNode | IChildNode): obj is IParentNo
   if (isChildNode(obj)) return false
   if (!isRootSelection(obj)) return false
   if (!obj.childNodes.length) return false
+
+  // Seraphon hotfix
+  if (
+    // @ts-ignore
+    obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
+  ) {
+    return true
+  }
+
   const subObj = obj.childNodes.find(x => {
     return (
       isParentNode(x) &&
