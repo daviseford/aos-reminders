@@ -21,10 +21,7 @@ interface IModalComponentProps {
 
 const getDefaultName = (name: string) => {
   name = isValidFactionName(name) ? titleCase(name) : stripPunctuation(name)
-  return `${name
-    .trim()
-    .split(' ')
-    .join('_')}_Reminders`
+  return `${name.trim().split(' ').join('_')}_Reminders`
 }
 
 export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
