@@ -96,7 +96,6 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 
 export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null as string | null, allegiance: null as string[] | null }
-
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -321,8 +320,15 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     }, {})
   )
 
+  // Sometimes there are values we want to ignore
+  const ignoredAllegianceValues = ['Ur-Gold']
+
   const fixedKeys = Object.keys(mergedTraits).reduce((a, key) => {
     const val = mergedTraits[key]
+
+    // Skip ignored values
+    if (isString(val) && ignoredAllegianceValues.includes(val)) return a
+
     if (key === 'Selections' && isString(val)) {
       a.allegiance = [stripAllegiancePrefix(val)]
     } else if (key === 'Categories' && isString(val)) {
@@ -345,10 +351,9 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
         ?.value
     const constellation =
       // @ts-ignore
-      ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value?.replace(
-        'The ',
-        ''
-      )
+      ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
+        ?.replace('The ', '')
+        ?.replace(', Show Celestial Conjuration Table', '')
 
     if ((way || constellation) && !fixedKeys.allegiance) fixedKeys.allegiance = []
     if (way) fixedKeys.allegiance?.push(way)
@@ -380,6 +385,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    */
   const lookup = {
     'Battle Traits': 'traits',
+    'Bound Endless Spell': 'endless_spells',
     'Endless Spell': 'endless_spells',
     'Magmic Invocation': 'endless_spells',
     'Super Battalion': 'battalions',
@@ -398,7 +404,10 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    * should be placed in a certain selection type
    */
   const exactMatches = {
+    'Eternal Starhost': 'battalions',
+    'Firelance Starhost': 'battalions',
     'Firelance Temple-Host': 'battalions',
+    'Shadowstrike Starhost': 'battalions',
     'Shadowstrike Temple-Host': 'battalions',
     'Sunclaw Temple-Host': 'battalions',
     'Thunderquake Temple-Host': 'battalions',
@@ -408,13 +417,18 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // Handle name first
     if (ignoredValues.includes(r.name)) return
 
+    // We'll keep track of whether we've matched the current name to a category yet
+    // And if we need to do some additional parsing (we don't need to for Endless Spells)
     let [has_matched, process_entries] = [false, true]
+
     Object.keys(lookup).forEach(key => {
       if (!has_matched && r.name.startsWith(`${key}:`)) {
         const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
         Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
         has_matched = true
-        if (key === 'Endless Spell') process_entries = false
+        if (['Endless Spell', 'Bound Endless Spell'].includes(key)) {
+          process_entries = false
+        }
       }
     })
 
@@ -475,4 +489,6 @@ const ignoredNames = [
   'Summon Runic Fyrewall',
   'Summon Wrath-Axe',
   'Summon Zharrgron Flame Splitter',
+  'Ur-Gold',
+  "Summon Ravenak's Gnashing Jaws",
 ]
