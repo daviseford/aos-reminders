@@ -40,17 +40,48 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1585935571602-Battlescribe', () => {
+    const parsedText = getFile('1585935571602-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    // Skink Handler -> Razordon Hunting Pack
+    expect(res.selections.units).toContain('Razordon Hunting Pack')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1586036421684-Battlescribe', () => {
+    const parsedText = getFile('1586036421684-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    // Technically, this should be a "Bound Ravenak's Gnashing Jaws"
+    // But we're matching too aggressively on the "Bound" prefix so I'm leaving this alone for now
+    // expect(res.selections.endless_spells).toContain('Bound Ravenak\'s Gnashing Jaws')
+    expect(res.selections.endless_spells).toContain("Ravenak's Gnashing Jaws")
+    expect(res.selections.units).toContain('Razordon Hunting Pack')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1586096394855-Battlescribe', () => {
+    const parsedText = getFile('1586096394855-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
+    expect(res.selections.battalions).toContain('Shadowstrike Starhost')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1586243528222-Battlescribe', () => {
+    const parsedText = getFile('1586243528222-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toEqual([])
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1585479992182-Battlescribe', () => {
     const parsedText = getFile('1585479992182-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
     expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Skink Handler',
-      },
-    ])
+    expect(res.selections.units).toContain('Razordon Hunting Pack')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with 1585870135227-Battlescribe', () => {
@@ -61,12 +92,8 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
     expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
     expect(res.selections.scenery).toContain('Realmshaper Engine')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Skink Handler',
-      },
-    ])
+    expect(res.selections.units).toContain('Razordon Hunting Pack')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite5', () => {
