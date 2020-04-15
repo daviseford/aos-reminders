@@ -39,6 +39,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
+      // Force certain values into a certain part of the selections
+      if (manualLookup[txt]) {
+        const slice = manualLookup[txt]
+        accum[slice] = accum[slice].concat(txt)
+        return accum
+      }
+
       // Get Allegiance
       // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
       // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
@@ -268,6 +275,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     selections,
     unknownSelections: uniq(unknownSelections),
   }
+}
+
+/**
+ * Value on the left, desired selection placement on the right
+ */
+const manualLookup = {
+  'Celestar Ballista': 'units',
 }
 
 type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'

@@ -38,6 +38,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should work with Celestar Ballista', () => {
+    const parsedText = getFile('1586795945854-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    // The Ballista is under the Battalion section for some reason
+    expect(warscrollTxt.selections.units).toContain('Celestar Ballista')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   // TODO
   xit('should work with legacy Bretonnian units', () => {
     const parsedText = getFile('1585029831842-Warscroll_Builder')
