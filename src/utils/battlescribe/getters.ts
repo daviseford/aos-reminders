@@ -183,7 +183,11 @@ const factionAllegianceh4Lookup = (childNodes: Array<IParentNode | IChildNode>):
 }
 
 const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
-  const ignoredValues = ['Cycle of Corruption, Summon Daemons of Nurgle', 'Cycle of Corruption']
+  const ignoredValues = [
+    'Cycle of Corruption, Summon Daemons of Nurgle',
+    'Cycle of Corruption',
+    'Light of the Bad Moon',
+  ]
   try {
     // Don't run if we have categories
     // @ts-ignore

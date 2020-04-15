@@ -139,6 +139,7 @@ const azyrTypoMap: TNameMap = {
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
   'Atherquartz Brooch': 'Aetherquartz Brooch',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Exalted Seeker Chariot': 'Bladebringer, Herald on Exalted Chariot',
