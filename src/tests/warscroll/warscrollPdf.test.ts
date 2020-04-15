@@ -98,7 +98,7 @@ describe('getWarscrollArmyFromPdf', () => {
           "Bound Ravenak's Gnashing Jaws",
           'Bound Soulsnare Shackles',
           'Bound Suffocating Gravetide',
-          'Bound The Burning Head',
+          'Bound Burning Head',
           'Bound Umbral Spellportal',
         ],
         scenery: [],

@@ -37,6 +37,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('handles 1586650197871-Azyr', () => {
+    const fileTxt = getFile('1586650197871-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.endless_spells).toContain('Bound Burning Head')
+    expect(res.errors).toEqual([])
+  })
+
   it('handles 1584593035311-Azyr', () => {
     const fileTxt = getFile('1584593035311-Azyr')
     const pages = handleAzyrPages(fileTxt)

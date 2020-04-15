@@ -56,6 +56,7 @@ const warscrollTypoMap: TNameMap = {
   'Blade of All Frost': 'Blade of All-Frost',
   'Blade of the All-Frost': 'Blade of All-Frost',
   'Blue Horrors of Tzeentch': 'Horrors of Tzeentch',
+  'Bound The Burning Head': 'Bound Burning Head',
   'Bracers of Ember-iron': 'Bracers of Ember Iron',
   'Brand of the Spirit Daemon': 'Brand of the Split Daemon',
   'Brimstone Horrors of Tzeentch': 'Horrors of Tzeentch',
@@ -139,6 +140,7 @@ const azyrTypoMap: TNameMap = {
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
   'Atherquartz Brooch': 'Aetherquartz Brooch',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Exalted Seeker Chariot': 'Bladebringer, Herald on Exalted Chariot',

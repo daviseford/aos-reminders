@@ -40,6 +40,19 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1586535165728-Battlescribe', () => {
+    const parsedText = getFile('1586535165728-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1586790008426-Battlescribe', () => {
+    const parsedText = getFile('1586790008426-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Aspiring Deathbringer')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1585935571602-Battlescribe', () => {
     const parsedText = getFile('1585935571602-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -99,12 +112,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with Gloomspite5', () => {
     const parsedText = getFile('Gloomspite5')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Light of the Bad Moon',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Khorne7', () => {
