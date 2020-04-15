@@ -39,7 +39,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [BoundEffect, ...SoulsnareShacklesEffects],
   },
   {
-    name: `Bound The Burning Head`,
+    name: `Bound Burning Head`,
     effects: [BoundEffect, ...BurningHeadEffects],
   },
   {
