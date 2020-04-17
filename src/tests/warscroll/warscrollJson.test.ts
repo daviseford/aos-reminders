@@ -38,6 +38,26 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  // TODO: Legacy High Elf units
+  xit('should work with 1586991704763-Warscroll_Builder', () => {
+    const parsedText = getFile('1586991704763-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'High Warden',
+      },
+      {
+        severity: 'warn',
+        text: 'Dragonlord',
+      },
+      {
+        severity: 'warn',
+        text: 'Spireguard',
+      },
+    ])
+  })
+
   it('should work with Celestar Ballista', () => {
     const parsedText = getFile('1586795945854-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

@@ -32,6 +32,26 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it("correctly imports Braum's list", () => {
+    const pdfText = getFile('BraumSeraphonTTSList')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
+    expect(warscrollTxt.selections.units).toContain('Lord Kroak')
+    expect(warscrollTxt.selections.units).toContain('Saurus Astrolith Bearer')
+    expect(warscrollTxt.selections.units).toContain('Engine of the Gods')
+    expect(warscrollTxt.selections.units).toContain('Saurus Knights')
+    expect(warscrollTxt.selections.units).toContain('Saurus Warriors')
+    expect(warscrollTxt.selections.units).toContain('Razordon Hunting Pack')
+    expect(warscrollTxt.selections.units).toContain('Stegadon')
+    expect(warscrollTxt.selections.spells).toContain('Stellar Tempest')
+    expect(warscrollTxt.selections.artifacts).toContain('Incandescent Rectrices')
+    expect(warscrollTxt.realmscape).toBeNull()
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('imports new Seraphon armies correctly', () => {
     const pdfText = getFile('NewSeraphon')
     const parsedText = parsePdf(pdfText)
