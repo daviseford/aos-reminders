@@ -40,6 +40,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1587178498419-Battlescribe', () => {
+    const parsedText = getFile('1587178498419-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toContain('Hermdar (Lodge)')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1586535165728-Battlescribe', () => {
     const parsedText = getFile('1586535165728-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

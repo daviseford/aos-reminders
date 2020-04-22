@@ -294,6 +294,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     const val = entries[key]
       .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
       .replace(/^Awakened Wyldwood(,)?/g, '') // Remove random Sylvaneth Wyldwood entry
+      .replace(/(, )?Ur-Gold(,)?/g, '') // Remove Ur-Gold (not an allegiance)
       .replace(/ {1,},$/g, '') // remove trailing comma
       .trim()
     a[key] = val
@@ -324,14 +325,11 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     }, {})
   )
 
-  // Sometimes there are values we want to ignore
-  const ignoredAllegianceValues = ['Ur-Gold']
-
   const fixedKeys = Object.keys(mergedTraits).reduce((a, key) => {
     const val = mergedTraits[key]
 
-    // Skip ignored values
-    if (isString(val) && ignoredAllegianceValues.includes(val)) return a
+    // Ignore empty values
+    if (!val) return a
 
     if (key === 'Selections' && isString(val)) {
       a.allegiance = [stripAllegiancePrefix(val)]
