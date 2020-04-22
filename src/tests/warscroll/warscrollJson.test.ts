@@ -38,8 +38,15 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  // TODO Legacy Death composition
+  xit('should work with Legacy Death composition', () => {
+    const parsedText = getFile('1587313852365-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   // TODO: Legacy High Elf units
-  xit('should work with 1586991704763-Warscroll_Builder', () => {
+  xit('should work with Legacy High Elf units', () => {
     const parsedText = getFile('1586991704763-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.errors).toEqual([
