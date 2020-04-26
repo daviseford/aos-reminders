@@ -52,6 +52,7 @@ const warscrollTypoMap: TNameMap = {
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
   'Armor of Silvered Sigmarite': 'Armour of Silvered Sigmarite',
+  'Aventis Firestrike Magister of Hammerhal': 'Aventis Firestrike',
   'Berzerker Lord': 'Berserker Lord (Mortal)',
   'Blade of All Frost': 'Blade of All-Frost',
   'Blade of the All-Frost': 'Blade of All-Frost',

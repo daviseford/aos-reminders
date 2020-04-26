@@ -38,6 +38,13 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should work with Aventis Firestrike Magister of Hammerhal', () => {
+    const parsedText = getFile('1587746522659-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Aventis Firestrike')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   // TODO Legacy Death composition
   xit('should work with Legacy Death composition', () => {
     const parsedText = getFile('1587313852365-Warscroll_Builder')
