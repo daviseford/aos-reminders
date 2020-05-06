@@ -1,6 +1,7 @@
 import React, { useEffect, lazy, Suspense, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import qs from 'qs'
+import { isString } from 'lodash'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -67,7 +68,7 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
     ignoreQueryPrefix: true,
   })
 
-  if (redeem && referrer) {
+  if (redeem && referrer && isString(redeem) && isString(referrer)) {
     return { giftId: redeem, userId: referrer }
   }
 
@@ -132,7 +133,7 @@ const setLocalRedemptionKey = () => {
   const { redeem, referrer } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   })
-  if (redeem && referrer) {
+  if (redeem && referrer && isString(redeem) && isString(referrer)) {
     LocalRedemptionKey.set(redeem, referrer)
   }
 }

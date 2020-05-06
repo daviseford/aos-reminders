@@ -6,8 +6,8 @@ import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
 export type TDropdownOption = { value: string; label: string }
-export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta) => void
-export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta) => void
+export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta<any>) => void
+export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
 
 interface ISelectOneProps {
   hasDefault?: boolean
