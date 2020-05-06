@@ -1,4 +1,5 @@
 import qs from 'qs'
+import { isString } from 'lodash'
 import { logEvent, logSubscription, logGiftedSubscription } from 'utils/analytics'
 import { loadArmyFromLink } from 'utils/loadArmy/loadArmyHelpers'
 
@@ -10,11 +11,11 @@ export const handleCheckout = () => {
     }
   )
 
-  if (subscribed) {
+  if (subscribed && isString(plan)) {
     logEvent(`Checkout-Subscribed-${plan}`)
     logSubscription(plan)
   }
-  if (gifted) {
+  if (gifted && isString(plan) && isString(quantity)) {
     logEvent(`Checkout-Gifted-Subscription-${plan}-x-${quantity}`)
     logGiftedSubscription(plan, quantity)
   }
@@ -35,7 +36,7 @@ export const getArmyLink = (): string | null => {
   const { army = null } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   })
-  return army
+  return army as string | null
 }
 
 /**
