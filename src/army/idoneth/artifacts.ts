@@ -78,7 +78,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rune of the Surging Tide`,
-        desc: `Once per battle, at the start of your hero phase, you can say that the bearer will use the Rune of the Surging Tide. If you do so, say whether the rune will be used to create a stream or a riptide. If a stream is created, add 1" to the Move characteristic of friendly IDONETH DEEPKINunits until your next hero phase. If a riptide is created, subtract 1" from the Move characteristic of enemy units until your next hero phase.`,
+        desc: `Once per battle, at the start of your hero phase, you can say that the bearer will use the Rune of the Surging Tide. If you do so, say whether the rune will be used to create a stream or a riptide. If a stream is created, add 1" to the Move characteristic of friendly IDONETH DEEPKIN units until your next hero phase. If a riptide is created, subtract 1" from the Move characteristic of enemy units until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -138,7 +138,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Whorlshell`,
-        desc: `Once per battle, at the start of your hero phase, you can say that the bearer will use the Whorlshell. If you do so, pick an enemy HEROwithin 9" of the bearer that is visible to them and roll 2D6. If the roll is greater than the enemy hero's Bravery characteristic, subtract 1 from hit rolls for the enemy hero for the rest of the battle.`,
+        desc: `Once per battle, at the start of your hero phase, you can say that the bearer will use the Whorlshell. If you do so, pick an enemy HERO within 9" of the bearer that is visible to them and roll 2D6. If the roll is greater than the enemy hero's Bravery characteristic, subtract 1 from hit rolls for the enemy hero for the rest of the battle.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -275,7 +275,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Augury Shells`,
-        desc: `Once per battle, at the start of your hero phase, roll 2D6. During that hero phase, you can use that roll as the result of a casting roll for the bearer, or as the result of an unbinding roll for an enemy WIZARDthat is attempting to unbind a spell cast by the bearer. You must say that you will use that roll before the actual casting or unbinding roll is made.`,
+        desc: `Once per battle, at the start of your hero phase, roll 2D6. During that hero phase, you can use that roll as the result of a casting roll for the bearer, or as the result of an unbinding roll for an enemy WIZARD that is attempting to unbind a spell cast by the bearer. You must say that you will use that roll before the actual casting or unbinding roll is made.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

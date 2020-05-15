@@ -188,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Silent Communion`,
-        desc: `Once per battle, in your hero phase, you can pick 1 friendly model with this ability and set up 1 AWAKENED WYLDWOODwholly within 18" of that model and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
+        desc: `Once per battle, in your hero phase, you can pick 1 friendly model with this ability and set up 1 AWAKENED WYLDWOOD wholly within 18" of that model and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
         when: [HERO_PHASE],
       },
       {
@@ -198,7 +198,7 @@ export const Units: TUnits = [
       },
       {
         name: `Awakening the Wood`,
-        desc: `Casting value of 6. Pick 1 friendly AWAKENED WYLDWOODthat is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOODsuffers D3 mortal wounds (roll separately for each unit)`,
+        desc: `Casting value of 6. Pick 1 friendly AWAKENED WYLDWOOD that is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOOD suffers D3 mortal wounds (roll separately for each unit)`,
         when: [HERO_PHASE],
         spell: true,
       },

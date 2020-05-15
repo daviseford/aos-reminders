@@ -17,7 +17,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Molten Infernoth`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS Priest can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 12" of that FYRESLAYERS Priest.`,
+        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 12" of that FYRESLAYERS Priest.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -67,12 +67,12 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Zharrgron Flame-spitter`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS Priest can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 6" of that FYRESLAYERS Priest.`,
+        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 6" of that FYRESLAYERS PRIEST.`,
         when: [HERO_PHASE],
       },
       {
         name: `Magma Blast`,
-        desc: `At the start of your shooting phase, if there is a friendly FYRESLAYERS Priestwithin 6" of this model, you can pick an enemy unit within 24" of this model and roll 12 dice. Add 1 to the roll if there are 10 or more models in the unit. Add 2 to the roll instead if there are 20 or more models in the unit. For each 6+, the unit suffers 1 mortal wound.`,
+        desc: `At the start of your shooting phase, if there is a friendly FYRESLAYERS PRIEST within 6" of this model, you can pick an enemy unit within 24" of this model and roll 12 dice. Add 1 to the roll if there are 10 or more models in the unit. Add 2 to the roll instead if there are 20 or more models in the unit. For each 6+, the unit suffers 1 mortal wound.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],

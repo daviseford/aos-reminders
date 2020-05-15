@@ -147,7 +147,7 @@ export const Units: TUnits = [
       ...SlannBaseEffects,
       {
         name: `Azyrite Force Barrier`,
-        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number ofenemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
+        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number of enemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
         when: [COMBAT_PHASE],
       },
       {
