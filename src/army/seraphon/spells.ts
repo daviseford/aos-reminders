@@ -37,7 +37,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystical Unforging`,
-        desc: `Casting value of 7. Pick 1 enemy HERO that bears an artefact of power within 12" of the caster and visible to them. That HEROsuffers D3 mortal wounds and you must roll a dice. On a 5+, that HEROno longer bears that artefact of power (if a weapon was picked when it was selected, the weapon reverts to normal).`,
+        desc: `Casting value of 7. Pick 1 enemy HERO that bears an artefact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds and you must roll a dice. On a 5+, that HERO no longer bears that artefact of power (if a weapon was picked when it was selected, the weapon reverts to normal).`,
         when: [HERO_PHASE],
       },
     ],
@@ -97,7 +97,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Extend Astromatrix`,
-        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster and visible to them. Any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to SERAPHONunits, while any Deadly and Sinister scenery rules for that terrain feature do not apply to SERAPHON units.`,
+        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster and visible to them. Any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to SERAPHON units, while any Deadly and Sinister scenery rules for that terrain feature do not apply to SERAPHON units.`,
         when: [HERO_PHASE],
       },
     ],

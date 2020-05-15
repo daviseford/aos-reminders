@@ -133,7 +133,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Pack Leader`,
-        desc: `Add 2 to the Attacks characteristic oof this model's Claws and Fangs while this model is within 6" of any friendly DRACOTHIAN GUARD models.`,
+        desc: `Add 2 to the Attacks characteristic of this model's Claws and Fangs while this model is within 6" of any friendly DRACOTHIAN GUARD models.`,
         when: [COMBAT_PHASE],
         mount_trait: true,
       },
@@ -265,7 +265,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ear-bursting Roar`,
-        desc: `At the start of the combat phase you can pick an enemy unit within 3" oof this model and roll a D6. On a 4+ subtract 1 from hit rolls for attacks made by that unit until the end of that phase.`,
+        desc: `At the start of the combat phase you can pick an enemy unit within 3" of this model and roll a D6. On a 4+ subtract 1 from hit rolls for attacks made by that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         mount_trait: true,
       },

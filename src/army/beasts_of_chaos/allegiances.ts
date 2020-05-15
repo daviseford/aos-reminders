@@ -54,7 +54,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Propagator of Devolution`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly GAVESPAWN unitwhollywithin12"ofafriendly GAVESPAWN CHAOS SPAWN . Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly GAVESPAWN unit wholly within 12" of a friendly GAVESPAWN CHAOS SPAWN. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },

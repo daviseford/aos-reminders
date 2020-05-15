@@ -81,7 +81,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Plaque of Dominion`,
-        desc: `In your hero phase, you can pick 1 enemy HERO within 12" of the bearer and visible to them. Until your next hero phase, that HEROfights at the end of the combat phase. In addition, if that HERO is a WIZARD, until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that HERO.`,
+        desc: `In your hero phase, you can pick 1 enemy HERO within 12" of the bearer and visible to them. Until your next hero phase, that HERO fights at the end of the combat phase. In addition, if that HERO is a WIZARD, until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that HERO.`,
         when: [HERO_PHASE],
       },
     ],

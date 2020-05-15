@@ -248,7 +248,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Tzeentch`,
-        desc: `Casting value 4. If successfully cast, you can re-roll casting rolls for friendly Tzeentch Wizardswholly within 18" of the caster for the rest of that phase.`,
+        desc: `Casting value 4. If successfully cast, you can re-roll casting rolls for friendly TZEENTCH WIZARDS wholly within 18" of the caster for the rest of that phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
