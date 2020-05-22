@@ -14,7 +14,7 @@ import {
 
 export const StabEmGoodEffect = {
   name: `I'm Da Boss, Now Stab 'Em Good!`,
-  desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MOONCLAN GROT unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
+  desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general. If the unmodified wound roll for an attack made by that unit in that phase is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
   when: [START_OF_COMBAT_PHASE],
   command_ability: true,
 }
