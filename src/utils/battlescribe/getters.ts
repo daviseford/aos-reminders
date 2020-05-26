@@ -11,7 +11,7 @@ import { importFactionNameMap } from 'utils/import/options'
 import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isValidFactionName } from 'utils/armyUtils'
-import { TSupportedFaction } from 'meta/factions'
+import { TSupportedFaction, SOULBLIGHT } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
@@ -344,6 +344,15 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     }
     return a
   }, allegianceInfo as IAllegianceInfo)
+
+  // Soulblight hotfix
+  if (
+    // @ts-ignore
+    obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
+  ) {
+    fixedKeys.faction = SOULBLIGHT
+    fixedKeys.allegiance = []
+  }
 
   // Seraphon hotfix
   // It's messy, sorry!
