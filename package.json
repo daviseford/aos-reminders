@@ -41,6 +41,8 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "react-app-rewired build",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
+    "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
+    "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "lint": "eslint --max-warnings 0 --ext ts,tsx src",
     "test": "react-app-rewired test",
     "up": "yarn upgrade-interactive --latest",
