@@ -14,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/units'
 
 const AuricRunesonEffects = [
   {
@@ -72,6 +73,7 @@ const RunicEmpowermentEffect = {
 
 // Unit Names
 export const Units: TUnits = [
+  APPRENTICE_RUNESMITH,
   {
     name: `Auric Runefather on Magmadroth`,
     effects: [

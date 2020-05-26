@@ -319,6 +319,7 @@ export const importFactionNameMap = {
   'Darkling Covens': CITIES_OF_SIGMAR,
   'Daughters of Khaine': DAUGHTERS_OF_KHAINE,
   'Disciples of Tzeentch': TZEENTCH,
+  'Fist of the Everchosen': SLAVES_TO_DARKNESS,
   'Flesh Eater Courts': FLESH_EATER_COURTS,
   'Flesh-eater Courts': FLESH_EATER_COURTS,
   'Gitmob Grots': GLOOMSPITE_GITZ,

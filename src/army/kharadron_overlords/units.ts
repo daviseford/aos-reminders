@@ -15,6 +15,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/units'
 
 const FlyingTransportEffect = {
   name: `Flying Transport`,
@@ -119,6 +120,7 @@ const EndrinmasterBaseEffects = [
 
 // Unit Names
 export const Units: TUnits = [
+  APPRENTICE_RUNESMITH,
   {
     name: `Endrinmaster with Dirigible Suit`,
     effects: [...EndrinmasterBaseEffects, HitchersEffect],
