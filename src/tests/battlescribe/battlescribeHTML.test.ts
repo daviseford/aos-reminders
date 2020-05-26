@@ -40,6 +40,55 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1588693593835-Battlescribe', () => {
+    const parsedText = getFile('1588693593835-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Kroxigor')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1588929444550-Battlescribe', () => {
+    const parsedText = getFile('1588929444550-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(SOULBLIGHT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1589444286540-Battlescribe', () => {
+    const parsedText = getFile('1589444286540-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Eternal Temple-host')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1589575638626-Battlescribe', () => {
+    const parsedText = getFile('1589575638626-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toContain('Stalliarch Lords')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1589673659590-Battlescribe', () => {
+    const parsedText = getFile('1589673659590-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1590190604257-Battlescribe', () => {
+    const parsedText = getFile('1590190604257-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Sunclaw Starhost')
+    expect(res.selections.units).not.toContain('Sunclaw Starhost')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should work with 1590365910617-Battlescribe', () => {
+    const parsedText = getFile('1590365910617-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toContain('Drowned Men')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1587178498419-Battlescribe', () => {
     const parsedText = getFile('1587178498419-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

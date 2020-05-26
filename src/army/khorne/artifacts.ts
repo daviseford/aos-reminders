@@ -230,10 +230,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Behemoth's Bane`,
+    name: `Foe's Bane`,
     effects: [
       {
-        name: `Behemoth's Bane`,
+        name: `Foe's Bane`,
         desc: `Pick 1 of the bearer's melee weapons. Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
         when: [COMBAT_PHASE],
       },

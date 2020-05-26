@@ -11,7 +11,7 @@ import { importFactionNameMap } from 'utils/import/options'
 import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isValidFactionName } from 'utils/armyUtils'
-import { TSupportedFaction } from 'meta/factions'
+import { TSupportedFaction, SOULBLIGHT } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
@@ -206,7 +206,11 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
     if (!isChildNode(valNode) || valNode.nodeName !== '#text') return null
 
     const value = cleanText(valNode.value)
-    return ignoredValues.includes(value) ? null : value
+      .replace('Cycle of Corruption, ', '')
+      .replace('Summon Daemons of Nurgle', '')
+      .trim()
+
+    return ignoredValues.includes(value) || !value ? null : value
   } catch (err) {
     return null
   }
@@ -341,6 +345,15 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     return a
   }, allegianceInfo as IAllegianceInfo)
 
+  // Soulblight hotfix
+  if (
+    // @ts-ignore
+    obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
+  ) {
+    fixedKeys.faction = SOULBLIGHT
+    fixedKeys.allegiance = []
+  }
+
   // Seraphon hotfix
   // It's messy, sorry!
   if (
@@ -407,10 +420,12 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    */
   const exactMatches = {
     'Eternal Starhost': 'battalions',
+    'Eternal Temple-Host': 'battalions',
     'Firelance Starhost': 'battalions',
     'Firelance Temple-Host': 'battalions',
     'Shadowstrike Starhost': 'battalions',
     'Shadowstrike Temple-Host': 'battalions',
+    'Sunclaw Starhost': 'battalions',
     'Sunclaw Temple-Host': 'battalions',
     'Thunderquake Temple-Host': 'battalions',
   }

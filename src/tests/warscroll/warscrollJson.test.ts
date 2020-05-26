@@ -38,6 +38,27 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should work with 1588368330846-Warscroll_Builder', () => {
+    const parsedText = getFile('1588368330846-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with 1589375182953-Warscroll_Builder', () => {
+    const parsedText = getFile('1589375182953-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.artifacts).toContain("Foe's Bane")
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with 1589874682978-Warscroll_Builder', () => {
+    const parsedText = getFile('1589874682978-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.units).toContain('Apprentice Runesmith')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with Aventis Firestrike Magister of Hammerhal', () => {
     const parsedText = getFile('1587746522659-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
