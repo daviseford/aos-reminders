@@ -171,6 +171,11 @@ export const Units: TUnits = [
         desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a D6. On a 5+ the attacking unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
+      {
+        name: `Thunderhead Crown`,
+        desc: `In your hero phase, heal 1 wound allocated to this model.`,
+        when: [HERO_PHASE],
+      },
       SpiritFlaskEffect,
       {
         name: `Fiery Orator`,
