@@ -181,6 +181,8 @@ const battlescribeTypoMap: TNameMap = {
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'Sneaky Shufflers': 'Sneaky Snufflers',
   'Staff of Occular Optimisation': 'Staff of Ocular Optimisation',
+  'Staff of Ocular Optimization': 'Staff of Ocular Optimisation',
+  'Stallarch Lords': 'Stalliarch Lords',
   'The Beguilling Gem': 'Beguiling Gem (Chaos)',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',

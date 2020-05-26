@@ -411,10 +411,12 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    */
   const exactMatches = {
     'Eternal Starhost': 'battalions',
+    'Eternal Temple-Host': 'battalions',
     'Firelance Starhost': 'battalions',
     'Firelance Temple-Host': 'battalions',
     'Shadowstrike Starhost': 'battalions',
     'Shadowstrike Temple-Host': 'battalions',
+    'Sunclaw Starhost': 'battalions',
     'Sunclaw Temple-Host': 'battalions',
     'Thunderquake Temple-Host': 'battalions',
   }
