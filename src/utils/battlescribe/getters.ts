@@ -206,7 +206,11 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
     if (!isChildNode(valNode) || valNode.nodeName !== '#text') return null
 
     const value = cleanText(valNode.value)
-    return ignoredValues.includes(value) ? null : value
+      .replace('Cycle of Corruption, ', '')
+      .replace('Summon Daemons of Nurgle', '')
+      .trim()
+
+    return ignoredValues.includes(value) || !value ? null : value
   } catch (err) {
     return null
   }
