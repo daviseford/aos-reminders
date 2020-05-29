@@ -95,6 +95,7 @@ const getTzeentchDaemonUnits = () => {
 const getSlavesDaemonUnits = () => {
   const listOfUnits = [
     `Archaon the Everchosen`,
+    `Be'Lakor`,
     `Daemon Prince`,
     `Gaunt Summoner on Disc of Tzeentch`,
     `Soul Grinder`,

@@ -534,11 +534,7 @@ export const Units: TUnits = [
         desc: `Roll a D6 for each unit (friend or foe) within 3" of this model. On a 2+ that unit suffers 1 mortal wound. Nurgle units instead suffer 1 mortal wound on a 6+.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Virulent Discharge`,
-        desc: `Roll a D6 for each unit (friend or foe) within 3" of any friendly units with this ability. On a 6+ that unit suffers D3 mortal wounds. If the unit has the Nurgle keyword, heal D3 wounds allocated instead.`,
-        when: [HERO_PHASE],
-      },
+      VirulentDischargeEffect,
       {
         name: `Spearhead of Contagion`,
         desc: `If this model is your general, you can pick a friendly Pusgoyle Blightlords unit within 14" and add 8" to that units move characteristic until your next hero phase. The same unit cannot benefit from this ability more than once in the same phase.`,
