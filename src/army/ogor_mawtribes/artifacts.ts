@@ -64,7 +64,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sky-Titan Scatter Pistols`,
         desc: `The bearer's Ogor Pistols have an Attacks characteristic of 6 instead of 2.`,
-        when: [],
+        when: [SHOOTING_PHASE],
       },
     ],
   },
