@@ -13,7 +13,7 @@ const Scenery: TScenery = [
       {
         name: `Ruler of All He Surveys`,
         desc: `An ABHORRANT ARCHREGENT that is within 1" of this terrain feature can use the Summon Imperial Guard command ability without a command point being spent. In addition, an ABHORRANT GHOUL KING that is within 1" of this terrain feature can use the Summon Men-at-arms command ability without a command point being spent.`,
-        when: [HERO_PHASE],
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Ghoulish Landmark`,
