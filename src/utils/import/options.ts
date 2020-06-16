@@ -168,7 +168,7 @@ const battlescribeTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Helm of Obsidian': 'Helm of Obsidia',
   'Incandescent Rectices': 'Incandescent Rectrices',
-  Kroxigors: 'Kroxigor',
+  'Katakros, Mortarch of the Necropolis': 'Orpheon Katakros',
   'Light of Dracothian': 'Light of Dracothion',
   'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
   'Mazrall the Butcher': 'Mazarall the Butcher',
@@ -201,6 +201,7 @@ const battlescribeTypoMap: TNameMap = {
   "Ironskull'z Boyz": "Ironskull's Boyz",
   "Might 'Eadbutt": "Mighty 'Eadbutt",
   BRIOMIDAR: 'Briomdar (Enclave)',
+  Kroxigors: 'Kroxigor',
   Protector: 'Protectors',
   Voxaxe: 'Vosaxe',
 }

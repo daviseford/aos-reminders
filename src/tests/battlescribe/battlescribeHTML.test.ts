@@ -40,6 +40,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1590913977244-Battlescribe', () => {
+    const parsedText = getFile('1590913977244-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Orpheon Katakros')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1588693593835-Battlescribe', () => {
     const parsedText = getFile('1588693593835-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
