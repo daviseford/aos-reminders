@@ -1361,7 +1361,7 @@ describe('getBattlescribeArmy', () => {
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
       "FOOTNOTE: Where There's War, There's Gold",
-      'Khemists Supreme',
+      'Khemist Supreme',
     ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',
