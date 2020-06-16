@@ -82,7 +82,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Waaagh Points`,
-    desc: `+D6 points if you general is alive at the start of your hero phase, 6 if your general is Gordrakk.
+    desc: `+D6 points if your general is alive at the start of your hero phase, 6 if your general is Gordrakk.
     +2 points for each Warchanter at the start of your hero phase.
     +1 point for each Wurgogg Prophet or Wardokk at the start of your hero phase.`,
     when: [START_OF_HERO_PHASE],

@@ -87,6 +87,7 @@ const warscrollTypoMap: TNameMap = {
   'Hellstriders with Hellscourges': 'Hellstriders',
   'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
+  'Inescapable Doom': 'Inescapeable Doom (Knights of the Empty Throne)',
   'Katakros, Mortarch of the Necropolis': 'Katakros',
   'Khorghos Khul': 'Korghos Khul',
   'Knights of the Empty Throne Varanguard': 'Varanguard',
