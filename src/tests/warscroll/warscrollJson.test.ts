@@ -38,6 +38,27 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should work with 1591871273929-Warscroll_Builder', () => {
+    const parsedText = getFile('1591871273929-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.traits).toContain('Inescapeable Doom (Knights of the Empty Throne)')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with 1592153855214-Warscroll_Builder', () => {
+    const parsedText = getFile('1592153855214-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.battalions).toContain('Bloodwrack Sisterhood')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
+  it('should work with 1592258767793-Warscroll_Builder', () => {
+    const parsedText = getFile('1592258767793-Warscroll_Builder')
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    expect(warscrollTxt.selections.traits).toContain('Khemist Supreme')
+    expect(warscrollTxt.errors).toEqual([])
+  })
+
   it('should work with 1588368330846-Warscroll_Builder', () => {
     const parsedText = getFile('1588368330846-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)

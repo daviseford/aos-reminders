@@ -428,11 +428,21 @@ export const Units: TUnits = [
 // Battalions
 export const Battalions: TBattalions = [
   {
+    name: `Bloodwrack Sisterhood`,
+    effects: [
+      {
+        name: `Delight in Slaughter`,
+        desc: `In your hero phase, roll a D6 for each unit in this battalion that is within 3" of an enemy unit and within 9" of the battalion's Cauldron of Blood; on a 6 it can immediately pile in and attack as if it were the combat phase. This does not stop them from piling in and attacking again later in the turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
     name: `War Coven of Morathi`,
     effects: [
       {
         name: `Blood Rituals`,
-        desc: `If you army has the Daughters of Khaine allegiance, units in this battalion count the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
+        desc: `If your army has the Daughters of Khaine allegiance, units in this battalion count the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
         when: [START_OF_ROUND],
       },
       {

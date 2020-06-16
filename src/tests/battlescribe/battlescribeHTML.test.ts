@@ -40,6 +40,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should work with 1590913977244-Battlescribe', () => {
+    const parsedText = getFile('1590913977244-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Orpheon Katakros')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1588693593835-Battlescribe', () => {
     const parsedText = getFile('1588693593835-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -1361,7 +1368,7 @@ describe('getBattlescribeArmy', () => {
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
       "FOOTNOTE: Where There's War, There's Gold",
-      'Khemists Supreme',
+      'Khemist Supreme',
     ])
     expect(res.selections.units).toEqual([
       'Aether-Khemist',

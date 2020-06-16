@@ -99,7 +99,7 @@
     "react-app-rewired": "2.1.6",
     "replace-in-file": "6.1.0",
     "source-map-explorer": "2.4.2",
-    "ts-node-dev": "1.0.0-pre.44",
+    "ts-node-dev": "1.0.0-pre.49",
     "tsconfig-paths": "3.9.0",
     "typescript": "3.9.5",
     "xlsx": "0.16.2"

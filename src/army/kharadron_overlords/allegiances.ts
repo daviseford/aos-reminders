@@ -89,7 +89,7 @@ const Allegiances: TAllegiances = [
       SeekNewProspectsEffect,
       WhereTheresWarTheresGoldEffect,
       {
-        name: `Khemists Supreme`,
+        name: `Khemist Supreme`,
         desc: `Replace the rules for this general's Aetheric Augmentation ability with: 
         
         "In your hero phase you can pick 2 friendly SKYFARERS units wholly within 12" of this model. Until your next hero phase, you can re-roll wound rolls of 1 for attacks made by those units. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.'`,
