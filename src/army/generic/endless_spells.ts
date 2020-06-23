@@ -53,11 +53,6 @@ export const EmeraldLifeswarmEffects = [
     desc: `After this model is set up or after it has moved, pick 1 unit within 1" of it. You can either heal D3 wounds that have been allocated to that unit or, if no wounds are currently allocated to the unit, you may return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
     when: [HERO_PHASE],
   },
-  {
-    name: `Empowered by Ghyran (${GHYRAN})`,
-    desc: `If your battle is taking place in the Realm of Life, roll a D6 to determine the number of wounds healed or wounds worth of slain models returned by the Emerald Lifeswarm's Bounteous Healing ability.`,
-    when: [HERO_PHASE],
-  },
 ]
 export const SoulsnareShacklesEffects = [
   {
@@ -69,11 +64,6 @@ export const SoulsnareShacklesEffects = [
     name: `Bound for the Great Oubliette`,
     desc: `At the start of the movement phase, roll a D6 for each unit within 6" of any Soulsnare Shackles models. On a 3+ halve the move characteristic of that unit until the end of that phase. On a 6 that unit also suffers D3 mortal wounds.`,
     when: [MOVEMENT_PHASE],
-  },
-  {
-    name: `Empowered by Shyish (${SHYISH})`,
-    desc: `If your battle is taking place in the Realm of Death, the second and third Soulsnare Shackles models can be set up wholly within 9" of the first, instead of 6"`,
-    when: [HERO_PHASE],
   },
 ]
 export const SuffocatingGravetideEffects = [
@@ -107,11 +97,6 @@ export const SuffocatingGravetideEffects = [
     desc: `When a missile weapon targets a unit that has all of its models within 1" of this model, the target unit receives the benefit of cover if the attacking unit is closer to this model than it is to the target unit.`,
     when: [SHOOTING_PHASE],
   },
-  {
-    name: `Empowered by Shyish (${SHYISH})`,
-    desc: `If your battle is taking place in the Realm of Death, this model can move up to 12" instead of 8".`,
-    when: [HERO_PHASE],
-  },
 ]
 export const GeminidsOfUhlGyshEffects = [
   {
@@ -132,16 +117,6 @@ export const GeminidsOfUhlGyshEffects = [
   {
     name: `Tendrils of Shadow and Light`,
     desc: `After the Shadow Geminid model has moved, each unit that has any models it passed across suffers D3 mortal wounds. In addition, subtract 1 (to a minimum of 1) from the Attacks characteristic of melee weapons used by each unit that has any models it passed across until the end of the battle round. After the Light Geminid model has moved, each unit that has any models it passed across suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for each unit that has any models it passed across until the end of the battle round. A unit is not affected by the Light Geminid model if it has been passed across by the Shadow Geminind model earlier in the same battle round (a unit can be affected by one or other of the models each battle round, but not both).'`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Empowered by Hysh`,
-    desc: `If your battle is taking place in the Realm of Light, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Light Geminid.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Empowered by Ulgu (${ULGU})`,
-    desc: `If your battle is taking place in the Realm of Shadow, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Shadow Geminid.`,
     when: [HERO_PHASE],
   },
 ]
@@ -171,11 +146,6 @@ export const BurningHeadEffects = [
     desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
-  {
-    name: `Empowered by Aqshy (${AQSHY})`,
-    desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
-    when: [HERO_PHASE],
-  },
 ]
 export const QuicksilverSwordsEffects = [
   {
@@ -196,11 +166,6 @@ export const QuicksilverSwordsEffects = [
   {
     name: `Dancing Blades`,
     desc: `After this model has moved, you can pick 1 unit within 6" of it and roll 12 dice. For each roll of 6+ that unit suffers 1 mortal wound. If the unit being rolled for is a CHAOS unit, it suffers 1 mortal wound for each roll of 5+ instead.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Empowered by Chamon (${CHAMON})`,
-    desc: `If your battle is taking place in the Realm of Metal, you can roll 15 dice for this model's Dancing Blades ability instead of 12.`,
     when: [HERO_PHASE],
   },
 ]
@@ -230,11 +195,6 @@ export const PurpleSunEffects = [
     desc: `Subtract 1 from the Bravery characteristic of all units while they are within 6" of this model.`,
     when: [BATTLESHOCK_PHASE],
   },
-  {
-    name: `Empowered by Shyish (${SHYISH})`,
-    desc: `If your battle is taking place in the Realm of Death, this model can move 12" instead of 9".`,
-    when: [HERO_PHASE],
-  },
 ]
 export const PrismaticPalisadeEffects = [
   {
@@ -251,11 +211,6 @@ export const PrismaticPalisadeEffects = [
     name: `Dazzling Brilliance`,
     desc: `A model cannot see another model if an imaginary straight line, 1mm wide, drawn from the centre of its base to the centre of the other model's base passes over this model.`,
     when: [DURING_GAME],
-  },
-  {
-    name: `Empowered by Hysh (${HYSH})`,
-    desc: `If your battle is taking place in the Realm of Light, add 1 to rolls made to determine if a unit is affected by this model's Blinding Light ability.`,
-    when: [HERO_PHASE],
   },
 ]
 export const MalevolentMaelstromEffects = [
@@ -278,11 +233,6 @@ export const MalevolentMaelstromEffects = [
     name: `Morbid Detonation`,
     desc: `At the end of each battle round, roll a D6 for each Malevolent Maelstrom and add the number of energy points allocated to that model to the roll. On a 7+ that Malevolent Maelstrom explodes. Each unit within 3D6" of the model that exploded suffers D3 mortal wounds. The model that exploded is then dispelled.`,
     when: [END_OF_ROUND],
-  },
-  {
-    name: `Empowered by Shyish (${SHYISH})`,
-    desc: `If your battle is taking place in the Realm of Death, allocate 1 additional energy point to this model at the start of each battle round.`,
-    when: [HERO_PHASE],
   },
 ]
 export const RavenaksGnashingJawsEffects = [
@@ -310,11 +260,6 @@ export const RavenaksGnashingJawsEffects = [
     name: `Ravening Hunger`,
     desc: `Subtract 1 from the Bravery characteristic of each unit that has any models it passed across until the end of the battle round.`,
     when: [BATTLESHOCK_PHASE],
-  },
-  {
-    name: `Empowered by Ghur (${GHUR})`,
-    desc: `If your battle is taking place in the Realm of Beasts, this model can move up to D6+12" instead of 12".`,
-    when: [HERO_PHASE],
   },
 ]
 export const BalewindVortexEffects = [
@@ -372,11 +317,6 @@ export const UmbralSpellportalEffects = [
     desc: `If a WIZARD successfully casts a spell while they are within 1" of an Umbral Spellportal model, the range and visibility of the spell can be measured from the other Umbral Spellportal model from this endless spell. If a predatory endless spell finishes a move within 6" of an Umbral Spellportal model, remove it from the battlefield and set it up again anywhere within 6" of the other Umbral Spellportal model from this endless spell.`,
     when: [HERO_PHASE],
   },
-  {
-    name: `Empowered by Ulgu (${ULGU})`,
-    desc: `If your battle is taking place in the Realm of Shadow, the second Umbral Spellportal model can be set up anywhere on the battlefield, instead of within 18" of the first.`,
-    when: [HERO_PHASE],
-  },
 ]
 
 const EndlessSpells: TEndlessSpells = [
@@ -386,47 +326,129 @@ const EndlessSpells: TEndlessSpells = [
   },
   {
     name: `Emerald Lifeswarm`,
-    effects: [...EmeraldLifeswarmEffects],
+    effects: [
+      ...EmeraldLifeswarmEffects,
+      {
+        name: `Empowered by Ghyran (${GHYRAN})`,
+        desc: `If your battle is taking place in the Realm of Life, roll a D6 to determine the number of wounds healed or wounds worth of slain models returned by the Emerald Lifeswarm's Bounteous Healing ability.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Geminids of Uhl-Gysh`,
-    effects: [...GeminidsOfUhlGyshEffects],
+    effects: [
+      ...GeminidsOfUhlGyshEffects,
+      {
+        name: `Empowered by Hysh`,
+        desc: `If your battle is taking place in the Realm of Light, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Light Geminid.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Empowered by Ulgu (${ULGU})`,
+        desc: `If your battle is taking place in the Realm of Shadow, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Shadow Geminid.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Malevolent Maelstrom`,
-    effects: [...MalevolentMaelstromEffects],
+    effects: [
+      ...MalevolentMaelstromEffects,
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If your battle is taking place in the Realm of Death, allocate 1 additional energy point to this model at the start of each battle round.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Prismatic Palisade`,
-    effects: [...PrismaticPalisadeEffects],
+    effects: [
+      ...PrismaticPalisadeEffects,
+      {
+        name: `Empowered by Hysh (${HYSH})`,
+        desc: `If your battle is taking place in the Realm of Light, add 1 to rolls made to determine if a unit is affected by this model's Blinding Light ability.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Purple Sun of Shyish`,
-    effects: [...PurpleSunEffects],
+    effects: [
+      ...PurpleSunEffects,
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If your battle is taking place in the Realm of Death, this model can move 12" instead of 9".`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Quicksilver Swords`,
-    effects: [...QuicksilverSwordsEffects],
+    effects: [
+      ...QuicksilverSwordsEffects,
+      {
+        name: `Empowered by Chamon (${CHAMON})`,
+        desc: `If your battle is taking place in the Realm of Metal, you can roll 15 dice for this model's Dancing Blades ability instead of 12.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Ravenak's Gnashing Jaws`,
-    effects: [...RavenaksGnashingJawsEffects],
+    effects: [
+      ...RavenaksGnashingJawsEffects,
+      {
+        name: `Empowered by Ghur (${GHUR})`,
+        desc: `If your battle is taking place in the Realm of Beasts, this model can move up to D6+12" instead of 12".`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Soulsnare Shackles`,
-    effects: [...SoulsnareShacklesEffects],
+    effects: [
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If your battle is taking place in the Realm of Death, the second and third Soulsnare Shackles models can be set up wholly within 9" of the first, instead of 6"`,
+        when: [HERO_PHASE],
+      },
+      ...SoulsnareShacklesEffects,
+    ],
   },
   {
     name: `Suffocating Gravetide`,
-    effects: [...SuffocatingGravetideEffects],
+    effects: [
+      ...SuffocatingGravetideEffects,
+      {
+        name: `Empowered by Shyish (${SHYISH})`,
+        desc: `If your battle is taking place in the Realm of Death, this model can move up to 12" instead of 8".`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `The Burning Head`,
-    effects: [...BurningHeadEffects],
+    effects: [
+      ...BurningHeadEffects,
+      {
+        name: `Empowered by Aqshy (${AQSHY})`,
+        desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Umbral Spellportal`,
-    effects: [...UmbralSpellportalEffects],
+    effects: [
+      ...UmbralSpellportalEffects,
+      {
+        name: `Empowered by Ulgu (${ULGU})`,
+        desc: `If your battle is taking place in the Realm of Shadow, the second Umbral Spellportal model can be set up anywhere on the battlefield, instead of within 18" of the first.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Aethervoid Pendulum`,
