@@ -1508,7 +1508,7 @@ describe('getBattlescribeArmy', () => {
       ],
       endless_spells: [],
       scenery: [],
-      spells: ['Arcane Bolt', 'Celestial Deliverance', "Comet's Call", 'Mystic Shield'],
+      spells: ['Arcane Bolt', 'Mystic Shield', "Comet's Call", 'Celestial Deliverance'],
       traits: [],
       triumphs: [],
       units: [
