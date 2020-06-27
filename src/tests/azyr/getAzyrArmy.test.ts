@@ -1060,7 +1060,7 @@ describe('getAzyrArmyFromPdf', () => {
         commands: ['Call to War', 'Summon Men-at-arms'],
         endless_spells: ['Cadaverous Barricade', 'Aethervoid Pendulum'],
         scenery: [],
-        spells: ['Monstrous Vigour', 'Blood Feast'],
+        spells: ['Monstrous Vigour', 'Blood Feast', 'Black Hunger'],
         traits: ['The Feast Day (Delusion)', 'Savage Strike'],
         triumphs: [],
         units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
