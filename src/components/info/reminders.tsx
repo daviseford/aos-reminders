@@ -6,6 +6,7 @@ import { visibility, selectors } from 'ducks'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { getVisibleReminders } from 'utils/reminderUtils'
+import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 import { Reminder } from 'components/info/reminder'
 import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
@@ -47,7 +48,7 @@ const RemindersComponent = (props: IRemindersProps) => {
     )
   }, [army, allyArmies, currentArmy])
 
-  if (isGameMode) reminders = getVisibleReminders(reminders, hiddenReminders)
+  if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
   const whens = useMemo(() => Object.keys(reminders), [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
