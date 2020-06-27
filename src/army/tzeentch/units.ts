@@ -404,7 +404,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Flames`,
-        desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is an enemy Monsteror War Machine, roll 3 dice for each model instead.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
         when: [HERO_PHASE],
         spell: true,
       },
