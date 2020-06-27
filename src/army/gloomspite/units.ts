@@ -108,10 +108,13 @@ const SlipperyGitEffect = {
   desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
   when: [SHOOTING_PHASE],
 }
-const SpiderVenomEffect = {
-  name: `Spider Venom`,
-  desc: `If the unmodified hit roll for an attack made with this model's Fangs is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-  when: [COMBAT_PHASE],
+const getSpiderVenomEffect = (attack: `'s Fangs` | ``, mw: `1` | `D3`) => {
+  const plural = mw === `1` ? `` : `s`
+  return {
+    name: `Spider Venom`,
+    desc: `If the unmodified hit roll for an attack made by this model${attack} is 6, that attack inflicts ${mw} mortal wound${plural} on the target and the attack sequence ends (do not make a wound or save roll).`,
+    when: [COMBAT_PHASE],
+  }
 }
 const TerribleStenchEffect = {
   name: `Terrible Stench`,
@@ -449,7 +452,7 @@ export const Units: TUnits = [
   {
     name: `Webspinner Shaman on Arachnarok Spider`,
     effects: [
-      SpiderVenomEffect,
+      getSpiderVenomEffect(`'s Fangs`, `D3`),
       {
         name: `Catchweb Spidershrine`,
         desc: `Add 1 to casting and unbinding rolls for friendly SPIDERFANG WIZARDS while they are within 12" of any friendly models with this ability.`,
@@ -471,7 +474,7 @@ export const Units: TUnits = [
   {
     name: `Scuttleboss on Gigantic Spider`,
     effects: [
-      SpiderVenomEffect,
+      getSpiderVenomEffect(``, `1`),
       {
         name: `Ride Em All Down`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
@@ -498,16 +501,16 @@ export const Units: TUnits = [
   },
   {
     name: `Spider Riders`,
-    effects: [SpiderVenomEffect],
+    effects: [getSpiderVenomEffect(`'s Fangs`, `1`)],
   },
   {
     name: `Arachnarok Spider with Flinger`,
-    effects: [SpiderVenomEffect],
+    effects: [getSpiderVenomEffect(`'s Fangs`, `D3`)],
   },
   {
     name: `Arachnarok Spider with Spiderfang Warparty`,
     effects: [
-      SpiderVenomEffect,
+      getSpiderVenomEffect(`'s Fangs`, `D3`),
       {
         name: `Voracious Predator`,
         desc: `You can re-roll run rolls for this model.`,
@@ -523,7 +526,7 @@ export const Units: TUnits = [
   {
     name: `Skitterstrand Arachnarok`,
     effects: [
-      SpiderVenomEffect,
+      getSpiderVenomEffect(`'s Fangs`, `D3`),
       {
         name: `Ambush From Beyond`,
         desc: `Instead of setting up the Skitterstrand Arachnarok on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit.`,
