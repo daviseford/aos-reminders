@@ -1,4 +1,4 @@
-import { sortBy, isEqual, difference } from 'lodash'
+import { sortBy, difference } from 'lodash'
 import { LocalReminderOrder } from 'utils/localStore'
 import { IReminder } from 'types/data'
 import { TTurnWhen } from 'types/phases'
