@@ -15,7 +15,7 @@ export const reorderViaIndex = <T extends WithId>(list: T[], ids: string[]) => {
   }, [] as T[])
 }
 
-// Used for drag and drop by react-beautful-dnd
+// Used for drag and drop by react-beautiful-dnd
 export const reorder = <T>(list: T[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
