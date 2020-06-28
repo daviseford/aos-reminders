@@ -42,6 +42,12 @@ export const Units: TUnits = [
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
+      {
+        name: `Black Hunger`,
+        desc: `Casting value of 5. Pick a FLESH-EATER COURTS unit within 18". Add 1 to the Attacks characteristic of any melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -54,6 +60,12 @@ export const Units: TUnits = [
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 3 Crypt Horrors or 1 unit of 3 Crypt Flayers to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Unholy Vitality`,
+        desc: `Casting value of 6. Pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a D6 each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },
@@ -68,6 +80,12 @@ export const Units: TUnits = [
         command_ability: true,
       },
       ...GenericEffects.ZombieDragon,
+      {
+        name: `Malefic Hunger`,
+        desc: `Casting value of 6. Until your next hero phase you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
+      },
     ],
   },
   {
@@ -150,6 +168,12 @@ export const Units: TUnits = [
         desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 of the following units to the battlefield: 1 COURTIER; or 1 unit of up to 3 KNIGHTS; or 1 unit of up to 20 SERFS. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
+      },
+      {
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. Pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+        spell: true,
       },
     ],
   },
