@@ -29,10 +29,10 @@ export const ConfirmDismissNotificationModal: React.FC<IModalComponentProps> = p
       </div>
 
       <div className="d-flex flex-row justify-content-center">
-        <GenericButton className={`btn btn-danger mr-2`} onClick={handleConfirm}>
+        <GenericButton className={theme.modalDangerClass} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> Hide
         </GenericButton>
-        <GenericButton className={`btn btn-outline-light`} onClick={closeModal}>
+        <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
           Never mind
         </GenericButton>
       </div>
