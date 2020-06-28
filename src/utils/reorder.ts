@@ -1,4 +1,4 @@
-import { sortBy, isEqual } from 'lodash'
+import { sortBy, difference } from 'lodash'
 import { LocalReminderOrder } from 'utils/localStore'
 import { IReminder } from 'types/data'
 import { TTurnWhen } from 'types/phases'
@@ -15,7 +15,7 @@ export const reorderViaIndex = <T extends WithId>(list: T[], ids: string[]) => {
   }, [] as T[])
 }
 
-// Used for drag and drop by react-beautful-dnd
+// Used for drag and drop by react-beautiful-dnd
 export const reorder = <T>(list: T[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
   const [removed] = result.splice(startIndex, 1)
@@ -30,7 +30,7 @@ export const reorderReminders = (reminders: IReminder): IReminder => {
     const currentIds = sortBy(actions.map(x => x.id))
     const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen) || []
 
-    if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
+    if (storedIds.length > 0 && difference(currentIds, sortBy(storedIds)).length === 0) {
       const reordered = reorderViaIndex(actions, storedIds)
       accum[when] = reordered
     } else {
