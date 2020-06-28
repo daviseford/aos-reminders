@@ -400,7 +400,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Sorcerous Elixir`,
-        desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can re-roll one or both of the dice when you make the casting roll for that spell.`,
+        desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can re-roll the casting roll for that spell.`,
         when: [HERO_PHASE],
       },
       {
