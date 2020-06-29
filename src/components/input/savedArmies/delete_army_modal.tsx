@@ -37,14 +37,14 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
       label="Delete Army Modal"
       isProcessing={processing}
     >
-      <div className="row">
+      <div className="flex-row">
         <div className={`col ${theme.text}`}>
           <h4 className="mb-3">Delete {armyName}?</h4>
           <p>This action cannot be undone.</p>
         </div>
       </div>
 
-      <div className="row">
+      <div className="flex-row">
         <div className="col px-0">
           <GenericButton className={theme.modalDangerClass} onClick={handleDelete}>
             <FaCheck className="mr-2" /> Delete
