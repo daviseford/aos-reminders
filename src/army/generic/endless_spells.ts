@@ -264,11 +264,6 @@ export const RavenaksGnashingJawsEffects = [
 ]
 export const BalewindVortexEffects = [
   {
-    name: `Summon Balewind Vortex`,
-    desc: `Casting value of 6. WIZARDS with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
-    when: [HERO_PHASE],
-  },
-  {
     name: `Against the Aetheric Wind`,
     desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
@@ -322,7 +317,14 @@ export const UmbralSpellportalEffects = [
 const EndlessSpells: TEndlessSpells = [
   {
     name: `Balewind Vortex`,
-    effects: [...BalewindVortexEffects],
+    effects: [
+      ...BalewindVortexEffects,
+      {
+        name: `Summon Balewind Vortex`,
+        desc: `Casting value of 6. WIZARDS with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, or that are already on a Balewind Vortex, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   {
     name: `Emerald Lifeswarm`,
