@@ -55,12 +55,12 @@ const Commands: TCommands = [
     ],
   },
   {
-    name: `Strike Quickly (${HYSH})`,
+    name: `All-seeing Enlightenment (${HYSH})`,
     effects: [
       {
-        name: `Strike Quickly (${HYSH})`,
-        desc: `Pick a friendly unit within 3" of a friendly HERO (12" of your general) and within 3" of an enemy unit. That unit fights immediately instead of later in the combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
+        name: `All-seeing Enlightenment (${HYSH})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Do not apply the cover modifier to save rolls for attacks made by that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },

@@ -11,9 +11,10 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   CHARGE_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
-import { ENTANGLING, VOLCANIC, DEADLY, HEALING } from 'types/terrain'
+import { ENTANGLING, VOLCANIC, DEADLY, HEALING, MYSTICAL } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {
@@ -58,29 +59,9 @@ const RealmscapeFeatures: TEffects[] = [
     when: [START_OF_HERO_PHASE],
   },
   {
-    name: `Dazzling Glow (${HYSH})`,
-    desc: `Subtract 1 from hit rolls made for attacks that target units that are in cover.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Speed of Light (${HYSH})`,
-    desc: `Roll a D6. On a 6+, you can pick a friendly unit. Remove that unit from the battlefield, and then set up it anywhere on the battlefield that is more than 9" from any enemy models. This counts as that unit's move for that movement phase.`,
-    when: [START_OF_MOVEMENT_PHASE],
-  },
-  {
-    name: `Domain of Symmetry and Purity (${HYSH})`,
-    desc: `Subtract 1 from the Bravery characteristic of CHAOS, DESTRUCTION and DEATH units.`,
-    when: [BATTLESHOCK_PHASE],
-  },
-  {
-    name: `Wilderness of Broken Dreams (${HYSH})`,
-    desc: `Subtract 1 from the Bravery characteristic of ORDER units.`,
-    when: [BATTLESHOCK_PHASE],
-  },
-  {
-    name: `Aetheric Beams of Light (${HYSH})`,
-    desc: `One friendly WIZARD can craft an aetherquartz prism instead of attempting to cast any spells in that phase. If they do so, they can attempt to cast one extra spell in each of their future hero phases, and attempt to unbind one extra spell in each future enemy hero phase. A WIZARD cannot craft more than one aetherquartz prism per battle (though your other wizards can do so in future hero phases).`,
-    when: [HERO_PHASE],
+    name: `Dazzling Lands (${HYSH})`,
+    desc: `Terrain features (including faction terrain) have the ${MYSTICAL} scenery rule in addition to any other scenery rules that they have.`,
+    when: [WOUND_ALLOCATION],
   },
   {
     name: `Impenetrable Gloom (${ULGU})`,
