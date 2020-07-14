@@ -75,22 +75,12 @@ const Commands: TCommands = [
     ],
   },
   {
-    name: `Honour the Dead (${SHYISH}) (${STYGXX})`,
+    name: `Amethyst Aura (${SHYISH})`,
     effects: [
       {
-        name: `Honour the Dead (${SHYISH}) (${STYGXX})`,
-        desc: `Pick a friendly unit within 3" of a hero (12" of a general) and roll a D6. If the roll is less than the number of models that have been slain from the selected unit, you can add 1 to the attacks characteristic of that unit.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soul-force Sacrifice (${SHYISH}) (${STYGXX})`,
-    effects: [
-      {
-        name: `Soul-force Sacrifice (${SHYISH}) (${STYGXX})`,
-        desc: `Pick a friendly unit within 3" of your general. Allocate any number of wounds to selected unit and heal that many wounds from the general.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Amethyst Aura (${SHYISH})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        when: [HERO_PHASE],
       },
     ],
   },

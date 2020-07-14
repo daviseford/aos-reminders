@@ -14,30 +14,14 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
-import { ENTANGLING, VOLCANIC, DEADLY, HEALING, MYSTICAL } from 'types/terrain'
+import { ENTANGLING, VOLCANIC, DEADLY, HEALING, MYSTICAL, NULLIFICATION } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {
-    name: `Life Leeching (${SHYISH})`,
-    desc: `Roll a D6. On a 6+, pick an enemy unit. That unit suffers D3 mortal wounds.`,
-    when: [START_OF_HERO_PHASE],
+    name: `Terminal Lands (${SHYISH})`,
+    desc: `Terrain features (including faction terrain) have the ${NULLIFICATION} scenery rule in addition to any other scenery rules that they have.`,
+    when: [HERO_PHASE],
   },
-  {
-    name: `The Winds of Death (${SHYISH})`,
-    desc: `Roll a D6. On a 6+, pick an enemy unit, and then roll a D6 for each model in it. For each 5+, that unit suffers 1 mortal wound.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Haunted Realm (${SHYISH})`,
-    desc: `Terrain features have the Sinister scenery rule, in addition to any other scenery rules that they have.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Eternal War (${SHYISH})`,
-    desc: `Add 1 to the Bravery characteristic of all units.`,
-    when: [BATTLESHOCK_PHASE],
-  },
-  { name: `Aetherquake Aftershock (${SHYISH})`, desc: `Add 1 to casting rolls.`, when: [HERO_PHASE] },
   {
     name: `Burning Lands (${AQSHY})`,
     desc: `Terrain features (including faction terrain) have the ${VOLCANIC} scenery rule in addition to any other scenery rules that they have.`,

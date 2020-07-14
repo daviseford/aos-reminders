@@ -59,122 +59,12 @@ const RealmArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Blade of Endings (${SHYISH})`,
+    name: `Gravesand Brooch (${SHYISH})`,
     effects: [
       {
-        name: `Blade of Endings (${SHYISH})`,
-        desc: `If the hit roll for that weapon is 6+ add 2 to the Damage characteristic of that attack.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Banshee Blade (${SHYISH})`,
-    effects: [
-      {
-        name: `Banshee Blade (${SHYISH})`,
-        desc: `Each time you roll a hit roll of 6+ for this weapon, roll 2D6. If the roll is equal to or more than the target's Bravery characteristic, that attack inflicts D3 mortal wounds in addition to its normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Lifebane (${SHYISH})`,
-    effects: [
-      {
-        name: `Lifebane (${SHYISH})`,
-        desc: `Add 1 to wound rolls for this weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sliver of Decreptitude (${SHYISH})`,
-    effects: [
-      {
-        name: `Sliver of Decreptitude (${SHYISH})`,
-        desc: `Allocate wounds inflicted by that weapon before allocating wounds inflicted by any other attacks made by the bearer. If 1 or more wounds by that weapon are inflicted on an enemy HERO or MONSTER, subtract 2" from that HERO or MONSTER's Move characteristic for the rest of the battle.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Wraithbow (${SHYISH})`,
-    effects: [
-      {
-        name: `Wraithbow (${SHYISH})`,
-        desc: `In your shooting phase, pick an enemy unit within 18" of the bearer and roll six dice. For each 6+ that enemy unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Splintertooth (${SHYISH})`,
-    effects: [
-      {
-        name: `Splintertooth (${SHYISH})`,
-        desc: `In your shooting phase, pick an enemy unit within 8" of the bearer and roll three dice. If two dice have the same roll, that enemy unit suffers D3 mortal wounds. If all three dice have the same roll, that enemy unit suffers D6 mortal wounds instead.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cronehair Fetish (${SHYISH})`,
-    effects: [
-      {
-        name: `Cronehair Fetish (${SHYISH})`,
-        desc: `You can add or subtract 1 from the result of any roll on the Shyish Realmscape Features table.`,
-        when: [START_OF_SETUP],
-      },
-    ],
-  },
-  {
-    name: `Ethereal Amulet (${SHYISH})`,
-    effects: [
-      {
-        name: `Ethereal Amulet (${SHYISH})`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for this model.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Sepulchral Plate (${SHYISH})`,
-    effects: [
-      {
-        name: `Sepulchral Plate (${SHYISH})`,
-        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `Amethyst Blindmask (${SHYISH})`,
-    effects: [
-      {
-        name: `Amethyst Blindmask (${SHYISH})`,
-        desc: `If the bearer is slain, before removing the model, roll a D6 for each enemy unit within 6" of the bearer. On a 3+ that unit suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `The Ragged Cloak (${SHYISH})`,
-    effects: [
-      {
-        name: `The Ragged Cloak (${SHYISH})`,
-        desc: `Once per battle, at the start of your opponent's shooting phase, you can declare that bearer will shroud themselves with the Ragged Cloak. If you do so, the bearer may not be chosen as the target of an attack until the end of the phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Goblet of Draining (${SHYISH})`,
-    effects: [
-      {
-        name: `Goblet of Draining (${SHYISH})`,
-        desc: `If 1 or more wounds are inflicted on an enemy HERO by the bearer, roll a D6. On a 5+ that HERO suffers D3 mortal wounds.`,
-        when: [DURING_GAME],
+        name: `Gravesand Brooch (${SHYISH})`,
+        desc: `You can re-roll save rolls of 1 for attacks that target the bearer,`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },

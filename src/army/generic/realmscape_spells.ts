@@ -89,92 +89,12 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
+    name: `Ripples of the Necroquake (${SHYISH})`,
     effects: [
       {
-        name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" and visible to the caster. Subtract 2 from the bravery characteristic of the target until the end of your next hero phase.`,
+        name: `Ripples of the Necroquake (${SHYISH})`,
+        desc: `Casting value of 7. Until the end of this phase, add 1 to casting rolls made for friendly WIZARDS if the casting roll is for an endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
-        desc: `If active, subtract 2 from the bravery characteristic of the affected unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Communion with the Ancient Dead (Priest) (${STYGXX})`,
-    effects: [
-      {
-        name: `Communion with the Ancient Dead (Priest) (${STYGXX})`,
-        desc: `Select a priest to roll a D6. On a 1, the priest suffers a mortal wound. On a 2-5, nothing happens. On a 6, receive 1 command point. Can only be attempted once per turn.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Word of Ending (${SHYISH})`,
-    effects: [
-      {
-        name: `Word of Ending (${SHYISH})`,
-        desc: `Casting value of 6. Pick an enemy HERO within 12" of the caster that is visible to them and roll a D6. If the result is more than the number of wounds allocated to that model, it suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Night's Touch (${SHYISH})`,
-    effects: [
-      {
-        name: `Night's Touch (${SHYISH})`,
-        desc: `Casting value of 8. Pick a friendly unit within 6" of the caster that is visible to them. Ignore modifiers (positive and negative) when making save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soulshroud (${SHYISH})`,
-    effects: [
-      {
-        name: `Soulshroud (${SHYISH})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. That unit is not affected by other spells until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Unnatural Darkness (${SHYISH})`,
-    effects: [
-      {
-        name: `Unnatural Darkness (${SHYISH})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soulflay (${SHYISH})`,
-    effects: [
-      {
-        name: `Soulflay (${SHYISH})`,
-        desc: `Casting value of 7. Pick an enemy HERO within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Soulflay (${SHYISH})`,
-        desc: `If the unit suffers 3 mortal wounds from this spell, subtract 2 from its Bravery characteristic until your next hero phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ethereal Guide (${SHYISH})`,
-    effects: [
-      {
-        name: `Ethereal Guide (${SHYISH})`,
-        desc: `Casting value of 6. Add 1 to hit rolls for attacks made by the caster until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
