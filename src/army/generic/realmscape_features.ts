@@ -36,28 +36,8 @@ const RealmscapeFeatures: TEffects[] = [
   },
   { name: `Aetherquake Aftershock (${SHYISH})`, desc: `Add 1 to casting rolls.`, when: [HERO_PHASE] },
   {
-    name: `Flaming Missiles (${AQSHY})`,
-    desc: `Improve the Rend characteristic of missile weapons by 1 while the range from the attacking unit to the target unit is more than 12".`,
-    when: [SHOOTING_PHASE],
-  },
-  {
-    name: `Clouds of Smoke and Steam (${AQSHY})`,
-    desc: `A model cannot see another model if a straight line drawn from the centre of its base to the centre of the other model's base passes across a terrain feature other than open ground and/or hills.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Every Step a League (${AQSHY})`,
-    desc: `If a run roll is 6+, or a charge roll is 10+, then you can either say that the unit will not run or charge after all, or you can move the unit but it suffers D3 mortal wounds immediately after the move is completed.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Burning Skies (${AQSHY})`,
-    desc: `If an enemy unit can fly and moves more than 6", roll a D6. On a 4+ the enemy unit suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
-    when: [MOVEMENT_PHASE],
-  },
-  {
-    name: `Geysers of Boiling Blood (${AQSHY})`,
-    desc: `At the start of each of your hero phases, roll a D6. On a 6+, a geyser explodes. If it does so, pick a point on the battlefield and roll a D6 for each unit within 6" of that point; on a 4+ that unit suffers D3 mortal wounds. On a 6+ the unit suffers D6 mortal wounds instead.`,
+    name: `Burning Lands (${AQSHY})`,
+    desc: `Terrain features (including Faction terrain) have the Volcanic scenery rule in addition to any other scenery rules that they have.`,
     when: [START_OF_HERO_PHASE],
   },
   {

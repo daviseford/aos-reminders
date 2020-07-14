@@ -14,22 +14,12 @@ import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/r
 // Realm specific command abilities.
 const Commands: TCommands = [
   {
-    name: `Firestarter (${AQSHY})`,
+    name: `Blazing Fervour (${AQSHY})`,
     effects: [
       {
-        name: `Firestarter (${AQSHY})`,
-        desc: `Pick a terrain feature within 12" of a friendly hero and within 3" of another friendly unit; roll a D6. On a 4+ the terrain feature is set alight. For the rest of the battle, any unit with models in or on the terrain feature at the end of the movement phase suffers D3 mortal wounds. In addition the terrain now blocks line of sight for models (measured center to center on bases).`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Firestarter (${AQSHY})`,
-        desc: `If terrain is alight, any unit with models in or on the terrain feature suffers D3 mortal wounds.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Firestarter (${AQSHY})`,
-        desc: `If terrain is alight, it now blocks line of sight for models (measured center to center on bases).`,
-        when: [DURING_GAME],
+        name: `Blazing Fervour (${AQSHY})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Add 1 to run and charge rolls made for that unit until your next hero phase. The same unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

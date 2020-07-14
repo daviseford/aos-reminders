@@ -384,122 +384,12 @@ const RealmArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Ruby Ring (${AQSHY})`,
+    name: `Incandescent Rageblade (${AQSHY})`,
     effects: [
       {
-        name: `Ruby Ring (${AQSHY})`,
-        desc: `In your hero phase, you can pick the closest enemy unit within 18" of the bearer and roll a D6. On a 5+ that unit suffers D3 mortal wounds. If two or more enemy units are equally close to the bearer, you can pick any of them.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Magmaforged Blade (${AQSHY})`,
-    effects: [
-      {
-        name: `Magmaforged Blade (${AQSHY})`,
-        desc: `If the wound roll for that weapon is 6+ that attack inflicts 1 mortal wound in addition to its normal damage.`,
+        name: `Incandescent Rageblade (${AQSHY})`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made by that weapon is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Magmadroth Blood Vials (${AQSHY})`,
-    effects: [
-      {
-        name: `Magmadroth Blood Vials (${AQSHY})`,
-        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Purefire Brazier (${AQSHY})`,
-    effects: [
-      {
-        name: `Purefire Brazier (${AQSHY})`,
-        desc: `In your shooting phase, roll a D6 for each enemy unit within 9" of the bearer. On a 5+ that unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Onyx Blade (${AQSHY})`,
-    effects: [
-      {
-        name: `Onyx Blade (${AQSHY})`,
-        desc: `Add 1 to wound rolls for that weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Exile Torch (${AQSHY})`,
-    effects: [
-      {
-        name: `Exile Torch (${AQSHY})`,
-        desc: `At the start of the combat phase, pick an enemy HERO within 3" of the bearer and roll a D6. On a 6+ that HERO suffers 1 mortal wound and may not fight or be chosen as the target of an attack until the end of the turn.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Essence of Vulcatrix (${AQSHY})`,
-    effects: [
-      {
-        name: `Essence of Vulcatrix (${AQSHY})`,
-        desc: `Once per battle, at the start of your hero phase, the bearer may drink the Essence of Vulcatrix. If they do so, roll a D6. On a 1, the bearer suffers D3 mortal wounds. On a 2+ add 1 to hit and wound rolls for the bearer until your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Thermalrider Cloak (${AQSHY})`,
-    effects: [
-      {
-        name: `Thermalrider Cloak (${AQSHY})`,
-        desc: `Add 4 to the bearer's Movement characteristic. In addition, the bearer may fly.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Smouldering Helm (${AQSHY})`,
-    effects: [
-      {
-        name: `Smouldering Helm (${AQSHY})`,
-        desc: `Each time you make a successful save roll of 6+ for the bearer in the combat phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ignax's Scales (${AQSHY})`,
-    effects: [
-      {
-        name: `Ignax's Scales (${AQSHY})`,
-        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `Crown of Flames (${AQSHY})`,
-    effects: [
-      {
-        name: `Crown of Flames (${AQSHY})`,
-        desc: `Add 1 to the Bravery characteristic of friendly units while they are wholly within 9" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cleansing Brooch (${AQSHY})`,
-    effects: [
-      {
-        name: `Cleansing Brooch (${AQSHY})`,
-        desc: `Once per battle, at the start of your hero phase, you may declare that the bearer will activate the brooch. If you do so, heal D3 wounds allocated to them.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },
