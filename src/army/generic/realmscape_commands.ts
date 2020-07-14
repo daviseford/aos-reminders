@@ -7,6 +7,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
+  HERO_PHASE,
 } from 'types/phases'
 import { TCommands } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
@@ -34,17 +35,12 @@ const Commands: TCommands = [
     ],
   },
   {
-    name: `Monstrous Beasts (${GHUR})`,
+    name: `Feral Roar (${GHUR})`,
     effects: [
       {
-        name: `Monstrous Beasts (${GHUR})`,
-        desc: `Each player can set up a monster that is not a hero, starting with the player who finished army set up first. These models can be set up anywhere on the battlefield more than 9" from models in either players army. These monsters are not part of either army.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Monstrous Beasts (${GHUR})`,
-        desc: `These models chose their prey. This is the unit closest to them. For the rest of the battle round, this model joins the opposing player's army (with respect to the prey). If both players have a unit equally closest to the monster, roll off to determine which player picks the prey. Monstrous Beasts cannot pick each other as prey.`,
-        when: [START_OF_ROUND],
+        name: `Feral Roar (${GHUR})`,
+        desc: `Pick 1 friendly MONSTER wholly within 12" of a friendly HERO. Until the end of the battle round, when you look up a value on that model's damage table, that MONSTER is treated as if it has suffered 0 wounds.`,
+        when: [HERO_PHASE],
       },
     ],
   },

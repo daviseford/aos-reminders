@@ -13,7 +13,7 @@ import {
   CHARGE_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
-import { ENTANGLING, VOLCANIC } from 'types/terrain'
+import { ENTANGLING, VOLCANIC, DEADLY } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {
@@ -48,29 +48,9 @@ const RealmscapeFeatures: TEffects[] = [
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
-    name: `Hungering Animus (${GHUR})`,
-    desc: `Roll a D6. On a 6+, pick a point anywhere on the battlefield. Roll a D6 for each unit within 6" of that point. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6+ it suffers D3 mortal wounds instead.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Primal Violence (${GHUR})`,
-    desc: `Roll a D6. On a 6+, carry out the combat phase again before moving on to the battleshock phase (do not roll again at the end of the second combat phase to see if a third combat phase takes place).`,
-    when: [END_OF_COMBAT_PHASE],
-  },
-  {
-    name: `Reckless Aggression (${GHUR})`,
-    desc: `Any unit that is within 12" of an enemy unit at the start of their charge phase suffers 1 mortal wound unless they finish that charge phase within 3" of an enemy model. In addition, you can re-roll hit rolls of 1 for units that have made a charge move in the same turn.`,
-    when: [START_OF_CHARGE_PHASE],
-  },
-  {
-    name: `Beasts of Ghur (${GHUR})`,
-    desc: `Roll off. The winner can set up an additional monstrous beast using the Monstrous Beasts rule.`,
-    when: [END_OF_SETUP],
-  },
-  {
-    name: `Territory of Beasts (${GHUR})`,
-    desc: `Both players can set up an additional monstrous beast using the Monstrous Beasts rule.`,
-    when: [END_OF_SETUP],
+    name: `Savage Lands (${GHUR})`,
+    desc: `Terrain features (including faction terrain) have the ${DEADLY} scenery rule in addition to any other scenery rules that they have.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
     name: `Spontaneous Growth (${GHYRAN})`,

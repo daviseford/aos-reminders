@@ -31,6 +31,11 @@ const Spells: TSpells = [
         desc: `Casting value of 7. Pick 1 friendly unit wholly within 12" of the caster and visible to them. Add 1 to save rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Metamorphic Warding (${CHAMON})`,
+        desc: `If active, add 1 to save rolls for attacks that target the buffed unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
     ],
   },
   {
@@ -50,76 +55,6 @@ const Spells: TSpells = [
         name: `Wildform (${GHUR})`,
         desc: `If active, add 2 to the charge rolls made for the buffed unit.`,
         when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Amber Spears (${GHUR})`,
-    effects: [
-      {
-        name: `The Amber Spears (${GHUR})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Each unit other than the caster that has models passed across by this line suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Bestial Spirit (${GHUR})`,
-    effects: [
-      {
-        name: `Bestial Spirit (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, if the unit suffers 3 mortal wounds from this spell, subtract 1 from its Bravery characteristic until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Bestial Spirit (${GHUR})`,
-        desc: `If a unit suffers 3 mortal wounds from this spell, subtract 1 from its Bravery characteristic until your next hero phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Flock of Doom (${GHUR})`,
-    effects: [
-      {
-        name: `Flock of Doom (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll 12 dice. For each 6+ that enemy unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Impenetrable Hide (${GHUR})`,
-    effects: [
-      {
-        name: `Impenetrable Hide (${GHUR})`,
-        desc: `Casting value of 6. You can re-roll failed save rolls for the caster until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cower (${GHUR})`,
-    effects: [
-      {
-        name: `Cower (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy MONSTER within 12" of the caster that is visible to them and roll 2D6. If the result is higher than that MONSTER's Bravery characteristic, it cannot make a charge move in your opponent's next turn.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Primal Hunter (${GHUR})`,
-    effects: [
-      {
-        name: `Primal Hunter (${GHUR})`,
-        desc: `Casting value of 8. Pick a friendly HERO within 12" of the caster that is visible to them.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Primal Hunter (${GHUR})`,
-        desc: `Re-roll failed charge rolls and hit rolls for that HERO until your next hero phase.`,
-        when: [CHARGE_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
