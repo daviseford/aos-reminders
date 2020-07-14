@@ -20,7 +20,7 @@ import {
   GenericScenery,
   GenericSpells,
   GenericTriumphs,
-  RealmArtifacts,
+  RealmscapeArtifacts,
   RealmscapeCommands,
   RealmscapeSpells,
 } from 'army/generic'
@@ -49,8 +49,8 @@ const modifyArtifacts = (
   Collection: ICollection
 ): TArtifacts => {
   const originArtifacts = originRealm
-    ? RealmArtifacts.filter(c => c.name.includes(originRealm))
-    : RealmArtifacts
+    ? RealmscapeArtifacts.filter(c => c.name.includes(originRealm))
+    : RealmscapeArtifacts
   const { Artifacts } = GrandAllianceConfig[alliance]
   return uniqBy(
     artifacts

@@ -42,7 +42,12 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.endless_spells).toContain('Bound Burning Head')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('handles 1584593035311-Azyr', () => {
@@ -131,6 +136,10 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.traits).toContain('Ionrach: Emissary of the Deep Places')
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Argent Armour',
+      },
       {
         severity: 'ambiguity-warn',
         text:
@@ -339,8 +348,15 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
 
-    expect(res.selections.artifacts).toContain("Guardian's Coronet (Hysh)")
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Sash of the Ten Paradises',
+      },
+      {
+        severity: 'warn',
+        text: "Guardian's Coronet",
+      },
       {
         severity: 'ambiguity-warn',
         text:
@@ -356,6 +372,10 @@ describe('getAzyrArmyFromPdf', () => {
 
     expect(res.selections.allegiances).toEqual(['Dhom Hain (Enclave)'])
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Blade of Symmetr y',
+      },
       {
         severity: 'ambiguity-warn',
         text:
@@ -437,7 +457,12 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.spells).toContain("Get 'Em Beat (Ironjawz)")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aether quartz Brooch',
+      },
+    ])
   })
 
   it('handles deprecated KO8', () => {
@@ -511,6 +536,10 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.errors).toEqual([
       {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+      {
         severity: 'ambiguity-warn',
         text:
           "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
@@ -548,6 +577,14 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     // Warpfire Dragon is a Destruction unit
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Blade of Symmetr y',
+      },
+      {
+        severity: 'warn',
+        text: 'Aether quartz Brooch',
+      },
       {
         severity: 'warn',
         text: 'Warpfire Dragon',
@@ -694,6 +731,10 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+      {
+        severity: 'warn',
         text: 'Hammer of Aethermatic Might',
       },
     ])
@@ -723,7 +764,12 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.selections.traits).toContain('Amethyst Glow')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('handles BCR3 (legacy, recognize as Ogor Mawtribes)', () => {
@@ -780,7 +826,12 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-f eather Charm',
+      },
+    ])
   })
 
   it('handles IDK2', () => {
@@ -790,7 +841,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
     expect(res.realmscape).toEqual('Ghur')
-    expect(res.selections.artifacts).toEqual(['Gryph-feather Charm (Ghur)'])
+    expect(res.selections.artifacts).toEqual([])
     expect(res.selections.traits).toEqual(['Born From Agony'])
     expect(res.selections.units).toEqual([
       'Volturnos, High King of the Deep',
@@ -799,7 +850,12 @@ describe('getAzyrArmyFromPdf', () => {
       'Akhelian Ishlaen Guard',
       'Akhelian Allopexes',
     ])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-f eather Charm',
+      },
+    ])
   })
 
   it('handles OgorMawtribes1', () => {
@@ -876,6 +932,10 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([
       {
+        severity: 'warn',
+        text: 'Hydroxskin Cloak',
+      },
+      {
         severity: 'ambiguity-warn',
         text:
           "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
@@ -915,8 +975,16 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.selections.artifacts).toEqual(["Anraheirs's Claw (Ghur)", 'Gryph-feather Charm (Ghur)'])
+    expect(res.selections.artifacts).toEqual([])
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Anraheirs's Claw",
+      },
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
       {
         severity: 'warn',
         text: "Dracothion's Tail",
@@ -964,7 +1032,12 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain('The Brazen Rune')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Ignax's Scales",
+      },
+    ])
   })
 
   it('handles Khorne2', () => {
@@ -986,7 +1059,12 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aether quartz Brooch',
+      },
+    ])
   })
 
   it('handles FEC3', () => {
@@ -1076,7 +1154,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections).toEqual({
       allegiances: ['Greywater Fastness'],
-      artifacts: ['Wand of Restoration (Ghyran)'],
+      artifacts: [],
       battalions: ['Greywater Artillery Company'],
       commands: ['Salvo Fire', 'Target Sighted'],
       endless_spells: [],
@@ -1087,11 +1165,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Rune Lore',
         'Chain Lightning (Azyr)',
         'Fireball (Aqshy)',
-        'Mystifying Miasma (Ulgu)',
-        'Pall of Doom (Shyish)',
-        "Pha's Protection (Hysh)",
         'Shield of Thorns (Ghyran)',
-        'Transmutation of Lead (Chamon)',
         'Wildform (Ghur)',
         'Rune Lore: Ancestral Shield',
         'Rune Lore: Forge Fire',
@@ -1120,7 +1194,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       allegiances: ['Greywater Fastness'],
       artifacts: [
-        'The Sunderblade (Ghyran)',
         "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
         'Steam-piston Plate Mail (Greywater Fastness)',
       ],
@@ -1142,13 +1215,7 @@ describe('getAzyrArmyFromPdf', () => {
       ],
       endless_spells: ['Prismatic Palisade'],
       scenery: [],
-      spells: [
-        'Eroding Blast (Greywater Fastness)',
-        'Rune Lore',
-        'Burning Gaze',
-        "Pha's Protection (Hysh)",
-        'Bladewind',
-      ],
+      spells: ['Eroding Blast (Greywater Fastness)', 'Rune Lore', 'Burning Gaze', 'Bladewind'],
       traits: ['Seat on the Council (Greywater Fastness)'],
       triumphs: [],
       units: [

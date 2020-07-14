@@ -117,7 +117,6 @@ const warscrollTypoMap: TNameMap = {
   'Warpfire Thrower Weapon Team': 'Warpfire Thrower',
   'Warrior Indomniate': 'Warrior Indominate',
   'Windshief Charm': 'Windthief Charm',
-  "Anraheir's Claw": "Anraheirs's Claw",
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
   Ogors: 'Ogor Gluttons',
 }
@@ -143,7 +142,6 @@ const azyrTypoMap: TNameMap = {
 const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
-  'Atherquartz Brooch': 'Aetherquartz Brooch',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Exalted Seeker Chariot': 'Bladebringer, Herald on Exalted Chariot',
   'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
@@ -195,7 +193,6 @@ const battlescribeTypoMap: TNameMap = {
   'Warp Lighting Storm': 'Warp Lightning Storm',
   'Warrgog Prophet': 'Wurrgog Prophet',
   'Zharrgron Flame Splitter': 'Zharrgron Flame-spitter',
-  "Anraheir's Claw": "Anraheirs's Claw",
   "Dracothian's Tail": "Dracothion's Tail",
   "Gattleson's Endless Repeater": "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
   "Ironskull'z Boyz": "Ironskull's Boyz",

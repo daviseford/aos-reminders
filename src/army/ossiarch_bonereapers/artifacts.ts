@@ -145,7 +145,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Luminscythe`,
-        desc: `Add 1 to casting rolls for the bearer when they attempt to cast Soul-blast, Pall of Doom or any spell from the Lore of the Mortisans.`,
+        desc: `Add 1 to casting rolls for the bearer when they attempt to cast Soul-blast or any spell from the Lore of the Mortisans.`,
         when: [HERO_PHASE],
       },
     ],

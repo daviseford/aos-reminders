@@ -1,15 +1,6 @@
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  WOUND_ALLOCATION,
-} from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm Spells
 const Spells: TSpells = [
@@ -24,147 +15,17 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Stoke Rage (${AQSHY})`,
+    name: `Metamorphic Warding (${CHAMON})`,
     effects: [
       {
-        name: `Stoke Rage (${AQSHY})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Add 1 to wound rolls and charge rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Inferno Blades (${AQSHY})`,
-    effects: [
-      {
-        name: `Inferno Blades (${AQSHY})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster. Add 1 to the Damage characteristic of melee weapons used by that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Fiery Blast (${AQSHY})`,
-    effects: [
-      {
-        name: `Fiery Blast (${AQSHY})`,
-        desc: `Casting value of 7. Pick a point on the battlefield within 18" of the caster that is visible to them. Roll a D6 for each unit (friend or foe) within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Glare of Vulcatrix (${AQSHY})`,
-    effects: [
-      {
-        name: `Glare of Vulcatrix (${AQSHY})`,
-        desc: `Casting value of 8. Pick an enemy unit within 9" of the caster that is visible to them. Roll a D6; if the result is higher than the unit's Wounds characteristic, a model from that unit is slain.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Parch (${AQSHY})`,
-    effects: [
-      {
-        name: `Parch (${AQSHY})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster. That unit must halve its Move characteristic until your next hero phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-      {
-        name: `Parch (${AQSHY})`,
-        desc: `Roll a D6 each time that unit completes a charge move until your next hero phase. On a 5+ the unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Incandescent Form (${AQSHY})`,
-    effects: [
-      {
-        name: `Incandescent Form (${AQSHY})`,
-        desc: `Casting value of 6. Subtract 1 from hit rolls for attacks that target the caster until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Transmutation of Lead (${CHAMON})`,
-    effects: [
-      {
-        name: `Transmutation of Lead (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" and visible to the caster. Until your next hero phase, halve the move characteristic of the target rounding up and, if the unit has a save characterstic of 2+, 3+, or 4+, re-roll hit rolls of 1 against the targeted unit.`,
+        name: `Metamorphic Warding (${CHAMON})`,
+        desc: `Casting value of 7. Pick 1 friendly unit wholly within 12" of the caster and visible to them. Add 1 to save rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Transmutation of Lead (${CHAMON})`,
-        desc: `If active, halve the move characteristic of the debuffed unit rounding up and, if the unit has a save characterstic of 2+, 3+, or 4+, re-roll hit rolls of 1 against the debuffed unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Rain of Lead (${CHAMON})`,
-    effects: [
-      {
-        name: `Rain of Lead (${CHAMON})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rain of Lead (${CHAMON})`,
-        desc: `Subtract 1" from that unit's Move characteristic until your next hero phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Curse of Rust (${CHAMON})`,
-    effects: [
-      {
-        name: `Curse of Rust (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 12" of the caster that is visible to them. Subtract 1 from hit rolls and save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Molten Gaze (${CHAMON})`,
-    effects: [
-      {
-        name: `Molten Gaze (${CHAMON})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Each unit other than the caster that has models passed across by this line suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Rule of Burning Iron (${CHAMON})`,
-    effects: [
-      {
-        name: `Rule of Burning Iron (${CHAMON})`,
-        desc: `Casting value of 8. Pick an enemy unit within 12" of the caster that is visible to them. Roll a D6 for each model in that unit. For each 6+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Glittering Robe (${CHAMON})`,
-    effects: [
-      {
-        name: `Glittering Robe (${CHAMON})`,
-        desc: `Casting value of 6. Re-roll save rolls of 1 for the caster until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Transmutation (${CHAMON})`,
-    effects: [
-      {
-        name: `Transmutation (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and roll 3 dice. For each roll that is greater than that unit's Wounds characteristic, 1 model from that unit is slain.`,
-        when: [HERO_PHASE],
+        name: `Metamorphic Warding (${CHAMON})`,
+        desc: `If active, add 1 to save rolls for attacks that target the buffed unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -189,76 +50,6 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `The Amber Spears (${GHUR})`,
-    effects: [
-      {
-        name: `The Amber Spears (${GHUR})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Each unit other than the caster that has models passed across by this line suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Bestial Spirit (${GHUR})`,
-    effects: [
-      {
-        name: `Bestial Spirit (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, if the unit suffers 3 mortal wounds from this spell, subtract 1 from its Bravery characteristic until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Bestial Spirit (${GHUR})`,
-        desc: `If a unit suffers 3 mortal wounds from this spell, subtract 1 from its Bravery characteristic until your next hero phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Flock of Doom (${GHUR})`,
-    effects: [
-      {
-        name: `Flock of Doom (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll 12 dice. For each 6+ that enemy unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Impenetrable Hide (${GHUR})`,
-    effects: [
-      {
-        name: `Impenetrable Hide (${GHUR})`,
-        desc: `Casting value of 6. You can re-roll failed save rolls for the caster until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cower (${GHUR})`,
-    effects: [
-      {
-        name: `Cower (${GHUR})`,
-        desc: `Casting value of 6. Pick an enemy MONSTER within 12" of the caster that is visible to them and roll 2D6. If the result is higher than that MONSTER's Bravery characteristic, it cannot make a charge move in your opponent's next turn.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Primal Hunter (${GHUR})`,
-    effects: [
-      {
-        name: `Primal Hunter (${GHUR})`,
-        desc: `Casting value of 8. Pick a friendly HERO within 12" of the caster that is visible to them.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Primal Hunter (${GHUR})`,
-        desc: `Re-roll failed charge rolls and hit rolls for that HERO until your next hero phase.`,
-        when: [CHARGE_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
     name: `Shield of Thorns (${GHYRAN})`,
     effects: [
       {
@@ -274,311 +65,36 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Whipvines (${GHYRAN})`,
+    name: `Purity of Defence (${HYSH})`,
     effects: [
       {
-        name: `Whipvines (${GHYRAN})`,
-        desc: `Casting value of 5. Pick a point on the battlefield within 18" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        name: `Purity of Defence (${HYSH})`,
+        desc: `Casting value of 5. Pick 1 friendly unit wholly within 12" of the caster and visible to them. You can re-roll save rolls of 1 for attacks that target that unit until the start of you next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Purity of Defence (${HYSH})`,
+        desc: `If active, you can re-roll save rolls of 1 for attacks that target the buffed unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ripples of the Necroquake (${SHYISH})`,
+    effects: [
+      {
+        name: `Ripples of the Necroquake (${SHYISH})`,
+        desc: `Casting value of 7. Until the end of this phase, add 1 to casting rolls made for friendly WIZARDS if the casting roll is for an endless spell.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Mirrorpool (${GHYRAN})`,
+    name: `Judgement of Shadow (${ULGU})`,
     effects: [
       {
-        name: `Mirrorpool (${GHYRAN})`,
-        desc: `Casting value of 6. Remove the caster from the battlefield and set them up again anywhere within 18" of their previous position, more than 9" from any enemy models.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Realmblood (${GHYRAN})`,
-    effects: [
-      {
-        name: `Realmblood (${GHYRAN})`,
-        desc: `Casting value of 7. Heal D3 wounds allocated to the caster.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Briarstorm (${GHYRAN})`,
-    effects: [
-      {
-        name: `Briarstorm (${GHYRAN})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 18" of the caster. Until your next hero phase, any unit that finishes a move within 3" of that point suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Flesh to Stone (${GHYRAN})`,
-    effects: [
-      {
-        name: `Flesh to Stone (${GHYRAN})`,
-        desc: `Casting value of 7. Re-roll successful wound rolls for attacks that target the caster until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sicklewind (${GHYRAN})`,
-    effects: [
-      {
-        name: `Sicklewind (${GHYRAN})`,
-        desc: `Casting value of 7. Pick a point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Each unit other than the caster that has models passed across by this line suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Pha's Protection (${HYSH})`,
-    effects: [
-      {
-        name: `Pha's Protection (${HYSH})`,
-        desc: `Casting value of 5. Pick a friendly unit within 18" and visible to the caster. Subtract 1 from hit rolls made against the target until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Pha's Protection (${HYSH})`,
-        desc: `If active, subtract 1 from hit rolls made against the buffed unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Exorcising Beam (${HYSH})`,
-    effects: [
-      {
-        name: `Exorcising Beam (${HYSH})`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If the enemy unit is a DAEMON or DEATH unit, it suffers D6 mortal wounds instead.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Light of Battle (${HYSH})`,
-    effects: [
-      {
-        name: `Light of Battle (${HYSH})`,
-        desc: `Casting value of 5. Pick a friendly unit within 18" of the caster. Do not take battleshock tests for that unit until your next hero phase.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Vengeful Illumination (${HYSH})`,
-    effects: [
-      {
-        name: `Vengeful Illumination (${HYSH})`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. Add 1 to hit rolls for attacks made with missile weapons that target that unit until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetheric Net (${HYSH})`,
-    effects: [
-      {
-        name: `Aetheric Net (${HYSH})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 18" of the caster. Roll a D6 for each unit (friend or foe) within 3" of that point. On a 4+ that unit suffers 1 mortal wound, and its Move characteristic is halved until your next hero phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Healing Glow (${HYSH})`,
-    effects: [
-      {
-        name: `Healing Glow (${HYSH})`,
-        desc: `Casting value of 7. Pick a friendly unit within 6" of the caster that is visible to them. Heal D3 wounds allocated to that unit.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Banishment (${HYSH})`,
-    effects: [
-      {
-        name: `Banishment (${HYSH})`,
-        desc: `Casting value of 8. Pick 1 enemy unit within 12" of the caster that is visible to them. Your opponent must remove that unit from the battlefield and then set it up again, anywhere on the battlefield more than 24" from the caster and more than 9" from any other models from the caster's army.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
-    effects: [
-      {
-        name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" and visible to the caster. Subtract 2 from the bravery characteristic of the target until the end of your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Pall of Doom (${SHYISH}) (${STYGXX})`,
-        desc: `If active, subtract 2 from the bravery characteristic of the affected unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Communion with the Ancient Dead (Priest) (${STYGXX})`,
-    effects: [
-      {
-        name: `Communion with the Ancient Dead (Priest) (${STYGXX})`,
-        desc: `Select a priest to roll a D6. On a 1, the priest suffers a mortal wound. On a 2-5, nothing happens. On a 6, receive 1 command point. Can only be attempted once per turn.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Word of Ending (${SHYISH})`,
-    effects: [
-      {
-        name: `Word of Ending (${SHYISH})`,
-        desc: `Casting value of 6. Pick an enemy HERO within 12" of the caster that is visible to them and roll a D6. If the result is more than the number of wounds allocated to that model, it suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Night's Touch (${SHYISH})`,
-    effects: [
-      {
-        name: `Night's Touch (${SHYISH})`,
-        desc: `Casting value of 8. Pick a friendly unit within 6" of the caster that is visible to them. Ignore modifiers (positive and negative) when making save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soulshroud (${SHYISH})`,
-    effects: [
-      {
-        name: `Soulshroud (${SHYISH})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. That unit is not affected by other spells until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Unnatural Darkness (${SHYISH})`,
-    effects: [
-      {
-        name: `Unnatural Darkness (${SHYISH})`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soulflay (${SHYISH})`,
-    effects: [
-      {
-        name: `Soulflay (${SHYISH})`,
-        desc: `Casting value of 7. Pick an enemy HERO within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Soulflay (${SHYISH})`,
-        desc: `If the unit suffers 3 mortal wounds from this spell, subtract 2 from its Bravery characteristic until your next hero phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ethereal Guide (${SHYISH})`,
-    effects: [
-      {
-        name: `Ethereal Guide (${SHYISH})`,
-        desc: `Casting value of 6. Add 1 to hit rolls for attacks made by the caster until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Mystifying Miasma (${ULGU})`,
-    effects: [
-      {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `Casting value of 4. Pick an enemy unit within 18" and visible to the caster. The unit cannot run and subtracts 2 from its charge rolls until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `If active, the debuffed unit cannot run.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `If active, the debuffed unit subtracts 2 from its charge rolls.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Labyrinth of Sorrows (${ULGU})`,
-    effects: [
-      {
-        name: `Labyrinth of Sorrows (${ULGU})`,
-        desc: `Casting value of 5. Pick an enemy unit within 12" of the caster that is visible to them. Halve the Move characteristic of that unit until your next hero phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Crown of Asphyxiation (${ULGU})`,
-    effects: [
-      {
-        name: `Crown of Asphyxiation (${ULGU})`,
-        desc: `Casting value of 6. Roll a D6 for each enemy unit within 3" of the caster. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Enfeebling (${ULGU})`,
-    effects: [
-      {
-        name: `The Enfeebling (${ULGU})`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster. Re-roll failed wound rolls for attacks that target this unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Phantasmal Guardian (${ULGU})`,
-    effects: [
-      {
-        name: `Phantasmal Guardian (${ULGU})`,
-        desc: `Casting value of 6. Roll a D6 each time you allocate a wound or mortal wound to the caster until your next hero phase. On a 5+ the wound is negated.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Phantasmal Guardian (${ULGU})`,
-        desc: `If active, roll a D6 each time you allocate a wound or mortal wound. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `Bridge of Shadows (${ULGU})`,
-    effects: [
-      {
-        name: `Bridge of Shadows (${ULGU})`,
-        desc: `Casting value of 6. Pick a friendly unit wholly within 12" of the caster and remove it from the battlefield. Set it up anywhere on the battlefield that is wholly within 24" of the caster and more than 9" from any enemy models. It may not move in the subsequent movement phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetheric Tendrils (${ULGU})`,
-    effects: [
-      {
-        name: `Aetheric Tendrils (${ULGU})`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If that unit is a HERO or MONSTER, you can make a normal move with that unit as if it had a Move characteristic of 4".`,
+        name: `Judgement of Shadow (${ULGU})`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them and roll 7 dice. For each roll that is less than that unit's unmodified Save characteristic, that unit suffers 1 mortal wound. If the target has an unmodified Save characteristic of '-', it suffers 1 mortal wound for each 2+ instead.`,
         when: [HERO_PHASE],
       },
     ],
