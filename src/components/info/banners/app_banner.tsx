@@ -2,13 +2,10 @@ import React from 'react'
 import { useTheme } from 'context/useTheme'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { logClick } from 'utils/analytics'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'utils/env'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()
-  const name = 'Stats_2020_Release'
+  const name = 'GHB_2020_Release'
 
   return (
     <NotificationBanner
@@ -18,12 +15,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      <span>
-        Subscribers can now access advanced usage stats{' '}
-        <Link to={ROUTES.STATS} onClick={() => logClick(name)}>
-          via our new Stats page.
-        </Link>
-      </span>
+      <span>AoS Reminders is up to date with GHB 2020!</span>
     </NotificationBanner>
   )
 })
