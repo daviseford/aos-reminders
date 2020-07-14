@@ -49,7 +49,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Command the Land (${GHYRAN})`,
-        desc: `A friendly hero can attempt to cast Shield of Thorns even if they are not a wizard and even if the spell has already been attempted in this phase.`,
+        desc: `One friendly HERO can attempt to cast Shield of Thorns even if they are not a WIZARD and even if the spell has already been attempted in the same hero phase. If that HERO is a WIZARD, using this command ability allows them to attempt to cast Shield of Thorns in addition to any other spells they have already attempted to cast and even if Shield of Thorns has been attempted in the same hero phase.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -59,7 +59,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Strike Quickly (${HYSH})`,
-        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general) and within 3" of an enemy unit. That unit fights immediately instead of later in the combat phase.`,
+        desc: `Pick a friendly unit within 3" of a friendly HERO (12" of your general) and within 3" of an enemy unit. That unit fights immediately instead of later in the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

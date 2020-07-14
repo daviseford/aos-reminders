@@ -13,7 +13,7 @@ import {
   CHARGE_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
-import { ENTANGLING, VOLCANIC, DEADLY } from 'types/terrain'
+import { ENTANGLING, VOLCANIC, DEADLY, HEALING } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {
@@ -53,29 +53,9 @@ const RealmscapeFeatures: TEffects[] = [
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
-    name: `Spontaneous Growth (${GHYRAN})`,
-    desc: `Roll a D6. On a 6+, you can set up a Sylvaneth Wyldwood terrain feature anywhere on the battlefield that is more than 1" from any other models or terrain features.`,
+    name: `Verdant Lands (${GHYRAN})`,
+    desc: `Terrain features (including faction terrain) have the ${HEALING} scenery rule in addition to any other scenery rules that they have.`,
     when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Lifesprings (${GHYRAN})`,
-    desc: `Before the battle begins, each player picks a HERO from their army. Add 1 to the Wounds characteristic of the heroes that are picked.`,
-    when: [END_OF_SETUP],
-  },
-  {
-    name: `Hidden Festering Corruption (${GHYRAN})`,
-    desc: `Roll a D6. Add 1 to the dice roll if your army has allegiance to NURGLE. On a 5+ pick an enemy unit that is within 1" of a terrain feature. The unit you picked suffers 1 mortal wound.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Fecund Quagmire (${GHYRAN})`,
-    desc: `Models cannot run unless they are able to fly.`,
-    when: [MOVEMENT_PHASE],
-  },
-  {
-    name: `Seeds of Hope (${GHYRAN})`,
-    desc: `If a battleshock roll is an unmodified 1, then no models from the unit will flee. In addition, heal all wounds that are currently allocated to that unit.`,
-    when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Dazzling Glow (${HYSH})`,
