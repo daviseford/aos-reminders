@@ -1,16 +1,12 @@
 import {
-  DURING_GAME,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_SETUP,
+  HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_MOVEMENT_PHASE,
-  START_OF_ROUND,
-  HERO_PHASE,
 } from 'types/phases'
 import { TCommands } from 'types/army'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm specific command abilities.
 const Commands: TCommands = [
@@ -65,12 +61,12 @@ const Commands: TCommands = [
     ],
   },
   {
-    name: `Lord of the Shadow Realm (${ULGU})`,
+    name: `On Me! (${ULGU})`,
     effects: [
       {
-        name: `Lord of the Shadow Realm (${ULGU})`,
-        desc: `You can use either Shadowed Mansions or Shadow Realm realmscape features. In addition, you do not need to perform the lost in shadow realm check for these actions. Note this action is in addition to the active realmscape feature.`,
-        when: [START_OF_HERO_PHASE],
+        name: `On Me! (${ULGU})`,
+        desc: `You can use this command ability once per battle, at the end of your movement phase. If you do so, pick 1 friendly unit wholly within 18" of a friendly HERO. Remove that unit from the battlefield and then set it up again wholly within 6" of that friendly HERO and more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },

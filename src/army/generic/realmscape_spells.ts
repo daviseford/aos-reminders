@@ -1,15 +1,6 @@
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  WOUND_ALLOCATION,
-} from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm Spells
 const Spells: TSpells = [
@@ -99,86 +90,11 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Mystifying Miasma (${ULGU})`,
+    name: `Judgement of Shadow (${ULGU})`,
     effects: [
       {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `Casting value of 4. Pick an enemy unit within 18" and visible to the caster. The unit cannot run and subtracts 2 from its charge rolls until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `If active, the debuffed unit cannot run.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Mystifying Miasma (${ULGU})`,
-        desc: `If active, the debuffed unit subtracts 2 from its charge rolls.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Labyrinth of Sorrows (${ULGU})`,
-    effects: [
-      {
-        name: `Labyrinth of Sorrows (${ULGU})`,
-        desc: `Casting value of 5. Pick an enemy unit within 12" of the caster that is visible to them. Halve the Move characteristic of that unit until your next hero phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Crown of Asphyxiation (${ULGU})`,
-    effects: [
-      {
-        name: `Crown of Asphyxiation (${ULGU})`,
-        desc: `Casting value of 6. Roll a D6 for each enemy unit within 3" of the caster. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Enfeebling (${ULGU})`,
-    effects: [
-      {
-        name: `The Enfeebling (${ULGU})`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster. Re-roll failed wound rolls for attacks that target this unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Phantasmal Guardian (${ULGU})`,
-    effects: [
-      {
-        name: `Phantasmal Guardian (${ULGU})`,
-        desc: `Casting value of 6. Roll a D6 each time you allocate a wound or mortal wound to the caster until your next hero phase. On a 5+ the wound is negated.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Phantasmal Guardian (${ULGU})`,
-        desc: `If active, roll a D6 each time you allocate a wound or mortal wound. On a 5+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `Bridge of Shadows (${ULGU})`,
-    effects: [
-      {
-        name: `Bridge of Shadows (${ULGU})`,
-        desc: `Casting value of 6. Pick a friendly unit wholly within 12" of the caster and remove it from the battlefield. Set it up anywhere on the battlefield that is wholly within 24" of the caster and more than 9" from any enemy models. It may not move in the subsequent movement phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Aetheric Tendrils (${ULGU})`,
-    effects: [
-      {
-        name: `Aetheric Tendrils (${ULGU})`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If that unit is a HERO or MONSTER, you can make a normal move with that unit as if it had a Move characteristic of 4".`,
+        name: `Judgement of Shadow (${ULGU})`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them and roll 7 dice. For each roll that is less than that unit's unmodified Save characteristic, that unit suffers 1 mortal wound. If the target has an unmodified Save characteristic of '-', it suffers 1 mortal wound for each 2+ instead.`,
         when: [HERO_PHASE],
       },
     ],
