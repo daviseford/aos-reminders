@@ -125,7 +125,7 @@ export const DefaultScenery: TScenery = [
     effects: [
       {
         name: VOLCANIC,
-        desc: `Roll a D6 for each instance of this terrain. On a 6, each unit within 1" of the terrain rolled for suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each instance of this terrain. On a 6, each unit within 1" of that terrain feature suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
