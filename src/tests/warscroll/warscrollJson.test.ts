@@ -42,7 +42,12 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1591871273929-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.selections.traits).toContain('Inescapeable Doom (Knights of the Empty Throne)')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with 1592153855214-Warscroll_Builder', () => {
@@ -119,7 +124,12 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     // The Ballista is under the Battalion section for some reason
     expect(warscrollTxt.selections.units).toContain('Celestar Ballista')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   // TODO
@@ -254,7 +264,16 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.selections.units).toContain('The Eyes of the Nine')
     expect(warscrollTxt.selections.units).toContain('Great Bray-Shaman')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Hydroxskin Cloak',
+      },
+      {
+        severity: 'warn',
+        text: 'Gildenbane',
+      },
+    ])
   })
 
   it('should work with a new Seraphon list', () => {
@@ -336,7 +355,12 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     // Converted to Skitterswarm
     // expect(warscrollTxt.selections.battalions).toContain('Spider Rider Skitterswarm')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Sword of Judgement',
+      },
+    ])
   })
 
   it('should work with "undefined x" entry (2/10/20 hotfix)', () => {
@@ -387,6 +411,10 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
     expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Sword of Judgement',
+      },
       {
         severity: 'warn',
         text: 'Knight of Shrouds on Ethereal Steed',
@@ -553,7 +581,12 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1576502239768-Warscroll_Builder')
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
     expect(warscrollTxt.selections.units).toContain('Daemon Prince')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with Warcry scrolls', () => {
@@ -619,7 +652,16 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.origin_realm).toEqual(GHUR)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
+      {
+        severity: 'warn',
+        text: 'Blade of Carving',
+      },
+    ])
   })
 
   it('should work with The Brazen Rune', () => {
@@ -642,7 +684,12 @@ describe('getWarscrollArmyFromJson', () => {
       'The Dolorous Guard',
       'The Condemned',
     ])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with OBR', () => {
@@ -663,7 +710,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.selections).toEqual({
       allegiances: ['Cabalists'],
-      artifacts: ['Spellmirror (Ulgu)', 'Scroll of Dark Unravelling (Cabalists)', 'Soul Feeder (Cabalists)'],
+      artifacts: ['Scroll of Dark Unravelling (Cabalists)', 'Soul Feeder (Cabalists)'],
       battalions: ['Godswrath Warband'],
       commands: ['Spurred by the Gods'],
       endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
@@ -692,7 +739,12 @@ describe('getWarscrollArmyFromJson', () => {
       ],
     })
 
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Spellmirror',
+      },
+    ])
   })
 
   it('should work with Nurgle and a Skaven battalion', () => {
@@ -704,7 +756,12 @@ describe('getWarscrollArmyFromJson', () => {
       [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] },
     })
     expect(warscrollTxt.origin_realm).toEqual(HYSH)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with OBR', () => {
@@ -750,7 +807,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
     expect(warscrollTxt.selections.allegiances).toContain('Ironsunz')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Anraheir's Claw",
+      },
+    ])
   })
   it('should work with OBR', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder')
@@ -832,7 +894,12 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Ghyrstrike',
+      },
+    ])
   })
   it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1573208101434-Warscroll_Builder')
@@ -866,7 +933,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(BONESPLITTERZ)
     expect(warscrollTxt.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+    ])
   })
 
   it('should work with Armour of Silvered Sigmarite (pt 2)', () => {
@@ -980,7 +1052,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.selections.traits).toContain('Druid of the Everspring (Living City)')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Wand of Restoration',
+      },
+    ])
   })
 
   it('should work with Ogor Gluttons', () => {
@@ -989,7 +1066,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
     expect(warscrollTxt.selections.units).toContain('Ogor Gluttons')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Ethereal Amulet',
+      },
+    ])
   })
 
   it('should work with CoS', () => {
@@ -997,7 +1079,12 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Wand of Restoration',
+      },
+    ])
   })
 
   it('should work with FEC', () => {
@@ -1014,7 +1101,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(SLAANESH)
     expect(warscrollTxt.selections.artifacts).toContain('Enrapturing Circlet (Godseekers)')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
+    ])
   })
 
   it('should work with Flaypelt Cloak', () => {
@@ -1136,6 +1228,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(warscrollTxt.errors).toEqual([
       {
         severity: 'warn',
+        text: "Ignax's Scales",
+      },
+      {
+        severity: 'warn',
         text: 'Razordons',
       },
     ])
@@ -1155,7 +1251,7 @@ describe('getWarscrollArmyFromJson', () => {
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
     expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
-    expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw", 'Thermalrider Cloak (Aqshy)'])
+    expect(warscrollTxt.selections.artifacts).toEqual(["Metalrippa's Klaw"])
     expect(warscrollTxt.allyFactionNames).toEqual([BONESPLITTERZ, GLOOMSPITE_GITZ])
     expect(warscrollTxt.allySelections).toEqual({
       BONESPLITTERZ: { battalions: [], units: ['Wurrgog Prophet'] },
@@ -1170,7 +1266,12 @@ describe('getWarscrollArmyFromJson', () => {
       'Orruk Gore-gruntas',
     ])
     expect(warscrollTxt.selections.endless_spells).toContain('Scuttletide')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+    ])
   })
 
   it('should work with Bonesplitterz', () => {
@@ -1204,7 +1305,12 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(warscrollTxt.selections.units).toContain('Anointed on Frostheart Phoenix')
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Ignax's Scales",
+      },
+    ])
   })
 
   it('should work with Firebelly', () => {
@@ -1325,7 +1431,6 @@ describe('getWarscrollArmyFromJson', () => {
           'Rune Lore',
           'Rune Lore: Ancestral Shield',
           'Rune Lore: Forge Fire',
-          'Transmutation of Lead (Chamon)',
         ],
         traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
         triumphs: [],

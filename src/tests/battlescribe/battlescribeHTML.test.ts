@@ -58,14 +58,24 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1588929444550-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(SOULBLIGHT)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Ethereal Amulet',
+      },
+    ])
   })
 
   it('should work with 1589444286540-Battlescribe', () => {
     const parsedText = getFile('1589444286540-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.battalions).toContain('Eternal Temple-host')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Atherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with 1589575638626-Battlescribe', () => {
@@ -106,7 +116,16 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1586535165728-Battlescribe', () => {
     const parsedText = getFile('1586535165728-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Rockjaws',
+      },
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
+    ])
   })
 
   it('should work with 1586790008426-Battlescribe', () => {
@@ -230,6 +249,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Ethereal Amulet',
+      },
+      {
+        severity: 'warn',
         text: 'Fractal Mindstorm',
       },
     ])
@@ -254,6 +277,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Sword of Judgement',
+      },
+      {
+        severity: 'warn',
         text: 'Fractal Mindstorm',
       },
     ])
@@ -264,6 +291,10 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
       {
         severity: 'warn',
         text: 'Overwhelming Dread',
@@ -343,10 +374,15 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
+      {
+        severity: 'warn',
         text: 'Overwhelming Dread',
       },
     ])
   })
+
   it('should work with Soulblight2', () => {
     const parsedText = getFile('Soulblight2')
     const res = getBattlescribeArmy(parsedText)
@@ -370,8 +406,14 @@ describe('getBattlescribeArmy', () => {
   it('should work with Stormcast3', () => {
     const parsedText = getFile('Stormcast3')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Atherquartz Brooch',
+      },
+    ])
   })
+
   it('should work with Tzeentch2', () => {
     const parsedText = getFile('Tzeentch2')
     const res = getBattlescribeArmy(parsedText)
@@ -596,6 +638,26 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Miasmatic Blade',
+      },
+      {
+        severity: 'warn',
+        text: 'Wristbands of Illusion',
+      },
+      {
+        severity: 'warn',
+        text: "Betrayer's Crown",
+      },
+      {
+        severity: 'warn',
+        text: 'Blade of the Thirteen Dominions',
+      },
+      {
+        severity: 'warn',
+        text: 'Doppelganger Cloak',
+      },
+      {
+        severity: 'warn',
         text: 'Wind of Chaos',
       },
     ])
@@ -622,6 +684,10 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
       {
         severity: 'warn',
         text: 'Summon Starlight',
@@ -651,7 +717,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gryph-feather Charm',
+      },
+    ])
   })
 
   it('should work with Nighthaunt4', () => {
@@ -701,7 +772,16 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.origin_realm).toEqual('Ulgu')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Doppelganger Cloak',
+      },
+      {
+        severity: 'warn',
+        text: 'Sword of Judgement',
+      },
+    ])
   })
 
   it('should work with Nurgle2', () => {
@@ -766,7 +846,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Atherquartz Brooch',
+      },
+    ])
   })
 
   it('should work with Stormcast4', () => {
@@ -827,6 +912,22 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.allegiances).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
     expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Drakeforged Plate',
+      },
+      {
+        severity: 'warn',
+        text: 'Blade of Carving',
+      },
+      {
+        severity: 'warn',
+        text: 'Shardfist Pelt',
+      },
+      {
+        severity: 'warn',
+        text: "Beastcaller's Bones",
+      },
       { text: "Blacktalon's Shadowhammers", severity: 'warn' },
       { text: 'Warrior Brotherhood', severity: 'warn' },
     ])
@@ -891,7 +992,39 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        text: 'Jade Diadem',
+      },
+      {
+        severity: 'warn',
+        text: 'The Sunderblade',
+      },
+      {
+        severity: 'warn',
+        text: 'Jadewound Thorn',
+      },
+      {
+        severity: 'warn',
+        text: 'Ghyrropian Gauntlets',
+      },
+      {
+        severity: 'warn',
         text: 'Souldraught',
+      },
+      {
+        severity: 'warn',
+        text: 'Entangling Blade',
+      },
+      {
+        severity: 'warn',
+        text: 'Blade of Hammerhal Ghyra',
+      },
+      {
+        severity: 'warn',
+        text: 'Verdant Mantle',
+      },
+      {
+        severity: 'warn',
+        text: 'Wand of Restoration',
       },
     ])
   })
@@ -1002,7 +1135,12 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(GRAND_HOST_OF_NAGASH)
     expect(res.selections.units).toContain('Corpse Cart w/ Unholy Lodestone')
     expect(res.origin_realm).toEqual('Ghyran')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Ghyrstrike',
+      },
+    ])
   })
 
   it('should work with LoB1', () => {
@@ -1028,7 +1166,32 @@ describe('getBattlescribeArmy', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: "Ignax's Scales",
+        },
+        {
+          severity: 'warn',
+          text: 'Ruby Ring',
+        },
+        {
+          severity: 'warn',
+          text: 'Crown of Flames',
+        },
+        {
+          severity: 'warn',
+          text: 'Magmaforged Blade',
+        },
+        {
+          severity: 'warn',
+          text: 'Onyx Blade',
+        },
+        {
+          severity: 'warn',
+          text: 'Smouldering Helm',
+        },
+      ],
       realmscape_feature: null,
       realmscape: 'Ghyran',
       unknownSelections: [],
@@ -1038,13 +1201,9 @@ describe('getBattlescribeArmy', () => {
         allegiances: [],
         artifacts: [
           'Bleating Gnarlstaff (Brayherds)',
-          "Ignax's Scales (Aqshy)",
-          'Ruby Ring (Aqshy)',
-          'Crown of Flames (Aqshy)',
+
           'Glyph-etched Talisman (Warherds)',
-          'Magmaforged Blade (Aqshy)',
-          'Onyx Blade (Aqshy)',
-          'Smouldering Helm (Aqshy)',
+
           'Thunderstrike Lodestone (Thunderscorn)',
           'Volcanic Axe (Brayherds)',
         ],
@@ -1114,18 +1273,12 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections).toEqual({
       allegiances: ['Hagg Nar (Temple)'],
       artifacts: [
-        "Ignax's Scales (Aqshy)",
-        'Ruby Ring (Aqshy)',
         'Rune of Ulgu (Wizard)',
         'Thousand and One Dark Blessings',
         'Cursed Blade',
-        'Purefire Brazier (Aqshy)',
         'The Mirror Glaive (Wizard)',
-        'Thermalrider Cloak (Aqshy)',
         'Crone Blade',
-        'Smouldering Helm (Aqshy)',
         'Khainite Pendant (Priest)',
-        'Magmadroth Blood Vials (Aqshy)',
       ],
       battalions: ['Cauldron Guard', 'Shadowhammer Compact', 'Temple Nest'],
       commands: ['Worship Through Bloodshed', 'Orgy of Slaughter'],
@@ -1160,7 +1313,32 @@ describe('getBattlescribeArmy', () => {
         'Khinerai Lifetakers',
       ],
     })
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Ignax's Scales",
+      },
+      {
+        severity: 'warn',
+        text: 'Ruby Ring',
+      },
+      {
+        severity: 'warn',
+        text: 'Purefire Brazier',
+      },
+      {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+      {
+        severity: 'warn',
+        text: 'Smouldering Helm',
+      },
+      {
+        severity: 'warn',
+        text: 'Magmadroth Blood Vials',
+      },
+    ])
   })
 
   it('should work with Skaven2', () => {
@@ -1184,7 +1362,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Thermalrider Cloak',
+      },
+    ])
   })
 
   it('should work with BigWaaagh2', () => {
@@ -1388,10 +1571,6 @@ describe('getBattlescribeArmy', () => {
     ])
     expect(res.selections.battalions).toEqual(['Grand Armada', 'Grundstok Escort Wing', 'Iron Sky Command'])
     expect(res.selections.artifacts).toEqual([
-      'Ghyrropian Gauntlets (Ghyran)',
-      'The Sunderblade (Ghyran)',
-      'Jade Diadem (Ghyran)',
-      'Greenglade Flask (Ghyran)',
       'Malefic Skymines (Great Endrinwork)',
       'The Last Word (Great Endrinwork)',
       'Prudency Chutes (Great Endrinwork)',
@@ -1405,6 +1584,22 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: "Gattlesson's Endless Repeater (AETHERMATIC WEAPON)",
+      },
+      {
+        severity: 'warn',
+        text: 'Ghyrropian Gauntlets',
+      },
+      {
+        severity: 'warn',
+        text: 'The Sunderblade',
+      },
+      {
+        severity: 'warn',
+        text: 'Jade Diadem',
+      },
+      {
+        severity: 'warn',
+        text: 'Greenglade Flask',
       },
       {
         severity: 'warn',

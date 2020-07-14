@@ -779,11 +779,6 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
-        name: `The Malleus Occulum`,
-        desc: `If your battle is taking place in Ulgu, the Realm of Shadow, this model is unaffected by the Mystifying Miasma spell.`,
-        when: [HERO_PHASE],
-      },
-      {
         name: `Protector Discipline`,
         desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
         when: [SHOOTING_PHASE],

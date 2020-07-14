@@ -320,7 +320,12 @@ describe('getWarscrollArmyFromPdf', () => {
       'Rattlegauge Warplock (Enginecoven)',
       'Gascloud Chokelung (Enginecoven)',
     ])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Lens of Refraction',
+      },
+    ])
   })
 
   it('does not include Quicksilver Swords via unknownSelections', () => {
@@ -538,7 +543,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Chain Lightning (Azyr)',
         'Comet of Casandora',
         'Burning Gaze',
-        "Pha's Protection (Hysh)",
+
         'Bladewind',
         'Shield of Thorns (Ghyran)',
         'Amber Spear',
@@ -584,7 +589,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(warscrollTxt.selections).toEqual({
       allegiances: [],
       artifacts: [
-        'Amberglaive (Ghur)',
         'Savage Trophy (Bonesplitterz)',
         "Glowin' Tattooz (Bonesplitterz)",
         'Mystic Waaagh! Paint (Bonesplitterz)',
@@ -616,6 +620,10 @@ describe('getWarscrollArmyFromPdf', () => {
       ],
     })
     expect(warscrollTxt.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Amberglaive',
+      },
       {
         severity: 'warn',
         text: 'Kattanak Pelt',
