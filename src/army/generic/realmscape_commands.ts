@@ -24,17 +24,12 @@ const Commands: TCommands = [
     ],
   },
   {
-    name: `Adapt or Die (${CHAMON})`,
+    name: `Living Blades (${CHAMON})`,
     effects: [
       {
-        name: `Adapt or Die (${CHAMON})`,
-        desc: `Pick a friendly unit within 3" of a friendly hero (12" of your general). Until your next hero phase, roll a D6 for each wound or mortal wound allocated to the unit. On a 6+ the wound is negated.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Adapt or Die (${CHAMON})`,
-        desc: `If active, roll a D6 for each wound or mortal wound allocated to the buffed unit. On a 6+ the wound is negated.`,
-        when: [DURING_GAME],
+        name: `Living Blades (${CHAMON})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by that unit if it made a charge move in the same turn.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

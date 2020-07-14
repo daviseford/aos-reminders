@@ -264,122 +264,12 @@ const RealmArtifacts: TArtifacts = [
     ],
   },
   {
-    name: `Aiban's Hidden Blade (${CHAMON})`,
+    name: `Plate of Perfect Protection (${CHAMON})`,
     effects: [
       {
-        name: `Aiban's Hidden Blade (${CHAMON})`,
-        desc: `If the hit roll for that weapon is 6+ add 1 to the Damage characteristic of that attack.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Flowstone Blade (${CHAMON})`,
-    effects: [
-      {
-        name: `Flowstone Blade (${CHAMON})`,
-        desc: `Each time you roll a hit roll of 6+ for this weapon, add 1 to the wound roll for that attack.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Rune Blade (${CHAMON})`,
-    effects: [
-      {
-        name: `Rune Blade (${CHAMON})`,
-        desc: `That weapon has a Rend characteristic of -3.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Crucible of Molten Silver (${CHAMON})`,
-    effects: [
-      {
-        name: `Crucible of Molten Silver (${CHAMON})`,
-        desc: `Once per battle, in your shooting phase, pick a point on the battlefield within 9" of the bearer that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the bearer. Each unit other than the bearer that has models passed across by this line suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Chamonite Darts (${CHAMON})`,
-    effects: [
-      {
-        name: `Chamonite Darts (${CHAMON})`,
-        desc: `In your shooting phase, you can pick an enemy unit within 8" of the bearer and roll six dice. For each 6+ that enemy unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Argentine's Tooth (${CHAMON})`,
-    effects: [
-      {
-        name: `Argentine's Tooth (${CHAMON})`,
-        desc: `Re-roll hit rolls of 1 for this weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Gildenbane (${CHAMON})`,
-    effects: [
-      {
-        name: `Gildenbane (${CHAMON})`,
-        desc: `If an enemy model is the bearer of an artifact of power, they cannot use the rules for their artifact of power while they are within 3" of the bearer of Gildenbane.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Argent Armour (${CHAMON})`,
-    effects: [
-      {
-        name: `Argent Armour (${CHAMON})`,
-        desc: `Subtract 1 from hit rolls for attacks for melee weapons that target the bearer.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hydroxskin Cloak (${CHAMON})`,
-    effects: [
-      {
-        name: `Hydroxskin Cloak (${CHAMON})`,
-        desc: `The bearer can fly. After the bearer has made a normal move, you can pick 1 unit that has any models that the bearer has passed across and roll a D6. On a 3+ that unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Godwrought Helm (${CHAMON})`,
-    effects: [
-      {
-        name: `Godwrought Helm (${CHAMON})`,
-        desc: `Roll a D6 each time you allocate a wound to the bearer. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
-      },
-    ],
-  },
-  {
-    name: `Bejewelled Gauntlet (${CHAMON})`,
-    effects: [
-      {
-        name: `Bejewelled Gauntlet (${CHAMON})`,
-        desc: `At the end of the combat phase, pick an enemy unit within 1" of the bearer and roll a D6. On a 3+ that unit suffers 1 mortal wound.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Alchemical Chain (${CHAMON})`,
-    effects: [
-      {
-        name: `Alchemical Chain (${CHAMON})`,
-        desc: `The bearer can attempt to unbind a single spell in each enemy hero phase in the same manner as a WIZARD. If the bearer is already a WIZARD, they can attempt to unbind 1 additional spell instead.`,
-        when: [HERO_PHASE],
+        name: `Plate of Perfect Protection (${CHAMON})`,
+        desc: `If a weapon used for an attack that targets the bearer has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },

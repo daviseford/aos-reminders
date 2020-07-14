@@ -24,81 +24,11 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Transmutation of Lead (${CHAMON})`,
+    name: `Metamorphic Warding (${CHAMON})`,
     effects: [
       {
-        name: `Transmutation of Lead (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" and visible to the caster. Until your next hero phase, halve the move characteristic of the target rounding up and, if the unit has a save characterstic of 2+, 3+, or 4+, re-roll hit rolls of 1 against the targeted unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Transmutation of Lead (${CHAMON})`,
-        desc: `If active, halve the move characteristic of the debuffed unit rounding up and, if the unit has a save characterstic of 2+, 3+, or 4+, re-roll hit rolls of 1 against the debuffed unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Rain of Lead (${CHAMON})`,
-    effects: [
-      {
-        name: `Rain of Lead (${CHAMON})`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Rain of Lead (${CHAMON})`,
-        desc: `Subtract 1" from that unit's Move characteristic until your next hero phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Curse of Rust (${CHAMON})`,
-    effects: [
-      {
-        name: `Curse of Rust (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 12" of the caster that is visible to them. Subtract 1 from hit rolls and save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Molten Gaze (${CHAMON})`,
-    effects: [
-      {
-        name: `Molten Gaze (${CHAMON})`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them and draw an imaginary straight line 1mm wide between that point and the closest part of the caster. Each unit other than the caster that has models passed across by this line suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Rule of Burning Iron (${CHAMON})`,
-    effects: [
-      {
-        name: `Rule of Burning Iron (${CHAMON})`,
-        desc: `Casting value of 8. Pick an enemy unit within 12" of the caster that is visible to them. Roll a D6 for each model in that unit. For each 6+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Glittering Robe (${CHAMON})`,
-    effects: [
-      {
-        name: `Glittering Robe (${CHAMON})`,
-        desc: `Casting value of 6. Re-roll save rolls of 1 for the caster until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Transmutation (${CHAMON})`,
-    effects: [
-      {
-        name: `Transmutation (${CHAMON})`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and roll 3 dice. For each roll that is greater than that unit's Wounds characteristic, 1 model from that unit is slain.`,
+        name: `Metamorphic Warding (${CHAMON})`,
+        desc: `Casting value of 7. Pick 1 friendly unit wholly within 12" of the caster and visible to them. Add 1 to save rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

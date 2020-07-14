@@ -10,8 +10,10 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  CHARGE_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, STYGXX, ULGU } from 'types/realmscapes'
+import { ENTANGLING, VOLCANIC } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {
@@ -37,33 +39,13 @@ const RealmscapeFeatures: TEffects[] = [
   { name: `Aetherquake Aftershock (${SHYISH})`, desc: `Add 1 to casting rolls.`, when: [HERO_PHASE] },
   {
     name: `Burning Lands (${AQSHY})`,
-    desc: `Terrain features (including Faction terrain) have the Volcanic scenery rule in addition to any other scenery rules that they have.`,
+    desc: `Terrain features (including faction terrain) have the ${VOLCANIC} scenery rule in addition to any other scenery rules that they have.`,
     when: [START_OF_HERO_PHASE],
   },
   {
-    name: `Iron Trees (${CHAMON})`,
-    desc: `Worsen the Rend characteristic of a weapon by 1 (to a minimum of '-') if the target has cover from a Citadel Wood or Sylvaneth Wyldwood.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Rust Plague (${CHAMON})`,
-    desc: `Roll a D6. On a 6+, pick an enemy unit that is in cover. Subtract 1 from save rolls made for that unit for the rest of the battle.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Steel Rain (${CHAMON})`,
-    desc: `Roll a D6. On a 6+, pick an enemy unit that is not in cover. Roll a D6 for each model in that unit. Inflict 1 mortal wound for each roll that is less than the unit's.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Brittle Isles (${CHAMON})`,
-    desc: `Ignore the Rend characteristic of all weapons for the duration of the battle.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Irresistible Force (${CHAMON})`,
-    desc: `If a casting roll is a double, after re-rolls but before modifiers are applied, it is successful (even if the roll is less than the casting value of the spell being attempted) and the spell cannot be unbound. After the effects of the spell have been carried out, each unit within 3" of the caster suffers 1 mortal wound.`,
-    when: [HERO_PHASE],
+    name: `Transmutative Lands (${CHAMON})`,
+    desc: `Terrain features (including faction terrain) have the ${ENTANGLING} scenery rule in addition to any other scenery rules that they have.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
     name: `Hungering Animus (${GHUR})`,
