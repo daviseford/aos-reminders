@@ -4,8 +4,8 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   END_OF_COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
@@ -94,7 +94,7 @@ export const Units: TUnits = [
       {
         name: `Furious Endurance`,
         desc: `6+ to negate an allocated wound or mortal wound to this model.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       ...MagmadrothEffects,
       {
@@ -267,7 +267,7 @@ export const Units: TUnits = [
       {
         name: `Magmic Tunneling`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is set up underground as a reserve unit. If you do so, when you would set up another friendly FYRESLAYERS unit, instead of setting up that unit on the battlefield, you can say that it is joining this model underground as a reserve unit. 1 unit can join this model in this way. At the end of your movement phase, you can set up this model anywhere on the battlefield, more than 9" from any enemy units; then set up any unit that joined this model wholly within 12" of this model and more than 9" from any enemy units. Any reserve units underground that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
-        when: [END_OF_MOVEMENT_PHASE],
+        when: [DURING_SETUP],
       },
       RunicEmpowermentEffect,
     ],
@@ -344,7 +344,7 @@ export const Battalions: TBattalions = [
       {
         name: `Blazing Runes`,
         desc: `Ur-gold enhanced effects trigger on 5+.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -374,7 +374,7 @@ export const Battalions: TBattalions = [
       {
         name: `Bulwark of Molten Stone`,
         desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

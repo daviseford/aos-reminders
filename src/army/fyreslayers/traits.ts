@@ -3,8 +3,8 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  END_OF_SETUP,
   DURING_GAME,
-  HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -36,7 +36,7 @@ const CommandTraits: TTraits = [
       {
         name: `Spirit of Grimnir`,
         desc: `If this general is on the battlefield, when you roll to activate an ur-gold rune, it has the enhanced effect on a 5+.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -86,7 +86,7 @@ const CommandTraits: TTraits = [
       {
         name: `Wisdom and Authority`,
         desc: `At the start of the first battle round you receive D3 additional command points.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_SETUP],
       },
     ],
   },
@@ -96,7 +96,7 @@ const CommandTraits: TTraits = [
       {
         name: `Oathslayer`,
         desc: `Add 1 to bravery of friendly DUARDIN units while wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -126,7 +126,7 @@ const CommandTraits: TTraits = [
       {
         name: `Master Priest`,
         desc: `Once per battle, at the start of your hero phase, if this general is on the battlefield, you can activate one ur-gold rune that has already been activated, instead of one that has not been activated.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
