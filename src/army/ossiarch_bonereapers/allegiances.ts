@@ -48,8 +48,8 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Unstoppable Juggernauts`,
-        desc: `Add 1 to save rolls that target PETRIFEX ELITE untis.`,
-        when: [DURING_GAME],
+        desc: `Re-roll save rolls of 1 for attacks made with melee weapons that target PETRIFEX Elite units.'`,
+        when: [COMBAT_PHASE],
         allegiance_ability: true,
       },
       {
