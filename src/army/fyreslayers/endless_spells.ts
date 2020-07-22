@@ -68,7 +68,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Summon Zharrgron Flame-spitter`,
         desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 6" of that FYRESLAYERS PRIEST.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Magma Blast`,
