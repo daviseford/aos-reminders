@@ -240,6 +240,30 @@ const FireballEffect = {
   when: [HERO_PHASE],
   spell: true,
 }
+const MystifyingMiasmaEffect = {
+  name: `Mystifying Miasma (${ULGU})`,
+  desc: `Casting value 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const PallOfDoomEffect = {
+  name: `Pall of Doom (${SHYISH})`,
+  desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const PhasProtectionEffect = {
+  name: `Pha's Protection (${HYSH})`,
+  desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
+const TransmutationOfLeadEffect = {
+  name: `Transmutation of Lead (${CHAMON})`,
+  desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
 const ShieldOfThornsEffect = {
   name: `Shield of Thorns (${GHYRAN})`,
   desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
@@ -257,7 +281,11 @@ export const Units: TUnits = [
       FireballEffect,
       MagicOfTheRealmsCastingEffect,
       MagicOfTheRealmsEffect,
+      MystifyingMiasmaEffect,
+      PallOfDoomEffect,
+      PhasProtectionEffect,
       ShieldOfThornsEffect,
+      TransmutationOfLeadEffect,
       WildformEffect,
     ],
   },
@@ -271,19 +299,19 @@ export const Units: TUnits = [
   },
   {
     name: `Battlemage (${ULGU})`,
-    effects: [MagicOfTheRealmsCastingEffect],
+    effects: [MagicOfTheRealmsCastingEffect, MystifyingMiasmaEffect],
   },
   {
     name: `Battlemage (${SHYISH})`,
-    effects: [MagicOfTheRealmsCastingEffect],
+    effects: [MagicOfTheRealmsCastingEffect, PallOfDoomEffect],
   },
   {
     name: `Battlemage (${HYSH})`,
-    effects: [MagicOfTheRealmsCastingEffect],
+    effects: [MagicOfTheRealmsCastingEffect, PhasProtectionEffect],
   },
   {
     name: `Battlemage (${CHAMON})`,
-    effects: [MagicOfTheRealmsCastingEffect],
+    effects: [MagicOfTheRealmsCastingEffect, TransmutationOfLeadEffect],
   },
   {
     name: `Battlemage (${GHUR})`,
