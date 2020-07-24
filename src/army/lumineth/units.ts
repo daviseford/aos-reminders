@@ -26,7 +26,7 @@ const PowerOfHyshEffect = {
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Vanari Auralan Wanderers`,
+    name: `Vanari Auralan Wardens`,
     effects: [
       {
         name: `Moonfire Flask`,

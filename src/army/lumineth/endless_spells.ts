@@ -28,12 +28,12 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Sanctum of Amyntok`,
-        desc: `Only LUMINETH REALM-LORDS WIZARDS can attempt to cast Hyshian Twinstones. Casting value of 7. Set up 1 Sanctum of Amyntok model wholly within 3" of the caster and more than 3" from enemy units. Then setup the second and third so that the tip of each model is touching the tip of a different model from the same endless spell with each model more than 3" from any other units and with the caster inside the ring.`,
+        desc: `Only LUMINETH REALM-LORDS WIZARDS can attempt to cast Sanctum of Amyntok. Casting value of 7. Set up 1 Sanctum of Amyntok model wholly within 3" of the caster and more than 3" from enemy units. Then setup the second and third so that the tip of each model is touching the tip of a different model from the same endless spell with each model more than 3" from any other units and with the caster inside the ring.`,
         when: [HERO_PHASE],
       },
       {
         name: `Sigil of Yngra`,
-        desc: `At the end of the combat phase, if this model was targeted by enemy attacks, roll a dice for each enemy units within 3". On a 1-3, nothing happens. On a 4-5 that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, if this model was targeted by enemy attacks, roll a dice for each enemy unit within 3". On a 1-3, nothing happens. On a 4-5 that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
