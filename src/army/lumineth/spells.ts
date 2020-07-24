@@ -152,18 +152,6 @@ const Spells: TSpells = [
       },
     ],
   },
-  {
-    name: `Overwhelming Heat`,
-    effects: [
-      {
-        name: `Overwhelming Heat`,
-        desc: `Casting value of 7. Pick 1 enemy unit wholly within 24" of the caster and visible to them. ` + 
-              `Halve the Move characteristic of that unit until your next hero phase. ` + 
-              `Roll a dice, if the roll is equal to or greater than the unit's Save characteristic, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
 ]
 
 export default Spells
