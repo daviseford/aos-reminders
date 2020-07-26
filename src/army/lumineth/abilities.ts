@@ -7,7 +7,6 @@ import {
   START_OF_HERO_PHASE,
   MOVEMENT_PHASE,
   END_OF_COMBAT_PHASE,
-  START_OF_ROUND,
   DURING_SETUP,
   CHARGE_PHASE,
 } from 'types/phases'
