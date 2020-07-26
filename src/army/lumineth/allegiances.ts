@@ -1,13 +1,13 @@
 import { TAllegiances } from 'types/army'
 import {
+  COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  COMBAT_PHASE,
-  WOUND_ALLOCATION,
   SHOOTING_PHASE,
-  END_OF_COMBAT_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -77,7 +77,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Soul-bond`,
-        desc: `Add 2 to the Bravery characteristic of ILIATHA VANARI amd ILIATHA AELEMENTIRI units`,
+        desc: `Add 2 to the Bravery characteristic of ILIATHA VANARI amd ILIATHA AELEMENTIRI units.`,
         when: [DURING_GAME],
       },
       {
@@ -111,7 +111,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Gift of Celennar`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound (add 2 to the roll if TECLIS is part of your army and on the battlefield). On a 6+ the wound or mortal wound is negated`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound (add 2 to the roll if TECLIS is part of your army and on the battlefield). On a 6+ the wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
         artifact: true,
       },

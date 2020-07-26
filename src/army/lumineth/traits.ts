@@ -37,7 +37,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Majestic`,
-        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from enemy units that are within 18" of this general`,
+        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from enemy units that are within 18" of this general.`,
         when: [DURING_TURN],
       },
     ],
