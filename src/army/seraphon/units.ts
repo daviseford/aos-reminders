@@ -113,16 +113,12 @@ const SlannBaseEffects = [
     command_ability: true,
   },
 ]
-const StegadonBaseEffects = [
-  ArmouredCrestEffect,
-  SteadfastMajestyEffect,
-  UnstoppableStampedeEffect,
-  {
-    name: `Gout of Sunfire`,
-    desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
-    when: [SHOOTING_PHASE],
-  },
-]
+const GoutOfSunfireEffect = {
+  name: `Gout of Sunfire`,
+  desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
+  when: [SHOOTING_PHASE],
+}
+const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
@@ -523,6 +519,7 @@ export const Units: TUnits = [
     name: `Stegadon with Skink Chief`,
     effects: [
       ...StegadonBaseEffects,
+      GoutOfSunfireEffect,
       SkinkChiefEffect,
       {
         name: `Coordinated Strike`,
@@ -534,7 +531,7 @@ export const Units: TUnits = [
   },
   {
     name: `Stegadon`,
-    effects: [...StegadonBaseEffects],
+    effects: [...StegadonBaseEffects, GoutOfSunfireEffect],
   },
   {
     name: `Bastiladon`,
