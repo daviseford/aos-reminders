@@ -1202,10 +1202,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(warscrollTxt.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Archmage',
-      },
-      {
-        severity: 'warn',
         text: 'Swordmasters',
       },
       {
@@ -1431,6 +1427,7 @@ describe('getWarscrollArmyFromJson', () => {
           'Rune Lore',
           'Rune Lore: Ancestral Shield',
           'Rune Lore: Forge Fire',
+          'Transmutation of Lead (Chamon)',
         ],
         traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
         triumphs: [],
