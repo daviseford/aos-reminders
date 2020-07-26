@@ -1,7 +1,6 @@
 import { HERO_PHASE, MOVEMENT_PHASE, COMBAT_PHASE } from 'types/phases'
 import { TEndlessSpells } from 'types/army'
 
-// Endless spells go here
 const EndlessSpells: TEndlessSpells = [
   {
     name: `Hyshian Twinstones`,
