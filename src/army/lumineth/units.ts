@@ -1,13 +1,13 @@
 import { TBattalions, TUnits } from 'types/army'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
-  START_OF_COMBAT_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
-  MOVEMENT_PHASE,
-  CHARGE_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 import * as CommonUnitEffects from './commonUnitEffects'

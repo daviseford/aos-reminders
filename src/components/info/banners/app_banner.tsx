@@ -15,7 +15,7 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
-      <span>AoS Reminders is up to date with GHB 2020!</span>
+      <span>Lumineth Realmlords are live!</span>
     </NotificationBanner>
   )
 })
