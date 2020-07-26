@@ -38,19 +38,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
 
-    console.log(warscrollTxt)
-
-    // expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
-    // expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
-    // expect(warscrollTxt.selections.units).toContain('Lord Kroak')
-    // expect(warscrollTxt.selections.units).toContain('Saurus Astrolith Bearer')
-    // expect(warscrollTxt.selections.units).toContain('Engine of the Gods')
-    // expect(warscrollTxt.selections.units).toContain('Saurus Knights')
-    // expect(warscrollTxt.selections.units).toContain('Saurus Warriors')
-    // expect(warscrollTxt.selections.units).toContain('Razordon Hunting Pack')
-    // expect(warscrollTxt.selections.units).toContain('Stegadon')
     expect(warscrollTxt.selections.units).toContain('Archmage Teclis')
-    expect(warscrollTxt.selections.traits).toContain('Loremaster')
     expect(warscrollTxt.selections.spells).toContain('Ethereal Blessing')
     expect(warscrollTxt.factionName).toEqual(LUMINETH_REALMLORDS)
 
