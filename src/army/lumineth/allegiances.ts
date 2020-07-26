@@ -16,30 +16,24 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Mountain Realm`,
-        desc: `The Enduring as Rock battle trait changes an attack that targets a YMETRICA ALARITH unit in mountain stand to '-' if 
-              the weapon used for the attack has Rend -1 or -2.`,
+        desc: `The Enduring as Rock battle trait changes an attack that targets a YMETRICA ALARITH unit in mountain stand to '-' if the weapon used for the attack has Rend -1 or -2.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Mountain's Gift`,
-        desc: `Pick 1 of the bearer's weapons, once per phase add 1 damage inflicted by 1 attack. 
-              Additionally, roll a dice each time you allocate a wound or mortal wound to the bearer, on a 6+ it is negated. 
-              Additionally, roll a dice each time the bearer is inflicted by a spell or endless spell, on a 5+ ignore the effects.`,
+        desc: `Pick 1 of the bearer's weapons, once per phase add 1 damage inflicted by 1 attack. Additionally, roll a dice each time you allocate a wound or mortal wound to the bearer, on a 6+ it is negated. Additionally, roll a dice each time the bearer is inflicted by a spell or endless spell, on a 5+ ignore the effects.`,
         when: [COMBAT_PHASE, WOUND_ALLOCATION, HERO_PHASE],
         artifact: true,
       },
       {
         name: `Redoubled Force`,
-        desc: `Pick 1 YMETRICA ALARITH unit that has forced an enemy unit to move using the Tectonic Force battle trait for the first time 
-              in that phase and that is wholly within 18" of a friendly YMETRICA HERO. You can use Tectonic Force second time by picking
-              1 other enemy unit within 1" of that friendly unit.`,
+        desc: `Pick 1 YMETRICA ALARITH unit that has forced an enemy unit to move using the Tectonic Force battle trait for the first time in that phase and that is wholly within 18" of a friendly YMETRICA HERO. You can use Tectonic Force second time by picking 1 other enemy unit within 1" of that friendly unit.`,
         when: [END_OF_COMBAT_PHASE],
         command_ability: true,
       },
       {
         name: `Almighty Blow`,
-        desc: `Instead of piling in and attacking, you can say you will unleash a single mighty blow. If you do so, pick one enemy 
-              unit with 1" of this general and roll 1 dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Instead of piling in and attacking, you can say you will unleash a single mighty blow. If you do so, pick one enemy unit with 1" of this general and roll 1 dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
         command_trait: true,
       },
@@ -60,16 +54,13 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Deplete Reserves`,
-        desc: `You can use this ability when a friendly SYAR unit would use its aetherquartz reserve ability, even if any friendly 
-              SYAR units have already done so in that turn. Pick 1 friendly SYAR unit that has any aetherquartz reserves and is 
-              wholly within 18" of a friendly SYAR HERO. That unit can use one of its aetherquartz reserves.`,
+        desc: `You can use this ability when a friendly SYAR unit would use its aetherquartz reserve ability, even if any friendly SYAR units have already done so in that turn. Pick 1 friendly SYAR unit that has any aetherquartz reserves and is wholly within 18" of a friendly SYAR HERO. That unit can use one of its aetherquartz reserves.`,
         when: [DURING_GAME],
         command_ability: true,
       },
       {
         name: `Goading Arrogance`,
-        desc: `You can pick 1 enemy HERO within 6" of this general. That enemy HERO can only target this general in that phase. 
-              In addition, you can add 1 to hit rolls for attacks that target that enemy HERO in that phase.`,
+        desc: `You can pick 1 enemy HERO within 6" of this general. That enemy HERO can only target this general in that phase. In addition, you can add 1 to hit rolls for attacks that target that enemy HERO in that phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_trait: true,
       },
@@ -91,15 +82,12 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Unity of Purpose`,
-        desc: `After a friendly ILIATHA VANARI unit uses a command ability, you can pick 1 other friendly ILIATHA VANARI unit within 3 
-              of that unit. That other unit can use that command ability without spending a command point. You can only use this ability 
-              once per phase.`,
+        desc: `After a friendly ILIATHA VANARI unit uses a command ability, you can pick 1 other friendly ILIATHA VANARI unit within 3 of that unit. That other unit can use that command ability without spending a command point. You can only use this ability once per phase.`,
         when: [DURING_GAME],
       },
       {
         name: `Strike in Unison`,
-        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA 
-              VANARI unit with 2 or more models. You can re-roll hit rolls of 1 for that unit.`,
+        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can re-roll hit rolls of 1 for that unit.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         command_trait: true,
       },

@@ -15,8 +15,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Speed of Hysh`,
-        desc: `Casting value of 5. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster and visible to them. 
-              Double the move characteristic of the unit until your next hero phase.`,
+        desc: `Casting value of 5. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster and visible to them. Double the move characteristic of the unit until your next hero phase.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
       },
     ],
@@ -26,10 +25,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Solar Flare`,
-        desc: `Casting value of 8. Pick a point on the battlefield within 10" of the caster and visible to them. 
-              If there is an endless spell at that point, it is dispelled. If there is a unit at that point. 
-              roll a number of dice equal to the number of models in the unit. On a 6+ the unit suffers a mortal wound. 
-              If there are WIZARDS within 12", subject 2 from casting and dispell rolls until your next hero phase.`,
+        desc: `Casting value of 8. Pick a point on the battlefield within 10" of the caster and visible to them. If there is an endless spell at that point, it is dispelled. If there is a unit at that point. Roll a number of dice equal to the number of models in the unit. On a 6+ the unit suffers a mortal wound. If there are WIZARDS within 12", subject 2 from casting and dispell rolls until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -39,19 +35,17 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Lambent Light`,
-        desc: `Casting value of 8. Pick 1 enemy unit wholly within 18" and visible to them. 
-              Until your next hero phase, re-roll missile weapon attacks that target the unit.`,
+        desc: `Casting value of 8. Pick 1 enemy unit wholly within 18" and visible to them. Until your next hero phase, re-roll missile weapon attacks that target the unit.`,
         when: [HERO_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   {
-    name: `Ethreal Blessing`,
+    name: `Ethereal Blessing`,
     effects: [
       {
-        name: `Ethreal Blessing`,
-        desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" and visible to them. 
-              Until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
+        name: `Ethereal Blessing`,
+        desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" and visible to them. Until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -71,9 +65,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Protection of Hysh`,
-        desc: `Casting value of 8. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a 
-              friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. 
-              Cannot be saved in the same hero phase as Protection of Teclis.`,
+        desc: `Casting value of 8. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
         when: [HERO_PHASE, WOUND_ALLOCATION],
       },
     ],

@@ -6,14 +6,12 @@ import EndlessSpells from './endless_spells'
 import Spells from './spells'
 import Traits from './traits'
 
-const LuminethAlligenceType = {
-  AllegianceType: 'Great Nations',
-}
+const AllegianceType = 'Great Nations'
 
 export default {
   Abilities,
   Allegiances,
-  LuminethAlligenceType,
+  AllegianceType,
   AlliedUnits,
   Artifacts,
   Battalions,

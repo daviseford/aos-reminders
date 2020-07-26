@@ -3,28 +3,55 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
-  BATTLESHOCK_PHASE,
   SHOOTING_PHASE,
   DURING_GAME,
   START_OF_BATTLESHOCK_PHASE,
+  START_OF_SHOOTING_PHASE,
+  MOVEMENT_PHASE,
+  CHARGE_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
+import * as CommonUnitEffects from './commonUnitEffects'
+import idoneth from 'army/idoneth'
 
-const getSunmetalWeaponsEffect = (weapon: string) => {
-  return {
-    name: `Sunmetal Weapons`,
-    desc: `If the unmodified hit roll for an attack made with a ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-    when: [COMBAT_PHASE],
-  }
-}
-const PowerOfHyshEffect = {
-  name: `Power of Hysh`,
-  desc: `Casting value of 6. Until your next hero phase, the Sunmetal Weapons ability for the caster and/or the unit they are part of causes mortal wounds to be inflicted on an unmodified hit roll of 5+ instead of 6. Any number of LUMINETH REALM-LORDS WIZARDS can attempt to cast Power of Hysh in the same hero phase.`,
-  when: [HERO_PHASE, COMBAT_PHASE],
-  spell: true,
-}
-
-// Unit Names
 export const Units: TUnits = [
+  {
+    name: `Archmage Teclis`,
+    effects: [
+      {
+        name: `Archmage`,
+        desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If casting 1 spell, it is automatically cast and cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each os automatically cast with a casting roll of 10, and they can be unbound.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Aura of Celennar`,
+        desc: `Add 1 to casting and unbind rolls for friendly LUMINETH REALM-LORDS in range of this models Aura of Celennar ability.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Discs of the Aelementari`,
+        desc: `In your hero phase, you can automatically dispell 1 endless spell. In the enemy hero phase, you can automatically unbind 1 enemy spell.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Seeing Stone of Celennar`,
+        desc: `Each time a friendly model within range of this models Aura of Celennar ability is effected by a spell or endless spell cast by an enemy WIZARD, you can roll a dice. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wound.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Protection of Teclis`,
+        desc: `Casting value of 10. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Hysh.`,
+        when: [HERO_PHASE, WOUND_ALLOCATION],
+        spell: true,
+      },
+      {
+        name: `Storm of Searing White Light`,
+        desc: `Casting value of 10. Roll a dice for each enemy unit within 18" of the caster and visible to them. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
   {
     name: `Vanari Auralan Wardens`,
     effects: [
@@ -33,18 +60,32 @@ export const Units: TUnits = [
         desc: `Once per battle, you can pick 1 enemy unit within 3" of this unit's High Warden and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      getSunmetalWeaponsEffect(`Warden's Pike`),
+      CommonUnitEffects.getSunmetalWeaponsEffect(`Warden's Pike`),
       {
         name: `Wall of Blades`,
         desc: `If the target unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Warden's Pikes and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
+      CommonUnitEffects.getVanariWizardsEffect(5),
+      CommonUnitEffects.PowerOfHyshEffect,
+    ],
+  },
+  {
+    name: `Vanari Auralan Sentinels`,
+    effects: [
+      CommonUnitEffects.getVanariWizardsEffect(5),
+      CommonUnitEffects.getSunmetalWeaponsEffect(`Auralan Bow`),
+      CommonUnitEffects.PowerOfHyshEffect,
       {
-        name: `Magic`,
-        desc: `This unit is a WIZARD while it has 5 or more models. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the Power of Hysh spell.`,
-        when: [HERO_PHASE],
+        name: `Scryhawk Lantern`,
+        desc: `Pick one enemy unit within 30" of this unit's High Sentinel that is not visible to them. Choose the Lofted missile weapon characteristic for this unit's Auralan Bows in that phase, but that enemy unit is treated as being visible to all friendly models from that unit until the end of the phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
-      PowerOfHyshEffect,
+      {
+        name: `Many-stringed Weapon`,
+        desc: `Before attacking with Auralan Bows, choose with the Aimed or Lofted missile weapon characteristic for all shooting attacks made by this unit in that phase.`,
+        when: [SHOOTING_PHASE],
+      },
     ],
   },
   {
@@ -56,22 +97,14 @@ export const Units: TUnits = [
         when: [START_OF_COMBAT_PHASE],
       },
       {
-        name: `Standard Bearer`,
-        desc: `You can re-roll battleshock tests for units that include any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
         name: `Lances of the Dawn`,
         desc: `If this unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Sunmetal Lances and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      getSunmetalWeaponsEffect(`Sunmetal Lance`),
-      {
-        name: `Magic`,
-        desc: `This unit is a WIZARD while it has 3 or more models. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the Power of Hysh spell.`,
-        when: [HERO_PHASE],
-      },
-      PowerOfHyshEffect,
+      CommonUnitEffects.getSunmetalWeaponsEffect(`Sunmetal Lance`),
+      CommonUnitEffects.getVanariWizardsEffect(3),
+      CommonUnitEffects.PowerOfHyshEffect,
+      CommonUnitEffects.StandardBearerEffect,
     ],
   },
   {
@@ -110,11 +143,99 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Scinari Cathallar`,
+    effects: [
+      {
+        name: `Emotional Transference`,
+        desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a dice. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from that friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Darkness of the Soul`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase roll 2D6 each time that unit makes a normal move, charge move, shoots or fights. If the roll is greater than the unit's Bravery, that unit cannot perform that action in that phase.`,
+        when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Alarith Stonemage`,
+    effects: [
+      {
+        name: `Stonemage stance`,
+        desc: `This model and any friendly ALARITH STONEGUARD units wholly within 12" of this model cannot make a pile-in move this phase. However until the end of the phase, improve the Rend characteristic of melee weapons used by this model and those friendly units by 1.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Gravitic Reduction`,
+        desc: `Casting value of 5. The caster can fly. In addition pick 1 enemy unit within 18" of the caster. The unit suffers 1 mortal wound and, until your next hero phase, its Movement characteristic is halved and it cannot fly.`,
+        when: [HERO_PHASE, MOVEMENT_PHASE],
+        spell: true,
+      },
+    ],
+  },
+  {
+    name: `Alarith Stoneguard`,
+    effects: [
+      CommonUnitEffects.StandardBearerEffect,
+      {
+        name: `Crushing Blow`,
+        desc: `Unmodified hit rolls of 6 with Stone Mallets add 1 to the damage inflicted if the attack is successful.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Diamondpick Hammer`,
+        desc: `Unmodified hit rolls of 6 with Diamondpick Hammers inflict 1 mortal wound on the target and the attack sequence ends.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Pair of Stratum Hammers`,
+        desc: `Re-roll to hit rolls for a Pair of Stratum Hammers.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Alarith Spirit of the Mountain`,
+    effects: [
+      CommonUnitEffects.StonemageSymbiosisEffect,
+      CommonUnitEffects.AllButImmovableEffect,
+      CommonUnitEffects.alarithSpiritFreeCommandAbilityEffect(`Ponderous Advice`, 3),
+      CommonUnitEffects.alarithSpiritExtraAttackCommandAbilityEffect(`Faith of the Mountains`, `1`, 18),
+      {
+        name: `Stoneheart Shockwave`,
+        desc: `Pick 1 enemy unit within range of this ability that is visible to this model. Subtract 1 from to hit rolls until the end of that phase. A unit cannot be affected by this ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE, START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Avalenor, the Stoneheart King`,
+    effects: [
+      CommonUnitEffects.StonemageSymbiosisEffect,
+      CommonUnitEffects.AllButImmovableEffect,
+      CommonUnitEffects.alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
+      CommonUnitEffects.alarithSpiritExtraAttackCommandAbilityEffect(
+        `Unshakeable Faith of the Mountains`,
+        `D3`,
+        24
+      ),
+      {
+        name: `Firestealer Hammers`,
+        desc: `Unmodified hit rolls of 6 with Firestealer hammers inflict 1 mortal wound in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Guardian of Hysh`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy models within range of this ability.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
 ]
 
-// Allied units (usually this will involve writing a function to grab units from another army)
-// Check out Nurgle or Khorne for good examples
-export const AlliedUnits: TUnits = []
+export const AlliedUnits: TUnits = idoneth.Units
 
 // Battalions
 export const Battalions: TBattalions = [
