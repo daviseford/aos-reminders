@@ -26,6 +26,7 @@ import {
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LETHISIAN_DEFENDERS,
+  LUMINETH_REALMLORDS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
@@ -71,6 +72,7 @@ import LegionOfSacrament from 'army/legion_of_sacrament'
 import LegionsOfAzgorh from 'army/legions_of_azgorh'
 import LegionsOfGrief from 'army/legions_of_grief'
 import LethisianArmy from 'army/lethisian_army'
+import LuminethRealmlords from 'army/lumineth'
 import MercenaryCompanies from 'army/mercenary_companies'
 import Nighthaunt from 'army/nighthaunt'
 import Nurgle from 'army/nurgle'
@@ -188,6 +190,10 @@ const ArmyList: TArmyList = {
   },
   [LETHISIAN_DEFENDERS]: {
     Army: { ...LethisianArmy },
+    GrandAlliance: ORDER,
+  },
+  [LUMINETH_REALMLORDS]: {
+    Army: { ...LuminethRealmlords },
     GrandAlliance: ORDER,
   },
   [MERCENARY_COMPANIES]: {

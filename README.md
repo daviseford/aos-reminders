@@ -37,6 +37,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [Flui](https://github.com/Flui)
 + [dccourt](https://github.com/dccourt)
 + Lorax
++ [amcalvert](https://github.com/amcalvert)
 
 ## Available Scripts
 

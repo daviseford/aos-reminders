@@ -26,6 +26,7 @@ export type TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 export type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
+export type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 export type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export type TNighthaunt = 'NIGHTHAUNT'
 export type TNurgle = 'NURGLE'
@@ -70,6 +71,7 @@ export const LEGION_OF_SACRAMENT: TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
+export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
@@ -118,6 +120,7 @@ export type TPrimaryFactions =
   | TLegionsOfAzgorh
   | TLegionsOfGrief
   | TLethisianDefenders
+  | TLuminethRealmlords
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
@@ -165,6 +168,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   LEGIONS_OF_AZGORH,
   LEGIONS_OF_GRIEF,
   LETHISIAN_DEFENDERS,
+  LUMINETH_REALMLORDS,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
