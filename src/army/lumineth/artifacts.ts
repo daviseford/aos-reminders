@@ -33,10 +33,10 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Heartstone Amulet`,
+    name: `Hearthstone Amulet`,
     effects: [
       {
-        name: `Heartstone Amulet`,
+        name: `Hearthstone Amulet`,
         desc: `Each time you allocate a wound or mortal wound to the bearer, roll a dice. On a 5+ the wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },

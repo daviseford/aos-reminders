@@ -13,6 +13,7 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LUMINETH_REALMLORDS,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -32,6 +33,70 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('correctly reads Lumineth1', () => {
+    const pdfText = getFile('Lumineth1')
+    const parsedText = parsePdf(pdfText)
+    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+
+    expect(warscrollTxt.selections.units).toContain('Archmage Teclis')
+    expect(warscrollTxt.selections.spells).toContain('Ethereal Blessing')
+    expect(warscrollTxt.factionName).toEqual(LUMINETH_REALMLORDS)
+
+    expect(warscrollTxt).toEqual({
+      allyFactionNames: [],
+      allySelections: {},
+      allyUnits: [],
+      errors: [],
+      factionName: 'LUMINETH_REALMLORDS',
+      origin_realm: 'Ghur',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Syar'],
+        artifacts: ["Predator's Torc (Ghur)", 'Hearthstone Amulet', 'Syari Trueblade (Hysh)'],
+        battalions: ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance', 'Teclian Vanguard'],
+        commands: [
+          'Deplete Reserves',
+          'Unshakeable Faith of the Mountains',
+          'Unflinching Valour',
+          'Faith of the Mountains',
+        ],
+        endless_spells: ['Hyshian Twinstones', 'Soulscream Bridge', 'Shards of Valagharr'],
+        scenery: [],
+        spells: [
+          'Ethereal Blessing',
+          'Voice of the Mountains',
+          'Living Fissure',
+          'Entomb',
+          'Solar Flare',
+          'Lambent Light',
+          'Speed of Hysh',
+          'Total Eclipse',
+          'Protection of Teclis',
+          'Storm of Searing White Light',
+          'Gravitic Reduction',
+          'Darkness of the Soul',
+          'Power of Hysh',
+        ],
+        traits: ['Loremaster - Alarith', 'Goading Arrogance'],
+        triumphs: [],
+        units: [
+          'Archmage Teclis',
+          'Alarith Stonemage',
+          'Avalenor, the Stoneheart King',
+          'Scinari Cathallar',
+          'The Light of Eltharion',
+          'Vanari Auralan Sentinels',
+          'Alarith Stoneguard',
+          'Vanari Auralan Wardens',
+          'Vanari Dawnriders',
+          'Alarith Spirit of the Mountain',
+        ],
+      },
+      unknownSelections: ['Stone Mallets', 'Diamondpick Hammers'],
+    })
+    expect(warscrollTxt.errors).toEqual([])
+  })
   it("correctly imports Braum's list", () => {
     const pdfText = getFile('BraumSeraphonTTSList')
     const parsedText = parsePdf(pdfText)

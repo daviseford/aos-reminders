@@ -335,6 +335,7 @@ const traitToSpellMapper = [
   'Dark Acolyte -',
   'Druid of the Everspring -',
   'Fuelled by the Spirits -',
+  'Loremaster -',
   'Midnight Tome -',
   'One with Fire and Ice -',
   'Rune of Ulgu -',

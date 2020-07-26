@@ -1,11 +1,11 @@
 import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_HERO_PHASE,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
-  BATTLESHOCK_PHASE,
-  DURING_GAME,
-  CHARGE_PHASE,
-  END_OF_HERO_PHASE,
 } from 'types/phases'
 
 export const getSunmetalWeaponsEffect = (weapon: string) => {
