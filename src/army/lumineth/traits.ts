@@ -1,13 +1,63 @@
 import { TTraits } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, DURING_TURN, DURING_GAME } from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
-    name: ``,
+    name: `Spellmaster`,
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Spellmaster`,
+        desc: `Once in each of your hero phases, you can re-roll 1 failed casting roll.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Loremaster - Scinari`,
+    effects: [
+      {
+        name: `Lorecaster - Scinari`,
+        desc: `The general knows 1 extra spell from the Lore of Hysh.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warmaster`,
+    effects: [
+      {
+        name: `Warmaster`,
+        desc: `If your general is a part of your army and on the battlefield, roll a dice. On a 4+  you receive 1 extra command point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Majestic`,
+    effects: [
+      {
+        name: `Majestic`,
+        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from enemy units that are within 18" of this general`,
+        when: [DURING_TURN],
+      },
+    ],
+  },
+  {
+    name: `Ensuring`,
+    effects: [
+      {
+        name: `Enduring`,
+        desc: `Add 3 to the general's wound characteristic.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Loremaster - Alarith`,
+    effects: [
+      {
+        name: `Loremaster - Alarith`,
+        desc: `If this general is a WIZARD, they know 1 extra spell from the Lore of the High Peaks.`,
         when: [HERO_PHASE],
       },
     ],

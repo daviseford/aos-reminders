@@ -104,7 +104,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Fast Learner`,
-        desc: `This general can attrmpt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this 
+        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this 
               general attempts to unbind a spell in the same enemy hero phase, you can re-roll the unbinding roll.`,
         when: [HERO_PHASE],
         command_trait: true,

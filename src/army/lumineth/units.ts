@@ -268,4 +268,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Teclian Vanguagrd`,
+    effects: [
+      {
+        name: `Blessing of Teclis`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION],
+      },
+    ],
+  },
 ]
