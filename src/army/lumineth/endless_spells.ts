@@ -47,7 +47,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Turn to Stone`,
-        desc: `At the start and end of the movement phase, roll a dice for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. In addition, subtract 1 from run and change rolls for units within 6". This ability has no effect on LUMINETH REALM-LORD units.`,
+        desc: `At the start and end of the movement phase, roll a dice for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. In addition, subtract 1 from run and change rolls for units within 6". This ability has no effect on LUMINETH REALM-LORDS units.`,
         when: [MOVEMENT_PHASE],
       },
     ],

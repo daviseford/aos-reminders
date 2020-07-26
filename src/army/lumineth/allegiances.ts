@@ -16,7 +16,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Mountain Realm`,
-        desc: `The Enduring as Rock battle trait changes an attack that targets a YMETRICA ALARITH unit in mountain stand to '-' if the weapon used for the attack has Rend -1 or -2.`,
+        desc: `The Enduring as Rock battle trait changes an attack that targets a YMETRICA ALARITH units in mountain stance to '-' if the weapon used for the attack has Rend -1 or -2.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -27,7 +27,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Redoubled Force`,
-        desc: `Pick 1 YMETRICA ALARITH unit that has forced an enemy unit to move using the Tectonic Force battle trait for the first time in that phase and that is wholly within 18" of a friendly YMETRICA HERO. You can use Tectonic Force second time by picking 1 other enemy unit within 1" of that friendly unit.`,
+        desc: `Pick 1 YMETRICA ALARITH unit that has forced an enemy unit to move using the Tectonic Force battle trait for the first time in that phase and that is wholly within 18" of a friendly YMETRICA HERO. You can use Tectonic Force a second time by picking 1 other enemy unit within 1" of that friendly unit.`,
         when: [END_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -82,7 +82,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Unity of Purpose`,
-        desc: `After a friendly ILIATHA VANARI unit uses a command ability, you can pick 1 other friendly ILIATHA VANARI unit within 3 of that unit. That other unit can use that command ability without spending a command point. You can only use this ability once per phase.`,
+        desc: `After a friendly ILIATHA VANARI unit uses a command ability, you can pick 1 other friendly ILIATHA VANARI unit within 3" of that unit. That other unit can use that command ability without spending a command point. You can only use this ability once per phase.`,
         when: [DURING_GAME],
       },
       {
@@ -98,14 +98,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Lambent Mystics`,
-        desc: `Add 1 to the first casting, dispelling or unbinding roll you make for each ZAITREC WIZARD in each hero phase. 
-              In addition, each ZAITREC WIZARD HERO knows 1 extra spell form the appropriate lore`,
+        desc: `Add 1 to the first casting, dispelling or unbinding roll you make for each ZAITREC WIZARD in each hero phase. In addition, each ZAITREC WIZARD HERO knows 1 extra spell form the appropriate lore`,
         when: [HERO_PHASE],
       },
       {
         name: `Fast Learner`,
-        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this 
-              general attempts to unbind a spell in the same enemy hero phase, you can re-roll the unbinding roll.`,
+        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can re-roll the unbinding roll.`,
         when: [HERO_PHASE],
         command_trait: true,
       },
@@ -117,9 +115,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Overwhelming Heat`,
-        desc: `All ZAITREC WIZARDS know Overwhelming Heat. Casting value of 7. Pick 1 enemy unit wholly within 24" of the caster and visible to them. 
-              Halve the Move characteristic of that unit until your next hero phase. 
-              Roll a dice, if the roll is equal to or greater than the unit's Save characteristic, that unit suffers D3 mortal wounds.`,
+        desc: `All ZAITREC WIZARDS know Overwhelming Heat. Casting value of 7. Pick 1 enemy unit wholly within 24" of the caster and visible to them. Halve the Move characteristic of that unit until your next hero phase. Roll a dice, if the roll is equal to or greater than the unit's Save characteristic, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
         spell: true,
       },

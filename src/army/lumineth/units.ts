@@ -4,7 +4,6 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   SHOOTING_PHASE,
-  DURING_GAME,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_SHOOTING_PHASE,
   MOVEMENT_PHASE,
@@ -20,7 +19,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Archmage`,
-        desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If casting 1 spell, it is automatically cast and cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each os automatically cast with a casting roll of 10, and they can be unbound.`,
+        desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If casting 1 spell, it is automatically cast and cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each is automatically cast with a casting roll of 10, and they can be unbound.`,
         when: [HERO_PHASE],
       },
       {
@@ -30,17 +29,17 @@ export const Units: TUnits = [
       },
       {
         name: `Discs of the Aelementari`,
-        desc: `In your hero phase, you can automatically dispell 1 endless spell. In the enemy hero phase, you can automatically unbind 1 enemy spell.`,
+        desc: `In your hero phase, you can automatically dispel 1 endless spell. In the enemy hero phase, you can automatically unbind 1 enemy spell.`,
         when: [HERO_PHASE],
       },
       {
         name: `Seeing Stone of Celennar`,
-        desc: `Each time a friendly model within range of this models Aura of Celennar ability is effected by a spell or endless spell cast by an enemy WIZARD, you can roll a dice. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wound.`,
+        desc: `Each time a friendly model within range of this model's Aura of Celennar ability is affected by a spell or endless spell cast by an enemy WIZARD, you can roll a dice. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Protection of Teclis`,
-        desc: `Casting value of 10. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Hysh.`,
+        desc: `Casting value of 10. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
         when: [HERO_PHASE, WOUND_ALLOCATION],
         spell: true,
       },
@@ -83,7 +82,7 @@ export const Units: TUnits = [
       },
       {
         name: `Many-stringed Weapon`,
-        desc: `Before attacking with Auralan Bows, choose with the Aimed or Lofted missile weapon characteristic for all shooting attacks made by this unit in that phase.`,
+        desc: `Before attacking with Auralan Bows, choose the Aimed or Lofted missile weapon characteristic for all shooting attacks made by this unit in that phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -128,7 +127,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Armour`,
         desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model. In addition, halve the damage inflicted by attacks made with missile weapons or melee weapons that target this model (rounding up).`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION],
       },
       {
         name: `Supreme Swordmaster`,
@@ -148,7 +147,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Emotional Transference`,
-        desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a dice. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from that friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
+        desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a dice. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from the friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
       {
@@ -243,7 +242,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Skin to Stone`,
-        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Re-roll save rolls for attacks that target a unit that has turned its skin to stone, but models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
+        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Re-roll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -269,7 +268,7 @@ export const Battalions: TBattalions = [
     ],
   },
   {
-    name: `Teclian Vanguagrd`,
+    name: `Teclian Vanguard`,
     effects: [
       {
         name: `Blessing of Teclis`,

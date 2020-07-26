@@ -27,9 +27,7 @@ export const getVanariWizardsEffect = (minimumModelCountToBeWizard: number) => {
 export const alarithSpiritFreeCommandAbilityEffect = (effectName: string, effectRange: number) => {
   return {
     name: effectName,
-    desc: `Pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}" of this model. If that model is within ${effectRange} 
-          of this model at the start of your next hero phase, then that model can use a command ability in that turn without spending 
-          any command points.`,
+    desc: `Pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}" of this model. If that model is within ${effectRange}" of this model at the start of your next hero phase, then that model can use a command ability in that turn without spending any command points.`,
     when: [END_OF_HERO_PHASE],
   }
 }
@@ -39,13 +37,10 @@ export const alarithSpiritExtraAttackCommandAbilityEffect = (
   numberOfUnitsAffected: string,
   effectRange: number
 ) => {
-  const unitDescription = numberOfUnitsAffected === `1` ? `Unit` : `Units`
+  const unitDescription = numberOfUnitsAffected === `1` ? `unit` : `units`
   return {
     name: effectName,
-    desc: `Pick ${numberOfUnitsAffected} ALARITH AELF ${unitDescription} wholly within ${effectRange}" of a friendly model with 
-          this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. Units cannot 
-          benefit more than once per combat phase from this ability. They can also not benefit from Faith of the Mountains and 
-          Unshakeable Faith of the Mountains in the same phase.`,
+    desc: `Pick ${numberOfUnitsAffected} ALARITH AELF ${unitDescription} wholly within ${effectRange}" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the ${unitDescription} affected in that combat phase. Units cannot benefit more than once per combat phase from this ability. Additionally, they cannot benefit from Faith of the Mountains and Unshakeable Faith of the Mountains in the same phase.`,
     when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
     command_ability: true,
   }
@@ -66,8 +61,7 @@ export const PowerOfHyshEffect = {
 
 export const AllButImmovableEffect = {
   name: `All but Immovable`,
-  desc: `If this model doesnt not make a charge move in your charge phase, add 1 to Attacks characteristic of this model's melee weapons
-        until your next movement phase.`,
+  desc: `If this model doesnt not make a charge move in your charge phase, add 1 to the Attacks characteristic of this model's melee weapons until your next movement phase.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
 }
 

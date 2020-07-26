@@ -16,7 +16,7 @@ const CommandTraits: TTraits = [
     name: `Loremaster - Scinari`,
     effects: [
       {
-        name: `Lorecaster - Scinari`,
+        name: `Loremaster - Scinari`,
         desc: `The general knows 1 extra spell from the Lore of Hysh.`,
         when: [HERO_PHASE],
       },
@@ -37,13 +37,13 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Majestic`,
-        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from enemy units that are within 18" of this general`,
+        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from the Bravery characteristic for enemy units within 18" of this general`,
         when: [DURING_TURN],
       },
     ],
   },
   {
-    name: `Ensuring`,
+    name: `Enduring`,
     effects: [
       {
         name: `Enduring`,

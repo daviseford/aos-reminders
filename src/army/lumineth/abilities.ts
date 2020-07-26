@@ -7,7 +7,6 @@ import {
   START_OF_HERO_PHASE,
   MOVEMENT_PHASE,
   END_OF_COMBAT_PHASE,
-  START_OF_ROUND,
   DURING_SETUP,
   CHARGE_PHASE,
 } from 'types/phases'
@@ -41,7 +40,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Absorb Dispair`,
-    desc: `If a friendly unit uses its aetherquartz reserve while it wholly within 18" of any friendly CATHALLARS, you can pick 1 to absorb the negative energy. A CATHALLAR cannot absorb negative energy more than once per phase. If a CATHALLAR absorbs the negative energy, do not subtract 1 from the units Bravery characteristic. Instead pick 1 enemy unit within 18" of that CATHALLAR and subtract 1 from their Bravery characteristic for the rest of the battle. An enemy unit cannot be affected by this ability more than once per battle.`,
+    desc: `If a friendly unit uses its aetherquartz reserve while it is wholly within 18" of any friendly CATHALLARS, you can pick 1 to absorb the negative energy. A CATHALLAR cannot absorb negative energy more than once per phase. If a CATHALLAR absorbs the negative energy, do not subtract 1 from the units Bravery characteristic. Instead pick 1 enemy unit within 18" of that CATHALLAR and subtract 1 from their Bravery characteristic for the rest of the battle. An enemy unit cannot be affected by this ability more than once per battle.`,
     when: [WOUND_ALLOCATION, COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
   },
   {
@@ -51,12 +50,12 @@ const Abilities: TAbilities = [
   },
   {
     name: `Shining Company`,
-    desc: `After a VANARI unit is setup, if the base of each model touches the bases of 2 other models, they become a shining company. They remain a shining company until each model is not touching 2 other models. Subtract 1 from hit rolls that target a shining company. However, a shining company cannot run or charge and can only move 1" when they pile-in.`,
+    desc: `After a VANARI unit is setup, if the base of each model touches the bases of 2 other models in the same unit, they become a shining company. They remain a shining company until each model is no longer touching 2 other models from the same unit. Subtract 1 from hit rolls that target a shining company. However, a shining company cannot run or charge and can only move 1" when they pile-in.`,
     when: [DURING_SETUP, COMBAT_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
     name: `Enduring as Rock`,
-    desc: `Before the first battle round, or at the start of your hero phase, pick any number of ALARITH units and say then are adopting a mountain stance. If they do so, weapons that target them with Rend -1 count as Rend -.`,
+    desc: `Before the first battle round, or at the start of your hero phase, pick any number of ALARITH units and say they are adopting a mountain stance. If they do so, weapons that target them with Rend -1 count as Rend -.`,
     when: [START_OF_HERO_PHASE, DURING_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
