@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 
 const PLACEHOLDER_TXT = 'placeholder.txt'
 const WSB_PDF_OUTPUT = `WSB_pdf_tests.txt`
@@ -11,6 +10,7 @@ const IGNORED_FILES = [PLACEHOLDER_TXT, WSB_PDF_OUTPUT, WSB_JSON_OUTPUT, BS_OUTP
 
 const INTAKE_DIR = 'src/tests/fixtures/intake'
 const FAILED_DIR = 'src/tests/fixtures/intake/failed'
+
 const WSB_JSON_DIR = 'src/tests/fixtures/warscroll/json'
 const WSB_PDF_DIR = 'src/tests/fixtures/warscroll/pdf'
 const BS_DIR = 'src/tests/fixtures/battlescribe/html'
@@ -52,7 +52,6 @@ it('should correctly read ${filename}', () => {
 
 let WSB_JSON_OUTPUT_TXT = ''
 let WSB_PDF_OUTPUT_TXT = ''
-let AZYR_PDF_OUTPUT_TXT = ''
 let AZYR_JSON_OUTPUT_TXT = ''
 let BS_OUTPUT_TXT = ''
 
@@ -66,10 +65,11 @@ const run = () => {
   intake_files.forEach(filename => {
     const src = `${INTAKE_DIR}/${filename}`
 
-    // if (existing_files.includes(filename)) {
-    //   console.error('Exists already: ' + filename)
-    //   return
-    // }
+    if (existing_files.includes(filename)) {
+      console.error('Exists already: ' + filename)
+      moveToFailed(filename)
+      return
+    }
 
     // WSB
     if (filename.includes('Warscroll_Builder')) {
@@ -105,6 +105,15 @@ const moveToFailed = filename => {
 }
 
 const print = () => {
+  try {
+    fs.unlinkSync(`${INTAKE_DIR}/${WSB_PDF_OUTPUT}`)
+    fs.unlinkSync(`${INTAKE_DIR}/${WSB_JSON_OUTPUT}`)
+    fs.unlinkSync(`${INTAKE_DIR}/${BS_OUTPUT}`)
+    fs.unlinkSync(`${INTAKE_DIR}/${AZYR_JSON_OUTPUT}`)
+  } catch (err) {
+    // pass
+  }
+
   if (WSB_PDF_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${WSB_PDF_OUTPUT}`, WSB_PDF_OUTPUT_TXT)
   if (WSB_JSON_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${WSB_JSON_OUTPUT}`, WSB_JSON_OUTPUT_TXT)
   if (BS_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${BS_OUTPUT}`, BS_OUTPUT_TXT)
