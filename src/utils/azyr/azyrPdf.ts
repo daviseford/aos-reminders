@@ -352,6 +352,7 @@ const commonTypos = {
   'Sacr ament': 'Sacrament',
   'Shar d': 'Shard',
   'Sk ewer': 'Skewer',
+  'Skr yre': 'Skryre',
   'Sky Port': 'Skyport',
   'Sky-por t': 'Sky-port',
   'Sla yer': 'Slayer',

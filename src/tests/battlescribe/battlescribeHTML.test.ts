@@ -39,7 +39,7 @@ const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
 }
 
-describe('getBattlescribeArmy', () => {
+xdescribe('getBattlescribeArmy', () => {
   it('should correctly read 1593279607055-Battlescribe', () => {
     const parsedText = getFile('1593279607055-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

@@ -44,12 +44,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1592458725728-Warscroll_Builder', () => {
-    const parsedText = getFile('1592458725728-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1592567031606-Warscroll_Builder', () => {
     const parsedText = getFile('1592567031606-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
