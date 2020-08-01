@@ -48,6 +48,12 @@ it('should correctly read ${filename}', () => {
     expect(res.errors).toEqual([])
 })`
 
+const getFilesizeInBytes = (filename: string) => {
+  const stats = fs.statSync(filename)
+  const fileSizeInBytes = stats['size']
+  return fileSizeInBytes
+}
+
 let WSB_JSON_OUTPUT_TXT = ''
 let WSB_PDF_OUTPUT_TXT = ''
 let AZYR_JSON_OUTPUT_TXT = ''
@@ -63,10 +69,14 @@ const run = () => {
   intake_files.forEach(filename => {
     const src = `${INTAKE_DIR}/${filename}`
 
+    const bytes = getFilesizeInBytes(src)
+
+    if (bytes < 10) {
+      return console.error('Too small: ' + filename)
+    }
+
     if (existing_files.includes(filename)) {
-      console.error('Exists already: ' + filename)
-      moveToFailed(filename)
-      return
+      return console.error('Exists already: ' + filename)
     }
 
     // WSB
@@ -95,11 +105,6 @@ const run = () => {
     // Remove the file
     fs.unlinkSync(src)
   })
-}
-
-const moveToFailed = filename => {
-  const src = `${INTAKE_DIR}/${filename}`
-  fs.copyFileSync(src, `${FAILED_DIR}/${filename}`)
 }
 
 const print = () => {

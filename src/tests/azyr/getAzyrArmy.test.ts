@@ -36,7 +36,7 @@ const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
 }
 
-describe('getAzyrArmyFromPdf', () => {
+xdescribe('getAzyrArmyFromPdf', () => {
   it('should correctly read 1592750069467-Azyr', () => {
     const fileTxt = getFile('1592750069467-Azyr')
     const pages = handleAzyrPages(fileTxt)
