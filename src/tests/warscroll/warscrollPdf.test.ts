@@ -36,13 +36,13 @@ describe('getWarscrollArmyFromPdf', () => {
   it('correctly reads Lumineth1', () => {
     const pdfText = getFile('Lumineth1')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.selections.units).toContain('Archmage Teclis')
-    expect(warscrollTxt.selections.spells).toContain('Ethereal Blessing')
-    expect(warscrollTxt.factionName).toEqual(LUMINETH_REALMLORDS)
+    expect(res.selections.units).toContain('Archmage Teclis')
+    expect(res.selections.spells).toContain('Ethereal Blessing')
+    expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
 
-    expect(warscrollTxt).toEqual({
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -95,35 +95,35 @@ describe('getWarscrollArmyFromPdf', () => {
       },
       unknownSelections: ['Stone Mallets', 'Diamondpick Hammers'],
     })
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.errors).toEqual([])
   })
   it("correctly imports Braum's list", () => {
     const pdfText = getFile('BraumSeraphonTTSList')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
-    expect(warscrollTxt.selections.units).toContain('Lord Kroak')
-    expect(warscrollTxt.selections.units).toContain('Saurus Astrolith Bearer')
-    expect(warscrollTxt.selections.units).toContain('Engine of the Gods')
-    expect(warscrollTxt.selections.units).toContain('Saurus Knights')
-    expect(warscrollTxt.selections.units).toContain('Saurus Warriors')
-    expect(warscrollTxt.selections.units).toContain('Razordon Hunting Pack')
-    expect(warscrollTxt.selections.units).toContain('Stegadon')
-    expect(warscrollTxt.selections.spells).toContain('Stellar Tempest')
-    expect(warscrollTxt.selections.artifacts).toContain('Incandescent Rectrices')
-    expect(warscrollTxt.realmscape).toBeNull()
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
+    expect(res.selections.units).toContain('Lord Kroak')
+    expect(res.selections.units).toContain('Saurus Astrolith Bearer')
+    expect(res.selections.units).toContain('Engine of the Gods')
+    expect(res.selections.units).toContain('Saurus Knights')
+    expect(res.selections.units).toContain('Saurus Warriors')
+    expect(res.selections.units).toContain('Razordon Hunting Pack')
+    expect(res.selections.units).toContain('Stegadon')
+    expect(res.selections.spells).toContain('Stellar Tempest')
+    expect(res.selections.artifacts).toContain('Incandescent Rectrices')
+    expect(res.realmscape).toBeNull()
+    expect(res.errors).toEqual([])
   })
 
   it('imports new Seraphon armies correctly', () => {
     const pdfText = getFile('NewSeraphon')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -245,49 +245,49 @@ describe('getWarscrollArmyFromPdf', () => {
         'Thunder Lizard)',
       ],
     })
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.errors).toEqual([])
   })
 
   it('does not import the wrong trait (issue #863)', () => {
     const pdfText = getFile('BloodVulture')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(warscrollTxt.selections.traits).not.toContain("Blood Vulture's Gaze")
-    expect(warscrollTxt.selections.traits).toEqual(['Metalcruncher'])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.traits).not.toContain("Blood Vulture's Gaze")
+    expect(res.selections.traits).toEqual(['Metalcruncher'])
+    expect(res.errors).toEqual([])
   })
 
   it('imports Seraphon Constellations properly', () => {
     const pdfText = getFile('1000-Firelance_Starhost')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.DRACOTHIONS_TAIL)
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.DRACOTHIONS_TAIL)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.errors).toEqual([])
   })
 
   it('imports Seraphon Constellations properly', () => {
     const pdfText = getFile('1000-Sunclaw_Temple-host')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.KOATLS_CLAW)
-    expect(warscrollTxt.selections.allegiances).toContain(SeraphonConstellations.COALESCED) // auto-added because of Koatl's Claw
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.KOATLS_CLAW)
+    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED) // auto-added because of Koatl's Claw
+    expect(res.errors).toEqual([])
   })
 
   it('reads 2020 KO pdf', () => {
     const pdfText = getFile('KO_2020')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -371,21 +371,21 @@ describe('getWarscrollArmyFromPdf', () => {
         'Barak Zilfin)',
       ],
     })
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.errors).toEqual([])
   })
 
   it('reads Warpcog Convocation correctly with no errors', () => {
     const pdfText = getFile('WarpcogList')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SKAVEN)
-    expect(warscrollTxt.selections.battalions).toEqual([
+    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.selections.battalions).toEqual([
       'Warpcog Convocation',
       'Rattlegauge Warplock (Enginecoven)',
       'Gascloud Chokelung (Enginecoven)',
     ])
-    expect(warscrollTxt.errors).toEqual([
+    expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Lens of Refraction',
@@ -396,29 +396,29 @@ describe('getWarscrollArmyFromPdf', () => {
   it('does not include Quicksilver Swords via unknownSelections', () => {
     const pdfText = getFile('KhorneDaemonPrincewithSword')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(KHORNE)
-    expect(warscrollTxt.selections.units).toEqual(['Daemon Prince'])
-    expect(warscrollTxt.selections.endless_spells).toEqual([])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.units).toEqual(['Daemon Prince'])
+    expect(res.selections.endless_spells).toEqual([])
+    expect(res.errors).toEqual([])
   })
 
   it('reads Ossiarch Bonereapers full pdf', () => {
     const pdfText = getFile('OBR1')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
+    expect(res.errors).toEqual([])
   })
 
   it('reads deprecated KO pdf (issue #794)', () => {
     const pdfText = getFile('skydorfs')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt).toEqual({
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -471,43 +471,43 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads Fyreslayers battalions properly', () => {
     const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(FYRESLAYERS)
-    expect(warscrollTxt.selections.allegiances).toEqual(['Vostarg (Lodge)'])
-    expect(warscrollTxt.selections.battalions).toEqual(['Lords of the Lodge'])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(FYRESLAYERS)
+    expect(res.selections.allegiances).toEqual(['Vostarg (Lodge)'])
+    expect(res.selections.battalions).toEqual(['Lords of the Lodge'])
+    expect(res.errors).toEqual([])
   })
 
   it('reads Ogor Mawtribes full pdf', () => {
     const pdfText = getFile('OgorMawtribes1')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(warscrollTxt.selections.battalions).toContain("Kin-eater's Bully Boys")
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.selections.battalions).toContain("Kin-eater's Bully Boys")
+    expect(res.errors).toEqual([])
   })
 
   it('reads a unit with ignored unknown selections', () => {
     const pdfText = getFile('IgnoreUnknown')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
-    expect(warscrollTxt.selections.endless_spells).toEqual([])
-    expect(warscrollTxt.selections.artifacts).toEqual([])
-    expect(warscrollTxt.unknownSelections).toEqual([])
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
+    expect(res.selections.endless_spells).toEqual([])
+    expect(res.selections.artifacts).toEqual([])
+    expect(res.unknownSelections).toEqual([])
+    expect(res.errors).toEqual([])
   })
 
   it('reads a Nurgle PDF with a Skaven battalion', () => {
     const pdfText = getFile('NurgleWithSkavenBattalion')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(NURGLE)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res).toEqual({
       allyFactionNames: ['SKAVEN'],
       allySelections: { [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] } },
       allyUnits: [],
@@ -531,16 +531,16 @@ describe('getWarscrollArmyFromPdf', () => {
       unknownSelections: [],
     })
 
-    expect(warscrollTxt.errors).toEqual([])
+    expect(res.errors).toEqual([])
   })
 
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = getFile('SeraphonNoMetadata')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
@@ -564,13 +564,13 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a CoS warscroll pdf file correctly', () => {
     const pdfText = getFile('CoS1')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.origin_realm).toEqual(null)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.unknownSelections).toEqual([])
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.origin_realm).toEqual(null)
+    expect(res.errors).toEqual([])
+    expect(res.unknownSelections).toEqual([])
+    expect(res.selections).toEqual({
       allegiances: ['Anvilgard'],
       artifacts: [
         "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
@@ -648,10 +648,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a Big Waaagh warscroll pdf file correctly', () => {
     const pdfText = getFile('BigWaaagh1')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(BIG_WAAAGH)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [
         'Savage Trophy (Bonesplitterz)',
@@ -684,7 +684,7 @@ describe('getWarscrollArmyFromPdf', () => {
         "Ironskull's Boyz",
       ],
     })
-    expect(warscrollTxt.errors).toEqual([
+    expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Amberglaive',
@@ -699,10 +699,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a warscroll pdf file with metadata correctly', () => {
     const pdfText = getFile('SeraphonWithMetadata')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
@@ -726,18 +726,18 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a slaanesh warscroll pdf file correctly', () => {
     const pdfText = getFile('SlaaneshList')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SLAANESH)
-    expect(warscrollTxt.errors).toEqual([
+    expect(res.factionName).toEqual(SLAANESH)
+    expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Lord of Chaos',
       },
     ])
-    expect(warscrollTxt.allyFactionNames).toEqual([])
-    expect(warscrollTxt.allyUnits).toEqual([])
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.allyFactionNames).toEqual([])
+    expect(res.allyUnits).toEqual([])
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [
         'Whip of Subversion (Invaders)',
@@ -771,31 +771,28 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
     const pdfText = getFile('CommandTraitWithSpell')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
-    expect(warscrollTxt.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
-    expect(warscrollTxt.selections.spells).toEqual([
-      'Sap Strength (Anvilgard)',
-      'Elemental Cyclone (Hallowheart)',
-    ])
+    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.errors).toEqual([])
+    expect(res.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
+    expect(res.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
+    expect(res.selections.spells).toEqual(['Sap Strength (Anvilgard)', 'Elemental Cyclone (Hallowheart)'])
   })
 
   it('reads a deprecated KO warscroll pdf file correctly', () => {
     const pdfText = getFile('KOList')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(warscrollTxt.errors).toEqual([
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
+    expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Aethershock Earbuster',
       },
     ])
-    expect(warscrollTxt.selections.traits).toEqual([
+    expect(res.selections.traits).toEqual([
       "FOOTNOTE: There's No Reward Without Risk",
       "FOOTNOTE: There's No Trading With Some People",
       "FOOTNOTE: There's Always a Breeze if You Look for it",
@@ -803,21 +800,17 @@ describe('getWarscrollArmyFromPdf', () => {
       'ARTYCLE: Master the Skies',
       'Master Commander',
     ])
-    expect(warscrollTxt.selections.units).toEqual([
-      'Aether-Khemist',
-      'Grundstok Thunderers',
-      'Arkanaut Ironclad',
-    ])
+    expect(res.selections.units).toEqual(['Aether-Khemist', 'Grundstok Thunderers', 'Arkanaut Ironclad'])
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {
     const pdfText = getFile('OrderMeetingEngagement')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
+    expect(res.errors).toEqual([])
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Obstinate Blade (Order)'],
       battalions: ['Shadow Patrol'],
@@ -840,10 +833,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads an Ironjawz warscroll pdf correctly', () => {
     const pdfText = getFile('Ironjawz')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(IRONJAWZ)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.selections).toEqual({
       allegiances: ['Da Choppas'],
       artifacts: ['Destroyer', 'Megaskull Staff'],
       battalions: [],
@@ -867,10 +860,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('correctly imports the Drakesworn Templar without mistaking its lance for a spell', () => {
     const pdfText = getFile('Drakesworn')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [],
       battalions: [],
@@ -887,10 +880,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('correctly imports the Drakesworn Templar and LAoCD together', () => {
     const pdfText = getFile('DrakeswornandLAoCD')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [],
       battalions: [],
@@ -907,10 +900,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('correctly imports the LAoCD and its Storm Lance spell', () => {
     const pdfText = getFile('LAoCD')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [],
       battalions: [],
@@ -927,10 +920,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('correctly imports the Loonboss and its command ability', () => {
     const pdfText = getFile('Loonboss')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [],
       battalions: [],
@@ -947,10 +940,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('adds the command ability that the Boss Shaman trait gives you', () => {
     const pdfText = getFile('BossShaman')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: [],
       battalions: [],
@@ -967,10 +960,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
     const pdfText = getFile('NightHauntIssue')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(NIGHTHAUNT)
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.factionName).toEqual(NIGHTHAUNT)
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Midnight Tome'],
       battalions: [],
@@ -987,11 +980,11 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a complex warscroll pdf file with allies correctly', () => {
     const pdfText = getFile('SeraphonMultipleAllies')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt.allySelections).toEqual({
+    expect(res.errors).toEqual([])
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
         battalions: [],
         units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
@@ -1000,20 +993,20 @@ describe('getWarscrollArmyFromPdf', () => {
       STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
       SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
     })
-    expect(warscrollTxt.allyFactionNames).toEqual([
+    expect(res.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
       KHARADRON_OVERLORDS,
       STORMCAST_ETERNALS,
       SYLVANETH,
     ])
-    expect(warscrollTxt.allyUnits).toEqual([
+    expect(res.allyUnits).toEqual([
       'Knight-Incantor',
       'Morathi High Oracle of Khaine',
       'Concussors',
       'Kurnoth Hunters',
       'Grundstok Gunhauler',
     ])
-    expect(warscrollTxt.selections).toEqual({
+    expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Zoetic Dial'],
       battalions: ['Eternal Starhost'],
@@ -1030,10 +1023,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a new (10/7/19) warscroll pdf file (with stats) correctly', () => {
     const pdfText = getFile('NewFormatWithMetadata')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -1077,10 +1070,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a new (10/7/19) warscroll pdf file (with character names) correctly', () => {
     const pdfText = getFile('NewFormatWithNames')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -1124,10 +1117,10 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a new (10/7/19) warscroll pdf file (with stats and character names) correctly', () => {
     const pdfText = getFile('NewFormatWithNamesAndMetadata')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(SERAPHON)
-    expect(warscrollTxt).toEqual({
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
@@ -1171,9 +1164,9 @@ describe('getWarscrollArmyFromPdf', () => {
   it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
     const pdfText = getFile('SeraphonNewList')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt).toEqual({
+    expect(res).toEqual({
       allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
         STORMCAST_ETERNALS: {
@@ -1223,30 +1216,30 @@ describe('getWarscrollArmyFromPdf', () => {
   it('imports blue horrors as horrors (issue #907)', () => {
     const pdfText = getFile('BlueHorrors')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([])
+    expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 
   it('imports brimstone horrors as horrors (issue #907)', () => {
     const pdfText = getFile('BrimstoneHorrors')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([])
+    expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 
   it('imports pink horrors as horrors (issue #907)', () => {
     const pdfText = getFile('PinkHorrors')
     const parsedText = parsePdf(pdfText)
-    const warscrollTxt = getWarscrollArmyFromPdf(parsedText)
+    const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(warscrollTxt.factionName).toEqual(TZEENTCH)
-    expect(warscrollTxt.errors).toEqual([])
-    expect(warscrollTxt.selections.units).toEqual(['Horrors of Tzeentch'])
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.errors).toEqual([])
+    expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 })
