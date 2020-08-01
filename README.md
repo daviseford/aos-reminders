@@ -79,6 +79,10 @@ Run after `yarn build`. Analyzes the build bundle and shows which dependencies a
 
 Runs a script that checks rules to see if they're misplaced. Be sure to run this after adding a new army since it can catch some common errors.
 
+## `yarn intake`
+
+Sorts error logs in `src/tests/fixtures/intake/`.
+
 ## Pre-commit
 
 I have set this repository up to automatically take care of some chores when you push a commit.

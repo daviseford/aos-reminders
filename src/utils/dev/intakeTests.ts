@@ -30,7 +30,6 @@ const bsHtmlTest = (filename: string) => `
 it('should correctly read ${filename}', () => {
     const parsedText = getFile('${filename}')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.units).toContain('Orpheon Katakros')
     expect(res.errors).toEqual([])
 })`
 
@@ -80,22 +79,22 @@ const run = () => {
         fs.copyFileSync(src, `${WSB_PDF_DIR}/${filename}`)
         WSB_PDF_OUTPUT_TXT = `${WSB_PDF_OUTPUT_TXT}\n${wsbPdfTest(filename.replace('.pdf', ''))}`
       }
-      return
     }
 
     // Battlescribe
     if (filename.endsWith('.html')) {
       fs.copyFileSync(src, `${BS_DIR}/${filename}`)
       BS_OUTPUT_TXT = `${BS_OUTPUT_TXT}\n${bsHtmlTest(filename.replace('.html', ''))}`
-      return
     }
 
     // Azyr
     if (filename.includes('Azyr') && filename.endsWith('.json')) {
       fs.copyFileSync(src, `${AZYR_JSON_DIR}/${filename}`)
       AZYR_JSON_OUTPUT_TXT = `${AZYR_JSON_OUTPUT_TXT}\n${azyrJsonTest(filename.replace('.json', ''))}`
-      return
     }
+
+    // Remove the file
+    fs.unlinkSync(src)
   })
 }
 
@@ -122,6 +121,7 @@ const print = () => {
 
 run()
 print()
+console.log('Done')
 
 // So node doesn't complain
 export {}
