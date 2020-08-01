@@ -37,6 +37,153 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read 1592750069467-Azyr', () => {
+    const fileTxt = getFile('1592750069467-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750085402-Azyr', () => {
+    const fileTxt = getFile('1592750085402-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750116347-Azyr', () => {
+    const fileTxt = getFile('1592750116347-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750139706-Azyr', () => {
+    const fileTxt = getFile('1592750139706-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750619086-Azyr', () => {
+    const fileTxt = getFile('1592750619086-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750625890-Azyr', () => {
+    const fileTxt = getFile('1592750625890-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750632840-Azyr', () => {
+    const fileTxt = getFile('1592750632840-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1592750725656-Azyr', () => {
+    const fileTxt = getFile('1592750725656-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593305871564-Azyr', () => {
+    const fileTxt = getFile('1593305871564-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593305883532-Azyr', () => {
+    const fileTxt = getFile('1593305883532-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593305922349-Azyr', () => {
+    const fileTxt = getFile('1593305922349-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593307774554-Azyr', () => {
+    const fileTxt = getFile('1593307774554-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593510421135-Azyr', () => {
+    const fileTxt = getFile('1593510421135-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1593694727624-Azyr', () => {
+    const fileTxt = getFile('1593694727624-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1594502256562-Azyr', () => {
+    const fileTxt = getFile('1594502256562-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1594502281826-Azyr', () => {
+    const fileTxt = getFile('1594502281826-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1594846214316-Azyr', () => {
+    const fileTxt = getFile('1594846214316-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1595065135337-Azyr', () => {
+    const fileTxt = getFile('1595065135337-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1595065148866-Azyr', () => {
+    const fileTxt = getFile('1595065148866-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1595065157890-Azyr', () => {
+    const fileTxt = getFile('1595065157890-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1595065176255-Azyr', () => {
+    const fileTxt = getFile('1595065176255-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
   it('handles 1586650197871-Azyr', () => {
     const fileTxt = getFile('1586650197871-Azyr')
     const pages = handleAzyrPages(fileTxt)

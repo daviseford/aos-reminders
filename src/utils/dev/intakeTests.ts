@@ -45,7 +45,6 @@ it('should correctly read ${filename}', () => {
     const pdfText = getFile('${filename}')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
-
     expect(res.errors).toEqual([])
 })`
 
