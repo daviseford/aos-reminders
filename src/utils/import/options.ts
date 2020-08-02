@@ -111,6 +111,7 @@ const warscrollTypoMap: TNameMap = {
   'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'The Gorechosen': 'Gorechosen',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
+  'The Skull-helm of Khorne': 'Skull-helm of Khorne',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Vial of the Pure Blood': 'Vial of Pure Blood',
   'Vitrolic Spray': 'Vitriolic Spray (Anvilgard)',
