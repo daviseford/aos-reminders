@@ -1,20 +1,11 @@
 const fs = require('fs')
 
-const PLACEHOLDER_TXT = 'placeholder.txt'
-const WSB_PDF_OUTPUT = `WSB_pdf_tests.txt`
-const WSB_JSON_OUTPUT = `WSB_json_tests.txt`
-const BS_OUTPUT = `BATTLESCRIBE_tests.txt`
-const AZYR_JSON_OUTPUT = `AZYR_json_tests.txt`
-
-const IGNORED_FILES = [PLACEHOLDER_TXT, WSB_PDF_OUTPUT, WSB_JSON_OUTPUT, BS_OUTPUT, AZYR_JSON_OUTPUT]
-
 const INTAKE_DIR = 'src/tests/fixtures/intake'
-const FAILED_DIR = 'src/tests/fixtures/intake/failed'
 
+const AZYR_JSON_DIR = 'src/tests/fixtures/azyr/json'
+const BS_DIR = 'src/tests/fixtures/battlescribe/html'
 const WSB_JSON_DIR = 'src/tests/fixtures/warscroll/json'
 const WSB_PDF_DIR = 'src/tests/fixtures/warscroll/pdf'
-const BS_DIR = 'src/tests/fixtures/battlescribe/html'
-const AZYR_JSON_DIR = 'src/tests/fixtures/azyr/json'
 
 const FIXTURE_DIRS = [WSB_JSON_DIR, WSB_PDF_DIR, BS_DIR, AZYR_JSON_DIR]
 
@@ -54,13 +45,13 @@ const getFilesizeInBytes = (filename: string) => {
   return fileSizeInBytes
 }
 
-let WSB_JSON_OUTPUT_TXT = ''
-let WSB_PDF_OUTPUT_TXT = ''
 let AZYR_JSON_OUTPUT_TXT = ''
 let BS_OUTPUT_TXT = ''
+let WSB_JSON_OUTPUT_TXT = ''
+let WSB_PDF_OUTPUT_TXT = ''
 
 const run = () => {
-  const intake_files: string[] = fs.readdirSync(INTAKE_DIR).filter(x => !IGNORED_FILES.includes(x))
+  const intake_files: string[] = fs.readdirSync(INTAKE_DIR).filter((x: string) => !x.endsWith('.txt'))
   const existing_files: string[] = FIXTURE_DIRS.map(x => fs.readdirSync(x)).flat()
 
   console.log(intake_files)
@@ -107,20 +98,25 @@ const run = () => {
   })
 }
 
+const AZYR_REPORT = `${INTAKE_DIR}/${`AZYR_tests.txt`}`
+const BS_REPORT = `${INTAKE_DIR}/${`BATTLESCRIBE_tests.txt`}`
+const WSB_JSON_REPORT = `${INTAKE_DIR}/${`WSB_JSON_tests.txt`}`
+const WSB_PDF_REPORT = `${INTAKE_DIR}/${`WSB_PDF_tests.txt`}`
+
 const print = () => {
   try {
-    fs.unlinkSync(`${INTAKE_DIR}/${WSB_PDF_OUTPUT}`)
-    fs.unlinkSync(`${INTAKE_DIR}/${WSB_JSON_OUTPUT}`)
-    fs.unlinkSync(`${INTAKE_DIR}/${BS_OUTPUT}`)
-    fs.unlinkSync(`${INTAKE_DIR}/${AZYR_JSON_OUTPUT}`)
+    fs.unlinkSync(AZYR_REPORT)
+    fs.unlinkSync(BS_REPORT)
+    fs.unlinkSync(WSB_JSON_REPORT)
+    fs.unlinkSync(WSB_PDF_REPORT)
   } catch (err) {
     // pass
   }
 
-  if (WSB_PDF_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${WSB_PDF_OUTPUT}`, WSB_PDF_OUTPUT_TXT)
-  if (WSB_JSON_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${WSB_JSON_OUTPUT}`, WSB_JSON_OUTPUT_TXT)
-  if (BS_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${BS_OUTPUT}`, BS_OUTPUT_TXT)
-  if (AZYR_JSON_OUTPUT_TXT) fs.writeFileSync(`${INTAKE_DIR}/${AZYR_JSON_OUTPUT}`, AZYR_JSON_OUTPUT_TXT)
+  if (AZYR_JSON_OUTPUT_TXT) fs.writeFileSync(AZYR_REPORT, AZYR_JSON_OUTPUT_TXT)
+  if (BS_OUTPUT_TXT) fs.writeFileSync(BS_REPORT, BS_OUTPUT_TXT)
+  if (WSB_JSON_OUTPUT_TXT) fs.writeFileSync(WSB_JSON_REPORT, WSB_JSON_OUTPUT_TXT)
+  if (WSB_PDF_OUTPUT_TXT) fs.writeFileSync(WSB_PDF_REPORT, WSB_PDF_OUTPUT_TXT)
 }
 
 run()
