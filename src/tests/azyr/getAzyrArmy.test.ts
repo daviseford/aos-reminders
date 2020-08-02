@@ -55,6 +55,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1593305871564-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.errors).toEqual([])
   })
 
@@ -86,32 +87,29 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Knights of the Empty Thr one',
+        text: 'Swift Death',
       },
       {
-        severity: 'warn',
-        text: 'Thermalrider Cloak',
-      },
-      {
-        severity: 'ambiguity-warn',
+        severity: 'ally-warn',
         text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+          'Allied Necromancer can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Dire Wolves can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Skeleton Warriors can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Black Knights can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
       },
     ])
-  })
-
-  it('should correctly read 1594502256562-Azyr', () => {
-    const fileTxt = getFile('1594502256562-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1594502281826-Azyr', () => {
-    const fileTxt = getFile('1594502281826-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1594846214316-Azyr', () => {
@@ -389,13 +387,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO17')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    // TODO FIX
-    expect(res.errors).toEqual([
-      {
-        severity: 'error',
-        text: 'There was a problem reading this file.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('handles Nurgle4', () => {
