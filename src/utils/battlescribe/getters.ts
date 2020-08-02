@@ -463,7 +463,8 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // Put everything else in units
     if (!has_matched) {
       const val = cleanText(r.name)
-      Collection.units = uniq(Collection.units.concat(val))
+      const names = multiNameMap[val] || [val]
+      Collection.units = uniq(Collection.units.concat(names))
     }
 
     if (process_entries) {
@@ -509,3 +510,8 @@ const ignoredNames = [
   'Ur-Gold',
   "Summon Ravenak's Gnashing Jaws",
 ]
+
+// Convert names of units that contain multiple unit types
+const multiNameMap: Record<string, string[]> = {
+  'Duke Crakmarrow and the Grymwatch': ['Duke Crakmarrow', 'The Grymwatch'],
+}

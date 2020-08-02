@@ -39,7 +39,7 @@ const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
 }
 
-xdescribe('getBattlescribeArmy', () => {
+describe('getBattlescribeArmy', () => {
   it('should correctly read 1593279607055-Battlescribe', () => {
     const parsedText = getFile('1593279607055-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -103,18 +103,9 @@ xdescribe('getBattlescribeArmy', () => {
   it('should correctly read 1595627477984-Battlescribe', () => {
     const parsedText = getFile('1595627477984-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
 
-  it('should correctly read 1596221369734-Battlescribe', () => {
-    const parsedText = getFile('1596221369734-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1596221972555-Battlescribe', () => {
-    const parsedText = getFile('1596221972555-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Duke Crakmarrow')
+    expect(res.selections.units).toContain('The Grymwatch')
     expect(res.errors).toEqual([])
   })
 
