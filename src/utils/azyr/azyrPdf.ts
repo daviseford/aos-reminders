@@ -187,6 +187,7 @@ const handleTitle = (text: string): string[] => {
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
+    .replace(/(\w) +Kharadron Code: /g, `$1${sep}Kharadron Code: `)
 
   const secondTitlePass = firstTitlePass
     .replace(
@@ -301,6 +302,7 @@ const commonTypos = {
   'Bar ak-Urbaz': 'Barak-Urbaz',
   'Bat tle': 'Battle',
   'Bear er': 'Bearer',
+  'Behem oth': 'Behemoth',
   'Berserk er Lor d': 'Berserker Lord',
   'Berserk Er Lor D': 'Berserker Lord',
   'Black ened': 'Blackened',
@@ -311,6 +313,7 @@ const commonTypos = {
   'Br eath of Mor grim': 'Breath of Morgrim',
   'CH AMON': 'CHAMON',
   'Cir cle': 'Circle',
+  'Com m and': 'Command',
   'Cour t': 'Court',
   'Court s': 'Courts',
   'Decr epify': 'Decrepify',
@@ -352,6 +355,7 @@ const commonTypos = {
   'Sacr ament': 'Sacrament',
   'Shar d': 'Shard',
   'Sk ewer': 'Skewer',
+  'Skr yre': 'Skryre',
   'Sky Port': 'Skyport',
   'Sky-por t': 'Sky-port',
   'Sla yer': 'Slayer',
@@ -360,6 +364,7 @@ const commonTypos = {
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',
   'These Ar e Just Guidelines': 'These Are Just Guidelines',
+  'Thr one': 'Throne',
   'Varanguar d': 'Varanguard',
   'Warbeat:': 'Spell:',
   'Warpfir e': 'Warpfire',

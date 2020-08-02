@@ -40,6 +40,105 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  xit('should correctly read 1593279607055-Battlescribe', () => {
+    const parsedText = getFile('1593279607055-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Nikkit! Nikkit!',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Hag Curse',
+      // },
+    ])
+  })
+
+  xit('should correctly read 1593863449094-Battlescribe', () => {
+    const parsedText = getFile('1593863449094-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Courts of Delusion',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Ethereal Amulet',
+      // },
+    ])
+  })
+
+  xit('should correctly read 1594226326192-Battlescribe', () => {
+    const parsedText = getFile('1594226326192-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Allherd',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Blade of the Desecrator',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Devolve',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Great Bray-shaman',
+      // },
+    ])
+  })
+
+  xit('should correctly read 1594366095025-Battlescribe', () => {
+    const parsedText = getFile('1594366095025-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Vile Transference',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Vampire Lord (Mounted on Nightmare)',
+      // },
+      // {
+      //   severity: 'ally-warn',
+      //   text:
+      //     'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      // },
+      // {
+      //   severity: 'ally-warn',
+      //   text:
+      //     'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      // },
+    ])
+  })
+
+  xit('should correctly read 1595426828729-Battlescribe', () => {
+    const parsedText = getFile('1595426828729-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Lifebane',
+      // },
+    ])
+  })
+
+  it('should correctly read 1595627477984-Battlescribe', () => {
+    const parsedText = getFile('1595627477984-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+
+    expect(res.selections.units).toContain('Duke Crakmarrow')
+    expect(res.selections.units).toContain('The Grymwatch')
+    expect(res.errors).toEqual([])
+  })
+
   it('should work with 1590913977244-Battlescribe', () => {
     const parsedText = getFile('1590913977244-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
