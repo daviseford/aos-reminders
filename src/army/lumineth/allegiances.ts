@@ -54,7 +54,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Deplete Reserves`,
-        desc: `You can use this ability when a friendly SYAR unit would use its aetherquartz reserve ability, even if any friendly SYAR units have already done so in that turn. Pick 1 friendly SYAR unit that has any aetherquartz reserves and is wholly within 18" of a friendly SYAR HERO. That unit can use one of its aetherquartz reserves.`,
+        desc: `You can use this command ability when a friendly SYAR unit could use an aetherquartz reserve ability, even if any friendly SYAR units have already done so in that phase. Pick 1 friendly SYAR unit that has any aetherquartz reserves and is wholly within 18" of a friendly SYAR HERO. That unit can use one of its aetherquartz reserves.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -87,7 +87,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Strike in Unison`,
-        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can re-roll hit rolls of 1 for that unit.`,
+        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can re-roll hit rolls of 1 for that unit until the end of that phase.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         command_trait: true,
       },

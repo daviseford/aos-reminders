@@ -168,6 +168,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
           return accum
         }
+        if (txt.startsWith('- Command Trait : Killer Reputation')) {
+          const traits = getKillerReputation(txt)
+          accum.traits = accum.traits.concat(...traits)
+          return accum
+        }
         if (txt.startsWith('- Command Trait : ')) {
           const [trait, spell] = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
@@ -357,6 +362,23 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
   const [trait, spell] = cleaned.split(' - ').map(x => x.trim())
 
   return [trait, spell === 'All Spells' ? null : spell]
+}
+
+/**
+ * Given '- Command Trait : Killer Reputation: Fateseeker'
+ *
+ * Returns ['Killer Reputation', 'Fateseeker']
+ */
+const getKillerReputation = (str: string) => {
+  const trait1 = 'Killer Reputation'
+
+  if (str.endsWith(trait1)) return [trait1]
+
+  const splitTrait = str.split(`${trait1}: `)
+  if (!splitTrait[1]) return [trait1]
+
+  const trait2 = `${splitTrait[1].trim()} (Big Name)`
+  return [trait1, trait2]
 }
 
 /**

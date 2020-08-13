@@ -398,7 +398,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    * If a value is prefixed with a certain string,
    * assign the value to a certain selection type
    */
-  const lookup = {
+  const lookup: Record<string, keyof typeof Collection> = {
     'Battle Traits': 'traits',
     'Bound Endless Spell': 'endless_spells',
     'Endless Spell': 'endless_spells',
@@ -418,7 +418,8 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
    * Names that if they are matched exactly,
    * should be placed in a certain selection type
    */
-  const exactMatches = {
+  const exactMatches: Record<string, keyof typeof Collection> = {
+    'Charnel Throne': 'scenery',
     'Eternal Starhost': 'battalions',
     'Eternal Temple-Host': 'battalions',
     'Firelance Starhost': 'battalions',
@@ -482,7 +483,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     Object.keys(info).forEach(key => {
       if (lookup[key]) {
         const vals = info[key]
-        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        if (vals) Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
       }
     })
   })

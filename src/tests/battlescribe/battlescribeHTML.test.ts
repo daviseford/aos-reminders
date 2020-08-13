@@ -40,6 +40,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1596870118915-Battlescribe', () => {
+    const parsedText = getFile('1596870118915-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.scenery).toContain('Charnel Throne')
+    expect(res.errors).toEqual([])
+  })
+
   xit('should correctly read 1593279607055-Battlescribe', () => {
     const parsedText = getFile('1593279607055-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

@@ -37,6 +37,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read 1594502256562-Azyr', () => {
+    const fileTxt = getFile('1594502256562-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.traits).toContain('Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1592750625890-Azyr', () => {
     const fileTxt = getFile('1592750625890-Azyr')
     const pages = handleAzyrPages(fileTxt)

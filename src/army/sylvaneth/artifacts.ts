@@ -197,7 +197,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Acorn of the Ages`,
-        desc: `Once per battle, at the start of your hero phase, you can set up an AWAKENED WYLDWOOD wholly within 12" of the bearer and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
+        desc: `Once per battle, at the start of your hero phase, you can set up an AWAKENED WYLDWOOD wholly within 12" of the bearer and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

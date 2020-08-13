@@ -19,7 +19,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Archmage`,
-        desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If casting 1 spell, it is automatically cast and cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each is automatically cast with a casting roll of 10, and they can be unbound.`,
+        desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If this model will cast 1 spell, when it attempts to cast that spell, it is automatically cast with a casting roll of 12 that cannot be modified (do not roll 2D6) and it cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each is automatically cast with a casting roll of 10, and they can be unbound.`,
         when: [HERO_PHASE],
       },
       {

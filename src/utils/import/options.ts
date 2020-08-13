@@ -133,6 +133,7 @@ const azyrTypoMap: TNameMap = {
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Hellstriders with Claw-spears': 'Hellstriders',
   'Hellstriders with Hellscourges': 'Hellstriders',
+  'Iggrind-Kaz Surge-injection Endrin Mk  IV': 'Iggrind-Kaz Surge-injection Endrin Mk. IV',
   'Keen Clawed': 'Keen-clawed',
   'Madcap Shamans': 'Madcap Shaman',
   'Ogors Gluttons': 'Ogor Gluttons',
