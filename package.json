@@ -10,7 +10,7 @@
     "@stripe/stripe-js": "1.8.0",
     "bootstrap": "4.4.1",
     "core-js": "3.6.5",
-    "jspdf": "2.0.0",
+    "jspdf": "1.5.3",
     "lodash": "4.17.19",
     "luxon": "1.24.1",
     "node-sass": "4.14.1",
@@ -99,10 +99,9 @@
     "react-app-rewired": "2.1.6",
     "replace-in-file": "6.1.0",
     "source-map-explorer": "2.4.2",
-    "ts-node-dev": "1.0.0-pre.56",
+    "ts-node-dev": "1.0.0-pre.57",
     "tsconfig-paths": "3.9.0",
     "typescript": "3.9.7",
-    "webpack-filter-warnings-plugin": "^1.2.1",
     "xlsx": "0.16.6"
   }
 }
