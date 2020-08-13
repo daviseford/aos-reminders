@@ -54,8 +54,8 @@ const run = () => {
   const intake_files: string[] = fs.readdirSync(INTAKE_DIR).filter((x: string) => !x.endsWith('.txt'))
   const existing_files: string[] = FIXTURE_DIRS.map(x => fs.readdirSync(x)).flat()
 
-  console.log(intake_files)
-  //  console.log(existing_files)
+  // console.log(intake_files)
+  // console.log(existing_files)
 
   intake_files.forEach(filename => {
     const src = `${INTAKE_DIR}/${filename}`
@@ -63,11 +63,13 @@ const run = () => {
     const bytes = getFilesizeInBytes(src)
 
     if (bytes < 10) {
-      return console.error('Too small: ' + filename)
+      fs.unlinkSync(src) // Remove the file
+      return console.error(`Ignoring file (too small): ${filename}`)
     }
 
     if (existing_files.includes(filename)) {
-      return console.error('Exists already: ' + filename)
+      fs.unlinkSync(src) // Remove the file
+      return console.error(`Ignoring file (exists already): ${filename}`)
     }
 
     // WSB
