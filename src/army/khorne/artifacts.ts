@@ -25,15 +25,15 @@ const Artifacts: TArtifacts = [
     ],
   },
   {
-    name: `Collar of Khorne`,
+    name: `Collar of Contempt`,
     effects: [
       {
-        name: `Collar of Khorne`,
+        name: `Collar of Contempt`,
         desc: `The bearer can attempt to unbind one spell in each enemy hero phase in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Collar of Khorne`,
+        name: `Collar of Contempt`,
         desc: `The bearer can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
         when: [START_OF_HERO_PHASE],
       },

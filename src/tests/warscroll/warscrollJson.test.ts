@@ -38,6 +38,84 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1592754653939-Warscroll_Builder', () => {
+    const parsedText = getFile('1592754653939-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.traits).toContain('Killer Reputation')
+    expect(res.selections.traits).toContain('Fateseeker (Big Name)')
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO
+  xit('should correctly read 1594377130100-Warscroll_Builder', () => {
+    const parsedText = getFile('1594377130100-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO
+  xit('should correctly read 1594377962081-Warscroll_Builder', () => {
+    const parsedText = getFile('1594377962081-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1596572409302-Warscroll_Builder', () => {
+    const parsedText = getFile('1596572409302-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.artifacts).toContain('Collar of Contempt')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1596744633061-Warscroll_Builder', () => {
+    const parsedText = getFile('1596744633061-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Ethereal Amulet',
+      },
+    ])
+  })
+
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
+  xit('should correctly read 1596798763772-Warscroll_Builder', () => {
+    const parsedText = getFile('1596798763772-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: Add Swifthawk Agents as a faction or allegiance
+  // https://github.com/daviseford/aos-reminders/issues/992
+  xit('should correctly read 1597072426756-Warscroll_Builder', () => {
+    const parsedText = getFile('1597072426756-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
+  xit('should correctly read 1597072523138-Warscroll_Builder', () => {
+    const parsedText = getFile('1597072523138-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: Add Swifthawk Agents as a faction or allegiance
+  // https://github.com/daviseford/aos-reminders/issues/992
+  xit('should correctly read 1597072550016-Warscroll_Builder', () => {
+    const parsedText = getFile('1597072550016-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1597231391899-Warscroll_Builder', () => {
+    const parsedText = getFile('1597231391899-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Varanguard')
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1592412384855-Warscroll_Builder', () => {
     const parsedText = getFile('1592412384855-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -63,14 +141,11 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1592831552808-Warscroll_Builder', () => {
     const parsedText = getFile('1592831552808-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Killer Reputation: Fateseeker',
-      },
-    ])
+    expect(res.selections.traits).toContain('Longstrider (Big Name)')
+    expect(res.errors).toEqual([])
   })
 
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1593336693320-Warscroll_Builder', () => {
     const parsedText = getFile('1593336693320-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -200,6 +275,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1595637879055-Warscroll_Builder', () => {
     const parsedText = getFile('1595637879055-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.spells).toContain('Ribcracker')
+    expect(res.selections.traits).toContain('Fateseeker (Big Name)')
     expect(res.errors).toEqual([])
   })
 
