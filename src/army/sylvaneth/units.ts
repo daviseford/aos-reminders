@@ -91,7 +91,7 @@ export const Units: TUnits = [
       },
       {
         name: `Metamorphosis`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -188,7 +188,7 @@ export const Units: TUnits = [
       },
       {
         name: `Silent Communion`,
-        desc: `Once per battle, in your hero phase, you can pick 1 friendly model with this ability and set up 1 AWAKENED WYLDWOOD wholly within 18" of that model and more than 1" from any other model, terrain feature or objective, and add it to your army.`,
+        desc: `Once per battle, in your hero phase, you can pick 1 friendly model with this ability and set up 1 AWAKENED WYLDWOOD wholly within 18" of that model and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
         when: [HERO_PHASE],
       },
       {

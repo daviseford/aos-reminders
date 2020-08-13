@@ -107,10 +107,10 @@ const WSB_PDF_REPORT = `${INTAKE_DIR}/${`WSB_PDF_tests.txt`}`
 
 const print = () => {
   try {
-    fs.unlinkSync(AZYR_REPORT)
-    fs.unlinkSync(BS_REPORT)
-    fs.unlinkSync(WSB_JSON_REPORT)
-    fs.unlinkSync(WSB_PDF_REPORT)
+    if (AZYR_JSON_OUTPUT_TXT) fs.unlinkSync(AZYR_REPORT)
+    if (BS_OUTPUT_TXT) fs.unlinkSync(BS_REPORT)
+    if (WSB_JSON_OUTPUT_TXT) fs.unlinkSync(WSB_JSON_REPORT)
+    if (WSB_PDF_OUTPUT_TXT) fs.unlinkSync(WSB_PDF_REPORT)
   } catch (err) {
     // pass
   }

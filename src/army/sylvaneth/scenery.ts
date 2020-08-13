@@ -7,7 +7,7 @@ const Scenery: TScenery = [
     effects: [
       {
         name: `Setup`,
-        desc: `After territories have been chosen but before armies are set up, you can set up the AWAKENED WYLDWOOD anywhere on the battlefield that is more than 1" from any other terrain features, more than 1" from enemy territory and more than 6" away from any objectives.`,
+        desc: `After territories have been chosen but before armies are set up, you can set up the AWAKENED WYLDWOOD anywhere on the battlefield that is more than 3" from any other terrain features, more than 1" from enemy territory and more than 6" away from any objectives.`,
         when: [START_OF_SETUP],
       },
       {
