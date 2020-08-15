@@ -10,6 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 const HagQueenEffects = [
@@ -153,6 +154,11 @@ const BladedImpactEffect = {
   name: `Bladed Impact`,
   desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
+}
+const HeartseekersEffect = {
+  name: `Heartseekers`,
+  desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
+  when: [SHOOTING_PHASE],
 }
 
 // Unit Names
@@ -337,11 +343,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Krone.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Heartseekers`,
-        desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
-        when: [SHOOTING_PHASE],
-      },
+      HeartseekersEffect,
     ],
   },
   {
@@ -421,6 +423,26 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       HeartpiercerShieldEffect,
+    ],
+  },
+  {
+    name: `Morgwaeth the Bloodied`,
+    effects: [...HagQueenEffects, ...WitchbrewEffects],
+  },
+  {
+    name: `The Blade-Coven`,
+    effects: [
+      {
+        name: `Kyrae`,
+        desc: `Kyrae has a Wounds characteristic of 2.`,
+        when: [WOUND_ALLOCATION],
+      },
+      HeartseekersEffect,
+      {
+        name: `Daughters of the First Temple`,
+        desc: `Roll a D6 each time a friendly Morgwaeth the Bloodied unit within 3" of this unit suffers a wound or mortal wound. On a 4+ this unit is allocated the wound instead.`,
+        when: [WOUND_ALLOCATION],
+      },
     ],
   },
 ]

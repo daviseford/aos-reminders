@@ -35,6 +35,12 @@ const MegabossEffects = [
   },
 ]
 
+const DuffUpdaBigThingEffect = {
+  name: `Duff Up da Big Thing`,
+  desc: `Add 1 to the hit rolls for attacks made by this unit that target a unit with a Wounds characteristic of 4+.`,
+  when: [COMBAT_PHASE],
+}
+
 // Unit Names
 export const Units: TUnits = [
   {
@@ -147,13 +153,7 @@ export const Units: TUnits = [
   },
   {
     name: `Orruk Brutes`,
-    effects: [
-      {
-        name: `Duff Up da Big Thing`,
-        desc: `Add 1 to the hit rolls for attacks made by this unit that target a unit with a Wounds characteristic of 4+.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [DuffUpdaBigThingEffect],
   },
   {
     name: `Orruk Gore-gruntas`,
@@ -178,6 +178,22 @@ export const Units: TUnits = [
       {
         name: `Paired Choppas`,
         desc: `Add 1 to hit rolls for attacks made with a Pair of Ardboy Choppas.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Morgok's Krushas`,
+    effects: [
+      {
+        name: `Morgok`,
+        desc: `Add 1 to the Attacks characteristic of Morgok's Krusha Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      DuffUpdaBigThingEffect,
+      {
+        name: `Beastbashas`,
+        desc: `The first time an enemy Monster is destroyed by an attack from this unit, add 1 to this unit's wound rolls for the remainder of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],
