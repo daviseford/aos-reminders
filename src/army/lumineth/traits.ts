@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Warmaster`,
-        desc: `If your general is a part of your army and on the battlefield, roll a dice. On a 4+  you receive 1 extra command point.`,
+        desc: `If your general is a part of your army and on the battlefield, roll a D6. On a 4+  you receive 1 extra command point.`,
         when: [HERO_PHASE],
       },
     ],

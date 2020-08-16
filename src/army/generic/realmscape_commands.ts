@@ -75,7 +75,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Amethyst Aura (${SHYISH})`,
-        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
     ],

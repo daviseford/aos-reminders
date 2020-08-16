@@ -37,7 +37,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystical Unforging`,
-        desc: `Casting value of 7. Pick 1 enemy HERO that bears an artefact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds and you must roll a dice. On a 5+, that HERO no longer bears that artefact of power (if a weapon was picked when it was selected, the weapon reverts to normal).`,
+        desc: `Casting value of 7. Pick 1 enemy HERO that bears an artefact of power within 12" of the caster and visible to them. That HERO suffers D3 mortal wounds and you must roll a D6. On a 5+, that HERO no longer bears that artefact of power (if a weapon was picked when it was selected, the weapon reverts to normal).`,
         when: [HERO_PHASE],
       },
     ],
@@ -57,7 +57,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Fiery Convocation`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, at the end of each phase of a turn, roll a dice for that unit. On a 6, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, at the end of each phase of a turn, roll a D6 for that unit. On a 6, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

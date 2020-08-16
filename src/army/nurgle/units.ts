@@ -769,7 +769,7 @@ export const Units: TUnits = [
       BlightedWeaponsEffect,
       {
         name: `Festering Bodyguards`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly Fecula Flyblown while she is within 3" of this unit. On a 4+, that wound or mortal wound is allocated to this unit instead of Fecula Flyblown.`,
+        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly Fecula Flyblown while she is within 3" of this unit. On a 4+, that wound or mortal wound is allocated to this unit instead of Fecula Flyblown.`,
         when: [WOUND_ALLOCATION],
       },
     ],

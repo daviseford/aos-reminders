@@ -32,7 +32,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Sigil of Yngra`,
-        desc: `At the end of the combat phase, if this model was targeted by enemy attacks, roll a dice for each enemy unit within 3". On a 1-3, nothing happens. On a 4-5 that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, if this model was targeted by enemy attacks, roll a D6 for each enemy unit within 3". On a 1-3, nothing happens. On a 4-5 that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Turn to Stone`,
-        desc: `At the start and end of the movement phase, roll a dice for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. In addition, subtract 1 from run and change rolls for units within 6". This ability has no effect on LUMINETH REALM-LORDS units.`,
+        desc: `At the start and end of the movement phase, roll a D6 for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. In addition, subtract 1 from run and change rolls for units within 6". This ability has no effect on LUMINETH REALM-LORDS units.`,
         when: [MOVEMENT_PHASE],
       },
     ],

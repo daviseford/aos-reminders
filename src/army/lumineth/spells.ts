@@ -65,7 +65,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Protection of Hysh`,
-        desc: `Casting value of 8. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
+        desc: `Casting value of 8. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
         when: [HERO_PHASE, WOUND_ALLOCATION],
       },
     ],
@@ -111,7 +111,7 @@ const Spells: TSpells = [
         name: `Living Fissure`,
         desc: `Casting value of 6. Pick one point on the battlefield within 9" of the caster and visible to them. 
               Draw a straight line 1mm wide between that point and the closest part of the caster's base. 
-              Roll a dice for each unt that has models passed by the line. On a 2+ the unit suffers D3 mortal wounds.`,
+              Roll a D6 for each unt that has models passed by the line. On a 2+ the unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -122,7 +122,7 @@ const Spells: TSpells = [
       {
         name: `Entomb`,
         desc: `Casting value of 7. Pick one enemy model within 18" of the caster and visible to them. 
-              Roll a dice, if the roll is greater than the model's Wounds characteristic, that model is slain. 
+              Roll a D6, if the roll is greater than the model's Wounds characteristic, that model is slain. 
               If the roll is 6 but not greater than the model's Wounds characteristic, the model suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },

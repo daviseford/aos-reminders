@@ -34,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Great Rememberer`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -64,7 +64,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mighty Warleader`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -100,7 +100,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cunning`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of this general and roll a dice. On a 4+, that enemy HERO suffers 1 mortal wound.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of this general and roll a D6. On a 4+, that enemy HERO suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

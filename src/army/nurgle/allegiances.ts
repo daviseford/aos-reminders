@@ -19,7 +19,7 @@ const LocusOfCorrosionEffect = {
 
 const NurglesEmbraceEffect = {
   name: `Nurgle's Embrace`,
-  desc: `Roll a dice each time a friendly Blessed Sons/Drowned Men Rotbringer model is slain in this phase. On a 2+ the attacking unit suffers 1 mortal wound. If the attacking unit has the Nurgle keyword, heal 1 wound allocated to the unit instead.`,
+  desc: `Roll a D6 each time a friendly Blessed Sons/Drowned Men Rotbringer model is slain in this phase. On a 2+ the attacking unit suffers 1 mortal wound. If the attacking unit has the Nurgle keyword, heal 1 wound allocated to the unit instead.`,
   when: [COMBAT_PHASE],
 }
 
