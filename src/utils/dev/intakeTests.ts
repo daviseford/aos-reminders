@@ -45,10 +45,10 @@ const getFilesizeInBytes = (filename: string) => {
   return fileSizeInBytes
 }
 
-let AZYR_JSON_OUTPUT_TXT = ''
-let BS_OUTPUT_TXT = ''
-let WSB_JSON_OUTPUT_TXT = ''
-let WSB_PDF_OUTPUT_TXT = ''
+let AZYR_JSON_OUTPUT = ''
+let BS_OUTPUT = ''
+let WSB_JSON_OUTPUT = ''
+let WSB_PDF_OUTPUT = ''
 
 const run = () => {
   const intake_files: string[] = fs.readdirSync(INTAKE_DIR).filter((x: string) => !x.endsWith('.txt'))
@@ -76,23 +76,23 @@ const run = () => {
     if (filename.includes('Warscroll_Builder')) {
       if (filename.endsWith('.json')) {
         fs.copyFileSync(src, `${WSB_JSON_DIR}/${filename}`)
-        WSB_JSON_OUTPUT_TXT = `${WSB_JSON_OUTPUT_TXT}\n${wsbJsonTest(filename.replace('.json', ''))}`
+        WSB_JSON_OUTPUT = `${WSB_JSON_OUTPUT}\n${wsbJsonTest(filename.replace('.json', ''))}`
       } else {
         fs.copyFileSync(src, `${WSB_PDF_DIR}/${filename}`)
-        WSB_PDF_OUTPUT_TXT = `${WSB_PDF_OUTPUT_TXT}\n${wsbPdfTest(filename.replace('.pdf', ''))}`
+        WSB_PDF_OUTPUT = `${WSB_PDF_OUTPUT}\n${wsbPdfTest(filename.replace('.pdf', ''))}`
       }
     }
 
     // Battlescribe
     if (filename.endsWith('.html')) {
       fs.copyFileSync(src, `${BS_DIR}/${filename}`)
-      BS_OUTPUT_TXT = `${BS_OUTPUT_TXT}\n${bsHtmlTest(filename.replace('.html', ''))}`
+      BS_OUTPUT = `${BS_OUTPUT}\n${bsHtmlTest(filename.replace('.html', ''))}`
     }
 
     // Azyr
     if (filename.includes('Azyr') && filename.endsWith('.json')) {
       fs.copyFileSync(src, `${AZYR_JSON_DIR}/${filename}`)
-      AZYR_JSON_OUTPUT_TXT = `${AZYR_JSON_OUTPUT_TXT}\n${azyrJsonTest(filename.replace('.json', ''))}`
+      AZYR_JSON_OUTPUT = `${AZYR_JSON_OUTPUT}\n${azyrJsonTest(filename.replace('.json', ''))}`
     }
 
     // Remove the file
@@ -100,33 +100,25 @@ const run = () => {
   })
 }
 
-const AZYR_REPORT = `${INTAKE_DIR}/${`AZYR_tests.txt`}`
-const BS_REPORT = `${INTAKE_DIR}/${`BATTLESCRIBE_tests.txt`}`
-const WSB_JSON_REPORT = `${INTAKE_DIR}/${`WSB_JSON_tests.txt`}`
-const WSB_PDF_REPORT = `${INTAKE_DIR}/${`WSB_PDF_tests.txt`}`
-
 const print = () => {
-  const HAS_PROCESSED_FILES = !!(
-    AZYR_JSON_OUTPUT_TXT ||
-    BS_OUTPUT_TXT ||
-    WSB_JSON_OUTPUT_TXT ||
-    WSB_PDF_OUTPUT_TXT
-  )
+  const HAS_PROCESSED_FILES = !!(AZYR_JSON_OUTPUT || BS_OUTPUT || WSB_JSON_OUTPUT || WSB_PDF_OUTPUT)
 
   if (!HAS_PROCESSED_FILES) return // No use if there's no data
 
-  ;[AZYR_REPORT, BS_REPORT, WSB_JSON_REPORT, WSB_PDF_REPORT].forEach(report => {
-    try {
-      fs.unlinkSync(report)
-    } catch (err) {
-      // pass
-    }
-  })
+  const reportMap = {
+    [`${INTAKE_DIR}/${`AZYR_TESTS.txt`}`]: AZYR_JSON_OUTPUT,
+    [`${INTAKE_DIR}/${`BATTLESCRIBE_TESTS.txt`}`]: BS_OUTPUT,
+    [`${INTAKE_DIR}/${`WSB_JSON_TESTS.txt`}`]: WSB_JSON_OUTPUT,
+    [`${INTAKE_DIR}/${`WSB_PDF_TESTS.txt`}`]: WSB_PDF_OUTPUT,
+  }
 
-  if (AZYR_JSON_OUTPUT_TXT) fs.writeFileSync(AZYR_REPORT, AZYR_JSON_OUTPUT_TXT)
-  if (BS_OUTPUT_TXT) fs.writeFileSync(BS_REPORT, BS_OUTPUT_TXT)
-  if (WSB_JSON_OUTPUT_TXT) fs.writeFileSync(WSB_JSON_REPORT, WSB_JSON_OUTPUT_TXT)
-  if (WSB_PDF_OUTPUT_TXT) fs.writeFileSync(WSB_PDF_REPORT, WSB_PDF_OUTPUT_TXT)
+  Object.keys(reportMap).forEach(file => {
+    try {
+      fs.unlinkSync(file)
+    } catch (err) {}
+    const val = reportMap[file]
+    if (val) fs.writeFileSync(file, reportMap[file])
+  })
 }
 
 run()
