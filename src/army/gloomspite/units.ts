@@ -168,6 +168,12 @@ export const Units: TUnits = [
         when: [WOUND_ALLOCATION],
       },
       {
+        name: `Nikkit! Nikkit!`,
+        desc: `Casting value of 8. Pick 1 enemy model within 18" of the caster that is visible to them. The unit that model belongs to suffers D3 mortal wounds. In addition, if that model has an artefact of power and the casting roll was 10+, that model's artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form)`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
         name: `The Loonking's Entreaty`,
         desc: `You can use this command ability once per battle if this model is your general and on the battlefield, before you roll the dice to determine how far the Bad Moon moves that battle round. If you do so, you can choose for the Bad Moon to either not move that battle round, or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).`,
         when: [START_OF_ROUND],

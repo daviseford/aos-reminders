@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warscroll Builder</title>
+<meta name="description" content="A simple list builder for Age of Sigmar">
+<meta name="author" content="Games Workshop">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="library/css/styles.min.css">
+
+<style>
+  	.pointChangeGroup > .btn-primary {
+		background-color: black;
+		border: solid 1px black;
+		color: white;
+	}
+
+	.pointChangeGroup > .btn-primary:focus {
+		background-color: black;
+		border: solid 1px black;
+		color: white;
+	}
+
+	.pointChangeGroup > .btn-primary:hover {
+		background-color: #e5e4e4;
+		border: solid 1px black;
+		color: black;
+	}
+
+	.navbar-default .navbar-nav > li > a {
+
+	    margin: 0 10px 0 0 !important
+	}
+
+	#textArmyModal {
+		position:absolute !important;
+	}
+
+	#loadListModal {
+		position:absolute !important;
+	}
+
+	#loadingModal {
+		position:absolute !important;
+	}
+
+	#copyToClipboardBtn.focus, #copyToClipboardBtn:focus {
+		background-color: #f9ce62 !important;
+    	border-color: #f9ce62 !important;
+	}
+
+	.reinforcements__wrapper {
+		display: none !important;
+	}
+
+	#commandPointToggle {
+		color:white;
+		border-radius: 25px;
+		cursor: pointer;
+		background-color: #ccc;
+	}
+
+	.command-point-off {
+		background-color: #ccc;
+	}
+
+	.command-point-on {
+		background-color: #7f1616 !important;
+	}
+
+	.meetingEngagementSummary {
+		display: none;
+	}
+
+	.unit-name-wrapper {
+		border: none !important;
+		border-bottom: 1px solid #aaa !important;
+		font-weight: bolder;
+		padding-left: 0;
+		font-size: 16px;
+	}
+
+	.panelEditButton {
+		position: absolute;
+		right: 0;
+		color: #aaa;
+	}
+
+	.general-slider {
+		margin-left: 4px;
+	}
+
+	.gen-attribute-button {
+		word-wrap: break-word;
+		white-space: normal;
+		height: 100% !important;
+	}
+
+	.panel-header-row {
+		margin-bottom: 0px;
+	}
+
+	.compact-toggle .toggle-group .btn {
+		border-color: transparent !important;
+	}
+  </style>
+
+<script src="library/js/components.min.js"></script>
+<script src="library/js/src/allData.v32.1.min.js"></script>
+<script src="library/js/main.v32.1.min.js"></script>
+<script src="library/js/iframeResizer.contentWindow.min.js"></script>
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body onLoad="init()">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+<div class="navbar-header pull-left">
+<ul class="nav navbar-nav">
+<li><a class="navbar-brand" href="#" style="padding-top:2px !important;padding-bottom:0px !important">
+<script type="text/javascript" style="display:none">
+//<![CDATA[
+window.__mirage2 = {petok:"9808973ae71883bdefc65a46cd5835332fc381fc-1597518326-1800"};
+//]]>
+</script>
+<script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/scripts/04b3eb47/cloudflare-static/mirage2.min.js"></script>
+<img data-cfsrc="library/js/src/Warscroll-Builder-Logo.png" data-cfstyle="height: auto; max-width: 70px; margin-left: 10px;" alt="" style="display:none;visibility:hidden;"><noscript><img src="library/js/src/Warscroll-Builder-Logo.png" style="height: auto; max-width: 70px; margin-left: 10px;" alt=""></noscript>
+</a></li>
+</ul>
+<ul class="nav navbar-nav">
+<li><a href="#" class="control-icon" title="Save to PDF" onclick="myprint(event)"><i class="icon-download" aria-hidden="true"></i></a></li>
+</ul>
+
+<ul class="nav navbar-nav">
+<li><a href="#" class="control-icon" title="Army Summary" onclick="createTextArmy(event)"><i class="icon-question" aria-hidden="true"></i></a></li>
+</ul>
+<ul class="nav navbar-nav">
+<li><a href="#" data-toggle="modal" data-target="#supportModal"><span class="glyphicon glyphicon-file" aria-hidden="true" style="color:black !important"></span></a></li>
+</ul>
+</div>
+<div class="navbar-header pull-right">
+<h3 class="navbar-text">
+<span>
+<span class="reinforcements__wrapper" title="Extra Command Point">
+<i id="commandPointToggle" class="icon-chaos-command" onclick="toggleCommandPoint()" aria-hidden="true"></i>
+<span>CP</span>
+</span>
+<i class="icon-star" aria-hidden="true"></i>
+<span class="totalPointsSpan">0</span>
+<span> /
+<a class="limitSpan" href="#" onclick="showLimitPopover(event)"> 2000</a>
+</span>
+</span>
+</h3>
+</div>
+</div>
+</nav>
+<div class="container">
+<div class="panel panel-default page-header__panel">
+<div class="row">
+<div class="col-xs-12">
+<div class="btn-group" role="group" aria-label="..." id="ghTypeButtonGroup">
+<h5><b>Choose Your Point System</b></h5>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-8">
+<div class="btn-group btn-group__handbook" role="group" aria-label="..." id="ghTypeButtonGroup">
+<button type="button" class="btn btn-primary btn-sm active" id="ghOneButton">Pitched Battle</button>
+<button type="button" class="btn btn-default btn-sm" id="meetingEngagementButton">Meeting Engagement</button>
+<button type="button" class="btn btn-default btn-sm" id="skirmishButton">Skirmish</button>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="btn-group" role="group" aria-label="..." id="ghTypeButtonGroup">
+<h5><b>Choose a Grand Alliance</b></h5>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-8">
+<div class="btn-group btn-group__alliance" role="group" aria-label="..." id="factionTypeButtonGroup">
+<button type="button" class="btn btn-primary btn-sm active" id="poolChoiceButton">Chaos</button>
+<button type="button" class="btn btn-default btn-sm" id="scgtPoolButton">Order</button>
+<button type="button" class="btn btn-default btn-sm" id="kdvChoiceButton">Destruction</button>
+<button type="button" class="btn btn-default btn-sm" id="sdkChoiceButton">Death</button>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="btn-group" role="group" aria-label="..." id="ghTypeButtonGroup">
+<h5><b>Choose Allegiance & Mortal Realm</b></h5>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="dropdown" style="margin-bottom: 1em">
+<button class="btn btn-block btn-primary dropdown-toggle" type="button" id="allegianceDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Allegiance: Chaos <span class="caret"></span>
+</button>
+<ul class="dropdown-menu  center-menu" aria-labelledby="allegianceDropDown" id="allegianceDropDownList">
+</ul>
+</div>
+<div class="dropdown additionalArmyOptions" style="display:none">
+<button class="btn btn-block btn-primary dropdown-toggle" type="button" id="armyOptionDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Select Army Option <span class="caret"></span>
+</button>
+<ul class="dropdown-menu  center-menu" aria-labelledby="armyOptionDropDown" id="armyOptionDropDownList">
+</ul>
+</div>
+<div class="dropdown">
+<button class="btn btn-block btn-primary dropdown-toggle" type="button" id="realmDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Mortal Realm: None <span class="caret"></span>
+</button>
+<ul class="dropdown-menu  center-menu" aria-labelledby="realmDropDown" id="realmDropDownList">
+<li><a href="#">None</a></li>
+<li><a href="#">Ghyran (Life)</a></li>
+<li><a href="#">Ghur (Beasts)</a></li>
+<li><a href="#">Chamon (Metal)</a></li>
+<li><a href="#">Aqshy (Fire)</a></li>
+<li><a href="#">Shyish (Death)</a></li>
+<li><a href="#">Ulgu (Shadow)</a></li>
+<li><a href="#">Hysh (Light)</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="btn-group" role="group" aria-label="..." id="ghTypeButtonGroup">
+<h5><b>Add Units</b></h5>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="dropdown">
+<button class="btn btn-block btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Select Faction <span class="caret"></span>
+</button>
+<ul class="dropdown-menu center-menu" aria-labelledby="dropdownMenu1" id="armiesDropDownList">
+</ul>
+</div>
+</div>
+</div>
+
+<div class="row page-header__summary pitchedBattleSummary">
+<div class="col-sm-3">
+<h5><span id="leaderConter"><b>Leaders:</b> 0</span></h5>
+</div>
+<div class="col-sm-3">
+<h5><span id="battlelineCounter"><b>Battlelines:</b> 0</span></h5>
+</div>
+<div class="col-sm-3">
+<h5><span id="behemothCounter"><b>Behemoths:</b> 0</span></h5>
+</div>
+<div class="col-sm-3">
+<h5><span id="artilleryCounter"><b>Artillery:</b> 0</span></h5>
+</div>
+</div>
+<div class="row page-header__summary pitchedBattleSummary">
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="artefactCountSpan"><b>Artefacts:</b> 0</span></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="endlessSpellCountSpan"><b>Endless Spells:</b> 0</span></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="alliedTotalUnitSpan"></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="allyTotalSpan"></span></h5>
+</div>
+</div>
+<div class="row page-header__summary pitchedBattleSummary free-city-count-div">
+<div class="col-sm-6" style="text-align:center">
+<h5><span class="stormcastUnitCountSpan"></span></h5>
+</div>
+<div class="col-sm-6" style="text-align:center">
+<h5><span class="otherUnitCountSpan"></span></h5>
+</div>
+</div>
+
+<div class="row page-header__summary meetingEngagementSummary">
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="spearheadHeader"><b><u>Spearhead</u></b></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="spearheadLeaderCountSpan"><b>Leaders:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="spearheadBattlelineCountSpan"><b>Battleline:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="spearheadOtherUnitCountSpan"><b>Other Units:</b> 0</span></h5>
+</div>
+</div>
+
+<div class="row page-header__summary meetingEngagementSummary">
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="mainBodyHeader"><b><u>Main Body</u></b></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="mainBodyLeaderCountSpan"><b>Leaders:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="mainBodyBattlelineCountSpan"><b>Battleline:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="mainBodyBehemothCountSpan"><b>Behemoths:</b> 0</span></h5>
+</div>
+</div>
+
+<div class="row page-header__summary meetingEngagementSummary">
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardHeader"><b><u>Rearguard</u></b></span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardLeaderCountSpan"><b>Leaders:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardBattlelineCountSpan"><b>Battleline:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardBehemothCountSpan"><b>Behemoths:</b> 0</span></h5>
+</div>
+</div>
+<div class="row page-header__summary meetingEngagementSummary">
+<div class="col-sm-3" style="text-align:center">
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardArtilleryCountSpan"><b>Artillery:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+<h5><span class="rearguardOtherUnitsCountSpan"><b>Other Units:</b> 0</span></h5>
+</div>
+<div class="col-sm-3" style="text-align:center">
+</div>
+</div>
+<div class="row page-header__summary meetingEngagementSummary">
+<hr>
+<div class="col-sm-6" style="text-align:center">
+<h5><span class="artefactCountSpan"><b>Artefacts:</b> 0</span></span></h5>
+</div>
+<div class="col-sm-6" style="text-align:center">
+<h5><span class="meetingEngagementAllySpan"></span></h5>
+</div>
+</div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel kharadronOverlordsOption">
+<div class="kharadronOverlordsOption">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b></b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-block btn-primary dropdown-toggle btn-sm" type="button" id="addSkyportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add Code
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addSkyportDropdown" id="skyportDropDownList">
+<li><a href=\"#\"><b>Kharadron Code</b></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body"><ul id="skyportPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Leaders</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+ <div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addHeroDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add a Leader
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addHeroDropdown" id="heroesDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body"><ul id="heroesPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Units</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addUnitDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add Units
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addUnitDropdown" id="unitsDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody"><ul id="unitsPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Behemoths</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addMonsterDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add Behemoths
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addMonsterDropDown" id="monstersDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody"><ul id="monstersPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Artillery</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addWarmachinesDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add Artillery
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addWarmachinesDropDown" id="warmachinesDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody"><ul id="warmachinesPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Battalions</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addFormationsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add Battalions
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addFormationsDropDown" id="formationsDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody"><ul id="formationsPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-6">
+<div class="panel-heading wsbUnitContainerHeader"><b>Endless Spells / Terrain / Extra Command Point</b></div>
+</div>
+<div class="col-xs-6 text-right">
+<div class="add-dropdown-wrapper">
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="addSceneryDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+Add
+<span class="caret"></span>
+</button>
+<ul class="dropdown-menu pull-right stay-right" aria-labelledby="addSceneryDropDown" id="sceneryDropDownList">
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody"><ul id="sceneryPanelBody" class="list-unstyled"></ul></div>
+</div>
+<div class="panel panel-default wsbUnitContainerPanel">
+<div class="row">
+<div class="col-xs-12">
+<div class="panel-heading wsbUnitContainerHeader"><b>Notes</b></div>
+</div>
+</div>
+<div class="panel-body wsbUnitContainerBody">
+<div class="form-group" style="padding-top:15px">
+<textarea class="form-control" style="border-radius:0 !important; resize: none !important" id="exampleFormControlTextarea2" rows="5"></textarea>
+</div>
+</div>
+</div>
+<h5 style="text-align: center" id="totalsHeader">
+<span title="Scrolls"><span id="totalScrollsSpan">0</span><span class="glyphicon glyphicon-file" aria-hidden="true" id="scrollIcon"></span></span>
+<span title="Wounds">
+<i class="icon-heart" aria-hidden="true"></i>
+<span id="totalWoundsSpan">0</span>
+<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+</span>
+<span>
+<i class="icon-star" aria-hidden="true"></i>
+<span class="totalPointsSpan">0</span>
+<span> /
+<span class="limitSpan">2000</span>
+</span>
+</span>
+</h5>
+<p class="text-center">
+<button type="button" class="btn btn-default btn-sm loadSaveButton" onclick="handleSaveList(event)">Save</button>
+<button type="button" class="btn btn-default btn-sm loadSaveButton" data-toggle="modal" data-target="#loadListModal" onclick="handleLoadList(event)">Load</button>
+<button type="button" class="btn btn-default btn-sm" onclick="clearAllArmyData()">Clear</button>
+</p>
+<p class="text-center">
+<span class="compact-toggle"><span style="padding-right:4px">Compact</span><input type="checkbox" data-style="ios" id="compactToggleID"></span>
+</p>
+<div class="modal fade bs-example-modal-sm" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Share Link</h4>
+</div>
+<div class="modal-body">
+<h4 class="modal-title" id="myModalLabel">Copy this link to share your list: </h4>
+<p></p>
+<span id="urlSpan"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="loadingModal" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="loadingModalLabel">Loading...</h4>
+</div>
+<div class="modal-body start-hidden">
+<div class="progress start-hidden">
+<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="pointsChangeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Pitched Battle Options</h4>
+</div>
+<div class="modal-body">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-xs-12" style="text-align: center">
+<span><b>Game Type</b></span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12" style="text-align: center">
+<div class="btn-group pointChangeGroup" role="group" id="pointsValueButtonGroup" aria-label="...">
+<button type="button" class="btn btn-default btn-sm" id="vanPointsButton" onclick="setArmyPoints(1000)">Vanguard (1000)</button>
+<button type="button" class="btn btn-primary btn-sm" id="bhPointsButton" onclick="setArmyPoints(2000)">Battlehost (2000)</button>
+<button type="button" class="btn btn-default btn-sm" id="whPointsButton" onclick="setArmyPoints(2500)">Warhost (2500)</button>
+</div>
+
+</div>
+</div>
+<div class="row" style="margin-top:20px">
+<div class="col-xs-12" style="text-align: center">
+<span><b>Points Variation</b></span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12" style="text-align: center">
+<div class="btn-group pointChangeGroup" id="pointsVariationButtonGroup" role="group" aria-label="...">
+<button type="button" class="btn btn-default btn-sm" id="minus250Button" onclick="setArmyPointVariation(-500)">-500</button>
+<button type="button" class="btn btn-default btn-sm" id="minus250Button" onclick="setArmyPointVariation(-250)">-250</button>
+<button type="button" class="btn btn-primary btn-sm" id="noVariationButton" onclick="setArmyPointVariation(0)">0</button>
+<button type="button" class="btn btn-default btn-sm" id="plus250Button" onclick="setArmyPointVariation(250)">+250</button>
+<button type="button" class="btn btn-default btn-sm" id="minus250Button" onclick="setArmyPointVariation(500)">+500</button>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="renownChangeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">New Renoun Value</h4>
+</div>
+<div class="modal-body">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-xs-12" style="text-align: center">
+<span><b>Renown Limit</b></span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-12" style="text-align: center">
+<div>
+<form class='form-inline'>
+<div class='form-group'>
+<input id='renownInput' type='text' onsubmit="setRenownPoints();" />
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="row" style="margin-top:20px">
+<div class="col-xs-12" style="text-align: right">
+<button type="button" class="btn btn-primary btn-sm" id="" onclick="setRenownPoints(); $('#renownChangeModal').modal('hide');">Apply</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="textModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Army List Saved!</h4>
+</div>
+<div class="modal-body">
+<h4 class="modal-title" id="myModalLabel">The next time you visit this site, your list should be here.</h4>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="allegianceHelpModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">About Selecting Allegiances</h4>
+</div>
+<div class="modal-body">
+<span>This option only prints out what allegiance you would like for your list.<br><br>Default allegiances are the Grand Alliances and the factions which have abilities for their allegiance.<br><br>As you add units with specific allegiance battlelines (ex: Spirit Hosts for Nighthaunt), that option will become available.<br><br>There is no advanced unit filtering or allegiance tracking yet. It's coming soon, thanks for your patience!</span>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="textArmyModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Army Summary</h4>
+</div>
+<div class="modal-body">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-xs-12" style="text-align: left;">
+<div class="btn-group pointChangeGroup" role="group" aria-label="...">
+<button type="button" class="btn btn-primary btn-sm" id="fullListButton" style="width:51px !important" onclick="renderArmyText(true)">Full </button>
+<button type="button" class="btn btn-default btn-sm" id="shortListButton" style="width:51px !important" onclick="renderArmyText(false)">Short</button>
+</div>
+<button id="copyToClipboardBtn" type="button" class="btn btn-primary btn-sm" style="float:right; color:black" data-clipboard-target="#textListSpan">Copy</button>
+</div>
+</div>
+<p>
+<div class="row">
+<div class="col-xs-12" style="text-align: left">
+<div class="btn-group" role="group" aria-label="...">
+<span id="textListSpan"></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="pdfInfoModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Save to PDF</h4>
+</div>
+<div class="modal-body">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-xs-12" style="text-align: left">
+<div class="form-group">
+<label for="usr">Save as:</label>
+<input type="text" class="form-control" placeholder="WarscrollBuilderList" id="usr">
+</div>
+<div class="form-group">
+<label for="player">Player Name:</label>
+<input type="text" class="form-control" placeholder="Optional" id="player">
+</div>
+<div class="form-group">
+<label for="listName">List Name:</label>
+<input type="text" class="form-control" placeholder="Optional" id="listName">
+</div>
+<div class="form-group">
+<input type="checkbox" id="statsOption">
+<label for="statsOption"> Print Unit Stats</label>
+</div>
+</div>
+</div>
+<p>
+<div class="row">
+<div class="col-xs-12" style="text-align: right">
+<div class="btn-group" role="group" aria-label="...">
+<button type="button" class="btn btn-default btn-sm" onclick="printPDFList(false)">Save</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="loadListModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Load List</h4>
+</div>
+<div class="modal-body">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-xs-12" style="text-align: left">
+<div class="list-group" id="loadList">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -40,6 +40,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1597441117251-Battlescribe', () => {
+    const parsedText = getFile('1597441117251-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.spells).toContain('Nikkit! Nikkit!')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1596870118915-Battlescribe', () => {
     const parsedText = getFile('1596870118915-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -47,19 +54,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1593279607055-Battlescribe', () => {
+  it('should correctly read 1593279607055-Battlescribe', () => {
     const parsedText = getFile('1593279607055-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
 
+    expect(res.selections.spells).toContain('Nikkit! Nikkit!')
     expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Nikkit! Nikkit!',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Hag Curse',
-      // },
+      {
+        severity: 'warn',
+        text: 'Hag Curse',
+      },
     ])
   })
 
