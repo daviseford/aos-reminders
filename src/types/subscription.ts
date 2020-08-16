@@ -1,5 +1,5 @@
-import { TThemeType } from 'types/theme'
 import { TSupportedFaction } from 'meta/factions'
+import { TThemeType } from 'types/theme'
 
 export interface IGiftSubscription {
   id: string

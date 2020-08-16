@@ -1,9 +1,9 @@
-import React, { useMemo, Fragment } from 'react'
-import { connect } from 'react-redux'
 import { selectors } from 'ducks'
-import { titleCase } from 'utils/textUtils'
-import { IStore } from 'types/store'
+import React, { Fragment, useMemo } from 'react'
+import { connect } from 'react-redux'
 import { ICurrentArmy } from 'types/army'
+import { IStore } from 'types/store'
+import { titleCase } from 'utils/textUtils'
 
 const PrintArmyComponent = (props: ICurrentArmy) => {
   const { realmscape_feature, selections, allySelections } = props

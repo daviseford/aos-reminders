@@ -1,10 +1,10 @@
 import jsPDF from 'jspdf'
-import { sum, slice } from 'lodash'
-import { titleCase, getActionTitle } from 'utils/textUtils'
+import { slice, sum } from 'lodash'
+import { ICurrentArmy } from 'types/army'
 import { IReminder, TTurnAction } from 'types/data'
 import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
-import { ICurrentArmy } from 'types/army'
 import { IAllySelections } from 'types/selections'
+import { getActionTitle, titleCase } from 'utils/textUtils'
 
 interface IPhaseAndRuleObj {
   phase: ICompactPdfTextObj

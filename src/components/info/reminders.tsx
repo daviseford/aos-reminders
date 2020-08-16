@@ -1,16 +1,16 @@
-import React, { useMemo, useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { without } from 'lodash'
+import { Reminder } from 'components/info/reminder'
 import { useAppStatus } from 'context/useAppStatus'
-import { visibility, selectors } from 'ducks'
+import { selectors, visibility } from 'ducks'
+import { without } from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
+import { connect } from 'react-redux'
+import { IArmy, ICurrentArmy, TAllyArmies } from 'types/army'
+import { IStore } from 'types/store'
 import { componentWithSize } from 'utils/mapSizesToProps'
 import { processReminders } from 'utils/processReminders'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
-import { Reminder } from 'components/info/reminder'
-import { IArmy, TAllyArmies, ICurrentArmy } from 'types/army'
-import { IStore } from 'types/store'
 
 interface IRemindersProps extends ICurrentArmy {
   allyArmies: TAllyArmies

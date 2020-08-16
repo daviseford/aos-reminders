@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { Game } from 'meta/game_structure'
 import { TSupportedFaction } from 'meta/factions'
+import { Game } from 'meta/game_structure'
 import { IArmy } from 'types/army'
 import { IArmyStore } from 'types/store'
+import { getArmy } from 'utils/getArmy/getArmy'
 
 const initialState: IArmyStore = {
   army: {

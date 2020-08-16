@@ -1,7 +1,7 @@
-import { filterUnits } from 'utils/filterUtils'
-import { TUnits } from 'types/army'
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
+import { TUnits } from 'types/army'
+import { filterUnits } from 'utils/filterUtils'
 
 // Importing Nighthaunt units
 const getNighthauntUnits = () => Nighthaunt.Units

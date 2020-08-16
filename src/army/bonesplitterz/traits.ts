@@ -4,8 +4,8 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_GAME,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [

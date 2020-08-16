@@ -1,9 +1,9 @@
 import { difference } from 'lodash'
 import { IArmy } from 'types/army'
+import { TEntry } from 'types/data'
 import { TImportParsers } from 'types/import'
 import { ISelections } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
-import { TEntry } from 'types/data'
 
 /**
  * Remove side effects (such as spells, artifacts, etc) from our imported selections

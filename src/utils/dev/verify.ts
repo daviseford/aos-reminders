@@ -1,4 +1,5 @@
 import { getArmyList } from 'meta/army_list'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -22,7 +23,6 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { TEntry } from 'types/data'
 
 const phaseMap = {
   'After armies are set up, but before': END_OF_SETUP,

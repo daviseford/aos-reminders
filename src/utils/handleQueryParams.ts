@@ -1,6 +1,6 @@
-import qs from 'qs'
 import { isString } from 'lodash'
-import { logEvent, logSubscription, logGiftedSubscription } from 'utils/analytics'
+import qs from 'qs'
+import { logEvent, logGiftedSubscription, logSubscription } from 'utils/analytics'
 import { loadArmyFromLink } from 'utils/loadArmy/loadArmyHelpers'
 
 export const handleCheckout = () => {

@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -12,7 +13,6 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import GenericEffects from 'army/generic/effects'
 
 const NobleBloodEffect = {
   name: `Noble Blood`,

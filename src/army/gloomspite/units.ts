@@ -1,5 +1,5 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
-import { StabEmGoodEffect } from './traits'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -22,7 +22,7 @@ import {
   TURN_TWO_DURING_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import GenericEffects from 'army/generic/effects'
+import { StabEmGoodEffect } from './traits'
 
 const LoonbossEffects = [
   {

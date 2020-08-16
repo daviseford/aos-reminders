@@ -1,5 +1,5 @@
-import React from 'react'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
 import { navbarStyles } from 'theme/helperClasses'
 import { componentWithSize } from 'utils/mapSizesToProps'
 

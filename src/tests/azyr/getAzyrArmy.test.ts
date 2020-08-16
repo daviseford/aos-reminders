@@ -1,9 +1,5 @@
-import path from 'path'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
-import { handleAzyrPages } from 'utils/azyr/azyrPdf'
-import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
-import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
-
 import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -29,8 +25,11 @@ import {
   STORMCAST_ETERNALS,
   TZEENTCH,
 } from 'meta/factions'
+import path from 'path'
 import { AQSHY, ULGU } from 'types/realmscapes'
-import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import { handleAzyrPages } from 'utils/azyr/azyrPdf'
+import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
+import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))

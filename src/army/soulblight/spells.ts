@@ -1,5 +1,5 @@
-import { TSpells } from 'types/army'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import { TSpells } from 'types/army'
 
 const getLegionsOfNagashSpells = () => LegionsOfNagash.Spells
 

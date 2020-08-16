@@ -1,7 +1,7 @@
-import { TBattalions, TUnits } from 'types/army'
 import Bonesplitterz from 'army/bonesplitterz'
-import Ironjawz from 'army/ironjawz'
 import Greenskinz from 'army/greenskinz'
+import Ironjawz from 'army/ironjawz'
+import { TBattalions, TUnits } from 'types/army'
 
 // Importing Ironjawz
 const getIronjawzUnits = () => Ironjawz.Units

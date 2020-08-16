@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { TSceneryEffects } from 'types/terrain'
+import { TEffects, TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -29,9 +29,9 @@ import {
   OBSTACLE,
   OVERGROWN,
   SINISTER,
+  TSceneryEffects,
   VOLCANIC,
 } from 'types/terrain'
-import { TEffects, TEntry } from 'types/data'
 
 // Default scenery effects for most games and custom scenery.
 export const DefaultScenery: TScenery = [

@@ -1,9 +1,9 @@
 import { flatten } from 'lodash'
-import { TGameStructure, Game } from 'meta/game_structure'
-import { TBattalions, TArtifacts, TUnits, TTraits, TSpells, TEndlessSpells, TAllegiances } from 'types/army'
-import { TEntry, TEffects, TTurnAction, ENTRY_PROPERTIES } from 'types/data'
-import { hashReminder } from 'utils/reminderUtils'
+import { Game, TGameStructure } from 'meta/game_structure'
+import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
+import { ENTRY_PROPERTIES, TEffects, TEntry, TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import { hashReminder } from 'utils/reminderUtils'
 
 type TEntries = TAllegiances | TArtifacts | TBattalions | TEndlessSpells | TSpells | TTraits | TUnits
 

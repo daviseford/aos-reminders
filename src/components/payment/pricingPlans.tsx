@@ -1,12 +1,12 @@
-import React from 'react'
-import { useStripe, Elements } from '@stripe/react-stripe-js'
+import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import qs from 'qs'
+import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { SubscriptionPlans, ISubscriptionPlan } from 'utils/plans'
-import { IUser } from 'types/user'
+import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 
 const PricingPlansComponent: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()

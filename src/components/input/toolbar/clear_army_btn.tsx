@@ -1,6 +1,6 @@
+import GenericButton from 'components/input/generic_button'
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
-import GenericButton from 'components/input/generic_button'
 
 interface IClearArmyButton {
   clearArmyClick: (e: any) => void

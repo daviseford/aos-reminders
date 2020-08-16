@@ -1,7 +1,7 @@
-import { createWarning } from 'utils/import/warnings'
+import { TImportError } from 'types/import'
 import { TNameMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
-import { TImportError } from 'types/import'
+import { createWarning } from 'utils/import/warnings'
 
 export const checkImportSelection = (
   Names: string[],

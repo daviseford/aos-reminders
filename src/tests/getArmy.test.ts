@@ -1,19 +1,16 @@
-import { sortBy } from 'lodash'
-import { getArmy } from 'utils/getArmy/getArmy'
-
 // Army Imports
 import beasts_of_chaos from 'army/beasts_of_chaos'
+import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
-import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
-
+import { sortBy } from 'lodash'
+import { ORDER } from 'meta/alliances'
 // Meta
 import { BEASTS_OF_CHAOS, SERAPHON, SYLVANETH } from 'meta/factions'
-
 // Types
 import { IArmy } from 'types/army'
-import { ORDER } from 'meta/alliances'
 import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
+import { getArmy } from 'utils/getArmy/getArmy'
 
 describe('getArmy', () => {
   it('adds Grand Alliance + Generic Endless Spells to an army', () => {

@@ -1,4 +1,4 @@
-import { ISelections, IAllySelections } from '../types/selections'
+import { IAllySelections, ISelections } from '../types/selections'
 
 interface ISelectionsFactoryOptions {
   allegiances?: string[]

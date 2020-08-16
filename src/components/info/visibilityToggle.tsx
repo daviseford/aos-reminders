@@ -1,3 +1,5 @@
+import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
+import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { IconContext, IconType } from 'react-icons'
 import {
@@ -10,8 +12,6 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from 'react-icons/md'
-import { useTheme } from 'context/useTheme'
-import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
 
 export type TVisibilityIconType = 'clear' | 'eye' | 'fold' | 'minus'
 

@@ -1,11 +1,11 @@
-import React from 'react'
-import { useAppStatus } from 'context/useAppStatus'
-import { useTheme } from 'context/useTheme'
-import { MdRefresh } from 'react-icons/md'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { logClick } from 'utils/analytics'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import GenericButton from 'components/input/generic_button'
+import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { MdRefresh } from 'react-icons/md'
+import { logClick } from 'utils/analytics'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 const UpdateBanner = componentWithSize(({ isTinyMobile = false, isMobile = false }) => {
   const { hasNewContent } = useAppStatus()

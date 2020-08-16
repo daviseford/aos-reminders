@@ -1,12 +1,12 @@
+import { TEndlessSpells } from 'types/army'
 import {
+  COMBAT_PHASE,
   DURING_GAME,
+  END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   START_OF_ROUND,
-  END_OF_TURN,
-  COMBAT_PHASE,
 } from 'types/phases'
-import { TEndlessSpells } from 'types/army'
 
 // Endless spells.
 const EndlessSpells: TEndlessSpells = [

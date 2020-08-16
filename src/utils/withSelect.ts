@@ -1,7 +1,7 @@
+import { TDropdownOption } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
-import { TDropdownOption } from 'components/input/select'
 
 type TWithSelectOne = (
   method: (value: string | null) => void

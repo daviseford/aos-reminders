@@ -1,16 +1,16 @@
+import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
 import { TAbilities } from 'types/army'
 import {
-  COMBAT_PHASE,
-  DURING_SETUP,
-  DURING_GAME,
-  SHOOTING_PHASE,
-  MOVEMENT_PHASE,
-  CHARGE_PHASE,
-  WOUND_ALLOCATION,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
-import { MARK_KHORNE, MARK_SLAANESH, MARK_NURGLE, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [

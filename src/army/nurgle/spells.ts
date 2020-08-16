@@ -1,12 +1,12 @@
+import { TSpells } from 'types/army'
 import {
-  HERO_PHASE,
-  SHOOTING_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  HERO_PHASE,
   MOVEMENT_PHASE,
-  CHARGE_PHASE,
+  SHOOTING_PHASE,
 } from 'types/phases'
-import { TSpells } from 'types/army'
 
 // Spell Lores of Nurgle
 const Spells: TSpells = [

@@ -1,5 +1,5 @@
-import * as Phases from 'types/phases'
 import { TTurnAction } from 'types/data'
+import * as Phases from 'types/phases'
 
 export type TGameStructure = { [key in Phases.TTurnWhen]: TTurnAction[] }
 

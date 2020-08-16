@@ -1,5 +1,47 @@
+import BeastsOfChaos from 'army/beasts_of_chaos'
+import BigWaaagh from 'army/big_waaagh'
+import Bonesplitterz from 'army/bonesplitterz'
+import CitiesOfSigmar from 'army/cities_of_sigmar'
+import DaughtersOfKhaine from 'army/daughters_of_khaine'
+import Dispossessed from 'army/dispossessed'
+import FleshEaterCourts from 'army/flesh_eater_courts'
+import Fyreslayers from 'army/fyreslayers'
+import GloomspiteGitz from 'army/gloomspite'
+import ChaosGrandAlliance from 'army/grand_alliances/chaos'
+import DeathGrandAlliance from 'army/grand_alliances/death'
+import DestructionGrandAlliance from 'army/grand_alliances/destruction'
+import OrderGrandAlliance from 'army/grand_alliances/order'
+import GrandHostOfNagash from 'army/grand_host_of_nagash'
+import Greenskinz from 'army/greenskinz'
+import IdonethDeepkin from 'army/idoneth'
+import Ironjawz from 'army/ironjawz'
+import KharadronOverlords from 'army/kharadron_overlords'
+import Khorne from 'army/khorne'
+import LegionsOfAzgorh from 'army/legions_of_azgorh'
+import LegionsOfGrief from 'army/legions_of_grief'
+import LegionOfBlood from 'army/legion_of_blood'
+import LegionOfChaosAscendant from 'army/legion_of_chaos_ascendant'
+import LegionOfNight from 'army/legion_of_night'
+import LegionOfSacrament from 'army/legion_of_sacrament'
+import LethisianArmy from 'army/lethisian_army'
+import LuminethRealmlords from 'army/lumineth'
+import MercenaryCompanies from 'army/mercenary_companies'
+import Nighthaunt from 'army/nighthaunt'
+import Nurgle from 'army/nurgle'
+import OgorMawtribes from 'army/ogor_mawtribes'
+import OssiarchBonereapers from 'army/ossiarch_bonereapers'
+import Seraphon from 'army/seraphon'
+import Skaven from 'army/skaven'
+import Slaanesh from 'army/slaanesh'
+import SlavesToDarkness from 'army/slaves_to_darkness'
+import Soulblight from 'army/soulblight'
+import StormcastEternals from 'army/stormcast_eternals'
+import Sylvaneth from 'army/sylvaneth'
+import TamurkhansHorde from 'army/tamurkhans_horde'
+import TombKings from 'army/tomb_kings'
+import Tzeentch from 'army/tzeentch'
+import Wanderers from 'army/wanderers'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
-import { IInitialArmy } from 'types/army'
 import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -19,12 +61,12 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_AZGORH,
+  LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
-  LEGIONS_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   MERCENARY_COMPANIES,
@@ -46,50 +88,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-
-import BeastsOfChaos from 'army/beasts_of_chaos'
-import BigWaaagh from 'army/big_waaagh'
-import Bonesplitterz from 'army/bonesplitterz'
-import ChaosGrandAlliance from 'army/grand_alliances/chaos'
-import CitiesOfSigmar from 'army/cities_of_sigmar'
-import DaughtersOfKhaine from 'army/daughters_of_khaine'
-import DeathGrandAlliance from 'army/grand_alliances/death'
-import DestructionGrandAlliance from 'army/grand_alliances/destruction'
-import Dispossessed from 'army/dispossessed'
-import FleshEaterCourts from 'army/flesh_eater_courts'
-import Fyreslayers from 'army/fyreslayers'
-import GloomspiteGitz from 'army/gloomspite'
-import GrandHostOfNagash from 'army/grand_host_of_nagash'
-import Greenskinz from 'army/greenskinz'
-import IdonethDeepkin from 'army/idoneth'
-import Ironjawz from 'army/ironjawz'
-import KharadronOverlords from 'army/kharadron_overlords'
-import Khorne from 'army/khorne'
-import LegionOfBlood from 'army/legion_of_blood'
-import LegionOfChaosAscendant from 'army/legion_of_chaos_ascendant'
-import LegionOfNight from 'army/legion_of_night'
-import LegionOfSacrament from 'army/legion_of_sacrament'
-import LegionsOfAzgorh from 'army/legions_of_azgorh'
-import LegionsOfGrief from 'army/legions_of_grief'
-import LethisianArmy from 'army/lethisian_army'
-import LuminethRealmlords from 'army/lumineth'
-import MercenaryCompanies from 'army/mercenary_companies'
-import Nighthaunt from 'army/nighthaunt'
-import Nurgle from 'army/nurgle'
-import OgorMawtribes from 'army/ogor_mawtribes'
-import OrderGrandAlliance from 'army/grand_alliances/order'
-import OssiarchBonereapers from 'army/ossiarch_bonereapers'
-import Seraphon from 'army/seraphon'
-import Skaven from 'army/skaven'
-import Slaanesh from 'army/slaanesh'
-import SlavesToDarkness from 'army/slaves_to_darkness'
-import Soulblight from 'army/soulblight'
-import StormcastEternals from 'army/stormcast_eternals'
-import Sylvaneth from 'army/sylvaneth'
-import TamurkhansHorde from 'army/tamurkhans_horde'
-import TombKings from 'army/tomb_kings'
-import Tzeentch from 'army/tzeentch'
-import Wanderers from 'army/wanderers'
+import { IInitialArmy } from 'types/army'
 
 const ArmyList: TArmyList = {
   [BEASTS_OF_CHAOS]: {

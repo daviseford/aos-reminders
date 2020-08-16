@@ -1,7 +1,7 @@
 import { remove } from 'lodash'
-import { getAllWarnings } from 'utils/import/warnings'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
+import { getAllWarnings } from 'utils/import/warnings'
 
 /**
  * Mutates the errors array if it finds a suitable match in the allegiance abilities

@@ -1,7 +1,7 @@
-import { sortBy, difference } from 'lodash'
-import { LocalReminderOrder } from 'utils/localStore'
+import { difference, sortBy } from 'lodash'
 import { IReminder } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import { LocalReminderOrder } from 'utils/localStore'
 
 interface WithId {
   id: string

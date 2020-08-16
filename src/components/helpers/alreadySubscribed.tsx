@@ -1,6 +1,6 @@
-import React from 'react'
-import { useTheme } from 'context/useTheme'
 import Navbar from 'components/page/navbar'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
 
 const AlreadySubscribed = () => {
   const { theme } = useTheme()

@@ -1,6 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
-import { filterUnits } from 'utils/filterUtils'
 import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
+import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -16,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
+import { filterUnits } from 'utils/filterUtils'
 
 const getLegionsOfNagashUnits = () => {
   const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]

@@ -1,4 +1,5 @@
 import { TUnits } from 'types/army'
+import { TEffects } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,7 +12,6 @@ import {
   TURN_TWO_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { TEffects } from 'types/data'
 
 const ShroudingMistEffects: TEffects[] = [
   {

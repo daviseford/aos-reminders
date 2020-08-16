@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { IStore } from 'types/store'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { IStore } from 'types/store'
 
 // Army
 export const getArmy = (state: IStore) => state.army.army

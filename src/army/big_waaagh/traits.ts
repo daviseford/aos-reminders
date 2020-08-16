@@ -1,6 +1,6 @@
-import { TTraits } from 'types/army'
 import Bonesplitterz from 'army/bonesplitterz'
 import Ironjawz from 'army/ironjawz'
+import { TTraits } from 'types/army'
 import { appendTag } from 'utils/armyUtils'
 
 const getBonesplitterzTraits = () => Bonesplitterz.Traits.map(x => appendTag(x, 'Bonesplitterz'))

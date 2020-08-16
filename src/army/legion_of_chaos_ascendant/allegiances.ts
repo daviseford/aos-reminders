@@ -1,5 +1,5 @@
 import { TAllegiances } from 'types/army'
-import { COMBAT_PHASE, WOUND_ALLOCATION, END_OF_BATTLESHOCK_PHASE, HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, END_OF_BATTLESHOCK_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 const Allegiances: TAllegiances = [
   {

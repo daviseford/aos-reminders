@@ -1,3 +1,4 @@
+import { TCommands } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -5,7 +6,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import { TCommands } from 'types/army'
 
 // General command abilities from Core Rules and GHB 2019
 const GenericCommands: TCommands = [

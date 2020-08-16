@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { START_OF_SETUP, HERO_PHASE, DURING_GAME } from 'types/phases'
+import { DURING_GAME, HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
 const Scenery: TScenery = [
   {

@@ -1,10 +1,10 @@
-import React from 'react'
-import { version } from '../../../package.json'
-import { useTheme } from 'context/useTheme'
 import { LinkNewTab } from 'components/helpers/link'
 import { DonateComponent } from 'components/info/donate'
 import OfflineComponent from 'components/info/offline'
 import { ContactComponent } from 'components/page/contact'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { version } from '../../../package.json'
 
 /**
  * Hidden when printing

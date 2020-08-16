@@ -1,5 +1,5 @@
-import { HERO_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
+import { HERO_PHASE } from 'types/phases'
 
 // Spell Lores of Legions of Azgorh
 const Spells: TSpells = [

@@ -1,6 +1,6 @@
+import { ORDER } from 'meta/alliances'
 import { TArtifacts } from 'types/army'
 import { COMBAT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
-import { ORDER } from 'meta/alliances'
 
 const OrderArtifacts: TArtifacts = [
   {

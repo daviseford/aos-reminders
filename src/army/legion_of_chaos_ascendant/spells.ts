@@ -1,5 +1,5 @@
-import { HERO_PHASE, WOUND_ALLOCATION, COMBAT_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
+import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 const Spells: TSpells = [
   {

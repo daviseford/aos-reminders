@@ -1,9 +1,9 @@
-import React from 'react'
-import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter, FaDiscord } from 'react-icons/fa'
+import { LinkButton } from 'components/helpers/link'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FaDiscord, FaEnvelopeOpenText, FaGithub, FaReddit, FaTwitter } from 'react-icons/fa'
 import { GITHUB_URL } from 'utils/env'
-import { LinkButton } from 'components/helpers/link'
 
 interface IContactProps {
   size?: 'normal' | 'small' | 'large'

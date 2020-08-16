@@ -1,11 +1,11 @@
 import { TSpells } from 'types/army'
 import {
   COMBAT_PHASE,
-  HERO_PHASE,
-  WOUND_ALLOCATION,
-  SHOOTING_PHASE,
   DURING_GAME,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  WOUND_ALLOCATION,
 } from 'types/phases'
 
 // Spell Lores of Tzeentch

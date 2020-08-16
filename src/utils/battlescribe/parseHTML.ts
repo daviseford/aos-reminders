@@ -1,3 +1,14 @@
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
+import {
+  isAllegianceObj,
+  isBattleRealmObj,
+  isChildNode,
+  isFactionObj,
+  isOriginRealmObj,
+  isParentNode,
+  isRootSelection,
+} from 'utils/battlescribe/checks'
 import {
   IAllegianceInfo,
   IChildNode,
@@ -5,22 +16,11 @@ import {
   IParentNode,
 } from 'utils/battlescribe/getBattlescribeArmy'
 import {
-  isAllegianceObj,
-  isChildNode,
-  isFactionObj,
-  isParentNode,
-  isBattleRealmObj,
-  isRootSelection,
-  isOriginRealmObj,
-} from 'utils/battlescribe/checks'
-import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
-import {
-  parseFaction,
   parseAllegiance,
   parseBattleRealmObj,
+  parseFaction,
   parseOriginRealmObj,
 } from 'utils/battlescribe/getters'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 type TTraverseDoc = (
   docObj: IParentNode | IChildNode

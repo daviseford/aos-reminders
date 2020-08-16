@@ -1,3 +1,4 @@
+import idoneth from 'army/idoneth'
 import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
@@ -11,7 +12,6 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import * as CommonUnitEffects from './commonUnitEffects'
-import idoneth from 'army/idoneth'
 
 export const Units: TUnits = [
   {

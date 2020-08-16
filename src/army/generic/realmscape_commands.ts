@@ -1,3 +1,4 @@
+import { TCommands } from 'types/army'
 import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -5,7 +6,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import { TCommands } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm specific command abilities.

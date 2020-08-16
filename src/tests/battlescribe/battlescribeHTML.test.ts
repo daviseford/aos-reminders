@@ -1,5 +1,5 @@
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
-import path from 'path'
 import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -14,9 +14,9 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
-  LEGIONS_OF_GRIEF,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -31,9 +31,9 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
+import path from 'path'
 import { HYSH } from 'types/realmscapes'
-import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')

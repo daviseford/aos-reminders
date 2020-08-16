@@ -1,24 +1,24 @@
-import { getChaosSlaves } from 'utils/chaosUtils'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import SlavestoDarkness from 'army/slaves_to_darkness'
+import { MARK_TZEENTCH } from 'meta/alliances'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION,
-  START_OF_GAME,
-  END_OF_CHARGE_PHASE,
 } from 'types/phases'
-import { MARK_TZEENTCH } from 'meta/alliances'
-import SlavestoDarkness from 'army/slaves_to_darkness'
-import BeastsofChaos from 'army/beasts_of_chaos'
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)

@@ -1,10 +1,10 @@
 import { TArtifacts } from 'types/army'
 import {
-  COMBAT_PHASE,
   BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 

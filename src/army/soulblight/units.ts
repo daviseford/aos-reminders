@@ -1,5 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import { TBattalions, TUnits } from 'types/army'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 // Importing from LoN

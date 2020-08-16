@@ -1,14 +1,14 @@
-import { flatten, sortBy, sortedUniq } from 'lodash'
-import produce from 'immer'
-import { hashReminder } from 'utils/reminderUtils'
-import { titleCase, getActionTitle } from 'utils/textUtils'
 import { RealmscapeFeatures } from 'army/generic'
+import produce from 'immer'
+import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
-import { TEffects, IReminder, TTurnAction } from 'types/data'
-import { ISelections, IAllySelections } from 'types/selections'
+import { IReminder, TEffects, TTurnAction } from 'types/data'
+import { IAllySelections, ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
+import { hashReminder } from 'utils/reminderUtils'
+import { getActionTitle, titleCase } from 'utils/textUtils'
 
 type TProcessReminders = (
   army: IArmy,

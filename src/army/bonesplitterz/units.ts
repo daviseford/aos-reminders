@@ -1,3 +1,4 @@
+import { DestructionUnits } from 'army/grand_alliances'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -11,7 +12,6 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
-import { DestructionUnits } from 'army/grand_alliances'
 
 const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 

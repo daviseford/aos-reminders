@@ -1,5 +1,5 @@
 import { TAbilities } from 'types/army'
-import { BATTLESHOCK_PHASE, START_OF_ROUND, MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { BATTLESHOCK_PHASE, MOVEMENT_PHASE, START_OF_ROUND, WOUND_ALLOCATION } from 'types/phases'
 
 // General Allegiance Abilities
 const Abilities: TAbilities = [

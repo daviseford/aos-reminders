@@ -1,9 +1,9 @@
 import { TSupportedFaction } from 'meta/factions'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { TAllySelectionStore } from 'types/store'
-import { ISelections } from 'types/selections'
-import { ISavedArmyFromApi, ILinkedArmy } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { ISelections } from 'types/selections'
+import { TAllySelectionStore } from 'types/store'
 
 export interface IImportedArmy {
   allyFactionNames: TSupportedFaction[]

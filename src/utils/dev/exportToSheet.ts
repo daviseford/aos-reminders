@@ -1,8 +1,8 @@
-import XLSX from 'xlsx'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getArmyFromList } from 'meta/army_list'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
+import XLSX from 'xlsx'
 
 /**
  * Prints all rules to an xlsx file

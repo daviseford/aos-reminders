@@ -1,5 +1,5 @@
-import { TURN_ONE_START_OF_ROUND, START_OF_ROUND } from 'types/phases'
 import { TAbilities } from 'types/army'
+import { START_OF_ROUND, TURN_ONE_START_OF_ROUND } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [

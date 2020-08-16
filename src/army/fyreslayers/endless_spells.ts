@@ -1,3 +1,4 @@
+import { TEndlessSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,7 +10,6 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-import { TEndlessSpells } from 'types/army'
 
 const EndlessSpells: TEndlessSpells = [
   {

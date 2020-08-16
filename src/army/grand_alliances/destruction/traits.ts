@@ -1,11 +1,11 @@
 import { TTraits } from 'types/army'
 import {
-  HERO_PHASE,
-  COMBAT_PHASE,
-  CHARGE_PHASE,
-  MOVEMENT_PHASE,
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [

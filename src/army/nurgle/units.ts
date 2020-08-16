@@ -1,4 +1,8 @@
-import { getChaosSlaves } from 'utils/chaosUtils'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import Skaven from 'army/skaven'
+import SlavestoDarkness from 'army/slaves_to_darkness'
+import { getTamurkhansBattalions, getTamurkhansUnits } from 'army/tamurkhans_horde/units'
+import { MARK_NURGLE } from 'meta/alliances'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -22,12 +26,8 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { MARK_NURGLE } from 'meta/alliances'
-import SlavestoDarkness from 'army/slaves_to_darkness'
-import BeastsofChaos from 'army/beasts_of_chaos'
-import Skaven from 'army/skaven'
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
-import { getTamurkhansUnits, getTamurkhansBattalions } from 'army/tamurkhans_horde/units'
 
 const SlaveUnits = getChaosSlaves(MARK_NURGLE)
 

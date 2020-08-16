@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { START_OF_SETUP, START_OF_HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { START_OF_HERO_PHASE, START_OF_SETUP, WOUND_ALLOCATION } from 'types/phases'
 
 // In anticipation of GW adding more Etheric Vortex scenery
 // I've broken these rules out separately

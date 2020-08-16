@@ -1,3 +1,4 @@
+import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/units'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -14,7 +15,6 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/units'
 
 const AuricRunesonEffects = [
   {

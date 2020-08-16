@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, WOUND_ALLOCATION, HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {

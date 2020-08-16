@@ -1,9 +1,9 @@
+import { AllyArmyBuilder } from 'components/input/ally_army_builder'
+import { selectors } from 'ducks'
+import { without } from 'lodash'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
-import { without } from 'lodash'
-import { selectors } from 'ducks'
-import { AllyArmyBuilder } from 'components/input/ally_army_builder'
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
 import { IStore } from 'types/store'
 
 interface IAlliedArmiesProps {

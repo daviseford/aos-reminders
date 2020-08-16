@@ -1,5 +1,5 @@
-import { HERO_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
+import { HERO_PHASE } from 'types/phases'
 
 // Spells, Prayers, etc. go here when they're part of the allegiance
 // If they're on a warscroll, put them on the unit in units.ts instead

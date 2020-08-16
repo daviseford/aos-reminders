@@ -1,7 +1,5 @@
-import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
-import { parsePdf } from 'utils/pdf/pdfUtils'
-import path from 'path'
 import {
   BIG_WAAAGH,
   CHAOS_GRAND_ALLIANCE,
@@ -26,7 +24,9 @@ import {
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
-import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import path from 'path'
+import { parsePdf } from 'utils/pdf/pdfUtils'
+import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/warscroll/pdf/${filename}.pdf`), 'utf8')

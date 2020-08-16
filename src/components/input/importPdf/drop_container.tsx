@@ -1,14 +1,14 @@
-import React, { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useSubscription } from 'context/useSubscription'
-import { logClick } from 'utils/analytics'
-import { GITHUB_URL, ROUTES } from 'utils/env'
-import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { hasFatalError } from 'utils/import/warnings'
 import { LinkNewTab } from 'components/helpers/link'
 import ImportDropzone from 'components/input/importPdf/drop_zone'
-import { TImportError, IImportedArmy } from 'types/import'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import React, { useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { IImportedArmy, TImportError } from 'types/import'
+import { logClick } from 'utils/analytics'
+import { GITHUB_URL, ROUTES } from 'utils/env'
+import { hasFatalError } from 'utils/import/warnings'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 
 const ImportContainer: React.FC = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])

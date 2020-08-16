@@ -1,8 +1,8 @@
 import { uniq } from 'lodash'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
-import { getSideEffects } from 'utils/getSideEffects'
 import { IArmy } from 'types/army'
 import { ISelections } from 'types/selections'
+import { getSideEffects } from 'utils/getSideEffects'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 /**
  * Add side effects (such as spells, artifacts, etc) to our imported selections
