@@ -106,14 +106,22 @@ const WSB_JSON_REPORT = `${INTAKE_DIR}/${`WSB_JSON_tests.txt`}`
 const WSB_PDF_REPORT = `${INTAKE_DIR}/${`WSB_PDF_tests.txt`}`
 
 const print = () => {
-  try {
-    if (AZYR_JSON_OUTPUT_TXT) fs.unlinkSync(AZYR_REPORT)
-    if (BS_OUTPUT_TXT) fs.unlinkSync(BS_REPORT)
-    if (WSB_JSON_OUTPUT_TXT) fs.unlinkSync(WSB_JSON_REPORT)
-    if (WSB_PDF_OUTPUT_TXT) fs.unlinkSync(WSB_PDF_REPORT)
-  } catch (err) {
-    // pass
-  }
+  const HAS_PROCESSED_FILES = !!(
+    AZYR_JSON_OUTPUT_TXT ||
+    BS_OUTPUT_TXT ||
+    WSB_JSON_OUTPUT_TXT ||
+    WSB_PDF_OUTPUT_TXT
+  )
+
+  if (!HAS_PROCESSED_FILES) return // No use if there's no data
+
+  ;[AZYR_REPORT, BS_REPORT, WSB_JSON_REPORT, WSB_PDF_REPORT].forEach(report => {
+    try {
+      fs.unlinkSync(report)
+    } catch (err) {
+      // pass
+    }
+  })
 
   if (AZYR_JSON_OUTPUT_TXT) fs.writeFileSync(AZYR_REPORT, AZYR_JSON_OUTPUT_TXT)
   if (BS_OUTPUT_TXT) fs.writeFileSync(BS_REPORT, BS_OUTPUT_TXT)
