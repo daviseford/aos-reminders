@@ -1478,10 +1478,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.8.0.tgz#100f102d757cd024f94635dba231993554c8cfba"
-  integrity sha512-VsIohJw70LIdB4b621RN6pTyw49ZMy+QjB81fl+Psu5X5ppiq/c+rG0F+XKHSVpp4JZRNDkQnsOGeuHow0aluA==
+"@stripe/stripe-js@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.9.0.tgz#a4a166b5de88903573c9a7fd04f39610648f4769"
+  integrity sha512-/8+zfeRHlsEsxj0qmq9qbrnyF3fx+r97sDxfv7kqOyZFUFzC7DBwQwZlmss6XiV3ez5vz1G1QIjEW29PmLmsAw==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
@@ -1675,10 +1675,10 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.0.9":
-  version "26.0.9"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.9.tgz#0543b57da5f0cd949c5f423a00c56c492289c989"
-  integrity sha512-k4qFfJ5AUKrWok5KYXp2EPm89b0P/KZpl7Vg4XuOTVVQEhLDBDBU3iBFrjjdgd8fLw96aAtmnwhXHl63bWeBQQ==
+"@types/jest@26.0.10":
+  version "26.0.10"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.10.tgz#8faf7e9756c033c39014ae76a7329efea00ea607"
+  integrity sha512-i2m0oyh8w/Lum7wWK/YOZJakYF8Mx08UaKA1CtbmFeDquVhAEdA7znacsVSf2hJ1OQ/OfVMGN90pw/AtzF8s/Q==
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
@@ -1803,10 +1803,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-select@3.0.16":
-  version "3.0.16"
-  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-3.0.16.tgz#d82c88eeac490362f41da8edafcb672ca435b998"
-  integrity sha512-qXCfHprExDzB+ZYCqzH80D2TE+F17MMAY5/GrHm74xSsmS6B6G8nm3gZiTod/u82JSzDO193qJiP7ZxunT8oBg==
+"@types/react-select@3.0.18":
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-3.0.18.tgz#aed9113e267ef8b68111936f847a51126a80f2b2"
+  integrity sha512-+GpKN1Qy0dOQBJDUmCj62qRQJm+WuXrulN8TvLUMN73S6SVZq26q13VG9KAzU4ohLn77FPGDDNMBWWMiRa0APQ==
   dependencies:
     "@types/react" "*"
     "@types/react-dom" "*"
@@ -7410,7 +7410,12 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@4.17.19, "lodash@>=3.5 <5", lodash@>=4.17.19, lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.5, lodash@~4.17.10:
+lodash@4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
+"lodash@>=3.5 <5", lodash@>=4.17.19, lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.5, lodash@~4.17.10:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==

@@ -367,7 +367,7 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
 /**
  * Given '- Command Trait : Killer Reputation: Fateseeker'
  *
- * Returns ['Killer Reputation', 'Fateseeker']
+ * Returns ['Killer Reputation', 'Fateseeker (Big Name)']
  */
 const getKillerReputation = (str: string) => {
   const trait1 = 'Killer Reputation'
