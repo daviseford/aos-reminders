@@ -363,6 +363,7 @@ export const importFactionNameMap = {
   'Sons of the Lichemaster': MERCENARY_COMPANIES,
   'Spiderfang Grots': GLOOMSPITE_GITZ,
   'Stormcast Eternals': STORMCAST_ETERNALS,
+  'Swifthawk Agents': ORDER_GRAND_ALLIANCE,
   'Tenebrous Court': MERCENARY_COMPANIES,
   'The Blacksmoke Battery': MERCENARY_COMPANIES,
   'The Gutstuffers': MERCENARY_COMPANIES,

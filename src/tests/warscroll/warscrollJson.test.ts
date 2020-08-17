@@ -38,6 +38,12 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1597625107867-Warscroll_Builder', () => {
+    const parsedText = getFile('1597625107867-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1597360547744-Warscroll_Builder', () => {
     const parsedText = getFile('1597360547744-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -58,15 +64,13 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO
-  xit('should correctly read 1594377130100-Warscroll_Builder', () => {
+  it('should correctly read 1594377130100-Warscroll_Builder', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO
-  xit('should correctly read 1594377962081-Warscroll_Builder', () => {
+  it('should correctly read 1594377962081-Warscroll_Builder', () => {
     const parsedText = getFile('1594377962081-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -90,31 +94,25 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1596798763772-Warscroll_Builder', () => {
+  it('should correctly read 1596798763772-Warscroll_Builder', () => {
     const parsedText = getFile('1596798763772-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO: Add Swifthawk Agents as a faction or allegiance
-  // https://github.com/daviseford/aos-reminders/issues/992
-  xit('should correctly read 1597072426756-Warscroll_Builder', () => {
+  it('should correctly read 1597072426756-Warscroll_Builder', () => {
     const parsedText = getFile('1597072426756-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1597072523138-Warscroll_Builder', () => {
+  it('should correctly read 1597072523138-Warscroll_Builder', () => {
     const parsedText = getFile('1597072523138-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO: Add Swifthawk Agents as a faction or allegiance
-  // https://github.com/daviseford/aos-reminders/issues/992
-  xit('should correctly read 1597072550016-Warscroll_Builder', () => {
+  it('should correctly read 1597072550016-Warscroll_Builder', () => {
     const parsedText = getFile('1597072550016-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -127,8 +125,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1592412384855-Warscroll_Builder', () => {
+  it('should correctly read 1592412384855-Warscroll_Builder', () => {
     const parsedText = getFile('1592412384855-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
@@ -157,8 +154,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1593336693320-Warscroll_Builder', () => {
+  it('should correctly read 1593336693320-Warscroll_Builder', () => {
     const parsedText = getFile('1593336693320-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([

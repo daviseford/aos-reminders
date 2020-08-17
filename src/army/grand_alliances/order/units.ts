@@ -9,6 +9,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
@@ -77,7 +78,223 @@ export const MonstrousArcanumOrder: TUnits = [
   },
 ]
 
+const LegacyBretonnianUnits: TUnits = [
+  {
+    name: `Bretonnian Lord`,
+    effects: [
+      {
+        name: `Dragonbane`,
+        desc: `Add 1 to hit rolls for the Ducal Sword and Dragonbane Lance if this model made a charge move in the same turn. In addition, re-roll failed hit rolls for the Ducal Sword and Dragonbane Lance if the target is a Monster.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ducal Shield`,
+        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Lord of the Realm`,
+        desc: `If this model uses this ability, until your next hero phase re-roll failed charge rolls for friendly Nobility units that are within 15" of this model when the charge roll is made.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+
+  {
+    name: `Damsel`,
+    effects: [
+      {
+        name: `Soothing Aura`,
+        desc: `In your hero phase, you can heal 1 wound allocated to a friendly Bretonnian model that is within 6" of this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wizard`,
+        desc: `A Damsel is a wizard. She can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Blessing spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Divine Blessing`,
+        desc: `Casting value of 5. Pick a friendly Bretonnian unit that is within 16" of the caster. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to that unit. Add 1 to the dice roll if the unit has Nobility keyword. On a roll of 6+, the wound is negated and has no effect.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+
+  {
+    name: `Battle Pilgrims`,
+    effects: [
+      {
+        name: `Grail Reliquae`,
+        desc: `A unit of Battle Pilgrims can have one Grail Reliquae. A Grail Reliquae has a Wounds characteristic of 3 instead of 1. Add 2 to the attacks characteristic of the Grail Reliquae's Reliquary Sword.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Inspired Fervour`,
+        desc: `Add 1 to hit rolls for this unit if it includes a Grail Reliquae when the hit roll is made.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Inspired Fervour`,
+        desc: `Add 1 to any wound rolls for this unit if it has 10 or more models when the wound roll is made.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Pilgrim Shields`,
+        desc: `Re-roll save rolls of 1 for this unit. Re-roll save rolls of 1 or 2 instead if this unit includes a Grail Reliquae when the save roll is made.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Enchantress`,
+    effects: [
+      {
+        name: `Chalice of Potions`,
+        desc: `In your hero phase, you can re-roll one failed casting roll for this model. If you do and the result of the re-roll is a 2 before any modifiers are applied, then you cannot use this ability again for the rest of the battle.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Saintly Guardians`,
+        desc: `In the combat phase, re-roll failed hit rolls for friendly Grail Knights units while they are within 10" of this model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Spiteful Glance`,
+        desc: `At the start of the combat phase, pick an enemy unit within 3" of this model and roll 2D6. The enemy unit suffers 1 mortal wound if the result of the roll is equal to or higher than its Bravery characteristic.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Blessed`,
+        desc: `In your hero phase, heal D3 wounds that have been allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Divine Favour`,
+        desc: `Casting value of 6. Pick a friendly Bretonnian unit that is visible to the caster and within 16" of them. Until your next hero phase, add 1 to hit rolls for that unit's melee weapons.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Wizard`,
+        desc: `An Enchantress is a wizard. She can attempt to cast two spells in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Favour spells.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Grail Knights`,
+    effects: [
+      {
+        name: `Grail Banner Bearer`,
+        desc: `Models in this unit can be Banner Bearers. You can re-roll battleshock tests for a unit that includes any Grail Banner Bearers if it made a charge move in the same turn.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Trumpeter`,
+        desc: `Models in this unit can be Trumpeters. Roll 3D6 instead of 2D6 when you make a charge roll for a unit that includes any Trumpeters, and then pick two of the dice to determine the result of the roll.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Sacred Lances`,
+        desc: `Add 1 to the Damage characteristic of this unit's Swords and Sacred Lances if the target of its attacks is a Daemon or Death unit. In addition, add 1 to wound rolls made for, and the Damage characteristic of, this unit's Swords and Sacred Lances if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Knight's Shield`,
+        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Field Trebuchet`,
+    effects: [
+      {
+        name: `Heavy Artillery`,
+        desc: `This model can only move if its Crew are within 1" of it at the start of the movement phase. If its Crew are within 1" of the Trebuchet in the shooting phase, they can fire the war machine. The war machine cannot make charge moves, does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery. The Crew are in cover while they are within 1" of their war machine.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Arcing Shot`,
+        desc: `This unit can shoot at enemy units that are not visible to it. If it does, subtract 1 from the hit roll for the unit's Rocks and Masonry attack.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Seismic Impact`,
+        desc: `Roll a dice before making the hit roll for a Rocks and Masonry attack. If the roll is less than the number of models in the target unit, the attack scores a hit without needing the hit roll to be made.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `King on Hippogryph`,
+    effects: [
+      {
+        name: `Regal Crown`,
+        desc: `Do not take battleshock tests for friendly Bretonnian units while they are within 24" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Lion Shield`,
+        desc: `This model can attempt to unbind 1 spell in each enemy hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Lion Shield`,
+        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sword of the King`,
+        desc: `Re-roll failed hit rolls for the Sword of the King if the target is a Hero or Monster.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Champion of the People`,
+        desc: `At the start of your hero phase, heal D3 wounds that have been allocated to this model.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `King of the Realm`,
+        desc: `If this model uses this ability, then in your next combat phase add 1 to hit rolls for friendly Nobility units within 24" of this model that made a charge move in the same turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+]
+
 const LegacyOrderUnits: TUnits = [
+  ...LegacyBretonnianUnits,
   {
     name: `Highborn Repeater Bolt Thrower`,
     effects: [
