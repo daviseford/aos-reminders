@@ -343,7 +343,7 @@ export const Units: TUnits = [
       {
         name: `Split`,
         desc: `If the Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model. The Brimstone Horrors' Magical Flames have an Attacks characteristic of 1 instead of 2, and their Taloned Hands have an Attacks characteristic of 2 instead of 1.`,
-        when: [],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },

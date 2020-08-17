@@ -6,6 +6,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
 } from 'types/phases'
 
 export const APPRENTICE_RUNESMITH = {
@@ -102,6 +103,11 @@ export const LegacyDuardinUnits: TUnits = [
         name: `Clan Banner`,
         desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
         when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Steam Harpoon`,
+        desc: `If a unit of Miners includes a Mining Cart with a Steam Harpoon, and the unit did not move in its movement phase (or arrive on the battlefield using the Underground Advance ability), they can ready the Steam Harpoon and use it as a makeshift weapon. If they do so, one Miner within 1" of the Mining Cart can fire the Steam Harpoon in the shooting phase.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
