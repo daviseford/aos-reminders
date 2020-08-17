@@ -54,6 +54,26 @@ const SoporificBreathEffect = {
   desc: `Enemy units within 3" of this model cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
   when: [COMBAT_PHASE],
 }
+const BannerBearerEffect = {
+  name: `Banner Bearer`,
+  desc: `Models in this unit can be Banner Bearers. You can re-roll battleshock tests for a unit that includes any Banner Bearers if it made a charge move in the same turn.`,
+  when: [BATTLESHOCK_PHASE],
+}
+const TrumpeterEffect = {
+  name: `Trumpeter`,
+  desc: `Models in this unit can be Trumpeters. Roll 3D6 instead of 2D6 when you make a charge roll for a unit that includes any Trumpeters, and then pick two of the dice to determine the result of the roll.`,
+  when: [CHARGE_PHASE],
+}
+const PendantLancesEffect = {
+  name: `Pendant Lances`,
+  desc: `Add 1 to the wound rolls and Damage characteristic of this unit's Pendant Lances and Blades if it made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
+const KnightsShieldEffect = {
+  name: `Knight's Shield`,
+  desc: `In the combat phase, re- roll save rolls of 1 for this unit if it made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+}
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -267,6 +287,46 @@ const LegacyBretonnianUnits: TUnits = [
         when: [HERO_PHASE],
         command_ability: true,
       },
+    ],
+  },
+
+  {
+    name: `Knights Errant`,
+    effects: [
+      {
+        name: `Cavalier`,
+        desc: `The leader of this unit is a Cavalier. Add 1 to the Attacks characteristic of the Cavalier's Pendant Lance and Blade.`,
+        when: [COMBAT_PHASE],
+      },
+      BannerBearerEffect,
+      TrumpeterEffect,
+      {
+        name: `Eager to Impress`,
+        desc: `In the combat phase, re-roll hit rolls of 1 for this unit if it was within 18" of a Damsel at the start of the phase.`,
+        when: [COMBAT_PHASE],
+      },
+      PendantLancesEffect,
+      KnightsShieldEffect,
+    ],
+  },
+
+  {
+    name: `Knights of The Realm`,
+    effects: [
+      {
+        name: `Gallant`,
+        desc: `The leader of this unit is a Gallant. Add 1 to the Attacks characteristic of the Gallant's Pendant Lance and Blade.`,
+        when: [COMBAT_PHASE],
+      },
+      BannerBearerEffect,
+      TrumpeterEffect,
+      {
+        name: `Massed Cavalry`,
+        desc: `Re-roll hit rolls of 1 for this unit if it contains 10 or more models when the hit roll is made.`,
+        when: [COMBAT_PHASE],
+      },
+      PendantLancesEffect,
+      KnightsShieldEffect,
     ],
   },
 
