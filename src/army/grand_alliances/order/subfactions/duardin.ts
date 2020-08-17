@@ -139,4 +139,20 @@ export const LegacyDuardinUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Duardin Bolt Thrower`,
+    effects: [
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
+      {
+        name: `Penetrating Shot`,
+        desc: `If a wound roll for a Runic Bolt is 6+, that shot has a Damage characteristic of D6 and a Rend characteristic of -3.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune of Skewering`,
+        desc: `Add 1 to wound rolls for Runic Bolts if the target unit has 20 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
 ]

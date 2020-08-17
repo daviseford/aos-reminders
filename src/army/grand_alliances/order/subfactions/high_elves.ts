@@ -25,7 +25,6 @@ export const LegacyHighElvesUnits: TUnits = [
       },
     ],
   },
-
   {
     name: `Highborn Archers`,
     effects: [
@@ -86,6 +85,37 @@ export const LegacyHighElvesUnits: TUnits = [
         name: `Lance Charge`,
         desc: `Add 1 to wound rolls for this unit's Ithilmar Lances and Swords and increase the Damage characteristic of the weapons by 1 if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Dragon Blades`,
+    effects: [
+      {
+        name: `Drakemaster`,
+        desc: `The leader of this unit is a Drakemaster. A Drakemaster makes 3 attacks rather than 2 with his Drake Lance and Sword.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Order Draconis unit from your army that includes a Standard Bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      HornblowerEffect,
+      {
+        name: `Lance Charge`,
+        desc: `Add 1 to the wound rolls and Damage of this unit's Drake Lances and Swords if it charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Drake Shield`,
+        desc: `You can reroll save rolls of 1 for a unit with Drake Shields. You can instead reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Ancient Dignity`,
+        desc: `This unit does not need to take a battleshock test if it is within 16" of any friendly Order Draconis Hero.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
