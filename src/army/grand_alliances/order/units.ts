@@ -99,6 +99,11 @@ const DrummerEffect = {
   desc: `Models in this unit can be Drummers. Add 1 to charge rolls for this unit if it includes any Drummers.`,
   when: [CHARGE_PHASE],
 }
+const GallantEffect = {
+  name: `Gallant`,
+  desc: `The leader of this unit is a Gallant. Add 1 to the Attacks characteristic of the Gallant's Pendant Lance and Blade.`,
+  when: [COMBAT_PHASE],
+}
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -326,11 +331,7 @@ const LegacyBretonnianUnits: TUnits = [
   {
     name: `Knights of The Realm`,
     effects: [
-      {
-        name: `Gallant`,
-        desc: `The leader of this unit is a Gallant. Add 1 to the Attacks characteristic of the Gallant's Pendant Lance and Blade.`,
-        when: [COMBAT_PHASE],
-      },
+      GallantEffect,
       BannerBearerEffect,
       TrumpeterEffect,
       {
@@ -441,23 +442,70 @@ const LegacyBretonnianUnits: TUnits = [
   },
 
   {
-    name: ``,
+    name: `Pegasus Knights`,
     effects: [
+      GallantEffect,
+      BannerBearerEffect,
+      TrumpeterEffect,
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Swooping Charge`,
+        desc: `Add 1 to wound rolls and 1 to the Damage characteristic of this unit's Lances and Blades if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
       },
+      KnightsShieldEffect,
     ],
   },
 
   {
-    name: ``,
+    name: `Questing Knights`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Paragon`,
+        desc: `The leader of this unit is a Paragon. Add 1 to the Attacks characteristic of the Paragon's Knightly Greatblade.`,
+        when: [COMBAT_PHASE],
+      },
+      BannerBearerEffect,
+      {
+        name: `Lutist`,
+        desc: `Models in this unit can be Lutists. Roll 3D6 instead of 2D6 when you make a charge roll for a unit that includes any Lutists, and then pick two of the dice to determine the result of the roll.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `The Questing Vow`,
+        desc: `Add 1 to the Damage characteristic of a Knightly Greatblade if the target has the Monster keyword.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Questing Vow`,
+        desc: `You can re-roll charge rolls for this unit if there is an enemy unit with the Monster keyword within 12" of it when the charge roll is made.`,
+        when: [CHARGE_PHASE],
+      },
+      KnightsShieldEffect,
+    ],
+  },
+
+  {
+    name: `Sacred Protector`,
+    effects: [
+      {
+        name: `Ethereal`,
+        desc: `When making save rolls for this unit, ignore the attacking weapon's Rend characteristic.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Shield of the Ancient Forests`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a roll of 6+ that wound is negated and has no effect.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Summoned from the Mists`,
+        desc: `Instead of setting up this model on the battlefield, you must place it to one side and say that it is set up in the mists.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Summoned from the Mists`,
+        desc: `In each of your movement phases, roll a dice for this model. On a roll of 3 or less the model remains in the mists - you must roll again in your next movement phase. On a roll of 4+, set up this model anywhere on the battlefield, more than 9" from any enemy models. This counts as its move for that movement phase.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
