@@ -147,6 +147,16 @@ const DeflectShotsEffect = {
   desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
   when: [SHOOTING_PHASE],
 }
+const KindredShieldEffect = {
+  name: `Kindred Shield`,
+  desc: `Reroll failed save rolls for this model.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
+const RangeFindingOpticsEffect = {
+  name: `Range-finding Optics`,
+  desc: `You can re-roll hit rolls of 1 for this model in the shooting phase if they did not move in their preceding movement phase and there are no enemy models within 3" of them.`,
+  when: [SHOOTING_PHASE],
+}
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -838,6 +848,74 @@ const LegacyDwarfUnits: TUnits = [
       },
     ],
   },
+
+  {
+    name: `Gunmaster`,
+    effects: [RangeFindingOpticsEffect],
+  },
+
+  {
+    name: `Huntmarshal`,
+    effects: [
+      {
+        name: `Monster Hunter`,
+        desc: `Add 1 to hit rolls for this model's attacks that target a Monster.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Huntmarshal's Bow`,
+        desc: `A Huntmarshal's Bow has a Damage characteristic of D6 instead of D3 for attacks that target a Monster.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Engineer on Mechanical Steed`,
+    effects: [
+      RangeFindingOpticsEffect,
+      {
+        name: `Clockwork Charge`,
+        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Runelord on Anvil of Doom`,
+    effects: [
+      {
+        name: `Anvil of Doom`,
+        desc: `This model cannot make charge moves.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Anvil of Doom`,
+        desc: `This model cannot run.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Master Runes of Spellbreaking`,
+        desc: `This model can attempt to unbind two spells in each enemy hero phase as if it were a wizard. Add 2 to any unbinding rolls for this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Strike the Runes`,
+        desc: `In your hero phase, you can declare that the Runelord will strike a rune of power. If you do so, pick one of the following runes and roll a dice. 
+        
+        On a 1 the rune is struck incorrectly and nothing happens. 
+        On a roll of 2+ the rune is struck correctly and you may apply its effects. 
+
+        If this model is within 4" of a friendly Apprentice Runesmith, then the Runelord can attempt to strike two different runes in your hero phase rather than one. 
+        
+        Rune of Hearth and Home: Re-roll failed hit rolls for this unit until your next hero phase. 
+        Rune of Oath and Steel: Add 1 to save rolls for this unit until your next hero phase. 
+        Rune of Wrath and Ruin: Pick an enemy unit that is visible to the Runelord and is within 24" of him. That unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 const LegacyOrderUnits: TUnits = [
@@ -845,6 +923,32 @@ const LegacyOrderUnits: TUnits = [
   ...LegacyDwarfUnits,
   ...LegacyEldritchUnits,
   ...LegacySwifthawkAgentUnits,
+
+  {
+    name: `Battlemage on Pegasus`,
+    effects: [
+      {
+        name: `Amulet of Negation`,
+        desc: `Add 1 to unbinding rolls for this model for each enemy Wizard within 18" of them.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wizard`,
+        desc: `A Battlemage on Pegasus is a wizard. They can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. They know the Arcane Bolt, Mystic Shield and Searing Doom spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Searing Doom`,
+        desc: `Casting value of 6. Pick an enemy unit that is visible to the caster and within 18" of them and roll 6 dice. 
+        
+        That unit suffers 1 mortal wound for each dice rolled that is equal to or higher than that unit's Save characteristic (for example, a unit with a save of 4+ would suffer a mortal wound for each dice result that was a 4 or more). 
+        
+        Units with a save of - cannot be affected by this spell.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
 
   {
     name: `Highborn Repeater Bolt Thrower`,
@@ -935,6 +1039,17 @@ const LegacyOrderUnits: TUnits = [
     ],
   },
   {
+    name: `Glade Lord on Purebred Steed`,
+    effects: [
+      {
+        name: `Hunter's Strike`,
+        desc: `Increase the Damage characteristic of the Glade Lord's Starlight Hunting Spear to D3 if this model made a charge move this turn.`,
+        when: [COMBAT_PHASE],
+      },
+      KindredShieldEffect,
+    ],
+  },
+  {
     name: `Glade Lord on Great Eagle`,
     effects: [
       {
@@ -962,11 +1077,7 @@ const LegacyOrderUnits: TUnits = [
         desc: `Enemy units within 3" of a Forest Dragon cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Kindred Shield`,
-        desc: `Reroll failed save rolls for this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      KindredShieldEffect,
       {
         name: `Starlight Strike`,
         desc: `Add 1 to the Damage characteristic of the Glade Lord's Starlight Spear if this model made a charge move this turn.`,
