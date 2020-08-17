@@ -70,12 +70,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Call to Glory`,
-        desc: `Casting value of 5. Pick 1 friendly Slaves to Darkness hero wholly within 12" and visible. You can re-roll hit and wound rolls for attacks made by the hero if the target is a hero or monster until your next hero phase.`,
+        desc: `Casting value of 5. Pick 1 friendly Slaves to Darkness hero wholly within 12" and visible. You can reroll hit and wound rolls for attacks made by the hero if the target is a hero or monster until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Call to Glory`,
-        desc: `You can re-roll hit and wound rolls for attacks made by the affected hero if the target is a hero or monster.`,
+        desc: `You can reroll hit and wound rolls for attacks made by the affected hero if the target is a hero or monster.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

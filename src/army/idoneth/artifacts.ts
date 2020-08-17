@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ankusha Spur`,
-        desc: `Add 3" to the bearer's Move characteristic. In addition, re-roll hit rolls of 1 for attacks made by the bearer's mount.`,
+        desc: `Add 3" to the bearer's Move characteristic. In addition, reroll hit rolls of 1 for attacks made by the bearer's mount.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
     ],
@@ -108,7 +108,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Terrornight Venom`,
-        desc: `Pick a weapon carried by the bearer to be coated with Terrornight Venom. Re-roll wound rolls of 1 for that weapon. In addition, subtract 1 from the Bravery characteristic of enemy units that suffer any wounds from this weapon for the rest of the battle.`,
+        desc: `Pick a weapon carried by the bearer to be coated with Terrornight Venom. Reroll wound rolls of 1 for that weapon. In addition, subtract 1 from the Bravery characteristic of enemy units that suffer any wounds from this weapon for the rest of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -234,7 +234,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Coral Ring`,
-        desc: `Once per battle, you can re-roll a failed casting roll for the bearer. In addition, once per battle, you can re-roll a failed unbinding roll for the bearer.`,
+        desc: `Once per battle, you can reroll a failed casting roll for the bearer. In addition, once per battle, you can reroll a failed unbinding roll for the bearer.`,
         when: [HERO_PHASE],
       },
     ],

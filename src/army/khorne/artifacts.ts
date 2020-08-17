@@ -19,7 +19,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Heart Seeker`,
-        desc: `You can re-roll wound rolls for attacks made with that weapon.`,
+        desc: `You can reroll wound rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -64,7 +64,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crimson Plate`,
-        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -84,7 +84,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Banner of Rage`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units that are wholly within 12" of the bearer.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units that are wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -104,7 +104,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Banner of Blood`,
-        desc: `You can re-roll charge rolls for friendly KHORNE units that are wholly within 12" of the bearer when the charge roll is made.`,
+        desc: `You can reroll charge rolls for friendly KHORNE units that are wholly within 12" of the bearer when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -234,7 +234,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Foe's Bane`,
-        desc: `Pick 1 of the bearer's melee weapons. Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. Once per turn, you can reroll 1 failed hit roll or 1 failed wound roll for an attack made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -264,7 +264,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Bloodreaper`,
-        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -299,7 +299,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Mark of the Slayer`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units wholly within 12" of the bearer.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly KHORNE units wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

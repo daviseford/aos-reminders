@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Ring of Dominion`,
-        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a D6. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or re-rolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer.`,
+        desc: `When the bearer is selected to fight in the combat phase, you can pick an enemy model within 3" of them and roll a D6. On a 5+ you can pick a melee weapon that the enemy model is armed with (though not one that has a value for one or more characteristics that is given as '*' or 'See below'). For this combat phase, the bearer of this ring may attack with that weapon in addition to their own. Abilities, modifiers or rerolls that apply to attacks made with that weapon when it is used by the enemy model do not apply to the attacks made with it by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -37,7 +37,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Soulbound Garments`,
-        desc: `Re-roll save rolls of 1 for the bearer.`,
+        desc: `Reroll save rolls of 1 for the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

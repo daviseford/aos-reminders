@@ -107,7 +107,7 @@ export const Units: TUnits = [
       },
       {
         name: `Royal Tomb Shield`,
-        desc: `You can re-roll failed save rolls for a Tomb King with a Royal Tomb Shield.`,
+        desc: `You can reroll failed save rolls for a Tomb King with a Royal Tomb Shield.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -129,7 +129,7 @@ export const Units: TUnits = [
       },
       {
         name: `Royal Chariot`,
-        desc: `In the combat phase, if this model charged in the same turn, add 2 to the Attacks characteristic of the Tomb King's Dynastic Blade and double the Attacks characteristic of the Skeletal Steed's Thundering Hooves. 'And the Tomb Kings Rode to War': If a Tomb King in Royal Chariot uses this command ability you can re-roll charge rolls for this model and friendly units of Desert Legion Chariots that are within 18" of him in your next charge phase.`,
+        desc: `In the combat phase, if this model charged in the same turn, add 2 to the Attacks characteristic of the Tomb King's Dynastic Blade and double the Attacks characteristic of the Skeletal Steed's Thundering Hooves. 'And the Tomb Kings Rode to War': If a Tomb King in Royal Chariot uses this command ability you can reroll charge rolls for this model and friendly units of Desert Legion Chariots that are within 18" of him in your next charge phase.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -368,7 +368,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Stern Taskmaster`,
-        desc: `In your hero phase, you can pick a friendly Desert Legions unit within 8" of this model. That unit can move an extra 3" in your next movement phase. In addition, re-roll wound rolls of 1 for that unit in your next combat phase.`,
+        desc: `In your hero phase, you can pick a friendly Desert Legions unit within 8" of this model. That unit can move an extra 3" in your next movement phase. In addition, reroll wound rolls of 1 for that unit in your next combat phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -420,7 +420,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Likeness of Ancient Gods`,
-        desc: `Re-roll save rolls of 1 for this unit while it is within 18" of a friendly Necrotect.`,
+        desc: `Reroll save rolls of 1 for this unit while it is within 18" of a friendly Necrotect.`,
         when: [COMBAT_PHASE],
       },
     ],

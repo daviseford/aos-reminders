@@ -73,7 +73,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Vandal Hordes`,
-        desc: `Re-roll charges if the unit is within 12" of a terrain feature that's partially or wholly within enemy territory.`,
+        desc: `Reroll charges if the unit is within 12" of a terrain feature that's partially or wholly within enemy territory.`,
         when: [CHARGE_PHASE],
       },
       {

@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Dread Harvester`,
-        desc: `You can re-roll hit rolls for attacks made with melee weapons by this general if this general made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls for attacks made with melee weapons by this general if this general made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -24,7 +24,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Gnarled Warrior`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this general.`,
+        desc: `You can reroll save rolls of 1 for attacks that target this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -44,7 +44,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Lord of Spites`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

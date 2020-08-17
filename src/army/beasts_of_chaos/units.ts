@@ -38,7 +38,7 @@ const BrayhornEffect = {
 }
 const DespoilersEffect = {
   name: `Despoilers`,
-  desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can re-roll hit rolls of 1 for attacks by this unit that target ORDER units.`,
+  desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can reroll hit rolls of 1 for attacks by this unit that target ORDER units.`,
   when: [COMBAT_PHASE],
 }
 
@@ -49,17 +49,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dual Axes`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with Paired Man-ripper Axes.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with Paired Man-ripper Axes.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Hatred of Heroes`,
-        desc: `You can re-roll failed wound rolls for attacks made by this model that target a HERO.`,
+        desc: `You can reroll failed wound rolls for attacks made by this model that target a HERO.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Grisly Trophy`,
-        desc: `You can use this command ability in the combat phase if any attacks made by a friendly BEASTLORD with this command ability resulted in an enemy model being slain that phase. If you do so, until the end of that phase, you can re-roll wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD . If any attacks made by that BEASTLORD resulted in an enemy HERO or MONSTER being slain that phase, you can re-roll both hit rolls and wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD instead.`,
+        desc: `You can use this command ability in the combat phase if any attacks made by a friendly BEASTLORD with this command ability resulted in an enemy model being slain that phase. If you do so, until the end of that phase, you can reroll wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD . If any attacks made by that BEASTLORD resulted in an enemy HERO or MONSTER being slain that phase, you can reroll both hit rolls and wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD instead.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -89,7 +89,7 @@ export const Units: TUnits = [
       BannerBearerEffect,
       {
         name: `Rend and Tear`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Gor Blades.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with a pair of Gor Blades.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -111,7 +111,7 @@ export const Units: TUnits = [
       BannerBearerEffect,
       {
         name: `Baying Hatred`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or reroll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -134,7 +134,7 @@ export const Units: TUnits = [
       },
       {
         name: `Baying Anger`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this unit with missile weapons while it has 20 or more models, or re-roll hit rolls of 1 and 2 for attacks made by this unit with missile weapons while it has 30 or more models.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this unit with missile weapons while it has 20 or more models, or reroll hit rolls of 1 and 2 for attacks made by this unit with missile weapons while it has 30 or more models.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -157,7 +157,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Tuskgor Charge`,
-        desc: `You can re-roll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
+        desc: `You can reroll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       DespoilersEffect,
@@ -185,7 +185,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ghostsight`,
-        desc: `You can re-roll failed hit rolls for attacks made by this model that target a WIZARD.`,
+        desc: `You can reroll failed hit rolls for attacks made by this model that target a WIZARD.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -221,7 +221,7 @@ export const Units: TUnits = [
       BloodgreedEffect,
       {
         name: `Dual Axes`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Bullgor Axes.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with a pair of Bullgor Axes.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -243,7 +243,7 @@ export const Units: TUnits = [
       },
       {
         name: `Charging Spear`,
-        desc: `You can re-roll failed wound rolls for attacks made with this unit's Centigor Spears if it made a charge move in the same turn.`,
+        desc: `You can reroll failed wound rolls for attacks made with this unit's Centigor Spears if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -268,7 +268,7 @@ export const Units: TUnits = [
       },
       {
         name: `Summon Lightning`,
-        desc: `Casting value of 7. Pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can re-roll failed wound rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 7. Pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can reroll failed wound rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -279,7 +279,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Storm Rage`,
-        desc: `You can re-roll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
+        desc: `You can reroll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -375,7 +375,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Uncontrollable Stampede`,
-        desc: `You can re-roll charge rolls for this unit. In addition, if this unit made a charge move in the same turn, an unmodified hit roll of 6 for an attack made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        desc: `You can reroll charge rolls for this unit. In addition, if this unit made a charge move in the same turn, an unmodified hit roll of 6 for an attack made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -385,7 +385,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Guided by the Future`,
-        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can reroll hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -400,7 +400,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Sorcerous Elixir`,
-        desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can re-roll the casting roll for that spell.`,
+        desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can reroll the casting roll for that spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -436,7 +436,7 @@ export const Units: TUnits = [
       },
       {
         name: `Guided by the Past`,
-        desc: `In the combat phase, you can re-roll hit and wound rolls for attacks made by this unit if any enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `In the combat phase, you can reroll hit and wound rolls for attacks made by this unit if any enemy units within 3" of this unit have already fought in that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -558,7 +558,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Martial Ferocity`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can re-roll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can reroll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -588,7 +588,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Covetous Fury`,
-        desc: `You can re-roll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power. In addition, you can re-roll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
+        desc: `You can reroll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power. In addition, you can reroll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
         when: [CHARGE_PHASE],
       },
     ],

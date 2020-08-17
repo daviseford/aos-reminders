@@ -49,7 +49,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cloak of the Relentless Conqueror (Ravagers)`,
-        desc: `You can re-roll charge rolls for the bearer.`,
+        desc: `You can reroll charge rolls for the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -186,7 +186,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Doombringer Blade (Despoilers)`,
-        desc: `After setup is complete but before the start of the turn, you can pick 1 enemy hero or monster on the battlefield. Friendly Despoilers units can re-roll hit and wound rolls when targeting the selected model.`,
+        desc: `After setup is complete but before the start of the turn, you can pick 1 enemy hero or monster on the battlefield. Friendly Despoilers units can reroll hit and wound rolls when targeting the selected model.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],

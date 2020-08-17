@@ -188,7 +188,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Aethereal Stalker`,
-        desc: `When this model is set up, choose an enemy unit. You can re-roll failed hit and wound rolls for attacks made with this model's Gryph-charger's Razor Beak and Claws that target that enemy unit.`,
+        desc: `When this model is set up, choose an enemy unit. You can reroll failed hit and wound rolls for attacks made with this model's Gryph-charger's Razor Beak and Claws that target that enemy unit.`,
         when: [DURING_SETUP, COMBAT_PHASE],
         mount_trait: true,
       },
@@ -199,7 +199,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Indefatigable`,
-        desc: `You can re-roll run rolls for this model.`,
+        desc: `You can reroll run rolls for this model.`,
         when: [MOVEMENT_PHASE],
         mount_trait: true,
       },
@@ -210,7 +210,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Swiftwing`,
-        desc: `You can re-roll run rolls for this model.`,
+        desc: `You can reroll run rolls for this model.`,
         when: [MOVEMENT_PHASE],
         mount_trait: true,
       },

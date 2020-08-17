@@ -18,7 +18,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Best of the Best (Invaders)`,
-        desc: `You can re-roll wound rolls for attacks made by this general while they are within 6" of another hero.`,
+        desc: `You can reroll wound rolls for attacks made by this general while they are within 6" of another hero.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -108,7 +108,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Strongest Alone (Pretenders)`,
-        desc: `You can re-roll hits roll for attacks made by this general while there are no other friendly models within 6" of this general.`,
+        desc: `You can reroll hits roll for attacks made by this general while there are no other friendly models within 6" of this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -138,7 +138,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hunter Sumpreme (Godseekers)`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made by this general if this general made a charge move in the same turn.`,
+        desc: `You can reroll hit and wound rolls of 1 for attacks made by this general if this general made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

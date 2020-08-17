@@ -84,7 +84,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hatred of the Living`,
-        desc: `Re-roll wound rolls of 1 for attacks made by this model that target ORDER and DESTRUCTION units. You can re-roll any wound rolls for attacks made by this model that target CHAOS units.`,
+        desc: `Reroll wound rolls of 1 for attacks made by this model that target ORDER and DESTRUCTION units. You can reroll any wound rolls for attacks made by this model that target CHAOS units.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -100,7 +100,7 @@ export const Units: TUnits = [
       EndlessDutyEffect,
       {
         name: `Still Their Breath!`,
-        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Re-roll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units until the end of that phase. You can re-roll any wound rolls for attacks made by that unit that target CHAOS units until the end of that phase.`,
+        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Reroll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units until the end of that phase. You can reroll any wound rolls for attacks made by that unit that target CHAOS units until the end of that phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -181,7 +181,7 @@ export const Units: TUnits = [
       NadariteWeaponsEffect,
       {
         name: `Shieldwall`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MORTEK GUARD unit that includes a Mortek Hekatos. You can re-roll save rolls for attacks that target that unit until the end of that combat phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MORTEK GUARD unit that includes a Mortek Hekatos. You can reroll save rolls for attacks that target that unit until the end of that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -239,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soul-guide`,
-        desc: `Casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit wholly within 24" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit wholly within 24" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -255,7 +255,7 @@ export const Units: TUnits = [
       },
       {
         name: `Soulreaper`,
-        desc: `You can re-roll hit rolls for attacks made with a Soulreaper Scythe if the target unit has 5 or more models.`,
+        desc: `You can reroll hit rolls for attacks made with a Soulreaper Scythe if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -273,18 +273,18 @@ export const Units: TUnits = [
         name: `Quadrarch Aspects`,
         desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
 
-        Blade-strike Aspect: You can re-roll hit rolls for attacks made by this unit.
+        Blade-strike Aspect: You can reroll hit rolls for attacks made by this unit.
 
-        Blade-parry Aspect: You can re-roll save rolls for attacks that target this unit.
+        Blade-parry Aspect: You can reroll save rolls for attacks that target this unit.
 
-        Destroyer Aspect: You can re-roll wound rolls for attacks made by this unit.
+        Destroyer Aspect: You can reroll wound rolls for attacks made by this unit.
 
         Precision Aspect: Improve the Rend and Damage characteristics of this unit's melee weapons by 1.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Hunt and Kill`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly NECROPOLIS STALKERS unit. You can re-roll run and charge rolls for that unit until your next hero phase. In addition, until your next hero phase, when that unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly NECROPOLIS STALKERS unit. You can reroll run and charge rolls for that unit until your next hero phase. In addition, until your next hero phase, when that unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
         when: [HERO_PHASE],
         command_ability: true,
       },

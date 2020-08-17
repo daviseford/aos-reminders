@@ -23,7 +23,7 @@ import {
 
 const SigmariteThundershield = {
   name: `Sigmarite Thundershield`,
-  desc: `Re-roll save rolls of 1 for this model. If the re-rolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
+  desc: `Reroll save rolls of 1 for this model. If the rerolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 const CometTrailEffect = {
@@ -73,7 +73,7 @@ const CycleOfTheStormEffect = {
 }
 const SigmariteShieldsEffect = {
   name: `Sigmarite Shields`,
-  desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+  desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 const CelestialLightningArcEffects = [
@@ -84,7 +84,7 @@ const CelestialLightningArcEffects = [
   },
   {
     name: `Celestial Lightning Arc`,
-    desc: `You can re-roll save rolls of 1 for missile attacks that target this unit.`,
+    desc: `You can reroll save rolls of 1 for missile attacks that target this unit.`,
     when: [SHOOTING_PHASE],
   },
 ]
@@ -100,7 +100,7 @@ const StarsoulMacesEffect = {
 }
 const ThunderousPounceEffect = {
   name: `Thunderous Pounce`,
-  desc: `You can re-roll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
+  desc: `You can reroll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
 }
 const WindriderEffect = {
@@ -302,7 +302,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
+        desc: `You can reroll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -509,7 +509,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Celestial Host`,
-        desc: `Re-roll failed wound rolls for attacks made by friendly STARDRAKE and DRACOTH mounts until the end of that phase.`,
+        desc: `Reroll failed wound rolls for attacks made by friendly STARDRAKE and DRACOTH mounts until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -662,7 +662,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Illuminator of the Lost`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly units that target enemy units while the enemy unit is within 10" of this model.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly units that target enemy units while the enemy unit is within 10" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -733,14 +733,14 @@ export const Units: TUnits = [
         
         Sworn Protector: Pick a HERO in your army for the Errant-Questor to protect. Whilst this model is within 3" of the HERO you picked, you can choose to allocate any unsanved or mortal wound inflicted upon that model to the Errant-Questor instead.
 
-        Blood Feud: Pick a HERO in the enemy army. You can re-roll all failed hit and wound rolls when attacking that HERO with this model. If you have more than one Errant-Questor in your army that chooses this oath, you must pick a different enemy HERO to be the target of each blood feud.
+        Blood Feud: Pick a HERO in the enemy army. You can reroll all failed hit and wound rolls when attacking that HERO with this model. If you have more than one Errant-Questor in your army that chooses this oath, you must pick a different enemy HERO to be the target of each blood feud.
 
         Fueled by Vengeance: Keep track of how many unsaved wounds this model inflicts upon enemy models in battle. Add 1 to the Attacks characteristic of this model's Rune-etched Greatblade for every 10 wounds he inflicts during the battle.`,
         when: [END_OF_SETUP],
       },
       {
         name: `Relentless Purpose`,
-        desc: `You can re-roll failed charge rolls for an Errant-Questor.`,
+        desc: `You can reroll failed charge rolls for an Errant-Questor.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -750,7 +750,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Heroic Challenge`,
-        desc: `If this model is within 6" of an enemy HERO when it makes a pile-in move, it can pile in an extra 3", but must end that pile-in move within 1" of an enemy HERO. In addition you can re-roll failed hit rolls for attacks made by this model against a HERO.`,
+        desc: `If this model is within 6" of an enemy HERO when it makes a pile-in move, it can pile in an extra 3", but must end that pile-in move within 1" of an enemy HERO. In addition you can reroll failed hit rolls for attacks made by this model against a HERO.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -760,7 +760,7 @@ export const Units: TUnits = [
       },
       {
         name: `Sigmarite Shield`,
-        desc: `Re-roll failed save rolls for attacks that target this model.`,
+        desc: `Reroll failed save rolls for attacks that target this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -775,7 +775,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Malleus Occulum`,
-        desc: `If your battle is taking place in Ulgu, the Realm of Shadow, you can re-roll charge rolls for this model.`,
+        desc: `If your battle is taking place in Ulgu, the Realm of Shadow, you can reroll charge rolls for this model.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -785,7 +785,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Shadowstalker's Quarry`,
-        desc: `If this model is within 6" of an enemy MONSTER in the combat phase, it is eligible to fight and can move an extra 3" when it piles in, but must end that pile-in move within 1" of an enemy MONSTER. In addition, you can re-roll hit rolls for attacks made by this model if the target of the attack is a MONSTER.`,
+        desc: `If this model is within 6" of an enemy MONSTER in the combat phase, it is eligible to fight and can move an extra 3" when it piles in, but must end that pile-in move within 1" of an enemy MONSTER. In addition, you can reroll hit rolls for attacks made by this model if the target of the attack is a MONSTER.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -795,7 +795,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Icon of War`,
-        desc: `You can re-roll charge rolls for friendly STORMCAST ETERNAL units that are wholly within 18" of this model when the charge roll is made.`,
+        desc: `You can reroll charge rolls for friendly STORMCAST ETERNAL units that are wholly within 18" of this model when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -1039,7 +1039,7 @@ export const Units: TUnits = [
       },
       {
         name: `Paired Celestial Hammers`,
-        desc: `Re-roll hits of 1.`,
+        desc: `Reroll hits of 1.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       SigmariteShieldsEffect,
@@ -1070,7 +1070,7 @@ export const Units: TUnits = [
       },
       {
         name: `Eternal Judgement`,
-        desc: `Re-roll hit rolls of 1 for attacks made with this unit's missile weapons that target a CHAOS unit.`,
+        desc: `Reroll hit rolls of 1 for attacks made with this unit's missile weapons that target a CHAOS unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1184,7 +1184,7 @@ export const Units: TUnits = [
       },
       {
         name: `Castigator Aetheric Channelling`,
-        desc: `Say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, re-roll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend of -2 instead of -1 in that shooting phase.`,
+        desc: `Say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, reroll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend of -2 instead of -1 in that shooting phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -1214,12 +1214,12 @@ export const Units: TUnits = [
       },
       {
         name: `Sequitor Aetheric Channelling`,
-        desc: `Say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can re-roll failed hit rolls for attacks made by this unit in that combat phase. If you choose its shields, you can re-roll failed save rolls for attacks that target this unit in that combat phase (instead of only re-rolling save rolls of 1).`,
+        desc: `Say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can reroll failed hit rolls for attacks made by this unit in that combat phase. If you choose its shields, you can reroll failed save rolls for attacks that target this unit in that combat phase (instead of only rerolling save rolls of 1).`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Soulshields`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit if any models from this unit are carrying a Soulshield.`,
+        desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying a Soulshield.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -1240,7 +1240,7 @@ export const Units: TUnits = [
       },
       {
         name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1264,7 +1264,7 @@ export const Units: TUnits = [
       ThunderousPounceEffect,
       {
         name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -1285,7 +1285,7 @@ export const Units: TUnits = [
       SpiritFlaskEffect,
       {
         name: `Shield of the Pale Knight`,
-        desc: `You can re-roll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
+        desc: `You can reroll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -1319,13 +1319,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Blessed Banishment`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
         when: [COMBAT_PHASE],
       },
       ...CelestialLightningArcEffects,
       {
         name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can re-roll failed wound rolls for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -1370,7 +1370,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Hailstorm Strike`,
-        desc: `You can re-roll failed hit rolls for attacks made by the CELESTAR BALLISTA from this battalion if the unit of CASTIGATORS from the same battalion inflicted one or more wounds on the target unit in the same turn.`,
+        desc: `You can reroll failed hit rolls for attacks made by the CELESTAR BALLISTA from this battalion if the unit of CASTIGATORS from the same battalion inflicted one or more wounds on the target unit in the same turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1380,7 +1380,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Channelled Empowerment`,
-        desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, you can re-roll failed hit rolls for attacks made by the SEQUITORS unit in addition to the effects of the spell.`,
+        desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, you can reroll failed hit rolls for attacks made by the SEQUITORS unit in addition to the effects of the spell.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -1420,7 +1420,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Fight in Concert`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by units of VANGUARD-RAPTORS from this battalion, if the target of that attack is an enemy unit within 18" of any AETHERWING units from the same battalion.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with missile weapons by units of VANGUARD-RAPTORS from this battalion, if the target of that attack is an enemy unit within 18" of any AETHERWING units from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1470,7 +1470,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Wrath of the Storm`,
-        desc: `You can re-roll failed wound rolls for attacks made by models from this battalion while there are 50 or more models from the same battalion on the battlefield.`,
+        desc: `You can reroll failed wound rolls for attacks made by models from this battalion while there are 50 or more models from the same battalion on the battlefield.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -1510,7 +1510,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Sigmarite Shieldwall`,
-        desc: `You can re-roll save rolls of 1 for attacks that target a unit of JUDICATORS from this battalion if that unit is wholly within 3" of a unit of LIBERATORS from the same battalion that has any models carrying a Sigmarite Shield.`,
+        desc: `You can reroll save rolls of 1 for attacks that target a unit of JUDICATORS from this battalion if that unit is wholly within 3" of a unit of LIBERATORS from the same battalion that has any models carrying a Sigmarite Shield.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -1580,7 +1580,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Deadly Hail`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with missle weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with missle weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],

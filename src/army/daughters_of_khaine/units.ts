@@ -61,7 +61,7 @@ const WitchbrewEffects = [
   },
   {
     name: `Witchbrew`,
-    desc: `If active, re-roll failed wound rolls for that unit's melee weapons.`,
+    desc: `If active, reroll failed wound rolls for that unit's melee weapons.`,
     when: [COMBAT_PHASE],
   },
   {
@@ -499,7 +499,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Lethal Transfixion`,
-        desc: `Each time your opponent makes a hit roll of 1 (after re-rolls, but before modifiers are applied) when attacking a Temple Nest unit in the combat phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
+        desc: `Each time your opponent makes a hit roll of 1 (after rerolls, but before modifiers are applied) when attacking a Temple Nest unit in the combat phase, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
     ],

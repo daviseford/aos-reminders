@@ -69,7 +69,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Shadow Stone (Wizard)`,
-        desc: `Re-roll dice rolls of 1 that are made as part of a casting roll for the bearer. In addition add 1 to the casting roll if the bearer attempts a spell from the Lore of Shadows.`,
+        desc: `Reroll dice rolls of 1 that are made as part of a casting roll for the bearer. In addition add 1 to the casting roll if the bearer attempts a spell from the Lore of Shadows.`,
         when: [HERO_PHASE],
       },
     ],
@@ -140,7 +140,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Iron Circlet (Priest)`,
-        desc: `Whenever the bearer prays, re-roll rolls of 1 when seeing if the prayer is successful or not.`,
+        desc: `Whenever the bearer prays, reroll rolls of 1 when seeing if the prayer is successful or not.`,
         when: [HERO_PHASE],
       },
     ],

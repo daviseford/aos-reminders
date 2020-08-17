@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Emissary of the Master`,
-        desc: `You can re-roll failed charge rolls for friendly DEATH units that are within 6" of this general at the start of the charge phase.`,
+        desc: `You can reroll failed charge rolls for friendly DEATH units that are within 6" of this general at the start of the charge phase.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],

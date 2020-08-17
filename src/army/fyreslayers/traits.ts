@@ -190,7 +190,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ash-horn Ancient`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this model and friendly MAGMADROTHS within 6".`,
+        desc: `You can reroll save rolls of 1 for attacks that target this model and friendly MAGMADROTHS within 6".`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         mount_trait: true,
       },

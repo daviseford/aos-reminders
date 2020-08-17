@@ -72,7 +72,7 @@ const BeaconOfSorceryEffect = {
 }
 const BoltofChangeEffect = {
   name: `Bolt of Change`,
-  desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+  desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
   when: [HERO_PHASE],
   spell: true,
 }
@@ -130,12 +130,12 @@ export const Units: TUnits = [
 
         Casting rolls, Unbinding rolls, Dispelling rolls, Run rolls, Charge rolls, Hit rolls, Wound rolls, Save rolls, Any roll that determines the Damage characteristic of a missile or melee weapon, Battleshock test
 
-        Note that this ability only allows you to replace a single dice roll. For 2D6 rolls (such as casting rolls or charge rolls), you can only replace 1 of the dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be re-rolled or modified further.`,
+        Note that this ability only allows you to replace a single dice roll. For 2D6 rolls (such as casting rolls or charge rolls), you can only replace 1 of the dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled or modified further.`,
         when: [DURING_GAME],
       },
       {
         name: `Gift of Change`,
-        desc: `Casting value 8. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+        desc: `Casting value 8. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -204,7 +204,7 @@ export const Units: TUnits = [
       ArcaneTomeEffect,
       {
         name: `Blue Fire of Tzeentch`,
-        desc: `Casting value 5. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
+        desc: `Casting value 5. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -218,7 +218,7 @@ export const Units: TUnits = [
       WakeofFireEffect,
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 8. If successfully cast, roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -239,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Tzeentch`,
-        desc: `Casting value 4. If successfully cast, you can re-roll casting rolls for friendly TZEENTCH WIZARDS wholly within 18" of the caster for the rest of that phase.`,
+        desc: `Casting value 4. You can reroll casting rolls for friendly TZEENTCH WIZARDS wholly within 18" of the caster for the rest of that phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -255,7 +255,7 @@ export const Units: TUnits = [
       },
       {
         name: `Horn Blower`,
-        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Pink Horror Hornblowers is 1, that battleshock test must be re-rolled.`,
+        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Pink Horror Hornblowers is 1, that battleshock test must be rerolled.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -294,7 +294,7 @@ export const Units: TUnits = [
       },
       {
         name: `Channelled Pink Fire`,
-        desc: `Casting value 6. If successfully cast, pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
+        desc: `Casting value 6. Pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
         spell: true,
         when: [HERO_PHASE],
       },
@@ -361,13 +361,13 @@ export const Units: TUnits = [
       },
       {
         name: `Glean Magic`,
-        desc: `Casting value 3. If successfully cast, pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
+        desc: `Casting value 3. Pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Disrupter of the Arcane`,
-        desc: `You can re-roll unbinding and dispelling rolls for this model.`,
+        desc: `You can reroll unbinding and dispelling rolls for this model.`,
         when: [HERO_PHASE],
       },
     ],
@@ -395,7 +395,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Flames`,
-        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -416,7 +416,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Fate`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick a friendly model with this command ability. Until your next hero phase, you can re-roll hit rolls for attacks made by friendly Tzeentch units wholly within 9" of this model.`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick a friendly model with this command ability. Until your next hero phase, you can reroll hit rolls for attacks made by friendly Tzeentch units wholly within 9" of this model.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -427,7 +427,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Brutal Rage`,
-        desc: `You can re-roll hit and wound rolls for attacks made with melee weapons by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
+        desc: `You can reroll hit and wound rolls for attacks made with melee weapons by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -437,7 +437,7 @@ export const Units: TUnits = [
       },
       {
         name: `Choking Tendrils`,
-        desc: `Casting value 7. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
+        desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -453,7 +453,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gestalt Sorcery`,
-        desc: `Casting Value 6. If successfully cast, pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
+        desc: `Casting Value 6. Pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -464,7 +464,7 @@ export const Units: TUnits = [
       },
       {
         name: `Paired Cursed Blades`,
-        desc: `You can re-roll hit rolls for attacks made with a pair of Cursed Blades.`,
+        desc: `You can reroll hit rolls for attacks made with a pair of Cursed Blades.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -514,7 +514,7 @@ export const Units: TUnits = [
       MagicTouchedEffect,
       {
         name: `Sorcerous Insight`,
-        desc: `Casting value 5. If successfully cast, you receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
+        desc: `Casting value 5. You receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -619,7 +619,7 @@ export const TzeentchBattalions: TBattalions = [
     effects: [
       {
         name: `Knowledge of Past, Present and Future`,
-        desc: `You can re-roll any hit, wound, save and run rolls of 1 for models from this battalion.`,
+        desc: `You can reroll any hit, wound, save and run rolls of 1 for models from this battalion.`,
         when: [DURING_GAME],
       },
     ],

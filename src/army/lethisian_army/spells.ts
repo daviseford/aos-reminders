@@ -35,12 +35,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Morrda's Embrace`,
-        desc: `Prayer is answered on a 3+. If successful, re-roll save rolls of 1 for friendly units wholly within 12" of the priest until your next hero phase.`,
+        desc: `Prayer is answered on a 3+. If successful, reroll save rolls of 1 for friendly units wholly within 12" of the priest until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Morrda's Embrace`,
-        desc: `If active, re-roll save rolls of 1 for friendly units wholly within 12" of the priest.`,
+        desc: `If active, reroll save rolls of 1 for friendly units wholly within 12" of the priest.`,
         when: [DURING_GAME],
       },
     ],

@@ -8,7 +8,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Daemonic Simulacrum`,
-        desc: `Casting value 7. Only Tzeentch Wizards can attempt to cast this spell. If successfully cast, set up 1 Daemonic Simulacrum model wholly within 12" of the caster.`,
+        desc: `Casting value 7. Only Tzeentch Wizards can attempt to cast this spell. Set up 1 Daemonic Simulacrum model wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -28,20 +28,20 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Tome of Eyes`,
-        desc: `Casting value 5. Only Tzeentch Wizards can attempt to cast this spell. If successfully cast, set up 1 Tome of Eyes model within 1" of the caster.
+        desc: `Casting value 5. Only Tzeentch Wizards can attempt to cast this spell. Set up 1 Tome of Eyes model within 1" of the caster.
 
         As long as the Tome of Eyes is on the battlefield, the caster and the Tome of Eyes are treated as being a single model from the caster's army that uses the caster's warscroll as well as the Endless Spells rules. The Tome of Eyes must remain within 1" of the caster. If the caster is slain, then the Tome of Eyes is immediately dispelled and removed from play along with the caster.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Parchment Curse`,
-        desc: `Casting Value 8. Only the caster of the Tome of Eyes can attempt to cast this spell. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them and roll a D6. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
+        desc: `Casting Value 8. Only the caster of the Tome of Eyes can attempt to cast this spell. Pick 1 enemy unit within 18" of the caster that is visible to them and roll a D6. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Transfixed by Countless Eyes`,
-        desc: `If the Tome of Eyes is on the battlefield, you can re-roll casting rolls for the caster.
+        desc: `If the Tome of Eyes is on the battlefield, you can reroll casting rolls for the caster.
 
         In addition, if the unmodified casting roll for a spell attempted by the caster is a 2 or a 12, the spell is automatically cast (regardless of the result) and cannot be unbound. However, the caster suffers D3 mortal wounds after the effects of that spell have been resolved.`,
         when: [HERO_PHASE],
@@ -53,7 +53,7 @@ const EndlessSpells: TEndlessSpells = [
     effects: [
       {
         name: `Summon Burning Sigil of Tzeentch`,
-        desc: `Casting Value 5. Only Tzeentch Wizards can attempt to cast this spell. If successfully cast, set up 1 Burning Sigil of Tzeentch model wholly within 18" of the caster.`,
+        desc: `Casting Value 5. Only Tzeentch Wizards can attempt to cast this spell. Set up 1 Burning Sigil of Tzeentch model wholly within 18" of the caster.`,
         when: [HERO_PHASE],
       },
       {

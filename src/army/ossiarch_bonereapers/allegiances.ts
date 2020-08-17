@@ -25,7 +25,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Counter-strike`,
-        desc: `You can use this command ability at the end of the enemy charge phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that either has the HEKATOS keyword, or is wholly within 6" of a friendly Mortis Hekatos, or is wholly within 12" of a friendly MORTIS PRAETORIANS HERO. Until the end of that turn, you can re-roll hit rolls for attacks made by that unit that target an enemy unit that made a charge move in the same turn.`,
+        desc: `You can use this command ability at the end of the enemy charge phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that either has the HEKATOS keyword, or is wholly within 6" of a friendly Mortis Hekatos, or is wholly within 12" of a friendly MORTIS PRAETORIANS HERO. Until the end of that turn, you can reroll hit rolls for attacks made by that unit that target an enemy unit that made a charge move in the same turn.`,
         when: [END_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -48,7 +48,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Unstoppable Juggernauts`,
-        desc: `Re-roll save rolls of 1 for attacks made with melee weapons that target PETRIFEX ELITE units.'`,
+        desc: `Reroll save rolls of 1 for attacks made with melee weapons that target PETRIFEX ELITE units.'`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },

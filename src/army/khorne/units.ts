@@ -80,7 +80,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Favoured of Khorne`,
-        desc: `You can re-roll hit rolls for attacks made by this model.`,
+        desc: `You can reroll hit rolls for attacks made by this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -105,7 +105,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Goretide`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability that is a general. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly GORETIDE units wholly within 16" of that model.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability that is a general. Until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly GORETIDE units wholly within 16" of that model.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -139,7 +139,7 @@ export const Units: TUnits = [
 
       {
         name: `Call of the Skull Throne`,
-        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can re-roll charge rolls for friendly Khorne units while they are wholly within 12" of this model in that charge phase.`,
+        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can reroll charge rolls for friendly Khorne units while they are wholly within 12" of this model in that charge phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -211,7 +211,7 @@ export const Units: TUnits = [
       },
       {
         name: `Trial of Skulls`,
-        desc: `You can re-roll hit rolls for attacks made by this unit if the target unit has 5 or more models.`,
+        desc: `You can reroll hit rolls for attacks made by this unit if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -251,7 +251,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaver Blades`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with Reaver Blades.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with Reaver Blades.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -276,7 +276,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaver Blades`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with Reaver Blades.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with Reaver Blades.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -286,7 +286,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Magore Redhand`,
-        desc: `You can re-roll hit rolls for attacks made by this unit that target STORMCAST ETERNAL units while this unit includes Magore Redhand.`,
+        desc: `You can reroll hit rolls for attacks made by this unit that target STORMCAST ETERNAL units while this unit includes Magore Redhand.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -296,7 +296,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Scent`,
-        desc: `You can re-roll charge rolls for this unit while it is wholly within 8" of a friendly RIPTOOTH model.`,
+        desc: `You can reroll charge rolls for this unit while it is wholly within 8" of a friendly RIPTOOTH model.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -321,7 +321,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unflagging Hunter`,
-        desc: `You can re-roll charge rolls for this model.`,
+        desc: `You can reroll charge rolls for this model.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -361,7 +361,7 @@ export const Units: TUnits = [
       },
       {
         name: `Goreaxes`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with a pair of Goreaxes.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with a pair of Goreaxes.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -381,7 +381,7 @@ export const Units: TUnits = [
       },
       {
         name: `Whipped to Fury`,
-        desc: `Until your next movement phase you can re-roll wound rolls for attacks made by a unit that has been "Whipped to Fury". A unit cannot be picked to benefit from this ability more than once per turn.`,
+        desc: `Until your next movement phase you can reroll wound rolls for attacks made by a unit that has been "Whipped to Fury". A unit cannot be picked to benefit from this ability more than once per turn.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -476,7 +476,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Stampede`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick up to 3 friendly KHORNE MORTAL units that made a charge move in that turn and are wholly within 16" of a model with this command ability. You can re-roll wound rolls of 1 for attacks made by those units in that combat phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick up to 3 friendly KHORNE MORTAL units that made a charge move in that turn and are wholly within 16" of a model with this command ability. You can reroll wound rolls of 1 for attacks made by those units in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -487,7 +487,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Loathsome Sorcery`,
-        desc: `Re-roll successful casting rolls for WIZARDS within 16" of this model, before any unbinding rolls are made.`,
+        desc: `Reroll successful casting rolls for WIZARDS within 16" of this model, before any unbinding rolls are made.`,
         when: [HERO_PHASE],
       },
       {
@@ -522,7 +522,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Rage Unbound`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -532,7 +532,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bloodthirsty Charge`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly KHORNE DAEMON units wholly within 16" of that model when the charge roll is made.`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can reroll charge rolls for friendly KHORNE DAEMON units wholly within 16" of that model when the charge roll is made.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -569,7 +569,7 @@ export const Units: TUnits = [
       },
       {
         name: `Relentless Hunters`,
-        desc: `You can re-roll hit rolls for attacks made by this model that target a HERO or MONSTER.`,
+        desc: `You can reroll hit rolls for attacks made by this model that target a HERO or MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -584,7 +584,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of the Blood Hunt`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly KHORNE DAEMON unit wholly within 16" of a friendly model with this command ability. Until the end of the phase you can re-roll hit rolls for attacks made by that unit.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly KHORNE DAEMON unit wholly within 16" of a friendly model with this command ability. Until the end of the phase you can reroll hit rolls for attacks made by that unit.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -610,7 +610,7 @@ export const Units: TUnits = [
       },
       {
         name: `Inescapable Wrath`,
-        desc: `You can re-roll charge rolls for this model.`,
+        desc: `You can reroll charge rolls for this model.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -620,7 +620,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cloak of Skulls`,
-        desc: `You can re-roll save rolls for attacks that target this model.`,
+        desc: `You can reroll save rolls for attacks that target this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -630,12 +630,12 @@ export const Units: TUnits = [
       },
       {
         name: `Heroes' Bane`,
-        desc: `You can re-roll hit and wound rolls for attacks made by this model that target a HERO.`,
+        desc: `You can reroll hit and wound rolls for attacks made by this model that target a HERO.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Heads Must Roll`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly BLOODLETTERS unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, you can re-roll wound rolls of 1 for attacks made by that unit.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly BLOODLETTERS unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, you can reroll wound rolls of 1 for attacks made by that unit.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -661,7 +661,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Slaughter and Ruin`,
-        desc: `You can re-roll hit rolls for attacks made by this model if it made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -696,7 +696,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gorelord`,
-        desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly KHORNE MORTAL units wholly within 16" of that model when the charge roll is made.`,
+        desc: `You can use this command ability at the start of the charge phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you can reroll charge rolls for friendly KHORNE MORTAL units wholly within 16" of that model when the charge roll is made.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -728,7 +728,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `The Gaze of Khorne`,
-        desc: `You can re-roll battleshock tests for friendly KHORNE MORTAL units wholly within 16" of this model. However, if you do so and that unit still fails the battleshock test after the re-roll has been made, add D3 to the number of models that flee.`,
+        desc: `You can reroll battleshock tests for friendly KHORNE MORTAL units wholly within 16" of this model. However, if you do so and that unit still fails the battleshock test after the reroll has been made, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -806,7 +806,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Unflagging Hunter`,
-        desc: `You can re-roll charge rolls for this model.`,
+        desc: `You can reroll charge rolls for this model.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -821,7 +821,7 @@ export const Units: TUnits = [
       },
       {
         name: `Prey of the Blood God`,
-        desc: `After armies are set up, but before the first battle round begins, pick 1 enemy HERO to be this model's quarry. You can re-roll hit and wound rolls for attacks made by this model that target that HERO.`,
+        desc: `After armies are set up, but before the first battle round begins, pick 1 enemy HERO to be this model's quarry. You can reroll hit and wound rolls for attacks made by this model that target that HERO.`,
         when: [END_OF_SETUP, COMBAT_PHASE],
       },
       {
@@ -836,7 +836,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hornblower`,
-        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be re-rolled.`,
+        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be rerolled.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -851,7 +851,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bloodsoaked Banner`,
-        desc: `You can re-roll charge rolls for this unit while it includes any Bloodsoaked Banner Bearers.`,
+        desc: `You can reroll charge rolls for this unit while it includes any Bloodsoaked Banner Bearers.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -871,7 +871,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be re-rolled.`,
+        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be rerolled.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -897,7 +897,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unflagging Hunters`,
-        desc: `You can re-roll charge rolls for this unit.`,
+        desc: `You can reroll charge rolls for this unit.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -942,7 +942,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Butcher's Due`,
-        desc: `You can use this command ability at the start of your hero phase if this model is on the battlefield. If you do so, pick 1 friendly Khorne unit wholly within 18" of this model. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `You can use this command ability at the start of your hero phase if this model is on the battlefield. If you do so, pick 1 friendly Khorne unit wholly within 18" of this model. You can reroll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -952,7 +952,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Monstrous Trophies`,
-        desc: `You can re-roll failed wound rolls for attacks made with this model's Skull Cleaver Axe of Khorne that target a MONSTER.
+        desc: `You can reroll failed wound rolls for attacks made with this model's Skull Cleaver Axe of Khorne that target a MONSTER.
                If the unmodified wound roll for an attack made with the Skull Cleaver Axe of Khorne is a 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
@@ -1108,7 +1108,7 @@ export const KhorneBattalions: TBattalions = [
     effects: [
       {
         name: `Cometh the Slaughter`,
-        desc: `You can re-roll charge rolls for units from this battalion while they are wholly within 16" of any BLOODTHIRSTERS from the same battalion.`,
+        desc: `You can reroll charge rolls for units from this battalion while they are wholly within 16" of any BLOODTHIRSTERS from the same battalion.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -1163,7 +1163,7 @@ export const KhorneBattalions: TBattalions = [
     effects: [
       {
         name: `Daemon Commander`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by units from this battalion that are wholly within 16" of a BLOODTHIRSTER from the same battalion.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by units from this battalion that are wholly within 16" of a BLOODTHIRSTER from the same battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -1173,7 +1173,7 @@ export const KhorneBattalions: TBattalions = [
     effects: [
       {
         name: `The Cannons of Khorne`,
-        desc: `You can re-roll hit rolls for attacks made with missile weapons by SKULL CANNONS from this battalion that are wholly within 12" of a HERALD OF KHORNE ON BLOOD THRONE from the same battalion.`,
+        desc: `You can reroll hit rolls for attacks made with missile weapons by SKULL CANNONS from this battalion that are wholly within 12" of a HERALD OF KHORNE ON BLOOD THRONE from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1193,7 +1193,7 @@ export const KhorneBattalions: TBattalions = [
     effects: [
       {
         name: `Giant Killers`,
-        desc: `You can re-roll wound rolls for attacks made by units from this battalion that target a MONSTER.`,
+        desc: `You can reroll wound rolls for attacks made by units from this battalion that target a MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

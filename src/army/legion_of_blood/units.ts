@@ -19,7 +19,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Adevore`,
-        desc: `Whilst she is within 9" of this battalion's Bloodseeker Palanquin, you may re-roll failed hit rolls for Neferata if the target is an enemy HERO.`,
+        desc: `Whilst she is within 9" of this battalion's Bloodseeker Palanquin, you may reroll failed hit rolls for Neferata if the target is an enemy HERO.`,
         when: [COMBAT_PHASE],
       },
       {

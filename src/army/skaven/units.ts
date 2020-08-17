@@ -124,7 +124,7 @@ export const Units: TUnits = [
       },
       {
         name: `Warpstone Addiction`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be re-rolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model suffers D6 mortal wounds. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
+        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model suffers D6 mortal wounds. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
       },
       {
@@ -159,7 +159,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Rat King`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can re-roll wound rolls of 1 for attacks made by friendly SKAVENTIDE units while they are wholly within 13" of a friendly model with this command ability.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can reroll wound rolls of 1 for attacks made by friendly SKAVENTIDE units while they are wholly within 13" of a friendly model with this command ability.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -177,12 +177,12 @@ export const Units: TUnits = [
       },
       {
         name: `Scry-orb`,
-        desc: `You can re-roll save rolls for attacks that target this model.`,
+        desc: `You can reroll save rolls for attacks that target this model.`,
         when: [DURING_GAME],
       },
       {
         name: `Scry-orb`,
-        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this model and visible to them. That unit suffers D6 mortal wounds, but you cannot use this ability to re-roll save rolls for this model for the rest of the battle.`,
+        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this model and visible to them. That unit suffers D6 mortal wounds, but you cannot use this ability to reroll save rolls for this model for the rest of the battle.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -204,7 +204,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Warpstone Tokens`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be re-rolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model is slain. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
+        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model is slain. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
       },
       {
@@ -348,7 +348,7 @@ export const Units: TUnits = [
       },
       {
         name: `More-more Speed!`,
-        desc: `When this model makes a normal move, you can re-roll the 4D6 roll that determines its Move characteristic. However, if you do so and the new roll includes any dice with an unmodified roll of 1, then your opponent carries out that normal move for that model instead of you.`,
+        desc: `When this model makes a normal move, you can reroll the 4D6 roll that determines its Move characteristic. However, if you do so and the new roll includes any dice with an unmodified roll of 1, then your opponent carries out that normal move for that model instead of you.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -368,7 +368,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pavise`,
-        desc: `You can re-roll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
+        desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -484,7 +484,7 @@ export const Units: TUnits = [
       TerrifyingEffect,
       {
         name: `Amidst the Seething Tide`,
-        desc: `You can re-roll wound rolls for attacks made by this model while it is within 13" of 13 or more friendly SKAVEN models.`,
+        desc: `You can reroll wound rolls for attacks made by this model while it is within 13" of 13 or more friendly SKAVEN models.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -500,7 +500,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tyrant of Battle`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll hit and wound rolls of 1 for friendly CLANS VERMINUS units while they are wholly within 13" of that model.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can reroll hit and wound rolls of 1 for friendly CLANS VERMINUS units while they are wholly within 13" of that model.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -635,12 +635,12 @@ export const Units: TUnits = [
       FrenziedAssaultEffect,
       {
         name: `Plague Disciples`,
-        desc: `You can re-roll hit rolls for attacks made by this ABILITIES unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
+        desc: `You can reroll hit rolls for attacks made by this ABILITIES unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Plague Disciples`,
-        desc: `You can re-roll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
+        desc: `You can reroll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
         when: [BATTLESHOCK_PHASE],
       },
       PoisonousFumesEffect,
@@ -675,7 +675,7 @@ export const Units: TUnits = [
         name: `Noxious Prayers`,
         desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.
         
-        Filth-filth!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. You can re-roll wound rolls for attacks made by that unit until your next hero phase.
+        Filth-filth!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. You can reroll wound rolls for attacks made by that unit until your next hero phase.
         
         Rabid-rabid!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase. You cannot pick the same unit to be affected by this prayer more than once per hero phase.`,
         when: [HERO_PHASE],
@@ -708,7 +708,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Pestilence`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll hit rolls for friendly CLANS PESTILENS units while they are wholly within 13" of that model.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can reroll hit rolls for friendly CLANS PESTILENS units while they are wholly within 13" of that model.`,
         when: [COMBAT_PHASE],
         command_ability: true,
       },
@@ -738,7 +738,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Avalanche of Flesh`,
-        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can re-roll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
+        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can reroll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
         when: [COMBAT_PHASE],
       },
       RegeneratingMonstrosityEffect,
@@ -842,7 +842,7 @@ export const Units: TUnits = [
       },
       {
         name: `Lord of Assassins`,
-        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can re-roll wound rolls for friendly CLANS ESHIN units while they are wholly within 13" of that model.`,
+        desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly model with this command ability. In that phase, you can reroll wound rolls for friendly CLANS ESHIN units while they are wholly within 13" of that model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -928,7 +928,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Murder-slay, Now-now!`,
-        desc: `If the DEATHMASTER from this battalion is set up in hiding as a reserve unit, in the combat phase in which it is set up on the battlefield you can re-roll hit rolls for attacks made by units from the same battalion.`,
+        desc: `If the DEATHMASTER from this battalion is set up in hiding as a reserve unit, in the combat phase in which it is set up on the battlefield you can reroll hit rolls for attacks made by units from the same battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -962,7 +962,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Gascloud Chokelung`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with missile weapons by this enginecoven's SKRYRE ACOLYTES and STORMFIENDS armed with Windlaunchers while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -982,7 +982,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Rattlegauge Warplock`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with missile weapons by this enginecoven's WARPLOCK JEZZAILS and RATLING GUNS while they are wholly within 13" of the WARLOCK ENGINEER from the same enginecoven, or the ARCH-WARLOCK from the same battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1023,7 +1023,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Poisonous Miasma`,
-        desc: `You can re-roll the dice that determines if an enemy unit suffers any mortal wounds when you use the Poisonous Fumes ability if that enemy unit is within 3" of a unit from this battalion.`,
+        desc: `You can reroll the dice that determines if an enemy unit suffers any mortal wounds when you use the Poisonous Fumes ability if that enemy unit is within 3" of a unit from this battalion.`,
         when: [HERO_PHASE],
       },
     ],

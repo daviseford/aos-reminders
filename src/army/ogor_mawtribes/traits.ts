@@ -61,7 +61,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `An Eye for Loot`,
-        desc: `You can re-roll hit and wound rolls for attacks made with melee weapons by this general that target an enemy HERO with an artefact of power.`,
+        desc: `You can reroll hit and wound rolls for attacks made with melee weapons by this general that target an enemy HERO with an artefact of power.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -141,7 +141,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Nomadic Raider`,
-        desc: `You can re-roll wound rolls for attacks made with melee weapons by this general (including their mount) while this general is wholly within enemy territory.`,
+        desc: `You can reroll wound rolls for attacks made with melee weapons by this general (including their mount) while this general is wholly within enemy territory.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -261,7 +261,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Fleet of Hoof`,
-        desc: `You can re-roll one or both of the dice when making charge rolls for this model.`,
+        desc: `You can reroll one or both of the dice when making charge rolls for this model.`,
         when: [CHARGE_PHASE],
         mount_trait: true,
       },
@@ -437,7 +437,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Wallcrusher (Big Name)`,
-        desc: `You can re-roll 1 wound roll for 1 attack made with 1 melee weapon each time this model attacks. In addition, you can re-roll wound rolls for attacks made with melee weapons by this model that target a unit that is part of a garrison.`,
+        desc: `You can reroll 1 wound roll for 1 attack made with 1 melee weapon each time this model attacks. In addition, you can reroll wound rolls for attacks made with melee weapons by this model that target a unit that is part of a garrison.`,
         when: [COMBAT_PHASE],
       },
     ],

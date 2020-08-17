@@ -63,7 +63,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Gilded Claws`,
-        desc: `1 friendly model that knows this prayer can chant it. 3+ the prayer is answered. Pick a friendly MAGMADROTH wholly within 12" of this PRIEST. You can re-roll wound rolls for attacks made by that unit's Claws and Horns until the start of your next hero phase.`,
+        desc: `1 friendly model that knows this prayer can chant it. 3+ the prayer is answered. Pick a friendly MAGMADROTH wholly within 12" of this PRIEST. You can reroll wound rolls for attacks made by that unit's Claws and Horns until the start of your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

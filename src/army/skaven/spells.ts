@@ -80,12 +80,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `More-more-more Warp Power!`,
-        desc: `Casting value of 7. Pick 1 friendly Clans Skryre unit wholly within 12" of the caster that is visible to them. You can re-roll hit and wound rolls for that unit until your next hero phase. However at the end of your next hero phase, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick 1 friendly Clans Skryre unit wholly within 12" of the caster that is visible to them. You can reroll hit and wound rolls for that unit until your next hero phase. However at the end of your next hero phase, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `More-more-more Warp Power!`,
-        desc: `If active, you can re-roll hit and wound rolls for that unit until your next hero phase.`,
+        desc: `If active, you can reroll hit and wound rolls for that unit until your next hero phase.`,
         when: [DURING_GAME],
       },
       {

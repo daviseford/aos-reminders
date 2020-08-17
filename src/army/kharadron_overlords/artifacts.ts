@@ -193,7 +193,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Svaregg-Stein 'Illuminator' Flarepistol`,
-        desc: `The first time in a battle that the bearer's Ranging Pistol scores a hit on an enemy unit, you can re-roll hit rolls for attacks made by other friendly KHARADRON OVERLORDS units that target that enemy unit in the same phase.`,
+        desc: `The first time in a battle that the bearer's Ranging Pistol scores a hit on an enemy unit, you can reroll hit rolls for attacks made by other friendly KHARADRON OVERLORDS units that target that enemy unit in the same phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -213,7 +213,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Cogmonculus`,
-        desc: `Once per phase, you can re-roll 1 hit or wound roll for an attack made by the bearer, or re-roll 1 save roll for an attack that targets the bearer. You cannot use this ability to re-roll more than 1 dice per phase.`,
+        desc: `Once per phase, you can reroll 1 hit or wound roll for an attack made by the bearer, or reroll 1 save roll for an attack that targets the bearer. You cannot use this ability to reroll more than 1 dice per phase.`,
         when: [DURING_GAME],
       },
     ],

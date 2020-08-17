@@ -124,7 +124,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Ancient Knowledge`,
-        desc: `This general knows 1 extra spell from the Lore of Celestial Domination (pg 60). In addition, you can re-roll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
+        desc: `This general knows 1 extra spell from the Lore of Celestial Domination (pg 60). In addition, you can reroll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
         when: [HERO_PHASE],
         command_trait: true,
       },

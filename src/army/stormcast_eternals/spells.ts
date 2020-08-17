@@ -95,7 +95,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Speed of Lightning`,
-        desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL unit wholly within 9" that is visible. You can re-roll charge rolls for that unit until your next hero phase.`,
+        desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL unit wholly within 9" that is visible. You can reroll charge rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE, CHARGE_PHASE],
       },
     ],
@@ -105,7 +105,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Divine Light`,
-        desc: `Pick a unit wholly within 18" of this PRIEST and roll dice. 3+. Enemy units re-roll hit rolls of 1 that target that unit. Friendly units re-roll unmodified hit rolls of 6 for attacks that target that unit.`,
+        desc: `Pick a unit wholly within 18" of this PRIEST and roll dice. 3+. Enemy units reroll hit rolls of 1 that target that unit. Friendly units reroll unmodified hit rolls of 6 for attacks that target that unit.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

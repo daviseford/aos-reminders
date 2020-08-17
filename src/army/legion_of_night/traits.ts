@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Unbending Will`,
-        desc: `Friendly LEGION OF NIGHT units within 12" of this general may re-roll failed battleshock tests.`,
+        desc: `Friendly LEGION OF NIGHT units within 12" of this general may reroll failed battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -37,7 +37,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Merciless Hunter`,
-        desc: `Re-roll wound rolls of 1 for this general.`,
+        desc: `Reroll wound rolls of 1 for this general.`,
         when: [COMBAT_PHASE],
       },
     ],

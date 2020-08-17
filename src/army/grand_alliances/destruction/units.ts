@@ -57,7 +57,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Yawning Maw`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with this model's Cavernous Maw if the target unit has a Wounds characteristic of 2 or less.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with this model's Cavernous Maw if the target unit has a Wounds characteristic of 2 or less.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -115,12 +115,12 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Incarnate of Ghur`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if the battle is taking place in Ghur, the Realm of Beasts. In addition, you can re-roll wound rolls of 1 for attacks made by this model if the battle is taking place in Ghur, the Realm of Beasts.`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if the battle is taking place in Ghur, the Realm of Beasts. In addition, you can reroll wound rolls of 1 for attacks made by this model if the battle is taking place in Ghur, the Realm of Beasts.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Lure of Spirit Blood`,
-        desc: `You can re-roll charge rolls for this model while it is within 12" of any enemy models that have any wounds allocated to them.`,
+        desc: `You can reroll charge rolls for this model while it is within 12" of any enemy models that have any wounds allocated to them.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -140,7 +140,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Incarnate of Aqshy`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if the battle is taking place in Aqshy, the Realm of Fire. In addition, you can re-roll wound rolls of 1 for attacks made by this model if the battle is taking place in Aqshy, the Realm of Fire.`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if the battle is taking place in Aqshy, the Realm of Fire. In addition, you can reroll wound rolls of 1 for attacks made by this model if the battle is taking place in Aqshy, the Realm of Fire.`,
         when: [HERO_PHASE],
       },
     ],
@@ -205,7 +205,7 @@ export const MonstrousArcanumDestruction: TUnits = [
       },
       {
         name: `Spirit of the Waaagh!`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -45,7 +45,7 @@ export const DefaultScenery: TScenery = [
       },
       {
         name: DAMNED,
-        desc: `If active, buffed unit can re-roll hits of 1.`,
+        desc: `If active, buffed unit can reroll hits of 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -222,7 +222,7 @@ const PenumbralEffects: TEffects[] = [
   },
   {
     name: `Orrery of Obfuscation`,
-    desc: `Re-roll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
+    desc: `Reroll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
     when: [DURING_GAME],
   },
   {

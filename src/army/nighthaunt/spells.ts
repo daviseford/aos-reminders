@@ -38,7 +38,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Reaping Scythe`,
-        desc: `Casting value of 4. Pick one of the caster's weapons. Until the start of your next hero phase, you can re-roll failed hit and wound rolls for attacks made with that weapon.`,
+        desc: `Casting value of 4. Pick one of the caster's weapons. Until the start of your next hero phase, you can reroll failed hit and wound rolls for attacks made with that weapon.`,
         when: [HERO_PHASE],
       },
     ],

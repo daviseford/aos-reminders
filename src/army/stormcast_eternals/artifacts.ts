@@ -68,7 +68,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Gift of the Six Smiths`,
-        desc: `Pick one of the bearer's melee weapons. Once per turn you can re-roll one failed hit roll or one failed wound roll with that weapon.`,
+        desc: `Pick one of the bearer's melee weapons. Once per turn you can reroll one failed hit roll or one failed wound roll with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -98,7 +98,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Drakescale Armour`,
-        desc: `You can re-roll failed save rolls for attacks that target the bearer with a Damage characteristic greater than 1 (i.e. 2, D3 etc).`,
+        desc: `You can reroll failed save rolls for attacks that target the bearer with a Damage characteristic greater than 1 (i.e. 2, D3 etc).`,
         when: [DURING_GAME],
       },
     ],
@@ -128,7 +128,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Featherfoe Torc`,
-        desc: `Re-roll successful hit rolls for attacks that target the bearer made by models that can fly.`,
+        desc: `Reroll successful hit rolls for attacks that target the bearer made by models that can fly.`,
         when: [DURING_GAME],
       },
     ],
@@ -198,7 +198,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Hurricane Standard`,
-        desc: `You can re-roll run and charge rolls for friendly STORMCAST ETERNAL units wholly within 12" of the bearer at the start of the phase in which the roll is made.`,
+        desc: `You can reroll run and charge rolls for friendly STORMCAST ETERNAL units wholly within 12" of the bearer at the start of the phase in which the roll is made.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -248,7 +248,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lantern of the Tempest`,
-        desc: `Re-roll unmodified hit rolls of 6 for missile attacks that target friendly STORMCAST ETERNAL units wholly within 12".`,
+        desc: `Reroll unmodified hit rolls of 6 for missile attacks that target friendly STORMCAST ETERNAL units wholly within 12".`,
         when: [HERO_PHASE],
       },
     ],

@@ -17,9 +17,9 @@ const Scenery: TScenery = [
       },
       {
         name: `Fane of Slaanesh`,
-        desc: `You can pick 1 friendly Chaos Slaanesh Hero within 6" of this terrain feature to make a sacrifice. If you do so, that HERO suffers 1 mortal wound, and you must roll a D6. On a 1, nothing happens. On a 2+ you can re-roll hit rolls for attacks made by that HERO until your next hero phase.
+        desc: `You can pick 1 friendly Chaos Slaanesh Hero within 6" of this terrain feature to make a sacrifice. If you do so, that HERO suffers 1 mortal wound, and you must roll a D6. On a 1, nothing happens. On a 2+ you can reroll hit rolls for attacks made by that HERO until your next hero phase.
            
-           If the hero has an artifact of power, they can sacrifice that instead of suffering 1 mortal wound. If they do so, that artifact of power can no longer be used (if a weapon was picked when the artifact of power was selected, that weapon reverts to normal). However, on a roll of 2+, you can re-roll hit rolls for attacks made by that HERO for the rest of the battle instead of only until your next hero phase. A depleted artifact may be used for this purpose and is considered destroyed afterwards.`,
+           If the hero has an artifact of power, they can sacrifice that instead of suffering 1 mortal wound. If they do so, that artifact of power can no longer be used (if a weapon was picked when the artifact of power was selected, that weapon reverts to normal). However, on a roll of 2+, you can reroll hit rolls for attacks made by that HERO for the rest of the battle instead of only until your next hero phase. A depleted artifact may be used for this purpose and is considered destroyed afterwards.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

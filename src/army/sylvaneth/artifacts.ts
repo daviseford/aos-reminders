@@ -37,7 +37,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Autumn's Ire`,
-        desc: `One weapon gains; You can re-roll hit and wound rolls of 1 for attacks made with this weapon while any wounds are allocated to the bearer.`,
+        desc: `One weapon gains; You can reroll hit and wound rolls of 1 for attacks made with this weapon while any wounds are allocated to the bearer.`,
         when: [DURING_GAME],
       },
     ],
@@ -47,7 +47,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Winnowstaff`,
-        desc: `One weapon gains; You can re-roll hit rolls for attacks made with this weapon that target a unit with a Wounds characteristic of 1.`,
+        desc: `One weapon gains; You can reroll hit rolls for attacks made with this weapon that target a unit with a Wounds characteristic of 1.`,
         when: [DURING_GAME],
       },
     ],
@@ -77,7 +77,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Oaken Armour`,
-        desc: `You can re-roll save rolls of 1 made for attacks that target the bearer.`,
+        desc: `You can reroll save rolls of 1 made for attacks that target the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -177,7 +177,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crown of Fell Bowers`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 6" of the bearer. You can re-roll wound rolls for attacks made by friendly SYLVANETH units that target that unit in that phase.`,
+        desc: `At the start of the combat phase, pick 1 enemy unit within 6" of the bearer. You can reroll wound rolls for attacks made by friendly SYLVANETH units that target that unit in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

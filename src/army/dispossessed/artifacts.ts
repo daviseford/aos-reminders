@@ -15,7 +15,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Heavy Metal Ingot`,
-        desc: `You can re-roll failed save rolls for the bearer as long as they have not made a move in the same turn.`,
+        desc: `You can reroll failed save rolls for the bearer as long as they have not made a move in the same turn.`,
         when: [DURING_GAME],
       },
     ],
@@ -50,12 +50,12 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Grudge Rune`,
-        desc: `After set up is complete but before the battle begins, pick an enemy HERO. You can re-roll failed hit and wound rolls for the bearer if the target of the attack is the enemy HERO you picked.`,
+        desc: `After set up is complete but before the battle begins, pick an enemy HERO. You can reroll failed hit and wound rolls for the bearer if the target of the attack is the enemy HERO you picked.`,
         when: [END_OF_SETUP],
       },
       {
         name: `Grudge Rune`,
-        desc: `You can re-roll failed hit and wound rolls for the bearer if the target of the attack is the enemy HERO you picked before the battle begun.`,
+        desc: `You can reroll failed hit and wound rolls for the bearer if the target of the attack is the enemy HERO you picked before the battle begun.`,
         when: [DURING_GAME],
       },
     ],

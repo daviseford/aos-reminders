@@ -146,7 +146,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lightning-chained Bracers (Thunderscorn)`,
-        desc: `You can re-roll failed hit rolls for attacks made by the bearer.`,
+        desc: `You can reroll failed hit rolls for attacks made by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -30,12 +30,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crashing Upon the Foe`,
-        desc: `Re-roll hit rolls of 1 and add 1 to the Damage characteristic for this model's Fuathtar, Spear of Repressed Fury if this model made a charge move in the same turn. In addition, this model can charge in the same turn that it made a retreat move. Finally, heal D3 wounds allocated to this model after it makes a charge move.`,
+        desc: `Reroll hit rolls of 1 and add 1 to the Damage characteristic for this model's Fuathtar, Spear of Repressed Fury if this model made a charge move in the same turn. In addition, this model can charge in the same turn that it made a retreat move. Finally, heal D3 wounds allocated to this model after it makes a charge move.`,
         when: [COMBAT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Drench with Hate`,
-        desc: `Re-roll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
+        desc: `Reroll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -50,7 +50,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dormant Energies`,
-        desc: `You can re-roll one casting roll for this model in each of your hero phases. If you do not re-roll a casting roll, then you can heal D3 wounds allocated to this model at the end of your hero phase instead.`,
+        desc: `You can reroll one casting roll for this model in each of your hero phases. If you do not reroll a casting roll, then you can heal D3 wounds allocated to this model at the end of your hero phase instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -92,7 +92,7 @@ export const Units: TUnits = [
       },
       {
         name: `First Among Akhelians`,
-        desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 18" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 18" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       DeepmareHornEffect,
@@ -104,7 +104,7 @@ export const Units: TUnits = [
       DeepmareHornEffect,
       {
         name: `Akhelian Paragon`,
-        desc: `Re-roll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 12" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly AKHELIAN units while they are wholly within 12" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -171,7 +171,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hangman's Knot`,
-        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a D6. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can re-roll failed hit rolls for this model's Talnhook for attacks that target that enemy HERO in that combat phase.`,
+        desc: `At the start of the combat phase, pick an enemy HERO that is within 3" of this model and roll a D6. Subtract 2 from the dice roll if the enemy HERO is a MONSTER. On a 4+, you can reroll failed hit rolls for this model's Talnhook for attacks that target that enemy HERO in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -181,7 +181,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloodthirsty Predators`,
-        desc: `At the start of your charge phase, if this unit is within 12" of any enemy models that have been allocated any wounds, you can re-roll charge rolls for this unit in that charge phase.`,
+        desc: `At the start of your charge phase, if this unit is within 12" of any enemy models that have been allocated any wounds, you can reroll charge rolls for this unit in that charge phase.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -196,7 +196,7 @@ export const Units: TUnits = [
       },
       {
         name: `Catalogue of Souls`,
-        desc: `Re-roll hit rolls of 1 for friendly NAMARTI units while they are wholly within 12" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly NAMARTI units while they are wholly within 12" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Swift Tide`,
-        desc: `You can re-roll run rolls for this unit.`,
+        desc: `You can reroll run rolls for this unit.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -291,17 +291,17 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can re-roll one run roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        desc: `Once per phase, you can reroll one run roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can re-roll one charge roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        desc: `Once per phase, you can reroll one charge roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can re-roll one hit, wound, or save roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the re-roll is made.`,
+        desc: `Once per phase, you can reroll one hit, wound, or save roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

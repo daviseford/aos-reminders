@@ -26,7 +26,7 @@ export const MonstrousArcanumChaos: TUnits = [
       },
       {
         name: `Siege Armour`,
-        desc: `You can re-roll save rolls for attacks made with ranged weapons that target this unit.`,
+        desc: `You can reroll save rolls for attacks made with ranged weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
       ...GenericEffects.Gargant,
@@ -127,7 +127,7 @@ export const Units: TUnits = [
       },
       {
         name: `Eager for Glory`,
-        desc: `Re-roll hit rolls of 1 for this model when targeting a HERO or a MONSTER.`,
+        desc: `Reroll hit rolls of 1 for this model when targeting a HERO or a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -195,7 +195,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ferocious Retinue`,
-        desc: `Re-roll hit rolls of 1 for friendly Chaos Troggoth units and Chaos Ogor units within 8" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly Chaos Troggoth units and Chaos Ogor units within 8" of this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -241,7 +241,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Rage`,
-        desc: `If this unit made a charge move this turn, re-roll failed wound rolls for its Horns and Teeth.`,
+        desc: `If this unit made a charge move this turn, reroll failed wound rolls for its Horns and Teeth.`,
         when: [COMBAT_PHASE],
       },
     ],

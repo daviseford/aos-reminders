@@ -33,7 +33,7 @@ export const ChronomanticCogsEffects = [
   },
   {
     name: `Slow Down Time`,
-    desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, re-roll failed save rolls for that wizard.`,
+    desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, reroll failed save rolls for that wizard.`,
     when: [HERO_PHASE, DURING_ROUND],
   },
 ]
@@ -143,7 +143,7 @@ export const BurningHeadEffects = [
   },
   {
     name: `Wrathful Aura`,
-    desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
+    desc: `Reroll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
@@ -343,12 +343,12 @@ const EndlessSpells: TEndlessSpells = [
       ...GeminidsOfUhlGyshEffects,
       {
         name: `Empowered by Hysh`,
-        desc: `If your battle is taking place in the Realm of Light, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Light Geminid.`,
+        desc: `If your battle is taking place in the Realm of Light, you can reroll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Light Geminid.`,
         when: [HERO_PHASE],
       },
       {
         name: `Empowered by Ulgu (${ULGU})`,
-        desc: `If your battle is taking place in the Realm of Shadow, you can re-roll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Shadow Geminid.`,
+        desc: `If your battle is taking place in the Realm of Shadow, you can reroll the dice to determine the number of mortal wounds suffered by a unit that has any models passed across by the Shadow Geminid.`,
         when: [HERO_PHASE],
       },
     ],
@@ -436,7 +436,7 @@ const EndlessSpells: TEndlessSpells = [
       ...BurningHeadEffects,
       {
         name: `Empowered by Aqshy (${AQSHY})`,
-        desc: `Re-roll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
+        desc: `Reroll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
         when: [HERO_PHASE],
       },
     ],

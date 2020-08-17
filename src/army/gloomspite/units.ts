@@ -85,7 +85,7 @@ const HallucinogenicFungusBrewsEffects = [
 ]
 const RedcapMushroomsEffect = {
   name: `Redcap Mushrooms`,
-  desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can re-roll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
+  desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
   when: [HERO_PHASE],
 }
 const WatchOutEffect = {
@@ -358,7 +358,7 @@ export const Units: TUnits = [
       SlipperyGitEffect,
       {
         name: `Bogeyman`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll charge rolls and run rolls for that unit until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can reroll charge rolls and run rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -370,7 +370,7 @@ export const Units: TUnits = [
       SlipperyGitEffect,
       {
         name: `Loonshine Potion`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can re-roll hit rolls for that HERO until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can reroll hit rolls for that HERO until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -382,7 +382,7 @@ export const Units: TUnits = [
       SlipperyGitEffect,
       {
         name: `Poison Brewer`,
-        desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can re-roll wound rolls of 1 for that unit until your next hero phase.`,
+        desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can reroll wound rolls of 1 for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -410,7 +410,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Go Dat Way!`,
-        desc: `You can re-roll run and charge rolls for this unit while it includes any Squig Herders.`,
+        desc: `You can reroll run and charge rolls for this unit while it includes any Squig Herders.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       SquigsGoWildEffect,
@@ -483,7 +483,7 @@ export const Units: TUnits = [
       getSpiderVenomEffect(``, `1`),
       {
         name: `Ride Em All Down`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that charge phase. In addition, you can re-roll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can reroll charge rolls for that unit in that charge phase. In addition, you can reroll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -519,12 +519,12 @@ export const Units: TUnits = [
       getSpiderVenomEffect(`'s Fangs`, `D3`),
       {
         name: `Voracious Predator`,
-        desc: `You can re-roll run rolls for this model.`,
+        desc: `You can reroll run rolls for this model.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Voracious Predator`,
-        desc: `You can re-roll charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `You can reroll charge rolls for this model. In addition, roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -570,7 +570,7 @@ export const Units: TUnits = [
       MagicalResistanceEffect,
       {
         name: `Instinctive Leader`,
-        desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can re-roll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
+        desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -720,7 +720,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Hunting Brood`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by a model from the Arachnarok Spider Cluster battalion while it is within 6" of another model from the same battalion.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by a model from the Arachnarok Spider Cluster battalion while it is within 6" of another model from the same battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -770,7 +770,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Power of the Spider God`,
-        desc: `You can re-roll save rolls of 1 for attacks that target a unit from a Spiderfang Stalk Tribe battalion while the target unit is wholly within 24" of a SPIDERFANG WIZARD from the same battalion.`,
+        desc: `You can reroll save rolls of 1 for attacks that target a unit from a Spiderfang Stalk Tribe battalion while the target unit is wholly within 24" of a SPIDERFANG WIZARD from the same battalion.`,
         when: [DURING_GAME],
       },
     ],
@@ -800,7 +800,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Madcap Momentum`,
-        desc: `You can re-roll the roll that determines the Move characteristic of units from the Squig Rider Stampede battalion.`,
+        desc: `You can reroll the roll that determines the Move characteristic of units from the Squig Rider Stampede battalion.`,
         when: [MOVEMENT_PHASE],
       },
     ],

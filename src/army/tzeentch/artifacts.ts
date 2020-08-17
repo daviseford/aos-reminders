@@ -45,7 +45,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wicked Shard`,
-        desc: `Pick 1 of the bearer's melee weapons. You can re-roll wound rolls for attacks made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. You can reroll wound rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -95,7 +95,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Paradoxical Shield`,
-        desc: `Add 2 to the save rolls for attacks that target the bearer. However, you must re-roll any successful save rolls made for the bearer.`,
+        desc: `Add 2 to the save rolls for attacks that target the bearer. However, you must reroll any successful save rolls made for the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -175,7 +175,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wellspring of Arcane Might`,
-        desc: `You can re-roll casting and unbinding rolls for the bearer.`,
+        desc: `You can reroll casting and unbinding rolls for the bearer.`,
         when: [HERO_PHASE],
       },
     ],

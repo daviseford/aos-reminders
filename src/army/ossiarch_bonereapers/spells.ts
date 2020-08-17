@@ -54,7 +54,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Drain Vitality`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, re-roll unmodified hit rolls of 6 for attacks made by that unit, and re-roll unmodified save rolls of 6 for attacks that target that unit.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, reroll unmodified hit rolls of 6 for attacks made by that unit, and reroll unmodified save rolls of 6 for attacks that target that unit.`,
         when: [HERO_PHASE],
       },
     ],

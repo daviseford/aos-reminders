@@ -68,7 +68,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Locus of Fury`,
-    desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHORNE DAEMON units while they are wholly within 12" of any friendly KHORNE DAEMON HEROES, or wholly within 16" of any friendly KHORNE GREATER DAEMONS.`,
+    desc: `You can reroll hit rolls of 1 for attacks made by friendly KHORNE DAEMON units while they are wholly within 12" of any friendly KHORNE DAEMON HEROES, or wholly within 16" of any friendly KHORNE GREATER DAEMONS.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {

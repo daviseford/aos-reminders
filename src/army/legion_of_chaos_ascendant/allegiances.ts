@@ -7,7 +7,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `First-Damned Prince`,
-        desc: `You can re-roll hit and wound rolls for attacks made by Be'lakor while he is within 8" of at least 1 of each of the following friendly Legion of the First Prince units: Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch.`,
+        desc: `You can reroll hit and wound rolls for attacks made by Be'lakor while he is within 8" of at least 1 of each of the following friendly Legion of the First Prince units: Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch.`,
         when: [COMBAT_PHASE],
       },
       {

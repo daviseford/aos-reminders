@@ -143,7 +143,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Rime Shroud`,
-        desc: `Re-roll unmodified hit rolls of 6 for attacks made with missile weapons that target the bearer.`,
+        desc: `Reroll unmodified hit rolls of 6 for attacks made with missile weapons that target the bearer.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -173,7 +173,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Alvagr Rune-tokens`,
-        desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, until the start of your next hero phase, you can re-roll hit and wound rolls for attacks made by the bearer and re-roll save rolls for attacks that target the bearer.`,
+        desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, until the start of your next hero phase, you can reroll hit and wound rolls for attacks made by the bearer and reroll save rolls for attacks that target the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

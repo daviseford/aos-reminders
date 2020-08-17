@@ -68,7 +68,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Eternal Vendetta (Ravagers)`,
-        desc: `You can re-roll wound rolls for attacks made by this general. You can also re-roll hit rolls if the target is an Order unit.`,
+        desc: `You can reroll wound rolls for attacks made by this general. You can also reroll hit rolls if the target is an Order unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -171,7 +171,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Annihilating Charge (Knights of the Empty Throne)`,
-        desc: `You can re-roll charge rolls for friendly Knights of the Empty Throne units wholly within 12" of this general.`,
+        desc: `You can reroll charge rolls for friendly Knights of the Empty Throne units wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],

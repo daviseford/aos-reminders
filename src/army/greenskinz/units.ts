@@ -18,7 +18,7 @@ const WarbossBaseEffects = [
   },
   {
     name: `Boss Shield`,
-    desc: `You can re-roll all failed save rolls for a model with a Boss Shield.`,
+    desc: `You can reroll all failed save rolls for a model with a Boss Shield.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
@@ -57,7 +57,7 @@ export const Units: TUnits = [
       },
       {
         name: `Great Waaagh! Banner`,
-        desc: `An Orruk Warboss with a Great Waaagh! Banner gains the Totem keyword. You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly Orruk units while they are wholly within 16" of a friendly Orruk Warboss with a Great Waaagh! Banner.`,
+        desc: `An Orruk Warboss with a Great Waaagh! Banner gains the Totem keyword. You can reroll wound rolls of 1 for attacks made with melee weapons by friendly Orruk units while they are wholly within 16" of a friendly Orruk Warboss with a Great Waaagh! Banner.`,
         when: [COMBAT_PHASE],
       },
       ...WarbossBaseEffects,
@@ -116,7 +116,7 @@ export const Units: TUnits = [
       },
       {
         name: `Choppas`,
-        desc: `You can re-roll hit rolls of 1 for a model attacking with two Choppas.`,
+        desc: `You can reroll hit rolls of 1 for a model attacking with two Choppas.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -126,7 +126,7 @@ export const Units: TUnits = [
       },
       {
         name: `Waaagh! Shield`,
-        desc: `You can re-roll save rolls for a unit with Waaagh! Shields in the combat phase.`,
+        desc: `You can reroll save rolls for a unit with Waaagh! Shields in the combat phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -146,7 +146,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tusker Charge`,
-        desc: `You can re-roll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
+        desc: `You can reroll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -166,12 +166,12 @@ export const Units: TUnits = [
       },
       {
         name: `Tusker Charge`,
-        desc: `You can re-roll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
+        desc: `You can reroll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Tusker Shield`,
-        desc: `You can re-roll save rolls for a unit with Tusker Shields in the combat phase.`,
+        desc: `You can reroll save rolls for a unit with Tusker Shields in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],

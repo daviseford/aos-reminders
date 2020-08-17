@@ -18,7 +18,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Spiteful Duellist (${CHAOS})`,
-        desc: `Each time this general is picked to fight, you can re-roll one wound roll for one of their attacks in that fight.`,
+        desc: `Each time this general is picked to fight, you can reroll one wound roll for one of their attacks in that fight.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -1462,14 +1462,6 @@ describe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Swordmasters',
       },
-      {
-        severity: 'warn',
-        text: 'Spireguard',
-      },
-      {
-        severity: 'warn',
-        text: 'High Warden',
-      },
     ])
   })
 

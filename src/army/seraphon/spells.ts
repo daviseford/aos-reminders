@@ -87,7 +87,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Hand of Glory`,
-        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Until your next hero phase, you can re-roll hit rolls of 1 for attacks made by that unit.`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Until your next hero phase, you can reroll hit rolls of 1 for attacks made by that unit.`,
         when: [HERO_PHASE],
       },
     ],

@@ -29,7 +29,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Masterclan)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -50,7 +50,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Supreme Manipulator (Masterclan)`,
-        desc: `You can re-roll the dice that determines if you receive 1 extra command point when you use the Skilled Manipulators battle trait after this general uses a command ability.`,
+        desc: `You can reroll the dice that determines if you receive 1 extra command point when you use the Skilled Manipulators battle trait after this general uses a command ability.`,
         when: [DURING_GAME],
       },
     ],
@@ -80,7 +80,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Skryre)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -111,7 +111,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Deranged Inventor (Skryre)`,
-        desc: `At the start of your shooting phase, you can pick 1 friendly CLANS SKRYRE unit that is wholly within 13" of this general. You can re-roll hit rolls for attacks made with missile weapons by that unit until the end of that phase.`,
+        desc: `At the start of your shooting phase, you can pick 1 friendly CLANS SKRYRE unit that is wholly within 13" of this general. You can reroll hit rolls for attacks made with missile weapons by that unit until the end of that phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -121,7 +121,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Overseer of Destruction (Skryre)`,
-        desc: `At the start of your shooting phase, you can pick up to 3 friendly WEAPON TEAM units that are wholly within 13" of this general. You can re-roll hit rolls for attacks made by those units until the end of that phase.`,
+        desc: `At the start of your shooting phase, you can pick up to 3 friendly WEAPON TEAM units that are wholly within 13" of this general. You can reroll hit rolls for attacks made by those units until the end of that phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -131,7 +131,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Pestilens)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -152,7 +152,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Master of Rot and Ruin (Pestilens)`,
-        desc: `You can re-roll the dice that determines if a prayer chanted by this general is answered.`,
+        desc: `You can reroll the dice that determines if a prayer chanted by this general is answered.`,
         when: [HERO_PHASE],
       },
     ],
@@ -162,7 +162,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Architect of Death (Pestilens)`,
-        desc: `You can re-roll wound rolls for attacks made with missile weapons by friendly CLANS PESTILENS units while they are wholly within 18" of this general.`,
+        desc: `You can reroll wound rolls for attacks made with missile weapons by friendly CLANS PESTILENS units while they are wholly within 18" of this general.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -182,7 +182,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Verminus)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -233,7 +233,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Moulder)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -284,7 +284,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Malevolent (Eshin)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -305,7 +305,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Unrivalled Killer (Eshin)`,
-        desc: `You can re-roll hit rolls for attacks made by this general that target the enemy HERO chosen for the Masters of Murder battle trait.`,
+        desc: `You can reroll hit rolls for attacks made by this general that target the enemy HERO chosen for the Masters of Murder battle trait.`,
         when: [COMBAT_PHASE],
       },
     ],

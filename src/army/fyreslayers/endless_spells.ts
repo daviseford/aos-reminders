@@ -52,7 +52,7 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Awakened Runes`,
-        desc: `Re-roll save rolls of 1 for attacks that target FYRESLAYERS units wholly within 12" of this model.`,
+        desc: `Reroll save rolls of 1 for attacks that target FYRESLAYERS units wholly within 12" of this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {

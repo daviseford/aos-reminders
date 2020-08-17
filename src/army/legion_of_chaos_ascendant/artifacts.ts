@@ -17,7 +17,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Armour of the Pact`,
-        desc: `You can re-roll save rolls for attacks made with melee weapons that target the bearer.`,
+        desc: `You can reroll save rolls for attacks made with melee weapons that target the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -30,7 +30,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aetherquartz Reserve - Magical Boost`,
-    desc: `Can be used after a unit has attempted to cast a spell but before any unbinding rolls are made for that spell. Add 1 to the casting roll or re-roll that casting roll.`,
+    desc: `Can be used after a unit has attempted to cast a spell but before any unbinding rolls are made for that spell. Add 1 to the casting roll or reroll that casting roll.`,
     when: [HERO_PHASE],
   },
   {

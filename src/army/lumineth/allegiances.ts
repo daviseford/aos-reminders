@@ -87,7 +87,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Strike in Unison`,
-        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can re-roll hit rolls of 1 for that unit until the end of that phase.`,
+        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can reroll hit rolls of 1 for that unit until the end of that phase.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         command_trait: true,
       },
@@ -103,7 +103,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Fast Learner`,
-        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can re-roll the unbinding roll.`,
+        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can reroll the unbinding roll.`,
         when: [HERO_PHASE],
         command_trait: true,
       },

@@ -36,7 +36,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Slaughterborn`,
-        desc: `You can re-roll hit rolls for attacks made with melee weapons by this general.`,
+        desc: `You can reroll hit rolls for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -106,7 +106,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hungry for Glory (Mortal)`,
-        desc: `You can re-roll hit and wound rolls for attacks made by this general that target an enemy HERO or MONSTER.`,
+        desc: `You can reroll hit and wound rolls for attacks made by this general that target an enemy HERO or MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -126,7 +126,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Violent Urgency (Mortal)`,
-        desc: `You can re-roll charge rolls for friendly KHORNE units that are wholly within 12" of this general when the charge roll is made.`,
+        desc: `You can reroll charge rolls for friendly KHORNE units that are wholly within 12" of this general when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
     ],

@@ -34,7 +34,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Dauntless (${ORDER})`,
-        desc: `You can re-roll charge rolls for this general.`,
+        desc: `You can reroll charge rolls for this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

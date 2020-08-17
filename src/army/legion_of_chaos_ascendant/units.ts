@@ -135,7 +135,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `First Blood`,
-        desc: `You can re-roll charge rolls for friendly units from this battalion.`,
+        desc: `You can reroll charge rolls for friendly units from this battalion.`,
         when: [CHARGE_PHASE],
       },
     ],

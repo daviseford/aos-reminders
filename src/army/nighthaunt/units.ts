@@ -100,7 +100,7 @@ export const Units: TUnits = [
       },
       {
         name: `Suffer No Rival`,
-        desc: `You can re-roll failed hit rolls for attacks made with the Sepulchral Sceptre if the target is an enemy general.`,
+        desc: `You can reroll failed hit rolls for attacks made with the Sepulchral Sceptre if the target is an enemy general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -121,7 +121,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaped Like Corn`,
-        desc: `You can re-roll failed hit rolls for attacks made with Fellreaper if the target unit has 5 or more models.`,
+        desc: `You can reroll failed hit rolls for attacks made with Fellreaper if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -213,7 +213,7 @@ export const Units: TUnits = [
       EtherealEffect,
       {
         name: `Nagash's Bidding`,
-        desc: `You can re-roll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of any friendly SPIRIT TORMENTS.`,
+        desc: `You can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of any friendly SPIRIT TORMENTS.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -233,7 +233,7 @@ export const Units: TUnits = [
       EtherealEffect,
       {
         name: `Another Link in the Chain`,
-        desc: `While this unit is wholly within 12" of a friendly SPIRIT TORMENT, you can re-roll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of this unit.`,
+        desc: `While this unit is wholly within 12" of a friendly SPIRIT TORMENT, you can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of this unit.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -259,7 +259,7 @@ export const Units: TUnits = [
       },
       {
         name: `Curse of Loyalty`,
-        desc: `Re-roll wound rolls of 1 for attacks made with this model's Dreadblade while it is within 9" of a friendly KNIGHT OF SHROUDS.`,
+        desc: `Reroll wound rolls of 1 for attacks made with this model's Dreadblade while it is within 9" of a friendly KNIGHT OF SHROUDS.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -312,7 +312,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaped Like Corn`,
-        desc: `You can re-roll failed hit rolls for attacks made with a Reaper Scythe if the target unit has 5 or more models.`,
+        desc: `You can reroll failed hit rolls for attacks made with a Reaper Scythe if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -349,7 +349,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Point of Death`,
-        desc: `You can re-roll failed hit rolls for attacks made with this unit's Hunter's Glaives if this unit or the target unit made a charge move in the same turn.`,
+        desc: `You can reroll failed hit rolls for attacks made with this unit's Hunter's Glaives if this unit or the target unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -360,7 +360,7 @@ export const Units: TUnits = [
       EtherealEffect,
       {
         name: `Reaped Like Corn`,
-        desc: `You can re-roll failed hit rolls for attacks made with this unit's Slasher Scythes if the target unit has 5 or more models.`,
+        desc: `You can reroll failed hit rolls for attacks made with this unit's Slasher Scythes if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -386,7 +386,7 @@ export const Units: TUnits = [
       },
       {
         name: `Chilling Horde`,
-        desc: `You can re-roll wound rolls of 1 for this unit while it has more than 10 models.`,
+        desc: `You can reroll wound rolls of 1 for this unit while it has more than 10 models.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -397,7 +397,7 @@ export const Units: TUnits = [
       EtherealEffect,
       {
         name: `Fearful Frenzy`,
-        desc: `You can re-roll failed hit rolls for attacks made by this unit if it is wholly within 12" of any friendly SPIRIT TORMENTS or CHAINGHASTS.`,
+        desc: `You can reroll failed hit rolls for attacks made by this unit if it is wholly within 12" of any friendly SPIRIT TORMENTS or CHAINGHASTS.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -511,7 +511,7 @@ export const Units: TUnits = [
       },
       {
         name: `Evocation of Death - Second Level - Unholy Vigour`,
-        desc: `Re-roll hit rolls of 1 for this model's melee weapons.`,
+        desc: `Reroll hit rolls of 1 for this model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -536,7 +536,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaped Like Corn`,
-        desc: `You can re-roll failed hit rolls for attacks made with this model's Reaper Scythe if the target unit has 5 or more models.`,
+        desc: `You can reroll failed hit rolls for attacks made with this model's Reaper Scythe if the target unit has 5 or more models.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -569,7 +569,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grasping Chains`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by this unit that target an enemy unit that is within 3" of two or more models from this unit.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by this unit that target an enemy unit that is within 3" of two or more models from this unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -613,7 +613,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Condemned`,
-        desc: `You can re-roll failed hit rolls for attacks made by CHAINRASP HORDE units from this battalion while they are wholly within 16" of this battalion's SPIRIT TORMENT or CHAINGHASTS.`,
+        desc: `You can reroll failed hit rolls for attacks made by CHAINRASP HORDE units from this battalion while they are wholly within 16" of this battalion's SPIRIT TORMENT or CHAINGHASTS.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -653,7 +653,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Shrieker Host`,
-        desc: `Re-roll battleshock rolls of 1 for enemy units that are within 6" of any units from this battalion at the start of the battleshock phase. In addition, the Inspiring Presence command ability cannot be used on enemy units that are within 6" of any units from this battalion.`,
+        desc: `Reroll battleshock rolls of 1 for enemy units that are within 6" of any units from this battalion at the start of the battleshock phase. In addition, the Inspiring Presence command ability cannot be used on enemy units that are within 6" of any units from this battalion.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

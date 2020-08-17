@@ -20,22 +20,22 @@ import {
 const MartialMemoriesEffects = [
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    desc: `Once per phase, you can reroll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 battleshock test for this unit. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    desc: `Once per phase, you can reroll 1 battleshock test for this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 charge roll. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    desc: `Once per phase, you can reroll 1 charge roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [CHARGE_PHASE],
   },
   {
     name: `Martial Memories`,
-    desc: `Once per phase, you can re-roll 1 run roll. You cannot use this ability to re-roll more than one dice for this unit in the same phase.`,
+    desc: `Once per phase, you can reroll 1 run roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [MOVEMENT_PHASE],
   },
 ]
@@ -97,7 +97,7 @@ export const Units: TUnits = [
       },
       {
         name: `Ghyran's Wrath`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can re-roll wound rolls of 1 for attacks made by friendly SYLVANETH units while they are wholly within 14" of a friendly model with this command ability.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can reroll wound rolls of 1 for attacks made by friendly SYLVANETH units while they are wholly within 14" of a friendly model with this command ability.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -122,7 +122,7 @@ export const Units: TUnits = [
       },
       {
         name: `Song of Spite`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by friendly SPITE-REVENANTS units while they are wholly within 16" of this model.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by friendly SPITE-REVENANTS units while they are wholly within 16" of this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -204,7 +204,7 @@ export const Units: TUnits = [
       },
       {
         name: `Heed the Spirit-song`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can re-roll save rolls of 1 for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can reroll save rolls of 1 for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -235,12 +235,12 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crescent Shield`,
-        desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can re-roll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can re-roll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
+        desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can reroll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Champion of Kurnoth`,
-        desc: `Re-roll hit rolls of 1 for attacks made by friendly KURNOTH HUNTERS units while they are wholly within 12" of this model.`,
+        desc: `Reroll hit rolls of 1 for attacks made by friendly KURNOTH HUNTERS units while they are wholly within 12" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -304,7 +304,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Vigour and Wrath`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by this model.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -326,7 +326,7 @@ export const Units: TUnits = [
       ...MartialMemoriesEffects,
       {
         name: `Vigour and Wrath`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by this unit.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -362,7 +362,7 @@ export const Units: TUnits = [
       },
       {
         name: `Unbridled Malice`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability. In addition, re-roll successful battleshock tests for enemy units while they are within 3" of any friendly units with this ability.`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability. In addition, reroll successful battleshock tests for enemy units while they are within 3" of any friendly units with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -382,7 +382,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can re-roll save rolls for attacks that target this unit.`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can reroll save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {

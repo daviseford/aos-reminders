@@ -102,7 +102,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Blotshell Bileplate`,
-        desc: `You can re-roll save rolls for attacks targeting the bearer.`,
+        desc: `You can reroll save rolls for attacks targeting the bearer.`,
         when: [DURING_GAME],
         artifact: true,
       },
@@ -125,7 +125,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Bloated Raider`,
-        desc: `You can re-roll charge rolls for friendly Drowned Men Pusgoyle Blightlords units wholly within 14" of this general.`,
+        desc: `You can reroll charge rolls for friendly Drowned Men Pusgoyle Blightlords units wholly within 14" of this general.`,
         when: [CHARGE_PHASE],
         command_trait: true,
       },

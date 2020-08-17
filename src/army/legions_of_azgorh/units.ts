@@ -77,7 +77,7 @@ export const Units: TUnits = [
       },
       {
         name: `Blood Rage`,
-        desc: `You can re-roll wound rolls for attacks made with Cinderbreath's Brazen Horns and Teeth if this model made a charge move in the same turn.`,
+        desc: `You can reroll wound rolls for attacks made with Cinderbreath's Brazen Horns and Teeth if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -140,7 +140,7 @@ export const Units: TUnits = [
       TrampleAndGoreEffect,
       {
         name: `Lord of the Ba'hal`,
-        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can re-roll charge rolls for friendly Ba'hal units while they are wholly within 24" of this model in that charge phase. In addition, you can re-roll hit rolls of 1 for attacks made with Crushing Hooves by friendly Ba'hal units while they are wholly within 24" of this model in the subsequent combat phase.`,
+        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can reroll charge rolls for friendly Ba'hal units while they are wholly within 24" of this model in that charge phase. In addition, you can reroll hit rolls of 1 for attacks made with Crushing Hooves by friendly Ba'hal units while they are wholly within 24" of this model in the subsequent combat phase.`,
         when: [START_OF_CHARGE_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -265,7 +265,7 @@ export const Units: TUnits = [
       },
       {
         name: `Quake Blast`,
-        desc: `This model's Dreadquake Bomb can target enemy units that are not visible to the attacking model. In addition, you can re-roll the dice that determines the Damage characteristic of this model's Dreadquake Bomb if the target unit has 10 or more models.`,
+        desc: `This model's Dreadquake Bomb can target enemy units that are not visible to the attacking model. In addition, you can reroll the dice that determines the Damage characteristic of this model's Dreadquake Bomb if the target unit has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
       ...SiegeArtilleryEffects,
@@ -276,7 +276,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Beaten into Scrap`,
-        desc: `You can re-roll wound rolls for attacks made with this model's Hammer and Picks that target a War Machine.`,
+        desc: `You can reroll wound rolls for attacks made with this model's Hammer and Picks that target a War Machine.`,
         when: [COMBAT_PHASE],
       },
       CarriageHaulerEffect,
@@ -296,7 +296,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Unyielding Slaughterers`,
-        desc: `Add 1 to the Bravery characteristic of units from this battalion. In addition, you can re-roll hit rolls of 1 for attacks made with melee weapons by models from this battalion if that model has not made a move in the same turn.`,
+        desc: `Add 1 to the Bravery characteristic of units from this battalion. In addition, you can reroll hit rolls of 1 for attacks made with melee weapons by models from this battalion if that model has not made a move in the same turn.`,
         when: [COMBAT_PHASE, BATTLESHOCK_PHASE],
       },
     ],
@@ -316,7 +316,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Marked for Death`,
-        desc: `After set-up is complete, but before the battle begins, pick 1 enemy unit to be marked for death. You can re-roll hit rolls for attacks made by units from this battalion that target that unit. If that unit is destroyed, you can choose a new unit to be marked for death in your next hero phase.`,
+        desc: `After set-up is complete, but before the battle begins, pick 1 enemy unit to be marked for death. You can reroll hit rolls for attacks made by units from this battalion that target that unit. If that unit is destroyed, you can choose a new unit to be marked for death in your next hero phase.`,
         when: [END_OF_SETUP, COMBAT_PHASE, HERO_PHASE],
       },
     ],

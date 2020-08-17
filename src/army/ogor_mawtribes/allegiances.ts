@@ -37,7 +37,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Gut-plate of Ghur`,
-        desc: `You can re-roll save rolls of 1 for attacks that target the bearer.`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
         artifact: true,
       },
@@ -54,7 +54,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Bloodbath`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly BLOODGULLET BUTCHER. Until the end of that phase, you can re-roll wound rolls for attacks made with melee weapons by friendly BLOODGULLET OGOR GLUTTONS units that are wholly within 12" of that BLOODGULLET BUTCHER.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly BLOODGULLET BUTCHER. Until the end of that phase, you can reroll wound rolls for attacks made with melee weapons by friendly BLOODGULLET OGOR GLUTTONS units that are wholly within 12" of that BLOODGULLET BUTCHER.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -147,7 +147,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Rip and Tear`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 enemy unit with 1 or more wounds allocated to it that is within 6" of a THUNDERBELLIES HERO. Until the end of the phase, you can re-roll wound rolls for attacks made by friendly THUNDERBELLIES MOURNFANG PACK units that target that enemy unit.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 enemy unit with 1 or more wounds allocated to it that is within 6" of a THUNDERBELLIES HERO. Until the end of the phase, you can reroll wound rolls for attacks made by friendly THUNDERBELLIES MOURNFANG PACK units that target that enemy unit.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },

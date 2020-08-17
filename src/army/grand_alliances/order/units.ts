@@ -59,7 +59,7 @@ const SoporificBreathEffect = {
 }
 const BannerBearerEffect = {
   name: `Banner Bearer`,
-  desc: `Models in this unit can be Banner Bearers. You can re-roll battleshock tests for a unit that includes any Banner Bearers if it made a charge move in the same turn.`,
+  desc: `Models in this unit can be Banner Bearers. You can reroll battleshock tests for a unit that includes any Banner Bearers if it made a charge move in the same turn.`,
   when: [BATTLESHOCK_PHASE],
 }
 const TrumpeterEffect = {
@@ -74,7 +74,7 @@ const PendantLancesEffect = {
 }
 const KnightsShieldEffect = {
   name: `Knight's Shield`,
-  desc: `In the combat phase, re- roll save rolls of 1 for this unit if it made a charge move in the same turn.`,
+  desc: `In the combat phase, reroll save rolls of 1 for this unit if it made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
 }
 const BretonnianInfantryBaseEffects = [
@@ -85,7 +85,7 @@ const BretonnianInfantryBaseEffects = [
   },
   {
     name: `Standard Bearer`,
-    desc: `Models in this unit can be Standard Bearers. You can re-roll battleshock tests for this unit if it includes any Standard Bearers when the test is taken.`,
+    desc: `Models in this unit can be Standard Bearers. You can reroll battleshock tests for this unit if it includes any Standard Bearers when the test is taken.`,
     when: [BATTLESHOCK_PHASE],
   },
 ]
@@ -103,6 +103,48 @@ const GallantEffect = {
   name: `Gallant`,
   desc: `The leader of this unit is a Gallant. Add 1 to the Attacks characteristic of the Gallant's Pendant Lance and Blade.`,
   when: [COMBAT_PHASE],
+}
+const FleetOfWingEffect = {
+  name: `Fleet of Wing`,
+  desc: `If this model runs, roll 2D6 instead of one and use the total when determining how much extra it can move.`,
+  when: [MOVEMENT_PHASE],
+}
+const AelvenShieldEffects = [
+  {
+    name: `Aelven Shield`,
+    desc: `You can reroll save rolls of 1 for a unit with Aelven Shields.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Aelven Shield`,
+    desc: `You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
+    when: [SHOOTING_PHASE],
+  },
+]
+const SwifthawkDiscipline = {
+  name: `Swifthawk Discipline`,
+  desc: `If you fail a battleshock test for this unit whilst a Swifthawk Agents Hero from your army is within 16", halve the number of models that flee (rounding fractions up).`,
+  when: [BATTLESHOCK_PHASE],
+}
+const TalismanOfArcanePowerEffect = {
+  name: `Talisman of Arcane Power`,
+  desc: `You can add 1 to any unbinding rolls for an Archmage with a Talisman of Arcane Power.`,
+  when: [HERO_PHASE],
+}
+const DragonfireEffect = {
+  name: `Dragonfire`,
+  desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a dice; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+}
+const InfantryHornblowerEffect = {
+  name: `Hornblower`,
+  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+}
+const DeflectShotsEffect = {
+  name: `Deflect Shots`,
+  desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
+  when: [SHOOTING_PHASE],
 }
 
 export const MonstrousArcanumOrder: TUnits = [
@@ -134,17 +176,17 @@ const LegacyBretonnianUnits: TUnits = [
     effects: [
       {
         name: `Dragonbane`,
-        desc: `Add 1 to hit rolls for the Ducal Sword and Dragonbane Lance if this model made a charge move in the same turn. In addition, re-roll failed hit rolls for the Ducal Sword and Dragonbane Lance if the target is a Monster.`,
+        desc: `Add 1 to hit rolls for the Ducal Sword and Dragonbane Lance if this model made a charge move in the same turn. In addition, reroll failed hit rolls for the Ducal Sword and Dragonbane Lance if the target is a Monster.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Ducal Shield`,
-        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Lord of the Realm`,
-        desc: `If this model uses this ability, until your next hero phase re-roll failed charge rolls for friendly Nobility units that are within 15" of this model when the charge roll is made.`,
+        desc: `If this model uses this ability, until your next hero phase reroll failed charge rolls for friendly Nobility units that are within 15" of this model when the charge roll is made.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -193,7 +235,7 @@ const LegacyBretonnianUnits: TUnits = [
       },
       {
         name: `Pilgrim Shields`,
-        desc: `Re-roll save rolls of 1 for this unit. Re-roll save rolls of 1 or 2 instead if this unit includes a Grail Reliquae when the save roll is made.`,
+        desc: `Reroll save rolls of 1 for this unit. Reroll save rolls of 1 or 2 instead if this unit includes a Grail Reliquae when the save roll is made.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -204,12 +246,12 @@ const LegacyBretonnianUnits: TUnits = [
     effects: [
       {
         name: `Chalice of Potions`,
-        desc: `In your hero phase, you can re-roll one failed casting roll for this model. If you do and the result of the re-roll is a 2 before any modifiers are applied, then you cannot use this ability again for the rest of the battle.`,
+        desc: `In your hero phase, you can reroll one failed casting roll for this model. If you do and the result of the reroll is a 2 before any modifiers are applied, then you cannot use this ability again for the rest of the battle.`,
         when: [HERO_PHASE],
       },
       {
         name: `Saintly Guardians`,
-        desc: `In the combat phase, re-roll failed hit rolls for friendly Grail Knights units while they are within 10" of this model.`,
+        desc: `In the combat phase, reroll failed hit rolls for friendly Grail Knights units while they are within 10" of this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -286,12 +328,12 @@ const LegacyBretonnianUnits: TUnits = [
       },
       {
         name: `Lion Shield`,
-        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Sword of the King`,
-        desc: `Re-roll failed hit rolls for the Sword of the King if the target is a Hero or Monster.`,
+        desc: `Reroll failed hit rolls for the Sword of the King if the target is a Hero or Monster.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -320,7 +362,7 @@ const LegacyBretonnianUnits: TUnits = [
       TrumpeterEffect,
       {
         name: `Eager to Impress`,
-        desc: `In the combat phase, re-roll hit rolls of 1 for this unit if it was within 18" of a Damsel at the start of the phase.`,
+        desc: `In the combat phase, reroll hit rolls of 1 for this unit if it was within 18" of a Damsel at the start of the phase.`,
         when: [COMBAT_PHASE],
       },
       PendantLancesEffect,
@@ -336,7 +378,7 @@ const LegacyBretonnianUnits: TUnits = [
       TrumpeterEffect,
       {
         name: `Massed Cavalry`,
-        desc: `Re-roll hit rolls of 1 for this unit if it contains 10 or more models when the hit roll is made.`,
+        desc: `Reroll hit rolls of 1 for this unit if it contains 10 or more models when the hit roll is made.`,
         when: [COMBAT_PHASE],
       },
       PendantLancesEffect,
@@ -383,7 +425,7 @@ const LegacyBretonnianUnits: TUnits = [
       },
       {
         name: `Wooden Shields`,
-        desc: `In the combat phase, re- roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -407,7 +449,7 @@ const LegacyBretonnianUnits: TUnits = [
       RelicWeaponEffect,
       {
         name: `Valorous Banner`,
-        desc: `In the battleshock phase, you can re-roll battleshock tests for friendly Nobility units that were within 12" of this model when the test was taken.`,
+        desc: `In the battleshock phase, you can reroll battleshock tests for friendly Nobility units that were within 12" of this model when the test was taken.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -435,7 +477,7 @@ const LegacyBretonnianUnits: TUnits = [
       },
       {
         name: `Burning Braziers`,
-        desc: `Re-roll wound rolls of 1 for Longbows used by a unit with burning braziers. The benefit of the burning braziers is lost for the rest of the battle if this unit moves or is attacked by an enemy unit in the combat phase.`,
+        desc: `Reroll wound rolls of 1 for Longbows used by a unit with burning braziers. The benefit of the burning braziers is lost for the rest of the battle if this unit moves or is attacked by an enemy unit in the combat phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -477,7 +519,7 @@ const LegacyBretonnianUnits: TUnits = [
       },
       {
         name: `The Questing Vow`,
-        desc: `You can re-roll charge rolls for this unit if there is an enemy unit with the Monster keyword within 12" of it when the charge roll is made.`,
+        desc: `You can reroll charge rolls for this unit if there is an enemy unit with the Monster keyword within 12" of it when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
       KnightsShieldEffect,
@@ -511,8 +553,273 @@ const LegacyBretonnianUnits: TUnits = [
   },
 ]
 
+const LegacySwifthawkAgentUnits: TUnits = [
+  {
+    name: `Chariots`,
+    effects: [
+      {
+        name: `Graceful Charge`,
+        desc: `You can reroll all failed wound rolls for a Chariot in the combat phase if it made a charge in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Swift and Deadly`,
+        desc: `If a Chariot runs there is no need to roll a dice, it can always move up to an extra 6".`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Swift and Deadly`,
+        desc: `Chariots can pile in up to 6", instead of 3".`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `High Warden`,
+    effects: [
+      {
+        name: `Predatory Leap`,
+        desc: `When this model piles in it can move up to 6" and can move over enemy models. Furthermore, it does not have to move towards the closest enemy model, as long as it ends its move within 1/2" of an enemy unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Starwood Lance`,
+        desc: `Add 1 to the wound rolls and Damage of a Starwood Lance if this model charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hurricane Charge`,
+        desc: `If a High Warden uses this ability, then until your next hero phase you can reroll any dice when determining the charge distance for Swifthawk Agents from your army if they are within 16" of this model when they charge.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+
+  {
+    name: `Reavers`,
+    effects: [
+      {
+        name: `Harbinger`,
+        desc: `The leader of this unit is a Harbinger. A Harbinger wields a Starsteel Blade in place of a Starwood Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Aelven Purebreeds`,
+        desc: `In the shooting phase, before or after making attacks with this unit, you can roll two dice and move all of the models in this unit up to that many inches. Models cannot start or end this move within 3" of an enemy unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Swift Volleys`,
+        desc: `Models in this unit make 3 attacks with their Reaver Cavalry Bows if the unit is not within 3" of an enemy unit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Skycutters`,
+    effects: [
+      ...AelvenShieldEffects,
+      {
+        name: `Agents' Blades and Spears`,
+        desc: `If a Skycutter is crewed by a trio of Agents, it makes 3 attacks with its Agents' Blades and Spears instead of 2.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Fleet of Wing`,
+        desc: `If this model runs, roll 2D6 instead of one and use the total when determining how much extra it can move.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Sky Chariot`,
+        desc: `Skycutters can shoot even if they ran in their movement phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      SwifthawkDiscipline,
+    ],
+  },
+
+  {
+    name: `Skywarden`,
+    effects: [
+      {
+        name: `Enchanted Shield`,
+        desc: `You can reroll all failed save rolls for this model.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Swifthawk Pennant`,
+        desc: `A Skywarden with a Swifthawk Pennant gains the Totem keyword.
+        You can add 1 to all wound rolls for all Swifthawk Agents from your
+        army if they are within 16" of this model when they attack.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Windrider`,
+        desc: `A Skywarden has a Save of 4+ instead of 5+ in the shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      FleetOfWingEffect,
+      {
+        name: `Swoop and Attack!`,
+        desc: `If a Skywarden uses this ability, Swifthawk Agents in your army that can fly can charge in your next charge phase even if they ran this turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+
+  {
+    name: `Spireguard`,
+    effects: [
+      {
+        name: `Watch Master`,
+        desc: `The leader of this unit is a Watch Master. A Watch Master makes 2 attacks rather than 1 with a Silverwood Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      InfantryHornblowerEffect,
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Swifthawk Agents unit from your army that includes a Standard Bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      ...AelvenShieldEffects,
+      {
+        name: `Strength of the Spireguard`,
+        desc: `You can reroll hit rolls of 1 for a Spireguard if its unit has 20 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+      SwifthawkDiscipline,
+    ],
+  },
+]
+
+const LegacyEldritchUnits: TUnits = [
+  {
+    name: `Swordmasters`,
+    effects: [
+      {
+        name: `Bladelord`,
+        desc: `The leader of this unit is a Bladelord. A Bladelord makes 3 attacks
+        rather than 2.`,
+        when: [COMBAT_PHASE],
+      },
+      InfantryHornblowerEffect,
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Eldritch Council unit from your army that includes a Standard Bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `A Blur of Blades`,
+        desc: `You can reroll hit rolls of 1 when attacking with a Swordmaster.`,
+        when: [COMBAT_PHASE],
+      },
+      DeflectShotsEffect,
+    ],
+  },
+
+  {
+    name: `Archmage`,
+    effects: [
+      {
+        name: `Aelven Steed`,
+        desc: `An Archmage can ride an Aelven Steed. If he does so, his Move is increased to 14" and he gains the Swift Hooves attack.`,
+        when: [MOVEMENT_PHASE],
+      },
+      TalismanOfArcanePowerEffect,
+      {
+        name: `Wizard`,
+        desc: `An Archmage is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Elemental Shield spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Elemental Shield`,
+        desc: `Casting value of 6. Until your next hero phase, you can roll a dice each time the Archmage, or a model in your army within 18" of him, suffers a wound or a mortal wound. On the roll of a 6 that hit is deflected by the magical barrier surrounding the Archmage and is ignored.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+
+  {
+    name: `Archmage on Dragon`,
+    effects: [
+      TalismanOfArcanePowerEffect,
+      DragonfireEffect,
+      {
+        name: `Wizard`,
+        desc: `An Archmage on Dragon is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. An Archmage with an Arcane Tome can attempt to cast two different spells in each of your hero phases instead of just one, and attempt to unbind two spells in each enemy hero phase. An Archmage on Dragon knows the Arcane Bolt, Mystic Shield and Drain Magic spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Drain Magic`,
+        desc: `Casting value of 4. Select a visible unit within 18". Any spells that are affecting that unit immediately cease. Furthermore, if that unit is a Daemon unit, it suffers D3 mortal wounds as the magic sustaining their forms is ripped away and dissipated by the vortex. If that unit is an Endless Spell, it is dispelled.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+
+  {
+    name: `Drakeseer`,
+    effects: [
+      {
+        name: `Warrior Mage`,
+        desc: `A Drakeseer makes 3 attacks with his Sunstaff instead of 1 if he charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      DragonfireEffect,
+      {
+        name: `Wizard`,
+        desc: `A Drakeseer is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield, and Flames of the Phoenix spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Flames of the Phoenix`,
+        desc: `Casting value of 7. Pick a visible enemy unit within 18". That unit suffers a mortal wound as it is set ablaze. 
+        
+        Then, roll another dice - if the result is a 3 or less the flames die out and this spell ends. 
+        
+        On a 4 or more, however, the unit suffers an additional 2 mortal wounds and continues to burn; roll another dice - if the result is a 3 or less the fire dies out, but on a 4 or more, the unit suffers an additional 3 mortal wounds and the conflagration continues. 
+        
+        Keep rolling extra dice in this way, inflicting 1 more mortal wound than last time you rolled, until either the flames die out or the unit does!`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+
+  {
+    name: `Loremaster`,
+    effects: [
+      {
+        name: `Deflect Shots`,
+        desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Wizard`,
+        desc: `A Loremaster is a wizard. He can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Hand of Glory spells.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Hand of Glory`,
+        desc: `Casting value of 5. Pick a model within 18". Until your next hero phase you can reroll all failed hit rolls and wound rolls for that model.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+    ],
+  },
+]
+
 const LegacyOrderUnits: TUnits = [
+  ...LegacySwifthawkAgentUnits,
   ...LegacyBretonnianUnits,
+  ...LegacyEldritchUnits,
+
   {
     name: `Highborn Repeater Bolt Thrower`,
     effects: [
@@ -551,14 +858,10 @@ const LegacyOrderUnits: TUnits = [
   {
     name: `Loremaster`,
     effects: [
-      {
-        name: `Deflect Shots`,
-        desc: `You can re-roll failed save rolls for this model in the shooting phase.`,
-        when: [SHOOTING_PHASE],
-      },
+      DeflectShotsEffect,
       {
         name: `Hand of Glory`,
-        desc: `Casting value of 5. Pick a model within 18". Until your next hero phase you can re-roll all failed hit rolls and wound rolls for that model.`,
+        desc: `Casting value of 5. Pick a model within 18". Until your next hero phase you can reroll all failed hit rolls and wound rolls for that model.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -577,11 +880,7 @@ const LegacyOrderUnits: TUnits = [
         desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `Re-roll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      InfantryHornblowerEffect,
       {
         name: `Aelven Archery`,
         desc: `Add 1 to hit rolls for this unit in the shooting phase while it has 20 or more models and there are no enemy models within 3" of it.`,
@@ -604,7 +903,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Horn of the Wild Hunt`,
-        desc: `You may re-roll the dice when determining the charge distance for this model and friendly Hunting Hounds units within 8" of it at the start of the charge phase.`,
+        desc: `You may reroll the dice when determining the charge distance for this model and friendly Hunting Hounds units within 8" of it at the start of the charge phase.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -639,7 +938,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Kindred Shield`,
-        desc: `Re-roll failed save rolls for this model.`,
+        desc: `Reroll failed save rolls for this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -664,7 +963,7 @@ const LegacyOrderUnits: TUnits = [
     effects: [
       {
         name: `Drummer`,
-        desc: `You can re-roll the dice when determining how far this unit runs if it includes Drummers.`,
+        desc: `You can reroll the dice when determining how far this unit runs if it includes Drummers.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -714,7 +1013,7 @@ const LegacyOrderUnits: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run while it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run while it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -841,7 +1140,7 @@ export const OrderUnits: TUnits = [
       },
       {
         name: `Krag Blackhammer's Master Rune`,
-        desc: `You can re-roll hit and wound rolls for attacks made by this model. In addition, if the unmodified hit roll for an attack made by this model is 6, that attack inflicts D6 mortal wounds on the target in addition to any normal damage.`,
+        desc: `You can reroll hit and wound rolls for attacks made by this model. In addition, if the unmodified hit roll for an attack made by this model is 6, that attack inflicts D6 mortal wounds on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {

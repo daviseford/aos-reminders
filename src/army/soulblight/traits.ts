@@ -17,7 +17,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Deathless Duelist`,
-        desc: `Re-roll hits rolls of 1 for this general when they attack an enemy HERO in the combat phase.`,
+        desc: `Reroll hits rolls of 1 for this general when they attack an enemy HERO in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],

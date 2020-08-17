@@ -66,9 +66,9 @@ const Spells: TSpells = [
       {
         name: `Shield of Fate`,
         desc: `Effect based on number of destiny dice in pool:
-               1-3: You can re-roll save rolls of 1 for attacks that target that unit.
-               4-6: You can re-roll save rolls for attacks that target that unit.
-               7-9: You can roll a D6 each time that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can re-roll save rolls for attacks that target that unit.`,
+               1-3: You can reroll save rolls of 1 for attacks that target that unit.
+               4-6: You can reroll save rolls for attacks that target that unit.
+               7-9: You can roll a D6 each time that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can reroll save rolls for attacks that target that unit.`,
         when: [HERO_PHASE, DURING_GAME],
       },
     ],

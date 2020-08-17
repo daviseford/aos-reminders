@@ -35,7 +35,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Lambent Light`,
-        desc: `Casting value of 8. Pick 1 enemy unit wholly within 18" and visible to them. Until your next hero phase, re-roll missile weapon attacks that target the unit.`,
+        desc: `Casting value of 8. Pick 1 enemy unit wholly within 18" and visible to them. Until your next hero phase, reroll missile weapon attacks that target the unit.`,
         when: [HERO_PHASE, SHOOTING_PHASE],
       },
     ],

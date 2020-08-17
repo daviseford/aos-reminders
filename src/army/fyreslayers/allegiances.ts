@@ -87,7 +87,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Tyrant Slayer`,
-        desc: `Pick one of the bearer's melee weapons. You can re-roll wound rolls for attacks made by that weapon that target an enemy HERO. In addition if the unmodified hit roll for an attack by this weapon against an enemy HERO is a 6 that attack inflicts 1 mortal wound as well as any normal damage.`,
+        desc: `Pick one of the bearer's melee weapons. You can reroll wound rolls for attacks made by that weapon that target an enemy HERO. In addition if the unmodified hit roll for an attack by this weapon against an enemy HERO is a 6 that attack inflicts 1 mortal wound as well as any normal damage.`,
         when: [COMBAT_PHASE],
         artifact: true,
       },

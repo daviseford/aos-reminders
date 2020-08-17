@@ -16,7 +16,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Zoetic Dial`,
-        desc: `After set-up is complete but before the battle begins, secretly record the number of a battle round. At the start of that battle round, reveal the information and then heal all wounds allocated to the bearer. In addition, during that battle round, you can re-roll save rolls for attacks that target the bearer.`,
+        desc: `After set-up is complete but before the battle begins, secretly record the number of a battle round. At the start of that battle round, reveal the information and then heal all wounds allocated to the bearer. In addition, during that battle round, you can reroll save rolls for attacks that target the bearer.`,
         when: [END_OF_SETUP],
       },
     ],
@@ -71,7 +71,7 @@ const Artifacts: TArtifacts = [
       },
       {
         name: `Itxi Grubs`,
-        desc: `In your hero phase you can re-roll 1 casting or dispelling roll for the bearer, and in the enemy hero phase you can re-roll 1 unbinding roll for the bearer.`,
+        desc: `In your hero phase you can reroll 1 casting or dispelling roll for the bearer, and in the enemy hero phase you can reroll 1 unbinding roll for the bearer.`,
         when: [HERO_PHASE],
       },
     ],

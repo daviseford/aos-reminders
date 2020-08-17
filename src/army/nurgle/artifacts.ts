@@ -107,7 +107,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Witherstave (Daemon)`,
-        desc: `Re-roll hits of 6 for enemy units while they are within 12" of the bearer.`,
+        desc: `Reroll hits of 6 for enemy units while they are within 12" of the bearer.`,
         when: [DURING_GAME],
       },
     ],
@@ -147,7 +147,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Foetid Shroud (Mortal)`,
-        desc: `Re-roll hit rolls of 6+ or more for attacks that target the bearer in the combat phase.`,
+        desc: `Reroll hit rolls of 6+ or more for attacks that target the bearer in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -187,7 +187,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Shield of Growths (Mortal)`,
-        desc: `You can re-roll failed save rolls for the bearer if the roll is equal to or less than the number of wounds currently allocated to the bearer.`,
+        desc: `You can reroll failed save rolls for the bearer if the roll is equal to or less than the number of wounds currently allocated to the bearer.`,
         when: [DURING_GAME],
       },
     ],

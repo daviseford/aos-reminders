@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Master of Death`,
-        desc: `Re-roll results of 1 (i.e. rolls of 1-2 on a D3) for friendly units affected by a Deathly Invocation ability that are within 12" of this general.`,
+        desc: `Reroll results of 1 (i.e. rolls of 1-2 on a D3) for friendly units affected by a Deathly Invocation ability that are within 12" of this general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bane of the Living`,
-        desc: `Re-roll wound rolls of 1 for this general for attacks made against enemy units that do not have the DEATH keyword.`,
+        desc: `Reroll wound rolls of 1 for this general for attacks made against enemy units that do not have the DEATH keyword.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Ancient Strategist`,
-        desc: `Re-roll failed charge rolls for friendly DEATHRATTLE and MORGHAST units that are within 9" of this general.`,
+        desc: `Reroll failed charge rolls for friendly DEATHRATTLE and MORGHAST units that are within 9" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],
