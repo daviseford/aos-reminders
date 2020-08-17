@@ -33,7 +33,7 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should correctly read Warscroll_Builder_Order_Legacy', () => {
+  xit('should correctly read Warscroll_Builder_Order_Legacy', () => {
     const pdfText = getFile('Warscroll_Builder_Order_Legacy')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)

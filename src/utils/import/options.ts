@@ -99,6 +99,7 @@ const warscrollTypoMap: TNameMap = {
   'Magestic Horror': 'Majestic Horror (Royalty)',
   'Mannfred Mortarch of Night': 'Mannfred, Mortarch of Night',
   'Master of Defense': 'Master of Defence (Order)',
+  'Men At Arms': 'Men-at-Arms',
   'Morathi High Oracle of Khaine': 'Morathi, High Oracle of Khaine',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Pink Horrors of Tzeentch': 'Horrors of Tzeentch',

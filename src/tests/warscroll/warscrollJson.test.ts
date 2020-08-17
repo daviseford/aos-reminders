@@ -194,11 +194,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1593895699238-Warscroll_Builder', () => {
     const parsedText = getFile('1593895699238-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Far-Ranger')
     expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Far-Ranger',
-      },
       {
         severity: 'warn',
         text: 'Slayers',
@@ -1457,12 +1454,8 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Swordmasters',
-      },
-    ])
+    expect(res.selections.units).toContain('Swordmasters')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with allied endless spells', () => {
