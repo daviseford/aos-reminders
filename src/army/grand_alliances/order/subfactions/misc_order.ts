@@ -1,6 +1,12 @@
 import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
-import { COMBAT_PHASE, END_OF_COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
 export const LegacyOrderUnits: TUnits = [
   {
@@ -46,6 +52,36 @@ export const LegacyOrderUnits: TUnits = [
         name: `Grapeshot`,
         desc: `Instead of firing a Cannon Ball using the profile above in the shooting phase, the Crew can load their war machine with grapeshot; if they do, then select a target that is visible to the Greatcannon. Roll one dice for each model in the target unit that is within 10" of the Greatcannon; for each roll of a 6, that unit suffers a mortal wound.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Knights of Order`,
+    effects: [
+      {
+        name: `Preceptor`,
+        desc: `The leader of this unit is a Preceptor. Add 1 to the Attacks characteristic of the Preceptor's Lance and Sword or Cavalry Hammer.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. While the unit includes any Standard Bearers, it only needs to take a battleshock test if two or more of its models were slain during the turn.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Models in this unit may be Hornblowers. If the unit includes any Hornblowers, add 2 to its charge rolls.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Shield`,
+        desc: `Reroll save rolls of 1 for a unit equipped with Shields.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Charging Lance`,
+        desc: `Add 1 to the wound rolls and Damage characteristic for this unit's Lances and Swords if it charged in the same turn.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

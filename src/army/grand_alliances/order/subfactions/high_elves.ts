@@ -1,7 +1,12 @@
 import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
-import { BATTLESHOCK_PHASE, CHARGE_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, CHARGE_PHASE, COMBAT_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
 const InfantryHornblowerEffect = {
   name: `Hornblower`,
   desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
@@ -29,11 +34,7 @@ export const LegacyHighElvesUnits: TUnits = [
         desc: `The leader of this unit is a Hawkeye. Add 1 to hit rolls for a Hawkeye in the shooting phase.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      StandardBearerEffect,
       InfantryHornblowerEffect,
       {
         name: `Aelven Archery`,
@@ -44,6 +45,29 @@ export const LegacyHighElvesUnits: TUnits = [
         name: `Storm of Arrows`,
         desc: `Once per battle, you can declare that this unit will fire a Storm of Arrows in their shooting phase; when you do so, add 1 to the Attacks characteristic of their Silverwood Longbows. This unit cannot fire a Storm of Arrows if there are any enemy models within 3" of it.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Highborn Spearmen`,
+    effects: [
+      {
+        name: `Sentinel`,
+        desc: `The leader of this unit is a Sentinel. Add 1 to the Attacks characteristic of the Sentinel's Silverwood Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      StandardBearerEffect,
+      InfantryHornblowerEffect,
+      ...GenericEffects.AelvenShield,
+      {
+        name: `Militia`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Silverwood Spears while it has 20 or more models. Spear Phalanx.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Spear Phalanx`,
+        desc: `Reroll hit rolls of 1 for this unit if it did not move in its preceding movement phase.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

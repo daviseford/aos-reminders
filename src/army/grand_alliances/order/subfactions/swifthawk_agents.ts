@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -13,18 +14,6 @@ const FleetOfWingEffect = {
   desc: `If this model runs, roll 2D6 instead of one and use the total when determining how much extra it can move.`,
   when: [MOVEMENT_PHASE],
 }
-const AelvenShieldEffects = [
-  {
-    name: `Aelven Shield`,
-    desc: `You can reroll save rolls of 1 for a unit with Aelven Shields.`,
-    when: [COMBAT_PHASE],
-  },
-  {
-    name: `Aelven Shield`,
-    desc: `You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
-    when: [SHOOTING_PHASE],
-  },
-]
 const SwifthawkDiscipline = {
   name: `Swifthawk Discipline`,
   desc: `If you fail a battleshock test for this unit whilst a Swifthawk Agents Hero from your army is within 16", halve the number of models that flee (rounding fractions up).`,
@@ -104,7 +93,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
   {
     name: `Skycutters`,
     effects: [
-      ...AelvenShieldEffects,
+      ...GenericEffects.AelvenShield,
       {
         name: `Agents' Blades and Spears`,
         desc: `If a Skycutter is crewed by a trio of Agents, it makes 3 attacks with its Agents' Blades and Spears instead of 2.`,
@@ -168,7 +157,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
         desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Swifthawk Agents unit from your army that includes a Standard Bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
-      ...AelvenShieldEffects,
+      ...GenericEffects.AelvenShield,
       {
         name: `Strength of the Spireguard`,
         desc: `You can reroll hit rolls of 1 for a Spireguard if its unit has 20 or more models.`,

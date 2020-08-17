@@ -69,6 +69,18 @@ const GenericEffects = {
       when: [COMBAT_PHASE, SHOOTING_PHASE],
     },
   ],
+  AelvenShield: [
+    {
+      name: `Aelven Shield`,
+      desc: `You can reroll save rolls of 1 for a unit with Aelven Shields.`,
+      when: [COMBAT_PHASE],
+    },
+    {
+      name: `Aelven Shield`,
+      desc: `You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
+      when: [SHOOTING_PHASE],
+    },
+  ],
 }
 
 export default GenericEffects
