@@ -205,4 +205,20 @@ export const LegacyDuardinUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Flame Cannon`,
+    effects: [
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
+      {
+        name: `Flame Burst`,
+        desc: `When firing a Flame Burst, pick a unit within range to suffer D3 mortal wounds. After firing a Flame Burst, roll a dice; on a 1, 2 or 3, the flames die out and the unit you shot suffers no further damage, but on a 4+ it is set ablaze and suffers another D3 mortal wounds before the flames are extinguished.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune of Burning`,
+        desc: `A Flame Burst inflicts D6 mortal wounds on the target instead of D3 if the target unit has 20 or more models (it will also inflict an additional D6 mortal wounds instead of D3 if the unit is set ablaze, as described in Flame Burst).`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
 ]

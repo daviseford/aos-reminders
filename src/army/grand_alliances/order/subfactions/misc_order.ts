@@ -245,4 +245,40 @@ export const LegacyOrderUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Warrior Priest`,
+    effects: [
+      {
+        name: `Warhorse`,
+        desc: `A Warrior Priest can be mounted on a barded Warhorse, granting them a Move of 12" and the Steel-shod Hooves attack.`,
+        when: [MOVEMENT_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Sigmarite Shield`,
+        desc: `A Warrior Priest with a Sigmarite Shield has a Save of 3+.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Sigmarite Warhammers`,
+        desc: `You can reroll hit rolls of 1 for a Warrior Priest armed with two Sigmarite Warhammers.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Divine Power`,
+        desc: `A Warrior Priest can attempt to unbind 1 spell in each enemy hero phase, as if he were a wizard.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Battle Prayers`,
+        desc: `In your hero phase, a Warrior Priest can pray to Sigmar. If he does so, pick a Devoted of Sigmar unit within 10", select one of the following blessings and roll a dice. On a 1 or a 2, his prayers go unanswered, but on a 3 or more they have been heard:
+
+        Shield of Faith: Until your next hero phase, you can roll a dice each time the unit suffers a wound or a mortal wound. On a 6, that wound is ignored.
+
+        Hammer of Sigmar: Until your next hero phase you can reroll failed wound rolls for the unit in the combat phase.
+
+        Healing Hands: One model in the unit immediately heals D3 wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]

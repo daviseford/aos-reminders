@@ -580,7 +580,7 @@ describe('getBattlescribeArmy', () => {
       CITIES_OF_SIGMAR: { battalions: [], units: ['Cogsmith', 'Cannon', 'Organ Gun'] },
       ORDER_GRAND_ALLIANCE: {
         battalions: [],
-        units: ['Greatcannon'],
+        units: ['Flame Cannon'],
       },
     })
     expect(res.errors).toEqual([])

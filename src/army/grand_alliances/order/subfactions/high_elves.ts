@@ -132,7 +132,7 @@ export const LegacyHighElvesUnits: TUnits = [
     ],
   },
   {
-    name: `Seawarden`,
+    name: `Seawarden on Foot`,
     effects: [
       EnchantedShieldEffect,
       {
