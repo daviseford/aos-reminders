@@ -82,12 +82,6 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  xit('should correctly read 1594377962081-Warscroll_Builder', () => {
-    const parsedText = getFile('1594377962081-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1596572409302-Warscroll_Builder', () => {
     const parsedText = getFile('1596572409302-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -124,7 +118,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1597072550016-Warscroll_Builder', () => {
+  it('should correctly read 1597072550016-Warscroll_Builder', () => {
     const parsedText = getFile('1597072550016-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -358,23 +352,10 @@ describe('getWarscrollArmyFromJson', () => {
   })
 
   // TODO: Legacy High Elf units
-  xit('should work with Legacy High Elf units', () => {
+  it('should work with Legacy High Elf units', () => {
     const parsedText = getFile('1586991704763-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'High Warden',
-      },
-      {
-        severity: 'warn',
-        text: 'Dragonlord',
-      },
-      {
-        severity: 'warn',
-        text: 'Spireguard',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Celestar Ballista', () => {
@@ -390,48 +371,10 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  // TODO
-  xit('should work with legacy Bretonnian units', () => {
+  it('should work with legacy Bretonnian units', () => {
     const parsedText = getFile('1585029831842-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'King on Hippogryph',
-      },
-      {
-        severity: 'warn',
-        text: 'Damsel',
-      },
-      {
-        severity: 'warn',
-        text: 'Bretonnian Lord',
-      },
-      {
-        severity: 'warn',
-        text: 'Knights of the Realm',
-      },
-      {
-        severity: 'warn',
-        text: 'Knights Errant',
-      },
-      {
-        severity: 'warn',
-        text: 'Men At Arms',
-      },
-      {
-        severity: 'warn',
-        text: 'Peasant Bowmen',
-      },
-      {
-        severity: 'warn',
-        text: 'Grail Knights',
-      },
-      {
-        severity: 'warn',
-        text: 'Field Trebuchet',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Vast Intellect - Celestial Apotheosis (trait/spell)', () => {
