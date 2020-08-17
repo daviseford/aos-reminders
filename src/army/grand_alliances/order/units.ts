@@ -6,9 +6,10 @@ import { LegacyDwarfUnits } from './subfactions/dwarfs'
 import { LegacyEldritchUnits } from './subfactions/eldritch'
 import { LegacyEmpireUnits } from './subfactions/empire'
 import { LegacyHighElvesUnits } from './subfactions/high_elves'
-import { LegacyOrderUnits } from './subfactions/misc_legacy_order'
+import { LegacyOrderUnits } from './subfactions/misc_order'
 import { MonstrousArcanumOrder } from './subfactions/monstrous_arcanum'
 import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk_agents'
+import { LegacyWoodElvesUnits } from './subfactions/wood_elves'
 
 // Available to ALL factions in this Grand Alliance
 export const OrderUnits: TUnits = [
@@ -54,6 +55,7 @@ export const Units: TUnits = [
   ...LegacyHighElvesUnits,
   ...LegacyOrderUnits,
   ...LegacySwifthawkAgentUnits,
+  ...LegacyWoodElvesUnits,
   ...MonstrousArcanumOrder,
   ...OrderUnits,
 ]

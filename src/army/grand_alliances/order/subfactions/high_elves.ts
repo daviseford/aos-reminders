@@ -1,52 +1,10 @@
 import { TUnits } from 'types/army'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, CHARGE_PHASE, DURING_GAME, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
-  {
-    name: `Shadow Dance`,
-    desc: `At the start of your hero phase, you may declare that this unit will perform a shadow dance. Choose one of the dances from the list below. The dance lasts until the start of your next hero phase. The same dance cannot be performed by the same unit in consecutive battle rounds.
-
-    Whirling Death: Add 1 to wound rolls for this unit's Weaving Blades and change their Rend characteristic to -1.
-
-    Storm of Blades: Add ${attacks} to the Attacks characteristic of this unit's Weaving Blades.
-    
-    The Shadow's Coil: Add 2 to this unit's save rolls.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Talismanic Tattoos`,
-    desc: `Roll a D6 each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
-  },
-]
-const SoporificBreathEffect = {
-  name: `Soporific Breath`,
-  desc: `Enemy units within 3" of this model cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
-  when: [COMBAT_PHASE],
-}
 const InfantryHornblowerEffect = {
   name: `Hornblower`,
   desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
-}
-const DeflectShotsEffect = {
-  name: `Deflect Shots`,
-  desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
-}
-const KindredShieldEffect = {
-  name: `Kindred Shield`,
-  desc: `Reroll failed save rolls for this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 
 export const LegacyHighElvesUnits: TUnits = [

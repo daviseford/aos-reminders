@@ -3,7 +3,6 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -35,23 +34,13 @@ const SoporificBreathEffect = {
   desc: `Enemy units within 3" of this model cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
   when: [COMBAT_PHASE],
 }
-const InfantryHornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
-}
-const DeflectShotsEffect = {
-  name: `Deflect Shots`,
-  desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
-}
 const KindredShieldEffect = {
   name: `Kindred Shield`,
   desc: `Reroll failed save rolls for this model.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 
-export const LegacyOrderUnits: TUnits = [
+export const LegacyWoodElvesUnits: TUnits = [
   {
     name: `Avatar of the Hunt`,
     effects: [
@@ -110,16 +99,6 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Starlight Strike`,
         desc: `Add 1 to the Damage characteristic of the Glade Lord's Starlight Spear if this model made a charge move this turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hunting Hounds`,
-    effects: [
-      {
-        name: `Hounds of the Wild Hunt`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Savage Teeth while it is within 6" of any friendly Avatars of the Hunt.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -198,31 +177,6 @@ export const LegacyOrderUnits: TUnits = [
         desc: `Casting value of 5. For the duration of your next Movement phase this model's Move characteristic is doubled and it can fly.`,
         when: [MOVEMENT_PHASE],
         spell: true,
-      },
-    ],
-  },
-  {
-    name: `Great Eagles`,
-    effects: [
-      {
-        name: `Death from the Skies`,
-        desc: `Add 2 to the Attacks characteristic of this unit's Beaks and Talons if it made a charge move this turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Soar Away`,
-        desc: `At the end of the combat phase you may declare that this unit will swoop out of combat and soar away as long as there are enemy models within 3" of it. If you do, roll 3D6; the result is how far you can immediately move this unit. The unit must end this move more than 3" from any enemy units - if they are unable to do so then they fail to escape and cannot swoop out of combat and soar away.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Tree Kin`,
-    effects: [
-      {
-        name: `Roused to War`,
-        desc: `Add 1 to hit rolls for this unit's Bludgeoning Branches if it made a charge move this turn.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
