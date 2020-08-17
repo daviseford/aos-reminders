@@ -41,6 +41,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1597625107867-Warscroll_Builder', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Seawarden on Foot')
     expect(res.errors).toEqual([])
   })
 
@@ -1652,7 +1653,7 @@ describe('getWarscrollArmyFromJson', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'CITIES_OF_SIGMAR',
+      factionName: CITIES_OF_SIGMAR,
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,

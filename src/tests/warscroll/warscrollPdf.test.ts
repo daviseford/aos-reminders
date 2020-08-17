@@ -25,6 +25,7 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
+import { CHAMON, GHUR } from 'types/realmscapes'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -37,108 +38,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('Warscroll_Builder_Order_Legacy')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   "severity": "warn",
-      //   "text": "Dragon Noble",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Dragonlord",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Seawarden on Foot",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Skink Prophet",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Thane with Battle Standard",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "War Altar of Sigmar",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Warden King on Throne of Power",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Warrior Priest",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Witch Hunter",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Chameleon Skink Stalker",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Celestial Swarms",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Dragon Blades",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Duardin Bolt Thrower",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Flame Cannon",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Freeguild Archers",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Grudge Thrower",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Highborn Silver Helms",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Highborn Spearmen",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Knights of Order",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Miners",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Slayers",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "White Lion Chariots",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "White Lions",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Field Mortar",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Greatcannon",
-      // },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('correctly reads Lumineth1', () => {
@@ -155,8 +55,8 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'LUMINETH_REALMLORDS',
-      origin_realm: 'Ghur',
+      factionName: LUMINETH_REALMLORDS,
+      origin_realm: GHUR,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -236,8 +136,8 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
-      origin_realm: 'Chamon',
+      factionName: SERAPHON,
+      origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -541,7 +441,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
       ],
       factionName: 'KHARADRON_OVERLORDS',
-      origin_realm: 'Chamon',
+      origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
