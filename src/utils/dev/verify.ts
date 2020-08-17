@@ -125,6 +125,10 @@ const verify = () => {
           return
         }
 
+        if (e.when.length === 0) {
+          return console.log(`${e.name} is missing a 'when' value`)
+        }
+
         if (!e.spell && new RegExp('Casting value ', 'gi').test(e.desc)) {
           return console.log(`${e.name} should be marked as a spell`)
         }

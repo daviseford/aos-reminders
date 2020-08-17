@@ -25,6 +25,7 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
+import { CHAMON, GHUR } from 'types/realmscapes'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -33,7 +34,7 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  xit('should correctly read Warscroll_Builder_Order_Legacy', () => {
+  it('should correctly read Warscroll_Builder_Order_Legacy', () => {
     const pdfText = getFile('Warscroll_Builder_Order_Legacy')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -54,8 +55,8 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'LUMINETH_REALMLORDS',
-      origin_realm: 'Ghur',
+      factionName: LUMINETH_REALMLORDS,
+      origin_realm: GHUR,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -135,8 +136,8 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'SERAPHON',
-      origin_realm: 'Chamon',
+      factionName: SERAPHON,
+      origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
@@ -440,7 +441,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
       ],
       factionName: 'KHARADRON_OVERLORDS',
-      origin_realm: 'Chamon',
+      origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
       selections: {

@@ -578,6 +578,10 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.allySelections).toEqual({
       CITIES_OF_SIGMAR: { battalions: [], units: ['Cogsmith', 'Cannon', 'Organ Gun'] },
+      ORDER_GRAND_ALLIANCE: {
+        battalions: [],
+        units: ['Flame Cannon'],
+      },
     })
     expect(res.errors).toEqual([])
   })

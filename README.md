@@ -75,7 +75,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
-## `yarn verify` (Mac/Linux) and `yarn verify-win` (Windows)
+## `yarn verify` (Mac/Linux) and `yarn verify:win` (Windows)
 
 Runs a script that checks rules to see if they're misplaced. Be sure to run this after adding a new army since it can catch some common errors.
 

@@ -72,7 +72,7 @@ const BeaconOfSorceryEffect = {
 }
 const BoltofChangeEffect = {
   name: `Bolt of Change`,
-  desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+  desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
   when: [HERO_PHASE],
   spell: true,
 }
@@ -135,7 +135,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gift of Change`,
-        desc: `Casting value 8. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+        desc: `Casting value of 8. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -155,7 +155,7 @@ export const Units: TUnits = [
       SpellThiefEffect,
       {
         name: `Infernal Gateway`,
-        desc: `Casting value 7. Pick a visible enemy within 18" of the caster and roll 9 dice. That unit suffers 1 mortal wound for each roll that is equal to or greater than the Infernal Gateway value shown on the caster's damage table.`,
+        desc: `Casting value of 7. Pick a visible enemy within 18" of the caster and roll 9 dice. That unit suffers 1 mortal wound for each roll that is equal to or greater than the Infernal Gateway value shown on the caster's damage table.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -192,7 +192,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pink Fire of Tzeentch`,
-        desc: `Casting Value 9. Pick an enemy unit within 18" of the caster that is visible and deal D6 mortal wounds.`,
+        desc: `Casting value of 9. Pick an enemy unit within 18" of the caster that is visible and deal D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -204,7 +204,7 @@ export const Units: TUnits = [
       ArcaneTomeEffect,
       {
         name: `Blue Fire of Tzeentch`,
-        desc: `Casting value 5. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -218,7 +218,7 @@ export const Units: TUnits = [
       WakeofFireEffect,
       {
         name: `Tzeentch's Firestorm`,
-        desc: `Casting value 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -239,7 +239,7 @@ export const Units: TUnits = [
       },
       {
         name: `Boon of Tzeentch`,
-        desc: `Casting value 4. You can reroll casting rolls for friendly TZEENTCH WIZARDS wholly within 18" of the caster for the rest of that phase.`,
+        desc: `Casting value of 4. You can reroll casting rolls for friendly TZEENTCH WIZARDS wholly within 18" of the caster for the rest of that phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -294,7 +294,7 @@ export const Units: TUnits = [
       },
       {
         name: `Channelled Pink Fire`,
-        desc: `Casting value 6. Pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
+        desc: `Casting value of 6. Pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
         spell: true,
         when: [HERO_PHASE],
       },
@@ -343,7 +343,7 @@ export const Units: TUnits = [
       {
         name: `Split`,
         desc: `If the Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model. The Brimstone Horrors' Magical Flames have an Attacks characteristic of 1 instead of 2, and their Taloned Hands have an Attacks characteristic of 2 instead of 1.`,
-        when: [],
+        when: [WOUND_ALLOCATION],
       },
     ],
   },
@@ -361,7 +361,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glean Magic`,
-        desc: `Casting value 3. Pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
+        desc: `Casting value of 3. Pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -437,7 +437,7 @@ export const Units: TUnits = [
       },
       {
         name: `Choking Tendrils`,
-        desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -453,7 +453,7 @@ export const Units: TUnits = [
       },
       {
         name: `Gestalt Sorcery`,
-        desc: `Casting Value 6. Pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
+        desc: `Casting value of 6. Pick 1 friendly Kairic Acolytes unit wholly within 9" of the caster. Until your next hero phase, improve the Rend characteristic of that unit's Sorcerous Bolt attack by 1. A unit cannot benefit from this spell more than once per turn.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -514,7 +514,7 @@ export const Units: TUnits = [
       MagicTouchedEffect,
       {
         name: `Sorcerous Insight`,
-        desc: `Casting value 5. You receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
+        desc: `Casting value of 5. You receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
         when: [HERO_PHASE],
         spell: true,
       },

@@ -488,7 +488,7 @@ export const Units: TUnits = [
       InfuseWithBestialVigorEffect,
       {
         name: `Savage Bolt`,
-        desc: `Casting value 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Units that attack the target unit in the next combat phase get +1 to their hit rolls.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. Units that attack the target unit in the next combat phase get +1 to their hit rolls.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },

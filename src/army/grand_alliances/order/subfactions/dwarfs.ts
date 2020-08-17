@@ -11,7 +11,7 @@ import {
 
 const RangeFindingOpticsEffect = {
   name: `Range-finding Optics`,
-  desc: `You can re-roll hit rolls of 1 for this model in the shooting phase if they did not move in their preceding movement phase and there are no enemy models within 3" of them.`,
+  desc: `You can reroll hit rolls of 1 for this model in the shooting phase if they did not move in their preceding movement phase and there are no enemy models within 3" of them.`,
   when: [SHOOTING_PHASE],
 }
 
@@ -98,7 +98,7 @@ export const LegacyDwarfUnits: TUnits = [
 
         If this model is within 4" of a friendly Apprentice Runesmith, then the Runelord can attempt to strike two different runes in your hero phase rather than one. 
         
-        Rune of Hearth and Home: Re-roll failed hit rolls for this unit until your next hero phase. 
+        Rune of Hearth and Home: Reroll failed hit rolls for this unit until your next hero phase. 
         Rune of Oath and Steel: Add 1 to save rolls for this unit until your next hero phase. 
         Rune of Wrath and Ruin: Pick an enemy unit that is visible to the Runelord and is within 24" of him. That unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],

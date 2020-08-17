@@ -38,10 +38,10 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1597625107867-Warscroll_Builder', () => {
+  it('should correctly read 1597625107867-Warscroll_Builder', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Seawarden on Foot')
     expect(res.errors).toEqual([])
   })
 
@@ -65,18 +65,21 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1594377130100-Warscroll_Builder', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1594377962081-Warscroll_Builder', () => {
-    const parsedText = getFile('1594377962081-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.selections.artifacts).toContain('Tyrant Slayer')
+    expect(res.selections.traits).toContain('Warrior Indominate')
+    expect(res.errors).toEqual([
+      // {
+      //   "severity": "warn",
+      //   "text": "Tyrant Slayer",
+      // },
+      // {
+      //   "severity": "warn",
+      //   "text": "Warrior Indominate",
+      // },
+    ])
   })
 
   it('should correctly read 1596572409302-Warscroll_Builder', () => {
@@ -97,8 +100,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1596798763772-Warscroll_Builder', () => {
+  it('should correctly read 1596798763772-Warscroll_Builder', () => {
     const parsedText = getFile('1596798763772-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -110,14 +112,13 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1597072523138-Warscroll_Builder', () => {
+  it('should correctly read 1597072523138-Warscroll_Builder', () => {
     const parsedText = getFile('1597072523138-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1597072550016-Warscroll_Builder', () => {
+  it('should correctly read 1597072550016-Warscroll_Builder', () => {
     const parsedText = getFile('1597072550016-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -130,20 +131,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1592412384855-Warscroll_Builder', () => {
+  it('should correctly read 1592412384855-Warscroll_Builder', () => {
     const parsedText = getFile('1592412384855-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Seawarden on Foot',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Highborn Spearmen',
-      // },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1592663232380-Warscroll_Builder', () => {
@@ -201,12 +192,8 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1593895699238-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Far-Ranger')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Slayers',
-      },
-    ])
+    expect(res.selections.units).toContain('Slayers')
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1594282007060-Warscroll_Builder', () => {
@@ -365,23 +352,10 @@ describe('getWarscrollArmyFromJson', () => {
   })
 
   // TODO: Legacy High Elf units
-  xit('should work with Legacy High Elf units', () => {
+  it('should work with Legacy High Elf units', () => {
     const parsedText = getFile('1586991704763-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'High Warden',
-      },
-      {
-        severity: 'warn',
-        text: 'Dragonlord',
-      },
-      {
-        severity: 'warn',
-        text: 'Spireguard',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Celestar Ballista', () => {
@@ -397,48 +371,10 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  // TODO
-  xit('should work with legacy Bretonnian units', () => {
+  it('should work with legacy Bretonnian units', () => {
     const parsedText = getFile('1585029831842-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'King on Hippogryph',
-      },
-      {
-        severity: 'warn',
-        text: 'Damsel',
-      },
-      {
-        severity: 'warn',
-        text: 'Bretonnian Lord',
-      },
-      {
-        severity: 'warn',
-        text: 'Knights of the Realm',
-      },
-      {
-        severity: 'warn',
-        text: 'Knights Errant',
-      },
-      {
-        severity: 'warn',
-        text: 'Men At Arms',
-      },
-      {
-        severity: 'warn',
-        text: 'Peasant Bowmen',
-      },
-      {
-        severity: 'warn',
-        text: 'Grail Knights',
-      },
-      {
-        severity: 'warn',
-        text: 'Field Trebuchet',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Vast Intellect - Celestial Apotheosis (trait/spell)', () => {
@@ -1660,7 +1596,7 @@ describe('getWarscrollArmyFromJson', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'CITIES_OF_SIGMAR',
+      factionName: CITIES_OF_SIGMAR,
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,

@@ -1,4 +1,4 @@
-import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/units'
+import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/subfactions/duardin'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,

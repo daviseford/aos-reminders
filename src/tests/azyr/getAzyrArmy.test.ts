@@ -623,10 +623,6 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'warn',
         text: 'Claws of Glor y',
       },
-      {
-        severity: 'warn',
-        text: 'Celestial Swarm',
-      },
     ])
   })
 
@@ -638,10 +634,6 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Claws of Glor y',
-      },
-      {
-        severity: 'warn',
-        text: 'Skink Prophet',
       },
     ])
   })

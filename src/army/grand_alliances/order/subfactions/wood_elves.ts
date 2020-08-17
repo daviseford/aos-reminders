@@ -3,8 +3,6 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -12,22 +10,6 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-
-export const APPRENTICE_RUNESMITH = {
-  name: `Apprentice Runesmith`,
-  effects: [
-    {
-      name: `Overworked`,
-      desc: `Whilst within 5" of a Runelord on Anvil of Doom, this model's Forging Tongs have an Attacks characteristic of 3.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Enthusiastic Young Assistant`,
-      desc: `This model can attempt to unbind one spell in each enemy hero phase as if he were a wizard.`,
-      when: [HERO_PHASE],
-    },
-  ],
-}
 
 const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
   {
@@ -52,122 +34,18 @@ const SoporificBreathEffect = {
   desc: `Enemy units within 3" of this model cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
   when: [COMBAT_PHASE],
 }
-const InfantryHornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
-}
-const DeflectShotsEffect = {
-  name: `Deflect Shots`,
-  desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
-}
 const KindredShieldEffect = {
   name: `Kindred Shield`,
   desc: `Reroll failed save rolls for this model.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
+const LionCloakEffect = {
+  name: `Lion Cloak`,
+  desc: `You can reroll save rolls of 1 for this unit in the shooting phase.`,
+  when: [SHOOTING_PHASE],
+}
 
-export const LegacyOrderUnits: TUnits = [
-  {
-    name: `Battlemage on Pegasus`,
-    effects: [
-      {
-        name: `Amulet of Negation`,
-        desc: `Add 1 to unbinding rolls for this model for each enemy Wizard within 18" of them.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wizard`,
-        desc: `A Battlemage on Pegasus is a wizard. They can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. They know the Arcane Bolt, Mystic Shield and Searing Doom spells.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Doom`,
-        desc: `Casting value of 6. Pick an enemy unit that is visible to the caster and within 18" of them and roll 6 dice. 
-        
-        That unit suffers 1 mortal wound for each dice rolled that is equal to or higher than that unit's Save characteristic (for example, a unit with a save of 4+ would suffer a mortal wound for each dice result that was a 4 or more). 
-        
-        Units with a save of - cannot be affected by this spell.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
-  },
-
-  {
-    name: `Highborn Repeater Bolt Thrower`,
-    effects: [
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit can only move if its Crew are within 1" at the start of the movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `If its Crew are within 1" of the Highborn Repeater Bolt Thrower in the shooting phase, they can fire the war machine.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit cannot make charge moves.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `The Crew are in cover while they are within 1" of their war machine.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Bolt Selection`,
-        desc: `Each time a Highborn Repeater Bolt Thrower is fired in the shooting phase, the crew can load and fire either Ithilmar Bolts or volleys of Repeating Bolts. They cannot load and fire both in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Loremaster`,
-    effects: [
-      DeflectShotsEffect,
-      {
-        name: `Hand of Glory`,
-        desc: `Casting value of 5. Pick a model within 18". Until your next hero phase you can reroll all failed hit rolls and wound rolls for that model.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
-  },
-  {
-    name: `Highborn Archers`,
-    effects: [
-      {
-        name: `Hawkeye`,
-        desc: `The leader of this unit is a Hawkeye. Add 1 to hit rolls for a Hawkeye in the shooting phase.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      InfantryHornblowerEffect,
-      {
-        name: `Aelven Archery`,
-        desc: `Add 1 to hit rolls for this unit in the shooting phase while it has 20 or more models and there are no enemy models within 3" of it.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Storm of Arrows`,
-        desc: `Once per battle, you can declare that this unit will fire a Storm of Arrows in their shooting phase; when you do so, add 1 to the Attacks characteristic of their Silverwood Longbows. This unit cannot fire a Storm of Arrows if there are any enemy models within 3" of it.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
+export const LegacyWoodElvesUnits: TUnits = [
   {
     name: `Avatar of the Hunt`,
     effects: [
@@ -226,16 +104,6 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Starlight Strike`,
         desc: `Add 1 to the Damage characteristic of the Glade Lord's Starlight Spear if this model made a charge move this turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hunting Hounds`,
-    effects: [
-      {
-        name: `Hounds of the Wild Hunt`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Savage Teeth while it is within 6" of any friendly Avatars of the Hunt.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -318,31 +186,6 @@ export const LegacyOrderUnits: TUnits = [
     ],
   },
   {
-    name: `Great Eagles`,
-    effects: [
-      {
-        name: `Death from the Skies`,
-        desc: `Add 2 to the Attacks characteristic of this unit's Beaks and Talons if it made a charge move this turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Soar Away`,
-        desc: `At the end of the combat phase you may declare that this unit will swoop out of combat and soar away as long as there are enemy models within 3" of it. If you do, roll 3D6; the result is how far you can immediately move this unit. The unit must end this move more than 3" from any enemy units - if they are unable to do so then they fail to escape and cannot swoop out of combat and soar away.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Tree Kin`,
-    effects: [
-      {
-        name: `Roused to War`,
-        desc: `Add 1 to hit rolls for this unit's Bludgeoning Branches if it made a charge move this turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
     name: `Warhawk Riders`,
     effects: [
       {
@@ -400,6 +243,43 @@ export const LegacyOrderUnits: TUnits = [
         name: `Banner of the Forests`,
         desc: `In your hero phase, you can declare that this model will plant his standard in the ground. If you do so, you may not move this model until your next hero phase. Roll a D6 for each enemy unit within 10". On a 4+, halve that unit's Move characteristic (rounding up) until the start of your next hero phase.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `White Lion Chariots`,
+    effects: [
+      LionCloakEffect,
+      {
+        name: `Unbridled Ferocity`,
+        desc: `A White Lion Chariot's War Lions make 8 attacks with their Fangs and Claws instead of 4 if this model charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `White Lions`,
+    effects: [
+      {
+        name: `Guardian`,
+        desc: `The leader of this unit is a Guardian. A Guardian makes 3 attacks rather than 2.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Models in this unit may be Hornblowers. You can reroll any dice rolls of 1 when determining how far this unit can run or charge if it includes any Hornblowers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Lion Rangers unit from your army that includes a Standard Bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      LionCloakEffect,
+      {
+        name: `Unflinching Courage`,
+        desc: `Roll a dice each time a White Lion flees; on a 4 or more that model's courage stirs up within him and he returns to the battle - he does not flee.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

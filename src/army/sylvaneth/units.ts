@@ -433,7 +433,7 @@ export const Units: TUnits = [
       },
       {
         name: `Might of Kurnoth`,
-        desc: `Casting value 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
+        desc: `Casting value of 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },

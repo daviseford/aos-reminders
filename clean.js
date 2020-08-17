@@ -17,8 +17,26 @@ const replaceOptions = {
     /(?<!:)(?<=[name|desc|tag]: `.+) +`/g, // Remove trailing whitespaces
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
     /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
+    /R[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "Re - roll" -> "Reroll"
+    /r[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "re-roll" -> "reroll"
   ],
-  to: [`'`, `"`, '-', ' ', '1/2', '', '. ', ': ', ', ', '`', '`', '.`', `Casting value of`],
+  to: [
+    `'`,
+    `"`,
+    '-',
+    ' ',
+    '1/2',
+    '',
+    '. ',
+    ': ',
+    ', ',
+    '`',
+    '`',
+    '.`',
+    `Casting value of`,
+    `Reroll`,
+    `reroll`,
+  ],
 }
 
 /**

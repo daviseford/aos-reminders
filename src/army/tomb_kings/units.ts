@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
@@ -499,11 +500,7 @@ export const Units: TUnits = [
   {
     name: `Screaming Skull Catapult`,
     effects: [
-      {
-        name: `Crewed War Machine`,
-        desc: `A Screaming Skull Catapult can only move if its Crew are within 1" at the start of the movement phase. If its Crew are within 1" of the catapult in the shooting phase, they can fire the war machine. The war machine cannot make charge moves, does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery. The Crew are in cover while they are within 1" of their war machine.`,
-        when: [MOVEMENT_PHASE],
-      },
+      ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
       {
         name: `Arcing Skulls`,
         desc: `This war machine can shoot at targets that are not visible to it.`,
