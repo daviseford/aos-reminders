@@ -209,26 +209,14 @@ const LegacyBretonnianUnits: TUnits = [
   {
     name: `Grail Knights`,
     effects: [
-      {
-        name: `Grail Banner Bearer`,
-        desc: `Models in this unit can be Banner Bearers. You can re-roll battleshock tests for a unit that includes any Grail Banner Bearers if it made a charge move in the same turn.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Trumpeter`,
-        desc: `Models in this unit can be Trumpeters. Roll 3D6 instead of 2D6 when you make a charge roll for a unit that includes any Trumpeters, and then pick two of the dice to determine the result of the roll.`,
-        when: [CHARGE_PHASE],
-      },
+      BannerBearerEffect,
+      TrumpeterEffect,
       {
         name: `Sacred Lances`,
         desc: `Add 1 to the Damage characteristic of this unit's Swords and Sacred Lances if the target of its attacks is a Daemon or Death unit. In addition, add 1 to wound rolls made for, and the Damage characteristic of, this unit's Swords and Sacred Lances if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Knight's Shield`,
-        desc: `In the combat phase, re-roll save rolls of 1 for this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      KnightsShieldEffect,
     ],
   },
 
@@ -327,6 +315,42 @@ const LegacyBretonnianUnits: TUnits = [
       },
       PendantLancesEffect,
       KnightsShieldEffect,
+    ],
+  },
+
+  {
+    name: `Men-at-Arms`,
+    effects: [
+      {
+        name: `Warden`,
+        desc: `The leader of this unit is a Warden. Add 1 to the Attacks characteristic of a Warden's Polearm.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Drummer`,
+        desc: `Models in this unit can be Drummers. Add 1 to charge rolls for this unit if it includes any Drummers.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Trumpeter`,
+        desc: `Models in this unit can be Trumpeters. Add 1 to run rolls for this unit if it includes any Trumpeters.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit can be Standard Bearers. You can re-roll battleshock tests for this unit if it includes any Standard Bearers when the test is taken.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Rowdy Mob`,
+        desc: `Add 1 to hit rolls for this unit if it has 20 models or more when the hit roll is made. Add 2 to hit rolls instead if it has 30 models or more when the hit roll is made.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Tower Shields`,
+        desc: `Add 1 to save rolls for this unit unless it made charge move in the same turn.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
     ],
   },
 
