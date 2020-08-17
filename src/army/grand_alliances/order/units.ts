@@ -4,7 +4,9 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -12,6 +14,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
+  START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
 
@@ -73,6 +76,28 @@ const KnightsShieldEffect = {
   name: `Knight's Shield`,
   desc: `In the combat phase, re- roll save rolls of 1 for this unit if it made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+}
+const BretonnianInfantryBaseEffects = [
+  {
+    name: `Trumpeter`,
+    desc: `Models in this unit can be Trumpeters. Add 1 to run rolls for this unit if it includes any Trumpeters.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Standard Bearer`,
+    desc: `Models in this unit can be Standard Bearers. You can re-roll battleshock tests for this unit if it includes any Standard Bearers when the test is taken.`,
+    when: [BATTLESHOCK_PHASE],
+  },
+]
+const RelicWeaponEffect = {
+  name: `Relic Weapon`,
+  desc: `Add 1 to the Damage characteristic of the Relic Weapon if the target is a Daemon or Death unit.`,
+  when: [COMBAT_PHASE],
+}
+const DrummerEffect = {
+  name: `Drummer`,
+  desc: `Models in this unit can be Drummers. Add 1 to charge rolls for this unit if it includes any Drummers.`,
+  when: [CHARGE_PHASE],
 }
 
 export const MonstrousArcanumOrder: TUnits = [
@@ -326,21 +351,8 @@ const LegacyBretonnianUnits: TUnits = [
         desc: `The leader of this unit is a Warden. Add 1 to the Attacks characteristic of a Warden's Polearm.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Drummer`,
-        desc: `Models in this unit can be Drummers. Add 1 to charge rolls for this unit if it includes any Drummers.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Trumpeter`,
-        desc: `Models in this unit can be Trumpeters. Add 1 to run rolls for this unit if it includes any Trumpeters.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Models in this unit can be Standard Bearers. You can re-roll battleshock tests for this unit if it includes any Standard Bearers when the test is taken.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      DrummerEffect,
+      ...BretonnianInfantryBaseEffects,
       {
         name: `Rowdy Mob`,
         desc: `Add 1 to hit rolls for this unit if it has 20 models or more when the hit roll is made. Add 2 to hit rolls instead if it has 30 models or more when the hit roll is made.`,
@@ -350,6 +362,80 @@ const LegacyBretonnianUnits: TUnits = [
         name: `Tower Shields`,
         desc: `Add 1 to save rolls for this unit unless it made charge move in the same turn.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Mounted Yeomen`,
+    effects: [
+      {
+        name: `Warden`,
+        desc: `The leader of this unit is a Warden. Add 1 to the Attacks characteristic of the Warden's Hunting Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      ...BretonnianInfantryBaseEffects,
+      {
+        name: `Scouts`,
+        desc: `After deployment but before the first battle round, this unit can make a move as if it were the movement phase (though it cannot run).`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Wooden Shields`,
+        desc: `In the combat phase, re- roll save rolls of 1 for this model if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Noble Champion`,
+    effects: [
+      RelicWeaponEffect,
+      {
+        name: `Virtue of Empathy`,
+        desc: `In the battleshock phase, friendly Peasantry units can use this model's Bravery characteristic when they take a battleshock test if they are within 6" of this model when the test is taken.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Noble Standard Bearer`,
+    effects: [
+      RelicWeaponEffect,
+      {
+        name: `Valorous Banner`,
+        desc: `In the battleshock phase, you can re-roll battleshock tests for friendly Nobility units that were within 12" of this model when the test was taken.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: `Peasant Bowmen`,
+    effects: [
+      ...BretonnianInfantryBaseEffects,
+      DrummerEffect,
+      {
+        name: `Arrowstorm`,
+        desc: `Once per battle, at the start of your shooting phase, you can declare that this unit will fire an Arrowstorm. If you do, add 2 to the Attacks characteristics of this unit's Longbows until the end of the phase. Add 3 to the Attacks characteristics instead if this unit has 20 or more models when the Arrowstorm is declared. A unit cannot use this ability if it is within 3" of any enemy units at the start of its shooting phase.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Stakes`,
+        desc: `When you set this unit up, you can declare that it is protecting itself with a barricade of sharpened stakes (you can use the stake models provided with this unit as a reminder of this if you wish). An enemy unit that finishes a charge move within 3" of a unit protected by stakes suffers D3 mortal wounds. The protection of the stakes is lost for the rest of the battle if this unit moves or is attacked by an enemy unit in the combat phase.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Stakes`,
+        desc: `An enemy unit that finishes a charge move within 3" of a unit protected by stakes suffers D3 mortal wounds. The protection of the stakes is lost for the rest of the battle if this unit moves or is attacked by an enemy unit in the combat phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Burning Braziers`,
+        desc: `Re-roll wound rolls of 1 for Longbows used by a unit with burning braziers. The benefit of the burning braziers is lost for the rest of the battle if this unit moves or is attacked by an enemy unit in the combat phase.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
