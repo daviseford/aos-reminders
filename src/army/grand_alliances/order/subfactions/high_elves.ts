@@ -7,9 +7,9 @@ const StandardBearerEffect = {
   desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
 }
-const InfantryHornblowerEffect = {
+const HornblowerEffect = {
   name: `Hornblower`,
-  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
+  desc: `Reroll any dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
 
@@ -17,7 +17,7 @@ export const LegacyHighElvesUnits: TUnits = [
   {
     name: `Highborn Repeater Bolt Thrower`,
     effects: [
-      ...GenericEffects.CrewedWarMachine('War Machine'),
+      ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
       {
         name: `Bolt Selection`,
         desc: `Each time a Highborn Repeater Bolt Thrower is fired in the shooting phase, the crew can load and fire either Ithilmar Bolts or volleys of Repeating Bolts. They cannot load and fire both in the same turn.`,
@@ -35,7 +35,7 @@ export const LegacyHighElvesUnits: TUnits = [
         when: [SHOOTING_PHASE],
       },
       StandardBearerEffect,
-      InfantryHornblowerEffect,
+      HornblowerEffect,
       {
         name: `Aelven Archery`,
         desc: `Add 1 to hit rolls for this unit in the shooting phase while it has 20 or more models and there are no enemy models within 3" of it.`,
@@ -57,7 +57,7 @@ export const LegacyHighElvesUnits: TUnits = [
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      InfantryHornblowerEffect,
+      HornblowerEffect,
       ...GenericEffects.AelvenShield,
       {
         name: `Militia`,
@@ -67,6 +67,24 @@ export const LegacyHighElvesUnits: TUnits = [
       {
         name: `Spear Phalanx`,
         desc: `Reroll hit rolls of 1 for this unit if it did not move in its preceding movement phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Highborn Silver Helms`,
+    effects: [
+      {
+        name: `High Helm`,
+        desc: `The leader of this unit is a High Helm. Add 1 to the Attacks characteristic of the High Helm's Ithilmar Lance and Sword.`,
+        when: [COMBAT_PHASE],
+      },
+      HornblowerEffect,
+      StandardBearerEffect,
+      ...GenericEffects.AelvenShield,
+      {
+        name: `Lance Charge`,
+        desc: `Add 1 to wound rolls for this unit's Ithilmar Lances and Swords and increase the Damage characteristic of the weapons by 1 if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

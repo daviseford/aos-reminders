@@ -41,7 +41,7 @@ const KindredShieldEffect = {
 }
 const LionCloakEffect = {
   name: `Lion Cloak`,
-  desc: `You can re-roll save rolls of 1 for this unit in the shooting phase.`,
+  desc: `You can reroll save rolls of 1 for this unit in the shooting phase.`,
   when: [SHOOTING_PHASE],
 }
 
@@ -267,7 +267,7 @@ export const LegacyWoodElvesUnits: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `Models in this unit may be Hornblowers. You can re-roll any dice rolls of 1 when determining how far this unit can run or charge if it includes any Hornblowers.`,
+        desc: `Models in this unit may be Hornblowers. You can reroll any dice rolls of 1 when determining how far this unit can run or charge if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {

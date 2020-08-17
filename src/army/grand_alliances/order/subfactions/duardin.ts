@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -7,6 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
 export const APPRENTICE_RUNESMITH = {
@@ -107,6 +109,32 @@ export const LegacyDuardinUnits: TUnits = [
       {
         name: `Steam Harpoon`,
         desc: `If a unit of Miners includes a Mining Cart with a Steam Harpoon, and the unit did not move in its movement phase (or arrive on the battlefield using the Underground Advance ability), they can ready the Steam Harpoon and use it as a makeshift weapon. If they do so, one Miner within 1" of the Mining Cart can fire the Steam Harpoon in the shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Grudge Thrower`,
+    effects: [
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
+      {
+        name: `Lobbed Shot`,
+        desc: `A Grudge Thrower can hurl Grudge Rocks at units that are not visible to it.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Settling a Grudge`,
+        desc: `At the start of the first battle round, pick an enemy unit on the battlefield. Reroll failed hit and wound rolls for this Grudge Thrower when it targets that unit.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Settling a Grudge`,
+        desc: `Reroll failed hit and wound rolls for this Grudge Thrower when it targets the unit you chose at the start of the first battle round.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune of Shattering`,
+        desc: `Grudge Rocks have a Damage characteristic of 6 instead of 3 if the target unit has 20 or more models.`,
         when: [SHOOTING_PHASE],
       },
     ],

@@ -5,6 +5,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -47,7 +48,7 @@ export const LegacyOrderUnits: TUnits = [
   {
     name: `Greatcannon`,
     effects: [
-      ...GenericEffects.CrewedWarMachine('Artillery'),
+      ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
       {
         name: `Grapeshot`,
         desc: `Instead of firing a Cannon Ball using the profile above in the shooting phase, the Crew can load their war machine with grapeshot; if they do, then select a target that is visible to the Greatcannon. Roll one dice for each model in the target unit that is within 10" of the Greatcannon; for each roll of a 6, that unit suffers a mortal wound.`,
@@ -82,6 +83,26 @@ export const LegacyOrderUnits: TUnits = [
         name: `Charging Lance`,
         desc: `Add 1 to the wound rolls and Damage characteristic for this unit's Lances and Swords if it charged in the same turn.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Freeguild Archers`,
+    effects: [
+      {
+        name: `Marksman`,
+        desc: `The leader of this unit is a Marksman. Add 1 to the hit rolls for a Marksman using a Bow.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Huntsmen`,
+        desc: `After set-up is complete, you can make a bonus move with this unit as if it were moving in the movement phase.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Ordered Volleys`,
+        desc: `You can reroll hit rolls of 1 for Freeguild Archers in the shooting phase. You can reroll hit rolls of 1 or 2 instead if the unit has 20 or more models, or reroll any failed hit roll if it has 30 or more models.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

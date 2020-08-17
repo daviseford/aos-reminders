@@ -42,29 +42,29 @@ const GenericEffects = {
       when: [SHOOTING_PHASE],
     },
   ],
-  CrewedWarMachine: (title: 'Artillery' | 'War Machine') => [
+  CrewedWarMachine: (name: 'Duardin Artillery' | 'Crewed Artillery' | 'Crewed War Machine') => [
     {
-      name: `Crewed ${title}`,
+      name,
       desc: `This unit can only move if its Crew are within 1" of the war machine at the start of the movement phase.`,
       when: [START_OF_MOVEMENT_PHASE],
     },
     {
-      name: `Crewed ${title}`,
+      name,
       desc: `If this war machine's Crew are within 1" of the war machine in the shooting phase, they can fire the war machine.`,
       when: [SHOOTING_PHASE],
     },
     {
-      name: `Crewed ${title}`,
+      name,
       desc: `The war machine cannot make charge moves.`,
       when: [CHARGE_PHASE],
     },
     {
-      name: `Crewed ${title}`,
+      name,
       desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
       when: [BATTLESHOCK_PHASE],
     },
     {
-      name: `Crewed ${title}`,
+      name,
       desc: `The Crew are in cover while they are within 1" of their war machine.`,
       when: [COMBAT_PHASE, SHOOTING_PHASE],
     },
