@@ -4,8 +4,11 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
+  HERO_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -102,6 +105,51 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Ordered Volleys`,
         desc: `You can reroll hit rolls of 1 for Freeguild Archers in the shooting phase. You can reroll hit rolls of 1 or 2 instead if the unit has 20 or more models, or reroll any failed hit roll if it has 30 or more models.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Celestial Swarm`,
+    effects: [
+      {
+        name: `Swarming Tide`,
+        desc: `In your hero phase, you may heal D3 wounds allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Deadly Venom`,
+        desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Chameleon Skink Stalker`,
+    effects: [
+      {
+        name: `Chameleon Ambush`,
+        desc: `Instead of setting up this model, you can place it to one side and say that it is in hiding.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Chameleon Ambush`,
+        desc: `At the end of your movement phase you can reveal this model by setting it up anywhere on the battlefield, more than 9" from any enemy models.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Disappear from Sight`,
+        desc: `In your hero phase, you can declare that the Skink Stalker will vanish from sight and go into hiding. If it does so, remove this model from the battlefield. You can reveal it as described in the Chameleon Ambush ability in this turn or any subsequent turn.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Flawless Mimicry`,
+        desc: `If this model is within or on a terrain feature, its Save characteristic is 3+ rather than 6+. This includes the bonus for being in cover.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Master Hunter`,
+        desc: `Add 2 to the result of wound rolls for this model's Stalker Blowpipe if it did not move, and was not set up, in the movement phase of the same turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
