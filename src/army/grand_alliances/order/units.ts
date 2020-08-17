@@ -12,7 +12,7 @@ import { LegacyDwarfUnits } from './subfactions/dwarfs'
 import { LegacyEldritchUnits } from './subfactions/eldritch'
 import { LegacyOrderUnits } from './subfactions/misc_legacy_order'
 import { MonstrousArcanumOrder } from './subfactions/monstrous_arcanum'
-import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk'
+import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk_agents'
 
 export const APPRENTICE_RUNESMITH = {
   name: `Apprentice Runesmith`,
