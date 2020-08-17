@@ -90,7 +90,7 @@
     "@types/react-modal": "3.10.6",
     "@types/react-redux": "7.1.9",
     "@types/react-router-dom": "5.1.5",
-    "@types/react-select": "3.0.18",
+    "@types/react-select": "3.0.19",
     "@types/superagent": "4.1.9",
     "@types/webpack-env": "1.15.2",
     "husky": "4.2.5",
