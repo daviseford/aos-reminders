@@ -74,7 +74,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Strength of Purpose`,
-        desc: `Units in this clan can ignore the Etheral save keyword. Also all abilities that negate wounds are ignored whe taking wounds from this clan.`,
+        desc: `Units in this clan can ignore the Ethereal save keyword. Also all abilities that negate wounds are ignored whe taking wounds from this clan.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
