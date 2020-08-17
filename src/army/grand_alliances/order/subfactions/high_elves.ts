@@ -1,6 +1,13 @@
 import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
-import { BATTLESHOCK_PHASE, CHARGE_PHASE, COMBAT_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
 const StandardBearerEffect = {
   name: `Standard Bearer`,
@@ -116,6 +123,27 @@ export const LegacyHighElvesUnits: TUnits = [
         name: `Ancient Dignity`,
         desc: `This unit does not need to take a battleshock test if it is within 16" of any friendly Order Draconis Hero.`,
         when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seawarden`,
+    effects: [
+      {
+        name: `Enchanted Shield`,
+        desc: `Reroll failed save rolls for this model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Sea Drake Pennant`,
+        desc: `A Seawarden with a Sea Drake Pennant gains the Totem keyword. Add 1 to all wound rolls for Highborn units from your army if they are within 8" of a friendly Sea Drake Pennant when they attack.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Stand Fast!`,
+        desc: `If a Seawarden uses this ability, pick a friendly Highborn unit within 16". That unit cannot move or charge this turn, but you can reroll hit rolls, wound rolls and save rolls for it until your next hero phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
       },
     ],
   },

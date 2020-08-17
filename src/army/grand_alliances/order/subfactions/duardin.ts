@@ -2,6 +2,7 @@ import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
@@ -152,6 +153,36 @@ export const LegacyDuardinUnits: TUnits = [
         name: `Rune of Skewering`,
         desc: `Add 1 to wound rolls for Runic Bolts if the target unit has 20 or more models.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warden King on Throne of Power`,
+    effects: [
+      {
+        name: `Ancestral Armour`,
+        desc: `Reroll failed save rolls for this model.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Great Book of Grudges`,
+        desc: `At the start of the first battle round, pick an enemy unit on the battlefield. Reroll failed wound rolls for this model for attacks made against that enemy unit.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Great Book of Grudges`,
+        desc: `Reroll failed wound rolls for this model for attacks made against the enemy unit you chose at the start of the first battle round.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Throne of Power`,
+        desc: `Once per game, in the charge phase, you may reroll one of the dice when determining this unit's charge distance.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Throne of Power`,
+        desc: `Reroll hit rolls of 1 for this unit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
