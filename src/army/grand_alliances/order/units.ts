@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -815,10 +816,35 @@ const LegacyEldritchUnits: TUnits = [
   },
 ]
 
+const LegacyDwarfUnits: TUnits = [
+  {
+    name: `Far-Ranger`,
+    effects: [
+      {
+        name: `Veteran Ranger`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to
+        one side in hiding.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Veteran Ranger`,
+        desc: `At the end of your movement phase you may set this unit up anywhere on the battlefield that is more than 9" from any enemy models.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Heirloom Tankard`,
+        desc: `Once per battle, in your hero phase, you may choose for this model to drink from this tankard to refresh and restore themselves. If you do so, heal D3 wounds that have been allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+]
+
 const LegacyOrderUnits: TUnits = [
-  ...LegacySwifthawkAgentUnits,
   ...LegacyBretonnianUnits,
+  ...LegacyDwarfUnits,
   ...LegacyEldritchUnits,
+  ...LegacySwifthawkAgentUnits,
 
   {
     name: `Highborn Repeater Bolt Thrower`,
