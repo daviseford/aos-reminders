@@ -32,7 +32,7 @@ export const LegacyEmpireUnits: TUnits = [
   {
     name: `Field Mortar`,
     effects: [
-      ...GenericEffects.CrewedWarMachine('Artillery'),
+      ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
       {
         name: `Artillery Barrage`,
         desc: `A Field Mortar can fire Mortar Shells at units that are not visible to it.`,
