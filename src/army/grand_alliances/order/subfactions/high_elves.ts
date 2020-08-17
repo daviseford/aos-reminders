@@ -19,6 +19,11 @@ const HornblowerEffect = {
   desc: `Reroll any dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
+const EnchantedShieldEffect = {
+  name: `Enchanted Shield`,
+  desc: `Reroll failed save rolls for this model.`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
+}
 
 export const LegacyHighElvesUnits: TUnits = [
   {
@@ -129,11 +134,7 @@ export const LegacyHighElvesUnits: TUnits = [
   {
     name: `Seawarden`,
     effects: [
-      {
-        name: `Enchanted Shield`,
-        desc: `Reroll failed save rolls for this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      EnchantedShieldEffect,
       {
         name: `Sea Drake Pennant`,
         desc: `A Seawarden with a Sea Drake Pennant gains the Totem keyword. Add 1 to all wound rolls for Highborn units from your army if they are within 8" of a friendly Sea Drake Pennant when they attack.`,
@@ -142,6 +143,56 @@ export const LegacyHighElvesUnits: TUnits = [
       {
         name: `Stand Fast!`,
         desc: `If a Seawarden uses this ability, pick a friendly Highborn unit within 16". That unit cannot move or charge this turn, but you can reroll hit rolls, wound rolls and save rolls for it until your next hero phase.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Dragon Noble`,
+    effects: [
+      {
+        name: `Aelven Purebred`,
+        desc: `Some Dragon Nobles ride to battle on Aelven Purebreeds; these models have Move 12" instead of 6" and gain the steed's lthilmar- shod Hooves attack.`,
+        when: [MOVEMENT_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Phoenix Banner`,
+        desc: `A Noble with a Phoenix Banner gains the Totem keyword. You can reroll any dice when determining the charge distance for Order Draconis units from your army if they are within 16" of this model when they charge.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Star Lance`,
+        desc: `Add 1 to the wound rolls and Damage of a Star Lance if the Dragon Noble charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      EnchantedShieldEffect,
+      {
+        name: `Might of the Dragon`,
+        desc: `If a Noble uses this ability, pick a Order Draconis unit within 16". Until your next hero phase you can reroll all failed hit rolls for that unit.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Dragonlord`,
+    effects: [
+      {
+        name: `Dragon Lance`,
+        desc: `Add 1 to the wound rolls and Damage of a Dragon Lance if the Dragonlord charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Aelven War Horn`,
+        desc: `Once per game, in your hero phase, a Dragonlord with an Aelven War Horn can blow it to sound the attack. When he does so, all models in Order Draconis units from your army within 10" of this model when they attack in your next combat phase make one extra attack with each of their melee weapons.`,
+        when: [HERO_PHASE],
+      },
+      EnchantedShieldEffect,
+      GenericEffects.Dragonfire,
+      {
+        name: `Lord of Dragons`,
+        desc: `If a Dragonlord uses this ability, then until your next hero phase you can reroll failed hit rolls for any Order Draconis unit from your army that is within 10" when it attacks in the combat phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },

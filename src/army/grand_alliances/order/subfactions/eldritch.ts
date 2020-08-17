@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -12,11 +13,6 @@ const TalismanOfArcanePowerEffect = {
   name: `Talisman of Arcane Power`,
   desc: `You can add 1 to any unbinding rolls for an Archmage with a Talisman of Arcane Power.`,
   when: [HERO_PHASE],
-}
-const DragonfireEffect = {
-  name: `Dragonfire`,
-  desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a dice; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,
-  when: [SHOOTING_PHASE],
 }
 const InfantryHornblowerEffect = {
   name: `Hornblower`,
@@ -80,7 +76,7 @@ export const LegacyEldritchUnits: TUnits = [
     name: `Archmage on Dragon`,
     effects: [
       TalismanOfArcanePowerEffect,
-      DragonfireEffect,
+      GenericEffects.Dragonfire,
       {
         name: `Wizard`,
         desc: `An Archmage on Dragon is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. An Archmage with an Arcane Tome can attempt to cast two different spells in each of your hero phases instead of just one, and attempt to unbind two spells in each enemy hero phase. An Archmage on Dragon knows the Arcane Bolt, Mystic Shield and Drain Magic spells.`,
@@ -103,7 +99,7 @@ export const LegacyEldritchUnits: TUnits = [
         desc: `A Drakeseer makes 3 attacks with his Sunstaff instead of 1 if he charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      DragonfireEffect,
+      GenericEffects.Dragonfire,
       {
         name: `Wizard`,
         desc: `A Drakeseer is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield, and Flames of the Phoenix spells.`,

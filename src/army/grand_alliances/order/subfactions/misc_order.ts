@@ -9,9 +9,16 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
+
+const DeadlyVenomEffect = {
+  name: `Deadly Venom`,
+  desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+}
 
 export const LegacyOrderUnits: TUnits = [
   {
@@ -118,11 +125,7 @@ export const LegacyOrderUnits: TUnits = [
         desc: `In your hero phase, you may heal D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Deadly Venom`,
-        desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      DeadlyVenomEffect,
     ],
   },
   {
@@ -155,7 +158,6 @@ export const LegacyOrderUnits: TUnits = [
       },
     ],
   },
-
   {
     name: `Witch Hunter`,
     effects: [
@@ -214,6 +216,32 @@ export const LegacyOrderUnits: TUnits = [
 
         Holy Fervour: Until your next hero phase, you can add 1 to the unit's run rolls, charge rolls, and hit rolls in the combat phase.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skink Prophet`,
+    effects: [
+      DeadlyVenomEffect,
+      {
+        name: `Priestly Rites`,
+        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can reroll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skink Chief`,
+    effects: [
+      {
+        name: `Marked for Greatness`,
+        desc: `You can reroll a single dice for this model in each phase.`,
+        when: [HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE, COMBAT_PHASE, BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Star-buckler`,
+        desc: `When making save rolls for this model, ignore the attacking weapon's Rend characteristic unless it is -2 or better.`,
+        when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
     ],
   },

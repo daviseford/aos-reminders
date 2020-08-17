@@ -186,4 +186,23 @@ export const LegacyDuardinUnits: TUnits = [
       },
     ],
   },
+  {
+    name: `Thane with Battle Standard`,
+    effects: [
+      {
+        name: `Honour of the Clan`,
+        desc: `Reroll failed hit rolls when attacking with this model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ancestral Rune Standard`,
+        desc: `In your hero phase, you can declare that this model will plant his Runic Standard. If you do, you may not move this model until your next hero phase, but until then he gains the following abilities:
+
+        Defiance of the Ancestors: Reroll failed save rolls for this model.
+
+        Rune of Spellbreaking: Subtract 2 from casting rolls for all enemy Wizards that are within 16" of an Ancestral Rune Standard.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
