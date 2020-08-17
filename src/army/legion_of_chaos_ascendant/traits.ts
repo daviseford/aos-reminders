@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Infernal Charge`,
-        desc: `You can re-roll charge rolls made for any friendly Chaos Ascendant Daemon units wholly within 12" of this general.`,
+        desc: `You can reroll charge rolls made for any friendly Chaos Ascendant Daemon units wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],

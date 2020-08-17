@@ -19,12 +19,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Mystic Shield`,
-        desc: `Casting value of 6. Pick a friendly unit within 18" of the caster that is visible to them. Re-roll save rolls of 1 for that unit until your next hero phase.`,
+        desc: `Casting value of 6. Pick a friendly unit within 18" of the caster that is visible to them. Reroll save rolls of 1 for that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Mystic Shield`,
-        desc: `Re-roll save rolls of 1 for that unit until your next hero phase.`,
+        desc: `Reroll save rolls of 1 for that unit until your next hero phase.`,
         when: [DURING_GAME],
       },
     ],

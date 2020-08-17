@@ -16,7 +16,7 @@ const Abilities: TAbilities = [
 
       Ritual of Erosion: Until your next hero phase, enemy units do not receive any benefit for being in cover.
 
-      Ritual of Rousing: Heal 1 wound allocated to each friendly EIDOLON on the battlefield. In addition, you can re-roll failed hit rolls and casting rolls for friendly EIDOLONS until your next hero phase.
+      Ritual of Rousing: Heal 1 wound allocated to each friendly EIDOLON on the battlefield. In addition, you can reroll failed hit rolls and casting rolls for friendly EIDOLONS until your next hero phase.
 
       Ritual of the Tempest: Until your next hero phase, enemy models cannot fly.`,
     when: [START_OF_HERO_PHASE],

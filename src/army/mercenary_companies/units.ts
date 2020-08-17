@@ -56,7 +56,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Sibling Rivalry`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by a unit from this mercenary company that is within 6" of 1 other unit from the same mercenary company. You can instead re-roll all hit rolls for attacks made by a unit from this mercenary company that is within 6" of 2 other units from the same mercenary company.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by a unit from this mercenary company that is within 6" of 1 other unit from the same mercenary company. You can instead reroll all hit rolls for attacks made by a unit from this mercenary company that is within 6" of 2 other units from the same mercenary company.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -106,7 +106,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Hungry Beyond Reason`,
-        desc: `You can re-roll charge rolls for units from this mercenary company. However, if a unit from this mercenary company is within 12" of the enemy at the start of its charge phase, it must attempt to charge, and must make a charge move if it is possible for it to do so.`,
+        desc: `You can reroll charge rolls for units from this mercenary company. However, if a unit from this mercenary company is within 12" of the enemy at the start of its charge phase, it must attempt to charge, and must make a charge move if it is possible for it to do so.`,
         when: [CHARGE_PHASE],
       },
     ],

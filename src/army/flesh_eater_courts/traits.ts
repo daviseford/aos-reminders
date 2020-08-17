@@ -26,7 +26,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `The Royal Hunt (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 and wound rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a MONSTER.`,
+        desc: `You can reroll hit rolls of 1 and wound rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a MONSTER.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -46,7 +46,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `A Matter of Honour (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a HERO. If the target is a general, you can re-roll wound rolls of 1 as well.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a HERO. If the target is a general, you can reroll wound rolls of 1 as well.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -56,7 +56,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `The Grand Tournament (Delusion)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS HEROES other than your general.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS HEROES other than your general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -66,7 +66,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Defenders of the Realm (Delusion)`,
-        desc: `You can re-roll save rolls of 1 for friendly FLESH- EATER COURTS units that have at least half their models wholly within their own territory.`,
+        desc: `You can reroll save rolls of 1 for friendly FLESH- EATER COURTS units that have at least half their models wholly within their own territory.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -76,7 +76,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bringer of Death (Royalty)`,
-        desc: `You can re-roll wound rolls for attacks made by this general.`,
+        desc: `You can reroll wound rolls for attacks made by this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -86,7 +86,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Frenzied Flesh-eater (Royalty)`,
-        desc: `You can re-roll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
+        desc: `You can reroll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -136,7 +136,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Bringer of Death (Nobility)`,
-        desc: `You can re-roll wound rolls for attacks made by this general.`,
+        desc: `You can reroll wound rolls for attacks made by this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -146,7 +146,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Frenzied Flesh-eater (Nobility)`,
-        desc: `You can re-roll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
+        desc: `You can reroll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -176,7 +176,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Cruel Taskmaster (Nobility)`,
-        desc: `If this general uses a Muster ability you can re-roll the dice for this general that determine if slain models are returned to units (you must re-roll all of the dice).`,
+        desc: `If this general uses a Muster ability you can reroll the dice for this general that determine if slain models are returned to units (you must reroll all of the dice).`,
         when: [HERO_PHASE],
       },
     ],
@@ -236,7 +236,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Gruesome Bite (Terrorgheist Trait)`,
-        desc: `You can re-roll failed hit rolls for attacks made with this mount's Fanged Maw.`,
+        desc: `You can reroll failed hit rolls for attacks made with this mount's Fanged Maw.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -276,7 +276,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Baneful Breath (Zombie Dragon Trait)`,
-        desc: `You can re-roll wound rolls for attacks made with this model's Pestilential Breath.`,
+        desc: `You can reroll wound rolls for attacks made with this model's Pestilential Breath.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -296,7 +296,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Necrotic Fangs (Zombie Dragon Trait)`,
-        desc: `You can re-roll the Damage characteristic roll for this model's Snapping Maw.`,
+        desc: `You can reroll the Damage characteristic roll for this model's Snapping Maw.`,
         when: [COMBAT_PHASE],
       },
     ],

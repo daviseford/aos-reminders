@@ -27,7 +27,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Live to Fight`,
-        desc: `You can re-roll wound rolls for attacks made by this general and their mount if they charged in the same turn.`,
+        desc: `You can reroll wound rolls for attacks made by this general and their mount if they charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

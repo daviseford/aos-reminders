@@ -31,7 +31,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dominator`,
-        desc: `You can re-roll charge rolls made for friendly ALLHERD units wholly within 18" of this general if this general is within 3" of any enemy units.`,
+        desc: `You can reroll charge rolls made for friendly ALLHERD units wholly within 18" of this general if this general is within 3" of any enemy units.`,
         when: [CHARGE_PHASE],
         command_trait: true,
       },

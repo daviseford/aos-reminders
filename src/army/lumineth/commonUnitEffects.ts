@@ -48,7 +48,7 @@ export const alarithSpiritExtraAttackCommandAbilityEffect = (
 
 export const StandardBearerEffect = {
   name: `Standard Bearer`,
-  desc: `You can re-roll battleshock tests for units that include any Standard Bearers.`,
+  desc: `You can reroll battleshock tests for units that include any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
 }
 

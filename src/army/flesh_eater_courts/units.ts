@@ -26,7 +26,7 @@ const RoyalBloodEffect = {
 }
 const ChosenOfTheKingEffect = {
   name: `Chosen of the King`,
-  desc: `You can re-roll hit rolls for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANT.`,
+  desc: `You can reroll hit rolls for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANT.`,
   when: [COMBAT_PHASE],
 }
 
@@ -82,7 +82,7 @@ export const Units: TUnits = [
       ...GenericEffects.ZombieDragon,
       {
         name: `Malefic Hunger`,
-        desc: `Casting value of 6. Until your next hero phase you can re-roll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        desc: `Casting value of 6. Until your next hero phase you can reroll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         spell: true,
       },
@@ -140,7 +140,7 @@ export const Units: TUnits = [
       },
       {
         name: `Feed on Dark Magic`,
-        desc: `If a friendly ABHORRANT within 18" of this model successfully casts a spell, and it is not unbound, you can re-roll hit rolls for this model until the start of your next hero phase.`,
+        desc: `If a friendly ABHORRANT within 18" of this model successfully casts a spell, and it is not unbound, you can reroll hit rolls for this model until the start of your next hero phase.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -187,7 +187,7 @@ export const Units: TUnits = [
       },
       {
         name: `Royal Approval`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANTS.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANTS.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -283,7 +283,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Loyal Subjects`,
-        desc: `You can re-roll hit rolls for attacks made by models from this battalion if your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING and has not been slain.`,
+        desc: `You can reroll hit rolls for attacks made by models from this battalion if your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING and has not been slain.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -363,7 +363,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Arcasanctorian Guard`,
-        desc: `Units from this battalion re-roll failed charges and do not take battleshock tests.`,
+        desc: `Units from this battalion reroll failed charges and do not take battleshock tests.`,
         when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
       },
     ],

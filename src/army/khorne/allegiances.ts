@@ -47,7 +47,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Slay the Mighty`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by friendly BLOODLORDS DAEMON units that target a HERO or MONSTER.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by friendly BLOODLORDS DAEMON units that target a HERO or MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         allegiance_ability: true,
       },
@@ -65,7 +65,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Slaughterer's Thirst`,
-        desc: `You can re-roll charge rolls for this general.`,
+        desc: `You can reroll charge rolls for this general.`,
         when: [CHARGE_PHASE],
         command_trait: true,
       },
@@ -82,7 +82,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Tireless Conquerors`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly GORETIDE MORTAL units wholly within 12" of an objective marker.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly GORETIDE MORTAL units wholly within 12" of an objective marker.`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },
@@ -111,13 +111,13 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Skull Hunters`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKULLFIEND TRIBE MORTAL units that are wholly within 12" of an enemy HERO.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly SKULLFIEND TRIBE MORTAL units that are wholly within 12" of an enemy HERO.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         allegiance_ability: true,
       },
       {
         name: `For the Brass Citadel`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can re-roll hit and wound rolls for attacks made by friendly SKULLFIEND TRIBE KHORGORATH units wholly within 10" of that model.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can reroll hit and wound rolls for attacks made by friendly SKULLFIEND TRIBE KHORGORATH units wholly within 10" of that model.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -156,7 +156,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Vessel of Butchery`,
-        desc: `You can re-roll prayer rolls of 1 for friendly Flayed priests wholly within 8" of this general.`,
+        desc: `You can reroll prayer rolls of 1 for friendly Flayed priests wholly within 8" of this general.`,
         when: [HERO_PHASE],
         command_trait: true,
       },

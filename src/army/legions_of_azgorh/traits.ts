@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Contemptuous`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by this general.`,
         when: [COMBAT_PHASE],
       },
     ],

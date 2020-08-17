@@ -114,12 +114,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Blessing of Khaine`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, re-roll failed Fanatical Faith rolls for that unit.`,
+        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, reroll failed Fanatical Faith rolls for that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Blessing of Khaine`,
-        desc: `If in effect, re-roll failed Fanatical Faith rolls for buffed unit.`,
+        desc: `If in effect, reroll failed Fanatical Faith rolls for buffed unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

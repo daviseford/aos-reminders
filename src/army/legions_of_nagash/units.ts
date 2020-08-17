@@ -147,7 +147,7 @@ export const Units: TUnits = [
       },
       {
         name: `Supreme Lord of Death`,
-        desc: `If Nagash uses this ability, then until your next hero phase you can re-roll hit and save rolls of 1 for all friendly DEATH units. In addition, do not take battleshock tests for DEATH units affected by this ability.`,
+        desc: `If Nagash uses this ability, then until your next hero phase you can reroll hit and save rolls of 1 for all friendly DEATH units. In addition, do not take battleshock tests for DEATH units affected by this ability.`,
         when: [HERO_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -226,7 +226,7 @@ export const Units: TUnits = [
       },
       {
         name: `Vigour of Undeath`,
-        desc: `If Mannfred uses this ability, then until your next hero phase you can re-roll hit and wound rolls of 1 for friendly DEATH units that are within the range shown on the damage table.`,
+        desc: `If Mannfred uses this ability, then until your next hero phase you can reroll hit and wound rolls of 1 for friendly DEATH units that are within the range shown on the damage table.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -362,7 +362,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dread Knight`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Until your next hero phase, you can re-roll failed hit rolls for that unit.`,
+        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Until your next hero phase, you can reroll failed hit rolls for that unit.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -498,7 +498,7 @@ export const Units: TUnits = [
       },
       {
         name: `Scrying Pool`,
-        desc: `Once per game, you can re-roll a single dice roll of your choice for this model.`,
+        desc: `Once per game, you can reroll a single dice roll of your choice for this model.`,
         when: [DURING_GAME],
       },
       // Does not fit with generic TheHungerEffect because of the HERO specification
@@ -521,7 +521,7 @@ export const Units: TUnits = [
       },
       {
         name: `Tactical Insight`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 12" of it. You can re-roll hit, wound and save rolls of 1 for that unit until your next hero phase.`,
+        desc: `If this model uses this ability, pick a friendly DEATH unit within 12" of it. You can reroll hit, wound and save rolls of 1 for that unit until your next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -606,7 +606,7 @@ export const Units: TUnits = [
       },
       {
         name: `Locus of Undeath`,
-        desc: `Whilst it is within 6" of this model, you can re-roll the dice to determine how many wounds are healed on a friendly DEATH unit picked as a target of a Deathly Invocation ability.`,
+        desc: `Whilst it is within 6" of this model, you can reroll the dice to determine how many wounds are healed on a friendly DEATH unit picked as a target of a Deathly Invocation ability.`,
         when: [START_OF_HERO_PHASE],
       },
       CryptSwordEffect,
@@ -745,7 +745,7 @@ export const Units: TUnits = [
       },
       {
         name: `Frightening Speed`,
-        desc: `You can re-roll charge rolls for this unit.`,
+        desc: `You can reroll charge rolls for this unit.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -760,7 +760,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reaped Like Corn`,
-        desc: `If the target unit has 5 or more models, you can re-roll failed hit rolls for the Cairn Wraith's Reaper Scythe.`,
+        desc: `If the target unit has 5 or more models, you can reroll failed hit rolls for the Cairn Wraith's Reaper Scythe.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -874,7 +874,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `In the Shadow of the Keep`,
-        desc: `Whilst they are within 15" of the battlefield edge picked as described in the Shifting Keep ability above, you can re-roll failed hit rolls for the Templar Lances or Blades used by units of Blood Knights in this battalion.`,
+        desc: `Whilst they are within 15" of the battlefield edge picked as described in the Shifting Keep ability above, you can reroll failed hit rolls for the Templar Lances or Blades used by units of Blood Knights in this battalion.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -884,7 +884,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `The Adevore`,
-        desc: `Whilst she is within 9" of this battalion's Bloodseeker Palanquin, you may re-roll failed hit rolls for Neferata if the target is an enemy HERO.`,
+        desc: `Whilst she is within 9" of this battalion's Bloodseeker Palanquin, you may reroll failed hit rolls for Neferata if the target is an enemy HERO.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -904,7 +904,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Call of the Night`,
-        desc: `If Mannfred uses his Deathly Invocation ability on any Skeleton Warriors unit from the Nightfall Pack, you may re-roll the D3 result for that unit.`,
+        desc: `If Mannfred uses his Deathly Invocation ability on any Skeleton Warriors unit from the Nightfall Pack, you may reroll the D3 result for that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

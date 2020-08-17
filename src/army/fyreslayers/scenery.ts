@@ -17,7 +17,7 @@ const Scenery: TScenery = [
       },
       {
         name: `Spending the Forge`,
-        desc: `Once per battle, at the start of your hero phase, 1 friendly FYRESLAYERS Priest within 6" of the Magmic Battleforge can spend all of the forge's energy. If they do so, until the start of your next hero phase, you can re-roll save rolls of 1 for friendly FYRESLAYERS units on the battlefield. Once spent, you can no longer use any features from the forge.
+        desc: `Once per battle, at the start of your hero phase, 1 friendly FYRESLAYERS Priest within 6" of the Magmic Battleforge can spend all of the forge's energy. If they do so, until the start of your next hero phase, you can reroll save rolls of 1 for friendly FYRESLAYERS units on the battlefield. Once spent, you can no longer use any features from the forge.
 
         You cannot use the Molten Blessing ability and the Spending the Forge ability for the same Magmic Battleforge in the same phase.`,
         when: [START_OF_HERO_PHASE],

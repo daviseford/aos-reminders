@@ -19,7 +19,7 @@ import {
 const AuricRunesonEffects = [
   {
     name: `Vying for Glory`,
-    desc: `You can re-roll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
+    desc: `You can reroll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
   },
   {
@@ -62,12 +62,12 @@ const BerserkFuryEffect = {
 }
 const FyresteelHandaxesEffect = {
   name: `Fyresteel Handaxes`,
-  desc: `You can re-roll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
+  desc: `You can reroll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
   when: [COMBAT_PHASE],
 }
 const RunicEmpowermentEffect = {
   name: `Runic Empowerment`,
-  desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can re-roll wound rolls for attacks made by that unit until the start of your next hero phase.`,
+  desc: `Make a prayer roll by rolling a dice. On a 3+ the prayer is answered, pick a friendly FYRESLAYERS unit wholly within 12" of this model, or wholly within 18" of this model if this model is armed with a Forge Key. You can reroll wound rolls for attacks made by that unit until the start of your next hero phase.`,
   when: [START_OF_HERO_PHASE],
 }
 
@@ -206,7 +206,7 @@ export const Units: TUnits = [
       },
       {
         name: `None Shall Defile the Icon`,
-        desc: `If this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can re-roll hit and wound rolls for attacks made with melee weapons by that unit.`,
+        desc: `If this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can reroll hit and wound rolls for attacks made with melee weapons by that unit.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -216,7 +216,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Holy Seeker`,
-        desc: `Pick 1 enemy unit within 12" of this model and roll 2 dice. If you roll at least one 6, for the rest of the battle, you can re-roll hit rolls of 1 for attacks made by friendly Fyreslayers units that target that unit. If you roll two or more 6s, for the rest of the battle, you can re-roll hit and wound rolls of 1 for attacks made by friendly FYRESLAYERS units that target that unit instead.`,
+        desc: `Pick 1 enemy unit within 12" of this model and roll 2 dice. If you roll at least one 6, for the rest of the battle, you can reroll hit rolls of 1 for attacks made by friendly Fyreslayers units that target that unit. If you roll two or more 6s, for the rest of the battle, you can reroll hit and wound rolls of 1 for attacks made by friendly FYRESLAYERS units that target that unit instead.`,
         when: [HERO_PHASE],
       },
       {
@@ -333,7 +333,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ancestral Fury`,
-        desc: `You can add 1 to hit rolls made with melee weapons by units in this battalion. In addition, if the target is a CHAOS unit, you can re-roll wound rolls of 1 for melee attacks.`,
+        desc: `You can add 1 to hit rolls made with melee weapons by units in this battalion. In addition, if the target is a CHAOS unit, you can reroll wound rolls of 1 for melee attacks.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Hatred of the Living`,
-        desc: `You can re-roll failed hit rolls for attacks made with this general's melee weapons unless the target has the DEATH keyword.`,
+        desc: `You can reroll failed hit rolls for attacks made with this general's melee weapons unless the target has the DEATH keyword.`,
         when: [COMBAT_PHASE],
       },
     ],

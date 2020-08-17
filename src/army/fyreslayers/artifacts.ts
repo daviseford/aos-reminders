@@ -66,7 +66,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Axe of Grimnir`,
-        desc: `You can re-roll hit rolls for attacks.`,
+        desc: `You can reroll hit rolls for attacks.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -96,7 +96,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rune of Blazing Fury`,
-        desc: `Once per battle, you can awaken this rune. If you do so re-roll hit and wound rolls made by the bearer until the end of that phase.`,
+        desc: `Once per battle, you can awaken this rune. If you do so reroll hit and wound rolls made by the bearer until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -156,7 +156,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Droth-helm`,
-        desc: `You can re-roll hit rolls for attacks made with Claws and Horns by friendly MAGMADROTH units within 6" of the bearer.`,
+        desc: `You can reroll hit rolls for attacks made with Claws and Horns by friendly MAGMADROTH units within 6" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

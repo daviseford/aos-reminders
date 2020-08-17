@@ -65,7 +65,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Heart of the Gargant (Royal Treasury)`,
-        desc: `Once per battle, at the start of the combat phase, the bearer can use this artifact. If they do so, you can re-roll failed wound rolls for the bearer and their mount in that phase.`,
+        desc: `Once per battle, at the start of the combat phase, the bearer can use this artifact. If they do so, you can reroll failed wound rolls for the bearer and their mount in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -95,7 +95,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Flayed Pennant (Noble Heirlooms)`,
-        desc: `You can re-roll charge rolls for friendly FLESH- EATER COURTS units wholly within 12" of the bearer.`,
+        desc: `You can reroll charge rolls for friendly FLESH- EATER COURTS units wholly within 12" of the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],

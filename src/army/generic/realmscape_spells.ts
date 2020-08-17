@@ -69,12 +69,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Purity of Defence (${HYSH})`,
-        desc: `Casting value of 5. Pick 1 friendly unit wholly within 12" of the caster and visible to them. You can re-roll save rolls of 1 for attacks that target that unit until the start of you next hero phase.`,
+        desc: `Casting value of 5. Pick 1 friendly unit wholly within 12" of the caster and visible to them. You can reroll save rolls of 1 for attacks that target that unit until the start of you next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Purity of Defence (${HYSH})`,
-        desc: `If active, you can re-roll save rolls of 1 for attacks that target the buffed unit.`,
+        desc: `If active, you can reroll save rolls of 1 for attacks that target the buffed unit.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

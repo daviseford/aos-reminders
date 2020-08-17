@@ -143,7 +143,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blade of Corruption (Pestilens)`,
-        desc: `Pick 1 of the bearer's melee weapons. You can re-roll wound rolls for attacks made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. You can reroll wound rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -183,12 +183,12 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Add 2" to the bearer's Move characteristic. In addition, you can re-roll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
+        desc: `Add 2" to the bearer's Move characteristic. In addition, you can reroll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `You can re-roll hit rolls for attacks made by the bearer.`,
+        desc: `You can reroll hit rolls for attacks made by the bearer.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -223,7 +223,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Shield of Distraction (Verminus)`,
-        desc: `Re-roll save rolls of 1 for attacks that target the bearer.`,
+        desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
         when: [DURING_GAME],
       },
       {
@@ -248,7 +248,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Flaypelt Cloak (Verminus)`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made with melee weapons by the bearer.`,
+        desc: `You can reroll hit and wound rolls of 1 for attacks made with melee weapons by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -258,7 +258,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rustcursed Armour (Verminus)`,
-        desc: `Re-roll save rolls of 1 for attacks that target the bearer.`,
+        desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
         when: [DURING_GAME],
       },
       {
@@ -323,7 +323,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Rabid Crown (Moulder)`,
-        desc: `You can re-roll wound rolls for attacks made by friendly CLANS MOULDER PACK units while they are wholly within 13" of the bearer.`,
+        desc: `You can reroll wound rolls for attacks made by friendly CLANS MOULDER PACK units while they are wholly within 13" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -18,7 +18,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Predator's Torc (${GHUR})`,
-        desc: `You can re-roll charge rolls for the bearer.`,
+        desc: `You can reroll charge rolls for the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -48,7 +48,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Gravesand Brooch (${SHYISH})`,
-        desc: `You can re-roll save rolls of 1 for attacks that target the bearer,`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer,`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -58,7 +58,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Syari Trueblade (${HYSH})`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with a melee weapon by the bearer.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with a melee weapon by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -68,7 +68,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Trickster's Foil (${ULGU})`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with a melee weapon by the bearer.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with a melee weapon by the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],

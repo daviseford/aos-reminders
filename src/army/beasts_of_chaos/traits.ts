@@ -39,7 +39,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Apex Predator (Brayherd)`,
-        desc: `Re-roll wound rolls of 1 for attacks made by this general.`,
+        desc: `Reroll wound rolls of 1 for attacks made by this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -79,7 +79,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Eater of Heroes (Warherd)`,
-        desc: `You can re-roll failed hit rolls for attacks made by this general that target an enemy HERO.`,
+        desc: `You can reroll failed hit rolls for attacks made by this general that target an enemy HERO.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -89,7 +89,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Rampant Juggernaut (Warherd)`,
-        desc: `You can re-roll charge rolls made for friendly WARHERD units wholly within 12" of this general.`,
+        desc: `You can reroll charge rolls made for friendly WARHERD units wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -139,7 +139,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Tempestuous Tyrant (Thunderscorn)`,
-        desc: `You can re-roll failed wound rolls for attacks made by this general that target a MONSTER.`,
+        desc: `You can reroll failed wound rolls for attacks made by this general that target a MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -159,7 +159,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Father of the Storm (Thunderscorn)`,
-        desc: `When you use the Creatures of the Storm battle trait, you can re-roll the dice that determines how far units can move if this general is on the battlefield.`,
+        desc: `When you use the Creatures of the Storm battle trait, you can reroll the dice that determines how far units can move if this general is on the battlefield.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

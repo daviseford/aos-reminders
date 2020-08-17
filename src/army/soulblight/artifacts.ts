@@ -44,7 +44,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Sigil of the Sanguine Throne`,
-        desc: `Once per charge phase, you can re-roll a failed charge roll made for a friendly VAMPIRE unit within 12" of the bearer.`,
+        desc: `Once per charge phase, you can reroll a failed charge roll made for a friendly VAMPIRE unit within 12" of the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],

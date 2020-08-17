@@ -38,7 +38,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -53,12 +53,12 @@ export const Units: TUnits = [
       },
       {
         name: `Deepwood Shield`,
-        desc: `You can re-roll any failed save rolls for a Nomad Prince.`,
+        desc: `You can reroll any failed save rolls for a Nomad Prince.`,
         when: [DURING_GAME],
       },
       {
         name: `Lord of the Deepwood Host`,
-        desc: `If a Nomad Prince uses this ability, then until your next hero phase you can re-roll all hit rolls of 1 for Wanderer units from your army that are within 8" of him when they attack.`,
+        desc: `If a Nomad Prince uses this ability, then until your next hero phase you can reroll all hit rolls of 1 for Wanderer units from your army that are within 8" of him when they attack.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -153,7 +153,7 @@ export const Units: TUnits = [
       },
       {
         name: `Glade Shields`,
-        desc: `You can re-roll failed save rolls of 1 for a unit with Glade Shields. You can re-roll failed save rolls of 1 or 2 instead if a unit with Glade Shields is in cover.`,
+        desc: `You can reroll failed save rolls of 1 for a unit with Glade Shields. You can reroll failed save rolls of 1 or 2 instead if a unit with Glade Shields is in cover.`,
         when: [DURING_GAME],
       },
       {
@@ -168,7 +168,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -183,7 +183,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shield of Thorns`,
-        desc: `Casting value of 6. Pick a unit within 18". You can re-roll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
+        desc: `Casting value of 6. Pick a unit within 18". You can reroll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -199,7 +199,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -244,7 +244,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -274,7 +274,7 @@ export const Units: TUnits = [
       },
       {
         name: `Hornblower`,
-        desc: `You can re-roll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE],
       },
     ],

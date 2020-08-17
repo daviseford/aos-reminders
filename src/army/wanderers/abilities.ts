@@ -5,7 +5,7 @@ import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_MOVEMENT_PHASE } from 'types/p
 const Abilities: TAbilities = [
   {
     name: `Defiant Hunters`,
-    desc: `You can re-roll battleshock tests for friendly WANDERERS units.`,
+    desc: `You can reroll battleshock tests for friendly WANDERERS units.`,
     when: [BATTLESHOCK_PHASE],
   },
   {

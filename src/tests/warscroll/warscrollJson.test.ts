@@ -38,6 +38,13 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
+  xit('should correctly read 1597625107867-Warscroll_Builder', () => {
+    const parsedText = getFile('1597625107867-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1597360547744-Warscroll_Builder', () => {
     const parsedText = getFile('1597360547744-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -58,14 +65,14 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1594377130100-Warscroll_Builder', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO
+  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1594377962081-Warscroll_Builder', () => {
     const parsedText = getFile('1594377962081-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -97,9 +104,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: Add Swifthawk Agents as a faction or allegiance
-  // https://github.com/daviseford/aos-reminders/issues/992
-  xit('should correctly read 1597072426756-Warscroll_Builder', () => {
+  it('should correctly read 1597072426756-Warscroll_Builder', () => {
     const parsedText = getFile('1597072426756-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -112,8 +117,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: Add Swifthawk Agents as a faction or allegiance
-  // https://github.com/daviseford/aos-reminders/issues/992
   xit('should correctly read 1597072550016-Warscroll_Builder', () => {
     const parsedText = getFile('1597072550016-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -157,8 +160,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1593336693320-Warscroll_Builder', () => {
+  it('should correctly read 1593336693320-Warscroll_Builder', () => {
     const parsedText = getFile('1593336693320-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
@@ -198,11 +200,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1593895699238-Warscroll_Builder', () => {
     const parsedText = getFile('1593895699238-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Far-Ranger')
     expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Far-Ranger',
-      },
       {
         severity: 'warn',
         text: 'Slayers',
@@ -1461,20 +1460,8 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Swordmasters',
-      },
-      {
-        severity: 'warn',
-        text: 'Spireguard',
-      },
-      {
-        severity: 'warn',
-        text: 'High Warden',
-      },
-    ])
+    expect(res.selections.units).toContain('Swordmasters')
+    expect(res.errors).toEqual([])
   })
 
   it('should work with allied endless spells', () => {

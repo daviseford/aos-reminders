@@ -46,7 +46,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Shield the Arcane`,
-        desc: `Re-roll hit rolls of 1 for attacks made by friendly GNARLROOT units while they are wholly within 12" of any friendly GNARLROOT WIZARDS.`,
+        desc: `Reroll hit rolls of 1 for attacks made by friendly GNARLROOT units while they are wholly within 12" of any friendly GNARLROOT WIZARDS.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         allegiance_ability: true,
       },
@@ -81,7 +81,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Lord of the Hunt`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly HEARTWOOD HERO. Until the end of that phase, you can re-roll hit and wound rolls of 1 for attacks made by friendly HEARTWOOD units that target that enemy unit.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly HEARTWOOD HERO. Until the end of that phase, you can reroll hit and wound rolls of 1 for attacks made by friendly HEARTWOOD units that target that enemy unit.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -93,7 +93,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Horn of the Consort`,
-        desc: `You can re-roll hit rolls for attacks made by friendly HEARTWOOD KURNOTH HUNTERS wholly within 12" of the bearer.`,
+        desc: `You can reroll hit rolls for attacks made by friendly HEARTWOOD KURNOTH HUNTERS wholly within 12" of the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         artifact: true,
       },
@@ -104,7 +104,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Stubborn and Taciturn`,
-        desc: `You can re-roll battleshock tests for friendly IRONBARK units while they are wholly within 12" of any friendly IRONBARK HEROES.`,
+        desc: `You can reroll battleshock tests for friendly IRONBARK units while they are wholly within 12" of any friendly IRONBARK HEROES.`,
         when: [BATTLESHOCK_PHASE],
         allegiance_ability: true,
       },
@@ -116,7 +116,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Mere Rainfall`,
-        desc: `You can re-roll save rolls for attacks made with missile weapons that target this general.`,
+        desc: `You can reroll save rolls for attacks made with missile weapons that target this general.`,
         when: [SHOOTING_PHASE],
         command_trait: true,
       },
@@ -162,7 +162,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Malicious Tormentors`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by DREADWOOD SPITE-REVENANTS.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by DREADWOOD SPITE-REVENANTS.`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },
@@ -174,7 +174,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Paragon of Terror`,
-        desc: `Re-roll successful battleshock tests for enemy units while they are within 6" of this general.`,
+        desc: `Reroll successful battleshock tests for enemy units while they are within 6" of this general.`,
         when: [BATTLESHOCK_PHASE],
         command_trait: true,
       },
@@ -191,7 +191,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Vibrant Surge`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly HARVESTBOON units that made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly HARVESTBOON units that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },

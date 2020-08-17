@@ -117,12 +117,12 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Will of the Everchosen`,
-        desc: `If Archaon is your general and on the battlefield, you can pick 1 enemy unit on the battlefield. You can re-roll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units until your next hero phase.`,
+        desc: `If Archaon is your general and on the battlefield, you can pick 1 enemy unit on the battlefield. You can reroll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Will of the Everchosen`,
-        desc: `You can re-roll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units.`,
+        desc: `You can reroll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -168,7 +168,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Fifth Circle`,
-        desc: `You can re-roll hit and wound rolls for attacks made by Fifth Circle units against heros or monsters.`,
+        desc: `You can reroll hit and wound rolls for attacks made by Fifth Circle units against heros or monsters.`,
         when: [COMBAT_PHASE],
       },
       {

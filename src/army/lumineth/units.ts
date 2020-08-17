@@ -190,7 +190,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pair of Stratum Hammers`,
-        desc: `Re-roll to hit rolls for a Pair of Stratum Hammers.`,
+        desc: `Reroll to hit rolls for a Pair of Stratum Hammers.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -242,7 +242,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Skin to Stone`,
-        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Re-roll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
+        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Reroll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -252,7 +252,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Shield of Light`,
-        desc: `You can re-roll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
+        desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -262,7 +262,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Shafts of Light`,
-        desc: `Re-roll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

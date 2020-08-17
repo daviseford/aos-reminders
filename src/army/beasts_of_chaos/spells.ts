@@ -47,7 +47,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Wild Rampage (Brayherd Wizard)`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Until your next hero phase, you can re-roll failed wound rolls for attacks with melee weapons made by this unit. However, subtract 1 from save rolls for attacks that target this unit.`,
+        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Until your next hero phase, you can reroll failed wound rolls for attacks with melee weapons made by this unit. However, subtract 1 from save rolls for attacks that target this unit.`,
         when: [HERO_PHASE],
       },
     ],

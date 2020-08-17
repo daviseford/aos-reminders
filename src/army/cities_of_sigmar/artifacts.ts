@@ -240,7 +240,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Zephyrite Banner (Tempest's Eye)`,
-        desc: `You can re-roll charge rolls for friendly TEMPEST'S EYE units while they are wholly within 12" of the bearer.`,
+        desc: `You can reroll charge rolls for friendly TEMPEST'S EYE units while they are wholly within 12" of the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],

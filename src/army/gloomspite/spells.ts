@@ -64,7 +64,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Call da Moon`,
-        desc: `Casting value of 8. Pick 1 enemy unit visible to the caster. That unit suffers D3 mortal wounds. If that unit is wholly affected by the Light of the Bad Moon, you can re-roll the D3 that determines the number of mortal wounds.`,
+        desc: `Casting value of 8. Pick 1 enemy unit visible to the caster. That unit suffers D3 mortal wounds. If that unit is wholly affected by the Light of the Bad Moon, you can reroll the D3 that determines the number of mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

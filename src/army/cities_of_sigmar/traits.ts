@@ -28,7 +28,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Blood of the Twelve (Hammerhal)`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly HAMMERHAL units wholly within 12" of this general.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly HAMMERHAL units wholly within 12" of this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -88,7 +88,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Drillmaster (Greywater Fastness)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with missile weapons by friendly GREYWATER FASTNESS units that are wholly within 12" of this general while this general is more than 3" away from any enemy units.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with missile weapons by friendly GREYWATER FASTNESS units that are wholly within 12" of this general while this general is more than 3" away from any enemy units.`,
         when: [SHOOTING_PHASE],
       },
     ],

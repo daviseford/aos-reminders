@@ -73,7 +73,7 @@ const EndlessSpells: TEndlessSpells = [
       ...BalewindVortexEffects,
       {
         name: `Summon Balewind Vortex`,
-        desc: `Casting value of 6. Only SERAPHON WIZARDS with a Wounds characteristic of 9 or less and that are not already on a Balewind Vortex can attempt to cast this spell. If successfully cast, set up a Bound Balewind Vortex model within l" of the caster and more than 3" from any enemy models, then place the caster on the upper platform.
+        desc: `Casting value of 6. Only SERAPHON WIZARDS with a Wounds characteristic of 9 or less and that are not already on a Balewind Vortex can attempt to cast this spell. Set up a Bound Balewind Vortex model within l" of the caster and more than 3" from any enemy models, then place the caster on the upper platform.
 
         As long as the Bound Balewind Vortex is on the battlefield, both it and the caster are treated as a single model from the caster's army that uses the caster's warscroll as well as the endless spells rules. It is treated as an enemy model by the opposing player's army. A model on a Bound Balewind Vortex cannot move,
 

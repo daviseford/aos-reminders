@@ -75,7 +75,7 @@ export const Units: TUnits = [
       TuskerChargeEffect,
       {
         name: `Weird Squig`,
-        desc: `Once per turn, you can re-roll a casting, dispelling or unbinding roll for this model.`,
+        desc: `Once per turn, you can reroll a casting, dispelling or unbinding roll for this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -206,7 +206,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Big Rukk Warpaint`,
-        desc: `When you use the Warpaint battle trait for a unit from this battalion, you can re-roll the dice that determines if a wound or mortal wound is negated.`,
+        desc: `When you use the Warpaint battle trait for a unit from this battalion, you can reroll the dice that determines if a wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -226,7 +226,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Maniak Stampede`,
-        desc: `You can re-roll charge rolls for units in this battalion while they are wholly within 12" of the Maniak Weirdknob from this battalion.`,
+        desc: `You can reroll charge rolls for units in this battalion while they are wholly within 12" of the Maniak Weirdknob from this battalion.`,
         when: [CHARGE_PHASE],
       },
     ],

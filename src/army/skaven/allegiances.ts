@@ -32,7 +32,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Prized Creations (Moulder)`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by selected CLANS MOULDER FIGHTING BEASTS.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by selected CLANS MOULDER FIGHTING BEASTS.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -47,7 +47,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Masters of Murder (Eshin)`,
-        desc: `You can re-roll wound rolls for attacks made by friendly CLANS ESHIN units that target the selected enemy HEROES.`,
+        desc: `You can reroll wound rolls for attacks made by friendly CLANS ESHIN units that target the selected enemy HEROES.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -72,7 +72,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `In the hero phase, pick 1 friendly CLANS SKRYRE WIZARD. You can re-roll casting, dispelling and unbinding rolls for that WIZARD until the end of that phase.`,
+        desc: `In the hero phase, pick 1 friendly CLANS SKRYRE WIZARD. You can reroll casting, dispelling and unbinding rolls for that WIZARD until the end of that phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -92,7 +92,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Warpstone Sparks (Skryre)`,
-        desc: `In the combat phase, pick 1 friendly CLANS SKRYRE HERO. You can re-roll hit rolls for that HERO until the end of that phase.`,
+        desc: `In the combat phase, pick 1 friendly CLANS SKRYRE HERO. You can reroll hit rolls for that HERO until the end of that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -110,7 +110,7 @@ const Allegiances: TAllegiances = [
 
         Redmaw Plague: If this Great Plague manifests, pick the nearest enemy HERO within 13" of the PRIEST chanting the prayer. That HERO is infected with the Redmaw Plague. If several enemy HEROES are equally close, you can pick which is infected. If a HERO infected with the Redmaw Plague is within 3" of any other models from its own army at the start of any combat phase, and is not within 3" of any models from your army, then you can treat that HERO as a friendly model until the end of that combat phase.
 
-        The Neverplague: If this Great Plague manifests, you can re-roll prayer rolls for friendly CLANS PESTILENS PRIESTS for the rest of the battle.
+        The Neverplague: If this Great Plague manifests, you can reroll prayer rolls for friendly CLANS PESTILENS PRIESTS for the rest of the battle.
 
         Undulant Scourge: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer, and roll 1 dice for each model in that unit. If several enemy units are equally close, you can pick which of those units to roll dice for. For each 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],

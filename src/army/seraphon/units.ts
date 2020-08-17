@@ -58,7 +58,7 @@ const UnstoppableStampedeEffect = {
 }
 const SteadfastMajestyEffect = {
   name: `Steadfast Majesty`,
-  desc: `You can re-roll battleshock tests for friendly SKINK units while they are wholly within 18" of any friendly STEGADON units.`,
+  desc: `You can reroll battleshock tests for friendly SKINK units while they are wholly within 18" of any friendly STEGADON units.`,
   when: [BATTLESHOCK_PHASE],
 }
 const ColdFerocityEffect = {
@@ -126,7 +126,7 @@ const StardrakeIconEffect = {
 }
 const WardrummerEffect = {
   name: `Wardrummer`,
-  desc: `You can re-roll charge rolls for units that include any Wardrummers.`,
+  desc: `You can reroll charge rolls for units that include any Wardrummers.`,
   when: [CHARGE_PHASE],
 }
 const StarbucklersEffect = {
@@ -318,7 +318,7 @@ export const Units: TUnits = [
         4-8: Heal D3 wounds allocated to each friendly SERAPHON unit wholly within 12" of this model (roll separately for each unit).
         9-12: You can either pick 1 enemy unit within 24" this model that is visible to it and roll 1 dice, or roll 1 dice for each enemy unit within 12" of this model that is visible to it. On a 2+, that unit suffers D3 mortal wounds.
         13-17: You can set up 1 unit of 10 Saurus Warriors wholly within 12" of this model and more than 9" from any enemy units, and add it to your army.
-        18: For the rest of the turn you can re-roll charge rolls for friendly SERAPHON units wholly within 24" of this model, and double the Attacks characteristic of weapons used by friendly SERAPHON units while they are wholly within 24" of this model.`,
+        18: For the rest of the turn you can reroll charge rolls for friendly SERAPHON units wholly within 24" of this model, and double the Attacks characteristic of weapons used by friendly SERAPHON units while they are wholly within 24" of this model.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -462,7 +462,7 @@ export const Units: TUnits = [
       },
       {
         name: `Toad Rage`,
-        desc: `At the start of the combat phase, you can set up 1 Blot Toad marker next to 1 enemy unit. If you do so, you can re-roll hit rolls for attacks made with Tearing Jaws by friendly RIPPERDACTYL units that are wholly within 6" of that enemy unit. At the end of the combat phase, remove the Blot Toad marker; it cannot be used again in that battle.
+        desc: `At the start of the combat phase, you can set up 1 Blot Toad marker next to 1 enemy unit. If you do so, you can reroll hit rolls for attacks made with Tearing Jaws by friendly RIPPERDACTYL units that are wholly within 6" of that enemy unit. At the end of the combat phase, remove the Blot Toad marker; it cannot be used again in that battle.
 
         Designer's Note: Blot Toads are not units; they are markers that are used to keep track of which enemy units this ability affects and how many times you can use this ability during a battle.`,
         when: [START_OF_COMBAT_PHASE],
@@ -568,7 +568,7 @@ export const Units: TUnits = [
       },
       {
         name: `Drawn to the Screams`,
-        desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can re-roll charge rolls for this model.`,
+        desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can reroll charge rolls for this model.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
       TerrorEffect,

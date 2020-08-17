@@ -24,12 +24,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Savage Fighters`,
-        desc: `In your combat phase, re-roll hit rolls of 1 for Dhom-hain AKHELIAN and Dhom-hain NAMARTI units that made a charge move in the same turn.`,
+        desc: `In your combat phase, reroll hit rolls of 1 for Dhom-hain AKHELIAN and Dhom-hain NAMARTI units that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Deep Questors`,
-        desc: `You can re-roll failed wound rolls for Dhom-hain AKHELIAN units if the target is a MONSTER.`,
+        desc: `You can reroll failed wound rolls for Dhom-hain AKHELIAN units if the target is a MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -39,12 +39,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Fiercest of Creatures`,
-        desc: `In the combat phase, re-roll wound rolls of 1 for Fuethan mounts.`,
+        desc: `In the combat phase, reroll wound rolls of 1 for Fuethan mounts.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Revel in Slaughter`,
-        desc: `You can re-roll hit rolls of 1 for Fuethan units that are affected by the Flood Tide ability from the Tides of Death.`,
+        desc: `You can reroll hit rolls of 1 for Fuethan units that are affected by the Flood Tide ability from the Tides of Death.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -69,7 +69,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Consumate Defenders`,
-        desc: `You can re-roll failed hit rolls for Nautilar units in the combat phase if the target made a charge move in the same turn.`,
+        desc: `You can reroll failed hit rolls for Nautilar units in the combat phase if the target made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

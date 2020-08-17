@@ -45,7 +45,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Sneaky Stabba`,
-        desc: `You can re-roll wound rolls for attacks made with melee weapons by this general.`,
+        desc: `You can reroll wound rolls for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -115,7 +115,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Dodgy Character`,
-        desc: `Re-roll successful hit rolls for attacks that target this general.`,
+        desc: `Reroll successful hit rolls for attacks that target this general.`,
         when: [DURING_GAME],
       },
     ],
@@ -226,7 +226,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Pulverising Grip`,
-        desc: `When you use this general's Crushing Grip ability, you can re-roll the dice that determines if the target is slain.`,
+        desc: `When you use this general's Crushing Grip ability, you can reroll the dice that determines if the target is slain.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -236,7 +236,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Mighty Blow`,
-        desc: `You can re-roll the dice that determines the Damage characteristic of this general's Boulder Club.`,
+        desc: `You can reroll the dice that determines the Damage characteristic of this general's Boulder Club.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -246,7 +246,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Realmstone-studded Hide`,
-        desc: `When you use this general's Magical Resistance ability, you can re-roll the dice that determines if the spell's effects are ignored.`,
+        desc: `When you use this general's Magical Resistance ability, you can reroll the dice that determines if the spell's effects are ignored.`,
         when: [HERO_PHASE],
       },
     ],

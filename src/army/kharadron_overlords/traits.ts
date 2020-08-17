@@ -38,13 +38,13 @@ export const ProsecuteWarsWithAllHasteEffect = {
 }
 export const HonourIsEverythingEffect = {
   name: `ARTYCLE: Honour is Everything`,
-  desc: `You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER.`,
+  desc: `You can reroll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
   command_trait: true,
 }
 export const MasterTheSkiesEffect = {
   name: `ARTYCLE: Master the Skies`,
-  desc: `You can re-roll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
+  desc: `You can reroll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
   command_trait: true,
 }
@@ -58,7 +58,7 @@ export const AlwaysTakeWhatYouAreOwedEffect = {
 // Skyport Amendments, Artycles, and Footnotes
 export const SeekNewProspectsEffect = {
   name: `ARTYCLE: Seek New Prospects`,
-  desc: `You can re-roll battleshock tests for friendly BARAK-URBAZ units while they are wholly within your opponent's territory.`,
+  desc: `You can reroll battleshock tests for friendly BARAK-URBAZ units while they are wholly within your opponent's territory.`,
   when: [BATTLESHOCK_PHASE],
   command_trait: true,
 }
@@ -100,7 +100,7 @@ export const WhoStrikesFirstStrikesHardestEffect = {
 }
 export const ChronicleOfGrudgesEffect = {
   name: `ARTYCLE: Chronicle of Grudges`,
-  desc: `After armies are set up but before the first battle round begins, pick up to 3 different enemy units. You can re-roll hit rolls of 1 for attacks made by friendly BARAK-THRYNG units that target those units.`,
+  desc: `After armies are set up but before the first battle round begins, pick up to 3 different enemy units. You can reroll hit rolls of 1 for attacks made by friendly BARAK-THRYNG units that target those units.`,
   when: [END_OF_SETUP],
   command_trait: true,
 }
@@ -118,7 +118,7 @@ export const TakeHelpWhereYouCanGetItEffect = {
 }
 export const RespectYourCommandersEffect = {
   name: `ARTYCLE: Respect Your Commanders`,
-  desc: `You can re-roll battleshock tests for friendly BARAK-NAR units while they are wholly within 12" of a friendly BARAK-NAR HERO.`,
+  desc: `You can reroll battleshock tests for friendly BARAK-NAR units while they are wholly within 12" of a friendly BARAK-NAR HERO.`,
   when: [BATTLESHOCK_PHASE],
   command_trait: true,
 }
@@ -249,7 +249,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Stormcaller`,
-        desc: `When this general uses their Aetherstorm ability; you can re-roll the dice that determines what effect it has on the enemy unit.`,
+        desc: `When this general uses their Aetherstorm ability; you can reroll the dice that determines what effect it has on the enemy unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -327,7 +327,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `ARTYCLE: Settle the Grudges`,
-        desc: `After armies are set up but before the first battle round begins, pick 1 enemy unit, You can re-roll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS units that target that unit.`,
+        desc: `After armies are set up but before the first battle round begins, pick 1 enemy unit, You can reroll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS units that target that unit.`,
         when: [END_OF_SETUP],
       },
     ],
@@ -355,7 +355,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `FOOTNOTE: There's No Reward Without Risk`,
-        desc: `Once per battle, you can re-roll a charge roll for a friendly KHARADRON OVERLORDS unit.`,
+        desc: `Once per battle, you can reroll a charge roll for a friendly KHARADRON OVERLORDS unit.`,
         when: [CHARGE_PHASE],
       },
     ],

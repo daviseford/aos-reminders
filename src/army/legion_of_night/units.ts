@@ -25,7 +25,7 @@ export const Battalions: TBattalions = [
       },
       {
         name: `Call of the Night`,
-        desc: `If Mannfred uses his Deathly Invocation ability on any Skeleton Warriors unit from the Nightfall Pack, you may re-roll the D3 result for that unit.`,
+        desc: `If Mannfred uses his Deathly Invocation ability on any Skeleton Warriors unit from the Nightfall Pack, you may reroll the D3 result for that unit.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

@@ -32,7 +32,7 @@ export const Units: TUnits = [
       },
       {
         name: `Killer of Kings`,
-        desc: `You can re-roll hit rolls for attacks made with this model's Black Cleaver that target a HERO.`,
+        desc: `You can reroll hit rolls for attacks made with this model's Black Cleaver that target a HERO.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -42,7 +42,7 @@ export const Units: TUnits = [
       },
       {
         name: `Roar of Command`,
-        desc: `If this model is your general and is on the battlefield, you can re-roll charge rolls for friendly Tamurkhan's Horde units while they are wholly within 28" of this model in that charge phase.`,
+        desc: `If this model is your general and is on the battlefield, you can reroll charge rolls for friendly Tamurkhan's Horde units while they are wholly within 28" of this model in that charge phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -91,7 +91,7 @@ export const Units: TUnits = [
       },
       {
         name: `Locus of Fecundity`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this unit while this unit is wholly within 14" of a friendly Nurgle Hero.`,
+        desc: `You can reroll save rolls of 1 for attacks that target this unit while this unit is wholly within 14" of a friendly Nurgle Hero.`,
         when: [DURING_GAME],
       },
       {
@@ -111,7 +111,7 @@ export const Units: TUnits = [
       },
       {
         name: `Insatiably Famished`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by this unit if this unit made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by this unit if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {

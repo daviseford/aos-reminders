@@ -47,7 +47,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Azyrbane Standard`,
-        desc: `Subtract 1 from wound rolls for enemy units within 6" of the bearer. In addition, re-roll successful casting rolls for ORDER WIZARDS within 6" of the bearer.`,
+        desc: `Subtract 1 from wound rolls for enemy units within 6" of the bearer. In addition, reroll successful casting rolls for ORDER WIZARDS within 6" of the bearer.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

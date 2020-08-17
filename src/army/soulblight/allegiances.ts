@@ -7,7 +7,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `The Bloodlines: Dragon Warriors`,
-        desc: `You can re-roll hit rolls of 1 for models that have the Dragon Warriors bloodline if they charged in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for models that have the Dragon Warriors bloodline if they charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],

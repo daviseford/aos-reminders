@@ -21,7 +21,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Daughters of the First Temple`,
-        desc: `Whilst a Hagg Nar unit is benefiting from Zealot's Rage (Blood Rite), you can re-roll all failed hit rolls instead of hit rolls of 1.`,
+        desc: `Whilst a Hagg Nar unit is benefiting from Zealot's Rage (Blood Rite), you can reroll all failed hit rolls instead of hit rolls of 1.`,
         when: [HERO_PHASE],
       },
       {

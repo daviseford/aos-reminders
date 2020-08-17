@@ -68,7 +68,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Treesong`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster and within 6" of an AWAKENED WYLDWOOD. Until the end of the turn, you can re-roll hit and wound rolls of 1 for attacks made with melee weapons that target that unit.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster and within 6" of an AWAKENED WYLDWOOD. Until the end of the turn, you can reroll hit and wound rolls of 1 for attacks made with melee weapons that target that unit.`,
         when: [HERO_PHASE],
       },
     ],

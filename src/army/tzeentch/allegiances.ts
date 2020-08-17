@@ -57,7 +57,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Will of the Phantom Lord`,
-        desc: `You can re-roll casting and unbinding rolls for friendly Hosts Duplicitous Daemon Wizards while they are wholly within 9" of this general.`,
+        desc: `You can reroll casting and unbinding rolls for friendly Hosts Duplicitous Daemon Wizards while they are wholly within 9" of this general.`,
         when: [HERO_PHASE],
         command_trait: true,
       },
@@ -135,7 +135,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Immolate`,
-        desc: `You can use this command ability in your shooting phase. Pick 1 friendly Kairic Acolyte unit wholly within 12" of a friendly Pryofane Cult Hero. You can re-roll wound rolls for attacks made by that unit until the end of that phase.`,
+        desc: `You can use this command ability in your shooting phase. Pick 1 friendly Kairic Acolyte unit wholly within 12" of a friendly Pryofane Cult Hero. You can reroll wound rolls for attacks made by that unit until the end of that phase.`,
         when: [SHOOTING_PHASE],
         command_ability: true,
       },
@@ -214,12 +214,12 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Marked for Death`,
-        desc: `After armies have been setup before the first battle round, pick up to D3 different enemy units. For the rest of the battle, you can re-roll hit rolls for melee attacks by friendly Cult of a Thousand Eyes mortal units targeting the selected units.`,
+        desc: `After armies have been setup before the first battle round, pick up to D3 different enemy units. For the rest of the battle, you can reroll hit rolls for melee attacks by friendly Cult of a Thousand Eyes mortal units targeting the selected units.`,
         when: [END_OF_SETUP],
       },
       {
         name: `Marked for Death`,
-        desc: `You can re-roll hit rolls for melee attacks against the pre-selected targets.`,
+        desc: `You can reroll hit rolls for melee attacks against the pre-selected targets.`,
         when: [COMBAT_PHASE],
       },
       {

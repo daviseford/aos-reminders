@@ -7,7 +7,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Black Hammer of Hashut`,
-        desc: `Pick 1 of the bearer's melee weapons. You can re-roll hit rolls for attacks made with that weapon.`,
+        desc: `Pick 1 of the bearer's melee weapons. You can reroll hit rolls for attacks made with that weapon.`,
         when: [COMBAT_PHASE],
       },
     ],

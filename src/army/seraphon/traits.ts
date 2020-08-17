@@ -14,7 +14,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Arcane Might`,
-        desc: `You can re-roll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
+        desc: `You can reroll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -44,7 +44,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Disciplined Fury`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -54,7 +54,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Thickly Scaled Hide`,
-        desc: `You can re-roll save rolls of 1 for attacks that target this general.`,
+        desc: `You can reroll save rolls of 1 for attacks that target this general.`,
         when: [DURING_GAME],
       },
     ],

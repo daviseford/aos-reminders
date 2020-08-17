@@ -70,7 +70,7 @@ const BloodVultureEffect = {
 }
 const BellowingVoiceEffect = {
   name: `Bellowing Voice`,
-  desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can re-roll charge rolls for friendly Beastclaw Raiders units that are wholly within 12" of that model when the charge roll is made.`,
+  desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, you can reroll charge rolls for friendly Beastclaw Raiders units that are wholly within 12" of that model when the charge roll is made.`,
   when: [START_OF_CHARGE_PHASE],
   command_ability: true,
 }
@@ -179,7 +179,7 @@ export const Units: TUnits = [
       },
       {
         name: `Insatiable Hunger`,
-        desc: `You can re-roll charge rolls for this unit.`,
+        desc: `You can reroll charge rolls for this unit.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -306,7 +306,7 @@ export const Units: TUnits = [
       },
       {
         name: `Down to the Ironguts`,
-        desc: `Once per battle, in your hero phase, if at least 1 Ogor model from your army has fled the battle, you can use this ability. If you do so, you can re-roll hit, wound and save rolls of 1 for this unit until your next hero phase.`,
+        desc: `Once per battle, in your hero phase, if at least 1 Ogor model from your army has fled the battle, you can use this ability. If you do so, you can reroll hit, wound and save rolls of 1 for this unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -333,9 +333,9 @@ export const Units: TUnits = [
         name: `Been There, Done That`,
         desc: `After armies have been set up but before the first battle round begins, pick 1 ability to apply to this unit from the following list:
 
-        Brawlers: You can re-roll hit rolls of 1 for attacks made with melee weapons by this unit.
+        Brawlers: You can reroll hit rolls of 1 for attacks made with melee weapons by this unit.
 
-        Crack Shots: You can re-roll hit rolls of 1 for attacks made with missile weapons by this unit.
+        Crack Shots: You can reroll hit rolls of 1 for attacks made with missile weapons by this unit.
 
         Striders: This unit can run and still charge later in the same turn.
 
@@ -344,12 +344,12 @@ export const Units: TUnits = [
       },
       {
         name: `Brawlers`,
-        desc: `If you selected this ability, you can re-roll hit rolls of 1 for attacks made with melee weapons by this unit.`,
+        desc: `If you selected this ability, you can reroll hit rolls of 1 for attacks made with melee weapons by this unit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Crack Shots`,
-        desc: `If you selected this ability, you can re-roll hit rolls of 1 for attacks made with missile weapons by this unit.`,
+        desc: `If you selected this ability, you can reroll hit rolls of 1 for attacks made with missile weapons by this unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -396,7 +396,7 @@ export const Units: TUnits = [
       BellowerEffect,
       {
         name: `Beast Skull Bearer`,
-        desc: `You can re-roll charge rolls for this unit while it includes any Beast Skull Bearers.`,
+        desc: `You can reroll charge rolls for this unit while it includes any Beast Skull Bearers.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -629,7 +629,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Bully Boys`,
-        desc: `You can re-roll charge rolls for units from this battalion while they are wholly within 12" of the TYRANT from the same battalion.`,
+        desc: `You can reroll charge rolls for units from this battalion while they are wholly within 12" of the TYRANT from the same battalion.`,
         when: [CHARGE_PHASE],
       },
     ],

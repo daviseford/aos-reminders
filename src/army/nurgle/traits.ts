@@ -116,7 +116,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Overpowering Stench (Mortal)`,
-        desc: `Re-roll hit rolls of 6+ for attacks that target your general in the combat phase.`,
+        desc: `Reroll hit rolls of 6+ for attacks that target your general in the combat phase.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -57,7 +57,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Lucky Bone`,
-        desc: `Once per phase, re-roll a hit, wound or save roll for the bearer.`,
+        desc: `Once per phase, reroll a hit, wound or save roll for the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

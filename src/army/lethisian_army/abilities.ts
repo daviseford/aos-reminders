@@ -11,7 +11,7 @@ import {
 const Abilities: TAbilities = [
   {
     name: `Warriors of the Grand Necropolis`,
-    desc: `You can re-roll battleshock tests for friendly Lethisian Defender units.`,
+    desc: `You can reroll battleshock tests for friendly Lethisian Defender units.`,
     when: [BATTLESHOCK_PHASE],
   },
   {

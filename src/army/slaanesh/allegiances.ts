@@ -42,7 +42,7 @@ const PretendersEffects = [
   },
   {
     name: `Heir to the Throne`,
-    desc: `You can re-roll hit rolls of 1 for attacks made with melee and missle weapons by Pretenders Host units while they have 10 or more models.`,
+    desc: `You can reroll hit rolls of 1 for attacks made with melee and missle weapons by Pretenders Host units while they have 10 or more models.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
@@ -130,7 +130,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Feverish Anticipation`,
-        desc: `You can re-roll run rolls for friendly Lurid Haze Invaders Host units that are wholly within 12" of this general before the run roll is made.`,
+        desc: `You can reroll run rolls for friendly Lurid Haze Invaders Host units that are wholly within 12" of this general before the run roll is made.`,
         when: [MOVEMENT_PHASE],
         command_trait: true,
       },
@@ -193,7 +193,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Embodiment of Haste`,
-        desc: `You can re-roll battleshock tests for friendly Scarlet Cavalcade Godseekers Host units wholly within 12" of this general.`,
+        desc: `You can reroll battleshock tests for friendly Scarlet Cavalcade Godseekers Host units wholly within 12" of this general.`,
         when: [BATTLESHOCK_PHASE],
         command_trait: true,
       },

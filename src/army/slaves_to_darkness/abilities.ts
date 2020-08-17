@@ -21,13 +21,13 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aura of ${MARK_KHORNE}`,
-    desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model.
+    desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model.
            If this model is a general, additionally add 1 to the wound rolls of those units.`,
     when: [COMBAT_PHASE],
   },
   {
     name: `Aura of ${MARK_TZEENTCH}`,
-    desc: `You can re-roll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.
+    desc: `You can reroll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.
            If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a D6. On a 5+ it has no effect on the unit.`,
     when: [DURING_GAME],
   },
@@ -48,7 +48,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aura of ${MARK_SLAANESH}`,
-    desc: `If this model is a general, you can re-roll run and charge rolls for friendly Slaves to Darkness Slaanesh units wholly within 12" of this model.`,
+    desc: `If this model is a general, you can reroll run and charge rolls for friendly Slaves to Darkness Slaanesh units wholly within 12" of this model.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {

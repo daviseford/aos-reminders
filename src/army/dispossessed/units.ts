@@ -35,7 +35,7 @@ const RunicIconAndClanBannerEffects = [
 ]
 const GromrilShieldsEffect = {
   name: `Gromril Shields`,
-  desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+  desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
 }
 const HornblowersEffect = {
@@ -50,7 +50,7 @@ const DrummersEffect = {
 }
 const DuardinBucklersEffect = {
   name: `Duardin Bucklers`,
-  desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, re-roll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+  desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
   when: [MOVEMENT_PHASE, COMBAT_PHASE],
 }
 const IconBearerEffect = {
@@ -76,7 +76,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ancestor Shield`,
-        desc: `You can re-roll all failed saves for a Warden King.`,
+        desc: `You can reroll all failed saves for a Warden King.`,
         when: [DURING_GAME],
       },
       {
@@ -116,7 +116,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Runic Axes`,
-        desc: `You can re-roll all hit rolls of 1 for an Unforged.`,
+        desc: `You can reroll all hit rolls of 1 for an Unforged.`,
         when: [DURING_GAME],
       },
       {
@@ -189,7 +189,7 @@ export const Units: TUnits = [
         
         "Who does this beardling think he is?": Friendly DISPOSSESSED HEROES within 8" of this unit are treated as if they were your general when working out the range of command abilities.
         
-        "Grots are weedier these days!": You can re-roll wound rolls of 1 for DISPOSSESSED models from your army that are within 8" of this unit when they attack in the combat phase.`,
+        "Grots are weedier these days!": You can reroll wound rolls of 1 for DISPOSSESSED models from your army that are within 8" of this unit when they attack in the combat phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -227,7 +227,7 @@ export const Units: TUnits = [
       ...RunicIconAndClanBannerEffects,
       {
         name: `Resolute in Defence`,
-        desc: `You can re-roll failed wound rolls of 1 when attacking with a Warrior in your opponent's combat phase. You can instead re-roll all failed wound rolls for a Warrior if its unit has 20 or more models when it attacks in your opponent's combat phase.`,
+        desc: `You can reroll failed wound rolls of 1 when attacking with a Warrior in your opponent's combat phase. You can instead reroll all failed wound rolls for a Warrior if its unit has 20 or more models when it attacks in your opponent's combat phase.`,
         when: [COMBAT_PHASE],
       },
       DuardinBucklersEffect,
@@ -242,7 +242,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Ancient Grudges`,
-        desc: `You can re-roll all hit rolls of 1 for models in a Grudgebound War Throng.`,
+        desc: `You can reroll all hit rolls of 1 for models in a Grudgebound War Throng.`,
         when: [DURING_GAME],
       },
       {

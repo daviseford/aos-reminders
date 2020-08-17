@@ -89,24 +89,24 @@ const LitheAndSwiftEffect = {
 }
 const BannerBearerEffect = {
   name: `Banner Bearer`,
-  desc: `You can re-roll charge rolls for this unit while it includes any Banner Bearers.`,
+  desc: `You can reroll charge rolls for this unit while it includes any Banner Bearers.`,
   when: [CHARGE_PHASE],
 }
 const HornBlowerEffect = {
   name: `Hornblower`,
-  desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be re-rolled.`,
+  desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
   when: [BATTLESHOCK_PHASE],
 }
 const AcquiescenceEffects = [
   {
     name: `Acquiescence`,
-    desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+    desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
     when: [HERO_PHASE],
     spell: true,
   },
   {
     name: `Acquiescence`,
-    desc: `If active, you can re-roll hit rolls of 1 for attacks that target the debuffed unit.`,
+    desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
@@ -172,7 +172,7 @@ export const Units: TUnits = [
         name: `Deadly Symbiosis`,
         desc: `When this model fights, it must attack with either its Axe of Dominion or Scourging Whip (it cannot attack with both). If another ability or spell allows this model to fight more than once in the same combat phase, this ability still only allows this model to fight at the end of the phase 1 more time.
 
-               Each time this model attacks in the same combat phase, it must alternate between attacking with its Axe of Dominion and Scourging Whip. Every other time this model attacks in the same combat phase, you can re-roll hit rolls for the weapon being used.'`,
+               Each time this model attacks in the same combat phase, it must alternate between attacking with its Axe of Dominion and Scourging Whip. Every other time this model attacks in the same combat phase, you can reroll hit rolls for the weapon being used.'`,
         when: [COMBAT_PHASE],
       },
       {
@@ -199,7 +199,7 @@ export const Units: TUnits = [
       },
       {
         name: `Regal Authority`,
-        desc: `If this model is your general and is on the battlefield, until the end of this phase, you can re-roll hit rolls of 1 for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
+        desc: `If this model is your general and is on the battlefield, until the end of this phase, you can reroll hit rolls of 1 for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -251,18 +251,18 @@ export const Units: TUnits = [
       },
       {
         name: `Refine Senses`,
-        desc: `Casting value of 4. Until your next hero phase, you can re-roll hit rolls for attacks made by the caster that target a HERO, and you can re-roll save rolls for attacks made by Heroes that target the caster.`,
+        desc: `Casting value of 4. Until your next hero phase, you can reroll hit rolls for attacks made by the caster that target a HERO, and you can reroll save rolls for attacks made by Heroes that target the caster.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Refine Senses`,
-        desc: `If active, you can re-roll hit rolls for attacks made by the buffed unit that target a HERO.`,
+        desc: `If active, you can reroll hit rolls for attacks made by the buffed unit that target a HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Refine Senses`,
-        desc: `If active, and you can re-roll save rolls for attacks made by Heroes that target the buffed unit.`,
+        desc: `If active, and you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
         when: [DURING_GAME],
       },
     ],
@@ -272,7 +272,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gift of Power`,
-        desc: `You can re-roll casting, unbinding and dispelling rolls for this model.`,
+        desc: `You can reroll casting, unbinding and dispelling rolls for this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -292,13 +292,13 @@ export const Units: TUnits = [
       },
       {
         name: `Overwhelming Acquiescence`,
-        desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can re-roll hit rolls of 1 for attacks that target those units until your next hero phase.`,
+        desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can reroll hit rolls of 1 for attacks that target those units until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Overwhelming Acquiescence`,
-        desc: `If active, you can re-roll hit rolls of 1 for attacks that target the debuffed unit.`,
+        desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -308,7 +308,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Discordant Disruption`,
-        desc: `Re-roll successful casting rolls for enemy WIZARDS that are within 24" of any friendly models with this ability. In addition, if the re-rolled casting roll is a double, that Wizard suffers D3 mortal wounds after the effects of the spell (if any) have been carried out.`,
+        desc: `Reroll successful casting rolls for enemy WIZARDS that are within 24" of any friendly models with this ability. In addition, if the rerolled casting roll is a double, that Wizard suffers D3 mortal wounds after the effects of the spell (if any) have been carried out.`,
         when: [HERO_PHASE],
       },
       {
@@ -338,7 +338,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Endless Dance`,
-        desc: `This model is eligible to fight if it is within 6" of an enemy unit instead of 3", and can fly and move an extra 3" when it piles in. In addition, you can re-roll hit rolls for attacks made by this model that target an enemy unit with a Move characteristic of 10" or less, and you can re-roll wound rolls for attacks made by this model that target an enemy unit with a Move characteristic of 5" or less.`,
+        desc: `This model is eligible to fight if it is within 6" of an enemy unit instead of 3", and can fly and move an extra 3" when it piles in. In addition, you can reroll hit rolls for attacks made by this model that target an enemy unit with a Move characteristic of 10" or less, and you can reroll wound rolls for attacks made by this model that target an enemy unit with a Move characteristic of 5" or less.`,
         when: [COMBAT_PHASE],
       },
       LitheAndSwiftEffect,

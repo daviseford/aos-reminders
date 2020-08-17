@@ -84,7 +84,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Driven by Vengeance`,
-        desc: `You can re-roll hit rolls of 1 for attacks made by friendly CELESTIAL VINDICATORS units if they made a charge move in the same turn.`,
+        desc: `You can reroll hit rolls of 1 for attacks made by friendly CELESTIAL VINDICATORS units if they made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
         allegiance_ability: true,
       },
@@ -113,7 +113,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `No True Death`,
-        desc: `You can re-roll failed battleshock tests for friendly ANVILS OF THE HELDENHAMMER units.`,
+        desc: `You can reroll failed battleshock tests for friendly ANVILS OF THE HELDENHAMMER units.`,
         when: [BATTLESHOCK_PHASE],
         allegiance_ability: true,
       },
@@ -142,7 +142,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Storm of Annihilation`,
-        desc: `If a friendly KNIGHTS EXCELSIOR unit makes an attack that destroys an enemy unit, you can re-roll hit rolls of 1 for attacks made by that KNIGHTS EXCELSIOR unit for the rest of the battle.`,
+        desc: `If a friendly KNIGHTS EXCELSIOR unit makes an attack that destroys an enemy unit, you can reroll hit rolls of 1 for attacks made by that KNIGHTS EXCELSIOR unit for the rest of the battle.`,
         when: [DURING_GAME],
         allegiance_ability: true,
       },
@@ -154,7 +154,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `No Mercy`,
-        desc: `Pick a friendly KNIGHTS EXCELSIOR unit wholly within 9" of a friendly KNIGHTS EXCELSIOR HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until the end of the turn.`,
+        desc: `Pick a friendly KNIGHTS EXCELSIOR unit wholly within 9" of a friendly KNIGHTS EXCELSIOR HERO, or wholly within 18" of a friendly ANVILS OF THE HELDENHAMMER HERO that is a general. You can reroll wound rolls of 1 for attacks made by that unit until the end of the turn.`,
         when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
         command_ability: true,
       },
@@ -165,7 +165,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Portents and Omens`,
-        desc: `Once per turn, you can re-roll 1 failed hit roll or 1 failed wound roll for an attack made by this general, or 1 save roll for an attack that targets this general.`,
+        desc: `Once per turn, you can reroll 1 failed hit roll or 1 failed wound roll for an attack made by this general, or 1 save roll for an attack that targets this general.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         command_trait: true,
       },
@@ -212,7 +212,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Rousing Oratory`,
-        desc: `Pick a friendly TEMPEST LORDS unit wholly within 9" of a friendly TEMPEST LORDS HERO, or wholly within 18" of a friendly TEMPEST LORDS HERO that is a general. You can re-roll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
+        desc: `Pick a friendly TEMPEST LORDS unit wholly within 9" of a friendly TEMPEST LORDS HERO, or wholly within 18" of a friendly TEMPEST LORDS HERO that is a general. You can reroll wound rolls of 1 for attacks made by that unit until your next hero phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },

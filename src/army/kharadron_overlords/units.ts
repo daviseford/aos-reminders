@@ -49,7 +49,7 @@ const SkyCannonEffect = {
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
-    desc: `In your hero phase you can pick 1 friendly SKYFARERS unit wholly within 12" of this model. Until your next hero phase, you can re-roll wound rolls of 1 for attacks made by that unit. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.`,
+    desc: `In your hero phase you can pick 1 friendly SKYFARERS unit wholly within 12" of this model. Until your next hero phase, you can reroll wound rolls of 1 for attacks made by that unit. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.`,
     when: [HERO_PHASE],
   },
   {
@@ -61,7 +61,7 @@ const AetherKhemistEffects = [
 const GlorySeekersEffects = [
   {
     name: `Glory Seekers`,
-    desc: `You can re-roll battleshock tests for this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
+    desc: `You can reroll battleshock tests for this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
     when: [BATTLESHOCK_PHASE],
   },
   {
@@ -112,7 +112,7 @@ const EndrinmasterBaseEffects = [
   },
   {
     name: `By Grungni, I Have My Eye On You!`,
-    desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can re-roll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
+    desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can reroll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
     when: [HERO_PHASE],
     command_ability: true,
   },
@@ -152,7 +152,7 @@ export const Units: TUnits = [
       },
       {
         name: `Thundrik's Profiteers`,
-        desc: `You can re-roll battleshock tests for this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
+        desc: `You can reroll battleshock tests for this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -177,7 +177,7 @@ export const Units: TUnits = [
       },
       {
         name: `Read the Winds`,
-        desc: `You can re-roll run and charge rolls for friendly SKYVESSELS that are visible to a friendly AETHERIC NAVIGATOR that has not attempted to use the Aetherstorm ability in the same turn.`,
+        desc: `You can reroll run and charge rolls for friendly SKYVESSELS that are visible to a friendly AETHERIC NAVIGATOR that has not attempted to use the Aetherstorm ability in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -187,7 +187,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `If You Want A Job Done...`,
-        desc: `You can re-roll hit and wound rolls of 1 for attacks made with a melee weapon by this model that target a HERO or MONSTER.`,
+        desc: `You can reroll hit and wound rolls of 1 for attacks made with a melee weapon by this model that target a HERO or MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -208,7 +208,7 @@ export const Units: TUnits = [
       },
       {
         name: `On My Mark, Fire!`,
-        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. You can re-roll hit rolls of 1 for attacks made by that SKYVESSEL in that phase.`,
+        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. You can reroll hit rolls of 1 for attacks made by that SKYVESSEL in that phase.`,
         when: [START_OF_SHOOTING_PHASE],
         command_ability: true,
       },
@@ -220,7 +220,7 @@ export const Units: TUnits = [
       },
       {
         name: `Up And At Them!`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SKYFARERS unit that is wholly within 12" of a friendly model with this command ability. You can re-roll charge rolls for that unit in that phase.`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SKYFARERS unit that is wholly within 12" of a friendly model with this command ability. You can reroll charge rolls for that unit in that phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -231,7 +231,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Honour Bearer`,
-        desc: `Re-roll battleshock tests for units with a Honor Bearer.`,
+        desc: `Reroll battleshock tests for units with a Honor Bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -261,7 +261,7 @@ export const Units: TUnits = [
       },
       {
         name: `First Rule of Grungsson`,
-        desc: `You can use this command ability at the start of your charge phase if a friendly model with this command ability is on the battlefield. If you do so, pick 1 friendly model with this command ability. You can re-roll charge rolls for friendly BARAK-NAR units that are wholly within 24" of that model until the end of that phase.`,
+        desc: `You can use this command ability at the start of your charge phase if a friendly model with this command ability is on the battlefield. If you do so, pick 1 friendly model with this command ability. You can reroll charge rolls for friendly BARAK-NAR units that are wholly within 24" of that model until the end of that phase.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
@@ -356,7 +356,7 @@ export const Units: TUnits = [
       },
       {
         name: `Aetheric Navigator and Endrinrigger`,
-        desc: `You can re-roll run rolls for this model.`,
+        desc: `You can reroll run rolls for this model.`,
         when: [MOVEMENT_PHASE],
       },
       BombRacksEffect,
@@ -421,7 +421,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Focused Fire`,
-        desc: `At the start of your shooting phase, you can pick 1 enemy unit for this battalion to focus fire on. If you do so, you can re-roll hit rolls of 1 for attacks made by units from this battalion that target that unit in that phase.`,
+        desc: `At the start of your shooting phase, you can pick 1 enemy unit for this battalion to focus fire on. If you do so, you can reroll hit rolls of 1 for attacks made by units from this battalion that target that unit in that phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],

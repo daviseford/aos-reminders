@@ -224,12 +224,12 @@ export const Units: TUnits = [
       DisgustinglyResilientEffect,
       {
         name: `Keep Counting, I'm Watching You`,
-        desc: `Re-roll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model. In addition, re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
+        desc: `Reroll dice rolls of 1 when making charge rolls for friendly Plaguebearers units while they are within 7" of this model. In addition, reroll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Keep Counting, I'm Watching You`,
-        desc: `Re-roll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly Plaguebearers units while they are within 7" of this model.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -245,12 +245,12 @@ export const Units: TUnits = [
       },
       {
         name: `Jolly Gutpiper`,
-        desc: `Re-roll failed charge rolls for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
+        desc: `Reroll failed charge rolls for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Jolly Gutpiper`,
-        desc: `Re-roll failed hit rolls of 1 for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
+        desc: `Reroll failed hit rolls of 1 for friendly Nurglings and Great Unclean One units while they are within 7" of any Sloppity Bilepipers.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -266,12 +266,12 @@ export const Units: TUnits = [
       },
       {
         name: `Beast Handler`,
-        desc: `Re-roll failed charge rolls for friendly Beasts of Nurgle units while they are within 7" of this model.`,
+        desc: `Reroll failed charge rolls for friendly Beasts of Nurgle units while they are within 7" of this model.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Beast Handler`,
-        desc: `Re-roll failed hit rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
+        desc: `Reroll failed hit rolls of 1 for friendly Beasts of Nurgle units while they are within 7" of this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -301,7 +301,7 @@ export const Units: TUnits = [
       },
       {
         name: `Pipers`,
-        desc: `Models in this unit can be Pipers. Re-roll battleshock tests of 1 for enemy units while they are within 6" of any Pipers.`,
+        desc: `Models in this unit can be Pipers. Reroll battleshock tests of 1 for enemy units while they are within 6" of any Pipers.`,
         when: [BATTLESHOCK_PHASE],
       },
       DisgustinglyResilientEffect,
@@ -312,7 +312,7 @@ export const Units: TUnits = [
       },
       {
         name: `Locus of Fecundity`,
-        desc: `Re-roll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
+        desc: `Reroll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
         when: [DURING_GAME],
       },
     ],
@@ -332,7 +332,7 @@ export const Units: TUnits = [
       },
       {
         name: `Bell Tollers`,
-        desc: `Models in this unit can be Bell Tollers. Re-roll battleshock tests of 1 for enemy units while they are within 6" of any Bell Tollers.`,
+        desc: `Models in this unit can be Bell Tollers. Reroll battleshock tests of 1 for enemy units while they are within 6" of any Bell Tollers.`,
         when: [BATTLESHOCK_PHASE],
       },
       DisgustinglyResilientEffect,
@@ -447,7 +447,7 @@ export const Units: TUnits = [
       },
       {
         name: `Fester and Rot`,
-        desc: `Pick a friendly Nurgle unit within 14" of this model. Re-roll failed wound rolls for that unit until your next hero phase.`,
+        desc: `Pick a friendly Nurgle unit within 14" of this model. Reroll failed wound rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
@@ -526,7 +526,7 @@ export const Units: TUnits = [
       },
       {
         name: `Plague Vector`,
-        desc: `Re-roll hit rolls of 1 for friendly Rotbringer units while within 7" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly Rotbringer units while within 7" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -619,7 +619,7 @@ export const Units: TUnits = [
       },
       {
         name: `Vermid Shield`,
-        desc: `Re-roll save rolls of 1 for this model.`,
+        desc: `Reroll save rolls of 1 for this model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -654,7 +654,7 @@ export const Units: TUnits = [
       },
       {
         name: `Towering Arrogance`,
-        desc: `Re-roll hit rolls of 1 for this model is the target is a hero. In addition, if this model is within 3" of an enemy hero in the combat phase, he cannot target units that are not heros.`,
+        desc: `Reroll hit rolls of 1 for this model is the target is a hero. In addition, if this model is within 3" of an enemy hero in the combat phase, he cannot target units that are not heros.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -674,7 +674,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Wanton Slaughter`,
-        desc: `Re-roll hit rolls of 1 for friendly Putrid Blightking units while they are within 7" of this model.`,
+        desc: `Reroll hit rolls of 1 for friendly Putrid Blightking units while they are within 7" of this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -793,7 +793,7 @@ export const NurgleBattalions: TBattalions = [
     effects: [
       {
         name: `Rituculturalists`,
-        desc: `You can re-roll hit rolls of 1 for models from this battalion whilst they are within 7" of Horticulous Slimux.`,
+        desc: `You can reroll hit rolls of 1 for models from this battalion whilst they are within 7" of Horticulous Slimux.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
@@ -823,7 +823,7 @@ export const NurgleBattalions: TBattalions = [
     effects: [
       {
         name: `Hungry for the Plague God's Praise`,
-        desc: `Re-roll hit rolls of 1 for models from this battalion while they are within 14" of another model from this battalion. In addition, re-roll wound rolls of 1 for models from this battalion while they are within 14" of two other models from this battalion.`,
+        desc: `Reroll hit rolls of 1 for models from this battalion while they are within 14" of another model from this battalion. In addition, reroll wound rolls of 1 for models from this battalion while they are within 14" of two other models from this battalion.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -858,7 +858,7 @@ export const NurgleBattalions: TBattalions = [
       },
       {
         name: `Blessed Blightplate`,
-        desc: `Re-roll saves rolls of 1 for models in this battalion.`,
+        desc: `Reroll saves rolls of 1 for models in this battalion.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -868,7 +868,7 @@ export const NurgleBattalions: TBattalions = [
     effects: [
       {
         name: `Master of Slaughter`,
-        desc: `Re-roll all failed hit rolls for units from this battalion that are affected by the Wanton Slaughter ability of this battalion's Lord of Plagues, instead of only re-rolling hit rolls of 1.`,
+        desc: `Reroll all failed hit rolls for units from this battalion that are affected by the Wanton Slaughter ability of this battalion's Lord of Plagues, instead of only rerolling hit rolls of 1.`,
         when: [COMBAT_PHASE],
       },
       {

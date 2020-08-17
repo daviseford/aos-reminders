@@ -105,7 +105,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Soul Energy`,
-        desc: `You can re-roll casting, dispelling and unbinding rolls for this general. If you do so, this general suffers 1 mortal wound after the effects of the spell (if any) are carried out.`,
+        desc: `You can reroll casting, dispelling and unbinding rolls for this general. If you do so, this general suffers 1 mortal wound after the effects of the spell (if any) are carried out.`,
         when: [HERO_PHASE],
       },
     ],

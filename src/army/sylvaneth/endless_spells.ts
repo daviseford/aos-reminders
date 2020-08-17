@@ -42,7 +42,7 @@ const EndlessSpells: TEndlessSpells = [
         
         Vital Venoms: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ add 3" to that unit's normal moves and charge moves until the end of the turn.
          
-        Shielding Swarm: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ re-roll save rolls of 1 for attacks that target that unit until the end of the turn.`,
+        Shielding Swarm: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ reroll save rolls of 1 for attacks that target that unit until the end of the turn.`,
         when: [END_OF_HERO_PHASE],
       },
     ],

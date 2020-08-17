@@ -7,7 +7,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Spellmaster`,
-        desc: `Once in each of your hero phases, you can re-roll 1 failed casting roll.`,
+        desc: `Once in each of your hero phases, you can reroll 1 failed casting roll.`,
         when: [HERO_PHASE],
       },
     ],

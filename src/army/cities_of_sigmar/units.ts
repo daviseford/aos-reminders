@@ -260,7 +260,7 @@ const PhasProtectionEffect = {
 }
 const TransmutationOfLeadEffect = {
   name: `Transmutation of Lead (${CHAMON})`,
-  desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can re-roll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+  desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
@@ -620,7 +620,7 @@ export const Units: TUnits = [
       },
       {
         name: `Reckless Riders`,
-        desc: `You can re-roll run and charge rolls for this unit.`,
+        desc: `You can reroll run and charge rolls for this unit.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -695,7 +695,7 @@ export const Units: TUnits = [
       },
       {
         name: `Grumble - 'Put your back into it, beardling!'`,
-        desc: `You can re-roll wound rolls of 1 for attacks made by friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
+        desc: `You can reroll wound rolls of 1 for attacks made by friendly Dispossessed units while they are wholly within 12" of any units with this complaint.`,
         when: [HERO_PHASE],
       },
       {
@@ -837,7 +837,7 @@ export const Units: TUnits = [
       },
       {
         name: `Calculated Trajectory`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with this model's Helstorm Rocket Salvo if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with this model's Helstorm Rocket Salvo if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -857,7 +857,7 @@ export const Units: TUnits = [
       },
       {
         name: `Working Like Clockwork`,
-        desc: `You can re-roll any dice when rolling to determine the Attacks characteristic of this model's Volley of Shots if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
+        desc: `You can reroll any dice when rolling to determine the Attacks characteristic of this model's Volley of Shots if this model is within 3" of a friendly IRONWELD ARSENAL ENGINEER.`,
         when: [HERO_PHASE],
       },
     ],
@@ -912,7 +912,7 @@ export const Units: TUnits = [
       },
       {
         name: `Inspire Hatred`,
-        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. You can re-roll wound rolls of 1 for attacks made by that unit in that combat phase.`,
+        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. You can reroll wound rolls of 1 for attacks made by that unit in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -1006,7 +1006,7 @@ export const Units: TUnits = [
       WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly HERO with this command ability. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly HERO with this command ability. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -1019,7 +1019,7 @@ export const Units: TUnits = [
       WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -1032,7 +1032,7 @@ export const Units: TUnits = [
       WitnessToDestinyEffect,
       {
         name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FROSTHEART PHOENIX that includes an Anointed. Until the end of that phase, you can re-roll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FROSTHEART PHOENIX.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FROSTHEART PHOENIX that includes an Anointed. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FROSTHEART PHOENIX.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
@@ -1079,7 +1079,7 @@ export const Units: TUnits = [
       NoxiousBreathEffect,
       {
         name: `Paired Exile Blades`,
-        desc: `You can re-roll hit rolls for attacks made with a pair of Exile Blades.`,
+        desc: `You can reroll hit rolls for attacks made with a pair of Exile Blades.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -1401,12 +1401,12 @@ export const Units: TUnits = [
       ...DuardinArtilleryEffects,
       {
         name: `Explosive Shells`,
-        desc: `You can re-roll the damage inflicted by a Cannon Shell if the target unit has 10 or more models.`,
+        desc: `You can reroll the damage inflicted by a Cannon Shell if the target unit has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Rune of Accuracy`,
-        desc: `You can re-roll failed hit rolls when firing a Cannon Shell if there is an ENGINEER from your army within 1" of the war machine.`,
+        desc: `You can reroll failed hit rolls when firing a Cannon Shell if there is an ENGINEER from your army within 1" of the war machine.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1422,7 +1422,7 @@ export const Units: TUnits = [
       },
       {
         name: `Rune of Forging`,
-        desc: `You can re-roll the dice rolled to see if an Organ Gun jams if there is an ENGINEER from your army within 1" of the war machine.`,
+        desc: `You can reroll the dice rolled to see if an Organ Gun jams if there is an ENGINEER from your army within 1" of the war machine.`,
         when: [SHOOTING_PHASE],
       },
     ],

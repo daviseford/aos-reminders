@@ -47,7 +47,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Eagle-eyed`,
-        desc: `You can re-roll hit rolls of 1 for attacks made with melee weapons by this general.`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by this general.`,
         when: [COMBAT_PHASE],
       },
     ],

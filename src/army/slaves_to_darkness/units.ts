@@ -58,7 +58,7 @@ const ChaosRuneshieldEffect = {
 }
 const OracularVisionsEffect = {
   name: `Oracular Visions`,
-  desc: `Pick a friendly Slaves to Darkness unit within 12" of this model. Until you next hero phase you can re-roll saves on that unit.`,
+  desc: `Pick a friendly Slaves to Darkness unit within 12" of this model. Until you next hero phase you can reroll saves on that unit.`,
   when: [HERO_PHASE],
 }
 const DaemonforgedWeaponEffect = {
@@ -74,13 +74,13 @@ const FuelledByCarnageEffect = {
 const KnigntsOfChaosEffect = [
   {
     name: `The Knights of Chaos`,
-    desc: `Select a friendly unit of Chaos Knights, Chaos Chariots, or Gorebeast Chariots within 18". Until your next hero phase you can re-roll charge rolls and add 1 to any hit rolls for that unit in the combat phase. The same unit cannot benefit from this more than once per turn.`,
+    desc: `Select a friendly unit of Chaos Knights, Chaos Chariots, or Gorebeast Chariots within 18". Until your next hero phase you can reroll charge rolls and add 1 to any hit rolls for that unit in the combat phase. The same unit cannot benefit from this more than once per turn.`,
     when: [HERO_PHASE],
     command_ability: true,
   },
   {
     name: `The Knights of Chaos`,
-    desc: `If active, you can re-roll charge rolls for the buffed unit.`,
+    desc: `If active, you can reroll charge rolls for the buffed unit.`,
     when: [CHARGE_PHASE],
   },
   {
@@ -91,12 +91,12 @@ const KnigntsOfChaosEffect = [
 ]
 const TerritorialPredatorEffect = {
   name: `Territorial Predator`,
-  desc: `You can re-roll hit rolls for attacks with this model's Honed Fangs and Claws if the target is a monster.`,
+  desc: `You can reroll hit rolls for attacks with this model's Honed Fangs and Claws if the target is a monster.`,
   when: [COMBAT_PHASE],
 }
 const PactOfSoulAndIronEffect = {
   name: `Pact of Soul and Iron`,
-  desc: `You can re-roll hit rolls for attacks made by this model. In addition you can re-roll wound rolls for attacks made by this model that target a Stormcast Eternal.`,
+  desc: `You can reroll hit rolls for attacks made by this model. In addition you can reroll wound rolls for attacks made by this model that target a Stormcast Eternal.`,
   when: [COMBAT_PHASE],
 }
 
@@ -191,7 +191,7 @@ export const Units: TUnits = [
       },
       {
         name: `The Eye of Sheerian`,
-        desc: `Re-roll hit rolls of 6 for attacks made by enemy units that target this model.`,
+        desc: `Reroll hit rolls of 6 for attacks made by enemy units that target this model.`,
         when: [DURING_GAME],
       },
       {
@@ -279,7 +279,7 @@ export const Units: TUnits = [
       },
       {
         name: `Infernal Flames`,
-        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -386,18 +386,18 @@ export const Units: TUnits = [
       },
       {
         name: `Iron-willed Overlord`,
-        desc: `Select a friendly Chaos Warriors unit within 18". Until your next hero phase you can re-roll charge rolls and battleshock tests for that unit until you next hero phase.`,
+        desc: `Select a friendly Chaos Warriors unit within 18". Until your next hero phase you can reroll charge rolls and battleshock tests for that unit until you next hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
       {
         name: `Iron-willed Overlord`,
-        desc: `If active, you can re-roll charge rolls for the buffed unit.`,
+        desc: `If active, you can reroll charge rolls for the buffed unit.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Iron-willed Overlord`,
-        desc: `If active, you can re-roll battleshock tests for the buffed unit.`,
+        desc: `If active, you can reroll battleshock tests for the buffed unit.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -475,13 +475,13 @@ export const Units: TUnits = [
       },
       {
         name: `Daemonic Power`,
-        desc: `Casting value of 6. Select a friendly unit wholly within 18" of the caster and visible. Until your next hero phase, you can re-roll hit and wound rolls for the targeted unit.`,
+        desc: `Casting value of 6. Select a friendly unit wholly within 18" of the caster and visible. Until your next hero phase, you can reroll hit and wound rolls for the targeted unit.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Daemonic Power`,
-        desc: `If active, you can re-roll hit and wound rolls for the targeted unit.`,
+        desc: `If active, you can reroll hit and wound rolls for the targeted unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -576,7 +576,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Mutant Sight`,
-        desc: `Once per battle, you can re-roll 1 casting or unbinding roll for this model.`,
+        desc: `Once per battle, you can reroll 1 casting or unbinding roll for this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -718,12 +718,12 @@ export const Units: TUnits = [
       ChaosRuneshieldEffect,
       {
         name: `Legions of Chaos`,
-        desc: `You can re-roll save rolls for attacks that target this unit while it has at least 10 models.`,
+        desc: `You can reroll save rolls for attacks that target this unit while it has at least 10 models.`,
         when: [DURING_GAME],
       },
       {
         name: `Pair of Chaos Hand Weapons`,
-        desc: `You can re-roll hit rolls if equipped with a pair of Chaos Hand Weapons.`,
+        desc: `You can reroll hit rolls if equipped with a pair of Chaos Hand Weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -738,7 +738,7 @@ export const Units: TUnits = [
       DaemonforgedWeaponEffect,
       {
         name: `Slaughter-leaders`,
-        desc: `If a model from this unit slays an enemy model, you can re-roll failed wound rolls for other friendly Slaves to Darkness units wholly within 12" any friendly unit with this ability until your next hero phase.`,
+        desc: `If a model from this unit slays an enemy model, you can reroll failed wound rolls for other friendly Slaves to Darkness units wholly within 12" any friendly unit with this ability until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -780,27 +780,27 @@ export const Units: TUnits = [
       },
       {
         name: `Favour: ${MARK_KHORNE}`,
-        desc: `If active, you can re-roll charge rolls for the unit. If you buffed a Khorne unit, you can re-roll its hit rolls as well.`,
+        desc: `If active, you can reroll charge rolls for the unit. If you buffed a Khorne unit, you can reroll its hit rolls as well.`,
         when: [DURING_GAME, CHARGE_PHASE],
       },
       {
         name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, you can re-roll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
+        desc: `If active, you can reroll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
         when: [DURING_GAME],
       },
       {
         name: `Favour: ${MARK_NURGLE}`,
-        desc: `If active, you can re-roll wound rolls for the buffed unit. If you buffed a Nurgle unit, add 1 to its save rolls as well.`,
+        desc: `If active, you can reroll wound rolls for the buffed unit. If you buffed a Nurgle unit, add 1 to its save rolls as well.`,
         when: [DURING_GAME],
       },
       {
         name: `Favour: ${MARK_SLAANESH}`,
-        desc: `If active, you can re-roll charge rolls for the buffed unit. If you buffed a Slaanesh unit, it also does not take battleshock tests.`,
+        desc: `If active, you can reroll charge rolls for the buffed unit. If you buffed a Slaanesh unit, it also does not take battleshock tests.`,
         when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
       },
       {
         name: `Favour: ${MARK_UNDIVIDED}`,
-        desc: `If active, you can re-roll hit and wound rolls for the buffed unit. If you buffed an Undivided unit, you can re-roll its charge rolls as well.`,
+        desc: `If active, you can reroll hit and wound rolls for the buffed unit. If you buffed an Undivided unit, you can reroll its charge rolls as well.`,
         when: [DURING_GAME, CHARGE_PHASE],
       },
     ],
@@ -912,7 +912,7 @@ export const Units: TUnits = [
       },
       {
         name: `Shrike Talon`,
-        desc: `You can re-roll 1s in charge rolls made for this unit while it includes any Shrike Talons.`,
+        desc: `You can reroll 1s in charge rolls made for this unit while it includes any Shrike Talons.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -977,7 +977,7 @@ export const Units: TUnits = [
       },
       {
         name: `Iron Resilience`,
-        desc: `You can re-roll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
+        desc: `You can reroll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -1153,7 +1153,7 @@ export const Units: TUnits = [
       },
       {
         name: `Berserk Rage`,
-        desc: `You can re-roll hit and wound rolls for melee attacks made by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
+        desc: `You can reroll hit and wound rolls for melee attacks made by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
         when: [COMBAT_PHASE],
       },
       {

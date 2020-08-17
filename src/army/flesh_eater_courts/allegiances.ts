@@ -17,7 +17,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Bloody Loyalty`,
-        desc: `You can re-roll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase.`,
+        desc: `You can reroll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
       },
       {
@@ -28,7 +28,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Savage Chivalry`,
-        desc: `You can re-roll hit rolls of 1 for this general while this general is within 12" of a friendly MORGAUNT SERFS unit.`,
+        desc: `You can reroll hit rolls of 1 for this general while this general is within 12" of a friendly MORGAUNT SERFS unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         command_trait: true,
       },
@@ -45,7 +45,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Shattering Charge`,
-        desc: `You can re-roll wound rolls of 1 for attacks made with melee weapons by friendly HOLLOWMOURNE COURTIER units and friendly HOLLOWMOURNE KNIGHTS units that have made a charge move in the same turn.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly HOLLOWMOURNE COURTIER units and friendly HOLLOWMOURNE KNIGHTS units that have made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {

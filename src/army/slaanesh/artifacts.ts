@@ -90,17 +90,17 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Crown of Dark Secrets (Pretenders)`,
-        desc: `Pick 1 enemy hero. You can re-roll hit rolls for attacks made by the bearer against the target and re-roll unbinding attempts for spells cast by the target.`,
+        desc: `Pick 1 enemy hero. You can reroll hit rolls for attacks made by the bearer against the target and reroll unbinding attempts for spells cast by the target.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
         name: `The Crown of Dark Secrets (Pretenders)`,
-        desc: `You can re-roll unbinding attempts for spells cast by the target.`,
+        desc: `You can reroll unbinding attempts for spells cast by the target.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Crown of Dark Secrets (Pretenders)`,
-        desc: `You can re-roll hit rolls for attacks made by the bearer against the target.`,
+        desc: `You can reroll hit rolls for attacks made by the bearer against the target.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -145,7 +145,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Breathtaker (Pretenders)`,
-        desc: `You can re-roll the dice roll that determines if an enemy hero within 3" of the bearer is affected by the Locus of Diversion trait.`,
+        desc: `You can reroll the dice roll that determines if an enemy hero within 3" of the bearer is affected by the Locus of Diversion trait.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],

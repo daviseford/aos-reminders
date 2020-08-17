@@ -33,7 +33,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Aristocracy of Blood`,
-        desc: `You can re-roll failed charge rolls for friendly SOULBLIGHT units that are within 9" of this general at the start of the charge phase.`,
+        desc: `You can reroll failed charge rolls for friendly SOULBLIGHT units that are within 9" of this general at the start of the charge phase.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -63,7 +63,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Sanguine Blur`,
-        desc: `Add 2" to this general's Move characteristic. In addition, you can re-roll failed charge rolls for this general.`,
+        desc: `Add 2" to this general's Move characteristic. In addition, you can reroll failed charge rolls for this general.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],

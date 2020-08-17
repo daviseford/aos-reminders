@@ -38,7 +38,7 @@ const DestructionArtifacts: TArtifacts = [
     effects: [
       {
         name: `Bellowing Blade (${DESTRUCTION})`,
-        desc: `When the bearer is picked to fight, you can re-roll one wound roll for the bearer's attack in that fight for each enemy HERO that was within 12" of the bearer when they were picked to fight.`,
+        desc: `When the bearer is picked to fight, you can reroll one wound roll for the bearer's attack in that fight for each enemy HERO that was within 12" of the bearer when they were picked to fight.`,
         when: [COMBAT_PHASE],
       },
     ],

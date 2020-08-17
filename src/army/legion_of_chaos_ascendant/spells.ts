@@ -32,12 +32,12 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Spirit Gouge`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 12" and visible. If that unit has the Death keyword, you can re-roll melee hit and wound rolls for attacks made against the target by Chaos Ascendant Daemon units until your next hero phase.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" and visible. If that unit has the Death keyword, you can reroll melee hit and wound rolls for attacks made against the target by Chaos Ascendant Daemon units until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Spirit Gouge`,
-        desc: `If active, you can re-roll melee hit and wound rolls for attacks made against the debuffed unit by Chaos Ascendant Daemon units.`,
+        desc: `If active, you can reroll melee hit and wound rolls for attacks made against the debuffed unit by Chaos Ascendant Daemon units.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -12,7 +12,7 @@ const Scenery: TScenery = [
       },
       {
         name: `Words of Hate`,
-        desc: `You can re-roll prayer and judgement rolls for friendly KHORNE PRIESTS wholly within 8" of this model.`,
+        desc: `You can reroll prayer and judgement rolls for friendly KHORNE PRIESTS wholly within 8" of this model.`,
         when: [HERO_PHASE],
       },
       {
