@@ -39,6 +39,11 @@ const KindredShieldEffect = {
   desc: `Reroll failed save rolls for this model.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
+const LionCloakEffect = {
+  name: `Lion Cloak`,
+  desc: `You can re-roll save rolls of 1 for this unit in the shooting phase.`,
+  when: [SHOOTING_PHASE],
+}
 
 export const LegacyWoodElvesUnits: TUnits = [
   {
@@ -238,6 +243,43 @@ export const LegacyWoodElvesUnits: TUnits = [
         name: `Banner of the Forests`,
         desc: `In your hero phase, you can declare that this model will plant his standard in the ground. If you do so, you may not move this model until your next hero phase. Roll a D6 for each enemy unit within 10". On a 4+, halve that unit's Move characteristic (rounding up) until the start of your next hero phase.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `White Lion Chariots`,
+    effects: [
+      LionCloakEffect,
+      {
+        name: `Unbridled Ferocity`,
+        desc: `A White Lion Chariot's War Lions make 8 attacks with their Fangs and Claws instead of 4 if this model charged in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `White Lions`,
+    effects: [
+      {
+        name: `Guardian`,
+        desc: `The leader of this unit is a Guardian. A Guardian makes 3 attacks rather than 2.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hornblower`,
+        desc: `Models in this unit may be Hornblowers. You can re-roll any dice rolls of 1 when determining how far this unit can run or charge if it includes any Hornblowers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Lion Rangers unit from your army that includes a Standard Bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      LionCloakEffect,
+      {
+        name: `Unflinching Courage`,
+        desc: `Roll a dice each time a White Lion flees; on a 4 or more that model's courage stirs up within him and he returns to the battle - he does not flee.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

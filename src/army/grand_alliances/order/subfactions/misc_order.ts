@@ -1,5 +1,6 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
-import { COMBAT_PHASE, END_OF_COMBAT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, END_OF_COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 export const LegacyOrderUnits: TUnits = [
   {
@@ -34,6 +35,17 @@ export const LegacyOrderUnits: TUnits = [
         name: `Roused to War`,
         desc: `Add 1 to hit rolls for this unit's Bludgeoning Branches if it made a charge move this turn.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Greatcannon`,
+    effects: [
+      ...GenericEffects.CrewedWarMachine('Artillery'),
+      {
+        name: `Grapeshot`,
+        desc: `Instead of firing a Cannon Ball using the profile above in the shooting phase, the Crew can load their war machine with grapeshot; if they do, then select a target that is visible to the Greatcannon. Roll one dice for each model in the target unit that is within 10" of the Greatcannon; for each roll of a 6, that unit suffers a mortal wound.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

@@ -1,4 +1,11 @@
-import { COMBAT_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION,
+} from 'types/phases'
 
 // This file is useful when storing effects for units that we'd like to re-use
 // E.G. all Gargants share the "Timber!" effect, so we'll store it here.
@@ -33,6 +40,33 @@ const GenericEffects = {
       name: `Pestilential Breath`,
       desc: `When you attack with this model's Pestilential Breath, roll a D6 before making the hit roll for the attack. If the roll is less than or equal to the number of models in the target unit, the attack scores a hit without needing to make a hit roll.`,
       when: [SHOOTING_PHASE],
+    },
+  ],
+  CrewedWarMachine: (title: 'Artillery' | 'War Machine') => [
+    {
+      name: `Crewed ${title}`,
+      desc: `This unit can only move if its Crew are within 1" of the war machine at the start of the movement phase.`,
+      when: [START_OF_MOVEMENT_PHASE],
+    },
+    {
+      name: `Crewed ${title}`,
+      desc: `If this war machine's Crew are within 1" of the war machine in the shooting phase, they can fire the war machine.`,
+      when: [SHOOTING_PHASE],
+    },
+    {
+      name: `Crewed ${title}`,
+      desc: `The war machine cannot make charge moves.`,
+      when: [CHARGE_PHASE],
+    },
+    {
+      name: `Crewed ${title}`,
+      desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
+      when: [BATTLESHOCK_PHASE],
+    },
+    {
+      name: `Crewed ${title}`,
+      desc: `The Crew are in cover while they are within 1" of their war machine.`,
+      when: [COMBAT_PHASE, SHOOTING_PHASE],
     },
   ],
 }
