@@ -1,34 +1,14 @@
 import { TUnits } from 'types/army'
-import {
-  COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_COMBAT_PHASE,
-  HERO_PHASE,
-  START_OF_GAME,
-  WOUND_ALLOCATION,
-} from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, START_OF_GAME, WOUND_ALLOCATION } from 'types/phases'
 import { LegacyBretonnianUnits } from './subfactions/bretonnia'
+import { LegacyDuardinUnits } from './subfactions/duardin'
 import { LegacyDwarfUnits } from './subfactions/dwarfs'
 import { LegacyEldritchUnits } from './subfactions/eldritch'
+import { LegacyEmpireUnits } from './subfactions/empire'
+import { LegacyHighElvesUnits } from './subfactions/high_elves'
 import { LegacyOrderUnits } from './subfactions/misc_legacy_order'
 import { MonstrousArcanumOrder } from './subfactions/monstrous_arcanum'
 import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk_agents'
-
-export const APPRENTICE_RUNESMITH = {
-  name: `Apprentice Runesmith`,
-  effects: [
-    {
-      name: `Overworked`,
-      desc: `Whilst within 5" of a Runelord on Anvil of Doom, this model's Forging Tongs have an Attacks characteristic of 3.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Enthusiastic Young Assistant`,
-      desc: `This model can attempt to unbind one spell in each enemy hero phase as if he were a wizard.`,
-      when: [HERO_PHASE],
-    },
-  ],
-}
 
 // Available to ALL factions in this Grand Alliance
 export const OrderUnits: TUnits = [
@@ -66,11 +46,14 @@ export const OrderUnits: TUnits = [
 
 // Units available to this Grand Alliance allegiance
 export const Units: TUnits = [
-  ...OrderUnits,
-  ...MonstrousArcanumOrder,
   ...LegacyBretonnianUnits,
+  ...LegacyDuardinUnits,
   ...LegacyDwarfUnits,
   ...LegacyEldritchUnits,
+  ...LegacyEmpireUnits,
+  ...LegacyHighElvesUnits,
   ...LegacyOrderUnits,
   ...LegacySwifthawkAgentUnits,
+  ...MonstrousArcanumOrder,
+  ...OrderUnits,
 ]

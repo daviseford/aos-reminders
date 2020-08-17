@@ -3,7 +3,6 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -12,22 +11,6 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-
-export const APPRENTICE_RUNESMITH = {
-  name: `Apprentice Runesmith`,
-  effects: [
-    {
-      name: `Overworked`,
-      desc: `Whilst within 5" of a Runelord on Anvil of Doom, this model's Forging Tongs have an Attacks characteristic of 3.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Enthusiastic Young Assistant`,
-      desc: `This model can attempt to unbind one spell in each enemy hero phase as if he were a wizard.`,
-      when: [HERO_PHASE],
-    },
-  ],
-}
 
 const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
   {
@@ -69,105 +52,6 @@ const KindredShieldEffect = {
 }
 
 export const LegacyOrderUnits: TUnits = [
-  {
-    name: `Battlemage on Pegasus`,
-    effects: [
-      {
-        name: `Amulet of Negation`,
-        desc: `Add 1 to unbinding rolls for this model for each enemy Wizard within 18" of them.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Wizard`,
-        desc: `A Battlemage on Pegasus is a wizard. They can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. They know the Arcane Bolt, Mystic Shield and Searing Doom spells.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Searing Doom`,
-        desc: `Casting value of 6. Pick an enemy unit that is visible to the caster and within 18" of them and roll 6 dice. 
-        
-        That unit suffers 1 mortal wound for each dice rolled that is equal to or higher than that unit's Save characteristic (for example, a unit with a save of 4+ would suffer a mortal wound for each dice result that was a 4 or more). 
-        
-        Units with a save of - cannot be affected by this spell.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
-  },
-
-  {
-    name: `Highborn Repeater Bolt Thrower`,
-    effects: [
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit can only move if its Crew are within 1" at the start of the movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `If its Crew are within 1" of the Highborn Repeater Bolt Thrower in the shooting phase, they can fire the war machine.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit cannot make charge moves.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `This unit does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Crewed War Machine`,
-        desc: `The Crew are in cover while they are within 1" of their war machine.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Bolt Selection`,
-        desc: `Each time a Highborn Repeater Bolt Thrower is fired in the shooting phase, the crew can load and fire either Ithilmar Bolts or volleys of Repeating Bolts. They cannot load and fire both in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Loremaster`,
-    effects: [
-      DeflectShotsEffect,
-      {
-        name: `Hand of Glory`,
-        desc: `Casting value of 5. Pick a model within 18". Until your next hero phase you can reroll all failed hit rolls and wound rolls for that model.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
-  },
-  {
-    name: `Highborn Archers`,
-    effects: [
-      {
-        name: `Hawkeye`,
-        desc: `The leader of this unit is a Hawkeye. Add 1 to hit rolls for a Hawkeye in the shooting phase.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      InfantryHornblowerEffect,
-      {
-        name: `Aelven Archery`,
-        desc: `Add 1 to hit rolls for this unit in the shooting phase while it has 20 or more models and there are no enemy models within 3" of it.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Storm of Arrows`,
-        desc: `Once per battle, you can declare that this unit will fire a Storm of Arrows in their shooting phase; when you do so, add 1 to the Attacks characteristic of their Silverwood Longbows. This unit cannot fire a Storm of Arrows if there are any enemy models within 3" of it.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
   {
     name: `Avatar of the Hunt`,
     effects: [

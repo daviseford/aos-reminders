@@ -127,11 +127,7 @@ export const LegacyEldritchUnits: TUnits = [
   {
     name: `Loremaster`,
     effects: [
-      {
-        name: `Deflect Shots`,
-        desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
-        when: [SHOOTING_PHASE],
-      },
+      DeflectShotsEffect,
       {
         name: `Wizard`,
         desc: `A Loremaster is a wizard. He can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Hand of Glory spells.`,
