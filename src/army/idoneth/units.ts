@@ -60,13 +60,13 @@ export const Units: TUnits = [
       },
       {
         name: `Cloying Seas Mists`,
-        desc: `Casting value 6. Pick a unit within 12" of the caster and that is visible. If a deepkin unit heald D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick a unit within 12" of the caster and that is visible. If a deepkin unit heald D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Tsunami of Terror`,
-        desc: `Casting value 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
+        desc: `Casting value of 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -140,7 +140,7 @@ export const Units: TUnits = [
       },
       {
         name: `Riptide`,
-        desc: `Casting value 7. Pick an enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for that unit. In addition, at the start of your next hero phase the unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for that unit. In addition, at the start of your next hero phase the unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },

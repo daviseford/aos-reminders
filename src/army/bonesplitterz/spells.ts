@@ -8,7 +8,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Squiggly Curse`,
-        desc: `Casting Value 6. Select a HERO within 3" and it suffers D3 mortal wounds. If you rolled a double to cast it then suffers D6 mortal wounds instead.
+        desc: `Casting value of 6. Select a HERO within 3" and it suffers D3 mortal wounds. If you rolled a double to cast it then suffers D6 mortal wounds instead.
 
         If a model is slain by Squiggly Curse, you can add 1 to any further casting attempts made by the caster during the battle.`,
         when: [HERO_PHASE],
@@ -20,7 +20,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Breath of Gorkamorka`,
-        desc: `Casting Value 6. Pick a Bonesplitterz unit within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
+        desc: `Casting value of 6. Pick a Bonesplitterz unit within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -30,7 +30,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Brutal Beast Spirits`,
-        desc: `Casting Value 6. Pick a Bonesplitterz unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can select 2 different friendly Bonesplitterz units wholly within 24" of the caster to be affected by this spell instead of 1.`,
+        desc: `Casting value of 6. Pick a Bonesplitterz unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can select 2 different friendly Bonesplitterz units wholly within 24" of the caster to be affected by this spell instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -40,7 +40,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Bone Krusha`,
-        desc: `Casting Value 6. Pick an enemy unit within 24" that is visible to the caster.
+        desc: `Casting value of 6. Pick an enemy unit within 24" that is visible to the caster.
 
           If target is within 6": Deal D6 mortal wounds.
 
@@ -56,7 +56,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Kunnin' Beast Spirits`,
-        desc: `Casting value 6. Pick a unit wholly within 24". Add 1 to save rolls for that unit until your next hero phase.`,
+        desc: `Casting value of 6. Pick a unit wholly within 24". Add 1 to save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
@@ -66,7 +66,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Gorkamorka's War Cry`,
-        desc: `Casting value 7. Pick 1 enemy unit within 18", that unit suffers D3 mortal wounds and must fight at the end of the combat phase in the next combat.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18", that unit suffers D3 mortal wounds and must fight at the end of the combat phase in the next combat.`,
         when: [HERO_PHASE],
       },
     ],

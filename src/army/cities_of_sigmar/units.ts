@@ -224,49 +224,49 @@ const BattlemageMagicEffect = {
 }
 const WildformEffect = {
   name: `Wildform (${GHUR})`,
-  desc: `Casting value 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
+  desc: `Casting value of 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const ChainLightningEffect = {
   name: `Chain Lightning (${AZYR})`,
-  desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+  desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const FireballEffect = {
   name: `Fireball (${AQSHY})`,
-  desc: `Casting value 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
+  desc: `Casting value of 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const MystifyingMiasmaEffect = {
   name: `Mystifying Miasma (${ULGU})`,
-  desc: `Casting value 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
+  desc: `Casting value of 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const PallOfDoomEffect = {
   name: `Pall of Doom (${SHYISH})`,
-  desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
+  desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const PhasProtectionEffect = {
   name: `Pha's Protection (${HYSH})`,
-  desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
+  desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const TransmutationOfLeadEffect = {
   name: `Transmutation of Lead (${CHAMON})`,
-  desc: `Casting value 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+  desc: `Casting value of 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
   when: [HERO_PHASE],
   spell: true,
 }
 const ShieldOfThornsEffect = {
   name: `Shield of Thorns (${GHYRAN})`,
-  desc: `Casting value 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
+  desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
   when: [HERO_PHASE],
   spell: true,
 }
@@ -336,7 +336,7 @@ export const Units: TUnits = [
       },
       {
         name: `Amber Spear`,
-        desc: `Casting value 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -355,7 +355,7 @@ export const Units: TUnits = [
       ChainLightningEffect,
       {
         name: `Comet of Casandora`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster and roll 2D6. If the roll is less than or equal to that unit's Move characteristic, that unit suffers D3 mortal wounds. If the roll is greater than that unit's Move characteristic, that unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster and roll 2D6. If the roll is less than or equal to that unit's Move characteristic, that unit suffers D3 mortal wounds. If the roll is greater than that unit's Move characteristic, that unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -376,7 +376,7 @@ export const Units: TUnits = [
       },
       {
         name: `Burning Gaze`,
-        desc: `Casting value 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Double the number of wounds inflicted if that unit has 10 or more models, or triple the number of wounds inflicted if that unit has 20 or more models.`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Double the number of wounds inflicted if that unit has 10 or more models, or triple the number of wounds inflicted if that unit has 20 or more models.`,
         when: [HERO_PHASE],
         spell: true,
       },
