@@ -1,13 +1,13 @@
-import React, { useMemo, useEffect } from 'react'
+import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilityToggle'
+import { SelectMulti, SelectOne, TDropdownOption, TSelectOneSetValueFn } from 'components/input/select'
+import { useTheme } from 'context/useTheme'
+import { selectors, visibility } from 'ducks'
+import React, { useEffect, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
-import { useTheme } from 'context/useTheme'
-import { visibility, selectors } from 'ducks'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { VisibilityToggle, TVisibilityIconType } from 'components/info/visibilityToggle'
-import { TDropdownOption, SelectMulti, TSelectOneSetValueFn, SelectOne } from 'components/input/select'
-import { TUnits, TArtifacts, TBattalions, TTraits, TAllegiances, TSpells, TEndlessSpells } from 'types/army'
+import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
 import { IStore } from 'types/store'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IBaseCardProps {
   isMobile: boolean

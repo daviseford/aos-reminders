@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { FaLink } from 'react-icons/fa'
-import CopyToClipboard from 'react-copy-to-clipboard'
+import Spinner from 'components/helpers/spinner'
+import GenericButton from 'components/input/generic_button'
+import GenericModal from 'components/page/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import { logEvent } from 'utils/analytics'
-import { prepareArmy } from 'utils/armyUtils'
-import Spinner from 'components/helpers/spinner'
-import GenericModal from 'components/page/genericModal'
-import GenericButton from 'components/input/generic_button'
+import React, { useEffect, useState } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
+import { FaLink } from 'react-icons/fa'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
+import { logEvent } from 'utils/analytics'
+import { prepareArmy } from 'utils/armyUtils'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

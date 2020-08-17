@@ -1,5 +1,5 @@
-import { HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE, BATTLESHOCK_PHASE } from 'types/phases'
 import { TSpells } from 'types/army'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // Lore of the Deep
 const Spells: TSpells = [

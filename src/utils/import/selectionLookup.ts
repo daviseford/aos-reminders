@@ -1,11 +1,11 @@
 import { uniq } from 'lodash'
-import { checkImportSelection } from 'utils/import/checkImportSelection'
-import { mapListToDict } from 'utils/mapListToDict'
-import { TImportError } from 'types/import'
-import { TNameMap, importUnitOptionMap } from 'utils/import/options'
-import { Validators } from 'utils/import/validators'
 import { IArmy } from 'types/army'
+import { TImportError } from 'types/import'
 import { ISelections } from 'types/selections'
+import { checkImportSelection } from 'utils/import/checkImportSelection'
+import { importUnitOptionMap, TNameMap } from 'utils/import/options'
+import { Validators } from 'utils/import/validators'
+import { mapListToDict } from 'utils/mapListToDict'
 
 type TLookupType =
   | 'allegiances'

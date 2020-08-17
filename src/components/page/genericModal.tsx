@@ -1,7 +1,7 @@
+import Spinner from 'components/helpers/spinner'
+import { useTheme } from 'context/useTheme'
 import React from 'react'
 import Modal from 'react-modal'
-import { useTheme } from 'context/useTheme'
-import Spinner from 'components/helpers/spinner'
 
 interface IGenericModalProps {
   isProcessing?: boolean

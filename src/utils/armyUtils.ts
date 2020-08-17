@@ -1,9 +1,9 @@
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
-import { ISavedArmy } from 'types/savedArmy'
-import { IAllySelections } from 'types/selections'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { ICurrentArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { IImportedArmy } from 'types/import'
-import { ICurrentArmy } from 'types/army'
+import { ISavedArmy } from 'types/savedArmy'
+import { IAllySelections } from 'types/selections'
 
 export const armyHasEntries = (army: ISavedArmy) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army

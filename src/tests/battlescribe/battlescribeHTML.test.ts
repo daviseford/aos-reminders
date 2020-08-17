@@ -1,5 +1,5 @@
+import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
-import path from 'path'
 import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -14,9 +14,9 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
-  LEGIONS_OF_GRIEF,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -31,15 +31,22 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
+import path from 'path'
 import { HYSH } from 'types/realmscapes'
-import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1597441117251-Battlescribe', () => {
+    const parsedText = getFile('1597441117251-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.spells).toContain('Nikkit! Nikkit!')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1596870118915-Battlescribe', () => {
     const parsedText = getFile('1596870118915-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -47,19 +54,16 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1593279607055-Battlescribe', () => {
+  it('should correctly read 1593279607055-Battlescribe', () => {
     const parsedText = getFile('1593279607055-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
 
+    expect(res.selections.spells).toContain('Nikkit! Nikkit!')
     expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Nikkit! Nikkit!',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Hag Curse',
-      // },
+      {
+        severity: 'warn',
+        text: 'Hag Curse',
+      },
     ])
   })
 

@@ -1,12 +1,12 @@
+import KOArmy from 'army/kharadron_overlords'
 import { uniq } from 'lodash'
-import { titleCase } from 'utils/textUtils'
+import { TSupportedFaction } from 'meta/factions'
+import { AZYR, IImportedArmy } from 'types/import'
+import { TBattleRealms } from 'types/realmscapes'
 import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
-import KOArmy from 'army/kharadron_overlords'
-import { TSupportedFaction } from 'meta/factions'
-import { TBattleRealms } from 'types/realmscapes'
-import { IImportedArmy, AZYR } from 'types/import'
+import { titleCase } from 'utils/textUtils'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)

@@ -1,5 +1,5 @@
-import { Units } from './units'
 import Abilities from './abilities'
+import { Units } from './units'
 
 // Copy paste this directory to kickstart a new army
 // Remember to add your army to:

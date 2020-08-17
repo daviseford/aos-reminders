@@ -1,3 +1,4 @@
+import { TEndlessSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,7 +13,6 @@ import {
   START_OF_ROUND,
   START_OF_TURN,
 } from 'types/phases'
-import { TEndlessSpells } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 export const ChronomanticCogsEffects = [

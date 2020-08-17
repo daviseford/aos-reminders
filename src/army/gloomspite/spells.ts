@@ -1,3 +1,4 @@
+import { TSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -6,7 +7,6 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-import { TSpells } from 'types/army'
 
 const Spells: TSpells = [
   {

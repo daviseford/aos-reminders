@@ -1,6 +1,6 @@
-import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
-import { TAbilities } from 'types/army'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import { TAbilities } from 'types/army'
+import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 
 // Importing from LoN
 const getLegionsOfNagashAbilities = () => LegionsOfNagash.Abilities

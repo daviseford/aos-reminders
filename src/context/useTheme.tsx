@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useSubscription } from 'context/useSubscription'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import LightTheme from 'theme/light'
+import { useSubscription } from 'context/useSubscription'
+import React, { useCallback, useEffect, useState } from 'react'
 import DarkTheme from 'theme/dark'
+import LightTheme from 'theme/light'
+import { ITheme, TThemeType } from 'types/theme'
 import { logEvent } from 'utils/analytics'
 import { LocalTheme } from 'utils/localStore'
-import { ITheme, TThemeType } from 'types/theme'
 
 interface IThemeProvider {
   isDark: boolean

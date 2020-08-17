@@ -1,9 +1,9 @@
-import pdfjsLib from 'pdfjs-dist'
-import { uniq, sortBy } from 'lodash'
-import { titleCase } from 'utils/textUtils'
-import { isDev } from 'utils/env'
+import { sortBy, uniq } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
-import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
+import pdfjsLib from 'pdfjs-dist'
+import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARSCROLL_BUILDER } from 'types/import'
+import { isDev } from 'utils/env'
+import { titleCase } from 'utils/textUtils'
 
 const sep = ', '
 const commaAlt = `&&`

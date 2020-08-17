@@ -1,4 +1,3 @@
-import { TEndlessSpells } from 'types/army'
 import {
   AethervoidPendulumEffects,
   BalewindVortexEffects,
@@ -15,7 +14,8 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'army/generic/endless_spells'
-import { START_OF_ROUND, HERO_PHASE } from 'types/phases'
+import { TEndlessSpells } from 'types/army'
+import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
 const BoundEffect = {
   name: `Bound Endless Spell`,

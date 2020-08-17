@@ -1,3 +1,4 @@
+import { TEndlessSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -6,7 +7,6 @@ import {
   START_OF_HERO_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
-import { TEndlessSpells } from 'types/army'
 
 // Judgements of Khorne.
 const EndlessSpells: TEndlessSpells = [

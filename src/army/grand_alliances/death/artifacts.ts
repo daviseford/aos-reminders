@@ -1,3 +1,4 @@
+import { DEATH } from 'meta/alliances'
 import { TArtifacts } from 'types/army'
 import {
   COMBAT_PHASE,
@@ -6,7 +7,6 @@ import {
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { DEATH } from 'meta/alliances'
 
 const Artifacts: TArtifacts = [
   {

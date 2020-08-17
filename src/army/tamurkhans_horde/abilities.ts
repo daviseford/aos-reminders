@@ -1,8 +1,7 @@
-import { TAbilities } from 'types/army'
-import { DURING_GAME, START_OF_CHARGE_PHASE, START_OF_GAME } from 'types/phases'
-
 // Import all Nurgle abilities as they are cross compatible with Tamurkan's Horde.
 import NurgleAbilities from 'army/nurgle/abilities'
+import { TAbilities } from 'types/army'
+import { DURING_GAME, START_OF_CHARGE_PHASE, START_OF_GAME } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [

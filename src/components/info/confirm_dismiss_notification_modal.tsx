@@ -1,8 +1,8 @@
-import React from 'react'
-import { FaCheck } from 'react-icons/fa'
-import { useTheme } from 'context/useTheme'
 import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/page/genericModal'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
   closeModal: () => void

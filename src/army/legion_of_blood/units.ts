@@ -1,5 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
 import LegionsOfNagash from 'army/legions_of_nagash'
+import { TBattalions, TUnits } from 'types/army'
 import { COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'
 

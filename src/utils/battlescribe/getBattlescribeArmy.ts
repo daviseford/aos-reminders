@@ -1,9 +1,9 @@
-import parse5 from 'parse5'
-import { importErrorChecker } from 'utils/import'
-import { stripParentNode, traverseDoc, parseRootSelection } from 'utils/battlescribe/parseHTML'
-import { sortParsedRoots, getFactionAndAllegiance } from 'utils/battlescribe/getters'
 import { TSupportedFaction } from 'meta/factions'
+import parse5 from 'parse5'
 import { BATTLESCRIBE } from 'types/import'
+import { getFactionAndAllegiance, sortParsedRoots } from 'utils/battlescribe/getters'
+import { parseRootSelection, stripParentNode, traverseDoc } from 'utils/battlescribe/parseHTML'
+import { importErrorChecker } from 'utils/import'
 
 export const getBattlescribeArmy = (html_string: string) => {
   const army = getInitialBattlescribeArmy(html_string)

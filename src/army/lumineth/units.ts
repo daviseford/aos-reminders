@@ -1,3 +1,4 @@
+import idoneth from 'army/idoneth'
 import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
@@ -11,7 +12,6 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import * as CommonUnitEffects from './commonUnitEffects'
-import idoneth from 'army/idoneth'
 
 export const Units: TUnits = [
   {
@@ -34,18 +34,18 @@ export const Units: TUnits = [
       },
       {
         name: `Seeing Stone of Celennar`,
-        desc: `Each time a friendly model within range of this model's Aura of Celennar ability is affected by a spell or endless spell cast by an enemy WIZARD, you can roll a dice. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time a friendly model within range of this model's Aura of Celennar ability is affected by a spell or endless spell cast by an enemy WIZARD, you can roll a D6. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
         when: [WOUND_ALLOCATION],
       },
       {
         name: `Protection of Teclis`,
-        desc: `Casting value of 10. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
+        desc: `Casting value of 10. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
         when: [HERO_PHASE, WOUND_ALLOCATION],
         spell: true,
       },
       {
         name: `Storm of Searing White Light`,
-        desc: `Casting value of 10. Roll a dice for each enemy unit within 18" of the caster and visible to them. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 10. Roll a D6 for each enemy unit within 18" of the caster and visible to them. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -56,7 +56,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Moonfire Flask`,
-        desc: `Once per battle, you can pick 1 enemy unit within 3" of this unit's High Warden and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, you can pick 1 enemy unit within 3" of this unit's High Warden and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
       CommonUnitEffects.getSunmetalWeaponsEffect(`Warden's Pike`),
@@ -121,7 +121,7 @@ export const Units: TUnits = [
       },
       {
         name: `Searing Darts of Light`,
-        desc: `In your shooting phase, you can pick 1 enemy unit within 18" of this model that is visible to them and roll a dice. On a 1, nothing happens. On a 2-4, that unit suffers D3 mortal wounds. On a 5+, that unit suffers D6 mortal wounds.`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 18" of this model that is visible to them and roll a D6. On a 1, nothing happens. On a 2-4, that unit suffers D3 mortal wounds. On a 5+, that unit suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -147,7 +147,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Emotional Transference`,
-        desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a dice. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from the friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
+        desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a D6. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from the friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
       {
@@ -272,7 +272,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Blessing of Teclis`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],

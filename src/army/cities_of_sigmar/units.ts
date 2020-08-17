@@ -1,4 +1,8 @@
+import KharadronOverlords from 'army/kharadron_overlords'
+import Stormcast from 'army/stormcast_eternals'
+import Sylvaneth from 'army/sylvaneth'
 import { TBattalions, TUnits } from 'types/army'
+import { AZYR } from 'types/import'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -18,11 +22,7 @@ import {
   TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import KharadronOverlords from 'army/kharadron_overlords'
-import Stormcast from 'army/stormcast_eternals'
-import Sylvaneth from 'army/sylvaneth'
-import { GHYRAN, GHUR, CHAMON, HYSH, SHYISH, ULGU, AQSHY } from 'types/realmscapes'
-import { AZYR } from 'types/import'
+import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 const getKharadronUnits = () => KharadronOverlords.Units
 const getStormcastUnits = () => Stormcast.Units

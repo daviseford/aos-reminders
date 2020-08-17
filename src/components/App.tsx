@@ -1,11 +1,10 @@
-import React, { useEffect, lazy, Suspense } from 'react'
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
-import { ROUTES } from 'utils/env'
-
+import { PrivateRoute } from 'components/page/privateRoute'
+import React, { lazy, Suspense, useEffect } from 'react'
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { PrivateRoute } from 'components/page/privateRoute'
-import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
+import { ROUTES } from 'utils/env'
+import { handleArmyLink, handleCheckout } from 'utils/handleQueryParams'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))

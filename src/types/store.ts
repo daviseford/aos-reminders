@@ -1,8 +1,8 @@
-import { TSideEffectTypes } from 'utils/withSelect'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import { IAllySelections, ISelections } from 'types/selections'
+import { TSideEffectTypes } from 'utils/withSelect'
 
 export interface IArmyStore {
   army: IArmy

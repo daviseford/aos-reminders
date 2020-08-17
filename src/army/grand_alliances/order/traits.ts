@@ -1,12 +1,12 @@
+import { ORDER } from 'meta/alliances'
 import { TTraits } from 'types/army'
 import {
-  TURN_ONE_START_OF_ROUND,
   BATTLESHOCK_PHASE,
-  DURING_GAME,
   COMBAT_PHASE,
+  DURING_GAME,
+  TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { ORDER } from 'meta/alliances'
 
 const CommandTraits: TTraits = [
   {

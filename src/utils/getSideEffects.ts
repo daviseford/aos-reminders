@@ -1,6 +1,6 @@
 import { uniq } from 'lodash'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 import { TEntry } from 'types/data'
+import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {

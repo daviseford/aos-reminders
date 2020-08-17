@@ -1,7 +1,7 @@
 import { last } from 'lodash'
+import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { replaceOf } from 'utils/import/replaceOf'
 import { stripPunctuation } from 'utils/textUtils'
-import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 
 export const Validators = (Names: string[]) => {
   /**

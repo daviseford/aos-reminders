@@ -1,4 +1,4 @@
-import { IParentNode, IChildNode } from 'utils/battlescribe/getBattlescribeArmy'
+import { IChildNode, IParentNode } from 'utils/battlescribe/getBattlescribeArmy'
 
 export const isParentNode = (node: IParentNode | IChildNode | undefined): node is IParentNode =>
   !!node && 'childNodes' in node

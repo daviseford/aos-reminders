@@ -1,10 +1,10 @@
-import React from 'react'
-import { sortBy } from 'lodash'
 import { useTheme } from 'context/useTheme'
-import { titleCase } from 'utils/textUtils'
-import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
-import { ITheme } from 'types/theme'
+import { sortBy } from 'lodash'
+import React from 'react'
+import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
+import { ITheme } from 'types/theme'
+import { titleCase } from 'utils/textUtils'
 
 interface ISavedArmyTable {
   army: ISavedArmyFromApi | ISavedArmy

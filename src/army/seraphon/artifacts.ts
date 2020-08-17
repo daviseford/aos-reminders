@@ -26,7 +26,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Incandescent Rectrices`,
-        desc: `The first time bearer is slain, before removing them from the battlefield, roll a dice. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
+        desc: `The first time bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -56,7 +56,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Prism of Amyntok`,
-        desc: `Once per the battle, at the start of any phase, pick 1 enemy unit within 12" of the bearer and roll a dice. On a 1, that unit suffers 1 mortal wound. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
+        desc: `Once per the battle, at the start of any phase, pick 1 enemy unit within 12" of the bearer and roll a D6. On a 1, that unit suffers 1 mortal wound. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
         when: [DURING_GAME],
       },
     ],
@@ -106,7 +106,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Sigils of the Prime Hunter`,
-        desc: `Each time the bearer fights, after all of the bearer's attacks have been resolved, you can pick 1 enemy unit within 1" of the bearer and roll a dice. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time the bearer fights, after all of the bearer's attacks have been resolved, you can pick 1 enemy unit within 1" of the bearer and roll a D6. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],

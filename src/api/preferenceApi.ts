@@ -1,8 +1,8 @@
 import request from 'superagent'
+import { ICurrentArmy } from 'types/army'
+import { TImportFileTypes, TImportParsers } from 'types/import'
 import { ISavedArmy } from 'types/savedArmy'
 import { isDev } from 'utils/env'
-import { TImportFileTypes, TImportParsers } from 'types/import'
-import { ICurrentArmy } from 'types/army'
 
 const devEndpoint = `https://bgj1fpqcj6.execute-api.us-east-1.amazonaws.com/dev`
 const prodEndpoint = `https://mzrv8apqrd.execute-api.us-east-1.amazonaws.com/prod`

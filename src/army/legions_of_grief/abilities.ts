@@ -1,12 +1,12 @@
+import { TAbilities } from 'types/army'
 import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_GAME,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { TAbilities } from 'types/army'
 
 // General Allegiance Abilities
 const Abilities: TAbilities = [

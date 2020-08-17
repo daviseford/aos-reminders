@@ -1,12 +1,12 @@
+import { CHAOS } from 'meta/alliances'
 import { TArtifacts } from 'types/army'
 import {
-  COMBAT_PHASE,
-  START_OF_COMBAT_PHASE,
-  DURING_GAME,
   BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { CHAOS } from 'meta/alliances'
 
 const Artifacts: TArtifacts = [
   {

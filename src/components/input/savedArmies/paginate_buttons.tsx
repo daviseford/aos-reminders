@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
 interface IPaginateButtonsProps {
   pageNum: number

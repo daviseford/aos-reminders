@@ -1,14 +1,14 @@
 import produce from 'immer'
-import { processGame } from 'utils/processGame'
-import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
-import { getCollection } from 'utils/getArmy/getCollection'
-import { modify } from 'utils/getArmy/modify'
-import { isValidFactionName } from 'utils/armyUtils'
-import { TGrandAlliances, GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions } from 'meta/alliances'
+import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
 import { getArmyFromList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, ICollection, IInitialArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { isValidFactionName } from 'utils/armyUtils'
+import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
+import { getCollection } from 'utils/getArmy/getCollection'
+import { modify } from 'utils/getArmy/modify'
+import { processGame } from 'utils/processGame'
 
 export const getArmy = (
   factionName: TSupportedFaction | null,

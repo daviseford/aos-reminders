@@ -1,9 +1,9 @@
-import React from 'react'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import React from 'react'
+import { ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent, resetAnalyticsStore } from 'utils/analytics'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi

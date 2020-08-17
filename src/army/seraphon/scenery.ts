@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { START_OF_SETUP, DURING_GAME, HERO_PHASE } from 'types/phases'
+import { DURING_GAME, HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
 const Scenery: TScenery = [
   {
@@ -17,7 +17,7 @@ const Scenery: TScenery = [
       },
       {
         name: `Power Unleashed`,
-        desc: `In your hero phase, if this model is garrisoned by a friendly SERAPHON WIZARD or friendly SERAPHON PRIEST, you can pick 1 terrain feature anywhere on the battlefield and roll a dice for each enemy unit within 3" of that terrain feature. Add 2 to the roll if that terrain feature is within 18" of this model, and subtract 2 from the roll if that terrain feature is more than 36" from this model. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `In your hero phase, if this model is garrisoned by a friendly SERAPHON WIZARD or friendly SERAPHON PRIEST, you can pick 1 terrain feature anywhere on the battlefield and roll a D6 for each enemy unit within 3" of that terrain feature. Add 2 to the roll if that terrain feature is within 18" of this model, and subtract 2 from the roll if that terrain feature is more than 36" from this model. On a 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

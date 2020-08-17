@@ -1,3 +1,4 @@
+import { TAbilities } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -7,7 +8,6 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { TAbilities } from 'types/army'
 
 const Abilities: TAbilities = [
   {

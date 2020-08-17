@@ -1,11 +1,11 @@
-import { uniq, last } from 'lodash'
-import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
-import { importUnitOptionMap, importFactionNameMap } from 'utils/import/options'
-import { importErrorChecker } from 'utils/import'
 import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
+import { importErrorChecker } from 'utils/import'
+import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
+import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)

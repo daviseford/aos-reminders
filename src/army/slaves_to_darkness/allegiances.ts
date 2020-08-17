@@ -210,7 +210,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Failure is Not an Option`,
-        desc: `You may use this ability when a friendly Knights of the Empty Throne Varanguard unit is destroyed. Roll a dice and on a 5+ a new Varanguard unit of 3 models is added to your army. Set this unit up wholly within 6" of the battlefield edge and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        desc: `You may use this ability when a friendly Knights of the Empty Throne Varanguard unit is destroyed. Roll a D6 and on a 5+ a new Varanguard unit of 3 models is added to your army. Set this unit up wholly within 6" of the battlefield edge and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
         command_ability: true,
       },

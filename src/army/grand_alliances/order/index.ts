@@ -1,6 +1,6 @@
-import OrderTraits from './traits'
 import OrderArtifacts from './artifacts'
-import { Units, OrderUnits } from './units'
+import OrderTraits from './traits'
+import { OrderUnits, Units } from './units'
 
 export { OrderArtifacts, OrderTraits, OrderUnits }
 

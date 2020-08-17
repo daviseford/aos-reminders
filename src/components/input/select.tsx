@@ -1,7 +1,7 @@
+import { useTheme } from 'context/useTheme'
 import React, { useCallback } from 'react'
 import Select from 'react-select'
 import { ActionMeta, ValueType } from 'react-select/src/types'
-import { useTheme } from 'context/useTheme'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 

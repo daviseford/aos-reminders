@@ -1,3 +1,4 @@
+import { TCommands } from 'types/army'
 import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -5,7 +6,6 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import { TCommands } from 'types/army'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm specific command abilities.
@@ -75,7 +75,7 @@ const Commands: TCommands = [
     effects: [
       {
         name: `Amethyst Aura (${SHYISH})`,
-        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a dice each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
       },
     ],

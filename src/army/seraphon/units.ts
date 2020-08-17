@@ -21,7 +21,7 @@ import {
 
 const SelflessProtectorEffect = {
   name: `Selfless Protector`,
-  desc: `Roll a dice before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
+  desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
   when: [WOUND_ALLOCATION],
 }
 const VoraciousAppetiteEffect = {
@@ -148,7 +148,7 @@ export const Units: TUnits = [
       },
       {
         name: `Dead for Innumerable Ages`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
       {
@@ -243,7 +243,7 @@ export const Units: TUnits = [
       },
       {
         name: `Revivifying Energies`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to a friendly SERAPHON unit wholly within 12" of any models with this ability. On a 6, that wound or mortal wound is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SERAPHON unit wholly within 12" of any models with this ability. On a 6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
       },
     ],
@@ -253,7 +253,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Star-stone Staff`,
-        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a dice, On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
+        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a D6, On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -269,7 +269,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Cosmic Herald`,
-        desc: `At the start of your hero phase, roll a dice for this model. On a 4+, you receive 1 command point.`,
+        desc: `At the start of your hero phase, roll a D6 for this model. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -290,7 +290,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Astral Herald`,
-        desc: `At the start of your hero phase, roll a dice for this model. On a 5+ you receive 1 command point.`,
+        desc: `At the start of your hero phase, roll a D6 for this model. On a 5+ you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -558,7 +558,7 @@ export const Units: TUnits = [
       },
       {
         name: `Regeneration`,
-        desc: `In your hero phase, you can roll a dice for this model. If you do so, on a 2+, heal up to D3 wounds allocated to this model.`,
+        desc: `In your hero phase, you can roll a D6 for this model. If you do so, on a 2+, heal up to D3 wounds allocated to this model.`,
         when: [HERO_PHASE],
       },
       {
@@ -579,17 +579,17 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Arcane Glyphs`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a dice. If you do so, on a 6+, ignore the effects of that spell or endless spell on this model. Add 2 to the roll if this model is within 12" of a friendly Slann.`,
+        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 6+, ignore the effects of that spell or endless spell on this model. Add 2 to the roll if this model is within 12" of a friendly Slann.`,
         when: [HERO_PHASE],
       },
       {
         name: `Obliterating Charge`,
-        desc: `After this model makes a charge move, roll a dice for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a Monster or D6 mortal wounds if it is not a Monster.`,
+        desc: `After this model makes a charge move, roll a D6 for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a Monster or D6 mortal wounds if it is not a Monster.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Death Throes`,
-        desc: `If this model is slain, before removing it from the battlefield, roll a dice for each enemy unit within 3" of it that is not a Monster. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `If this model is slain, before removing it from the battlefield, roll a D6 for each enemy unit within 3" of it that is not a Monster. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [WOUND_ALLOCATION],
       },
       {

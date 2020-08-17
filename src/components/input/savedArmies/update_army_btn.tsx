@@ -1,15 +1,15 @@
-import React, { useMemo, useState } from 'react'
-import { FaCloudUploadAlt } from 'react-icons/fa'
-import { connect } from 'react-redux'
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
-import { logEvent } from 'utils/analytics'
-import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
-import GenericButton from 'components/input/generic_button'
+import React, { useMemo, useState } from 'react'
+import { FaCloudUploadAlt } from 'react-icons/fa'
+import { connect } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
+import { logEvent } from 'utils/analytics'
+import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
 
 interface IUpdateArmyProps {
   id: string

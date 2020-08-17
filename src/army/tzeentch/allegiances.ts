@@ -186,7 +186,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Maddening Cascade`,
-        desc: `Each time an Unbound Flux Daemon wizard casts a spell inflicting mortal wounds, roll a dice for each unit that suffered any mortal wounds from the spell. On a 4+ that unit suffers 1 additional mortal wound.`,
+        desc: `Each time an Unbound Flux Daemon wizard casts a spell inflicting mortal wounds, roll a D6 for each unit that suffered any mortal wounds from the spell. On a 4+ that unit suffers 1 additional mortal wound.`,
         when: [HERO_PHASE],
       },
       {
@@ -230,7 +230,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Tzeentch is Pleased`,
-        desc: `Each time you spend a command point, if this general is on the battlefield, you can roll a dice. On a 5+ you can heal D3 wounds allocated to this general.`,
+        desc: `Each time you spend a command point, if this general is on the battlefield, you can roll a D6. On a 5+ you can heal D3 wounds allocated to this general.`,
         when: [DURING_GAME],
         command_trait: true,
       },

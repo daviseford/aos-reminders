@@ -1,4 +1,6 @@
 import { uniq, without } from 'lodash'
+import { CHAOS, DEATH, DESTRUCTION, ORDER } from 'meta/alliances'
+import { getArmyList } from 'meta/army_list'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
@@ -7,8 +9,6 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { getArmyList } from 'meta/army_list'
-import { CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
 
 type TAllyArmies = { [key in TSupportedFaction]: { units: string[]; battalions: string[] } }
 type TGetAllyArmyItems = (factionName: string) => TAllyArmies

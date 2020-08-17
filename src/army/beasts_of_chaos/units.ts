@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -14,7 +15,6 @@ import {
   START_OF_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import GenericEffects from 'army/generic/effects'
 
 const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,

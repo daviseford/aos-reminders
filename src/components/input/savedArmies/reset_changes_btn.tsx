@@ -1,9 +1,9 @@
-import React from 'react'
-import { FaSyncAlt } from 'react-icons/fa'
+import GenericButton from 'components/input/generic_button'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FaSyncAlt } from 'react-icons/fa'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import GenericButton from 'components/input/generic_button'
 
 interface IResetChanges {
   isTinyMobile: boolean

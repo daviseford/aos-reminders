@@ -8,7 +8,7 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
-import { ENTANGLING, VOLCANIC, DEADLY, HEALING, MYSTICAL, NULLIFICATION, OVERGROWN } from 'types/terrain'
+import { DEADLY, ENTANGLING, HEALING, MYSTICAL, NULLIFICATION, OVERGROWN, VOLCANIC } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
   {

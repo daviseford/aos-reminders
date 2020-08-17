@@ -1,4 +1,15 @@
-import { sortBy, uniqBy, sortedUniqBy } from 'lodash'
+import {
+  GenericCommands,
+  GenericEndlessSpells,
+  GenericScenery,
+  GenericSpells,
+  GenericTriumphs,
+  RealmscapeArtifacts,
+  RealmscapeCommands,
+  RealmscapeSpells,
+} from 'army/generic'
+import { sortBy, sortedUniqBy, uniqBy } from 'lodash'
+import { TGrandAlliances } from 'meta/alliances'
 import {
   ICollection,
   TAllegiances,
@@ -12,19 +23,8 @@ import {
   TTriumphs,
   TUnits,
 } from 'types/army'
-import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
-import { TGrandAlliances } from 'meta/alliances'
-import {
-  GenericCommands,
-  GenericEndlessSpells,
-  GenericScenery,
-  GenericSpells,
-  GenericTriumphs,
-  RealmscapeArtifacts,
-  RealmscapeCommands,
-  RealmscapeSpells,
-} from 'army/generic'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
 
 const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
   sortedUniqBy(sortBy(allegiances, 'name'), 'name')

@@ -130,7 +130,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Godbeast Pendant`,
-        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a dice. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
+        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
         when: [WOUND_ALLOCATION],
         artifact: true,
       },
@@ -146,19 +146,19 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Parting Shot`,
-        desc: `You can use this command ability when an enemy unit ends a charge move within 3" of a friendly FANGS OF SOTEK unit from the Skinks or Chameleon Skinks warscroll that is wholly within 18" of a friendly FANGS OF SOTEK HERO. If you do so, that unit can shoot. After you have resolved all of that unit's shooting attacks, roll a dice. On a 4+, that unit must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability when an enemy unit ends a charge move within 3" of a friendly FANGS OF SOTEK unit from the Skinks or Chameleon Skinks warscroll that is wholly within 18" of a friendly FANGS OF SOTEK HERO. If you do so, that unit can shoot. After you have resolved all of that unit's shooting attacks, roll a D6. On a 4+, that unit must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
         when: [CHARGE_PHASE],
         command_ability: true,
       },
       {
         name: `Old and Grizzled`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 3+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
         command_trait: true,
       },
       {
         name: `Serpent God Dagger`,
-        desc: `Pick 1 of the bearer's melee weapons. At the end of any phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy model is slain.`,
+        desc: `Pick 1 of the bearer's melee weapons. At the end of any phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+, that enemy model is slain.`,
         when: [DURING_GAME],
         artifact: true,
       },
@@ -180,7 +180,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Dominant Predator`,
-        desc: `Roll a dice each time this general is used to issue a command to a friendly KOATL'S CLAW SAURUS unit. On a 4+, you receive 1 extra command point.`,
+        desc: `Roll a D6 each time this general is used to issue a command to a friendly KOATL'S CLAW SAURUS unit. On a 4+, you receive 1 extra command point.`,
         when: [DURING_GAME],
         command_trait: true,
       },
@@ -214,7 +214,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Fusil of Conflagration`,
-        desc: `In your shooting phase, you can pick 1 enemy unit within 12" of the bearer and visible to them and roll a dice. On a 1, this artefact cannot be used again for the rest of the battle. On a 2-3, nothing happens. On a 4-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 12" of the bearer and visible to them and roll a D6. On a 1, this artefact cannot be used again for the rest of the battle. On a 2-3, nothing happens. On a 4-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
         artifact: true,
       },

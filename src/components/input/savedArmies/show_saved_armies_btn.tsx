@@ -1,11 +1,11 @@
+import GenericButton from 'components/input/generic_button'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
 import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { MdStorage } from 'react-icons/md'
-import { useSubscription } from 'context/useSubscription'
-import { useAppStatus } from 'context/useAppStatus'
 import { LocalSavedArmies } from 'utils/localStore'
 import { componentWithSize } from 'utils/mapSizesToProps'
-import GenericButton from 'components/input/generic_button'
 
 interface IShowSavedArmiesBtn {
   showSavedArmies: () => void

@@ -12,7 +12,7 @@ import {
   OrderTraits,
   OrderUnits,
 } from 'army/grand_alliances'
-import { TGrandAlliances, CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TArtifacts, TTraits, TUnits } from 'types/army'
 
 type IGrandAllianceConfig = {

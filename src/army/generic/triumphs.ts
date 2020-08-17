@@ -1,5 +1,5 @@
-import { COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
 import { TTriumphs } from 'types/army'
+import { COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // General triumphs available from GHB 2020
 const GenericTriumphs: TTriumphs = [

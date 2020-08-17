@@ -1,10 +1,10 @@
 import jsPDF from 'jspdf'
+import { IPrintPdf, TPdfStyles } from 'types/pdf'
+import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
+import { Logo } from 'utils/pdf/generate/logo'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
-import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
-import { Logo } from 'utils/pdf/generate/logo'
-import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {

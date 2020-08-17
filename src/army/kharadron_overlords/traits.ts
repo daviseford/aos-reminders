@@ -1,4 +1,5 @@
 import { TTraits } from 'types/army'
+import { TEffects, TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -18,7 +19,6 @@ import {
   TURN_ONE_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { TEffects, TEntry } from 'types/data'
 import { GreatEndrinworks } from './artifacts'
 
 const effectToEntry = (effect: TEffects): TEntry => {

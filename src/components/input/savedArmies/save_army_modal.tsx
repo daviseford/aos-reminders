@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { FaSave } from 'react-icons/fa'
-import { useSubscription } from 'context/useSubscription'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useTheme } from 'context/useTheme'
-import { logEvent } from 'utils/analytics'
-import { prepareArmy } from 'utils/armyUtils'
-import GenericModal from 'components/page/genericModal'
 import GenericButton from 'components/input/generic_button'
 import { SavedArmyTable } from 'components/input/savedArmies/saved_army_table'
+import GenericModal from 'components/page/genericModal'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import React, { useState } from 'react'
+import { FaSave } from 'react-icons/fa'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
+import { logEvent } from 'utils/analytics'
+import { prepareArmy } from 'utils/armyUtils'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

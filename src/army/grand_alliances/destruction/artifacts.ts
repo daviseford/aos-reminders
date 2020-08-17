@@ -1,6 +1,6 @@
+import { DESTRUCTION } from 'meta/alliances'
 import { TArtifacts } from 'types/army'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
-import { DESTRUCTION } from 'meta/alliances'
 
 const DestructionArtifacts: TArtifacts = [
   {

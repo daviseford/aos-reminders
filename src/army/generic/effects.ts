@@ -1,4 +1,4 @@
-import { WOUND_ALLOCATION, SHOOTING_PHASE, COMBAT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 // This file is useful when storing effects for units that we'd like to re-use
 // E.G. all Gargants share the "Timber!" effect, so we'll store it here.

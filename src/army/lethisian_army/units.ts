@@ -1,10 +1,10 @@
-import { removeUnits } from 'utils/filterUtils'
 import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth'
 import KharadronOverlords from 'army/kharadron_overlords'
 import StormcastEternals from 'army/stormcast_eternals'
 import { TBattalions, TUnits } from 'types/army'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
+import { removeUnits } from 'utils/filterUtils'
 
 // Importing valid SCE units.
 // All units valid except Hammers of Sigmar (named).

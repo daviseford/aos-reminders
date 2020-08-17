@@ -1,3 +1,5 @@
+import GenericEffects from 'army/generic/effects'
+import { Units as NighthauntUnits } from 'army/nighthaunt/units'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -17,9 +19,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { Units as NighthauntUnits } from 'army/nighthaunt/units'
 import { filterUnits } from 'utils/filterUtils'
-import GenericEffects from 'army/generic/effects'
 
 /**
  * Allied Nighthaunt units per LoN FAQ

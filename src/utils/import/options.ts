@@ -17,12 +17,12 @@ import {
   IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_AZGORH,
+  LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_NIGHT,
   LEGION_OF_SACRAMENT,
-  LEGIONS_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   MERCENARY_COMPANIES,
@@ -43,7 +43,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { TImportParsers, WARSCROLL_BUILDER, AZYR, BATTLESCRIBE, UNKNOWN } from 'types/import'
+import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARSCROLL_BUILDER } from 'types/import'
 
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right

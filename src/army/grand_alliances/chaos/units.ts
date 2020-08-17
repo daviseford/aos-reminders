@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -13,7 +14,6 @@ import {
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import GenericEffects from 'army/generic/effects'
 
 export const MonstrousArcanumChaos: TUnits = [
   {

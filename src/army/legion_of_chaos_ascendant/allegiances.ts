@@ -1,5 +1,5 @@
 import { TAllegiances } from 'types/army'
-import { COMBAT_PHASE, WOUND_ALLOCATION, END_OF_BATTLESHOCK_PHASE, HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, END_OF_BATTLESHOCK_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
 
 const Allegiances: TAllegiances = [
   {
@@ -17,7 +17,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Shadow Legion`,
-        desc: `Once per turn you can use this ability if Be'lakor is your general an on the battlefield. Roll a dice for each friendly Legion of the First Prince Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch unit on the battlefield. On a 3+ you can return D3 slain models to that unit.`,
+        desc: `Once per turn you can use this ability if Be'lakor is your general an on the battlefield. Roll a D6 for each friendly Legion of the First Prince Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch unit on the battlefield. On a 3+ you can return D3 slain models to that unit.`,
         when: [END_OF_BATTLESHOCK_PHASE],
         command_ability: true,
       },

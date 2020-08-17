@@ -1,7 +1,7 @@
-import React from 'react'
-import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import GenericButton from 'components/input/generic_button'
 import { ContactComponent } from 'components/page/contact'
+import React from 'react'
+import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
 
 interface ILoginSectionProps {

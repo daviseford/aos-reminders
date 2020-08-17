@@ -1,8 +1,8 @@
-import { without } from 'lodash'
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
+import { without } from 'lodash'
 import { MARKS_OF_CHAOS, TMarksOfChaos } from 'meta/alliances'
-import { TEffects } from 'types/data'
 import { TUnits } from 'types/army'
+import { TEffects } from 'types/data'
 
 /**
  * Returns true if an effect has any Mark of Chaos in its name

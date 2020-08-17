@@ -1,11 +1,11 @@
-import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE, CHARGE_PHASE, COMBAT_PHASE } from 'types/phases'
 import Khorne from 'army/khorne'
 import Nurgle from 'army/nurgle'
 import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import Tzeentch from 'army/tzeentch'
+import { TBattalions, TUnits } from 'types/army'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
 const getKhorneDaemonUnits = () => {

@@ -1,4 +1,6 @@
-import { getChaosSlaves } from 'utils/chaosUtils'
+import BeastsofChaos from 'army/beasts_of_chaos'
+import SlavestoDarkness from 'army/slaves_to_darkness'
+import { MARK_SLAANESH } from 'meta/alliances'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -16,9 +18,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { MARK_SLAANESH } from 'meta/alliances'
-import SlavestoDarkness from 'army/slaves_to_darkness'
-import BeastsofChaos from 'army/beasts_of_chaos'
+import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 const SlaveUnits = getChaosSlaves(MARK_SLAANESH)

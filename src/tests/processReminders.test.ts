@@ -1,20 +1,17 @@
-import { selectionsFactory, allySelectionsFactory } from './__mock'
-import { getArmy } from 'utils/getArmy/getArmy'
-import { processReminders } from 'utils/processReminders'
-
+import { GenericCommands, GenericTriumphs, RealmscapeCommands, RealmscapeFeatures } from 'army/generic'
 // Army Imports
 import ironjawz from 'army/ironjawz'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
-import { GenericCommands, GenericTriumphs, RealmscapeFeatures, RealmscapeCommands } from 'army/generic'
-
 // Meta
-import { IRONJAWZ, SERAPHON, SYLVANETH, SKAVEN } from 'meta/factions'
-
+import { IRONJAWZ, SERAPHON, SKAVEN, SYLVANETH } from 'meta/factions'
 // Types
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { processReminders } from 'utils/processReminders'
 import { getRealmscape } from 'utils/realmUtils'
+import { allySelectionsFactory, selectionsFactory } from './__mock'
 
 describe('processReminders', () => {
   it('should work with a loaded army, multiple allies, and realmscape', () => {

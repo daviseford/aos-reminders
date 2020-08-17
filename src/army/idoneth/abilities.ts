@@ -1,5 +1,5 @@
-import { DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import { TAbilities } from 'types/army'
+import { DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [

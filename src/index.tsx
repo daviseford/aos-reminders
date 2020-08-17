@@ -1,27 +1,25 @@
-import 'core-js/stable' // polyfills
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
-import { persistStore, persistReducer } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
-import { SavedArmiesProvider } from 'context/useSavedArmies'
-import { AppStatusProvider } from 'context/useAppStatus'
-import * as serviceWorker from './serviceWorker'
-import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import App from 'components/App'
-
-// Auth
-import { Auth0Provider } from './react-auth0-wrapper'
-import config from './auth_config.json'
+import { AppStatusProvider } from 'context/useAppStatus'
+import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { SubscriptionProvider } from 'context/useSubscription'
-
+import { ThemeProvider } from 'context/useTheme'
+import 'core-js/stable' // polyfills
 // CSS
 import 'css/animations.scss'
 import 'css/index.scss'
-import { ThemeProvider } from 'context/useTheme'
+import { army, factionNames, realmscape, selections, visibility } from 'ducks'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { combineReducers, createStore } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 import { installNewWorker } from 'utils/installNewWorker'
+import config from './auth_config.json'
+// Auth
+import { Auth0Provider } from './react-auth0-wrapper'
+import * as serviceWorker from './serviceWorker'
 
 // A function that routes the user to the right place
 // after login (Auth0)

@@ -47,10 +47,10 @@
     "test": "react-app-rewired test",
     "up": "yarn install && yarn upgrade-interactive --latest",
     "intake": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
-    "verify-win": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
-    "verify": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
-    "xlsx-win": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
-    "xlsx": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
+    "verify-win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
+    "verify": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
+    "xlsx-win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
+    "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -95,6 +95,7 @@
     "@types/webpack-env": "1.15.2",
     "husky": "4.2.5",
     "prettier": "2.0.5",
+    "prettier-plugin-organize-imports": "1.1.1",
     "pretty-quick": "2.0.1",
     "react-app-rewired": "2.1.6",
     "replace-in-file": "6.1.0",

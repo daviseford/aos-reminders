@@ -483,7 +483,7 @@ export const Units: TUnits = [
         name: `Hidden Trap`,
         desc: `At the start of the first hero phase, if this unit is in your army, you can pick 1 terrain feature or objective that is not wholly within enemy territory and say that it is trapped. If you do so, place 1 Bushwakka's Trap marker next to that terrain feature or objective.
 
-      The first time a unit finishes a move within 1" of the trapped terrain feature or objective, roll a dice. On a 2+, that unit suffers D6 mortal wounds and the Bushwakka's Trap marker is removed.`,
+      The first time a unit finishes a move within 1" of the trapped terrain feature or objective, roll a D6. On a 2+, that unit suffers D6 mortal wounds and the Bushwakka's Trap marker is removed.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },
       {

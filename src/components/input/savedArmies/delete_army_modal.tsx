@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { FaCheck } from 'react-icons/fa'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useTheme } from 'context/useTheme'
-import { logEvent } from 'utils/analytics'
 import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/page/genericModal'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import { TSupportedFaction } from 'meta/factions'
+import React, { useState } from 'react'
+import { FaCheck } from 'react-icons/fa'
+import { logEvent } from 'utils/analytics'
 
 interface IModalComponentProps {
   armyName: string

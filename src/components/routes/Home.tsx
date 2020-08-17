@@ -1,10 +1,10 @@
-import React, { useEffect, Suspense, lazy } from 'react'
-import { useTheme } from 'context/useTheme'
-import { useSubscription } from 'context/useSubscription'
-import { useAppStatus } from 'context/useAppStatus'
-import { logPageView } from 'utils/analytics'
-import { Header } from 'components/page/homeHeader'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
+import { Header } from 'components/page/homeHeader'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import React, { lazy, Suspense, useEffect } from 'react'
+import { logPageView } from 'utils/analytics'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
 const AppBanner = lazy(() => import('components/info/banners/app_banner'))

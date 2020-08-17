@@ -1,15 +1,13 @@
+import Spinner from 'components/helpers/spinner'
+import { handleParseFile } from 'components/input/importPdf/parseFile'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { resetAnalyticsStore } from 'utils/analytics'
-import Spinner from 'components/helpers/spinner'
-import { handleParseFile } from 'components/input/importPdf/parseFile'
 import {
   AZYR,
   BATTLESCRIBE,
@@ -19,6 +17,8 @@ import {
   TImportParsers,
   WARSCROLL_BUILDER,
 } from 'types/import'
+import { resetAnalyticsStore } from 'utils/analytics'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void

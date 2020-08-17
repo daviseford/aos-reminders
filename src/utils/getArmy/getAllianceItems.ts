@@ -1,14 +1,14 @@
-import { sortedUniqBy, sortBy, without } from 'lodash'
+import { sortBy, sortedUniqBy, without } from 'lodash'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
+import { getArmyList } from 'meta/army_list'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
-  ORDER_GRAND_ALLIANCE,
   KHARADRON_OVERLORDS,
+  ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { DESTRUCTION, ORDER, CHAOS, DEATH, TGrandAlliances } from 'meta/alliances'
-import { getArmyList } from 'meta/army_list'
 import { TEntry } from 'types/data'
 
 type TType =

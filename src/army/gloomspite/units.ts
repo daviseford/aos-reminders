@@ -1,5 +1,5 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
-import { StabEmGoodEffect } from './traits'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -22,7 +22,7 @@ import {
   TURN_TWO_DURING_TURN,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import GenericEffects from 'army/generic/effects'
+import { StabEmGoodEffect } from './traits'
 
 const LoonbossEffects = [
   {
@@ -166,6 +166,12 @@ export const Units: TUnits = [
         name: `Loonking's Crown`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Nikkit! Nikkit!`,
+        desc: `Casting value of 8. Pick 1 enemy model within 18" of the caster that is visible to them. The unit that model belongs to suffers D3 mortal wounds. In addition, if that model has an artefact of power and the casting roll was 10+, that model's artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form)`,
+        when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `The Loonking's Entreaty`,

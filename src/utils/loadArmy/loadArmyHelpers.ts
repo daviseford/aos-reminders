@@ -1,11 +1,11 @@
-import { store } from 'index'
 import { PreferenceApi } from 'api/preferenceApi'
-import { factionNames, army, selections, realmscape, visibility } from 'ducks'
-import { logEvent, logLoadedArmy } from 'utils/analytics'
-import { getArmy } from 'utils/getArmy/getArmy'
+import { army, factionNames, realmscape, selections, visibility } from 'ducks'
+import { store } from 'index'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
 import { ILinkedArmy } from 'types/savedArmy'
+import { logEvent, logLoadedArmy } from 'utils/analytics'
+import { getArmy } from 'utils/getArmy/getArmy'
 
 export const loadArmyFromLink = async (id: string) => {
   try {

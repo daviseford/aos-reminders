@@ -1,7 +1,7 @@
-import React from 'react'
-import { useTheme } from 'context/useTheme'
-import { componentWithSize } from 'utils/mapSizesToProps'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { componentWithSize } from 'utils/mapSizesToProps'
 
 const AppBanner = componentWithSize(({ isMobile = false }) => {
   const { isDark } = useTheme()

@@ -1,12 +1,12 @@
+import { TSpells } from 'types/army'
 import {
-  HERO_PHASE,
-  END_OF_COMBAT_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
 } from 'types/phases'
-import { TSpells } from 'types/army'
 
 // Spell Lores of Slaves to Darkness - Lore of the Damned
 const Spells: TSpells = [

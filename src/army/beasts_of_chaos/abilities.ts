@@ -1,3 +1,4 @@
+import { TAbilities } from 'types/army'
 import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -6,7 +7,6 @@ import {
   START_OF_SETUP,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
-import { TAbilities } from 'types/army'
 
 const Abilities: TAbilities = [
   {

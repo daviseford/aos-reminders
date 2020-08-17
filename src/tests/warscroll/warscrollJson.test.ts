@@ -1,6 +1,4 @@
 import { readFileSync } from 'fs'
-import path from 'path'
-import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 import {
   BEASTS_OF_CHAOS,
   BIG_WAAAGH,
@@ -31,13 +29,27 @@ import {
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
-import { AQSHY, HYSH, GHUR, ULGU } from 'types/realmscapes'
+import path from 'path'
+import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
+import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1597360547744-Warscroll_Builder', () => {
+    const parsedText = getFile('1597360547744-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1597400263289-Warscroll_Builder', () => {
+    const parsedText = getFile('1597400263289-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1592754653939-Warscroll_Builder', () => {
     const parsedText = getFile('1592754653939-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)

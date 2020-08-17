@@ -1,4 +1,4 @@
-import { filterUnits } from 'utils/filterUtils'
+import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -17,7 +17,7 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
   WOUND_ALLOCATION,
 } from 'types/phases'
-import { MARK_UNDIVIDED, MARK_KHORNE, MARK_NURGLE, MARK_TZEENTCH, MARK_SLAANESH } from 'meta/alliances'
+import { filterUnits } from 'utils/filterUtils'
 
 // Export applicable Slaves to Darkness units for use in other Chaos armies.
 export const getSlavesUnits = () => {

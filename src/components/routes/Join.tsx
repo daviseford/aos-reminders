@@ -1,14 +1,14 @@
-import React, { useEffect, lazy, Suspense, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { useSubscription } from 'context/useSubscription'
-import { useTheme } from 'context/useTheme'
-import { logPageView, logClick, logEvent } from 'utils/analytics'
-import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
+import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
-import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
+import { useAuth0 } from 'react-auth0-wrapper'
 import { IUser } from 'types/user'
+import { logClick, logEvent, logPageView } from 'utils/analytics'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
