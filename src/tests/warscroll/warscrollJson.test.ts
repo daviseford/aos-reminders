@@ -38,8 +38,7 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1597625107867-Warscroll_Builder', () => {
+  it('should correctly read 1597625107867-Warscroll_Builder', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -65,14 +64,23 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1594377130100-Warscroll_Builder', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.selections.artifacts).toContain('Tyrant Slayer')
+    expect(res.selections.traits).toContain('Warrior Indominate')
+    expect(res.errors).toEqual([
+      // {
+      //   "severity": "warn",
+      //   "text": "Tyrant Slayer",
+      // },
+      // {
+      //   "severity": "warn",
+      //   "text": "Warrior Indominate",
+      // },
+    ])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
   xit('should correctly read 1594377962081-Warscroll_Builder', () => {
     const parsedText = getFile('1594377962081-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -97,8 +105,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1596798763772-Warscroll_Builder', () => {
+  it('should correctly read 1596798763772-Warscroll_Builder', () => {
     const parsedText = getFile('1596798763772-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -110,8 +117,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1597072523138-Warscroll_Builder', () => {
+  it('should correctly read 1597072523138-Warscroll_Builder', () => {
     const parsedText = getFile('1597072523138-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
@@ -130,20 +136,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO: https://github.com/daviseford/aos-reminders/issues/993
-  xit('should correctly read 1592412384855-Warscroll_Builder', () => {
+  it('should correctly read 1592412384855-Warscroll_Builder', () => {
     const parsedText = getFile('1592412384855-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Seawarden on Foot',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Highborn Spearmen',
-      // },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1592663232380-Warscroll_Builder', () => {
@@ -201,12 +197,8 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1593895699238-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Far-Ranger')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Slayers',
-      },
-    ])
+    expect(res.selections.units).toContain('Slayers')
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1594282007060-Warscroll_Builder', () => {

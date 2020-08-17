@@ -118,7 +118,7 @@ export const LegacyOrderUnits: TUnits = [
     ],
   },
   {
-    name: `Celestial Swarm`,
+    name: `Celestial Swarms`,
     effects: [
       {
         name: `Swarming Tide`,
