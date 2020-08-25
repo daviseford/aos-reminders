@@ -104,30 +104,28 @@ const SkyminesEffect = {
   desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
 }
-const EndrinmasterBaseEffects = [
-  {
-    name: `Endrinmaster`,
-    desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to D3 wounds allocated to that SKYVESSEL.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `By Grungni, I Have My Eye On You!`,
-    desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can reroll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
-    when: [HERO_PHASE],
-    command_ability: true,
-  },
-]
+const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
+  name: `Endrinmaster`,
+  desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to ${val} wounds allocated to that SKYVESSEL.`,
+  when: [START_OF_HERO_PHASE],
+})
+const ByGrugniEffect = {
+  name: `By Grungni, I Have My Eye On You!`,
+  desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can reroll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
+  when: [HERO_PHASE],
+  command_ability: true,
+}
 
 // Unit Names
 export const Units: TUnits = [
   APPRENTICE_RUNESMITH,
   {
     name: `Endrinmaster with Dirigible Suit`,
-    effects: [...EndrinmasterBaseEffects, HitchersEffect],
+    effects: [ByGrugniEffect, EndrinmasterHealEffect('3'), HitchersEffect],
   },
   {
     name: `Endrinmaster with Endrinharness`,
-    effects: [...EndrinmasterBaseEffects, EndrinharnessEffect],
+    effects: [ByGrugniEffect, EndrinmasterHealEffect('D3'), EndrinharnessEffect],
   },
   {
     name: `Aether-Khemist`,
