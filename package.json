@@ -94,15 +94,15 @@
     "@types/superagent": "4.1.10",
     "@types/webpack-env": "1.15.2",
     "husky": "4.2.5",
-    "prettier": "2.1.0",
+    "prettier": "2.1.1",
     "prettier-plugin-organize-imports": "1.1.1",
     "pretty-quick": "3.0.0",
     "react-app-rewired": "2.1.6",
     "replace-in-file": "6.1.0",
     "source-map-explorer": "2.5.0",
-    "ts-node-dev": "1.0.0-pre.60",
+    "ts-node-dev": "1.0.0-pre.61",
     "tsconfig-paths": "3.9.0",
-    "typescript": "4.0.2",
+    "typescript": "3.9.7",
     "xlsx": "0.16.6"
   }
 }
