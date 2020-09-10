@@ -8,6 +8,7 @@ import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -812,6 +813,26 @@ export const Battalions: TBattalions = [
         name: `Eat on the Move`,
         desc: `If the unmodified wound roll for an attack made with a melee weapon used by a model from the Troggherd battalion is 6, add 1 to the Damage characteristic for that attack.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Moon-Jumper Stampede`,
+    effects: [
+      {
+        name: `Crushing Gobs`,
+        desc: `Add 1 to the Damage characteristic of Fang-filled Gob, Massive Fang-filled Gob and Huge Fang-filled Gobs weapons used by units from this battalion if they made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Moon-Biter Squigalanche`,
+    effects: [
+      {
+        name: `Overbounding Loonatics`,
+        desc: `After armies have been set up but before the first battle round begins, up to D3 units from this battalion can move up to 6". If both players can move units after armies have been set up, the players must roll off, and the winner chooses who moves their units first.`,
+        when: [END_OF_SETUP],
       },
     ],
   },
