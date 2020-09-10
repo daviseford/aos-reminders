@@ -1,4 +1,4 @@
-import { isString, uniq, without } from 'lodash'
+import { uniq, without } from 'lodash'
 import { SOULBLIGHT, TSupportedFaction } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -335,9 +335,9 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     // Ignore empty values
     if (!val) return a
 
-    if (key === 'Selections' && isString(val)) {
+    if (key === 'Selections' && typeof val === 'string') {
       a.allegiance = [stripAllegiancePrefix(val)]
-    } else if (key === 'Categories' && isString(val)) {
+    } else if (key === 'Categories' && typeof val === 'string') {
       a.faction = val
     } else {
       a[key] = val
@@ -380,55 +380,31 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
 
 const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
+interface ICollection {
+  allegiances: string[]
+  artifacts: string[]
+  battalions: string[]
+  commands: string[]
+  endless_spells: string[]
+  scenery: string[]
+  spells: string[]
+  traits: string[]
+  triumphs: string[]
+  units: string[]
+}
+
 export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {
-  const Collection = {
-    allegiances: [] as string[],
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    commands: [] as string[],
-    endless_spells: [] as string[],
-    scenery: [] as string[],
-    spells: [] as string[],
-    traits: [] as string[],
-    triumphs: [] as string[],
-    units: [] as string[],
-  }
-
-  /**
-   * If a value is prefixed with a certain string,
-   * assign the value to a certain selection type
-   */
-  const lookup: Record<string, keyof typeof Collection> = {
-    'Battle Traits': 'traits',
-    'Bound Endless Spell': 'endless_spells',
-    'Endless Spell': 'endless_spells',
-    'Magmic Invocation': 'endless_spells',
-    'Super Battalion': 'battalions',
-    Artifacts: 'artifacts',
-    Battalion: 'battalions',
-    Commands: 'commands',
-    Judgement: 'endless_spells',
-    Scenery: 'scenery',
-    Spells: 'spells',
-    Traits: 'traits',
-    Unit: 'units',
-  }
-
-  /**
-   * Names that if they are matched exactly,
-   * should be placed in a certain selection type
-   */
-  const exactMatches: Record<string, keyof typeof Collection> = {
-    'Charnel Throne': 'scenery',
-    'Eternal Starhost': 'battalions',
-    'Eternal Temple-Host': 'battalions',
-    'Firelance Starhost': 'battalions',
-    'Firelance Temple-Host': 'battalions',
-    'Shadowstrike Starhost': 'battalions',
-    'Shadowstrike Temple-Host': 'battalions',
-    'Sunclaw Starhost': 'battalions',
-    'Sunclaw Temple-Host': 'battalions',
-    'Thunderquake Temple-Host': 'battalions',
+  const Collection: ICollection = {
+    allegiances: [],
+    artifacts: [],
+    battalions: [],
+    commands: [],
+    endless_spells: [],
+    scenery: [],
+    spells: [],
+    traits: [],
+    triumphs: [],
+    units: [],
   }
 
   roots.forEach(r => {
@@ -439,16 +415,26 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // And if we need to do some additional parsing (we don't need to for Endless Spells)
     let [has_matched, process_entries] = [false, true]
 
-    Object.keys(lookup).forEach(key => {
-      if (!has_matched && r.name.startsWith(`${key}:`)) {
-        const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
-        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
-        has_matched = true
-        if (['Endless Spell', 'Bound Endless Spell'].includes(key)) {
-          process_entries = false
+    // If we have a battalion entry (and no helpful prefix) let's be sure to store it accordingly
+    if (isBattalion(r)) {
+      const val = cleanText(r.name)
+      Collection.battalions = uniq(Collection.battalions.concat(val))
+      has_matched = true
+    }
+
+    // Let's see if we can match this entry nicely to a certain category
+    if (!has_matched) {
+      Object.keys(prefixLookup).forEach(key => {
+        if (!has_matched && r.name.startsWith(`${key}:`)) {
+          const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
+          Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
+          has_matched = true
+          if (['Endless Spell', 'Bound Endless Spell'].includes(key)) {
+            process_entries = false
+          }
         }
-      }
-    })
+      })
+    }
 
     // Check for exact matches
     if (!has_matched) {
@@ -471,9 +457,9 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     if (process_entries) {
       // Now need to handle entries
       Object.keys(r.entries).forEach(key => {
-        if (lookup[key]) {
+        if (prefixLookup[key]) {
           const vals = without(r.entries[key], ...ignoredNames)
-          Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+          Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
         }
       })
     }
@@ -481,9 +467,9 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 
   allegianceInfo.forEach(info => {
     Object.keys(info).forEach(key => {
-      if (lookup[key]) {
+      if (prefixLookup[key]) {
         const vals = info[key]
-        if (vals) Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        if (vals) Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
       }
     })
   })
@@ -515,4 +501,49 @@ const ignoredNames = [
 // Convert names of units that contain multiple unit types
 const multiNameMap: Record<string, string[]> = {
   'Duke Crakmarrow and the Grymwatch': ['Duke Crakmarrow', 'The Grymwatch'],
+}
+
+/**
+ * If a value is prefixed with a certain string,
+ * assign the value to a certain selection type
+ */
+const prefixLookup: Record<string, keyof ICollection> = {
+  'Battle Traits': 'traits',
+  'Bound Endless Spell': 'endless_spells',
+  'Endless Spell': 'endless_spells',
+  Enginecoven: 'battalions',
+  'Magmic Invocation': 'endless_spells',
+  'Super Battalion': 'battalions',
+  Artifacts: 'artifacts',
+  Battalion: 'battalions',
+  Commands: 'commands',
+  Judgement: 'endless_spells',
+  Scenery: 'scenery',
+  Spells: 'spells',
+  Traits: 'traits',
+  Unit: 'units',
+}
+
+/**
+ * Names that if they are matched exactly,
+ * should be placed in a certain selection type
+ */
+const exactMatches: Record<string, keyof ICollection> = {
+  'Charnel Throne': 'scenery',
+}
+
+const isBattalion = (r: IParsedRoot): boolean => {
+  // Ignore units
+  if (r.entries['Unit']?.[0] === r.name) {
+    return false
+  }
+
+  // Do we have battalion abilities? And are our abilities unique?
+  if (!r.entries['Battalion Abilities'] || r.entries?.['Battalion Abilities']?.[0] === r.name) {
+    return false
+  }
+
+  // Are we missing a known prefix?
+  const startsWithPrefix = Object.keys(prefixLookup).some(x => r.name.startsWith(x))
+  return !startsWithPrefix
 }

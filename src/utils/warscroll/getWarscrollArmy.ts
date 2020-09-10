@@ -168,11 +168,18 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
           return accum
         }
-        if (txt.startsWith('- Command Trait : Killer Reputation')) {
-          const traits = getKillerReputation(txt)
+        // Handle cases where two command traits are in the same entry
+        if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
+          // e.g. "- Command Trait : Killer Reputation: Fateseeker"
+          const traits = txt
+            .replace('- Command Trait : ', '')
+            .split(':')
+            .map(x => x.trim())
+          // results in ['Killer Reputation', 'Fateseeker']
           accum.traits = accum.traits.concat(...traits)
           return accum
         }
+        // General handling of Command Traits, checks for attached spells
         if (txt.startsWith('- Command Trait : ')) {
           const [trait, spell] = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
@@ -365,31 +372,16 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
 }
 
 /**
- * Given '- Command Trait : Killer Reputation: Fateseeker'
- *
- * Returns ['Killer Reputation', 'Fateseeker (Big Name)']
- */
-const getKillerReputation = (str: string) => {
-  const trait1 = 'Killer Reputation'
-
-  if (str.endsWith(trait1)) return [trait1]
-
-  const splitTrait = str.split(`${trait1}: `)
-  if (!splitTrait[1]) return [trait1]
-
-  const trait2 = `${splitTrait[1].trim()} (Big Name)`
-  return [trait1, trait2]
-}
-
-/**
  * If a Seraphon army has taken a constellation such as Koatl's Claw or Thunder Lizard,
  * this function adds the "Way of the Seraphon" that the constellation is associated with
  * @param value
  */
 const getSeraphonConstellations = (value: string): string[] => {
-  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value))
+  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value)) {
     return [value, SeraphonConstellations.COALESCED]
-  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value))
+  }
+  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value)) {
     return [value, SeraphonConstellations.STARBORNE]
+  }
   return [value]
 }

@@ -19,6 +19,7 @@ export const ignoredValues = [
   'Allegiance',
   'Alliegiance', // lol
   'Damage Table',
+  'Extra Command Point',
   'Game Type',
   'Points Variation',
   'Purchased Command Points',

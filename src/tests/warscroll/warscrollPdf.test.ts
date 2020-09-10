@@ -799,6 +799,10 @@ describe('getWarscrollArmyFromPdf', () => {
         severity: 'warn',
         text: 'Aethershock Earbuster',
       },
+      {
+        severity: 'warn',
+        text: 'Stickler for the Code',
+      },
     ])
     expect(res.selections.traits).toEqual([
       "FOOTNOTE: There's No Reward Without Risk",

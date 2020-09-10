@@ -360,6 +360,7 @@ const commonTypos = {
   'Sky-por t': 'Sky-port',
   'Sla yer': 'Slayer',
   'Souldr aught': 'Souldraught',
+  'Spectral 9 ether': 'Spectral Tether',
   'Standar d': 'Standard',
   'Starstrik e': 'Starstrike',
   'T ype': 'Type',

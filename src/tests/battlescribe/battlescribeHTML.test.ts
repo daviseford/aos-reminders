@@ -40,6 +40,63 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1598041271936-Battlescribe', () => {
+    const parsedText = getFile('1598041271936-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Rattlegauge Warplock (Enginecoven)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1598085201630-Battlescribe', () => {
+    const parsedText = getFile('1598085201630-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(LEGION_OF_SACRAMENT)
+    expect(res.selections.artifacts).toContain('Asylumaticae')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1599083520842-Battlescribe', () => {
+    const parsedText = getFile('1599083520842-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1599497906274-Battlescribe', () => {
+    const parsedText = getFile('1599497906274-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Dark Feast')
+    expect(res.selections.battalions).toContain('Tyrants of Blood')
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO
+  xit('should correctly read 1599538605528-Battlescribe', () => {
+    const parsedText = getFile('1599538605528-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Spirit Gale',
+      },
+      {
+        severity: 'warn',
+        text: 'Vampire Lord (Flying Horror)',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+      },
+    ])
+  })
+
   it('should correctly read 1597441117251-Battlescribe', () => {
     const parsedText = getFile('1597441117251-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -614,6 +671,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('TombKings1')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(TOMB_KINGS)
+    expect(res.selections.units).toContain('Sepulchral Stalkers')
     expect(res.errors).toEqual([])
   })
 

@@ -147,6 +147,7 @@ const azyrTypoMap: TNameMap = {
 const battlescribeTypoMap: TNameMap = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
+  Asylumticae: 'Asylumaticae',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
   'Bladebringer on Exalted Seeker Chariot': 'Bladebringer, Herald on Exalted Chariot',
   'Bladebringer on Hellflayer': 'Bladebringer, Herald on Hellflayer',
@@ -190,6 +191,7 @@ const battlescribeTypoMap: TNameMap = {
   'Staff of Ocular Optimization': 'Staff of Ocular Optimisation',
   'Stallarch Lords': 'Stalliarch Lords',
   'The Beguilling Gem': 'Beguiling Gem (Chaos)',
+  'The Blade of Endless Bloodshed': 'Blade of Endless Bloodshed',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',

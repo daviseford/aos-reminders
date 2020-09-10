@@ -38,6 +38,38 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1598074473619-Warscroll_Builder', () => {
+    const parsedText = getFile('1598074473619-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.traits).toContain('A Scholar and an Arkanaut')
+    expect(res.selections.traits).toContain('FOOTNOTE: Without Our Ships, We Are Naught')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1598435486730-Warscroll_Builder', () => {
+    const parsedText = getFile('1598435486730-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1598862151248-Warscroll_Builder', () => {
+    const parsedText = getFile('1598862151248-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: Whenever this warscroll is added to Azyr
+  xit('should correctly read 1599246202410-Warscroll_Builder', () => {
+    const parsedText = getFile('1599246202410-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   "severity": "warn",
+      //   "text": "Doom Diver Catapult",
+      // },
+    ])
+  })
+
   it('should correctly read 1597625107867-Warscroll_Builder', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1351,6 +1383,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
     expect(res.errors).toEqual([])
   })
 
