@@ -1383,6 +1383,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
+    expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
     expect(res.errors).toEqual([])
   })
 
