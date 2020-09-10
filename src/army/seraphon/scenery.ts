@@ -7,7 +7,7 @@ const Scenery: TScenery = [
     effects: [
       {
         name: `Realmshaper Engine`,
-        desc: `When you choose a Seraphon army, you can include 1 REAlMSHAPER ENGINE terrain feature. When terrain is set up for the battle, any REAlMSHAPER ENGINE terrain features must be set up by the player whose army they are a part of, before any other terrain features are set up, more than 6" from any objectives and more than 6" from the edge of the battlefield. Set up the rest of the terrain as described in the core rules. If both players can set up terrain features before other terrain features are set up, the players must roll off and the winner chooses who sets up their terrain first.`,
+        desc: `When you choose a Seraphon army, you can include 1 REALMSHAPER ENGINE terrain feature. When terrain is set up for the battle, any REALMSHAPER ENGINE terrain features must be set up by the player whose army they are a part of, before any other terrain features are set up, more than 6" from any objectives and more than 6" from the edge of the battlefield. Set up the rest of the terrain as described in the core rules. If both players can set up terrain features before other terrain features are set up, the players must roll off and the winner chooses who sets up their terrain first.`,
         when: [START_OF_SETUP],
       },
       {

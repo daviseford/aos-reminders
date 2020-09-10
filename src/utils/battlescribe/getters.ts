@@ -415,24 +415,10 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // And if we need to do some additional parsing (we don't need to for Endless Spells)
     let [has_matched, process_entries] = [false, true]
 
-    /**
-     * 
-     * {name: "Maniak Weirdnob", entries: {…}}
-entries:
-Battalion Abilities: ["Mystic Waaagh! Paint"]
-Magic: ["Maniak Weirdnob"]
-Spells: (5) ["Arcane Bolt", "Bone Spirit", "Brutal Beast Spirits", "Fireball", "Mystic Shield"]
-Unit: ["Maniak Weirdnob"]
-Unit Abilities: (2) ["Ju-ju Squig", "Tusker Charge"]
-Weapons: (2) ["Bonebeast Staff", "Tusks and Hooves"]
-
-     */
-
     // If we have a battalion entry (and no helpful prefix) let's be sure to store it accordingly
     if (isBattalion(r)) {
       const val = cleanText(r.name)
       Collection.battalions = uniq(Collection.battalions.concat(val))
-      console.log('hell ya', val)
       has_matched = true
     }
 
@@ -544,22 +530,20 @@ const prefixLookup: Record<string, keyof ICollection> = {
  */
 const exactMatches: Record<string, keyof ICollection> = {
   'Charnel Throne': 'scenery',
-  'Eternal Starhost': 'battalions',
-  'Eternal Temple-Host': 'battalions',
-  'Firelance Starhost': 'battalions',
-  'Firelance Temple-Host': 'battalions',
-  'Shadowstrike Starhost': 'battalions',
-  'Shadowstrike Temple-Host': 'battalions',
-  'Sunclaw Starhost': 'battalions',
-  'Sunclaw Temple-Host': 'battalions',
-  'Thunderquake Temple-Host': 'battalions',
 }
 
 const isBattalion = (r: IParsedRoot): boolean => {
-  return (
-    r.entries?.['Battalion Abilities'] && // Do we have battalion abilities?
-    r.entries?.['Battalion Abilities']?.[0] !== r.name && // And are our abilities unique?
-    r.entries?.['Unit Abilities'] === undefined && // Make sure we're not a unit in disguise
-    !Object.keys(prefixLookup).some(x => r.name.startsWith(x))
-  ) // And are we missing a known prefix?
+  // Ignore units
+  if (r.entries['Unit']?.[0] === r.name) {
+    return false
+  }
+
+  // Do we have battalion abilities? And are our abilities unique?
+  if (!r.entries['Battalion Abilities'] || r.entries?.['Battalion Abilities']?.[0] === r.name) {
+    return false
+  }
+
+  // Are we missing a known prefix?
+  const startsWithPrefix = Object.keys(prefixLookup).some(x => r.name.startsWith(x))
+  return !startsWithPrefix
 }
