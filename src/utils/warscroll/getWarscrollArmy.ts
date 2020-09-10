@@ -372,31 +372,16 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [str
 }
 
 /**
- * Given '- Command Trait : Killer Reputation: Fateseeker'
- *
- * Returns ['Killer Reputation', 'Fateseeker (Big Name)']
- */
-const getKillerReputation = (str: string) => {
-  const trait1 = 'Killer Reputation'
-
-  if (str.endsWith(trait1)) return [trait1]
-
-  const splitTrait = str.split(`${trait1}: `)
-  if (!splitTrait[1]) return [trait1]
-
-  const trait2 = `${splitTrait[1].trim()} (Big Name)`
-  return [trait1, trait2]
-}
-
-/**
  * If a Seraphon army has taken a constellation such as Koatl's Claw or Thunder Lizard,
  * this function adds the "Way of the Seraphon" that the constellation is associated with
  * @param value
  */
 const getSeraphonConstellations = (value: string): string[] => {
-  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value))
+  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value)) {
     return [value, SeraphonConstellations.COALESCED]
-  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value))
+  }
+  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value)) {
     return [value, SeraphonConstellations.STARBORNE]
+  }
   return [value]
 }
