@@ -8,6 +8,7 @@ import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -569,6 +570,11 @@ export const Units: TUnits = [
       SquigglyBeastFollowersEffect,
       MagicalResistanceEffect,
       {
+        name: `Crushing Grip`,
+        desc: `Do not use the attack sequence for an attack made with a Crushing Grip. Instead, pick 1 enemy model that is in range of the attack and roll a D6. If the roll is equal to or greater than the Wounds characteristic of that model, it is slain.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Instinctive Leader`,
         desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
         when: [START_OF_COMBAT_PHASE],
@@ -812,6 +818,26 @@ export const Battalions: TBattalions = [
         name: `Eat on the Move`,
         desc: `If the unmodified wound roll for an attack made with a melee weapon used by a model from the Troggherd battalion is 6, add 1 to the Damage characteristic for that attack.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Moon-Jumper Stampede`,
+    effects: [
+      {
+        name: `Crushing Gobs`,
+        desc: `Add 1 to the Damage characteristic of Fang-filled Gob, Massive Fang-filled Gob and Huge Fang-filled Gobs weapons used by units from this battalion if they made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Moon-Biter Squigalanche`,
+    effects: [
+      {
+        name: `Overbounding Loonatics`,
+        desc: `After armies have been set up but before the first battle round begins, up to D3 units from this battalion can move up to 6". If both players can move units after armies have been set up, the players must roll off, and the winner chooses who moves their units first.`,
+        when: [END_OF_SETUP],
       },
     ],
   },

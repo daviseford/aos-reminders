@@ -89,6 +89,12 @@ const CarnosaurBaseEffects = [
   },
   TerrorEffect,
 ]
+const CometsCallEffect = {
+  name: `Comet's Call`,
+  desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
+  when: [HERO_PHASE],
+  spell: true,
+}
 const SlannBaseEffects = [
   {
     name: `Arcane Vassal`,
@@ -100,12 +106,7 @@ const SlannBaseEffects = [
     desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind enemy spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
     when: [HERO_PHASE],
   },
-  {
-    name: `Comet's Call`,
-    desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
-    when: [HERO_PHASE],
-    spell: true,
-  },
+  CometsCallEffect,
   {
     name: `Gift from the Heavens`,
     desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
@@ -551,6 +552,7 @@ export const Units: TUnits = [
   {
     name: `Skink Oracle on Troglodon`,
     effects: [
+      CometsCallEffect,
       {
         name: `Oracle of the Slann`,
         desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
