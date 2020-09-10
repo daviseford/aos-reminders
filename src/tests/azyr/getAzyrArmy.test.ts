@@ -36,6 +36,27 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read 1598131399395-Azyr', () => {
+    const fileTxt = getFile('1598131399395-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.spells).toContain('Spectral Tether')
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO:
+  xit('should correctly read 1599301249796-Azyr', () => {
+    const fileTxt = getFile('1599301249796-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      // {
+      //    "severity": "warn",
+      //    "text": "Blade of Symmetry",
+      //  },
+    ])
+  })
+
   it('should correctly read 1594502256562-Azyr', () => {
     const fileTxt = getFile('1594502256562-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -216,12 +237,17 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO Fix by adding legacy units to Order
-  xit('handles 1582094113733-Azyr', () => {
+  it('handles 1582094113733-Azyr', () => {
     const fileTxt = getFile('1582094113733-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.selections.battalions).toContain('Dragonlord Host')
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Doppelganger Cloak',
+      },
+    ])
   })
 
   it('handles 1582914528373-Azyr', () => {
