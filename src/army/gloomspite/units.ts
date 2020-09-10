@@ -570,6 +570,11 @@ export const Units: TUnits = [
       SquigglyBeastFollowersEffect,
       MagicalResistanceEffect,
       {
+        name: `Crushing Grip`,
+        desc: `Do not use the attack sequence for an attack made with a Crushing Grip. Instead, pick 1 enemy model that is in range of the attack and roll a D6. If the roll is equal to or greater than the Wounds characteristic of that model, it is slain.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Instinctive Leader`,
         desc: `Use this command ability at the start of the combat phase. If you do so, pick 1 friendly DANKHOLD TROGGOTH HERO with this command ability. Until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly TROGGOTH units wholly within 18" of that model when they attack.`,
         when: [START_OF_COMBAT_PHASE],
