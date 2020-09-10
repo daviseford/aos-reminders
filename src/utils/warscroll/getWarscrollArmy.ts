@@ -168,11 +168,18 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
           return accum
         }
-        if (txt.startsWith('- Command Trait : Killer Reputation')) {
-          const traits = getKillerReputation(txt)
+        // Handle cases where two command traits are in the same entry
+        if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
+          // e.g. "- Command Trait : Killer Reputation: Fateseeker"
+          const traits = txt
+            .replace('- Command Trait : ', '')
+            .split(':')
+            .map(x => x.trim())
+          // results in ['Killer Reputation', 'Fateseeker']
           accum.traits = accum.traits.concat(...traits)
           return accum
         }
+        // General handling of Command Traits, checks for attached spells
         if (txt.startsWith('- Command Trait : ')) {
           const [trait, spell] = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
