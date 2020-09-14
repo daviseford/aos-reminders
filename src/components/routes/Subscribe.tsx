@@ -157,7 +157,7 @@ const CurrentFeatures = () => (
       </li>
       <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
-      <li>Choose your favorite faction</li>
+      <li>Choose your favorite faction!</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
         device - even <strong>offline!</strong>
@@ -176,10 +176,13 @@ const ComingSoon = () => (
     </p>
     <ul className="lead">
       <li>
-        <i>Add custom reminders</i>
+        <i>Add custom reminders to any phase</i>
       </li>
       <li>
-        <i>Drag and drop sorting of rules</i>
+        <i>Add your own Notes to phases and rules</i>
+      </li>
+      <li>
+        <i>Attach PDF/HTML lists to your Saved Army</i>
       </li>
       <li>
         <i>
