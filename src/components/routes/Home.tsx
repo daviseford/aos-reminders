@@ -1,5 +1,6 @@
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 import { Header } from 'components/page/homeHeader'
+import { PayPalButton } from 'components/payment/paypalButton'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -37,6 +38,13 @@ const Home: React.FC = () => {
       {/* <Suspense fallback={<></>}>
         <AppBanner />
       </Suspense> */}
+
+      <PayPalButton
+        amount="0.01"
+        shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"
+        onSuccess={details => console.log('Transaction completed by ' + details)}
+        onButtonReady={() => console.log('hello ready')}
+      />
 
       <Suspense fallback={<></>}>
         <UpdateBanner />
