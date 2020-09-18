@@ -42,9 +42,9 @@ const AppBanner = componentWithSize(props => {
 
   return (
     <NotificationBanner
-      name={name}
       displayOnce={true}
       enableLog={true}
+      name={name}
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
