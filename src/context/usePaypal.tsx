@@ -8,6 +8,8 @@ interface IPaypalStatusProvider {
 const DEFAULT_OPTS = {
   'client-id': 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa',
   currency: 'USD',
+  components: 'buttons',
+  'disable-funding': 'credit,card',
 }
 
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)

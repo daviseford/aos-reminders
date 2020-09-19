@@ -1,3 +1,4 @@
+import { usePaypal } from 'context/usePaypal'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -7,17 +8,52 @@ declare global {
   }
 }
 
+type TCreateOrderFn = (data: any, actions: ICreateOrderActions) => Promise<string>
+
+interface IApprovalResponse {
+  orderID: string // '9FP07990454230111'
+  payerID: string // 'HNDNEBJEB3R5W'
+  paymentID: null
+  billingToken: null
+  facilitatorAccessToken: string // 'A21AALg_ydToXtGEeOFjeJYy0OzSz5dNCP6hUoqglqpqXQBjYAsd39KOisJczsAuk_qgRdoyLpkJ09kUpmhLFQF0m8zu4VQfA'
+}
+
+interface IStyle {
+  layout?: 'vertical' | 'horizontal'
+  color?: 'gold' | 'blue' | 'silver' | 'white' | 'black'
+  shape?: 'pill' | 'rect'
+  label?: 'paypal'
+  tagline?: boolean
+}
+
+interface ICreateOrderActions {
+  payment: null
+  order: { create: (...args: any[]) => Promise<string> }
+}
+interface IApprovalActions {
+  order: {
+    authorize: (...args: any[]) => any
+    capture: (...args: any[]) => any
+    get: (...args: any[]) => any
+    patch: (...args: any[]) => any
+  }
+  payment: null
+  redirect?: (...args: any[]) => any
+  restart?: (...args: any[]) => any
+  subscription: { get: (...args: any[]) => any; activate: (...args: any[]) => any }
+}
+
 export interface PayPalButtonProps {
-  amount: number | string
-  shippingPreference: 'NO_SHIPPING' | 'GET_FROM_FILE' | 'SET_PROVIDED_ADDRESS'
-  onSuccess?: (...args: any[]) => any
+  amount: string
   catchError?: (...args: any[]) => any
-  onError?: (...args: any[]) => any
-  createOrder?: (...args: any[]) => any
+  createOrder?: TCreateOrderFn
   createSubscription?: (...args: any[]) => any
   onApprove?: (...args: any[]) => any
-  style?: Record<string, string>
   onButtonReady?: (...args: any[]) => any
+  onError?: (...args: any[]) => any
+  onSuccess?: (...args: any[]) => any
+  shippingPreference: 'NO_SHIPPING' | 'GET_FROM_FILE' | 'SET_PROVIDED_ADDRESS'
+  style?: IStyle
 }
 
 export interface IPayPalButtonState {
@@ -31,43 +67,24 @@ export interface IPaypalOptions {
   debug?: boolean | string
 }
 
-class PayPalButton extends React.Component<PayPalButtonProps, IPayPalButtonState> {
-  private readonly _options: IPaypalOptions = {
-    'client-id': 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa',
-    currency: 'USD',
+const PaypalButton2: React.FC<PayPalButtonProps> = props => {
+  const { paypalIsReady } = usePaypal()
+
+  if (!paypalIsReady && (typeof window === 'undefined' || window.paypal === undefined)) {
+    return <></>
   }
 
-  constructor(props: PayPalButtonProps) {
-    super(props)
+  const _createOrder: TCreateOrderFn = async (data, actions) => {
+    console.log('the data in _createOrder is: ', data, actions)
+    const { amount, shippingPreference } = props
 
-    this.state = {
-      isSdkReady: false,
-    }
-  }
-
-  componentDidMount = () => {
-    if (typeof window !== 'undefined' && window !== undefined && window.paypal === undefined) {
-      this.addPaypalSdk()
-    } else if (
-      typeof window !== 'undefined' &&
-      window !== undefined &&
-      window.paypal !== undefined &&
-      this.props.onButtonReady
-    ) {
-      this.props.onButtonReady()
-    }
-  }
-
-  public readonly createOrder = (data: any, actions: any) => {
-    console.log('the data is: ', data)
-    const { amount = 1, shippingPreference } = this.props
-
-    return actions.order.create({
+    // This function sets up the details of the transaction, including the amount and line item details.
+    const orderId: string = await actions.order.create({
       purchase_units: [
         {
           amount: {
-            currency_code: this._options.currency,
-            value: amount.toString(),
+            currency_code: 'USD',
+            value: amount,
           },
         },
       ],
@@ -75,88 +92,53 @@ class PayPalButton extends React.Component<PayPalButtonProps, IPayPalButtonState
         shipping_preference: shippingPreference,
       },
     })
+
+    return orderId
   }
 
-  public readonly onApprove = (data: any, actions: any) => {
-    console.log(data, actions, typeof data, typeof actions)
+  const _onApprove = (data: IApprovalResponse, actions: IApprovalActions) => {
+    console.log('onApprove', data, actions)
     return actions.order
       .capture()
       .then(details => {
-        if (this.props.onSuccess) {
-          return this.props.onSuccess(details, data)
-        }
+        if (props.onSuccess) props.onSuccess(details, data)
       })
       .catch(err => {
-        if (this.props.catchError) {
-          return this.props.catchError(err)
-        }
+        if (props.catchError) return props.catchError(err)
       })
   }
 
-  render() {
-    const { amount, onSuccess, createOrder, createSubscription, onApprove, style } = this.props
-    const { isSdkReady } = this.state
+  const { onSuccess, createOrder = _createOrder, createSubscription, onApprove = _onApprove } = props
 
-    if (!isSdkReady && (typeof window === 'undefined' || window.paypal === undefined)) {
-      return <></>
-    }
-
-    const Button = window.paypal.Buttons.driver('react', {
-      React,
-      ReactDOM,
-    })
-
-    const createOrderFn =
-      amount && !createOrder
-        ? (data: any, actions: any) => this.createOrder(data, actions)
-        : (data: any, actions: any) => (createOrder as Function)(data, actions)
-
-    return (
-      <Button
-        {...this.props}
-        createOrder={createSubscription ? undefined : createOrderFn}
-        createSubscription={createSubscription}
-        onApprove={
-          onSuccess
-            ? (data: any, actions: any) => this.onApprove(data, actions)
-            : (data: any, actions: any) => (onApprove as Function)(data, actions)
-        }
-        style={style}
-      />
-    )
+  const style: IStyle = {
+    layout: 'vertical',
+    color: 'gold',
+    shape: 'pill',
+    label: 'paypal',
+    tagline: false,
+    ...(props.style || {}),
   }
 
-  private addPaypalSdk = () => {
-    const { onButtonReady } = this.props
+  const Button = window.paypal.Buttons.driver('react', {
+    React,
+    ReactDOM,
+  })
 
-    const queryParams: string[] = []
+  const createOrderFn = (data: any, actions: ICreateOrderActions) => createOrder(data, actions)
 
-    // replacing camelCase with dashes
-    Object.keys(this._options).forEach(k => {
-      const name = k
-        .split(/(?=[A-Z])/)
-        .join('-')
-        .toLowerCase()
-      queryParams.push(`${name}=${this._options[k]}`)
-    })
-
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = `https://www.paypal.com/sdk/js?${queryParams.join('&')}`
-    script.async = true
-    script.onload = () => {
-      this.setState({ isSdkReady: true })
-
-      if (onButtonReady) {
-        onButtonReady()
+  return (
+    <Button
+      {...props}
+      createOrder={createSubscription ? undefined : createOrderFn}
+      createSubscription={createSubscription}
+      onApprove={
+        onSuccess
+          ? (data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)
+          : (data: IApprovalResponse, actions: IApprovalActions) => onApprove(data, actions)
       }
-    }
-    script.onerror = () => {
-      throw new Error('Paypal SDK could not be loaded.')
-    }
-
-    document.body.appendChild(script)
-  }
+      style={style}
+    />
+  )
 }
 
-export { PayPalButton }
+export default PaypalButton2

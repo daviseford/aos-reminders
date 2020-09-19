@@ -8,7 +8,7 @@ import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
-import PayPalButton from './paypalButton2'
+import PayPalButton from './paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
@@ -139,13 +139,15 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           Subscribe for {supportPlan.title}
         </button>
 
-        <PayPalButton
-          amount="0.01"
-          shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"
-          onApprove={x => console.log('approved', x)}
-          onSuccess={details => console.log('Transaction completed by ', details)}
-          onButtonReady={() => console.log('hello ready')}
-        />
+        <div className="container">
+          <PayPalButton
+            amount={supportPlan.cost}
+            shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"
+            // onApprove={x => console.log('approved', x)}
+            // onSuccess={details => console.log('Transaction completed by ', details)}
+            onButtonReady={() => console.log('hello ready')}
+          />
+        </div>
       </div>
     </div>
   )
