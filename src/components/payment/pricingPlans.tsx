@@ -7,7 +7,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
-import { isDev, STRIPE_KEY } from 'utils/env'
+import { isDev, ROUTES, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
@@ -141,7 +141,14 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </button>
 
         <div className="col mt-2">
-          <PayPalButton planId={isDev ? supportPlan.paypal_dev : supportPlan.paypal_prod} />
+          <PayPalButton
+            planId={isDev ? supportPlan.paypal_dev : supportPlan.paypal_prod}
+            onSuccess={() =>
+              setTimeout(() => {
+                window.location.replace(ROUTES.PROFILE)
+              }, 4000)
+            }
+          />
         </div>
       </div>
     </div>

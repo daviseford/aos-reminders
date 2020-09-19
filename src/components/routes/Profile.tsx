@@ -1,7 +1,7 @@
-import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
+import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
 import { SelectOne } from 'components/input/select'
+import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
 import { ContactComponent } from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -18,7 +18,7 @@ import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
 import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
-import { isDev, ROUTES } from 'utils/env'
+import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
@@ -144,8 +144,8 @@ interface IStripeCancelBtnProps {
   stripe?: any
 }
 
-const StripeCancelBtn: React.FC<IStripeCancelBtnProps> = () => {
-  const { isActive, isCanceled, createdByStripe } = useSubscription()
+const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
+  const { isActive, isCanceled, createdByPaypal } = useSubscription()
   const { isLight } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -153,42 +153,18 @@ const StripeCancelBtn: React.FC<IStripeCancelBtnProps> = () => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isActive || isCanceled || !createdByStripe) return <></>
+  if (!isActive || isCanceled) return <></>
 
   const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
+
+  const ModelComponent = createdByPaypal ? CancelPaypalSubscriptionModal : CancelStripeSubscriptionModal
 
   return (
     <>
       <button className={btnClass} onClick={openModal}>
         Cancel Subscription
       </button>
-      {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
-    </>
-  )
-}
-
-const PaypalCancelBtn: React.FC = () => {
-  const { isActive, isCanceled, createdByPaypal, subscription } = useSubscription()
-  const { isLight } = useTheme()
-
-  if (!isActive || isCanceled || !createdByPaypal) return <></>
-
-  const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
-
-  return (
-    <>
-      <LinkNewTab
-        href={`https://www.${isDev ? 'sandbox.' : ''}paypal.com/myaccount/autopay/connect/${
-          subscription.subscriptionId
-        }`}
-        label={'Paypal Unsubscribe'}
-      >
-        <button className={btnClass} type="button">
-          Cancel Subscription
-        </button>
-      </LinkNewTab>
-      <br />
-      <span className="small">Please cancel your subscription using the Paypal interface :)</span>
+      {modalIsOpen && <ModelComponent modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )
 }
@@ -256,8 +232,7 @@ const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
       </div>
       {isActive && !isCanceled && (
         <div className={theme.cardBody}>
-          <StripeCancelBtn />
-          <PaypalCancelBtn />
+          <CancelBtn />
         </div>
       )}
       {isGifted && (
