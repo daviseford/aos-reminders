@@ -8,7 +8,7 @@ import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
-import PayPalButton from './paypalButton'
+import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
@@ -18,7 +18,7 @@ const PricingPlansComponent: React.FC = () => {
       <div className="container">
         <PlansHeader />
 
-        <div className="card-deck text-center">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
           {SubscriptionPlans.map((plan, i) => (
             <PlanComponent user={user} supportPlan={plan} key={i} />
           ))}
@@ -66,7 +66,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
   if (!stripe) return null
 
-  // When the customer clicks on the button, redirect them to Checkout.
+  // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
   const handleStripeCheckout = async e => {
     e.preventDefault()
 
@@ -99,7 +99,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         if (result.error) {
           // If `redirectToCheckout` fails due to a browser or network
           // error, display the localized error message to your customer.
-          console.log(result.error)
+          console.error(result.error)
           // var displayError = document.getElementById('error-message');
           // displayError.textContent = result.error.message;
         }
@@ -139,7 +139,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           Subscribe for {supportPlan.title}
         </button>
 
-        <div className="container">
+        <div className="col mt-2">
           <PayPalButton
             amount={supportPlan.cost}
             shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"

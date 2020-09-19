@@ -1,6 +1,7 @@
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { IApprovalActions, IApprovalResponse, ICaptureResponse, ICreateOrderActions } from './paypalTypes'
 
 declare global {
   interface Window {
@@ -10,37 +11,12 @@ declare global {
 
 type TCreateOrderFn = (data: any, actions: ICreateOrderActions) => Promise<string>
 
-interface IApprovalResponse {
-  orderID: string // '9FP07990454230111'
-  payerID: string // 'HNDNEBJEB3R5W'
-  paymentID: null
-  billingToken: null
-  facilitatorAccessToken: string // 'A21AALg_ydToXtGEeOFjeJYy0OzSz5dNCP6hUoqglqpqXQBjYAsd39KOisJczsAuk_qgRdoyLpkJ09kUpmhLFQF0m8zu4VQfA'
-}
-
 interface IStyle {
   layout?: 'vertical' | 'horizontal'
   color?: 'gold' | 'blue' | 'silver' | 'white' | 'black'
   shape?: 'pill' | 'rect'
   label?: 'paypal'
   tagline?: boolean
-}
-
-interface ICreateOrderActions {
-  payment: null
-  order: { create: (...args: any[]) => Promise<string> }
-}
-interface IApprovalActions {
-  order: {
-    authorize: (...args: any[]) => any
-    capture: (...args: any[]) => any
-    get: (...args: any[]) => any
-    patch: (...args: any[]) => any
-  }
-  payment: null
-  redirect?: (...args: any[]) => any
-  restart?: (...args: any[]) => any
-  subscription: { get: (...args: any[]) => any; activate: (...args: any[]) => any }
 }
 
 export interface PayPalButtonProps {
@@ -67,10 +43,10 @@ export interface IPaypalOptions {
   debug?: boolean | string
 }
 
-const PaypalButton2: React.FC<PayPalButtonProps> = props => {
+const PaypalButton: React.FC<PayPalButtonProps> = props => {
   const { paypalIsReady } = usePaypal()
 
-  if (!paypalIsReady && (typeof window === 'undefined' || window.paypal === undefined)) {
+  if (!paypalIsReady || typeof window === 'undefined' || window.paypal === undefined) {
     return <></>
   }
 
@@ -100,7 +76,8 @@ const PaypalButton2: React.FC<PayPalButtonProps> = props => {
     console.log('onApprove', data, actions)
     return actions.order
       .capture()
-      .then(details => {
+      .then((details: ICaptureResponse) => {
+        console.log('details', details)
         if (props.onSuccess) props.onSuccess(details, data)
       })
       .catch(err => {
@@ -141,4 +118,4 @@ const PaypalButton2: React.FC<PayPalButtonProps> = props => {
   )
 }
 
-export default PaypalButton2
+export default PaypalButton
