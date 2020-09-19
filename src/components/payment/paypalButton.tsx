@@ -20,19 +20,19 @@ export interface PayPalButtonProps {
   onButtonReady?: (...args: any[]) => any
 }
 
-export interface PayPalButtonState {
+export interface IPayPalButtonState {
   isSdkReady: boolean
 }
 
-export interface PaypalOptions {
+export interface IPaypalOptions {
   'client-id': string
   'merchant-id'?: string
   currency?: number | string
   debug?: boolean | string
 }
 
-class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
-  private readonly _options: PaypalOptions = {
+class PayPalButton extends React.Component<PayPalButtonProps, IPayPalButtonState> {
+  private readonly _options: IPaypalOptions = {
     'client-id': 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa',
     currency: 'USD',
   }
@@ -45,7 +45,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if (typeof window !== 'undefined' && window !== undefined && window.paypal === undefined) {
       this.addPaypalSdk()
     } else if (
@@ -58,7 +58,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
   }
 
-  createOrder = (data: any, actions: any) => {
+  public readonly createOrder = (data: any, actions: any) => {
     console.log('the data is: ', data)
     const { amount = 1, shippingPreference } = this.props
 
@@ -77,7 +77,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     })
   }
 
-  onApprove(data: any, actions: any) {
+  public readonly onApprove = (data: any, actions: any) => {
+    console.log(data, actions, typeof data, typeof actions)
     return actions.order
       .capture()
       .then(details => {
@@ -97,7 +98,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     const { isSdkReady } = this.state
 
     if (!isSdkReady && (typeof window === 'undefined' || window.paypal === undefined)) {
-      return null
+      return <></>
     }
 
     const Button = window.paypal.Buttons.driver('react', {

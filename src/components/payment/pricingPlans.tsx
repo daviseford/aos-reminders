@@ -1,5 +1,6 @@
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
@@ -7,33 +8,36 @@ import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
+import PayPalButton from './paypalButton2'
 
 const PricingPlansComponent: React.FC = () => {
   const { user }: { user: IUser } = useAuth0()
 
   return (
-    <div className="container">
-      <PlansHeader />
+    <PaypalProvider>
+      <div className="container">
+        <PlansHeader />
 
-      <div className="card-deck text-center">
-        {SubscriptionPlans.map((plan, i) => (
-          <PlanComponent user={user} supportPlan={plan} key={i} />
-        ))}
-      </div>
-      <div className="row text-center justify-content-center">
-        <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
-          <small>
-            <em>
-              Subscriptions are handled by Stripe and can be canceled at any time. I do not store your credit
-              card information.
-              <br />
-              You will have access to all subscription features until the end of your subscription, even if
-              you cancel the recurring payments.
-            </em>
-          </small>
+        <div className="card-deck text-center">
+          {SubscriptionPlans.map((plan, i) => (
+            <PlanComponent user={user} supportPlan={plan} key={i} />
+          ))}
+        </div>
+        <div className="row text-center justify-content-center">
+          <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
+            <small>
+              <em>
+                Subscriptions are handled by Stripe and can be canceled at any time. I do not store your
+                credit card information.
+                <br />
+                You will have access to all subscription features until the end of your subscription, even if
+                you cancel the recurring payments.
+              </em>
+            </small>
+          </div>
         </div>
       </div>
-    </div>
+    </PaypalProvider>
   )
 }
 
@@ -63,7 +67,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   if (!stripe) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
-  const handleCheckout = async e => {
+  const handleStripeCheckout = async e => {
     e.preventDefault()
 
     logClick(supportPlan.title)
@@ -127,11 +131,21 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           type="button"
           className="btn btn btn-block btn-primary"
           onClick={
-            isAuthenticated ? handleCheckout : () => loginWithRedirect({ redirect_uri: window.location.href })
+            isAuthenticated
+              ? handleStripeCheckout
+              : () => loginWithRedirect({ redirect_uri: window.location.href })
           }
         >
           Subscribe for {supportPlan.title}
         </button>
+
+        <PayPalButton
+          amount="0.01"
+          shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"
+          onApprove={x => console.log('approved', x)}
+          onSuccess={details => console.log('Transaction completed by ', details)}
+          onButtonReady={() => console.log('hello ready')}
+        />
       </div>
     </div>
   )
