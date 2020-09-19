@@ -18,7 +18,7 @@ import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
 import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
-import { ROUTES } from 'utils/env'
+import { isDev, ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
@@ -168,7 +168,7 @@ const StripeCancelBtn: React.FC<IStripeCancelBtnProps> = () => {
 }
 
 const PaypalCancelBtn: React.FC = () => {
-  const { isActive, isCanceled, createdByPaypal } = useSubscription()
+  const { isActive, isCanceled, createdByPaypal, subscription } = useSubscription()
   const { isLight } = useTheme()
 
   if (!isActive || isCanceled || !createdByPaypal) return <></>
@@ -178,7 +178,9 @@ const PaypalCancelBtn: React.FC = () => {
   return (
     <>
       <LinkNewTab
-        href={'https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_manage-paylist'}
+        href={`https://www.${isDev ? 'sandbox.' : ''}paypal.com/myaccount/autopay/connect/${
+          subscription.subscriptionId
+        }`}
         label={'Paypal Unsubscribe'}
       >
         <button className={btnClass} type="button">
