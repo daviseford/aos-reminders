@@ -1,7 +1,7 @@
 export interface IGiftedSubscriptionPlans {
   cost: string
-  dev: string // plan ID in test mode
-  prod: string // plan ID in prod
+  stripe_dev: string // stripe plan ID in test mode
+  stripe_prod: string // stripe plan ID in prod
   title: string
 }
 
@@ -46,20 +46,20 @@ export interface ISubscriptionPlan extends IGiftedSubscriptionPlans {
 export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
   {
     cost: '0.99',
-    dev: 'sku_GAMOo7HKhPgOrl',
-    prod: 'sku_GAqlskLWmrotl0',
+    stripe_dev: 'sku_GAMOo7HKhPgOrl',
+    stripe_prod: 'sku_GAqlskLWmrotl0',
     title: '1 Month',
   },
   {
     cost: '2.67',
-    dev: 'sku_GAMOxUEnWQLslM',
-    prod: 'sku_GAqlfasGefolVt',
+    stripe_dev: 'sku_GAMOxUEnWQLslM',
+    stripe_prod: 'sku_GAqlfasGefolVt',
     title: '3 Months',
   },
   {
     cost: '9.49',
-    dev: 'sku_GAMIdacq7uChaF',
-    prod: 'sku_GAqm4R7SuEJToJ',
+    stripe_dev: 'sku_GAMIdacq7uChaF',
+    stripe_prod: 'sku_GAqm4R7SuEJToJ',
     title: '1 Year',
   },
 ]
@@ -154,23 +154,23 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
 export const SubscriptionPlans: ISubscriptionPlan[] = [
   {
     cost: '1.99',
-    dev: 'plan_FkxFLAaT1qDsha',
+    stripe_dev: 'plan_FkxFLAaT1qDsha',
     monthly_cost: '1.99',
-    prod: 'plan_FkxAvHwfImy1WU',
+    stripe_prod: 'plan_FkxAvHwfImy1WU',
     title: '1 Month',
   },
   {
     cost: '4.47',
-    dev: 'plan_FkxFWSZADnJp1G',
+    stripe_dev: 'plan_FkxFWSZADnJp1G',
     monthly_cost: '1.49',
-    prod: 'plan_FkxCFxAtQuXdSm',
+    stripe_prod: 'plan_FkxCFxAtQuXdSm',
     title: '3 Months',
   },
   {
     cost: '11.88',
-    dev: 'plan_FkxGRttbVwtLzD',
+    stripe_dev: 'plan_FkxGRttbVwtLzD',
     monthly_cost: '0.99',
-    prod: 'plan_FkxDFaZM1vCkMF',
+    stripe_prod: 'plan_FkxDFaZM1vCkMF',
     title: '1 Year',
   },
 ]

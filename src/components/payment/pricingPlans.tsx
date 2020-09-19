@@ -72,7 +72,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     logClick(supportPlan.title)
 
-    const plan = isDev ? supportPlan.dev : supportPlan.prod
+    const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     const item = { plan, quantity: 1 }

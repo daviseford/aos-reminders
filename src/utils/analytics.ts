@@ -180,7 +180,7 @@ export const logSubscription = (planTitle: string) => {
     ReactGA.plugin.execute('ecommerce', 'addItem', {
       id,
       name: plan.title,
-      sku: plan.prod,
+      sku: plan.stripe_prod,
       price: plan.cost,
       category: 'Subscription',
       quantity: '1',
@@ -201,7 +201,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
     ReactGA.plugin.execute('ecommerce', 'addItem', {
       id,
       name: plan.title,
-      sku: plan.prod,
+      sku: plan.stripe_prod,
       price: plan.cost,
       category: 'Gifted-Subscription',
       quantity,

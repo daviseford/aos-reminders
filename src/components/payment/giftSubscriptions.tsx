@@ -200,7 +200,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     logClick(`${supportPlan.title}-GiftedSubscription`)
 
-    const sku = isDev ? supportPlan.dev : supportPlan.prod
+    const sku = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     const item = { sku, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
