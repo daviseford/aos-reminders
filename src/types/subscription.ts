@@ -31,4 +31,5 @@ export interface ISubscription {
   theme?: TThemeType
   updatedAt?: number
   userName: string
+  createdBy?: 'admin' | 'stripe' | 'paypal' | 'gift' | 'coupon'
 }

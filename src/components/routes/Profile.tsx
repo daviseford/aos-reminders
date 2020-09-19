@@ -75,9 +75,9 @@ const UserCard: React.FC = () => {
       <ToggleTheme />
       <SubscriptionInfo
         subscription={subscription}
-        isCanceled={isCanceled}
         isSubscribed={isSubscribed}
         isActive={isActive}
+        createdBy={subscription.createdBy}
       />
       {isSubscribed && (
         <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
@@ -166,7 +166,7 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) => {
+const SubscriptionInfo = ({ subscription, isSubscribed, isActive, createdBy = '' }) => {
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -197,6 +197,9 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
               })
               .toLocaleString(DateTime.DATE_MED)}
           </h5>
+          {createdBy && (createdBy === 'paypal' || createdBy === 'stripe') && (
+            <h5 className="lead">Payment Method: {titleCase(createdBy)}</h5>
+          )}
         </div>
       )}
       {isSubscribed && !isActive && (

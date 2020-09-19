@@ -76,7 +76,7 @@ const PaypalButton: React.FC<PayPalButtonProps> = props => {
   return (
     <Button
       {...props}
-      createSubscription={_createSubscription}
+      createSubscription={!isAuthenticated ? undefined : _createSubscription}
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
       style={style}
       onClick={isAuthenticated ? undefined : () => loginWithRedirect({ redirect_uri: window.location.href })}
