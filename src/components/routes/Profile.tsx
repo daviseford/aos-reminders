@@ -1,3 +1,4 @@
+import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
 import { SelectOne } from 'components/input/select'
@@ -139,12 +140,12 @@ const FavoriteArmySelect = () => {
   )
 }
 
-interface ICancelBtnProps {
+interface IStripeCancelBtnProps {
   stripe?: any
 }
 
-const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isActive, isCanceled } = useSubscription()
+const StripeCancelBtn: React.FC<IStripeCancelBtnProps> = () => {
+  const { isActive, isCanceled, createdByStripe } = useSubscription()
   const { isLight } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -152,7 +153,7 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isActive || isCanceled) return null
+  if (!isActive || isCanceled || !createdByStripe) return <></>
 
   const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
 
@@ -162,6 +163,30 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
         Cancel Subscription
       </button>
       {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+    </>
+  )
+}
+
+const PaypalCancelBtn: React.FC = () => {
+  const { isActive, isCanceled, createdByPaypal } = useSubscription()
+  const { isLight } = useTheme()
+
+  if (!isActive || isCanceled || !createdByPaypal) return <></>
+
+  const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
+
+  return (
+    <>
+      <LinkNewTab
+        href={'https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_manage-paylist'}
+        label={'Paypal Unsubscribe'}
+      >
+        <button className={btnClass} type="button">
+          Cancel Subscription
+        </button>
+      </LinkNewTab>
+      <br />
+      <span className="small">Please cancel your subscription using the Paypal interface :)</span>
     </>
   )
 }
@@ -229,7 +254,8 @@ const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
       </div>
       {isActive && !isCanceled && (
         <div className={theme.cardBody}>
-          <CancelBtn />
+          <StripeCancelBtn />
+          <PaypalCancelBtn />
         </div>
       )}
       {isGifted && (

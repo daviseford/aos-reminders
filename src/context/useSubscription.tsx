@@ -8,6 +8,8 @@ import {
   isActiveSubscriber,
   isCanceledSubscriber,
   isGiftedSubscriber,
+  isPaypal,
+  isStripe,
   isSubscriber,
 } from 'utils/subscriptionUtils'
 
@@ -17,6 +19,8 @@ const initialState = {
   isGifted: false,
   isNotSubscribed: false,
   isSubscribed: false,
+  createdByPaypal: false,
+  createdByStripe: false,
   subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
 }
@@ -48,6 +52,8 @@ interface ISubscriptionContext {
    * This DOES NOT mean they have an active subscription
    */
   isSubscribed: boolean
+  createdByPaypal: boolean
+  createdByStripe: boolean
   subscription: ISubscription
   subscriptionLoading: boolean
 }
@@ -64,6 +70,8 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
   const isGifted = useMemo(() => isGiftedSubscriber(subscription), [subscription])
   const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
+  const createdByPaypal = useMemo(() => isPaypal(subscription), [subscription])
+  const createdByStripe = useMemo(() => isStripe(subscription), [subscription])
 
   useEffect(() => {
     if (loading) return
@@ -112,6 +120,8 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         isCanceled,
         isGifted,
         isNotSubscribed,
+        createdByPaypal,
+        createdByStripe,
         isSubscribed,
         subscription,
         subscriptionLoading,
