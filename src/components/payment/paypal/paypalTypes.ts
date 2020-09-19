@@ -92,7 +92,7 @@ export interface ICaptureResponse {
 export interface ICreateSubscriptionsActions {
   payment: null
   subscription: {
-    create: (opts: { plan_id: string }) => Promise<string>
+    create: (...args: any[]) => Promise<string>
     review: (...args: any[]) => Promise<string>
   }
 }

@@ -9,7 +9,7 @@ import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { IUser } from 'types/user'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick, logEvent, logPageView } from 'utils/analytics'
 import { LocalRedemptionKey } from 'utils/localStore'
 
@@ -19,7 +19,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
  * This Route is used for coupon code redemption
  */
 const Redeem: React.FC = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { loading, user }: IUseAuth0 = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
 
@@ -76,7 +76,7 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
 }
 
 const RedeemSection = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
   const redeemInfo = getRedemptionInfo()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -138,7 +138,7 @@ const setLocalRedemptionKey = () => {
   }
 }
 const Login = () => {
-  const { loginWithRedirect } = useAuth0()
+  const { loginWithRedirect }: IUseAuth0 = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()

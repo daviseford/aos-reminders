@@ -8,6 +8,7 @@ import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
 import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
@@ -16,7 +17,7 @@ import { SubscriptionPlans } from 'utils/plans'
 
 const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, loading, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, logout, loading, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`

@@ -1,6 +1,7 @@
 import { SubscriptionApi } from 'api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUseAuth0 } from 'types/auth0'
 import { ISubscription } from 'types/subscription'
 import { LocalFavoriteFaction } from 'utils/localStore'
 import {
@@ -54,7 +55,7 @@ interface ISubscriptionContext {
 const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
 
 const SubscriptionProvider: React.FC = ({ children }) => {
-  const { user, loading } = useAuth0()
+  const { user, loading }: IUseAuth0 = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)

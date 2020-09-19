@@ -15,7 +15,7 @@ import { MdCheckCircle, MdNotInterested, MdVerifiedUser } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUser } from 'types/user'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
@@ -24,7 +24,7 @@ import { withSelectOne } from 'utils/withSelect'
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Profile: React.FC = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { loading, user }: IUseAuth0 = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
 export default Profile
 
 const UserCard: React.FC = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
   const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
   const { theme } = useTheme()
 

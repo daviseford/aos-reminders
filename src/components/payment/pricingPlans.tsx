@@ -4,6 +4,7 @@ import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
@@ -11,7 +12,7 @@ import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
 
   return (
     <PaypalProvider>
@@ -62,7 +63,7 @@ interface IPlanProps {
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { user, supportPlan } = props
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
 
   if (!stripe) return null
 

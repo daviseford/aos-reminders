@@ -5,11 +5,12 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUseAuth0 } from 'types/auth0'
 import { paginateSavedArmies } from 'utils/paginate'
 
 const ShowSavedArmies: React.FC = () => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated }: IUseAuth0 = useAuth0()
   const { isSubscribed } = useSubscription()
   const { savedArmies, loadSavedArmies } = useSavedArmies()
   const [pageNum, setPageNum] = useState(1)

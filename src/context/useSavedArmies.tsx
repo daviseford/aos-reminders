@@ -8,6 +8,7 @@ import { TSupportedFaction } from 'meta/factions'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { ICurrentArmy } from 'types/army'
+import { IUseAuth0 } from 'types/auth0'
 import { IImportedArmy } from 'types/import'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
@@ -51,7 +52,7 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
-  const { user } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)

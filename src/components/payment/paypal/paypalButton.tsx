@@ -1,6 +1,8 @@
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
+import { useAuth0 } from 'react-auth0-wrapper'
 import ReactDOM from 'react-dom'
+import { IUseAuth0 } from 'types/auth0'
 import { IApprovalActions, IApprovalResponse, ICreateSubscriptionsActions } from './paypalTypes'
 
 declare global {
@@ -35,6 +37,7 @@ export interface IPaypalOptions {
 }
 
 const PaypalButton: React.FC<PayPalButtonProps> = props => {
+  const { user, isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { paypalIsReady } = usePaypal()
 
   if (!paypalIsReady || typeof window === 'undefined' || window.paypal === undefined) {
@@ -50,6 +53,9 @@ const PaypalButton: React.FC<PayPalButtonProps> = props => {
     console.log('_createSubscription', data, actions)
     return actions.subscription.create({
       plan_id: props.planId,
+      subscriber: {
+        email_address: user.email,
+      },
     })
   }
 
@@ -73,6 +79,7 @@ const PaypalButton: React.FC<PayPalButtonProps> = props => {
       createSubscription={_createSubscription}
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
       style={style}
+      onClick={isAuthenticated ? undefined : () => loginWithRedirect({ redirect_uri: window.location.href })}
     />
   )
 }
