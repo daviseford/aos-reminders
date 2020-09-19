@@ -140,7 +140,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </button>
 
         <div className="col mt-2">
-          <PayPalButton amount={supportPlan.cost} />
+          <PayPalButton planId={isDev ? supportPlan.paypal_dev : supportPlan.paypal_prod} />
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ interface IStyle {
 }
 
 export interface PayPalButtonProps {
-  amount: string
+  planId: string
   onSuccess?: (data: IApprovalResponse) => any
   style?: IStyle
 }
@@ -32,7 +32,6 @@ export interface IPaypalOptions {
   'merchant-id'?: string
   currency?: number | string
   debug?: boolean | string
-  intent: 'subscription' | 'capture'
 }
 
 const PaypalButton: React.FC<PayPalButtonProps> = props => {
@@ -49,9 +48,8 @@ const PaypalButton: React.FC<PayPalButtonProps> = props => {
 
   const _createSubscription = async (data, actions: ICreateSubscriptionsActions) => {
     console.log('_createSubscription', data, actions)
-
     return actions.subscription.create({
-      plan_id: 'P-54G67667NT497912UL5TBTBQ',
+      plan_id: props.planId,
     })
   }
 
@@ -68,8 +66,6 @@ const PaypalButton: React.FC<PayPalButtonProps> = props => {
     React,
     ReactDOM,
   })
-
-  // const createOrderFn = (data: any, actions: ICreateOrderActions) => createOrder(data, actions)
 
   return (
     <Button
