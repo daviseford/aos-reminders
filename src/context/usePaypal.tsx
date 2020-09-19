@@ -7,16 +7,15 @@ interface IPaypalStatusProvider {
 
 const DEFAULT_OPTS = {
   'client-id': 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa',
-  currency: 'USD',
-  components: 'buttons',
   'disable-funding': 'credit,card',
+  components: 'buttons',
+  currency: 'USD',
+  vault: true,
 }
 
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)
 
 const PaypalProvider: React.FC = ({ children }) => {
-  // const [paypalIsReady, setIsPaypalReady] = useState(false)
-
   const [paypalIsReady, setIsPaypalReady] = useState<boolean>(false)
   const isMounted = useRef(false)
 

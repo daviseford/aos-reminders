@@ -89,9 +89,12 @@ export interface ICaptureResponse {
   ]
 }
 
-export interface ICreateOrderActions {
+export interface ICreateSubscriptionsActions {
   payment: null
-  order: { create: (...args: any[]) => Promise<string> }
+  subscription: {
+    create: (opts: { plan_id: string }) => Promise<string>
+    review: (...args: any[]) => Promise<string>
+  }
 }
 export interface IApprovalActions {
   order: {
@@ -108,8 +111,9 @@ export interface IApprovalActions {
 
 export interface IApprovalResponse {
   orderID: string // '9FP07990454230111'
-  payerID: string // 'HNDNEBJEB3R5W'
+  payerID?: string // 'HNDNEBJEB3R5W'
   paymentID: null
   billingToken: null
   facilitatorAccessToken: string // 'A21AALg_ydToXtGEeOFjeJYy0OzSz5dNCP6hUoqglqpqXQBjYAsd39KOisJczsAuk_qgRdoyLpkJ09kUpmhLFQF0m8zu4VQfA'
+  subscriptionID: string // "I-R14AD4977K5F"
 }

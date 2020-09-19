@@ -140,13 +140,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </button>
 
         <div className="col mt-2">
-          <PayPalButton
-            amount={supportPlan.cost}
-            shippingPreference="GET_FROM_FILE" // default is "GET_FROM_FILE"
-            // onApprove={x => console.log('approved', x)}
-            // onSuccess={details => console.log('Transaction completed by ', details)}
-            onButtonReady={() => console.log('hello ready')}
-          />
+          <PayPalButton amount={supportPlan.cost} />
         </div>
       </div>
     </div>
