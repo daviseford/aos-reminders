@@ -146,7 +146,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
             onSuccess={() =>
               setTimeout(() => {
                 window.location.replace(ROUTES.PROFILE)
-              }, 4000)
+              }, 5000)
             }
           />
         </div>

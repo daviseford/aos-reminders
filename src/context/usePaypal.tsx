@@ -1,12 +1,13 @@
 import qs from 'qs'
 import React, { useEffect, useRef, useState } from 'react'
+import { PAYPAL_CLIENT_ID } from 'utils/env'
 
 interface IPaypalStatusProvider {
   paypalIsReady: boolean
 }
 
 const DEFAULT_OPTS = {
-  'client-id': 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa',
+  'client-id': PAYPAL_CLIENT_ID,
   'disable-funding': 'credit,card',
   components: 'buttons',
   currency: 'USD',

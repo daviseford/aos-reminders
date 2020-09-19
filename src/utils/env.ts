@@ -16,6 +16,10 @@ export const STRIPE_KEY = isProd
   ? 'pk_live_wFgX8L9sjPz6S9eLxfd4c0sR00beXWRLyZ'
   : 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
 
+export const PAYPAL_CLIENT_ID = isProd
+  ? ''
+  : 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa'
+
 export const BASE_URL = isProd ? `https://aosreminders.com` : `http://localhost:3000`
 
 export const SUBSCRIPTION_AUTH_KEY = 'b5bef450-e624-11e9-81b4-2a2ae2dbcce4'
