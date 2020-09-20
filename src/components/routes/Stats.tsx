@@ -9,6 +9,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSignInAlt, FaUserGraduate } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -16,7 +17,7 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
-  const { loading }: { loading: boolean } = useAuth0()
+  const { loading }: IUseAuth0 = useAuth0()
   const { isActive, getSubscription, subscriptionLoading } = useSubscription()
   const { theme } = useTheme()
 
@@ -203,7 +204,7 @@ const SubscribeBtn = () => {
 }
 
 const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { isActive } = useSubscription()
   const { theme } = useTheme()
 

@@ -10,6 +10,7 @@ import { FaLink } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
+import { IUseAuth0 } from 'types/auth0'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
@@ -26,7 +27,7 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   showSavedArmies,
   hiddenReminders,
 }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { isOffline } = useAppStatus()
   const { isActive } = useSubscription()
 

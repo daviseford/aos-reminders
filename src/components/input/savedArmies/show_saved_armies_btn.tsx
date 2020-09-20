@@ -4,6 +4,7 @@ import { useSubscription } from 'context/useSubscription'
 import React from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { MdStorage } from 'react-icons/md'
+import { IUseAuth0 } from 'types/auth0'
 import { LocalSavedArmies } from 'utils/localStore'
 import { componentWithSize } from 'utils/mapSizesToProps'
 
@@ -21,7 +22,7 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   isMobile,
 }) => {
   const { isOnline, isOffline } = useAppStatus()
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated }: IUseAuth0 = useAuth0()
   const { isSubscribed } = useSubscription()
 
   if (isOnline && (!isAuthenticated || !isSubscribed)) return null

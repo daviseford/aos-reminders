@@ -12,7 +12,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const CancelSubscriptionModal: React.FC<IModalComponentProps> = props => {
+export const CancelStripeSubscriptionModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen } = props
   const { cancelSubscription } = useSubscription()
   const { theme } = useTheme()

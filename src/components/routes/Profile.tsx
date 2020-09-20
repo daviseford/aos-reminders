@@ -1,6 +1,7 @@
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
+import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
 import { SelectOne } from 'components/input/select'
+import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
 import { ContactComponent } from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -10,12 +11,12 @@ import { DateTime } from 'luxon'
 import { PRIMARY_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { FaGift } from 'react-icons/fa'
+import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested, MdVerifiedUser } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUser } from 'types/user'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
@@ -24,7 +25,7 @@ import { withSelectOne } from 'utils/withSelect'
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Profile: React.FC = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+  const { loading, user }: IUseAuth0 = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -64,7 +65,7 @@ const Profile: React.FC = () => {
 export default Profile
 
 const UserCard: React.FC = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
   const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -73,13 +74,8 @@ const UserCard: React.FC = () => {
       <h1 className="text-center">Your Profile</h1>
       <FavoriteArmySelect />
       <ToggleTheme />
-      <SubscriptionInfo
-        subscription={subscription}
-        isCanceled={isCanceled}
-        isSubscribed={isSubscribed}
-        isActive={isActive}
-      />
-      {isSubscribed && (
+      <SubscriptionInfo />
+      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && (
         <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
       )}
       <EmailVerified email_verified={user.email_verified} email={user.email} />
@@ -139,12 +135,12 @@ const FavoriteArmySelect = () => {
   )
 }
 
-interface ICancelBtnProps {
+interface IStripeCancelBtnProps {
   stripe?: any
 }
 
-const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isActive, isCanceled } = useSubscription()
+const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
+  const { isActive, isCanceled, createdByPaypal } = useSubscription()
   const { isLight } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -152,22 +148,35 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isActive || isCanceled) return null
+  if (!isActive || isCanceled) return <></>
 
   const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
+
+  const ModelComponent = createdByPaypal ? CancelPaypalSubscriptionModal : CancelStripeSubscriptionModal
 
   return (
     <>
       <button className={btnClass} onClick={openModal}>
         Cancel Subscription
       </button>
-      {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+      {modalIsOpen && <ModelComponent modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) => {
+const SubscriptionInfo = () => {
+  const {
+    subscription,
+    isSubscribed,
+    isActive,
+    isPending,
+    hasActiveGrant,
+    hasExpiredGrant,
+  } = useSubscription()
   const { theme } = useTheme()
+
+  if (hasActiveGrant) return <TemporaryGrantComponent />
+
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
@@ -183,7 +192,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         </h4>
       </div>
 
-      {isActive && (
+      {isActive && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <h5 className="lead">
             Subscription Start:{' '}
@@ -197,13 +206,61 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
               })
               .toLocaleString(DateTime.DATE_MED)}
           </h5>
+          {subscription.createdBy &&
+            (subscription.createdBy === 'paypal' || subscription.createdBy === 'stripe') && (
+              <h5 className="lead">Payment Method: {titleCase(subscription.createdBy)}</h5>
+            )}
         </div>
       )}
-      {isSubscribed && !isActive && (
+      {isSubscribed && !isActive && !isPending && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <SubscriptionExpired />
         </div>
       )}
+    </div>
+  )
+}
+
+const TemporaryGrantComponent = () => {
+  const { subscription } = useSubscription()
+  const { theme } = useTheme()
+
+  return (
+    <div className={`${theme.card} mt-2`}>
+      <div className={theme.profileCardHeader}>
+        <h4>
+          <div className={centerContentClass}>
+            Subscription Status: <FaSearchDollar className="text-warning ml-2" />
+          </div>
+        </h4>
+      </div>
+
+      <div className={theme.cardBody}>
+        <div className={`${centerContentClass} row`}>
+          <div className="col-12">
+            <h1>
+              <FaPaypal className="text-info ml-2 align-self-center" />
+            </h1>
+          </div>
+          <div className="col-12">
+            <h5 className="text-warning">Currently verifying payment via Paypal.</h5>
+          </div>
+        </div>
+
+        <h5 className="lead">
+          Subscription Start:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">
+          Subscription End:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number)
+            .plus({
+              [`${subscription.planInterval}s`]: subscription.planIntervalCount,
+            })
+            .toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">Payment Method: Paypal</h5>
+      </div>
     </div>
   )
 }

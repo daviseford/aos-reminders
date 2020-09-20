@@ -1,11 +1,13 @@
 export interface IGiftedSubscriptionPlans {
   cost: string
-  dev: string // plan ID in test mode
-  prod: string // plan ID in prod
+  stripe_dev: string // stripe plan ID in test mode
+  stripe_prod: string // stripe plan ID in prod
   title: string
 }
 
 export interface ISubscriptionPlan extends IGiftedSubscriptionPlans {
+  paypal_dev: string // paypal plan ID in sandbox mode
+  paypal_prod: string // paypal plan ID in prod
   monthly_cost: string
   sale?: boolean
   discount_pct?: number
@@ -46,20 +48,20 @@ export interface ISubscriptionPlan extends IGiftedSubscriptionPlans {
 export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
   {
     cost: '0.99',
-    dev: 'sku_GAMOo7HKhPgOrl',
-    prod: 'sku_GAqlskLWmrotl0',
+    stripe_dev: 'sku_GAMOo7HKhPgOrl',
+    stripe_prod: 'sku_GAqlskLWmrotl0',
     title: '1 Month',
   },
   {
     cost: '2.67',
-    dev: 'sku_GAMOxUEnWQLslM',
-    prod: 'sku_GAqlfasGefolVt',
+    stripe_dev: 'sku_GAMOxUEnWQLslM',
+    stripe_prod: 'sku_GAqlfasGefolVt',
     title: '3 Months',
   },
   {
     cost: '9.49',
-    dev: 'sku_GAMIdacq7uChaF',
-    prod: 'sku_GAqm4R7SuEJToJ',
+    stripe_dev: 'sku_GAMIdacq7uChaF',
+    stripe_prod: 'sku_GAqm4R7SuEJToJ',
     title: '1 Year',
   },
 ]
@@ -154,23 +156,29 @@ export const GiftedSubscriptionPlans: IGiftedSubscriptionPlans[] = [
 export const SubscriptionPlans: ISubscriptionPlan[] = [
   {
     cost: '1.99',
-    dev: 'plan_FkxFLAaT1qDsha',
     monthly_cost: '1.99',
-    prod: 'plan_FkxAvHwfImy1WU',
+    paypal_dev: 'P-54G67667NT497912UL5TBTBQ',
+    paypal_prod: 'P-992593310M0717908L5TJ5ZA',
+    stripe_dev: 'plan_FkxFLAaT1qDsha',
+    stripe_prod: 'plan_FkxAvHwfImy1WU',
     title: '1 Month',
   },
   {
     cost: '4.47',
-    dev: 'plan_FkxFWSZADnJp1G',
     monthly_cost: '1.49',
-    prod: 'plan_FkxCFxAtQuXdSm',
+    paypal_dev: 'P-8HN142814F897112NL5TBTVA',
+    paypal_prod: 'P-4SP611027V911981YL5TJ6CY',
+    stripe_dev: 'plan_FkxFWSZADnJp1G',
+    stripe_prod: 'plan_FkxCFxAtQuXdSm',
     title: '3 Months',
   },
   {
     cost: '11.88',
-    dev: 'plan_FkxGRttbVwtLzD',
     monthly_cost: '0.99',
-    prod: 'plan_FkxDFaZM1vCkMF',
+    paypal_dev: 'P-7YT370523H1387633L5TCFHI',
+    paypal_prod: 'P-7W029230206518920L5TJ6GI',
+    stripe_dev: 'plan_FkxGRttbVwtLzD',
+    stripe_prod: 'plan_FkxDFaZM1vCkMF',
     title: '1 Year',
   },
 ]

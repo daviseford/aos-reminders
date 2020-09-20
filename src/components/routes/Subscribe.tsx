@@ -8,6 +8,7 @@ import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
+import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 import { componentWithSize } from 'utils/mapSizesToProps'
@@ -17,7 +18,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 
 const Subscribe: React.FC = () => {
-  const { loading }: { loading: boolean } = useAuth0()
+  const { loading }: IUseAuth0 = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
   const { theme } = useTheme()
 

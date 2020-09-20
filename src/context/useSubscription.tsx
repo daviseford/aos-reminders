@@ -1,20 +1,31 @@
 import { SubscriptionApi } from 'api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUseAuth0 } from 'types/auth0'
 import { ISubscription } from 'types/subscription'
 import { LocalFavoriteFaction } from 'utils/localStore'
 import {
+  hasActiveGrant,
+  hasExpiredGrant,
   isActiveSubscriber,
   isCanceledSubscriber,
   isGiftedSubscriber,
+  isPaypal,
+  isPendingSubscriber,
+  isStripe,
   isSubscriber,
 } from 'utils/subscriptionUtils'
 
 const initialState = {
+  createdByPaypal: false,
+  createdByStripe: false,
   isActive: false,
   isCanceled: false,
   isGifted: false,
   isNotSubscribed: false,
+  isPending: false,
+  hasExpiredGrant: false,
+  hasActiveGrant: false,
   isSubscribed: false,
   subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
@@ -43,10 +54,27 @@ interface ISubscriptionContext {
    */
   isNotSubscribed: boolean
   /**
+   * If this subscription was created by Paypal,
+   * there is a 30-60 time period after checkout before their subscription is confirmed.
+   */
+  isPending: boolean
+  /**
    * Does this user exist in the subscription API?
    * This DOES NOT mean they have an active subscription
    */
   isSubscribed: boolean
+  createdByPaypal: boolean
+  createdByStripe: boolean
+
+  /**
+   * Does this user have an active grant (a ten minute grace period while Paypal completes checkout)
+   */
+  hasActiveGrant: boolean
+  /**
+   * If a user has an expired grant, their checkout most likely failed.
+   */
+  hasExpiredGrant: boolean
+
   subscription: ISubscription
   subscriptionLoading: boolean
 }
@@ -54,15 +82,18 @@ interface ISubscriptionContext {
 const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
 
 const SubscriptionProvider: React.FC = ({ children }) => {
-  const { user, loading } = useAuth0()
+  const { user, loading }: IUseAuth0 = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)
 
-  const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
-  const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
-  const isGifted = useMemo(() => isGiftedSubscriber(subscription), [subscription])
-  const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
+  const createdByPaypal = isPaypal(subscription)
+  const createdByStripe = isStripe(subscription)
+  const isActive = isActiveSubscriber(subscription)
+  const isCanceled = isCanceledSubscriber(subscription)
+  const isGifted = isGiftedSubscriber(subscription)
+  const isPending = isPendingSubscriber(subscription)
+  const isSubscribed = isSubscriber(subscription)
 
   useEffect(() => {
     if (loading) return
@@ -102,23 +133,40 @@ const SubscriptionProvider: React.FC = ({ children }) => {
     }
   }, [getSubscription, subscription])
 
-  return (
-    <SubscriptionContext.Provider
-      value={{
-        cancelSubscription,
-        getSubscription,
-        isActive,
-        isCanceled,
-        isGifted,
-        isNotSubscribed,
-        isSubscribed,
-        subscription,
-        subscriptionLoading,
-      }}
-    >
-      {children}
-    </SubscriptionContext.Provider>
+  const value = useMemo(
+    () => ({
+      cancelSubscription,
+      createdByPaypal,
+      createdByStripe,
+      getSubscription,
+      hasActiveGrant: hasActiveGrant(subscription),
+      hasExpiredGrant: hasExpiredGrant(subscription),
+      isActive,
+      isCanceled,
+      isGifted,
+      isNotSubscribed,
+      isPending,
+      isSubscribed,
+      subscription,
+      subscriptionLoading,
+    }),
+    [
+      cancelSubscription,
+      createdByPaypal,
+      createdByStripe,
+      getSubscription,
+      isActive,
+      isCanceled,
+      isGifted,
+      isNotSubscribed,
+      isPending,
+      isSubscribed,
+      subscription,
+      subscriptionLoading,
+    ]
   )
+
+  return <SubscriptionContext.Provider value={value}>{children}</SubscriptionContext.Provider>
 }
 
 const useSubscription = () => {

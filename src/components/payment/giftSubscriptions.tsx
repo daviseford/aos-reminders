@@ -10,6 +10,7 @@ import { useAuth0 } from 'react-auth0-wrapper'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
+import { IUseAuth0 } from 'types/auth0'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
@@ -129,7 +130,7 @@ const GiftButton = (props: IGiftButtonProps) => {
 
 const PurchaseTable = componentWithSize(({ isMobile = false }) => {
   const { theme } = useTheme()
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
 
   return (
     <>
@@ -187,7 +188,7 @@ interface IPlanProps {
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { user, supportPlan, isMobile } = props
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const [quantity, setQuantity] = useState(1)
 
   if (!stripe) return null
@@ -200,7 +201,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 
     logClick(`${supportPlan.title}-GiftedSubscription`)
 
-    const sku = isDev ? supportPlan.dev : supportPlan.prod
+    const sku = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     const item = { sku, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
@@ -261,7 +262,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <button
           type="button"
           className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
-          onClick={isAuthenticated ? handleCheckout : loginWithRedirect}
+          onClick={isAuthenticated ? handleCheckout : () => loginWithRedirect()}
         >
           {isMobile ? `Buy` : `Purchase`}
         </button>

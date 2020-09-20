@@ -1,39 +1,54 @@
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { SubscriptionApi } from 'api/subscriptionApi'
+import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
+import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
+import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user }: IUseAuth0 = useAuth0()
+
+  const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
 
   return (
-    <div className="container">
-      <PlansHeader />
+    <PaypalProvider>
+      <div className="container">
+        <PlansHeader />
 
-      <div className="card-deck text-center">
-        {SubscriptionPlans.map((plan, i) => (
-          <PlanComponent user={user} supportPlan={plan} key={i} />
-        ))}
-      </div>
-      <div className="row text-center justify-content-center">
-        <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
-          <small>
-            <em>
-              Subscriptions are handled by Stripe and can be canceled at any time. I do not store your credit
-              card information.
-              <br />
-              You will have access to all subscription features until the end of your subscription, even if
-              you cancel the recurring payments.
-            </em>
-          </small>
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
+          {SubscriptionPlans.map((plan, i) => (
+            <PlanComponent
+              user={user}
+              supportPlan={plan}
+              paypalModalIsOpen={paypalModalIsOpen}
+              setPaypalModalIsOpen={setPaypalModalIsOpen}
+              key={i}
+            />
+          ))}
+        </div>
+        <div className="row text-center justify-content-center">
+          <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
+            <small>
+              <em>
+                Subscriptions are handled by Stripe/PayPal and can be canceled at any time. I do not store
+                your credit card information.
+                <br />
+                You will have access to all subscription features until the end of your subscription, even if
+                you cancel the recurring payments.
+              </em>
+            </small>
+          </div>
         </div>
       </div>
-    </div>
+    </PaypalProvider>
   )
 }
 
@@ -53,22 +68,24 @@ const PlansHeader = () => {
 interface IPlanProps {
   user: IUser
   supportPlan: ISubscriptionPlan
+  paypalModalIsOpen: boolean
+  setPaypalModalIsOpen: (x: boolean) => void
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { user, supportPlan } = props
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
 
   if (!stripe) return null
 
-  // When the customer clicks on the button, redirect them to Checkout.
-  const handleCheckout = async e => {
+  // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
+  const handleStripeCheckout = async e => {
     e.preventDefault()
 
     logClick(supportPlan.title)
 
-    const plan = isDev ? supportPlan.dev : supportPlan.prod
+    const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
     const item = { plan, quantity: 1 }
@@ -95,7 +112,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         if (result.error) {
           // If `redirectToCheckout` fails due to a browser or network
           // error, display the localized error message to your customer.
-          console.log(result.error)
+          console.error(result.error)
           // var displayError = document.getElementById('error-message');
           // displayError.textContent = result.error.message;
         }
@@ -127,12 +144,47 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           type="button"
           className="btn btn btn-block btn-primary"
           onClick={
-            isAuthenticated ? handleCheckout : () => loginWithRedirect({ redirect_uri: window.location.href })
+            isAuthenticated
+              ? handleStripeCheckout
+              : () => loginWithRedirect({ redirect_uri: window.location.href })
           }
         >
           Subscribe for {supportPlan.title}
         </button>
+
+        <PayPalComponent {...props} />
       </div>
+    </div>
+  )
+}
+
+const PayPalComponent = (props: IPlanProps) => {
+  const { user }: IUseAuth0 = useAuth0()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = async () => {
+    setModalIsOpen(true)
+    props.setPaypalModalIsOpen(true)
+    try {
+      // Request a ten-minute temporary grant while Paypal approvals happen in the background
+      await SubscriptionApi.requestGrant(user.email)
+    } catch (err) {
+      // pass
+    }
+  }
+  const closeModal = () => {
+    setModalIsOpen(false)
+    props.setPaypalModalIsOpen(false)
+  }
+
+  const { paypal_dev, paypal_prod } = props.supportPlan
+
+  return (
+    <div className="col mt-2">
+      {!props.paypalModalIsOpen && (
+        <PayPalButton planId={isDev ? paypal_dev : paypal_prod} onSuccess={openModal} />
+      )}
+      {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </div>
   )
 }
