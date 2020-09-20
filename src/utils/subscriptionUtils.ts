@@ -5,7 +5,7 @@ export const isSubscriber = (subscription: ISubscription) => subscription.subscr
 export const isActiveSubscriber = (subscription: ISubscription) => {
   if (isPaypal(subscription)) {
     if (subscription.subscriptionStatus === 'pending_activation') return false
-    if (hasGrant(subscription)) return true
+    if (hasActiveGrant(subscription)) return true
     return isSubscriber(subscription) && subscription.subscriptionStatus === 'active'
   }
 
@@ -21,11 +21,15 @@ export const isGiftedSubscriber = (subscription: ISubscription) => {
 }
 
 export const isPendingSubscriber = (subscription: ISubscription) => {
-  return subscription.subscriptionStatus === 'pending_activation' || hasGrant(subscription)
+  return subscription.subscriptionStatus === 'pending_activation' || hasActiveGrant(subscription)
 }
 
-const hasGrant = (subscription: ISubscription) => {
+export const hasActiveGrant = (subscription: ISubscription) => {
   return subscription.has_grant === true && subscription.subscriptionStatus === 'temporary_grant'
+}
+
+export const hasExpiredGrant = (subscription: ISubscription) => {
+  return subscription.has_grant === false && subscription.subscriptionStatus === 'temporary_grant'
 }
 
 export const isStripe = (subscription: ISubscription) => subscription.createdBy === 'stripe'

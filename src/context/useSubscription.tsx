@@ -5,6 +5,8 @@ import { IUseAuth0 } from 'types/auth0'
 import { ISubscription } from 'types/subscription'
 import { LocalFavoriteFaction } from 'utils/localStore'
 import {
+  hasActiveGrant,
+  hasExpiredGrant,
   isActiveSubscriber,
   isCanceledSubscriber,
   isGiftedSubscriber,
@@ -22,6 +24,8 @@ const initialState = {
   isGifted: false,
   isNotSubscribed: false,
   isPending: false,
+  hasExpiredGrant: false,
+  hasActiveGrant: false,
   isSubscribed: false,
   subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
@@ -61,6 +65,16 @@ interface ISubscriptionContext {
   isSubscribed: boolean
   createdByPaypal: boolean
   createdByStripe: boolean
+
+  /**
+   * Does this user have an active grant (a ten minute grace period while Paypal completes checkout)
+   */
+  hasActiveGrant: boolean
+  /**
+   * If a user has an expired grant, their checkout most likely failed.
+   */
+  hasExpiredGrant: boolean
+
   subscription: ISubscription
   subscriptionLoading: boolean
 }
@@ -125,6 +139,8 @@ const SubscriptionProvider: React.FC = ({ children }) => {
       createdByPaypal,
       createdByStripe,
       getSubscription,
+      hasActiveGrant: hasActiveGrant(subscription),
+      hasExpiredGrant: hasExpiredGrant(subscription),
       isActive,
       isCanceled,
       isGifted,

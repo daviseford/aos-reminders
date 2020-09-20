@@ -11,7 +11,7 @@ import { DateTime } from 'luxon'
 import { PRIMARY_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
-import { FaGift } from 'react-icons/fa'
+import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested, MdVerifiedUser } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
@@ -66,7 +66,7 @@ export default Profile
 
 const UserCard: React.FC = () => {
   const { user }: IUseAuth0 = useAuth0()
-  const { isActive, isSubscribed, isCanceled, isGifted } = useSubscription()
+  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -75,7 +75,7 @@ const UserCard: React.FC = () => {
       <FavoriteArmySelect />
       <ToggleTheme />
       <SubscriptionInfo />
-      {isSubscribed && (
+      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && (
         <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
       )}
       <EmailVerified email_verified={user.email_verified} email={user.email} />
@@ -165,8 +165,18 @@ const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
 }
 
 const SubscriptionInfo = () => {
-  const { subscription, isSubscribed, isActive, isPending } = useSubscription()
+  const {
+    subscription,
+    isSubscribed,
+    isActive,
+    isPending,
+    hasActiveGrant,
+    hasExpiredGrant,
+  } = useSubscription()
   const { theme } = useTheme()
+
+  if (hasActiveGrant || hasExpiredGrant) return <TemporaryGrantComponent />
+
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
@@ -207,6 +217,51 @@ const SubscriptionInfo = () => {
           <SubscriptionExpired />
         </div>
       )}
+    </div>
+  )
+}
+
+const TemporaryGrantComponent = () => {
+  const { subscription, isSubscribed, isActive, isPending } = useSubscription()
+  const { theme } = useTheme()
+
+  console.log(subscription)
+  return (
+    <div className={`${theme.card} mt-2`}>
+      <div className={theme.profileCardHeader}>
+        <h4>
+          <div className={centerContentClass}>
+            Subscription Status: <FaSearchDollar className="text-warning ml-2" />
+          </div>
+        </h4>
+      </div>
+
+      <div className={theme.cardBody}>
+        <div className={`${centerContentClass} row`}>
+          <div className="col-12">
+            <h1>
+              <FaPaypal className="text-info ml-2 align-self-center" />
+            </h1>
+          </div>
+          <div className="col-12">
+            <h4>Currently verifying payment via Paypal.</h4>
+          </div>
+        </div>
+
+        <h5 className="lead">
+          Subscription Start:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">
+          Subscription End:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number)
+            .plus({
+              [`${subscription.planInterval}s`]: subscription.planIntervalCount,
+            })
+            .toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">Payment Method: Paypal</h5>
+      </div>
     </div>
   )
 }
