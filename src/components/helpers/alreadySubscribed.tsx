@@ -8,7 +8,7 @@ const AlreadySubscribed = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      window.location.replace(ROUTES.PROFILE)
+      window.location.replace(ROUTES.HOME)
     }, 1000)
   }, [])
 
@@ -19,7 +19,7 @@ const AlreadySubscribed = () => {
       </div>
       <div className="row d-flex justify-content-center align-items-center">
         <div className="col mx-5 my-5 py-5 px-5">
-          <p className="lead text-center">You are now subscribed :) Thanks!</p>
+          <h1 className="text-center">You are now subscribed :) Thanks!</h1>
         </div>
       </div>
     </div>
