@@ -111,25 +111,36 @@ const SubscriptionProvider: React.FC = ({ children }) => {
     }
   }, [getSubscription, subscription])
 
-  return (
-    <SubscriptionContext.Provider
-      value={{
-        cancelSubscription,
-        getSubscription,
-        isActive,
-        isCanceled,
-        isGifted,
-        isNotSubscribed,
-        createdByPaypal,
-        createdByStripe,
-        isSubscribed,
-        subscription,
-        subscriptionLoading,
-      }}
-    >
-      {children}
-    </SubscriptionContext.Provider>
+  const value = useMemo(
+    () => ({
+      cancelSubscription,
+      getSubscription,
+      isActive,
+      isCanceled,
+      isGifted,
+      isNotSubscribed,
+      createdByPaypal,
+      createdByStripe,
+      isSubscribed,
+      subscription,
+      subscriptionLoading,
+    }),
+    [
+      cancelSubscription,
+      getSubscription,
+      isActive,
+      isCanceled,
+      isGifted,
+      isNotSubscribed,
+      createdByPaypal,
+      createdByStripe,
+      isSubscribed,
+      subscription,
+      subscriptionLoading,
+    ]
   )
+
+  return <SubscriptionContext.Provider value={value}>{children}</SubscriptionContext.Provider>
 }
 
 const useSubscription = () => {

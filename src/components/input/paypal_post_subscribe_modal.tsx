@@ -3,8 +3,9 @@ import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/page/genericModal'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
+import { useSetInterval } from 'utils/useInterval'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -16,27 +17,22 @@ export const PaypalPostSubscribeModal: React.FC<IModalComponentProps> = props =>
   const { isActive, subscriptionLoading, getSubscription } = useSubscription()
   const { theme } = useTheme()
 
-  useEffect(() => {
+  const [interval, setInterval] = useState(1000)
+
+  useSetInterval(() => {
     if (subscriptionLoading) return
 
     if (isActive) {
+      setInterval(0)
       closeModal()
       return
     }
 
-    // Fetch our subscription in a 3 second loop
     if (!isActive && !subscriptionLoading) {
-      const fn = async () => {
-        if (isActive || subscriptionLoading) return null
-        await getSubscription()
-        setTimeout(() => {
-          fn()
-        }, 3000)
-      }
-
-      fn()
+      console.log('Going for it')
+      getSubscription()
     }
-  }, [isActive, closeModal, subscriptionLoading, getSubscription])
+  }, interval)
 
   return (
     <GenericModal
@@ -49,14 +45,14 @@ export const PaypalPostSubscribeModal: React.FC<IModalComponentProps> = props =>
         <IconContext.Provider value={{ size: '1.7em' }}>
           <div className={`col ${theme.text}`}>
             <h4 className="mb-3">Thanks! :)</h4>
-            <p className="text-center">One sec, we're verifying your PayPal transaction...</p>
+            <p className="text-center mb-1">One sec, we're verifying your PayPal transaction...</p>
 
-            <LargeSpinner />
+            <LargeSpinner className={'text-dark'} />
 
-            <p className="text-center">
+            <p className="text-center mt-1">
               This application will automatically reload when your subscription is available.
               <br />
-              This should take about 10-15 seconds.
+              This could take up to one minute. Feel free to close this window and browse around.
             </p>
           </div>
         </IconContext.Provider>

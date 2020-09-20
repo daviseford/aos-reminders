@@ -23,7 +23,7 @@ export interface ISubscription {
   planIntervalCount?: number
   subscribed: boolean
   subscriptionId?: string
-  subscriptionStatus?: 'active' | 'canceled'
+  subscriptionStatus?: 'active' | 'canceled' | 'pending_activation'
   subscriptionCreated?: number
   subscriptionStart?: number
   subscriptionEnd?: number
