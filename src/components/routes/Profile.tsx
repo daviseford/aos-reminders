@@ -175,7 +175,7 @@ const SubscriptionInfo = () => {
   } = useSubscription()
   const { theme } = useTheme()
 
-  if (hasActiveGrant || hasExpiredGrant) return <TemporaryGrantComponent />
+  if (hasActiveGrant) return <TemporaryGrantComponent />
 
   return (
     <div className={`${theme.card} mt-2`}>
@@ -192,7 +192,7 @@ const SubscriptionInfo = () => {
         </h4>
       </div>
 
-      {isActive && (
+      {isActive && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <h5 className="lead">
             Subscription Start:{' '}
@@ -212,7 +212,7 @@ const SubscriptionInfo = () => {
             )}
         </div>
       )}
-      {isSubscribed && !isActive && !isPending && (
+      {isSubscribed && !isActive && !isPending && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <SubscriptionExpired />
         </div>
