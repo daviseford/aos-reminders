@@ -176,7 +176,7 @@ export const SubscriptionPlans: ISubscriptionPlan[] = [
     cost: '11.88',
     monthly_cost: '0.99',
     paypal_dev: 'P-7YT370523H1387633L5TCFHI',
-    paypal_prod: 'PROD-5XE01124L3315984V',
+    paypal_prod: 'P-7W029230206518920L5TJ6GI',
     stripe_dev: 'plan_FkxGRttbVwtLzD',
     stripe_prod: 'plan_FkxDFaZM1vCkMF',
     title: '1 Year',
