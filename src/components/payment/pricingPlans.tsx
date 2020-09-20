@@ -1,13 +1,14 @@
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
-import { isDev, ROUTES, STRIPE_KEY } from 'utils/env'
+import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
@@ -140,17 +141,26 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           Subscribe for {supportPlan.title}
         </button>
 
-        <div className="col mt-2">
-          <PayPalButton
-            planId={isDev ? supportPlan.paypal_dev : supportPlan.paypal_prod}
-            onSuccess={() =>
-              setTimeout(() => {
-                window.location.replace(ROUTES.PROFILE)
-              }, 5000)
-            }
-          />
-        </div>
+        <PayPalComponent supportPlan={supportPlan} />
       </div>
+    </div>
+  )
+}
+
+const PayPalComponent = (props: { supportPlan: ISubscriptionPlan }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => {
+    setModalIsOpen(false)
+  }
+
+  const { paypal_dev, paypal_prod } = props.supportPlan
+
+  return (
+    <div className="col mt-2">
+      <PayPalButton planId={isDev ? paypal_dev : paypal_prod} onSuccess={openModal} />
+      {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </div>
   )
 }

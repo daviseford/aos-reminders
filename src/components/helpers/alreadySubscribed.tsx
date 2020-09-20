@@ -1,9 +1,19 @@
 import Navbar from 'components/page/navbar'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { ROUTES } from 'utils/env'
 
 const AlreadySubscribed = () => {
   const { theme } = useTheme()
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.location.replace(ROUTES.PROFILE)
+    }, 1000)
+
+    // run on mount
+  }, [])
+
   return (
     <div className={`d-block ${theme.text}`}>
       <div className={`py-2 ${theme.headerColor}`}>
