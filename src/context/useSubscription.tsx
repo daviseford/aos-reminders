@@ -9,18 +9,20 @@ import {
   isCanceledSubscriber,
   isGiftedSubscriber,
   isPaypal,
+  isPendingSubscriber,
   isStripe,
   isSubscriber,
 } from 'utils/subscriptionUtils'
 
 const initialState = {
+  createdByPaypal: false,
+  createdByStripe: false,
   isActive: false,
   isCanceled: false,
   isGifted: false,
   isNotSubscribed: false,
+  isPending: false,
   isSubscribed: false,
-  createdByPaypal: false,
-  createdByStripe: false,
   subscription: { id: '', userName: '', subscribed: false },
   subscriptionLoading: false,
 }
@@ -48,6 +50,11 @@ interface ISubscriptionContext {
    */
   isNotSubscribed: boolean
   /**
+   * If this subscription was created by Paypal,
+   * there is a 30-60 time period after checkout before their subscription is confirmed.
+   */
+  isPending: boolean
+  /**
    * Does this user exist in the subscription API?
    * This DOES NOT mean they have an active subscription
    */
@@ -66,12 +73,13 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)
 
-  const isActive = useMemo(() => isActiveSubscriber(subscription), [subscription])
-  const isCanceled = useMemo(() => isCanceledSubscriber(subscription), [subscription])
-  const isGifted = useMemo(() => isGiftedSubscriber(subscription), [subscription])
-  const isSubscribed = useMemo(() => isSubscriber(subscription), [subscription])
-  const createdByPaypal = useMemo(() => isPaypal(subscription), [subscription])
-  const createdByStripe = useMemo(() => isStripe(subscription), [subscription])
+  const createdByPaypal = isPaypal(subscription)
+  const createdByStripe = isStripe(subscription)
+  const isActive = isActiveSubscriber(subscription)
+  const isCanceled = isCanceledSubscriber(subscription)
+  const isGifted = isGiftedSubscriber(subscription)
+  const isPending = isPendingSubscriber(subscription)
+  const isSubscribed = isSubscriber(subscription)
 
   useEffect(() => {
     if (loading) return
@@ -114,26 +122,28 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const value = useMemo(
     () => ({
       cancelSubscription,
+      createdByPaypal,
+      createdByStripe,
       getSubscription,
       isActive,
       isCanceled,
       isGifted,
       isNotSubscribed,
-      createdByPaypal,
-      createdByStripe,
+      isPending,
       isSubscribed,
       subscription,
       subscriptionLoading,
     }),
     [
       cancelSubscription,
+      createdByPaypal,
+      createdByStripe,
       getSubscription,
       isActive,
       isCanceled,
       isGifted,
       isNotSubscribed,
-      createdByPaypal,
-      createdByStripe,
+      isPending,
       isSubscribed,
       subscription,
       subscriptionLoading,

@@ -43,6 +43,7 @@ const getFavoriteFaction = (userName: string) => request.get(`${api}/favorite/${
 const getSubscription = (userName: string) => request.get(`${api}/user/${userName}`)
 const redeemCoupon = (data: IRedeemCoupon) => request.post(`${api}/redeem_coupon`).send(withAuth(data))
 const redeemGift = (data: IRedeemGift) => request.post(`${api}/redeem`).send(withAuth(data))
+const requestGrant = (userName: string) => request.post(`${api}/paypal_grant`).send(withAuth({ userName }))
 const updateFavoriteFaction = (data: IUpdateFavorite) => request.post(`${api}/favorite`).send(withAuth(data))
 const updateTheme = (data: IUpdateTheme) => request.post(`${api}/theme`).send(withAuth(data))
 
@@ -52,6 +53,7 @@ export const SubscriptionApi = {
   getSubscription,
   redeemCoupon,
   redeemGift,
+  requestGrant,
   updateFavoriteFaction,
   updateTheme,
 }

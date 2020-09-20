@@ -66,7 +66,7 @@ export default Profile
 
 const UserCard: React.FC = () => {
   const { user }: IUseAuth0 = useAuth0()
-  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
+  const { isActive, isSubscribed, isCanceled, isGifted } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -74,12 +74,7 @@ const UserCard: React.FC = () => {
       <h1 className="text-center">Your Profile</h1>
       <FavoriteArmySelect />
       <ToggleTheme />
-      <SubscriptionInfo
-        subscription={subscription}
-        isSubscribed={isSubscribed}
-        isActive={isActive}
-        createdBy={subscription.createdBy}
-      />
+      <SubscriptionInfo />
       {isSubscribed && (
         <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
       )}
@@ -169,7 +164,8 @@ const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed, isActive, createdBy = '' }) => {
+const SubscriptionInfo = () => {
+  const { subscription, isSubscribed, isActive, isPending } = useSubscription()
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -200,12 +196,13 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, createdBy = ''
               })
               .toLocaleString(DateTime.DATE_MED)}
           </h5>
-          {createdBy && (createdBy === 'paypal' || createdBy === 'stripe') && (
-            <h5 className="lead">Payment Method: {titleCase(createdBy)}</h5>
-          )}
+          {subscription.createdBy &&
+            (subscription.createdBy === 'paypal' || subscription.createdBy === 'stripe') && (
+              <h5 className="lead">Payment Method: {titleCase(subscription.createdBy)}</h5>
+            )}
         </div>
       )}
-      {isSubscribed && !isActive && (
+      {isSubscribed && !isActive && !isPending && (
         <div className={theme.cardBody}>
           <SubscriptionExpired />
         </div>

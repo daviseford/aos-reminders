@@ -1,5 +1,6 @@
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { SubscriptionApi } from 'api/subscriptionApi'
 import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
@@ -158,11 +159,18 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 }
 
 const PayPalComponent = (props: IPlanProps) => {
+  const { user }: IUseAuth0 = useAuth0()
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const openModal = () => {
+  const openModal = async () => {
     setModalIsOpen(true)
     props.setPaypalModalIsOpen(true)
+    try {
+      // Request a ten-minute temporary grant while Paypal approvals happen in the background
+      await SubscriptionApi.requestGrant(user.email)
+    } catch (err) {
+      // pass
+    }
   }
   const closeModal = () => {
     setModalIsOpen(false)

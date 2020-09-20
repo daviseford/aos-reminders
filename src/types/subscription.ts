@@ -15,6 +15,7 @@ export interface ISubscription {
   createdAt?: number
   customerId?: string
   expired?: boolean
+  has_grant?: boolean
   favoriteFaction?: TSupportedFaction
   giftSubscriptions?: IGiftSubscription[]
   id: string
@@ -23,7 +24,7 @@ export interface ISubscription {
   planIntervalCount?: number
   subscribed: boolean
   subscriptionId?: string
-  subscriptionStatus?: 'active' | 'canceled' | 'pending_activation'
+  subscriptionStatus?: 'active' | 'canceled' | 'pending_activation' | 'temporary_grant'
   subscriptionCreated?: number
   subscriptionStart?: number
   subscriptionEnd?: number
