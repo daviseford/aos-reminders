@@ -29,7 +29,7 @@ export const PaypalPostSubscribeModal: React.FC<IModalComponentProps> = props =>
     }
 
     if (!isActive && !subscriptionLoading) {
-      console.log('Going for it')
+      console.log('Checking for subscription update from Paypal...')
       getSubscription()
     }
   }, interval)
