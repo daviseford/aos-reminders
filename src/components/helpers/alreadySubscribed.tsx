@@ -10,8 +10,6 @@ const AlreadySubscribed = () => {
     setTimeout(() => {
       window.location.replace(ROUTES.PROFILE)
     }, 1000)
-
-    // run on mount
   }, [])
 
   return (
@@ -21,7 +19,7 @@ const AlreadySubscribed = () => {
       </div>
       <div className="row d-flex justify-content-center align-items-center">
         <div className="col mx-5 my-5 py-5 px-5">
-          <p className="lead text-center">You are already a subscriber :) Thanks!</p>
+          <p className="lead text-center">You are now subscribed :) Thanks!</p>
         </div>
       </div>
     </div>

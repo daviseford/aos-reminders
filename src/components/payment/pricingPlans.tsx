@@ -15,6 +15,8 @@ import PayPalButton from './paypal/paypalButton'
 const PricingPlansComponent: React.FC = () => {
   const { user }: IUseAuth0 = useAuth0()
 
+  const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
+
   return (
     <PaypalProvider>
       <div className="container">
@@ -22,7 +24,13 @@ const PricingPlansComponent: React.FC = () => {
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
           {SubscriptionPlans.map((plan, i) => (
-            <PlanComponent user={user} supportPlan={plan} key={i} />
+            <PlanComponent
+              user={user}
+              supportPlan={plan}
+              paypalModalIsOpen={paypalModalIsOpen}
+              setPaypalModalIsOpen={setPaypalModalIsOpen}
+              key={i}
+            />
           ))}
         </div>
         <div className="row text-center justify-content-center">
@@ -59,6 +67,8 @@ const PlansHeader = () => {
 interface IPlanProps {
   user: IUser
   supportPlan: ISubscriptionPlan
+  paypalModalIsOpen: boolean
+  setPaypalModalIsOpen: (x: boolean) => void
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
@@ -141,25 +151,31 @@ const PlanComponent: React.FC<IPlanProps> = props => {
           Subscribe for {supportPlan.title}
         </button>
 
-        <PayPalComponent supportPlan={supportPlan} />
+        <PayPalComponent {...props} />
       </div>
     </div>
   )
 }
 
-const PayPalComponent = (props: { supportPlan: ISubscriptionPlan }) => {
+const PayPalComponent = (props: IPlanProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const openModal = () => setModalIsOpen(true)
+  const openModal = () => {
+    setModalIsOpen(true)
+    props.setPaypalModalIsOpen(true)
+  }
   const closeModal = () => {
     setModalIsOpen(false)
+    props.setPaypalModalIsOpen(false)
   }
 
   const { paypal_dev, paypal_prod } = props.supportPlan
 
   return (
     <div className="col mt-2">
-      <PayPalButton planId={isDev ? paypal_dev : paypal_prod} onSuccess={openModal} />
+      {!props.paypalModalIsOpen && (
+        <PayPalButton planId={isDev ? paypal_dev : paypal_prod} onSuccess={openModal} />
+      )}
       {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </div>
   )

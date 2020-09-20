@@ -24,9 +24,17 @@ export const PaypalPostSubscribeModal: React.FC<IModalComponentProps> = props =>
       return
     }
 
-    // Fetch our subscription
+    // Fetch our subscription in a 3 second loop
     if (!isActive && !subscriptionLoading) {
-      getSubscription()
+      const fn = async () => {
+        if (isActive || subscriptionLoading) return null
+        await getSubscription()
+        setTimeout(() => {
+          fn()
+        }, 3000)
+      }
+
+      fn()
     }
   }, [isActive, closeModal, subscriptionLoading, getSubscription])
 
