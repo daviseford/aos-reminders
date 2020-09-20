@@ -17,7 +17,7 @@ export const STRIPE_KEY = isProd
   : 'pk_test_ZqzFFxNXK1SD7PANrrk6cVmE00SokPm82b'
 
 export const PAYPAL_CLIENT_ID = isProd
-  ? ''
+  ? 'AfLnIE4o2jXPWtGItGIxptUDHTHfWIJS53doOYvAM2Y3-04croyYfZPxT_JR2oRAaavF14oYNtCe7IKw'
   : 'AUdnPSV280IH8pjveo62IzfQJgfFo0MoJ9w-zouTipgjAethtmcvHFjV8DXCCqoti4WHdbjhMNnwn9oa'
 
 export const BASE_URL = isProd ? `https://aosreminders.com` : `http://localhost:3000`
