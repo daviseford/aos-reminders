@@ -244,7 +244,7 @@ const TemporaryGrantComponent = () => {
             </h1>
           </div>
           <div className="col-12">
-            <h4>Currently verifying payment via Paypal.</h4>
+            <h5 className="text-center">Currently verifying payment via Paypal.</h5>
           </div>
         </div>
 
