@@ -222,10 +222,9 @@ const SubscriptionInfo = () => {
 }
 
 const TemporaryGrantComponent = () => {
-  const { subscription, isSubscribed, isActive, isPending } = useSubscription()
+  const { subscription } = useSubscription()
   const { theme } = useTheme()
 
-  console.log(subscription)
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
@@ -244,7 +243,7 @@ const TemporaryGrantComponent = () => {
             </h1>
           </div>
           <div className="col-12">
-            <h5 className="text-center">Currently verifying payment via Paypal.</h5>
+            <h5 className="text-warning">Currently verifying payment via Paypal.</h5>
           </div>
         </div>
 
