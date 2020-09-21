@@ -32,7 +32,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
   const [processing, setProcessing] = useState(false)
-  const [layout, setLayout] = useState<TSavePdfType>('default')
+  const [layout, setLayout] = useState<TSavePdfType>('compact')
 
   useEffect(() => {
     setFileName(defaultName)
@@ -100,7 +100,7 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
               onChange={() => setLayout('default')}
             />
             <label className="custom-control-label" htmlFor="defaultLayout">
-              Default
+              Standard
             </label>
           </div>
           <div className="custom-control custom-radio custom-control-inline">
