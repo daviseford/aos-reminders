@@ -52,7 +52,7 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
   const style: IStyle = {
     layout: 'vertical',
     color: 'gold',
-    shape: 'pill',
+    shape: 'rect',
     label: 'paypal',
     tagline: false,
     ...(props.style || {}),

@@ -1,11 +1,14 @@
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { SubscriptionApi } from 'api/subscriptionApi'
+import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
+import { IconContext } from 'react-icons'
+import { FaStripeS } from 'react-icons/fa'
 import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
@@ -38,8 +41,9 @@ const PricingPlansComponent: React.FC = () => {
           <div className="col-12 col-sm-10 col-md-10 col-xl-8 col-xxl-6">
             <small>
               <em>
-                Subscriptions are handled by Stripe/PayPal and can be canceled at any time. I do not store
-                your credit card information.
+                AoS Reminders does not store your credit card information.
+                <br />
+                Subscriptions are managed by Stripe and PayPal. They can be canceled at any time.
                 <br />
                 You will have access to all subscription features until the end of your subscription, even if
                 you cancel the recurring payments.
@@ -122,7 +126,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   return (
     <div className="card mb-4 shadow-sm">
       <div className="card-header bg-themeDarkBluePrimary text-light">
-        <h4 className="my-0 font-weight-normal">{supportPlan.title}</h4>
+        <h3 className="my-0 font-weight-normal">{supportPlan.title}</h3>
       </div>
       <div className="card-body">
         <h1 className="card-title pricing-card-title">
@@ -140,17 +144,23 @@ const PlanComponent: React.FC<IPlanProps> = props => {
             Total: ${supportPlan.cost}
           </li>
         </ul>
-        <button
-          type="button"
-          className="btn btn btn-block btn-primary"
-          onClick={
-            isAuthenticated
-              ? handleStripeCheckout
-              : () => loginWithRedirect({ redirect_uri: window.location.href })
-          }
-        >
-          Subscribe for {supportPlan.title}
-        </button>
+
+        <div className={'mx-3'}>
+          <p className={'mb-0'}>Choose your payment method:</p>
+          <IconContext.Provider value={{ size: '1.2em' }}>
+            <GenericButton
+              type="button"
+              className="btn btn btn-block btn-primary btn-pill py-2"
+              onClick={
+                isAuthenticated
+                  ? handleStripeCheckout
+                  : () => loginWithRedirect({ redirect_uri: window.location.href })
+              }
+            >
+              <FaStripeS className={'mr-2 align-self-center'} /> <strong>Stripe</strong>
+            </GenericButton>
+          </IconContext.Provider>
+        </div>
 
         <PayPalComponent {...props} />
       </div>

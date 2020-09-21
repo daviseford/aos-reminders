@@ -6,7 +6,6 @@ export const isActiveSubscriber = (subscription: ISubscription) => {
   if (isPaypal(subscription)) {
     if (subscription.subscriptionStatus === 'pending_activation') return false
     if (hasActiveGrant(subscription)) return true
-    return isSubscriber(subscription) && subscription.subscriptionStatus === 'active'
   }
 
   return isSubscriber(subscription) && !subscription.expired
