@@ -31,32 +31,34 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
   const { user, isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { paypalIsReady } = usePaypal()
 
+  const { onSuccess = undefined, onCancel = undefined, planId, style = {} } = props
+
   if (!paypalIsReady || typeof window === 'undefined' || window.paypal === undefined) {
     return <></>
   }
 
   const _onApprove = (data: IApprovalResponse, actions: IApprovalActions) => {
     if (isDev) console.log('_onApprove', data, actions)
-    if (props.onSuccess) props.onSuccess(data)
+    if (onSuccess) onSuccess(data)
   }
 
   const _createSubscription = async (data, actions: ICreateSubscriptionsActions) => {
     if (isDev) console.log('_createSubscription', data, actions)
     return actions.subscription.create({
-      plan_id: props.planId,
+      plan_id: planId,
       subscriber: {
         email_address: user.email,
       },
     })
   }
 
-  const style: IStyle = {
+  const btnStyle: IStyle = {
     layout: 'vertical',
     color: 'gold',
     shape: 'rect',
     label: 'paypal',
     tagline: false,
-    ...(props.style || {}),
+    ...(style || {}),
   }
 
   const Button = window.paypal.Buttons.driver('react', {
@@ -69,9 +71,9 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
       {...props}
       createSubscription={!isAuthenticated ? undefined : _createSubscription}
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
-      style={style}
+      style={btnStyle}
       onClick={isAuthenticated ? undefined : () => loginWithRedirect({ redirect_uri: window.location.href })}
-      onCancel={props.onCancel ? props.onCancel : undefined}
+      onCancel={onCancel}
     />
   )
 }
