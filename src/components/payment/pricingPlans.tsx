@@ -11,7 +11,7 @@ import { IconContext } from 'react-icons'
 import { FaStripeS } from 'react-icons/fa'
 import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
-import { logClick } from 'utils/analytics'
+import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
@@ -172,9 +172,13 @@ const PayPalComponent = (props: IPlanProps) => {
   const { user }: IUseAuth0 = useAuth0()
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const openModal = async () => {
+  const { paypal_dev, paypal_prod, title } = props.supportPlan
+
+  const handleSuccess = async () => {
     setModalIsOpen(true)
     props.setPaypalModalIsOpen(true)
+    logEvent(`Checkout-Subscribed-${title}`)
+    logSubscription(title, 'paypal')
     try {
       // Request a ten-minute temporary grant while Paypal approvals happen in the background
       await SubscriptionApi.requestGrant(user.email)
@@ -182,17 +186,24 @@ const PayPalComponent = (props: IPlanProps) => {
       // pass
     }
   }
+
+  const handleCancel = () => {
+    logEvent(`Checkout-Canceled-${title}`)
+  }
+
   const closeModal = () => {
     setModalIsOpen(false)
     props.setPaypalModalIsOpen(false)
   }
 
-  const { paypal_dev, paypal_prod } = props.supportPlan
-
   return (
     <div className="col mt-2">
       {!props.paypalModalIsOpen && (
-        <PayPalButton planId={isDev ? paypal_dev : paypal_prod} onSuccess={openModal} />
+        <PayPalButton
+          planId={isDev ? paypal_dev : paypal_prod}
+          onSuccess={handleSuccess}
+          onCancel={handleCancel}
+        />
       )}
       {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </div>
