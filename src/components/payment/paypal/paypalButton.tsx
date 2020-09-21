@@ -23,6 +23,7 @@ interface IStyle {
 interface IPayPalButtonProps {
   planId: string
   onSuccess?: (data: IApprovalResponse) => any
+  onCancel?: (data: any) => any
   style?: IStyle
 }
 
@@ -70,9 +71,7 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
       style={style}
       onClick={isAuthenticated ? undefined : () => loginWithRedirect({ redirect_uri: window.location.href })}
-      onCancel={async data => {
-        // Remove temp entry
-      }}
+      onCancel={props.onCancel ? props.onCancel : undefined}
     />
   )
 }

@@ -172,7 +172,7 @@ export const logDisplay = (element: string) => {
   }
 }
 
-export const logSubscription = (planTitle: string) => {
+export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal') => {
   const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
   try {
@@ -180,7 +180,7 @@ export const logSubscription = (planTitle: string) => {
     ReactGA.plugin.execute('ecommerce', 'addItem', {
       id,
       name: plan.title,
-      sku: plan.stripe_prod,
+      sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
       price: plan.cost,
       category: 'Subscription',
       quantity: '1',

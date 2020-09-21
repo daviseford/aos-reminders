@@ -4,7 +4,7 @@ import React, { lazy, Suspense, useEffect } from 'react'
 // Auth
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
-import { handleArmyLink, handleCheckout } from 'utils/handleQueryParams'
+import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))
@@ -16,7 +16,7 @@ const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
-    handleCheckout() // Post-checkout handling
+    handleStripeCheckout() // Post-Stripe-checkout handling
     handleArmyLink() // Load army from link
   }, [])
 
