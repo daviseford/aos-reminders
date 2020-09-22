@@ -24,7 +24,7 @@ interface IVisibilityToggleProps {
   withConfirmation?: boolean
 }
 
-const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconType } } = {
+const icons: Record<TVisibilityIconType, { visible: IconType; hidden: IconType }> = {
   clear: {
     visible: MdClear,
     hidden: MdAdd,

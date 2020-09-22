@@ -45,7 +45,7 @@ export const SelectOne = (props: ISelectOneProps) => {
     [log, setValue]
   )
 
-  const selectProps: { [key: string]: any } = {
+  const selectProps: Record<string, any> = {
     defaultValue: hasDefault ? options[0] : null,
     isClearable,
     isDisabled,

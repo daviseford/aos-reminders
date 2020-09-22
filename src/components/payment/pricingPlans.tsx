@@ -8,7 +8,6 @@ import qs from 'qs'
 import React, { useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { IconContext } from 'react-icons'
-import { FaStripeS } from 'react-icons/fa'
 import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
@@ -146,7 +145,6 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         </ul>
 
         <div className={'mx-3'}>
-          <p className={'mb-0'}>Choose your payment method:</p>
           <IconContext.Provider value={{ size: '1.2em' }}>
             <GenericButton
               type="button"
@@ -157,7 +155,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
                   : () => loginWithRedirect({ redirect_uri: window.location.href })
               }
             >
-              <FaStripeS className={'mr-2 align-self-center'} /> <strong>Stripe</strong>
+              Subscribe for {supportPlan.title}
             </GenericButton>
           </IconContext.Provider>
         </div>
