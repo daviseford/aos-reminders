@@ -12,7 +12,7 @@ export interface ITheme {
   profileCardHeader: string
   reminderHeader: string
   secondaryButton: string
-  selectTheme: { [key: string]: string }
+  selectTheme: Record<string, string>
   text: string
   textMuted: string
   textOpposite: string

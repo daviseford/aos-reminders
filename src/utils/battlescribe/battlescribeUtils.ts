@@ -27,7 +27,7 @@ export const ignoredValues = [
   'Realm of Origin',
 ]
 
-export const fixKeys = (obj: { [key: string]: string[] }) => {
+export const fixKeys = (obj: Record<string, string[]>) => {
   const lookup = {
     Artefact: 'Artifacts',
     'Command Abilities': 'Commands',

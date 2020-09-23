@@ -30,7 +30,7 @@ interface IUpdateItem {
 
 const createErrorFile = (data: ICreateError) => request.post(`${api}/errors`).send(data)
 const createItem = (data: ICreateItem) => request.post(`${api}/items`).send(data)
-const createLink = (data: { [key: string]: any }) => request.post(`${api}/links`).send(data)
+const createLink = (data: Record<string, any>) => request.post(`${api}/links`).send(data)
 const createSavedArmy = (data: ICreateSavedArmy) => request.post(`${api}/items`).send(data)
 const deleteItem = (id: string, userName: string) => request.delete(`${api}/items/${id}/${userName}`)
 const getItem = (id: string) => request.get(`${api}/items/${id}`)

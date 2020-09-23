@@ -34,7 +34,7 @@ interface ISavedArmiesContext {
   savedArmies: ISavedArmyFromApi[]
   saveLink: (army: ISavedArmy) => Promise<string | null>
   setLoadedArmy: (army: TLoadedArmy) => void
-  updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
+  updateArmy: (id: string, data: Record<string, any>) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
   updateFavoriteFaction: (factionName: string | null) => Promise<void>
 }
@@ -160,7 +160,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   const updateArmy = useCallback(
-    async (id: string, data: { [key: string]: any }) => {
+    async (id: string, data: Record<string, any>) => {
       try {
         const payload = { ...data, userName: user.email }
         await PreferenceApi.updateItem(id, payload)

@@ -97,7 +97,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
 type TRemoveFoundErrors = (
   errors: TImportError[],
-  selections: { [key: string]: string[] },
+  selections: Record<string, string[]>,
   allyData: { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore }
 ) => TImportError[]
 

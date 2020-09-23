@@ -10,7 +10,7 @@ import {
   TSupportedFaction,
 } from 'meta/factions'
 
-type TAllyArmies = { [key in TSupportedFaction]: { units: string[]; battalions: string[] } }
+type TAllyArmies = Record<TSupportedFaction, { units: string[]; battalions: string[] }>
 type TGetAllyArmyItems = (factionName: string) => TAllyArmies
 
 export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
