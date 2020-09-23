@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { logEvent } from 'utils/analytics'
 
 interface IAppStatusProvider {
@@ -76,13 +76,18 @@ const AppStatusProvider: React.FC = ({ children }) => {
     }
   })
 
-  return (
-    <AppStatusContext.Provider
-      value={{ isGameMode, isOffline, isOnline: !isOffline, hasNewContent, toggleGameMode }}
-    >
-      {children}
-    </AppStatusContext.Provider>
+  const value = useMemo(
+    () => ({
+      isGameMode,
+      isOffline,
+      isOnline: !isOffline,
+      hasNewContent,
+      toggleGameMode,
+    }),
+    [isGameMode, isOffline, hasNewContent, toggleGameMode]
   )
+
+  return <AppStatusContext.Provider value={value}>{children}</AppStatusContext.Provider>
 }
 
 const useAppStatus = () => {
@@ -90,7 +95,7 @@ const useAppStatus = () => {
   if (context === undefined) {
     throw new Error('useAppStatus must be used within a AppStatusProvider')
   }
-  return context
+  return context as IAppStatusProvider
 }
 
 export { AppStatusProvider, useAppStatus }

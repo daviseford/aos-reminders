@@ -15,13 +15,14 @@ export type TPdfStylePdf =
 
 type TPdfTextStyle = 'bold' | 'normal' | 'italic'
 
-export type TPdfStyles = {
-  [key in TPdfStylePdf]: {
+export type TPdfStyles = Record<
+  TPdfStylePdf,
+  {
     fontSize: number
     spacing: number
     style: TPdfTextStyle
   }
-}
+>
 
 export type TSavePdfType = 'default' | 'compact' | 'title-only'
 

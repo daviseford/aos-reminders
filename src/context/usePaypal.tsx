@@ -1,5 +1,5 @@
 import qs from 'qs'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { PAYPAL_CLIENT_ID } from 'utils/env'
 
 interface IPaypalStatusProvider {
@@ -57,15 +57,14 @@ const PaypalProvider: React.FC = ({ children }) => {
     return unmountFn
   }, [paypalIsReady])
 
-  return (
-    <PaypalContext.Provider
-      value={{
-        paypalIsReady,
-      }}
-    >
-      {children}
-    </PaypalContext.Provider>
+  const value = useMemo(
+    () => ({
+      paypalIsReady,
+    }),
+    [paypalIsReady]
   )
+
+  return <PaypalContext.Provider value={value}>{children}</PaypalContext.Provider>
 }
 
 const usePaypal = () => {

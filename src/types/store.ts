@@ -26,12 +26,10 @@ export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections
 export interface ISelectionStore {
   selections: ISelections
   allySelections: TAllySelectionStore
-  sideEffects: {
-    [key: string]: {
-      // Hermdar Lodge
-      [key in TSideEffectTypes]: string[] // artifacts // ['Tyrant Slayer']
-    }
-  }
+  sideEffects: Record<
+    string, // Hermdar Lodge
+    Record<TSideEffectTypes, string[]> // artifacts // ['Tyrant Slayer']
+  >
 }
 
 export interface IVisibilityStore {

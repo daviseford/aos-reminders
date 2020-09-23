@@ -13,7 +13,7 @@ import { createAmbiguityWarning } from 'utils/import/warnings'
  */
 export const addAmbiguousSelectionErrors = (
   errors: TImportError[],
-  selections: { [key: string]: string[] },
+  selections: Record<string, string[]>,
   allyData: { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore },
   ambiguousNamesMap: TNameMap
 ) => {

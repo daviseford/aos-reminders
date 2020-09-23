@@ -102,7 +102,7 @@ const processConditions = (
 ) => {
   const conditions: string[] = flatten(Object.values(selections))
 
-  const reminders = Object.keys(game).reduce((accum: { [key: string]: TTurnAction[] }, when) => {
+  const reminders = Object.keys(game).reduce((accum: Record<string, TTurnAction[]>, when) => {
     if (!game[when].length) return accum
 
     game[when].forEach((action: TTurnAction) => {

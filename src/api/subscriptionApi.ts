@@ -36,7 +36,7 @@ interface IRedeemGift {
   userName: string // userName receiving the gift
 }
 
-const withAuth = (data: { [key: string]: any }) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
+const withAuth = (data: Record<string, any>) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
 
 const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send(withAuth(data))
 const getFavoriteFaction = (userName: string) => request.get(`${api}/favorite/${userName}`)
