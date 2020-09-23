@@ -5,7 +5,7 @@ import { useSubscription } from 'context/useSubscription'
 import { store } from 'index'
 import { isEqual, sortBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth0 } from 'react-auth0-wrapper'
 import { ICurrentArmy } from 'types/army'
 import { IUseAuth0 } from 'types/auth0'
@@ -60,10 +60,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
 
-  const setLoadedArmy = (army: TLoadedArmy) => {
+  const setLoadedArmy = useCallback((army: TLoadedArmy) => {
     LocalLoadedArmy.set(army)
     setLoadedArmyState(army)
-  }
+  }, [])
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
@@ -96,7 +96,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
       return { hasChanges: changedKeys.length > 0, changedKeys }
     },
-    [loadedArmy, savedArmies, savedArmiesPopulated]
+    [loadedArmy, savedArmies, savedArmiesPopulated, setLoadedArmy]
   )
 
   const loadSavedArmies = useCallback(async () => {
@@ -132,7 +132,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [user, loadSavedArmies]
+    [user, loadSavedArmies, setLoadedArmy]
   )
 
   const saveLink = useCallback(async (savedArmy: ISavedArmy) => {
@@ -156,7 +156,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [loadSavedArmies, user, loadedArmy]
+    [loadSavedArmies, user, loadedArmy, setLoadedArmy]
   )
 
   const updateArmy = useCallback(
@@ -183,7 +183,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [loadSavedArmies, user, loadedArmy]
+    [loadSavedArmies, user, loadedArmy, setLoadedArmy]
   )
 
   const reloadArmy = useCallback(() => {
@@ -248,29 +248,43 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     if (user && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
 
-  return (
-    <SavedArmiesContext.Provider
-      value={{
-        armyHasChanges,
-        deleteSavedArmy,
-        favoriteFaction,
-        getFavoriteFaction,
-        loadedArmy,
-        loadSavedArmies,
-        reloadArmy,
-        saveArmy,
-        saveArmyToS3,
-        savedArmies,
-        saveLink,
-        setLoadedArmy,
-        updateArmy,
-        updateArmyName,
-        updateFavoriteFaction,
-      }}
-    >
-      {children}
-    </SavedArmiesContext.Provider>
+  const value = useMemo(
+    () => ({
+      armyHasChanges,
+      deleteSavedArmy,
+      favoriteFaction,
+      getFavoriteFaction,
+      loadedArmy,
+      loadSavedArmies,
+      reloadArmy,
+      saveArmy,
+      saveArmyToS3,
+      savedArmies,
+      saveLink,
+      setLoadedArmy,
+      updateArmy,
+      updateArmyName,
+      updateFavoriteFaction,
+    }),
+    [
+      armyHasChanges,
+      deleteSavedArmy,
+      favoriteFaction,
+      getFavoriteFaction,
+      loadedArmy,
+      loadSavedArmies,
+      reloadArmy,
+      saveArmy,
+      savedArmies,
+      saveLink,
+      setLoadedArmy,
+      updateArmy,
+      updateArmyName,
+      updateFavoriteFaction,
+    ]
   )
+
+  return <SavedArmiesContext.Provider value={value}>{children}</SavedArmiesContext.Provider>
 }
 
 const useSavedArmies = () => {
