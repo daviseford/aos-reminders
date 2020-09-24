@@ -15,7 +15,7 @@
     "luxon": "1.25.0",
     "node-sass": "4.14.1",
     "parse5": "6.0.1",
-    "pdfjs-dist": "2.5.207",
+    "pdfjs-dist": "2.4.456",
     "qs": "6.9.4",
     "react": "16.13.1",
     "react-beautiful-dnd": "13.0.0",
