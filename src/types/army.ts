@@ -2,15 +2,10 @@ import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
 import { TEffects, TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { IAllySelections, ISelections } from 'types/selections'
+import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
 export type TAllyArmies = { [key: string]: IArmy }
-
-export type TAllyData = Array<{
-  allyArmy: IArmy
-  allySelections: IAllySelections
-}>
 
 export type TAbilities = TEffects[]
 export type TAllegiances = TEntry[]

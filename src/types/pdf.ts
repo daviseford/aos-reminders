@@ -36,9 +36,3 @@ export interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
 }
-
-export interface IPdfPhaseText {
-  canFitOnPage: boolean
-  yHeight: number
-  phase: string
-}

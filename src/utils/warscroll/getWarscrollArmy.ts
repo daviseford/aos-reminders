@@ -14,7 +14,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   return errorChecked
 }
 
-const unitIndicatorsTxt = [
+const unitIndicatorsPdf = [
   'Artillery',
   'Leaders',
   'Units',
@@ -24,8 +24,7 @@ const unitIndicatorsTxt = [
   'Spearhead',
   'Main Body',
   'Rearguard',
-]
-const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
+].map(x => x.toUpperCase())
 
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)

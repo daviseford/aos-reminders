@@ -1,25 +1,20 @@
+import 'core-js/stable' // organize-imports-ignore
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
-import 'core-js/stable' // polyfills
-// CSS
 import 'css/animations.scss'
 import 'css/index.scss'
-import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { combineReducers, createStore } from 'redux'
-import { persistReducer, persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
 import { installNewWorker } from 'utils/installNewWorker'
 import config from './auth_config.json'
-// Auth
 import { Auth0Provider } from './react-auth0-wrapper'
 import * as serviceWorker from './serviceWorker'
+import { persistor, store } from './store'
 
 // A function that routes the user to the right place
 // after login (Auth0)
@@ -30,29 +25,6 @@ const onRedirectCallback = appState => {
     appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
   )
 }
-
-const persistConfig = {
-  key: 'root',
-  storage: storage,
-}
-
-const rootReducer = combineReducers({
-  army: army.reducer,
-  factionNames: factionNames.reducer,
-  realmscape: realmscape.reducer,
-  selections: selections.reducer,
-  visibility: visibility.reducer,
-})
-
-const pReducer = persistReducer(persistConfig, rootReducer)
-
-export const store = createStore(
-  pReducer,
-  //@ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
-const persistor = persistStore(store)
 
 render(
   <Provider store={store}>

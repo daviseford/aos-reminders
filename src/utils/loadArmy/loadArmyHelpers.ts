@@ -1,6 +1,6 @@
 import { PreferenceApi } from 'api/preferenceApi'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
-import { store } from 'index'
+import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
 import { ILinkedArmy } from 'types/savedArmy'

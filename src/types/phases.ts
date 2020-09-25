@@ -3,11 +3,6 @@ export type TPhaseStart = 'START_OF_PHASE'
 export type TPhaseDuring = 'DURING_PHASE'
 export type TPhaseEnd = 'END_OF_PHASE'
 
-// Phase Stage Exports
-export const PHASE_START: TPhaseStart = 'START_OF_PHASE'
-export const PHASE_DURING: TPhaseDuring = 'DURING_PHASE'
-export const PHASE_END: TPhaseEnd = 'END_OF_PHASE'
-
 // Phases
 // Hero
 export type THeroPhaseStart = 'START_OF_HERO_PHASE'
@@ -41,15 +36,6 @@ export type TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
 
 // Global Wound Allocation
 export type TWoundAllocation = 'WOUND_ALLOCATION'
-
-export type TPhases =
-  | THeroPhase
-  | TMovementPhase
-  | TShootingPhase
-  | TChargePhase
-  | TCombatPhase
-  | TBattleshockPhase
-export type TPhaseSegments = TPhaseStart | TPhaseDuring | TPhaseEnd
 
 // Phases Exports
 export const START_OF_HERO_PHASE: THeroPhaseStart = 'START_OF_HERO_PHASE'

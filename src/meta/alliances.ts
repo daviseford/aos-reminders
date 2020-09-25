@@ -15,7 +15,6 @@ export const CHAOS: TChaos = 'Chaos'
 export const DEATH: TDeath = 'Death'
 export const DESTRUCTION: TDestruction = 'Destruction'
 export const ORDER: TOrder = 'Order'
-export const GRAND_ALLIANCES: TGrandAlliances[] = [CHAOS, DEATH, DESTRUCTION, ORDER]
 
 export type TGrandAllianceFactions =
   | 'CHAOS_GRAND_ALLIANCE'

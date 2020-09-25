@@ -1,6 +1,5 @@
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ISavedArmyFromApi } from 'types/savedArmy'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TSideEffectTypes } from 'utils/withSelect'
 
@@ -18,8 +17,6 @@ export interface IRealmscapeStore {
   realmscape: string | null
   realmscape_feature: string | null
 }
-
-export type TSavedArmiesStore = ISavedArmyFromApi[]
 
 export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 

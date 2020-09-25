@@ -74,22 +74,3 @@ const effectToEntry = (effect: TEffects): TEntry => {
     isSideEffect: true,
   }
 }
-
-type TGetAlliedType = 'artifact' | 'spell' | 'trait'
-/**
- * Gets the entries for another army for 'artifact' | 'spell' | 'trait'
- * @param Allegiances
- * @param Entries
- * @param param2
- */
-export const getAlliedEntries = (Allegiances: TEntry[], Entries: TEntry[], type: TGetAlliedType) => {
-  return [...Allegiances].reduce(
-    (a, entry) => {
-      entry.effects.forEach(effect => {
-        if (effect[type]) a = a.concat(effectToEntry(effect))
-      })
-      return a
-    },
-    [...Entries]
-  )
-}
