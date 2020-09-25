@@ -3,32 +3,34 @@ import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/page/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
+import { selectors } from 'ducks'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaLink } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
-import { IVisibilityStore } from 'types/store'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
-  showSavedArmies: () => void
-  army: ISavedArmy
-  hiddenReminders: IVisibilityStore['reminders']
 }
 
 export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, hiddenReminders } = props
+  const { closeModal, modalIsOpen } = props
   const { saveLink } = useSavedArmies()
   const { theme, isDark } = useTheme()
+
+  const army = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
+
   const [link, setLink] = useState<string | null>(null)
   const [processing, setProcessing] = useState(true)
   const [copied, setCopied] = useState(false)
 
   const handleLinkGeneration = async () => {
-    const payload = prepareArmy({ ...army, hiddenReminders }, 'save')
+    const payload = prepareArmy({ ...army, hiddenReminders } as ISavedArmy, 'save')
     const url = await saveLink(payload as ISavedArmy)
 
     setLink(url)
