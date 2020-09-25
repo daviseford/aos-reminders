@@ -17,8 +17,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const ShareArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen } = props
+export const ShareArmyModal: React.FC<IModalComponentProps> = ({ closeModal, modalIsOpen }) => {
   const { saveLink } = useSavedArmies()
   const { theme, isDark } = useTheme()
 

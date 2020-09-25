@@ -5,25 +5,24 @@ import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
 import React, { useMemo, useState } from 'react'
 import { FaCloudUploadAlt } from 'react-icons/fa'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
-import { IStore, IVisibilityStore } from 'types/store'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
 
-interface IUpdateArmyProps {
+type TUpdateArmyBtn = React.FC<{
   id: string
   currentArmy: ISavedArmy
   changedKeys: string[]
-  hiddenReminders: IVisibilityStore['reminders']
-}
+}>
 
-type TUpdateArmyBtn = React.FC<IUpdateArmyProps>
-
-const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, hiddenReminders }) => {
+const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const { isGameMode } = useAppStatus()
   const { updateArmy } = useSavedArmies()
   const { isDark } = useTheme()
+
+  const hiddenReminders = useSelector(selectors.selectReminders)
+
   const [isSaving, setIsSaving] = useState(false)
 
   const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
@@ -53,12 +52,5 @@ const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, 
     </GenericButton>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  hiddenReminders: selectors.selectReminders(state),
-})
-
-const UpdateArmyBtn = connect(mapStateToProps, null)(UpdateArmyBtnComponent)
 
 export default UpdateArmyBtn
