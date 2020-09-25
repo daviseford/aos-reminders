@@ -4,6 +4,7 @@ import { selectors, visibilityActions } from 'ducks'
 import { without } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { TTurnWhen } from 'types/phases'
 import useGetReminders from 'utils/hooks/useGetReminders'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { getVisibleReminders } from 'utils/reminderUtils'
@@ -26,7 +27,7 @@ const Reminders = () => {
 
   if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
-  const whens = useMemo(() => Object.keys(reminders), [reminders])
+  const whens = useMemo(() => Object.keys(reminders) as TTurnWhen[], [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
 
   const [firstLoad, setFirstLoad] = useState(true)

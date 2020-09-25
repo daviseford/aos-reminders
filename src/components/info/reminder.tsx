@@ -2,44 +2,37 @@ import { CardHeaderComponent } from 'components/info/card'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
-import { selectors, visibility } from 'ducks'
+import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
-import { IStore } from 'types/store'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 
+const {
+  addReminder: hideReminder,
+  deleteWhen: hideWhen,
+  deleteReminder: showReminder,
+  addWhen: showWhen,
+} = visibilityActions
+
 interface IReminderProps {
   actions: TTurnAction[]
-  hiddenReminders: string[]
-  visibleWhens: TTurnWhen[]
-  hideReminder: (value: string) => void
-  hideWhen: (value: string) => void // dispatch
   isMobile: boolean
-  showReminder: (value: string) => void
-  showWhen: (value: string) => void // dispatch
   when: TTurnWhen
 }
 
-const ReminderComponent: React.FC<IReminderProps> = props => {
-  const {
-    actions,
-    hiddenReminders,
-    visibleWhens,
-    hideReminder,
-    hideWhen,
-    isMobile,
-    showReminder,
-    showWhen,
-    when,
-  } = props
+export const Reminder: React.FC<IReminderProps> = props => {
+  const { actions, isMobile, when } = props
 
   const { theme } = useTheme()
+
+  const hiddenReminders = useSelector(selectors.selectReminders)
+  const visibleWhens = useSelector(selectors.selectWhen)
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(id => id.includes(when))
@@ -71,11 +64,11 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
   useEffect(() => {
     if (!isMobile) showWhen(title) // Auto-open reminders on desktop
-  }, [isMobile, title, showWhen])
+  }, [isMobile, title])
 
   const handleShowWhen = useCallback(() => {
     showWhen(title)
-  }, [title, showWhen])
+  }, [title])
 
   useEffect(() => {
     // If we've previously dragged some reminders around,
@@ -143,21 +136,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     </DragDropContext>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  hiddenReminders: selectors.selectReminders(state),
-  visibleWhens: selectors.selectWhen(state),
-})
-
-const mapDispatchToProps = {
-  hideReminder: visibility.actions.addReminder,
-  hideWhen: visibility.actions.deleteWhen,
-  showReminder: visibility.actions.deleteReminder,
-  showWhen: visibility.actions.addWhen,
-}
-
-export const Reminder = connect(mapStateToProps, mapDispatchToProps)(ReminderComponent)
 
 interface IActionTextProps extends TTurnAction {
   actionTitle?: string

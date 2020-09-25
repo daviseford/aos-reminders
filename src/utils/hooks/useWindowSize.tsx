@@ -1,18 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
-type TWindowSizeState = {
-  width: number | undefined
-  height: number | undefined
-}
-
 // Hook
 const useWindowSize = () => {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState<TWindowSizeState>({
-    width: undefined,
-    height: undefined,
-  })
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
 
   useEffect(() => {
     // Handler to call on window resize
@@ -38,8 +28,8 @@ const useWindowSize = () => {
     () => ({
       width: windowSize.width,
       height: windowSize.height,
-      isTinyMobile: windowSize.width ? windowSize.width <= 335 : undefined,
-      isMobile: windowSize.width ? windowSize.width <= 480 : undefined,
+      isTinyMobile: windowSize.width <= 335,
+      isMobile: windowSize.width <= 480,
     }),
     [windowSize]
   )
