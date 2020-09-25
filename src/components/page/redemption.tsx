@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import React from 'react'
 import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
@@ -59,7 +59,7 @@ export const RedemptionError: React.FC<{ error: string; showButton: boolean }> =
 
       <div className="row text-center pt-2 pb-3">
         <div className="col">
-          <ContactComponent size="small" />
+          <Contact size="small" />
         </div>
       </div>
     </>

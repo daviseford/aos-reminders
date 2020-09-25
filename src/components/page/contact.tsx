@@ -9,7 +9,7 @@ interface IContactProps {
   size?: 'normal' | 'small' | 'large'
 }
 
-export const ContactComponent: React.FC<IContactProps> = props => {
+const Contact: React.FC<IContactProps> = props => {
   const { isOffline } = useAppStatus()
   const { isDark } = useTheme()
   const { size = 'normal' } = props
@@ -33,3 +33,5 @@ export const ContactComponent: React.FC<IContactProps> = props => {
     </>
   )
 }
+
+export default Contact

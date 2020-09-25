@@ -3,7 +3,7 @@ import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks
 import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
 import { SelectOne } from 'components/input/select'
 import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
@@ -329,7 +329,7 @@ const Help = () => {
         <h4>Need help?</h4>
       </div>
       <div className={theme.cardBody}>
-        <ContactComponent size="normal" />
+        <Contact size="normal" />
       </div>
     </div>
   )

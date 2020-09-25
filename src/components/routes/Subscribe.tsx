@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
@@ -57,7 +57,7 @@ const Subscribe = () => {
       <ExamplesRow />
 
       <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
-        <ContactComponent size={'small'} />
+        <Contact size={'small'} />
       </div>
     </div>
   )

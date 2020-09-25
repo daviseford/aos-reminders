@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { LinkNewTab } from 'components/helpers/link'
 import { LargeSpinner, LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import FooterComponent from 'components/page/footer'
+import Footer from 'components/page/footer'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
@@ -41,7 +41,7 @@ const Stats = () => {
       </div>
       <PageHeader />
       {isActive ? <SubscribedView /> : <UnsubscribedView />}
-      <FooterComponent />
+      <Footer />
     </div>
   )
 }
