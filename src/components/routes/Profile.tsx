@@ -342,7 +342,7 @@ const ToggleTheme = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Visual Theme</h4>
+        <h4>Visual Theme: {isDark ? 'Dark' : 'Light'}</h4>
       </div>
       <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
         {isActive && (
