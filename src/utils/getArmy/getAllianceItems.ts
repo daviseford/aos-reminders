@@ -57,7 +57,7 @@ export const getAllianceItems = (
 /**
  * Used for KO, since they can take ANY endless spell in the game now
  */
-export const getAllEndlessSpells = (): TEntry[] => {
+const getAllEndlessSpells = (): TEntry[] => {
   return [
     ...getAllianceItems(CHAOS, 'EndlessSpells', []),
     ...getAllianceItems(DEATH, 'EndlessSpells', []),

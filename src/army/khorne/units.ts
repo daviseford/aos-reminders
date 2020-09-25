@@ -992,7 +992,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-export const KhorneBattalions: TBattalions = [
+const KhorneBattalions: TBattalions = [
   {
     name: `Slaughterborn`,
     effects: [

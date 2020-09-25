@@ -11,7 +11,6 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
-import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -123,7 +122,6 @@ const GiftButton = (props: IGiftSubscription) => {
 
 const PurchaseTable = () => {
   const { theme } = useTheme()
-  const { user } = useAuth0()
   const { isMobile } = useWindowSize()
 
   return (
@@ -141,7 +139,7 @@ const PurchaseTable = () => {
             </thead>
             <tbody>
               {GiftedSubscriptionPlans.map((plan, i) => (
-                <PlanComponent user={user} supportPlan={plan} key={i} />
+                <PlanComponent supportPlan={plan} key={i} />
               ))}
             </tbody>
           </table>
@@ -174,13 +172,11 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  user: IUser
   supportPlan: IGiftedSubscriptionPlans
 }
 
-const PlanComponent: React.FC<IPlanProps> = props => {
-  const { user, supportPlan } = props
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const stripe = useStripe()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)

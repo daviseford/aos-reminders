@@ -34,7 +34,7 @@ import {
 } from 'types/terrain'
 
 // Default scenery effects for most games and custom scenery.
-export const DefaultScenery: TScenery = [
+const DefaultScenery: TScenery = [
   {
     name: DAMNED,
     effects: [

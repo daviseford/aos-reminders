@@ -1,6 +1,6 @@
 import 'core-js/stable' // organize-imports-ignore
-import 'css/index.scss' // organize-imports-ignore
 import 'css/animations.scss' // organize-imports-ignore
+import 'css/index.scss' // organize-imports-ignore
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
@@ -15,11 +15,22 @@ import config from './auth_config.json'
 import { Auth0Provider } from '@auth0/auth0-react'
 import * as serviceWorker from './serviceWorker'
 import { persistor, store } from './store'
+import history from './utils/history'
+
+const onRedirectCallback = appState => {
+  // Use the router's history module to replace the url
+  history.replace(appState?.returnTo || window.location.pathname)
+}
 
 render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Auth0Provider domain={config.domain} clientId={config.clientId} redirect_uri={window.location.origin}>
+      <Auth0Provider
+        domain={config.domain}
+        clientId={config.clientId}
+        redirectUri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+      >
         <AppStatusProvider>
           <SubscriptionProvider>
             <SavedArmiesProvider>

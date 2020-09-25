@@ -263,6 +263,9 @@ const UnsubscribedView = () => {
       </div>
 
       <CoachShoutout />
+      <div className="row px-5">
+        <Methodology />
+      </div>
     </div>
   )
 }

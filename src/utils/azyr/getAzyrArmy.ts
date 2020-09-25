@@ -38,7 +38,7 @@ const prefixTypes = [
   'UNIT',
 ]
 
-export const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
+const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
   let realmscape: TBattleRealms | null = null
   let allyUnits: string[] = []

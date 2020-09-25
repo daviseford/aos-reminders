@@ -8,15 +8,12 @@ import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
-import { IUser } from 'types/user'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
-  const { user } = useAuth0()
-
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
 
   return (
@@ -27,7 +24,6 @@ const PricingPlansComponent: React.FC = () => {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
           {SubscriptionPlans.map((plan, i) => (
             <PlanComponent
-              user={user}
               supportPlan={plan}
               paypalModalIsOpen={paypalModalIsOpen}
               setPaypalModalIsOpen={setPaypalModalIsOpen}
@@ -68,16 +64,15 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  user: IUser
   supportPlan: ISubscriptionPlan
   paypalModalIsOpen: boolean
   setPaypalModalIsOpen: (x: boolean) => void
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
-  const { user, supportPlan } = props
+  const { supportPlan } = props
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   if (!stripe) return null
 

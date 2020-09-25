@@ -26,7 +26,7 @@ const ShroudingMistEffects: TEffects[] = [
   },
 ]
 
-export const MonstrousArcanumDestruction: TUnits = [
+const MonstrousArcanumDestruction: TUnits = [
   {
     name: `Basilisk`,
     effects: [

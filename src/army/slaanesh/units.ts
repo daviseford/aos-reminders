@@ -620,7 +620,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-export const SlaaneshBattalions: TBattalions = [
+const SlaaneshBattalions: TBattalions = [
   {
     name: `Hedonite Host`,
     effects: [

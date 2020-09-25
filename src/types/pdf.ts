@@ -1,7 +1,7 @@
 import { ICurrentArmy } from 'types/army'
 import { IReminder } from 'types/data'
 
-export type TPdfStylePdf =
+type TPdfStylePdf =
   | 'army'
   | 'armyEnd'
   | 'armyFooter'
