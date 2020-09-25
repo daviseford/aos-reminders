@@ -1,8 +1,3 @@
-// Phase Stage Types
-export type TPhaseStart = 'START_OF_PHASE'
-export type TPhaseDuring = 'DURING_PHASE'
-export type TPhaseEnd = 'END_OF_PHASE'
-
 // Phases
 // Hero
 export type THeroPhaseStart = 'START_OF_HERO_PHASE'

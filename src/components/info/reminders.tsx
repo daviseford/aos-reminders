@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { connect } from 'react-redux'
 import { IArmy, ICurrentArmy, TAllyArmies } from 'types/army'
 import { IStore } from 'types/store'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { processReminders } from 'utils/processReminders'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
@@ -17,23 +17,13 @@ interface IRemindersProps extends ICurrentArmy {
   army: IArmy
   hiddenReminders: string[]
   hideWhens: (values: string[]) => void
-  isMobile: boolean
   showWhen: (value: string) => void
   visibleWhens: string[]
 }
 
 const RemindersComponent = (props: IRemindersProps) => {
-  const {
-    allyArmies,
-    army,
-    hiddenReminders,
-    hideWhens,
-    isMobile,
-    showWhen,
-    visibleWhens,
-    ...currentArmy
-  } = props
-
+  const { allyArmies, army, hiddenReminders, hideWhens, showWhen, visibleWhens, ...currentArmy } = props
+  const { isMobile } = useWindowSize()
   const { isGameMode } = useAppStatus()
 
   let reminders = useMemo(() => {
@@ -98,6 +88,6 @@ const mapDispatchToProps = {
   showWhen: visibility.actions.addWhen,
 }
 
-const Reminders = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(RemindersComponent))
+const Reminders = connect(mapStateToProps, mapDispatchToProps)(RemindersComponent)
 
 export default Reminders

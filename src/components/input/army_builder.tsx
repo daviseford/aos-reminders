@@ -10,12 +10,11 @@ import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { ISelections } from 'types/selections'
 import { IStore } from 'types/store'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 
 export interface IArmyBuilderProps {
   factionName: TSupportedFaction
-  isMobile: boolean
   origin_realm: TOriginRealms
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
@@ -38,7 +37,8 @@ export interface IArmyBuilderProps {
 }
 
 const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
-  const { factionName, origin_realm, isMobile, updateArmy, realmscape } = props
+  const { factionName, origin_realm, updateArmy, realmscape } = props
+  const { isMobile } = useWindowSize()
 
   const army = useMemo(() => getArmy(factionName, origin_realm, realmscape), [
     factionName,
@@ -127,6 +127,6 @@ const mapDispatchToProps = {
   updateUnits: selections.actions.updateUnits,
 }
 
-const ArmyBuilder = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(ArmyBuilderComponent))
+const ArmyBuilder = connect(mapStateToProps, mapDispatchToProps)(ArmyBuilderComponent)
 
 export default ArmyBuilder

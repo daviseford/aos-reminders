@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { IStore } from 'types/store'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { getArmyLink } from 'utils/handleQueryParams'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
@@ -33,7 +33,6 @@ export const Header = () => {
 interface IJumbotronProps {
   factionName: TPrimaryFactions
   hasSelections: boolean
-  isMobile: boolean
   resetAllySelections: () => void
   resetRealmscapeStore: () => void
   resetSelections: () => void
@@ -44,7 +43,6 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const {
     factionName,
     hasSelections,
-    isMobile,
     resetAllySelections,
     resetRealmscapeStore,
     resetSelections,
@@ -53,6 +51,7 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   const { isOnline, isGameMode } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
@@ -135,4 +134,4 @@ const mapDispatchToProps = {
   setFactionName: factionNames.actions.setFactionName,
 }
 
-const Jumbotron = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(JumbotronComponent))
+const Jumbotron = connect(mapStateToProps, mapDispatchToProps)(JumbotronComponent)

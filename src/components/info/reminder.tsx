@@ -111,7 +111,6 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
                 isVisible={isVisible}
                 headerClassName={`${theme.reminderHeader} text-white`}
                 iconSize={1.2}
-                isMobile={isMobile}
               />
               <div className={bodyClass}>
                 {actionsState.map((action, i) => {

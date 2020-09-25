@@ -5,11 +5,12 @@ import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { MdRefresh } from 'react-icons/md'
 import { logClick } from 'utils/analytics'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
-const UpdateBanner = componentWithSize(({ isTinyMobile = false, isMobile = false }) => {
+const UpdateBanner = () => {
   const { hasNewContent } = useAppStatus()
   const { isDark } = useTheme()
+  const { isTinyMobile, isMobile } = useWindowSize()
   const name = 'Content_Update_Notification'
 
   const variant = isDark ? `dark` : `secondary`
@@ -34,6 +35,6 @@ const UpdateBanner = componentWithSize(({ isTinyMobile = false, isMobile = false
       </GenericButton>
     </NotificationBanner>
   )
-})
+}
 
 export default UpdateBanner

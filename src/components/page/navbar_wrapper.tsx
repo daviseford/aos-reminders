@@ -1,11 +1,11 @@
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { navbarStyles } from 'theme/helperClasses'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
-const NavbarWrapperComponent: React.FC<{ isMobile: boolean }> = props => {
-  const { isMobile, children } = props
+const NavbarWrapper = ({ children }) => {
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
 
   return (
     <header className={`${navbarStyles.headerClass} ${theme.headerColor}`}>
@@ -16,7 +16,5 @@ const NavbarWrapperComponent: React.FC<{ isMobile: boolean }> = props => {
     </header>
   )
 }
-
-const NavbarWrapper = componentWithSize(NavbarWrapperComponent)
 
 export default NavbarWrapper

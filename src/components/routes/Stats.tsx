@@ -12,11 +12,11 @@ import { centerContentClass } from 'theme/helperClasses'
 import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
+const Stats = () => {
   const { loading }: IUseAuth0 = useAuth0()
   const { isActive, getSubscription, subscriptionLoading } = useSubscription()
   const { theme } = useTheme()
@@ -44,10 +44,11 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
       <FooterComponent />
     </div>
   )
-})
+}
 
-const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 320 }) => {
+const SubscribedView = () => {
   const { theme, isDark } = useTheme()
+  const { width } = useWindowSize()
 
   const reportUrl = {
     dark: {
@@ -58,7 +59,7 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
       desktop: `mqjCB`,
       mobile: `tqjCB`,
     },
-  }[isDark ? 'dark' : 'light'][width < 1000 ? 'mobile' : 'desktop']
+  }[isDark ? 'dark' : 'light'][width ? (width < 1000 ? 'mobile' : 'desktop') : 'desktop']
 
   const [iframeIsLoaded, setIFrameIsLoaded] = useState(false)
 
@@ -86,7 +87,7 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
       </div>
     </>
   )
-})
+}
 
 const Methodology = () => {
   const { theme } = useTheme()
@@ -203,10 +204,11 @@ const SubscribeBtn = () => {
   )
 }
 
-const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
+const UnsubscribedView = () => {
   const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { isActive } = useSubscription()
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
 
   return (
     <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
@@ -264,6 +266,6 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
       <CoachShoutout />
     </div>
   )
-})
+}
 
 export default Stats

@@ -11,14 +11,16 @@ import { navbarStyles } from 'theme/helperClasses'
 import { IUseAuth0 } from 'types/auth0'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
-import { componentWithSize } from 'utils/mapSizesToProps'
 import { SubscriptionPlans } from 'utils/plans'
 
-const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
+const Navbar = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout, loading, loginWithRedirect }: IUseAuth0 = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
+  const { isTinyMobile } = useWindowSize()
+
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
@@ -76,6 +78,6 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
       </button>
     </NavbarWrapper>
   )
-})
+}
 
 export default Navbar

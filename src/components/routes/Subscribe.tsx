@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -91,13 +91,14 @@ const ExamplesRow = () => {
   )
 }
 
-const StatsDemo = componentWithSize(props => {
+const StatsDemo = () => {
+  const { isMobile } = useWindowSize()
   return (
     <div className={'col-12 col-xl-8 col-xxl-5 text-center'}>
       <figure className="figure">
         <img
           className={`figure-img img-fluid rounded img-thumbnail`}
-          src={`/img/stats_demo_${props.isMobile ? `mobile` : `desktop`}.png`}
+          src={`/img/stats_demo_${isMobile ? `mobile` : `desktop`}.png`}
           alt="Subscribe to access advanced stats"
         />
         <figcaption className="figure-caption text-center">
@@ -106,10 +107,11 @@ const StatsDemo = componentWithSize(props => {
       </figure>
     </div>
   )
-})
+}
 
-const MobileDarkModeDemo = componentWithSize(props => {
-  if (!props.isMobile) return null
+const MobileDarkModeDemo = () => {
+  const { isMobile } = useWindowSize()
+  if (!isMobile) return null
   return (
     <div className={'col-12'}>
       <WebmWithFallback
@@ -120,7 +122,7 @@ const MobileDarkModeDemo = componentWithSize(props => {
       />
     </div>
   )
-})
+}
 
 const Intro = () => {
   const { theme } = useTheme()

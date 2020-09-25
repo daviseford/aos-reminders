@@ -7,10 +7,9 @@ import { connect } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
 import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
 import { IStore } from 'types/store'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 interface IBaseCardProps {
-  isMobile: boolean
   label?: string
   mobileTitle?: string | null
   title: string
@@ -22,7 +21,8 @@ interface ICardProps extends IBaseCardProps {
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
-  const { title, isVisible, isMobile, mobileTitle, children, selectionCount } = props
+  const { title, isVisible, mobileTitle, children, selectionCount } = props
+  const { isMobile } = useWindowSize()
   const { theme } = useTheme()
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none`} ${isMobile ? `py-3` : ``}`
@@ -34,7 +34,6 @@ const CardComponent: React.FC<ICardProps> = props => {
     <div className={colClass}>
       <div className={theme.card}>
         <CardHeader
-          isMobile={isMobile}
           isVisible={isVisible}
           title={title}
           mobileTitle={mobileTitle}
@@ -59,7 +58,6 @@ const CardMultiComponent = (props: ICardMultiProps) => {
   const {
     enableLog = false,
     hiddenSelectors,
-    isMobile,
     items,
     label = null,
     mobileTitle = null,
@@ -76,7 +74,6 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
   return (
     <CardComponent
-      isMobile={isMobile}
       title={title}
       isVisible={isVisible}
       mobileTitle={mobileTitle}
@@ -100,7 +97,6 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
   const {
     enableLog = false,
     hiddenSelectors,
-    isMobile,
     items,
     label = null,
     mobileTitle = null,
@@ -113,7 +109,6 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
 
   return (
     <CardComponent
-      isMobile={isMobile}
       title={title}
       isVisible={isVisible}
       mobileTitle={mobileTitle}
@@ -137,7 +132,6 @@ interface ICardHeaderProps extends IBaseCardProps {
 export const CardHeaderComponent = (props: ICardHeaderProps) => {
   const {
     title,
-    isMobile,
     mobileTitle,
     isVisible,
     hideCard,
@@ -147,6 +141,7 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     selectionCount,
   } = props
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
 
   const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
 
@@ -200,5 +195,5 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
 
-export const CardMultiSelect = connect(mapStateToProps, null)(componentWithSize(CardMultiComponent))
-export const CardSingleSelect = connect(mapStateToProps, null)(componentWithSize(CardSingleSelectComponent))
+export const CardMultiSelect = connect(mapStateToProps, null)(CardMultiComponent)
+export const CardSingleSelect = connect(mapStateToProps, null)(CardSingleSelectComponent)

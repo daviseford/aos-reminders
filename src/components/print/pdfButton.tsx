@@ -8,7 +8,7 @@ import { MdFileDownload } from 'react-icons/md'
 import { connect } from 'react-redux'
 import { IArmy, ICurrentArmy, TAllyArmies } from 'types/army'
 import { IStore } from 'types/store'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 import { processReminders } from 'utils/processReminders'
 
@@ -16,12 +16,12 @@ interface IDownloadPDFProps extends ICurrentArmy {
   allyArmies: TAllyArmies
   army: IArmy
   hiddenReminders: string[]
-  isMobile: boolean
 }
 
 const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
-  const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
+  const { allyArmies, army, hiddenReminders, ...currentArmy } = props
   const { saveArmyToS3 } = useSavedArmies()
+  const { isMobile } = useWindowSize()
 
   const [pdf, setPdf] = useState<{ default: jsPDF; compact: jsPDF } | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -78,6 +78,6 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   hiddenReminders: selectors.getReminders(state),
 })
 
-const DownloadPDFButton = connect(mapStateToProps, null)(componentWithSize(DownloadPDFComponent))
+const DownloadPDFButton = connect(mapStateToProps, null)(DownloadPDFComponent)
 
 export default DownloadPDFButton
