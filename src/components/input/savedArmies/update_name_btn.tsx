@@ -12,7 +12,7 @@ const UpdateNameButton: TUpdateName = ({ id, armyName, className = '', size = '1
   const closeModal = () => setModalIsOpen(false)
 
   const handleClick = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     openModal()
   }
 

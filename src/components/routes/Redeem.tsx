@@ -89,7 +89,7 @@ const RedeemSection = () => {
 
   const handleClickRedeem = async e => {
     try {
-      e.preventDefault()
+      e?.preventDefault?.()
       const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
       LocalRedemptionKey.clear()
       if (body.error) return setError(body.error)

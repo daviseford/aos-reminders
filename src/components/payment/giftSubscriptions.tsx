@@ -188,7 +188,7 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
 
     if (quantity === 0) return // Can't do anything with zero quantity
 

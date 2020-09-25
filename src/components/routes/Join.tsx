@@ -70,7 +70,7 @@ const RedeemSection = () => {
 
   const handleClickRedeem = async e => {
     try {
-      e.preventDefault()
+      e?.preventDefault?.()
       if (!couponId) return
       const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
       if (body.error) {

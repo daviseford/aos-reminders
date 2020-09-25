@@ -1,12 +1,12 @@
 import { selectors } from 'ducks'
 import React, { Fragment, useMemo } from 'react'
-import { connect } from 'react-redux'
-import { ICurrentArmy } from 'types/army'
-import { IStore } from 'types/store'
+import { useSelector } from 'react-redux'
 import { titleCase } from 'utils/textUtils'
 
-const PrintArmyComponent = (props: ICurrentArmy) => {
-  const { realmscape_feature, selections, allySelections } = props
+const PrintArmy = () => {
+  const { factionName, realmscape_feature, selections, allySelections } = useSelector(
+    selectors.selectCurrentArmy
+  )
   const {
     allegiances,
     artifacts,
@@ -23,7 +23,7 @@ const PrintArmyComponent = (props: ICurrentArmy) => {
   return (
     <>
       <div className={'row text-center mt-4 mb-1 d-none d-print-block'}>
-        <h5>{titleCase(props.factionName)}</h5>
+        <h5>{titleCase(factionName)}</h5>
       </div>
       <div className={'row text-center d-none d-print-block'}>
         <ItemsDisplayComponent name={'Unit'} items={units} />
@@ -59,13 +59,6 @@ const PrintArmyComponent = (props: ICurrentArmy) => {
     </>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  ...selectors.selectCurrentArmy(state),
-})
-
-const PrintArmy = connect(mapStateToProps, null)(PrintArmyComponent)
 
 export default PrintArmy
 

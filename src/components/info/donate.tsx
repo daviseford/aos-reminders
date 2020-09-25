@@ -13,14 +13,14 @@ export const DonateComponent = () => {
   const [btcClicked, setBtcClicked] = useState(false)
 
   const handleEthClick = useCallback(e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     logClick('DonateETH')
     setEthClicked(true)
     setBtcClicked(false)
   }, [])
 
   const handleBtcClick = useCallback(e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     logClick('DonateBTC')
     setBtcClicked(true)
     setEthClicked(false)
@@ -119,7 +119,7 @@ const BtcButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
 
 const PayPalButton = () => {
   const handleClick = useCallback(e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     logClick('DonatePayPal')
     window.open('//paypal.me/daviseford')
   }, [])

@@ -29,7 +29,7 @@ const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, 
   const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
   const handleClick = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     setIsSaving(true)
     const payload = prepareArmy({ ...currentArmy, hiddenReminders }, 'update', changedKeys)
     await updateArmy(id, payload)

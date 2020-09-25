@@ -14,7 +14,7 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   const { setLoadedArmy } = useSavedArmies()
 
   const handleLoadClick = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     if (isOnline) logEvent(`LoadArmy-${army.factionName}`)
     resetAnalyticsStore()
     setLoadedArmy({ id: army.id, armyName: army.armyName })

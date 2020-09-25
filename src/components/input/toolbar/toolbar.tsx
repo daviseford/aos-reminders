@@ -77,7 +77,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   const handleAllyClick = useCallback(
     e => {
-      e.preventDefault()
+      e?.preventDefault?.()
       const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
       resetAllySelection(newAllyFaction)
       updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
@@ -87,7 +87,7 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
   const clearArmyClick = useCallback(
     e => {
-      e.preventDefault()
+      e?.preventDefault?.()
       resetAllySelections()
       resetRealmscapeStore()
       resetSelections()

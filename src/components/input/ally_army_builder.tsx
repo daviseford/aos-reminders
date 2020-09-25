@@ -60,7 +60,7 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
 
   const handleClose = useCallback(
     e => {
-      e.preventDefault()
+      e?.preventDefault?.()
       deleteAllySelection(allyFactionName)
       deleteAllyArmy(allyFactionName)
       hideAlly(allyFactionName)
