@@ -1,11 +1,11 @@
 import 'core-js/stable' // organize-imports-ignore
+import 'css/index.scss' // organize-imports-ignore
+import 'css/animations.scss' // organize-imports-ignore
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
 import { SavedArmiesProvider } from 'context/useSavedArmies'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
-import 'css/animations.scss'
-import 'css/index.scss'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'

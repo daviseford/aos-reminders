@@ -1,6 +1,3 @@
-import 'core-js/stable' // polyfills
-import 'css/animations.scss'
-import 'css/index.scss'
 import { army, factionNames, realmscape, selections, visibility } from 'ducks'
 import { combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'

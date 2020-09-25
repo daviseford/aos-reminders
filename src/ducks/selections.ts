@@ -32,106 +32,90 @@ type TAddToSelectionsAction = {
   }
 }
 
-const deleteAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  delete state.allySelections[action.payload]
-}
-const resetAllySelection = (state, action: { payload: TSupportedFaction }) => {
-  state.allySelections[action.payload] = { units: [], battalions: [] }
-}
-const resetAllySelections = (state, action) => {
-  state.allySelections = initialState.allySelections
-}
-const resetSelections = (state, action) => {
-  state.selections = initialState.selections
-}
-const updateAllyUnits = (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
-  const { factionName, units } = action.payload
-  state.allySelections[factionName].units = units
-}
-const updateAllyBattalions = (
-  state,
-  action: { payload: { factionName: TSupportedFaction; battalions: TBattalions } }
-) => {
-  const { factionName, battalions } = action.payload
-  state.allySelections[factionName].battalions = battalions
-}
-const updateAllySelections = (state, action) => {
-  state.allySelections = action.payload
-}
-const updateAllegiances = (state: IStore['selections'], action: TAction) => {
-  handleSideEffects(state, action.payload, 'allegiances')
-  state.selections.allegiances = action.payload
-}
-const updateArtifacts = (state: IStore['selections'], action: TAction) => {
-  state.selections.artifacts = action.payload
-}
-
-/**
- * Non destructive way to add to selections
- * @param state
- * @param action
- */
-const addToSelections = (state: IStore['selections'], action: TAddToSelectionsAction) => {
-  const { value, slice, values } = action.payload
-  state.selections[slice] = uniq(state.selections[slice].concat(values))
-  state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
-}
-
-const updateBattalions = (state: IStore['selections'], action: TAction) => {
-  handleSideEffects(state, action.payload, 'battalions')
-  state.selections.battalions = action.payload
-}
-const updateCommands = (state: IStore['selections'], action: TAction) => {
-  state.selections.commands = action.payload
-}
-const updateEndlessSpells = (state: IStore['selections'], action: TAction) => {
-  state.selections.endless_spells = action.payload
-}
-const updateScenery = (state: IStore['selections'], action: TAction) => {
-  state.selections.scenery = action.payload
-}
-const updateSelections = (state: IStore['selections'], action) => {
-  state.selections = action.payload
-}
-const updateSpells = (state: IStore['selections'], action: TAction) => {
-  state.selections.spells = action.payload
-}
-const updateTraits = (state: IStore['selections'], action: TAction) => {
-  handleSideEffects(state, action.payload, 'traits')
-  state.selections.traits = action.payload
-}
-const updateTriumphs = (state: IStore['selections'], action: TAction) => {
-  state.selections.triumphs = action.payload
-}
-const updateUnits = (state: IStore['selections'], action: TAction) => {
-  handleSideEffects(state, action.payload, 'units')
-  state.selections.units = action.payload
-}
-
 export const selections = createSlice({
   name: 'selections',
   initialState,
   reducers: {
-    addToSelections,
-    deleteAllySelection,
-    resetAllSelections: (state, action) => initialState,
-    resetAllySelection,
-    resetAllySelections,
-    resetSelections,
-    updateAllegiances,
-    updateAllyBattalions,
-    updateAllySelections,
-    updateAllyUnits,
-    updateArtifacts,
-    updateBattalions,
-    updateCommands,
-    updateEndlessSpells,
-    updateScenery,
-    updateSelections,
-    updateSpells,
-    updateTraits,
-    updateTriumphs,
-    updateUnits,
+    resetAllSelections: () => initialState,
+
+    deleteAllySelection: (state, action: { payload: TSupportedFaction }) => {
+      delete state.allySelections[action.payload]
+    },
+    resetAllySelection: (state, action: { payload: TSupportedFaction }) => {
+      state.allySelections[action.payload] = { units: [], battalions: [] }
+    },
+    resetAllySelections: (state, action) => {
+      state.allySelections = initialState.allySelections
+    },
+    resetSelections: (state, action) => {
+      state.selections = initialState.selections
+    },
+    updateAllyUnits: (
+      state,
+      action: { payload: { factionName: keyof TSupportedFaction; units: TUnits } }
+    ) => {
+      const { factionName, units } = action.payload
+      state.allySelections[factionName].units = units
+    },
+    updateAllyBattalions: (
+      state,
+      action: { payload: { factionName: keyof TSupportedFaction; battalions: TBattalions } }
+    ) => {
+      const { factionName, battalions } = action.payload
+      state.allySelections[factionName].battalions = battalions
+    },
+    updateAllySelections: (state, action) => {
+      state.allySelections = action.payload
+    },
+    updateAllegiances: (state, action: TAction) => {
+      handleSideEffects(state, action.payload, 'allegiances')
+      state.selections.allegiances = action.payload
+    },
+    updateArtifacts: (state, action: TAction) => {
+      state.selections.artifacts = action.payload
+    },
+
+    /**
+     * Non destructive way to add to selections
+     * @param state
+     * @param action
+     */
+    addToSelections: (state, action: TAddToSelectionsAction) => {
+      const { value, slice, values } = action.payload
+      state.selections[slice] = uniq(state.selections[slice].concat(values))
+      state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
+    },
+
+    updateBattalions: (state, action: TAction) => {
+      handleSideEffects(state, action.payload, 'battalions')
+      state.selections.battalions = action.payload
+    },
+    updateCommands: (state, action: TAction) => {
+      state.selections.commands = action.payload
+    },
+    updateEndlessSpells: (state, action: TAction) => {
+      state.selections.endless_spells = action.payload
+    },
+    updateScenery: (state, action: TAction) => {
+      state.selections.scenery = action.payload
+    },
+    updateSelections: (state, action) => {
+      state.selections = action.payload
+    },
+    updateSpells: (state, action: TAction) => {
+      state.selections.spells = action.payload
+    },
+    updateTraits: (state, action: TAction) => {
+      handleSideEffects(state, action.payload, 'traits')
+      state.selections.traits = action.payload
+    },
+    updateTriumphs: (state, action: TAction) => {
+      state.selections.triumphs = action.payload
+    },
+    updateUnits: (state, action: TAction) => {
+      handleSideEffects(state, action.payload, 'units')
+      state.selections.units = action.payload
+    },
   },
 })
 
