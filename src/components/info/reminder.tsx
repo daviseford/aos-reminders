@@ -1,4 +1,4 @@
-import { CardHeaderComponent } from 'components/info/card'
+import { CardHeader } from 'components/info/card'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
@@ -13,12 +13,7 @@ import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 
-const {
-  addReminder: hideReminder,
-  deleteWhen: hideWhen,
-  deleteReminder: showReminder,
-  addWhen: showWhen,
-} = visibilityActions
+const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
 interface IReminderProps {
   actions: TTurnAction[]
@@ -66,10 +61,6 @@ export const Reminder: React.FC<IReminderProps> = props => {
     if (!isMobile) showWhen(title) // Auto-open reminders on desktop
   }, [isMobile, title])
 
-  const handleShowWhen = useCallback(() => {
-    showWhen(title)
-  }, [title])
-
   useEffect(() => {
     // If we've previously dragged some reminders around,
     // and the stored reminder order has the same ids as our current actions
@@ -97,10 +88,8 @@ export const Reminder: React.FC<IReminderProps> = props => {
             className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}
           >
             <div className="card border-dark my-2 mx-1">
-              <CardHeaderComponent
+              <CardHeader
                 title={title}
-                showCard={handleShowWhen}
-                hideCard={hideWhen}
                 isVisible={isVisible}
                 headerClassName={`${theme.reminderHeader} text-white`}
                 iconSize={1.2}

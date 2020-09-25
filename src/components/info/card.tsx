@@ -1,13 +1,14 @@
 import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilityToggle'
 import { SelectMulti, SelectOne, TDropdownOption, TSelectOneSetValueFn } from 'components/input/select'
 import { useTheme } from 'context/useTheme'
-import { selectors, visibility } from 'ducks'
+import { selectors, visibilityActions } from 'ducks'
 import React, { useEffect, useMemo } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
 import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
-import { IStore } from 'types/store'
 import useWindowSize from 'utils/hooks/useWindowSize'
+
+const { addSelector: hideCard, deleteSelector: showCard } = visibilityActions
 
 interface IBaseCardProps {
   label?: string
@@ -46,7 +47,6 @@ const CardComponent: React.FC<ICardProps> = props => {
 }
 
 interface ICardMultiProps extends IBaseCardProps {
-  hiddenSelectors: string[] // state2props
   items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
   selectionCount: number
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
@@ -54,17 +54,10 @@ interface ICardMultiProps extends IBaseCardProps {
   enableLog?: boolean
 }
 
-const CardMultiComponent = (props: ICardMultiProps) => {
-  const {
-    enableLog = false,
-    hiddenSelectors,
-    items,
-    label = null,
-    mobileTitle = null,
-    setValues,
-    title,
-    values,
-  } = props
+export const CardMultiSelect = (props: ICardMultiProps) => {
+  const hiddenSelectors = useSelector(selectors.selectSelectors)
+
+  const { enableLog = false, items, label = null, mobileTitle = null, setValues, title, values } = props
 
   const selectItems = items.map(x => x.name)
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
@@ -86,24 +79,15 @@ const CardMultiComponent = (props: ICardMultiProps) => {
 
 interface ICardSingleSelectProps extends IBaseCardProps {
   enableLog?: boolean
-  hiddenSelectors: string[] // state2props
   items: string[]
   selectionCount: number
   setValue: TSelectOneSetValueFn
   value?: string | null
 }
 
-const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
-  const {
-    enableLog = false,
-    hiddenSelectors,
-    items,
-    label = null,
-    mobileTitle = null,
-    setValue,
-    title,
-    value = null,
-  } = props
+export const CardSingleSelect: React.FC<ICardSingleSelectProps> = props => {
+  const hiddenSelectors = useSelector(selectors.selectSelectors)
+  const { enableLog = false, items, label = null, mobileTitle = null, setValue, title, value = null } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])
   const log = enableLog ? { title, label: label || title } : null
 
@@ -121,33 +105,23 @@ const CardSingleSelectComponent: React.FC<ICardSingleSelectProps> = props => {
 
 interface ICardHeaderProps extends IBaseCardProps {
   headerClassName?: string
-  hideCard: (value: string) => void
   iconSize?: number
   isVisible: boolean
   selectionCount?: number
-  showCard: (value: string) => void
   type?: TVisibilityIconType
 }
 
-export const CardHeaderComponent = (props: ICardHeaderProps) => {
-  const {
-    title,
-    mobileTitle,
-    isVisible,
-    hideCard,
-    showCard,
-    type = 'minus',
-    iconSize = 1,
-    selectionCount,
-  } = props
+export const CardHeader = (props: ICardHeaderProps) => {
+  const { title, mobileTitle, isVisible, type = 'minus', iconSize = 1, selectionCount } = props
+  const dispatch = useDispatch()
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  const handleVisibility = () => (isVisible ? hideCard(title) : showCard(title))
+  const handleVisibility = () => (isVisible ? dispatch(hideCard(title)) : dispatch(showCard(title)))
 
   useEffect(() => {
-    if (isMobile && title !== 'Units') hideCard(title)
-  }, [hideCard, isMobile, title])
+    if (isMobile && title !== 'Units') dispatch(hideCard(title))
+  }, [dispatch, isMobile, title])
 
   const styles = {
     cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2} ${isMobile ? `px-3` : ``}`,
@@ -182,18 +156,3 @@ export const CardHeaderComponent = (props: ICardHeaderProps) => {
     </div>
   )
 }
-
-const mapDispatchToProps = {
-  hideCard: visibility.actions.addSelector,
-  showCard: visibility.actions.deleteSelector,
-}
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  hiddenSelectors: selectors.selectSelectors(state),
-})
-
-const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
-
-export const CardMultiSelect = connect(mapStateToProps, null)(CardMultiComponent)
-export const CardSingleSelect = connect(mapStateToProps, null)(CardSingleSelectComponent)

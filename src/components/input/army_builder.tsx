@@ -42,6 +42,7 @@ const ArmyBuilder = () => {
                   )}
                   title={card.title}
                   values={card.values}
+                  selectionCount={0}
                 />
               )}
               {card.type === 'single' && card.setValue && (
@@ -54,6 +55,7 @@ const ArmyBuilder = () => {
                   setValue={withSelectOne(value => dispatch(card.setValue(value as TOriginRealms | null)))}
                   title={card.title}
                   value={card.value}
+                  selectionCount={0}
                 />
               )}
             </>
