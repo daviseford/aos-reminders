@@ -6,6 +6,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
+import { ICurrentArmy } from 'types/army'
 import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
 import { logEvent } from 'utils/analytics'
@@ -15,7 +16,7 @@ interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
   showSavedArmies: () => void
-  army: ISavedArmy
+  army: ICurrentArmy
   hiddenReminders: IVisibilityStore['reminders']
 }
 

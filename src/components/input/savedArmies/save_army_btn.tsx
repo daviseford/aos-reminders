@@ -8,30 +8,25 @@ import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
-import { ISavedArmy } from 'types/savedArmy'
-import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 
 interface ISaveArmyProps {
-  currentArmy: ISavedArmy
   showSavedArmies: () => void
-  hiddenReminders: IVisibilityStore['reminders']
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
-  currentArmy,
-  showSavedArmies,
-  hiddenReminders,
-}) => {
+const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isActive } = useSubscription()
   const { login } = useLogin({ origin: 'SaveArmyBtn' })
+
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -60,14 +55,6 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
     </>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  currentArmy: selectors.selectCurrentArmy(state),
-  hiddenReminders: selectors.selectReminders(state),
-})
-
-const SaveArmyBtn = connect(mapStateToProps, null)(SaveArmyBtnComponent)
 
 export default SaveArmyBtn
 

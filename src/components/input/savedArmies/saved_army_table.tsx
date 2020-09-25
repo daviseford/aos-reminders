@@ -1,13 +1,14 @@
 import { useTheme } from 'context/useTheme'
 import { sortBy } from 'lodash'
 import React, { useMemo } from 'react'
+import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 import { ITheme } from 'types/theme'
 import { titleCase } from 'utils/textUtils'
 
 interface ISavedArmyTable {
-  army: ISavedArmyFromApi | ISavedArmy
+  army: ISavedArmyFromApi | ISavedArmy | ICurrentArmy
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
