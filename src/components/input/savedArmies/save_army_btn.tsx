@@ -73,11 +73,7 @@ const SubscribeBtn = () => {
   )
 }
 
-interface ISaveButtonProps {
-  handleClick: () => void
-}
-
-const SaveButton = ({ handleClick }: ISaveButtonProps) => {
+const SaveButton = ({ handleClick }: { handleClick: () => void }) => {
   return (
     <GenericButton onClick={handleClick}>
       <FaSave className="mr-2" /> Save Army
