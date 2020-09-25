@@ -6,9 +6,7 @@ interface IClearArmyButton {
   clearArmyClick: (e: any) => void
 }
 
-const ClearArmyButton: React.FC<IClearArmyButton> = props => {
-  const { clearArmyClick } = props
-
+const ClearArmyButton: React.FC<IClearArmyButton> = ({ clearArmyClick }) => {
   return (
     <GenericButton onClick={clearArmyClick}>
       <FaTrashAlt className="mr-2" /> Clear Army

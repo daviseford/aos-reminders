@@ -6,9 +6,7 @@ interface IAddAllyButton {
   setAllyClick: (e: any) => void
 }
 
-const AddAllyButton: React.FC<IAddAllyButton> = props => {
-  const { setAllyClick } = props
-
+const AddAllyButton: React.FC<IAddAllyButton> = ({ setAllyClick }) => {
   return (
     <GenericButton onClick={setAllyClick}>
       <FaPlus className="mr-2" /> Add Ally

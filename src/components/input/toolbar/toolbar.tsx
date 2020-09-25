@@ -2,14 +2,12 @@ import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
-import { army, realmscape, selections, selectors } from 'ducks'
+import { armyActions, realmscapeActions, selectionActions, selectors } from 'ducks'
 import { without } from 'lodash'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useCallback, useMemo, useState } from 'react'
-import { connect } from 'react-redux'
-import { IArmy, TUnits } from 'types/army'
-import { ISavedArmy } from 'types/savedArmy'
-import { IStore } from 'types/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { IArmy } from 'types/army'
 import { logClick } from 'utils/analytics'
 import { armyHasEntries } from 'utils/armyUtils'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -26,36 +24,25 @@ const ShowSavedArmies = lazy(() => import('../savedArmies/saved_armies'))
 const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_btn'))
 const UpdateArmyBtn = lazy(() => import('../savedArmies/update_army_btn'))
 
+const { updateAllyArmy } = armyActions
+const { resetAllySelections, resetSelections, resetAllySelection } = selectionActions
+const { resetRealmscapeStore } = realmscapeActions
+
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
-interface IToolbarProps {
-  allyFactionNames: TSupportedFaction[]
-  currentArmy: ISavedArmy
-  factionName: TSupportedFaction
-  resetAllySelection: (factionName: TSupportedFaction) => void
-  resetAllySelections: () => void
-  resetRealmscapeStore: () => void
-  resetSelections: () => void
-  updateAllyArmy: (payload: { factionName: TSupportedFaction; Army: IArmy }) => void
-  updateAllyUnits: (payload: { factionName: TSupportedFaction; units: TUnits }) => void
-}
-
-const ToolbarComponent = (props: IToolbarProps) => {
-  const {
-    allyFactionNames,
-    currentArmy,
-    factionName,
-    resetAllySelection,
-    resetAllySelections,
-    resetRealmscapeStore,
-    resetSelections,
-    updateAllyArmy,
-  } = props
+const Toolbar = () => {
+  const dispatch = useDispatch()
   const { isGameMode, isOnline } = useAppStatus()
   const { loadedArmy, armyHasChanges, setLoadedArmy } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
+
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const factionName = useSelector(selectors.selectFactionName)
+  const allyFactionNames = useSelector(selectors.selectAllyFactionNames)
+
   const [isShowingSavedArmies, setIsShowingSavedArmies] = useState({ edit: false, game: false })
   const [isShowingImport, setIsShowingWarscrollImport] = useState(false)
+
   const currentViewMode = isGameMode ? 'game' : 'edit'
 
   const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
@@ -79,22 +66,22 @@ const ToolbarComponent = (props: IToolbarProps) => {
     e => {
       e?.preventDefault?.()
       const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
-      resetAllySelection(newAllyFaction)
-      updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy })
+      dispatch(resetAllySelection(newAllyFaction))
+      dispatch(updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy }))
     },
-    [factionName, allyFactionNames, resetAllySelection, updateAllyArmy]
+    [factionName, allyFactionNames, dispatch]
   )
 
   const clearArmyClick = useCallback(
     e => {
       e?.preventDefault?.()
-      resetAllySelections()
-      resetRealmscapeStore()
-      resetSelections()
+      dispatch(resetAllySelections())
+      dispatch(resetRealmscapeStore())
+      dispatch(resetSelections())
       logClick('ClearArmy')
       setLoadedArmy(null)
     },
-    [resetAllySelections, resetRealmscapeStore, resetSelections, setLoadedArmy]
+    [dispatch, setLoadedArmy]
   )
 
   if (isGameMode) return <></>
@@ -178,23 +165,5 @@ const ToolbarComponent = (props: IToolbarProps) => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  allyFactionNames: selectors.selectAllyFactionNames(state),
-  currentArmy: selectors.selectCurrentArmy(state),
-  factionName: selectors.selectFactionName(state),
-})
-
-const mapDispatchToProps = {
-  resetAllySelection: selections.actions.resetAllySelection,
-  resetAllySelections: selections.actions.resetAllySelections,
-  resetRealmscapeStore: realmscape.actions.resetRealmscapeStore,
-  resetSelections: selections.actions.resetSelections,
-  updateAllyArmy: army.actions.updateAllyArmy,
-  updateAllyUnits: selections.actions.updateAllyUnits,
-}
-
-const Toolbar = connect(mapStateToProps, mapDispatchToProps)(ToolbarComponent)
 
 export default Toolbar
