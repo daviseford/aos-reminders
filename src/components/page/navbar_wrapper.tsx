@@ -3,7 +3,7 @@ import React from 'react'
 import { navbarStyles } from 'theme/helperClasses'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
-const NavbarWrapper = ({ children }) => {
+const NavbarWrapper: React.FC = ({ children }) => {
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 

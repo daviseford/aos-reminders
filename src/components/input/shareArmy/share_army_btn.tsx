@@ -14,6 +14,7 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import openPopup from 'utils/openPopup'
 
 interface IShareArmyProps {
   currentArmy: ISavedArmy
@@ -26,7 +27,7 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   showSavedArmies,
   hiddenReminders,
 }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithPopup } = useAuth0()
   const { isOffline } = useAppStatus()
   const { isActive } = useSubscription()
 
@@ -35,11 +36,16 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
+  const handleLogin = () => {
+    const popup = openPopup()
+    loginWithPopup({}, { popup })
+  }
+
   if (isOffline) return <></>
 
   return (
     <>
-      {!isAuthenticated && <ShareButton handleClick={loginWithRedirect} />}
+      {!isAuthenticated && <ShareButton handleClick={handleLogin} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 
@@ -69,10 +75,10 @@ const ShareArmyBtn = connect(mapStateToProps, null)(ShareArmyBtnComponent)
 export default ShareArmyBtn
 
 interface IShareButtonProps {
-  handleClick?: () => void
+  handleClick: () => void
 }
 
-const ShareButton = ({ handleClick = () => null }: IShareButtonProps) => {
+const ShareButton = ({ handleClick }: IShareButtonProps) => {
   return (
     <GenericButton onClick={handleClick}>
       <FaLink className="mr-2" /> Share

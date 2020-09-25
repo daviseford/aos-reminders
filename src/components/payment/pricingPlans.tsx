@@ -10,6 +10,7 @@ import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
+import openPopup from 'utils/openPopup'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
@@ -71,7 +72,7 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { supportPlan } = props
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
+  const { user, isAuthenticated, loginWithPopup } = useAuth0()
   const stripe = useStripe()
 
   if (!stripe) return null
@@ -116,6 +117,11 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       })
   }
 
+  const handleLogin = () => {
+    const popup = openPopup()
+    loginWithPopup({ redirect_uri: window.location.href }, { popup })
+  }
+
   return (
     <div className="card mb-4 shadow-sm">
       <div className="card-header bg-themeDarkBluePrimary text-light">
@@ -143,11 +149,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
             <GenericButton
               type="button"
               className="btn btn btn-block btn-primary btn-pill py-2"
-              onClick={
-                isAuthenticated
-                  ? handleStripeCheckout
-                  : () => loginWithRedirect({ redirect_uri: window.location.href })
-              }
+              onClick={isAuthenticated ? handleStripeCheckout : handleLogin}
             >
               Subscribe for {supportPlan.title}
             </GenericButton>

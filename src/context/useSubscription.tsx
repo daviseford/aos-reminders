@@ -80,7 +80,7 @@ interface ISubscriptionContext {
 
 const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
 
-const SubscriptionProvider = ({ children }) => {
+const SubscriptionProvider: React.FC = ({ children }) => {
   const { user, isLoading } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)

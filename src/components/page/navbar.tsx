@@ -5,20 +5,22 @@ import NavbarWrapper from 'components/page/navbar_wrapper'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { max } from 'lodash'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
+import openPopup from 'utils/openPopup'
 import { SubscriptionPlans } from 'utils/plans'
 
 const Navbar = () => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, isLoading, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, logout, isLoading, loginWithPopup } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { isTinyMobile } = useWindowSize()
+  const [loginPopupIsClosed, setLoginPopupIsClosed] = useState(false)
 
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
@@ -33,12 +35,24 @@ const Navbar = () => {
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
       logClick('Navbar-Login')
-      return loginWithRedirect()
+
+      const popup = openPopup()
+      setLoginPopupIsClosed(false)
+
+      // https://stackoverflow.com/a/48240128
+      const timer = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(timer)
+          setLoginPopupIsClosed(true)
+        }
+      }, 1000)
+
+      return loginWithPopup({}, { popup })
     }
   }
 
   if (isOffline) return <OfflineHeader />
-  if (isLoading || subscriptionLoading) return <LoadingHeader />
+  if ((isLoading && !loginPopupIsClosed) || subscriptionLoading) return <LoadingHeader />
 
   const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
 

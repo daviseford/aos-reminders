@@ -12,6 +12,7 @@ import { centerContentClass } from 'theme/helperClasses'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
+import openPopup from 'utils/openPopup'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -204,10 +205,15 @@ const SubscribeBtn = () => {
 }
 
 const UnsubscribedView = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithPopup } = useAuth0()
   const { isActive } = useSubscription()
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
+
+  const handleLogin = () => {
+    const popup = openPopup()
+    loginWithPopup({ redirect_uri: window.location.href }, { popup })
+  }
 
   return (
     <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
@@ -223,10 +229,7 @@ const UnsubscribedView = () => {
 
       <div className={`row align-items-center justify-content-center mt-2`}>
         {!isAuthenticated && (
-          <GenericButton
-            onClick={() => loginWithRedirect({ redirect_uri: window.location.href })}
-            className={`${theme.genericButton} btn-lg`}
-          >
+          <GenericButton onClick={handleLogin} className={`${theme.genericButton} btn-lg`}>
             <FaSignInAlt className="mr-2" />
             Login
           </GenericButton>

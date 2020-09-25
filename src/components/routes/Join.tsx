@@ -8,6 +8,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logClick, logEvent, logPageView } from 'utils/analytics'
+import openPopup from 'utils/openPopup'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -122,16 +123,17 @@ const RedeemSection = () => {
 }
 
 const Login = () => {
-  const { loginWithRedirect } = useAuth0()
+  const { loginWithPopup } = useAuth0()
 
-  const handleClick = e => {
+  const handleLogin = e => {
     e.preventDefault()
     logClick('Login-Before-Coupon')
-    return loginWithRedirect({ redirect_uri: window.location.href })
+    const popup = openPopup()
+    loginWithPopup({ redirect_uri: window.location.href }, { popup })
   }
 
   return (
-    <RedemptionLogin handleClick={handleClick}>
+    <RedemptionLogin handleClick={handleLogin}>
       <Preamble />
     </RedemptionLogin>
   )

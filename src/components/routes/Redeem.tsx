@@ -11,6 +11,7 @@ import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logClick, logEvent, logPageView } from 'utils/analytics'
 import { LocalRedemptionKey } from 'utils/localStore'
+import openPopup from 'utils/openPopup'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -144,7 +145,8 @@ const Login = () => {
     e.preventDefault()
     setLocalRedemptionKey()
     logClick('Login-Before-Redeem')
-    return loginWithPopup({ redirect_uri: window.location.href })
+    const popup = openPopup()
+    loginWithPopup({ redirect_uri: window.location.href }, { popup })
   }
 
   return (
