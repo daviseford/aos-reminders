@@ -1,5 +1,6 @@
 import { TDropdownOption } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
+import { store } from 'store'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
@@ -51,6 +52,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   updateFn,
   label
 ) => selectValues => {
+  const { dispatch } = store
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
 
   Object.keys(payload).forEach(value => {
@@ -59,7 +61,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
         const sideEffectVals = payload[value][slice].values
 
         if (sideEffectVals) {
-          updateFn({ value, values: sideEffectVals, slice })
+          dispatch(updateFn({ value, values: sideEffectVals, slice }))
           const trait = titleCase(slice)
 
           // Log each value to GA
