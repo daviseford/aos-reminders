@@ -14,7 +14,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 /**
  * This Route is used for coupon code redemption
  */
-const Join: React.FC = () => {
+const Join = () => {
   const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()

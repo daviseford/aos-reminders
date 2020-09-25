@@ -13,7 +13,7 @@ import { isDev, STRIPE_KEY } from 'utils/env'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
-const PricingPlansComponent: React.FC = () => {
+const PricingPlansComponent = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
 
   return (

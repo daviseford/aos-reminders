@@ -7,7 +7,7 @@ import { useSubscription } from 'context/useSubscription'
 import React, { useEffect, useMemo, useState } from 'react'
 import { paginateSavedArmies } from 'utils/paginate'
 
-const ShowSavedArmies: React.FC = () => {
+const ShowSavedArmies = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()

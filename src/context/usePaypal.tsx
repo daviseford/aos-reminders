@@ -16,7 +16,7 @@ const DEFAULT_OPTS = {
 
 const PaypalContext = React.createContext<IPaypalStatusProvider | void>(undefined)
 
-const PaypalProvider: React.FC = ({ children }) => {
+const PaypalProvider = ({ children }) => {
   const [paypalIsReady, setIsPaypalReady] = useState<boolean>(false)
   const isMounted = useRef(false)
 

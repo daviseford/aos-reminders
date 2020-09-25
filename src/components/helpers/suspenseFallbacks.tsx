@@ -38,7 +38,7 @@ export const LoadingHeader = () => {
   )
 }
 
-export const OfflineHeader: React.FC = () => {
+export const OfflineHeader = () => {
   const { pathname } = window.location
 
   return (

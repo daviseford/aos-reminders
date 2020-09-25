@@ -23,7 +23,7 @@ import { withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const Profile: React.FC = () => {
+const Profile = () => {
   const { isLoading, user } = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
@@ -63,7 +63,7 @@ const Profile: React.FC = () => {
 
 export default Profile
 
-const UserCard: React.FC = () => {
+const UserCard = () => {
   const { user } = useAuth0()
   const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
   const { theme } = useTheme()

@@ -16,7 +16,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 
-const Subscribe: React.FC = () => {
+const Subscribe = () => {
   const { isLoading } = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
   const { theme } = useTheme()
@@ -82,7 +82,7 @@ const ExamplesRow = () => {
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
           gifUrl={'/img/save_load_demo.gif'}
-          description={'Saving, isLoading, and deleting armies'}
+          description={'Saving, loading, and deleting armies'}
           label={'Demo-SaveLoad'}
         />
       </div>

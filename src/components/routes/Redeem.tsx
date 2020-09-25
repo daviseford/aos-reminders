@@ -17,7 +17,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 /**
  * This Route is used for coupon code redemption
  */
-const Redeem: React.FC = () => {
+const Redeem = () => {
   const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
@@ -107,8 +107,9 @@ const RedeemSection = () => {
       {!error && !success && <Preamble />}
       {!error && !success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this gifted
-          subscription, click the button below!
+          You're currently logged in as <strong>{user.email}</strong>.
+          <br />
+          If you're ready to redeem this gifted subscription, click the button below!
         </p>
       )}
 
@@ -137,13 +138,13 @@ const setLocalRedemptionKey = () => {
   }
 }
 const Login = () => {
-  const { loginWithRedirect } = useAuth0()
+  const { loginWithPopup } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()
     setLocalRedemptionKey()
     logClick('Login-Before-Redeem')
-    return loginWithRedirect({ redirect_uri: window.location.href })
+    return loginWithPopup({ redirect_uri: window.location.href })
   }
 
   return (
