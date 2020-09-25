@@ -54,3 +54,5 @@ export const visibility = createSlice({
     },
   },
 })
+
+export const visibilityActions = visibility.actions

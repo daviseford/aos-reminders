@@ -59,3 +59,5 @@ export const army = createSlice({
     },
   },
 })
+
+export const armyActions = army.actions

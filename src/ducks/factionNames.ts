@@ -15,3 +15,5 @@ export const factionNames = createSlice({
     },
   },
 })
+
+export const factionNamesActions = factionNames.actions

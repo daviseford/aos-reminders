@@ -44,3 +44,5 @@ export const realmscape = createSlice({
     },
   },
 })
+
+export const realmscapeActions = realmscape.actions

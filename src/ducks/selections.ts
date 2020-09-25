@@ -44,10 +44,10 @@ export const selections = createSlice({
     resetAllySelection: (state, action: { payload: TSupportedFaction }) => {
       state.allySelections[action.payload] = { units: [], battalions: [] }
     },
-    resetAllySelections: (state, action) => {
+    resetAllySelections: state => {
       state.allySelections = initialState.allySelections
     },
-    resetSelections: (state, action) => {
+    resetSelections: state => {
       state.selections = initialState.selections
     },
     updateAllyUnits: (
@@ -118,6 +118,8 @@ export const selections = createSlice({
     },
   },
 })
+
+export const selectionActions = selections.actions
 
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
