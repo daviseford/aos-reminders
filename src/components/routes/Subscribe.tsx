@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
@@ -6,9 +7,7 @@ import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -18,7 +17,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 
 const Subscribe: React.FC = () => {
-  const { loading }: IUseAuth0 = useAuth0()
+  const { isLoading } = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -31,7 +30,7 @@ const Subscribe: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isSubscribed && isActive) return <AlreadySubscribed />
 
   return (
@@ -83,7 +82,7 @@ const ExamplesRow = () => {
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
           gifUrl={'/img/save_load_demo.gif'}
-          description={'Saving, loading, and deleting armies'}
+          description={'Saving, isLoading, and deleting armies'}
           label={'Demo-SaveLoad'}
         />
       </div>

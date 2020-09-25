@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { SubscriptionApi } from 'api/subscriptionApi'
@@ -6,9 +7,7 @@ import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { IconContext } from 'react-icons'
-import { IUseAuth0 } from 'types/auth0'
 import { IUser } from 'types/user'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
@@ -16,7 +15,7 @@ import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent: React.FC = () => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
 
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
 
@@ -78,7 +77,7 @@ interface IPlanProps {
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { user, supportPlan } = props
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   if (!stripe) return null
 
@@ -167,7 +166,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 }
 
 const PayPalComponent = (props: IPlanProps) => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const { paypal_dev, paypal_prod, title } = props.supportPlan

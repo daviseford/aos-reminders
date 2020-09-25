@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import config from 'auth_config.json'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import NavbarWrapper from 'components/page/navbar_wrapper'
@@ -5,10 +6,8 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { max } from 'lodash'
 import React from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -17,7 +16,7 @@ import { SubscriptionPlans } from 'utils/plans'
 
 const Navbar = () => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, loading, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, logout, isLoading, loginWithRedirect } = useAuth0()
   const { isActive, subscriptionLoading } = useSubscription()
   const { isTinyMobile } = useWindowSize()
 
@@ -39,7 +38,7 @@ const Navbar = () => {
   }
 
   if (isOffline) return <OfflineHeader />
-  if (loading || subscriptionLoading) return <LoadingHeader />
+  if (isLoading || subscriptionLoading) return <LoadingHeader />
 
   const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
 

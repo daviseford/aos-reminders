@@ -12,30 +12,14 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { installNewWorker } from 'utils/installNewWorker'
 import config from './auth_config.json'
-import { Auth0Provider } from './react-auth0-wrapper'
+import { Auth0Provider } from '@auth0/auth0-react'
 import * as serviceWorker from './serviceWorker'
 import { persistor, store } from './store'
-
-// A function that routes the user to the right place
-// after login (Auth0)
-const onRedirectCallback = appState => {
-  window.history.replaceState(
-    {},
-    document.title,
-    appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
-  )
-}
 
 render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Auth0Provider
-        domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={window.location.origin}
-        // @ts-ignore
-        onRedirectCallback={onRedirectCallback}
-      >
+      <Auth0Provider domain={config.domain} clientId={config.clientId} redirect_uri={window.location.origin}>
         <AppStatusProvider>
           <SubscriptionProvider>
             <SavedArmiesProvider>

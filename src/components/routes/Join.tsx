@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
@@ -6,8 +7,6 @@ import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logEvent, logPageView } from 'utils/analytics'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -16,7 +15,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
  * This Route is used for coupon code redemption
  */
 const Join: React.FC = () => {
-  const { loading, user }: IUseAuth0 = useAuth0()
+  const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
 
@@ -31,7 +30,7 @@ const Join: React.FC = () => {
   }, [getSubscription])
 
   if (isDark) setLightTheme()
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isActive) return <AlreadySubscribed />
 
   return (
@@ -55,7 +54,7 @@ const Join: React.FC = () => {
 const Preamble = () => <p>Congratulations! We'll help you redeem your coupon code ASAP!</p>
 
 const RedeemSection = () => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const [couponId, setCouponId] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -123,7 +122,7 @@ const RedeemSection = () => {
 }
 
 const Login = () => {
-  const { loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()

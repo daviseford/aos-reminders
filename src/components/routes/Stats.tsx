@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { LinkNewTab } from 'components/helpers/link'
 import { LargeSpinner, LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
@@ -5,11 +6,9 @@ import FooterComponent from 'components/page/footer'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSignInAlt, FaUserGraduate } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -17,7 +16,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const Stats = () => {
-  const { loading }: IUseAuth0 = useAuth0()
+  const { isLoading } = useAuth0()
   const { isActive, getSubscription, subscriptionLoading } = useSubscription()
   const { theme } = useTheme()
 
@@ -30,7 +29,7 @@ const Stats = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || subscriptionLoading) return <LoadingBody />
+  if (isLoading || subscriptionLoading) return <LoadingBody />
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
@@ -205,7 +204,7 @@ const SubscribeBtn = () => {
 }
 
 const UnsubscribedView = () => {
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isActive } = useSubscription()
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()

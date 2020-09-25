@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import GenericButton from 'components/input/generic_button'
 import { ShareArmyModal } from 'components/input/shareArmy/share_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
@@ -5,12 +6,10 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { FaLink } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
@@ -27,7 +26,7 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   showSavedArmies,
   hiddenReminders,
 }) => {
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { isOffline } = useAppStatus()
   const { isActive } = useSubscription()
 

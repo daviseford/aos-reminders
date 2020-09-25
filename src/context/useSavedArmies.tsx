@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import { useAppStatus } from 'context/useAppStatus'
@@ -5,10 +6,8 @@ import { useSubscription } from 'context/useSubscription'
 import { isEqual, sortBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { store } from 'store'
 import { ICurrentArmy } from 'types/army'
-import { IUseAuth0 } from 'types/auth0'
 import { IImportedArmy } from 'types/import'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
@@ -52,7 +51,7 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)

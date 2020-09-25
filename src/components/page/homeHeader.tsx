@@ -50,8 +50,10 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   } = props
   const { isOnline, isGameMode } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
-  const { theme } = useTheme()
+  const { theme, isDark } = useTheme()
   const { isMobile } = useWindowSize()
+
+  console.log(theme, isDark)
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {

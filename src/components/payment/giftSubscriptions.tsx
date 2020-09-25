@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import GenericButton from 'components/input/generic_button'
@@ -6,11 +7,9 @@ import { useTheme } from 'context/useTheme'
 import { capitalize } from 'lodash'
 import qs from 'qs'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { IGiftSubscription } from 'types/subscription'
 import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
@@ -124,7 +123,7 @@ const GiftButton = (props: IGiftSubscription) => {
 
 const PurchaseTable = () => {
   const { theme } = useTheme()
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const { isMobile } = useWindowSize()
 
   return (
@@ -181,7 +180,7 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { user, supportPlan } = props
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const stripe = useStripe()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)

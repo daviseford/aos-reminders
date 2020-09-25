@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
@@ -8,8 +9,6 @@ import { useTheme } from 'context/useTheme'
 import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logEvent, logPageView } from 'utils/analytics'
 import { LocalRedemptionKey } from 'utils/localStore'
 
@@ -19,7 +18,7 @@ const Navbar = lazy(() => import('components/page/navbar'))
  * This Route is used for coupon code redemption
  */
 const Redeem: React.FC = () => {
-  const { loading, user }: IUseAuth0 = useAuth0()
+  const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
 
@@ -35,7 +34,7 @@ const Redeem: React.FC = () => {
   }, [getSubscription])
 
   if (isDark) setLightTheme()
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isActive) return <AlreadySubscribed />
 
   return (
@@ -76,7 +75,7 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
 }
 
 const RedeemSection = () => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const redeemInfo = getRedemptionInfo()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -138,7 +137,7 @@ const setLocalRedemptionKey = () => {
   }
 }
 const Login = () => {
-  const { loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { loginWithRedirect } = useAuth0()
 
   const handleClick = e => {
     e.preventDefault()

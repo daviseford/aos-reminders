@@ -1,8 +1,7 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import ReactDOM from 'react-dom'
-import { IUseAuth0 } from 'types/auth0'
 import { isDev } from 'utils/env'
 import { IApprovalActions, IApprovalResponse, ICreateSubscriptionsActions } from './paypalTypes'
 
@@ -28,7 +27,7 @@ interface IPayPalButtonProps {
 }
 
 const PaypalButton: React.FC<IPayPalButtonProps> = props => {
-  const { user, isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const { paypalIsReady } = usePaypal()
 
   const { onSuccess = undefined, onCancel = undefined, planId, style = {} } = props

@@ -1,10 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import React from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { MdStorage } from 'react-icons/md'
-import { IUseAuth0 } from 'types/auth0'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalSavedArmies } from 'utils/localStore'
 
@@ -20,7 +19,7 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
   hideSavedArmies,
 }) => {
   const { isOnline, isOffline } = useAppStatus()
-  const { isAuthenticated }: IUseAuth0 = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()
   const { isMobile } = useWindowSize()
 
