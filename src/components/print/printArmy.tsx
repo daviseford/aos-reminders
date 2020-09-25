@@ -62,7 +62,7 @@ const PrintArmyComponent = (props: ICurrentArmy) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  ...selectors.getCurrentArmy(state),
+  ...selectors.selectCurrentArmy(state),
 })
 
 const PrintArmy = connect(mapStateToProps, null)(PrintArmyComponent)

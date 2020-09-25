@@ -181,8 +181,8 @@ const ToolbarComponent = (props: IToolbarProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  allyFactionNames: selectors.getAllyFactionNames(state),
-  currentArmy: selectors.getCurrentArmy(state),
+  allyFactionNames: selectors.selectAllyFactionNames(state),
+  currentArmy: selectors.selectCurrentArmy(state),
   factionName: selectors.selectFactionName(state),
 })
 

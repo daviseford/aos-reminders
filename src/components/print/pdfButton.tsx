@@ -72,10 +72,10 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  ...selectors.getCurrentArmy(state),
+  ...selectors.selectCurrentArmy(state),
   allyArmies: selectors.selectAllyArmies(state),
   army: selectors.selectArmy(state),
-  hiddenReminders: selectors.getReminders(state),
+  hiddenReminders: selectors.selectReminders(state),
 })
 
 const DownloadPDFButton = connect(mapStateToProps, null)(DownloadPDFComponent)

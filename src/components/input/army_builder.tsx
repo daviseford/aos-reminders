@@ -10,7 +10,7 @@ import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 const ArmyBuilder = () => {
   const factionName = useSelector(selectFactionName)
   const { isMobile } = useWindowSize()
-  const army = useGetArmy()
+  const army = useGetArmy(factionName)
 
   useEffect(() => {
     armyActions.updateArmy(army)

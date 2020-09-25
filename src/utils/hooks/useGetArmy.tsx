@@ -1,6 +1,7 @@
 import { RealmscapeFeatures } from 'army/generic'
 import { realmscapeActions, selectionActions } from 'ducks'
-import { getSelections, selectFactionName, selectRealmscapeSlice } from 'ducks/selectors'
+import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
+import { TPrimaryFactions } from 'meta/factions'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
@@ -12,7 +13,7 @@ import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 export const useGetArmyBuilderCards = (army: IArmy) => {
   const { origin_realm, realmscape, realmscape_feature } = useSelector(selectRealmscapeSlice)
-  const selections = useSelector(getSelections)
+  const selections = useSelector(selectSelections)
 
   const realmFeatureItems = useMemo(() => {
     const features = RealmscapeFeatures.map(x => x.name)
@@ -149,8 +150,7 @@ type TSingle = {
   value: string | null
 }
 
-export const useGetArmy = () => {
-  const factionName = useSelector(selectFactionName)
+export const useGetArmy = (factionName: TPrimaryFactions) => {
   const { origin_realm, realmscape } = useSelector(selectRealmscapeSlice)
 
   const army = useMemo(() => getArmy(factionName, origin_realm, realmscape), [

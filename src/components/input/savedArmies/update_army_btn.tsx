@@ -56,7 +56,7 @@ const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, 
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenReminders: selectors.getReminders(state),
+  hiddenReminders: selectors.selectReminders(state),
 })
 
 const UpdateArmyBtn = connect(mapStateToProps, null)(UpdateArmyBtnComponent)

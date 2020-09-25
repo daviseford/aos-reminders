@@ -62,8 +62,8 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  currentArmy: selectors.getCurrentArmy(state),
-  hiddenReminders: selectors.getReminders(state),
+  currentArmy: selectors.selectCurrentArmy(state),
+  hiddenReminders: selectors.selectReminders(state),
 })
 
 const ShareArmyBtn = connect(mapStateToProps, null)(ShareArmyBtnComponent)

@@ -146,8 +146,8 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenReminders: selectors.getReminders(state),
-  visibleWhens: selectors.getWhen(state),
+  hiddenReminders: selectors.selectReminders(state),
+  visibleWhens: selectors.selectWhen(state),
 })
 
 const mapDispatchToProps = {

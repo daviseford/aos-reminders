@@ -76,11 +76,11 @@ const RemindersComponent = (props: IRemindersProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  ...selectors.getCurrentArmy(state),
+  ...selectors.selectCurrentArmy(state),
   allyArmies: selectors.selectAllyArmies(state),
   army: selectors.selectArmy(state),
-  hiddenReminders: selectors.getReminders(state),
-  visibleWhens: selectors.getWhen(state),
+  hiddenReminders: selectors.selectReminders(state),
+  visibleWhens: selectors.selectWhen(state),
 })
 
 const mapDispatchToProps = {

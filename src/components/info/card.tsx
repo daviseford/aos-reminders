@@ -190,7 +190,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  hiddenSelectors: selectors.getSelectors(state),
+  hiddenSelectors: selectors.selectSelectors(state),
 })
 
 const CardHeader = connect(null, mapDispatchToProps)(CardHeaderComponent)
