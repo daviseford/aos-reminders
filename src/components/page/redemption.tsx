@@ -31,7 +31,7 @@ export const RedemptionSuccess = () => {
   return (
     <>
       <h5>Woohoo! You're all set!</h5>
-      <h2>
+      <h2 className="my-2">
         <FaRegSmileBeam />
       </h2>
       <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>

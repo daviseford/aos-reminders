@@ -22,17 +22,15 @@ const { deleteAllySelection, resetAllySelection, updateAllyBattalions, updateAll
 const { deleteAlly: hideAlly, addAlly: showAlly } = visibilityActions
 
 interface IAllyArmyBuilderProps {
-  allyFactionName: TSupportedFaction // parent
-  allySelectOptions: TSupportedFaction[] // parent
+  allyFactionName: TSupportedFaction
+  allySelectOptions: TSupportedFaction[]
 }
 
-export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
+export const AllyArmyBuilder = ({ allyFactionName, allySelectOptions }: IAllyArmyBuilderProps) => {
+  const dispatch = useDispatch()
   const allySelections = useSelector(selectors.selectAllySelections)
   const factionName = useSelector(selectors.selectFactionName)
   const visibleAllies = useSelector(selectors.selectAllies)
-  const dispatch = useDispatch()
-
-  const { allyFactionName, allySelectOptions } = props
 
   const { isOnline } = useAppStatus()
 
@@ -61,16 +59,16 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
   const handleClose = useCallback(
     e => {
       e?.preventDefault?.()
-      deleteAllySelection(allyFactionName)
-      deleteAllyArmy(allyFactionName)
-      hideAlly(allyFactionName)
+      dispatch(deleteAllySelection(allyFactionName))
+      dispatch(deleteAllyArmy(allyFactionName))
+      dispatch(hideAlly(allyFactionName))
     },
-    [allyFactionName]
+    [allyFactionName, dispatch]
   )
 
   useEffect(() => {
-    updateAllyArmy({ factionName: allyFactionName, Army: allyArmy })
-  }, [allyArmy, allyFactionName])
+    dispatch(updateAllyArmy({ factionName: allyFactionName, Army: allyArmy }))
+  }, [allyArmy, allyFactionName, dispatch])
 
   const isVisible = useMemo(() => !!visibleAllies.find(a => a === allyFactionName), [
     allyFactionName,
@@ -79,12 +77,12 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
 
   // Show ally when first clicked
   useEffect(() => {
-    showAlly(allyFactionName)
-  }, [allyFactionName])
+    dispatch(showAlly(allyFactionName))
+  }, [allyFactionName, dispatch])
 
   const setVisibility = useCallback(
-    () => (isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
-    [isVisible, allyFactionName]
+    () => dispatch(isVisible ? hideAlly(allyFactionName) : showAlly(allyFactionName)),
+    [isVisible, allyFactionName, dispatch]
   )
 
   return (

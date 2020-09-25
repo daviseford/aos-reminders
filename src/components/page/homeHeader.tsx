@@ -51,11 +51,11 @@ const Jumbotron: React.FC = () => {
   // Set our favorite faction
   useEffect(() => {
     if (favoriteFaction && !hasSelections && getArmyLink() === null) {
-      setFactionName(favoriteFaction)
+      dispatch(setFactionName(favoriteFaction))
     }
     // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
     // eslint-disable-next-line
-  }, [favoriteFaction, setFactionName])
+  }, [dispatch, favoriteFaction])
 
   const setValue = withSelectOne((value: string | null) => {
     setLoadedArmy(null)

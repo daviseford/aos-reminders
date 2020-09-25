@@ -16,18 +16,26 @@ export const withSelectOne: TWithSelectOne = method => selectValue => {
 }
 
 type TWithSelectMultipleWithPayload = (
-  method: (payload: any) => void,
+  method: ActionCreatorWithPayload<any, string>,
   key: string,
-  payload?: object
+  payload?: Record<string, any>
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
+/**
+ * This dispatches for you, no need to do it yourself
+ *
+ * @param method
+ * @param key
+ * @param payload
+ */
 export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   method,
   key,
   payload = {}
 ) => selectValues => {
+  const { dispatch } = store
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
-  method({ ...payload, [key]: values })
+  dispatch(method({ ...payload, [key]: values }))
 }
 
 export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
