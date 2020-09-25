@@ -3,7 +3,7 @@ import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { TBattalions, TUnits } from 'types/army'
 import { TSelectionTypes } from 'types/selections'
-import { ISelectionStore, IStore } from 'types/store'
+import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
 const initialState: ISelectionStore = {
   selections: {
@@ -37,7 +37,6 @@ export const selections = createSlice({
   initialState,
   reducers: {
     resetAllSelections: () => initialState,
-
     deleteAllySelection: (state, action: { payload: TSupportedFaction }) => {
       delete state.allySelections[action.payload]
     },
@@ -50,21 +49,20 @@ export const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
-    updateAllyUnits: (
-      state,
-      action: { payload: { factionName: keyof TSupportedFaction; units: TUnits } }
-    ) => {
+    updateAllyUnits: (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
       const { factionName, units } = action.payload
+      // @ts-ignore
       state.allySelections[factionName].units = units
     },
     updateAllyBattalions: (
       state,
-      action: { payload: { factionName: keyof TSupportedFaction; battalions: TBattalions } }
+      action: { payload: { factionName: TSupportedFaction; battalions: TBattalions } }
     ) => {
       const { factionName, battalions } = action.payload
+      // @ts-ignore
       state.allySelections[factionName].battalions = battalions
     },
-    updateAllySelections: (state, action) => {
+    updateAllySelections: (state, action: { payload: TAllySelectionStore }) => {
       state.allySelections = action.payload
     },
     updateAllegiances: (state, action: TAction) => {

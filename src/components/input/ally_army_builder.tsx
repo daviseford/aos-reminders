@@ -8,7 +8,7 @@ import { TSupportedFaction } from 'meta/factions'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { IconContext } from 'react-icons'
 import { FaTrashAlt } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
 import { TBattalions, TUnits } from 'types/army'
 import { IAllySelections } from 'types/selections'
@@ -30,6 +30,7 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
   const allySelections = useSelector(selectors.selectAllySelections)
   const factionName = useSelector(selectors.selectFactionName)
   const visibleAllies = useSelector(selectors.selectAllies)
+  const dispatch = useDispatch()
 
   const { allyFactionName, allySelectOptions } = props
 
@@ -49,12 +50,12 @@ export const AllyArmyBuilder = (props: IAllyArmyBuilderProps) => {
 
   const handleSetAllyFactionName = withSelectOne((value: string | null) => {
     const next = value as TSupportedFaction
-    deleteAllySelection(allyFactionName)
-    hideAlly(allyFactionName)
-    resetAllySelection(next)
+    dispatch(deleteAllySelection(allyFactionName))
+    dispatch(hideAlly(allyFactionName))
+    dispatch(resetAllySelection(next))
     if (isOnline) logAllyFaction(next)
-    switchAllyArmy({ prev: allyFactionName, next })
-    showAlly(next)
+    dispatch(switchAllyArmy({ prev: allyFactionName, next }))
+    dispatch(showAlly(next))
   })
 
   const handleClose = useCallback(
