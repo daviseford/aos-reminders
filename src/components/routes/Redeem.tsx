@@ -9,9 +9,9 @@ import { useTheme } from 'context/useTheme'
 import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { logClick, logEvent, logPageView } from 'utils/analytics'
+import { logEvent, logPageView } from 'utils/analytics'
+import useLogin from 'utils/hooks/useLogin'
 import { LocalRedemptionKey } from 'utils/localStore'
-import openPopup from 'utils/openPopup'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -139,14 +139,12 @@ const setLocalRedemptionKey = () => {
   }
 }
 const Login = () => {
-  const { loginWithPopup } = useAuth0()
+  const { login } = useLogin({ origin: 'Before-Redeem' })
 
   const handleClick = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     setLocalRedemptionKey()
-    logClick('Login-Before-Redeem')
-    const popup = openPopup()
-    loginWithPopup({ redirect_uri: window.location.href }, { popup })
+    login()
   }
 
   return (

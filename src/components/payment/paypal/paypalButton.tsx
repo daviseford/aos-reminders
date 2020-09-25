@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import openPopup from 'utils/openPopup'
+import useLogin from 'utils/hooks/useLogin'
 import { IApprovalActions, IApprovalResponse, ICreateSubscriptionsActions } from './paypalTypes'
 
 declare global {
@@ -21,13 +21,15 @@ interface IStyle {
 
 interface IPayPalButtonProps {
   planId: string
+  planTitle: string
   onSuccess?: (data: IApprovalResponse) => any
   onCancel?: (data: any) => any
   style?: IStyle
 }
 
 const PaypalButton: React.FC<IPayPalButtonProps> = props => {
-  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin: props.planTitle })
   const { paypalIsReady } = usePaypal()
 
   const { onSuccess = undefined, onCancel = undefined, planId, style = {} } = props
@@ -63,18 +65,13 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
     ReactDOM,
   })
 
-  const handleLogin = () => {
-    const popup = openPopup()
-    loginWithPopup({ redirect_uri: window.location.href }, { popup })
-  }
-
   return (
     <Button
       {...props}
       createSubscription={!isAuthenticated ? undefined : _createSubscription}
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
       style={btnStyle}
-      onClick={isAuthenticated ? undefined : handleLogin}
+      onClick={isAuthenticated ? undefined : login}
       onCancel={onCancel}
     />
   )

@@ -7,8 +7,8 @@ import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { logClick, logEvent, logPageView } from 'utils/analytics'
-import openPopup from 'utils/openPopup'
+import { logEvent, logPageView } from 'utils/analytics'
+import useLogin from 'utils/hooks/useLogin'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -123,17 +123,10 @@ const RedeemSection = () => {
 }
 
 const Login = () => {
-  const { loginWithPopup } = useAuth0()
-
-  const handleLogin = e => {
-    e.preventDefault()
-    logClick('Login-Before-Coupon')
-    const popup = openPopup()
-    loginWithPopup({ redirect_uri: window.location.href }, { popup })
-  }
+  const { login } = useLogin({ origin: 'Before-Coupon' })
 
   return (
-    <RedemptionLogin handleClick={handleLogin}>
+    <RedemptionLogin handleClick={login}>
       <Preamble />
     </RedemptionLogin>
   )

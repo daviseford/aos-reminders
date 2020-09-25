@@ -15,7 +15,7 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import openPopup from 'utils/openPopup'
+import useLogin from 'utils/hooks/useLogin'
 
 interface ISaveArmyProps {
   currentArmy: ISavedArmy
@@ -29,24 +29,20 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
   hiddenReminders,
 }) => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, loginWithPopup } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const { isActive } = useSubscription()
+  const { login } = useLogin({ origin: 'SaveArmyBtn' })
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleLogin = () => {
-    const popup = openPopup()
-    loginWithPopup({}, { popup })
-  }
-
   if (isOffline) return <OfflineBtn text="Save Army" />
 
   return (
     <>
-      {!isAuthenticated && <SaveButton handleClick={handleLogin} />}
+      {!isAuthenticated && <SaveButton handleClick={login} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 

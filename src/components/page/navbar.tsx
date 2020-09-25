@@ -5,22 +5,22 @@ import NavbarWrapper from 'components/page/navbar_wrapper'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { max } from 'lodash'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
+import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
-import openPopup from 'utils/openPopup'
 import { SubscriptionPlans } from 'utils/plans'
 
 const Navbar = () => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, isLoading, loginWithPopup } = useAuth0()
+  const { isAuthenticated, logout } = useAuth0()
+  const { login, isLoggingIn } = useLogin({ origin: 'Navbar' })
   const { isActive, subscriptionLoading } = useSubscription()
   const { isTinyMobile } = useWindowSize()
-  const [loginPopupIsClosed, setLoginPopupIsClosed] = useState(false)
 
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
@@ -34,25 +34,12 @@ const Navbar = () => {
       LocalTheme.clear() // Revert back to default theme settings
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
-      logClick('Navbar-Login')
-
-      const popup = openPopup()
-      setLoginPopupIsClosed(false)
-
-      // https://stackoverflow.com/a/48240128
-      const timer = setInterval(() => {
-        if (popup?.closed) {
-          clearInterval(timer)
-          setLoginPopupIsClosed(true)
-        }
-      }, 1000)
-
-      return loginWithPopup({}, { popup })
+      return login()
     }
   }
 
   if (isOffline) return <OfflineHeader />
-  if ((isLoading && !loginPopupIsClosed) || subscriptionLoading) return <LoadingHeader />
+  if (isLoggingIn || subscriptionLoading) return <LoadingHeader />
 
   const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
 

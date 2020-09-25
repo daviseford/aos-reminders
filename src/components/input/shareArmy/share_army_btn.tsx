@@ -14,7 +14,7 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import openPopup from 'utils/openPopup'
+import useLogin from 'utils/hooks/useLogin'
 
 interface IShareArmyProps {
   currentArmy: ISavedArmy
@@ -27,25 +27,21 @@ const ShareArmyBtnComponent: React.FC<IShareArmyProps> = ({
   showSavedArmies,
   hiddenReminders,
 }) => {
-  const { isAuthenticated, loginWithPopup } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const { isOffline } = useAppStatus()
   const { isActive } = useSubscription()
+  const { login } = useLogin({ origin: 'ShareArmyBtn' })
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleLogin = () => {
-    const popup = openPopup()
-    loginWithPopup({}, { popup })
-  }
-
   if (isOffline) return <></>
 
   return (
     <>
-      {!isAuthenticated && <ShareButton handleClick={handleLogin} />}
+      {!isAuthenticated && <ShareButton handleClick={login} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 

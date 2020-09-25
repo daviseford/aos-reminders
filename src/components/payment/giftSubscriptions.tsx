@@ -13,8 +13,8 @@ import { centerContentClass } from 'theme/helperClasses'
 import { IGiftSubscription } from 'types/subscription'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
+import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
-import openPopup from 'utils/openPopup'
 import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
 
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
@@ -177,7 +177,9 @@ interface IPlanProps {
 }
 
 const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
-  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+  const origin = `${supportPlan.title}-GiftedSubscription`
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin })
   const stripe = useStripe()
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
@@ -190,7 +192,7 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
 
     if (quantity === 0) return // Can't do anything with zero quantity
 
-    logClick(`${supportPlan.title}-GiftedSubscription`)
+    logClick(origin)
 
     const sku = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
@@ -232,11 +234,6 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
     setQuantity(value)
   }
 
-  const handleLogin = () => {
-    const popup = openPopup()
-    loginWithPopup({}, { popup })
-  }
-
   return (
     <tr>
       <td>
@@ -258,7 +255,7 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
         <button
           type="button"
           className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
-          onClick={isAuthenticated ? handleCheckout : handleLogin}
+          onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? `Buy` : `Purchase`}
         </button>

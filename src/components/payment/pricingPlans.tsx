@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import openPopup from 'utils/openPopup'
+import useLogin from 'utils/hooks/useLogin'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
 import PayPalButton from './paypal/paypalButton'
 
@@ -72,7 +72,8 @@ interface IPlanProps {
 
 const PlanComponent: React.FC<IPlanProps> = props => {
   const { supportPlan } = props
-  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin: supportPlan.title })
   const stripe = useStripe()
 
   if (!stripe) return null
@@ -117,11 +118,6 @@ const PlanComponent: React.FC<IPlanProps> = props => {
       })
   }
 
-  const handleLogin = () => {
-    const popup = openPopup()
-    loginWithPopup({ redirect_uri: window.location.href }, { popup })
-  }
-
   return (
     <div className="card mb-4 shadow-sm">
       <div className="card-header bg-themeDarkBluePrimary text-light">
@@ -149,7 +145,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
             <GenericButton
               type="button"
               className="btn btn btn-block btn-primary btn-pill py-2"
-              onClick={isAuthenticated ? handleStripeCheckout : handleLogin}
+              onClick={isAuthenticated ? handleStripeCheckout : login}
             >
               Subscribe for {supportPlan.title}
             </GenericButton>
@@ -194,9 +190,10 @@ const PayPalComponent = (props: IPlanProps) => {
     <div className="col mt-2">
       {!props.paypalModalIsOpen && (
         <PayPalButton
-          planId={isDev ? paypal_dev : paypal_prod}
-          onSuccess={handleSuccess}
           onCancel={handleCancel}
+          onSuccess={handleSuccess}
+          planId={isDev ? paypal_dev : paypal_prod}
+          planTitle={title}
         />
       )}
       {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
