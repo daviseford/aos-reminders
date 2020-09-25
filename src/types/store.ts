@@ -2,6 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TSideEffectTypes } from 'utils/withSelect'
+import { TBattleRealms, TOriginRealms } from './realmscapes'
 
 export interface IArmyStore {
   army: IArmy
@@ -13,8 +14,8 @@ export interface IFactionNameStore {
 }
 
 export interface IRealmscapeStore {
-  origin_realm: string | null
-  realmscape: string | null
+  origin_realm: TOriginRealms | null
+  realmscape: TBattleRealms | null
   realmscape_feature: string | null
 }
 

@@ -1,19 +1,19 @@
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { IStore } from 'types/store'
 
 // Army
-export const getArmy = (state: IStore) => state.army.army
-export const getAllyArmies = (state: IStore) => state.army.allyArmies
+export const selectArmy = (state: IStore) => state.army.army
+export const selectAllyArmies = (state: IStore) => state.army.allyArmies
 
 // Faction Name
-export const getFactionName = (state: IStore) => state.factionNames.factionName
+export const selectFactionName = (state: IStore) => state.factionNames.factionName
 
 // Realmscape
-export const getOriginRealm = (state: IStore) => state.realmscape.origin_realm as TOriginRealms | null
-export const getRealmscape = (state: IStore) => state.realmscape.realmscape as TBattleRealms | null
-export const getRealmscapeFeature = (state: IStore) => state.realmscape.realmscape_feature
+export const selectOriginRealm = (state: IStore) => state.realmscape.origin_realm
+export const selectRealmscape = (state: IStore) => state.realmscape.realmscape
+export const selectRealmscapeFeature = (state: IStore) => state.realmscape.realmscape_feature
+export const selectRealmscapeSlice = (state: IStore) => state.realmscape
 
 // Selections
 export const getAllyFactionNames = (state: IStore) =>
@@ -33,10 +33,10 @@ export const getCurrentArmy = (state: IStore): ICurrentArmy => {
   return {
     allyFactionNames: getAllyFactionNames(state),
     allySelections: getAllySelections(state),
-    factionName: getFactionName(state),
-    origin_realm: getOriginRealm(state),
-    realmscape_feature: getRealmscapeFeature(state),
-    realmscape: getRealmscape(state),
+    factionName: selectFactionName(state),
+    origin_realm: selectOriginRealm(state),
+    realmscape_feature: selectRealmscapeFeature(state),
+    realmscape: selectRealmscape(state),
     selections: getSelections(state),
   }
 }

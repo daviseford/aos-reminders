@@ -1,66 +1,23 @@
-import { RealmscapeFeatures } from 'army/generic'
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
-import { getArmyBuilderCards } from 'components/input/army_builder_cards'
-import { army, realmscape, selections, selectors } from 'ducks'
-import { TSupportedFaction } from 'meta/factions'
+import { armyActions, selectionActions } from 'ducks'
+import { selectFactionName } from 'ducks/selectors'
 import React, { useEffect, useMemo } from 'react'
-import { connect } from 'react-redux'
-import { IArmy } from 'types/army'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { ISelections } from 'types/selections'
-import { IStore } from 'types/store'
-import { getArmy } from 'utils/getArmy/getArmy'
+import { useSelector } from 'react-redux'
+import { useGetArmy, useGetArmyBuilderCards } from 'utils/hooks/useGetArmy'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 
-export interface IArmyBuilderProps {
-  factionName: TSupportedFaction
-  origin_realm: TOriginRealms
-  realmscape_feature: string | null
-  realmscape: TBattleRealms | null
-  selections: ISelections
-  addToSelections: (payload: { values: string[]; slice: string }) => void
-  setOriginRealm: (value: string | null) => void
-  setRealmscape: (value: string | null) => void
-  setRealmscapeFeature: (value: string | null) => void
-  updateAllegiances: (values: string[]) => void
-  updateArmy: (army: IArmy) => void
-  updateArtifacts: (values: string[]) => void
-  updateBattalions: (values: string[]) => void
-  updateCommands: (values: string[]) => void
-  updateEndlessSpells: (values: string[]) => void
-  updateScenery: (values: string[]) => void
-  updateSpells: (values: string[]) => void
-  updateTraits: (values: string[]) => void
-  updateTriumphs: (values: string[]) => void
-  updateUnits: (values: string[]) => void
-}
-
-const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
-  const { factionName, origin_realm, updateArmy, realmscape } = props
+const ArmyBuilder = () => {
+  const factionName = useSelector(selectFactionName)
   const { isMobile } = useWindowSize()
-
-  const army = useMemo(() => getArmy(factionName, origin_realm, realmscape), [
-    factionName,
-    origin_realm,
-    realmscape,
-  ]) as IArmy
+  const army = useGetArmy()
 
   useEffect(() => {
-    updateArmy(army)
-  }, [army, updateArmy])
-
-  const realmFeatureItems = useMemo(() => {
-    const features = RealmscapeFeatures.map(x => x.name)
-    return realmscape ? features.filter(f => f.includes(realmscape)) : features
-  }, [realmscape])
+    armyActions.updateArmy(army)
+  }, [army])
 
   const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
-  const cards = useMemo(() => getArmyBuilderCards(army, props, realmFeatureItems), [
-    army,
-    props,
-    realmFeatureItems,
-  ])
+  const cards = useGetArmyBuilderCards(army)
 
   return (
     <div className="d-flex justify-content-center">
@@ -76,7 +33,7 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
               setValues={withSelectMultiWithSideEffects(
                 card.setValues,
                 card.sideEffects,
-                props.addToSelections,
+                selectionActions.addToSelections,
                 factionName
               )}
               title={card.title}
@@ -99,34 +56,5 @@ const ArmyBuilderComponent: React.FC<IArmyBuilderProps> = props => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  factionName: selectors.getFactionName(state),
-  origin_realm: selectors.getOriginRealm(state),
-  realmscape_feature: selectors.getRealmscapeFeature(state),
-  realmscape: selectors.getRealmscape(state),
-  selections: selectors.getSelections(state),
-})
-
-const mapDispatchToProps = {
-  addToSelections: selections.actions.addToSelections,
-  setOriginRealm: realmscape.actions.setOriginRealm,
-  setRealmscape: realmscape.actions.setRealmscape,
-  setRealmscapeFeature: realmscape.actions.setRealmscapeFeature,
-  updateAllegiances: selections.actions.updateAllegiances,
-  updateArmy: army.actions.updateArmy,
-  updateArtifacts: selections.actions.updateArtifacts,
-  updateBattalions: selections.actions.updateBattalions,
-  updateCommands: selections.actions.updateCommands,
-  updateEndlessSpells: selections.actions.updateEndlessSpells,
-  updateScenery: selections.actions.updateScenery,
-  updateSpells: selections.actions.updateSpells,
-  updateTraits: selections.actions.updateTraits,
-  updateTriumphs: selections.actions.updateTriumphs,
-  updateUnits: selections.actions.updateUnits,
-}
-
-const ArmyBuilder = connect(mapStateToProps, mapDispatchToProps)(ArmyBuilderComponent)
 
 export default ArmyBuilder

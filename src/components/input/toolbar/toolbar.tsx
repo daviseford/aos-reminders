@@ -183,7 +183,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyFactionNames: selectors.getAllyFactionNames(state),
   currentArmy: selectors.getCurrentArmy(state),
-  factionName: selectors.getFactionName(state),
+  factionName: selectors.selectFactionName(state),
 })
 
 const mapDispatchToProps = {

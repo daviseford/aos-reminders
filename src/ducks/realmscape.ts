@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
+import { SUPPORTED_BATTLE_REALMS, TBattleRealms } from 'types/realmscapes'
 import { IRealmscapeStore } from 'types/store'
 
 const initialState: IRealmscapeStore = {
@@ -8,7 +8,7 @@ const initialState: IRealmscapeStore = {
   realmscape_feature: null,
 }
 
-const getRealmscapeFromFeature = (feature: string): string | null => {
+const getRealmscapeFromFeature = (feature: string): TBattleRealms | null => {
   return SUPPORTED_BATTLE_REALMS.find(realm => feature.includes(realm)) || null
 }
 
@@ -26,21 +26,16 @@ export const realmscape = createSlice({
       const realmscape = action.payload
       let realmscape_feature = state.realmscape_feature
       if (realmscape && realmscape_feature && !realmscape_feature.includes(realmscape)) {
-        realmscape_feature = null // Reset the realmscape_feature
+        state.realmscape_feature = null // Reset the realmscape_feature
       }
-      return { ...state, realmscape, realmscape_feature }
+      state.realmscape = realmscape
     },
 
     setRealmscapeFeature: (state, action) => {
-      let realmscape = state.realmscape
       if (!state.realmscape && action.payload) {
-        realmscape = getRealmscapeFromFeature(action.payload)
+        state.realmscape = getRealmscapeFromFeature(action.payload)
       }
-      return {
-        ...state,
-        realmscape,
-        realmscape_feature: action.payload,
-      }
+      state.realmscape_feature = action.payload
     },
   },
 })

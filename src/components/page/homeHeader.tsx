@@ -40,7 +40,7 @@ const Jumbotron: React.FC = () => {
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  const factionName = useSelector(selectors.getFactionName)
+  const factionName = useSelector(selectors.selectFactionName)
   const hasSelections = useSelector(selectors.hasSelections)
 
   // Get our user's favorite faction from localStorage/API

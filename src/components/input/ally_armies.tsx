@@ -32,7 +32,7 @@ const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
 
 const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
-  factionName: selectors.getFactionName(state),
+  factionName: selectors.selectFactionName(state),
   allyFactionNames: selectors.getAllyFactionNames(state),
 })
 

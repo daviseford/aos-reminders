@@ -131,7 +131,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
   ...ownProps,
   allyFactionNames: selectors.getAllyFactionNames(state),
   allySelections: selectors.getAllySelections(state),
-  factionName: selectors.getFactionName(state),
+  factionName: selectors.selectFactionName(state),
   visibleAllies: selectors.getAllies(state),
 })
 
