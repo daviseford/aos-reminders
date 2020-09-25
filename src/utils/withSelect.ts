@@ -1,3 +1,4 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TDropdownOption } from 'components/input/select'
 import { ValueType } from 'react-select/src/types'
 import { store } from 'store'
@@ -40,12 +41,27 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
 }
 
 type TWithSelectMultiWithSideEffects = (
-  method: (payload: any) => void,
+  method: ActionCreatorWithPayload<string[], string>,
   payload: IWithSelectMultipleWithSideEffectsPayload,
-  updateFn: (payload: { value: string; values: string[]; slice: string }) => void,
+  updateFn: ActionCreatorWithPayload<
+    {
+      value: string
+      values: string[]
+      slice: string
+    },
+    string
+  >,
   label: string
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
+/**
+ * This dispatches for you, no need to do it yourself
+ *
+ * @param method
+ * @param payload
+ * @param updateFn
+ * @param label
+ */
 export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
@@ -73,5 +89,5 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
     }
   })
 
-  method(values)
+  dispatch(method(values))
 }

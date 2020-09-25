@@ -2,12 +2,14 @@ import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { armyActions, selectionActions } from 'ducks'
 import { selectFactionName } from 'ducks/selectors'
 import React, { useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { TOriginRealms } from 'types/realmscapes'
 import { useGetArmy, useGetArmyBuilderCards } from 'utils/hooks/useGetArmy'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 
 const ArmyBuilder = () => {
+  const dispatch = useDispatch()
   const factionName = useSelector(selectFactionName)
   const { isMobile } = useWindowSize()
   const army = useGetArmy(factionName)
@@ -22,36 +24,41 @@ const ArmyBuilder = () => {
   return (
     <div className="d-flex justify-content-center">
       <div className={rowClass}>
-        {cards.map(card =>
-          card.type === 'multi' ? (
-            <CardMultiSelect
-              enableLog={true}
-              items={card.items}
-              key={card.title}
-              label={factionName}
-              mobileTitle={card.mobileTitle || null}
-              setValues={withSelectMultiWithSideEffects(
-                card.setValues,
-                card.sideEffects,
-                selectionActions.addToSelections,
-                factionName
+        {cards.map(card => {
+          return (
+            <>
+              {card.type === 'multi' && card.setValues && (
+                <CardMultiSelect
+                  enableLog={true}
+                  items={card.items}
+                  key={card.title}
+                  label={factionName}
+                  mobileTitle={card.mobileTitle || null}
+                  setValues={withSelectMultiWithSideEffects(
+                    card.setValues,
+                    card.sideEffects,
+                    selectionActions.addToSelections,
+                    factionName
+                  )}
+                  title={card.title}
+                  values={card.values}
+                />
               )}
-              title={card.title}
-              values={card.values}
-            />
-          ) : (
-            <CardSingleSelect
-              enableLog={true}
-              items={card.items}
-              key={card.title}
-              label={factionName}
-              mobileTitle={card.mobileTitle || null}
-              setValue={withSelectOne(card.setValue)}
-              title={card.title}
-              value={card.value}
-            />
+              {card.type === 'single' && card.setValue && (
+                <CardSingleSelect
+                  enableLog={true}
+                  items={card.items}
+                  key={card.title}
+                  label={factionName}
+                  mobileTitle={card.mobileTitle || null}
+                  setValue={withSelectOne(value => dispatch(card.setValue(value as TOriginRealms | null)))}
+                  title={card.title}
+                  value={card.value}
+                />
+              )}
+            </>
           )
-        )}
+        })}
       </div>
     </div>
   )

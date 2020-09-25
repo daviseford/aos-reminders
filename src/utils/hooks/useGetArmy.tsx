@@ -1,3 +1,4 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { RealmscapeFeatures } from 'army/generic'
 import { realmscapeActions, selectionActions } from 'ducks'
 import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
@@ -20,7 +21,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
-  const value: (TMulti | TSingle)[] = useMemo(() => {
+  const value = useMemo(() => {
     return [
       {
         items: army.Units,
@@ -134,7 +135,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
 type TMulti = {
   items: TEntry[]
   mobileTitle?: string
-  setValues: (values: string[]) => void
+  setValues: ActionCreatorWithPayload<string[], string>
   sideEffects: IWithSelectMultipleWithSideEffectsPayload
   title: string
   type: 'multi'
@@ -144,7 +145,7 @@ type TMulti = {
 type TSingle = {
   items: string[]
   mobileTitle?: string
-  setValue: (value: string | null) => void
+  setValue: ActionCreatorWithPayload<string | null, string>
   title: string
   type: 'single'
   value: string | null
