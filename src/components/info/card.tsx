@@ -8,7 +8,7 @@ import { ValueType } from 'react-select/src/types'
 import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
-const { addSelector: hideCard, deleteSelector: showCard } = visibilityActions
+const { deleteWhen, addWhen } = visibilityActions
 
 interface IBaseCardProps {
   label?: string
@@ -117,10 +117,10 @@ export const CardHeader = (props: ICardHeaderProps) => {
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  const handleVisibility = () => dispatch(isVisible ? hideCard(title) : showCard(title))
+  const handleVisibility = () => dispatch(isVisible ? deleteWhen(title) : addWhen(title))
 
   useEffect(() => {
-    if (isMobile && title !== 'Units') dispatch(hideCard(title))
+    if (isMobile && title !== 'Units') dispatch(deleteWhen(title))
   }, [dispatch, isMobile, title])
 
   const styles = {
