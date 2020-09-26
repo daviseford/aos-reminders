@@ -12,7 +12,7 @@ const getRealmscapeFromFeature = (feature: string): TBattleRealms | null => {
   return SUPPORTED_BATTLE_REALMS.find(realm => feature.includes(realm)) || null
 }
 
-export const realmscape = createSlice({
+const realmscape = createSlice({
   name: 'realmscape',
   initialState,
   reducers: {
@@ -41,3 +41,4 @@ export const realmscape = createSlice({
 })
 
 export const realmscapeActions = realmscape.actions
+export default realmscape.reducer

@@ -15,8 +15,8 @@ const ArmyBuilder = () => {
   const army = useGetArmy(factionName)
 
   useEffect(() => {
-    armyActions.updateArmy(army)
-  }, [army])
+    dispatch(armyActions.updateArmy(army))
+  }, [army, dispatch])
 
   const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
   const cards = useGetArmyBuilderCards(army)

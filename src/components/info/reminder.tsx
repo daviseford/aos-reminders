@@ -6,7 +6,7 @@ import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import { LocalReminderOrder } from 'utils/localStore'
@@ -22,6 +22,7 @@ interface IReminderProps {
 }
 
 export const Reminder: React.FC<IReminderProps> = props => {
+  const dispatch = useDispatch()
   const { actions, isMobile, when } = props
 
   const { theme } = useTheme()
@@ -58,8 +59,8 @@ export const Reminder: React.FC<IReminderProps> = props => {
   )
 
   useEffect(() => {
-    if (!isMobile) showWhen(title) // Auto-open reminders on desktop
-  }, [isMobile, title])
+    if (!isMobile) dispatch(showWhen(title)) // Auto-open reminders on desktop
+  }, [dispatch, isMobile, title])
 
   useEffect(() => {
     // If we've previously dragged some reminders around,

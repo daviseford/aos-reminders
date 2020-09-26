@@ -1,5 +1,8 @@
-import { army, factionNames, realmscape, visibility } from 'ducks'
+import armyReducer from 'ducks/army'
+import factionNamesReducer from 'ducks/factionNames'
+import realmscapeReducer from 'ducks/realmscape'
 import selectionsReducer from 'ducks/selections'
+import visibilityReducer from 'ducks/visibility'
 import { combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -10,11 +13,11 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  army: army.reducer,
-  factionNames: factionNames.reducer,
-  realmscape: realmscape.reducer,
+  army: armyReducer,
+  factionNames: factionNamesReducer,
+  realmscape: realmscapeReducer,
   selections: selectionsReducer,
-  visibility: visibility.reducer,
+  visibility: visibilityReducer,
 })
 
 const pReducer = persistReducer(persistConfig, rootReducer)

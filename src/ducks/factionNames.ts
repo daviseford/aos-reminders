@@ -6,7 +6,7 @@ const initialState: IFactionNameStore = {
   factionName: SUPPORTED_FACTIONS[0],
 }
 
-export const factionNames = createSlice({
+const factionNames = createSlice({
   name: 'factionNames',
   initialState,
   reducers: {
@@ -17,3 +17,5 @@ export const factionNames = createSlice({
 })
 
 export const factionNamesActions = factionNames.actions
+
+export default factionNames.reducer

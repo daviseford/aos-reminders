@@ -24,7 +24,7 @@ const initialState: IArmyStore = {
   allyArmies: {},
 }
 
-export const army = createSlice({
+const army = createSlice({
   name: 'army',
   initialState,
   reducers: {
@@ -61,3 +61,5 @@ export const army = createSlice({
 })
 
 export const armyActions = army.actions
+
+export default army.reducer

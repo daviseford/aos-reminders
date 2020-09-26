@@ -9,7 +9,7 @@ const initialState: IVisibilityStore = {
   when: [],
 }
 
-export const visibility = createSlice({
+const visibility = createSlice({
   name: 'visibility',
   initialState,
   reducers: {
@@ -56,3 +56,5 @@ export const visibility = createSlice({
 })
 
 export const visibilityActions = visibility.actions
+
+export default visibility.reducer
