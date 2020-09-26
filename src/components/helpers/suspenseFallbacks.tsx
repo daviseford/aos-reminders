@@ -14,9 +14,7 @@ export const LoadingBtn = ({ text = 'Loading' }) => (
   </GenericButton>
 )
 
-export const OfflineBtn = (props: { text?: string }) => {
-  const { text = 'Offline' } = props
-
+export const OfflineBtn = ({ text = 'Offline' }) => {
   return (
     <GenericButton disabled type="button">
       <FiWifiOff className="mr-2 text-danger" /> {text}

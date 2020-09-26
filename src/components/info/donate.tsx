@@ -118,11 +118,11 @@ const BtcButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
 )
 
 const PayPalButton = () => {
-  const handleClick = useCallback(e => {
+  const handleClick = e => {
     e?.preventDefault?.()
     logClick('DonatePayPal')
     window.open('//paypal.me/daviseford')
-  }, [])
+  }
 
   return (
     <>

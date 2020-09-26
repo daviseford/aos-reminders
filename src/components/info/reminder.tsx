@@ -22,9 +22,8 @@ interface IReminderProps {
 }
 
 export const Reminder: React.FC<IReminderProps> = props => {
-  const dispatch = useDispatch()
   const { actions, isMobile, when } = props
-
+  const dispatch = useDispatch()
   const { theme } = useTheme()
 
   const hiddenReminders = useSelector(selectors.selectReminders)
