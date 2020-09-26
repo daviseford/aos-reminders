@@ -1,7 +1,7 @@
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { armyActions, selectionActions } from 'ducks'
 import { selectFactionName } from 'ducks/selectors'
-import React, { useEffect, useMemo } from 'react'
+import React, { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOriginRealms } from 'types/realmscapes'
 import { useGetArmy, useGetArmyBuilderCards } from 'utils/hooks/useGetArmy'
@@ -26,7 +26,7 @@ const ArmyBuilder = () => {
       <div className={rowClass}>
         {cards.map(card => {
           return (
-            <>
+            <Fragment key={card.title}>
               {card.type === 'multi' && card.setValues && (
                 <CardMultiSelect
                   enableLog={true}
@@ -58,7 +58,7 @@ const ArmyBuilder = () => {
                   selectionCount={0}
                 />
               )}
-            </>
+            </Fragment>
           )
         })}
       </div>

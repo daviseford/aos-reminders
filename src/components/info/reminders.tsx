@@ -5,8 +5,8 @@ import { without } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnWhen } from 'types/phases'
-import useGetReminders from 'utils/hooks/useGetReminders'
 import useWindowSize from 'utils/hooks/useWindowSize'
+import { processReminders } from 'utils/processReminders'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -16,6 +16,8 @@ const { deleteWhens: hideWhens, addWhen: showWhen } = visibilityActions
 const Reminders = () => {
   const dispatch = useDispatch()
 
+  const allyArmies = useSelector(selectors.selectAllyArmies)
+  const army = useSelector(selectors.selectArmy)
   const currentArmy = useSelector(selectors.selectCurrentArmy)
   const hiddenReminders = useSelector(selectors.selectReminders)
   const visibleWhens = useSelector(selectors.selectWhen)
@@ -23,7 +25,30 @@ const Reminders = () => {
   const { isMobile } = useWindowSize()
   const { isGameMode } = useAppStatus()
 
-  let reminders = useGetReminders()
+  // Generate reminders
+  let reminders = useMemo(
+    () =>
+      processReminders(
+        army,
+        currentArmy.factionName,
+        currentArmy.selections,
+        currentArmy.realmscape_feature,
+        currentArmy.allyFactionNames,
+        allyArmies,
+        currentArmy.allySelections
+      ),
+    [
+      allyArmies,
+      army,
+      currentArmy.allyFactionNames,
+      currentArmy.allySelections,
+      currentArmy.factionName,
+      currentArmy.realmscape_feature,
+      currentArmy.selections,
+    ]
+  )
+
+  console.log('hi', reminders)
 
   if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 

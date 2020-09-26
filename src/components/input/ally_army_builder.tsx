@@ -117,7 +117,10 @@ interface IAllyCardProps {
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void
   setUnits: (selectValues: ValueType<TDropdownOption>[]) => void
-  setVisibility: () => void
+  setVisibility: () => {
+    payload: string
+    type: string
+  }
   unitItems: TUnits
   unitValues: string[]
 }

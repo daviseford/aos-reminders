@@ -2,11 +2,11 @@ import GenericButton from 'components/input/generic_button'
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 
-interface IClearArmyButton {
+type TClearArmyButton = React.FC<{
   clearArmyClick: (e: any) => void
-}
+}>
 
-const ClearArmyButton: React.FC<IClearArmyButton> = ({ clearArmyClick }) => {
+const ClearArmyButton: TClearArmyButton = ({ clearArmyClick }) => {
   return (
     <GenericButton onClick={clearArmyClick}>
       <FaTrashAlt className="mr-2" /> Clear Army

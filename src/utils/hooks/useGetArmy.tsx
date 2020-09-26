@@ -1,4 +1,3 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { RealmscapeFeatures } from 'army/generic'
 import { realmscapeActions, selectionActions } from 'ducks'
 import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
@@ -6,11 +5,9 @@ import { TPrimaryFactions } from 'meta/factions'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
-import { TEntry } from 'types/data'
 import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 export const useGetArmyBuilderCards = (army: IArmy) => {
   const { origin_realm, realmscape, realmscape_feature } = useSelector(selectRealmscapeSlice)
@@ -130,25 +127,6 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
   }, [army, origin_realm, realmFeatureItems, realmscape, realmscape_feature, selections])
 
   return value
-}
-
-type TMulti = {
-  items: TEntry[]
-  mobileTitle?: string
-  setValues: ActionCreatorWithPayload<string[], string>
-  sideEffects: IWithSelectMultipleWithSideEffectsPayload
-  title: string
-  type: 'multi'
-  values: string[]
-}
-
-type TSingle = {
-  items: string[]
-  mobileTitle?: string
-  setValue: ActionCreatorWithPayload<string | null, string>
-  title: string
-  type: 'single'
-  value: string | null
 }
 
 export const useGetArmy = (factionName: TPrimaryFactions) => {

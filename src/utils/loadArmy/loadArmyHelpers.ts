@@ -7,6 +7,8 @@ import { ILinkedArmy } from 'types/savedArmy'
 import { logEvent, logLoadedArmy } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
 
+// ?? TODO FIX ME
+
 export const loadArmyFromLink = async (id: string) => {
   try {
     const res = await PreferenceApi.getLinkedArmy(id)

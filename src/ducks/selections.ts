@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { TBattalions, TUnits } from 'types/army'
@@ -22,8 +22,6 @@ const initialState: ISelectionStore = {
   sideEffects: {},
 }
 
-type TAction = { payload: string[] }
-
 type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
@@ -32,12 +30,12 @@ type TAddToSelectionsAction = {
   }
 }
 
-export const selections = createSlice({
+const selections = createSlice({
   name: 'selections',
   initialState,
   reducers: {
     resetAllSelections: () => initialState,
-    deleteAllySelection: (state, action: { payload: TSupportedFaction }) => {
+    deleteAllySelection: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allySelections[action.payload]
     },
     resetAllySelection: (state, action: { payload: TSupportedFaction }) => {
@@ -65,11 +63,11 @@ export const selections = createSlice({
     updateAllySelections: (state, action: { payload: TAllySelectionStore }) => {
       state.allySelections = action.payload
     },
-    updateAllegiances: (state, action: TAction) => {
+    updateAllegiances: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'allegiances')
       state.selections.allegiances = action.payload
     },
-    updateArtifacts: (state, action: TAction) => {
+    updateArtifacts: (state, action: PayloadAction<string[]>) => {
       state.selections.artifacts = action.payload
     },
 
@@ -84,33 +82,33 @@ export const selections = createSlice({
       state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
     },
 
-    updateBattalions: (state, action: TAction) => {
+    updateBattalions: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'battalions')
       state.selections.battalions = action.payload
     },
-    updateCommands: (state, action: TAction) => {
+    updateCommands: (state, action: PayloadAction<string[]>) => {
       state.selections.commands = action.payload
     },
-    updateEndlessSpells: (state, action: TAction) => {
+    updateEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
     },
-    updateScenery: (state, action: TAction) => {
+    updateScenery: (state, action: PayloadAction<string[]>) => {
       state.selections.scenery = action.payload
     },
     updateSelections: (state, action) => {
       state.selections = action.payload
     },
-    updateSpells: (state, action: TAction) => {
+    updateSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.spells = action.payload
     },
-    updateTraits: (state, action: TAction) => {
+    updateTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'traits')
       state.selections.traits = action.payload
     },
-    updateTriumphs: (state, action: TAction) => {
+    updateTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },
-    updateUnits: (state, action: TAction) => {
+    updateUnits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'units')
       state.selections.units = action.payload
     },
@@ -118,6 +116,8 @@ export const selections = createSlice({
 })
 
 export const selectionActions = selections.actions
+
+export default selections.reducer
 
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
