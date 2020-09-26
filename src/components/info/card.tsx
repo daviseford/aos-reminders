@@ -18,7 +18,7 @@ interface IBaseCardProps {
 
 interface ICardProps extends IBaseCardProps {
   isVisible: boolean
-  selectionCount?: number
+  selectionCount: number
 }
 
 const CardComponent: React.FC<ICardProps> = props => {
