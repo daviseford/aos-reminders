@@ -38,7 +38,7 @@ const selections = createSlice({
     deleteAllySelection: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allySelections[action.payload]
     },
-    resetAllySelection: (state, action: { payload: TSupportedFaction }) => {
+    resetAllySelection: (state, action: PayloadAction<TSupportedFaction>) => {
       state.allySelections[action.payload] = { units: [], battalions: [] }
     },
     resetAllySelections: state => {
@@ -47,20 +47,20 @@ const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
-    updateAllyUnits: (state, action: { payload: { factionName: TSupportedFaction; units: TUnits } }) => {
+    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TUnits }>) => {
       const { factionName, units } = action.payload
       // @ts-ignore
       state.allySelections[factionName].units = units
     },
     updateAllyBattalions: (
       state,
-      action: { payload: { factionName: TSupportedFaction; battalions: TBattalions } }
+      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TBattalions }>
     ) => {
       const { factionName, battalions } = action.payload
       // @ts-ignore
       state.allySelections[factionName].battalions = battalions
     },
-    updateAllySelections: (state, action: { payload: TAllySelectionStore }) => {
+    updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
     },
     updateAllegiances: (state, action: PayloadAction<string[]>) => {

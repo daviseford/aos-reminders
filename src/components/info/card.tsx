@@ -117,7 +117,7 @@ export const CardHeader = (props: ICardHeaderProps) => {
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  const handleVisibility = () => (isVisible ? dispatch(hideCard(title)) : dispatch(showCard(title)))
+  const handleVisibility = () => dispatch(isVisible ? hideCard(title) : showCard(title))
 
   useEffect(() => {
     if (isMobile && title !== 'Units') dispatch(hideCard(title))

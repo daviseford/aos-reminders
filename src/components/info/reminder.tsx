@@ -97,8 +97,6 @@ export const Reminder: React.FC<IReminderProps> = props => {
               />
               <div className={bodyClass}>
                 {actionsState.map((action, i) => {
-                  const showEntry = () => showReminder(action.id)
-                  const hideEntry = () => hideReminder(action.id)
                   const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
@@ -107,8 +105,6 @@ export const Reminder: React.FC<IReminderProps> = props => {
                         <ActionText
                           {...action}
                           isVisible={!isHidden}
-                          hideEntry={hideEntry}
-                          showEntry={showEntry}
                           key={action.id}
                           draggableProps={provided}
                         />
@@ -129,17 +125,16 @@ export const Reminder: React.FC<IReminderProps> = props => {
 
 interface IActionTextProps extends TTurnAction {
   actionTitle?: string
-  hideEntry: () => void
-  showEntry: () => void
   isVisible: boolean
   draggableProps: DraggableProvided
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, showEntry, hideEntry, draggableProps } = props
+  const { isVisible, desc, draggableProps, id } = props
+  const dispatch = useDispatch()
   const { isGameMode } = useAppStatus()
 
-  const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
+  const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>

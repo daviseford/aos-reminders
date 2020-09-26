@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { IVisibilityStore } from 'types/store'
 
@@ -13,37 +13,37 @@ const visibility = createSlice({
   name: 'visibility',
   initialState,
   reducers: {
-    addSelector: (state, action: { payload: string }) => {
+    addSelector: (state, action: PayloadAction<string>) => {
       state.selectors = uniq([...state.selectors, action.payload])
     },
-    deleteSelector: (state, action: { payload: string }) => {
+    deleteSelector: (state, action: PayloadAction<string>) => {
       state.selectors = without(state.selectors, action.payload)
     },
-    addAlly: (state, action: { payload: string }) => {
+    addAlly: (state, action: PayloadAction<string>) => {
       state.allies = uniq([...state.allies, action.payload])
     },
-    deleteAlly: (state, action: { payload: string }) => {
+    deleteAlly: (state, action: PayloadAction<string>) => {
       state.allies = without(state.allies, action.payload)
     },
-    addReminder: (state, action: { payload: string }) => {
+    addReminder: (state, action: PayloadAction<string>) => {
       state.reminders = uniq([...state.reminders, action.payload])
     },
-    addReminders: (state, action: { payload: string[] }) => {
+    addReminders: (state, action: PayloadAction<string[]>) => {
       state.reminders = uniq([...state.reminders, ...action.payload])
     },
-    deleteReminder: (state, action: { payload: string }) => {
+    deleteReminder: (state, action: PayloadAction<string>) => {
       state.reminders = without(state.reminders, action.payload)
     },
-    addWhen: (state, action: { payload: string }) => {
+    addWhen: (state, action: PayloadAction<string>) => {
       state.when = uniq([...state.when, action.payload])
     },
-    addWhens: (state, action: { payload: string[] }) => {
+    addWhens: (state, action: PayloadAction<string[]>) => {
       state.when = uniq([...state.when, ...action.payload])
     },
-    deleteWhen: (state, action: { payload: string }) => {
+    deleteWhen: (state, action: PayloadAction<string>) => {
       state.when = without(state.when, action.payload)
     },
-    deleteWhens: (state, action: { payload: string[] }) => {
+    deleteWhens: (state, action: PayloadAction<string[]>) => {
       state.when = without(state.when, ...action.payload)
     },
     clearWhen: state => {

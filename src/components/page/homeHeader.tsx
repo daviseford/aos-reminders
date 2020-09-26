@@ -6,7 +6,7 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
-import { PRIMARY_FACTIONS } from 'meta/factions'
+import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
@@ -57,14 +57,14 @@ const Jumbotron: React.FC = () => {
     // eslint-disable-next-line
   }, [dispatch, favoriteFaction])
 
-  const setValue = withSelectOne((value: string | null) => {
+  const setValue = withSelectOne(value => {
     setLoadedArmy(null)
     dispatch(resetSelections())
     dispatch(resetRealmscapeStore())
     dispatch(resetAllySelections())
     resetAnalyticsStore()
     if (isOnline) logFactionSwitch(value)
-    dispatch(setFactionName(value))
+    dispatch(setFactionName(value as TPrimaryFactions))
   })
 
   const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${

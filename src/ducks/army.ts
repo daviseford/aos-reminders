@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TSupportedFaction } from 'meta/factions'
 import { Game } from 'meta/game_structure'
 import { IArmy } from 'types/army'
@@ -28,7 +28,7 @@ const army = createSlice({
   name: 'army',
   initialState,
   reducers: {
-    deleteAllyArmy: (state, action: { payload: TSupportedFaction }) => {
+    deleteAllyArmy: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allyArmies[action.payload]
     },
     resetAllArmies: () => initialState,
@@ -38,23 +38,23 @@ const army = createSlice({
     resetArmy: state => {
       state.army = initialState.army
     },
-    switchAllyArmy: (state, action: { payload: { next: TSupportedFaction; prev: TSupportedFaction } }) => {
+    switchAllyArmy: (state, action: PayloadAction<{ next: TSupportedFaction; prev: TSupportedFaction }>) => {
       const { next, prev } = action.payload
       delete state.allyArmies[prev]
       const nextAllyArmy = getArmy(next)
       if (nextAllyArmy) state.allyArmies[next] = nextAllyArmy
     },
-    updateAllyArmy: (state, action: { payload: { factionName: TSupportedFaction; Army: IArmy } }) => {
+    updateAllyArmy: (state, action: PayloadAction<{ factionName: TSupportedFaction; Army: IArmy }>) => {
       const { factionName, Army } = action.payload
       state.allyArmies[factionName] = Army
     },
-    updateAllyArmies: (state, action: { payload: { factionName: TSupportedFaction; Army: IArmy }[] }) => {
+    updateAllyArmies: (state, action: PayloadAction<{ factionName: TSupportedFaction; Army: IArmy }[]>) => {
       action.payload.forEach(update => {
         const { factionName, Army } = update
         state.allyArmies[factionName] = Army
       })
     },
-    updateArmy: (state, action: { payload: IArmy }) => {
+    updateArmy: (state, action: PayloadAction<IArmy>) => {
       state.army = action.payload
     },
   },
