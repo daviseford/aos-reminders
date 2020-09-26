@@ -64,8 +64,7 @@ const Profile = () => {
 export default Profile
 
 const UserCard = () => {
-  const { user } = useAuth0()
-  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
+  const { isSubscribed, subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -74,10 +73,8 @@ const UserCard = () => {
       <FavoriteArmySelect />
       <ToggleTheme />
       <SubscriptionInfo />
-      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && (
-        <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
-      )}
-      <EmailVerified email_verified={user.email_verified} email={user.email} />
+      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && <RecurringPaymentInfo />}
+      <EmailVerified />
       <Help />
     </div>
   )
@@ -134,11 +131,7 @@ const FavoriteArmySelect = () => {
   )
 }
 
-interface IStripeCancelBtnProps {
-  stripe?: any
-}
-
-const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
+const CancelBtn = () => {
   const { isActive, isCanceled, createdByPaypal } = useSubscription()
   const { isLight } = useTheme()
 
@@ -165,12 +158,12 @@ const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
 
 const SubscriptionInfo = () => {
   const {
-    subscription,
-    isSubscribed,
-    isActive,
-    isPending,
     hasActiveGrant,
     hasExpiredGrant,
+    isActive,
+    isPending,
+    isSubscribed,
+    subscription,
   } = useSubscription()
   const { theme } = useTheme()
 
@@ -264,7 +257,8 @@ const TemporaryGrantComponent = () => {
   )
 }
 
-const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
+const RecurringPaymentInfo = () => {
+  const { isActive, isCanceled, isGifted } = useSubscription()
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -298,8 +292,10 @@ const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
   )
 }
 
-const EmailVerified = ({ email_verified, email }) => {
+const EmailVerified = () => {
+  const { user } = useAuth0()
   const { theme } = useTheme()
+  const { email_verified, email } = user
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>

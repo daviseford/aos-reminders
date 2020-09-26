@@ -49,7 +49,7 @@ const visibility = createSlice({
     clearWhen: state => {
       state.when = initialState.when
     },
-    clearReminder: state => {
+    clearReminders: state => {
       state.reminders = initialState.reminders
     },
   },

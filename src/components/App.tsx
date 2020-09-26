@@ -1,7 +1,6 @@
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
 import ProtectedRoute from 'components/page/privateRoute'
 import React, { lazy, Suspense, useEffect } from 'react'
-// Auth
 import { Route, Router, Switch } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
 import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'

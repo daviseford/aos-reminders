@@ -31,7 +31,9 @@ export const loadArmyFromLink = async (id: string) => {
 
 export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
   try {
-    store.dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
+    const { dispatch } = store
+
+    dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
 
     // Add Ally Game data to the store
     if (loadedArmy.allyFactionNames.length) {
@@ -39,24 +41,24 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
         const Army = getArmy(factionName) as IArmy
         return { factionName, Army }
       })
-      store.dispatch(armyActions.updateAllyArmies(armies))
+      dispatch(armyActions.updateAllyArmies(armies))
     }
 
     // Add our unit selections to the store
-    store.dispatch(selectionActions.updateSelections(loadedArmy.selections))
+    dispatch(selectionActions.updateSelections(loadedArmy.selections))
 
     // Add our allied unit selections to the store
-    store.dispatch(selectionActions.updateAllySelections(loadedArmy.allySelections))
+    dispatch(selectionActions.updateAllySelections(loadedArmy.allySelections))
 
     // Add Realm info to the store
-    store.dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))
-    store.dispatch(realmscapeActions.setRealmscape(loadedArmy.realmscape || null))
-    store.dispatch(realmscapeActions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
+    dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))
+    dispatch(realmscapeActions.setRealmscape(loadedArmy.realmscape || null))
+    dispatch(realmscapeActions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
 
     // Hide any reminders necessary
     if (loadedArmy.hiddenReminders) {
-      store.dispatch(visibilityActions.clearReminder())
-      store.dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
+      dispatch(visibilityActions.clearReminders())
+      dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
     }
 
     // Log our army to GA

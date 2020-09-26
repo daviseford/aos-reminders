@@ -72,7 +72,7 @@ const usePaypal = () => {
   if (context === undefined) {
     throw new Error('usePaypal must be used within a PaypalProvider')
   }
-  return context as IPaypalStatusProvider
+  return context
 }
 
 export { PaypalProvider, usePaypal }
