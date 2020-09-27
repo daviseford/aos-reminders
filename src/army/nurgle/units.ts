@@ -918,6 +918,16 @@ const NurgleBattalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Glugurous' Plagueband`,
+    effects: [
+      {
+        name: `Impossible Resilience`,
+        desc: `In each of your hero phases, you can return one slain model to each unit from the Plagueband that is within 7" of the battalion's Herald of Nurgle.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Combine lists together to make army battalion entry.
