@@ -503,4 +503,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Sylvaneth Heartwood Host`,
+    effects: [
+      {
+        name: `Blessing of the Heartwood`,
+        desc: `During each hero phase, the host's Branchwych and Treelord heal one wound lost earlier in battle, whilst its Dryads add 1 model to their unit that was slain earlier in battle.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
