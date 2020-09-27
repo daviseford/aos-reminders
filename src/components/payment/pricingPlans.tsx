@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
+import PayPalButton from 'components/payment/paypal/paypalButton'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
@@ -12,7 +13,6 @@ import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
-import PayPalButton from './paypal/paypalButton'
 
 const PricingPlansComponent = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)

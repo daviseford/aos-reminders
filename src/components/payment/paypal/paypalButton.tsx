@@ -1,9 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import {
+  IApprovalActions,
+  IApprovalResponse,
+  ICreateSubscriptionsActions,
+} from 'components/payment/paypal/paypalTypes'
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import useLogin from 'utils/hooks/useLogin'
-import { IApprovalActions, IApprovalResponse, ICreateSubscriptionsActions } from './paypalTypes'
 
 declare global {
   interface Window {
