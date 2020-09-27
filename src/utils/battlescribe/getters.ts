@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { SOULBLIGHT, TSupportedFaction } from 'meta/factions'
+import { SOULBLIGHT, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
@@ -18,17 +18,22 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
   const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
 
   allegianceInfo.forEach(info => {
-    const mappedAllegiance = isValidFactionName(info.allegiance)
-      ? info.allegiance
-      : importFactionNameMap[info.allegiance?.[0] || '']
+    if (!store.factionName) {
+      info.allegiance?.forEach(name => {
+        const y: TPrimaryFactions | string | undefined = isValidFactionName(name)
+          ? name
+          : importFactionNameMap[name]
+        if (!store.factionName && isValidFactionName(y)) {
+          store.factionName = y
+        }
+      })
+    }
+
     const mappedFaction = isValidFactionName(info.faction)
       ? info.faction
       : importFactionNameMap[info.faction || '']
 
-    if (isValidFactionName(mappedAllegiance)) {
-      if (!store.factionName) store.factionName = mappedAllegiance
-      return
-    } else if (isValidFactionName(mappedFaction) && !store.factionName) {
+    if (!store.factionName && isValidFactionName(mappedFaction)) {
       store.factionName = mappedFaction
     }
 
@@ -37,9 +42,16 @@ export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], facti
     }
   })
 
+  const factionName = store.factionName || (factionInfo.factionName as TSupportedFaction)
+
+  const possibleNameCollisions = Object.keys(importFactionNameMap).filter(
+    k => importFactionNameMap[k] === factionName
+  )
+
   return {
-    factionName: store.factionName || (factionInfo.factionName as TSupportedFaction),
-    allegiances: uniq(store.allegiances) as string[],
+    factionName,
+    // We want to ensure we're not duplicating the faction inside of allegiances.
+    allegiances: without(uniq(store.allegiances), factionName, ...possibleNameCollisions),
   }
 }
 
@@ -71,20 +83,28 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
   try {
     const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
 
+    // obj.childNodes[0].childNodes[0].value
+    // value === "-Pitched Battle - Battlehost (2000pts) (Chaos - Disciples of Tzeentch)"
+
     if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
     if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
 
     const value = factionNode.childNodes[0].value
 
-    const factionValue = value.replace('(Warscroll Compendium)', '').replace(/.+\((.+)\).+/g, '$1')
+    const factionValue = value
+      .replace('(Warscroll Compendium)', '')
+      .replace(/\([\d]{1,5}pts\)/g, '')
+      .replace(/.+\((.+)\).+/g, '$1')
 
     const sep = factionValue.includes(': ') ? ': ' : ' - '
-    let [grandAlliance, factionName] = factionValue.split(sep).map(x => {
+    let [grandAlliance, ...rest] = factionValue.split(sep).map(x => {
       // Remove any stray parentheses
       return x.replace(/(\(|\))/g, '').trim()
     })
 
-    factionName = importFactionNameMap[factionName] || 'Unknown'
+    const last = rest[rest.length - 1]
+
+    const factionName = importFactionNameMap[last] || 'Unknown'
 
     return { grandAlliance, factionName }
   } catch (err) {
@@ -369,6 +389,7 @@ const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
       ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
         ?.replace('The ', '')
         ?.replace(', Show Celestial Conjuration Table', '')
+        ?.replace('Show Celestial Conjuration Table', '')
 
     if ((way || constellation) && !fixedKeys.allegiance) fixedKeys.allegiance = []
     if (way) fixedKeys.allegiance?.push(way)
@@ -488,10 +509,12 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 const ignoredNames = [
   'Crew',
   'Screaming Skull Catapult Crew',
+  'Show Celestial Conjuration Table',
   'Summon Bleeding Icon',
   'Summon Hexgorger Skulls',
   'Summon Molten Infernoth',
   'Summon Runic Fyrewall',
+  'Summon Umbral Spellportal',
   'Summon Wrath-Axe',
   'Summon Zharrgron Flame Splitter',
   'Ur-Gold',

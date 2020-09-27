@@ -40,6 +40,71 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1600111513593-Battlescribe', () => {
+    const parsedText = getFile('1600111513593-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.allegiances).toEqual([])
+    expect(res.selections.allegiances).not.toContain('Flesh-Eater Courts')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600327940544-Battlescribe', () => {
+    const parsedText = getFile('1600327940544-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600480417737-Battlescribe', () => {
+    const parsedText = getFile('1600480417737-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(TZEENTCH)
+    // TODO:
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: '5 - Fold Reality',
+      },
+      {
+        severity: 'warn',
+        text: 'Umbral Spellportal',
+      },
+    ])
+  })
+
+  it('should correctly read 1600607745153-Battlescribe', () => {
+    const parsedText = getFile('1600607745153-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Seeker Chariots')
+    expect(res.errors).toEqual([])
+  })
+
+  xit('should correctly read 1601219377000-Battlescribe', () => {
+    const parsedText = getFile('1601219377000-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Allherd',
+      },
+      {
+        severity: 'warn',
+        text: 'Blade of the Desecrator',
+      },
+      {
+        severity: 'warn',
+        text: 'Devolve',
+      },
+      {
+        severity: 'warn',
+        text: 'Tendrils of Atrophy',
+      },
+      {
+        severity: 'warn',
+        text: 'Great Bray-shaman',
+      },
+    ])
+  })
+
   it('should correctly read 1598041271936-Battlescribe', () => {
     const parsedText = getFile('1598041271936-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
