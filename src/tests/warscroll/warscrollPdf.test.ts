@@ -47,7 +47,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.selections.units).toContain('Archmage Teclis')
-    expect(res.selections.spells).toContain('Ethereal Blessing')
+    expect(res.selections.spells).toContain('Etheral Blessings')
     expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
 
     expect(res).toEqual({
@@ -72,7 +72,7 @@ describe('getWarscrollArmyFromPdf', () => {
         endless_spells: ['Hyshian Twinstones', 'Soulscream Bridge', 'Shards of Valagharr'],
         scenery: [],
         spells: [
-          'Ethereal Blessing',
+          'Etheral Blessings',
           'Voice of the Mountains',
           'Living Fissure',
           'Entomb',

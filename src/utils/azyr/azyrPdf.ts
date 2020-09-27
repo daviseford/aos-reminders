@@ -327,6 +327,7 @@ const commonTypos = {
   'Emissar y of the Deep Places': 'Emissary of the Deep Places',
   'Encla ve': 'Enclave',
   'Eternal Conflagr ation': 'Eternal Conflagration',
+  'Ether al Blessings': 'Etheral Blessings',
   'Ether eal': 'Ethereal',
   'Gener al': 'General',
   'Ghurish Mawshar d': 'Ghurish Mawshard',

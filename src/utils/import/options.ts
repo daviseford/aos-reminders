@@ -73,6 +73,7 @@ const warscrollTypoMap: TNameMap = {
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
   'Explosize Charge': 'Explosive Charge',
   'Extend Astomatrix': 'Extend Astromatrix',
+  'Ethereal Blessing': 'Etheral Blessings',
   'Eyes of the Nine': 'The Eyes of the Nine',
   'Flash of Daemonblood': 'Flask of Daemonblood (Knights of the Empty Throne)',
   'Fusil of Conflaguration': 'Fusil of Conflagration',
