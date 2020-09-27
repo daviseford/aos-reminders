@@ -1198,6 +1198,26 @@ const KhorneBattalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Skall'uk's Slaughterband`,
+    effects: [
+      {
+        name: `Cometh the Slaughter`,
+        desc: `In each of your hero phases, pick one Slaughterband unit that is within 3" of the enemy. All models in the unit you pick can immediately pile in and attack with their Hellbdades and Blades of Blood.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bloodbound Murderband`,
+    effects: [
+      {
+        name: `Murderous Blessing`,
+        desc: `In your hero phase, a Murderband's Slaughterpriest can pray for a Murderous Blessing in addition to using his Bloodfuelled Prayers. If he does so, roll a D6. If you roll a 3+, until your next hero phase you can reroll failed wound rolls made for him and other units from his Murderband that are within 8". On a 1, however, he suffers a mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Combine lists together to make army battalion entry.

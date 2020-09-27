@@ -664,6 +664,16 @@ const TzeentchBattalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `M 'zarr's Aetherhost`,
+    effects: [
+      {
+        name: `Spontaneous Destruction`,
+        desc: `In each of your hero phases; pick either the Herald of Tzeentch or another unit from this battalion within 9" of them; you can choose either to cast one additional spell with that unit this phase or make a shooting attack with all the models in that unit as if it were the shooting phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Combine lists together to make army battalion entry.

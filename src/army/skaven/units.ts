@@ -1028,4 +1028,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Sqwal's Pestilent Congregation`,
+    effects: [
+      {
+        name: `Rabid Fervour`,
+        desc: `In your hero phase, the Plague Furnace's Plague Priest can order his Plague Monks to reload the Plagueclaw. If the Plague Monks are within 3" of the Plagueclaw when he does so, the Plagueclaw may immediately shoot as if it were the shooting phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]

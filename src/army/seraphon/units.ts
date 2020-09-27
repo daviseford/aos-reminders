@@ -728,4 +728,24 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Gul'Rok's Starhost`,
+    effects: [
+      {
+        name: `Reform Ranks`,
+        desc: `In each of your hero phases, a Starhost unit within 10" of their Scar-Veteran can reform. To do so, choose one model in the unit to be the lynchpin. Remove all other models in the unit from the battlefield and then set them up again within 5" of the lynchpin. The unit can move normally in the same turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Venomblade Starhost`,
+    effects: [
+      {
+        name: `Blessing of the Serpent`,
+        desc: `When the STARPRIEST from this battalion uses its Serpent Staff ability, you can pick any number of units from the same battalion that are wholly within 18" of the STARPRIEST to be affected by the ability instead of 1 SERAPHON unit that is wholly within 12" of the STARPRIEST.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]

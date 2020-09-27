@@ -2,7 +2,7 @@ package.json
 tsconfig.json
 node_modules/
 build/*
-tests/fixtures/*
+src/tests/fixtures/**/*.json
 *.md
 *.sh
 *.log

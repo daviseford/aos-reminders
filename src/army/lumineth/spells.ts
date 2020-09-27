@@ -41,10 +41,10 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Ethereal Blessing`,
+    name: `Etheral Blessings`,
     effects: [
       {
-        name: `Ethereal Blessing`,
+        name: `Etheral Blessings`,
         desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" and visible to them. Until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },

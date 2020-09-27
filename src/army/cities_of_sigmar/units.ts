@@ -1504,4 +1504,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Greywater Shieldband (Greywater Fastness)`,
+    effects: [
+      {
+        name: `Oathsworn Defenders`,
+        desc: `Add 1 to hit rolls for attacks made by units from this battalion if they did not move in the same turn and are wholly within 12" of a HERO from the same battalion.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
 ]

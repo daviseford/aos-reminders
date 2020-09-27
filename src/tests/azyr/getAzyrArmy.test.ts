@@ -14,6 +14,7 @@ import {
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
+  LUMINETH_REALMLORDS,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   OGOR_MAWTRIBES,
@@ -36,6 +37,104 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read Lumineth1', () => {
+    const fileTxt = getFile('Lumineth1')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read Lumineth2', () => {
+    const fileTxt = getFile('Lumineth2')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
+    expect(res.errors).toEqual([])
+  })
+
+  xit('should correctly read 1600502246657-Azyr', () => {
+    const fileTxt = getFile('1600502246657-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Bound Quicksilver Swords',
+      // },
+    ])
+  })
+
+  it('should correctly read 1600596804816-Azyr', () => {
+    const fileTxt = getFile('1600596804816-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600596819595-Azyr', () => {
+    const fileTxt = getFile('1600596819595-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600596837969-Azyr', () => {
+    const fileTxt = getFile('1600596837969-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600597087449-Azyr', () => {
+    const fileTxt = getFile('1600597087449-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.spells).toContain('Etheral Blessings')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1600597169631-Azyr', () => {
+    const fileTxt = getFile('1600597169631-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1601025074185-Azyr', () => {
+    const fileTxt = getFile('1601025074185-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(OGOR_MAWTRIBES)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Argent Armour',
+      },
+    ])
+  })
+
+  it('should correctly read 1601035119838-Azyr', () => {
+    const fileTxt = getFile('1601035119838-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1601035209320-Azyr', () => {
+    const fileTxt = getFile('1601035209320-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1601035227410-Azyr', () => {
+    const fileTxt = getFile('1601035227410-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1598131399395-Azyr', () => {
     const fileTxt = getFile('1598131399395-Azyr')
     const pages = handleAzyrPages(fileTxt)
