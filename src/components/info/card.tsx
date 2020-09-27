@@ -3,13 +3,11 @@ import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilit
 import { SelectMulti, SelectOne, TDropdownOption, TSelectOneSetValueFn } from 'components/input/select'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
 import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
 import useWindowSize from 'utils/hooks/useWindowSize'
-
-const { deleteWhen, addWhen } = visibilityActions
 
 interface IBaseCardProps {
   label?: string
@@ -40,8 +38,8 @@ const CardComponent: React.FC<ICardProps> = props => {
           title={title}
           mobileTitle={mobileTitle}
           selectionCount={selectionCount}
-          show={visibilityActions.addSelector}
-          hide={visibilityActions.deleteSelector}
+          show={visibilityActions.deleteSelector}
+          hide={visibilityActions.addSelector}
         />
         <div className={bodyClass}>{children}</div>
       </div>
@@ -122,8 +120,9 @@ export const CardHeader = (props: ICardHeaderProps) => {
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  // const handleVisibility = () => dispatch(isVisible ? deleteWhen(title) : addWhen(title))
-  const handleVisibility = () => dispatch(isVisible ? hide(title) : show(title))
+  const handleVisibility = useCallback(() => {
+    dispatch(isVisible ? hide(title) : show(title))
+  }, [dispatch, hide, isVisible, show, title])
 
   useEffect(() => {
     if (isMobile && title !== 'Units') dispatch(hide(title))

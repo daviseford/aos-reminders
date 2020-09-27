@@ -59,7 +59,7 @@ const SubscribedView = () => {
       desktop: `mqjCB`,
       mobile: `tqjCB`,
     },
-  }[isDark ? 'dark' : 'light'][width < 1000 ? 'mobile' : 'desktop']
+  }[isDark ? 'dark' : 'light'][width && width < 1000 ? 'mobile' : 'desktop']
 
   const [iframeIsLoaded, setIFrameIsLoaded] = useState(false)
 

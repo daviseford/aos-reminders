@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 
-// Hook
+type TState = { width?: number; height?: number }
+
+/**
+ * This hook helps us track the window dimensions of our user's browser
+ */
 const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [windowSize, setWindowSize] = useState<TState>({ width: undefined, height: undefined })
 
   useEffect(() => {
     // Handler to call on window resize
@@ -28,10 +32,10 @@ const useWindowSize = () => {
     () => ({
       width: windowSize.width,
       height: windowSize.height,
-      isTinyMobile: windowSize.width <= 335,
-      isMobile: windowSize.width <= 480,
+      isTinyMobile: windowSize.width ? windowSize.width <= 335 : false,
+      isMobile: windowSize.width ? windowSize.width <= 480 : false,
     }),
-    [windowSize]
+    [windowSize.width, windowSize.height]
   )
 
   return value
