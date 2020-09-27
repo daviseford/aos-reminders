@@ -348,6 +348,7 @@ export const importFactionNameMap = {
   'Legion of Sacrament': LEGION_OF_SACRAMENT,
   'Lethisian Defenders': LETHISIAN_DEFENDERS,
   'Lumineth Realm Lords': LUMINETH_REALMLORDS,
+  'Lumineth Realm-lords': LUMINETH_REALMLORDS,
   'Maggotkin of Nurgle': NURGLE,
   'Mercenaries: Greyfyrd Lodge': MERCENARY_COMPANIES,
   'Mercenaries: Grugg Brothers': MERCENARY_COMPANIES,
